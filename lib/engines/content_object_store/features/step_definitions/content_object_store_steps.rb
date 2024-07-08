@@ -3,7 +3,7 @@ Given("a schema {string} exists with the following fields:") do |schema_id, tabl
   @schemas ||= {}
   properties = data.flatten.index_with { |_field| {} }
   @schemas[schema_id] = ContentObjectStore::ContentBlockSchema.new(schema_id, { "properties" => properties })
-  ContentObjectStore::SchemaService.stubs(:valid_schemas).returns(@schemas.values)
+  ContentObjectStore::ContentBlockSchema.stubs(:all).returns(@schemas.values)
 end
 
 When("I access the create object page") do
@@ -18,7 +18,7 @@ end
 
 When("I click on the {string} schema") do |schema_id|
   @schema = @schemas[schema_id]
-  ContentObjectStore::SchemaService.expects(:schema_for_block_type).with(schema_id).at_least_once.returns(@schema)
+  ContentObjectStore::ContentBlockSchema.expects(:find_by_block_type).with(schema_id).at_least_once.returns(@schema)
   click_link @schema.name
 end
 

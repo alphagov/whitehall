@@ -28,7 +28,7 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
       bar: "Bar text",
     }
 
-    ContentObjectStore::SchemaService.expects(:schema_for_block_type).with(block_type).returns(schema)
+    ContentObjectStore::ContentBlockSchema.expects(:find_by_block_type).with(block_type).returns(schema)
     ContentObjectStore::ContentBlockEdition.expects(:create!).with do |args|
       args.to_h == {
         document_title:,

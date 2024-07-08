@@ -5,15 +5,15 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
 
   def new
     if params[:block_type].blank?
-      @schemas = ContentObjectStore::SchemaService.valid_schemas
+      @schemas = ContentObjectStore::ContentBlockSchema.all
     else
-      @schema = ContentObjectStore::SchemaService.schema_for_block_type(params[:block_type].underscore)
+      @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(params[:block_type].underscore)
       @content_block_edition = ContentObjectStore::ContentBlockEdition.new(block_type: @schema.block_type)
     end
   end
 
   def create
-    @schema = ContentObjectStore::SchemaService.schema_for_block_type(root_params[:block_type])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(root_params[:block_type])
     @content_block_edition = ContentObjectStore::ContentBlockEdition.create!(edition_params)
 
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
