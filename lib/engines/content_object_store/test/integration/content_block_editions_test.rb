@@ -7,10 +7,14 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
   setup do
     login_as_admin
     @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
+
+    ContentObjectStore::ContentBlockSchema.stubs(:valid_schemas).returns(%w[block_type])
+
+    stub_request_for_schema("block_type")
   end
 
   test "#index returns all Content Block Editions" do
-    content_block_document = create(:content_block_document, :email_address)
+    content_block_document = create(:content_block_document, :block_type)
     create(
       :content_block_edition,
       :email_address,
@@ -28,29 +32,26 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
       "foo" => "Foo text",
       "bar" => "Bar text",
     }
-    stub_request_for_schema(block_type)
 
     # This UUID is created by the database so instead of loading the record
     # we stub the initial creation so we know what UUID to check for.
     ContentObjectStore::ContentBlockEdition.any_instance.stubs(:create_random_id)
       .returns(@content_id)
 
-    ContentObjectStore::ContentBlockSchema.stub_const(:VALID_SCHEMAS, [block_type]) do
-      assert_changes -> { ContentObjectStore::ContentBlockDocument.count }, from: 0, to: 1 do
-        assert_changes -> { ContentObjectStore::ContentBlockEdition.count }, from: 0, to: 1 do
-          post content_object_store.content_object_store_content_block_editions_path, params: {
-            something: "else",
-            content_object_store_content_block_edition: {
-              document_title:,
-              block_type:,
-              details:,
-            },
-          }
-        end
+    assert_changes -> { ContentObjectStore::ContentBlockDocument.count }, from: 0, to: 1 do
+      assert_changes -> { ContentObjectStore::ContentBlockEdition.count }, from: 0, to: 1 do
+        post content_object_store.content_object_store_content_block_editions_path, params: {
+          something: "else",
+          content_object_store_content_block_edition: {
+            document_title:,
+            block_type:,
+            details:,
+          },
+        }
       end
     end
 
-    new_document = ContentObjectStore::ContentBlockDocument.find_by(content_id: @content_id)
+    new_document = ContentObjectStore::ContentBlockDocument.find_by!(content_id: @content_id)
     new_edition = new_document.content_block_editions.first
     assert_equal document_title, new_document.title
     assert_equal block_type, new_document.block_type
@@ -59,8 +60,6 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
   end
 
   test "#create posts the new edition to the Publishing API" do
-    stub_request_for_schema("block_type")
-
     document_title = "Some Title"
     block_type = "block_type"
     details = {
@@ -74,11 +73,11 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     # This UUID is created by the database so instead of loading the record
     # we stub the initial creation so we know what UUID to check for.
     ContentObjectStore::ContentBlockEdition.any_instance.stubs(:create_random_id)
-      .returns("49453854-d8fd-41da-ad4c-f99dbac601c3")
+      .returns(@content_id)
 
     publishing_api_mock = Minitest::Mock.new
     publishing_api_mock.expect :put_content, fake_put_content_response, [
-      "49453854-d8fd-41da-ad4c-f99dbac601c3",
+      @content_id,
       {
         schema_name: "content_block_type",
         document_type: "content_block_type",
@@ -92,15 +91,13 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     ]
 
     Services.stub :publishing_api, publishing_api_mock do
-      ContentObjectStore::ContentBlockSchema.stub_const(:VALID_SCHEMAS, [block_type]) do
-        post content_object_store.content_object_store_content_block_editions_path, params: {
-          content_object_store_content_block_edition: {
-            document_title:,
-            block_type:,
-            details:,
-          },
-        }
-      end
+      post content_object_store.content_object_store_content_block_editions_path, params: {
+        content_object_store_content_block_edition: {
+          document_title:,
+          block_type:,
+          details:,
+        },
+      }
       publishing_api_mock.verify
     end
   end
