@@ -126,4 +126,13 @@ module ApplicationHelper
   def diff_html(version1, version2)
     Diffy::Diff.new(version1, version2, allow_empty_diff: false).to_s(:html).html_safe
   end
+
+  def add_indefinite_article(noun)
+    indefinite_article = starts_with_vowel?(noun) ? "an" : "a"
+    "#{indefinite_article} #{noun}"
+  end
+
+  def starts_with_vowel?(word_or_phrase)
+    "aeiou".include?(word_or_phrase.downcase[0])
+  end
 end

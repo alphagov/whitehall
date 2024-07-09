@@ -75,6 +75,30 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_not is_external?("#{Whitehall.public_root}/something"), "good host with path"
   end
 
+  test "add_indefinite_article prepends word with 'an' when a word starts with a vowel" do
+    %w[
+      apple
+      egg
+      igloo
+      office
+      unlikely
+    ].each do |word|
+      assert_equal add_indefinite_article(word), "an #{word}"
+    end
+  end
+
+  test "add_indefinite_article prepends word with 'a' when a word does not start with a vowel" do
+    %w[
+      bike
+      car
+      dog
+      flag
+      goat
+    ].each do |word|
+      assert_equal add_indefinite_article(word), "a #{word}"
+    end
+  end
+
 private
 
   def appoint_minister(attributes = {})

@@ -1,4 +1,6 @@
 module OrganisationHelper
+  include ApplicationHelper
+
   def organisation_display_name(organisation)
     if organisation.acronym.present?
       tag.abbr(organisation.acronym, title: organisation.name)
@@ -84,14 +86,5 @@ module OrganisationHelper
 
   def has_definite_article?(phrase)
     phrase.downcase.strip[0..2] == "the"
-  end
-
-  def add_indefinite_article(noun)
-    indefinite_article = starts_with_vowel?(noun) ? "an" : "a"
-    "#{indefinite_article} #{noun}"
-  end
-
-  def starts_with_vowel?(word_or_phrase)
-    "aeiou".include?(word_or_phrase.downcase[0])
   end
 end
