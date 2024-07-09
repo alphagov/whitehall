@@ -3,6 +3,8 @@ ContentObjectStore::Engine.routes.draw do
     resources :health_check, path: "health-check", only: %i[index]
     root to: "health_check#index", via: :get
 
-    resources :content_block_editions, path: "content-block-editions", only: %i[index new create], path_names: { new: "(:block_type)/new" }
+    resources :content_block_editions, path: "content-block-editions",
+                                       only: %i[index new create show],
+                                       path_names: { new: "(:block_type)/new" }
   end
 end

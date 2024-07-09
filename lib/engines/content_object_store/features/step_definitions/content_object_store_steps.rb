@@ -50,3 +50,15 @@ Then("the edition should have been created successfully") do
     assert_equal edition.details[k], @details[k]
   end
 end
+
+Given("an email address content block has been created") do
+  @content_block = create(:content_block_edition, :email_address)
+end
+
+When("I visit the page for the content block") do
+  visit content_object_store.content_object_store_content_block_edition_path(@content_block)
+end
+
+Then("I should see the details for the email address content block") do
+  assert_text "Manage an Email address"
+end
