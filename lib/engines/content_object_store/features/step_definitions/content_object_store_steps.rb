@@ -52,7 +52,8 @@ Then("the edition should have been created successfully") do
 end
 
 Given("an email address content block has been created") do
-  @content_block = create(:content_block_edition, :email_address)
+  @email_address = "foo@example.com"
+  @content_block = create(:content_block_edition, :email_address, details: { email_address: @email_address })
 end
 
 When("I visit the page for the content block") do
@@ -61,4 +62,9 @@ end
 
 Then("I should see the details for the email address content block") do
   assert_text "Manage an Email address"
+
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
+  expect(page).to have_selector(".govuk-summary-list__value", text: @content_block.document.title)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
+  expect(page).to have_selector(".govuk-summary-list__value", text: @email_address)
 end
