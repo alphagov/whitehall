@@ -6,6 +6,7 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
 
   setup do
     login_as_admin
+    @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
   end
 
   test "#index returns all Content Block Editions" do
@@ -25,26 +26,36 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     document_title = "Some Title"
     block_type = "block_type"
     details = {
-      foo: "Foo text",
-      bar: "Bar text",
+      "foo" => "Foo text",
+      "bar" => "Bar text",
     }
 
-    ContentObjectStore::ContentBlockSchema.expects(:find_by_block_type).with(block_type).returns(schema)
-    ContentObjectStore::ContentBlockEdition.expects(:create!).with do |args|
-      args.to_h == {
-        document_title:,
-        block_type:,
-        details:,
-      }.with_indifferent_access
+    # This UUID is created by the database so instead of loading the record
+    # we stub the initial creation so we know what UUID to check for.
+    ContentObjectStore::ContentBlockEdition.any_instance.stubs(:create_random_id)
+      .returns(@content_id)
+
+    ContentObjectStore::ContentBlockSchema.stubs(:find_by_block_type).with(block_type).returns(schema)
+    ContentObjectStore::ContentBlockSchema.stub_const(:VALID_SCHEMAS, [block_type]) do
+      assert_changes -> { ContentObjectStore::ContentBlockDocument.count }, from: 0, to: 1 do
+        assert_changes -> { ContentObjectStore::ContentBlockEdition.count }, from: 0, to: 1 do
+          post content_object_store.content_object_store_content_block_editions_path, params: {
+            something: "else",
+            content_object_store_content_block_edition: {
+              document_title:,
+              block_type:,
+              details:,
+            },
+          }
+        end
+      end
     end
 
-    post content_object_store.content_object_store_content_block_editions_path, params: {
-      something: "else",
-      content_object_store_content_block_edition: {
-        document_title:,
-        block_type:,
-        details:,
-      },
-    }
+    new_document = ContentObjectStore::ContentBlockDocument.find_by(content_id: @content_id)
+    new_edition = new_document.content_block_editions.first
+    assert_equal document_title, new_document.title
+    assert_equal block_type, new_document.block_type
+    assert_equal details, new_edition.details
+    assert_equal new_edition.content_block_document_id, new_document.id
   end
 end

@@ -29,8 +29,6 @@ module ContentObjectStore
       end
     end
 
-  private
-
     def create_random_id
       SecureRandom.uuid
     end
