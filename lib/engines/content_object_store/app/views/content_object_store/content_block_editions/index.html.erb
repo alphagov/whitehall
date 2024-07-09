@@ -1,4 +1,6 @@
-<h1>Content Block Editions</h1>
-<% @content_block_editions.each do |content_block| %>
-  <p><%= content_block.details %></p>
+<% content_for :context, "Object store" %>
+<% content_for :title, "All content blocks" %>
+
+<% @content_block_editions.each do |content_block_edition| %>
+  <%= render ContentObjectStore::ContentBlockEdition::Index::SummaryCardComponent.new(content_block_edition:) %>
 <% end %>
