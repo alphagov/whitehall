@@ -9,9 +9,10 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
   end
 
   test "#index returns all Content Block Editions" do
-    content_block_document = create(:content_block_document)
+    content_block_document = create(:content_block_document, :email_address)
     create(
       :content_block_edition,
+      :email_address,
       details: '"email_address":"example@example.com"',
       content_block_document_id: content_block_document.id,
     )
@@ -28,7 +29,7 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
       bar: "Bar text",
     }
 
-    ContentObjectStore::SchemaService.expects(:schema_for_block_type).with(block_type).returns(schema)
+    ContentObjectStore::ContentBlockSchema.expects(:find_by_block_type).with(block_type).returns(schema)
     ContentObjectStore::ContentBlockEdition.expects(:create!).with do |args|
       args.to_h == {
         document_title:,

@@ -3,6 +3,11 @@ FactoryBot.define do
     details { "{}" }
     created_at { Time.zone.now.utc }
     updated_at { Time.zone.now.utc }
-    block_type { "email_address" }
+
+    ContentObjectStore::ContentBlockSchema::VALID_SCHEMAS.each do |type|
+      trait type.to_sym do
+        block_type { type }
+      end
+    end
   end
 end
