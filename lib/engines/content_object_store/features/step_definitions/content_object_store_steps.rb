@@ -10,6 +10,10 @@ When("I access the create object page") do
   visit content_object_store.new_content_object_store_content_block_edition_path
 end
 
+When("I click to create an object") do
+  click_link "Create new object"
+end
+
 Then("I should see all the schemas listed") do
   @schemas.values.each do |schema|
     expect(page).to have_content(schema.name)
