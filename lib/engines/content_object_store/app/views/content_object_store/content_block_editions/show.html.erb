@@ -1,5 +1,10 @@
 <% content_for :context, "Object store" %>
 <% content_for :title, "Manage #{add_indefinite_article @content_block_edition.document.block_type.humanize}" %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: content_object_store.content_object_store_content_block_editions_path,
+  } %>
+<% end %>
 
 <%= render(
       ContentObjectStore::ContentBlockEdition::Show::SummaryListComponent.new(
