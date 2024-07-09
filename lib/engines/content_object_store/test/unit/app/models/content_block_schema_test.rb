@@ -57,8 +57,9 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
     end
 
     before(:all) do
-      Services.publishing_api.expects(:get_schemas)
-              .once.returns(response)
+      Services.publishing_api.expects(:get_schemas).once.returns(response)
+      ContentObjectStore::ContentBlockSchema.stubs(:is_valid_schema?).with(anything).returns(false)
+      ContentObjectStore::ContentBlockSchema.stubs(:is_valid_schema?).with(any_of("content_block_foo", "content_block_bar")).returns(true)
     end
 
     it "returns a list of schemas with the content block prefix" do
@@ -111,6 +112,25 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
       assert_raises ArgumentError, "Cannot find schema for #{block_type}" do
         ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type)
       end
+    end
+  end
+
+  describe ".is_valid_schema?" do
+    test "returns true when the schema has correct prefix/suffix" do
+      ContentObjectStore::ContentBlockSchema::VALID_SCHEMAS.each do |schema|
+        schema_name = "#{ContentObjectStore::ContentBlockSchema::SCHEMA_PREFIX}_#{schema}"
+        assert ContentObjectStore::ContentBlockSchema.is_valid_schema?(schema_name)
+      end
+    end
+
+    test "returns false when given an invalid schema" do
+      schema_name = "something_else"
+      assert_equal ContentObjectStore::ContentBlockSchema.is_valid_schema?(schema_name), false
+    end
+
+    test "returns false when the schema has correct prefix but a suffix that is not valid" do
+      schema_name = "#{ContentObjectStore::ContentBlockSchema::SCHEMA_PREFIX}_something"
+      assert_equal ContentObjectStore::ContentBlockSchema.is_valid_schema?(schema_name), false
     end
   end
 end
