@@ -9,15 +9,14 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
     @created_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
     @updated_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
     @details = '{ "some_field": "some_content" }'
-    @block_type = "email_address"
     @document_title = "Document title"
 
     @content_block_edition = build(
       :content_block_edition,
+      :email_address,
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      block_type: @block_type,
       document_title: @document_title,
     )
   end
@@ -34,15 +33,17 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
   test "it persists the block type to the document" do
     @content_block_edition.save!
     @content_block_edition.reload
+    document = @content_block_edition.document
 
-    assert_equal @block_type, @content_block_edition.block_type
+    assert_equal document.block_type, @content_block_edition.block_type
   end
 
   test "it persists the title to the document" do
     @content_block_edition.save!
     @content_block_edition.reload
+    document = @content_block_edition.document
 
-    assert_equal @document_title, @content_block_edition.title
+    assert_equal document.title, @content_block_edition.title
   end
 
   test "it creates a document" do
@@ -54,7 +55,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
   end
 
   test "it adds a content id if a document is provided" do
-    @content_block_edition.document = build(:content_block_document, content_id: nil)
+    @content_block_edition.document = build(:content_block_document, :email_address, content_id: nil)
     @content_block_edition.save!
     @content_block_edition.reload
 

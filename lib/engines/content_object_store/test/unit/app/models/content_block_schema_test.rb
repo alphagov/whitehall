@@ -4,7 +4,7 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:body) { { "properties" => { "foo" => {}, "bar" => {} } } }
-  let(:schema) { build(:content_block_schema, block_type: "email_address", body:) }
+  let(:schema) { build(:content_block_schema, :email_address, body:) }
 
   test "it generates a human-readable name" do
     assert_equal schema.name, "Email address"

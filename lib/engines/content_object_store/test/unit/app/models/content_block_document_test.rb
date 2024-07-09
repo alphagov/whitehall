@@ -6,9 +6,9 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
   test "content_block_document exists with required data" do
     content_block_document = create(
       :content_block_document,
+      :email_address,
       content_id: "52084b2d-4a52-4e69-ba91-3052b07c7eb6",
       title: "Title",
-      block_type: "email_address",
       created_at: Time.zone.local(2000, 12, 31, 23, 59, 59).utc,
       updated_at: Time.zone.local(2000, 12, 31, 23, 59, 59).utc,
     )
@@ -21,7 +21,7 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
   end
 
   test "it does not allow the block type to be changed" do
-    content_block_document = create(:content_block_document)
+    content_block_document = create(:content_block_document, :email_address)
 
     assert_raise ActiveRecord::ReadonlyAttributeError do
       content_block_document.update(block_type: "something_else")

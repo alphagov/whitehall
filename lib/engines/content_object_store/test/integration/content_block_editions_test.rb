@@ -9,9 +9,10 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
   end
 
   test "#index returns all Content Block Editions" do
-    content_block_document = create(:content_block_document)
+    content_block_document = create(:content_block_document, :email_address)
     create(
       :content_block_edition,
+      :email_address,
       details: '"email_address":"example@example.com"',
       content_block_document_id: content_block_document.id,
     )
