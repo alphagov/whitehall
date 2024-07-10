@@ -9,23 +9,30 @@ module ContentObjectStore
 
       before_validation :ensure_presence_of_document, on: :create
 
-      attr_accessor :block_type, :document_title
+      attr_writer :block_type, :title
     end
 
     alias_attribute :document, :content_block_document
-    delegate :title, to: :document, allow_nil: true
+
+    def title
+      document&.title || @title
+    end
+
+    def block_type
+      document&.block_type || @block_type
+    end
 
     def ensure_presence_of_document
       if document.blank?
         self.document = ContentBlockDocument.new(
           content_id: create_random_id,
-          block_type:,
-          title: document_title,
+          block_type: @block_type,
+          title: @title,
         )
       elsif document.new_record?
         document.content_id = create_random_id if document.content_id.blank?
-        document.block_type = block_type if document.block_type.blank?
-        document.title = document_title if document.title.blank?
+        document.block_type = @block_type if document.block_type.blank?
+        document.title = @title if document.title.blank?
       end
     end
 

@@ -8,7 +8,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
     let(:schema) { stub(id: "content_block_type", fields: %w[foo bar], name: "schema") }
     let(:edition_params) do
       {
-        document_title: "Some Title",
+        title: "Some Title",
         block_type: "email_address",
         details: {
           "foo" => "Foo text",
@@ -33,7 +33,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
       new_document = ContentObjectStore::ContentBlockDocument.find_by!(content_id:)
       new_edition = new_document.content_block_editions.first
-      assert_equal edition_params[:document_title], new_document.title
+      assert_equal edition_params[:title], new_document.title
       assert_equal edition_params[:block_type], new_document.block_type
       assert_equal edition_params[:details], new_edition.details
       assert_equal new_edition.content_block_document_id, new_document.id
