@@ -5,7 +5,6 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
   setup do
     @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
-    ContentObjectStore::ContentBlockSchema.stubs(:valid_schemas).returns(%w[block_type])
   end
 
   describe "#call" do
@@ -13,7 +12,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema")
       edition_params = {
         document_title: "Some Title",
-        block_type: "block_type",
+        block_type: "email_address",
         details: {
           "foo" => "Foo text",
           "bar" => "Bar text",
@@ -43,7 +42,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema")
       edition_params = {
         document_title: "Some Title",
-        block_type: "block_type",
+        block_type: "email_address",
         details: {
           "foo" => "Foo text",
           "bar" => "Bar text",
@@ -84,7 +83,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema")
       edition_params = {
         document_title: "Some Title",
-        block_type: "block_type",
+        block_type: "email_address",
         details: {
           "foo" => "Foo text",
           "bar" => "Bar text",
