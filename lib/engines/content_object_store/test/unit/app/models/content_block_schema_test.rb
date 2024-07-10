@@ -6,6 +6,14 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
   let(:body) { { "properties" => { "foo" => {}, "bar" => {} } } }
   let(:schema) { build(:content_block_schema, :email_address, body:) }
 
+  describe ".valid_schemas" do
+    test "it returns the contents of the VALID_SCHEMA constant" do
+      assert_equal ContentObjectStore::ContentBlockSchema.valid_schemas, %w[
+        email_address
+      ]
+    end
+  end
+
   test "it generates a human-readable name" do
     assert_equal schema.name, "Email address"
   end
@@ -117,7 +125,7 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
 
   describe ".is_valid_schema?" do
     test "returns true when the schema has correct prefix/suffix" do
-      ContentObjectStore::ContentBlockSchema::VALID_SCHEMAS.each do |schema|
+      ContentObjectStore::ContentBlockSchema.valid_schemas.each do |schema|
         schema_name = "#{ContentObjectStore::ContentBlockSchema::SCHEMA_PREFIX}_#{schema}"
         assert ContentObjectStore::ContentBlockSchema.is_valid_schema?(schema_name)
       end
