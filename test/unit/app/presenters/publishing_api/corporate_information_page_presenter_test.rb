@@ -167,7 +167,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
       organisation = create(:organisation, content_id: "7bcea45b-57b1-4200-b35f-29d8324e9a68")
 
       corporate_information_page
-        .stubs(owning_organisation: organisation)
+        .stubs(organisation:)
 
       assert_details_attribute :organisation, "7bcea45b-57b1-4200-b35f-29d8324e9a68"
     end

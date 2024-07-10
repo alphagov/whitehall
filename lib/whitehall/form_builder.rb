@@ -224,7 +224,7 @@ module Whitehall
       if object.new_record?
         case object
         when CorporateInformationPage
-          @template.polymorphic_path([:admin, object.owning_organisation, CorporateInformationPage])
+          @template.polymorphic_path([:admin, object.organisation, CorporateInformationPage])
         when Edition
           @template.admin_editions_path
         else

@@ -30,7 +30,7 @@
         },
       } %>
 
-      <% cancel_link_path = edition.new_record? ? polymorphic_path([:admin, edition.owning_organisation, CorporateInformationPage]) : admin_edition_path(edition) %>
+      <% cancel_link_path = edition.new_record? ? polymorphic_path([:admin, edition.organisation, CorporateInformationPage]) : admin_edition_path(edition) %>
       <%= link_to "Cancel", cancel_link_path, class: "govuk-link govuk-link--no-visited-state" %>
     </div>
 
