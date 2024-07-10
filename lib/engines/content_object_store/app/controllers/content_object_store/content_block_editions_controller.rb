@@ -14,7 +14,8 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
 
   def create
     @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(root_params[:block_type])
-    @content_block_edition = ContentObjectStore::ContentBlockEdition.create!(edition_params)
+
+    ContentObjectStore::CreateEditionService.new(@schema, edition_params).call
 
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
   end

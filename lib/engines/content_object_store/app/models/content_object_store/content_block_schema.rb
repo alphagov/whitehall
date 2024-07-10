@@ -1,6 +1,12 @@
 class ContentObjectStore::ContentBlockSchema
   SCHEMA_PREFIX = "content_block".freeze
+
   VALID_SCHEMAS = %w[email_address].freeze
+  private_constant :VALID_SCHEMAS
+
+  def self.valid_schemas
+    VALID_SCHEMAS
+  end
 
   attr_reader :id
 
@@ -38,6 +44,6 @@ class ContentObjectStore::ContentBlockSchema
   end
 
   def self.is_valid_schema?(key)
-    key.start_with?(SCHEMA_PREFIX) && key.end_with?(*VALID_SCHEMAS)
+    key.start_with?(SCHEMA_PREFIX) && key.end_with?(*valid_schemas)
   end
 end

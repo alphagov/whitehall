@@ -5,7 +5,7 @@ FactoryBot.define do
     created_at { Time.zone.now.utc }
     updated_at { Time.zone.now.utc }
 
-    ContentObjectStore::ContentBlockSchema::VALID_SCHEMAS.each do |type|
+    ContentObjectStore::ContentBlockSchema.valid_schemas.each do |type|
       trait type.to_sym do
         block_type { type }
       end
