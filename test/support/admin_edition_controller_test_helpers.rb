@@ -1226,8 +1226,9 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_editionable_worldwide_organisations(edition_type, required: false)
-      edition_class = class_for(edition_type)
+    def should_allow_association_with_editionable_worldwide_organisations(edition_type, edition_parent_type: nil, factory_name: nil, required: false)
+      factory_name ||= edition_type
+      edition_class = edition_parent_type&.to_s&.classify&.constantize || class_for(edition_type)
 
       view_test "new should display editionable worldwide organisations field" do
         feature_flags.switch! :editionable_worldwide_organisations, true
@@ -1242,7 +1243,7 @@ module AdminEditionControllerTestHelpers
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
-              track_label: new_edition_path(edition_type),
+              track_label: new_edition_path(edition_type, factory_name:),
             )
           end
         end
@@ -1251,7 +1252,7 @@ module AdminEditionControllerTestHelpers
       view_test "edit should display editionable worldwide organisations field" do
         feature_flags.switch! :editionable_worldwide_organisations, true
 
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+        edition = create(factory_name) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
@@ -1262,7 +1263,7 @@ module AdminEditionControllerTestHelpers
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
-              track_label: edit_edition_path(edition_type),
+              track_label: edit_edition_path(edition_parent_type || edition_type),
             )
           end
         end
@@ -1358,8 +1359,9 @@ private
     # assert_equal track_label, element["data-track-label"]
   end
 
-  def new_edition_path(edition_type)
-    edition = build(edition_type)
+  def new_edition_path(edition_type, factory_name: nil)
+    factory_name ||= edition_type
+    edition = build(factory_name)
     @controller.new_polymorphic_path([:admin, edition])
   end
 
