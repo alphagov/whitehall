@@ -94,6 +94,28 @@ Then("I should see the details for the email address content block") do
   )
 end
 
+When("I click the first change link") do
+  first_link = find("a[href='#{content_object_store.edit_content_object_store_content_block_edition_path(@content_block)}']", match: :first)
+  first_link.click
+end
+
+Then("I should see the edit form") do
+  should_show_edit_form_for_email_address_content_block(
+    @content_block.document.title,
+    @email_address
+  )
+end
+
+When("I fill out the form") do
+  fill_in "Title", with: "Changed title"
+  fill_in "Email address", with: "changed@example.com"
+  click_on "Save and continue"
+end
+
+Then("the edition should have been updated successfully") do
+  should_show_summary_list_for_email_address_content_block("Changed title", "changed@example.com")
+end
+
 def should_show_summary_card_for_email_address_content_block(document_title, email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
@@ -104,6 +126,16 @@ end
 def should_show_summary_list_for_email_address_content_block(document_title, email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
+  expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
+  expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
+end
+
+def should_show_edit_form_for_email_address_content_block(document_title, email_address)
+  expect(page).to have_content("Change Email address")
+  expect(page).to have_field('Title', with: document_title)
+  expect(page).to have_field("Email address", with: email_address)
+  expect(page).to have_content("Save and continue")
+  expect(page).to have_content("Cancel")
 end

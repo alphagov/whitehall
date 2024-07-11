@@ -24,6 +24,24 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
   end
 
+  def edit
+    @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(@content_block_edition.document.block_type)
+  end
+
+  def update
+    @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(@content_block_edition.document.block_type)
+
+    document = @content_block_edition.document
+    document.update(title: edit_params[:document_title])
+
+    @content_block_edition.update!(details: edit_params[:details])
+    @content_block_edition.save
+
+    redirect_to content_object_store.content_object_store_content_block_edition_path(@content_block_edition), flash: { notice: "#{@schema.name} changed successfully" }
+  end
+
 private
 
   def root_params
@@ -32,5 +50,9 @@ private
 
   def new_edition_params
     root_params.permit(:document_title, :block_type, details: @schema.fields)
+  end
+
+  def edit_params
+    root_params.permit(:document_title, details: @schema.fields)
   end
 end

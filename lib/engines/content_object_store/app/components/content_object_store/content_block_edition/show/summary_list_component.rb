@@ -15,12 +15,24 @@ private
     {
       field: "Title",
       value: content_block_edition.title,
+      edit: edit_action,
     }
   end
 
   def details_items
-    @content_block_edition.details.map do |key, value|
-      { field: key.humanize, value: }
+    content_block_edition.details.map do |key, value|
+      {
+        field: key.humanize,
+        value:,
+        edit: edit_action,
+      }
     end
+  end
+
+  def edit_action
+    {
+      href: helpers.content_object_store.edit_content_object_store_content_block_edition_path(content_block_edition),
+      link_text: "Change",
+    }
   end
 end

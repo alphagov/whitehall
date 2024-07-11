@@ -4,7 +4,7 @@ ContentObjectStore::Engine.routes.draw do
     root to: "health_check#index", via: :get
 
     resources :content_block_editions, path: "content-block-editions",
-                                       only: %i[index new create show],
+                                       only: %i[index new create show edit update],
                                        path_names: { new: "(:block_type)/new" }
   end
 end
