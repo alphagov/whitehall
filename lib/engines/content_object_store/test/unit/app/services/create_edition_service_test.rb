@@ -73,7 +73,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
     end
 
     test "if the publishing API request fails, the Whitehall ContentBlockEdition and ContentBlockDocument are rolled back" do
-      exception = GdsApi::HTTPUnprocessableEntity.new(
+      exception = GdsApi::HTTPErrorResponse.new(
         422,
         "An internal error message",
         "error" => { "message" => "Some backend error" },
@@ -83,7 +83,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       Services.publishing_api.stub :put_content, raises_exception do
         assert_equal ContentObjectStore::ContentBlockDocument.count, 0 do
           assert_equal ContentObjectStore::ContentBlockEdition.count, 0 do
-            assert_raises(GdsApi::HTTPUnprocessableEntity) do
+            assert_raises(GdsApi::HTTPErrorResponse) do
               ContentObjectStore::CreateEditionService.new(schema, edition_params).call
             end
           end
@@ -100,6 +100,43 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       ContentObjectStore::ContentBlockEdition.stub :create!, raises_exception do
         assert_raises(ArgumentError) do
           ContentObjectStore::CreateEditionService.new(schema, {}).call
+        end
+      end
+    end
+
+    test "if the publish request fails, the latest draft is discarded and the database actions are rolled back" do
+      fake_put_content_response = GdsApi::Response.new(
+        stub("http_response", code: 200, body: {}),
+      )
+      fake_discard_draft_content_response = GdsApi::Response.new(
+        stub("http_response", code: 200, body: {}),
+      )
+
+      publishing_api_mock = Minitest::Mock.new
+      publishing_api_mock.expect :put_content, fake_put_content_response, [
+        String,
+        Hash,
+      ]
+      publishing_api_mock.expect :discard_draft, fake_discard_draft_content_response, [
+        content_id,
+      ]
+
+      exception = GdsApi::HTTPErrorResponse.new(
+        422,
+        "An internal error message",
+        "error" => { "message" => "Some backend error" },
+      )
+      raises_exception = ->(*_args) { raise exception }
+
+      Services.publishing_api.stub :publish, raises_exception do
+        assert_equal ContentObjectStore::ContentBlockDocument.count, 0 do
+          assert_equal ContentObjectStore::ContentBlockEdition.count, 0 do
+            assert_raises(ContentObjectStore::CreateEditionService::PublishingFailureError, "Could not publish #{content_id} because: Some backend error") do
+              ContentObjectStore::CreateEditionService.new(schema, edition_params).call
+            end
+
+            publishing_api_mock.verify
+          end
         end
       end
     end
