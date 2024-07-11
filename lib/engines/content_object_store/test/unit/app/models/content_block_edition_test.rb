@@ -2,9 +2,8 @@ require "test_helper"
 
 class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
   setup do
-    ContentObjectStore::ContentBlockEdition.any_instance.stubs(:create_random_id) do
-      @new_content_id = SecureRandom.uuid
-    end
+    @new_content_id = SecureRandom.uuid
+    ContentObjectStore::ContentBlockEdition.any_instance.stubs(:create_random_id).returns(@new_content_id)
 
     @created_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
     @updated_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
