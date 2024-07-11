@@ -33,11 +33,8 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
     @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
     @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(@content_block_edition.document.block_type)
 
-    document = @content_block_edition.document
-    document.update(title: edit_params[:document_title])
-
-    @content_block_edition.update!(details: edit_params[:details])
-    @content_block_edition.save
+    result = ContentObjectStore::UpdateEditionService.new(@content_block_edition).
+      call(edit_params[:document_title], edit_params[:details])
 
     redirect_to content_object_store.content_object_store_content_block_edition_path(@content_block_edition), flash: { notice: "#{@schema.name} changed successfully" }
   end
