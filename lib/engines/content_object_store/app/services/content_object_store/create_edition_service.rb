@@ -8,7 +8,9 @@ module ContentObjectStore
     def call
       ActiveRecord::Base.transaction do
         content_block_edition = create_whitehall_edition
-        create_publishing_api_edition(content_id: content_block_edition.document.content_id)
+        content_id = content_block_edition.document.content_id
+        create_publishing_api_edition(content_id:)
+        publish_publishing_api_edition(content_id:)
       end
     end
 
@@ -26,6 +28,10 @@ module ContentObjectStore
         title: @edition_params[:document_title],
         details: @edition_params[:details].to_h,
       })
+    end
+
+    def publish_publishing_api_edition(content_id:)
+      Services.publishing_api.publish(content_id)
     end
   end
 end
