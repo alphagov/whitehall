@@ -67,6 +67,9 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     fake_put_content_response = GdsApi::Response.new(
       stub("http_response", code: 200, body: {}),
     )
+    fake_publish_content_response = GdsApi::Response.new(
+      stub("http_response", code: 200, body: {}),
+    )
 
     # This UUID is created by the database so instead of loading the record
     # we stub the initial creation so we know what UUID to check for.
@@ -86,6 +89,9 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
           "bar" => "Bar text",
         },
       },
+    ]
+    publishing_api_mock.expect :publish, fake_publish_content_response, [
+      @content_id,
     ]
 
     Services.stub :publishing_api, publishing_api_mock do
