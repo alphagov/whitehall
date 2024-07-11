@@ -58,8 +58,8 @@ class WorldLocation < ApplicationRecord
     name.gsub(/^The/, "").strip
   end
 
-  def worldwide_organisations_with_sponsoring_organisations
-    (worldwide_organisations + worldwide_organisations.map { |o| o.sponsoring_organisations.to_a }.flatten).uniq
+  def worldwide_organisations_with_organisations
+    (worldwide_organisations + worldwide_organisations.map { |o| o.organisations.to_a }.flatten).uniq
   end
 
   def to_s

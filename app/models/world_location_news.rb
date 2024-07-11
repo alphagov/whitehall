@@ -63,7 +63,7 @@ class WorldLocationNews < ApplicationRecord
 
     world_location
       .worldwide_organisations
-      .map(&:sponsoring_organisations)
+      .map(&:organisations)
       .flatten
   end
 
