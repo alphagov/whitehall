@@ -11,8 +11,12 @@ class WorldLocation < ApplicationRecord
   has_many :published_documents,
            through: :published_editions,
            source: :document
-  has_many :worldwide_organisation_world_locations, dependent: :destroy
-  has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
+  has_many :edition_worldwide_organisations,
+           -> { where(editions: { type: "EditionableWorldwideOrganisation" }).includes(:edition) },
+           class_name: "EditionWorldLocation"
+  has_many :worldwide_organisations,
+           through: :edition_worldwide_organisations,
+           source: :edition
 
   has_one :world_location_news
   accepts_nested_attributes_for :world_location_news
