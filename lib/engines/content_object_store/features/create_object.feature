@@ -7,7 +7,8 @@ Feature: Create a content object
       | department    |
     And a schema "tax_rates" exists with the following fields:
       | rate |
-    When I access the create object page
+    When I visit the object store
+    And I click to create an object
     Then I should see all the schemas listed
     When I click on the "email_address" schema
     Then I should see a form for the schema

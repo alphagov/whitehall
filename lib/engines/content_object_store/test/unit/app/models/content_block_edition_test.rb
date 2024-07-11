@@ -18,6 +18,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       updated_at: @updated_at,
       details: @details,
       document_title: @document_title,
+      content_block_document: nil,
     )
   end
 

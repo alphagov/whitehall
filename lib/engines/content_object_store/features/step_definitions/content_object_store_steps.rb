@@ -10,6 +10,10 @@ When("I access the create object page") do
   visit content_object_store.new_content_object_store_content_block_edition_path
 end
 
+When("I click to create an object") do
+  click_link "Create new object"
+end
+
 Then("I should see all the schemas listed") do
   @schemas.values.each do |schema|
     expect(page).to have_content(schema.name)
@@ -49,4 +53,44 @@ Then("the edition should have been created successfully") do
   @details.keys.each do |k|
     assert_equal edition.details[k], @details[k]
   end
+end
+
+Given("an email address content block has been created") do
+  @content_blocks ||= []
+  @email_address = "foo@example.com"
+  @content_block = create(:content_block_edition, :email_address, details: { email_address: @email_address })
+  @content_blocks.push(@content_block)
+end
+
+When("I visit the page for the content block") do
+  visit content_object_store.content_object_store_content_block_edition_path(@content_block)
+end
+
+When("I visit the object store") do
+  visit content_object_store.content_object_store_content_block_editions_path
+end
+
+Then("I should see the details for all content blocks") do
+  assert_text "All content blocks"
+
+  @content_blocks.each do |block|
+    should_show_summary_details_for_email_address_content_block(block, block.details[:email_address])
+  end
+end
+
+When("I click to view the content block") do
+  click_link href: content_object_store.content_object_store_content_block_edition_path(@content_block)
+end
+
+Then("I should see the details for the email address content block") do
+  assert_text "Manage an Email address"
+
+  should_show_summary_details_for_email_address_content_block(@content_block, @email_address)
+end
+
+def should_show_summary_details_for_email_address_content_block(content_block, email_address)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
+  expect(page).to have_selector(".govuk-summary-list__value", text: content_block.document.title)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
+  expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
