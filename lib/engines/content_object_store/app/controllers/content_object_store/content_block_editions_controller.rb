@@ -19,7 +19,7 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
   def create
     @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(root_params[:block_type])
 
-    ContentObjectStore::CreateEditionService.new(@schema, edition_params).call
+    ContentObjectStore::CreateEditionService.new(@schema, new_edition_params).call
 
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
   end
@@ -30,7 +30,7 @@ private
     params.require(:content_object_store_content_block_edition)
   end
 
-  def edition_params
+  def new_edition_params
     root_params.permit(:document_title, :block_type, details: @schema.fields)
   end
 end
