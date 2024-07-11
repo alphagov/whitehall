@@ -172,4 +172,9 @@ class OrganisationBrandColour
     title: "Prime Minister's Office, 10 Downing Street",
     class_name: "prime-ministers-office-10-downing-street",
   )
+  MinistryOfHousingCommunitiesAndLocalGovernment = create!(
+    id: 34,
+    title: "Ministry of Housing, Communities & Local Government",
+    class_name: "ministry-of-housing-communities-and-local-government",
+  )
 end
