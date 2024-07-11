@@ -99,7 +99,10 @@ Then("I should see the details for all content blocks") do
   assert_text "All content blocks"
 
   @content_blocks.each do |block|
-    should_show_summary_card_for_email_address_content_block(block, block.details[:email_address])
+    should_show_summary_card_for_email_address_content_block(
+      block.document.title,
+      block.details[:email_address]
+    )
   end
 end
 
@@ -110,19 +113,22 @@ end
 Then("I should see the details for the email address content block") do
   assert_text "Manage an Email address"
 
-  should_show_summary_list_for_email_address_content_block(@content_block, @email_address)
+  should_show_summary_list_for_email_address_content_block(
+    @content_block.document.title,
+    @email_address
+  )
 end
 
-def should_show_summary_card_for_email_address_content_block(content_block, email_address)
+def should_show_summary_card_for_email_address_content_block(document_title, email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
-  expect(page).to have_selector(".govuk-summary-list__value", text: content_block.document.title)
+  expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
-def should_show_summary_list_for_email_address_content_block(content_block, email_address)
+def should_show_summary_list_for_email_address_content_block(document_title, email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
-  expect(page).to have_selector(".govuk-summary-list__value", text: content_block.document.title)
+  expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Creator")
