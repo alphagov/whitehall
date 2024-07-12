@@ -145,7 +145,7 @@ module ServiceListeners
       }
     end
 
-    test "makes deleted translations gone" do
+    test "makes deleted translations gone for publish event" do
       res = draft_edition_with_deleted_translation(:published_case_study)
       new_edition = res[:draft_edition]
       fr = res[:deleted_translation]
@@ -168,6 +168,19 @@ module ServiceListeners
 
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(new_edition).push(event: "publish")
+      end
+    end
+
+    test "do not make deleted translations gone for draft update event" do
+      res = draft_edition_with_deleted_translation(:published_case_study)
+      new_edition = res[:draft_edition]
+
+      Services.publishing_api.expects(:patch_links).once
+      Services.publishing_api.expects(:put_content).twice
+      PublishingApiGoneWorker.expects(:new).never
+
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(new_edition).push(event: "update_draft")
       end
     end
 

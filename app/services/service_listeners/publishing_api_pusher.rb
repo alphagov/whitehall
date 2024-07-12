@@ -7,13 +7,9 @@ module ServiceListeners
     end
 
     def push(event:, options: {})
-      # This is done synchronously before the rest of the publishing.
-      # Currently (02/11/2016) publishing-api links
-      # are not recalculated on parent documents when their translations are unpublished.
-      handle_translations
-
       case event
       when "force_publish", "publish"
+        unpublish_removed_translations
         api.publish(edition)
       when "update_draft"
         api.patch_links(edition)
@@ -51,7 +47,7 @@ module ServiceListeners
       end
     end
 
-    def handle_translations
+    def unpublish_removed_translations
       previous_edition = edition.previous_edition
 
       if previous_edition
