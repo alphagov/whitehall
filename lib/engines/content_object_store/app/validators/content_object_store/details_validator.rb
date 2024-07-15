@@ -7,6 +7,8 @@ class ContentObjectStore::DetailsValidator < ActiveModel::Validator
     errors.each do |e|
       if e["type"] == "required"
         add_blank_errors(e)
+      elsif e["type"] == "format"
+        add_format_errors(e)
       end
     end
   end
@@ -16,6 +18,13 @@ class ContentObjectStore::DetailsValidator < ActiveModel::Validator
     missing_keys.each do |k|
       edition.errors.add("details_#{k}", :blank, message: "cannot be blank")
     end
+  end
+
+  def add_format_errors(error)
+    key = error["data_pointer"].delete_prefix("/")
+    format = error["schema"]["format"]
+    message = format.present? ? "is an invalid #{format.humanize}" : "is invalid"
+    edition.errors.add("details_#{key}", :invalid, message:)
   end
 
   def validate_with_schema(edition)
