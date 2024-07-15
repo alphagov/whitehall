@@ -5,7 +5,7 @@ module ContentObjectStore
     included do
       belongs_to :content_block_document, touch: true
       validates :content_block_document, presence: true
-      validates :block_type, presence: true
+      validates :block_type, :title, presence: true
 
       before_validation :ensure_presence_of_document, on: :create
 
