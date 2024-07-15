@@ -151,14 +151,16 @@ module ServiceListeners
       previous_edition.associated_documents
     end
 
-    def content_ids_to_remove
+    def documents_to_remove
       return Set[] unless previous_edition
 
-      deleted_content_ids = deleted_associated_documents.map(&:content_id).to_set
-      old_content_ids = previous_associated_documents.map(&:content_id).to_set
-      new_content_ids = current_associated_documents.map(&:content_id).to_set
+      all_documents = deleted_associated_documents + previous_associated_documents
 
-      deleted_content_ids + old_content_ids - new_content_ids
+      all_documents.delete_if do |document|
+        current_associated_documents.map(&:content_id).include?(document.content_id)
+      end
+
+      all_documents.uniq(&:content_id)
     end
 
     def deleted_associated_documents
@@ -167,12 +169,21 @@ module ServiceListeners
 
     def do_publish(update_type)
       edition.translations.each do |translation|
-        content_ids_to_remove.each do |content_id|
-          PublishingApiRedirectWorker.new.perform(
-            content_id,
-            edition.public_path,
-            translation.locale.to_s,
-          )
+        documents_to_remove.each do |document|
+          if document.respond_to?(:base_path) && document.base_path.present?
+            PublishingApiRedirectWorker.new.perform(
+              document.content_id,
+              edition.public_path,
+              translation.locale.to_s,
+            )
+          else
+            PublishingApiGoneWorker.new.perform(
+              document.content_id,
+              nil,
+              nil,
+              translation.locale.to_s,
+            )
+          end
         end
       end
 
