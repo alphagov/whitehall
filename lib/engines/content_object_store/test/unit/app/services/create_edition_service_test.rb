@@ -27,7 +27,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
     test "it creates a ContentBlockEdition in Whitehall" do
       assert_changes -> { ContentObjectStore::ContentBlockDocument.count }, from: 0, to: 1 do
         assert_changes -> { ContentObjectStore::ContentBlockEdition.count }, from: 0, to: 1 do
-          ContentObjectStore::CreateEditionService.new(schema, edition_params).call
+          ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
         end
       end
 
@@ -66,7 +66,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       ]
 
       Services.stub :publishing_api, publishing_api_mock do
-        ContentObjectStore::CreateEditionService.new(schema, edition_params).call
+        ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
 
         publishing_api_mock.verify
       end
@@ -84,7 +84,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
         assert_equal ContentObjectStore::ContentBlockDocument.count, 0 do
           assert_equal ContentObjectStore::ContentBlockEdition.count, 0 do
             assert_raises(GdsApi::HTTPErrorResponse) do
-              ContentObjectStore::CreateEditionService.new(schema, edition_params).call
+              ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
             end
           end
         end
@@ -99,7 +99,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
       ContentObjectStore::ContentBlockEdition.stub :create!, raises_exception do
         assert_raises(ArgumentError) do
-          ContentObjectStore::CreateEditionService.new(schema, {}).call
+          ContentObjectStore::CreateEditionService.new(schema).call(nil, {})
         end
       end
     end
@@ -132,7 +132,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
         assert_equal ContentObjectStore::ContentBlockDocument.count, 0 do
           assert_equal ContentObjectStore::ContentBlockEdition.count, 0 do
             assert_raises(ContentObjectStore::CreateEditionService::PublishingFailureError, "Could not publish #{content_id} because: Some backend error") do
-              ContentObjectStore::CreateEditionService.new(schema, edition_params).call
+              ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
             end
 
             publishing_api_mock.verify
