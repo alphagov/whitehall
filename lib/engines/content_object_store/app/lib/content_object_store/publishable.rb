@@ -2,6 +2,26 @@ module ContentObjectStore
   module Publishable
     class PublishingFailureError < StandardError; end
 
+    def publish_with_rollback(schema:, document_title:, details:)
+      raise ArgumentError, "Local database changes not given" unless block_given?
+
+      ActiveRecord::Base.transaction do
+        content_block_edition = yield
+        content_id = content_block_edition.document.content_id
+
+        create_publishing_api_edition(
+          content_id:,
+          schema_id: schema.id,
+          document_title:,
+          details: details.to_h,
+        )
+        publish_publishing_api_edition(content_id:)
+      rescue PublishingFailureError => e
+        discard_publishing_api_edition(content_id:)
+        raise e
+      end
+    end
+
   private
 
     def create_publishing_api_edition(content_id:, schema_id:, document_title:, details:)
