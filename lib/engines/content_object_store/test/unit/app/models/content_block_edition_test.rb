@@ -75,4 +75,16 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
     assert_invalid @content_block_edition
     assert @content_block_edition.errors.full_messages.include?("Block type can't be blank")
   end
+
+  test "it does not expect a block_type on update requests" do
+    @content_block_edition = create(
+      :content_block_edition,
+      :email_address
+    )
+
+    # We omitt the block_type here to simulate an update request
+    @content_block_edition.update(details: "{ bar: 1 }")
+
+    assert @content_block_edition.details, "{ bar: 1 }"
+  end
 end
