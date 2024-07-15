@@ -81,6 +81,25 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to edit_admin_publication_path(draft_edition.reload)
   end
 
+  test "failing to revise an edition should surface any ActiveRecord errors" do
+    published_consultation = create(:consultation_with_public_feedback_html_attachment)
+    public_feedback = published_consultation.public_feedback
+    public_feedback.summary = <<~MARKDOWN
+      Here is a simple footnote[^1]. With some additional text after it.
+
+      [^1]: Footnote which is not allowed by consultations.
+    MARKDOWN
+    public_feedback.save!(validate: false)
+
+    post :revise, params: { id: published_consultation }
+
+    assert_redirected_to admin_consultation_path(published_consultation)
+    assert_match(
+      "Validation failed: Summary cannot include footnotes on this type of document (Summary includes '[^1]')",
+      flash[:alert],
+    )
+  end
+
   test "failing to revise an edition should redirect to the existing draft" do
     published_edition = create(:published_publication)
     existing_draft = create(:draft_publication, document: published_edition.document)

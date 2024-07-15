@@ -158,6 +158,8 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to edit_admin_edition_path(@edition.document.latest_edition),
                   alert: new_draft.errors.full_messages.to_sentence
     end
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to show_or_edit_path, alert: e.to_s
   end
 
   def diff
