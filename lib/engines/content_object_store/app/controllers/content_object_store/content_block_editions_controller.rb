@@ -22,6 +22,9 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
     ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
 
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
+  rescue ActiveRecord::RecordInvalid => e
+    @content_block_edition = e.record
+    render :new
   end
 
 private

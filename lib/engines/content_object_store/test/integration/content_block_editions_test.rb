@@ -105,9 +105,26 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
       publishing_api_mock.verify
     end
   end
+
+  test "#create should render the template when a validation error occurs" do
+    edition = build(:content_block_edition)
+    err = ActiveRecord::RecordInvalid.new(edition)
+    ContentObjectStore::CreateEditionService.any_instance
+                                            .stubs(:call)
+                                            .raises(err)
+
+    post content_object_store.content_object_store_content_block_editions_path, params: {
+      content_object_store_content_block_edition: {
+        block_type: "email_address",
+      },
+    }
+
+    assert_template :new
+    assert_equal edition, assigns(:content_block_edition)
+  end
 end
 
 def stub_request_for_schema(block_type)
-  schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema")
+  schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema", block_type:)
   ContentObjectStore::ContentBlockSchema.stubs(:find_by_block_type).with(block_type).returns(schema)
 end
