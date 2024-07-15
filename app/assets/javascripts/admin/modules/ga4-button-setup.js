@@ -12,7 +12,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         event_name: button.type === 'submit' ? 'form_response' : 'navigation',
         type: 'generic_link',
         text: button.textContent,
-        section: document.title.split(' - ')[0],
+        section: document.title.split(' - ')[0].replace('Error: ', ''),
         action: button.textContent
       }
       if (button.dataset.ga4Event) {

@@ -9,7 +9,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     const submitButton = this.module.querySelector('button[type="submit"]')
     this.module.dataset.ga4Form = JSON.stringify({
       event_name: 'form_response',
-      section: document.title.split(' - ')[0],
+      section: document.title.split(' - ')[0].replace('Error: ', ''),
       action: submitButton.textContent.toLowerCase()
     })
   }
