@@ -268,9 +268,24 @@ module ServiceListeners
           "en",
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        call(new_edition)
+      end
+
+      test "with a contact on the old version of an editionable worldwide organisation publishes gone for the contact" do
+        worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_main_office)
+
+        new_edition = worldwide_organisation.create_draft(create(:writer))
+        new_edition.main_office.destroy!
+        new_edition.minor_change = true
+        new_edition.submit!
+        new_edition.publish!
+
+        old_office = worldwide_organisation.main_office
+
+        PublishingApiGoneWorker.any_instance.expects(:perform).with(
           old_office.contact.content_id,
-          new_edition.search_link,
+          nil,
+          nil,
           "en",
         )
 
