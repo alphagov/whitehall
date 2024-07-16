@@ -1,8 +1,15 @@
 Given("a schema {string} exists with the following fields:") do |block_type, table|
-  data = table.raw
+  fields = table.hashes
   @schemas ||= {}
-  properties = data.flatten.index_with { |_field| {} }
-  @schemas[block_type] = build(:content_block_schema, block_type:, body: { "properties" => properties })
+  body = {
+    "type" => "object",
+    "required" => fields.select { |f| f["required"] == "true" }.map { |f| f["field"] },
+    "additionalProperties" => false,
+    "properties" => fields.map { |f|
+      [f["field"], { "type" => f["type"], "format" => f["format"] }]
+    }.to_h,
+  }
+  @schemas[block_type] = build(:content_block_schema, block_type:, body:)
   ContentObjectStore::ContentBlockSchema.stubs(:all).returns(@schemas.values)
 end
 
@@ -30,13 +37,26 @@ Then("I should see a form for the schema") do
   expect(page).to have_content(@schema.name)
 end
 
+When("I complete the form with the following fields:") do |table|
+  fields = table.hashes.first
+  @title = fields.delete("title")
+  @details = fields
+
+  fill_in "Title", with: @title
+
+  fields.keys.each do |k|
+    fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
+  end
+  click_on "Save and continue"
+end
+
 When("I complete the form") do
   @title = "My title"
   @details = @schema.fields.index_with { |f| "#{f} content" }
 
   fill_in "Title", with: @title
   @details.keys.each do |k|
-    fill_in "content_object_store_content_block_edition_details_#{k}", with: @details[k]
+    fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
   click_on "Save and continue"
 end
@@ -95,6 +115,15 @@ def should_show_summary_details_for_email_address_content_block(content_block, e
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
-Then("I should see some errors") do
+Then("I should see errors for the required fields") do
   assert_text "Title can't be blank"
+
+  required_fields = @schema.body["required"]
+  required_fields.each do |required_field|
+    assert_text "#{ContentObjectStore::ContentBlockEdition.human_attribute_name("details_#{required_field}")} cannot be blank"
+  end
+end
+
+Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|
+  assert_text "#{ContentObjectStore::ContentBlockEdition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
 end
