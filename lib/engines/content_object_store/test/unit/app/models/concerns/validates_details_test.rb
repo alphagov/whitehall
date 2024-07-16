@@ -32,4 +32,10 @@ class ContentObjectStore::ValidatesDetailsTest < ActiveSupport::TestCase
       assert_equal content_block_edition.read_attribute_for_validation(:created_at), content_block_edition.created_at
     end
   end
+
+  describe "human_attribute_name" do
+    it "returns the human readable label for a field prefixed with `details_`" do
+      assert_equal ContentObjectStore::ContentBlockEdition.human_attribute_name("details_foo"), "Foo"
+    end
+  end
 end
