@@ -75,5 +75,13 @@ jobs:
     name: Run Minitest
     needs: minitest-matrix
     runs-on: ubuntu-latest
+    if: always()
     steps:
-      - run: echo "All MiniTest tests have passed 🚀"
+      - name: Fail on workflow error
+        run: exit 1
+        if: >-
+          ${{
+            contains(needs.*.result, 'failure')
+            || contains(needs.*.result, 'cancelled')
+            || contains(needs.*.result, 'skipped')
+          }}
