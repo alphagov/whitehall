@@ -94,3 +94,7 @@ def should_show_summary_details_for_email_address_content_block(content_block, e
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
+
+Then("I should see some errors") do
+  assert_text "Title can't be blank"
+end

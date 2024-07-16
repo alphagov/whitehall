@@ -1,3 +1,5 @@
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: content_block_edition)) %>
+
 <%= form_for content_block_edition, url: content_object_store.content_object_store_content_block_editions_path do |f| %>
   <%= f.hidden_field :block_type, value: schema.block_type %>
 
@@ -5,10 +7,10 @@
     label: {
       text: "Title",
     },
-    name: "content_object_store_content_block_edition[document_title]",
-    id: "content_object_store_content_block_edition_document_title",
-    value: content_block_edition.document_title,
-    error_items: errors_for(content_block_edition.errors, :document_title),
+    name: "content_object_store_content_block_edition[title]",
+    id: "content_object_store/content_block_edition_title",
+    value: content_block_edition.title,
+    error_items: errors_for(content_block_edition.errors, :title),
   } %>
 
   <% @schema.fields.each do |field| %>
@@ -18,7 +20,7 @@
       },
       name: "content_object_store_content_block_edition[details[#{field}]]",
       id: "content_object_store_content_block_edition_details_#{field}",
-      value: content_block_edition.details&.fetch(field),
+      value: content_block_edition.details&.fetch(field, nil),
     } %>
   <% end %>
 

@@ -7,8 +7,8 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
 
     @created_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
     @updated_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
-    @details = '{ "some_field": "some_content" }'
-    @document_title = "Document title"
+    @details = { "some_field" => "some_content" }
+    @title = "Document title"
 
     @content_block_edition = build(
       :content_block_edition,
@@ -16,7 +16,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      document_title: @document_title,
+      title: @title,
       content_block_document: nil,
     )
   end
@@ -74,5 +74,18 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
 
     assert_invalid @content_block_edition
     assert @content_block_edition.errors.full_messages.include?("Block type can't be blank")
+  end
+
+  test "it validates the presence of a title" do
+    content_block_edition = build(
+      :content_block_edition,
+      created_at: @created_at,
+      updated_at: @updated_at,
+      details: @details,
+      block_type: nil,
+    )
+
+    assert_invalid content_block_edition
+    assert content_block_edition.errors.full_messages.include?("Title can't be blank")
   end
 end
