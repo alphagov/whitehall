@@ -1,6 +1,9 @@
 module ContentObjectStore
   module ValidatesDetails
     extend ActiveSupport::Concern
+
+    DETAILS_PREFIX = "details_".freeze
+
     included do
       validates_with ContentObjectStore::DetailsValidator
 
@@ -11,6 +14,19 @@ module ContentObjectStore
 
     def schema
       @schema ||= ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type)
+    end
+
+    # When an error is raised about a field within the details hash
+    # we have to prefix it. This overrides the default `read_attribute_for_validation`
+    # method, and reads it from the details hash if the attribute name
+    # is prefixes
+    def read_attribute_for_validation(attr)
+      if attr.starts_with?(DETAILS_PREFIX)
+        key = attr.to_s.delete_prefix(DETAILS_PREFIX)
+        details&.fetch(key, nil)
+      else
+        super(attr)
+      end
     end
   end
 end

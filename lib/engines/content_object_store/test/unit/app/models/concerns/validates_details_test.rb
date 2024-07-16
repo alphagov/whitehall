@@ -18,4 +18,18 @@ class ContentObjectStore::ValidatesDetailsTest < ActiveSupport::TestCase
       content_block_schema_mock.verify
     end
   end
+
+  describe "read_attribute_for_validation" do
+    it "reads from the details hash if prefixed with `details_`" do
+      content_block_edition = build(:content_block_edition, details: { "foo" => "bar" })
+
+      assert_equal content_block_edition.read_attribute_for_validation(:details_foo), "bar"
+    end
+
+    it "reads the attribute directly if not prefixed with `details_`" do
+      content_block_edition = build(:content_block_edition)
+
+      assert_equal content_block_edition.read_attribute_for_validation(:created_at), content_block_edition.created_at
+    end
+  end
 end
