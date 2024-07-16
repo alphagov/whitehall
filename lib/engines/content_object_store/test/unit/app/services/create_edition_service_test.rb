@@ -63,6 +63,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       ]
       publishing_api_mock.expect :publish, fake_publish_content_response, [
         content_id,
+        "major",
       ]
 
       Services.stub :publishing_api, publishing_api_mock do
