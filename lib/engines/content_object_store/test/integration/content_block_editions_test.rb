@@ -38,23 +38,27 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
 
     assert_changes -> { ContentObjectStore::ContentBlockDocument.count }, from: 0, to: 1 do
       assert_changes -> { ContentObjectStore::ContentBlockEdition.count }, from: 0, to: 1 do
-        post content_object_store.content_object_store_content_block_editions_path, params: {
-          something: "else",
-          content_object_store_content_block_edition: {
-            title:,
-            block_type:,
-            details:,
-          },
-        }
+        assert_changes -> { ContentObjectStore::ContentBlockEditionAuthor.count }, from: 0, to: 1 do
+          post content_object_store.content_object_store_content_block_editions_path, params: {
+            something: "else",
+            content_object_store_content_block_edition: {
+              title:,
+              block_type:,
+              details:,
+            },
+          }
+        end
       end
     end
 
     new_document = ContentObjectStore::ContentBlockDocument.find_by!(content_id: @content_id)
     new_edition = new_document.content_block_editions.first
+    new_author = ContentObjectStore::ContentBlockEditionAuthor.first
     assert_equal title, new_document.title
     assert_equal block_type, new_document.block_type
     assert_equal details, new_edition.details
     assert_equal new_edition.content_block_document_id, new_document.id
+    assert_equal new_edition.creator, new_author.user
   end
 
   test "#create posts the new edition to the Publishing API" do

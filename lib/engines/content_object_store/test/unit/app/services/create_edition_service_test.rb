@@ -14,6 +14,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
           "foo" => "Foo text",
           "bar" => "Bar text",
         },
+        creator: build(:user),
       }
     end
 
