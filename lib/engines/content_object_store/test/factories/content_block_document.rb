@@ -4,6 +4,8 @@ FactoryBot.define do
     title { "Title" }
     created_at { Time.zone.now.utc }
     updated_at { Time.zone.now.utc }
+    latest_edition_id { nil }
+    live_edition_id { nil }
 
     ContentObjectStore::ContentBlockSchema.valid_schemas.each do |type|
       trait type.to_sym do

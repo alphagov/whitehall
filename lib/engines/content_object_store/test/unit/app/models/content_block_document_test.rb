@@ -27,4 +27,16 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
       content_block_document.update(block_type: "something_else")
     end
   end
+
+  test "it can store the id of the latest edition" do
+    content_block_document = create(:content_block_document, :email_address)
+    content_block_document.update!(latest_edition_id: 1)
+    assert content_block_document.reload.latest_edition_id, 1
+  end
+
+  test "it can store the id of the live edition" do
+    content_block_document = create(:content_block_document, :email_address)
+    content_block_document.update!(live_edition_id: 1)
+    assert content_block_document.reload.live_edition_id, 1
+  end
 end
