@@ -7,7 +7,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
 
     @created_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
     @updated_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
-    @details = '{ "some_field": "some_content" }'
+    @details = { "some_field" => "some_content" }
     @title = "Document title"
 
     @content_block_edition = build(
