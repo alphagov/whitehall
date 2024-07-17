@@ -8,7 +8,7 @@ class ContentObjectStore::ContentBlockSchema
     VALID_SCHEMAS
   end
 
-  attr_reader :id
+  attr_reader :id, :body
 
   def initialize(id, body)
     @id = id
