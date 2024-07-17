@@ -1,8 +1,7 @@
 class ContentObjectStore::ContentBlockEdition < ApplicationRecord
   include ContentObjectStore::Identifiable
   include ContentObjectStore::ValidatesDetails
-
-  has_many :content_block_edition_authors, dependent: :destroy
+  include ContentObjectStore::HasAuthors
 
   validates :creator, presence: true
 
