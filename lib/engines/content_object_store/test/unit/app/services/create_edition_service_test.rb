@@ -5,7 +5,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
   describe "#call" do
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
-    let(:schema) { stub(id: "content_block_type", fields: %w[foo bar], name: "schema") }
+    let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:edition_params) do
       {
         title: "Some Title",
@@ -22,6 +22,9 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       # we stub the initial creation so we know what UUID to check for.
       ContentObjectStore::ContentBlockEdition.any_instance.stubs(:create_random_id)
                                              .returns(content_id)
+
+      ContentObjectStore::ContentBlockSchema.stubs(:find_by_block_type)
+                                            .returns(schema)
     end
 
     test "it creates a ContentBlockEdition in Whitehall" do
@@ -51,8 +54,8 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       publishing_api_mock.expect :put_content, fake_put_content_response, [
         content_id,
         {
-          schema_name: "content_block_type",
-          document_type: "content_block_type",
+          schema_name: schema.id,
+          document_type: schema.id,
           publishing_app: "whitehall",
           title: "Some Title",
           details: {
