@@ -19,8 +19,9 @@
         text: field.humanize,
       },
       name: "content_object_store_content_block_edition[details[#{field}]]",
-      id: "content_object_store_content_block_edition_details_#{field}",
+      id: "content_object_store/content_block_edition_details_#{field}",
       value: content_block_edition.details&.fetch(field, nil),
+      error_items: errors_for(content_block_edition.errors, "details_#{field}".to_sym),
     } %>
   <% end %>
 

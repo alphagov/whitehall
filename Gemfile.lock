@@ -315,6 +315,7 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
+    hana (1.3.7)
     hashdiff (1.1.0)
     hashery (2.1.2)
     hashie (5.0.0)
@@ -359,6 +360,11 @@ GEM
     json (2.7.2)
     json-schema (4.3.0)
       addressable (>= 2.8)
+    json_schemer (2.3.0)
+      bigdecimal
+      hana (~> 1.3)
+      regexp_parser (~> 2.0)
+      simpleidn (~> 0.2)
     jwt (2.8.1)
       base64
     kaminari (1.2.2)
@@ -1030,6 +1036,7 @@ DEPENDENCIES
   invalid_utf8_rejector
   isbn_validation
   jbuilder
+  json_schemer
   kaminari
   launchy
   link_header

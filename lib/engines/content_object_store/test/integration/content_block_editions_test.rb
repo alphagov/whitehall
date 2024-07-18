@@ -126,6 +126,6 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
 end
 
 def stub_request_for_schema(block_type)
-  schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema", block_type:)
+  schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema", body: {}, block_type:)
   ContentObjectStore::ContentBlockSchema.stubs(:find_by_block_type).with(block_type).returns(schema)
 end

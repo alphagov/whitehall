@@ -3,6 +3,8 @@ FactoryBot.define do
     details { {} }
     created_at { Time.zone.now.utc }
     updated_at { Time.zone.now.utc }
+    block_type { "block_type" }
+    schema { build(:content_block_schema) }
 
     ContentObjectStore::ContentBlockSchema.valid_schemas.each do |type|
       trait type.to_sym do
