@@ -13,10 +13,10 @@ module Admin
       {
         event_name: "page_view",
         page_view: {
-          government_department_name: "Government Digital Service",
-          access_level: current_user&.permissions,
           publishing_app: "Whitehall",
           user_created_at: current_user&.created_at&.to_date,
+          user_organisation_name: current_user&.organisation_name,
+          user_role: current_user&.role,
           document_type: title,
         },
       }.to_json

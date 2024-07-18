@@ -11,7 +11,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       const event = {
         event_name: 'navigation',
         type: 'generic_link',
-        section: document.title.split(' - ')[0]
+        section: document.title.split(' - ')[0].replace('Error: ', '')
       }
       if (link.dataset.ga4Event) {
         Object.assign(event, JSON.parse(link.dataset.ga4Event))

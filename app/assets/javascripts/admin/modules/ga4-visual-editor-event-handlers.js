@@ -6,7 +6,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       event_name: 'select_content',
       type: 'select',
       text: selectText,
-      section: document.title.split(' - ')[0],
+      section: document.title.split(' - ')[0].replace('Error: ', ''),
       action: selectText,
       tool_name: 'Visual Editor'
     }
