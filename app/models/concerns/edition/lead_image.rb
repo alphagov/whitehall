@@ -62,8 +62,6 @@ private
       lead_organisations.first.default_news_image
     elsif organisations.any? && organisations.first.default_news_image
       organisations.first.default_news_image
-    elsif respond_to?(:worldwide_organisations) && worldwide_organisations.any? && worldwide_organisations.first.default_news_image
-      worldwide_organisations.first.default_news_image
     elsif respond_to?(:editionable_worldwide_organisations) && published_editionable_worldwide_organisations.any? && published_editionable_worldwide_organisations.first.default_news_image
       published_editionable_worldwide_organisations.first.default_news_image
     end
