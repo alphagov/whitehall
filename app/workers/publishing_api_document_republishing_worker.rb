@@ -59,7 +59,7 @@ private
   end
 
   def patch_links
-    edition = document.published_edition || document.pre_publication_edition
+    edition = document.published_edition || document.withdrawn_edition || document.pre_publication_edition
 
     return unless edition
 

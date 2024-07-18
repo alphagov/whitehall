@@ -267,6 +267,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
     requests = [
       stub_publishing_api_put_content(publication_presenter.content_id, with_locale(:en) { publication_presenter.content }),
       stub_publishing_api_put_content(publication_presenter.content_id, with_locale(:es) { publication_presenter.content }),
+      stub_publishing_api_patch_links(publication_presenter.content_id, links: publication_presenter.links),
       stub_publishing_api_publish(publication_presenter.content_id, locale: "en", update_type: nil),
       stub_publishing_api_publish(publication_presenter.content_id, locale: "es", update_type: nil),
       stub_publishing_api_unpublish(publication_presenter.content_id, body: withdrawal_content.merge(locale: "en")),
