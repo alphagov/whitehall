@@ -160,7 +160,7 @@ class Document < ApplicationRecord
         (:republish_pre_publication_edition if pre_publication_edition&.valid?),
       ].compact
     elsif withdrawn_edition.present?
-      return [:republish_withdrawn_edition]
+      return %i[patch_links republish_withdrawn_edition]
     end
 
     [

@@ -515,7 +515,7 @@ class DocumentTest < ActiveSupport::TestCase
         setup { document.editions.stubs(:unpublished).returns([]) }
 
         it "#republishing_actions returns an action for republishing the withdrawn edition" do
-          assert_equal document.republishing_actions, [:republish_withdrawn_edition]
+          assert_equal document.republishing_actions, %i[patch_links republish_withdrawn_edition]
         end
 
         it "#republishable_editions returns the withdrawn edition" do
