@@ -1,16 +1,19 @@
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: content_block_edition)) %>
 
-<%= form_for content_block_edition, url: content_object_store.content_object_store_content_block_editions_path do |f| %>
-  <%= f.hidden_field :block_type, value: schema.block_type %>
+<%= form_for content_block_edition, url:
+content_object_store.content_object_store_content_block_editions_path do |f| %>
+  <%= hidden_field_tag "content_block_edition[content_block_document_attributes][block_type]",
+    schema.block_type,
+    id: "content_object_store/content_block_edition_content_block_document_block_type" %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Title",
     },
-    name: "content_object_store_content_block_edition[title]",
-    id: "content_object_store/content_block_edition_title",
-    value: content_block_edition.title,
-    error_items: errors_for(content_block_edition.errors, :title),
+    name: "content_block_edition[content_block_document_attributes][title]",
+    id: "content_object_store/content_block_edition_content_block_document_title",
+    value: content_block_edition.content_block_document&.title,
+    error_items: errors_for(content_block_edition.errors, "content_block_document.title".to_sym),
   } %>
 
   <% @schema.fields.each do |field| %>
@@ -18,7 +21,7 @@
       label: {
         text: field.humanize,
       },
-      name: "content_object_store_content_block_edition[details[#{field}]]",
+      name: "content_block_edition[details[#{field}]]",
       id: "content_object_store/content_block_edition_details_#{field}",
       value: content_block_edition.details&.fetch(field, nil),
       error_items: errors_for(content_block_edition.errors, "details_#{field}".to_sym),

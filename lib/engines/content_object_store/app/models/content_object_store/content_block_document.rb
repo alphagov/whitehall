@@ -5,4 +5,6 @@ class ContentObjectStore::ContentBlockDocument < ApplicationRecord
 
   enum :block_type, ContentObjectStore::ContentBlockSchema.valid_schemas.index_with(&:to_s)
   attr_readonly :block_type
+
+  validates :block_type, :title, presence: true
 end
