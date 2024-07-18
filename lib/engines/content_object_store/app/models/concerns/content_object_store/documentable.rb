@@ -5,11 +5,10 @@ module ContentObjectStore
     included do
       belongs_to :content_block_document, touch: true
       validates :content_block_document, presence: true
-      validates :block_type, :title, presence: true
 
       before_validation :ensure_presence_of_document, on: :create
 
-      attr_writer :block_type, :title
+      accepts_nested_attributes_for :content_block_document
     end
 
     alias_attribute :document, :content_block_document

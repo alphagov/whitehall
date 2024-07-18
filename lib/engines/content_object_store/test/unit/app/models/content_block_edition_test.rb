@@ -11,16 +11,17 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
     @title = "Document title"
     @creator = create(:user)
 
-    @content_block_edition = build(
-      :content_block_edition,
-      :email_address,
+    @content_block_edition = ContentObjectStore::ContentBlockEdition.new(
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      title: @title,
-      content_block_document: nil,
+      content_block_document_attributes: {
+        block_type: "email_address",
+        title: @title,
+      },
       creator: @creator,
     )
+    @content_block_edition.stubs(:schema).returns(build(:content_block_schema))
   end
 
   test "content_block_edition exists with required data" do
@@ -65,26 +66,30 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
     assert_equal @content_block_edition.document.content_id, @new_content_id
   end
 
-  test "it validates the presence of a block_type" do
+  test "it validates the presence of a document block_type" do
     @content_block_edition = build(
       :content_block_edition,
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      block_type: nil,
+      content_block_document_attributes: {
+        block_type: nil,
+      },
     )
 
     assert_invalid @content_block_edition
-    assert @content_block_edition.errors.full_messages.include?("Block type can't be blank")
+    assert @content_block_edition.errors.full_messages.include?("Content block document block type can't be blank")
   end
 
-  test "it validates the presence of a title" do
+  test "it validates the presence of a document title" do
     content_block_edition = build(
       :content_block_edition,
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      block_type: nil,
+      content_block_document_attributes: {
+        title: nil,
+      },
     )
 
     assert_invalid content_block_edition

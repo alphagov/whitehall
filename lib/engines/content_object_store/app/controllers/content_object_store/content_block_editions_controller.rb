@@ -12,12 +12,12 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
       @schemas = ContentObjectStore::ContentBlockSchema.all
     else
       @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(params[:block_type].underscore)
-      @content_block_edition = ContentObjectStore::ContentBlockEdition.new(block_type: @schema.block_type)
+      @content_block_edition = ContentObjectStore::ContentBlockEdition.new
     end
   end
 
   def create
-    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(root_params[:block_type])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type_param)
 
     ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
 
@@ -34,6 +34,12 @@ private
   end
 
   def edition_params
-    root_params.permit(:title, :block_type, details: @schema.fields).merge(creator: current_user)
+    params.require(:content_block_edition)
+      .permit(content_block_document_attributes: %w[title block_type], details: @schema.fields)
+      .merge(creator: current_user)
+  end
+
+  def block_type_param
+    params.require(:content_block_edition).require("content_block_document_attributes").require(:block_type)
   end
 end

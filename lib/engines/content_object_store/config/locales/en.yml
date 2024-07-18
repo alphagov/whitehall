@@ -1,3 +1,5 @@
 en:
   activerecord:
     attributes:
+      content_object_store/content_block_edition/content_block_document:
+        title: Title
