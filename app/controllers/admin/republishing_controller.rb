@@ -193,7 +193,7 @@ private
       "PublishingApi::HowGovernmentWorksPresenter",
       "PublishingApi::OperationalFieldsIndexPresenter",
       "PublishingApi::MinistersIndexPresenter",
-      "PublishingApi::EmbassiesIndexPresenter",
+      # "PublishingApi::EmbassiesIndexPresenter",
       "PublishingApi::WorldIndexPresenter",
       "PublishingApi::OrganisationsIndexPresenter",
     ].map do |presenter_class_string|

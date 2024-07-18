@@ -112,7 +112,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "republishes embassies and world index pages on creation of world location" do
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     Sidekiq::Testing.inline! do
@@ -123,7 +123,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "republishes embassies and world index pages on update of world location" do
     location = create(:world_location)
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     Sidekiq::Testing.inline! do
@@ -134,7 +134,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "republishes embassies and world index pages on deletion of world location" do
     location = create(:world_location)
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::WorldIndexPresenter)
 
     Sidekiq::Testing.inline! do

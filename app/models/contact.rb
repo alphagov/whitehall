@@ -23,7 +23,7 @@ class Contact < ApplicationRecord
   after_create :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
 
-  after_commit :republish_embassies_index_page_to_publishing_api, :republish_worldwide_office_to_publishing_api
+  # after_commit :republish_embassies_index_page_to_publishing_api, :republish_worldwide_office_to_publishing_api
 
   include TranslatableModel
   translates :title,
