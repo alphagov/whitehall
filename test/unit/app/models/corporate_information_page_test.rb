@@ -26,8 +26,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_not build(:corporate_information_page).previously_published
   end
 
-  test "base_path is nil when neither organisation or worldwide organisation is present" do
-    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation: nil)
+  test "base_path is nil when no organisation is present" do
+    corporate_information_page = create(:corporate_information_page, organisation: nil)
     assert_nil corporate_information_page.base_path
   end
 
@@ -51,96 +51,17 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "/government/organisations/#{organisation.name}/about", corporate_information_page.base_path
   end
 
-  test "base_path appends /about to the associated Worldwide Organisation base_path when about page" do
-    worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(
-      :about_corporate_information_page,
-      organisation: nil,
-      worldwide_organisation:,
-    )
-
-    assert_equal "/world/organisations/#{worldwide_organisation.name}/about", corporate_information_page.base_path
-  end
-
-  test "base_path appends Corporate Information Page path to the associated WorldwideOrganisation base_path" do
-    worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(
-      :corporate_information_page,
-      organisation: nil,
-      worldwide_organisation:,
-    )
-
-    assert_equal "/world/organisations/#{worldwide_organisation.name}/about/#{corporate_information_page.slug}", corporate_information_page.base_path
-  end
-
-  test "api_presenter_redirect_to returns the base_path of the owning Worldwide Organisation for about us pages" do
-    worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(
-      :about_corporate_information_page,
-      organisation: nil,
-      worldwide_organisation:,
-    )
-
-    assert_equal "/world/organisations/#{worldwide_organisation.name}", corporate_information_page.api_presenter_redirect_to
-  end
-
-  test "api_presenter_redirect_to returns a #{RuntimeError} when not a Worldwide Organisation about page" do
-    organisation = create(:organisation)
-    corporate_information_page = create(
-      :about_corporate_information_page,
-      organisation:,
-    )
-
-    assert_raises(RuntimeError, match: "only worldwide about pages should redirect") { corporate_information_page.api_presenter_redirect_to }
-  end
-
   test "republishes owning organisation after commit when present" do
     organisation = create(:organisation)
-    corporate_information_page = create(:corporate_information_page, organisation:, worldwide_organisation: nil)
+    corporate_information_page = create(:corporate_information_page, organisation:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 
     corporate_information_page.update!(body: "new body")
   end
 
-  test "republishes owning worldwide organisation after commit when present" do
-    worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation:)
-
-    Whitehall::PublishingApi.expects(:republish_async).with(worldwide_organisation).once
-
-    corporate_information_page.update!(state: "published", body: "new body")
-  end
-
-  test "republishes owning worldwide organisation draft after commit when corporate information page is draft" do
-    worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation:)
-
-    entries = has_entries(description: "new summary", details: has_entry({ body: "<div class=\"govspeak\"><p>new body</p>\n</div>" }))
-    Services.publishing_api.expects(:put_content).with(worldwide_organisation.content_id, entries).once
-    Whitehall::PublishingApi.expects(:republish_async).never
-
-    corporate_information_page.update!(body: "new body", summary: "new summary")
-
-    assert_equal "new body", corporate_information_page.body
-  end
-
-  test "republishes owning worldwide organisation draft after commit when corporate information page is submitted" do
-    worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation:)
-
-    entries = has_entries(description: "new summary", details: has_entry({ body: "<div class=\"govspeak\"><p>new body</p>\n</div>" }))
-    Services.publishing_api.expects(:put_content).with(worldwide_organisation.content_id, entries).twice
-    Whitehall::PublishingApi.expects(:republish_async).never
-
-    corporate_information_page.update!(body: "new body", summary: "new summary")
-    corporate_information_page.update!(state: "submitted")
-
-    assert_equal "new body", corporate_information_page.body
-  end
-
   test "does not republish owning organisation when absent" do
-    corporate_information_page = create(:corporate_information_page, organisation: nil, worldwide_organisation: nil)
+    corporate_information_page = create(:corporate_information_page, organisation: nil)
 
     Whitehall::PublishingApi.expects(:republish_async).never
 
@@ -168,17 +89,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert corporate_information_page.valid?
   end
 
-  test "should be invalid if has both organisation and worldwide org" do
-    organisation = create(:organisation)
-    worldwide_org = create(:worldwide_organisation)
-    corporate_information_page = build(
-      :corporate_information_page,
-      organisation:,
-      worldwide_organisation: worldwide_org,
-    )
-    assert_not corporate_information_page.valid?
-  end
-
   test "should be invalid if a CIP of the same type already exists for the organisation" do
     organisation = create(:organisation)
     corporate_information_page1 = build(
@@ -198,28 +108,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_not corporate_information_page2.valid?
 
     assert corporate_information_page2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
-  end
-
-  test "should be invalid if a CIP of the same type already exists for the worldwide organisation" do
-    worldwide_organisation = create(:worldwide_organisation)
-    corporate_information_page1 = build(
-      :published_worldwide_organisation_corporate_information_page,
-      worldwide_organisation:,
-      corporate_information_page_type: CorporateInformationPageType::AboutUs,
-      state: "published",
-      major_change_published_at: Time.zone.now,
-    )
-    corporate_information_page1.save!
-
-    corporate_information_page2 = build(
-      :corporate_information_page,
-      organisation: nil,
-      worldwide_organisation:,
-      corporate_information_page_type: CorporateInformationPageType::AboutUs,
-    )
-    assert_not corporate_information_page2.valid?
-
-    assert corporate_information_page2.errors.full_messages.include?("Another 'About' page was already published for this worldwide organisation")
   end
 
   test "should be valid if it is a new draft of the same document" do
@@ -315,7 +203,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "#alternative_format_provider should be the owning organisaiton" do
     corporate_information_page = build(:corporate_information_page)
 
-    assert_equal corporate_information_page.alternative_format_provider, corporate_information_page.owning_organisation
+    assert_equal corporate_information_page.alternative_format_provider, corporate_information_page.organisation
   end
 
   test "should support attachments" do
@@ -441,14 +329,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page.update_in_search_index
   end
 
-  test "until we launch worldwide will not be indexed if the org it belongs to is a worldwide org" do
-    world_org = create(:worldwide_organisation)
-
-    corp_page = create(:corporate_information_page, organisation: nil, worldwide_organisation: world_org)
-    Whitehall::SearchIndex.expects(:add).with(corp_page).never
-    corp_page.update_in_search_index
-  end
-
   test "re-indexes the organisation after the 'About us' CIP is saved" do
     org = create(:organisation, govuk_status: "live")
     corp_page = create(
@@ -462,36 +342,10 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corp_page.save!
   end
 
-  test "re-indexes the worldwide organisation after the 'About us' CIP is saved" do
-    worldwide_org = create(:worldwide_organisation)
-    about_us = create(
-      :corporate_information_page,
-      :published,
-      organisation: nil,
-      worldwide_organisation: worldwide_org,
-      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
-    )
-
-    Whitehall::SearchIndex.expects(:add).with(worldwide_org).once
-    about_us.save!
-  end
-
   test "does not re-index organisation for other types of corporate info page" do
     org = create(:organisation, govuk_status: "live")
     other_page = create(:corporate_information_page, :published, organisation: org)
     Whitehall::SearchIndex.expects(:add).with(org).never
-    other_page.save!
-  end
-
-  test "does not re-index worldwide organisation for other types of corporate info page" do
-    worldwide_org = create(:worldwide_organisation)
-    other_page = create(
-      :corporate_information_page,
-      :published,
-      organisation: nil,
-      worldwide_organisation: worldwide_org,
-    )
-    Whitehall::SearchIndex.expects(:add).with(worldwide_org).never
     other_page.save!
   end
 

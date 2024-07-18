@@ -56,19 +56,9 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
   end
 
   view_test "GET #index renders Worldwide Organisation Edition when the editionable_worldwide_organisations feature flag is enabled" do
-    feature_flags.switch! :editionable_worldwide_organisations, true
-
     get :index
 
     assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=editionable_worldwide_organisation]", count: 1
-  end
-
-  view_test "GET #index does not render Worldwide Organisation Edition when the editionable_worldwide_organisations feature flag is not enabled" do
-    feature_flags.switch! :editionable_worldwide_organisations, false
-
-    get :index
-
-    refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=editionable_worldwide_organisation]"
   end
 
   test "POST #new_document_options_redirect redirects each radio buttons to their expected paths" do

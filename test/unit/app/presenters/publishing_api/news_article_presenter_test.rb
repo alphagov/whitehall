@@ -187,10 +187,6 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "includes worldwide organisation links" do
-      assert_equal news_article.worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first
-    end
-
-    test "includes editionable worldwide organisations as worldwide organisation links when the editionable_worldwide_organisations is enabled" do
       news_article.editionable_worldwide_organisations = [create(:editionable_worldwide_organisation)]
 
       assert_equal news_article.editionable_worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first
@@ -268,23 +264,6 @@ module PublishingApi::NewsArticlePresenterTest
       }
 
       assert_details_attribute :image, expected_image
-    end
-
-    test "should return lead image from worldwide_organisations when lead_image_has_all_assets?" do
-      image = build(:featured_image_data)
-      worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
-      self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
-
-      assert presented_news_article.content[:details][:image][:url].include?("s300_minister-of-funk.960x640.jpg")
-    end
-
-    test "should not return lead image from worldwide_organisations when lead_image dont have assets?" do
-      image = build(:featured_image_data)
-      worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
-      worldwide_organisation.default_news_image.assets = []
-
-      self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
-      assert presented_news_article.content[:details][:image].nil?
     end
 
     test "should return lead image from editionable worldwide organisations when lead_image_has_all_assets?" do

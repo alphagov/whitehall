@@ -47,18 +47,7 @@ class Admin::MoreControllerTest < ActionController::TestCase
     refute_select "a.govuk-link", text: "Sitewide settings"
   end
 
-  view_test "GET #index renders Worldwide Organisations with link to non-editionable index when the editionable_worldwide_organisations feature flag is switched off" do
-    feature_flags.switch! :editionable_worldwide_organisations, false
-
-    get :index
-
-    assert_select ".govuk-list"
-    assert_select "a.govuk-link[href=?]", "/government/admin/worldwide_organisations", text: "Worldwide organisations"
-  end
-
-  view_test "GET #index renders Worldwide Organisations with link to editions index when the editionable_worldwide_organisations feature flag is switched on" do
-    feature_flags.switch! :editionable_worldwide_organisations, true
-
+  view_test "GET #index renders Worldwide Organisations with link to editions index" do
     get :index
 
     assert_select ".govuk-list"

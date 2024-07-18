@@ -44,13 +44,13 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal "International delegation", world_location.display_type
   end
 
-  test ".worldwide_organisations_with_sponsoring_organisations returns all related organisations" do
+  test ".worldwide_organisations_with_organisations returns all related organisations" do
     world_location = create(:world_location, :with_worldwide_organisations)
     related_organisations = world_location.worldwide_organisations +
       world_location.worldwide_organisations
-        .map { |orgs| orgs.sponsoring_organisations.to_a }.flatten
+        .map { |orgs| orgs.organisations.to_a }.flatten
 
-    assert_equal related_organisations, world_location.worldwide_organisations_with_sponsoring_organisations
+    assert_equal related_organisations, world_location.worldwide_organisations_with_organisations
   end
 
   test "ordered_by_name sorts by the I18n.default_locale translation for name" do

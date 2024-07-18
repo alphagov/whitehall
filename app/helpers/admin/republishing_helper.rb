@@ -69,8 +69,6 @@ module Admin::RepublishingHelper
 
   def republishable_content_types
     editionable_content_types = Edition.descendants.select { |descendant|
-      next(false) if descendant == EditionableWorldwideOrganisation && !Flipflop.editionable_worldwide_organisations?
-
       descendant.descendants.count.zero?
     }.map(&:to_s)
 

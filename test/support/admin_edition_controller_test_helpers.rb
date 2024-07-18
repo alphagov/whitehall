@@ -1157,81 +1157,11 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_worldwide_organisations(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test "new should display worldwide organisations field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "label[for=edition_worldwide_organisations]", text: "Worldwide organisations"
-
-          assert_select "#edition_worldwide_organisations" do |elements|
-            assert_equal 1, elements.length
-            assert_data_attributes_for_worldwide_organisations(
-              element: elements.first,
-              track_label: new_edition_path(edition_type),
-            )
-          end
-        end
-      end
-
-      test "should not populate world locations if user doesn't have any" do
-        create(:world_location)
-        @user = login_as create(:departmental_editor, world_locations: [])
-        get :new
-
-        assert_equal assigns(:edition).world_locations, []
-      end
-
-      test "should populate world locations with the current users locations" do
-        world_location = create(:world_location)
-        @user = login_as create(:departmental_editor, world_locations: [world_location])
-        get :new
-
-        assert_equal assigns(:edition).world_locations, [world_location]
-      end
-
-      view_test "edit should display worldwide organisations field" do
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
-        get :edit, params: { id: edition }
-
-        assert_select "form#edit_edition" do
-          assert_select "label[for=edition_worldwide_organisations]", text: "Worldwide organisations"
-
-          assert_select "#edition_worldwide_organisations" do |elements|
-            assert_equal 1, elements.length
-            assert_data_attributes_for_worldwide_organisations(
-              element: elements.first,
-              track_label: edit_edition_path(edition_type),
-            )
-          end
-        end
-      end
-
-      test "create should associate worldwide organisations with the edition" do
-        first_world_organisation = create(:worldwide_organisation)
-        second_world_organisation = create(:worldwide_organisation)
-        attributes = controller_attributes_for(edition_type)
-
-        post :create,
-             params: {
-               edition: attributes.merge(
-                 worldwide_organisation_ids: [first_world_organisation.id, second_world_organisation.id],
-               ),
-             }
-
-        edition = edition_class.last!
-        assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
-      end
-    end
-
-    def should_allow_association_with_editionable_worldwide_organisations(edition_type, required: false)
-      edition_class = class_for(edition_type)
+    def should_allow_association_with_editionable_worldwide_organisations(edition_type, edition_parent_type: nil, factory_name: nil, required: false)
+      factory_name ||= edition_type
+      edition_class = edition_parent_type&.to_s&.classify&.constantize || class_for(edition_type)
 
       view_test "new should display editionable worldwide organisations field" do
-        feature_flags.switch! :editionable_worldwide_organisations, true
-
         get :new
 
         assert_select "form#new_edition" do
@@ -1242,16 +1172,14 @@ module AdminEditionControllerTestHelpers
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
-              track_label: new_edition_path(edition_type),
+              track_label: new_edition_path(edition_type, factory_name:),
             )
           end
         end
       end
 
       view_test "edit should display editionable worldwide organisations field" do
-        feature_flags.switch! :editionable_worldwide_organisations, true
-
-        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+        edition = create(factory_name) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
@@ -1262,28 +1190,26 @@ module AdminEditionControllerTestHelpers
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
-              track_label: edit_edition_path(edition_type),
+              track_label: edit_edition_path(edition_parent_type || edition_type),
             )
           end
         end
       end
 
       test "create should associate editionable worldwide organisations with the edition" do
-        feature_flags.switch! :editionable_worldwide_organisations, true
-
-        first_world_organisation = create(:editionable_worldwide_organisation, document: create(:document))
-        second_world_organisation = create(:editionable_worldwide_organisation, document: create(:document))
+        first_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
+        second_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
         attributes = controller_attributes_for(edition_type)
 
         post :create,
              params: {
                edition: attributes.merge(
-                 editionable_worldwide_organisation_document_ids: [first_world_organisation.document.id, second_world_organisation.document.id],
+                 editionable_worldwide_organisation_document_ids: [first_worldwide_organisation.document.id, second_worldwide_organisation.document.id],
                ),
              }
 
         edition = edition_class.last!
-        assert_equal [first_world_organisation, second_world_organisation], edition.editionable_worldwide_organisations
+        assert_equal [first_worldwide_organisation, second_worldwide_organisation], edition.editionable_worldwide_organisations
       end
     end
 
@@ -1358,8 +1284,9 @@ private
     # assert_equal track_label, element["data-track-label"]
   end
 
-  def new_edition_path(edition_type)
-    edition = build(edition_type)
+  def new_edition_path(edition_type, factory_name: nil)
+    factory_name ||= edition_type
+    edition = build(factory_name)
     @controller.new_polymorphic_path([:admin, edition])
   end
 

@@ -3,13 +3,13 @@ require "test_helper"
 class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestCase
   setup do
     login_as(:writer)
-    @worldwide_organisation = create(:worldwide_organisation, translated_into: %i[fr es])
+    @worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[fr es])
   end
 
   should_be_an_admin_controller
 
   view_test "index shows a form to create missing translations" do
-    worldwide_office = create(:worldwide_office, worldwide_organisation: @worldwide_organisation)
+    worldwide_office = create(:worldwide_office, edition: @worldwide_organisation)
 
     get :index, params: { worldwide_organisation_id: @worldwide_organisation, worldwide_office_id: worldwide_office }
 
@@ -41,7 +41,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
       } },
     )
     worldwide_office = create(:worldwide_office,
-                              worldwide_organisation: @worldwide_organisation,
+                              edition: @worldwide_organisation,
                               contact:)
 
     french_translation = contact.translations.find_by(locale: :fr)
@@ -64,8 +64,8 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
   end
 
   view_test "edit presents a form respecting the RTL value of the language" do
-    worldwide_organisation = create(:worldwide_organisation, translated_into: %i[ar])
-    worldwide_office = create(:worldwide_office, worldwide_organisation:)
+    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[ar])
+    worldwide_office = create(:worldwide_office, edition: worldwide_organisation)
 
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, id: "ar" }
 
@@ -75,7 +75,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
   end
 
   view_test "update updates translation and redirects back to the index" do
-    worldwide_office = create(:worldwide_office, worldwide_organisation: @worldwide_organisation)
+    worldwide_office = create(:worldwide_office, edition: @worldwide_organisation)
 
     put :update, params: { worldwide_organisation_id: @worldwide_organisation,
                            worldwide_office_id: worldwide_office,
@@ -92,7 +92,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
   end
 
   test "update re-renders form if translation is invalid" do
-    worldwide_office = create(:worldwide_office, worldwide_organisation: @worldwide_organisation)
+    worldwide_office = create(:worldwide_office, edition: @worldwide_organisation)
 
     put :update, params: { worldwide_organisation_id: @worldwide_organisation,
                            worldwide_office_id: worldwide_office,

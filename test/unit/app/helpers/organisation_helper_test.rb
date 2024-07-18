@@ -18,11 +18,6 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal "Building Law and Hygiene", organisation_display_name(organisation)
   end
 
-  test "returns the name of a worldwide organisation" do
-    organisation = build(:worldwide_organisation, name: "British Embassy, Atlantis")
-    assert_equal "British Embassy, Atlantis", organisation_display_name(organisation)
-  end
-
   test "returns name formatted for logos" do
     organisation = build(:organisation, name: "Building Law and Hygiene", logo_formatted_name: "Building Law\nand Hygiene")
     assert_equal "Building Law<br/>and Hygiene", organisation_logo_name(organisation)

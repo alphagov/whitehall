@@ -147,7 +147,6 @@ When(/^I visit the organisation admin page for "([^"]*)"$/) do |organisation_nam
 end
 
 When(/^I add a new contact "([^"]*)" with address "([^"]*)"$/) do |contact_description, address|
-  @worldwide_organisation = WorldwideOrganisation.last
   @organisation = Organisation.last
   click_link "Contacts"
   click_link "Add"

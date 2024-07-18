@@ -69,13 +69,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::WorldLocationPresenter, presenter.class
   end
 
-  test ".presenter_for returns a WorldwideOrganisation presenter for a worldwide organisation" do
-    worldwide_organisation = WorldwideOrganisation.new
-    presenter = PublishingApiPresenters.presenter_for(worldwide_organisation)
-
-    assert_equal PublishingApi::WorldwideOrganisationPresenter, presenter.class
-  end
-
   test ".presenter_for returns a WorkingGroup presenter for a policy group" do
     policy_group = PolicyGroup.new
     presenter = PublishingApiPresenters.presenter_for(policy_group)
@@ -140,40 +133,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
     assert_equal(
       PublishingApi::CorporateInformationPagePresenter,
-      presenter.class,
-    )
-  end
-
-  test ".presenter_for returns a RedirectPresenter for an " \
-    "AboutUs CorporateInformationPage belonging to an WorldwideOrganisation" do
-    presenter = PublishingApiPresenters
-      .presenter_for(
-        build(
-          :corporate_information_page,
-          worldwide_organisation: build(:worldwide_organisation),
-          organisation: nil,
-          corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
-        ),
-      )
-
-    assert_equal(
-      PublishingApi::RedirectPresenter,
-      presenter.class,
-    )
-  end
-
-  test ".presenter_for returns a WorldwideCorporateInformationPagePresenter for a " \
-    "CorporateInformationPage belonging to an WorldwideOrganisation" do
-    presenter = PublishingApiPresenters
-                  .presenter_for(
-                    build(
-                      :corporate_information_page,
-                      worldwide_organisation: build(:worldwide_organisation),
-                    ),
-                  )
-
-    assert_equal(
-      PublishingApi::WorldwideCorporateInformationPagePresenter,
       presenter.class,
     )
   end

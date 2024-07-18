@@ -91,7 +91,7 @@ class DocumentListExportPresenter
 
   def lead_organisations
     if edition.is_a?(CorporateInformationPage)
-      edition.owning_organisation.name
+      edition.organisation.name
     else
       edition.lead_organisations.map(&:name)
     end

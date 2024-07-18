@@ -38,8 +38,6 @@ private
     @organisation =
       if params.key?(:organisation_id)
         Organisation.friendly.find(params[:organisation_id])
-      elsif params.key?(:worldwide_organisation_id)
-        WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
       else
         raise ActiveRecord::RecordNotFound
       end

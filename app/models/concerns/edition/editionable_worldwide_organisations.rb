@@ -15,7 +15,7 @@ module Edition::EditionableWorldwideOrganisations
 
     add_trait Trait
 
-    validate :at_least_one_editionable_worldwide_organisations
+    validate :at_least_one_editionable_worldwide_organisation
   end
 
   def editionable_worldwide_organisations=(editionable_worldwide_organisations)
@@ -30,8 +30,8 @@ module Edition::EditionableWorldwideOrganisations
     true
   end
 
-  def at_least_one_editionable_worldwide_organisations
-    return unless Flipflop.editionable_worldwide_organisations? && !skip_worldwide_organisations_validation?
+  def at_least_one_editionable_worldwide_organisation
+    return if skip_worldwide_organisations_validation?
 
     errors.add(:editionable_worldwide_organisations, "at least one required") if editionable_worldwide_organisation_document_ids.empty?
   end

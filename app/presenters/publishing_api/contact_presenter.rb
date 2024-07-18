@@ -39,7 +39,7 @@ module PublishingApi
       links[:world_locations] = [contact.country.content_id] if contact.country
 
       if contact.contactable
-        if contact.contactable.is_a?(::WorldwideOrganisation)
+        if contact.contactable.is_a?(::Edition)
           links[:worldwide_organisations] = [contact.contactable.content_id]
         else
           links[:organisations] = [contact.contactable.content_id]

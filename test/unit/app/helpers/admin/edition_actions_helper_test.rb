@@ -11,7 +11,8 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
                  "News articles",
                  "Publications",
                  "Speeches",
-                 "Statistical data sets"]
+                 "Statistical data sets",
+                 "Worldwide organisations"]
   end
 
   test "should generate publish form for edition" do
@@ -36,15 +37,6 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     types = filter_options[1].last.map { |type| type[:text] }
 
     assert_same_elements @editions, types
-  end
-
-  test "#filter_edition_type_opt_groups should include worldwide organisations when the editionable_worldwide_organisations feature flag is enabled" do
-    feature_flags.switch! :editionable_worldwide_organisations, true
-
-    filter_options = filter_edition_type_opt_groups(create(:user), nil)
-    types = filter_options[1].last.map { |type| type[:text] }
-
-    assert_same_elements @editions + ["Worldwide organisations"], types
   end
 
   test "#filter_edition_type_opt_groups should include fatality notices when the user can handle fatalities" do

@@ -2,7 +2,6 @@ require "test_helper"
 
 class Admin::EditionableWorldwideOrganisationsControllerTest < ActionController::TestCase
   setup do
-    feature_flags.switch! :editionable_worldwide_organisations, true
     login_as :writer
   end
 
@@ -15,15 +14,6 @@ class Admin::EditionableWorldwideOrganisationsControllerTest < ActionController:
   should_allow_access_limiting_of :editionable_worldwide_organisation
   should_allow_association_between_roles_and :editionable_worldwide_organisation
   should_allow_association_between_world_locations_and :editionable_worldwide_organisation
-
-  test "actions are forbidden when the editionable_worldwide_organisations feature flag is disabled" do
-    feature_flags.switch! :editionable_worldwide_organisations, false
-    worldwide_organisation = create(:editionable_worldwide_organisation)
-
-    get :show, params: { id: worldwide_organisation.id }
-
-    assert_response :forbidden
-  end
 
   test "POST :create - creates a default news image" do
     post :create,

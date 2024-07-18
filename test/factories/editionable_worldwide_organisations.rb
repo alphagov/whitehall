@@ -5,9 +5,9 @@ FactoryBot.define do
     summary { "Basic information about the organisation." }
     body { "Information about the organisation with _italics_." }
 
-    after :build do |news_article, evaluator|
+    after :build do |organisation, evaluator|
       if evaluator.world_locations.empty?
-        news_article.world_locations << build(:world_location)
+        organisation.world_locations << build(:world_location)
       end
     end
 
@@ -19,13 +19,13 @@ FactoryBot.define do
 
     trait(:with_main_office) do
       after :create do |organisation, _evaluator|
-        FactoryBot.create(:worldwide_office, worldwide_organisation: nil, edition: organisation)
+        FactoryBot.create(:worldwide_office, edition: organisation)
       end
     end
 
     trait(:with_home_page_offices) do
       after :create do |organisation, _evaluator|
-        worldwide_office = create(:worldwide_office, worldwide_organisation: nil, edition: organisation)
+        worldwide_office = create(:worldwide_office, edition: organisation)
         organisation.add_office_to_home_page!(worldwide_office)
       end
     end

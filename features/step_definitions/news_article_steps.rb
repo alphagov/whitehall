@@ -11,7 +11,7 @@ end
 
 When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do |news_type, title|
   if news_type == "World news story"
-    create(:worldwide_organisation, name: "Afghanistan embassy")
+    create(:editionable_worldwide_organisation, title: "Afghanistan embassy")
     create(:world_location, name: "Afghanistan", active: true)
     begin_drafting_news_article(title:, first_published: Time.zone.today.to_s, announcement_type: news_type)
     select "Afghanistan embassy", from: "Worldwide organisations"
