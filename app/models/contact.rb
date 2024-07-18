@@ -16,7 +16,7 @@ class Contact < ApplicationRecord
 
   validate :parent_edition_has_locales, if: :attached_to_editionable_worldwide_organisation?
 
-  after_update :republish_dependent_editions
+  after_commit :republish_dependent_editions, on: :update
   after_update :republish_dependent_policy_groups
   after_update :republish_organisation_to_publishing_api
 
