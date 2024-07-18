@@ -78,7 +78,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     worldwide_organisation = create(:editionable_worldwide_organisation)
     contact = create(:contact)
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).twice
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
 
     Sidekiq::Testing.inline! do
       create(:worldwide_office, edition: worldwide_organisation, contact:)
@@ -88,7 +88,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   test "republishes embassies index page on update of worldwide office" do
     office = create(:worldwide_office)
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
 
     Sidekiq::Testing.inline! do
       office.update!(slug: "new-slug")
@@ -98,7 +98,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   test "republishes embassies index page on deletion of worldwide office" do
     office = create(:worldwide_office)
 
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).twice
+    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
 
     Sidekiq::Testing.inline! do
       office.destroy!

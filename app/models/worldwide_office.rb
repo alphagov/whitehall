@@ -5,7 +5,7 @@ class WorldwideOffice < ApplicationRecord
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
   validates :contact, :edition, :worldwide_office_type_id, presence: true
 
-  after_commit :republish_embassies_index_page_to_publishing_api
+  # after_commit :republish_embassies_index_page_to_publishing_api
 
   accepts_nested_attributes_for :contact
 
