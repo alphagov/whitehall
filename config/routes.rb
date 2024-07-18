@@ -182,23 +182,6 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy, on: :member
       end
 
-      resources :worldwide_organisations, path: "worldwide-organisations" do
-        member do
-          get :choose_main_office, to: "worldwide_organisations_main_offices#show"
-          put :set_main_office, to: "worldwide_organisations_main_offices#update"
-        end
-        resources :worldwide_offices, path: "offices", except: [:show] do
-          member do
-            get :confirm_destroy
-          end
-          get :reorder, on: :collection
-          post :reorder_for_home_page, on: :collection
-          resources :translations, controller: "worldwide_office_translations", only: %i[create edit update destroy index] do
-            get :confirm_destroy, on: :member
-          end
-        end
-      end
-
       resources :editions, only: [:index] do
         resource :tags, only: %i[edit update], controller: :edition_tags
         resource :legacy_associations, only: %i[edit update], controller: :edition_legacy_associations
@@ -336,7 +319,24 @@ Whitehall::Application.routes.draw do
             get :confirm_destroy, on: :member
           end
         end
+
+        member do
+          get :choose_main_office, to: "worldwide_organisations_main_offices#show"
+          put :set_main_office, to: "worldwide_organisations_main_offices#update"
+        end
+
+        resources :worldwide_offices, path: "offices", except: [:show] do
+          member do
+            get :confirm_destroy
+          end
+          get :reorder, on: :collection
+          post :reorder_for_home_page, on: :collection
+          resources :translations, controller: "worldwide_office_translations", only: %i[create edit update destroy index] do
+            get :confirm_destroy, on: :member
+          end
+        end
       end
+
       resources :worldwide_organisation_pages, only: [] do
         resources :attachments, except: [:show] do
           get :confirm_destroy, on: :member
