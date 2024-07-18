@@ -8,7 +8,7 @@ private
   attr_reader :content_block_edition
 
   def items
-    [title_item].concat(details_items)
+    [title_item].concat(details_items).concat([creator_item])
   end
 
   def title_item
@@ -22,5 +22,12 @@ private
     @content_block_edition.details.map do |key, value|
       { field: key.humanize, value: }
     end
+  end
+
+  def creator_item
+    {
+      field: "Creator",
+      value: content_block_edition.creator.name,
+    }
   end
 end

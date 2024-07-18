@@ -34,6 +34,6 @@ private
   end
 
   def edition_params
-    root_params.permit(:title, :block_type, details: @schema.fields)
+    root_params.permit(:title, :block_type, details: @schema.fields).merge(creator: current_user)
   end
 end

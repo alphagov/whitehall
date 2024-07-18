@@ -20,6 +20,12 @@ together {
     ContentBlockEdition .> content_block_editions
 }
 
+class ContentBlockEditionAuthor {
+        user_id
+        content_block_edition_id
+}
+
 ContentBlockDocument *-r- ContentBlockEdition : "has_many"
+ContentBlockEdition *-r- ContentBlockEditionAuthor : "has_many"
 
 @enduml

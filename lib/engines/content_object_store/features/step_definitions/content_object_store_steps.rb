@@ -78,7 +78,12 @@ end
 Given("an email address content block has been created") do
   @content_blocks ||= []
   @email_address = "foo@example.com"
-  @content_block = create(:content_block_edition, :email_address, details: { email_address: @email_address })
+  @content_block = create(
+    :content_block_edition,
+    :email_address,
+    details: { email_address: @email_address },
+    creator: @user,
+  )
   @content_blocks.push(@content_block)
 end
 
@@ -113,6 +118,8 @@ def should_show_summary_details_for_email_address_content_block(content_block, e
   expect(page).to have_selector(".govuk-summary-list__value", text: content_block.document.title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Creator")
+  expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
 end
 
 Then("I should see errors for the required fields") do

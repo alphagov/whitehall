@@ -9,6 +9,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
     @updated_at = Time.zone.local(2000, 12, 31, 23, 59, 59).utc
     @details = { "some_field" => "some_content" }
     @title = "Document title"
+    @creator = create(:user)
 
     @content_block_edition = build(
       :content_block_edition,
@@ -18,6 +19,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       details: @details,
       title: @title,
       content_block_document: nil,
+      creator: @creator,
     )
   end
 
@@ -87,5 +89,18 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
 
     assert_invalid content_block_edition
     assert content_block_edition.errors.full_messages.include?("Title can't be blank")
+  end
+
+  test "it adds a creator and first edition author for new records" do
+    @content_block_edition.save!
+    @content_block_edition.reload
+    assert_equal @content_block_edition.creator, @content_block_edition.content_block_edition_authors.first.user
+  end
+
+  test "#creator= raises an exception if called for a persisted record" do
+    @content_block_edition.save!
+    assert_raise RuntimeError do
+      @content_block_edition.creator = create(:user)
+    end
   end
 end
