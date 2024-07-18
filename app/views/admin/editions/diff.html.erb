@@ -11,7 +11,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <% if @edition.is_a?(EditionableWorldwideOrganisation) %>
+    <% if @edition.is_a?(WorldwideOrganisation) %>
       <p class="govuk-body">This page shows changes to the title, summary, body, and pages in this edition. It does not show changes to attachments.</p>
     <% else %>
       <p class="govuk-body">This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
@@ -50,8 +50,8 @@
       </div>
     </div>
 
-    <% if @edition.is_a?(EditionableWorldwideOrganisation) %>
-      <%= render "admin/editionable_worldwide_organisations/pages_diff" %>
+    <% if @edition.is_a?(WorldwideOrganisation) %>
+      <%= render "admin/worldwide_organisations/pages_diff" %>
     <% end %>
   </div>
 </div>

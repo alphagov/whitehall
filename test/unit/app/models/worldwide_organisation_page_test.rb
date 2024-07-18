@@ -2,7 +2,7 @@ require "test_helper"
 
 class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   test "creating a new page republishes the associated worldwide organisation" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
     page = build(:worldwide_organisation_page, edition: worldwide_organisation)
     Whitehall::PublishingApi.expects(:save_draft).with(page, "major").once
@@ -10,7 +10,7 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   end
 
   test "updating an existing page republishes the associated worldwide organisation" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     page = create(:worldwide_organisation_page, edition: worldwide_organisation)
     page.body = "updated"
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
@@ -19,14 +19,14 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   end
 
   test "deleting a page republishes the associated worldwide organisation" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     page = create(:worldwide_organisation_page, edition: worldwide_organisation)
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation).once
     page.destroy!
   end
 
   test "deleting a page discards the draft page" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     page = create(:worldwide_organisation_page, edition: worldwide_organisation)
     PublishingApiDiscardDraftWorker.expects(:perform_async).with(page.content_id, "en").once
     page.destroy!
@@ -53,7 +53,7 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   end
 
   test "should not be valid when a worldwide organisation page of that type already exists for the worldwide organisation" do
-    organisation = create(:editionable_worldwide_organisation)
+    organisation = create(:worldwide_organisation)
     create(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference, edition: organisation)
 
     page = build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference, edition: organisation.reload)
@@ -76,13 +76,13 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   end
 
   test "should derive title from type and interpolate organisation name" do
-    worldwide_organisation = build(:editionable_worldwide_organisation, title: "British Antarctic Territory")
+    worldwide_organisation = build(:worldwide_organisation, title: "British Antarctic Territory")
     page = build(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
     assert_equal "Working for British Antarctic Territory", page.title
   end
 
   test "#missing_translations should only include worldwide organisation translations" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    worldwide_organisation = create(:worldwide_organisation, translated_into: %i[de es fr])
     page = create(:worldwide_organisation_page, edition: worldwide_organisation, translated_into: [:es])
 
     expected_locales = %i[de fr].map { |l| Locale.new(l) }
@@ -90,14 +90,14 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   end
 
   test "should be valid when translated into a language that the worldwide organisation has" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    worldwide_organisation = create(:worldwide_organisation, translated_into: %i[de es fr])
     page = create(:worldwide_organisation_page, edition: worldwide_organisation, translated_into: %i[fr])
 
     assert page.valid?
   end
 
   test "should not be valid when translated into a language that the worldwide organisation does not have" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[de es fr])
+    worldwide_organisation = create(:worldwide_organisation, translated_into: %i[de es fr])
     page = create(:worldwide_organisation_page, edition: worldwide_organisation, translated_into: %i[cy es-419])
 
     assert_not page.valid?

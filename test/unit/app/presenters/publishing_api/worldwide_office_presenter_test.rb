@@ -5,9 +5,9 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
     PublishingApi::WorldwideOfficePresenter.new(...)
   end
 
-  test "presents a Worldwide Office belonging to an editionable worldwide organisation ready for adding to the publishing API" do
+  test "presents a Worldwide Office belonging to an worldwide organisation ready for adding to the publishing API" do
     access_and_opening_times = "## About us\r\n\r\nVisit our [profile page](https://www.gov.uk/government/world/organisations/british-consulate-general-atlanta)"
-    worldwide_office = build(:worldwide_office, access_and_opening_times:, edition: create(:editionable_worldwide_organisation))
+    worldwide_office = build(:worldwide_office, access_and_opening_times:, edition: create(:worldwide_organisation))
     worldwide_office_service = create(:worldwide_office_worldwide_service, worldwide_office:)
     public_path = worldwide_office.public_path
 

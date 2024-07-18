@@ -204,7 +204,7 @@ module ServiceListeners
       end
 
       test "with a page with a translation both the page and its translation are published" do
-        worldwide_organisation = create(:editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+        worldwide_organisation = create(:worldwide_organisation, :with_translated_page, translated_into: :fr)
         page = worldwide_organisation.pages.first
 
         PublishingApiWorker.any_instance.expects(:perform).with(
@@ -224,8 +224,8 @@ module ServiceListeners
         call(worldwide_organisation)
       end
 
-      test "with an office on a new editionable worldwide organisation publishes the office, it's contact and it's page" do
-        worldwide_organisation = create(:editionable_worldwide_organisation, :with_main_office, :with_page)
+      test "with an office on a new worldwide organisation publishes the office, it's contact and it's page" do
+        worldwide_organisation = create(:worldwide_organisation, :with_main_office, :with_page)
 
         PublishingApiWorker.any_instance.expects(:perform).with(
           "WorldwideOffice",
@@ -251,8 +251,8 @@ module ServiceListeners
         call(worldwide_organisation)
       end
 
-      test "with an office on the old version of an editionable worldwide organisation redirects the office" do
-        worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_main_office)
+      test "with an office on the old version of an worldwide organisation redirects the office" do
+        worldwide_organisation = create(:published_worldwide_organisation, :with_main_office)
 
         new_edition = worldwide_organisation.create_draft(create(:writer))
         new_edition.main_office.destroy!
@@ -271,8 +271,8 @@ module ServiceListeners
         call(new_edition)
       end
 
-      test "with an office on the old version that remains on the new version of an editionable worldwide organisation it does not publish a redirect for the office" do
-        worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_main_office)
+      test "with an office on the old version that remains on the new version of an worldwide organisation it does not publish a redirect for the office" do
+        worldwide_organisation = create(:published_worldwide_organisation, :with_main_office)
 
         new_edition = worldwide_organisation.create_draft(create(:writer))
         new_edition.minor_change = true
@@ -290,8 +290,8 @@ module ServiceListeners
         call(new_edition)
       end
 
-      test "with a contact on the old version of an editionable worldwide organisation publishes gone for the contact" do
-        worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_main_office)
+      test "with a contact on the old version of an worldwide organisation publishes gone for the contact" do
+        worldwide_organisation = create(:published_worldwide_organisation, :with_main_office)
 
         new_edition = worldwide_organisation.create_draft(create(:writer))
         new_edition.main_office.destroy!
@@ -311,8 +311,8 @@ module ServiceListeners
         call(new_edition)
       end
 
-      test "with a contact on the old version that remains on the new version of an editionable worldwide organisation it does not publish gone for the contact" do
-        worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_main_office)
+      test "with a contact on the old version that remains on the new version of an worldwide organisation it does not publish gone for the contact" do
+        worldwide_organisation = create(:published_worldwide_organisation, :with_main_office)
 
         new_edition = worldwide_organisation.create_draft(create(:writer))
         new_edition.minor_change = true
@@ -331,8 +331,8 @@ module ServiceListeners
         call(new_edition)
       end
 
-      test "with a page on the old version of an editionable worldwide organisation redirects the page" do
-        worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_page)
+      test "with a page on the old version of an worldwide organisation redirects the page" do
+        worldwide_organisation = create(:published_worldwide_organisation, :with_page)
 
         new_edition = worldwide_organisation.create_draft(create(:writer))
         new_edition.reload.pages.first.destroy!
@@ -424,8 +424,8 @@ module ServiceListeners
         end
       end
 
-      test "with an office on a new editionable worldwide organisation saves the office as draft" do
-        worldwide_organisation = create(:editionable_worldwide_organisation, :with_main_office)
+      test "with an office on a new worldwide organisation saves the office as draft" do
+        worldwide_organisation = create(:worldwide_organisation, :with_main_office)
 
         Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office,
@@ -460,20 +460,20 @@ module ServiceListeners
         call(publication)
       end
 
-      test "for an editionable worldwide organisation that has been unpublished publishes a redirect to the alternative url for all the page translations" do
-        worldwide_organisation = create(:unpublished_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+      test "for an worldwide organisation that has been unpublished publishes a redirect to the alternative url for all the page translations" do
+        worldwide_organisation = create(:unpublished_worldwide_organisation, :with_translated_page, translated_into: :fr)
         page = worldwide_organisation.pages.first
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           page.content_id,
-          "/world/organisations/editionable-worldwide-organisation-title",
+          "/world/organisations/worldwide-organisation-title",
           "en",
           false,
         )
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           page.content_id,
-          "/world/organisations/editionable-worldwide-organisation-title",
+          "/world/organisations/worldwide-organisation-title",
           "fr",
           false,
         )
@@ -481,8 +481,8 @@ module ServiceListeners
         call(worldwide_organisation)
       end
 
-      test "for an editionable worldwide organisation that has been consolidated publishes a redirect to the alternative url" do
-        worldwide_organisation = create(:unpublished_editionable_worldwide_organisation_consolidated, :with_main_office, :with_page)
+      test "for an worldwide organisation that has been consolidated publishes a redirect to the alternative url" do
+        worldwide_organisation = create(:unpublished_worldwide_organisation_consolidated, :with_main_office, :with_page)
         office = worldwide_organisation.main_office
         page = worldwide_organisation.pages.first
 
@@ -522,8 +522,8 @@ module ServiceListeners
         call(publication)
       end
 
-      test "for an editionable worldwide organisation that has been unpublished with a redirect publishes a redirect to the alternative url" do
-        worldwide_organisation = create(:unpublished_editionable_worldwide_organisation_in_error_redirect, :with_main_office)
+      test "for an worldwide organisation that has been unpublished with a redirect publishes a redirect to the alternative url" do
+        worldwide_organisation = create(:unpublished_worldwide_organisation_in_error_redirect, :with_main_office)
         office = worldwide_organisation.main_office
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
@@ -556,9 +556,9 @@ module ServiceListeners
         call(publication)
       end
 
-      test "for an editionable worldwide organisation that has been unpublished with an external redirect publishes a redirect to the alternative url" do
+      test "for an worldwide organisation that has been unpublished with an external redirect publishes a redirect to the alternative url" do
         external_url = "https://test.ukri.org/some-page"
-        worldwide_organisation = create(:unpublished_editionable_worldwide_organisation_in_error_redirect, :with_main_office, :with_page, { unpublishing: build(:unpublishing, { redirect: true, alternative_url: external_url }) })
+        worldwide_organisation = create(:unpublished_worldwide_organisation_in_error_redirect, :with_main_office, :with_page, { unpublishing: build(:unpublishing, { redirect: true, alternative_url: external_url }) })
         office = worldwide_organisation.main_office
         page = worldwide_organisation.pages.first
 
@@ -598,8 +598,8 @@ module ServiceListeners
         call(publication)
       end
 
-      test "for an editionable worldwide organisation that has been unpublished without a redirect publishes a redirect to the parent docuemnt" do
-        worldwide_organisation = create(:unpublished_editionable_worldwide_organisation_in_error_no_redirect, :with_main_office, :with_page)
+      test "for an worldwide organisation that has been unpublished without a redirect publishes a redirect to the parent docuemnt" do
+        worldwide_organisation = create(:unpublished_worldwide_organisation_in_error_no_redirect, :with_main_office, :with_page)
         office = worldwide_organisation.main_office
         page = worldwide_organisation.pages.first
 
@@ -650,8 +650,8 @@ module ServiceListeners
           call(publication)
         end
 
-        test "for an editionable worldwide organisation that has been withdrawn publishes a withdrawal for the office and page" do
-          worldwide_organisation = create(:withdrawn_editionable_worldwide_organisation, :with_main_office, :with_page)
+        test "for an worldwide organisation that has been withdrawn publishes a withdrawal for the office and page" do
+          worldwide_organisation = create(:withdrawn_worldwide_organisation, :with_main_office, :with_page)
           page = worldwide_organisation.pages.first
 
           PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
@@ -681,8 +681,8 @@ module ServiceListeners
           call(worldwide_organisation)
         end
 
-        test "for a translated editionable worldwide organisation that has been withdrawn publishes a withdrawal for pages in all languages" do
-          worldwide_organisation = create(:withdrawn_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+        test "for a translated worldwide organisation that has been withdrawn publishes a withdrawal for pages in all languages" do
+          worldwide_organisation = create(:withdrawn_worldwide_organisation, :with_translated_page, translated_into: :fr)
           page = worldwide_organisation.pages.first
 
           PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
@@ -743,8 +743,8 @@ module ServiceListeners
           call(publication)
         end
 
-        test "for a draft editionable worldwide organisation with offices and pages discards the draft" do
-          worldwide_organisation = create(:draft_editionable_worldwide_organisation, :with_main_office, :with_page)
+        test "for a draft worldwide organisation with offices and pages discards the draft" do
+          worldwide_organisation = create(:draft_worldwide_organisation, :with_main_office, :with_page)
 
           PublishingApiDiscardDraftWorker.expects(:perform_async).with(
             worldwide_organisation.main_office.content_id,
@@ -764,8 +764,8 @@ module ServiceListeners
           call(worldwide_organisation)
         end
 
-        test "for a draft editionable worldwide organisation with pages in multiple languages discards the drafts for all languages" do
-          worldwide_organisation = create(:draft_editionable_worldwide_organisation, :with_translated_page, translated_into: :fr)
+        test "for a draft worldwide organisation with pages in multiple languages discards the drafts for all languages" do
+          worldwide_organisation = create(:draft_worldwide_organisation, :with_translated_page, translated_into: :fr)
           page = worldwide_organisation.pages.first
 
           PublishingApiDiscardDraftWorker.expects(:perform_async).with(
@@ -806,8 +806,8 @@ module ServiceListeners
         call(publication)
       end
 
-      test "for a draft editionable worldwide organisation with an office and page publishes the draft office and page" do
-        worldwide_organisation = create(:draft_editionable_worldwide_organisation, :with_main_office, :with_page)
+      test "for a draft worldwide organisation with an office and page publishes the draft office and page" do
+        worldwide_organisation = create(:draft_worldwide_organisation, :with_main_office, :with_page)
 
         Whitehall::PublishingApi.expects(:save_draft).with(
           worldwide_organisation.main_office,
@@ -839,8 +839,8 @@ module ServiceListeners
         call(publication)
       end
 
-      test "for a published editionable worldwide organisation with an office and page publishes the office and page" do
-        worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_main_office, :with_page)
+      test "for a published worldwide organisation with an office and page publishes the office and page" do
+        worldwide_organisation = create(:published_worldwide_organisation, :with_main_office, :with_page)
 
         PublishingApiWorker.any_instance.expects(:perform).with(
           "WorldwideOffice",

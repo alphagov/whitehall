@@ -6,7 +6,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
   include Rails.application.routes.url_helpers
 
   setup do
-    @worldwide_organisation = build_stubbed(:editionable_worldwide_organisation)
+    @worldwide_organisation = build_stubbed(:worldwide_organisation)
   end
 
   test "renders the correct default values when the office is a main office" do

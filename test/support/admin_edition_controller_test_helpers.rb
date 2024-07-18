@@ -1157,18 +1157,18 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_editionable_worldwide_organisations(edition_type, edition_parent_type: nil, factory_name: nil, required: false)
+    def should_allow_association_with_worldwide_organisations(edition_type, edition_parent_type: nil, factory_name: nil, required: false)
       factory_name ||= edition_type
       edition_class = edition_parent_type&.to_s&.classify&.constantize || class_for(edition_type)
 
-      view_test "new should display editionable worldwide organisations field" do
+      view_test "new should display worldwide organisations field" do
         get :new
 
         assert_select "form#new_edition" do
           text = required ? "Worldwide organisations (required)" : "Worldwide organisations"
-          assert_select("label[for=edition_editionable_worldwide_organisation_document_ids]", text:)
+          assert_select("label[for=edition_worldwide_organisation_document_ids]", text:)
 
-          assert_select "#edition_editionable_worldwide_organisation_document_ids" do |elements|
+          assert_select "#edition_worldwide_organisation_document_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
@@ -1178,15 +1178,15 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      view_test "edit should display editionable worldwide organisations field" do
+      view_test "edit should display worldwide organisations field" do
         edition = create(factory_name) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
           text = required ? "Worldwide organisations (required)" : "Worldwide organisations"
-          assert_select("label[for=edition_editionable_worldwide_organisation_document_ids]", text:)
+          assert_select("label[for=edition_worldwide_organisation_document_ids]", text:)
 
-          assert_select "#edition_editionable_worldwide_organisation_document_ids" do |elements|
+          assert_select "#edition_worldwide_organisation_document_ids" do |elements|
             assert_equal 1, elements.length
             assert_data_attributes_for_worldwide_organisations(
               element: elements.first,
@@ -1196,20 +1196,20 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "create should associate editionable worldwide organisations with the edition" do
-        first_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
-        second_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
+      test "create should associate worldwide organisations with the edition" do
+        first_worldwide_organisation = create(:worldwide_organisation, document: create(:document))
+        second_worldwide_organisation = create(:worldwide_organisation, document: create(:document))
         attributes = controller_attributes_for(edition_type)
 
         post :create,
              params: {
                edition: attributes.merge(
-                 editionable_worldwide_organisation_document_ids: [first_worldwide_organisation.document.id, second_worldwide_organisation.document.id],
+                 worldwide_organisation_document_ids: [first_worldwide_organisation.document.id, second_worldwide_organisation.document.id],
                ),
              }
 
         edition = edition_class.last!
-        assert_equal [first_worldwide_organisation, second_worldwide_organisation], edition.editionable_worldwide_organisations
+        assert_equal [first_worldwide_organisation, second_worldwide_organisation], edition.worldwide_organisations
       end
     end
 

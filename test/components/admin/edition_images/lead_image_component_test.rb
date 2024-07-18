@@ -161,11 +161,11 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     assert_selector ".app-c-edition-images-lead-image-component__default_lead_image .govuk-hint", text: "Default image for your organisation"
   end
 
-  test "world news stories render the published editionable worldwide organisations default_lead_image when no lead image has been selected" do
+  test "world news stories render the published worldwide organisations default_lead_image when no lead image has been selected" do
     image = build(:featured_image_data, file: upload_fixture("big-cheese.960x640.jpg", "image/jpg"))
-    draft_organisation = create(:draft_editionable_worldwide_organisation, default_news_image: image)
-    published_organisation = create(:published_editionable_worldwide_organisation, :with_default_news_image)
-    edition = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [draft_organisation, published_organisation])
+    draft_organisation = create(:draft_worldwide_organisation, default_news_image: image)
+    published_organisation = create(:published_worldwide_organisation, :with_default_news_image)
+    edition = create(:news_article_world_news_story, :draft, worldwide_organisations: [draft_organisation, published_organisation])
 
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 

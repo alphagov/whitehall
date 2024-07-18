@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :editionable_worldwide_organisation, class: EditionableWorldwideOrganisation, parent: :edition_with_organisations, traits: [:translated] do
-    title { "Editionable worldwide organisation title" }
+  factory :worldwide_organisation, class: WorldwideOrganisation, parent: :edition_with_organisations, traits: [:translated] do
+    title { "Worldwide organisation title" }
     logo_formatted_name { title.to_s.split.join("\n") }
     summary { "Basic information about the organisation." }
     body { "Information about the organisation with _italics_." }
@@ -67,16 +67,16 @@ FactoryBot.define do
     end
   end
 
-  factory :draft_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:draft]
-  factory :submitted_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:submitted]
-  factory :rejected_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:rejected]
-  factory :published_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:published]
-  factory :deleted_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:deleted]
-  factory :superseded_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:superseded]
-  factory :scheduled_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:scheduled]
-  factory :unpublished_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:unpublished]
-  factory :unpublished_editionable_worldwide_organisation_consolidated, parent: :editionable_worldwide_organisation, traits: [:consolidated_redirect]
-  factory :unpublished_editionable_worldwide_organisation_in_error_redirect, parent: :editionable_worldwide_organisation, traits: [:published_in_error_redirect]
-  factory :unpublished_editionable_worldwide_organisation_in_error_no_redirect, parent: :editionable_worldwide_organisation, traits: [:published_in_error_no_redirect]
-  factory :withdrawn_editionable_worldwide_organisation, parent: :editionable_worldwide_organisation, traits: [:withdrawn]
+  factory :draft_worldwide_organisation, parent: :worldwide_organisation, traits: [:draft]
+  factory :submitted_worldwide_organisation, parent: :worldwide_organisation, traits: [:submitted]
+  factory :rejected_worldwide_organisation, parent: :worldwide_organisation, traits: [:rejected]
+  factory :published_worldwide_organisation, parent: :worldwide_organisation, traits: [:published]
+  factory :deleted_worldwide_organisation, parent: :worldwide_organisation, traits: [:deleted]
+  factory :superseded_worldwide_organisation, parent: :worldwide_organisation, traits: [:superseded]
+  factory :scheduled_worldwide_organisation, parent: :worldwide_organisation, traits: [:scheduled]
+  factory :unpublished_worldwide_organisation, parent: :worldwide_organisation, traits: [:unpublished]
+  factory :unpublished_worldwide_organisation_consolidated, parent: :worldwide_organisation, traits: [:consolidated_redirect]
+  factory :unpublished_worldwide_organisation_in_error_redirect, parent: :worldwide_organisation, traits: [:published_in_error_redirect]
+  factory :unpublished_worldwide_organisation_in_error_no_redirect, parent: :worldwide_organisation, traits: [:published_in_error_no_redirect]
+  factory :withdrawn_worldwide_organisation, parent: :worldwide_organisation, traits: [:withdrawn]
 end

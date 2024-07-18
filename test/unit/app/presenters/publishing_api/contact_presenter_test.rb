@@ -112,11 +112,11 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
     end
   end
 
-  context "when associated with an editionable worldwide organisation" do
+  context "when associated with an worldwide organisation" do
     setup do
       @contact = FactoryBot.build(:contact)
       @contact.translation.updated_at = @updated_at
-      @contact.contactable = FactoryBot.build(:editionable_worldwide_organisation, :with_document)
+      @contact.contactable = FactoryBot.build(:worldwide_organisation, :with_document)
       @presented = PublishingApi::ContactPresenter.new(@contact)
     end
 

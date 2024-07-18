@@ -6,7 +6,7 @@ FactoryBot.define do
 
     trait(:with_worldwide_organisations) do
       after :create do |world_location, _evaluator|
-        world_location.worldwide_organisations << FactoryBot.create(:editionable_worldwide_organisation)
+        world_location.worldwide_organisations << FactoryBot.create(:worldwide_organisation)
       end
     end
   end

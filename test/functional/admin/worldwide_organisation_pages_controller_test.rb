@@ -6,11 +6,11 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
   should_be_an_admin_controller
 
   view_test "GET :index returns a list of worldwide organisation pages" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, title: "British Antarctic Territory")
+    worldwide_organisation = create(:worldwide_organisation, title: "British Antarctic Territory")
     create(:worldwide_organisation_page, edition: worldwide_organisation)
     create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
 
-    get :index, params: { editionable_worldwide_organisation_id: worldwide_organisation }
+    get :index, params: { worldwide_organisation_id: worldwide_organisation }
 
     assert_response :success
     assert_template :index
@@ -21,9 +21,9 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
   end
 
   view_test "GET :new displays the worldwide organisation page fields" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, title: "British Antarctic Territory")
+    worldwide_organisation = create(:worldwide_organisation, title: "British Antarctic Territory")
 
-    get :new, params: { editionable_worldwide_organisation_id: worldwide_organisation }
+    get :new, params: { worldwide_organisation_id: worldwide_organisation }
 
     assert_response :success
     assert_template :new
@@ -36,7 +36,7 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
   end
 
   test "POST :create should create a new worldwide organisation page" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
          params: {
@@ -45,10 +45,10 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
              summary: "Some summary",
              body: "Some body",
            },
-           editionable_worldwide_organisation_id: worldwide_organisation.id,
+           worldwide_organisation_id: worldwide_organisation.id,
          }
 
-    assert_redirected_to admin_editionable_worldwide_organisation_pages_path(worldwide_organisation)
+    assert_redirected_to admin_worldwide_organisation_pages_path(worldwide_organisation)
     assert_equal 1, worldwide_organisation.reload.pages.count
     assert_equal 2, worldwide_organisation.pages.first.corporate_information_page_type_id
     assert_equal "Some summary", worldwide_organisation.pages.first.summary
@@ -58,7 +58,7 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
   view_test "GET :edit displays the populated worldwide organisation page fields" do
     worldwide_organisation_page = create(:worldwide_organisation_page)
 
-    get :edit, params: { editionable_worldwide_organisation_id: worldwide_organisation_page.edition, id: worldwide_organisation_page }
+    get :edit, params: { worldwide_organisation_id: worldwide_organisation_page.edition, id: worldwide_organisation_page }
 
     assert_response :success
     assert_template :edit
@@ -78,11 +78,11 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
             summary: "Some updated summary",
             body: "Some updated body",
           },
-          editionable_worldwide_organisation_id: worldwide_organisation_page.edition.id,
+          worldwide_organisation_id: worldwide_organisation_page.edition.id,
           id: worldwide_organisation_page.id,
         }
 
-    assert_redirected_to admin_editionable_worldwide_organisation_pages_path(worldwide_organisation_page.edition)
+    assert_redirected_to admin_worldwide_organisation_pages_path(worldwide_organisation_page.edition)
     assert_equal 1, worldwide_organisation_page.reload.edition.pages.count
     assert_equal 2, worldwide_organisation_page.corporate_information_page_type_id
     assert_equal "Some updated summary", worldwide_organisation_page.summary
@@ -92,7 +92,7 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
   view_test "GET :confirm_destroy requests confirmation" do
     worldwide_organisation_page = create(:worldwide_organisation_page)
 
-    get :confirm_destroy, params: { editionable_worldwide_organisation_id: worldwide_organisation_page.edition, id: worldwide_organisation_page }
+    get :confirm_destroy, params: { worldwide_organisation_id: worldwide_organisation_page.edition, id: worldwide_organisation_page }
 
     assert_response :success
     assert_template :confirm_destroy
@@ -105,11 +105,11 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
     worldwide_organisation = worldwide_organisation_page.edition
 
     delete :destroy, params: {
-      editionable_worldwide_organisation_id: worldwide_organisation_page.edition.id,
+      worldwide_organisation_id: worldwide_organisation_page.edition.id,
       id: worldwide_organisation_page.id,
     }
 
-    assert_redirected_to admin_editionable_worldwide_organisation_pages_path(worldwide_organisation_page.edition)
+    assert_redirected_to admin_worldwide_organisation_pages_path(worldwide_organisation_page.edition)
     assert_equal 0, worldwide_organisation.pages.count
   end
 end

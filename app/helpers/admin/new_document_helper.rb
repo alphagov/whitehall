@@ -10,7 +10,7 @@ module Admin::NewDocumentHelper
     CaseStudy,
     StatisticalDataSet,
     CallForEvidence,
-    EditionableWorldwideOrganisation,
+    WorldwideOrganisation,
   ].freeze
 
   def new_document_type_list
@@ -42,7 +42,7 @@ private
       publication: "Use this for standalone government documents, white papers, strategy documents, and reports.",
       speech: "Use this for speeches by ministers or other named spokespeople, and ministerial statements to Parliament.",
       statistical_data_set: "Use this for data that you publish monthly or more often without analysis.",
-      editionable_worldwide_organisation: "Use this for worldwide organisations.",
+      worldwide_organisation: "Use this for worldwide organisations.",
     }
     hint_text[new_document_type]
   end

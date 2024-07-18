@@ -55,10 +55,10 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]", count: 1
   end
 
-  view_test "GET #index renders Worldwide Organisation Edition when the editionable_worldwide_organisations feature flag is enabled" do
+  view_test "GET #index renders Worldwide Organisation Edition when the worldwide_organisations feature flag is enabled" do
     get :index
 
-    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=editionable_worldwide_organisation]", count: 1
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=worldwide_organisation]", count: 1
   end
 
   test "POST #new_document_options_redirect redirects each radio buttons to their expected paths" do
@@ -106,7 +106,7 @@ private
       "publication": new_admin_publication_path,
       "speech": new_admin_speech_path,
       "statistical_data_set": new_admin_statistical_data_set_path,
-      "editionable_worldwide_organisation": new_admin_editionable_worldwide_organisation_path,
+      "worldwide_organisation": new_admin_worldwide_organisation_path,
     }
   end
 end

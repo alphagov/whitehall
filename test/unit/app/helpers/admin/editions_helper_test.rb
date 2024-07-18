@@ -82,7 +82,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
   end
 
   test "#edition_type returns a single string where an edition does not have a parent type" do
-    edition = build(:editionable_worldwide_organisation)
+    edition = build(:worldwide_organisation)
 
     assert_equal "Worldwide organisation", edition_type(edition)
   end

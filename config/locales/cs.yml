@@ -240,7 +240,7 @@ cs:
         few:
         one: Vydání se schůzkou
         other: Vydání se schůzkou
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         one:
         other:

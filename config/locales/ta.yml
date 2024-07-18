@@ -213,7 +213,7 @@ ta:
       edition_with_appointment:
         one: நியமனத்துடன் பதிப்பு
         other: நியமனத்துடன் பதிப்புகள்
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

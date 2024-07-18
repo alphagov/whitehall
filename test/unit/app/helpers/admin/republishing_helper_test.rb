@@ -138,7 +138,7 @@ def content_types
                                 CorporateInformationPage
                                 DetailedGuide
                                 DocumentCollection
-                                EditionableWorldwideOrganisation
+                                WorldwideOrganisation
                                 FatalityNotice
                                 NewsArticle
                                 Publication
@@ -162,7 +162,7 @@ def content_types
                       SearchableEdition
                       Edition::AlternativeFormatProviderTest::EditionWithAlternativeFormat
                       Edition::AppointmentTest::EditionWithAppointment
-                      Edition::EditionableWorldwideOrganisationTest::EditionWithWorldwideOrganisations
+                      Edition::WorldwideOrganisationTest::EditionWithWorldwideOrganisations
                       Edition::ImagesTest::EditionWithImages
                       Edition::StatisticalDataSetsTest::EditionWithStatisticalDataSets
                       Edition::LimitedAccessTest::LimitedByDefaultEdition] }

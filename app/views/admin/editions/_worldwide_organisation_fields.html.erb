@@ -1,0 +1,23 @@
+<% required = false unless defined?(required) %>
+
+<% cache_if edition.worldwide_organisation_document_ids.empty?, "#{taggable_worldwide_organisations_cache_digest}-design-system" do %>
+  <%= render "components/autocomplete", {
+    id: "edition_worldwide_organisation_document_ids",
+    name: "edition[worldwide_organisation_document_ids][]",
+    error_items: errors_for(edition.errors, :worldwide_organisations),
+    label: {
+      text:  "Worldwide organisations" + "#{' (required)' if required}",
+      heading_size: "m",
+    },
+    select: {
+      options: [""] + taggable_worldwide_organisations_container,
+      multiple: true,
+      selected: edition.worldwide_organisation_document_ids,
+    },
+    data: {
+      module: "track-select-click",
+      track_category: "worldwideOrganisationSelection",
+      track_label: request.path,
+    },
+  } %>
+<% end %>

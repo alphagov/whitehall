@@ -213,7 +213,7 @@ el:
       edition_with_appointment:
         one: Έκδοση με ραντεβού
         other: Εκδόσεις με ραντεβού
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

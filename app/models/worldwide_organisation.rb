@@ -1,4 +1,4 @@
-class EditionableWorldwideOrganisation < Edition
+class WorldwideOrganisation < Edition
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole].freeze
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
@@ -92,7 +92,7 @@ class EditionableWorldwideOrganisation < Edition
   end
 
   def display_type_key
-    "editionable_worldwide_organisation"
+    "worldwide_organisation"
   end
 
   def has_parent_type?
@@ -154,7 +154,7 @@ class EditionableWorldwideOrganisation < Edition
   end
 
   def publishing_api_presenter
-    PublishingApi::EditionableWorldwideOrganisationPresenter
+    PublishingApi::WorldwideOrganisationPresenter
   end
 
   def secondary_role
@@ -195,8 +195,8 @@ class EditionableWorldwideOrganisation < Edition
 
   def republish_dependent_documents
     documents = NewsArticle
-      .joins(:edition_editionable_worldwide_organisations)
-      .where(edition_editionable_worldwide_organisations: { document: })
+      .joins(:edition_worldwide_organisations)
+      .where(edition_worldwide_organisations: { document: })
       .includes(:images)
       .where(images: { id: nil })
       .map(&:document)

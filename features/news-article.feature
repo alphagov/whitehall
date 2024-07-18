@@ -15,7 +15,7 @@ Feature: News articles
     Then the news article "Yes we can" should have been created
 
   Scenario: Create a news article of type 'World news story'
-    And I draft a valid news article of type "World news story" with title "A thing happened in X" associated with an editionable worldwide organisation
+    And I draft a valid news article of type "World news story" with title "A thing happened in X" associated with an worldwide organisation
     Then the news article "A thing happened in X" should have been created
 
   Scenario: Create a news article of type 'World news story', then changing its locale from en

@@ -263,7 +263,7 @@ be:
         many:
         one: Выданне з прызначэннем
         other: Выданні з прызначэннем
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         many:
         one:

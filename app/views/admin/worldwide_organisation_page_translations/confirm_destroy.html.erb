@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= form_with url: admin_editionable_worldwide_organisation_page_translation_path(@worldwide_organisation, @worldwide_page, @translation_locale), method: :delete do %>
+    <%= form_with url: admin_worldwide_organisation_page_translation_path(@worldwide_organisation, @worldwide_page, @translation_locale), method: :delete do %>
       <p class="govuk-body govuk-!-margin-bottom-7">
         Are you sure you want to delete the "<%= @translation_locale.native_and_english_language_name %>" translation for "<%= @worldwide_page.title %>"?
       </p>
@@ -22,7 +22,7 @@
           },
         } %>
 
-        <%= link_to("Cancel", admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", admin_worldwide_organisation_pages_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </section>

@@ -182,7 +182,7 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy, on: :member
       end
 
-      resources :worldwide_organisations do
+      resources :worldwide_organisations, path: "worldwide-organisations" do
         member do
           get :choose_main_office, to: "worldwide_organisations_main_offices#show"
           put :set_main_office, to: "worldwide_organisations_main_offices#update"
@@ -328,7 +328,7 @@ Whitehall::Application.routes.draw do
 
       resources :speeches, except: [:index]
       resources :statistical_data_sets, path: "statistical-data-sets", except: [:index]
-      resources :editionable_worldwide_organisations, path: "editionable-worldwide-organisations", except: [:index] do
+      resources :worldwide_organisations, path: "worldwide-organisations", except: [:index] do
         resources :pages, controller: "worldwide_organisation_pages" do
           get :confirm_destroy, on: :member
 

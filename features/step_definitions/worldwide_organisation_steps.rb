@@ -1,43 +1,43 @@
-Given(/^an editionable worldwide organisation "([^"]*)"$/) do |title|
-  worldwide_organisation = create(:editionable_worldwide_organisation, title:)
+Given(/^an worldwide organisation "([^"]*)"$/) do |title|
+  worldwide_organisation = create(:worldwide_organisation, title:)
   worldwide_organisation.main_office = create(:worldwide_office, edition: worldwide_organisation, title: "Main office for #{title}")
 end
 
-Given(/^a published editionable worldwide organisation "([^"]*)"$/) do |title|
-  worldwide_organisation = create(:editionable_worldwide_organisation, :published, title:)
+Given(/^a published worldwide organisation "([^"]*)"$/) do |title|
+  worldwide_organisation = create(:worldwide_organisation, :published, title:)
   worldwide_organisation.main_office = create(:worldwide_office, edition: worldwide_organisation, title: "Main office for #{title}")
 end
 
-Given(/^an editionable worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/) do |title, contact_1_title, contact_2_title|
-  worldwide_organisation = create(:editionable_worldwide_organisation, title:)
+Given(/^an worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/) do |title, contact_1_title, contact_2_title|
+  worldwide_organisation = create(:worldwide_organisation, title:)
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: contact_1_title)))
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: contact_2_title)))
 end
 
-Given(/^An editionable worldwide organisation "([^"]*)" with home page offices "([^"]*)" and "([^"]*)"$/) do |title, office_1_title, office_2_title|
-  worldwide_organisation = create(:editionable_worldwide_organisation, title:)
+Given(/^An worldwide organisation "([^"]*)" with home page offices "([^"]*)" and "([^"]*)"$/) do |title, office_1_title, office_2_title|
+  worldwide_organisation = create(:worldwide_organisation, title:)
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: "Main office")))
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: office_1_title)))
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: office_2_title)))
 end
 
-Given(/^an editionable worldwide organisation in draft with a translation in French$/) do
-  worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: :fr)
+Given(/^an worldwide organisation in draft with a translation in French$/) do
+  worldwide_organisation = create(:worldwide_organisation, translated_into: :fr)
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, edition: worldwide_organisation, contact: create(:contact, title: "Main office")))
 end
 
-Given(/^an editionable worldwide organisation "([^"]*)" with a "([^"]*)" page$/) do |title, type|
-  worldwide_organisation = create(:editionable_worldwide_organisation, title:)
+Given(/^an worldwide organisation "([^"]*)" with a "([^"]*)" page$/) do |title, type|
+  worldwide_organisation = create(:worldwide_organisation, title:)
   create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
 end
 
-Given(/^an editionable worldwide organisation "([^"]*)" with a "([^"]*)" page and a translation in French$/) do |title, type|
-  worldwide_organisation = create(:editionable_worldwide_organisation, title:, translated_into: :fr)
+Given(/^an worldwide organisation "([^"]*)" with a "([^"]*)" page and a translation in French$/) do |title, type|
+  worldwide_organisation = create(:worldwide_organisation, title:, translated_into: :fr)
   create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
 end
 
-Given(/^a published editionable worldwide organisation "([^"]*)" with a "([^"]*)" page$/) do |title, type|
-  worldwide_organisation = create(:published_editionable_worldwide_organisation, title:)
+Given(/^a published worldwide organisation "([^"]*)" with a "([^"]*)" page$/) do |title, type|
+  worldwide_organisation = create(:published_worldwide_organisation, title:)
   create(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType.find(type.parameterize))
 end
 
@@ -50,14 +50,14 @@ Given(/^a social media service "([^"]*)" exists$/) do |name|
 end
 
 When(/^I create a new edition of the "([^"]*)" worldwide organisation$/) do |name|
-  worldwide_organisation = EditionableWorldwideOrganisation.latest_edition.find_by!(title: name)
+  worldwide_organisation = WorldwideOrganisation.latest_edition.find_by!(title: name)
   visit admin_edition_path(worldwide_organisation)
   click_button "Create new edition"
 end
 
-When(/^I choose "([^"]*)" to be the main office for the editionable worldwide organisation$/) do |contact_title|
+When(/^I choose "([^"]*)" to be the main office for the worldwide organisation$/) do |contact_title|
   WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
-  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Edit draft"
   click_link "Offices"
 
@@ -67,8 +67,8 @@ When(/^I choose "([^"]*)" to be the main office for the editionable worldwide or
 end
 
 When(/^I withdraw the worldwide organisation "([^"]*)" with the explanation "([^"]*)"$/) do |org_name, explanation|
-  organisation = EditionableWorldwideOrganisation.find_by(title: org_name)
-  visit admin_editionable_worldwide_organisation_path(organisation)
+  organisation = WorldwideOrganisation.find_by(title: org_name)
+  visit admin_worldwide_organisation_path(organisation)
   click_on "Withdraw or unpublish"
   choose "Withdraw: no longer current government policy/activity"
   within ".js-app-view-unpublish-withdraw-form__withdrawal" do
@@ -80,12 +80,12 @@ When(/^I withdraw the worldwide organisation "([^"]*)" with the explanation "([^
 end
 
 When(/^I visit the reorder offices page/) do
-  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Reorder"
 end
 
 When(/^I visit the "([^"]*)" tab/) do |tab|
-  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link tab
 end
 
@@ -99,12 +99,12 @@ When(/^I draft a new worldwide organisation "([^"]*)" assigned to world location
   click_button "Save and go to document summary"
 end
 
-When(/^I add an editionable worldwide organisation "([^"]*)" office for the home page with address, phone number, and some services$/) do |description|
+When(/^I add an worldwide organisation "([^"]*)" office for the home page with address, phone number, and some services$/) do |description|
   service1 = create(:worldwide_service, name: "Dance lessons")
   _service2 = create(:worldwide_service, name: "Courses in advanced sword fighting")
   service3 = create(:worldwide_service, name: "Beard grooming")
 
-  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Create new office"
   fill_in_contact_details(title: description, feature_on_home_page: "yes")
 
@@ -117,7 +117,7 @@ When(/^I add an editionable worldwide organisation "([^"]*)" office for the home
 end
 
 When(/^I delete the "([^"]*)" office for the worldwide organisation$/) do |_office|
-  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Edit draft"
   click_link "Offices"
 
@@ -128,24 +128,24 @@ When(/^I delete the "([^"]*)" office for the worldwide organisation$/) do |_offi
 end
 
 When(/^I visit the pages tab for the worldwide organisation$/) do
-  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Edit draft"
   click_link "Pages"
 end
 
 When(/^I remove the French translation from the main document$/) do
-  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Delete"
   click_button "Delete translation"
 end
 
 When(/^I click the link to create a new page$/) do
-  visit admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_pages_path(WorldwideOrganisation.last)
   click_link "Create new page"
 end
 
 When(/^I click the "([^"]*)" link for the "([^"]*)" page$/) do |link, type|
-  visit admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_pages_path(WorldwideOrganisation.last)
   page_component = find("h2", text: type).ancestor(".govuk-summary-card__title-wrapper")
   within page_component do
     click_link link
@@ -158,7 +158,7 @@ end
 
 When(/^I submit the confirmation form to delete the "([^"]*)" page$/) do |type|
   worldwide_organisation_page = WorldwideOrganisationPage.last
-  expect(page).to have_current_path(confirm_destroy_admin_editionable_worldwide_organisation_page_path(worldwide_organisation_page.edition, worldwide_organisation_page))
+  expect(page).to have_current_path(confirm_destroy_admin_worldwide_organisation_page_path(worldwide_organisation_page.edition, worldwide_organisation_page))
   expect(page).to have_content "Are you sure you want to delete \"#{type}\"?"
 
   click_button "Delete"
@@ -181,7 +181,7 @@ When(/^I add a new page translation with a body of "([^"]*)"$/) do |body|
 end
 
 And(/^I add an associated office, also with a translation in French$/) do
-  visit admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Add translation"
   click_button "Next"
   fill_in "Title (required)", with: "French title"
@@ -252,20 +252,20 @@ Then(/^I should see that the translated page with body "([^"]*)" is gone$/) do |
   expect(page).not_to have_text(body)
 end
 
-Then(/^I should be able to remove all services from the editionable worldwide organisation "(.*?)" office$/) do |description|
+Then(/^I should be able to remove all services from the worldwide organisation "(.*?)" office$/) do |description|
   worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: description }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: EditionableWorldwideOrganisation.last.id, id: worldwide_office.id)
+  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
   available_services = worldwide_office.services.each { |service| uncheck "worldwide_office_service_ids_#{service.id}" }
   click_on "Save"
 
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: EditionableWorldwideOrganisation.last.id, id: worldwide_office.id)
+  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
   available_services.each do |service|
     expect(page).to have_field("worldwide_office_service_ids_#{service.id}", checked: false)
   end
 end
 
 Then(/^the worldwide organisation "([^"]*)" should have been created$/) do |title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  @worldwide_organisation = WorldwideOrganisation.find_by(title:)
 
   expect(@worldwide_organisation).to be_present
   expect(@worldwide_organisation.logo_formatted_name).to eq("Logo\r\nformatted\r\nname\r\n")
@@ -273,7 +273,7 @@ Then(/^the worldwide organisation "([^"]*)" should have been created$/) do |titl
 end
 
 Then(/^I should see the Welsh translated title "([^"]*)" for the "([^"]*)" worldwide organisation$/) do |translated_title, title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  @worldwide_organisation = WorldwideOrganisation.find_by(title:)
 
   I18n.with_locale(:cy) do
     expect(@worldwide_organisation.title).to eq(translated_title)
@@ -285,22 +285,22 @@ Then(/^I should see the "Translated" subheading in the "Offices" tab with my new
 end
 
 Then(/^I should see the "([^"]*)" role has been assigned to the worldwide organisation "([^"]*)"$/) do |role, title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  @worldwide_organisation = WorldwideOrganisation.find_by(title:)
   expect(@worldwide_organisation.roles.first.name).to eq(role)
 end
 
 Then(/^I should see the "([^"]*)" social media site has been assigned to the worldwide organisation "([^"]*)"$/) do |social_media_title, title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  @worldwide_organisation = WorldwideOrganisation.find_by(title:)
   expect(@worldwide_organisation.social_media_accounts.first.title).to eq(social_media_title)
 end
 
 Then(/^I should see the worldwide organisation "([^"]*)" has no social media accounts$/) do |title|
-  @worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  @worldwide_organisation = WorldwideOrganisation.find_by(title:)
   expect(@worldwide_organisation.social_media_accounts).to be_empty
 end
 
-Then(/^the "([^"]*)" should be marked as the main office for the editionable worldwide organisation$/) do |contact_title|
-  admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last)
+Then(/^the "([^"]*)" should be marked as the main office for the worldwide organisation$/) do |contact_title|
+  admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
 
   within ".app-vc-worldwide-offices-index-office-summary-card-component", match: :first do
     expect(page).to have_content contact_title
@@ -310,22 +310,22 @@ Then(/^the "([^"]*)" should be marked as the main office for the editionable wor
 end
 
 Then(/^The "([^"]*)" worldwide organisation should have no offices$/) do |title|
-  worldwide_organisation = EditionableWorldwideOrganisation.find_by(title:)
+  worldwide_organisation = WorldwideOrganisation.find_by(title:)
   expect(worldwide_organisation.offices.count).to be(0)
 end
 
 Then(/^I should see that the list of offices for the worldwide organisation is empty$/) do
-  expect(page).to have_current_path(admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last))
+  expect(page).to have_current_path(admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last))
   expect(page).to have_text("No offices.")
 end
 
 Then(/^I should see that the list of pages for the worldwide organisation is empty$/) do
-  expect(page).to have_current_path(admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last))
+  expect(page).to have_current_path(admin_worldwide_organisation_pages_path(WorldwideOrganisation.last))
   expect(page).to have_text("No pages.")
 end
 
 Then(/^I should see the "([^"]*)" page on the list of pages with the details:$/) do |type, table|
-  expect(page).to have_current_path(admin_editionable_worldwide_organisation_pages_path(EditionableWorldwideOrganisation.last))
+  expect(page).to have_current_path(admin_worldwide_organisation_pages_path(WorldwideOrganisation.last))
   expect(page).to_not have_text("No pages.")
 
   page_component = find("h2", text: type).ancestor(".govuk-summary-card")
@@ -338,7 +338,7 @@ Then(/^I should see the "([^"]*)" page on the list of pages with the details:$/)
 end
 
 Then(/^I should see that the list of offices are ordered "([^"]*)" then "([^"]*)"$/) do |first_office, second_office|
-  expect(page).to have_current_path(reorder_admin_worldwide_organisation_worldwide_offices_path(EditionableWorldwideOrganisation.last))
+  expect(page).to have_current_path(reorder_admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last))
 
   reorderable_list = page.find(".gem-c-reorderable-list")
   expect(reorderable_list).to have_selector("li", count: 2)
@@ -360,7 +360,7 @@ Then(/^The "(.*?)" attachment should have uploaded successfully$/) do |attachmen
 end
 
 Then(/^The audit history for the pages should be displayed on the document history page with:$/) do |table|
-  visit admin_editionable_worldwide_organisation_path(EditionableWorldwideOrganisation.last)
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link("See what’s changed")
   expect(page).to have_text("This page shows changes to the title, summary, body, and pages in this edition. It does not show changes to attachments.")
 

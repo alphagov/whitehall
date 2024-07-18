@@ -213,7 +213,7 @@ hu:
       edition_with_appointment:
         one: Egyeztetett kiadás
         other: Egyeztetett kiadások
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

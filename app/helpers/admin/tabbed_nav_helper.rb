@@ -20,7 +20,7 @@ module Admin::TabbedNavHelper
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
     nav_items << call_for_evidence_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(CallForEvidence)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
-    nav_items << editionable_worldwide_organisation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(EditionableWorldwideOrganisation)
+    nav_items << worldwide_organisation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(WorldwideOrganisation)
     nav_items << social_media_nav_items(edition, current_path) if edition.persisted? && edition.can_be_associated_with_social_media_accounts?
     nav_items.flatten
   end
@@ -157,7 +157,7 @@ module Admin::TabbedNavHelper
     ]
   end
 
-  def editionable_worldwide_organisation_nav_items(worldwide_organisation, current_path)
+  def worldwide_organisation_nav_items(worldwide_organisation, current_path)
     [
       {
         label: "Offices",
@@ -166,8 +166,8 @@ module Admin::TabbedNavHelper
       },
       {
         label: "Pages",
-        href: admin_editionable_worldwide_organisation_pages_path(worldwide_organisation),
-        current: current_path == admin_editionable_worldwide_organisation_pages_path(worldwide_organisation),
+        href: admin_worldwide_organisation_pages_path(worldwide_organisation),
+        current: current_path == admin_worldwide_organisation_pages_path(worldwide_organisation),
       },
     ]
   end
@@ -176,8 +176,8 @@ module Admin::TabbedNavHelper
     [
       {
         label: "Page",
-        href: edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
-        current: current_path == edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+        href: edit_admin_worldwide_organisation_page_path(page.edition, page),
+        current: current_path == edit_admin_worldwide_organisation_page_path(page.edition, page),
       },
       {
         label: sanitize("Attachments #{tag.span(page.attachments.count, class: 'govuk-tag govuk-tag--grey') if page.attachments.count.positive?}"),

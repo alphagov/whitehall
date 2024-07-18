@@ -99,7 +99,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   test "populates the csv only with details about broken links on editions associated with the specified organisation" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
-    embassy_paris = create(:editionable_worldwide_organisation, title: "British Embassy Paris")
+    embassy_paris = create(:worldwide_organisation, title: "British Embassy Paris")
     detailed_guide = create(
       :published_detailed_guide,
       lead_organisations: [hmrc],
@@ -113,7 +113,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     news_article = create(
       :news_article_world_news_story,
       :withdrawn,
-      editionable_worldwide_organisation_documents: [embassy_paris.document],
+      worldwide_organisation_documents: [embassy_paris.document],
       body: "[Good link](https://www.test.gov.uk/good-link)\n[Missing page](https://www.test.gov.uk/missing-link)",
     )
 

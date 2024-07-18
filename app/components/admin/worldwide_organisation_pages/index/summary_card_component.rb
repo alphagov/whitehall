@@ -49,9 +49,9 @@ private
 
   def edit_action
     href = if non_english_translation?
-             edit_admin_editionable_worldwide_organisation_page_translation_path(worldwide_organisation, page, page.translation_locale)
+             edit_admin_worldwide_organisation_page_translation_path(worldwide_organisation, page, page.translation_locale)
            else
-             edit_admin_editionable_worldwide_organisation_page_path(page.edition, page)
+             edit_admin_worldwide_organisation_page_path(page.edition, page)
            end
 
     {
@@ -65,15 +65,15 @@ private
 
     {
       label: "Add translation",
-      href: admin_editionable_worldwide_organisation_page_translations_path(worldwide_organisation, page, page.translation_locale),
+      href: admin_worldwide_organisation_page_translations_path(worldwide_organisation, page, page.translation_locale),
     }
   end
 
   def confirm_destroy_action
     href = if non_english_translation?
-             confirm_destroy_admin_editionable_worldwide_organisation_page_translation_path(worldwide_organisation, page, page.translation_locale)
+             confirm_destroy_admin_worldwide_organisation_page_translation_path(worldwide_organisation, page, page.translation_locale)
            else
-             confirm_destroy_admin_editionable_worldwide_organisation_page_path(worldwide_organisation, page)
+             confirm_destroy_admin_worldwide_organisation_page_path(worldwide_organisation, page)
            end
 
     {

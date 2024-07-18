@@ -24,7 +24,7 @@ private
       publication: new_admin_publication_path,
       speech: new_admin_speech_path,
       statistical_data_set: new_admin_statistical_data_set_path,
-      editionable_worldwide_organisation: new_admin_editionable_worldwide_organisation_path,
+      worldwide_organisation: new_admin_worldwide_organisation_path,
     }
     redirect_options[new_document_type]
   end

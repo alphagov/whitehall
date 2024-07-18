@@ -255,7 +255,7 @@ private
         related_detailed_guide_ids: [],
         role_appointment_ids: [],
         statistical_data_set_document_ids: [],
-        editionable_worldwide_organisation_document_ids: [],
+        worldwide_organisation_document_ids: [],
         policy_group_ids: [],
         document_collection_group_ids: [],
         consultation_participation_attributes: [

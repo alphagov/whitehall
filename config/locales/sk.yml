@@ -240,7 +240,7 @@ sk:
         few:
         one: Vydanie s dohodnutým termínom
         other: Vydania s dohodnutým termínom
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         one:
         other:

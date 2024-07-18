@@ -1,8 +1,8 @@
-class Admin::EditionableWorldwideOrganisationsController < Admin::EditionsController
+class Admin::WorldwideOrganisationsController < Admin::EditionsController
 private
 
   def edition_class
-    EditionableWorldwideOrganisation
+    WorldwideOrganisation
   end
 
   def build_edition_dependencies
