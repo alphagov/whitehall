@@ -18,7 +18,7 @@ module DocumentHelper
     create(:organisation) if Organisation.count.zero?
     visit admin_root_path
     find("li.app-c-sub-navigation__list-item a", text: "New document").click
-    page.choose(options[:type].gsub("editionable_", "").humanize)
+    page.choose(options[:type].humanize)
     click_button("Next")
 
     if options[:locale]

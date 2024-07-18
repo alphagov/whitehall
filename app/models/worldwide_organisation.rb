@@ -99,10 +99,6 @@ class WorldwideOrganisation < Edition
     false
   end
 
-  def self.format_name
-    "worldwide organisation"
-  end
-
   def destroy_associated(locale)
     [offices.map(&:contact), pages].flatten.each do |association|
       association.remove_translations_for(locale)
