@@ -1,5 +1,5 @@
 module ContentObjectStore
-  module Identifiable
+  module Documentable
     extend ActiveSupport::Concern
 
     included do
