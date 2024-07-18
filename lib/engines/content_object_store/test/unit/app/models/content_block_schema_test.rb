@@ -10,6 +10,7 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
     test "it returns the contents of the VALID_SCHEMA constant" do
       assert_equal ContentObjectStore::ContentBlockSchema.valid_schemas, %w[
         email_address
+        tax_rate
       ]
     end
   end
