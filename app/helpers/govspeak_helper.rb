@@ -105,12 +105,6 @@ module GovspeakHelper
     end
   end
 
-  def whitehall_admin_links(body)
-    govspeak = build_govspeak_document(body)
-    links = Govspeak::LinkExtractor.new(govspeak).call
-    links.select { |link| DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(link) }
-  end
-
   def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
