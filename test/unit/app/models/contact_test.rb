@@ -128,7 +128,7 @@ class ContactTest < ActiveSupport::TestCase
       ServiceListeners::EditionDependenciesPopulator.new(corp_info_page).populate!
 
       PresentPageToPublishingApi.any_instance.stubs(:publish).with(PublishingApi::EmbassiesIndexPresenter)
-      expect_publishing(contact)
+      expect_publishing(contact, content_entries: { title: "Changed contact title" })
       expect_republishing(news_article, corp_info_page)
 
       contact.update!(title: "Changed contact title")
