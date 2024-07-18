@@ -1,0 +1,7 @@
+class RenameEditionEditionableWorldwideOrganisations < ActiveRecord::Migration[7.1]
+  def change
+    rename_table :edition_editionable_worldwide_organisations, :edition_worldwide_organisations
+    rename_index :edition_worldwide_organisations, :index_edition_editionable_worldwide_organisations_on_document_id, :index_edition_worldwide_organisations_on_document_id
+    rename_index :edition_worldwide_organisations, :index_edition_editionable_worldwide_organisations_on_edition_id, :index_edition_worldwide_organisations_on_edition_id
+  end
+end
