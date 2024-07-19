@@ -46,6 +46,20 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
+  test "POST :create can create a corporation information page for a WorldwideOrganisation" do
+    organisation = create(:worldwide_organisation)
+    post :create, params: { worldwide_organisation_id: organisation, edition: corporate_information_page_attributes }
+
+    edition = Edition.last
+
+    assert page = organisation.corporate_information_pages.last
+    assert_redirected_to @controller.admin_edition_path(edition)
+    assert_equal "Your document has been saved. You need to <a class=\"govuk-link\" href=\"/government/admin/editions/#{edition.id}/tags/edit\">add topic tags</a> before you can publish this document.", flash[:notice]
+    assert_equal corporate_information_page_attributes[:body], page.body
+    assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
+    assert_equal corporate_information_page_attributes[:summary], page.summary
+  end
+
   view_test "POST :create should redisplay form with error message on fail" do
     post :create, params: { organisation_id: @organisation, edition: corporate_information_page_attributes(body: nil) }
     @organisation.reload

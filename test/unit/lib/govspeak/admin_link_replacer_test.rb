@@ -37,6 +37,18 @@ module Govspeak
       assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "info page"
     end
 
+    test "handles cips on world orgs" do
+      world_org  = create(:worldwide_organisation)
+      cip        = create(:published_corporate_information_page, organisation: nil, worldwide_organisation: world_org)
+      admin_path = polymorphic_path([:admin, world_org, cip])
+      public_url = cip.public_url
+      fragment   = govspeak_to_nokogiri_fragment("Here is a link to a [world info page](#{admin_path})")
+
+      AdminLinkReplacer.new(fragment).replace!
+
+      assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "world info page"
+    end
+
   private
 
     def govspeak_to_nokogiri_fragment(govspeak)

@@ -9,23 +9,37 @@ class CorporateInformationPage < Edition
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
   has_one :organisation, -> { includes(:translations) }, through: :edition_organisation, autosave: false
+  has_one :edition_worldwide_organisation, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy
+  has_one :worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
 
   validate :unique_organisation_and_page_type, on: :create, if: :organisation
+  validate :unique_worldwide_organisation_and_page_type, on: :create, if: :worldwide_organisation
 
   add_trait do
     def process_associations_before_save(new_edition)
-      new_edition.organisation = @edition.organisation
+      if @edition.organisation
+        new_edition.organisation = @edition.organisation
+      elsif @edition.worldwide_organisation
+        new_edition.worldwide_organisation = @edition.worldwide_organisation
+      end
     end
   end
   delegate :alternative_format_contact_email, :acronym, to: :owning_organisation
 
   validates :corporate_information_page_type_id, presence: true
+  validate :only_one_organisation_or_worldwide_organisation
 
   scope :with_organisation_govuk_status, ->(status) { joins(:organisation).where(organisations: { govuk_status: status }) }
   scope :accessible_documents_policy, -> { where(corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id) }
 
   def republish_owning_organisation_to_publishing_api
     return if owning_organisation.blank?
+
+    edition_states = %w[draft submitted]
+    if edition_states.include?(state) && worldwide_organisation.present?
+      presenter = PublishingApi::WorldwideOrganisationPresenter.new(owning_organisation, state:)
+      return Services.publishing_api.put_content(presenter.content_id, presenter.content)
+    end
 
     Whitehall::PublishingApi.republish_async(owning_organisation)
   end
@@ -82,6 +96,12 @@ class CorporateInformationPage < Edition
     false
   end
 
+  def only_one_organisation_or_worldwide_organisation
+    if organisation && worldwide_organisation
+      errors.add(:base, "Only one organisation or worldwide organisation allowed")
+    end
+  end
+
   def skip_organisation_validation?
     true
   end
@@ -91,7 +111,7 @@ class CorporateInformationPage < Edition
   end
 
   def owning_organisation
-    organisation
+    organisation || worldwide_organisation
   end
 
   def organisations
@@ -100,6 +120,12 @@ class CorporateInformationPage < Edition
 
   def sorted_organisations
     organisations
+  end
+
+  def api_presenter_redirect_to
+    raise "only worldwide about pages should redirect" unless about_page? && worldwide_organisation.present?
+
+    worldwide_organisation.public_path(locale: I18n.locale)
   end
 
   def title_prefix_organisation_name
@@ -149,7 +175,13 @@ class CorporateInformationPage < Edition
   end
 
   def publishing_api_presenter
-    PublishingApi::CorporateInformationPagePresenter
+    if worldwide_organisation.present? && about_page?
+      PublishingApi::RedirectPresenter
+    elsif worldwide_organisation.present?
+      PublishingApi::WorldwideCorporateInformationPagePresenter
+    else
+      PublishingApi::CorporateInformationPagePresenter
+    end
   end
 
 private
@@ -169,6 +201,20 @@ private
     end
     if duplicate_scope.exists?
       errors.add(:base, "Another '#{display_type_key.humanize}' page was already published for this organisation")
+    end
+  end
+
+  def unique_worldwide_organisation_and_page_type
+    duplicate_scope = CorporateInformationPage
+      .joins(:edition_worldwide_organisation)
+      .where("edition_worldwide_organisations.worldwide_organisation_id = ?", worldwide_organisation.id)
+      .where(corporate_information_page_type_id:)
+      .where("state not like 'superseded'")
+    if document_id
+      duplicate_scope = duplicate_scope.where("document_id <> ?", document_id)
+    end
+    if duplicate_scope.exists?
+      errors.add(:base, "Another '#{display_type_key.humanize}' page was already published for this worldwide organisation")
     end
   end
 end
