@@ -75,8 +75,8 @@ class RoleAppointment < ApplicationRecord
   before_destroy :prevent_destruction_unless_destroyable
 
   after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, if: :ministerial?
-  after_save :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
-  after_destroy :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
+  after_save :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
+  after_destroy :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_worldwide_organisations_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
 
   def republish_associated_editions_to_publishing_api
     role.edition_roles.each do |edition_role|
@@ -87,6 +87,12 @@ class RoleAppointment < ApplicationRecord
   def republish_organisation_to_publishing_api
     organisations.each do |organisation|
       Whitehall::PublishingApi.republish_async(organisation)
+    end
+  end
+
+  def republish_worldwide_organisations_to_publishing_api
+    worldwide_organisations.each do |worldwide_organisation|
+      Whitehall::PublishingApi.republish_async(worldwide_organisation)
     end
   end
 
