@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::AuditTrailEntryComponentTest < ViewComponent::TestCase
   setup do
-    @non_editionable_item = build(:editionable_worldwide_organisation)
+    @non_editionable_item = build(:worldwide_organisation)
   end
 
   test "shows `Organisation created` when the version has an `create` event" do
