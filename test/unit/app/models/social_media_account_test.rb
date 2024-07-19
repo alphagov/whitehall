@@ -32,7 +32,28 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
     social_media_account.destroy!
   end
 
-  test "creating a new social media account does not republish the linked socialable if it's not an Organisation" do
+  test "creating a new social media account republishes the linked socialable if it's a WorldwideOrganisation" do
+    test_object = create(:worldwide_organisation)
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    create(:social_media_account, socialable: test_object)
+  end
+
+  test "updating an existing social media account republishes the linked socialable if it's a WorldwideOrganisation" do
+    test_object = create(:worldwide_organisation)
+    social_media_account = create(:social_media_account, socialable: test_object)
+    social_media_account.title = "Test"
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    social_media_account.save!
+  end
+
+  test "deleting a social media account republishes the linked socialable if it's a Worldwide Organisation" do
+    test_object = create(:worldwide_organisation)
+    social_media_account = create(:social_media_account, socialable: test_object)
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    social_media_account.destroy!
+  end
+
+  test "creating a new social media account does not republish the linked socialable if it's not an Organisation or WorldwideOrganisation" do
     test_object = create(:world_location)
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).never
     create(:social_media_account, socialable: test_object)

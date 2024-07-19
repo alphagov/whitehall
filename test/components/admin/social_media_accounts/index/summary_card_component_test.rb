@@ -67,4 +67,19 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
     assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{french_social_media_account_translation.url}']", text: "View French"
     assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{edit_polymorphic_path([:admin, socialable, english_social_media_account], locale: :fr)}']", text: "Edit French account"
   end
+
+  test "renders the correct links when the socialable is a world news organisation" do
+    socialable = build_stubbed(:worldwide_organisation)
+    social_media_account = build_stubbed(:social_media_account, socialable:)
+
+    render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(
+                    socialable:,
+                    social_media_account:,
+                  ))
+
+    social_media_service_name = social_media_account.social_media_service.name
+
+    assert_selector ".govuk-summary-card__action a[href='#{edit_polymorphic_path([:admin, socialable, social_media_account])}']", text: "Edit #{social_media_service_name}"
+    assert_selector ".govuk-summary-card__action a[href='#{confirm_destroy_admin_worldwide_organisation_social_media_account_path(socialable, social_media_account)}']", text: "Delete #{social_media_service_name}"
+  end
 end
