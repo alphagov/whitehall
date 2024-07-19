@@ -203,7 +203,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "#alternative_format_provider should be the owning organisaiton" do
     corporate_information_page = build(:corporate_information_page)
 
-    assert_equal corporate_information_page.alternative_format_provider, corporate_information_page.organisation
+    assert_equal corporate_information_page.alternative_format_provider, corporate_information_page.owning_organisation
   end
 
   test "should support attachments" do

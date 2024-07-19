@@ -3,7 +3,7 @@ class CorporateInformationPage < Edition
   include Searchable
   include HasCorporateInformationPageType
 
-  after_commit :republish_organisation_to_publishing_api
+  after_commit :republish_owning_organisation_to_publishing_api
   after_commit :republish_about_page_to_publishing_api, unless: :about_page?
   after_save :reindex_organisation_in_search_index, if: :about_page?
 
@@ -17,24 +17,24 @@ class CorporateInformationPage < Edition
       new_edition.organisation = @edition.organisation
     end
   end
-  delegate :alternative_format_contact_email, :acronym, to: :organisation
+  delegate :alternative_format_contact_email, :acronym, to: :owning_organisation
 
   validates :corporate_information_page_type_id, presence: true
 
   scope :with_organisation_govuk_status, ->(status) { joins(:organisation).where(organisations: { govuk_status: status }) }
   scope :accessible_documents_policy, -> { where(corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id) }
 
-  def republish_organisation_to_publishing_api
-    return if organisation.blank?
+  def republish_owning_organisation_to_publishing_api
+    return if owning_organisation.blank?
 
-    Whitehall::PublishingApi.republish_async(organisation)
+    Whitehall::PublishingApi.republish_async(owning_organisation)
   end
 
   def republish_about_page_to_publishing_api
     about_us = if state == "draft"
-                 organisation&.about_us_for(state: "draft")
+                 owning_organisation&.about_us_for(state: "draft")
                else
-                 organisation&.about_us
+                 owning_organisation&.about_us
                end
     return unless about_us
 
@@ -46,7 +46,7 @@ class CorporateInformationPage < Edition
   end
 
   def reindex_organisation_in_search_index
-    organisation.update_in_search_index
+    owning_organisation.update_in_search_index
   end
 
   def body_required?
@@ -58,7 +58,7 @@ class CorporateInformationPage < Edition
   end
 
   def search_index
-    super.merge("organisations" => [organisation.slug])
+    super.merge("organisations" => [owning_organisation.slug])
   end
 
   def self.search_only
@@ -90,8 +90,12 @@ class CorporateInformationPage < Edition
     !non_english_edition?
   end
 
+  def owning_organisation
+    organisation
+  end
+
   def organisations
-    [organisation]
+    [owning_organisation]
   end
 
   def sorted_organisations
@@ -99,15 +103,15 @@ class CorporateInformationPage < Edition
   end
 
   def title_prefix_organisation_name
-    [organisation.name, title].join(" \u2013 ")
+    [owning_organisation.name, title].join(" \u2013 ")
   end
 
   def title(_locale = :en)
-    corporate_information_page_type.title(organisation)
+    corporate_information_page_type.title(owning_organisation)
   end
 
   def title_lang
-    corporate_information_page_type.title_lang(organisation)
+    corporate_information_page_type.title_lang(owning_organisation)
   end
 
   def summary_required?
@@ -127,7 +131,7 @@ class CorporateInformationPage < Edition
   end
 
   def alternative_format_provider
-    organisation
+    owning_organisation
   end
 
   def alternative_format_provider_required?
@@ -135,12 +139,12 @@ class CorporateInformationPage < Edition
   end
 
   def base_path
-    return if organisation.blank?
+    return if owning_organisation.blank?
 
     if about_page?
-      "#{organisation.base_path}/about"
+      "#{owning_organisation.base_path}/about"
     else
-      "#{organisation.base_path}/about/#{slug}"
+      "#{owning_organisation.base_path}/about/#{slug}"
     end
   end
 

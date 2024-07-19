@@ -109,7 +109,7 @@ module Admin::EditionsHelper
 
   def form_url_for_edition(edition)
     if edition.is_a? CorporateInformationPage
-      [:admin, edition.organisation, edition]
+      [:admin, edition.owning_organisation, edition]
     else
       [:admin, edition]
     end
@@ -118,9 +118,9 @@ module Admin::EditionsHelper
   def tab_url_for_edition(edition)
     if edition.is_a? CorporateInformationPage
       if edition.new_record?
-        url_for([:new, :admin, edition.organisation, edition.class.model_name.param_key.to_sym])
+        url_for([:new, :admin, edition.owning_organisation, edition.class.model_name.param_key.to_sym])
       else
-        url_for([:edit, :admin, edition.organisation, edition])
+        url_for([:edit, :admin, edition.owning_organisation, edition])
       end
     elsif edition.new_record?
       url_for([:new, :admin, edition.class.model_name.param_key.to_sym])
