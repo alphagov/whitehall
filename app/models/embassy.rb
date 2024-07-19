@@ -6,7 +6,7 @@ class Embassy
   delegate :name, to: :@world_location
 
   def organisations_with_embassy_offices
-    @world_location.worldwide_organisations.published.select do |org|
+    @world_location.worldwide_organisations.select do |org|
       org.embassy_offices.any?
     end
   end
@@ -40,7 +40,7 @@ class Embassy
 private
 
   def offices
-    @world_location.worldwide_organisations.published.map(&:embassy_offices).flatten
+    @world_location.worldwide_organisations.map(&:embassy_offices).flatten
   end
 
   def can_assist_in_other_location?

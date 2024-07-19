@@ -29,36 +29,9 @@ class EmbassyTest < ActiveSupport::TestCase
     end
   end
 
-  context "when there are only draft organisations" do
+  context "when there are organisations with embassy offices in the world location" do
     before do
-      organisation = create(:draft_editionable_worldwide_organisation, world_locations: [world_location])
-      contact = create(:contact_with_country, country: world_location)
-      create(:worldwide_office,
-             contact:,
-             edition: organisation,
-             worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
-    end
-
-    it "returns false for #can_assist_british_nationals?" do
-      assert_not embassy.can_assist_british_nationals?
-    end
-
-    it "returns false for #can_assist_in_location?" do
-      assert_not embassy.can_assist_in_location?
-    end
-
-    it "returns nil for #remote_office" do
-      assert_nil embassy.remote_office
-    end
-
-    it "returns no #organisations_with_embassy_offices" do
-      assert embassy.organisations_with_embassy_offices.empty?
-    end
-  end
-
-  context "when there are published organisations with embassy offices in the world location" do
-    before do
-      organisation = create(:published_editionable_worldwide_organisation, world_locations: [world_location])
+      organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
       contact = create(:contact_with_country, country: world_location)
       create(:worldwide_office,
              contact:,
@@ -83,9 +56,9 @@ class EmbassyTest < ActiveSupport::TestCase
     end
   end
 
-  context "when there are published organisations with embassy offices in unspecified countries" do
+  context "when there are organisations with embassy offices in unspecified countries" do
     before do
-      organisation = create(:published_editionable_worldwide_organisation, world_locations: [world_location])
+      organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
       contact = create(:contact, country: nil)
       create(:worldwide_office,
              contact:,
@@ -135,12 +108,12 @@ class EmbassyTest < ActiveSupport::TestCase
     end
   end
 
-  context "when there are published organisations with embassy offices in other world locations" do
+  context "when there are organisations with embassy offices in other world locations" do
     let(:other_location) { create(:world_location) }
 
     before do
       document = create(:document, slug: "org-slug")
-      organisation = create(:published_editionable_worldwide_organisation,
+      organisation = create(:editionable_worldwide_organisation,
                             world_locations: [world_location],
                             title: "org-name",
                             document:)
@@ -173,12 +146,12 @@ class EmbassyTest < ActiveSupport::TestCase
     end
   end
 
-  context "when there is a published organisation with two embassy offices, one in an unknown location and one in another world location" do
+  context "when there is an organisation with two embassy offices, one in an unknown location and one in another world location" do
     let(:other_location) { create(:world_location) }
 
     before do
       document = create(:document, slug: "org-slug")
-      organisation = create(:published_editionable_worldwide_organisation,
+      organisation = create(:editionable_worldwide_organisation,
                             world_locations: [world_location],
                             title: "org-name",
                             document:)
@@ -204,13 +177,13 @@ class EmbassyTest < ActiveSupport::TestCase
     end
   end
 
-  context "when there is a published organisation with two offices in two remote countries and one isn't an embassy" do
+  context "when there is an organisation with two offices in two remote countries and one isn't an embassy" do
     let(:second_location) { create(:world_location) }
     let(:third_location) { create(:world_location) }
 
     before do
       document = create(:document, slug: "org-slug")
-      organisation = create(:published_editionable_worldwide_organisation,
+      organisation = create(:editionable_worldwide_organisation,
                             world_locations: [world_location],
                             title: "org-name",
                             document:)
