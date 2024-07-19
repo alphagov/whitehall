@@ -31,7 +31,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
   context "when there are organisations with embassy offices in the world location" do
     before do
-      organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
+      organisation = create(:worldwide_organisation, world_locations: [world_location])
       contact = create(:contact_with_country, country: world_location)
       create(:worldwide_office,
              contact:,
@@ -58,7 +58,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
   context "when there are organisations with embassy offices in unspecified countries" do
     before do
-      organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
+      organisation = create(:worldwide_organisation, world_locations: [world_location])
       contact = create(:contact, country: nil)
       create(:worldwide_office,
              contact:,
@@ -112,11 +112,10 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:other_location) { create(:world_location) }
 
     before do
-      document = create(:document, slug: "org-slug")
-      organisation = create(:editionable_worldwide_organisation,
+      organisation = create(:worldwide_organisation,
                             world_locations: [world_location],
-                            title: "org-name",
-                            document:)
+                            name: "org-name",
+                            slug: "org-slug")
       contact = create(:contact_with_country, country: other_location)
       create(:worldwide_office,
              contact:,
@@ -150,11 +149,10 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:other_location) { create(:world_location) }
 
     before do
-      document = create(:document, slug: "org-slug")
-      organisation = create(:editionable_worldwide_organisation,
+      organisation = create(:worldwide_organisation,
                             world_locations: [world_location],
-                            title: "org-name",
-                            document:)
+                            name: "org-name",
+                            slug: "org-slug")
       remote_office_contact = create(:contact_with_country, country: other_location)
       unknown_location_contact = create(:contact, country: nil)
       create(:worldwide_office,
@@ -182,11 +180,10 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:third_location) { create(:world_location) }
 
     before do
-      document = create(:document, slug: "org-slug")
-      organisation = create(:editionable_worldwide_organisation,
+      organisation = create(:worldwide_organisation,
                             world_locations: [world_location],
-                            title: "org-name",
-                            document:)
+                            name: "org-name",
+                            slug: "org-slug")
       second_location_contact = create(:contact_with_country, country: second_location)
       third_location_contact = create(:contact_with_country, country: third_location)
       create(:worldwide_office,
