@@ -180,7 +180,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
 
     presented_links = present(world_location_news).links
 
-    assert_equal world_location_news.world_location.worldwide_organisations.map(&:organisations).flatten.pluck(:content_id), presented_links[:organisations]
+    assert_equal world_location_news.world_location.worldwide_organisations.map(&:sponsoring_organisations).flatten.pluck(:content_id), presented_links[:organisations]
   end
 
   test "it does not include links to worldwide organisations for world locations" do
