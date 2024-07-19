@@ -174,6 +174,7 @@ def content_types
                                     TopicalEvent
                                     TopicalEventAboutPage
                                     WorldLocationNews
+                                    WorldwideOffice
                                     WorldwideOrganisation],
     test_specific: %w[GenericEdition
                       SearchableEdition

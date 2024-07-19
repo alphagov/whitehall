@@ -20,7 +20,11 @@ private
   end
 
   def load_translatable_item
-    @worldwide_organisation = Edition.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = if Flipflop.editionable_worldwide_organisations?
+                                Edition.find(params[:worldwide_organisation_id])
+                              else
+                                WorldwideOrganisation.find(params[:worldwide_organisation_id])
+                              end
     @worldwide_office = @worldwide_organisation.offices.find(params[:worldwide_office_id])
     @contact = @worldwide_office.contact
   end

@@ -8,7 +8,7 @@ class Admin::WorldwideOrganisationsMainOfficesControllerTest < ActionController:
   should_be_an_admin_controller
 
   test "GET :choose_main_office calls correctly" do
-    organisation = create(:editionable_worldwide_organisation)
+    organisation = create(:worldwide_organisation)
 
     get :show, params: { id: organisation.id }
 
@@ -17,8 +17,8 @@ class Admin::WorldwideOrganisationsMainOfficesControllerTest < ActionController:
   end
 
   view_test "GET :choose_main_office uses radios when 5 or less offices exist" do
-    organisation = create(:editionable_worldwide_organisation)
-    5.times { create(:worldwide_office, edition: organisation) }
+    organisation = create(:worldwide_organisation)
+    5.times { create(:worldwide_office, worldwide_organisation: organisation) }
 
     get :show, params: { id: organisation.id }
 
@@ -27,8 +27,8 @@ class Admin::WorldwideOrganisationsMainOfficesControllerTest < ActionController:
   end
 
   view_test "GET :choose_main_office uses a select when 6 or more offices exist" do
-    organisation = create(:editionable_worldwide_organisation)
-    6.times { create(:worldwide_office, edition: organisation) }
+    organisation = create(:worldwide_organisation)
+    6.times { create(:worldwide_office, worldwide_organisation: organisation) }
 
     get :show, params: { id: organisation.id }
 
@@ -38,7 +38,7 @@ class Admin::WorldwideOrganisationsMainOfficesControllerTest < ActionController:
 
   test "setting the main office" do
     offices = [create(:worldwide_office), create(:worldwide_office)]
-    worldwide_organisation = create(:editionable_worldwide_organisation, offices:)
+    worldwide_organisation = create(:worldwide_organisation, offices:)
 
     put :update, params: { id: worldwide_organisation.id, worldwide_organisation: { main_office_id: offices.last.id } }
 

@@ -1,10 +1,19 @@
 require "test_helper"
 
 class WorldwideOfficeTest < ActiveSupport::TestCase
-  %w[contact edition worldwide_office_type].each do |param|
+  %w[contact worldwide_organisation worldwide_office_type].each do |param|
     test "should not be valid without a #{param}" do
       assert_not build(:worldwide_office, param.to_sym => nil).valid?
     end
+  end
+
+  test "should not be valid with a worldwide organisation and editionable worldwide organisation" do
+    office = build(:worldwide_office, edition: create(:editionable_worldwide_organisation))
+
+    office.save!
+
+    assert office.invalid?
+    assert_includes office.errors[:associations], "Only worldwide organisation or edition allowed"
   end
 
   test "delegates address-related methods to its contact" do
@@ -51,7 +60,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
   test "scopes the slug to the worldwide organisation" do
     office = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
-    office_at_same_org = create(:worldwide_office, edition: office.edition, contact: create(:contact, title: "Consulate General's Office"))
+    office_at_same_org = create(:worldwide_office, worldwide_organisation: office.worldwide_organisation, contact: create(:contact, title: "Consulate General's Office"))
 
     assert_equal "consulate-generals-office", office.slug
     assert_equal "consulate-generals-office--2", office_at_same_org.slug
@@ -75,13 +84,13 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   end
 
   test "republishes embassies index page on creation of worldwide office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     contact = create(:contact)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
 
     Sidekiq::Testing.inline! do
-      create(:worldwide_office, edition: worldwide_organisation, contact:)
+      create(:worldwide_office, worldwide_organisation:, contact:)
     end
   end
 
@@ -99,6 +108,48 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     office = create(:worldwide_office)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never
+
+    Sidekiq::Testing.inline! do
+      office.destroy!
+    end
+  end
+
+  test "is published to Publishing API on update if associated with a non-editionable worldwide organisation" do
+    office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(office)
+
+    Sidekiq::Testing.inline! do
+      office.contact.update!(title: "New title")
+    end
+  end
+
+  test "is not published to Publishing API on update if associated with an editionable worldwide organisation" do
+    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:republish_async).with(office).never
+
+    Sidekiq::Testing.inline! do
+      office.contact.update!(title: "New title")
+    end
+  end
+
+  test "is deleted from Publishing API on destroy when associated with a non-editionable worldwide organisation" do
+    office = create(:worldwide_office)
+
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.content_id, nil, nil)
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.contact.content_id, nil, nil)
+
+    Sidekiq::Testing.inline! do
+      office.destroy!
+    end
+  end
+
+  test "is not deleted from Publishing API on destroy when associated with an editionable worldwide organisation" do
+    office = create(:worldwide_office, edition: create(:editionable_worldwide_organisation), worldwide_organisation: nil)
+
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.content_id, nil, nil).never
+    Whitehall::PublishingApi.expects(:publish_gone_async).with(office.contact.content_id, nil, nil).never
 
     Sidekiq::Testing.inline! do
       office.destroy!

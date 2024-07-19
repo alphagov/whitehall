@@ -6,12 +6,12 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
   include Rails.application.routes.url_helpers
 
   setup do
-    @worldwide_organisation = build_stubbed(:editionable_worldwide_organisation)
+    @worldwide_organisation = build_stubbed(:worldwide_organisation)
   end
 
   test "renders the correct default values when the office is a main office" do
     contact = build_stubbed(:contact)
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     @worldwide_organisation.stubs(:main_office).returns(worldwide_office)
 
@@ -41,7 +41,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders the add translation action when there are missing translations for a contact" do
     contact = build_stubbed(:contact)
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     contact.stubs(:missing_translations).returns([:fr])
 
@@ -58,7 +58,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders the correct values when the office is not a main office" do
     contact = build_stubbed(:contact)
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -76,7 +76,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders the comments row when the office has comments" do
     contact = build_stubbed(:contact, comments: "Lots of comments.")
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -94,7 +94,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
   test "renders the services row when the office has a service" do
     contact = build_stubbed(:contact)
     worldwide_service = build_stubbed(:worldwide_service)
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:, services: [worldwide_service])
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:, services: [worldwide_service])
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -111,7 +111,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders the email row when the contact has an email address" do
     contact = build_stubbed(:contact, email: "test@email.com")
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -128,7 +128,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders the email row when the contact has an address" do
     contact = build_stubbed(:contact, street_address: "random address")
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -145,7 +145,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders the email row when the contact has a contact form url" do
     contact = build_stubbed(:contact, contact_form_url: "https://wwww.contact-me.org")
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -162,7 +162,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders the contact form url row when the contact has a contact form url" do
     contact = build_stubbed(:contact, contact_form_url: "https://wwww.contact-me.org")
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -181,7 +181,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
     contact_number1 = build_stubbed(:contact_number, label: "Fax", number: "123")
     contact_number2 = build_stubbed(:contact_number, label: "Phone", number: "456")
     contact = build_stubbed(:contact, contact_numbers: [contact_number1, contact_number2])
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -200,7 +200,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
 
   test "renders access and opening times when the office has access and opening time information" do
     contact = build_stubbed(:contact)
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:, access_and_opening_times: "Always open")
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:, access_and_opening_times: "Always open")
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(
@@ -218,7 +218,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
   test "does not render the add translation action when the contact is a non-english translation and there are missing translations for a contact" do
     contact = create(:contact, translated_into: [:es])
     translated_contact = contact.non_english_localised_models([:contact_numbers]).last
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     contact.stubs(:missing_translations).returns([:fr])
 
@@ -245,7 +245,7 @@ class Admin::WorldwideOffices::Index::OfficeSummaryCardComponentTest < ViewCompo
       contact_numbers: [contact_number],
     )
     translated_contact = contact.non_english_localised_models([:contact_numbers]).last
-    worldwide_office = build_stubbed(:worldwide_office, edition: @worldwide_organisation, contact:)
+    worldwide_office = build_stubbed(:worldwide_office, worldwide_organisation: @worldwide_organisation, contact:)
 
     render_inline(
       Admin::WorldwideOffices::Index::OfficeSummaryCardComponent.new(

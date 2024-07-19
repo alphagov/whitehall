@@ -108,7 +108,11 @@ private
   end
 
   def find_worldwide_organisation
-    @worldwide_organisation = Edition.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = if Flipflop.editionable_worldwide_organisations?
+                                Edition.find(params[:worldwide_organisation_id])
+                              else
+                                WorldwideOrganisation.find(params[:worldwide_organisation_id])
+                              end
   end
 
   def find_worldwide_office

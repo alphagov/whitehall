@@ -35,7 +35,7 @@ class EmbassyTest < ActiveSupport::TestCase
       contact = create(:contact_with_country, country: world_location)
       create(:worldwide_office,
              contact:,
-             edition: organisation,
+             worldwide_organisation: organisation,
              worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
     end
 
@@ -62,7 +62,7 @@ class EmbassyTest < ActiveSupport::TestCase
       contact = create(:contact, country: nil)
       create(:worldwide_office,
              contact:,
-             edition: organisation,
+             worldwide_organisation: organisation,
              worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
     end
 
@@ -119,7 +119,7 @@ class EmbassyTest < ActiveSupport::TestCase
       contact = create(:contact_with_country, country: other_location)
       create(:worldwide_office,
              contact:,
-             edition: organisation,
+             worldwide_organisation: organisation,
              worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
     end
 
@@ -157,11 +157,11 @@ class EmbassyTest < ActiveSupport::TestCase
       unknown_location_contact = create(:contact, country: nil)
       create(:worldwide_office,
              contact: remote_office_contact,
-             edition: organisation,
+             worldwide_organisation: organisation,
              worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
       create(:worldwide_office,
              contact: unknown_location_contact,
-             edition: organisation,
+             worldwide_organisation: organisation,
              worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
     end
 
@@ -188,11 +188,11 @@ class EmbassyTest < ActiveSupport::TestCase
       third_location_contact = create(:contact_with_country, country: third_location)
       create(:worldwide_office,
              contact: second_location_contact,
-             edition: organisation,
+             worldwide_organisation: organisation,
              worldwide_office_type: WorldwideOfficeType::Other)
       create(:worldwide_office,
              contact: third_location_contact,
-             edition: organisation,
+             worldwide_organisation: organisation,
              worldwide_office_type: WorldwideOfficeType::EMBASSY_OFFICE_TYPES.first)
     end
 

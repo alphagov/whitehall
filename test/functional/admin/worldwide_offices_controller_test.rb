@@ -19,7 +19,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "post create creates worldwide office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
          params: {
@@ -104,7 +104,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   test "post create creates worldwide office with services" do
     service1 = create(:worldwide_service)
     service2 = create(:worldwide_service)
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
          params: {
@@ -124,7 +124,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "post create creates associated phone numbers" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
          params: {
@@ -452,8 +452,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "GET :reorder calls correctly" do
     worldwide_organisation = create_worldwide_organisation_with_main_office
-    office1 = create(:worldwide_office, edition: worldwide_organisation)
-    office2 = create(:worldwide_office, edition: worldwide_organisation)
+    office1 = create(:worldwide_office, worldwide_organisation:)
+    office2 = create(:worldwide_office, worldwide_organisation:)
 
     worldwide_organisation.add_office_to_home_page!(office1)
     worldwide_organisation.add_office_to_home_page!(office2)
@@ -467,7 +467,9 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal [office1, office2], assigns(:reorderable_offices)
   end
 
-  test "POST :create for an office republishes the draft of the editionable worldwide organisation" do
+  test "POST :create for an office attached to an editionable worldwide organisation republishes the draft of the editionable worldwide organisation" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
     worldwide_organisation = create(:draft_editionable_worldwide_organisation)
 
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation)
@@ -487,10 +489,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
          }
   end
 
-  test "PUT :update for an office republishes the draft of the editionable worldwide organisation" do
+  test "PUT :update for an office attached to an editionable worldwide organisation republishes the draft of the editionable worldwide organisation" do
     feature_flags.switch! :editionable_worldwide_organisations, true
 
-    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
+    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
 
     Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
     Whitehall::PublishingApi.expects(:save_draft).with(office, "major")
@@ -506,10 +508,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
         }
   end
 
-  test "DELETE :destroy for an office republishes the draft of the editionable worldwide organisation" do
+  test "DELETE :destroy for an office attached to an editionable worldwide organisation republishes the draft of the editionable worldwide organisation" do
     feature_flags.switch! :editionable_worldwide_organisations, true
 
-    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
+    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
 
     Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
 
@@ -520,10 +522,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
            }
   end
 
-  test "DELETE :destroy for an office discards draft of the office and the contact" do
+  test "DELETE :destroy for an office attached to an editionable worldwide organisation discards draft of the office and the contact" do
     feature_flags.switch! :editionable_worldwide_organisations, true
 
-    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
+    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation), worldwide_organisation: nil)
 
     PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.content_id, "en")
     PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.contact.content_id, "en")
@@ -552,8 +554,8 @@ private
   end
 
   def create_worldwide_organisation_with_main_office
-    create(:editionable_worldwide_organisation).tap do |worldwide_organisation|
-      create(:worldwide_office, edition: worldwide_organisation)
+    create(:worldwide_organisation).tap do |worldwide_organisation|
+      create(:worldwide_office, worldwide_organisation:)
     end
   end
 end
