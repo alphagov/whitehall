@@ -345,7 +345,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       raise GdsApi::HTTPUnprocessableEntity.new(422, body)
     }
 
-    document = create(:editionable_worldwide_organisation)
+    document = create(:worldwide_organisation)
     destination = "/world/organisations/uk-science-innovation-network-in-belgium"
 
     Services.publishing_api.stub(:publish, raises_exception) do
