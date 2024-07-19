@@ -789,10 +789,17 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "can sponsor worldwide offices" do
     organisation = create(:organisation)
-    world_organisation = create(:editionable_worldwide_organisation)
+    world_organisation = create(:worldwide_organisation)
     organisation.sponsored_worldwide_organisations << world_organisation
 
     assert_equal [world_organisation], organisation.reload.sponsored_worldwide_organisations
+  end
+
+  test "destroy deletes sponsorships" do
+    organisation = create(:organisation, sponsored_worldwide_organisations: [create(:worldwide_organisation)])
+    organisation.destroy!
+
+    assert_equal 0, organisation.sponsorships.count
   end
 
   test "can provide a list of all its FOI contacts" do
