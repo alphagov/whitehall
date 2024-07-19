@@ -1,0 +1,42 @@
+<% content_for :page_title, "Edit translation" %>
+<% content_for :title, "Edit translation" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @english_worldwide_organisation)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @translated_worldwide_organisation, url: admin_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put do |form| %>
+      <%= render "components/translated_input", {
+        input: {
+          label: {
+            text: "Name (required)",
+          },
+          name: "worldwide_organisation[name]",
+          id: "worldwide_organisation_name",
+          value: @translated_worldwide_organisation.name,
+          heading_level: 2,
+          heading_size: "l",
+          error_items: errors_for(form.object.errors, :name),
+          right_to_left: @translated_worldwide_organisation.translation_locale.rtl?,
+          right_to_left_help: false,
+        },
+        details: {
+          text: @english_worldwide_organisation.name,
+        },
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-top-8">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+          data_attributes: {
+            module: "gem-track-click",
+            "track-category": "form-button",
+            "track-action": "worldwide-organisation-button",
+            "track-label": "Save",
+          },
+        } %>
+
+        <%= link_to "Cancel", admin_worldwide_organisation_translations_path(@english_worldwide_organisation), class: "govuk-link govuk-link--no-visited-state" %>
+      </div>
+    <% end %>
+  </div>
+</div>
