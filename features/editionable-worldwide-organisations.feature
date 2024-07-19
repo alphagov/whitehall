@@ -11,13 +11,11 @@ Feature: Editionable worldwide organisations
     Then I should see the editionable worldwide organisation "Test Worldwide Organisation" in the list of draft documents
 
   Scenario: Unpublishing a published worldwide organisation
-    Given I am a managing editor
     Given a published editionable worldwide organisation "Test Worldwide Organisation"
     When I unpublish the document and ask for a redirect to "https://www.test.gov.uk/example"
     Then the unpublishing should redirect to "https://www.test.gov.uk/example"
 
   Scenario: Withdrawing a published worldwide organisation
-    Given I am a managing editor
     Given a published editionable worldwide organisation "Test Worldwide Organisation"
     When I withdraw the worldwide organisation "Test Worldwide Organisation" with the explanation "Closed for business"
     Then there should be an unpublishing explanation of "Closed for business" and a reason of "No longer current government policy/activity"
