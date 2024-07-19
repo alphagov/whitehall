@@ -31,12 +31,8 @@ class Role < ApplicationRecord
   has_many :organisations, through: :organisation_roles,
                            after_remove: :republish_organisation_to_publishing_api
 
-  has_many :role_worldwide_organisations,
-           -> { where(editions: { type: "editionable_worldwide_organisation" }).includes(:edition) },
-           class_name: "EditionRole"
-  has_many :worldwide_organisations,
-           through: :edition_roles,
-           source: :edition
+  has_many :worldwide_organisation_roles, inverse_of: :role
+  has_many :worldwide_organisations, through: :worldwide_organisation_roles
 
   has_one :historical_account_role, inverse_of: :role
   has_one :historical_account, through: :historical_account_role
@@ -58,7 +54,7 @@ class Role < ApplicationRecord
 
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
-  after_save :republish_associated_editions_to_publishing_api, :republish_organisations_to_publishing_api
+  after_save :republish_associated_editions_to_publishing_api, :republish_organisations_to_publishing_api, :republish_worldwide_organisations_to_publishing_api
 
   accepts_nested_attributes_for :edition_roles
 
@@ -81,6 +77,12 @@ class Role < ApplicationRecord
   def republish_organisations_to_publishing_api
     organisations.each do |organisation|
       republish_organisation_to_publishing_api(organisation)
+    end
+  end
+
+  def republish_worldwide_organisations_to_publishing_api
+    worldwide_organisations.each do |worldwide_organisation|
+      republish_organisation_to_publishing_api(worldwide_organisation)
     end
   end
 
