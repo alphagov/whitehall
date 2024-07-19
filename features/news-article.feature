@@ -1,6 +1,7 @@
 Feature: News articles
   Background:
     Given I am an GDS editor
+    And The editionable worldwide organisations feature flag is disabled
 
   Scenario: Create a news article of type 'News story'
     When I draft a valid news article of type "News story" with title "You will never guess"
@@ -15,6 +16,11 @@ Feature: News articles
     Then the news article "Yes we can" should have been created
 
   Scenario: Create a news article of type 'World news story'
+    When I draft a valid news article of type "World news story" with title "A thing happened in X"
+    Then the news article "A thing happened in X" should have been created
+
+  Scenario: Create a news article of type 'World news story' with an editionable worldwide organisation
+    When The editionable worldwide organisations feature flag is enabled
     And I draft a valid news article of type "World news story" with title "A thing happened in X" associated with an editionable worldwide organisation
     Then the news article "A thing happened in X" should have been created
 

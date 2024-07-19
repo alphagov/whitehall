@@ -87,6 +87,21 @@
     end,
   } %>
 
+  <% unless Flipflop.editionable_worldwide_organisations? %>
+    <%= render "components/autocomplete", {
+      id: "role_worldwide_organisation_ids",
+      label: {
+        text: "Worldwide organisations",
+        heading_size: "l",
+      },
+      name: "role[worldwide_organisation_ids][]",
+      select: {
+        options:  options_from_collection_for_select(WorldwideOrganisation.all, "id", "name", role.worldwide_organisation_ids),
+        multiple: true,
+      },
+    } %>
+  <% end %>
+
   <%= render "components/govspeak_editor", {
     label: {
       text: "Responsibilities",

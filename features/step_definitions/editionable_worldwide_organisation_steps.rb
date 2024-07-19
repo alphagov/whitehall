@@ -1,3 +1,8 @@
+Given(/^The editionable worldwide organisations feature flag is (enabled|disabled)$/) do |enabled|
+  @test_strategy ||= Flipflop::FeatureSet.current.test!
+  @test_strategy.switch!(:editionable_worldwide_organisations, enabled == "enabled")
+end
+
 Given(/^an editionable worldwide organisation "([^"]*)"$/) do |title|
   worldwide_organisation = create(:editionable_worldwide_organisation, title:)
   worldwide_organisation.main_office = create(:worldwide_office, edition: worldwide_organisation, title: "Main office for #{title}")

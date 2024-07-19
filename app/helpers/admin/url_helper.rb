@@ -16,7 +16,11 @@ module Admin::UrlHelper
   end
 
   def admin_worldwide_organisations_link
-    path = admin_editions_path(type: "editionable_worldwide_organisation")
+    path = if Flipflop.editionable_worldwide_organisations?
+             admin_editions_path(type: "editionable_worldwide_organisation")
+           else
+             admin_worldwide_organisations_path
+           end
 
     admin_link "Worldwide organisations", path
   end

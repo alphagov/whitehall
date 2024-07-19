@@ -187,6 +187,10 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "includes worldwide organisation links" do
+      assert_equal news_article.editionable_worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first
+    end
+
+    test "includes editionable worldwide organisations as worldwide organisation links when the editionable_worldwide_organisations is enabled" do
       news_article.editionable_worldwide_organisations = [create(:editionable_worldwide_organisation)]
 
       assert_equal news_article.editionable_worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first

@@ -488,6 +488,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "PUT :update for an office republishes the draft of the editionable worldwide organisation" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
     office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
 
     Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
@@ -505,6 +507,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy for an office republishes the draft of the editionable worldwide organisation" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
     office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
 
     Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
@@ -517,6 +521,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy for an office discards draft of the office and the contact" do
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
     office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
 
     PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.content_id, "en")

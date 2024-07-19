@@ -1162,6 +1162,8 @@ module AdminEditionControllerTestHelpers
       edition_class = edition_parent_type&.to_s&.classify&.constantize || class_for(edition_type)
 
       view_test "new should display editionable worldwide organisations field" do
+        feature_flags.switch! :editionable_worldwide_organisations, true
+
         get :new
 
         assert_select "form#new_edition" do
@@ -1179,6 +1181,8 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display editionable worldwide organisations field" do
+        feature_flags.switch! :editionable_worldwide_organisations, true
+
         edition = create(factory_name) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 
@@ -1197,6 +1201,8 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should associate editionable worldwide organisations with the edition" do
+        feature_flags.switch! :editionable_worldwide_organisations, true
+
         first_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
         second_worldwide_organisation = create(:editionable_worldwide_organisation, document: create(:document))
         attributes = controller_attributes_for(edition_type)

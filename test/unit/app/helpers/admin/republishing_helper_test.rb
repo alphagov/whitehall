@@ -5,6 +5,23 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     # we need to eager load here to ensure we have all the models
     Rails.application.eager_load!
 
+    feature_flags.switch! :editionable_worldwide_organisations, true
+
+    expected_content_types = [
+      omnipresent_content_types,
+      content_types[:editionable_worldwide_organisations_enabled],
+    ].flatten.sort
+    result_minus_test_types = republishable_content_types.reject { |type| content_types[:test_specific].include? type }
+
+    assert_equal expected_content_types, result_minus_test_types
+  end
+
+  test "#republishable_content_types excludes `EditionableWorldwideOrganisation` when the editionable_worldwide_organisations feature flag is disabled" do
+    # we need to eager load here to ensure we have all the models
+    Rails.application.eager_load!
+
+    feature_flags.switch! :editionable_worldwide_organisations, false
+
     expected_content_types = omnipresent_content_types.sort
     result_minus_test_types = republishable_content_types.reject { |type| content_types[:test_specific].include? type }
 
@@ -138,7 +155,6 @@ def content_types
                                 CorporateInformationPage
                                 DetailedGuide
                                 DocumentCollection
-                                EditionableWorldwideOrganisation
                                 FatalityNotice
                                 NewsArticle
                                 Publication
@@ -165,5 +181,6 @@ def content_types
                       Edition::EditionableWorldwideOrganisationTest::EditionWithWorldwideOrganisations
                       Edition::ImagesTest::EditionWithImages
                       Edition::StatisticalDataSetsTest::EditionWithStatisticalDataSets
-                      Edition::LimitedAccessTest::LimitedByDefaultEdition] }
+                      Edition::LimitedAccessTest::LimitedByDefaultEdition],
+    editionable_worldwide_organisations_enabled: "EditionableWorldwideOrganisation" }
 end

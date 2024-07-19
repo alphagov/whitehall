@@ -1,6 +1,7 @@
 Feature: Editionable worldwide organisations
   Background:
     Given I am a writer
+    And The editionable worldwide organisations feature flag is enabled
     And a world location "United Kingdom" exists
 
   Scenario: Creating a new draft worldwide organisation
