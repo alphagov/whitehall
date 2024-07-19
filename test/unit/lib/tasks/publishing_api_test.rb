@@ -298,7 +298,8 @@ class PublishingApiRake < ActiveSupport::TestCase
                             StatisticsAnnouncement
                             TakePartPage
                             TopicalEventAboutPage
-                            TopicalEvent]
+                            TopicalEvent
+                            WorldwideOrganisation]
 
         document_types.each do |document_type|
           test "republishes all #{document_type} documents" do

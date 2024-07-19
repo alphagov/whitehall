@@ -13,6 +13,11 @@ class SearchApiPresentersTest < ActiveSupport::TestCase
     assert_not SearchApiPresenters.present_all_government_content.include?("a detailed guide")
   end
 
+  test "SearchApiPresenters.present_all_government_content includes WorldwideOrganisations" do
+    WorldwideOrganisation.stubs(search_index: %w[worldwide_organisations_index])
+    assert SearchApiPresenters.present_all_government_content.include?("worldwide_organisations_index")
+  end
+
   test "SearchApiPresenters.present_all_government_content includes organisations" do
     Organisation.stubs(:search_index).returns([:organisations])
     assert SearchApiPresenters.present_all_government_content.include?(:organisations)

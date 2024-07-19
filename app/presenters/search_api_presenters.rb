@@ -28,6 +28,7 @@ module SearchApiPresenters
       TakePartPage,
       StatisticsAnnouncement,
       WorldLocationNews,
+      WorldwideOrganisation,
     ] + Whitehall.edition_classes
   end
 end

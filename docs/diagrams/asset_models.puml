@@ -4,6 +4,7 @@ hide empty members
 
 object ImmediatelyPublishedDocuments {
  Organisation
+ WorldwideOrganisation
  Person
  TopicalEvent
  PolicyGroup
