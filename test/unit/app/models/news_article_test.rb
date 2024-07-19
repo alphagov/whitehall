@@ -73,11 +73,10 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert_not article.world_news_story?
   end
 
-  test "can associate world news stories with worldwide organisations" do
-    news_article = create(:news_article_world_news_story)
+  test "can associate news articles with worldwide organisations" do
+    news_article = create(:news_article)
     assert news_article.can_be_associated_with_worldwide_organisations?
-    worldwide_organisation = build(:editionable_worldwide_organisation, :with_document, title: "Zimbabwean Embassy")
-    assert news_article.editionable_worldwide_organisation_documents << worldwide_organisation.document
+    assert news_article.worldwide_organisations.create(name: "Zimbabwean Embassy")
   end
 
   test "is invalid when associating a worldwide organisation to a non-World-news-story news article type" do
@@ -89,10 +88,9 @@ class NewsArticleTest < ActiveSupport::TestCase
 
     non_world_news_story_news_article_types.each do |news_article_type|
       news_article = build(:news_article, news_article_type:)
-      worldwide_organisation = build(:editionable_worldwide_organisation, :with_document, title: "Zimbabwean Embassy")
-      news_article.editionable_worldwide_organisation_documents << worldwide_organisation.document
+      news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
       assert_not news_article.valid?
-      assert news_article.errors[:editionable_worldwide_organisation_documents].include?("must be blank")
+      assert news_article.errors[:worldwide_organisations].include?("must be blank")
     end
   end
 end
@@ -107,6 +105,15 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     news_article = build(:news_article_world_news_story)
     news_article.primary_locale = "fr"
     assert news_article.valid?
+  end
+
+  test "is invalid when not associating a worldwide organisation" do
+    news_article = build(:news_article_world_news_story)
+    news_article.worldwide_organisations = []
+
+    assert_not news_article.valid?
+    assert news_article.errors[:worldwide_organisations].include?("at least one required")
+    assert_not news_article.errors[:editionable_worldwide_organisations].present?
   end
 
   test "is invalid when not associating an editionable worldwide organisation" do
@@ -156,8 +163,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     news_article = create(:news_article_news_story)
 
     news_article.news_article_type = NewsArticleType::WorldNewsStory
-    worldwide_organisation = build(:editionable_worldwide_organisation, :with_document, title: "Zimbabwean Embassy")
-    news_article.editionable_worldwide_organisation_documents << worldwide_organisation.document
+    news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
     news_article.world_locations << build(:world_location)
     news_article.lead_organisation_ids = []
 
