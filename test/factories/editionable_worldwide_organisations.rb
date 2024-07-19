@@ -5,9 +5,9 @@ FactoryBot.define do
     summary { "Basic information about the organisation." }
     body { "Information about the organisation with _italics_." }
 
-    after :build do |organisation, evaluator|
+    after :build do |news_article, evaluator|
       if evaluator.world_locations.empty?
-        organisation.world_locations << build(:world_location)
+        news_article.world_locations << build(:world_location)
       end
     end
 
