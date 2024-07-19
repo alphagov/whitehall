@@ -181,6 +181,17 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   end
 
   test "links hash includes worldwide organisations" do
+    wworg = create(:worldwide_organisation)
+    case_study = create(
+      :published_case_study,
+      worldwide_organisations: [wworg],
+    )
+    presented_item = present(case_study)
+    assert_valid_against_links_schema({ links: presented_item.links }, "case_study")
+    assert_equal [wworg.content_id], presented_item.links[:worldwide_organisations]
+  end
+
+  test "includes editionable worldwide organisations as worldwide organisation links when the editionable_worldwide_organisations is enabled" do
     worldwide_organisation = create(:editionable_worldwide_organisation)
     case_study = create(
       :published_case_study,
