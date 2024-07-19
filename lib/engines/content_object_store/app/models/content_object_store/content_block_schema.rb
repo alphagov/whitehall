@@ -1,7 +1,7 @@
 class ContentObjectStore::ContentBlockSchema
   SCHEMA_PREFIX = "content_block".freeze
 
-  VALID_SCHEMAS = %w[email_address].freeze
+  VALID_SCHEMAS = %w[email_address postal_address].freeze
   private_constant :VALID_SCHEMAS
 
   def self.valid_schemas
