@@ -7,6 +7,9 @@ module Whitehall
       when ADMIN_ORGANISATION_CIP_PATH
         organisation = Organisation.find_by(slug: Regexp.last_match(1))
         corporate_info_page(organisation:, corporate_info_slug: Regexp.last_match(2))
+      when ADMIN_WORLDWIDE_ORGANISATION_CIP_PATH
+        organisation = WorldwideOrganisation.find_by(slug: Regexp.last_match(1))
+        corporate_info_page(organisation:, corporate_info_slug: Regexp.last_match(2))
       when ADMIN_EDITION_PATH
         Edition.unscoped.find_by(id: Regexp.last_match(1))
       end
