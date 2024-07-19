@@ -186,7 +186,14 @@ Whitehall::Application.routes.draw do
         member do
           get :choose_main_office, to: "worldwide_organisations_main_offices#show"
           put :set_main_office, to: "worldwide_organisations_main_offices#update"
+          get :confirm_destroy
+          get :about, to: "worldwide_organisations_about#show", as: :about
+          get :history, to: "worldwide_organisations_history#index", as: :history
         end
+        resources :translations, controller: "worldwide_organisations_translations" do
+          get :confirm_destroy, on: :member
+        end
+
         resources :worldwide_offices, path: "offices", except: [:show] do
           member do
             get :confirm_destroy
@@ -196,6 +203,12 @@ Whitehall::Application.routes.draw do
           resources :translations, controller: "worldwide_office_translations", only: %i[create edit update destroy index] do
             get :confirm_destroy, on: :member
           end
+        end
+        resources :corporate_information_pages do
+          resources :translations, controller: "corporate_information_pages_translations"
+        end
+        resources :social_media_accounts do
+          get :confirm_destroy, on: :member
         end
       end
 
