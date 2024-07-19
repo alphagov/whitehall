@@ -13,7 +13,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_lead_and_supporting_organisations_for :news_article
   should_allow_role_appointments_for :news_article
   should_allow_association_between_world_locations_and :news_article
-  should_allow_association_with_editionable_worldwide_organisations :world_news_story, edition_parent_type: :news_article, factory_name: :news_article_world_news_story, required: true
+  should_allow_association_with_editionable_worldwide_organisations :news_article, required: true
   should_prevent_modification_of_unmodifiable :news_article
   should_allow_overriding_of_first_published_at_for :news_article
   should_have_summary :news_article
@@ -53,17 +53,8 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 private
 
   def controller_attributes_for(edition_type, attributes = {})
-    if edition_type == :world_news_story
-      world_location = create(:world_location)
-
-      controller_attributes_for(:news_article, attributes:).except(:lead_organisation_ids, :news_article_type, :news_article_type_id).reverse_merge(
-        news_article_type_id: NewsArticleType::WorldNewsStory,
-        world_location_ids: [world_location.id],
-      )
-    else
-      super.except(:news_article_type).reverse_merge(
-        news_article_type_id: NewsArticleType::GovernmentResponse,
-      )
-    end
+    super.except(:news_article_type).reverse_merge(
+      news_article_type_id: NewsArticleType::GovernmentResponse,
+    )
   end
 end
