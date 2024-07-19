@@ -108,6 +108,13 @@ class Organisation < ApplicationRecord
            as: :socialable,
            dependent: :destroy
 
+  has_many :edition_worldwide_organisations,
+           -> { where(editions: { type: "editionable_worldwide_organisation" }).includes(:edition) },
+           class_name: "EditionOrganisation"
+  has_many :sponsored_worldwide_organisations,
+           through: :edition_worldwide_organisations,
+           source: :edition
+
   has_and_belongs_to_many :superseding_organisations, class_name: "Organisation", foreign_key: :superseded_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseding_organisation_id
   has_and_belongs_to_many :superseded_organisations, class_name: "Organisation", foreign_key: :superseding_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseded_organisation_id
 
