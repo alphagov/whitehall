@@ -56,5 +56,12 @@ module DataHygiene
     def update_editions
       organisation.editions.published.each(&:update_in_search_index)
     end
+
+    def new_base_path
+      case organisation
+      when Organisation
+        new_slug.public_path
+      end
+    end
   end
 end
