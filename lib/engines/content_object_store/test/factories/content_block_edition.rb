@@ -22,8 +22,10 @@ FactoryBot.define do
     end
 
     after(:create) do |content_block_edition, evaluator|
-      document = create(:content_block_document, evaluator.content_block_document_attributes)
-      content_block_edition.update!(content_block_document_id: document.id)
+      unless content_block_edition.content_block_document_id
+        document = create(:content_block_document, evaluator.content_block_document_attributes)
+        content_block_edition.update!(content_block_document_id: document.id)
+      end
     end
   end
 end
