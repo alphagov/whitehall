@@ -38,8 +38,8 @@ module DataHygiene
     end
 
     def find_document(row)
-      slug = row.fetch("Slug")&.strip
-      document_type = row.fetch("Document type")&.strip
+      slug = row.fetch("Slug")&.strip&.split("/")&.last
+      document_type = row.fetch("Document type")&.strip&.delete(" ")
 
       return if slug.blank?
 
@@ -63,7 +63,7 @@ module DataHygiene
       return [] unless column_data
 
       column_data.split(",").map do |slug|
-        Organisation.find_by!(slug: slug.strip)
+        Organisation.find_by!(slug: slug.strip.split("/").last)
       rescue ActiveRecord::RecordNotFound
         puts "error: couldn't find organisation: #{slug.strip}"
 
@@ -106,7 +106,7 @@ module DataHygiene
         )
 
       if pre_publication_edition_updated || published_edition_updated
-        puts "#{document.slug}: #{new_lead_organisations.map(&:slug).join(', ')} (#{new_supporting_organisations.map(&:slug).join(', ')})"
+        puts "#{document.slug}: UPDATED"
       else
         if published_edition || pre_publication_edition
           puts "#{document.slug}: no update required"
@@ -148,7 +148,7 @@ module DataHygiene
         puts "#{document.slug}: no update required"
       else
         document.update(organisations: new_organisations) # rubocop:disable Rails/SaveBang
-        puts "#{document.slug}: #{new_organisations.map(&:slug).join(', ')}"
+        puts "#{document.slug}: UPDATED"
       end
     end
   end
