@@ -27,6 +27,32 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
     render :new
   end
 
+  def edit
+    @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(@content_block_edition.document.block_type)
+  end
+
+  def update
+    @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(@content_block_edition.document.block_type)
+
+    @new_content_block_edition = ContentObjectStore::ContentBlockEdition.create!(
+      details: edition_params[:details],
+      content_block_document: @content_block_edition.content_block_document,
+      creator: current_user,
+    )
+
+    document_params = edition_params[:content_block_document_attributes]
+    document_params[:latest_edition_id] = @new_content_block_edition.id
+    document_params[:live_edition_id] = @new_content_block_edition.id
+    document_params.delete(:block_type)
+
+    @content_block_edition.document.update!(document_params)
+
+    redirect_to content_object_store.content_object_store_content_block_edition_path(@new_content_block_edition),
+                flash: { notice: "#{@schema.name} changed and published successfully" }
+  end
+
 private
 
   def root_params
