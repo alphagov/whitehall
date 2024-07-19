@@ -243,13 +243,5 @@ module PublishingApi
         I18n.t("corporate_information_page.type.title.#{page.display_type_key}")
       end
     end
-
-    def worldwide_organisation_logo_name(organisation)
-      if I18n.locale == :en && organisation.logo_formatted_name.present?
-        format_with_html_line_breaks(ERB::Util.html_escape(organisation.logo_formatted_name))
-      else
-        organisation.title
-      end
-    end
   end
 end
