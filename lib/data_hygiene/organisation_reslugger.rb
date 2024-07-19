@@ -19,11 +19,9 @@ module DataHygiene
     def run!
       remove_from_search_index
       update_slug
-      if organisation.is_a? Organisation
-        update_child_and_parent_organisations_in_search
-        update_users
-        update_editions
-      end
+      update_child_and_parent_organisations_in_search if organisation.is_a? Organisation
+      update_users if organisation.is_a? Organisation
+      update_editions if organisation.is_a?(Organisation) || organisation.is_a?(WorldwideOrganisation)
     end
 
   private
@@ -60,6 +58,8 @@ module DataHygiene
     def new_base_path
       case organisation
       when Organisation
+        new_slug.public_path
+      when WorldwideOrganisation
         new_slug.public_path
       end
     end
