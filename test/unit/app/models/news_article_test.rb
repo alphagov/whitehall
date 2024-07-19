@@ -124,6 +124,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
     assert_not news_article.valid?
     assert news_article.errors[:editionable_worldwide_organisations].include?("at least one required")
+    assert_not news_article.errors[:worldwide_organisations].present?
   end
 
   test "are invalid if associated with a minister" do
