@@ -11,3 +11,13 @@
         content_block_edition: @content_block_edition,
       ),
     ) %>
+
+<div class="govuk-grid-row govuk-!-padding-top-8">
+  <div class="govuk-grid-column-full">
+    <%= render(
+          ContentObjectStore::ContentBlockEdition::Show::TimelineComponent.new(
+            content_block_versions: @content_block_versions,
+          ),
+        ) %>
+  </div>
+</div>

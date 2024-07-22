@@ -5,6 +5,7 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
 
   def show
     @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
+    @content_block_versions = ContentObjectStore::ContentBlockVersion.where(item: @content_block_edition)
   end
 
   def new

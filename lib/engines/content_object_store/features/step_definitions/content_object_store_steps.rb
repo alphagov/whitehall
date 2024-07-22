@@ -195,3 +195,8 @@ end
 Then("I should see a permissions error") do
   assert_text "Permissions error"
 end
+
+Then("I should see the audit trail") do
+  assert_text "Email address created"
+  expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}")
+end
