@@ -49,6 +49,8 @@ $govuk-page-width: 1140px;
 @import "./admin/views/whats-new";
 @import "./admin/views/worldwide-organisations-choose-main-office";
 
+@import "../../../lib/engines/content_object_store/app/assets/stylesheets/content_object_store/application";
+
 .app-js-only {
   display: none;
 }
