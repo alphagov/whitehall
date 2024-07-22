@@ -12,11 +12,6 @@
             label: "Set a reminder to review this content after it has been published",
             value: 1,
             checked: params[:review_reminder] == "1" || review_reminder.persisted?,
-            data_attributes: {
-              track_category: "checkbox",
-              track_label: "Set a reminder to review this content after it has been published",
-              track_action: "clicked",
-            },
             conditional: render("components/datetime_fields", {
               heading_size: "s",
               field_name: "review_at",

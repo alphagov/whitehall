@@ -11,10 +11,6 @@
   rows ||= 12
   right_to_left ||= false
 
-  track_preview_toggle ||= false
-  track_category ||= false
-  track_action ||= false
-
   data_attributes ||= {}
   data_attributes[:module] ||= ""
   data_attributes[:module] << " govspeak-editor"
@@ -27,9 +23,6 @@
 
   preview_button_data_attributes ||= {}
   preview_button_data_attributes["content-target"] = "##{id}"
-  preview_button_data_attributes["preview-toggle-tracking"] = "true" if track_preview_toggle
-  preview_button_data_attributes["preview-toggle-track-category"] = track_category if track_category
-  preview_button_data_attributes["preview-toggle-track-action"] = track_action if track_action
 
   classes = "app-c-govspeak-editor govuk-form-group"
   classes << " govuk-form-group--error" if error_items

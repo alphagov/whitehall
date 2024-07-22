@@ -29,12 +29,6 @@
       text: "Create new account",
       href: new_polymorphic_path([:admin, @socialable, SocialMediaAccount]),
       margin_bottom: 6,
-      data_attributes: {
-        module: "gem-track-click",
-        "track-category": "form-button",
-        "track-action": "social-media-accounts-button",
-        "track-label": "Create new account",
-      },
     } %>
 
     <% if @social_media_accounts.present? %>

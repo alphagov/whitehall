@@ -19,17 +19,11 @@ private
     @versioning_completed ||= edition.versioning_completed?
   end
 
-  def preview_link(link_text, href, tracking_label)
+  def preview_link(link_text, href)
     link_to(link_text,
             href,
             class: "govuk-link",
-            target: "_blank",
-            data: {
-              module: "gem-track-click",
-              "track-category": "button-clicked",
-              "track-action": track_action,
-              "track-label": tracking_label,
-            }, rel: "noopener")
+            target: "_blank", rel: "noopener")
   end
 
   def primary_locale_link_text
@@ -42,9 +36,5 @@ private
 
   def available_in_multiple_languages
     @available_in_multiple_languages ||= edition.translatable? && edition.available_in_multiple_languages?
-  end
-
-  def track_action
-    @track_action ||= "#{edition.model_name.singular.dasherize}-button"
   end
 end

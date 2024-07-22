@@ -24,12 +24,6 @@
     <%= render "govuk_publishing_components/components/button", {
       text: statistics_announcement.cancellation_reason.blank? ? "Publish cancellation" : "Update cancellation reason",
       destructive: true,
-      data_attributes: {
-        module: "gem-track-click",
-        "track-category": "form-button",
-        "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-        "track-label": statistics_announcement.cancellation_reason.blank? ? "Publish cancellation" : "Update cancellation reason",
-      },
     } %>
     <%= link_to("Cancel", [:admin, statistics_announcement], class: "govuk-link") %>
   </div>

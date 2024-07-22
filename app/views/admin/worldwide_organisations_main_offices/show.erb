@@ -44,12 +44,6 @@
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "worldwide-organisation-set-main-office-button",
-            "track-label": "Save",
-          },
         } %>
 
         <%= link_to "Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class:"govuk-link govuk-link--no-visited-state" %>

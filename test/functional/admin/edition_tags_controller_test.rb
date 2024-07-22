@@ -97,12 +97,6 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     assert_select "input[name='taxonomy_tag_form[invisible_taxons]'][value='invisible_taxon_1_content_id,invisible_taxon_2_content_id']"
   end
 
-  def assert_tracking_attributes(element:, track_label:)
-    assert_equal "gem-track-click", element["data-module"]
-    assert_equal "form-button", element["data-track-category"]
-    assert_equal track_label, element["data-track-label"]
-  end
-
   view_test "should render save button with tracking attributes" do
     stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
 
@@ -110,10 +104,6 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     assert_select "button", text: "Save" do |elements|
       assert_equal 1, elements.length
-      assert_tracking_attributes(
-        element: elements.first,
-        track_label: "Save tagging changes",
-      )
     end
   end
 

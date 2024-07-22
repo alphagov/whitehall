@@ -41,12 +41,6 @@
       name: "save_and_publish",
       value: "Save and publish",
       type: "submit",
-      data_attributes: {
-        module: "gem-track-click",
-        "track-category": "form-button",
-        "track-action": "#{f.object.class.name.demodulize.underscore.dasherize}-button",
-        "track-label": "Save and publish",
-      },
     } %>
     <%= link_to("Cancel", content_object_store.content_object_store_content_block_edition_path(@content_block_edition), class: "govuk-link") %>
   </div>

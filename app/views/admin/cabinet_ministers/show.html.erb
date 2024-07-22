@@ -13,13 +13,7 @@
     <%= link_to("Preview on website (opens in new tab)",
       "#{Plek.external_url_for('draft-origin')}/government/ministers",
       class: "govuk-link",
-      target: "_blank",
-      data: {
-        module: "gem-track-click",
-        "track-category": "button-clicked",
-        "track-action": "ministers-index-page-button",
-        "track-label": "Preview on website",
-      }, rel: "noopener") %>. Requires Signon access.
+      target: "_blank", rel: "noopener") %>. Requires Signon access.
   </p>
 <% end %>
 

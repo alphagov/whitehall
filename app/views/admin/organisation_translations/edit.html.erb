@@ -65,12 +65,6 @@
       <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "#{@translated_organisation.class.name.demodulize.underscore.dasherize}-button",
-            "track-label": "Save",
-          },
         } %>
 
         <%= link_to "Cancel", admin_organisation_translations_path(@translated_organisation), class: "govuk-link govuk-link--no-visited-state" %>

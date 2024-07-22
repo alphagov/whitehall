@@ -11,23 +11,11 @@
         text: "Save",
         value: "save",
         name: "save",
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "form-button",
-          "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
-          "track-label": "Save",
-        },
       } %>
 
       <%= render "govuk_publishing_components/components/button", {
         text: "Save and go to document summary",
         secondary_solid: true,
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "form-button",
-          "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
-          "track-label": "Save and continue",
-        },
       } %>
 
       <% cancel_link_path = edition.new_record? ? polymorphic_path([:admin, edition.organisation, CorporateInformationPage]) : admin_edition_path(edition) %>

@@ -3,8 +3,6 @@
   error_id = "error-#{SecureRandom.hex(4)}"
   error_items ||= []
   aria = error_id if error_items.any?
-  track_category ||= nil
-  track_label ||= nil
   select ||= {}
   autocomplete_configuration_options ||= {}
 
@@ -42,6 +40,5 @@
     id: id,
     class: "govuk-select",
     size: select[:size],
-    multiple: select[:multiple],
-    data: { track_category:, track_label: } %>
+    multiple: select[:multiple] %>
 <% end %>

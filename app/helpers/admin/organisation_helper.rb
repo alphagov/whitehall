@@ -140,12 +140,6 @@ module Admin::OrganisationHelper
     [{
       id: "#{title.downcase.gsub(' ', '_')}_tab",
       label: title,
-      tab_data_attributes: {
-        module: "gem-track-click",
-        "track-category": "tab",
-        "track-action": "organisation-people-tab",
-        "track-label": title,
-      },
       content: render("admin/organisation_people/order", organisation_roles:, title:, type:),
     }]
   end

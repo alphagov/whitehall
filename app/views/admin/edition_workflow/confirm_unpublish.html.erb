@@ -2,7 +2,6 @@
 <% content_for :title, "Withdraw or unpublish" %>
 <% content_for :context, @edition.title %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @unpublishing)) %>
-<% render "admin/tracking/subtype_tracking", document_type: @edition.type, document: @edition %>
 
 <%
   unpublish_reasons = {
@@ -68,10 +67,7 @@
     } %>
 
     <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__withdrawal">
-      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
-        module: "unpublish-tracking",
-        "unpublish-reason-label": unpublish_reasons[:withdrawn][:label],
-      } do |form| %>
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
         <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:withdrawn][:id] %>
 
         <% if @previous_withdrawals.any? %>
@@ -123,10 +119,7 @@
     </div>
 
     <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__published-in-error">
-      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
-        module: "unpublish-tracking",
-        "unpublish-reason-label": unpublish_reasons[:published_in_error][:label],
-      } do |form| %>
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
         <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:published_in_error][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {
@@ -179,10 +172,7 @@
     </div>
 
     <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__consolidated">
-      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), data: {
-        module: "unpublish-tracking",
-        "unpublish-reason-label": unpublish_reasons[:consolidated][:label],
-      } do |form| %>
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
         <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:consolidated][:id] %>
 
         <%= render "govuk_publishing_components/components/input", {

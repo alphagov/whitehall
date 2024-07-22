@@ -46,12 +46,6 @@
       <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "#{socialable.class.name.demodulize.underscore.dasherize}social-media-account-button",
-            "track-label": "Save",
-          },
         } %>
 
         <%= link_to("Cancel", [:admin, socialable, SocialMediaAccount], class: "govuk-link govuk-link--no-visited-state") %>

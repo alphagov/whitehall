@@ -8,7 +8,7 @@
 
   <% if versioning_completed %>
     <p class="govuk-body">
-      <%= preview_link(primary_locale_link_text, edition.public_url(draft: true), "Preview on website") %>
+      <%= preview_link(primary_locale_link_text, edition.public_url(draft: true)) %>
     </p>
 
     <% if available_in_multiple_languages %>
@@ -21,7 +21,6 @@
               preview_link(
                 "Preview on website - #{locale.native_and_english_language_name} (opens in new tab)",
                 edition.public_url(locale: locale.code, draft: true),
-                "Preview on website - #{locale.native_and_english_language_name}",
               )
             end,
           } %>

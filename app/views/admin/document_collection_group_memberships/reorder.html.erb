@@ -22,12 +22,6 @@
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "document-collection-groups-membership-reorder-button",
-            "track-label": "Save",
-          },
         } %>
         <%= link_to("Cancel", admin_document_collection_group_document_collection_group_memberships_path(@collection), class: "govuk-link govuk-link--no-visited-state") %>
       </div>

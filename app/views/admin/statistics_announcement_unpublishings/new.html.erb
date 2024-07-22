@@ -34,12 +34,6 @@
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Unpublish announcement",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-            "track-label": "Unpublish announcement",
-          },
           destructive: true,
         } %>
         <%= link_to("Cancel", [:admin, @statistics_announcement], class: "govuk-link") %>

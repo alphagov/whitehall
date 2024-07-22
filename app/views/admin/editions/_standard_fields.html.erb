@@ -113,13 +113,7 @@
         @edition.public_url(draft: true, locale: @edition.primary_locale),
         class: "govuk-link",
         target: "_blank",
-        rel: "noopener",
-        data: {
-          module: "gem-track-click",
-          "track-category": "button-clicked",
-          "track-action": "#{@edition.model_name.singular.dasherize}-button",
-          "track-label": "Preview on website",
-        }) %>
+        rel: "noopener") %>
       </p>
       <p class="govuk-body">
         To preview your document on GOV.UK you must save it first.

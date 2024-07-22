@@ -14,12 +14,7 @@
         <%= render "govuk_publishing_components/components/button", {
           text: "Delete",
           destructive: true,
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "worldwide-office-button",
-            "track-label": "Delete",
-          },
+
         } %>
         <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path, class: "govuk-link govuk-link--no-visited-state") %>
       </div>

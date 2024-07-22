@@ -3,23 +3,11 @@
     text: "Save",
     value: "save",
     name: "save",
-    data_attributes: {
-      module: "gem-track-click",
-      "track-category": "form-button",
-      "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
-      "track-label": "Save",
-    },
   } %>
 
   <%= render "govuk_publishing_components/components/button", {
     text: "Save and go to document summary",
     secondary_solid: true,
-    data_attributes: {
-      module: "gem-track-click",
-      "track-category": "form-button",
-      "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
-      "track-label": "Save and continue",
-    },
   } %>
 
   <%= link_to "Cancel", edition.new_record? ? admin_editions_path : admin_edition_path(edition), class: "govuk-link govuk-link--no-visited-state" %>

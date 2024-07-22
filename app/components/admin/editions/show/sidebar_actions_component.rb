@@ -46,12 +46,6 @@ private
       }) do
         render("govuk_publishing_components/components/button", {
           text: "Create new edition",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "button-pressed",
-            "track-action": "#{dasherized_class_name}-button",
-            "track-label": "Create new edition",
-          },
         })
       end
     end
@@ -64,12 +58,6 @@ private
       }) do
         render("govuk_publishing_components/components/button", {
           text: "Submit for 2nd eyes",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "button-pressed",
-            "track-action": "#{dasherized_class_name}-button",
-            "track-label": "Submit for 2nd eyes",
-          },
         })
       end
     end
@@ -81,12 +69,6 @@ private
         text: "Edit draft",
         href: edit_admin_edition_path(@edition),
         secondary_quiet: true,
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "button-pressed",
-          "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Edit draft",
-        },
       })
     end
   end
@@ -98,12 +80,6 @@ private
         title: "Unschedule this edition to allow changes or prevent automatic publication on #{l @edition.scheduled_publication, format: :long}",
         href: confirm_unschedule_admin_edition_path(@edition, lock_version: @edition.lock_version),
         secondary_quiet: true,
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "button-pressed",
-          "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Unschedule",
-        },
       })
     end
   end
@@ -116,12 +92,6 @@ private
         render("govuk_publishing_components/components/button", {
           text: "Schedule",
           title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "button-pressed",
-            "track-action": "#{dasherized_class_name}-button",
-            "track-label": "Schedule",
-          },
         })
       end
     elsif @force_scheduler.can_perform? && @enforcer.can?(:force_publish)
@@ -130,12 +100,6 @@ private
         title: "Schedule #{@edition.title} for publication on #{l @edition.scheduled_publication, format: :long}",
         href: confirm_force_schedule_admin_edition_path(@edition, lock_version: @edition.lock_version),
         secondary_quiet: true,
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "button-pressed",
-          "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Force schedule",
-        },
       })
     end
   end
@@ -146,12 +110,6 @@ private
         text: "Publish",
         title: "Publish #{@edition.title}",
         href: confirm_publish_admin_edition_path(@edition, lock_version: @edition.lock_version),
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "button-pressed",
-          "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Publish",
-        },
       })
     elsif @force_publisher.can_perform? && @enforcer.can?(:force_publish)
       actions << render("govuk_publishing_components/components/button", {
@@ -159,12 +117,6 @@ private
         title: "Publish #{@edition.title}",
         href: confirm_force_publish_admin_edition_path(@edition, lock_version: @edition.lock_version),
         secondary_quiet: true,
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "button-pressed",
-          "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Force publish",
-        },
       })
     end
   end
@@ -177,12 +129,6 @@ private
         render("govuk_publishing_components/components/button", {
           text: "Reject",
           destructive: true,
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "button-pressed",
-            "track-action": "#{dasherized_class_name}-button",
-            "track-label": "Reject",
-          },
         })
       end
     end
@@ -194,12 +140,6 @@ private
         "Delete draft",
         confirm_destroy_admin_edition_path(@edition),
         class: "govuk-link gem-link--destructive",
-        data: {
-          module: "gem-track-click",
-          "track-category": "button-clicked",
-          "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Delete draft",
-        },
       )
     end
   end
@@ -210,12 +150,6 @@ private
         text: "Unwithdraw",
         href: confirm_unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version),
         secondary_quiet: true,
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "button-pressed",
-          "track-action": "#{dasherized_class_name}-button",
-          "track-label": "Unwithdraw",
-        },
       })
     end
   end
@@ -227,12 +161,6 @@ private
           text: "Withdraw or unpublish",
           href: confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
           destructive: true,
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "button-pressed",
-            "track-action": "#{dasherized_class_name}-button",
-            "track-label": "Withdraw or unpublish",
-          },
         })
       elsif @edition.unpublishing.present? && @edition.unpublishing.explanation.present?
         actions << link_to(
@@ -253,12 +181,6 @@ private
         text:,
         href:,
         secondary_quiet: true,
-        data_attributes: {
-          module: "gem-track-click",
-          "track-category": "button-pressed",
-          "track-action": "review-reminders-button",
-          "track-label": text,
-        },
       })
     end
   end
@@ -269,24 +191,13 @@ private
                          @edition.public_url,
                          class: "govuk-link",
                          target: "_blank",
-                         rel: "noopener",
-                         data: {
-                           module: "gem-track-click",
-                           track_category: "external-link-clicked",
-                           track_action: @edition.public_url,
-                           track_label: "View on website",
-                         })
+                         rel: "noopener")
     end
   end
 
   def add_data_action
     if @edition.publicly_visible?
-      actions << link_to("View data about page", helpers.content_data_page_data_url(@edition), class: "govuk-link", data: {
-        module: "gem-track-click",
-        track_category: "external-link-clicked",
-        track_action: helpers.content_data_page_data_url(@edition),
-        track_label: "View data about page",
-      })
+      actions << link_to("View data about page", helpers.content_data_page_data_url(@edition), class: "govuk-link")
     end
   end
 

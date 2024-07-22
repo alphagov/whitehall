@@ -17,12 +17,6 @@
       <div class="govuk-button-group govuk-!-margin-top-6">
         <%= render "govuk_publishing_components/components/button", {
           text: "Export CSV",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "edition-csv-export-button",
-            "track-label": "Export CSV",
-          },
         } %>
 
         <%= link_to("Cancel", "#{admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link govuk-link--no-visited-state") %>

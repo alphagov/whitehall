@@ -88,13 +88,7 @@
             <%= link_to("Preview on website (opens in new tab)",
             attachment.url(preview: true, full_url: true),
             class: "govuk-link",
-            target: "_blank",
-            data: {
-              module: "gem-track-click",
-              "track-category": "button-clicked",
-              "track-action": "#{attachable.model_name.singular.dasherize}-button",
-              "track-label": "Preview on website",
-            }, rel: "noopener") %>
+            target: "_blank", rel: "noopener") %>
           </p>
           <p class="govuk-body">
             To preview your document on GOV.UK you must save it first.
@@ -125,15 +119,7 @@
   <%= hidden_field_tag :type, params[:type] %>
 
   <div class="govuk-button-group">
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Save",
-      data_attributes: {
-        module: "gem-track-click",
-        "track-category": "form-button",
-        "track-action": "#{attachment.readable_type}-attachment-button",
-        "track-label": "Save",
-      },
-    } %>
+    <%= render "govuk_publishing_components/components/button", { text: "Save" } %>
 
     <%= link_to("Cancel", attachable_attachments_path(attachable), class: "govuk-link govuk-link--no-visited-state") %>
   </div>

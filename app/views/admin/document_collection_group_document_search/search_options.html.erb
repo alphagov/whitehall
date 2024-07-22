@@ -33,12 +33,6 @@
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Next",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "document-collection-search-options-next-button",
-            "track-label": "Next",
-          },
         } %>
 
         <%= link_to("Cancel", admin_document_collection_group_document_collection_group_memberships_path(@collection, @group), class: "govuk-link govuk-link--no-visited-state") %>
