@@ -10,29 +10,11 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
     // Preview Button
     const previewButton = document.createElement('button')
     previewButton.classList.add('js-app-c-govspeak-editor__preview-button')
-    previewButton.setAttribute('data-preview-toggle-tracking', true)
-    previewButton.setAttribute(
-      'data-preview-toggle-track-category',
-      'govspeak-editor'
-    )
-    previewButton.setAttribute(
-      'data-preview-toggle-track-action',
-      'pressed-preview-button'
-    )
     previewButton.setAttribute('data-content-target', '#textarea_id')
     previewButton.innerText = 'Preview'
 
     const backButton = document.createElement('button')
     backButton.classList.add('js-app-c-govspeak-editor__back-button')
-    backButton.setAttribute('data-preview-toggle-tracking', true)
-    backButton.setAttribute(
-      'data-preview-toggle-track-category',
-      'govspeak-editor'
-    )
-    backButton.setAttribute(
-      'data-preview-toggle-track-action',
-      'pressed-preview-button'
-    )
     backButton.setAttribute('data-content-target', '#textarea_id')
     backButton.innerText = 'Back to edit'
 
@@ -77,11 +59,6 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
       component.querySelectorAll('.js-app-c-govspeak-editor__preview-button')
         .length
     ).toEqual(1)
-    expect(
-      component
-        .querySelector('.js-app-c-govspeak-editor__preview-button')
-        .getAttribute('data-preview-toggle-tracking')
-    ).toEqual('true')
 
     expect(
       component.querySelectorAll('.app-c-govspeak-editor__textarea').length
@@ -330,33 +307,6 @@ describe('GOVUK.Modules.GovspeakEditor', function () {
     previewButton.dispatchEvent(new Event('click'))
 
     expect(previewSection.innerHTML).toEqual(newHtml)
-  })
-
-  it('sends tracking events correctly', function () {
-    spyOn(GOVUK.analytics, 'trackEvent')
-    const previewButton = component.querySelector(
-      '.js-app-c-govspeak-editor__preview-button'
-    )
-
-    previewButton.dispatchEvent(new Event('click'))
-
-    expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
-      'govspeak-editor',
-      'pressed-preview-button',
-      { label: 'preview' }
-    )
-
-    const backButton = component.querySelector(
-      '.js-app-c-govspeak-editor__back-button'
-    )
-
-    backButton.dispatchEvent(new Event('click'))
-
-    expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
-      'govspeak-editor',
-      'pressed-preview-button',
-      { label: 'edit' }
-    )
   })
 
   it('generates form data correctly', function () {

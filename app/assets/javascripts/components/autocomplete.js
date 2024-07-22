@@ -15,12 +15,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       showAllValues: $select.multiple,
       showNoOptionsFound: true,
       onConfirm: function (query) {
-        const category = $select.getAttribute('data-track-category')
-        const label = $select.getAttribute('data-track-label')
-        if (category && label) {
-          window.GOVUK.analytics.trackEvent(category, query, { label })
-        }
-
         let matchingOption
         if (query) {
           matchingOption = [].filter.call($select.options, function (option) {

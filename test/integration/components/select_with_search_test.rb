@@ -6,7 +6,7 @@ class SelectWithSearchTest < ActionDispatch::IntegrationTest
 
   def load_example(name)
     visit "/component-guide/select_with_search/#{name}/preview"
-    assert_selector ".app-c-select-with-search[data-module='select-with-search']", count: 1
+    assert_selector ".app-c-select-with-search", count: 1
   end
 
   def rendered_options
@@ -43,14 +43,5 @@ class SelectWithSearchTest < ActionDispatch::IntegrationTest
     within 'optgroup[label="Wales"]' do
       assert_equal rendered_options, %w[Cardiff Swansea]
     end
-  end
-
-  test "it includes tracking parameters, if present" do
-    load_example "with_tracking"
-    assert_selector ".govuk-label", text: "Document type"
-
-    component = find(".app-c-select-with-search[data-module='select-with-search']")
-    assert_equal "DocumentTypeSelection", component["data-track-category"]
-    assert_equal "(optional)", component["data-track-label"]
   end
 end
