@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_18_091749) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_18_152824) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -197,6 +197,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_091749) do
     t.string "block_type"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.integer "latest_edition_id"
+    t.integer "live_edition_id"
+    t.index ["latest_edition_id"], name: "index_content_block_documents_on_latest_edition_id"
+    t.index ["live_edition_id"], name: "index_content_block_documents_on_live_edition_id"
   end
 
   create_table "content_block_edition_authors", charset: "utf8mb3", force: :cascade do |t|

@@ -16,6 +16,7 @@ module ContentObjectStore
           details: details.to_h,
         )
         publish_publishing_api_edition(content_id:)
+        update_content_block_document_with_latest_edition(content_block_edition)
       rescue PublishingFailureError => e
         discard_publishing_api_edition(content_id:)
         raise e
@@ -42,6 +43,13 @@ module ContentObjectStore
 
     def discard_publishing_api_edition(content_id:)
       Services.publishing_api.discard_draft(content_id)
+    end
+
+    def update_content_block_document_with_latest_edition(content_block_edition)
+      content_block_edition.document.update!(
+        live_edition_id: content_block_edition.id,
+        latest_edition_id: content_block_edition.id,
+      )
     end
   end
 end

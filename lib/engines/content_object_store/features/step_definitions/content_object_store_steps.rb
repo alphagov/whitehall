@@ -47,7 +47,7 @@ When("I complete the form with the following fields:") do |table|
   fields.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
-  click_on "Save and continue"
+  click_on "Save and publish"
 end
 
 When("I complete the form") do
@@ -58,7 +58,7 @@ When("I complete the form") do
   @details.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
-  click_on "Save and continue"
+  click_on "Save and publish"
 end
 
 Then("the edition should have been created successfully") do
@@ -99,27 +99,79 @@ Then("I should see the details for all content blocks") do
   assert_text "All content blocks"
 
   @content_blocks.each do |block|
-    should_show_summary_details_for_email_address_content_block(block, block.details[:email_address])
+    should_show_summary_card_for_email_address_content_block(
+      block.document.title,
+      block.details[:email_address],
+    )
   end
 end
 
 When("I click to view the content block") do
+  @schema = @schemas[@content_block.document.block_type]
   click_link href: content_object_store.content_object_store_content_block_edition_path(@content_block)
 end
 
 Then("I should see the details for the email address content block") do
   assert_text "Manage an Email address"
 
-  should_show_summary_details_for_email_address_content_block(@content_block, @email_address)
+  should_show_summary_list_for_email_address_content_block(
+    @content_block.document.title,
+    @email_address,
+  )
 end
 
-def should_show_summary_details_for_email_address_content_block(content_block, email_address)
+When("I click the first change link") do
+  first_link = find("a[href='#{content_object_store.edit_content_object_store_content_block_edition_path(@content_block)}']", match: :first)
+  first_link.click
+end
+
+Then("I should see the edit form") do
+  should_show_edit_form_for_email_address_content_block(
+    @content_block.document.title,
+    @email_address,
+  )
+end
+
+When("I fill out the form") do
+  fill_in "Title", with: "Changed title"
+  fill_in "Email address", with: "changed@example.com"
+  click_on "Save and publish"
+end
+
+When("I set all fields to blank") do
+  fill_in "Title", with: ""
+  fill_in "Email address", with: ""
+  click_on "Save and publish"
+end
+
+Then("the edition should have been updated successfully") do
+  should_show_summary_list_for_email_address_content_block("Changed title", "changed@example.com")
+end
+
+def should_show_summary_card_for_email_address_content_block(document_title, email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
-  expect(page).to have_selector(".govuk-summary-list__value", text: content_block.document.title)
+  expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
+  expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
+end
+
+def should_show_summary_list_for_email_address_content_block(document_title, email_address)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
+  expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
+  expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Creator")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
+  expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
+end
+
+def should_show_edit_form_for_email_address_content_block(document_title, email_address)
+  expect(page).to have_content("Change Email address")
+  expect(page).to have_field("Title", with: document_title)
+  expect(page).to have_field("Email address", with: email_address)
+  expect(page).to have_content("Save and publish")
+  expect(page).to have_content("Cancel")
 end
 
 Then("I should see errors for the required fields") do

@@ -39,10 +39,14 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
       new_document = ContentObjectStore::ContentBlockDocument.find_by!(content_id:)
       new_edition = new_document.content_block_editions.first
+
       assert_equal edition_params[:content_block_document_attributes][:title], new_document.title
       assert_equal edition_params[:content_block_document_attributes][:block_type], new_document.block_type
       assert_equal edition_params[:details], new_edition.details
       assert_equal new_edition.content_block_document_id, new_document.id
+
+      assert_equal new_document.live_edition_id, new_edition.id
+      assert_equal new_document.latest_edition_id, new_edition.id
     end
 
     test "it creates an Edition and Document in the Publishing API" do
