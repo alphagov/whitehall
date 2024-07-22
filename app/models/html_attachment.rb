@@ -7,7 +7,7 @@ class HtmlAttachment < Attachment
           autosave: true,
           inverse_of: :html_attachment
 
-  before_validation :clear_slug_if_non_english_locale
+  before_validation :handle_slug_for_foreign_locale
 
   validates :govspeak_content, presence: true
 
@@ -129,9 +129,9 @@ private
     sluggable_locale? ? title : nil
   end
 
-  def clear_slug_if_non_english_locale
-    if locale_changed? && !sluggable_locale?
-      self.slug = nil
+  def handle_slug_for_foreign_locale
+    if !sluggable_locale? && (locale_changed? || slug.blank?)
+      self.slug = content_id.to_s
     end
   end
 end

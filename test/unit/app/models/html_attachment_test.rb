@@ -225,15 +225,6 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "an-html-attachment", second_draft_attachment.slug
   end
 
-  test "slug is not created for non-english attachments" do
-    # Additional attachment to ensure the duplicate detection behaviour isn't triggered
-    create(:html_attachment, locale: "fr")
-    attachment = create(:html_attachment, locale: "ar", title: "المملكة المتحدة والمملكة العربية السعودية")
-
-    assert attachment.slug.blank?
-    assert_equal attachment.id.to_s, attachment.to_param
-  end
-
   test "slug is created for english-only attachments" do
     attachment = create(:html_attachment, locale: "en", title: "We have a bias for action")
 
@@ -241,12 +232,27 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected_slug, attachment.slug
     assert_equal expected_slug, attachment.to_param
   end
+  test "slug is set to Html Attachment content_id if title contains special characters" do
+    attachment = create(:html_attachment, locale: "en", title: "首次中英高级别安全")
 
-  test "slug is cleared when changing from english to non-english" do
+    attachment.slug = attachment.content_id.to_s
+    assert_equal attachment.content_id.to_s, attachment.slug
+  end
+
+  test "slug is set to Html Attachment content_id for non-english attachments" do
+    # Additional attachment to ensure the duplicate detection behaviour isn't triggered
+    create(:html_attachment, locale: "fr")
+    attachment = create(:html_attachment, locale: "ar", title: "المملكة المتحدة والمملكة العربية السعودية")
+
+    assert_equal attachment.content_id.to_s, attachment.slug
+    assert_equal attachment.content_id.to_s, attachment.to_param
+  end
+
+  test "slug is set to Html Attachment content_id when changing from english to non-english" do
     attachment = create(:html_attachment, locale: "en")
 
     attachment.update!(locale: "fr")
-    assert attachment.slug.blank?
+    assert_equal attachment.content_id.to_s, attachment.reload.slug
   end
 
   test "#translated_locales lists only the attachment's locale" do
