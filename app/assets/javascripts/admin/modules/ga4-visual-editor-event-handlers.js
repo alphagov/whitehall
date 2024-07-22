@@ -12,6 +12,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     }
   }
 
+  const gaButtonClickAttributes = function (buttonText) {
+    return {
+      event_name: 'select_content',
+      type: 'generic_link',
+      text: buttonText,
+      external: 'false',
+      method: 'primary click',
+      section: document.title.split(' - ')[0].replace('Error: ', ''),
+      action: 'select',
+      tool_name: 'Visual Editor'
+    }
+  }
+
   function Ga4VisualEditorEventHandlers(module) {
     this.module = module
   }
@@ -20,6 +33,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.module.addEventListener('visualEditorSelectChange', (event) => {
       window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
         gaSelectChangeAttributes(event.detail.selectText),
+        'event_data'
+      )
+    })
+
+    this.module.addEventListener('visualEditorButtonClick', (event) => {
+      window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
+        gaButtonClickAttributes(event.detail.buttonText),
         'event_data'
       )
     })
