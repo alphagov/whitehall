@@ -30,15 +30,15 @@ content_object_store.content_object_store_content_block_editions_path do |f| %>
 
   <div class="govuk-button-group govuk-!-margin-bottom-6">
     <%= render "govuk_publishing_components/components/button", {
-      text: "Save and continue",
-      name: "save_and_continue",
-      value: "Save and continue",
+      text: "Save and publish",
+      name: "save_and_publish",
+      value: "Save and publish",
       type: "submit",
       data_attributes: {
         module: "gem-track-click",
         "track-category": "form-button",
         "track-action": "#{f.object.class.name.demodulize.underscore.dasherize}-button",
-        "track-label": "Save and continue",
+        "track-label": "Save and publish",
       },
     } %>
     <%= link_to("Cancel", content_object_store.content_object_store_content_block_editions_path, class: "govuk-link") %>

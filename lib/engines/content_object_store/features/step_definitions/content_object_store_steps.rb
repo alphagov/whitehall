@@ -47,7 +47,7 @@ When("I complete the form with the following fields:") do |table|
   fields.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
-  click_on "Save and continue"
+  click_on "Save and publish"
 end
 
 When("I complete the form") do
@@ -58,7 +58,7 @@ When("I complete the form") do
   @details.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
-  click_on "Save and continue"
+  click_on "Save and publish"
 end
 
 Then("the edition should have been created successfully") do
@@ -134,7 +134,13 @@ end
 When("I fill out the form") do
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
-  click_on "Publish now"
+  click_on "Save and publish"
+end
+
+When("I set all fields to blank") do
+  fill_in "Title", with: ""
+  fill_in "Email address", with: ""
+  click_on "Save and publish"
 end
 
 Then("the edition should have been updated successfully") do
@@ -163,7 +169,7 @@ def should_show_edit_form_for_email_address_content_block(document_title, email_
   expect(page).to have_content("Change Email address")
   expect(page).to have_field("Title", with: document_title)
   expect(page).to have_field("Email address", with: email_address)
-  expect(page).to have_content("Publish now")
+  expect(page).to have_content("Save and publish")
   expect(page).to have_content("Cancel")
 end
 
