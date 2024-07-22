@@ -43,6 +43,9 @@ class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
 
     redirect_to content_object_store.content_object_store_content_block_edition_path(@new_content_block_edition),
                 flash: { notice: "#{@schema.name} changed and published successfully" }
+  rescue ActiveRecord::RecordInvalid => e
+    @content_block_edition = e.record
+    render :edit
   end
 
 private

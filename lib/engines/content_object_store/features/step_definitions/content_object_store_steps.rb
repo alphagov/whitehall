@@ -107,6 +107,7 @@ Then("I should see the details for all content blocks") do
 end
 
 When("I click to view the content block") do
+  @schema = @schemas[@content_block.document.block_type]
   click_link href: content_object_store.content_object_store_content_block_edition_path(@content_block)
 end
 
