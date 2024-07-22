@@ -20,6 +20,10 @@ class CallForEvidenceResponse < ApplicationRecord
 
   delegate :organisations, to: :parent_attachable
 
+  delegate :lead_organisations, to: :parent_attachable
+
+  delegate :supporting_organisations, to: :parent_attachable
+
   delegate :alternative_format_contact_email, to: :call_for_evidence
 
   delegate :publicly_visible?, to: :parent_attachable
