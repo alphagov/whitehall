@@ -13,7 +13,18 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
       @schemas = ContentObjectStore::ContentBlockSchema.all
     else
       @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(params[:block_type].underscore)
-      @content_block_edition = ContentObjectStore::ContentBlockEdition.new
+
+      form_attributes = @schema.fields.each_with_object({}) do |field, hash|
+        hash[field] = nil
+        hash
+      end
+
+      @form = ContentObjectStore::ContentBlockEditionForm.new(
+        content_block_edition: ContentObjectStore::ContentBlockEdition.new,
+        schema: @schema,
+        attributes: form_attributes,
+        back_path: content_object_store.content_object_store_content_block_editions_path,
+      )
     end
   end
 
@@ -24,7 +35,12 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
 
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
   rescue ActiveRecord::RecordInvalid => e
-    @content_block_edition = e.record
+    @form = ContentObjectStore::ContentBlockEditionForm.new(
+      content_block_edition: e.record,
+      schema: @schema,
+      attributes: @schema.fields,
+      back_path: content_object_store.content_object_store_content_block_editions_path,
+    )
     render :new
   end
 

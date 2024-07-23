@@ -141,7 +141,6 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     }
 
     assert_template :new
-    assert_equal edition, assigns(:content_block_edition)
   end
 end
 
