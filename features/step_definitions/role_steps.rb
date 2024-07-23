@@ -1,6 +1,6 @@
-When(/^the editionable worldwide organisation feature flag is (enabled|disabled)$/) do |flag|
+When(/^the worldwide organisation feature flag is (enabled|disabled)$/) do |flag|
   @test_strategy ||= Flipflop::FeatureSet.current.test!
-  @test_strategy.switch!(:editionable_worldwide_organisations, flag == "enabled")
+  @test_strategy.switch!(:worldwide_organisations, flag == "enabled")
 end
 
 Given(/^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/) do |role_name, worldwide_organisation_name|

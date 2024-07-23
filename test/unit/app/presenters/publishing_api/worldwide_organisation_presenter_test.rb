@@ -1,12 +1,12 @@
 require "test_helper"
 
-class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSupport::TestCase
+class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCase
   def present(...)
-    PublishingApi::EditionableWorldwideOrganisationPresenter.new(...)
+    PublishingApi::WorldwideOrganisationPresenter.new(...)
   end
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
-    worldwide_org = create(:editionable_worldwide_organisation,
+    worldwide_org = create(:worldwide_organisation,
                            :with_role,
                            :with_social_media_account,
                            :with_main_office,
@@ -52,7 +52,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
         },
         logo: {
           crest: "single-identity",
-          formatted_title: "Editionable<br/>worldwide<br/>organisation<br/>title",
+          formatted_title: "Worldwide<br/>organisation<br/>title",
         },
         ordered_corporate_information_pages: [
           {
@@ -61,10 +61,10 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
           },
           {
             content_id: worldwide_org.pages[3].content_id,
-            title: "Working for Editionable worldwide organisation title",
+            title: "Working for Worldwide organisation title",
           },
         ],
-        secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/world/organisations/editionable-worldwide-organisation-title/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/world/organisations/editionable-worldwide-organisation-title/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/world/organisations/editionable-worldwide-organisation-title/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
+        secondary_corporate_information_pages: "Read about the types of information we routinely publish in our <a class=\"govuk-link\" href=\"/world/organisations/worldwide-organisation-title/about/publication-scheme\">Publication scheme</a>. Find out about our commitment to <a class=\"govuk-link\" href=\"/world/organisations/worldwide-organisation-title/about/welsh-language-scheme\">publishing in Welsh</a>. Our <a class=\"govuk-link\" href=\"/world/organisations/worldwide-organisation-title/about/personal-information-charter\">Personal information charter</a> explains how we treat your personal information.",
         office_contact_associations: [
           {
             office_content_id: worldwide_org.reload.main_office.content_id,
@@ -155,7 +155,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
 
   test "uses the title for the formatted_title when the locale is not en" do
     I18n.with_locale(:it) do
-      worldwide_org = create(:editionable_worldwide_organisation, title: "Consolato Generale Britannico Milano")
+      worldwide_org = create(:worldwide_organisation, title: "Consolato Generale Britannico Milano")
 
       presented_item = present(worldwide_org)
 
@@ -164,15 +164,15 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   end
 
   test "uses the title for the formatted_title when the the logo_formatted_name is absent" do
-    worldwide_org = create(:editionable_worldwide_organisation, logo_formatted_name: nil)
+    worldwide_org = create(:worldwide_organisation, logo_formatted_name: nil)
 
     presented_item = present(worldwide_org)
 
-    assert_equal "Editionable worldwide organisation title", presented_item.content.dig(:details, :logo, :formatted_title)
+    assert_equal "Worldwide organisation title", presented_item.content.dig(:details, :logo, :formatted_title)
   end
 
   test "includes an empty array when there are no contacts" do
-    worldwide_org = create(:editionable_worldwide_organisation)
+    worldwide_org = create(:worldwide_organisation)
 
     presented_item = present(worldwide_org)
 
@@ -183,7 +183,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
     lead_organisation_1 = create(:organisation)
     lead_organisation_2 = create(:organisation)
 
-    worldwide_org = create(:editionable_worldwide_organisation, lead_organisations: [lead_organisation_2, lead_organisation_1])
+    worldwide_org = create(:worldwide_organisation, lead_organisations: [lead_organisation_2, lead_organisation_1])
 
     presented_item = present(worldwide_org)
 
@@ -191,7 +191,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   end
 
   test "is valid against the schema when there is no default_news_image" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, default_news_image: nil)
+    worldwide_organisation = create(:worldwide_organisation, default_news_image: nil)
 
     presented_item = present(worldwide_organisation)
 
@@ -199,7 +199,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   end
 
   test "default_news_image is not present when there is no image" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, default_news_image: nil)
+    worldwide_organisation = create(:worldwide_organisation, default_news_image: nil)
     presented_item = present(worldwide_organisation)
 
     assert_not presented_item.content[:details].key? :default_news_image
@@ -208,14 +208,14 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   test "default_news_image is not present when variants are not uploaded" do
     featured_image = build(:featured_image_data)
     featured_image.assets.destroy_all
-    worldwide_organisation = create(:editionable_worldwide_organisation, default_news_image: featured_image)
+    worldwide_organisation = create(:worldwide_organisation, default_news_image: featured_image)
     presented_item = present(worldwide_organisation)
 
     assert_not presented_item.content[:details].key? :default_news_image
   end
 
   test "does not convert an absent body to govspeak" do
-    worldwide_org = create(:editionable_worldwide_organisation)
+    worldwide_org = create(:worldwide_organisation)
 
     # rubocop:disable Rails/SkipsModelValidations
     worldwide_org.update_attribute(:body, nil)
@@ -227,7 +227,7 @@ class PublishingApi::EditionableWorldwideOrganisationPresenterTest < ActiveSuppo
   end
 
   test "does not convert an empty body to govspeak" do
-    worldwide_org = create(:editionable_worldwide_organisation)
+    worldwide_org = create(:worldwide_organisation)
 
     # rubocop:disable Rails/SkipsModelValidations
     worldwide_org.update_attribute(:body, "")

@@ -19,7 +19,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "post create creates worldwide office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
          params: {
@@ -104,7 +104,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   test "post create creates worldwide office with services" do
     service1 = create(:worldwide_service)
     service2 = create(:worldwide_service)
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
          params: {
@@ -124,7 +124,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "post create creates associated phone numbers" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
          params: {
@@ -467,8 +467,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal [office1, office2], assigns(:reorderable_offices)
   end
 
-  test "POST :create for an office republishes the draft of the editionable worldwide organisation" do
-    worldwide_organisation = create(:draft_editionable_worldwide_organisation)
+  test "POST :create for an office republishes the draft of the worldwide organisation" do
+    worldwide_organisation = create(:draft_worldwide_organisation)
 
     Whitehall::PublishingApi.expects(:save_draft).with(worldwide_organisation)
     Whitehall::PublishingApi.expects(:save_draft).with(instance_of(WorldwideOffice), "major").at_least_once
@@ -487,8 +487,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
          }
   end
 
-  test "PUT :update for an office republishes the draft of the editionable worldwide organisation" do
-    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
+  test "PUT :update for an office republishes the draft of the worldwide organisation" do
+    office = create(:worldwide_office, edition: create(:draft_worldwide_organisation))
 
     Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
     Whitehall::PublishingApi.expects(:save_draft).with(office, "major")
@@ -504,8 +504,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
         }
   end
 
-  test "DELETE :destroy for an office republishes the draft of the editionable worldwide organisation" do
-    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
+  test "DELETE :destroy for an office republishes the draft of the worldwide organisation" do
+    office = create(:worldwide_office, edition: create(:draft_worldwide_organisation))
 
     Whitehall::PublishingApi.expects(:save_draft).with(office.edition)
 
@@ -517,7 +517,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy for an office discards draft of the office and the contact" do
-    office = create(:worldwide_office, edition: create(:draft_editionable_worldwide_organisation))
+    office = create(:worldwide_office, edition: create(:draft_worldwide_organisation))
 
     PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.content_id, "en")
     PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.contact.content_id, "en")
@@ -546,7 +546,7 @@ private
   end
 
   def create_worldwide_organisation_with_main_office
-    create(:editionable_worldwide_organisation).tap do |worldwide_organisation|
+    create(:worldwide_organisation).tap do |worldwide_organisation|
       create(:worldwide_office, edition: worldwide_organisation)
     end
   end

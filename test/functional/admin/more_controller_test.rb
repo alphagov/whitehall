@@ -51,7 +51,7 @@ class Admin::MoreControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".govuk-list"
-    assert_select "a.govuk-link[href=?]", "/government/admin/editions?type=editionable_worldwide_organisation", text: "Worldwide organisations"
+    assert_select "a.govuk-link[href=?]", "/government/admin/editions?type=worldwide_organisation", text: "Worldwide organisations"
   end
 
   view_test "GET #index does not render Emergency Banner option when the user is not a GDS Admin." do

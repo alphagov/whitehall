@@ -213,7 +213,7 @@ sw:
       edition_with_appointment:
         one: Toleo lenye miadi
         other: Matoleo yenya miadi
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

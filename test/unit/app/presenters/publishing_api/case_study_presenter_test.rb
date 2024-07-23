@@ -181,10 +181,10 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   end
 
   test "links hash includes worldwide organisations" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     case_study = create(
       :published_case_study,
-      editionable_worldwide_organisations: [worldwide_organisation],
+      worldwide_organisations: [worldwide_organisation],
     )
 
     presented_item = present(case_study)

@@ -5,7 +5,7 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
 
   setup do
     login_as :gds_editor
-    @edition = create(:editionable_worldwide_organisation, :with_social_media_account, translated_into: [:cy])
+    @edition = create(:worldwide_organisation, :with_social_media_account, translated_into: [:cy])
 
     I18n.with_locale(:cy) do
       @edition.social_media_accounts.first.update(

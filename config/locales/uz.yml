@@ -213,7 +213,7 @@ uz:
       edition_with_appointment:
         one: Тайинлаш билан таҳрир
         other: Тайинлашлар билан таҳрир
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

@@ -69,7 +69,7 @@ module PublishingApi::PayloadBuilder
     end
 
     def worldwide_organisation_ids
-      (item.try(:editionable_worldwide_organisations) || []).map(&:content_id)
+      (item.try(:worldwide_organisations) || []).map(&:content_id)
     end
 
     def government_id

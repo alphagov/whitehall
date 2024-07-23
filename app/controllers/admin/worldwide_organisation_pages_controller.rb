@@ -12,7 +12,7 @@ class Admin::WorldwideOrganisationPagesController < Admin::BaseController
     @worldwide_organisation_page = @worldwide_organisation.pages.build(worldwide_organisation_page_params)
 
     if @worldwide_organisation_page.save
-      redirect_to admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{@worldwide_organisation_page.title} has been added"
+      redirect_to admin_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{@worldwide_organisation_page.title} has been added"
     else
       render :new
     end
@@ -24,7 +24,7 @@ class Admin::WorldwideOrganisationPagesController < Admin::BaseController
     @worldwide_organisation_page.assign_attributes(worldwide_organisation_page_params)
 
     if @worldwide_organisation_page.save
-      redirect_to admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{@worldwide_organisation_page.title} has been updated"
+      redirect_to admin_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{@worldwide_organisation_page.title} has been updated"
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class Admin::WorldwideOrganisationPagesController < Admin::BaseController
     title = @worldwide_organisation_page.title
 
     if @worldwide_organisation_page.destroy
-      redirect_to admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{title} has been deleted"
+      redirect_to admin_worldwide_organisation_pages_path(@worldwide_organisation), notice: "#{title} has been deleted"
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class Admin::WorldwideOrganisationPagesController < Admin::BaseController
 private
 
   def find_worldwide_organisation
-    @worldwide_organisation = Edition.find(params[:editionable_worldwide_organisation_id])
+    @worldwide_organisation = Edition.find(params[:worldwide_organisation_id])
   end
 
   def find_worldwide_organisation_page

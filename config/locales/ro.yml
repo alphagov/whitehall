@@ -239,7 +239,7 @@ ro:
         few:
         one: Ediție cu programare
         other: Ediții cu programare
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         one:
         other:

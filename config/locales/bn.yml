@@ -213,7 +213,7 @@ bn:
       edition_with_appointment:
         one: অ্যাপয়েন্টমেন্টের সংস্করণ
         other: অ্যাপয়েন্টমেন্টের সংস্করণসমূহ
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

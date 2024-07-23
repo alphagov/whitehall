@@ -16,7 +16,7 @@ module Admin::UrlHelper
   end
 
   def admin_worldwide_organisations_link
-    path = admin_editions_path(type: "editionable_worldwide_organisation")
+    path = admin_editions_path(type: "worldwide_organisation")
 
     admin_link "Worldwide organisations", path
   end

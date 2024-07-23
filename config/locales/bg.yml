@@ -213,7 +213,7 @@ bg:
       edition_with_appointment:
         one: Издание с предварителна уговорка
         other: Издания с предварителна уговорка
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

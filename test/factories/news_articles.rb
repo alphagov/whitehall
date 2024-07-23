@@ -54,10 +54,10 @@ FactoryBot.define do
     end
 
     after :build do |news_article, evaluator|
-      if evaluator.editionable_worldwide_organisations.empty?
+      if evaluator.worldwide_organisations.empty?
         document = build(:document)
-        build(:editionable_worldwide_organisation, document:)
-        news_article.editionable_worldwide_organisation_documents << document
+        build(:worldwide_organisation, document:)
+        news_article.worldwide_organisation_documents << document
       end
     end
 

@@ -211,7 +211,7 @@ lv:
       edition_with_appointment:
         one: Izdevums ar tikšanos
         other: Izdevumi ar tikšanos
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         one:
         other:
       equality_and_diversity:

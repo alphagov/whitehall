@@ -263,7 +263,7 @@ pl:
         many:
         one: Wydanie po uzgodnieniu terminu
         other: Wydania po uzgodnieniu terminu
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         many:
         one:

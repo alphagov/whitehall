@@ -240,7 +240,7 @@ sr:
         few:
         one: Izdanje sa terminom
         other: Izdanje sa terminima
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         one:
         other:

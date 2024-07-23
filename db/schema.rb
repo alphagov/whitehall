@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_18_152824) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_23_115422) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -287,15 +287,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_152824) do
     t.index ["dependable_id", "dependable_type", "edition_id"], name: "index_edition_dependencies_on_dependable_and_edition", unique: true
   end
 
-  create_table "edition_editionable_worldwide_organisations", charset: "utf8mb3", force: :cascade do |t|
-    t.integer "edition_id"
-    t.integer "document_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["document_id"], name: "index_edition_editionable_worldwide_organisations_on_document_id"
-    t.index ["edition_id"], name: "index_edition_editionable_worldwide_organisations_on_edition_id"
-  end
-
   create_table "edition_lead_images", charset: "utf8mb3", force: :cascade do |t|
     t.integer "edition_id"
     t.integer "image_id"
@@ -374,6 +365,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_152824) do
     t.index ["edition_id", "world_location_id"], name: "idx_edition_world_locations_on_edition_and_world_location_ids", unique: true
     t.index ["edition_id"], name: "index_edition_world_locations_on_edition_id"
     t.index ["world_location_id"], name: "index_edition_world_locations_on_world_location_id"
+  end
+
+  create_table "edition_worldwide_organisations", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "edition_id"
+    t.integer "document_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_edition_worldwide_organisations_on_document_id"
+    t.index ["edition_id"], name: "index_edition_worldwide_organisations_on_edition_id"
   end
 
   create_table "editions", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|

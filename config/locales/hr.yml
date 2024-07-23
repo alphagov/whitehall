@@ -240,7 +240,7 @@ hr:
         few:
         one: Izdanje sa dogovorom
         other: Izdanja sa dogovorom
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         one:
         other:

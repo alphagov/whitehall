@@ -237,7 +237,7 @@ lt:
         few:
         one: Leidimas su paskyrimu
         other: Leidimai su paskyrimu
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         one:
         other:

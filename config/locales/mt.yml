@@ -263,7 +263,7 @@ mt:
         many:
         one: Edizzjoni b'appuntament
         other: Edizzjonijiet b'appuntament
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         many:
         one:

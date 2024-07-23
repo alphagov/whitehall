@@ -1,4 +1,4 @@
-<% content_for :page_title, "New #{@edition.format_name.titleize}" %>
+<% content_for :page_title, "New #{@edition.type.titleize}" %>
 <% content_for :title, "New #{@edition.format_name}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 

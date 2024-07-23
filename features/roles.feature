@@ -3,7 +3,7 @@ Feature: Administering Roles
 
   Background:
     Given I am an admin
-    And the editionable worldwide organisation feature flag is disabled
+    And the worldwide organisation feature flag is disabled
 
   Scenario: Adding a traffic commissioner role
     Given the organisation "Department for Transport" exists

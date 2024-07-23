@@ -263,7 +263,7 @@ ru:
         many:
         one: Издание с назначением
         other: Издания с назначением
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         many:
         one:

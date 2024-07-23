@@ -31,7 +31,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
   context "when there are only draft organisations" do
     before do
-      organisation = create(:draft_editionable_worldwide_organisation, world_locations: [world_location])
+      organisation = create(:draft_worldwide_organisation, world_locations: [world_location])
       contact = create(:contact_with_country, country: world_location)
       create(:worldwide_office,
              contact:,
@@ -58,7 +58,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
   context "when there are published organisations with embassy offices in the world location" do
     before do
-      organisation = create(:published_editionable_worldwide_organisation, world_locations: [world_location])
+      organisation = create(:published_worldwide_organisation, world_locations: [world_location])
       contact = create(:contact_with_country, country: world_location)
       create(:worldwide_office,
              contact:,
@@ -85,7 +85,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
   context "when there are published organisations with embassy offices in unspecified countries" do
     before do
-      organisation = create(:published_editionable_worldwide_organisation, world_locations: [world_location])
+      organisation = create(:published_worldwide_organisation, world_locations: [world_location])
       contact = create(:contact, country: nil)
       create(:worldwide_office,
              contact:,
@@ -140,7 +140,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
     before do
       document = create(:document, slug: "org-slug")
-      organisation = create(:published_editionable_worldwide_organisation,
+      organisation = create(:published_worldwide_organisation,
                             world_locations: [world_location],
                             title: "org-name",
                             document:)
@@ -178,7 +178,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
     before do
       document = create(:document, slug: "org-slug")
-      organisation = create(:published_editionable_worldwide_organisation,
+      organisation = create(:published_worldwide_organisation,
                             world_locations: [world_location],
                             title: "org-name",
                             document:)
@@ -210,7 +210,7 @@ class EmbassyTest < ActiveSupport::TestCase
 
     before do
       document = create(:document, slug: "org-slug")
-      organisation = create(:published_editionable_worldwide_organisation,
+      organisation = create(:published_worldwide_organisation,
                             world_locations: [world_location],
                             title: "org-name",
                             document:)

@@ -1,6 +1,6 @@
 ParameterType(
   name: "edition",
-  regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page|call for evidence|editionable worldwide organisation) "([^"]*)"/,
+  regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page|call for evidence|worldwide organisation) "([^"]*)"/,
   transformer: ->(document_type, title) { document_class(document_type).latest_edition.find_by!(title:) },
 )
 
@@ -18,7 +18,7 @@ module DocumentHelper
     create(:organisation) if Organisation.count.zero?
     visit admin_root_path
     find("li.app-c-sub-navigation__list-item a", text: "New document").click
-    page.choose(options[:type].gsub("editionable_", "").humanize)
+    page.choose(options[:type].humanize)
     click_button("Next")
 
     if options[:locale]
@@ -117,7 +117,7 @@ module DocumentHelper
   end
 
   def begin_drafting_worldwide_organisation(options)
-    begin_drafting_document options.merge(type: "editionable_worldwide_organisation")
+    begin_drafting_document options.merge(type: "worldwide_organisation")
 
     fill_in_worldwide_organisation_fields(**options.slice(:world_location))
   end

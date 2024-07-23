@@ -1,8 +1,8 @@
 require "test_helper"
 
-class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
+class WorldwideOrganisationTest < ActiveSupport::TestCase
   test "can be associated with one or more worldwide offices" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     worldwide_office = create(:worldwide_office, edition: worldwide_organisation)
 
     assert_equal [worldwide_office], worldwide_organisation.offices
@@ -10,16 +10,16 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "can have a default news article image" do
     image = build(:featured_image_data)
-    worldwide_organisation = build(:editionable_worldwide_organisation, default_news_image: image)
+    worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
     assert_equal image, worldwide_organisation.default_news_image
   end
 
   test "republishes news articles after commit when using default news image" do
-    worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_default_news_image)
-    news_article = create(:news_article_world_news_story, :published, editionable_worldwide_organisations: [worldwide_organisation])
-    draft_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [worldwide_organisation])
-    other_organisation_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [create(:published_editionable_worldwide_organisation, :with_default_news_image)])
-    news_article_with_image = create(:news_article_world_news_story, images: [create(:image)], editionable_worldwide_organisations: [worldwide_organisation])
+    worldwide_organisation = create(:published_worldwide_organisation, :with_default_news_image)
+    news_article = create(:news_article_world_news_story, :published, worldwide_organisations: [worldwide_organisation])
+    draft_news_article = create(:news_article_world_news_story, :draft, worldwide_organisations: [worldwide_organisation])
+    other_organisation_news_article = create(:news_article_world_news_story, :draft, worldwide_organisations: [create(:published_worldwide_organisation, :with_default_news_image)])
+    news_article_with_image = create(:news_article_world_news_story, images: [create(:image)], worldwide_organisations: [worldwide_organisation])
 
     Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
     Whitehall::PublishingApi.expects(:republish_document_async).with(draft_news_article.document).once
@@ -30,7 +30,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "destroys associated worldwide offices" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     worldwide_office = create(:worldwide_office)
     worldwide_organisation.offices << worldwide_office
 
@@ -40,17 +40,17 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be be valid without taxons" do
-    worldwide_organisation = build(:draft_editionable_worldwide_organisation)
+    worldwide_organisation = build(:draft_worldwide_organisation)
     assert worldwide_organisation.valid?
   end
 
   test "should set an analytics identifier on create" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     assert_equal "WO#{worldwide_organisation.id}", worldwide_organisation.analytics_identifier
   end
 
   test "an ambassadorial role is a primary role and not a secondary one" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     assert_nil worldwide_organisation.primary_role
 
@@ -62,7 +62,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "a high commissioner role is a primary role and not a secondary one" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     assert_nil worldwide_organisation.primary_role
 
@@ -74,7 +74,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "a governor role is a primary role and not a secondary one" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     assert_nil worldwide_organisation.primary_role
 
@@ -86,7 +86,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "a deputy head of mission is second in charge and not a primary one" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     assert_nil worldwide_organisation.secondary_role
 
@@ -98,7 +98,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "office_staff_roles returns worldwide office staff roles" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     assert_equal [], worldwide_organisation.office_staff_roles
 
@@ -113,7 +113,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "primary, secondary and office staff roles return occupied roles only" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     worldwide_organisation.roles << create(:ambassador_role, :vacant)
     worldwide_organisation.roles << create(:deputy_head_of_mission_role, :vacant)
@@ -137,7 +137,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "should clone social media associations which don't have translations when new draft of published edition is created" do
     published_worldwide_organisation = create(
-      :editionable_worldwide_organisation,
+      :worldwide_organisation,
       :published,
       :with_social_media_account,
     )
@@ -151,7 +151,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "should clone social media associations and their translations when new draft of published edition is created" do
     published_worldwide_organisation = create(
-      :editionable_worldwide_organisation,
+      :worldwide_organisation,
       :published,
       :with_social_media_account,
       translated_into: [:cy],
@@ -180,7 +180,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   test "should clone office and contact associations when new draft of published edition is created" do
     contact = create(:contact, translated_into: [:es])
     create(:contact_number, translated_into: [:es], contact:)
-    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, translated_into: [:es])
+    published_worldwide_organisation = create(:worldwide_organisation, :published, translated_into: [:es])
     create(
       :worldwide_office,
       edition: published_worldwide_organisation,
@@ -217,7 +217,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "should retain home page lists for offices when new draft of published edition is created" do
-    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, :with_main_office, :with_home_page_offices)
+    published_worldwide_organisation = create(:worldwide_organisation, :published, :with_main_office, :with_home_page_offices)
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
     published_worldwide_organisation.reload
@@ -228,7 +228,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "should clone default news image when new draft of published edition is created" do
     published_worldwide_organisation = create(
-      :editionable_worldwide_organisation,
+      :worldwide_organisation,
       :published,
       :with_default_news_image,
     )
@@ -242,7 +242,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "should clone pages when a new draft of published edition is created" do
-    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, translated_into: [:fr])
+    published_worldwide_organisation = create(:worldwide_organisation, :published, translated_into: [:fr])
     create(:worldwide_organisation_page, edition: published_worldwide_organisation, translated_into: [:fr])
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
@@ -258,7 +258,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
     page = create(:worldwide_organisation_page)
     attachment = build(:file_attachment)
     page.attachments << attachment
-    published_worldwide_organisation = create(:editionable_worldwide_organisation, :published, pages: [page])
+    published_worldwide_organisation = create(:worldwide_organisation, :published, pages: [page])
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
 
@@ -267,14 +267,14 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "when destroyed, will remove its home page list for storing offices" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     h = worldwide_organisation.__send__(:home_page_offices_list)
     worldwide_organisation.destroy!
     assert_not HomePageList.exists?(h.id)
   end
 
   test "has an overridable default main office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
 
     assert_nil worldwide_organisation.main_office
 
@@ -291,7 +291,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "distinguishes between the main office and other offices" do
     offices = [build(:worldwide_office), build(:worldwide_office)]
-    worldwide_organisation = build(:editionable_worldwide_organisation, offices:, main_office: offices.last)
+    worldwide_organisation = build(:worldwide_organisation, offices:, main_office: offices.last)
 
     assert worldwide_organisation.is_main_office?(offices.last)
     assert_not worldwide_organisation.is_main_office?(offices.first)
@@ -300,13 +300,13 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   test "can list other offices" do
     offices = [build(:worldwide_office), build(:worldwide_office)]
 
-    assert_equal [], build(:editionable_worldwide_organisation, offices: []).other_offices
-    assert_equal [], build(:editionable_worldwide_organisation, offices: offices.take(1)).other_offices
-    assert_equal [offices.last], build(:editionable_worldwide_organisation, offices:, main_office: offices.first).other_offices
+    assert_equal [], build(:worldwide_organisation, offices: []).other_offices
+    assert_equal [], build(:worldwide_organisation, offices: offices.take(1)).other_offices
+    assert_equal [offices.last], build(:worldwide_organisation, offices:, main_office: offices.first).other_offices
   end
 
   test "knows if a given office is on its home page" do
-    worldwide_organisation = build(:editionable_worldwide_organisation)
+    worldwide_organisation = build(:worldwide_organisation)
     office = build(:worldwide_office)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
@@ -316,7 +316,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "knows that the main office is on the home page, even if it's not explicitly in the list" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     office1 = create(:worldwide_office, edition: worldwide_organisation)
     office2 = create(:worldwide_office, edition: worldwide_organisation)
     worldwide_organisation.add_office_to_home_page!(office1)
@@ -326,7 +326,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "has a list of offices that are on its home page" do
-    worldwide_organisation = build(:editionable_worldwide_organisation)
+    worldwide_organisation = build(:worldwide_organisation)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
     h.expects(:items).returns [:the_list_of_offices]
@@ -335,7 +335,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "the list of offices that are on its home page excludes the main office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     office1 = create(:worldwide_office, edition: worldwide_organisation)
     office2 = create(:worldwide_office, edition: worldwide_organisation)
     office3 = create(:worldwide_office, edition: worldwide_organisation)
@@ -348,7 +348,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "can add a office to the list of those that are on its home page" do
-    worldwide_organisation = build(:editionable_worldwide_organisation)
+    worldwide_organisation = build(:worldwide_organisation)
     office = build(:worldwide_office)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
@@ -358,7 +358,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "can remove a office from the list of those that are on its home page" do
-    worldwide_organisation = build(:editionable_worldwide_organisation)
+    worldwide_organisation = build(:worldwide_organisation)
     office = build(:worldwide_office)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
@@ -368,7 +368,7 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "can reorder the contacts on the list" do
-    worldwide_organisation = build(:editionable_worldwide_organisation)
+    worldwide_organisation = build(:worldwide_organisation)
     office1 = build(:worldwide_office)
     office2 = build(:worldwide_office)
     h = build(:home_page_list)
@@ -379,26 +379,26 @@ class EditionableWorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "maintains a home page list for storing offices" do
-    worldwide_organisation = build(:editionable_worldwide_organisation)
+    worldwide_organisation = build(:worldwide_organisation)
     HomePageList.expects(:get).with(has_entries(owned_by: worldwide_organisation, called: "offices")).returns :a_home_page_list_of_offices
     assert_equal :a_home_page_list_of_offices, worldwide_organisation.__send__(:home_page_offices_list)
   end
 
   test "#corporate_information_page_types does not return `About us` pages" do
-    organisation = build(:editionable_worldwide_organisation)
+    organisation = build(:worldwide_organisation)
 
     assert_not_includes organisation.corporate_information_page_types.map(&:slug), "about"
     assert_not_includes organisation.corporate_information_page_types.map(&:id), 20
   end
 
   test "should support attachments" do
-    organisation = build(:editionable_worldwide_organisation)
+    organisation = build(:worldwide_organisation)
     organisation.attachments << build(:file_attachment)
   end
 
   %w[body summary title].each do |param|
     test "should not be valid without a #{param}" do
-      assert_not build(:editionable_worldwide_organisation, param.to_sym => nil).valid?
+      assert_not build(:worldwide_organisation, param.to_sym => nil).valid?
     end
   end
 end

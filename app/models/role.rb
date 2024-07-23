@@ -32,7 +32,7 @@ class Role < ApplicationRecord
                            after_remove: :republish_organisation_to_publishing_api
 
   has_many :role_worldwide_organisations,
-           -> { where(editions: { type: "editionable_worldwide_organisation" }).includes(:edition) },
+           -> { where(editions: { type: "worldwide_organisation" }).includes(:edition) },
            class_name: "EditionRole"
   has_many :worldwide_organisations,
            through: :edition_roles,

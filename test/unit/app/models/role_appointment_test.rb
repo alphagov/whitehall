@@ -525,8 +525,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
       create(:role_appointment, person: create(:person), role:)
     end
   end
-  test "republishes an editionable worldwide organisation when a role appointment is created" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+  test "republishes an worldwide organisation when a role appointment is created" do
+    worldwide_organisation = create(:worldwide_organisation)
     role = create(:role_without_organisations)
     create(:edition_role, role:, edition: worldwide_organisation)
     role.reload
@@ -536,8 +536,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     create(:role_appointment, role:)
   end
 
-  test "republishes an editionable worldwide organisation when a role appointment is updated" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+  test "republishes an worldwide organisation when a role appointment is updated" do
+    worldwide_organisation = create(:worldwide_organisation)
     role = create(:role_without_organisations)
     create(:edition_role, role:, edition: worldwide_organisation)
     role_appointment = create(:role_appointment, role:)
@@ -548,8 +548,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment.update!(ended_at: Time.zone.now)
   end
 
-  test "republishes an editionable worldwide organisation when a role appointment is destroyed" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+  test "republishes an worldwide organisation when a role appointment is destroyed" do
+    worldwide_organisation = create(:worldwide_organisation)
     role = create(:role_without_organisations)
     create(:edition_role, role:, edition: worldwide_organisation)
     role_appointment = create(:role_appointment, role:)

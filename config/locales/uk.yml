@@ -265,7 +265,7 @@ uk:
         many:
         one: Видання із домовленістю
         other: Видання із домовленістю
-      editionable_worldwide_organisation:
+      worldwide_organisation:
         few:
         many:
         one:

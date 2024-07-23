@@ -1,5 +1,5 @@
 module PublishingApi
-  class EditionableWorldwideOrganisationPresenter
+  class WorldwideOrganisationPresenter
     include Rails.application.routes.url_helpers
     include ActionView::Helpers::UrlHelper
     include ApplicationHelper

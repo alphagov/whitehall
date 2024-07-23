@@ -75,7 +75,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   end
 
   test "republishes embassies index page on creation of worldwide office" do
-    worldwide_organisation = create(:editionable_worldwide_organisation)
+    worldwide_organisation = create(:worldwide_organisation)
     contact = create(:contact)
 
     PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter).never

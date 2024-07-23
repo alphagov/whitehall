@@ -187,9 +187,9 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "includes worldwide organisation links" do
-      news_article.editionable_worldwide_organisations = [create(:editionable_worldwide_organisation)]
+      news_article.worldwide_organisations = [create(:worldwide_organisation)]
 
-      assert_equal news_article.editionable_worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first
+      assert_equal news_article.worldwide_organisations.first.content_id, presented_news_article.links[:worldwide_organisations].first
     end
   end
 
@@ -266,19 +266,19 @@ module PublishingApi::NewsArticlePresenterTest
       assert_details_attribute :image, expected_image
     end
 
-    test "should return lead image from editionable worldwide organisations when lead_image_has_all_assets?" do
-      worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_default_news_image)
-      self.news_article = create(:news_article_world_news_story, editionable_worldwide_organisations: [worldwide_organisation])
+    test "should return lead image from worldwide organisations when lead_image_has_all_assets?" do
+      worldwide_organisation = create(:published_worldwide_organisation, :with_default_news_image)
+      self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
 
       assert presented_news_article.content[:details][:image][:url].include?("s300_minister-of-funk.960x640.jpg")
     end
 
-    test "should not return lead image from editionable worldwide organisations when lead_image dont have assets?" do
+    test "should not return lead image from worldwide organisations when lead_image dont have assets?" do
       image = build(:featured_image_data)
-      worldwide_organisation = create(:published_editionable_worldwide_organisation, default_news_image: image)
+      worldwide_organisation = create(:published_worldwide_organisation, default_news_image: image)
       worldwide_organisation.default_news_image.assets = []
 
-      self.news_article = create(:news_article_world_news_story, editionable_worldwide_organisations: [worldwide_organisation])
+      self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
       assert presented_news_article.content[:details][:image].nil?
     end
   end

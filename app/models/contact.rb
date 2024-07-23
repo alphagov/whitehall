@@ -14,7 +14,7 @@ class Contact < ApplicationRecord
   validates :street_address, :country_id, presence: true, if: ->(r) { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
-  validate :parent_edition_has_locales, if: :attached_to_editionable_worldwide_organisation?
+  validate :parent_edition_has_locales, if: :attached_to_worldwide_organisation?
 
   after_commit :republish_dependent_editions, on: :update
   after_update :republish_dependent_policy_groups
@@ -105,7 +105,7 @@ class Contact < ApplicationRecord
     PublishingApi::ContactPresenter
   end
 
-  def attached_to_editionable_worldwide_organisation?
+  def attached_to_worldwide_organisation?
     contactable.is_a?(WorldwideOffice) && contactable.edition
   end
 

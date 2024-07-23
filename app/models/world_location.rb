@@ -12,7 +12,7 @@ class WorldLocation < ApplicationRecord
            through: :published_editions,
            source: :document
   has_many :edition_worldwide_organisations,
-           -> { where(editions: { type: "EditionableWorldwideOrganisation" }).includes(:edition) },
+           -> { where(editions: { type: "WorldwideOrganisation" }).includes(:edition) },
            class_name: "EditionWorldLocation"
   has_many :worldwide_organisations,
            through: :edition_worldwide_organisations,

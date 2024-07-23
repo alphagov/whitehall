@@ -8,19 +8,19 @@ class Admin::WorldwideOrganisationPageTranslationsController < Admin::BaseContro
 private
 
   def create_redirect_path
-    edit_admin_editionable_worldwide_organisation_page_translation_path(@worldwide_organisation, @worldwide_page, id: translation_locale)
+    edit_admin_worldwide_organisation_page_translation_path(@worldwide_organisation, @worldwide_page, id: translation_locale)
   end
 
   def destroy_redirect_path
-    admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation)
+    admin_worldwide_organisation_pages_path(@worldwide_organisation)
   end
 
   def update_redirect_path
-    admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation)
+    admin_worldwide_organisation_pages_path(@worldwide_organisation)
   end
 
   def load_translatable_item
-    @worldwide_organisation = Edition.find(params[:editionable_worldwide_organisation_id])
+    @worldwide_organisation = Edition.find(params[:worldwide_organisation_id])
     @worldwide_page = @worldwide_organisation.pages.find(params[:page_id])
   end
 

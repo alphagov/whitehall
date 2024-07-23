@@ -3,7 +3,7 @@ require "test_helper"
 class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestCase
   setup do
     login_as(:writer)
-    @worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[fr es])
+    @worldwide_organisation = create(:worldwide_organisation, translated_into: %i[fr es])
   end
 
   should_be_an_admin_controller
@@ -64,7 +64,7 @@ class Admin::WorldwideOfficeTranslationsControllerTest < ActionController::TestC
   end
 
   view_test "edit presents a form respecting the RTL value of the language" do
-    worldwide_organisation = create(:editionable_worldwide_organisation, translated_into: %i[ar])
+    worldwide_organisation = create(:worldwide_organisation, translated_into: %i[ar])
     worldwide_office = create(:worldwide_office, edition: worldwide_organisation)
 
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, id: "ar" }

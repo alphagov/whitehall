@@ -370,13 +370,13 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     assert_equal expected_output, secondary_navigation_tabs_items(group, admin_document_collection_group_path(document_collection, group))
   end
 
-  test "#secondary_navigation_tabs_items for editionable worldwide organisations" do
-    edition = build_stubbed(:editionable_worldwide_organisation)
+  test "#secondary_navigation_tabs_items for worldwide organisations" do
+    edition = build_stubbed(:worldwide_organisation)
 
     expected_output = [
       {
         label: "Document",
-        href: edit_admin_editionable_worldwide_organisation_path(edition),
+        href: edit_admin_worldwide_organisation_path(edition),
         current: true,
       },
       {
@@ -391,7 +391,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
       {
         label: "Pages",
-        href: admin_editionable_worldwide_organisation_pages_path(edition),
+        href: admin_worldwide_organisation_pages_path(edition),
         current: false,
       },
       {
@@ -401,7 +401,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     ]
 
-    assert_equal expected_output, secondary_navigation_tabs_items(edition, edit_admin_editionable_worldwide_organisation_path(edition))
+    assert_equal expected_output, secondary_navigation_tabs_items(edition, edit_admin_worldwide_organisation_path(edition))
   end
 
   test "#secondary_navigation_tabs_items for worldwide organisation pages" do
@@ -410,7 +410,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     expected_output = [
       {
         label: "Page",
-        href: edit_admin_editionable_worldwide_organisation_page_path(page.edition, page),
+        href: edit_admin_worldwide_organisation_page_path(page.edition, page),
         current: true,
       },
       {
@@ -420,6 +420,6 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     ]
 
-    assert_equal expected_output, secondary_navigation_tabs_items(page, edit_admin_editionable_worldwide_organisation_page_path(page.edition, page))
+    assert_equal expected_output, secondary_navigation_tabs_items(page, edit_admin_worldwide_organisation_page_path(page.edition, page))
   end
 end

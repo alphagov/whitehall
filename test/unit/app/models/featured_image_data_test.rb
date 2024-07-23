@@ -114,12 +114,12 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     organisation.default_news_image.republish_on_assets_ready
   end
 
-  test "#republish_on_assets_ready should republish editionable worldwide organisation and associations if assets are ready" do
-    worldwide_organisation = create(:published_editionable_worldwide_organisation, :with_default_news_image)
-    news_article = create(:news_article_world_news_story, :published, editionable_worldwide_organisations: [worldwide_organisation])
-    draft_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [worldwide_organisation])
-    other_organisation_news_article = create(:news_article_world_news_story, :draft, editionable_worldwide_organisations: [create(:published_editionable_worldwide_organisation, :with_default_news_image)])
-    news_article_with_image = create(:news_article_world_news_story, images: [create(:image)], editionable_worldwide_organisations: [worldwide_organisation])
+  test "#republish_on_assets_ready should republish worldwide organisation and associations if assets are ready" do
+    worldwide_organisation = create(:published_worldwide_organisation, :with_default_news_image)
+    news_article = create(:news_article_world_news_story, :published, worldwide_organisations: [worldwide_organisation])
+    draft_news_article = create(:news_article_world_news_story, :draft, worldwide_organisations: [worldwide_organisation])
+    other_organisation_news_article = create(:news_article_world_news_story, :draft, worldwide_organisations: [create(:published_worldwide_organisation, :with_default_news_image)])
+    news_article_with_image = create(:news_article_world_news_story, images: [create(:image)], worldwide_organisations: [worldwide_organisation])
 
     Whitehall::PublishingApi.expects(:republish_document_async).with(worldwide_organisation.document).once
     Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once

@@ -4,14 +4,14 @@ class NewsArticle < Announcement
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
-  include Edition::EditionableWorldwideOrganisations
+  include Edition::WorldwideOrganisations
   include Edition::FactCheckable
   include Edition::CustomLeadImage
   include Edition::LeadImage
 
   validate :ministers_are_not_associated, if: :world_news_story?
   validates :news_article_type_id, presence: true
-  validates :editionable_worldwide_organisation_documents, absence: true, unless: :world_news_story?
+  validates :worldwide_organisation_documents, absence: true, unless: :world_news_story?
   validate :non_english_primary_locale_only_for_world_news_story
   validate :organisations_are_not_associated, if: :world_news_story?
 

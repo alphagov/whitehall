@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @worldwide_page, as: :contact, url: admin_editionable_worldwide_organisation_page_translation_path(@worldwide_organisation, @worldwide_page, translation_locale), method: :put do |form| %>
+    <%= form_with model: @worldwide_page, as: :contact, url: admin_worldwide_organisation_page_translation_path(@worldwide_organisation, @worldwide_page, translation_locale), method: :put do |form| %>
       <%= render "components/translated_textarea", {
         textarea: {
           label: {
@@ -56,9 +56,9 @@
         } %>
 
         <% if @translated_page.translation.persisted? %>
-          <%= link_to("Cancel", admin_editionable_worldwide_organisation_pages_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
+          <%= link_to("Cancel", admin_worldwide_organisation_pages_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>
         <% else %>
-          <%= link_to("Cancel", admin_editionable_worldwide_organisation_page_translations_path(@worldwide_organisation, @worldwide_page), class: "govuk-link govuk-link--no-visited-state") %>
+          <%= link_to("Cancel", admin_worldwide_organisation_page_translations_path(@worldwide_organisation, @worldwide_page), class: "govuk-link govuk-link--no-visited-state") %>
         <% end %>
       </div>
     <% end %>

@@ -40,7 +40,7 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
 
   test "generates a valid document for world locations with local embassies" do
     world_location = build(:world_location)
-    organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
+    organisation = create(:worldwide_organisation, world_locations: [world_location])
     contact = create(:contact_with_country, country: world_location, locality: "locality")
     create(:worldwide_office,
            contact:,
@@ -53,7 +53,7 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
   test "generates a valid document for world locations with remote embassies" do
     world_location = build(:world_location)
     other_location = create(:world_location)
-    organisation = create(:editionable_worldwide_organisation, world_locations: [world_location])
+    organisation = create(:worldwide_organisation, world_locations: [world_location])
     contact = create(:contact_with_country, country: other_location)
     create(:worldwide_office,
            contact:,

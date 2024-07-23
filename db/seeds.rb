@@ -140,14 +140,14 @@ if WorldLocation.where(name: "Test International Delegation").blank?
     )
   end
 
-  if EditionableWorldwideOrganisation.where(title: "Test Editionable Worldwide Organisation").blank?
+  if WorldwideOrganisation.where(title: "Test Worldwide Organisation").blank?
     document = Document.create!(
       content_id: SecureRandom.uuid,
-      document_type: "EditionableWorldwideOrganisation",
-      slug: "test-editionable-worldwide-organisation",
+      document_type: "WorldwideOrganisation",
+      slug: "test-worldwide-organisation",
     )
 
-    EditionableWorldwideOrganisation.create!(
+    WorldwideOrganisation.create!(
       body: "Some information about this worldwide organisation.",
       creator: User.first,
       document:,
@@ -157,7 +157,7 @@ if WorldLocation.where(name: "Test International Delegation").blank?
       previously_published: false,
       summary: "An example worldwide organisation",
       supporting_organisations: [],
-      title: "Test Editionable Worldwide Organisation",
+      title: "Test Worldwide Organisation",
       world_locations: [WorldLocation.first],
     )
 
@@ -172,7 +172,7 @@ if WorldLocation.where(name: "Test International Delegation").blank?
         title: "Some social media account",
         url: "https://www.social.gov.uk",
         social_media_service: SocialMediaService.first,
-        socialable: EditionableWorldwideOrganisation.first,
+        socialable: WorldwideOrganisation.first,
       )
     end
 
@@ -185,18 +185,18 @@ if WorldLocation.where(name: "Test International Delegation").blank?
 
       WorldwideOffice.create!(
         access_and_opening_times: "Access and opening times",
-        edition: EditionableWorldwideOrganisation.find_by(title: "Test Editionable Worldwide Organisation"),
+        edition: WorldwideOrganisation.find_by(title: "Test Worldwide Organisation"),
         contact:,
         worldwide_office_type_id: WorldwideOfficeType::Embassy.id,
         content_id: SecureRandom.uuid,
       )
     end
 
-    if WorldwideOrganisationPage.where(edition: EditionableWorldwideOrganisation.find_by(title: "Test Editionable Worldwide Organisation"), corporate_information_page_type_id: 1).blank?
+    if WorldwideOrganisationPage.where(edition: WorldwideOrganisation.find_by(title: "Test Worldwide Organisation"), corporate_information_page_type_id: 1).blank?
       WorldwideOrganisationPage.create!(
         summary: "Some summary",
         body: "Some body",
-        edition: EditionableWorldwideOrganisation.find_by(title: "Test Editionable Worldwide Organisation"),
+        edition: WorldwideOrganisation.find_by(title: "Test Worldwide Organisation"),
         corporate_information_page_type_id: 1,
       )
     end

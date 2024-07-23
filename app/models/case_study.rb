@@ -8,7 +8,7 @@ class CaseStudy < Edition
   include Edition::Organisations
   include Edition::TaggableOrganisations
   include Edition::WorldLocations
-  include Edition::EditionableWorldwideOrganisations
+  include Edition::WorldwideOrganisations
   include Edition::LeadImage
 
   def rendering_app
