@@ -43,13 +43,15 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     assert_changes -> { ContentObjectStore::ContentBlockDocument.count }, from: 0, to: 1 do
       assert_changes -> { ContentObjectStore::ContentBlockEdition.count }, from: 0, to: 1 do
         assert_changes -> { ContentObjectStore::ContentBlockEditionAuthor.count }, from: 0, to: 1 do
-          post content_object_store.content_object_store_content_block_editions_path, params: {
-            something: "else",
-            content_block_edition: {
-              content_block_document_attributes:,
-              details:,
-            },
-          }
+          assert_changes -> { ContentObjectStore::ContentBlockVersion.count }, from: 0, to: 1 do
+            post content_object_store.content_object_store_content_block_editions_path, params: {
+              something: "else",
+              content_block_edition: {
+                content_block_document_attributes:,
+                details:,
+              },
+            }
+          end
         end
       end
     end
@@ -57,6 +59,7 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     new_document = ContentObjectStore::ContentBlockDocument.find_by!(content_id: @content_id)
     new_edition = new_document.content_block_editions.first
     new_author = ContentObjectStore::ContentBlockEditionAuthor.first
+    new_version = ContentObjectStore::ContentBlockVersion.first
 
     assert_equal content_block_document_attributes[:title], new_document.title
     assert_equal content_block_document_attributes[:block_type], new_document.block_type
@@ -67,6 +70,8 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
 
     assert_equal new_document.live_edition_id, new_edition.id
     assert_equal new_document.latest_edition_id, new_edition.id
+
+    assert_equal new_version.whodunnit, new_author.user.id.to_s
   end
 
   test "#create posts the new edition to the Publishing API" do

@@ -5,6 +5,7 @@ module GdsSsoHelper
 
   def login_as(user)
     GDS::SSO.test_user = user
+    Current.user = user
     super(user) # warden
   end
 
