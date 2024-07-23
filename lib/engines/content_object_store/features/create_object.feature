@@ -1,6 +1,7 @@
 Feature: Create a content object
 
   Background:
+    Given the content object store feature flag is enabled
     Given I am a GDS admin
     And a schema "email_address" exists with the following fields:
       | field         | type   | format | required |

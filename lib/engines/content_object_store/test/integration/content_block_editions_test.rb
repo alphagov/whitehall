@@ -9,6 +9,8 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
     @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
 
     stub_request_for_schema("email_address")
+
+    feature_flags.switch!(:content_object_store, true)
   end
 
   test "#index returns all Content Block Editions" do
