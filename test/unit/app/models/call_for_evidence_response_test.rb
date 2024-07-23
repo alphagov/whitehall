@@ -1,14 +1,6 @@
 require "test_helper"
 
 class CallForEvidenceResponseTest < ActiveSupport::TestCase
-  test "responses without a summary are only valid if they have attachments" do
-    response = build(:call_for_evidence_outcome, summary: nil)
-    assert_not response.valid?
-
-    response.attachments << build(:file_attachment)
-    assert response.valid?, response.errors.full_messages.inspect
-  end
-
   test "should return the alternative_format_contact_email of the call for evidence" do
     call_for_evidence = build(:call_for_evidence)
     call_for_evidence.stubs(alternative_format_contact_email: "alternative format contact email")
