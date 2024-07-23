@@ -21,7 +21,6 @@ Flipflop.configure do
   # feature :world_domination,
   #   default: true,
   #   description: "Take over the world."
-  feature :worldwide_organisations, description: "Enables worldwide organisations", default: false
   feature :govspeak_visual_editor, description: "Enables a visual editor for Govspeak fields", default: false
   feature :content_object_store, description: "Enables the object store for sharable content", default: Rails.env.development?
 end
