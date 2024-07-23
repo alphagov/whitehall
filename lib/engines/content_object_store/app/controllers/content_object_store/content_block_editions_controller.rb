@@ -1,4 +1,4 @@
-class ContentObjectStore::ContentBlockEditionsController < Admin::BaseController
+class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::BaseController
   def index
     @content_block_editions = ContentObjectStore::ContentBlockEdition.all
   end

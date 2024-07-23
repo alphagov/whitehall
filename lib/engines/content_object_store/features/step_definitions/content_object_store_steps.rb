@@ -1,3 +1,8 @@
+Given(/^the content object store feature flag is (enabled|disabled)$/) do |enabled|
+  @test_strategy ||= Flipflop::FeatureSet.current.test!
+  @test_strategy.switch!(:content_object_store, enabled == "enabled")
+end
+
 Given("a schema {string} exists with the following fields:") do |block_type, table|
   fields = table.hashes
   @schemas ||= {}
@@ -185,4 +190,8 @@ end
 
 Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|
   assert_text "#{ContentObjectStore::ContentBlockEdition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
+end
+
+Then("I should see a permissions error") do
+  assert_text "Permissions error"
 end
