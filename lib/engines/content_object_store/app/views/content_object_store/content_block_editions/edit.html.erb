@@ -1,16 +1,16 @@
 <% content_for :context, "Object store" %>
-<% content_for :title, "Change #{@schema.name}" %>
+<% content_for :title, "Change #{@form.schema.name}" %>
 
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: content_object_store.content_object_store_content_block_edition_path(@content_block_edition),
+    href: @form.back_path,
   } %>
 <% end %>
 
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @content_block_edition)) %>
-<%= form_with model: @content_block_edition, as: :content_block_edition, url: content_object_store.content_object_store_content_block_edition_path do |f| %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @form.content_block_edition)) %>
+<%= form_with model: @form.content_block_edition, as: :content_block_edition, url: content_object_store.content_object_store_content_block_edition_path do |f| %>
   <%= hidden_field_tag "content_block_edition[content_block_document_attributes][block_type]",
-    @schema.block_type,
+    @form.schema.block_type,
     id: "content_object_store/content_block_edition_content_block_document_block_type" %>
 
   <%= render "govuk_publishing_components/components/input", {
@@ -19,11 +19,11 @@
     },
     name: "content_block_edition[content_block_document_attributes][title]",
     id: "content_object_store/content_block_edition_content_block_document_title",
-    value: @content_block_edition.content_block_document&.title,
-    error_items: errors_for(@content_block_edition.errors, "content_block_document.title".to_sym),
+    value: @form.content_block_edition.content_block_document&.title,
+    error_items: errors_for(@form.content_block_edition.errors, "content_block_document.title".to_sym),
   } %>
 
-  <% @content_block_edition.details.each do |field, value| %>
+  <% @form.attributes.each do |field, value| %>
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: field.humanize,
@@ -31,7 +31,7 @@
       name: "content_block_edition[details[#{field}]]",
       id: "content_object_store/content_block_edition_details_#{field}",
       value: value,
-      error_items: errors_for(@content_block_edition.errors, "details_#{field}".to_sym),
+      error_items: errors_for(@form.content_block_edition.errors, "details_#{field}".to_sym),
     } %>
   <% end %>
 
@@ -42,6 +42,6 @@
       value: "Save and publish",
       type: "submit",
     } %>
-    <%= link_to("Cancel", content_object_store.content_object_store_content_block_edition_path(@content_block_edition), class: "govuk-link") %>
+    <%= link_to("Cancel", @form.back_path, class: "govuk-link") %>
   </div>
 <% end %>
