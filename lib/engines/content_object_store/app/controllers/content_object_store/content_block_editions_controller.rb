@@ -23,9 +23,9 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
   def create
     @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type_param)
 
-    ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
+    new_edition = ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
 
-    redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
+    redirect_to content_object_store.content_object_store_content_block_document_path(new_edition.document), flash: { notice: "#{@schema.name} created successfully" }
   rescue ActiveRecord::RecordInvalid => e
     @form = ContentObjectStore::ContentBlockEditionForm::Create.new(content_block_edition: e.record, schema: @schema)
     render :new
@@ -47,7 +47,7 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
       content_block_edition,
     ).call(edition_params)
 
-    redirect_to content_object_store.content_object_store_content_block_edition_path(new_content_block_edition),
+    redirect_to content_object_store.content_object_store_content_block_document_path(new_content_block_edition.document),
                 flash: { notice: "#{@schema.name} changed and published successfully" }
   rescue ActiveRecord::RecordInvalid => e
     @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition: e.record, schema: @schema)
