@@ -3,7 +3,7 @@ require "test_helper"
 class ContentObjectStore::ContentBlockEdition::Show::TimelineComponentTest < ViewComponent::TestCase
   test "renders a timeline component with a created event" do
     @user = create(:user)
-    @content_block_edition = create(:content_block_edition)
+    @content_block_edition = create(:content_block_edition, :email_address)
     @content_block_version = create(
       :content_block_version,
       item: @content_block_edition,

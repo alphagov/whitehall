@@ -39,4 +39,14 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
     content_block_document.update!(live_edition_id: 1)
     assert content_block_document.reload.live_edition_id, 1
   end
+
+  describe "latest_edition" do
+    it "returns the latest edition" do
+      document = create(:content_block_document, :email_address)
+      _first_edition = create(:content_block_edition, content_block_document: document)
+      second_edition = create(:content_block_edition, content_block_document: document)
+
+      assert_equal second_edition, document.latest_edition
+    end
+  end
 end
