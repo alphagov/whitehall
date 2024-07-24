@@ -32,7 +32,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
     test "returns a ContentBlockEdition" do
       result = ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
-      assert_instance_of ContentObjectStore::ContentBlockEdition, result
+      assert_instance_of ContentObjectStore::ContentBlock::Edition, result
     end
 
     test "it creates a ContentBlockEdition in Whitehall" do

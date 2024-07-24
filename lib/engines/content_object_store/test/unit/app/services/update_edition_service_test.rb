@@ -224,7 +224,7 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
 
       Services.publishing_api.expects(:put_content).never
 
-      ContentObjectStore::ContentBlockEdition.stub :create!, raises_exception do
+      ContentObjectStore::ContentBlock::Edition.stub :create!, raises_exception do
         assert_raises(ArgumentError) do
           ContentObjectStore::UpdateEditionService
             .new(schema, @original_content_block_edition)

@@ -8,7 +8,7 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
 
   describe ".valid_schemas" do
     test "it returns the contents of the VALID_SCHEMA constant" do
-      assert_equal ContentObjectStore::ContentBlockSchema.valid_schemas, %w[
+      assert_equal ContentObjectStore::ContentBlock::Schema.valid_schemas, %w[
         email_address
         postal_address
       ]
@@ -67,12 +67,12 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
 
     before(:all) do
       Services.publishing_api.expects(:get_schemas).once.returns(response)
-      ContentObjectStore::ContentBlockSchema.stubs(:is_valid_schema?).with(anything).returns(false)
-      ContentObjectStore::ContentBlockSchema.stubs(:is_valid_schema?).with(any_of("content_block_foo", "content_block_bar")).returns(true)
+      ContentObjectStore::ContentBlock::Schema.stubs(:is_valid_schema?).with(anything).returns(false)
+      ContentObjectStore::ContentBlock::Schema.stubs(:is_valid_schema?).with(any_of("content_block_foo", "content_block_bar")).returns(true)
     end
 
     it "returns a list of schemas with the content block prefix" do
-      schemas = ContentObjectStore::ContentBlockSchema.all
+      schemas = ContentObjectStore::ContentBlock::Schema.all
       assert_equal schemas.map(&:id), %w[content_block_foo content_block_bar]
       assert_equal schemas.map(&:fields), [%w[foo_field], %w[bar_field bar_field2]]
     end
@@ -82,7 +82,7 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
       # given that we only expect Publishing API to be called once, let's
       # call our service method twice and assert that no errors were raised
       assert_nothing_raised do
-        2.times { ContentObjectStore::ContentBlockSchema.all }
+        2.times { ContentObjectStore::ContentBlock::Schema.all }
       end
     end
   end
@@ -101,14 +101,14 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
     end
 
     setup do
-      ContentObjectStore::ContentBlockSchema.stubs(:all).returns([
+      ContentObjectStore::ContentBlock::Schema.stubs(:all).returns([
         build(:content_block_schema, block_type:, body:),
         build(:content_block_schema, block_type: "something_else", body: {}),
       ])
     end
 
     test "it returns the schema when the block_type is valid" do
-      schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type)
+      schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(block_type)
 
       assert_equal schema.id, "content_block_#{block_type}"
       assert_equal schema.block_type, block_type
@@ -119,27 +119,27 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
       block_type = "other_thing"
 
       assert_raises ArgumentError, "Cannot find schema for #{block_type}" do
-        ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type)
+        ContentObjectStore::ContentBlock::Schema.find_by_block_type(block_type)
       end
     end
   end
 
   describe ".is_valid_schema?" do
     test "returns true when the schema has correct prefix/suffix" do
-      ContentObjectStore::ContentBlockSchema.valid_schemas.each do |schema|
-        schema_name = "#{ContentObjectStore::ContentBlockSchema::SCHEMA_PREFIX}_#{schema}"
-        assert ContentObjectStore::ContentBlockSchema.is_valid_schema?(schema_name)
+      ContentObjectStore::ContentBlock::Schema.valid_schemas.each do |schema|
+        schema_name = "#{ContentObjectStore::ContentBlock::Schema::SCHEMA_PREFIX}_#{schema}"
+        assert ContentObjectStore::ContentBlock::Schema.is_valid_schema?(schema_name)
       end
     end
 
     test "returns false when given an invalid schema" do
       schema_name = "something_else"
-      assert_equal ContentObjectStore::ContentBlockSchema.is_valid_schema?(schema_name), false
+      assert_equal ContentObjectStore::ContentBlock::Schema.is_valid_schema?(schema_name), false
     end
 
     test "returns false when the schema has correct prefix but a suffix that is not valid" do
-      schema_name = "#{ContentObjectStore::ContentBlockSchema::SCHEMA_PREFIX}_something"
-      assert_equal ContentObjectStore::ContentBlockSchema.is_valid_schema?(schema_name), false
+      schema_name = "#{ContentObjectStore::ContentBlock::Schema::SCHEMA_PREFIX}_something"
+      assert_equal ContentObjectStore::ContentBlock::Schema.is_valid_schema?(schema_name), false
     end
   end
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :content_block_document, class: "ContentObjectStore::ContentBlockDocument" do
+  factory :content_block_document, class: "ContentObjectStore::ContentBlock::Document" do
     sequence(:content_id) { SecureRandom.uuid }
     title { "Title" }
     created_at { Time.zone.now.utc }
@@ -7,7 +7,7 @@ FactoryBot.define do
     latest_edition_id { nil }
     live_edition_id { nil }
 
-    ContentObjectStore::ContentBlockSchema.valid_schemas.each do |type|
+    ContentObjectStore::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
         block_type { type }
       end

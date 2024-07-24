@@ -1,18 +1,18 @@
 class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::BaseController
   def new
     if params[:block_type].blank?
-      @schemas = ContentObjectStore::ContentBlockSchema.all
+      @schemas = ContentObjectStore::ContentBlock::Schema.all
     else
-      @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(params[:block_type].underscore)
+      @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(params[:block_type].underscore)
       @form = ContentObjectStore::ContentBlockEditionForm::Create.new(
-        content_block_edition: ContentObjectStore::ContentBlockEdition.new,
+        content_block_edition: ContentObjectStore::ContentBlock::Edition.new,
         schema: @schema,
       )
     end
   end
 
   def create
-    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type_param)
+    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(block_type_param)
 
     new_edition = ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
 
@@ -23,15 +23,15 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
   end
 
   def edit
-    content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
-    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(content_block_edition.document.block_type)
+    content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
 
     @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition:, schema: @schema)
   end
 
   def update
-    content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
-    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(content_block_edition.document.block_type)
+    content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
 
     new_content_block_edition = ContentObjectStore::UpdateEditionService.new(
       @schema,

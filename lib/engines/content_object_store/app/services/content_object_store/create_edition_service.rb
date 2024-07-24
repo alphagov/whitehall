@@ -11,7 +11,7 @@ module ContentObjectStore
       details = edition_params[:details]
 
       publish_with_rollback(schema: @schema, title:, details:) do
-        @new_edition = ContentObjectStore::ContentBlockEdition.create!(edition_params)
+        @new_edition = ContentObjectStore::ContentBlock::Edition.create!(edition_params)
       end
 
       @new_edition

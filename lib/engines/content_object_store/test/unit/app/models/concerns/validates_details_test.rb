@@ -11,7 +11,7 @@ class ContentObjectStore::ValidatesDetailsTest < ActiveSupport::TestCase
       content_block_schema_mock = Minitest::Mock.new
       content_block_schema_mock.expect :call, schema, [content_block_edition.block_type]
 
-      ContentObjectStore::ContentBlockSchema.stub :find_by_block_type, content_block_schema_mock do
+      ContentObjectStore::ContentBlock::Schema.stub :find_by_block_type, content_block_schema_mock do
         assert_equal content_block_edition.schema, schema
       end
 
@@ -35,7 +35,7 @@ class ContentObjectStore::ValidatesDetailsTest < ActiveSupport::TestCase
 
   describe "human_attribute_name" do
     it "returns the human readable label for a field prefixed with `details_`" do
-      assert_equal ContentObjectStore::ContentBlockEdition.human_attribute_name("details_foo"), "Foo"
+      assert_equal ContentObjectStore::ContentBlock::Edition.human_attribute_name("details_foo"), "Foo"
     end
   end
 end

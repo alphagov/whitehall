@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :content_block_edition, class: "ContentObjectStore::ContentBlockEdition" do
+  factory :content_block_edition, class: "ContentObjectStore::ContentBlock::Edition" do
     details { {} }
     created_at { Time.zone.now.utc }
     updated_at { Time.zone.now.utc }
@@ -8,7 +8,7 @@ FactoryBot.define do
 
     content_block_document_id { nil }
 
-    ContentObjectStore::ContentBlockSchema.valid_schemas.each do |type|
+    ContentObjectStore::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
         content_block_document { build(:content_block_document, block_type: type) }
       end

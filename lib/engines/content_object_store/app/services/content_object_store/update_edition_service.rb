@@ -39,7 +39,7 @@ module ContentObjectStore
         raise ActiveRecord::RecordInvalid, @original_content_block_edition
       end
 
-      new_content_block_edition = ContentObjectStore::ContentBlockEdition.new(edition_params)
+      new_content_block_edition = ContentObjectStore::ContentBlock::Edition.new(edition_params)
       new_content_block_edition.content_block_document_id = @original_content_block_edition.document.id
       new_content_block_edition.save!
       new_content_block_edition

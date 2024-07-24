@@ -22,7 +22,7 @@ module ContentObjectStore
     end
 
     def schema
-      @schema ||= ContentObjectStore::ContentBlockSchema.find_by_block_type(block_type)
+      @schema ||= ContentObjectStore::ContentBlock::Schema.find_by_block_type(block_type)
     end
 
     # When an error is raised about a field within the details hash

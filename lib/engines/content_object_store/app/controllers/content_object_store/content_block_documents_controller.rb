@@ -1,10 +1,10 @@
 class ContentObjectStore::ContentBlockDocumentsController < ContentObjectStore::BaseController
   def index
-    @content_block_documents = ContentObjectStore::ContentBlockDocument.all
+    @content_block_documents = ContentObjectStore::ContentBlock::Document.all
   end
 
   def show
-    @content_block_document = ContentObjectStore::ContentBlockDocument.find(params[:id])
-    @content_block_versions = ContentObjectStore::ContentBlockVersion.where(item: @content_block_document.content_block_editions.last)
+    @content_block_document = ContentObjectStore::ContentBlock::Document.find(params[:id])
+    @content_block_versions = ContentObjectStore::ContentBlock::Version.where(item: @content_block_document.editions.last)
   end
 end

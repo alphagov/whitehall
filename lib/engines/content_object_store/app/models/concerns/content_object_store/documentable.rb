@@ -23,7 +23,7 @@ module ContentObjectStore
 
     def ensure_presence_of_document
       if document.blank?
-        self.document = ContentBlockDocument.new(
+        self.document = ContentBlock::Document.new(
           content_id: create_random_id,
           block_type: @block_type,
           title: @title,
