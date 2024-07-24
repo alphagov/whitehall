@@ -17,6 +17,10 @@ class WorldLocation < ApplicationRecord
   has_many :worldwide_organisations,
            through: :edition_worldwide_organisations,
            source: :edition
+  has_many :published_worldwide_organisations,
+           -> { where(state: "published") },
+           through: :edition_worldwide_organisations,
+           source: :edition
 
   has_one :world_location_news
   accepts_nested_attributes_for :world_location_news

@@ -53,6 +53,13 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal related_organisations, world_location.worldwide_organisations_with_organisations
   end
 
+  test ".published_worldwide_organisations returns all published worldwide organisations" do
+    published_wworg_1, published_wworg_2 = create_list(:published_worldwide_organisation, 2)
+    world_location = create(:world_location, worldwide_organisations: [published_wworg_1, published_wworg_2, create(:draft_worldwide_organisation)])
+
+    assert_equal [published_wworg_1, published_wworg_2], world_location.published_worldwide_organisations
+  end
+
   test "ordered_by_name sorts by the I18n.default_locale translation for name" do
     world_location1 = create(:world_location, name: "Neverland")
     world_location2 = create(:world_location, name: "Middle Earth")
