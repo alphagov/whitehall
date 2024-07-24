@@ -50,6 +50,13 @@ Then("I should see a back link to the select schema page") do
   expect(page).to have_link("Back", href: content_object_store.new_content_object_store_content_block_edition_path)
 end
 
+Then("I should see a back link to the document page") do
+  expect(page).to have_link(
+    "Back",
+    href: content_object_store.content_object_store_content_block_document_path(@content_block.document),
+  )
+end
+
 Then("I should see a back link to the show page") do
   match_data = URI.parse(page.current_url).path.match(%r{content-block-editions/(\d+)/edit$})
   id = match_data[1] unless match_data.nil?

@@ -14,7 +14,7 @@ Feature: Edit a content object
     Then I should see the details for the email address content block
     When I click the first change link
     Then I should see the edit form
-    And I should see a back link to the show page
+    And I should see a back link to the document page
     When I fill out the form
     Then the edition should have been updated successfully
     And I should be taken back to the document page
