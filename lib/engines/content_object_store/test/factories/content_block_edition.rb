@@ -6,11 +6,11 @@ FactoryBot.define do
     schema { build(:content_block_schema) }
     creator
 
-    content_block_document_id { nil }
+    document_id { nil }
 
     ContentObjectStore::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
-        content_block_document { build(:content_block_document, block_type: type) }
+        document { build(:content_block_document, block_type: type) }
       end
     end
 

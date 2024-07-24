@@ -15,7 +15,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      content_block_document_attributes: {
+      document_attributes: {
         block_type: "email_address",
         title: @title,
       },
@@ -72,13 +72,13 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      content_block_document_attributes: {
+      document_attributes: {
         block_type: nil,
       },
     )
 
     assert_invalid @content_block_edition
-    assert @content_block_edition.errors.full_messages.include?("Content block document block type can't be blank")
+    assert @content_block_edition.errors.full_messages.include?("Document block type can't be blank")
   end
 
   test "it validates the presence of a document title" do
@@ -87,7 +87,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       created_at: @created_at,
       updated_at: @updated_at,
       details: @details,
-      content_block_document_attributes: {
+      document_attributes: {
         title: nil,
       },
     )
@@ -99,7 +99,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
   test "it adds a creator and first edition author for new records" do
     @content_block_edition.save!
     @content_block_edition.reload
-    assert_equal @content_block_edition.creator, @content_block_edition.content_block_edition_authors.first.user
+    assert_equal @content_block_edition.creator, @content_block_edition.edition_authors.first.user
   end
 
   test "#creator= raises an exception if called for a persisted record" do

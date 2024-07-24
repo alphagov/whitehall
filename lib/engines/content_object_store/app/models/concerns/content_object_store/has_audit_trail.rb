@@ -3,7 +3,7 @@ module ContentObjectStore
     extend ActiveSupport::Concern
 
     included do
-      has_many :content_block_versions, -> { order(created_at: :asc, id: :asc) }, as: :item
+      has_many :versions, -> { order(created_at: :asc, id: :asc) }, as: :item
 
       after_create :record_create
     end
@@ -12,7 +12,7 @@ module ContentObjectStore
 
     def record_create
       user = Current.user
-      content_block_versions.create!(event: "created", user:)
+      versions.create!(event: "created", user:)
     end
   end
 end

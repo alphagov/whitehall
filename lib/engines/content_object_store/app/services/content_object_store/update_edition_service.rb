@@ -10,9 +10,9 @@ module ContentObjectStore
     def call(edition_params)
       raise ArgumentError, "Edition params must be provided" if edition_params.blank? || edition_params[:details].blank?
 
-      title = edition_params.dig(:content_block_document_attributes, :title) || @original_content_block_edition.document.title
+      title = edition_params.dig(:document_attributes, :title) || @original_content_block_edition.document.title
       details = edition_params[:details]
-      update_document_params = edition_params[:content_block_document_attributes] || {}
+      update_document_params = edition_params[:document_attributes] || {}
 
       publish_with_rollback(schema: @schema, title:, details:) do
         @new_content_block_edition = create_new_content_block_edition_for_document(edition_params:)
@@ -40,7 +40,7 @@ module ContentObjectStore
       end
 
       new_content_block_edition = ContentObjectStore::ContentBlock::Edition.new(edition_params)
-      new_content_block_edition.content_block_document_id = @original_content_block_edition.document.id
+      new_content_block_edition.document_id = @original_content_block_edition.document.id
       new_content_block_edition.save!
       new_content_block_edition
     end
@@ -61,8 +61,8 @@ module ContentObjectStore
 
       # Remove document `block_type`` as this is not modifiable
       # Add the original Document ID to avoid `valid?` creating a new Document
-      if validation_params.key?(:content_block_document_attributes)
-        validation_params[:content_block_document_attributes] = validation_params[:content_block_document_attributes]
+      if validation_params.key?(:document_attributes)
+        validation_params[:document_attributes] = validation_params[:document_attributes]
           .except(:block_type)
           .merge(id: @original_content_block_edition.document.id)
       end
