@@ -111,6 +111,10 @@ When("I visit the object store") do
   visit content_object_store.content_object_store_content_block_editions_path
 end
 
+When("I visit the document object store") do
+  visit content_object_store.content_object_store_content_block_documents_path
+end
+
 Then("I should see the details for all content blocks") do
   assert_text "All content blocks"
 
@@ -122,7 +126,12 @@ Then("I should see the details for all content blocks") do
   end
 end
 
-When("I click to view the content block") do
+When("I click to view the document") do
+  @schema = @schemas[@content_block.document.block_type]
+  click_link href: content_object_store.content_object_store_content_block_document_path(@content_block.document)
+end
+
+When("I click to view the edition") do
   @schema = @schemas[@content_block.document.block_type]
   click_link href: content_object_store.content_object_store_content_block_edition_path(@content_block)
 end

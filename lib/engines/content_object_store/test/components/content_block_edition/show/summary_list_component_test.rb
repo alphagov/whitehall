@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentObjectStore::ContentBlockEdition::Show::SummaryListComponentTest < ViewComponent::TestCase
+class ContentObjectStore::ContentBlockDocument::Show::SummaryListComponentTest < ViewComponent::TestCase
   test "renders a content block correctly" do
     content_block_edition = create(
       :content_block_edition,
@@ -8,11 +8,13 @@ class ContentObjectStore::ContentBlockEdition::Show::SummaryListComponentTest < 
       details: { foo: "bar", something: "else" },
       creator: build(:user),
     )
-    render_inline(ContentObjectStore::ContentBlockEdition::Show::SummaryListComponent.new(content_block_edition:))
+    content_block_document = content_block_edition.document
+
+    render_inline(ContentObjectStore::ContentBlockDocument::Show::SummaryListComponent.new(content_block_document:))
 
     assert_selector ".govuk-summary-list__row", count: 4
     assert_selector ".govuk-summary-list__key", text: "Title"
-    assert_selector ".govuk-summary-list__value", text: content_block_edition.title
+    assert_selector ".govuk-summary-list__value", text: content_block_document.title
     assert_selector ".govuk-summary-list__actions", text: "Change"
 
     assert_selector ".govuk-summary-list__key", text: "Foo"

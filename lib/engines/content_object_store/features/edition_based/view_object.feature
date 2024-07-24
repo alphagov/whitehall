@@ -8,6 +8,6 @@ Feature: View a content object
     And an email address content block has been created
     When I visit the object store
     Then I should see the details for all content blocks
-    When I click to view the content block
+    When I click to view the edition
     Then I should see the details for the email address content block
     And I should see the audit trail

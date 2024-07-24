@@ -1,0 +1,19 @@
+<% content_for :context, "Object store" %>
+<% content_for :title, "All content blocks" %>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-8">
+  <div class="govuk-grid-column-full">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Create new object",
+      href: content_object_store.new_content_object_store_content_block_edition_path,
+    } %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+  <% @content_block_documents.each do |content_block_document| %>
+    <%= render ContentObjectStore::ContentBlockDocument::Index::SummaryCardComponent.new(content_block_document:) %>
+  <% end %>
+  </div>
+</div>
