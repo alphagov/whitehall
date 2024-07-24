@@ -19,16 +19,6 @@ examples:
       rows:
         - text: value1
         - text: value2
-  with_tracking:
-    data:
-      data_attributes:
-        tracking: GTM-123AB
-      title: Title
-      rows:
-        - key: key one
-          text: value1
-        - key: key two
-          text: value2
   with_actions:
     data:
       title: Title

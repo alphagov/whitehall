@@ -32,15 +32,6 @@ examples:
       name: "default"
       hint: Explain any acronyms
       hint_id: this_is_optional
-  with_tracking:
-    data:
-      label:
-        text: "Document content body"
-        bold: true
-      name: "with_tracking"
-      track_preview_toggle: true
-      track_category: category
-      track_action: action
   with_data_attributes:
     data:
       label:
