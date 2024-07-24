@@ -47,13 +47,6 @@ class Admin::CallForEvidenceResponsesControllerTest < ActionController::TestCase
     assert_equal "Outcome summary", outcome.summary
   end
 
-  view_test "POST :create with invalid params re-renders the form" do
-    post :create, params: { call_for_evidence_id: @call_for_evidence, call_for_evidence_outcome: { summary: "", published_on: Time.zone.today }, type: "CallForEvidenceOutcome" }
-
-    assert_response :success
-    assert_select "textarea[name='call_for_evidence_outcome[summary]']"
-  end
-
   view_test "GET :edit renders the edit form for an outcome" do
     outcome = create_outcome
     get :edit, params: { call_for_evidence_id: @call_for_evidence, type: "CallForEvidenceOutcome" }

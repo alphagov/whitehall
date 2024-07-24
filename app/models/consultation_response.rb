@@ -7,7 +7,6 @@ class ConsultationResponse < ApplicationRecord
   date_attributes(:published_on)
 
   validates :published_on, comparison: { greater_than: Date.parse("1900-01-01"), message: "should be greater than 1900" }
-  validates :summary, presence: { unless: :has_attachments }
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :summary
   delegate :auth_bypass_id, to: :consultation
@@ -57,10 +56,6 @@ class ConsultationResponse < ApplicationRecord
   delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, to: :consultation
 
 private
-
-  def has_attachments
-    attachments.any?
-  end
 
   def parent_attachable
     consultation || Attachable::Null.new

@@ -73,13 +73,6 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
     assert_equal "Feedback summary", public_feedback.summary
   end
 
-  view_test "POST :create with invalid params re-renders the form" do
-    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: "", published_on: Time.zone.today }, type: "ConsultationOutcome" }
-
-    assert_response :success
-    assert_select "textarea[name='consultation_outcome[summary]']"
-  end
-
   view_test "GET :edit renders the edit form for an outcome" do
     outcome = create_outcome
     get :edit, params: { consultation_id: @consultation, type: "ConsultationOutcome" }
