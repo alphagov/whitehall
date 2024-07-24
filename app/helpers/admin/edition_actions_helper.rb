@@ -12,21 +12,7 @@ module Admin::EditionActionsHelper
 
     link_to "View data about page",
             url,
-            class: "btn btn-default btn-lg pull-right",
-            data: {
-              track_category: "external-link-clicked",
-              track_action: url,
-              track_label: "View data about page",
-            }
-  end
-
-  def custom_track_dimensions(edition, edition_taxons)
-    {
-      1 => edition.public_path,
-      2 => edition.type.underscore,
-      3 => root_taxon_paths(edition_taxons),
-      4 => edition.document.content_id,
-    }
+            class: "btn btn-default btn-lg pull-right"
   end
 
   def approve_retrospectively_edition_button(edition)

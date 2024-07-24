@@ -7,13 +7,7 @@
 <p class="govuk-body">
   <%= link_to("Add internal note",
     new_admin_edition_editorial_remark_path(edition),
-    class: "govuk-body govuk-link govuk-link--no-visited-state",
-    data: {
-      module: "gem-track-click",
-      "track-category": "button-pressed",
-      "track-action": "#{edition.class.name.demodulize.underscore.dasherize}-button",
-      "track-label": "Add new remark",
-    }) %>
+    class: "govuk-body govuk-link govuk-link--no-visited-state") %>
   </p>
 
 <%= form_with url: false, method: :get, class: "js-filter-form", data: {"remote-pagination" => document_history_admin_edition_path(edition)} do |form| %>

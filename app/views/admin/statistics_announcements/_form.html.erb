@@ -144,12 +144,6 @@
   <div class="govuk-button-group govuk-!-margin-top-8">
     <%= render "govuk_publishing_components/components/button", {
       text: statistics_announcement.new_record? ? "Publish announcement" : "Save and publish changes",
-      data_attributes: {
-        module: "gem-track-click",
-        "track-category": "form-button",
-        "track-action": "#{form.object.class.name.demodulize.underscore.dasherize}-button",
-        "track-label": statistics_announcement.new_record? ? "Publish announcement" : "Save and publish changes",
-      },
     } %>
     <%= link_to("Cancel", [:admin, statistics_announcement], class: "govuk-link") %>
   </div>

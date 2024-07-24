@@ -21,9 +21,6 @@ class Admin::GenericEditionsController::LinkingToContentDataTest < ActionControl
     url = "https://content-data.test.gov.uk/metrics/government/generic-editions/#{published_edition.slug}"
     expected_attributes = {
       "href" => url,
-      "data-track-category" => "external-link-clicked",
-      "data-track-action" => url,
-      "data-track-label" => "View data about page",
     }
 
     attributes = el.attributes.transform_values(&:value).slice(*expected_attributes.keys)

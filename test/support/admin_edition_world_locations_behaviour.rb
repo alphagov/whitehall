@@ -12,10 +12,6 @@ module AdminEditionWorldLocationsBehaviour
           assert_select "label[for=edition_world_locations]", text: "World locations"
           assert_select "#edition_world_locations" do |elements|
             assert_equal 1, elements.length
-            assert_data_attributes_for_world_locations(
-              element: elements.first,
-              track_label: new_edition_path(document_type),
-            )
           end
         end
       end
@@ -45,10 +41,6 @@ module AdminEditionWorldLocationsBehaviour
 
           assert_select "#edition_world_locations" do |elements|
             assert_equal 1, elements.length
-            assert_data_attributes_for_world_locations(
-              element: elements.first,
-              track_label: edit_edition_path(document_type),
-            )
           end
         end
       end
@@ -80,14 +72,5 @@ module AdminEditionWorldLocationsBehaviour
         end
       end
     end
-  end
-
-private
-
-  def assert_data_attributes_for_world_locations(element:, track_label:)
-    # TODO: Add tracking back in. This is covered in this Trello card https://trello.com/c/eKGeFCQu/975-add-tracking-in-for-associations-on-the-edit-page
-    # assert_equal "track-select-click", element["data-module"]
-    # assert_equal "worldLocationSelection", element["data-track-category"]
-    # assert_equal track_label, element["data-track-label"]
   end
 end

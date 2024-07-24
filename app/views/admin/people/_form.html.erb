@@ -91,15 +91,7 @@
   } %>
 
   <div class="govuk-button-group">
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Save",
-      data_attributes: {
-         module: "gem-track-click",
-         "track-category": "form-button",
-         "track-action": "person-button",
-         "track-label": "Save",
-       },
-    } %>
+    <%= render "govuk_publishing_components/components/button", { text: "Save" } %>
 
     <%= link_to "Cancel", admin_people_path, class: "govuk-link" %>
   </div>

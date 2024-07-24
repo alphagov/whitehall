@@ -5,7 +5,6 @@
     <meta name="govuk:components_gem_version" content="<%= GovukPublishingComponents::VERSION %>">
     <%= javascript_include_tag "admin/domain-config" %>
     <%= javascript_include_tag "govuk_publishing_components/load-analytics" %>
-    <meta name="custom-dimension:8" content="<%= current_user.organisation_slug.presence || "(not set)" %>">
   <% end %>
 <% end %>
 
@@ -16,8 +15,6 @@
            environment: environment,
            browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitized_title do %>
 
-  <!-- This element exists to initialise the JS module that configures custom Universal Analytics behaviour -->
-  <div data-module="app-analytics"></div>
   <div data-module="GA4PageViewTracking" data-attributes='<%= track_analytics_data_on_load(sanitized_title) %>'></div>
 
   <%= render "govuk_publishing_components/components/skip_link" %>

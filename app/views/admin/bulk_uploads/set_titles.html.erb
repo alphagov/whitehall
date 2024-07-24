@@ -55,15 +55,7 @@
         <% end %>
 
         <div class="govuk-button-group">
-          <%= render "govuk_publishing_components/components/button", {
-            text: "Save",
-            data_attributes: {
-              module: "gem-track-click",
-              "track-category": "form-button",
-              "track-action": "bulk-upload-button",
-              "track-label": "Save",
-            },
-          } %>
+          <%= render "govuk_publishing_components/components/button", { text: "Save" } %>
 
           <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
         </div>

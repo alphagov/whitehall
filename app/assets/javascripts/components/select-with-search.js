@@ -5,7 +5,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
   function SelectWithSearch(module) {
     this.module = module
     this.select = this.module.querySelector('select')
-    this.enableTracking = !!module.dataset.trackCategory
   }
 
   SelectWithSearch.prototype.init = function () {
@@ -33,21 +32,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     })
 
     this.module.choices = this.choices
-
-    if (this.enableTracking) {
-      this.module.addEventListener('change', this.trackChange.bind(this))
-    }
-  }
-
-  SelectWithSearch.prototype.trackChange = function () {
-    const { trackCategory, trackLabel } = this.module.dataset
-
-    const action = this.choices.getValue().label
-
-    const options = {}
-    if (trackLabel) options.label = trackLabel
-
-    GOVUK.analytics.trackEvent(trackCategory, action, options)
   }
 
   Modules.SelectWithSearch = SelectWithSearch

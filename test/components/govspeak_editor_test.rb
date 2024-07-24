@@ -94,20 +94,6 @@ class GovspeakeditorComponentTest < ComponentTestCase
     assert_select ".govuk-textarea[dir='rtl']"
   end
 
-  test "allows tracking" do
-    render_component({
-      name: "my-name",
-      label: {
-        text: "my-label",
-      },
-      track_preview_toggle: true,
-      track_category: "category",
-      track_action: "action",
-    })
-
-    assert_select ".app-c-govspeak-editor .govuk-button[data-preview-toggle-track-category='category'][data-preview-toggle-track-action='action'][data-preview-toggle-tracking='true']"
-  end
-
   test "accepts data attributes" do
     render_component({
       name: "my-name",

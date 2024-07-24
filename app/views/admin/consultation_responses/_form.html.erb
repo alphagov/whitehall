@@ -51,15 +51,7 @@
   } %>
 
   <div class="govuk-button-group">
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Save",
-      data_attributes: {
-        module: "gem-track-click",
-        "track-category": "form-button",
-        "track-action": "consultation-#{consultation_response.singular_routing_symbol.to_s.dasherize}-button",
-        "track-label": "Save",
-      },
-    } %>
+    <%= render "govuk_publishing_components/components/button", { text: "Save" } %>
 
     <%= link_to("Cancel", "#{admin_edition_path(consultation)}/#{consultation_response.singular_routing_symbol.to_s}", class: "govuk-link govuk-link--no-visited-state") %>
   </div>

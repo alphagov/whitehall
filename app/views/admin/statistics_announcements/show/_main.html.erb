@@ -27,13 +27,7 @@
     <p class="govuk-body">
       <%= link_to("Change dates",
                   new_admin_statistics_announcement_change_path(@statistics_announcement),
-                  class: "govuk-link",
-                  data: {
-                    module: "gem-track-click",
-                    "track-category": "button-clicked",
-                    "track-action": "#{@statistics_announcement.model_name.singular.dasherize}-button",
-                    "track-label": "Change dates",
-                  }) %>
+                  class: "govuk-link") %>
     </p>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Release date",

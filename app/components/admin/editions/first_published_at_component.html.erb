@@ -14,11 +14,6 @@
           label: "This document has previously been published on another website",
           value: true,
           checked: previously_published,
-          data_attributes: {
-            track_category: "checkboxClicked",
-            track_label: "This document has previously been published on another website",
-            track_action: "first_published_at",
-          },
           conditional: capture do
             first_published_at_fields
           end,

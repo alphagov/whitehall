@@ -51,8 +51,6 @@ module GovukPublishingComponents
       def data_attributes
         {
           "module": "select-with-search",
-          "track-category": @local_assigns[:track_category],
-          "track-label": @local_assigns[:track_label],
         }.compact
       end
 

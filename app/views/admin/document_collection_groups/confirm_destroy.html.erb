@@ -11,12 +11,6 @@
         <%= render "govuk_publishing_components/components/button", {
           text: "Delete",
           destructive: true,
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "delete-document-collection-group-button",
-            "track-label": "Delete",
-          },
         } %>
         <%= link_to("Cancel", admin_document_collection_groups_path(@collection), class: "govuk-link govuk-link--no-visited-state") %>
       </div>

@@ -8,14 +8,6 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
     return Array.from(items).map((item) => item.textContent.trim())
   }
 
-  // Simulate a user selecting an option. This will trigger a "change" event.
-  function selectOption(value) {
-    const event = new MouseEvent('mousedown')
-    component
-      .querySelector(`[data-choice][data-value="${CSS.escape(value)}"]`)
-      .dispatchEvent(event)
-  }
-
   describe('with a simple select', () => {
     beforeEach(function () {
       component = document.createElement('div')
@@ -106,65 +98,6 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
       const list = component.querySelector('.choices__list[role=listbox]')
       expect(list.querySelectorAll('.choices__group').length).toEqual(4)
       expect(list.querySelectorAll('.choices__item--choice').length).toEqual(11)
-    })
-  })
-
-  describe('with tracking enabled', () => {
-    const setup = function ({ category, label = false }) {
-      spyOn(GOVUK.analytics, 'trackEvent')
-
-      component = document.createElement('div')
-
-      component.dataset.trackCategory = category
-      if (label) component.dataset.trackLabel = label
-
-      component.innerHTML = `
-        <label for="example">Choose a colour</label>
-        <select id="example">
-          <option value=""></option>
-          <option value="red">Red</option>
-          <option value="green">Green</option>
-          <option value="blue">Blue</option>
-        </select>
-      `
-      module = new GOVUK.Modules.SelectWithSearch(component)
-      module.init()
-    }
-
-    it('tracks event when an option is selected', () => {
-      setup({ category: 'Some category', label: 'Some label' })
-
-      selectOption('red')
-
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
-        'Some category',
-        'Red',
-        { label: 'Some label' }
-      )
-
-      selectOption('blue')
-
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
-        'Some category',
-        'Blue',
-        { label: 'Some label' }
-      )
-
-      expect(GOVUK.analytics.trackEvent).not.toHaveBeenCalledWith(
-        jasmine.any(String),
-        'Green',
-        jasmine.any(Object)
-      )
-    })
-
-    it('works when label is not provided', () => {
-      setup({ category: 'Some other category' })
-      selectOption('red')
-      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith(
-        'Some other category',
-        'Red',
-        {}
-      )
     })
   })
 })

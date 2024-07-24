@@ -23,12 +23,6 @@
       <div class="govuk-button-group govuk-!-margin-top-8">
         <%= render "govuk_publishing_components/components/button", {
           text: "Next",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "worldwide-office-translation-button",
-            "track-label": "Next",
-          },
         } %>
 
         <%= link_to("Cancel", admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), class: "govuk-link govuk-link--no-visited-state") %>

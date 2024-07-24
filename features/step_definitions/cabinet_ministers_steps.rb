@@ -7,11 +7,11 @@ When(/^I visit the Cabinet ministers order page$/) do
 end
 
 Then(/^I should see a preview link to the ministers index page$/) do
-  expect(page).to have_selector(".govuk-link[data-track-action=ministers-index-page-button]")
+  expect(page).to have_link("Preview on website (opens in new tab)")
 end
 
 Then(/^I should not see a preview link to the ministers index page$/) do
-  expect(page).to_not have_selector(".govuk-link[data-track-action=ministers-index-page-button]")
+  expect(page).to_not have_link("Preview on website (opens in new tab)")
 end
 
 Given(/^there are multiple Cabinet minister roles with active appointments$/) do

@@ -1,5 +1,5 @@
 <%=
-content_tag(:div, data: { module: "auto-track-event", track_category: "flash-message", track_action: data_track_action, track_label: message }) do
+content_tag(:div) do
   render "govuk_publishing_components/components/#{component_name}", { message: }
 end
 %>

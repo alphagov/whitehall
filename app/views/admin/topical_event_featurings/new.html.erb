@@ -46,12 +46,6 @@
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Save",
-          data_attributes: {
-            module: "gem-track-click",
-            "track-category": "form-button",
-            "track-action": "topical-event-featuring-button",
-            "track-label": "Save",
-          },
         } %>
         <%= link_to "Cancel",
           polymorphic_path(
