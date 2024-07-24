@@ -6,26 +6,18 @@ FactoryBot.define do
     schema { build(:content_block_schema) }
     creator
 
-    content_block_document_attributes { FactoryBot.attributes_for(:content_block_document, :email_address) }
+    content_block_document_id { nil }
 
     ContentObjectStore::ContentBlockSchema.valid_schemas.each do |type|
       trait type.to_sym do
-        content_block_document_attributes do
-          FactoryBot.attributes_for(:content_block_document, :email_address, block_type: type)
-        end
+        content_block_document { build(:content_block_document, block_type: type) }
       end
     end
 
-    after(:build) do |content_block_edition, evaluator|
-      document = build(:content_block_document, evaluator.content_block_document_attributes)
-      content_block_edition.content_block_document = document
-    end
-
-    after(:create) do |content_block_edition, evaluator|
-      unless content_block_edition.content_block_document_id
-        document = create(:content_block_document, evaluator.content_block_document_attributes)
-        content_block_edition.update!(content_block_document_id: document.id)
-      end
+    after(:create) do |content_block_edition, _evaluator|
+      document_update_params = {
+      }
+      content_block_edition.document.update!(document_update_params)
     end
   end
 end

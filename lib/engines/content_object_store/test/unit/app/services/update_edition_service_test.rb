@@ -4,13 +4,9 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   setup do
-    document_attributes = FactoryBot.attributes_for(:content_block_document, :email_address, content_id:)
-
-    @original_content_block_edition = create(
-      :content_block_edition,
-      details: { "foo" => "Foo text", "bar" => "Bar text" },
-      content_block_document_attributes: document_attributes,
-    )
+    @original_content_block_edition = create(:content_block_edition,
+                                             content_block_document: create(:content_block_document, :email_address, content_id:),
+                                             details: { "foo" => "Foo text", "bar" => "Bar text" })
   end
 
   describe "#call" do
