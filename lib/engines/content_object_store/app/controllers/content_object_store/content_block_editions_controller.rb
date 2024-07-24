@@ -13,17 +13,9 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
       @schemas = ContentObjectStore::ContentBlockSchema.all
     else
       @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(params[:block_type].underscore)
-
-      form_attributes = @schema.fields.each_with_object({}) do |field, hash|
-        hash[field] = nil
-        hash
-      end
-
-      @form = ContentObjectStore::ContentBlockEditionForm.new(
+      @form = ContentObjectStore::ContentBlockEditionForm::Create.new(
         content_block_edition: ContentObjectStore::ContentBlockEdition.new,
         schema: @schema,
-        attributes: form_attributes,
-        back_path: content_object_store.content_object_store_content_block_editions_path,
       )
     end
   end
@@ -35,12 +27,7 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
 
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
   rescue ActiveRecord::RecordInvalid => e
-    @form = ContentObjectStore::ContentBlockEditionForm.new(
-      content_block_edition: e.record,
-      schema: @schema,
-      attributes: @schema.fields,
-      back_path: content_object_store.content_object_store_content_block_editions_path,
-    )
+    @form = ContentObjectStore::ContentBlockEditionForm::Create.new(content_block_edition: e.record, schema: @schema)
     render :new
   end
 
@@ -48,12 +35,7 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
     content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
     @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(content_block_edition.document.block_type)
 
-    @form = ContentObjectStore::ContentBlockEditionForm.new(
-      content_block_edition:,
-      schema: @schema,
-      attributes: content_block_edition.details,
-      back_path: content_object_store.content_object_store_content_block_edition_path(content_block_edition),
-    )
+    @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition:, schema: @schema)
   end
 
   def update
@@ -68,12 +50,7 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
     redirect_to content_object_store.content_object_store_content_block_edition_path(new_content_block_edition),
                 flash: { notice: "#{@schema.name} changed and published successfully" }
   rescue ActiveRecord::RecordInvalid => e
-    @form = ContentObjectStore::ContentBlockEditionForm.new(
-      content_block_edition: e.record,
-      schema: @schema,
-      attributes: content_block_edition.details,
-      back_path: content_object_store.content_object_store_content_block_edition_path(content_block_edition),
-    )
+    @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition: e.record, schema: @schema)
 
     render :edit
   end
