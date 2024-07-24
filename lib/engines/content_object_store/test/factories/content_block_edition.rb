@@ -16,6 +16,8 @@ FactoryBot.define do
 
     after(:create) do |content_block_edition, _evaluator|
       document_update_params = {
+        latest_edition_id: content_block_edition.id,
+        live_edition_id: content_block_edition.id,
       }
       content_block_edition.document.update!(document_update_params)
     end
