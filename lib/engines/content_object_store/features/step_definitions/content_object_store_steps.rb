@@ -42,6 +42,10 @@ Then("I should see a form for the schema") do
   expect(page).to have_content(@schema.name)
 end
 
+Then("I should see a back link to the document list page") do
+  expect(page).to have_link("Back", href: content_object_store.content_object_store_content_block_documents_path)
+end
+
 Then("I should see a back link to the select schema page") do
   expect(page).to have_link("Back", href: content_object_store.new_content_object_store_content_block_edition_path)
 end

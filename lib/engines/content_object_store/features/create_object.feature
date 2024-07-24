@@ -15,6 +15,7 @@ Feature: Create a content object
     When I visit the document object store
     And I click to create an object
     Then I should see all the schemas listed
+    And I should see a back link to the document list page
     When I click on the "email_address" schema
     Then I should see a form for the schema
     And I should see a back link to the select schema page
