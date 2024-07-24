@@ -49,4 +49,15 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
       assert_equal second_edition, document.latest_edition
     end
   end
+
+  test "it gets its version history from its editions" do
+    document = create(:content_block_document, :email_address)
+    edition = create(
+      :content_block_edition,
+      document:,
+    )
+    document.update!(editions: [edition])
+
+    assert_equal document.versions.first.item.id, edition.id
+  end
 end
