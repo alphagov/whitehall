@@ -21,7 +21,7 @@ class ContentObjectStore::ContentBlockEditionForm::Create < ContentObjectStore::
   end
 
   def back_path
-    content_object_store_content_block_editions_path
+    content_object_store_content_block_documents_path
   end
 end
 
@@ -31,6 +31,6 @@ class ContentObjectStore::ContentBlockEditionForm::Update < ContentObjectStore::
   end
 
   def back_path
-    content_object_store_content_block_edition_path(@content_block_edition)
+    content_object_store_content_block_document_path(@content_block_edition.document)
   end
 end

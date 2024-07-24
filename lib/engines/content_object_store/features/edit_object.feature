@@ -9,13 +9,15 @@ Feature: Edit a content object
       | email_address | string | email  | true     |
     And an email address content block has been created
     When I visit the document object store
-    Then I should see the details for all content blocks
+    Then I should see the details for all documents
     When I click to view the document
     Then I should see the details for the email address content block
     When I click the first change link
     Then I should see the edit form
+    And I should see a back link to the show page
     When I fill out the form
     Then the edition should have been updated successfully
+    And I should be taken back to the document page
 
   Scenario: GDS editor sees validation errors for missing fields
     Given I am a GDS admin

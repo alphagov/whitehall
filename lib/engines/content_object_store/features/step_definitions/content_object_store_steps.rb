@@ -91,6 +91,12 @@ Then("the edition should have been created successfully") do
   end
 end
 
+Then("I should be taken back to the document page") do
+  expect(page.current_url).to match(content_object_store.content_object_store_content_block_document_path(
+                                      ContentObjectStore::ContentBlockEdition.last.document,
+                                    ))
+end
+
 Given("an email address content block has been created") do
   @content_blocks ||= []
   @email_address = "foo@example.com"
@@ -107,21 +113,17 @@ When("I visit the page for the content block") do
   visit content_object_store.content_object_store_content_block_edition_path(@content_block)
 end
 
-When("I visit the object store") do
-  visit content_object_store.content_object_store_content_block_editions_path
-end
-
 When("I visit the document object store") do
   visit content_object_store.content_object_store_content_block_documents_path
 end
 
-Then("I should see the details for all content blocks") do
+Then("I should see the details for all documents") do
   assert_text "All content blocks"
 
-  @content_blocks.each do |block|
+  ContentObjectStore::ContentBlockDocument.find_each do |document|
     should_show_summary_card_for_email_address_content_block(
-      block.document.title,
-      block.details[:email_address],
+      document.title,
+      document.latest_edition.details[:email_address],
     )
   end
 end

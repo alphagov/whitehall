@@ -12,7 +12,7 @@ Feature: Create a content object
       | rate          | string |        | true     |
 
   Scenario: GDS editor creates an object
-    When I visit the object store
+    When I visit the document object store
     And I click to create an object
     Then I should see all the schemas listed
     When I click on the "email_address" schema
@@ -22,16 +22,17 @@ Feature: Create a content object
       | title            | email_address   | department |
       | my email address | foo@example.com | Somewhere  |
     Then the edition should have been created successfully
+    And I should be taken back to the document page
 
   Scenario: GDS editor sees validation errors for missing fields
-    When I visit the object store
+    When I visit the document object store
     And I click to create an object
     When I click on the "email_address" schema
     And I click save
     Then I should see errors for the required fields
 
   Scenario: GDS editor sees validation errors for invalid fields
-    When I visit the object store
+    When I visit the document object store
     And I click to create an object
     Then I should see all the schemas listed
     When I click on the "email_address" schema

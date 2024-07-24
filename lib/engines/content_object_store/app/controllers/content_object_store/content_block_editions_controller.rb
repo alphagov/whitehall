@@ -1,13 +1,4 @@
 class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::BaseController
-  def index
-    @content_block_editions = ContentObjectStore::ContentBlockEdition.all
-  end
-
-  def show
-    @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
-    @content_block_versions = ContentObjectStore::ContentBlockVersion.where(item: @content_block_edition)
-  end
-
   def new
     if params[:block_type].blank?
       @schemas = ContentObjectStore::ContentBlockSchema.all

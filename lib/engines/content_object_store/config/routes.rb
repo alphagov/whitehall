@@ -7,7 +7,7 @@ ContentObjectStore::Engine.routes.draw do
                                         only: %i[index show],
                                         path_names: { new: "(:block_type)/new" }
     resources :content_block_editions, path: "content-block-editions",
-                                       only: %i[index new create show edit update],
+                                       only: %i[new create edit update],
                                        path_names: { new: "(:block_type)/new" }
   end
 end
