@@ -68,7 +68,22 @@ module PublishingApi
     end
 
     def world_locations
-      WorldLocation.geographical.order(:slug).map { |location|
+      WorldLocation.geographical.order(:slug)
+        .includes(
+          published_worldwide_organisations: [
+            :document,
+            :translations,
+            {
+              offices: [
+                {
+                  contact: [{ country: :translations }, :translations],
+                  edition: %i[document translations],
+                },
+              ],
+            },
+          ],
+        )
+        .map { |location|
         # We don't want to show the UK on the embassies page.
         next if location.name.in?(["United Kingdom"])
 
