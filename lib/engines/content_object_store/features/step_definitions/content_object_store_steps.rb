@@ -42,6 +42,17 @@ Then("I should see a form for the schema") do
   expect(page).to have_content(@schema.name)
 end
 
+Then("I should see a back link to the select schema page") do
+  expect(page).to have_link("Back", href: content_object_store.new_content_object_store_content_block_edition_path)
+end
+
+Then("I should see a back link to the show page") do
+  match_data = URI.parse(page.current_url).path.match(%r{content-block-editions/(\d+)/edit$})
+  id = match_data[1] unless match_data.nil?
+  expect(id).not_to be_nil, "Could not find an existing content block edition ID in the URL"
+  expect(page).to have_link("Back", href: content_object_store.content_object_store_content_block_edition_path(id))
+end
+
 When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")

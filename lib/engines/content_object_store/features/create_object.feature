@@ -17,6 +17,7 @@ Feature: Create a content object
     Then I should see all the schemas listed
     When I click on the "email_address" schema
     Then I should see a form for the schema
+    And I should see a back link to the select schema page
     When I complete the form with the following fields:
       | title            | email_address   | department |
       | my email address | foo@example.com | Somewhere  |

@@ -13,7 +13,10 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
       @schemas = ContentObjectStore::ContentBlockSchema.all
     else
       @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(params[:block_type].underscore)
-      @content_block_edition = ContentObjectStore::ContentBlockEdition.new
+      @form = ContentObjectStore::ContentBlockEditionForm::Create.new(
+        content_block_edition: ContentObjectStore::ContentBlockEdition.new,
+        schema: @schema,
+      )
     end
   end
 
@@ -24,28 +27,31 @@ class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::B
 
     redirect_to content_object_store.content_object_store_content_block_editions_path, flash: { notice: "#{@schema.name} created successfully" }
   rescue ActiveRecord::RecordInvalid => e
-    @content_block_edition = e.record
+    @form = ContentObjectStore::ContentBlockEditionForm::Create.new(content_block_edition: e.record, schema: @schema)
     render :new
   end
 
   def edit
-    @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
-    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(@content_block_edition.document.block_type)
+    content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(content_block_edition.document.block_type)
+
+    @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition:, schema: @schema)
   end
 
   def update
-    @content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
-    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(@content_block_edition.document.block_type)
+    content_block_edition = ContentObjectStore::ContentBlockEdition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlockSchema.find_by_block_type(content_block_edition.document.block_type)
 
-    @new_content_block_edition = ContentObjectStore::UpdateEditionService.new(
+    new_content_block_edition = ContentObjectStore::UpdateEditionService.new(
       @schema,
-      @content_block_edition,
+      content_block_edition,
     ).call(edition_params)
 
-    redirect_to content_object_store.content_object_store_content_block_edition_path(@new_content_block_edition),
+    redirect_to content_object_store.content_object_store_content_block_edition_path(new_content_block_edition),
                 flash: { notice: "#{@schema.name} changed and published successfully" }
   rescue ActiveRecord::RecordInvalid => e
-    @content_block_edition = e.record
+    @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition: e.record, schema: @schema)
+
     render :edit
   end
 
