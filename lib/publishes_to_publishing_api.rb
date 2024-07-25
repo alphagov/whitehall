@@ -16,6 +16,12 @@ module PublishesToPublishingApi
     true
   end
 
+  def bulk_republish_to_publishing_api_async
+    if can_publish_to_publishing_api?
+      Whitehall::PublishingApi.bulk_republish_async(self)
+    end
+  end
+
   def republish_to_publishing_api_async
     if can_publish_to_publishing_api?
       Whitehall::PublishingApi.republish_async(self)

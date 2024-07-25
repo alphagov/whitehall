@@ -222,11 +222,23 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       end
     end
 
-    context "for non-editionable content types, like Contact" do
+    context "for non-editionable content types, like Contact, when publishable to Publishing API" do
       test "republishes all content of the specified type via the Whitehall::Publishing API" do
         2.times do
           contact = create(:contact)
+          Contact.any_instance.stubs(:can_publish_to_publishing_api?).returns(true)
           Whitehall::PublishingApi.expects(:bulk_republish_async).with(contact)
+        end
+        BulkRepublisher.new.republish_all_by_type("Contact")
+      end
+    end
+
+    context "for non-editionable content types, like Contact, when not publishable to Publishing API" do
+      test "does not republish content of the specified type via the Whitehall::Publishing API" do
+        2.times do
+          contact = create(:contact)
+          Contact.any_instance.stubs(:can_publish_to_publishing_api?).returns(false)
+          Whitehall::PublishingApi.expects(:bulk_republish_async).with(contact).never
         end
         BulkRepublisher.new.republish_all_by_type("Contact")
       end
