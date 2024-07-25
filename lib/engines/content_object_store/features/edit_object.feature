@@ -18,6 +18,7 @@ Feature: Edit a content object
     When I fill out the form
     Then the edition should have been updated successfully
     And I should be taken back to the document page
+    And I should see the update on the timeline
 
   Scenario: GDS editor sees validation errors for missing fields
     Given I am a GDS admin

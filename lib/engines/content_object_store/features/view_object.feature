@@ -11,4 +11,4 @@ Feature: View a content object
     When I click to view the document
     Then I should be taken back to the document page
     And I should see the details for the email address content block
-    And I should see the audit trail
+    And I should see the created event on the timeline
