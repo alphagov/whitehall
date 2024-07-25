@@ -43,8 +43,8 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
   describe "latest_edition" do
     it "returns the latest edition" do
       document = create(:content_block_document, :email_address)
-      _first_edition = create(:content_block_edition, content_block_document: document)
-      second_edition = create(:content_block_edition, content_block_document: document)
+      _first_edition = create(:content_block_edition, document:)
+      second_edition = create(:content_block_edition, document:)
 
       assert_equal second_edition, document.latest_edition
     end

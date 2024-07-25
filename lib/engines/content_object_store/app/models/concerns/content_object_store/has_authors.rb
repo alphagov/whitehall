@@ -4,7 +4,7 @@ module ContentObjectStore
     include ContentObjectStore::HasCreator
 
     included do
-      has_many :content_block_edition_authors, dependent: :destroy
+      has_many :edition_authors, dependent: :destroy, class_name: "ContentObjectStore::ContentBlock::EditionAuthor"
     end
   end
 end

@@ -15,7 +15,7 @@ Given("a schema {string} exists with the following fields:") do |block_type, tab
     }.to_h,
   }
   @schemas[block_type] = build(:content_block_schema, block_type:, body:)
-  ContentObjectStore::ContentBlockSchema.stubs(:all).returns(@schemas.values)
+  ContentObjectStore::ContentBlock::Schema.stubs(:all).returns(@schemas.values)
 end
 
 When("I access the create object page") do
@@ -34,7 +34,7 @@ end
 
 When("I click on the {string} schema") do |schema_id|
   @schema = @schemas[schema_id]
-  ContentObjectStore::ContentBlockSchema.expects(:find_by_block_type).with(schema_id).at_least_once.returns(@schema)
+  ContentObjectStore::ContentBlock::Schema.expects(:find_by_block_type).with(schema_id).at_least_once.returns(@schema)
   click_link @schema.name
 end
 
@@ -91,7 +91,7 @@ end
 Then("the edition should have been created successfully") do
   assert_text "#{@schema.name} created successfully"
 
-  edition = ContentObjectStore::ContentBlockEdition.all.last
+  edition = ContentObjectStore::ContentBlock::Edition.all.last
 
   assert_not_nil edition
   assert_not_nil edition.document
@@ -104,7 +104,7 @@ end
 
 Then("I should be taken back to the document page") do
   expect(page.current_url).to match(content_object_store.content_object_store_content_block_document_path(
-                                      ContentObjectStore::ContentBlockEdition.last.document,
+                                      ContentObjectStore::ContentBlock::Edition.last.document,
                                     ))
 end
 
@@ -131,7 +131,7 @@ end
 Then("I should see the details for all documents") do
   assert_text "All content blocks"
 
-  ContentObjectStore::ContentBlockDocument.find_each do |document|
+  ContentObjectStore::ContentBlock::Document.find_each do |document|
     should_show_summary_card_for_email_address_content_block(
       document.title,
       document.latest_edition.details[:email_address],
@@ -217,12 +217,12 @@ Then("I should see errors for the required fields") do
 
   required_fields = @schema.body["required"]
   required_fields.each do |required_field|
-    assert_text "#{ContentObjectStore::ContentBlockEdition.human_attribute_name("details_#{required_field}")} cannot be blank"
+    assert_text "#{ContentObjectStore::ContentBlock::Edition.human_attribute_name("details_#{required_field}")} cannot be blank"
   end
 end
 
 Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|
-  assert_text "#{ContentObjectStore::ContentBlockEdition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
+  assert_text "#{ContentObjectStore::ContentBlock::Edition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
 end
 
 Then("I should see a permissions error") do

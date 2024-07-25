@@ -8,7 +8,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:edition_params) do
       {
-        content_block_document_attributes: {
+        document_attributes: {
           title: "Some Title",
           block_type: "email_address",
         }.with_indifferent_access,
@@ -23,32 +23,32 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
     setup do
       # This UUID is created by the database so instead of loading the record
       # we stub the initial creation so we know what UUID to check for.
-      ContentObjectStore::ContentBlockEdition.any_instance.stubs(:create_random_id)
+      ContentObjectStore::ContentBlock::Edition.any_instance.stubs(:create_random_id)
                                              .returns(content_id)
 
-      ContentObjectStore::ContentBlockSchema.stubs(:find_by_block_type)
+      ContentObjectStore::ContentBlock::Schema.stubs(:find_by_block_type)
                                             .returns(schema)
     end
 
     test "returns a ContentBlockEdition" do
       result = ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
-      assert_instance_of ContentObjectStore::ContentBlockEdition, result
+      assert_instance_of ContentObjectStore::ContentBlock::Edition, result
     end
 
     test "it creates a ContentBlockEdition in Whitehall" do
-      assert_changes -> { ContentObjectStore::ContentBlockDocument.count }, from: 0, to: 1 do
-        assert_changes -> { ContentObjectStore::ContentBlockEdition.count }, from: 0, to: 1 do
+      assert_changes -> { ContentObjectStore::ContentBlock::Document.count }, from: 0, to: 1 do
+        assert_changes -> { ContentObjectStore::ContentBlock::Edition.count }, from: 0, to: 1 do
           ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
         end
       end
 
-      new_document = ContentObjectStore::ContentBlockDocument.find_by!(content_id:)
-      new_edition = new_document.content_block_editions.first
+      new_document = ContentObjectStore::ContentBlock::Document.find_by!(content_id:)
+      new_edition = new_document.editions.first
 
-      assert_equal edition_params[:content_block_document_attributes][:title], new_document.title
-      assert_equal edition_params[:content_block_document_attributes][:block_type], new_document.block_type
+      assert_equal edition_params[:document_attributes][:title], new_document.title
+      assert_equal edition_params[:document_attributes][:block_type], new_document.block_type
       assert_equal edition_params[:details], new_edition.details
-      assert_equal new_edition.content_block_document_id, new_document.id
+      assert_equal new_edition.document_id, new_document.id
 
       assert_equal new_document.live_edition_id, new_edition.id
       assert_equal new_document.latest_edition_id, new_edition.id
@@ -97,8 +97,8 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       raises_exception = ->(*_args) { raise exception }
 
       Services.publishing_api.stub :put_content, raises_exception do
-        assert_equal ContentObjectStore::ContentBlockDocument.count, 0 do
-          assert_equal ContentObjectStore::ContentBlockEdition.count, 0 do
+        assert_equal ContentObjectStore::ContentBlock::Document.count, 0 do
+          assert_equal ContentObjectStore::ContentBlock::Edition.count, 0 do
             assert_raises(GdsApi::HTTPErrorResponse) do
               ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
             end
@@ -113,7 +113,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
       Services.publishing_api.expects(:put_content).never
 
-      ContentObjectStore::ContentBlockEdition.stub :create!, raises_exception do
+      ContentObjectStore::ContentBlock::Edition.stub :create!, raises_exception do
         assert_raises(ArgumentError) do
           ContentObjectStore::CreateEditionService.new(schema).call(nil, {})
         end
@@ -145,8 +145,8 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       raises_exception = ->(*_args) { raise exception }
 
       Services.publishing_api.stub :publish, raises_exception do
-        assert_equal ContentObjectStore::ContentBlockDocument.count, 0 do
-          assert_equal ContentObjectStore::ContentBlockEdition.count, 0 do
+        assert_equal ContentObjectStore::ContentBlock::Document.count, 0 do
+          assert_equal ContentObjectStore::ContentBlock::Edition.count, 0 do
             assert_raises(ContentObjectStore::CreateEditionService::PublishingFailureError, "Could not publish #{content_id} because: Some backend error") do
               ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
             end

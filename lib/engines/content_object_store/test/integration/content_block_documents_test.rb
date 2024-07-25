@@ -16,13 +16,13 @@ class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
       :content_block_edition,
       :email_address,
       details: { "email_address" => "first_edition@example.com" },
-      content_block_document_id: content_block_document.id,
+      document_id: content_block_document.id,
     )
     second_edition = create(
       :content_block_edition,
       :email_address,
       details: { "email_address" => "second_edition@example.com" },
-      content_block_document_id: content_block_document.id,
+      document_id: content_block_document.id,
     )
 
     visit content_object_store.content_object_store_content_block_documents_path
