@@ -42,8 +42,19 @@ Then("I should see a form for the schema") do
   expect(page).to have_content(@schema.name)
 end
 
+Then("I should see a back link to the document list page") do
+  expect(page).to have_link("Back", href: content_object_store.content_object_store_content_block_documents_path)
+end
+
 Then("I should see a back link to the select schema page") do
   expect(page).to have_link("Back", href: content_object_store.new_content_object_store_content_block_edition_path)
+end
+
+Then("I should see a back link to the document page") do
+  expect(page).to have_link(
+    "Back",
+    href: content_object_store.content_object_store_content_block_document_path(@content_block.document),
+  )
 end
 
 Then("I should see a back link to the show page") do
@@ -91,6 +102,12 @@ Then("the edition should have been created successfully") do
   end
 end
 
+Then("I should be taken back to the document page") do
+  expect(page.current_url).to match(content_object_store.content_object_store_content_block_document_path(
+                                      ContentObjectStore::ContentBlockEdition.last.document,
+                                    ))
+end
+
 Given("an email address content block has been created") do
   @content_blocks ||= []
   @email_address = "foo@example.com"
@@ -107,22 +124,27 @@ When("I visit the page for the content block") do
   visit content_object_store.content_object_store_content_block_edition_path(@content_block)
 end
 
-When("I visit the object store") do
-  visit content_object_store.content_object_store_content_block_editions_path
+When("I visit the document object store") do
+  visit content_object_store.content_object_store_content_block_documents_path
 end
 
-Then("I should see the details for all content blocks") do
+Then("I should see the details for all documents") do
   assert_text "All content blocks"
 
-  @content_blocks.each do |block|
+  ContentObjectStore::ContentBlockDocument.find_each do |document|
     should_show_summary_card_for_email_address_content_block(
-      block.document.title,
-      block.details[:email_address],
+      document.title,
+      document.latest_edition.details[:email_address],
     )
   end
 end
 
-When("I click to view the content block") do
+When("I click to view the document") do
+  @schema = @schemas[@content_block.document.block_type]
+  click_link href: content_object_store.content_object_store_content_block_document_path(@content_block.document)
+end
+
+When("I click to view the edition") do
   @schema = @schemas[@content_block.document.block_type]
   click_link href: content_object_store.content_object_store_content_block_edition_path(@content_block)
 end

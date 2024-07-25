@@ -12,8 +12,8 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-  <% @content_block_editions.each do |content_block_edition| %>
-    <%= render ContentObjectStore::ContentBlockEdition::Index::SummaryCardComponent.new(content_block_edition:) %>
+  <% @content_block_documents.each do |content_block_document| %>
+    <%= render ContentObjectStore::ContentBlockDocument::Index::SummaryCardComponent.new(content_block_document:) %>
   <% end %>
   </div>
 </div>

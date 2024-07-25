@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentObjectStore::ContentBlockEdition::Show::TimelineComponentTest < ViewComponent::TestCase
+class ContentObjectStore::ContentBlockDocument::Show::TimelineComponentTest < ViewComponent::TestCase
   test "renders a timeline component with a created event" do
     @user = create(:user)
     @content_block_edition = create(:content_block_edition, :email_address)
@@ -10,7 +10,7 @@ class ContentObjectStore::ContentBlockEdition::Show::TimelineComponentTest < Vie
       whodunnit: @user.id,
     )
 
-    render_inline(ContentObjectStore::ContentBlockEdition::Show::TimelineComponent.new(
+    render_inline(ContentObjectStore::ContentBlockDocument::Show::TimelineComponent.new(
                     content_block_versions: [@content_block_version],
                   ))
 
