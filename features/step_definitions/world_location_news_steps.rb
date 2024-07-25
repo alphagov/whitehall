@@ -7,6 +7,11 @@ And(/^a world location news exists$/) do
   @world_location_news = create(:world_location_news, world_location: @world_location)
 end
 
+And(/^a world location news exists and has a Spanish translation$/) do
+  @world_location = build(:world_location, slug: "bar", translated_into: %i[es])
+  @world_location_news = create(:world_location_news, world_location: @world_location, translated_into: %i[es])
+end
+
 When(/^I visit the world location news index page$/) do
   visit admin_world_location_news_index_path
 end
@@ -69,6 +74,37 @@ end
 
 Given(/^there is a published document with the title "([^"]*)"$/) do |title|
   create(:edition, :published, title:)
+end
+
+And(/^there is a published document, with a Spanish translation, tagged to the world location$/) do
+  english_edition = create(:publication, :published, title: "Featured document", world_locations: [@world_location], translated_into: %i[es])
+  spanish_edition = Edition::Translation.find_by(edition_id: english_edition.id, locale: "es")
+  spanish_edition.update!(title: "Documento destacado")
+  spanish_edition.save!(validate: false)
+end
+
+And(/^select the "([^"]*)" tab$/) do |link_text|
+  click_link link_text
+end
+
+And(/^select the "([^"]*)" child tab$/) do |link_text|
+  within ".govuk-tabs" do
+    click_link link_text
+  end
+end
+
+And(/^search for "([^"]*)"$/) do |search_text|
+  fill_in "Title", with: search_text
+  click_button "Search"
+end
+
+Then("I should be on the Spanish search results page") do
+  expect(current_url).to match(/^http:\/\/www.example.com\/government\/admin\/world_location_news\/bar\/features\.es\?title=Documento\+destacado&world_location=(\d+)&type=#documents_tab$/)
+end
+
+Then(/^I should see "([^"]*)" in the document list$/) do |document_title|
+  first_search_result = find(".app-view-features-search-results__table .govuk-table__body tr p")
+  expect(first_search_result).to have_content(document_title)
 end
 
 Given(/^there is an active topical event with the name "([^"]*)"$/) do |name|
