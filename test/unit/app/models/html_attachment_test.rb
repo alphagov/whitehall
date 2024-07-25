@@ -94,6 +94,13 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "/government/publications/#{edition.slug}/#{attachment.content_id}", attachment.url
   end
 
+  test "#url works when an attachment with english locale has special characters in title" do
+    edition = create(:published_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+    attachment.update!(locale: "en", title: "首次中英高级别安全对话成果声明")
+    assert_equal "/government/publications/#{edition.slug}/#{attachment.content_id}", attachment.url
+  end
+
   test "#url works with statistics" do
     statistics = create(:published_national_statistics)
     attachment = statistics.attachments.last
