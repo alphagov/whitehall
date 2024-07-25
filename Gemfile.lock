@@ -432,7 +432,7 @@ GEM
     minitest-fail-fast (0.1.0)
       minitest (~> 5)
     minitest-stub-const (0.6)
-    mocha (2.4.4)
+    mocha (2.4.5)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.7.2)
     multi_json (1.15.0)
