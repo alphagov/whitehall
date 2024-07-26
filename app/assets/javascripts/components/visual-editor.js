@@ -1,4 +1,5 @@
 //= require govspeak-visual-editor/dist/govspeak-visual-editor.js
+'use strict'
 
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}

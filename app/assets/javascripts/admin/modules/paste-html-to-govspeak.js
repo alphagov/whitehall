@@ -1,4 +1,5 @@
 //= require paste-html-to-govspeak/dist/paste-html-to-markdown.js
+'use strict'
 
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}

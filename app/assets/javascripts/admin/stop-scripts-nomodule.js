@@ -1,3 +1,4 @@
+'use strict'
 // In browsers that do not support ES6 modules
 if (!('noModule' in HTMLScriptElement.prototype)) {
   // Remove any JavaScript reliant style changes.

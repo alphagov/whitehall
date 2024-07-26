@@ -27,5 +27,6 @@
 //= require admin/views/organisation-form
 //= require admin/views/unpublish-display-conditions
 
+'use strict'
 window.GOVUK.approveAllCookieTypes()
 window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })

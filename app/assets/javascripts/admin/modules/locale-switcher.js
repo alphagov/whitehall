@@ -1,3 +1,4 @@
+'use strict'
 /* This module is used where only certain elements within a form are required to update the value of their `dir` attribute in response to a change in a `select` element.
  ** By default it will affect this change on `input` and `textarea` elements but can be extended to other elements as below.
  ** Usage:
