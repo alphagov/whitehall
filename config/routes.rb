@@ -162,7 +162,6 @@ Whitehall::Application.routes.draw do
         end
       end
       resources :operational_fields, except: [:show]
-      resources :edition_organisations, only: %i[edit update]
 
       resources :topical_events, path: "topical-events" do
         resource :topical_event_about_pages, path: "about"
