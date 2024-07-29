@@ -1,4 +1,4 @@
-class ContentObjectStore::ContentBlockDocumentsController < ContentObjectStore::BaseController
+class ContentObjectStore::ContentBlock::DocumentsController < ContentObjectStore::BaseController
   def index
     @content_block_documents = ContentObjectStore::ContentBlock::Document.all
   end

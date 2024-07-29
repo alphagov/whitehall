@@ -1,7 +1,7 @@
 require "test_helper"
 require "capybara/rails"
 
-class ContentBlockEditionsTest < ActionDispatch::IntegrationTest
+class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   setup do

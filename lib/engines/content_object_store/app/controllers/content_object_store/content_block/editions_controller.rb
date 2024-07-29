@@ -1,4 +1,4 @@
-class ContentObjectStore::ContentBlockEditionsController < ContentObjectStore::BaseController
+class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore::BaseController
   def new
     if params[:block_type].blank?
       @schemas = ContentObjectStore::ContentBlock::Schema.all
