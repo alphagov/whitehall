@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PublishesToPublishingApiTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   class TestObject
     include ActiveModel::Validations
     include ActiveModel::Validations::Callbacks
@@ -101,13 +103,49 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     test_object.publish_gone_to_publishing_api
   end
 
-  test "enqueues a worker to republish the document on request" do
-    test_object = TestObject.new
-    class << test_object
-      include PublishesToPublishingApi
+  context "when object can be published to Publishing API" do
+    before do
+      @test_object = TestObject.new
+      class << @test_object
+        include PublishesToPublishingApi
+
+        def can_publish_to_publishing_api?
+          true
+        end
+      end
     end
 
-    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
-    test_object.republish_to_publishing_api_async
+    test "bulk_republish_async enqueues a worker to bulk republish the document" do
+      Whitehall::PublishingApi.expects(:bulk_republish_async).with(@test_object).once
+      @test_object.bulk_republish_to_publishing_api_async
+    end
+
+    test "republish_async enqueues a worker to republish the document" do
+      Whitehall::PublishingApi.expects(:republish_async).with(@test_object).once
+      @test_object.republish_to_publishing_api_async
+    end
+  end
+
+  context "when object cannot be published to Publishing API" do
+    before do
+      @test_object = TestObject.new
+      class << @test_object
+        include PublishesToPublishingApi
+
+        def can_publish_to_publishing_api?
+          false
+        end
+      end
+    end
+
+    test "bulk_republish_async does not enqueue a worker to bulk republish the document" do
+      Whitehall::PublishingApi.expects(:bulk_republish_async).never
+      @test_object.bulk_republish_to_publishing_api_async
+    end
+
+    test "republish_async does not enqueue a worker to republish the document" do
+      Whitehall::PublishingApi.expects(:republish_async).never
+      @test_object.republish_to_publishing_api_async
+    end
   end
 end

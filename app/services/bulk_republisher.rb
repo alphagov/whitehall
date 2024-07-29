@@ -78,8 +78,6 @@ class BulkRepublisher
 private
 
   def republish_all_by_non_editionable_type(content_type_klass)
-    content_type_klass.find_each do |record|
-      Whitehall::PublishingApi.bulk_republish_async(record)
-    end
+    content_type_klass.find_each(&:bulk_republish_to_publishing_api_async)
   end
 end
