@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentObjectStore::ContentBlockEditionFormTest < ActiveSupport::TestCase
+class ContentObjectStore::ContentBlock::EditionFormTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   include ContentObjectStore::Engine.routes.url_helpers
@@ -10,7 +10,7 @@ class ContentObjectStore::ContentBlockEditionFormTest < ActiveSupport::TestCase
       content_block_edition = build(:content_block_edition, :email_address)
       schema = build(:content_block_schema, :email_address, body: { "properties" => { "foo" => "", "bar" => "" } })
 
-      result = ContentObjectStore::ContentBlockEditionForm::Create.new(
+      result = ContentObjectStore::ContentBlock::EditionForm::Create.new(
         content_block_edition:,
         schema:,
       )
@@ -27,7 +27,7 @@ class ContentObjectStore::ContentBlockEditionFormTest < ActiveSupport::TestCase
     test "it initializes with the correct attributes from the object" do
       content_block_edition = create(:content_block_edition, :email_address)
       schema = build(:content_block_schema, :email_address, body: { "properties" => { "foo" => "", "bar" => "" } })
-      result = ContentObjectStore::ContentBlockEditionForm::Update.new(
+      result = ContentObjectStore::ContentBlock::EditionForm::Update.new(
         content_block_edition:,
         schema:,
       )

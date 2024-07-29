@@ -4,7 +4,7 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
       @schemas = ContentObjectStore::ContentBlock::Schema.all
     else
       @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(params[:block_type].underscore)
-      @form = ContentObjectStore::ContentBlockEditionForm::Create.new(
+      @form = ContentObjectStore::ContentBlock::EditionForm::Create.new(
         content_block_edition: ContentObjectStore::ContentBlock::Edition.new,
         schema: @schema,
       )
@@ -18,7 +18,7 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
 
     redirect_to content_object_store.content_object_store_content_block_document_path(new_edition.document), flash: { notice: "#{@schema.name} created successfully" }
   rescue ActiveRecord::RecordInvalid => e
-    @form = ContentObjectStore::ContentBlockEditionForm::Create.new(content_block_edition: e.record, schema: @schema)
+    @form = ContentObjectStore::ContentBlock::EditionForm::Create.new(content_block_edition: e.record, schema: @schema)
     render :new
   end
 
@@ -26,7 +26,7 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
     @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
 
-    @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition:, schema: @schema)
+    @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(content_block_edition:, schema: @schema)
   end
 
   def update
@@ -41,7 +41,7 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     redirect_to content_object_store.content_object_store_content_block_document_path(new_content_block_edition.document),
                 flash: { notice: "#{@schema.name} changed and published successfully" }
   rescue ActiveRecord::RecordInvalid => e
-    @form = ContentObjectStore::ContentBlockEditionForm::Update.new(content_block_edition: e.record, schema: @schema)
+    @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(content_block_edition: e.record, schema: @schema)
 
     render :edit
   end
