@@ -1,7 +1,6 @@
 ContentObjectStore::Engine.routes.draw do
   namespace :content_object_store, path: "/" do
-    resources :health_check, path: "health-check", only: %i[index]
-    root to: "health_check#index", via: :get
+    root to: "content_block/documents#index", via: :get
 
     namespace :content_block, path: "content-block" do
       resources :documents, only: %i[index show], path_names: { new: "(:block_type)/new" }
