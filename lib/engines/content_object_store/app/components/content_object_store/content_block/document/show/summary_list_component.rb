@@ -1,4 +1,4 @@
-class ContentObjectStore::ContentBlockDocument::Show::SummaryListComponent < ViewComponent::Base
+class ContentObjectStore::ContentBlock::Document::Show::SummaryListComponent < ViewComponent::Base
   def initialize(content_block_document:)
     @content_block_document = content_block_document
   end

@@ -13,7 +13,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
   <% @content_block_documents.each do |content_block_document| %>
-    <%= render ContentObjectStore::ContentBlockDocument::Index::SummaryCardComponent.new(content_block_document:) %>
+    <%= render ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:) %>
   <% end %>
   </div>
 </div>
