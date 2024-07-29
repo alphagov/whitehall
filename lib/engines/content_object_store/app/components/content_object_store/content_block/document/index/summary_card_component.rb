@@ -1,4 +1,4 @@
-class ContentObjectStore::ContentBlockDocument::Index::SummaryCardComponent < ContentObjectStore::ContentBlockDocument::Show::SummaryListComponent
+class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponent < ContentObjectStore::ContentBlock::Document::Show::SummaryListComponent
 private
 
   def rows

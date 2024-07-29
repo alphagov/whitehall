@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentObjectStore::ContentBlockDocument::Index::SummaryCardComponentTest < ViewComponent::TestCase
+class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponentTest < ViewComponent::TestCase
   include ContentObjectStore::Engine.routes.url_helpers
 
   test "it renders a content block as a summary card" do
@@ -13,7 +13,7 @@ class ContentObjectStore::ContentBlockDocument::Index::SummaryCardComponentTest 
     )
     content_block_document = content_block_edition.document
 
-    render_inline(ContentObjectStore::ContentBlockDocument::Index::SummaryCardComponent.new(content_block_document:))
+    render_inline(ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:))
 
     assert_selector ".govuk-summary-card__title", text: content_block_edition.title
     assert_selector ".govuk-summary-card__action", count: 1

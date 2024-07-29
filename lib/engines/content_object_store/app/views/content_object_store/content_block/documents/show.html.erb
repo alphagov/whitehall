@@ -7,7 +7,7 @@
 <% end %>
 
 <%= render(
-      ContentObjectStore::ContentBlockDocument::Show::SummaryListComponent.new(
+      ContentObjectStore::ContentBlock::Document::Show::SummaryListComponent.new(
         content_block_document: @content_block_document,
       ),
     ) %>
@@ -15,7 +15,7 @@
 <div class="govuk-grid-row govuk-!-padding-top-8">
   <div class="govuk-grid-column-full">
     <%= render(
-          ContentObjectStore::ContentBlockDocument::Show::TimelineComponent.new(
+          ContentObjectStore::ContentBlock::Document::Show::TimelineComponent.new(
             content_block_versions: @content_block_versions,
           ),
         ) %>

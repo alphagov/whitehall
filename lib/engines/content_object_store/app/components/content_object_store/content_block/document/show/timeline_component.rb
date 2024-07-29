@@ -1,4 +1,4 @@
-class ContentObjectStore::ContentBlockDocument::Show::TimelineComponent < ViewComponent::Base
+class ContentObjectStore::ContentBlock::Document::Show::TimelineComponent < ViewComponent::Base
   include ActionView::Helpers::RecordTagHelper
   def initialize(content_block_versions:)
     @content_block_versions = content_block_versions
