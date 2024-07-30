@@ -238,3 +238,11 @@ Then("I should see the update on the timeline") do
   assert_text "Email address changed"
   expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}", count: 2)
 end
+
+Then("I am asked to check my answers") do
+  assert_text "Check your answers"
+end
+
+Then("I accept and publish") do
+  click_on "Accept and publish"
+end
