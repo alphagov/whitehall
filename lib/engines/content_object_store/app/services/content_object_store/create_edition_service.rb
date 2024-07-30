@@ -7,13 +7,9 @@ module ContentObjectStore
     end
 
     def call(edition_params)
-      title = edition_params[:document_attributes][:title]
-      details = edition_params[:details]
-
-      publish_with_rollback(schema: @schema, title:, details:) do
-        @new_edition = ContentObjectStore::ContentBlock::Edition.create!(edition_params)
-      end
-
+      @new_edition = ContentObjectStore::ContentBlock::Edition.create!(edition_params)
+      update_content_block_document_with_latest_edition(@new_edition)
+      # TODO: error scenario?
       @new_edition
     end
   end
