@@ -15,7 +15,7 @@
            environment: environment,
            browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitized_title do %>
 
-  <div data-module="GA4PageViewTracking" data-attributes='<%= track_analytics_data_on_load(sanitized_title) %>'></div>
+  <div data-module="GA4PageViewTracking GA4PasteTracker" data-attributes='<%= track_analytics_data_on_load(sanitized_title) %>'></div>
 
   <%= render "govuk_publishing_components/components/skip_link" %>
 
