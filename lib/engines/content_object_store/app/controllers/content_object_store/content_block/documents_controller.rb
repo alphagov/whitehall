@@ -5,6 +5,6 @@ class ContentObjectStore::ContentBlock::DocumentsController < ContentObjectStore
 
   def show
     @content_block_document = ContentObjectStore::ContentBlock::Document.find(params[:id])
-    @content_block_versions = ContentObjectStore::ContentBlock::Version.where(item: @content_block_document.editions.last)
+    @content_block_versions = @content_block_document.versions
   end
 end

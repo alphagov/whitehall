@@ -229,7 +229,12 @@ Then("I should see a permissions error") do
   assert_text "Permissions error"
 end
 
-Then("I should see the audit trail") do
+Then("I should see the created event on the timeline") do
   assert_text "Email address created"
   expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}")
+end
+
+Then("I should see the update on the timeline") do
+  assert_text "Email address changed"
+  expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}", count: 2)
 end
