@@ -5,7 +5,10 @@ ContentObjectStore::Engine.routes.draw do
     namespace :content_block, path: "content-block" do
       resources :documents, only: %i[index show], path_names: { new: "(:block_type)/new" }
       resources :editions, only: %i[new create edit update], path_names: { new: "(:block_type)/new" } do
-        get :review, on: :member
+        member do
+          get :review
+          post :publish, to: "workflow#publish"
+        end
       end
     end
   end
