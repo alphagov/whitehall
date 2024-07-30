@@ -13,7 +13,7 @@ class ContentObjectStore::PublishableTest < ActiveSupport::TestCase
 
     assert_raises ArgumentError, "Local database changes not given" do
       test_instance.publish_with_rollback(
-        anything, document_title: anything, details: anything
+        schema: anything, title: anything, details: anything,
       )
     end
   end
