@@ -52,6 +52,21 @@ module PublishingApi
 
         assert_equal expected_hash, People.for(stubbed_edition)
       end
+
+      test "filters out duplicate people" do
+        person = create(:person)
+        role_appointments = 2.times.map do
+          create(:role_appointment, person:)
+        end
+
+        stubbed_edition = stub(role_appointments:)
+
+        expected_hash = {
+          people: [role_appointments[0].person.content_id],
+        }
+
+        assert_equal expected_hash, People.for(stubbed_edition)
+      end
     end
   end
 end

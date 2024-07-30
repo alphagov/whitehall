@@ -21,7 +21,8 @@ module PublishingApi
         {
           people: role_appointments
             .map(&:person)
-            .collect(&:content_id),
+            .collect(&:content_id)
+            .uniq,
         }
       end
 
