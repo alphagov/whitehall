@@ -16,10 +16,14 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
 
     new_edition = ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
 
-    redirect_to content_object_store.content_object_store_content_block_document_path(new_edition.document), flash: { notice: "#{@schema.name} created successfully" }
+    redirect_to content_object_store.review_content_object_store_content_block_edition_path(new_edition)
   rescue ActiveRecord::RecordInvalid => e
     @form = ContentObjectStore::ContentBlock::EditionForm::Create.new(content_block_edition: e.record, schema: @schema)
     render :new
+  end
+
+  def review
+    @content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
   end
 
   def edit

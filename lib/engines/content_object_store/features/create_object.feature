@@ -22,6 +22,8 @@ Feature: Create a content object
     When I complete the form with the following fields:
       | title            | email_address   | department |
       | my email address | foo@example.com | Somewhere  |
+    Then I am asked to check my answers
+    When I accept and publish
     Then the edition should have been created successfully
     And I should be taken back to the document page
 

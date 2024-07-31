@@ -5,6 +5,7 @@ module ContentObjectStore
       include ContentObjectStore::ValidatesDetails
       include ContentObjectStore::HasAuthors
       include ContentObjectStore::HasAuditTrail
+      include ContentObjectStore::Workflow
     end
   end
 end
