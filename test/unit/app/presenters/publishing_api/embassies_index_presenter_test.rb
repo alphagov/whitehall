@@ -63,6 +63,15 @@ class PublishingApi::EmbassiesIndexPresenterTest < ActiveSupport::TestCase
     assert_valid_embassies_index_document
   end
 
+  test "caches the result of #content so as not to perform an expensive query multiple times" do
+    PublishingApi::BaseItemPresenter.any_instance.expects(:base_attributes).returns({})
+    presenter = PublishingApi::EmbassiesIndexPresenter.new
+    presenter.content
+
+    PublishingApi::BaseItemPresenter.any_instance.expects(:base_attributes).never
+    presenter.content
+  end
+
   def assert_valid_embassies_index_document
     presented_page = @presenter.content
 
