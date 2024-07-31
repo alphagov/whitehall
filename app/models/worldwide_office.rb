@@ -5,8 +5,6 @@ class WorldwideOffice < ApplicationRecord
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
   validates :contact, :edition, :worldwide_office_type_id, presence: true
 
-  after_commit :republish_embassies_index_page_to_publishing_api
-
   accepts_nested_attributes_for :contact
 
   extend FriendlyId
@@ -58,10 +56,6 @@ class WorldwideOffice < ApplicationRecord
 
   def available_in_multiple_languages?
     false
-  end
-
-  def republish_embassies_index_page_to_publishing_api
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
   end
 
   def base_path

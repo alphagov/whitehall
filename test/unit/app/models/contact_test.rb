@@ -167,34 +167,6 @@ class ContactTest < ActiveSupport::TestCase
     contact.update!(title: "A new name")
   end
 
-  test "republishes embassies index page on creation of contact" do
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
-
-    Sidekiq::Testing.inline! do
-      create(:contact)
-    end
-  end
-
-  test "republishes embassies index page on update of contact" do
-    contact = create(:contact_with_country)
-
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
-
-    Sidekiq::Testing.inline! do
-      contact.update!(locality: "new-locality")
-    end
-  end
-
-  test "republishes embassies index page on deletion of contact" do
-    contact = create(:contact)
-
-    PresentPageToPublishingApi.any_instance.expects(:publish).with(PublishingApi::EmbassiesIndexPresenter)
-
-    Sidekiq::Testing.inline! do
-      contact.destroy!
-    end
-  end
-
   test "destroy deletes related contacts" do
     # This test uses organisations as a candidate, but any object with this module
     # can be used here. Ideally a seperate stub ActiveRecord object would be used.

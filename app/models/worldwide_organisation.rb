@@ -20,7 +20,7 @@ class WorldwideOrganisation < Edition
   has_one :default_news_image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
-  after_commit :republish_dependent_documents
+  after_commit :republish_dependent_documents, :republish_embassies_index
 
   alias_method :name, :title
 
@@ -199,6 +199,12 @@ class WorldwideOrganisation < Edition
       .uniq(&:id)
 
     documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
+  end
+
+  def republish_embassies_index
+    if Edition::POST_PUBLICATION_STATES.include?(state)
+      PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
+    end
   end
 
   def associated_documents

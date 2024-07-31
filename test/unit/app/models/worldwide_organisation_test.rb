@@ -29,6 +29,24 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     worldwide_organisation.create_draft(create(:writer))
   end
 
+  %w[published superseded withdrawn unpublished].each do |post_publication_state|
+    test "republishes embassies index page when the worldwide organisation is #{post_publication_state}" do
+      worldwide_organisation = create(:draft_worldwide_organisation)
+
+      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::EmbassiesIndexPresenter").once
+
+      worldwide_organisation.update!(state: post_publication_state)
+    end
+  end
+
+  test "does not republish the embassies index page when editing a draft" do
+    worldwide_organisation = create(:draft_worldwide_organisation)
+
+    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::EmbassiesIndexPresenter").never
+
+    worldwide_organisation.update!(title: "New title")
+  end
+
   test "destroys associated worldwide offices" do
     worldwide_organisation = create(:worldwide_organisation)
     worldwide_office = create(:worldwide_office)
