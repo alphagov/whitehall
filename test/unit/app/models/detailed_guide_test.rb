@@ -63,6 +63,11 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert guide.has_related_mainstream_content?
   end
 
+  test "doesn't error when invalid URL is provided" do
+    guide = build(:detailed_guide, related_mainstream_content_url: "vat return")
+    assert_nil guide.related_mainstream_base_path
+  end
+
   test "can be associated with some additional content in the mainstream application" do
     assert_not build(:detailed_guide).has_additional_related_mainstream_content?
     guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/content")

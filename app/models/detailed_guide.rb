@@ -155,11 +155,13 @@ private
   def parse_base_path_from_related_mainstream_url(url)
     return nil if url.blank?
 
-    parsed_url = URI.parse(url.strip)
-    url_is_invalid = !["gov.uk", "www.gov.uk"].include?(parsed_url.host)
-    return nil if url_is_invalid
-
-    parsed_url.path
+    begin
+      parsed_url = URI.parse(url.strip)
+      url_is_invalid = !["gov.uk", "www.gov.uk"].include?(parsed_url.host)
+      url_is_invalid ? nil : parsed_url.path
+    rescue URI::InvalidURIError
+      nil
+    end
   end
 
   def related_mainstream_found
