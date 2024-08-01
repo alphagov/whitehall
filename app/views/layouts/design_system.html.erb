@@ -15,13 +15,13 @@
            environment: environment,
            browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitized_title do %>
 
-  <div data-module="GA4PageViewTracking GA4PasteTracker" data-attributes='<%= track_analytics_data_on_load(sanitized_title) %>'></div>
+  <div data-module="GA4PageViewTracking" data-attributes='<%= track_analytics_data_on_load(sanitized_title) %>'></div>
 
   <%= render "govuk_publishing_components/components/skip_link" %>
 
   <%= render partial: "shared/header" %>
 
-  <div class="govuk-width-container" data-module="ga4-event-tracker">
+  <div class="govuk-width-container" data-module="ga4-event-tracker ga4-paste-tracker">
     <%= render "shared/phase_banner", {
       show_feedback_banner: t("admin.feedback.show_banner"),
     } %>

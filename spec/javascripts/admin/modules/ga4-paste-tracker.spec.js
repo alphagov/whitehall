@@ -5,9 +5,7 @@ describe('GOVUK.Modules.Ga4PasteTracker', function () {
       'applySchemaAndSendData'
     )
 
-    const ga4PasteTracker = new GOVUK.Modules.Ga4VisualEditorEventHandlers(
-      document
-    )
+    const ga4PasteTracker = new GOVUK.Modules.Ga4PasteTracker(document)
     ga4PasteTracker.init()
     window.dispatchEvent(new ClipboardEvent('paste', {}))
 
