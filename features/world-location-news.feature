@@ -29,7 +29,7 @@ Feature: Administering world location news information
       Then I see that I have no featured documents
 
     Scenario: Featuring a document
-      Given there is a published document with the tile "Featured document"
+      Given there is a published document with the title "Featured document"
       When I visit the world location news page
       And filter documents by all organisations
       And I feature "Featured document"

@@ -67,7 +67,7 @@ Then(/^I see that I have no featured documents$/) do
   end
 end
 
-Given(/^there is a published document with the tile "([^"]*)"$/) do |title|
+Given(/^there is a published document with the title "([^"]*)"$/) do |title|
   create(:edition, :published, title:)
 end
 
