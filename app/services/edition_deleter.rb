@@ -1,10 +1,10 @@
 class EditionDeleter < EditionService
   def verb
-    "delete"
+    "destroy"
   end
 
   def past_participle
-    "deleted"
+    "destroyed"
   end
 
   def can_transition?
