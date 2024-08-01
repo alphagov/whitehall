@@ -17,6 +17,7 @@
 //= require admin/modules/ga4-form-setup
 //= require admin/modules/ga4-visual-editor-event-handlers
 //= require admin/modules/ga4-page-view-tracking
+//= require admin/modules/ga4-paste-tracker
 //= require admin/modules/locale-switcher
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak
