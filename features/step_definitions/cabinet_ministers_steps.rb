@@ -65,8 +65,8 @@ end
 
 Given(/^there are multiple Whip roles$/) do
   organisation = create(:organisation)
-  create(:ministerial_role, name: "Role 1", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 1)
-  create(:ministerial_role, name: "Role 2", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 0)
+  create(:ministerial_role, name: "Role 1", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 0)
+  create(:ministerial_role, name: "Role 2", whip_organisation_id: 2, organisations: [organisation], whip_ordering: 1)
 end
 
 Given(/^there are multiple organisations with ministerial ordering$/) do
