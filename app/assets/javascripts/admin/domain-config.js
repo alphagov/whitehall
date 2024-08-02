@@ -10,6 +10,11 @@ window.GOVUK.vars.extraDomains = [
     gaProperty: 'UA-26179049-6'
   },
   {
+    name: 'staging',
+    domains: ['whitehall-admin.staging.publishing.service.gov.uk'],
+    initialiseGA4: false
+  },
+  {
     name: 'integration',
     domains: ['whitehall-admin.integration.publishing.service.gov.uk'],
     initialiseGA4: true,
