@@ -8,12 +8,18 @@ module ContentObjectStore
       ActiveRecord::Base.transaction do
         content_block_edition = yield
         content_id = content_block_edition.document.content_id
+        organisation_id = content_block_edition.lead_organisation.content_id
 
         create_publishing_api_edition(
           content_id:,
           schema_id: schema.id,
           title:,
           details: details.to_h,
+          links: {
+            primary_publishing_organisation: [
+              organisation_id,
+            ],
+          },
         )
         publish_publishing_api_edition(content_id:)
         update_content_block_document_with_live_edition(content_block_edition)
@@ -26,13 +32,14 @@ module ContentObjectStore
 
   private
 
-    def create_publishing_api_edition(content_id:, schema_id:, title:, details:)
+    def create_publishing_api_edition(content_id:, schema_id:, title:, details:, links:)
       Services.publishing_api.put_content(content_id, {
         schema_name: schema_id,
         document_type: schema_id,
         publishing_app: Whitehall::PublishingApp::WHITEHALL,
         title:,
         details:,
+        links:,
       })
     end
 

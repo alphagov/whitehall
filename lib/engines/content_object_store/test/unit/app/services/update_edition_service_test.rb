@@ -98,6 +98,9 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
             publishing_app: "whitehall",
             title: @original_content_block_edition.document.title,
             details: @original_content_block_edition.details,
+            links: {
+              primary_publishing_organisation: [@original_content_block_edition.lead_organisation.content_id],
+            },
           },
         ]
         publishing_api_mock.expect :publish, fake_publish_content_response, [
@@ -184,6 +187,9 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
           details: {
             "foo" => "Foo text",
             "bar" => "Bar text",
+          },
+          links: {
+            primary_publishing_organisation: [organisation.content_id],
           },
         },
       ]

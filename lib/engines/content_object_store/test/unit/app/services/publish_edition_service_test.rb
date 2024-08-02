@@ -7,11 +7,12 @@ class ContentObjectStore::PublishEditionServiceTest < ActiveSupport::TestCase
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:document) { create(:content_block_document, :email_address, content_id:, title: "Some Title") }
-    let(:edition) { create(:content_block_edition, document:, details: { "foo" => "Foo text", "bar" => "Bar text" }) }
+    let(:edition) { create(:content_block_edition, document:, details: { "foo" => "Foo text", "bar" => "Bar text" }, organisation: @organisation) }
 
     setup do
       ContentObjectStore::ContentBlock::Schema.stubs(:find_by_block_type)
                                               .returns(schema)
+      @organisation = create(:organisation)
     end
 
     test "returns a ContentBlockEdition" do
@@ -45,6 +46,9 @@ class ContentObjectStore::PublishEditionServiceTest < ActiveSupport::TestCase
           details: {
             "foo" => "Foo text",
             "bar" => "Bar text",
+          },
+          links: {
+            primary_publishing_organisation: [@organisation.content_id],
           },
         },
       ]
