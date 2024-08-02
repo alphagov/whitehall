@@ -117,11 +117,13 @@ end
 Given("an email address content block has been created") do
   @content_blocks ||= []
   @email_address = "foo@example.com"
+  organisation = create(:organisation)
   @content_block = create(
     :content_block_edition,
     :email_address,
     details: { email_address: @email_address },
     creator: @user,
+    organisation:,
   )
   @content_blocks.push(@content_block)
 end
@@ -161,6 +163,7 @@ Then("I should see the details for the email address content block") do
   should_show_summary_list_for_email_address_content_block(
     @content_block.document.title,
     @email_address,
+    @organisation,
   )
 end
 
@@ -191,7 +194,7 @@ When("I set all fields to blank") do
 end
 
 Then("the edition should have been updated successfully") do
-  should_show_summary_list_for_email_address_content_block("Changed title", "changed@example.com")
+  should_show_summary_list_for_email_address_content_block("Changed title", "changed@example.com", "Ministry of Example")
 end
 
 def should_show_summary_card_for_email_address_content_block(document_title, email_address)
@@ -201,12 +204,14 @@ def should_show_summary_card_for_email_address_content_block(document_title, ema
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
-def should_show_summary_list_for_email_address_content_block(document_title, email_address)
+def should_show_summary_list_for_email_address_content_block(document_title, email_address, organisation)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
+  expect(page).to have_selector(".govuk-summary-list__value", text: organisation)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Creator")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")

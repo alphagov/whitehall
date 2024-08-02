@@ -8,13 +8,26 @@ private
   attr_reader :content_block_document
 
   def items
-    [title_item].concat(details_items).concat([creator_item])
+    [
+      title_item,
+      *details_items,
+      organisation_item,
+      creator_item,
+    ]
   end
 
   def title_item
     {
       field: "Title",
       value: content_block_document.title,
+      edit: edit_action,
+    }
+  end
+
+  def organisation_item
+    {
+      field: "Lead organisation",
+      value: content_block_document.latest_edition.lead_organisation,
       edit: edit_action,
     }
   end

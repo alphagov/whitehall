@@ -2,6 +2,7 @@ Feature: View a content object
   Background:
     Given the content object store feature flag is enabled
     Given I am a GDS admin
+    And the organisation "Ministry of Example" exists
     And a schema "email_address" exists with the following fields:
       | email_address |
     And an email address content block has been created
