@@ -33,4 +33,31 @@ namespace :bulk_content_updates do
       end
     end
   end
+
+  task :redirect_links_to_domain, %i[domain redirect_url mode] => :environment do |_, args|
+    domain, redirect_url, mode = args.values_at(:domain, :redirect_url, :mode)
+    unless %w[live dry-run].include?(mode)
+      raise "mode should be 'live' or 'dry-run'"
+    end
+    editions_matching_domain(domain).find_each do |edition|
+      link_redirector = Govspeak::LinkRedirector.new(edition.body, domain, redirect_url)
+      next unless link_redirector.match?
+
+      puts "Redirecting links in #{edition.base_path} (#{mode})"
+      puts link_redirector.describe_replacements
+
+      if mode == "dry-run"
+        puts "Skipping changes in dry-run mode"
+      elsif mode == "live"
+        edition.body = link_redirector.redirect_links_for_domain
+        edition.save!
+        PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
+          "bulk_republishing",
+          edition.document_id,
+          true,
+          )
+      end
+    end
+
+  end
 end
