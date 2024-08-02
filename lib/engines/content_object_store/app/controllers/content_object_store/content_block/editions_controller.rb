@@ -58,7 +58,7 @@ private
 
   def edition_params
     params.require(:content_block_edition)
-      .permit(document_attributes: %w[title block_type], details: @schema.fields)
+      .permit(:organisation_id, document_attributes: %w[title block_type], details: @schema.fields)
       .merge(creator: current_user)
   end
 

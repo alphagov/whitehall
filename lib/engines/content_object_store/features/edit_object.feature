@@ -1,9 +1,10 @@
 Feature: Edit a content object
   Background:
     Given the content object store feature flag is enabled
+    And I am a GDS admin
+    And the organisation "Ministry of Example" exists
 
   Scenario: GDS Editor edits a content object
-    Given I am a GDS admin
     And a schema "email_address" exists with the following fields:
       | field         | type   | format | required |
       | email_address | string | email  | true     |
@@ -21,7 +22,6 @@ Feature: Edit a content object
     And I should see the update on the timeline
 
   Scenario: GDS editor sees validation errors for missing fields
-    Given I am a GDS admin
     And a schema "email_address" exists with the following fields:
     | field         | type   | format | required |
     | email_address | string | email  | true     |
@@ -33,7 +33,6 @@ Feature: Edit a content object
     Then I should see errors for the required fields
 
   Scenario: GDS editor sees validation errors for invalid fields
-    Given I am a GDS admin
     And a schema "email_address" exists with the following fields:
     | field         | type   | format | required |
     | email_address | string | email  | true     |
@@ -42,6 +41,6 @@ Feature: Edit a content object
     When I click to view the document
     When I click the first change link
     When I complete the form with the following fields:
-    | title            | email_address   |
-    | my email address | xxxxx           |
+    | title            | email_address   | organisation |
+    | my email address | xxxxx           | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"

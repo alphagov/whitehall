@@ -3,6 +3,7 @@ Feature: Create a content object
   Background:
     Given the content object store feature flag is enabled
     Given I am a GDS admin
+    And the organisation "Ministry of Example" exists
     And a schema "email_address" exists with the following fields:
       | field         | type   | format | required |
       | email_address | string | email  | true     |
@@ -20,8 +21,8 @@ Feature: Create a content object
     Then I should see a form for the schema
     And I should see a back link to the select schema page
     When I complete the form with the following fields:
-      | title            | email_address   | department |
-      | my email address | foo@example.com | Somewhere  |
+      | title            | email_address   | department | organisation |
+      | my email address | foo@example.com | Somewhere  | Ministry of Example |
     Then I am asked to check my answers
     When I accept and publish
     Then the edition should have been created successfully
@@ -41,6 +42,6 @@ Feature: Create a content object
     When I click on the "email_address" schema
     Then I should see a form for the schema
     When I complete the form with the following fields:
-      | title            | email_address   | department |
-      | my email address | xxxxx           | Somewhere  |
+      | title            | email_address   | department | organisation |
+      | my email address | xxxxx           | Somewhere  | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"

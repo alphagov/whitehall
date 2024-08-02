@@ -69,13 +69,17 @@ end
 When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")
+  @organisation = fields.delete("organisation")
   @details = fields
 
   fill_in "Title", with: @title
 
+  select @organisation, from: "Lead organisation"
+
   fields.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
+
   click_on "Save and publish"
 end
 
@@ -175,12 +179,14 @@ end
 When("I fill out the form") do
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
+  select "Ministry of Example", from: "Lead organisation"
   click_on "Save and publish"
 end
 
 When("I set all fields to blank") do
   fill_in "Title", with: ""
   fill_in "Email address", with: ""
+  first("#lead_organisation option").select_option
   click_on "Save and publish"
 end
 
@@ -221,6 +227,7 @@ Then("I should see errors for the required fields") do
   required_fields.each do |required_field|
     assert_text "#{ContentObjectStore::ContentBlock::Edition.human_attribute_name("details_#{required_field}")} cannot be blank"
   end
+  assert_text "Lead organisation cannot be blank"
 end
 
 Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|

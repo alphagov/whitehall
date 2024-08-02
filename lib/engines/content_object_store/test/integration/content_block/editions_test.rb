@@ -23,6 +23,8 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
       "bar" => "Bar text",
     }
 
+    organisation = create(:organisation)
+
     # This UUID is created by the database so instead of loading the record
     # we stub the initial creation so we know what UUID to check for.
     ContentObjectStore::ContentBlock::Edition.any_instance.stubs(:create_random_id)
@@ -37,6 +39,7 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
               content_block_edition: {
                 document_attributes:,
                 details:,
+                organisation_id: organisation.id,
               },
             }
           end
@@ -48,6 +51,7 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
     new_edition = new_document.editions.first
     new_author = ContentObjectStore::ContentBlock::EditionAuthor.first
     new_version = ContentObjectStore::ContentBlock::Version.first
+    new_edition_organisation = ContentObjectStore::ContentBlock::EditionOrganisation.first
 
     assert_equal document_attributes[:title], new_document.title
     assert_equal document_attributes[:block_type], new_document.block_type
@@ -59,6 +63,9 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
     assert_equal new_document.latest_edition_id, new_edition.id
 
     assert_equal new_version.whodunnit, new_author.user.id.to_s
+
+    assert_equal new_edition_organisation.organisation_id, organisation.id
+    assert_equal new_edition_organisation.content_block_edition_id, new_edition.id
   end
 
   test "#create should render the template when a validation error occurs" do

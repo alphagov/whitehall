@@ -8,7 +8,12 @@ private
   attr_reader :content_block_edition
 
   def items
-    details_items.push(confirm_item).push(date_item)
+    [
+      *details_items,
+      organisation_item,
+      confirm_item,
+      date_item,
+    ]
   end
 
   def details_items
@@ -18,6 +23,13 @@ private
         value:,
       }
     end
+  end
+
+  def organisation_item
+    {
+      field: "Lead organisation",
+      value: content_block_edition.lead_organisation,
+    }
   end
 
   def confirm_item

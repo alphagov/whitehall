@@ -6,11 +6,13 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
   setup do
     @original_content_block_edition = create(:content_block_edition,
                                              document: create(:content_block_document, :email_address, content_id:),
-                                             details: { "foo" => "Foo text", "bar" => "Bar text" })
+                                             details: { "foo" => "Foo text", "bar" => "Bar text" },
+                                             organisation: create(:organisation))
   end
 
   describe "#call" do
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
+    let(:organisation) { create("organisation") }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:edition_params) do
       {
@@ -23,6 +25,7 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
           "bar" => "Bar text",
         },
         creator: build(:user),
+        organisation_id: organisation.id.to_s,
       }
     end
 
@@ -76,6 +79,7 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
           }.with_indifferent_access,
           details: @original_content_block_edition.details,
           creator: build(:user),
+          organisation_id: @original_content_block_edition.lead_organisation.id.to_s,
         }
 
         fake_put_content_response = GdsApi::Response.new(
