@@ -29,11 +29,21 @@ Feature: Administering world location news information
       Then I see that I have no featured documents
 
     Scenario: Featuring a document
-      Given there is a published document with the tile "Featured document"
+      Given there is a published document with the title "Featured document"
       When I visit the world location news page
       And filter documents by all organisations
       And I feature "Featured document"
       Then I see that "Featured document" has been featured
+
+    Scenario: Searching for a non-English document to feature on a non-English world location news
+      Given a world location news exists and has a Spanish translation
+      And there is a published document, with a Spanish translation, tagged to the world location
+      When I visit the world location news page
+      And select the "Features (Español)" tab
+      And select the "Documents" child tab
+      And search for "Documento destacado"
+      Then I should be on the Spanish search results page
+      And I should see "Featured document" in the document list
 
     Scenario: Featuring a topical event
       Given there is an active topical event with the name "Featured topical event"

@@ -1,6 +1,6 @@
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: :admin_world_location_news_index,
+    href: admin_world_location_news_index_path,
   } %>
 <% end %>
 <% content_for :page_title, @world_location_news.name %>
@@ -44,7 +44,7 @@
         featurable_editions: featurable_editions_for_feature_list(@filter.editions(@feature_list.locale), @feature_list),
         filter_by: [:title, :type, :world_location],
         anchor: "#documents_tab",
-        filter_action: polymorphic_url([:features, :admin, @feature_list.featurable]),
+        filter_action: polymorphic_url([:features, :admin, @feature_list.featurable], locale: @feature_list.locale),
         feature_path: [:new, :admin, @feature_list, :feature],
       ),
     },
