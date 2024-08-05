@@ -1,4 +1,4 @@
-describe('GOVUK.Modules.Ga4FormSetup', function () {
+describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
   let button, container
 
   beforeEach(function () {
@@ -12,7 +12,9 @@ describe('GOVUK.Modules.Ga4FormSetup', function () {
   })
 
   it('adds ga4 event data to the container', function () {
-    const Ga4FormSetup = new GOVUK.Modules.Ga4FormSetup(container)
+    const Ga4FormSetup = new GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup(
+      container
+    )
     Ga4FormSetup.init()
 
     expect(container.dataset.ga4Form).toEqual(

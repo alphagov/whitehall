@@ -1,5 +1,7 @@
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}
+window.GOVUK.analyticsGa4 = window.GOVUK.analyticsGa4 || {}
+window.GOVUK.analyticsGa4.analyticsModules =
+  window.GOVUK.analyticsGa4.analyticsModules || {}
 ;(function (Modules) {
   function Ga4PasteTracker(module) {
     this.module = module
@@ -20,4 +22,4 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
   }
 
   Modules.Ga4PasteTracker = Ga4PasteTracker
-})(window.GOVUK.Modules)
+})(window.GOVUK.analyticsGa4.analyticsModules)

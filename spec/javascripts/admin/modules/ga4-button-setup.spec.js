@@ -1,4 +1,4 @@
-describe('GOVUK.Modules.Ga4ButtonSetup', function () {
+describe('GOVUK.analyticsGa4.analyticsModules', function () {
   let button, container
 
   beforeEach(function () {
@@ -12,7 +12,8 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
   })
 
   it('adds ga4 event data to buttons contained within', function () {
-    const ga4ButtonSetup = new GOVUK.Modules.Ga4ButtonSetup(container)
+    const ga4ButtonSetup =
+      new GOVUK.analyticsGa4.analyticsModules.Ga4ButtonSetup(container)
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
@@ -23,7 +24,8 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
   it('uses navigation as the event name from "submit" buttons', function () {
     button.type = 'submit'
 
-    const ga4ButtonSetup = new GOVUK.Modules.Ga4ButtonSetup(container)
+    const ga4ButtonSetup =
+      new GOVUK.analyticsGa4.analyticsModules.Ga4ButtonSetup(container)
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
@@ -36,7 +38,8 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
       event_name: 'custom_event_name'
     })
 
-    const ga4ButtonSetup = new GOVUK.Modules.Ga4ButtonSetup(container)
+    const ga4ButtonSetup =
+      new GOVUK.analyticsGa4.analyticsModules.Ga4ButtonSetup(container)
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
@@ -50,7 +53,8 @@ describe('GOVUK.Modules.Ga4ButtonSetup', function () {
     link.role = 'button'
     button.replaceWith(link)
 
-    const ga4ButtonSetup = new GOVUK.Modules.Ga4ButtonSetup(container)
+    const ga4ButtonSetup =
+      new GOVUK.analyticsGa4.analyticsModules.Ga4ButtonSetup(container)
     ga4ButtonSetup.init()
 
     expect(link.dataset.ga4Event).toEqual(

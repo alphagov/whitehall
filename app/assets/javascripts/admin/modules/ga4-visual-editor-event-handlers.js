@@ -1,6 +1,8 @@
 'use strict'
 window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}
+window.GOVUK.analyticsGa4 = window.GOVUK.analyticsGa4 || {}
+window.GOVUK.analyticsGa4.analyticsModules =
+  window.GOVUK.analyticsGa4.analyticsModules || {}
 ;(function (Modules) {
   const gaSelectChangeAttributes = function (selectText) {
     return {
@@ -47,4 +49,4 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
   }
 
   Modules.Ga4VisualEditorEventHandlers = Ga4VisualEditorEventHandlers
-})(window.GOVUK.Modules)
+})(window.GOVUK.analyticsGa4.analyticsModules)
