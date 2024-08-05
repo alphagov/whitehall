@@ -407,7 +407,7 @@ class Organisation < ApplicationRecord
   end
 
   def select_name
-    [name, ("(#{acronym})" if acronym.present?)].compact.join(" ")
+    [name, ("(#{acronym})" if acronym.present?), ("[Closed]" if closed?)].compact.join(" ")
   end
 
   def jobs_url

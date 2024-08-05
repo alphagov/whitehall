@@ -676,8 +676,10 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "Blah blah", build(:organisation, acronym: "", name: "Blah blah").display_name
   end
 
-  test "select_name should use full name and acronym if present or not if not" do
+  test "select_name should use full name and acronym and close if present" do
+    assert_equal "Name (Blah) [Closed]", build(:organisation, acronym: "Blah", name: "Name", govuk_status: "closed", govuk_closed_status: "no_longer_exists").select_name
     assert_equal "Name (Blah)", build(:organisation, acronym: "Blah", name: "Name").select_name
+    assert_equal "Name [Closed]", build(:organisation, name: "Name", govuk_status: "closed", govuk_closed_status: "no_longer_exists").select_name
     assert_equal "Name", build(:organisation, acronym: "", name: "Name").select_name
   end
 

@@ -217,10 +217,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_134237) do
     t.bigint "document_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id"
     t.string "state", default: "draft", null: false
     t.index ["document_id"], name: "index_content_block_editions_on_document_id"
-    t.index ["user_id"], name: "index_content_block_editions_on_user_id"
   end
 
   create_table "content_block_versions", charset: "utf8mb3", force: :cascade do |t|
