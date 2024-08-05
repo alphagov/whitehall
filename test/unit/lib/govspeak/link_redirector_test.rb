@@ -115,28 +115,28 @@ module Govspeak
       examples = [
         {
           input: 'Here is some markdown with a link to <a href="example.com">example dot com</a>',
-          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path">example dot com</a>'
+          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path">example dot com</a>',
         },
         {
           input: 'Here is some markdown with a link to <a href="http://example.com">example dot com</a>',
-          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path">example dot com</a>'
+          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path">example dot com</a>',
         },
         {
           input: 'Here is some markdown with a link to <a href="https://example.com" class="govuk-link">example dot com</a>',
-          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path" class="govuk-link">example dot com</a>'
+          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path" class="govuk-link">example dot com</a>',
         },
         {
           input: 'Here is some markdown with a link to <a class="govuk-link" href="https://example.com/some-path">example dot com</a>',
-          expected: 'Here is some markdown with a link to <a class="govuk-link" href="https://replacement-url.com/some-path">example dot com</a>'
+          expected: 'Here is some markdown with a link to <a class="govuk-link" href="https://replacement-url.com/some-path">example dot com</a>',
         },
         {
           input: 'Here is some markdown with a link to <a href="https://example.com/some-path?some-query" rel="noreferrer">example dot com</a>',
-          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path" rel="noreferrer">example dot com</a>'
+          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path" rel="noreferrer">example dot com</a>',
         },
         {
           input: 'Here is some markdown with a link to <a href="https://example.com/some-path?some-query#some-search">example dot com</a>',
-          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path">example dot com</a>'
-        }
+          expected: 'Here is some markdown with a link to <a href="https://replacement-url.com/some-path">example dot com</a>',
+        },
       ]
 
       examples.each do |example|
