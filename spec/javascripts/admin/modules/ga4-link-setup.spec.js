@@ -1,4 +1,4 @@
-describe('GOVUK.Modules.Ga4LinkSetup', function () {
+describe('GOVUK.analyticsGa4.analyticsModules.Ga4LinkSetup', function () {
   let link, container
 
   beforeEach(function () {
@@ -11,7 +11,9 @@ describe('GOVUK.Modules.Ga4LinkSetup', function () {
   })
 
   it('adds ga4 event data to links contained within', function () {
-    const Ga4LinkSetup = new GOVUK.Modules.Ga4LinkSetup(container)
+    const Ga4LinkSetup = new GOVUK.analyticsGa4.analyticsModules.Ga4LinkSetup(
+      container
+    )
     Ga4LinkSetup.init()
 
     expect(link.dataset.ga4Event).toEqual(

@@ -1,4 +1,4 @@
-describe('GOVUK.Modules.Ga4VisualEditorEventHandlers', function () {
+describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', function () {
   it('triggers ga4 tracking on visualEditorSelectChange event', function () {
     document.title = 'Title - Text'
     const select = document.createElement('select')
@@ -10,7 +10,9 @@ describe('GOVUK.Modules.Ga4VisualEditorEventHandlers', function () {
     )
 
     const ga4VisualEditorEventHandlers =
-      new GOVUK.Modules.Ga4VisualEditorEventHandlers(document)
+      new GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers(
+        document
+      )
     ga4VisualEditorEventHandlers.init()
     select.dispatchEvent(
       new CustomEvent('visualEditorSelectChange', {
@@ -47,7 +49,9 @@ describe('GOVUK.Modules.Ga4VisualEditorEventHandlers', function () {
     )
 
     const ga4VisualEditorEventHandlers =
-      new GOVUK.Modules.Ga4VisualEditorEventHandlers(document)
+      new GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers(
+        document
+      )
     ga4VisualEditorEventHandlers.init()
     button.dispatchEvent(
       new CustomEvent('visualEditorButtonClick', {
