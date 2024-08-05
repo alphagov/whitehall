@@ -10,14 +10,15 @@
 //= require components/miller-columns
 //= require components/select-with-search
 
+//= require admin/analytics-modules/ga4-button-setup.js
+//= require admin/analytics-modules/ga4-link-setup.js
+//= require admin/analytics-modules/ga4-form-setup.js
+//= require admin/analytics-modules/ga4-visual-editor-event-handlers.js
+//= require admin/analytics-modules/ga4-page-view-tracking.js
+//= require admin/analytics-modules/ga4-paste-tracker.js
+
 //= require admin/modules/add-another
 //= require admin/modules/document-history-paginator
-//= require admin/modules/ga4-button-setup
-//= require admin/modules/ga4-link-setup
-//= require admin/modules/ga4-form-setup
-//= require admin/modules/ga4-visual-editor-event-handlers
-//= require admin/modules/ga4-page-view-tracking
-//= require admin/modules/ga4-paste-tracker
 //= require admin/modules/locale-switcher
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak
