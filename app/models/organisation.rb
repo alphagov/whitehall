@@ -94,7 +94,6 @@ class Organisation < ApplicationRecord
   has_many :topical_event_organisations,
            -> { order("topical_event_organisations.ordering") },
            dependent: :destroy
-  has_many :topical_events, through: :topical_event_organisations
 
   has_many :topical_events,
            -> { order("topical_event_organisations.ordering") },
