@@ -280,4 +280,15 @@ class RoleTest < ActiveSupport::TestCase
 
     role.update!(name: "New role name")
   end
+
+  test "doesn't republish a worldwide organisation when a role is updated if the worldwide org is deleted" do
+    worldwide_organisation = create(:worldwide_organisation, :deleted)
+    role = create(:role_without_organisations)
+    create(:edition_role, role:, edition: worldwide_organisation)
+    role.reload
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id).never
+
+    role.update!(name: "New role name")
+  end
 end
