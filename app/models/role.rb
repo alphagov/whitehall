@@ -74,6 +74,8 @@ class Role < ApplicationRecord
 
   def republish_associated_editions_to_publishing_api
     edition_roles.each do |edition_role|
+      next unless edition_role.edition
+
       PublishingApiDocumentRepublishingWorker.perform_async(edition_role.edition.document_id)
     end
   end
