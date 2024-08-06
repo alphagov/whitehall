@@ -416,7 +416,7 @@ GEM
     matrix (0.4.2)
     maxitest (5.6.0)
       minitest (>= 5.14.0, < 5.25.0)
-    mechanize (2.11.0)
+    mechanize (2.12.0)
       addressable (~> 2.8)
       base64
       domain_name (~> 0.5, >= 0.5.20190701)
@@ -746,7 +746,7 @@ GEM
     psych (5.1.2)
       stringio
     ptools (1.5.0)
-    public_suffix (6.0.0)
+    public_suffix (6.0.1)
     puma (6.4.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
