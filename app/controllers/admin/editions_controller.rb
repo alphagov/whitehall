@@ -112,7 +112,7 @@ class Admin::EditionsController < Admin::BaseController
 
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
-      flash.now[:alert] = "There are some problems with the document"
+      flash.now[:alert] = updater.failure_reason
       build_edition_dependencies
       fetch_version_and_remark_trails
       construct_similar_slug_warning_error
@@ -499,7 +499,7 @@ private
   end
 
   def updater
-    @updater ||= Whitehall.edition_services.draft_updater(@edition)
+    @updater ||= Whitehall.edition_services.draft_updater(@edition, { current_user: })
   end
 
   def publisher
