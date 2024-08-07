@@ -37,7 +37,7 @@ class AssetManagerTest < ActiveSupport::TestCase
         end
 
         test "it should not include the attachment in the report" do
-          assert_output(/^(?!#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}).*$/) { task.invoke }
+          refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
         end
       end
     end
@@ -55,7 +55,7 @@ class AssetManagerTest < ActiveSupport::TestCase
       end
 
       test "it should not include the attachment in the report" do
-        assert_output(/^(?!#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}).*$/) { task.invoke }
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
       end
     end
 
@@ -67,7 +67,7 @@ class AssetManagerTest < ActiveSupport::TestCase
       end
 
       test "it should not include the attachment in the report" do
-        assert_output(/^(?!#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}).*$/) { task.invoke }
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
       end
     end
   end
@@ -84,7 +84,7 @@ class AssetManagerTest < ActiveSupport::TestCase
       end
 
       test "it should not include the attachment in the report" do
-        assert_output(/^(?!#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}).*$/) { task.invoke }
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
       end
     end
 
@@ -96,7 +96,7 @@ class AssetManagerTest < ActiveSupport::TestCase
       end
 
       test "it should not include the attachment in the report" do
-        assert_output(/^(?!#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}).*$/) { task.invoke }
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
       end
     end
   end
@@ -114,7 +114,7 @@ class AssetManagerTest < ActiveSupport::TestCase
       end
 
       test "it should not include the attachment in the report" do
-        assert_output(/^(?!#{attachment.attachment_data.assets.first.filename},(#{Regexp.escape(edition_1.public_url)}|#{Regexp.escape(edition_2.public_url)}),(#{edition_1.state}|#{edition_2.state})).*$/) { task.invoke }
+        refute_output(/#{attachment.attachment_data.assets.first.filename},(#{Regexp.escape(edition_1.public_url)}|#{Regexp.escape(edition_2.public_url)}),(#{edition_1.state}|#{edition_2.state})/) { task.invoke }
       end
     end
 
@@ -126,7 +126,7 @@ class AssetManagerTest < ActiveSupport::TestCase
       end
 
       test "it should not include the attachment in the report" do
-        assert_output(/^(?!#{attachment.attachment_data.assets.first.filename},(#{Regexp.escape(edition_1.public_url)}|#{Regexp.escape(edition_2.public_url)}),(#{edition_1.state}|#{edition_2.state})).*$/) { task.invoke }
+        refute_output(/#{attachment.attachment_data.assets.first.filename},(#{Regexp.escape(edition_1.public_url)}|#{Regexp.escape(edition_2.public_url)}),(#{edition_1.state}|#{edition_2.state})/) { task.invoke }
       end
     end
   end

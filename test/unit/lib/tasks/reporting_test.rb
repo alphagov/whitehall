@@ -20,11 +20,11 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it does not print the content IDs of the matching documents from draft editions" do
-      assert_output(/^(?!.*#{@document_2.document.content_id},#{@document_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@document_2.document.content_id},#{@document_2.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the non-matching documents from published editions" do
-      assert_output(/^(?!.*#{@document_3.document.content_id},#{@document_3.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@document_3.document.content_id},#{@document_3.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -40,11 +40,11 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it does not print the content IDs of the non-matching documents from published HTML attachments" do
-      assert_output(/^(?!.*#{@html_attachment_2.content_id},#{@html_attachment_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@html_attachment_2.content_id},#{@html_attachment_2.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
 
     test "it does not print the content IDs of the matching documents from draft HTML attachments" do
-      assert_output(/^(?!.*#{@html_attachment_3.content_id},#{@html_attachment_3.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@html_attachment_3.content_id},#{@html_attachment_3.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -59,7 +59,7 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it does not print the content IDs of the non-matching documents from people" do
-      assert_output(/^(?!.*#{@person_2.content_id},#{@person_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@person_2.content_id},#{@person_2.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -74,7 +74,7 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it does not print the content IDs of the non-matching documents from policy groups" do
-      assert_output(/^(?!.*#{@policy_group_2.content_id},#{@policy_group_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@policy_group_2.content_id},#{@policy_group_2.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -89,7 +89,7 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it does not print the content IDs of the non-matching documents from world location news" do
-      assert_output(/^(?!.*#{@world_location_news_2.content_id},#{@world_location_news_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@world_location_news_2.content_id},#{@world_location_news_2.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 
@@ -104,7 +104,7 @@ class ReportingRake < ActiveSupport::TestCase
     end
 
     test "it does not print the content IDs of the non-matching documents from worldwide offices" do
-      assert_output(/^(?!.*#{@worldwide_office_2.content_id},#{@worldwide_office_2.base_path}).*$/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
+      refute_output(/#{@worldwide_office_2.content_id},#{@worldwide_office_2.base_path}/) { Rake.application.invoke_task "reporting:matching_docs[Some text]" }
     end
   end
 end
