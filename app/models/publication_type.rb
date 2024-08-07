@@ -18,7 +18,7 @@ class PublicationType
     12 => "<p>Responses to Freedom of Information requests. Ensure the title describes specifically what the request is about.</p>",
     13 => "<p>Leaflets, posters, fact sheets and marketing collateral.</p>",
     14 => "<p>Reviews, inquiries and other reports commissioned from or conducted by independent (ie non-governmental) bodies for consideration by the government.</p>",
-    15 => "<p>Official Statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the National Statistics quality mark.</p>",
+    15 => "<p>Official Statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the Accredited Official Statistics quality mark.</p>",
     17 => "<p>Drawn maps and geographical data.</p>",
     18 => "<p>Treaties and memoranda of understanding between the UK and other nations.</p>",
     19 => "<p>Guidance which relevant users are legally obliged to follow. (For non-statutory guidance publications, use the “guidance” sub-type).</p>",
