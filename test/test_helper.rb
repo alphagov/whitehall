@@ -92,6 +92,10 @@ class ActiveSupport::TestCase
     array.each { |request| assert_requested request }
   end
 
+  def refute_output(regex, &block)
+    assert_output(/^(?!#{regex}).*$/, &block)
+  end
+
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*_args|

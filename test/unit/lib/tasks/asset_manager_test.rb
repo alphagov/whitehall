@@ -1,0 +1,141 @@
+require "rake"
+require "test_helper"
+require "gds_api/test_helpers/asset_manager"
+
+class AssetManagerTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+  include GdsApi::TestHelpers::AssetManager
+
+  let(:task) { Rake::Task["asset_manager:report_deleted_assets"] }
+
+  teardown do
+    task.reenable
+  end
+
+  %w[unpublished superseded].each do |state|
+    context "for an asset attached only to a #{state} edition" do
+      let(:edition) { create(:"#{state}_publication") }
+      let(:attachment) { create(:file_attachment_with_asset, attachable: edition) }
+
+      context "when asset is not deleted from asset manager" do
+        before do
+          attachment.attachment_data.assets.each do |asset|
+            stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: false, file_url: asset.filename })
+          end
+        end
+
+        test "it should include the attachment in the report" do
+          assert_output(/^#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}$/) { task.invoke }
+        end
+      end
+
+      context "when asset is deleted from asset manager" do
+        before do
+          attachment.attachment_data.assets.each do |asset|
+            stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: true, file_url: asset.filename })
+          end
+        end
+
+        test "it should not include the attachment in the report" do
+          refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
+        end
+      end
+    end
+  end
+
+  context "for an asset attached only to a draft edition" do
+    let(:edition) { create(:draft_publication) }
+    let(:attachment) { create(:file_attachment_with_asset, attachable: edition) }
+
+    context "when asset is not deleted from asset manager" do
+      before do
+        attachment.attachment_data.assets.each do |asset|
+          stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: false, file_url: asset.filename })
+        end
+      end
+
+      test "it should not include the attachment in the report" do
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
+      end
+    end
+
+    context "when asset is deleted from asset manager" do
+      before do
+        attachment.attachment_data.assets.each do |asset|
+          stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: true, file_url: asset.filename })
+        end
+      end
+
+      test "it should not include the attachment in the report" do
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
+      end
+    end
+  end
+
+  context "for an asset attached only to a published edition" do
+    let(:edition) { create(:published_publication) }
+    let(:attachment) { create(:file_attachment_with_asset, attachable: edition) }
+
+    context "when asset is not deleted from asset manager" do
+      before do
+        attachment.attachment_data.assets.each do |asset|
+          stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: false, file_url: asset.filename })
+        end
+      end
+
+      test "it should not include the attachment in the report" do
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
+      end
+    end
+
+    context "when asset is deleted from asset manager" do
+      before do
+        attachment.attachment_data.assets.each do |asset|
+          stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: true, file_url: asset.filename })
+        end
+      end
+
+      test "it should not include the attachment in the report" do
+        refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
+      end
+    end
+  end
+
+  context "for an asset attached to both published and superseded editions" do
+    let(:attachment) { create(:file_attachment_with_asset) }
+    let(:edition_1) { create(:superseded_publication, :with_alternative_format_provider, attachments: [attachment]) }
+    let(:edition_2) { create(:published_publication, :with_alternative_format_provider, attachments: [attachment]) }
+
+    context "when asset is not deleted from asset manager" do
+      before do
+        attachment.attachment_data.assets.each do |asset|
+          stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: false, file_url: asset.filename })
+        end
+      end
+
+      test "it should not include the attachment in the report" do
+        refute_output(/#{attachment.attachment_data.assets.first.filename},(#{Regexp.escape(edition_1.public_url)}|#{Regexp.escape(edition_2.public_url)}),(#{edition_1.state}|#{edition_2.state})/) { task.invoke }
+      end
+    end
+
+    context "when asset is deleted from asset manager" do
+      before do
+        attachment.attachment_data.assets.each do |asset|
+          stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: true, file_url: asset.filename })
+        end
+      end
+
+      test "it should not include the attachment in the report" do
+        refute_output(/#{attachment.attachment_data.assets.first.filename},(#{Regexp.escape(edition_1.public_url)}|#{Regexp.escape(edition_2.public_url)}),(#{edition_1.state}|#{edition_2.state})/) { task.invoke }
+      end
+    end
+  end
+
+  context "for an asset attached only to something that is not an edition" do
+    let(:attachment) { create(:file_attachment_with_asset, attachable: create(:double)) }
+
+    test "it should include no output in the report" do
+      assert_output("") { task.invoke }
+    end
+  end
+end
