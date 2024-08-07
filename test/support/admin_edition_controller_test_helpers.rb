@@ -1034,6 +1034,24 @@ module AdminEditionControllerTestHelpers
 
         assert publication.reload.access_limited?
       end
+
+      view_test "access limiting document fails if user does not belong to one of the tagged organisations" do
+        controller.current_user.organisation = create(:organisation)
+        controller.current_user.save!
+        organisation = create(:organisation)
+        edition = create(edition_type, access_limited: false, organisations: [organisation])
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                access_limited: "1",
+              },
+            }
+
+        assert_not edition.reload.access_limited?
+        assert_select "div[role='alert']", text: "Access can only be limited by users belonging to an organisation tagged to the document"
+      end
     end
 
     def should_allow_relevance_to_local_government_of(edition_type)
