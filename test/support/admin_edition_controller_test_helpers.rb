@@ -1024,6 +1024,21 @@ module AdminEditionControllerTestHelpers
 
         assert publication.reload.access_limited?
       end
+
+      test "update to document fails if user does not belong to owning organisation" do
+        # Arrange
+        # Create an organisation
+        # Grab the current user from the controller
+        # Create a document belonging to the organisation
+        #
+        # Act
+        # Send a request to update the document with access limiting enabled
+        #
+        # Assert
+        # That we are redirected back to the editing form
+        # That the validation error is visible on the form
+        # That document still has access limiting disabled
+      end
     end
 
     def should_allow_relevance_to_local_government_of(edition_type)
