@@ -1,3 +1,5 @@
+require_relative "../support/stubs"
+
 Given(/^the content object store feature flag is (enabled|disabled)$/) do |enabled|
   @test_strategy ||= Flipflop::FeatureSet.current.test!
   @test_strategy.switch!(:content_object_store, enabled == "enabled")
@@ -245,4 +247,32 @@ end
 
 Then("I accept and publish") do
   click_on "Accept and publish"
+end
+
+When(/^dependent content exists for a content block$/) do
+  @dependent_content = 10.times.map do |i|
+    {
+      "title": "Content #{i}",
+      "document_type": "document",
+      "links": {},
+      "link_set_links": {},
+      "base_path" => "/",
+      "content_id": SecureRandom.uuid,
+    }
+  end
+
+  @dependent_content.each_with_index do |item, i|
+    stub_dependent_content(results: [item], total: @dependent_content.length, pages: @dependent_content.length, current_page: i + 1)
+  end
+end
+
+Then(/^I should see the dependent content listed$/) do
+  assert_text "Content appears in"
+
+  @dependent_content.each do |item|
+    assert_text item[:title]
+    break if item == @dependent_content.last
+
+    click_on "Next"
+  end
 end
