@@ -9,7 +9,11 @@ namespace :asset_manager do
       next if (attachables.map(&:state) - %w[unpublished superseded]).any?
 
       attachment_data.assets.map do |asset|
-        asset_manager_response = GdsApi.asset_manager.asset(asset.asset_manager_id).to_h
+        begin
+          asset_manager_response = GdsApi.asset_manager.asset(asset.asset_manager_id).to_h
+        rescue GdsApi::HTTPNotFound
+          next
+        end
 
         next unless asset_manager_response["deleted"] == false
 
