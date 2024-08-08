@@ -6,15 +6,6 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
   let(:body) { { "properties" => { "foo" => {}, "bar" => {} } } }
   let(:schema) { build(:content_block_schema, :email_address, body:) }
 
-  describe ".valid_schemas" do
-    test "it returns the contents of the VALID_SCHEMA constant" do
-      assert_equal ContentObjectStore::ContentBlock::Schema.valid_schemas, %w[
-        email_address
-        postal_address
-      ]
-    end
-  end
-
   test "it generates a human-readable name" do
     assert_equal schema.name, "Email address"
   end
@@ -29,6 +20,15 @@ class ContentObjectStore::SchemaTest < ActiveSupport::TestCase
 
   test "it returns a block type" do
     assert_equal schema.block_type, "email_address"
+  end
+
+  describe ".valid_schemas" do
+    test "it returns the contents of the VALID_SCHEMA constant" do
+      assert_equal ContentObjectStore::ContentBlock::Schema.valid_schemas, %w[
+        email_address
+        postal_address
+      ]
+    end
   end
 
   describe ".all" do
