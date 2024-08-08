@@ -27,10 +27,10 @@ Feature: Republishing published documents
     When I request a republish of the "Ministers" page
     Then I can see the "Ministers" page has been scheduled for republishing
 
-#  Scenario: Republish the "Find a British embassy, high commission or consulate" page
-#    Given a published publication "Find a British embassy, high commission or consulate" exists
-#    When I request a republish of the "Find a British embassy, high commission or consulate" page
-#    Then I can see the "Find a British embassy, high commission or consulate" page has been scheduled for republishing
+  Scenario: Republish the "Find a British embassy, high commission or consulate" page
+    Given a published publication "Find a British embassy, high commission or consulate" exists
+    When I request a republish of the "Find a British embassy, high commission or consulate" page
+    Then I can see the "Find a British embassy, high commission or consulate" page has been scheduled for republishing
 
   Scenario: Republish the "Help and services around the world" page
     Given a published publication "Help and services around the world" exists
