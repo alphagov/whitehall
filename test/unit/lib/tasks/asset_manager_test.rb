@@ -29,10 +29,22 @@ class AssetManagerTest < ActiveSupport::TestCase
         end
       end
 
-      context "when asset is deleted from asset manager" do
+      context "when asset is soft deleted from asset manager" do
         before do
           attachment.attachment_data.assets.each do |asset|
             stub_asset_manager_has_an_asset(asset.asset_manager_id, { deleted: true, file_url: asset.filename })
+          end
+        end
+
+        test "it should not include the attachment in the report" do
+          refute_output(/#{attachment.attachment_data.assets.first.filename},#{edition.public_url},#{edition.state}/) { task.invoke }
+        end
+      end
+
+      context "when asset is hard deleted from asset manager" do
+        before do
+          attachment.attachment_data.assets.each do |asset|
+            stub_asset_manager_does_not_have_an_asset(asset.asset_manager_id)
           end
         end
 
