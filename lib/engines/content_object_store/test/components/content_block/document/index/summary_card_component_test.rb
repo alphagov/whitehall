@@ -10,6 +10,7 @@ class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponentTes
       id: 123,
       details: { foo: "bar", something: "else" },
       creator: build(:user),
+      organisation: build(:organisation),
     )
     content_block_document = content_block_edition.document
 
@@ -19,13 +20,15 @@ class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponentTes
     assert_selector ".govuk-summary-card__action", count: 1
     assert_selector ".govuk-summary-card__action .govuk-link[href='#{content_object_store_content_block_document_path(content_block_document)}']"
 
-    assert_selector ".govuk-summary-list__row", count: 4
+    assert_selector ".govuk-summary-list__row", count: 5
     assert_selector ".govuk-summary-list__key", text: "Title"
     assert_selector ".govuk-summary-list__value", text: content_block_edition.title
     assert_selector ".govuk-summary-list__key", text: "Foo"
     assert_selector ".govuk-summary-list__value", text: "bar"
     assert_selector ".govuk-summary-list__key", text: "Something"
     assert_selector ".govuk-summary-list__value", text: "else"
+    assert_selector ".govuk-summary-list__key", text: "Lead organisation"
+    assert_selector ".govuk-summary-list__value", text: content_block_edition.lead_organisation.name
     assert_selector ".govuk-summary-list__key", text: "Creator"
     assert_selector ".govuk-summary-list__value", text: content_block_edition.creator.name
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_30_134237) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_31_143537) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -210,6 +210,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_134237) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["edition_id"], name: "index_content_block_edition_authors_on_edition_id"
     t.index ["user_id"], name: "index_content_block_edition_authors_on_user_id"
+  end
+
+  create_table "content_block_edition_organisations", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "content_block_edition_id", null: false
+    t.integer "organisation_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["content_block_edition_id"], name: "idx_on_content_block_edition_id_e433bc9b13"
+    t.index ["organisation_id"], name: "index_content_block_edition_organisations_on_organisation_id"
   end
 
   create_table "content_block_editions", charset: "utf8mb3", force: :cascade do |t|
@@ -1274,6 +1283,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_134237) do
   end
 
   add_foreign_key "content_block_edition_authors", "content_block_editions", column: "edition_id"
+  add_foreign_key "content_block_edition_organisations", "content_block_editions"
   add_foreign_key "content_block_editions", "content_block_documents", column: "document_id"
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify

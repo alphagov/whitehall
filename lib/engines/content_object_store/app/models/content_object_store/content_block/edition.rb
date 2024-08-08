@@ -6,6 +6,7 @@ module ContentObjectStore
       include ContentObjectStore::HasAuthors
       include ContentObjectStore::HasAuditTrail
       include ContentObjectStore::Workflow
+      include ContentObjectStore::HasLeadOrganisation
     end
   end
 end

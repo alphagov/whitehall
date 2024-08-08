@@ -5,6 +5,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
   describe "#call" do
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
+    let(:organisation_id) { "f67b4350-35c2-46a8-babf-e39f5a4f2a7e" }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:edition_params) do
       {
@@ -17,6 +18,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
           "bar" => "Bar text",
         },
         creator: build(:user),
+        organisation_id:,
       }
     end
 

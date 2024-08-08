@@ -19,8 +19,9 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
       bar: "Bar text",
     }
 
+    organisation = create(:organisation)
     document = create(:content_block_document, :email_address, content_id: @content_id, title: "Some Title")
-    edition = create(:content_block_edition, document:, details:)
+    edition = create(:content_block_edition, document:, details:, organisation:)
 
     fake_put_content_response = GdsApi::Response.new(
       stub("http_response", code: 200, body: {}),
@@ -40,6 +41,9 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
         details: {
           "foo" => "Foo text",
           "bar" => "Bar text",
+        },
+        links: {
+          primary_publishing_organisation: [organisation.content_id],
         },
       },
     ]

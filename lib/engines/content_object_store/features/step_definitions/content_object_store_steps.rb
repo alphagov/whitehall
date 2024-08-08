@@ -69,13 +69,17 @@ end
 When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")
+  @organisation = fields.delete("organisation")
   @details = fields
 
   fill_in "Title", with: @title
 
+  select @organisation, from: "Lead organisation"
+
   fields.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
+
   click_on "Save and publish"
 end
 
@@ -113,11 +117,13 @@ end
 Given("an email address content block has been created") do
   @content_blocks ||= []
   @email_address = "foo@example.com"
+  organisation = create(:organisation)
   @content_block = create(
     :content_block_edition,
     :email_address,
     details: { email_address: @email_address },
     creator: @user,
+    organisation:,
   )
   @content_blocks.push(@content_block)
 end
@@ -157,6 +163,7 @@ Then("I should see the details for the email address content block") do
   should_show_summary_list_for_email_address_content_block(
     @content_block.document.title,
     @email_address,
+    @organisation,
   )
 end
 
@@ -175,17 +182,19 @@ end
 When("I fill out the form") do
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
+  select "Ministry of Example", from: "Lead organisation"
   click_on "Save and publish"
 end
 
 When("I set all fields to blank") do
   fill_in "Title", with: ""
   fill_in "Email address", with: ""
+  first("#lead_organisation option").select_option
   click_on "Save and publish"
 end
 
 Then("the edition should have been updated successfully") do
-  should_show_summary_list_for_email_address_content_block("Changed title", "changed@example.com")
+  should_show_summary_list_for_email_address_content_block("Changed title", "changed@example.com", "Ministry of Example")
 end
 
 def should_show_summary_card_for_email_address_content_block(document_title, email_address)
@@ -195,12 +204,14 @@ def should_show_summary_card_for_email_address_content_block(document_title, ema
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
-def should_show_summary_list_for_email_address_content_block(document_title, email_address)
+def should_show_summary_list_for_email_address_content_block(document_title, email_address, organisation)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
+  expect(page).to have_selector(".govuk-summary-list__value", text: organisation)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Creator")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
@@ -221,6 +232,7 @@ Then("I should see errors for the required fields") do
   required_fields.each do |required_field|
     assert_text "#{ContentObjectStore::ContentBlock::Edition.human_attribute_name("details_#{required_field}")} cannot be blank"
   end
+  assert_text "Lead organisation cannot be blank"
 end
 
 Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|

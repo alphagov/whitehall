@@ -10,6 +10,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
     @details = { "some_field" => "some_content" }
     @title = "Document title"
     @creator = create(:user)
+    @organisation = create(:organisation)
 
     @content_block_edition = ContentObjectStore::ContentBlock::Edition.new(
       created_at: @created_at,
@@ -20,6 +21,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
         title: @title,
       },
       creator: @creator,
+      organisation_id: @organisation.id.to_s,
     )
     @content_block_edition.stubs(:schema).returns(build(:content_block_schema))
   end
@@ -75,6 +77,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       document_attributes: {
         block_type: nil,
       },
+      organisation_id: @organisation.id.to_s,
     )
 
     assert_invalid @content_block_edition
@@ -90,6 +93,7 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       document_attributes: {
         title: nil,
       },
+      organisation_id: @organisation.id.to_s,
     )
 
     assert_invalid content_block_edition
