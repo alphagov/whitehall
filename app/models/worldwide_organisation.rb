@@ -204,4 +204,8 @@ class WorldwideOrganisation < Edition
   def associated_documents
     [offices, offices.map(&:contact), pages].compact.flatten
   end
+
+  def new_content_warning
+    "Do not create a worldwide organisation unless you have permission from your managing editor or GOV.UK department lead."
+  end
 end

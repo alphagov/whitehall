@@ -269,6 +269,8 @@ class Edition < ApplicationRecord
     self.class.format_name
   end
 
+  def new_content_warning; end
+
   def has_parent_type?
     true
   end

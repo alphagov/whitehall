@@ -9,6 +9,14 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
+    <% if @edition.new_content_warning %>
+      <div class="format-advice">
+        <%= render "govuk_publishing_components/components/warning_text", {
+          text: @edition.new_content_warning,
+        } %>
+      </div>
+    <% end %>
+
     <%= render "form", edition: @edition %>
   </div>
 

@@ -7,6 +7,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   should_allow_creating_of :worldwide_organisation
+  should_show_new_warning_message_for :worldwide_organisation
   should_allow_editing_of :worldwide_organisation
   should_allow_only_lead_organisations_for :worldwide_organisation
   should_prevent_modification_of_unmodifiable :worldwide_organisation
