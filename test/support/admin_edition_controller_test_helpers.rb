@@ -461,6 +461,16 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_show_new_warning_message_for(edition_type)
+      edition_class = class_for(edition_type)
+
+      view_test "new includes warning text" do
+        get :new
+
+        assert_select ".govuk-warning-text__text", /#{edition_class.new.new_content_warning}/
+      end
+    end
+
     def should_allow_lead_and_supporting_organisations_for(edition_type)
       edition_class = class_for(edition_type)
 
