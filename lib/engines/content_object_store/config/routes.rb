@@ -7,6 +7,8 @@ ContentObjectStore::Engine.routes.draw do
       resources :editions, only: %i[new create edit update], path_names: { new: "(:block_type)/new" } do
         member do
           get :review
+          get :review_links
+          post :review_links
           post :publish, to: "workflow#publish"
         end
       end
