@@ -15,7 +15,7 @@ class ContentObjectStore::ContentBlock::Document::Show::SummaryListComponentTest
 
     render_inline(ContentObjectStore::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 5
+    assert_selector ".govuk-summary-list__row", count: 6
     assert_selector ".govuk-summary-list__key", text: "Title"
     assert_selector ".govuk-summary-list__value", text: content_block_document.title
     assert_selector ".govuk-summary-list__actions", text: "Change"
@@ -33,5 +33,8 @@ class ContentObjectStore::ContentBlock::Document::Show::SummaryListComponentTest
 
     assert_selector ".govuk-summary-list__key", text: "Creator"
     assert_selector ".govuk-summary-list__value", text: content_block_edition.creator.name
+
+    assert_selector ".govuk-summary-list__key", text: "Embed code"
+    assert_selector ".govuk-summary-list__value", text: content_block_document.embed_code
   end
 end

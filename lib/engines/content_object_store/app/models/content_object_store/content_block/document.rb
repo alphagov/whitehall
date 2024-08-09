@@ -16,6 +16,10 @@ module ContentObjectStore
               inverse_of: :document
 
       has_many :versions, through: :editions, source: :versions
+
+      def embed_code
+        "{{embed:content_block_#{block_type}:#{content_id}}}"
+      end
     end
   end
 end
