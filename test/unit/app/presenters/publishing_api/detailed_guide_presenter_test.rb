@@ -25,7 +25,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
   end
 
   test "DetailedGuide presents correct information" do
-    government = create(:government)
     detailed_guide = create(
       :detailed_guide,
       title: "Some detailed guide",
@@ -75,7 +74,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         ],
         related_guides: [],
         related_mainstream_content: [],
-        government: [government.content_id],
+        government: [],
         topical_events: [topical_event.content_id],
       },
     }
@@ -144,7 +143,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
-      political: true,
+      government:,
     )
 
     presented_item = present(detailed_guide)

@@ -65,7 +65,8 @@ private
 
   def flag_if_political_content!
     return if edition.document.live?
+    return unless PoliticalContentIdentifier.political?(edition)
 
-    edition.political = PoliticalContentIdentifier.political?(edition)
+    edition.government = edition.default_government
   end
 end

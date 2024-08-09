@@ -172,6 +172,21 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
                  taggable_world_locations_container
   end
 
+  test "#taggable_governments_container returns an array of hashes for all governments sorted by start date" do
+      gov1 = create(:government, start_date: 2.years.ago, end_date: 1.years.ago)
+        gov2 =  create(:government, start_date: 3.years.ago, end_date: 2.years.ago)
+        gov3 = create(:government, start_date: 1.years.ago)
+
+      expected_result = [gov3, gov1, gov2].map do |gov|
+        {
+          name: gov.name,
+          id: gov.id,
+        }
+      end
+
+      assert_equal expected_result, taggable_governments_container
+  end
+
   test "#taggable_alternative_format_providers_container returns an array of label/ID pairs for organisation alternative format providers" do
     organisation_h = create(:organisation, name: "Department for Hair and Makeup")
     organisation_m = create(:organisation, alternative_format_contact_email: "barry@strange-fruit.uk", name: "Ministry of Strange Fruit")

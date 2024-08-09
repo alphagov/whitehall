@@ -174,26 +174,6 @@ class SpeechTest < ActiveSupport::TestCase
     assert_not build(:speech, primary_locale: :es).translatable?
   end
 
-  test "#government returns the government active on the delivered_on date" do
-    create(:current_government)
-    previous_government = create(:previous_government)
-    speech = create(:speech, first_published_at: 1.day.ago, delivered_on: 4.years.ago)
-
-    assert_equal previous_government, speech.government
-  end
-
-  test "#government returns the current government for an speech delivered at an unspecified time" do
-    current_government = create(:current_government)
-    speech = create(:deleted_speech, delivered_on: nil)
-    assert_equal current_government, speech.government
-  end
-
-  test "#government returns the current government for an speech in the future" do
-    current_government = create(:current_government)
-    speech = create(:speech, delivered_on: 2.weeks.from_now)
-    assert_equal current_government, speech.government
-  end
-
   test "Speech is rendered by government-frontend" do
     assert_equal Speech.new.rendering_app, Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end

@@ -2,18 +2,44 @@ require "test_helper"
 
 class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController::TestCase
   tests Admin::NewsArticlesController
+  enable_url_helpers
 
   setup do
     login_as :writer
   end
 
-  view_test "displays the political checkbox for privileged users " do
-    create(:current_government)
+  view_test "displays the political checkbox for managing editor users" do
+    current_government = create(:current_government)
     login_as :managing_editor
     published_edition = create(:published_news_article, first_published_at: 2.days.ago)
     new_draft = create(:news_article, document: published_edition.document, first_published_at: 2.days.ago)
     get :edit, params: { id: new_draft }
-    assert_select "#edition_political"
+    assert_select "#edition_political input[type='checkbox'][name='edition[government_id]'][value='#{current_government.id}']"
+  end
+
+  view_test "displays a government select for GDS editor users" do
+    governments = [create(:current_government), create(:previous_government)]
+    login_as :gds_editor
+    published_edition = create(:published_news_article, first_published_at: 2.days.ago)
+    new_draft = create(:news_article, document: published_edition.document, first_published_at: 2.days.ago)
+    get :edit, params: { id: new_draft }
+    assert_select "select#edition_political"
+    governments.each do |government|
+      assert_select "select#edition_political[name='edition[government_id]'] option[value='#{government.id}']"
+    end
+  end
+
+  # TODO: Decide whether to move this into an edition test helper used by all edition types
+  test "gds editors can override the government associated with an edition" do
+    current_government = create(:current_government)
+    previous_government = create(:previous_government)
+    published_edition = create(:published_news_article, first_published_at: 2.days.ago, government: current_government)
+    new_draft = create(:news_article, document: published_edition.document, first_published_at: 2.days.ago)
+
+    put :update, params: { id: new_draft, edition: { government_id: previous_government.id } }
+
+    assert_redirected_to admin_edition_path(new_draft)
+    assert_equal previous_government, new_draft.reload.government
   end
 
   view_test "doesn't display the political checkbox for non-privileged users " do
@@ -30,11 +56,11 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   end
 
   def edit_historic_document
-    create(:previous_government, name: "old")
+    previous_government = create(:previous_government, name: "old")
     create(:current_government, name: "new")
 
     published_edition = create(:published_news_article, first_published_at: 3.years.ago)
-    new_draft = create(:news_article, political: true, first_published_at: 3.years.ago, document: published_edition.document)
+    new_draft = create(:news_article, government: previous_government, first_published_at: 3.years.ago, document: published_edition.document)
 
     get :edit, params: { id: new_draft }
   end

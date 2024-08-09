@@ -132,6 +132,10 @@ module Admin::TaggableContentHelper
     end
   end
 
+  def taggable_governments_container
+    Government.order(start_date: :desc).all.map { |government| { name: government.name, id: government.id }}
+  end
+
   # Returns an MD5 digest representing the current set of taggable topical
   # events. This will change if any of the Topics should change or if a new
   # topic event is added.

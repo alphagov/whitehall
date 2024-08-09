@@ -426,7 +426,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should return search index suitable for Searchable" do
     government = create(:current_government)
-    publication = create(:published_policy_paper, title: "publication-title", political: true, first_published_at: government.start_date)
+    publication = create(:published_policy_paper, title: "publication-title", government:, first_published_at: government.start_date)
     slug = publication.document.slug
     summary = publication.summary
 
@@ -445,8 +445,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "search_api topical_events include topical_events" do
-    government = create(:current_government)
-    publication = create(:published_policy_paper, :with_topical_events, title: "publication-title", political: true, first_published_at: government.start_date)
+    publication = create(:published_policy_paper, :with_topical_events, title: "publication-title")
 
     expected = publication.topical_events.map(&:name)
     assert_equal expected.sort, publication.search_index["topical_events"].sort
@@ -799,52 +798,23 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
-  test "#government returns the current government for a newly published edition" do
-    government = create(:current_government)
-    edition = create(:edition, first_published_at: Time.zone.now)
-    assert_equal government, edition.government
-  end
-
-  test "#government returns the historic government for a previously published edition" do
-    previous_government = create(:previous_government)
-    create(:current_government)
-    edition = create(:edition, first_published_at: 4.years.ago)
-    assert_equal previous_government, edition.government
-  end
-
-  test "#government returns nil for an edition without a first_published_at" do
-    edition = create(:edition, first_published_at: nil)
-    assert_nil edition.government
-  end
-
-  test "#historic? is true when political and from a previous government" do
+  test "#historic? is true when from a previous government" do
     create(:current_government)
     previous_government = create(:previous_government)
 
-    edition = create(:edition, political: true, first_published_at: previous_government.start_date)
+    edition = create(:edition, government: previous_government)
     assert edition.historic?
   end
 
-  test "#historic? is false for when not political or from the current government" do
+  test "#historic? is false for when from the current government" do
     current_government = create(:current_government)
 
-    previous_government = create(:previous_government)
-
-    edition = create(:edition, political: false, first_published_at: previous_government.start_date)
-    assert_not edition.historic?
-
-    edition = create(:edition, political: false, first_published_at: current_government.start_date)
-    assert_not edition.historic?
-
-    edition = create(:edition, political: true, first_published_at: current_government.start_date)
+    edition = create(:edition, government: current_government)
     assert_not edition.historic?
   end
 
   test "#historic? is false when the document has no government" do
-    edition = create(:edition, political: true, first_published_at: nil)
-    assert_not edition.historic?
-
-    edition = create(:edition, political: false, first_published_at: nil)
+    edition = create(:edition)
     assert_not edition.historic?
   end
 
