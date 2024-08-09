@@ -50,6 +50,8 @@ class Edition < ApplicationRecord
   has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: "Contact"
   has_many :depended_upon_editions, through: :edition_dependencies, source: :dependable, source_type: "Edition"
 
+  belongs_to :government, optional: true
+
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
   validates_with TaxonValidator, on: :publish, if: :requires_taxon?
@@ -346,18 +348,20 @@ class Edition < ApplicationRecord
     true
   end
 
-  def government
-    @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
+  def default_government
+    Government.on_date(date_for_government) unless date_for_government.nil?
   end
 
   def search_government_name
     government.name if government
   end
 
-  def historic?
-    return false unless government
+  def political?
+    government.present?
+  end
 
-    political? && !government.current?
+  def historic?
+    government.present? && !government.current?
   end
 
   def withdrawn?

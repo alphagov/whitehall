@@ -18,6 +18,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       login_as(managing_editor)
+      create(:current_government)
       edition.attachments << attachment
 
       setup_publishing_api_for(edition)

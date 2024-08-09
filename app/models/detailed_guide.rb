@@ -111,10 +111,6 @@ class DetailedGuide < Edition
     end
   end
 
-  def government
-    @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
-  end
-
   def persist_content_ids
     related_mainstreams.delete_all
     related_mainstreams.create!(content_id: related_mainstream_content_ids[0]) if related_mainstream_content_ids[0]

@@ -7,7 +7,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   end
 
   test "publication presentation includes the correct values" do
-    create(:government)
     statistical_data_set = create(:published_statistical_data_set)
     publication = create(
       :published_publication,
@@ -55,7 +54,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     publication.topical_event_memberships.create!(topical_event_id: topical_event.id)
     expected_links = {
-      government: [publication.government.content_id],
+      government: [],
       primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       original_primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       organisations: publication.lead_organisations.map(&:content_id),
@@ -109,7 +108,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     original_timestamp = 2.days.ago
     original = create(:superseded_publication, first_published_at: original_timestamp)
     new_timestamp = Time.zone.now
-    create(:government)
     new_edition = create(:published_publication, document: original.document, published_major_version: 2, change_note: "More changes", major_change_published_at: new_timestamp)
     presented_item = present(new_edition)
     assert_valid_against_publisher_schema(presented_item.content, "publication")

@@ -2,12 +2,13 @@ require "test_helper"
 
 class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   setup do
-    create(:current_government)
+    government = create(:current_government)
 
     @document_collection = create(
       :document_collection,
       title: "Document Collection title",
       summary: "Document Collection summary",
+      government:,
     )
 
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
@@ -333,7 +334,7 @@ class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSu
       slug: "the-current-government",
     )
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      create(:document_collection),
+      create(:document_collection, government: @current_government),
     )
   end
 
@@ -345,36 +346,10 @@ class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSu
   end
 end
 
-class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveSupport::TestCase
-  setup do
-    # Goverments are not explicitly associated with an Edition.
-    # The Government is determined based on date of publication.
-    create(:current_government)
-    @previous_government = create(
-      :previous_government,
-      name: "A Previous Government",
-      slug: "a-previous-government",
-    )
-    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      create(
-        :document_collection,
-        first_published_at: @previous_government.start_date + 1.day,
-      ),
-    )
-  end
-
-  test "presents a previous government" do
-    assert_equal(
-      @previous_government.content_id,
-      @presented_document_collection.links.dig(:government, 0),
-    )
-  end
-end
-
 class PublishingApi::DocumentCollectionPresenterPoliticalTest < ActiveSupport::TestCase
   setup do
-    document_collection = create(:document_collection)
-    document_collection.stubs(:political?).returns(true)
+    government = create(:current_government)
+    document_collection = create(:document_collection, government:)
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
       document_collection,
     )

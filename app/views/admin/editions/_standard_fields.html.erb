@@ -126,22 +126,43 @@
   <% if edition.document&.live? && edition.can_be_marked_political? && can?(:mark_political, edition) %>
     <div class="govuk-!-margin-bottom-8">
       <%= form.hidden_field :political, value: "0" %>
-
-      <%= render "govuk_publishing_components/components/checkboxes", {
-        name: "edition[political]",
-        id: "edition_political",
-        heading: "Political",
-        heading_size: "l",
-        no_hint_text: true,
-        error: errors_for_input(edition.errors, :political),
-        items: [
-          {
-            label: "Associate with government of the time (currently set to #{edition.government&.name}).",
-            value: "1",
-            checked: edition.political,
-          },
-        ],
-      } %>
+      <% if can?(:select_government, edition) %>
+        <%= render "govuk_publishing_components/components/select", {
+          name: "edition[government_id]",
+          id: "edition_political",
+          heading: "Political",
+          heading_size: "l",
+          label: "Associate this document with a government",
+          error: errors_for_input(edition.errors, :political),
+          options: [
+            {
+              text: "Not associated with any government",
+              value: "",
+            }
+          ].concat(taggable_governments_container.map do |government|
+            {
+              text: government[:name],
+              value: government[:id],
+            }
+          end),
+        } %>
+      <% else %>
+        <%= render "govuk_publishing_components/components/checkboxes", {
+          name: "edition[government_id]",
+          id: "edition_political",
+          heading: "Political",
+          heading_size: "l",
+          no_hint_text: true,
+          error: errors_for_input(edition.errors, :political),
+          items: [
+            {
+              label: "Associate with government of the time (currently set to #{current_government.name}).",
+              value: current_government.id,
+              checked: edition.government.present?,
+            },
+          ],
+        } %>
+      <% end %>
 
       <p class="govuk-body"><%= link_to "Read the history mode guidance", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode", class: "govuk-link" %> for more information as to what this means.</p>
     </div>
