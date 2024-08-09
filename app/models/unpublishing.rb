@@ -88,7 +88,7 @@ private
       return if alternative_url.nil?
 
       Addressable::URI.parse(alternative_url)
-    rescue URI::InvalidURIError
+    rescue URI::InvalidURIError, Addressable::URI::InvalidURIError
       nil
     end
   end
