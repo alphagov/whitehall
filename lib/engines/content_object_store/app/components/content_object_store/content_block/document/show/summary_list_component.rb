@@ -13,7 +13,15 @@ private
       *details_items,
       organisation_item,
       creator_item,
+      embed_code_item,
     ]
+  end
+
+  def embed_code_item
+    {
+      field: "Embed code",
+      value: content_block_document.embed_code,
+    }
   end
 
   def title_item

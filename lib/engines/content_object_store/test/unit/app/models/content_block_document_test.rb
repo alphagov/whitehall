@@ -51,6 +51,15 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
     assert_equal document.versions.first.item.id, edition.id
   end
 
+  describe "embed_code" do
+    it "returns embed code for the document" do
+      uuid = SecureRandom.uuid
+      document = create(:content_block_document, :email_address, content_id: uuid)
+
+      assert_equal document.embed_code, "{{embed:content_block_email_address:#{uuid}}}"
+    end
+  end
+
   describe "latest_edition" do
     it "returns the latest edition" do
       document = create(:content_block_document, :email_address)
