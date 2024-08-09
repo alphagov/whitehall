@@ -288,3 +288,18 @@ Then(/^I should see the dependent content listed$/) do
     click_on "Next"
   end
 end
+
+Then(/^I am shown where the changes will take place$/) do
+  expect(page).to have_selector("h1", text: "Where the change will appear")
+
+  @dependent_content.each do |item|
+    assert_text item[:title]
+    break if item == @dependent_content.last
+
+    click_on "Next"
+  end
+end
+
+When(/^I continue$/) do
+  click_on "Accept and publish"
+end

@@ -1,0 +1,59 @@
+<% content_for :context, "Manage #{add_indefinite_article @content_block_document.block_type.humanize}" %>
+<% content_for :title, "Where the change will appear" %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :back_link do %>
+  <!--  TODO: what is back link-->
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: content_object_store.content_object_store_content_block_documents_path,
+  } %>
+<% end %>
+
+<p class="govuk-body">The new email will appear on the following content after you publish the change.</p>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <!-- TODO: The prototype wants to show a counter beneath the title but
+    before the table, the existing component doesn't support that so I've left
+    it out for now-->
+    <%= render(
+          ContentObjectStore::ContentBlock::Document::Show::LinkedEditionsTableComponent.new(
+            caption: "Content it appears in",
+            linked_content_items: @linked_content_items,
+            ),
+          ) %>
+
+    <% if @page_data.total_pages > 1 %>
+      <% Admin::PaginationHelper.pagination_hash(
+        current_page: @page_data.current_page.to_i,
+        total_pages: @page_data.total_pages.to_i,
+        path: content_object_store.review_links_content_object_store_content_block_edition_path(content_block_edition: @new_edition)).tap do |hash| %>
+        <%= render "components/pagination", {
+          previous_href: hash[:previous_href],
+          next_href: hash[:next_href],
+          items: hash[:items],
+        } %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <%= form_with(url: content_object_store.content_object_store_content_block_edition_path(content_block_edition: @new_edition), method: :patch) do %>
+          <div class="govuk-button-group govuk-!-margin-bottom-6">
+            <%= render "govuk_publishing_components/components/button", {
+              text: "Accept and publish",
+              name: "accept_and_publish",
+              value: "Accept and publish",
+              type: "submit",
+            } %>
+            <%= link_to("Cancel", content_object_store.content_object_store_content_block_documents_path, class: "govuk-link") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

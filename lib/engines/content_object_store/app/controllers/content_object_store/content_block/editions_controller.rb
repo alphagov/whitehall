@@ -33,6 +33,21 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(content_block_edition:, schema: @schema)
   end
 
+  def review_links
+    content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
+    @new_edition = edition_params
+    @content_block_document = content_block_edition.document
+
+    linked_item_service = ContentObjectStore::GetLinkedContentItems.new(
+      content_block_document: @content_block_document,
+      page: params[:page],
+    )
+
+    @linked_content_items = linked_item_service.items
+    @page_data = linked_item_service.page_data
+  end
+
   def update
     content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
     @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
@@ -58,7 +73,7 @@ private
 
   def edition_params
     params.require(:content_block_edition)
-      .permit(:organisation_id, document_attributes: %w[title block_type], details: @schema.fields)
+      .permit(:organisation_id, :creator, document_attributes: %w[title block_type], details: @schema.fields)
       .merge(creator: current_user)
   end
 
