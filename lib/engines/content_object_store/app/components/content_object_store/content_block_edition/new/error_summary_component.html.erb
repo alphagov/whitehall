@@ -1,0 +1,22 @@
+<% if error_message %>
+  <%= render "govuk_publishing_components/components/error_summary", {
+    title: "There is a problem",
+    items: [
+      {
+        text: error_message,
+        href: "#block_type",
+        data_attributes: {
+          module: "ga4-auto-tracker",
+          "ga4-auto": {
+            event_name: "form_error",
+            type: "New content block",
+            text: error_message,
+            section: "Content block",
+            action: "error",
+            tool_name: "Whitehall",
+          }.to_json,
+        },
+      },
+    ],
+  } %>
+<% end %>
