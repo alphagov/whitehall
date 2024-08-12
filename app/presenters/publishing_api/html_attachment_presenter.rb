@@ -80,7 +80,7 @@ module PublishingApi
     end
 
     def political?
-      item&.attachable.is_a?(Edition) ? item&.attachable&.political : false
+      item&.attachable.is_a?(Edition) ? item&.attachable&.political? : false
     end
 
     def public_timestamp

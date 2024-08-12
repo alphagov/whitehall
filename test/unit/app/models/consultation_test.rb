@@ -419,14 +419,6 @@ class ConsultationTest < ActiveSupport::TestCase
     assert consultation_with_command_paper_outcome.search_index[:has_act_paper]
   end
 
-  test "#government returns the government active on the first_public_at date" do
-    create(:current_government)
-    previous_government = create(:previous_government)
-    consultation = create(:consultation, first_published_at: 4.years.ago)
-
-    assert_equal previous_government, consultation.government
-  end
-
   test "#save triggers consultation opening in the future to be republished twice" do
     opening_at = 2.days.from_now
     closing_at = 3.days.from_now

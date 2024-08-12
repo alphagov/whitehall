@@ -9,7 +9,7 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
   describe "#identify_political_content" do
     let(:task) { Rake::Task["election:identify_political_content_for"] }
     let(:organisation) { create(:organisation, political: true) }
-    let(:date) { "31-12-2022" }
+    let(:date) { 6.weeks.ago.to_s }
 
     it "raises an error if organisation does not exist" do
       out, _err = capture_io { task.invoke("non-existent-slug", date) }
@@ -22,27 +22,28 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
     end
 
     it "marks eligible published editions of documents first published after the specified date and any associated drafts as political" do
+      create(:government, start_date: 4.weeks.ago, end_date: 2.weeks.ago)
       document = create(:document)
-      published_edition = create(:news_article, :published, document:, first_published_at: "01-01-2023")
-      draft_edition = create(:news_article, :draft, document:)
+      published_edition = create(:news_article, :published, document:, first_published_at: 3.weeks.ago)
+      draft_edition = create(:news_article, :draft, document:, first_published_at: 3.weeks.ago)
       organisation.editions = [published_edition, draft_edition]
       organisation.save!
 
       capture_io { task.invoke(organisation.slug, date) }
-      assert published_edition.reload.political
-      assert draft_edition.reload.political
+      assert published_edition.reload.political?
+      assert draft_edition.reload.political?
     end
 
     it "does not mark editions unrelated to documents first published before the specified date as political" do
       non_political_document = create(:document)
-      published_edition = create(:news_article, :published, document: non_political_document, political: false, first_published_at: "30-12-2022")
-      draft_edition = create(:news_article, :draft, document: non_political_document, political: false)
+      published_edition = create(:news_article, :published, document: non_political_document, first_published_at: 8.weeks.ago)
+      draft_edition = create(:news_article, :draft, document: non_political_document, first_published_at: 8.weeks.ago)
       organisation.editions = [published_edition, draft_edition]
       organisation.save!
 
       capture_io { task.invoke(organisation.slug, date) }
-      assert_not non_political_document.reload.live_edition.political
-      assert_not non_political_document.reload.latest_edition.political
+      assert_not non_political_document.reload.live_edition.political?
+      assert_not non_political_document.reload.latest_edition.political?
     end
 
     it "does not mark editions that are ineligible as political content as political" do
@@ -51,7 +52,7 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
       organisation.save!
 
       capture_io { task.invoke(organisation.slug, date) }
-      assert_not fatality_notice.reload.political
+      assert_not fatality_notice.reload.political?
     end
   end
 end

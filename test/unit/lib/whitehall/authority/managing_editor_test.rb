@@ -201,4 +201,12 @@ class ManagingEditorTest < ActiveSupport::TestCase
   test "cannot publish historic editions" do
     assert_not enforcer_for(managing_editor, historic_edition).can?(:publish)
   end
+
+  test "cannot select government for editions" do
+    assert_not enforcer_for(managing_editor, normal_edition).can?(:select_government)
+  end
+
+  test "cannot select government for historic editions" do
+    assert_not enforcer_for(managing_editor, historic_edition).can?(:select_government)
+  end
 end

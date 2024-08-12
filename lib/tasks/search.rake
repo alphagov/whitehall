@@ -112,7 +112,8 @@ namespace :search do
   desc "Update search index for all political content"
   task political: :environment do
     Edition
-      .where(political: true, state: "published")
+      .where(state: "published")
+      .where("government_id IS NOT NULL")
       .find_each { |edition| edition&.update_in_search_index }
   end
 

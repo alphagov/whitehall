@@ -81,4 +81,18 @@ class PublishingApi::PayloadBuilder::LinksTest < ActionView::TestCase
       links,
     )
   end
+
+  test "includes a link to an associated government if one is present" do
+    government = create(:government)
+    edition = create(:published_news_article, government:)
+    links = links_for(edition, [:government])
+    assert_equal [government.content_id], links[:government]
+  end
+
+  test "includes a link to the edition's default government if no government is associated with the edition" do
+    government = create(:government, start_date: 4.weeks.ago, end_date: 2.weeks.ago)
+    edition = create(:published_news_article, first_published_at: 3.weeks.ago)
+    links = links_for(edition, [:government])
+    assert_equal [government.content_id], links[:government]
+  end
 end

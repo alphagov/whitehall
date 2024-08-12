@@ -40,7 +40,6 @@ module PublishingApi
 
       details = {
         body:,
-        political: item.political,
         delivered_on: item.delivered_on.iso8601,
         change_history: changes_with_public_timestamps.as_json,
         location: item.location,

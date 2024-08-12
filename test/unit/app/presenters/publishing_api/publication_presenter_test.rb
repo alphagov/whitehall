@@ -55,7 +55,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     publication.topical_event_memberships.create!(topical_event_id: topical_event.id)
     expected_links = {
-      government: [publication.government.content_id],
+      government: [publication.default_government.content_id],
       primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       original_primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       organisations: publication.lead_organisations.map(&:content_id),

@@ -1,0 +1,33 @@
+<div class="govuk-!-margin-bottom-8">
+  <% if can_select_government? %>
+    <%= render "govuk_publishing_components/components/select", {
+      name: "edition[government_id]",
+      id: "edition_political",
+      heading: "Political",
+      heading_size: "l",
+      label: "Associate this document with a government",
+      options: government_options_for_select,
+    } %>
+  <% else %>
+    <%= render "govuk_publishing_components/components/input", {
+      name: "edition[government_id]",
+      type: "hidden",
+      value: "",
+    } %>
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: "edition[government_id]",
+      id: "edition_political",
+      heading: "Political",
+      heading_size: "l",
+      no_hint_text: true,
+      items: [
+        {
+          label: "Associate with government of the time.",
+          value: @edition.government&.id || @edition.default_government&.id,
+          checked: @edition.government&.id,
+        },
+      ],
+    } %>
+  <% end %>
+  <p class="govuk-body"><%= link_to "Read the history mode guidance", "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode", class: "govuk-link" %> for more information as to what this means.</p>
+</div>

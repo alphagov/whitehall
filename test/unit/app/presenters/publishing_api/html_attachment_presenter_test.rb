@@ -11,7 +11,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       :publication,
       :with_html_attachment,
       :published,
-      political: true,
+      government:,
       images: [build(:image)],
     )
 

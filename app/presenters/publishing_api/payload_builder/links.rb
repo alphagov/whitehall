@@ -73,7 +73,7 @@ module PublishingApi::PayloadBuilder
     end
 
     def government_id
-      [item.government&.content_id].compact
+      [item.government&.content_id || item.default_government&.content_id].compact
     end
   end
 end

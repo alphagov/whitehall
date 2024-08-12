@@ -17,7 +17,7 @@ namespace :election do
   desc "Republish all political content"
   task republish_political_content: :environment do
     political_document_ids = Edition
-      .where(political: true)
+      .where("government_id IS NOT NULL")
       .pluck(:document_id)
       .uniq
 
@@ -76,14 +76,19 @@ namespace :election do
     published = editions
       .published
       .where("first_published_at >= ?", date)
-
-    puts "Identifying political content in #{published.size} published editions..."
-    published.find_each { |edition| edition.update_column(:political,  PoliticalContentIdentifier.political?(edition)) }
+      .where(government_id: nil)
 
     pre_published_editions = Edition.in_pre_publication_state.where(document_id: published.map(&:document_id))
 
+    puts "Identifying political content in #{published.size} published editions..."
+    published.find_each do |edition|
+      edition.update_column(:government_id, edition.default_government&.id) if PoliticalContentIdentifier.political?(edition)
+    end
+
     puts "Identifying political content in #{pre_published_editions.size} pre-publication editions..."
-    pre_published_editions.find_each { |edition| edition.update_column(:political, PoliticalContentIdentifier.political?(edition)) }
+    pre_published_editions.find_each do |edition|
+      edition.update_column(:government_id, edition.default_government&.id) if PoliticalContentIdentifier.political?(edition)
+    end
 
     puts "Done"
   rescue Date::Error => _e

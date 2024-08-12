@@ -49,6 +49,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
           body: "# Woo!\nSome content",
           role_appointment:,
           location: "A location",
+          government: @current_government,
         )
       end
 
@@ -69,7 +70,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         assert_equal([speech.auth_bypass_id], presented.content[:auth_bypass_ids])
 
         details = presented.content[:details]
-        assert_not(details[:political])
+        assert(details[:political])
         assert_equal(expected_body, details[:body])
         assert_match(iso8601_regex, details[:delivered_on])
         assert_match("A location", details[:location])

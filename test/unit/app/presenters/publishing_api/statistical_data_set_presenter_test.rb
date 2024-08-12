@@ -212,39 +212,13 @@ class PublishingApi::StatisticalDataSetPresenterCurrentGovernmentTest < ActiveSu
       slug: "the-current-government",
     )
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      create(:statistical_data_set),
+      create(:statistical_data_set, government: @current_government),
     )
   end
 
   test "presents a current government" do
     assert_equal(
       @current_government.content_id,
-      @presented_statistical_data_set.links.dig(:government, 0),
-    )
-  end
-end
-
-class PublishingApi::StatisticalDataSetPresenterPreviousGovernmentTest < ActiveSupport::TestCase
-  setup do
-    # Goverments are not explicitly associated with an Edition.
-    # The Government is determined based on date of publication.
-    create(:current_government)
-    @previous_government = create(
-      :previous_government,
-      name: "A Previous Government",
-      slug: "a-previous-government",
-    )
-    @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      create(
-        :statistical_data_set,
-        first_published_at: @previous_government.start_date + 1.day,
-      ),
-    )
-  end
-
-  test "presents a previous government" do
-    assert_equal(
-      @previous_government.content_id,
       @presented_statistical_data_set.links.dig(:government, 0),
     )
   end

@@ -127,6 +127,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
   end
 
   test "#perform! sets political flag for political content on first publish" do
+    create(:government, start_date: 1.week.ago)
     edition = create(:submitted_edition)
 
     assert_not edition.political?
@@ -172,6 +173,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
   end
 
   test "#perform! sets a political flag on political content that has a first_published_at set" do
+    create(:government, start_date: 4.weeks.ago)
     edition = create(:submitted_edition, first_published_at: 3.weeks.ago)
 
     assert_not edition.political?

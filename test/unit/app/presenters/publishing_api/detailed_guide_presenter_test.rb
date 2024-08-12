@@ -144,7 +144,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
-      political: true,
+      government:,
     )
 
     presented_item = present(detailed_guide)

@@ -379,14 +379,6 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     assert call_for_evidence_with_command_paper_outcome.search_index[:has_act_paper]
   end
 
-  test "#government returns the government active on the first_public_at date" do
-    create(:current_government)
-    previous_government = create(:previous_government)
-    call_for_evidence = create(:call_for_evidence, first_published_at: 4.years.ago)
-
-    assert_equal previous_government, call_for_evidence.government
-  end
-
   test "#save triggers call for evidence opening in the future to be republished twice" do
     opening_at = 2.days.from_now
     closing_at = 3.days.from_now
