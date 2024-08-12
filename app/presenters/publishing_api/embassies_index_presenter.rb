@@ -8,21 +8,23 @@ module PublishingApi
     end
 
     def content
-      content = BaseItemPresenter.new(
-        nil,
-        title:,
-        update_type: "minor",
-      ).base_attributes
+      @content ||= begin
+        content = BaseItemPresenter.new(
+          nil,
+          title:,
+          update_type: "minor",
+        ).base_attributes
 
-      content.merge!(
-        base_path:,
-        details:,
-        document_type: "embassies_index",
-        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
-        schema_name: "embassies_index",
-      )
+        content.merge!(
+          base_path:,
+          details:,
+          document_type: "embassies_index",
+          rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
+          schema_name: "embassies_index",
+        )
 
-      content.merge!(PayloadBuilder::Routes.for(base_path))
+        content.merge!(PayloadBuilder::Routes.for(base_path))
+      end
     end
 
     def links
@@ -68,7 +70,22 @@ module PublishingApi
     end
 
     def world_locations
-      WorldLocation.geographical.order(:slug).map { |location|
+      WorldLocation.geographical.order(:slug)
+        .includes(
+          published_worldwide_organisations: [
+            :document,
+            :translations,
+            {
+              offices: [
+                {
+                  contact: [{ country: :translations }, :translations],
+                  edition: %i[document translations],
+                },
+              ],
+            },
+          ],
+        )
+        .map { |location|
         # We don't want to show the UK on the embassies page.
         next if location.name.in?(["United Kingdom"])
 
