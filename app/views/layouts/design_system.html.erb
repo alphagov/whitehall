@@ -50,7 +50,7 @@
         </div>
       <% end %>
 
-      <% if yield(:title).present? %>
+      <% if yield(:title).present? && yield(:hide_title).blank? %>
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-<%= column_width %>">
             <%= render "govuk_publishing_components/components/title", {

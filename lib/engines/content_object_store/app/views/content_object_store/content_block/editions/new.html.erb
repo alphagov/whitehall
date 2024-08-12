@@ -6,6 +6,7 @@
       href: content_object_store.content_object_store_content_block_documents_path,
     } %>
   <% end %>
+  <% content_for :hide_title, true %>
   <% content_for :title, "Select a block type" %>
   <%= render partial: "schemas", locals: { schemas: @schemas} %>
 <% else %>
