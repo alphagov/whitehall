@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class ContentObjectStore::ContentBlock::Document::Show::LinkedEditionsTableComponent < ViewComponent::Base
-  def initialize(caption:, linked_content_items:)
+  def initialize(caption:, linked_content_items:, page_data:, page_path:)
     @caption = caption
     @linked_content_items = linked_content_items
+    @page_data = page_data
+    @page_path = page_path
   end
 
 private

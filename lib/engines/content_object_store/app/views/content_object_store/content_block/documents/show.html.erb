@@ -14,25 +14,14 @@
 
 <div class="govuk-grid-row govuk-!-padding-top-8">
   <div class="govuk-grid-column-full">
-    <!-- TODO: The prototype wants to show a counter beneath the title but
-    before the table, the existing component doesn't support that so I've left
-    it out for now-->
     <%= render(
       ContentObjectStore::ContentBlock::Document::Show::LinkedEditionsTableComponent.new(
         caption: "Content appears in",
         linked_content_items: @linked_content_items,
+        page_data: @page_data,
+        page_path: request.url,
       ),
     ) %>
-
-    <% if @page_data.total_pages > 1 %>
-      <% Admin::PaginationHelper.pagination_hash(current_page: @page_data.current_page.to_i, total_pages: @page_data.total_pages.to_i, path: request.url).tap do |hash| %>
-        <%= render "components/pagination", {
-          previous_href: hash[:previous_href],
-          next_href: hash[:next_href],
-          items: hash[:items],
-        } %>
-      <% end %>
-    <% end %>
   </div>
 </div>
 
