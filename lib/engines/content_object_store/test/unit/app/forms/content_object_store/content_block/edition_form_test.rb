@@ -31,6 +31,7 @@ class ContentObjectStore::ContentBlock::EditionFormTest < ActiveSupport::TestCas
       result = ContentObjectStore::ContentBlock::EditionForm::Update.new(
         content_block_edition:,
         schema:,
+        edition_to_update_id: content_block_edition.id,
       )
 
       assert_equal content_block_edition, result.content_block_edition

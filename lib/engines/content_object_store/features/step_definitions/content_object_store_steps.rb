@@ -67,6 +67,13 @@ Then("I should see a back link to the show page") do
   expect(page).to have_link("Back", href: content_object_store.content_object_store_content_block_edition_path(id))
 end
 
+Then("I should see a back link to the edit page") do
+  expect(page).to have_link(
+    "Back",
+    href: content_object_store.edit_content_object_store_content_block_edition_path(@content_block),
+  )
+end
+
 When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")
@@ -292,4 +299,19 @@ end
 
 Then(/^I should see an error prompting me to choose an object type$/) do
   assert_text "You must select a block type"
+end
+
+Then(/^I am shown where the changes will take place$/) do
+  expect(page).to have_selector("h1", text: "Where the change will appear")
+
+  @dependent_content.each do |item|
+    assert_text item[:title]
+    break if item == @dependent_content.last
+
+    click_on "Next"
+  end
+end
+
+When(/^I continue$/) do
+  click_on "Accept and publish"
 end

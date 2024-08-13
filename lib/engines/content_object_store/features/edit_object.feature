@@ -3,12 +3,13 @@ Feature: Edit a content object
     Given the content object store feature flag is enabled
     And I am a GDS admin
     And the organisation "Ministry of Example" exists
-
-  Scenario: GDS Editor edits a content object
     And a schema "email_address" exists with the following fields:
       | field         | type   | format | required |
       | email_address | string | email  | true     |
     And an email address content block has been created
+    And dependent content exists for a content block
+
+  Scenario: GDS Editor edits a content object
     When I visit the document object store
     Then I should see the details for all documents
     When I click to view the document
@@ -17,6 +18,9 @@ Feature: Edit a content object
     Then I should see the edit form
     And I should see a back link to the document page
     When I fill out the form
+    Then I am shown where the changes will take place
+    And I should see a back link to the edit page
+    When I continue
     Then the edition should have been updated successfully
     And I should be taken back to the document page
     And I should see the update on the timeline
