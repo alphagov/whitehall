@@ -39,7 +39,7 @@
       {
         text: name,
         value: id,
-        selected: id == @form.content_block_edition.lead_organisation&.id,
+        selected: id == @form.content_block_edition.edition_organisation&.organisation_id,
       }
     end,
     error_message: errors_for_input(@form.content_block_edition.errors, "lead_organisation".to_sym),
