@@ -29,8 +29,13 @@ class ContentObjectStore::ContentBlock::EditionForm
   end
 
   class Update < ContentObjectStore::ContentBlock::EditionForm
+    def initialize(edition_to_update_id:, **args)
+      @edition_to_update_id = edition_to_update_id
+      super(**args)
+    end
+
     def url
-      review_links_content_object_store_content_block_edition_path(id: @content_block_edition.id)
+      review_links_content_object_store_content_block_edition_path(id: @edition_to_update_id)
     end
 
     def attributes
