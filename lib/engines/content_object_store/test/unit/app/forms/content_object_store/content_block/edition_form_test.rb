@@ -20,6 +20,7 @@ class ContentObjectStore::ContentBlock::EditionFormTest < ActiveSupport::TestCas
       assert_equal schema, result.schema
       assert_equal expected_attributes, result.attributes
       assert_equal content_object_store_content_block_documents_path, result.back_path
+      assert_equal content_object_store_content_block_editions_path, result.url
     end
   end
 
@@ -36,6 +37,7 @@ class ContentObjectStore::ContentBlock::EditionFormTest < ActiveSupport::TestCas
       assert_equal schema, result.schema
       assert_equal content_block_edition.details, result.attributes
       assert_equal content_object_store_content_block_document_path(content_block_edition.document), result.back_path
+      assert_equal review_links_content_object_store_content_block_edition_path(id: content_block_edition.id), result.url
     end
   end
 end
