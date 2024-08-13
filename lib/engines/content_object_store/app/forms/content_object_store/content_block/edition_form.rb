@@ -4,7 +4,7 @@
 class ContentObjectStore::ContentBlock::EditionForm
   include ContentObjectStore::Engine.routes.url_helpers
 
-  attr_reader :content_block_edition, :schema
+  attr_reader :content_block_edition, :schema, :url
 
   def initialize(content_block_edition:, schema:)
     @content_block_edition = content_block_edition
@@ -12,6 +12,10 @@ class ContentObjectStore::ContentBlock::EditionForm
   end
 
   class Create < ContentObjectStore::ContentBlock::EditionForm
+    def url
+      content_object_store_content_block_editions_path
+    end
+
     def attributes
       @schema.fields.each_with_object({}) do |field, hash|
         hash[field] = nil
@@ -25,6 +29,10 @@ class ContentObjectStore::ContentBlock::EditionForm
   end
 
   class Update < ContentObjectStore::ContentBlock::EditionForm
+    def url
+      review_links_content_object_store_content_block_edition_path(id: @content_block_edition.id)
+    end
+
     def attributes
       @content_block_edition.details
     end
