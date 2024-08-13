@@ -37,7 +37,8 @@ end
 When("I click on the {string} schema") do |schema_id|
   @schema = @schemas[schema_id]
   ContentObjectStore::ContentBlock::Schema.expects(:find_by_block_type).with(schema_id).at_least_once.returns(@schema)
-  click_link @schema.name
+  choose @schema.name
+  click_on "Save and continue"
 end
 
 Then("I should see a form for the schema") do
@@ -287,4 +288,8 @@ Then(/^I should see the dependent content listed$/) do
 
     click_on "Next"
   end
+end
+
+Then(/^I should see an error prompting me to choose an object type$/) do
+  assert_text "You must select a block type"
 end

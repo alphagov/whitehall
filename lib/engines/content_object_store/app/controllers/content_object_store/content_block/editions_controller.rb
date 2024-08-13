@@ -1,6 +1,7 @@
 class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore::BaseController
   def new
     if params[:block_type].blank?
+      @error_message = "You must select a block type" if params[:block_type] == ""
       @schemas = ContentObjectStore::ContentBlock::Schema.all
     else
       @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(params[:block_type].underscore)
