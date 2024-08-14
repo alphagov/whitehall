@@ -63,7 +63,6 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal first_link_data["text"], "Title can't be blank"
     assert_equal first_link_data["section"], "Title"
     assert_equal first_link_data["action"], "error"
-    assert_equal first_link_data["tool_name"], "Whitehall"
 
     assert_equal second_link["data-module"], "ga4-auto-tracker"
     assert_equal second_link_data["event_name"], "form_error"
@@ -71,7 +70,6 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal second_link_data["text"], "Date can't be blank"
     assert_equal second_link_data["section"], "Date"
     assert_equal second_link_data["action"], "error"
-    assert_equal second_link_data["tool_name"], "Whitehall"
 
     assert_equal third_link["data-module"], "ga4-auto-tracker"
     assert_equal third_link_data["event_name"], "form_error"
@@ -79,7 +77,6 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal third_link_data["text"], "Date is invalid"
     assert_equal third_link_data["section"], "Date"
     assert_equal third_link_data["action"], "error"
-    assert_equal third_link_data["tool_name"], "Whitehall"
   end
 
   test "when an errors attribute is base it renders the error as text not a link" do

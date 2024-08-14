@@ -34,7 +34,6 @@ private
             text: error.full_message.to_s.humanize,
             section: error.attribute.to_s.humanize,
             action: "error",
-            tool_name: "Whitehall",
           }.to_json,
         },
       }
