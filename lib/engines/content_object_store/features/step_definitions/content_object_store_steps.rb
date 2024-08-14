@@ -70,7 +70,7 @@ end
 Then("I should see a back link to the edit page") do
   expect(page).to have_link(
     "Back",
-    href: content_object_store.edit_content_object_store_content_block_edition_path(@content_block),
+    href: content_object_store.edit_content_object_store_content_block_edition_path(@content_block, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block]),
   )
 end
 
@@ -176,7 +176,7 @@ Then("I should see the details for the email address content block") do
 end
 
 When("I click the first change link") do
-  first_link = find("a[href='#{content_object_store.edit_content_object_store_content_block_edition_path(@content_block)}']", match: :first)
+  first_link = find("a[href='#{content_object_store.edit_content_object_store_content_block_edition_path(@content_block, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block])}']", match: :first)
   first_link.click
 end
 

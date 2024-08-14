@@ -27,19 +27,32 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     @content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
   end
 
-  def edit
-    content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
-    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
+  EDIT_FORM_STEPS = {
+    edit_block: "edit_block",
+    review_links: "review_links",
+  }.freeze
 
+  def edit
+    step = params[:step]
+    @content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
+    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
+
+    case step
+    when EDIT_FORM_STEPS[:edit_block]
+      edit_block
+    when EDIT_FORM_STEPS[:review_links]
+      review_links
+    end
+  end
+
+  def edit_block
     @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(
-      content_block_edition:, schema: @schema, edition_to_update_id: content_block_edition.id,
+      content_block_edition: @content_block_edition, schema: @schema, edition_to_update_id: @content_block_edition.id,
     )
   end
 
   def review_links
-    @content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
     @content_block_document = @content_block_edition.document
-    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
     @edition_params = edition_params
 
     new_edition = ContentObjectStore::ContentBlock::Edition.new(@edition_params)
@@ -53,6 +66,8 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
 
       @linked_content_items = linked_item_service.items
       @page_data = linked_item_service.page_data
+
+      render :review_links
     else
       @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(
         content_block_edition: new_edition,
