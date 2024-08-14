@@ -38,7 +38,7 @@ class ContentObjectStore::ContentBlock::EditionFormTest < ActiveSupport::TestCas
       assert_equal schema, result.schema
       assert_equal content_block_edition.details, result.attributes
       assert_equal content_object_store_content_block_document_path(content_block_edition.document), result.back_path
-      assert_equal review_links_content_object_store_content_block_edition_path(id: content_block_edition.id), result.url
+      assert_equal edit_content_object_store_content_block_edition_path(id: content_block_edition.id, step: :review_links), result.url
     end
   end
 end

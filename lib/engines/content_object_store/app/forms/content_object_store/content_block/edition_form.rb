@@ -35,7 +35,7 @@ class ContentObjectStore::ContentBlock::EditionForm
     end
 
     def url
-      review_links_content_object_store_content_block_edition_path(id: @edition_to_update_id)
+      edit_content_object_store_content_block_edition_path(id: @edition_to_update_id, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:review_links])
     end
 
     def attributes

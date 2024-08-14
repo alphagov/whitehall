@@ -16,7 +16,7 @@
             caption: "Content it appears in",
             linked_content_items: @linked_content_items,
             page_data: @page_data,
-            page_path: content_object_store.review_links_content_object_store_content_block_edition_path(content_block_edition: @edition_params),
+            page_path: content_object_store.edit_content_object_store_content_block_edition_path(content_block_edition: @edition_params, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:review_links]),
             ),
           ) %>
   </div>
