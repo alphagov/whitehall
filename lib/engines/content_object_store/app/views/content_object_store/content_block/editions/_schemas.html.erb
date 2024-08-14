@@ -8,7 +8,7 @@
   <%= hidden_field_tag :block_type, "" %>
 
   <%= render ContentObjectStore::ContentBlockEdition::New::SelectSchemaComponent.new(
-    heading: content_for(:title),
+    heading: content_for(:page_title),
     heading_caption: content_for(:context),
     error_message: @error_message,
     schemas: @schemas,
