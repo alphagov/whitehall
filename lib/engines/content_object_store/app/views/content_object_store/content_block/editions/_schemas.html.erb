@@ -1,5 +1,23 @@
-<ul class="govuk-list">
-  <% schemas.each do |schema| %>
-    <li><%= link_to_new_block_type(schema) %></li>
-  <% end %>
-</ul>
+<% if @error_message %>
+  <%= render ContentObjectStore::ContentBlockEdition::New::ErrorSummaryComponent.new(
+    error_message: @error_message,
+  ) %>
+<% end %>
+
+<%= form_with url: content_object_store.new_content_object_store_content_block_edition_path, method: :get do %>
+  <%= hidden_field_tag :block_type, "" %>
+
+  <%= render ContentObjectStore::ContentBlockEdition::New::SelectSchemaComponent.new(
+    heading: content_for(:page_title),
+    heading_caption: content_for(:context),
+    error_message: @error_message,
+    schemas: @schemas,
+  ) %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save and continue",
+    name: "save_and_continue",
+    value: "Save and continue",
+    type: "submit",
+  } %>
+<% end %>

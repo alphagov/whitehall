@@ -6,7 +6,7 @@
       href: content_object_store.content_object_store_content_block_documents_path,
     } %>
   <% end %>
-  <% content_for :title, "Select a block type" %>
+  <% content_for :page_title, "Select a block type" %>
   <%= render partial: "schemas", locals: { schemas: @schemas} %>
 <% else %>
   <% content_for :back_link do %>

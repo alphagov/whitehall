@@ -37,7 +37,8 @@ end
 When("I click on the {string} schema") do |schema_id|
   @schema = @schemas[schema_id]
   ContentObjectStore::ContentBlock::Schema.expects(:find_by_block_type).with(schema_id).at_least_once.returns(@schema)
-  click_link @schema.name
+  choose @schema.name
+  click_on "Save and continue"
 end
 
 Then("I should see a form for the schema") do
@@ -80,7 +81,7 @@ When("I complete the form with the following fields:") do |table|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
 
-  click_on "Save and publish"
+  click_on "Save and continue"
 end
 
 When("I complete the form") do
@@ -91,7 +92,7 @@ When("I complete the form") do
   @details.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
-  click_on "Save and publish"
+  click_on "Save and continue"
 end
 
 Then("the edition should have been created successfully") do
@@ -183,14 +184,14 @@ When("I fill out the form") do
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
   select "Ministry of Example", from: "Lead organisation"
-  click_on "Save and publish"
+  click_on "Save and continue"
 end
 
 When("I set all fields to blank") do
   fill_in "Title", with: ""
   fill_in "Email address", with: ""
   first("#lead_organisation option").select_option
-  click_on "Save and publish"
+  click_on "Save and continue"
 end
 
 Then("the edition should have been updated successfully") do
@@ -221,7 +222,7 @@ def should_show_edit_form_for_email_address_content_block(document_title, email_
   expect(page).to have_content("Change Email address")
   expect(page).to have_field("Title", with: document_title)
   expect(page).to have_field("Email address", with: email_address)
-  expect(page).to have_content("Save and publish")
+  expect(page).to have_content("Save and continue")
   expect(page).to have_content("Cancel")
 end
 
@@ -287,4 +288,8 @@ Then(/^I should see the dependent content listed$/) do
 
     click_on "Next"
   end
+end
+
+Then(/^I should see an error prompting me to choose an object type$/) do
+  assert_text "You must select a block type"
 end

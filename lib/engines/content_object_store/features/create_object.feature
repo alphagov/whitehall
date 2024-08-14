@@ -28,6 +28,12 @@ Feature: Create a content object
     Then the edition should have been created successfully
     And I should be taken back to the document page
 
+  Scenario: GDS editor sees validation errors when not selecting an object type
+    When I visit the document object store
+    And I click to create an object
+    And I click save
+    Then I should see an error prompting me to choose an object type
+
   Scenario: GDS editor sees validation errors for missing fields
     When I visit the document object store
     And I click to create an object
