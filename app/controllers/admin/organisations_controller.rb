@@ -131,10 +131,10 @@ private
   end
 
   def delete_absent_topical_event_organisations
-    return unless params[:organisation] &&
-      params[:organisation][:topical_event_organisations_attributes]
+    return unless organisation_params &&
+      organisation_params[:topical_event_organisations_attributes]
 
-    params[:organisation][:topical_event_organisations_attributes].each do |p|
+    organisation_params[:topical_event_organisations_attributes].each do |p|
       if p[:topical_event_id].blank?
         p["_destroy"] = true
       end
