@@ -309,6 +309,6 @@ Then(/^I am shown where the changes will take place$/) do
   end
 end
 
-When(/^I continue$/) do
-  click_on "Accept and publish"
+When(/^I save and continue$/) do
+  click_on "Save and continue"
 end
