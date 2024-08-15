@@ -56,4 +56,13 @@ class EditionDeleterTest < ActiveSupport::TestCase
     assert Attachment.find(attachment1.id).deleted?
     assert Attachment.find(attachment2.id).deleted?
   end
+
+  test "#perform! deletes associated edition roles" do
+    roles = create_list(:role, 2)
+    edition = create(:draft_worldwide_organisation, roles:)
+
+    assert EditionDeleter.new(edition).perform!
+    edition.reload
+    assert edition.roles.empty?
+  end
 end
