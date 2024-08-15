@@ -1,0 +1,44 @@
+<% content_for :context, "Manage #{add_indefinite_article @content_block_document.block_type.humanize}" %>
+<% content_for :title, "Where the change will appear" %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: content_object_store.edit_content_object_store_content_block_edition_path(@content_block_edition, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block]),
+  } %>
+<% end %>
+
+<p class="govuk-body">The new <%= @content_block_document.block_type.humanize.downcase %> will appear on the following content after you publish the change.</p>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render(
+          ContentObjectStore::ContentBlock::Document::Show::LinkedEditionsTableComponent.new(
+            caption: "Content it appears in",
+            linked_content_items: @linked_content_items,
+            page_data: @page_data,
+            page_path: content_object_store.edit_content_object_store_content_block_edition_path(content_block_edition: @edition_params, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:review_links]),
+            ),
+          ) %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <%= form_with(url: content_object_store.content_object_store_content_block_edition_path(content_block_edition: @edition_params), method: :patch) do %>
+          <div class="govuk-button-group govuk-!-margin-bottom-6">
+            <%= render "govuk_publishing_components/components/button", {
+              text: "Accept and publish",
+              name: "accept_and_publish",
+              value: "Accept and publish",
+              type: "submit",
+            } %>
+            <%= link_to("Cancel", content_object_store.content_object_store_content_block_documents_path, class: "govuk-link") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
