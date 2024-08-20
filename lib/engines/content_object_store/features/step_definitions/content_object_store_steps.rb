@@ -272,28 +272,27 @@ end
 When(/^dependent content exists for a content block$/) do
   @dependent_content = 10.times.map do |i|
     {
-      "title": "Content #{i}",
-      "document_type": "document",
-      "links": {},
-      "link_set_links": {},
+      "title" => "Content #{i}",
+      "document_type" => "document",
       "base_path" => "/",
-      "content_id": SecureRandom.uuid,
+      "content_id" => SecureRandom.uuid,
+      "primary_publishing_organisation" => {
+        "content_id" => SecureRandom.uuid,
+        "title" => "Organisation #{i}",
+        "base_path" => "/organisation/#{i}",
+      },
     }
   end
 
-  @dependent_content.each_with_index do |item, i|
-    stub_dependent_content(results: [item], total: @dependent_content.length, pages: @dependent_content.length, current_page: i + 1)
-  end
+  stub_dependent_content(results: @dependent_content, total: @dependent_content.length)
 end
 
 Then(/^I should see the dependent content listed$/) do
   assert_text "Content appears in"
 
   @dependent_content.each do |item|
-    assert_text item[:title]
+    assert_text item["title"]
     break if item == @dependent_content.last
-
-    click_on "Next"
   end
 end
 
@@ -305,10 +304,8 @@ Then(/^I am shown where the changes will take place$/) do
   expect(page).to have_selector("h1", text: "Where the change will appear")
 
   @dependent_content.each do |item|
-    assert_text item[:title]
+    assert_text item["title"]
     break if item == @dependent_content.last
-
-    click_on "Next"
   end
 end
 

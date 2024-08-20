@@ -8,11 +8,11 @@ class ContentObjectStore::ContentBlock::Document::Show::HostEditionsTableCompone
 
   let(:host_content_items) do
     [
-      ContentObjectStore::EmbeddedContentItem.new(
-        title: "Some title",
-        base_path: "/foo",
-        document_type: "document_type",
-        publishing_organisation: {
+      ContentObjectStore::HostContentItem.new(
+        "title" => "Some title",
+        "base_path" => "/foo",
+        "document_type" => "document_type",
+        "publishing_organisation" => {
           "content_id" => SecureRandom.uuid,
           "title" => "bar",
           "base_path" => "/bar",
@@ -74,7 +74,7 @@ class ContentObjectStore::ContentBlock::Document::Show::HostEditionsTableCompone
   context "when the organisation recieved does not have a title or base_path" do
     let(:host_content_items) do
       [
-        ContentObjectStore::EmbeddedContentItem.new(
+        ContentObjectStore::HostContentItem.new(
           title: "Some title",
           base_path: "/foo",
           document_type: "document_type",
