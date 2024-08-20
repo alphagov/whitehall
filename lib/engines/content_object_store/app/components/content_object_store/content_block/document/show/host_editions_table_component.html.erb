@@ -1,0 +1,20 @@
+
+<!-- TODO: The prototype wants to show a counter beneath the title but
+before the table, the existing component doesn't support that so I've left
+it out for now-->
+<%= render "govuk_publishing_components/components/table", {
+  caption:,
+  caption_classes: "govuk-heading-l",
+  head: [
+    {
+      text: "Title",
+    },
+    {
+      text: "Document Type",
+    },
+    {
+      text: "Publishing organisation",
+    },
+  ],
+  rows:,
+} %>
