@@ -7,12 +7,8 @@ class ContentObjectStore::ContentBlock::DocumentsController < ContentObjectStore
     @content_block_document = ContentObjectStore::ContentBlock::Document.find(params[:id])
     @content_block_versions = @content_block_document.versions
 
-    linked_item_service = ContentObjectStore::GetLinkedContentItems.new(
+    @host_content_items = ContentObjectStore::GetHostContentItems.by_embedded_document(
       content_block_document: @content_block_document,
-      page: params[:page],
     )
-
-    @linked_content_items = linked_item_service.items
-    @page_data = linked_item_service.page_data
   end
 end

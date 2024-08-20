@@ -59,13 +59,9 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     new_edition.document.id = @content_block_document.id
 
     if new_edition.valid?
-      linked_item_service = ContentObjectStore::GetLinkedContentItems.new(
+      @host_content_items = ContentObjectStore::GetHostContentItems.by_embedded_document(
         content_block_document: @content_block_document,
-        page: params[:page],
       )
-
-      @linked_content_items = linked_item_service.items
-      @page_data = linked_item_service.page_data
 
       render :review_links
     else
