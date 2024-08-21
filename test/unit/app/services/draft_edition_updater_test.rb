@@ -28,4 +28,13 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
 
     updater.perform!
   end
+
+  test "cannot perform if user is limiting their own access" do
+    edition = create(:draft_news_article, access_limited: true, organisations: [create(:organisation)])
+    updater = DraftEditionUpdater.new(edition, { current_user: create(:user, organisation: create(:organisation)) })
+    updater.expects(:notify!).never
+    updater.expects(:update_publishing_api!).never
+
+    updater.perform!
+  end
 end
