@@ -150,7 +150,7 @@ class OrganisationBrandColour
   DepartmentForBusinessAndTrade = create!(
     id: 29,
     title: "Department for Business & Trade",
-    class_name: "department-for-business-and-trade",
+    class_name: "department-for-business-trade",
   )
   ForeignCommonwealthDevelopmentOffice = create!(
     id: 30,
@@ -175,6 +175,6 @@ class OrganisationBrandColour
   MinistryOfHousingCommunitiesAndLocalGovernment = create!(
     id: 34,
     title: "Ministry of Housing, Communities & Local Government",
-    class_name: "ministry-of-housing-communities-and-local-government",
+    class_name: "ministry-of-housing-communities-local-government",
   )
 end
