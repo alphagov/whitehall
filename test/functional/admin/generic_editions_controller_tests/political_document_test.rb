@@ -8,6 +8,17 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     login_as :writer
   end
 
+  test "can mark a document as political" do
+    create(:current_government)
+    published_edition = create(:published_news_article)
+    new_draft = create(:news_article, document: published_edition.document)
+
+    put :update, params: { id: new_draft, edition: { political: true } }
+
+    assert_redirected_to admin_edition_path(new_draft)
+    assert new_draft.reload.political?
+  end
+
   test "can override the government associated with a political edition" do
     create(:current_government)
     previous_government = create(:previous_government)
