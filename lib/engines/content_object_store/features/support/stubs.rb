@@ -1,14 +1,12 @@
 Before do
-  stub_dependent_content(results: [])
+  stub_dependent_content(content_id: anything, total: 0, results: [])
 end
 
-def stub_dependent_content(results:, total: 0, pages: 0, current_page: 1)
-  stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/content})
-    .with(query: hash_including({ "page" => current_page.to_s }))
+def stub_dependent_content(results:, content_id: anything, total: 0)
+  stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/content/[0-9a-fA-F-]{36}/embedded})
     .to_return(body: {
+      "content_id" => content_id,
       "total" => total,
-      "pages" => pages,
-      "current_page" => current_page,
       "results" => results,
     }.to_json)
 end

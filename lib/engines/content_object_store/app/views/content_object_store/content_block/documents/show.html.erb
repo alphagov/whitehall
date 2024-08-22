@@ -15,11 +15,9 @@
 <div class="govuk-grid-row govuk-!-padding-top-8">
   <div class="govuk-grid-column-full">
     <%= render(
-      ContentObjectStore::ContentBlock::Document::Show::LinkedEditionsTableComponent.new(
+      ContentObjectStore::ContentBlock::Document::Show::HostEditionsTableComponent.new(
         caption: "Content appears in",
-        linked_content_items: @linked_content_items,
-        page_data: @page_data,
-        page_path: request.url,
+        host_content_items: @host_content_items,
       ),
     ) %>
   </div>
