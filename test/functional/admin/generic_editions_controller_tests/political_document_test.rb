@@ -2,9 +2,22 @@ require "test_helper"
 
 class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController::TestCase
   tests Admin::NewsArticlesController
+  enable_url_helpers
 
   setup do
     login_as :writer
+  end
+
+  test "can override the government associated with a political edition" do
+    create(:current_government)
+    previous_government = create(:previous_government)
+    published_edition = create(:published_news_article, political: true)
+    new_draft = create(:news_article, document: published_edition.document, political: true)
+
+    put :update, params: { id: new_draft, edition: { government_id: previous_government.id } }
+
+    assert_redirected_to admin_edition_path(new_draft)
+    assert_equal previous_government, new_draft.reload.government
   end
 
   view_test "displays the political checkbox for privileged users " do
