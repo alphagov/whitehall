@@ -347,6 +347,8 @@ class Edition < ApplicationRecord
   end
 
   def government
+    return @government ||= Government.find(government_id) if government_id.present?
+
     @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
   end
 
