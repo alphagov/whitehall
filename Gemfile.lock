@@ -330,7 +330,7 @@ GEM
     highline (3.0.1)
     htmlentities (4.3.4)
     http-accept (1.7.0)
-    http-cookie (1.0.6)
+    http-cookie (1.0.7)
       domain_name (~> 0.5)
     httparty (0.22.0)
       csv
@@ -416,7 +416,7 @@ GEM
     matrix (0.4.2)
     maxitest (5.6.0)
       minitest (>= 5.14.0, < 5.25.0)
-    mechanize (2.12.0)
+    mechanize (2.12.1)
       addressable (~> 2.8)
       base64
       domain_name (~> 0.5, >= 0.5.20190701)
@@ -432,7 +432,7 @@ GEM
     method_source (1.1.0)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.0702)
+    mime-types-data (3.2024.0820)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
