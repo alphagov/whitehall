@@ -30,6 +30,17 @@ module ContentObjectStore
       end
     end
 
+    def schedule_with_rollback
+      raise ArgumentError, "Local database changes not given" unless block_given?
+
+      ActiveRecord::Base.transaction do
+        content_block_edition = yield
+
+        content_block_edition.schedule!
+        ContentObjectStore::SchedulePublishingWorker.queue(content_block_edition)
+      end
+    end
+
   private
 
     def create_publishing_api_edition(content_id:, schema_id:, title:, details:, links:)
