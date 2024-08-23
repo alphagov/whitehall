@@ -3,7 +3,7 @@ module ContentObjectStore::Workflow
 
   module ClassMethods
     def valid_state?(state)
-      %w[draft published].include?(state)
+      %w[draft published scheduled].include?(state)
     end
   end
 
@@ -13,9 +13,13 @@ module ContentObjectStore::Workflow
     state_machine auto_scopes: true do
       state :draft
       state :published
+      state :scheduled
 
       event :publish do
-        transitions from: %i[draft], to: :published
+        transitions from: %i[draft scheduled], to: :published
+      end
+      event :schedule do
+        transitions from: %i[draft], to: :scheduled
       end
     end
   end
