@@ -14,6 +14,8 @@ private
       organisation_item,
       creator_item,
       embed_code_item,
+      state_item,
+      scheduled_item,
     ]
   end
 
@@ -54,6 +56,20 @@ private
     {
       field: "Creator",
       value: content_block_document.latest_edition.creator.name,
+    }
+  end
+
+  def state_item
+    {
+      field: "State",
+      value: content_block_document.latest_edition.state,
+    }
+  end
+
+  def scheduled_item
+    {
+      field: "Scheduled for publication at",
+      value: content_block_document.latest_edition.scheduled_publication&.strftime("%e %B %Y at %I:%M%P"),
     }
   end
 

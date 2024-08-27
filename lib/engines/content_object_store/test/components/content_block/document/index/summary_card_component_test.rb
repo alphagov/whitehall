@@ -20,7 +20,7 @@ class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponentTes
     assert_selector ".govuk-summary-card__action", count: 1
     assert_selector ".govuk-summary-card__action .govuk-link[href='#{content_object_store_content_block_document_path(content_block_document)}']"
 
-    assert_selector ".govuk-summary-list__row", count: 6
+    assert_selector ".govuk-summary-list__row", count: 8
 
     assert_selector ".govuk-summary-list__key", text: "Title"
     assert_selector ".govuk-summary-list__value", text: content_block_edition.title
@@ -39,5 +39,8 @@ class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponentTes
 
     assert_selector ".govuk-summary-list__key", text: "Embed code"
     assert_selector ".govuk-summary-list__value", text: content_block_document.embed_code
+
+    assert_selector ".govuk-summary-list__key", text: "State"
+    assert_selector ".govuk-summary-list__value", text: content_block_edition.scheduled_publication&.strftime("%e %B %Y at %I:%M%P")
   end
 end
