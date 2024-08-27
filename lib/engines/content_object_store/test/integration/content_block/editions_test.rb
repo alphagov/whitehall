@@ -4,6 +4,8 @@ require "capybara/rails"
 class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   extend Minitest::Spec::DSL
+  include ContentObjectStore::Engine.routes.url_helpers
+  include SidekiqTestHelpers
 
   before do
     login_as_admin
@@ -101,6 +103,55 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
       }
 
       assert_template :new
+    end
+  end
+
+  describe "#update" do
+    before do
+      @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
+
+      stub_request_for_schema("email_address")
+    end
+
+    it "schedules the publication of an edition" do
+      organisation = create(:organisation)
+
+      document = create(:content_block_document, :email_address, content_id: @content_id, title: "Some Title")
+
+      edition = create(:content_block_edition, document:, organisation:)
+
+      with_real_sidekiq do
+        patch content_object_store.content_object_store_content_block_edition_path(edition), params: {
+          id: edition.id,
+          schedule_publishing: "schedule",
+          scheduled_at: {
+            "scheduled_publication(3i)": "2",
+            "scheduled_publication(2i)": "9",
+            "scheduled_publication(1i)": "2024",
+            "scheduled_publication(4i)": "10",
+            "scheduled_publication(5i)": "05",
+          },
+          content_block_edition: {
+            creator: "1",
+            details: { foo: "newnew@example.com", bar: "edited" },
+            document_attributes: { block_type: "email_address", title: "Another email" },
+            organisation_id: organisation.id,
+          },
+        }
+
+        document = ContentObjectStore::ContentBlock::Document.find_by!(content_id: @content_id)
+        new_edition = document.editions.last
+
+        assert_equal Time.zone.local(2024, 9, 2, 10, 5, 0), new_edition.scheduled_publication
+        assert_equal "scheduled", new_edition.state
+
+        assert_equal 1, Sidekiq::ScheduledSet.new.size
+
+        job = Sidekiq::ScheduledSet.new.first
+
+        assert_equal job["args"].first, new_edition.id
+        assert_equal job.at.to_i, new_edition.scheduled_publication.to_i
+      end
     end
   end
 end
