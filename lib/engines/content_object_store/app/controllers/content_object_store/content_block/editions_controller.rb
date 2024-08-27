@@ -84,36 +84,6 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     render :schedule_publishing
   end
 
-  def update
-    content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
-    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
-
-    new_edition = edition_params
-    if params[:schedule_publishing] == "schedule"
-      new_edition = edition_params.merge!(scheduled_publication_params)
-      new_content_block_edition = ContentObjectStore::ScheduleEditionService.new(
-        content_block_edition,
-      ).call(new_edition)
-      flash_text = "#{@schema.name} scheduled successfully"
-    else
-      new_content_block_edition = ContentObjectStore::UpdateEditionService.new(
-        @schema,
-        content_block_edition,
-      ).call(new_edition)
-      flash_text = "#{@schema.name} changed and published successfully"
-    end
-
-    redirect_to content_object_store.content_object_store_content_block_document_path(new_content_block_edition.document),
-                flash: { notice: flash_text }
-  rescue ActiveRecord::RecordInvalid => e
-    @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(
-      content_block_edition: e.record, schema: @schema,
-      edition_to_update_id: content_block_edition.id
-    )
-
-    render :edit
-  end
-
 private
 
   def root_params

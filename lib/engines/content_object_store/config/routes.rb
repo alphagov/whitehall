@@ -8,6 +8,7 @@ ContentObjectStore::Engine.routes.draw do
         member do
           get :review
           post :publish, to: "workflow#publish"
+          patch :update, to: "workflow#update"
           post :edit
         end
       end
