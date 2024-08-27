@@ -74,6 +74,13 @@ Then("I should see a back link to the edit page") do
   )
 end
 
+Then(/^I should see a back link to the review page$/) do
+  expect(page).to have_link(
+    "Back",
+    href: /^(?=.*\bChanged\b)(?=.*\bstep=review_links\b).*$/,
+  )
+end
+
 When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")
@@ -311,4 +318,61 @@ end
 
 When(/^I save and continue$/) do
   click_on "Save and continue"
+end
+
+Then(/^I am asked when I want to publish the change$/) do
+  assert_text "When do you want to publish the change?"
+end
+
+Then(/^I choose to publish the change now$/) do
+  choose "Publish the change now"
+end
+
+When("I am updating a content block") do
+  # go to the edit page for the block
+  visit content_object_store.edit_content_object_store_content_block_edition_path(
+    @content_block,
+    step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block],
+  )
+  #  fill in the new data
+  fill_in "Title", with: "Changed title"
+  fill_in "Email address", with: "changed@example.com"
+  select "Ministry of Example", from: "Lead organisation"
+  click_on "Save and continue"
+  # accept changes
+  click_on "Save and continue"
+end
+
+When("I choose to schedule the change") do
+  choose "Schedule the change for the future"
+end
+
+When("I enter a date 7 days in the future") do
+  @future_date = 7.days.since(Time.zone.now).to_date
+  fill_in_date_and_time_field(@future_date)
+end
+
+Then("the edition should have been scheduled successfully") do
+  @schema = @schemas[@content_block.document.block_type]
+  assert_text "#{@schema.name} scheduled successfully"
+end
+
+And("the block is scheduled and published") do
+  near_future_date = 1.minute.from_now
+  fill_in_date_and_time_field(near_future_date)
+
+  Sidekiq::Testing.inline! do
+    click_on "Accept and publish"
+  end
+end
+
+Then("published state of the object is shown") do
+  visit content_object_store.content_object_store_content_block_document_path(@content_block.document)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "State")
+  expect(page).to have_selector(".govuk-summary-list__value", text: "published")
+end
+
+Then("I should see the scheduled date on the object") do
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Scheduled for publication at")
+  expect(page).to have_selector(".govuk-summary-list__value", text: @future_date.strftime("%e %B %Y at %I:%M%P"))
 end
