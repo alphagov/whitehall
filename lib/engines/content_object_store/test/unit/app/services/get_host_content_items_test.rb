@@ -6,7 +6,6 @@ class ContentObjectStore::GetHostContentItemsTest < ActiveSupport::TestCase
   let(:described_class) { ContentObjectStore::GetHostContentItems }
 
   let(:target_content_id) { SecureRandom.uuid }
-  let(:expected_url) { "https://publishing-api.test.gov.uk/v2/content/#{target_content_id}/embedded" }
 
   let(:response_body) do
     {
@@ -28,19 +27,26 @@ class ContentObjectStore::GetHostContentItemsTest < ActiveSupport::TestCase
   end
 
   setup do
-    stub_request(:get, expected_url)
-      .to_return(body: response_body.to_json, status: 200)
+    stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 1, results: response_body["results"])
   end
 
   describe "#items" do
-    it "calls the Publishing API for the embedded content" do
-      document = mock("content_block_document", content_id: target_content_id)
-
-      described_class.by_embedded_document(
-        content_block_document: document,
+    it "calls the Publishing API for the content which embeds the target" do
+      fake_api_response = GdsApi::Response.new(
+        stub("http_response", code: 200, body: response_body.to_json),
       )
+      publishing_api_mock = Minitest::Mock.new
+      publishing_api_mock.expect :get_content_by_embedded_document, fake_api_response, [target_content_id]
 
-      assert_requested :get, expected_url, times: 1
+      Services.stub :publishing_api, publishing_api_mock do
+        document = mock("content_block_document", content_id: target_content_id)
+
+        described_class.by_embedded_document(
+          content_block_document: document,
+        )
+
+        publishing_api_mock.verify
+      end
     end
 
     it "returns GetHostContentItems" do
@@ -60,31 +66,23 @@ class ContentObjectStore::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].publishing_organisation, expected_publishing_organisation
     end
 
-    it "returns an empty array if the request fails" do
-      document = mock("content_block_document", content_id: target_content_id)
-
-      stub_request(:get, expected_url)
-        .to_return(body: "", status: 500)
-
-      result = described_class.by_embedded_document(content_block_document: document)
-
-      assert_equal result, []
-    end
-
-    it "depends on Plek to set the right hostname" do
-      document = mock("content_block_document", content_id: target_content_id)
-
-      plek_domain = "https://foo.dev.gov.uk"
-      Plek.stubs(:find).with("publishing-api").returns(plek_domain)
-
-      stub_request(:get, %r{\A#{plek_domain}/v2/content/#{target_content_id}/embedded})
-        .to_return(body: response_body.to_json, status: 200)
-
-      described_class.by_embedded_document(
-        content_block_document: document,
+    it "returns an error if the content that embeds the target can't be loaded" do
+      exception = GdsApi::HTTPErrorResponse.new(
+        500,
+        "An internal error message",
+        "error" => { "message" => "Some backend error" },
       )
+      raises_exception = ->(*_args) { raise exception }
 
-      assert_requested(:get, %r{\A#{plek_domain}/v2/content/#{target_content_id}/embedded})
+      Services.publishing_api.stub :get_content_by_embedded_document, raises_exception do
+        document = mock("content_block_document", content_id: target_content_id)
+
+        assert_raises(GdsApi::HTTPErrorResponse) do
+          described_class.by_embedded_document(
+            content_block_document: document,
+          )
+        end
+      end
     end
   end
 end
