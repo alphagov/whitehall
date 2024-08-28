@@ -799,6 +799,13 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
+  test "#government returns the associated government when the edition has a specific government_id" do
+    create(:current_government)
+    previous_government = create(:previous_government)
+    edition = create(:edition, first_published_at: Time.zone.now, government_id: previous_government.id)
+    assert_equal previous_government, edition.government
+  end
+
   test "#government returns the current government for a newly published edition" do
     government = create(:current_government)
     edition = create(:edition, first_published_at: Time.zone.now)

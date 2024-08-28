@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_31_143537) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_22_112802) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -447,10 +447,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_31_143537) do
     t.string "logo_formatted_name"
     t.string "analytics_identifier"
     t.boolean "visual_editor"
+    t.integer "government_id"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
     t.index ["first_published_at"], name: "index_editions_on_first_published_at"
+    t.index ["government_id"], name: "fk_rails_6875303236"
     t.index ["main_office_id"], name: "index_editions_on_main_office_id"
     t.index ["opening_at"], name: "index_editions_on_opening_at"
     t.index ["operational_field_id"], name: "index_editions_on_operational_field_id"
@@ -1287,6 +1289,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_31_143537) do
   add_foreign_key "content_block_editions", "content_block_documents", column: "document_id"
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "editions", "governments"
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify

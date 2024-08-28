@@ -238,6 +238,7 @@ private
       :additional_related_mainstream_content_url,
       :corporate_information_page_type_id,
       :political,
+      :government_id,
       :read_consultation_principles,
       :all_nation_applicability,
       :speaker_radios,
