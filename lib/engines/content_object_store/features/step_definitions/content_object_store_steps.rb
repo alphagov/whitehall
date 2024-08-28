@@ -284,7 +284,7 @@ When(/^dependent content exists for a content block$/) do
     }
   end
 
-  stub_dependent_content(results: @dependent_content, total: @dependent_content.length)
+  stub_publishing_api_has_embedded_content(content_id: anything, results: @dependent_content, total: @dependent_content.length)
 end
 
 Then(/^I should see the dependent content listed$/) do
