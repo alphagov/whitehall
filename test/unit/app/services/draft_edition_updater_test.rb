@@ -37,4 +37,14 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
 
     updater.perform!
   end
+
+  test "updates editions that cannot be tagged to organisations" do
+    organisation = create(:organisation)
+    edition = create(:draft_corporate_information_page, organisation:, access_limited: true)
+    updater = DraftEditionUpdater.new(edition, { current_user: create(:user, organisation:) })
+    updater.expects(:update_publishing_api!).once
+    updater.expects(:notify!).once
+
+    updater.perform!
+  end
 end

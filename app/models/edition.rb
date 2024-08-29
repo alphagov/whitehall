@@ -446,6 +446,10 @@ class Edition < ApplicationRecord
     []
   end
 
+  def limits_access_via_organisations?
+    false
+  end
+
 private
 
   def date_for_government
