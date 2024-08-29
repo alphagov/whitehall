@@ -24,3 +24,26 @@ Feature: Schedule a content object
     When I choose to schedule the change
     And the block is scheduled and published
     Then published state of the object is shown
+
+  Scenario: GDS Editor does not provide date for scheduling
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    When I choose to schedule the change
+    And I accept and publish
+    Then I see the errors prompting me to provide a date and time
+
+  Scenario: GDS Editor does not provide a valid date for scheduling
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    When I choose to schedule the change
+    And I enter an invalid date
+    And I accept and publish
+    Then I see the errors informing me the date is invalid
+
+  Scenario: GDS Editor provides a date in the past for scheduling
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    When I choose to schedule the change
+    And I enter a date in the past
+    And I accept and publish
+    Then I see the errors informing me the date must be in the future
