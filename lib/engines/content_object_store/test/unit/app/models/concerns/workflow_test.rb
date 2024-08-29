@@ -18,6 +18,7 @@ class ContentObjectStore::WorkflowTest < ActiveSupport::TestCase
                        :content_block_document,
                        block_type: "email_address",
                      ),
+                     scheduled_publication: 7.days.since(Time.zone.now).to_date,
                      state: "scheduled")
     edition.publish!
     assert edition.published?
@@ -25,6 +26,7 @@ class ContentObjectStore::WorkflowTest < ActiveSupport::TestCase
 
   test "scheduling an edition transitions it into the scheduled state" do
     edition = create(:content_block_edition,
+                     scheduled_publication: 7.days.since(Time.zone.now).to_date,
                      document: create(
                        :content_block_document,
                        block_type: "email_address",

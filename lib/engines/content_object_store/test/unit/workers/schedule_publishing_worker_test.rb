@@ -6,7 +6,7 @@ class ContentObjectStore::SchedulePublishingWorkerTest < ActiveSupport::TestCase
   test "#perform publishes a scheduled edition" do
     schema = build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } })
     document = create(:content_block_document, :email_address)
-    edition = create(:content_block_edition, document:, state: "scheduled")
+    edition = create(:content_block_edition, document:, state: "scheduled", scheduled_publication: Time.zone.now)
 
     ContentObjectStore::ContentBlock::Schema.expects(:find_by_block_type).with("email_address").returns(schema)
     publish_service_mock = Minitest::Mock.new
@@ -21,7 +21,7 @@ class ContentObjectStore::SchedulePublishingWorkerTest < ActiveSupport::TestCase
   test "#perform raises an error if the edition cannot be published" do
     schema = build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } })
     document = create(:content_block_document, :email_address)
-    edition = create(:content_block_edition, document:, state: "scheduled")
+    edition = create(:content_block_edition, document:, state: "scheduled", scheduled_publication: 7.days.since(Time.zone.now).to_date)
 
     ContentObjectStore::ContentBlock::Schema.expects(:find_by_block_type).with("email_address").returns(schema)
     publish_service_mock = Minitest::Mock.new

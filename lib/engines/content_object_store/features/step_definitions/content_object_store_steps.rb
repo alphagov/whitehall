@@ -250,6 +250,18 @@ Then("I should see errors for the required fields") do
   assert_text "Lead organisation cannot be blank"
 end
 
+Then("I see the errors prompting me to provide a date and time") do
+  assert_text "Scheduled publication date and time cannot be blank", minimum: 2
+end
+
+Then("I see the errors informing me the date is invalid") do
+  assert_text "Scheduled publication is not in the correct format", minimum: 2
+end
+
+Then("I see the errors informing me the date must be in the future") do
+  assert_text "Scheduled publication date and time must be in the future", minimum: 2
+end
+
 Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|
   assert_text "#{ContentObjectStore::ContentBlock::Edition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
 end
@@ -350,6 +362,15 @@ end
 When("I enter a date 7 days in the future") do
   @future_date = 7.days.since(Time.zone.now).to_date
   fill_in_date_and_time_field(@future_date)
+end
+
+When("I enter an invalid date") do
+  fill_in "Year", with: "01"
+end
+
+When("I enter a date in the past") do
+  past_date = 7.days.before(Time.zone.now).to_date
+  fill_in_date_and_time_field(past_date)
 end
 
 Then("the edition should have been scheduled successfully") do

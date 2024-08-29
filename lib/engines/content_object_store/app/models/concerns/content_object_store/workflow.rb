@@ -1,5 +1,6 @@
 module ContentObjectStore::Workflow
   extend ActiveSupport::Concern
+  include DateValidation
 
   module ClassMethods
     def valid_state?(state)
@@ -9,6 +10,10 @@ module ContentObjectStore::Workflow
 
   included do
     include ActiveRecord::Transitions
+
+    date_attributes :scheduled_publication
+
+    validates_with ContentObjectStore::ScheduledPublicationValidator
 
     state_machine auto_scopes: true do
       state :draft
