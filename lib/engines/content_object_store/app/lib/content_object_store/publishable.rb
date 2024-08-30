@@ -23,6 +23,7 @@ module ContentObjectStore
         )
         publish_publishing_api_edition(content_id:)
         update_content_block_document_with_live_edition(content_block_edition)
+        update_content_block_document_with_latest_edition(content_block_edition)
         content_block_edition.public_send(:publish!)
       rescue PublishingFailureError => e
         discard_publishing_api_edition(content_id:)
@@ -36,6 +37,7 @@ module ContentObjectStore
       ActiveRecord::Base.transaction do
         content_block_edition = yield
 
+        update_content_block_document_with_latest_edition(content_block_edition)
         content_block_edition.schedule!
         ContentObjectStore::SchedulePublishingWorker.queue(content_block_edition)
       end

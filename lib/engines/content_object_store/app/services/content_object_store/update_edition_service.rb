@@ -46,9 +46,6 @@ module ContentObjectStore
     end
 
     def update_content_block_document(new_content_block_edition:, update_document_params:)
-      update_document_params[:latest_edition_id] = new_content_block_edition.id
-      update_document_params[:live_edition_id] = new_content_block_edition.id
-
       # Updates to a Document should never change its block type
       update_document_params.delete(:block_type)
 

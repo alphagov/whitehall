@@ -58,7 +58,12 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
         id: edition.id,
       }
       publishing_api_mock.verify
-      assert_equal "published", edition.reload.state
+      document = ContentObjectStore::ContentBlock::Document.find_by!(content_id: @content_id)
+      new_edition = ContentObjectStore::ContentBlock::Edition.find(document.live_edition_id)
+
+      assert_equal document.live_edition_id, document.latest_edition_id
+
+      assert_equal "published", new_edition.state
     end
   end
 
@@ -89,7 +94,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
       }
 
       document = ContentObjectStore::ContentBlock::Document.find_by!(content_id: @content_id)
-      new_edition = document.editions.last
+      new_edition = document.latest_edition
 
       assert_equal Time.zone.local(2024, 9, 2, 10, 5, 0), new_edition.scheduled_publication
       assert_equal "scheduled", new_edition.state
