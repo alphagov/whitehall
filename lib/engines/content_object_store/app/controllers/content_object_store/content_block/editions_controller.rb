@@ -90,31 +90,7 @@ private
     params.require(:content_object_store_content_block_edition)
   end
 
-  def edition_params
-    params.require(:content_block_edition)
-      .permit(
-        :organisation_id,
-        :creator,
-        "scheduled_publication(1i)",
-        "scheduled_publication(2i)",
-        "scheduled_publication(3i)",
-        "scheduled_publication(4i)",
-        "scheduled_publication(5i)",
-        document_attributes: %w[title block_type],
-        details: @schema.fields,
-      )
-      .merge!(creator: current_user)
-  end
-
   def block_type_param
     params.require(:content_block_edition).require("document_attributes").require(:block_type)
-  end
-
-  def scheduled_publication_params
-    params.require(:scheduled_at).permit("scheduled_publication(1i)",
-                                         "scheduled_publication(2i)",
-                                         "scheduled_publication(3i)",
-                                         "scheduled_publication(4i)",
-                                         "scheduled_publication(5i)")
   end
 end
