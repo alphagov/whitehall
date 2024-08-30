@@ -131,13 +131,12 @@ class ContentObjectStore::ScheduleEditionServiceTest < ActiveSupport::TestCase
       end
     end
 
-    it "updates the original ContentBlockDocument's latest_edition_id and live_edition_id to the new Edition" do
+    it "updates the original ContentBlockDocument's latest_edition_id to the new Edition" do
       result = ContentObjectStore::ScheduleEditionService.new(@original_content_block_edition)
                                                        .call(edition_params)
 
       @original_content_block_edition.document.reload
 
-      assert_equal @original_content_block_edition.document.live_edition_id, result.id
       assert_equal @original_content_block_edition.document.latest_edition_id, result.id
     end
 
@@ -186,6 +185,9 @@ class ContentObjectStore::ScheduleEditionServiceTest < ActiveSupport::TestCase
               ContentObjectStore::ScheduleEditionService
                 .new(@original_content_block_edition)
                 .call(edition_params)
+
+              @original_content_block_edition.document.reload
+              @original_content_block_edition.document.latest_edition = @original_content_block_edition
             end
           end
         end
