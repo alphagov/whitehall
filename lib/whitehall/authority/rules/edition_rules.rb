@@ -19,7 +19,6 @@ module Whitehall::Authority::Rules
         review_editorial_remark
         review_fact_check
         see
-        select_government_for_history_mode
         unpublish
         unwithdraw
         update
@@ -172,7 +171,7 @@ module Whitehall::Authority::Rules
         can_publish?
       when :force_publish
         can_force_publish?
-      when :unpublish, :mark_political, :perform_administrative_tasks, :select_government_for_history_mode
+      when :unpublish, :mark_political, :perform_administrative_tasks
         false
       else
         true
@@ -201,7 +200,6 @@ module Whitehall::Authority::Rules
         force_publish
         reject
         mark_political
-        select_government_for_history_mode
         perform_administrative_tasks
       ]
 
