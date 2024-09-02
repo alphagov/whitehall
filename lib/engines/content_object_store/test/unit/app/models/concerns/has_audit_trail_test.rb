@@ -20,19 +20,44 @@ class ContentObjectStore::HasAuditTrailTest < ActiveSupport::TestCase
   end
 
   describe "versions" do
-    it "returns versions in ascending order" do
+    it "returns versions in descending order based on datetime" do
       edition = create(
         :content_block_edition,
         document: create(:content_block_document, :email_address),
       )
       newer_version = edition.versions.first
-      older_version = create(
+      oldest_version = create(
         :content_block_version,
         created_at: 2.days.ago,
         item: edition,
       )
+      middle_version = create(
+        :content_block_version,
+        created_at: 1.day.ago,
+        item: edition,
+      )
       assert_equal edition.versions.first, newer_version
-      assert_equal edition.versions.last, older_version
+      assert_equal edition.versions.last, oldest_version
+      assert_equal edition.versions[1], middle_version
+    end
+
+    it "returns versions in descending order based on id" do
+      edition = create(
+        :content_block_edition,
+        document: create(:content_block_document, :email_address),
+      )
+      first_version = edition.versions.first
+      second_version = create(
+        :content_block_version,
+        item: edition,
+      )
+      third_version = create(
+        :content_block_version,
+        item: edition,
+      )
+      assert_equal edition.versions.first, third_version
+      assert_equal edition.versions[1], second_version
+      assert_equal edition.versions.last, first_version
     end
   end
 end
