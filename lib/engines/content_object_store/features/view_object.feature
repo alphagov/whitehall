@@ -13,7 +13,7 @@ Feature: View a content object
     When I click to view the document
     Then I should be taken back to the document page
     And I should see the details for the email address content block
-    And I should see the created event on the timeline
+    And I should see 1 publish events on the timeline
 
   Scenario: GDS Editor views dependent Content
     Given dependent content exists for a content block

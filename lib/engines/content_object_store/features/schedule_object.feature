@@ -17,6 +17,7 @@ Feature: Schedule a content object
     Then the edition should have been scheduled successfully
     And I should be taken back to the document page
     And I should see the scheduled date on the object
+    And I should see 2 publish events on the timeline
 
   Scenario: A scheduled content object is published
     When I am updating a content block
@@ -24,6 +25,7 @@ Feature: Schedule a content object
     When I choose to schedule the change
     And the block is scheduled and published
     Then published state of the object is shown
+    And I should see the publish event on the timeline
 
   Scenario: GDS Editor does not provide date for scheduling
     When I am updating a content block
