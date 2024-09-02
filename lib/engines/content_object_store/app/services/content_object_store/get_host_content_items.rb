@@ -31,24 +31,8 @@ module ContentObjectStore
 
     def content_items
       @content_items ||= begin
-        # TODO: A temporary solution to get the content items from the new publishing-api endpoint.
-        # To be replaced with a new method via GDS Adapters when it's implemented.
-        url = URI.parse("#{Plek.find('publishing-api')}/v2/content/#{@content_id}/embedded")
-        http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = true if url.scheme == "https"
-
-        request = Net::HTTP::Get.new(url.request_uri)
-        response = http.request(request)
-
-        @content_items = if response.is_a?(Net::HTTPSuccess)
-                           JSON.parse(response.body)
-                         else
-                           {
-                             "target_content_id" => @content_id,
-                             "total" => 0,
-                             "results" => [],
-                           }
-                         end
+        response = Services.publishing_api.get_content_by_embedded_document(@content_id)
+        response.parsed_content
       end
     end
   end
