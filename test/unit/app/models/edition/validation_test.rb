@@ -200,4 +200,14 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:draft_edition, scheduled_publication: { 1 => now.year, 2 => now.month, 3 => now.day })
     assert_not edition.valid?
   end
+
+  test "should be invalid when political is nil" do
+    edition = build(:draft_edition, political: nil)
+    assert_not edition.valid?
+  end
+
+  test "should be invalid when political is blank" do
+    edition = build(:draft_edition, political: "")
+    assert_not edition.valid?
+  end
 end
