@@ -3,7 +3,7 @@ module ContentObjectStore
     extend ActiveSupport::Concern
 
     included do
-      has_many :versions, -> { order(created_at: :desc, id: :asc) }, as: :item
+      has_many :versions, -> { order(created_at: :desc, id: :desc) }, as: :item
 
       after_create :record_create
     end
