@@ -29,6 +29,14 @@ class Admin::Editions::HistoryModeFormControlsTest < ViewComponent::TestCase
     assert_selector "option[value='#{previous_government.id}'][selected='selected']"
   end
 
+  test "displays a hidden political input set to false for managing editor users " do
+    @test_strategy.switch!(:override_government, true)
+    published_edition = create(:published_news_article)
+    new_draft = create(:news_article, document: published_edition.document)
+    render_inline(Admin::Editions::HistoryModeFormControls.new(new_draft, create(:managing_editor)))
+    assert_selector "input[name='edition[political]'][value='0']", visible: false
+  end
+
   test "displays the political checkbox for managing editor users " do
     @test_strategy.switch!(:override_government, true)
     published_edition = create(:published_news_article)
