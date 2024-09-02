@@ -3,5 +3,6 @@ FactoryBot.define do
     event { "created" }
     item {}
     whodunnit {}
+    state {}
   end
 end
