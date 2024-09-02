@@ -238,7 +238,7 @@ GEM
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (96.0.2)
+    gds-api-adapters (96.0.3)
       addressable
       link_header
       null_logger
