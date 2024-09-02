@@ -3,44 +3,37 @@ require "test_helper"
 class ContentObjectStore::ContentBlock::Document::Show::DocumentTimelineComponentTest < ViewComponent::TestCase
   test "renders a timeline component with events in correct order" do
     @user = create(:user)
-    @content_block_edition_1 = create(
-      :content_block_edition,
-      document: create(
-        :content_block_document,
-        block_type: "email_address",
-      ),
-    )
-    @content_block_version_1 = create(
+    @version_1 = create(
       :content_block_version,
-      item: @content_block_edition_1,
+      event: "created",
       whodunnit: @user.id,
     )
-    @content_block_edition_2 = create(
-      :content_block_edition,
-      document: create(
-        :content_block_document,
-        block_type: "email_address",
-      ),
-    )
-    @content_block_version_2 = create(
+    @version_2 = create(
       :content_block_version,
-      item: @content_block_edition_2,
+      event: "updated",
       whodunnit: @user.id,
+      state: "published",
+    )
+    @version_3 = create(
+      :content_block_version,
+      event: "updated",
+      whodunnit: @user.id,
+      state: "scheduled",
     )
 
     render_inline(ContentObjectStore::ContentBlock::Document::Show::DocumentTimelineComponent.new(
-                    content_block_versions: [@content_block_version_1, @content_block_version_2],
+                    content_block_versions: [@version_3, @version_2, @version_1],
                   ))
 
     assert_selector ".timeline__item", count: 2
-    assert_equal page.all(".timeline__title")[0].text, "Email address changed"
-    assert_equal page.all(".timeline__byline")[0].text, "by #{@user.name}"
-    assert_equal page.all("time[datetime='#{@content_block_version_2.created_at.iso8601}']")[0].text,
-                 @content_block_version_2.created_at.strftime("%d %B %Y at %I:%M%P")
+    assert_equal "Email address scheduled", page.all(".timeline__title")[0].text
+    assert_equal "by #{@user.name}", page.all(".timeline__byline")[0].text
+    assert_equal @version_3.created_at.strftime("%d %B %Y at %I:%M%P"),
+                 page.all("time[datetime='#{@version_3.created_at.iso8601}']")[0].text
 
-    assert_equal page.all(".timeline__title")[1].text, "Email address created"
-    assert_equal page.all(".timeline__byline")[1].text, "by #{@user.name}"
-    assert_equal page.all("time[datetime='#{@content_block_version_2.created_at.iso8601}']")[1].text,
-                 @content_block_version_2.created_at.strftime("%d %B %Y at %I:%M%P")
+    assert_equal "Email address published", page.all(".timeline__title")[1].text
+    assert_equal "by #{@user.name}", page.all(".timeline__byline")[1].text
+    assert_equal  @version_2.created_at.strftime("%d %B %Y at %I:%M%P"),
+                  page.all("time[datetime='#{@version_2.created_at.iso8601}']")[1].text
   end
 end

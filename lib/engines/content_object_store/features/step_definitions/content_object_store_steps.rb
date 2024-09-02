@@ -140,6 +140,9 @@ Given("an email address content block has been created") do
     creator: @user,
     organisation:,
   )
+  ContentObjectStore::HasAuditTrail.acting_as(@user) do
+    @content_block.publish!
+  end
   @content_blocks.push(@content_block)
 end
 
@@ -271,13 +274,17 @@ Then("I should see a permissions error") do
 end
 
 Then("I should see the created event on the timeline") do
-  assert_text "Email address created"
+  expect(page).to have_selector(".timeline__title", text: "Email address created")
   expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}")
 end
 
-Then("I should see the update on the timeline") do
-  assert_text "Email address changed"
-  expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}", count: 2)
+Then(/^I should see ([^"]*) publish events on the timeline$/) do |count|
+  expect(page).to have_selector(".timeline__title", text: "Email address published", count:)
+end
+
+Then("I should see the publish event on the timeline") do
+  expect(page).to have_selector(".timeline__title", text: "Email address published")
+  expect(page).to have_selector(".timeline__byline", text: "by Scheduled Publishing Robot")
 end
 
 Then("I am asked to check my answers") do
@@ -379,6 +386,7 @@ Then("the edition should have been scheduled successfully") do
 end
 
 And("the block is scheduled and published") do
+  create(:scheduled_publishing_robot)
   near_future_date = 1.minute.from_now
   fill_in_date_and_time_field(near_future_date)
 
