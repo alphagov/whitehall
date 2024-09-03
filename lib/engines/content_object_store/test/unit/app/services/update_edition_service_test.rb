@@ -60,6 +60,15 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
       assert_equal result.document.title, edition_params[:document_attributes][:title]
     end
 
+    test "raises an error when an unknown change dispatcher is received" do
+      unknown_change_dispatcher = stub("unknown_change_dispatcher")
+
+      assert_raises(ArgumentError) do
+        ContentObjectStore::UpdateEditionService.new(schema, @original_content_block_edition, unknown_change_dispatcher)
+                                              .call({})
+      end
+    end
+
     describe "when a document title isn't provided" do
       test "does not update the document" do
         edition_params.delete(:document_attributes)
@@ -301,8 +310,8 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
 
         assert_changes -> { ContentObjectStore::ContentBlock::Edition.count }, from: 1, to: 2 do
           ContentObjectStore::UpdateEditionService
-            .new(schema, @original_content_block_edition)
-            .call(scheduled_edition_params, be_scheduled: true)
+            .new(schema, @original_content_block_edition, ContentObjectStore::ChangeDispatcher::Schedule.new)
+            .call(scheduled_edition_params)
         end
 
         new_edition = original_document.editions.last
@@ -322,8 +331,8 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
         end
 
         ContentObjectStore::UpdateEditionService
-          .new(schema, @original_content_block_edition)
-          .call(scheduled_edition_params, be_scheduled: true)
+          .new(schema, @original_content_block_edition, ContentObjectStore::ChangeDispatcher::Schedule.new)
+          .call(scheduled_edition_params)
       end
 
       test "if the Worker request fails, the Whitehall ContentBlockEdition and ContentBlockDocument are rolled back" do

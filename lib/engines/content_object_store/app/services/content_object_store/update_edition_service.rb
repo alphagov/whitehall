@@ -2,12 +2,13 @@ module ContentObjectStore
   class UpdateEditionService
     include Publishable
 
-    def initialize(schema, original_content_block_edition)
+    def initialize(schema, original_content_block_edition, change_dispatcher = ContentObjectStore::ChangeDispatcher::Now.new)
       @schema = schema
       @original_content_block_edition = original_content_block_edition
+      @change_dispatcher = change_dispatcher
     end
 
-    def call(edition_params, be_scheduled: false)
+    def call(edition_params)
       raise ArgumentError, "Edition params must be provided" if edition_params.blank? || edition_params[:details].blank?
 
       @edition_params = edition_params
@@ -15,13 +16,18 @@ module ContentObjectStore
       @details = edition_params[:details]
       @update_document_params = edition_params[:document_attributes] || {}
 
-      new_content_block_edition = be_scheduled ? schedule : publish_now
-
-      message = be_scheduled ? "#{@schema.name} scheduled successfully" : "#{@schema.name} changed and published successfully"
+      case @change_dispatcher
+      when ContentObjectStore::ChangeDispatcher::Now
+        new_content_block_edition = publish_now
+      when ContentObjectStore::ChangeDispatcher::Schedule
+        new_content_block_edition = schedule
+      else
+        raise ArgumentError, "#{@change_dispatcher.class} is not a known change dispatcher"
+      end
 
       ContentObjectStore::ResultMonad.new(
         new_content_block_edition.persisted?,
-        message,
+        "#{@schema.name} #{@change_dispatcher.verb} successfully",
         new_content_block_edition,
       )
     end

@@ -20,15 +20,12 @@ class ContentObjectStore::ContentBlock::WorkflowController < ContentObjectStore:
     ContentObjectStore::SchedulePublishingWorker.dequeue(content_block_edition)
 
     new_edition_params = edition_params.merge!(scheduled_publication_params)
-
+    change_dispatcher = params[:schedule_publishing] == "schedule" ? ContentObjectStore::ChangeDispatcher::Schedule.new : ContentObjectStore::ChangeDispatcher::Now.new
     result = ContentObjectStore::UpdateEditionService.new(
       @schema,
       content_block_edition,
-    ).call(
-      new_edition_params,
-      be_scheduled: params[:schedule_publishing] == "schedule",
-    )
-
+      change_dispatcher,
+    ).call(new_edition_params)
     new_content_block_edition = result.object
 
     redirect_to content_object_store.content_object_store_content_block_document_path(new_content_block_edition.document),
