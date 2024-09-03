@@ -32,6 +32,12 @@ module ContentObjectStore
         "#{@schema.name} #{@change_dispatcher.verb} successfully",
         new_content_block_edition,
       )
+    rescue ActiveRecord::RecordInvalid => e
+      ContentObjectStore::ResultMonad.new(
+        false,
+        e.message,
+        e.record,
+      )
     end
 
   private

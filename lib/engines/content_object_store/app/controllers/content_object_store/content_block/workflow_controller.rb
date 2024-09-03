@@ -26,13 +26,15 @@ class ContentObjectStore::ContentBlock::WorkflowController < ContentObjectStore:
     ).call(new_edition_params)
     new_content_block_edition = result.object
 
-    redirect_to content_object_store.content_object_store_content_block_document_path(new_content_block_edition.document),
-                flash: { notice: result.message }
-  rescue ActiveRecord::RecordInvalid => e
-    @content_block_edition = e.record
-    @content_block_document = content_block_edition.document
-    @edition_params = new_edition_params
+    if result.success?
+      redirect_to content_object_store.content_object_store_content_block_document_path(new_content_block_edition.document),
+                  flash: { notice: result.message }
+    else
+      @content_block_edition = result.object
+      @content_block_document = content_block_edition.document
+      @edition_params = new_edition_params
 
-    render "content_object_store/content_block/editions/schedule_publishing"
+      render "content_object_store/content_block/editions/schedule_publishing"
+    end
   end
 end

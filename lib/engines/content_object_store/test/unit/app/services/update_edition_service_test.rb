@@ -138,9 +138,11 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
     describe "when no params are passed" do
       it "raises an ArgumentError" do
         assert_raises(ArgumentError) do
-          ContentObjectStore::UpdateEditionService
-            .new(schema, @original_content_block_edition)
-            .call({})
+          result = ContentObjectStore::UpdateEditionService
+              .new(schema, @original_content_block_edition)
+              .call({})
+          assert_equal result.success?, false
+          assert_equal result.message, "Edition params must be provided"
         end
       end
     end
