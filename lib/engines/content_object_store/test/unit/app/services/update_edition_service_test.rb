@@ -42,6 +42,7 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
     test "it returns the new content block edition so the controller can redirect" do
       result = ContentObjectStore::UpdateEditionService.new(schema, @original_content_block_edition)
                                                        .call(edition_params)
+                                                       .object
       assert_instance_of ContentObjectStore::ContentBlock::Edition, result
     end
 
@@ -55,6 +56,7 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
     test "updates the title field on the original ContentBlockDocument" do
       result = ContentObjectStore::UpdateEditionService.new(schema, @original_content_block_edition)
                                                        .call(edition_params)
+                                                       .object
       assert_equal result.document.title, edition_params[:document_attributes][:title]
     end
 
@@ -147,6 +149,7 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
     it "updates the original ContentBlockDocument's latest_edition_id and live_edition_id to the new Edition" do
       result = ContentObjectStore::UpdateEditionService.new(schema, @original_content_block_edition)
                                                        .call(edition_params)
+                                                       .object
 
       @original_content_block_edition.document.reload
 
@@ -277,6 +280,87 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
             end
 
             publishing_api_mock.verify
+          end
+        end
+      end
+    end
+
+    describe "when a scheduled publish date is provided" do
+      let(:scheduled_edition_params) do
+        edition_params.merge(
+          "scheduled_publication(3i)": "2",
+          "scheduled_publication(2i)": "9",
+          "scheduled_publication(1i)": "2034",
+          "scheduled_publication(4i)": "10",
+          "scheduled_publication(5i)": "05",
+        )
+      end
+
+      test "it creates a new scheduled ContentBlockEdition in Whitehall" do
+        original_document = ContentObjectStore::ContentBlock::Document.find_by!(content_id:)
+
+        assert_changes -> { ContentObjectStore::ContentBlock::Edition.count }, from: 1, to: 2 do
+          ContentObjectStore::UpdateEditionService
+            .new(schema, @original_content_block_edition)
+            .call(scheduled_edition_params, be_scheduled: true)
+        end
+
+        new_edition = original_document.editions.last
+
+        assert_equal scheduled_edition_params[:details], new_edition.details
+        assert_equal "scheduled", new_edition.state
+        assert_equal Time.zone.local(2034, 9, 2, 10, 0o5), new_edition.scheduled_publication
+      end
+
+      test "it schedules a new Edition via the Content Block Worker" do
+        ContentObjectStore::SchedulePublishingWorker.expects(:queue).with do |content_block_edition|
+          content_block_edition.scheduled? &&
+            content_block_edition.document.title == scheduled_edition_params[:document_attributes][:title] &&
+            content_block_edition.details == scheduled_edition_params[:details] &&
+            content_block_edition.lead_organisation.id.to_s == scheduled_edition_params[:organisation_id] &&
+            content_block_edition.scheduled_publication == Time.zone.local(2034, 9, 2, 10, 0o5)
+        end
+
+        ContentObjectStore::UpdateEditionService
+          .new(schema, @original_content_block_edition)
+          .call(scheduled_edition_params, be_scheduled: true)
+      end
+
+      test "if the Worker request fails, the Whitehall ContentBlockEdition and ContentBlockDocument are rolled back" do
+        exception = GdsApi::HTTPErrorResponse.new(
+          422,
+          "An internal error message",
+          "error" => { "message" => "Some backend error" },
+        )
+        raises_exception = ->(*_args) { raise exception }
+
+        ContentObjectStore::SchedulePublishingWorker.stub :queue, raises_exception do
+          assert_equal ContentObjectStore::ContentBlock::Document.count, 1 do
+            assert_equal ContentObjectStore::ContentBlock::Edition.count, 1 do
+              assert_raises(GdsApi::HTTPErrorResponse) do
+                ContentObjectStore::UpdateEditionService
+                  .new(schema, @original_content_block_edition)
+                  .call(scheduled_edition_params, be_scheduled: true)
+
+                @original_content_block_edition.document.reload
+                @original_content_block_edition.document.latest_edition = @original_content_block_edition
+              end
+            end
+          end
+        end
+      end
+
+      test "if the Whitehall creation fails, no call to schedule the Edition is made" do
+        exception = ArgumentError.new("Cannot find schema for block_type")
+        raises_exception = ->(*_args) { raise exception }
+
+        ContentObjectStore::SchedulePublishingWorker.expects(:queue).never
+
+        ContentObjectStore::ContentBlock::Edition.stub :create!, raises_exception do
+          assert_raises(ArgumentError) do
+            ContentObjectStore::UpdateEditionService
+              .new(@original_content_block_edition)
+              .call({}, be_scheduled: true)
           end
         end
       end
