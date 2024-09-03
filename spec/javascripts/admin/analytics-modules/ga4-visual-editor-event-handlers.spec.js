@@ -1,8 +1,11 @@
 describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', function () {
   it('triggers ga4 tracking on visualEditorSelectChange event', function () {
     document.title = 'Title - Text'
+    const container = document.createElement('div')
     const select = document.createElement('select')
-    document.body.appendChild(select)
+    container.setAttribute('data-module', 'ga4-visual-editor-event-handlers')
+    container.appendChild(select)
+    document.body.appendChild(container)
 
     const mockGa4SendData = spyOn(
       window.GOVUK.analyticsGa4.core,
@@ -10,9 +13,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', fun
     )
 
     const ga4VisualEditorEventHandlers =
-      new GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers(
-        document
-      )
+      GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers
     ga4VisualEditorEventHandlers.init()
     select.dispatchEvent(
       new CustomEvent('visualEditorSelectChange', {
@@ -40,8 +41,11 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', fun
 
   it('triggers ga4 tracking on visualEditorButtonClick event', function () {
     document.title = 'Title - Text'
+    const container = document.createElement('div')
     const button = document.createElement('button')
-    document.body.appendChild(button)
+    container.setAttribute('data-module', 'ga4-visual-editor-event-handlers')
+    container.appendChild(button)
+    document.body.appendChild(container)
 
     const mockGa4SendData = spyOn(
       window.GOVUK.analyticsGa4.core,
@@ -49,9 +53,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', fun
     )
 
     const ga4VisualEditorEventHandlers =
-      new GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers(
-        document
-      )
+      GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers
     ga4VisualEditorEventHandlers.init()
     button.dispatchEvent(
       new CustomEvent('visualEditorButtonClick', {

@@ -28,25 +28,26 @@ window.GOVUK.analyticsGa4.analyticsModules =
     }
   }
 
-  function Ga4VisualEditorEventHandlers(module) {
-    this.module = module
-  }
-
-  Ga4VisualEditorEventHandlers.prototype.init = function () {
-    this.module.addEventListener('visualEditorSelectChange', (event) => {
-      window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
-        gaSelectChangeAttributes(event.detail.selectText),
-        'event_data'
+  Modules.Ga4VisualEditorEventHandlers = {
+    init: function () {
+      const moduleElements = document.querySelectorAll(
+        '[data-module~="ga4-visual-editor-event-handlers"]'
       )
-    })
+      moduleElements.forEach(function (moduleElement) {
+        moduleElement.addEventListener('visualEditorSelectChange', (event) => {
+          window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
+            gaSelectChangeAttributes(event.detail.selectText),
+            'event_data'
+          )
+        })
 
-    this.module.addEventListener('visualEditorButtonClick', (event) => {
-      window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
-        gaButtonClickAttributes(event.detail.buttonText),
-        'event_data'
-      )
-    })
+        moduleElement.addEventListener('visualEditorButtonClick', (event) => {
+          window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
+            gaButtonClickAttributes(event.detail.buttonText),
+            'event_data'
+          )
+        })
+      })
+    }
   }
-
-  Modules.Ga4VisualEditorEventHandlers = Ga4VisualEditorEventHandlers
 })(window.GOVUK.analyticsGa4.analyticsModules)
