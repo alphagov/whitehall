@@ -82,6 +82,7 @@
           alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
         },
         hidden_field_name: "edition[visual_editor]",
+        images: edition.images.map { |image| [image.url, "[Image: #{image.filename}]"] }.to_h,
       } %>
     <% else %>
       <%= render "components/govspeak_editor", {
