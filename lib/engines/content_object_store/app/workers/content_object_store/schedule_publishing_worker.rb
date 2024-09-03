@@ -48,9 +48,11 @@ module ContentObjectStore
 
       schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(edition.document.block_type)
 
-      ContentObjectStore::PublishEditionService.new(
-        schema,
-      ).call(edition)
+      ContentObjectStore::HasAuditTrail.acting_as(publishing_robot) do
+        ContentObjectStore::PublishEditionService.new(
+          schema,
+        ).call(edition)
+      end
     rescue ContentObjectStore::Publishable::PublishingFailureError => e
       raise SchedulingFailure, e.message
     end

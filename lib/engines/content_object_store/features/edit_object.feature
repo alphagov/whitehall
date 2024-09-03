@@ -27,7 +27,7 @@ Feature: Edit a content object
     And I accept and publish
     Then the edition should have been updated successfully
     And I should be taken back to the document page
-    And I should see the update on the timeline
+    And I should see 2 publish events on the timeline
 
   Scenario: GDS editor sees validation errors for missing fields
     And a schema "email_address" exists with the following fields:
