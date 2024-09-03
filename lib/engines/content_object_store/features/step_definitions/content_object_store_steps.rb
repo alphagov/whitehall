@@ -398,7 +398,7 @@ end
 Then("published state of the object is shown") do
   visit content_object_store.content_object_store_content_block_document_path(@content_block.document)
   expect(page).to have_selector(".govuk-summary-list__key", text: "State")
-  expect(page).to have_selector(".govuk-summary-list__value", text: "published")
+  expect(page).to have_selector(".govuk-summary-list__value", text: "Published")
 end
 
 Then("I should see the scheduled date on the object") do

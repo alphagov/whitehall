@@ -39,7 +39,7 @@ class ContentObjectStore::ContentBlock::Document::Show::SummaryListComponentTest
     assert_selector ".govuk-summary-list__value", text: content_block_document.embed_code
 
     assert_selector ".govuk-summary-list__key", text: "State"
-    assert_selector ".govuk-summary-list__value", text: content_block_edition.state
+    assert_selector ".govuk-summary-list__value", text: content_block_edition.state.titleize
 
     assert_selector ".govuk-summary-list__key", text: "Scheduled for publication at"
     assert_selector ".govuk-summary-list__value", text: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)

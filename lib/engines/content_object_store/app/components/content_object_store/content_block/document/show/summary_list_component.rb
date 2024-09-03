@@ -8,7 +8,7 @@ private
   attr_reader :content_block_document
 
   def items
-    [
+    items = [
       title_item,
       *details_items,
       organisation_item,
@@ -62,7 +62,7 @@ private
   def state_item
     {
       field: "State",
-      value: content_block_document.latest_edition.state,
+      value: content_block_document.latest_edition.state.titleize,
     }
   end
 
