@@ -42,7 +42,7 @@ private
   def date_item
     {
       field: "Publish date",
-      value: Date.current.strftime("%d %B %Y"),
+      value: I18n.l(content_block_edition.created_at.to_date, format: :long_ordinal),
     }
   end
 end

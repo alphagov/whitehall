@@ -22,6 +22,6 @@ class ContentObjectStore::ContentBlockEdition::Show::ConfirmSummaryListComponent
     assert_selector ".govuk-summary-list__key", text: "Confirm"
     assert_selector ".govuk-summary-list__value", text: "I confirm that I am happy for the content block to be changed on these pages."
     assert_selector ".govuk-summary-list__key", text: "Publish date"
-    assert_selector ".govuk-summary-list__value", text: content_block_edition.created_at.strftime("%d %B %Y")
+    assert_selector ".govuk-summary-list__value", text: I18n.l(content_block_edition.created_at.to_date, format: :long_ordinal)
   end
 end
