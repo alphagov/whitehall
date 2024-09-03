@@ -16,6 +16,8 @@ module ContentObjectStore
       @details = edition_params[:details]
       @update_document_params = edition_params[:document_attributes] || {}
 
+      remove_any_old_scheduled_jobs
+
       case @change_dispatcher
       when ContentObjectStore::ChangeDispatcher::Now
         new_content_block_edition = publish_now
@@ -33,6 +35,10 @@ module ContentObjectStore
     end
 
   private
+
+    def remove_any_old_scheduled_jobs
+      ContentObjectStore::SchedulePublishingWorker.dequeue(@original_content_block_edition)
+    end
 
     def publish_now
       publish_with_rollback(schema: @schema, title: @title, details: @details) do

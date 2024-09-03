@@ -69,6 +69,12 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
       end
     end
 
+    test "it will always dequeue any old scheduleding jobs" do
+      ContentObjectStore::SchedulePublishingWorker.expects(:dequeue).with(@original_content_block_edition)
+      ContentObjectStore::UpdateEditionService.new(schema, @original_content_block_edition)
+                                              .call(edition_params)
+    end
+
     describe "when a document title isn't provided" do
       test "does not update the document" do
         edition_params.delete(:document_attributes)
