@@ -20,7 +20,11 @@ Feature: Edit a content object
     When I fill out the form
     Then I am shown where the changes will take place
     And I should see a back link to the edit page
-    When I continue
+    When I save and continue
+    Then I am asked when I want to publish the change
+    And I should see a back link to the review page
+    When I choose to publish the change now
+    And I accept and publish
     Then the edition should have been updated successfully
     And I should be taken back to the document page
     And I should see the update on the timeline

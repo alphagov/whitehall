@@ -10,6 +10,8 @@ FactoryBot.define do
 
     document_id { nil }
 
+    scheduled_publication { nil }
+
     ContentObjectStore::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
         document { build(:content_block_document, block_type: type) }

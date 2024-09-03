@@ -30,6 +30,7 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
   EDIT_FORM_STEPS = {
     edit_block: "edit_block",
     review_links: "review_links",
+    schedule_publishing: "schedule_publishing",
   }.freeze
 
   def edit
@@ -42,6 +43,8 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
       edit_block
     when EDIT_FORM_STEPS[:review_links]
       review_links
+    when EDIT_FORM_STEPS[:schedule_publishing]
+      schedule_publishing
     end
   end
 
@@ -55,7 +58,7 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     @content_block_document = @content_block_edition.document
     @edition_params = edition_params
 
-    new_edition = ContentObjectStore::ContentBlock::Edition.new(@edition_params)
+    new_edition = ContentObjectStore::ContentBlock::Edition.new(edition_params)
     new_edition.document.id = @content_block_document.id
 
     if new_edition.valid?
@@ -74,36 +77,17 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     end
   end
 
-  def update
-    content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
-    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
+  def schedule_publishing
+    @content_block_document = @content_block_edition.document
+    @edition_params = edition_params
 
-    new_content_block_edition = ContentObjectStore::UpdateEditionService.new(
-      @schema,
-      content_block_edition,
-    ).call(edition_params)
-
-    redirect_to content_object_store.content_object_store_content_block_document_path(new_content_block_edition.document),
-                flash: { notice: "#{@schema.name} changed and published successfully" }
-  rescue ActiveRecord::RecordInvalid => e
-    @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(
-      content_block_edition: e.record, schema: @schema,
-      edition_to_update_id: content_block_edition.id
-    )
-
-    render :edit
+    render :schedule_publishing
   end
 
 private
 
   def root_params
     params.require(:content_object_store_content_block_edition)
-  end
-
-  def edition_params
-    params.require(:content_block_edition)
-      .permit(:organisation_id, :creator, document_attributes: %w[title block_type], details: @schema.fields)
-      .merge(creator: current_user)
   end
 
   def block_type_param

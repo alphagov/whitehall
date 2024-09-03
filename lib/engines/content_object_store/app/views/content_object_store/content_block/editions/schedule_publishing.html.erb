@@ -1,0 +1,100 @@
+<% content_for :context, "Manage #{add_indefinite_article @content_block_document.block_type.humanize}" %>
+<% content_for :title, "When do you want to publish the change?" %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: content_object_store.edit_content_object_store_content_block_edition_path(
+      id: @content_block_document.latest_edition.id,
+      content_block_edition: @edition_params,
+      step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:review_links],
+    ),
+  } %>
+<% end %>
+
+<%
+  year_param = @edition_params["scheduled_publication(1i)"]
+  month_param = @edition_params["scheduled_publication(2i)"]
+  day_param = @edition_params["scheduled_publication(3i)"]
+  hour_param = @edition_params["scheduled_publication(4i)"]
+  minute_param =  @edition_params["scheduled_publication(5i)"]
+  is_scheduled_param = params["schedule_publishing"]
+%>
+
+<p class="govuk-body">Choose when you would like the change to be made.</p>
+
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @content_block_edition)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: content_object_store.content_object_store_content_block_edition_path(content_block_edition: @edition_params), method: :patch do %>
+
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "schedule_publishing",
+        id: "schedule_publishing",
+        heading_size: "xl",
+        items: [
+          {
+            value: "now",
+            checked:  is_scheduled_param == "now",
+            text: "Publish the change now",
+          },
+          {
+            value: "schedule",
+            checked: is_scheduled_param == "schedule",
+            text: "Schedule the change for the future",
+            conditional: render("components/datetime_fields", {
+              heading_size: "s",
+              field_name: "scheduled_publication",
+              prefix: "scheduled_at",
+              date_heading: "Date",
+              date_hint: "For example, 01 08 2025",
+              time_hint: "For example, 09:30 or 19:30",
+              error_items: errors_for(@content_block_edition.errors, :scheduled_publication),
+              year: {
+                value: year_param&.to_i,
+                id: "scheduled_at_scheduled_publication_1i",
+                name: "scheduled_at[scheduled_publication(1i)]",
+                label: "Year",
+                width: 4,
+              },
+              month: {
+                value: month_param&.to_i,
+                id: "scheduled_at_scheduled_publication_2i",
+                name: "scheduled_at[scheduled_publication(2i)]",
+                label: "Month",
+                width: 2,
+              },
+              day: {
+                value: day_param&.to_i,
+                id: "content_object_store/content_block/edition_scheduled_publication",
+                name: "scheduled_at[scheduled_publication(3i)]",
+                label: "Day",
+                width: 2,
+              },
+              hour: {
+                value: hour_param&.to_i,
+                id: "scheduled_at_scheduled_publication_4i",
+                name: "scheduled_at[scheduled_publication(4i)]",
+              },
+              minute: {
+                value: minute_param&.to_i,
+                id: "scheduled_at_scheduled_publication_5i",
+                name: "scheduled_at[scheduled_publication(5i)]",
+              },
+            }),
+          },
+        ],
+      } %>
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Accept and publish",
+          name: "accept_and_publish",
+          value: "Accept and publish",
+          type: "submit",
+        } %>
+        <%= link_to("Cancel", content_object_store.content_object_store_content_block_documents_path, class: "govuk-link") %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

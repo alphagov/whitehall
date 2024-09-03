@@ -24,12 +24,18 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
-        <%= form_with(url: content_object_store.content_object_store_content_block_edition_path(content_block_edition: @edition_params), method: :patch) do %>
+        <%= form_with(
+              url: content_object_store.edit_content_object_store_content_block_edition_path(
+                content_block_edition: @edition_params,
+                step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:schedule_publishing],
+              ),
+              method: :post,
+            ) do %>
           <div class="govuk-button-group govuk-!-margin-bottom-6">
             <%= render "govuk_publishing_components/components/button", {
-              text: "Accept and publish",
-              name: "accept_and_publish",
-              value: "Accept and publish",
+              text: "Save and continue",
+              name: "save_and_continue",
+              value: "Save and continue",
               type: "submit",
             } %>
             <%= link_to("Cancel", content_object_store.content_object_store_content_block_documents_path, class: "govuk-link") %>

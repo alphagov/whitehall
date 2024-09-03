@@ -4,6 +4,7 @@ require "capybara/rails"
 class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   extend Minitest::Spec::DSL
+  include ContentObjectStore::Engine.routes.url_helpers
 
   before do
     login_as_admin
