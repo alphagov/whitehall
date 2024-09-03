@@ -17,6 +17,8 @@ class ContentObjectStore::ContentBlock::WorkflowController < ContentObjectStore:
     content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
     @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(content_block_edition.document.block_type)
 
+    ContentObjectStore::SchedulePublishingWorker.dequeue(content_block_edition)
+
     new_edition = edition_params
     if params[:schedule_publishing] == "schedule"
       new_edition = edition_params.merge!(scheduled_publication_params)
