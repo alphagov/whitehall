@@ -287,6 +287,11 @@ Then("I should see the publish event on the timeline") do
   expect(page).to have_selector(".timeline__byline", text: "by Scheduled Publishing Robot")
 end
 
+Then("I should see the scheduled event on the timeline") do
+  expect(page).to have_selector(".timeline__title", text: "Email address scheduled")
+  expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}")
+end
+
 Then("I am asked to check my answers") do
   assert_text "Check your answers"
 end
@@ -366,9 +371,14 @@ When("I choose to schedule the change") do
   choose "Schedule the change for the future"
 end
 
-When("I enter a date 7 days in the future") do
+When("I schedule the change for 7 days in the future") do
+  choose "Schedule the change for the future"
   @future_date = 7.days.since(Time.zone.now)
   fill_in_date_and_time_field(@future_date)
+
+  Sidekiq::Testing.fake! do
+    click_on "Accept and publish"
+  end
 end
 
 When("I enter an invalid date") do
