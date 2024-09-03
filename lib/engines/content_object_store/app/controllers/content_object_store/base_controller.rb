@@ -1,5 +1,5 @@
 class ContentObjectStore::BaseController < Admin::BaseController
-  before_action :check_object_store_feature_flag
+  before_action :check_object_store_feature_flag, :set_sentry_tags
 
   def check_object_store_feature_flag
     forbidden! unless Flipflop.content_object_store?
@@ -27,5 +27,9 @@ class ContentObjectStore::BaseController < Admin::BaseController
             details: @schema.fields,
           )
           .merge!(creator: current_user)
+  end
+
+  def set_sentry_tags
+    Sentry.set_tags(engine: "content_object_store")
   end
 end
