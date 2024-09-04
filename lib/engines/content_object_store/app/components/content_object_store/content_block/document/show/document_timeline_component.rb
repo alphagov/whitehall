@@ -27,9 +27,8 @@ private
   end
 
   def time_html(date_time)
-    formatted_timestamp = date_time.strftime("%d %B %Y at %I:%M%P")
     tag.time(
-      formatted_timestamp,
+      I18n.l(date_time, format: :long_ordinal),
       class: "date",
       datetime: date_time.iso8601,
       lang: "en",

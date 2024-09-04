@@ -26,14 +26,15 @@ class ContentObjectStore::ContentBlock::Document::Show::DocumentTimelineComponen
                   ))
 
     assert_selector ".timeline__item", count: 2
+
     assert_equal "Email address scheduled", page.all(".timeline__title")[0].text
     assert_equal "by #{@user.name}", page.all(".timeline__byline")[0].text
-    assert_equal @version_3.created_at.strftime("%d %B %Y at %I:%M%P"),
-                 page.all("time[datetime='#{@version_3.created_at.iso8601}']")[0].text
+    assert_equal  I18n.l(@version_3.created_at, format: :long_ordinal),
+                  page.all("time[datetime='#{@version_3.created_at.iso8601}']")[1].text
 
     assert_equal "Email address published", page.all(".timeline__title")[1].text
     assert_equal "by #{@user.name}", page.all(".timeline__byline")[1].text
-    assert_equal  @version_2.created_at.strftime("%d %B %Y at %I:%M%P"),
+    assert_equal  I18n.l(@version_2.created_at, format: :long_ordinal),
                   page.all("time[datetime='#{@version_2.created_at.iso8601}']")[1].text
   end
 end

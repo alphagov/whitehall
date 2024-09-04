@@ -367,7 +367,7 @@ When("I choose to schedule the change") do
 end
 
 When("I enter a date 7 days in the future") do
-  @future_date = 7.days.since(Time.zone.now).to_date
+  @future_date = 7.days.since(Time.zone.now)
   fill_in_date_and_time_field(@future_date)
 end
 
@@ -403,5 +403,5 @@ end
 
 Then("I should see the scheduled date on the object") do
   expect(page).to have_selector(".govuk-summary-list__key", text: "Scheduled for publication at")
-  expect(page).to have_selector(".govuk-summary-list__value", text: @future_date.strftime("%e %B %Y at %I:%M%P"))
+  expect(page).to have_selector(".govuk-summary-list__value", text: I18n.l(@future_date, format: :long_ordinal).squish)
 end

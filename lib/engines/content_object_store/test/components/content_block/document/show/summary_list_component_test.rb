@@ -10,6 +10,7 @@ class ContentObjectStore::ContentBlock::Document::Show::SummaryListComponentTest
       details: { foo: "bar", something: "else" },
       creator: build(:user),
       organisation:,
+      scheduled_publication: Time.zone.now,
     )
     content_block_document = content_block_edition.document
 
@@ -41,6 +42,6 @@ class ContentObjectStore::ContentBlock::Document::Show::SummaryListComponentTest
     assert_selector ".govuk-summary-list__value", text: content_block_edition.state
 
     assert_selector ".govuk-summary-list__key", text: "Scheduled for publication at"
-    assert_selector ".govuk-summary-list__value", text: content_block_edition.scheduled_publication&.strftime("%e %B %Y at %I:%M%P")
+    assert_selector ".govuk-summary-list__value", text: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)
   end
 end

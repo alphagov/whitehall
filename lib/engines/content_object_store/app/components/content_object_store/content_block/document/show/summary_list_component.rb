@@ -67,9 +67,10 @@ private
   end
 
   def scheduled_item
+    scheduled_date = content_block_document.latest_edition.scheduled_publication
     {
       field: "Scheduled for publication at",
-      value: content_block_document.latest_edition.scheduled_publication&.strftime("%e %B %Y at %I:%M%P"),
+      value: scheduled_date ? I18n.l(scheduled_date, format: :long_ordinal) : nil,
     }
   end
 
