@@ -11,6 +11,7 @@ class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponentTes
       details: { foo: "bar", something: "else" },
       creator: build(:user),
       organisation: build(:organisation),
+      scheduled_publication: Time.zone.now,
     )
     content_block_document = content_block_edition.document
 
@@ -41,6 +42,9 @@ class ContentObjectStore::ContentBlock::Document::Index::SummaryCardComponentTes
     assert_selector ".govuk-summary-list__value", text: content_block_document.embed_code
 
     assert_selector ".govuk-summary-list__key", text: "State"
-    assert_selector ".govuk-summary-list__value", text: content_block_edition.scheduled_publication&.strftime("%e %B %Y at %I:%M%P")
+    assert_selector ".govuk-summary-list__value", text: content_block_edition.state
+
+    assert_selector ".govuk-summary-list__key", text: "Scheduled for publication at"
+    assert_selector ".govuk-summary-list__value", text: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)
   end
 end
