@@ -16,7 +16,7 @@ class Admin::Editions::HistoryModeFormControls < ViewComponent::Base
   def options
     [
       {
-        text: "Associate with default government",
+        text: "Associate with current government",
         value: "",
       },
     ].tap do |options|
