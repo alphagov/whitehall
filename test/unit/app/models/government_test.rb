@@ -125,6 +125,13 @@ class GovernmentTest < ActiveSupport::TestCase
     current_open_government.update!(end_date: "2014-01-01")
     assert new_open_government.valid?
   end
+
+  test "#newest_first returns the current government first" do
+    previous_government = create(:previous_government)
+    current_government = create(:current_government)
+    assert Government.first == previous_government
+    assert Government.newest_first.first == current_government
+  end
 end
 
 class GovernmentOnDateTest < ActiveSupport::TestCase

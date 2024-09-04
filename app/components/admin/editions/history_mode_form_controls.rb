@@ -20,7 +20,7 @@ class Admin::Editions::HistoryModeFormControls < ViewComponent::Base
         value: "",
       },
     ].tap do |options|
-      Government.find_each do |government|
+      Government.newest_first.find_each do |government|
         options << {
           text: government.name,
           value: government.id,

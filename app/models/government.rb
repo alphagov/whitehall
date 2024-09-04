@@ -4,6 +4,8 @@ class Government < ApplicationRecord
 
   date_attributes(:start_date, :end_date)
 
+  scope :newest_first, -> { order(start_date: :desc) }
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
   validates :content_id, presence: true, uniqueness: { case_sensitive: false }
