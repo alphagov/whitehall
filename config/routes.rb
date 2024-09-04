@@ -11,6 +11,7 @@ Whitehall::Application.routes.draw do
 
   namespace :api do
     get "government/news/:slug" => "news_articles#show"
+    get "government/ministers" => "ministers#index"
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
