@@ -17,7 +17,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       '.app-c-visual-editor__govspeak-editor-wrapper textarea'
     )
 
-    new window.GovspeakVisualEditor(this.content, this.container, this.textarea) // eslint-disable-line no-new
+    const images = JSON.parse(this.module.getAttribute('data-images'))
+
+    new window.GovspeakVisualEditor( // eslint-disable-line no-new
+      this.content,
+      this.container,
+      this.textarea,
+      { images }
+    )
 
     this.govspeakEditorwrapper = this.module.querySelector(
       '.app-c-visual-editor__govspeak-editor-wrapper'

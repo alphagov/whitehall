@@ -3,11 +3,12 @@
   label_id = "#{id}-label"
   value ||= nil
   error_items ||= nil
+  images ||= {}
 
   error_class = "govuk-form-group--error" if error_items
 %>
 
-<%= tag.div class: error_class, "data-module": "visual-editor" do %>
+<%= tag.div class: error_class, "data-module": "visual-editor", "data-images": images.to_json do %>
   <div class="app-c-visual-editor__govspeak-editor-wrapper">
     <%= render "components/govspeak_editor", {
       label:,
