@@ -4,18 +4,21 @@ window.GOVUK.analyticsGa4 = window.GOVUK.analyticsGa4 || {}
 window.GOVUK.analyticsGa4.analyticsModules =
   window.GOVUK.analyticsGa4.analyticsModules || {}
 ;(function (Modules) {
-  function Ga4FormSetup(module) {
-    this.module = module
+  Modules.Ga4FormSetup = {
+    init: function () {
+      const moduleElements = document.querySelectorAll(
+        "[data-module~='ga4-form-setup']"
+      )
+      moduleElements.forEach(function (moduleElement) {
+        const submitButton = moduleElement.querySelector(
+          'button[type="submit"]'
+        )
+        moduleElement.dataset.ga4Form = JSON.stringify({
+          event_name: 'form_response',
+          section: document.title.split(' - ')[0].replace('Error: ', ''),
+          action: submitButton.textContent.toLowerCase()
+        })
+      })
+    }
   }
-
-  Ga4FormSetup.prototype.init = function () {
-    const submitButton = this.module.querySelector('button[type="submit"]')
-    this.module.dataset.ga4Form = JSON.stringify({
-      event_name: 'form_response',
-      section: document.title.split(' - ')[0].replace('Error: ', ''),
-      action: submitButton.textContent.toLowerCase()
-    })
-  }
-
-  Modules.Ga4FormSetup = Ga4FormSetup
 })(window.GOVUK.analyticsGa4.analyticsModules)

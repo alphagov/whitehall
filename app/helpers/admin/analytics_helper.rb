@@ -2,7 +2,7 @@ module Admin
   module AnalyticsHelper
     def track_analytics_data_on_load(title)
       {
-        event_name: "page_view",
+        event: "page_view",
         page_view: {
           publishing_app: "Whitehall",
           user_created_at: current_user&.created_at&.to_date,
