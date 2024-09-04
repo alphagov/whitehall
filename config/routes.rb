@@ -9,6 +9,11 @@ Whitehall::Application.routes.draw do
 
   root to: redirect("/admin/")
 
+  namespace :api do
+    get "government/news/:slug" => "news_articles#show"
+    get "government/ministers" => "ministers#index"
+  end
+
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: redirect("/", prefix: ""), via: :get, as: :main_root
 
