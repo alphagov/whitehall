@@ -3,6 +3,13 @@ require "test_helper"
 class ContentObjectStore::SchedulePublishingWorkerTest < ActiveSupport::TestCase
   include SidekiqTestHelpers
 
+  # Suppress noisy Sidekiq logging in the test output
+  setup do
+    Sidekiq.configure_client do |cfg|
+      cfg.logger.level = ::Logger::WARN
+    end
+  end
+
   test "#perform publishes a scheduled edition" do
     schema = build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } })
     document = create(:content_block_document, :email_address)

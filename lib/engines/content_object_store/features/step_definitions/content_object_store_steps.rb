@@ -1,5 +1,10 @@
 require_relative "../support/stubs"
 
+# Suppress noisy Sidekiq logging in the test output
+Sidekiq.configure_client do |cfg|
+  cfg.logger.level = ::Logger::WARN
+end
+
 Given(/^the content object store feature flag is (enabled|disabled)$/) do |enabled|
   @test_strategy ||= Flipflop::FeatureSet.current.test!
   @test_strategy.switch!(:content_object_store, enabled == "enabled")
