@@ -5,14 +5,11 @@ require "active_support/core_ext/integer/time"
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
 
-Whitehall::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
-
-  # Disable cache in test
-  config.cache_store = :null_store
 
   # Eager loading loads your entire application. When running a single test locally,
   # this is usually not necessary, and can slow down your test suite. However, it's
@@ -27,15 +24,17 @@ Whitehall::Application.configure do
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
   config.action_controller.action_on_unpermitted_parameters = :raise
+  config.cache_store = :null_store
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
+
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
@@ -64,9 +63,6 @@ Whitehall::Application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
-  # Raise error when a before_action's only/except options reference missing actions
-  config.action_controller.raise_on_missing_callback_actions = false
-
   # These environment variables are required for Plek. Conditionally setting
   # them here means we don't have to explicitly set them just to run tests.
   ENV["GOVUK_APP_DOMAIN"] ||= "test.gov.uk"
@@ -74,11 +70,9 @@ Whitehall::Application.configure do
   ENV["GOVUK_ASSET_ROOT"] ||= "https://static.test.gov.uk"
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
-  #
-  # Uncomment if you want to diagnose Javascript compression/mangling issues
-  # config.assets.js_compressor = :terser
-  # or
-  # config.assets.js_compressor = Terser.new(mangle: false)
+
+  # Raise error when a before_action's only/except options reference missing actions
+  config.action_controller.raise_on_missing_callback_actions = false
 end
 
 Whitehall.skip_safe_html_validation = true
