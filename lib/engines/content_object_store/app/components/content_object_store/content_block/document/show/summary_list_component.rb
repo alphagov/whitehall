@@ -16,7 +16,7 @@ private
       embed_code_item,
       state_item,
       scheduled_item,
-    ]
+    ].compact
   end
 
   def embed_code_item
@@ -62,16 +62,17 @@ private
   def state_item
     {
       field: "State",
-      value: content_block_document.latest_edition.state,
+      value: content_block_document.latest_edition.state.titleize,
     }
   end
 
   def scheduled_item
-    scheduled_date = content_block_document.latest_edition.scheduled_publication
-    {
-      field: "Scheduled for publication at",
-      value: scheduled_date ? I18n.l(scheduled_date, format: :long_ordinal) : nil,
-    }
+    if content_block_document.latest_edition.state == "scheduled"
+      {
+        field: "Scheduled for publication at",
+        value: I18n.l(content_block_document.latest_edition.scheduled_publication, format: :long_ordinal),
+      }
+    end
   end
 
   def edit_action

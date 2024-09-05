@@ -11,13 +11,11 @@ Feature: Schedule a content object
   Scenario: GDS Editor schedules a content object
     When I am updating a content block
     Then I am asked when I want to publish the change
-    When I choose to schedule the change
-    And I enter a date 7 days in the future
-    And I accept and publish
+    And I schedule the change for 7 days in the future
     Then the edition should have been scheduled successfully
     And I should be taken back to the document page
     And I should see the scheduled date on the object
-    And I should see 2 publish events on the timeline
+    And I should see the scheduled event on the timeline
 
   Scenario: A scheduled content object is published
     When I am updating a content block
