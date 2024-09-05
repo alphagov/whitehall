@@ -26,7 +26,8 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with url: content_object_store.content_object_store_content_block_edition_path(content_block_edition: @edition_params), method: :patch do %>
+    <%= form_with url:
+    content_object_store.content_object_store_content_block_edition_path("content_block/edition": @edition_params), method: :patch do %>
 
       <%= render "govuk_publishing_components/components/radio", {
         name: "schedule_publishing",

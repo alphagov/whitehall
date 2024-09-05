@@ -85,7 +85,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
           "scheduled_publication(4i)": "10",
           "scheduled_publication(5i)": "05",
         },
-        content_block_edition: {
+        "content_block/edition": {
           creator: "1",
           details: { foo: "newnew@example.com", bar: "edited" },
           document_attributes: { block_type: "email_address", title: "Another email" },
@@ -163,7 +163,7 @@ def update_params(edition_id:, organisation_id:)
       "scheduled_publication(4i)": "10",
       "scheduled_publication(5i)": "05",
     },
-    content_block_edition: {
+    "content_block/edition": {
       creator: "1",
       details: { foo: "newnew@example.com", bar: "edited" },
       document_attributes: { block_type: "email_address", title: "Another email" },

@@ -89,10 +89,10 @@ When("I complete the form with the following fields:") do |table|
 
   fill_in "Title", with: @title
 
-  select @organisation, from: "Lead organisation"
+  select @organisation, from: "content_block/edition_lead_organisation"
 
   fields.keys.each do |k|
-    fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
+    fill_in "content_object_store/content_block/edition_details_#{k}", with: @details[k]
   end
 
   click_on "Save and continue"
@@ -200,14 +200,14 @@ end
 When("I fill out the form") do
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
-  select "Ministry of Example", from: "Lead organisation"
+  select "Ministry of Example", from: "content_block/edition_lead_organisation"
   click_on "Save and continue"
 end
 
 When("I set all fields to blank") do
   fill_in "Title", with: ""
   fill_in "Email address", with: ""
-  first("#lead_organisation option").select_option
+  select "", from: "content_block/edition[organisation_id]"
   click_on "Save and continue"
 end
 
@@ -356,7 +356,7 @@ When("I am updating a content block") do
   #  fill in the new data
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
-  select "Ministry of Example", from: "Lead organisation"
+  select "Ministry of Example", from: "content_block/edition_lead_organisation"
   click_on "Save and continue"
   # accept changes
   click_on "Save and continue"

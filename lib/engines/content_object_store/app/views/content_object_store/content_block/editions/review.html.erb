@@ -19,7 +19,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= form_with(url: content_object_store.publish_content_object_store_content_block_edition_path, method: :post) do %>
-      <%= hidden_field_tag "content_block_edition[id]", @content_block_edition.id, id: "content-block-edition-id" %>
+      <%= hidden_field_tag "content_block/edition[id]", @content_block_edition.id, id: "content-block-edition-id" %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
           text: "Accept and publish",
