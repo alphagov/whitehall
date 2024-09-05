@@ -54,7 +54,7 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
             assert_changes -> { ContentObjectStore::ContentBlock::Version.count }, from: 0, to: 1 do
               post content_object_store.content_object_store_content_block_editions_path, params: {
                 something: "else",
-                content_block_edition: {
+                "content_block/edition": {
                   document_attributes:,
                   details:,
                   organisation_id: organisation.id,
@@ -94,7 +94,7 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
                                               .raises(err)
 
       post content_object_store.content_object_store_content_block_editions_path, params: {
-        content_block_edition: {
+        "content_block/edition": {
           document_attributes: {
             block_type: "email_address",
           },

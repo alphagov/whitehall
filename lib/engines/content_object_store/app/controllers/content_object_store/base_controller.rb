@@ -14,7 +14,7 @@ class ContentObjectStore::BaseController < Admin::BaseController
   end
 
   def edition_params
-    params.require(:content_block_edition)
+    params.require("content_block/edition")
           .permit(
             :organisation_id,
             :creator,

@@ -4,7 +4,7 @@
       url: @form.url,
       method: :post,
       model: [content_object_store, @form.content_block_edition]) do |f| %>
-  <%= hidden_field_tag "content_block_edition[document_attributes][block_type]",
+  <%= hidden_field_tag "content_block/edition[document_attributes][block_type]",
     @form.schema.block_type,
     id: "content_object_store/content_block_edition_document_block_type" %>
 
@@ -12,8 +12,8 @@
     label: {
       text: "Title",
     },
-    name: "content_block_edition[document_attributes][title]",
-    id: "content_object_store/content_block_edition_document_title",
+    name: "content_block/edition[document_attributes][title]",
+    id: "content_object_store/content_block/edition_document_title",
     value: @form.content_block_edition.document&.title,
     error_items: errors_for(@form.content_block_edition.errors, "document.title".to_sym),
   } %>
@@ -23,16 +23,16 @@
       label: {
         text: field.humanize,
       },
-      name: "content_block_edition[details[#{field}]]",
-      id: "content_object_store/content_block_edition_details_#{field}",
+      name: "content_block/edition[details[#{field}]]",
+      id: "content_object_store/content_block/edition_details_#{field}",
       value: @form.content_block_edition.details&.fetch(field, nil),
       error_items: errors_for(@form.content_block_edition.errors, "details_#{field}".to_sym),
     } %>
   <% end %>
 
   <%= render "components/select_with_search", {
-    id: "lead_organisation",
-    name: "content_block_edition[organisation_id]",
+    id: "content_block/edition_lead_organisation",
+    name: "content_block/edition[organisation_id]",
     label:  "Lead organisation",
     include_blank: true,
     options: taggable_organisations_container.map do |name, id|

@@ -91,6 +91,6 @@ private
   end
 
   def block_type_param
-    params.require(:content_block_edition).require("document_attributes").require(:block_type)
+    params.require("content_block/edition").require("document_attributes").require(:block_type)
   end
 end
