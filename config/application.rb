@@ -5,10 +5,14 @@ require "rails"
 require "active_model/railtie"
 require "active_job/railtie"
 require "active_record/railtie"
+# require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
 require "action_view/railtie"
 require "sprockets/railtie"
+# require "action_cable/engine"
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -22,15 +26,9 @@ end
 
 module Whitehall
   class Application < Rails::Application
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
-
     require "whitehall"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
-
-    config.active_support.cache_format_version = 7.1
 
     # Disable rails 7.0+ button_to behaviour
     config.action_view.button_to_generates_button_tag = false
@@ -91,9 +89,6 @@ module Whitehall
     config.i18n.default_locale = :en
     config.i18n.available_locales = Whitehall.available_locales
 
-    # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
-
     # Using a sass css compressor causes a scss file to be processed twice (once
     # to build, once to compress) which breaks the usage of "unquote" to use
     # CSS that has same function names as SCSS such as max
@@ -131,5 +126,13 @@ module Whitehall
     # By default, when set to `nil`, strategy loading errors are suppressed in test
     # mode. Set to `true` to always raise errors, or `false` to always warn.
     config.flipflop.raise_strategy_errors = nil
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
   end
 end
