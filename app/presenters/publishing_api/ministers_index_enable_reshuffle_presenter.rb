@@ -1,5 +1,7 @@
 module PublishingApi
   class MinistersIndexEnableReshufflePresenter < MinistersIndexPresenter
+    include GovspeakHelper
+
     def links
       {
         ordered_cabinet_ministers: [],

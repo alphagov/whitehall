@@ -1,7 +1,5 @@
 module PublishingApi
   class MinistersIndexPresenter
-    include GovspeakHelper
-
     attr_accessor :update_type
 
     def initialize(update_type: nil)
@@ -61,55 +59,40 @@ module PublishingApi
     end
 
     def ordered_cabinet_ministers_content_ids
-      ministers = MinisterialRole
-        .cabinet
-        .occupied
-        .where(cabinet_member: true)
-        .map(&:current_role_appointment)
-        .map(&:person)
-        .uniq
-
-      sorted_ministers = ministers.sort_by do |person|
-        [person.current_roles.map(&:seniority).min, person.sort_key]
-      end
-
-      sorted_ministers.map(&:content_id)
+      Person.joins(role_appointments: :role)
+            .where(role_appointments: { ended_at: nil })
+            .where(role: { type: "MinisterialRole", cabinet_member: true })
+            .order("role.seniority")
+            .distinct
+            .pluck(:content_id)
     end
 
     def ordered_also_attends_cabinet_content_ids
-      ministers = MinisterialRole
-      .also_attends_cabinet
-      .occupied
-      .map(&:current_role_appointment)
-      .map(&:person)
-      .uniq
-
-      sorted_ministers = ministers.sort_by do |person|
-        [person.current_roles.map(&:seniority).min, person.sort_key]
-      end
-
-      sorted_ministers.map(&:content_id)
+      Person.joins(role_appointments: :role)
+            .where(role_appointments: { ended_at: nil })
+            .where(role: { type: "MinisterialRole" })
+            .where("role.attends_cabinet_type_id IS NOT NULL")
+            .order("role.seniority")
+            .distinct
+            .pluck(:content_id)
     end
 
     def ordered_ministerial_departments_content_ids
       Organisation.ministerial_departments
+        .joins(:ministerial_roles)
         .excluding_govuk_status_closed
-        .with_translations_for(:ministerial_roles)
-        .includes(ministerial_roles: [:current_people])
         .order("organisations.ministerial_ordering, organisation_roles.ordering")
-        .uniq
-        .map(&:content_id)
+        .distinct
+        .pluck(:content_id)
     end
 
     def ordered_whips_content_ids(whip_type)
-      Role
-        .whip
-        .where(whip_organisation_id: whip_type.id)
-        .occupied
-        .order(:whip_ordering)
-        .map(&:current_role_appointment)
-        .map(&:person)
-        .map(&:content_id)
+      Person.joins(role_appointments: :role)
+            .where(role: { whip_organisation_id: whip_type.id })
+            .where(role_appointments: { ended_at: nil })
+            .order("role.whip_ordering")
+            .distinct
+            .pluck(:content_id)
     end
   end
 end
