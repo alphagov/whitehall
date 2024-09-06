@@ -145,7 +145,7 @@ Given("an email address content block has been created") do
     creator: @user,
     organisation:,
   )
-  ContentObjectStore::HasAuditTrail.acting_as(@user) do
+  ContentObjectStore::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
     @content_block.publish!
   end
   @content_blocks.push(@content_block)

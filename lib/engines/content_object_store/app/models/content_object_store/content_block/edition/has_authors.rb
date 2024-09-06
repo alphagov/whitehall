@@ -1,7 +1,7 @@
 module ContentObjectStore
-  module HasAuthors
+  module ContentBlock::Edition::HasAuthors
     extend ActiveSupport::Concern
-    include ContentObjectStore::HasCreator
+    include ContentBlock::Edition::HasCreator
 
     included do
       has_many :edition_authors, dependent: :destroy, class_name: "ContentObjectStore::ContentBlock::EditionAuthor"

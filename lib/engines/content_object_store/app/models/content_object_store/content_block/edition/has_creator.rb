@@ -1,5 +1,5 @@
 module ContentObjectStore
-  module HasCreator
+  module ContentBlock::Edition::HasCreator
     extend ActiveSupport::Concern
 
     included do

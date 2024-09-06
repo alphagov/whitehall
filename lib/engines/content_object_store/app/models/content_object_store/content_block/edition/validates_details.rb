@@ -1,5 +1,5 @@
 module ContentObjectStore
-  module ValidatesDetails
+  module ContentBlock::Edition::ValidatesDetails
     extend ActiveSupport::Concern
 
     DETAILS_PREFIX = "details_".freeze

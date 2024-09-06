@@ -48,7 +48,7 @@ module ContentObjectStore
 
       schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(edition.document.block_type)
 
-      ContentObjectStore::HasAuditTrail.acting_as(publishing_robot) do
+      ContentObjectStore::ContentBlock::Edition::HasAuditTrail.acting_as(publishing_robot) do
         ContentObjectStore::PublishEditionService.new(
           schema,
         ).call(edition)
