@@ -52,3 +52,13 @@ Feature: Edit a content object
     | title            | email_address   | organisation |
     | my email address | xxxxx           | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"
+
+  Scenario: GDS editor can override a previously scheduled object
+    When I am updating a content block
+    And I am asked when I want to publish the change
+    And I schedule the change for 7 days in the future
+    And I am updating a content block
+    When I choose to publish the change now
+    And I accept and publish
+    Then the edition should have been updated successfully
+
