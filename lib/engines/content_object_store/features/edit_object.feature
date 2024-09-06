@@ -57,8 +57,10 @@ Feature: Edit a content object
     When I am updating a content block
     And I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
-    And I am updating a content block
-    When I choose to publish the change now
+    When I revisit the edit page
+    Then I should see a warning telling me there is a scheduled change
+    When I make the changes
+    And I choose to publish the change now
     And I accept and publish
     Then the edition should have been updated successfully
 

@@ -43,7 +43,7 @@ When("I click on the {string} schema") do |schema_id|
   @schema = @schemas[schema_id]
   ContentObjectStore::ContentBlock::Schema.expects(:find_by_block_type).with(schema_id).at_least_once.returns(@schema)
   choose @schema.name
-  click_on "Save and continue"
+  click_save_and_continue
 end
 
 Then("I should see a form for the schema") do
@@ -100,7 +100,7 @@ When("I complete the form with the following fields:") do |table|
     fill_in "content_object_store/content_block/edition_details_#{k}", with: @details[k]
   end
 
-  click_on "Save and continue"
+  click_save_and_continue
 end
 
 When("I complete the form") do
@@ -111,7 +111,7 @@ When("I complete the form") do
   @details.keys.each do |k|
     fill_in "content_object_store/content_block_edition_details_#{k}", with: @details[k]
   end
-  click_on "Save and continue"
+  click_save_and_continue
 end
 
 Then("the edition should have been created successfully") do
@@ -206,14 +206,14 @@ When("I fill out the form") do
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
   select "Ministry of Example", from: "content_block/edition_lead_organisation"
-  click_on "Save and continue"
+  click_save_and_continue
 end
 
 When("I set all fields to blank") do
   fill_in "Title", with: ""
   fill_in "Email address", with: ""
   select "", from: "content_block/edition[organisation_id]"
-  click_on "Save and continue"
+  click_save_and_continue
 end
 
 Then("the edition should have been updated successfully") do
@@ -346,7 +346,7 @@ Then(/^I am shown where the changes will take place$/) do
 end
 
 When(/^I save and continue$/) do
-  click_on "Save and continue"
+  click_save_and_continue
 end
 
 Then(/^I am asked when I want to publish the change$/) do
@@ -357,6 +357,16 @@ Then(/^I choose to publish the change now$/) do
   choose "Publish the change now"
 end
 
+When("I revisit the edit page") do
+  @content_block = @content_block.document.latest_edition
+  visit_edit_page
+end
+
+When("I make the changes") do
+  change_details
+  click_save_and_continue
+end
+
 When("I am updating a content block") do
   # go to the edit page for the block
   visit content_object_store.edit_content_object_store_content_block_edition_path(
@@ -364,12 +374,9 @@ When("I am updating a content block") do
     step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block],
   )
   #  fill in the new data
-  fill_in "Title", with: "Changed title"
-  fill_in "Email address", with: "changed@example.com"
-  select "Ministry of Example", from: "content_block/edition_lead_organisation"
-  click_on "Save and continue"
+  change_details
   # accept changes
-  click_on "Save and continue"
+  click_save_and_continue
 end
 
 When("I choose to schedule the change") do
@@ -419,4 +426,26 @@ end
 Then("I should see the scheduled date on the object") do
   expect(page).to have_selector(".govuk-summary-list__key", text: "Scheduled for publication at")
   expect(page).to have_selector(".govuk-summary-list__value", text: I18n.l(@future_date, format: :long_ordinal).squish)
+end
+
+Then("I should see a warning telling me there is a scheduled change") do
+  assert_text "There is currently a change scheduled"
+end
+
+def visit_edit_page
+  visit content_object_store.edit_content_object_store_content_block_edition_path(
+    @content_block,
+    step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block],
+  )
+end
+
+def change_details
+  fill_in "Title", with: "Changed title"
+  fill_in "Email address", with: "changed@example.com"
+  select "Ministry of Example", from: "content_block/edition_lead_organisation"
+  click_save_and_continue
+end
+
+def click_save_and_continue
+  click_on "Save and continue"
 end
