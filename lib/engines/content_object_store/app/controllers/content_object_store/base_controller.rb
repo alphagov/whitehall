@@ -1,5 +1,5 @@
 class ContentObjectStore::BaseController < Admin::BaseController
-  before_action :check_object_store_feature_flag, :set_sentry_tags
+  before_action :check_object_store_feature_flag, :set_sentry_tags, :prepend_views
 
   def check_object_store_feature_flag
     forbidden! unless Flipflop.content_object_store?
@@ -35,5 +35,11 @@ class ContentObjectStore::BaseController < Admin::BaseController
 
   def product_name
     "Content Object Store"
+  end
+
+  # This ensures we can override views if we need to without altering the Engine's load order, which
+  # may have unintended consequences
+  def prepend_views
+    prepend_view_path Rails.root.join("lib/engines/content_object_store/app/views")
   end
 end
