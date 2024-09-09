@@ -32,4 +32,8 @@ class ContentObjectStore::BaseController < Admin::BaseController
   def set_sentry_tags
     Sentry.set_tags(engine: "content_object_store")
   end
+
+  def product_name
+    "Content Object Store"
+  end
 end
