@@ -18,7 +18,7 @@
         checked: @edition.political,
         conditional: renders_government_selector? ? (render "govuk_publishing_components/components/select", {
           name: "edition[government_id]",
-          label: "Or, associate this document with a different government",
+          label: "Change the associated government:",
           id: "edition_government_id",
           options:,
         }) : "",
