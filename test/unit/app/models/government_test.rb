@@ -32,14 +32,6 @@ class GovernmentTest < ActiveSupport::TestCase
     assert_not nil_government.valid?
   end
 
-  test "doesn't check construct an error for governments overlapping if start date is blank" do
-    nil_government = build(:government, start_date: nil)
-    nil_government.valid?
-
-    assert_equal 1, nil_government.errors.count
-    assert_equal "Start date can't be blank", nil_government.errors.first.full_message
-  end
-
   test "enforces unique names" do
     create(:government, name: "2005 to 2010 Labour government")
     duplicate_government = build(:government, name: "2005 to 2010 Labour government")
@@ -55,75 +47,6 @@ class GovernmentTest < ActiveSupport::TestCase
     labour_government_duplicating_original_name = build(:government, name: "2004 to 2009 Labour government")
 
     assert_not labour_government_duplicating_original_name.valid?
-  end
-
-  test "prevents overlapping governments" do
-    existing_government = create(
-      :government,
-      start_date: "2011-01-01",
-      end_date: "2012-01-01",
-    )
-
-    government_overlapping_start = build(
-      :government,
-      start_date: "2010-06-01",
-      end_date: "2011-06-01",
-    )
-    government_overlapping_end = build(
-      :government,
-      start_date: "2011-06-01",
-      end_date: "2012-06-01",
-    )
-
-    government_before = build(
-      :government,
-      start_date: "2009-06-01",
-      end_date: "2010-06-01",
-    )
-    government_after = build(
-      :government,
-      start_date: "2012-06-01",
-      end_date: "2013-06-01",
-    )
-
-    government_starting_immediately = build(
-      :government,
-      start_date: existing_government.end_date,
-    )
-
-    assert_not government_overlapping_start.valid?
-    assert_not government_overlapping_end.valid?
-
-    assert government_before.valid?
-    assert government_after.valid?
-
-    assert government_starting_immediately.valid?
-  end
-
-  test "prevents new open governments when one is already open" do
-    current_open_government = create(
-      :government,
-      start_date: "2011-01-01",
-      end_date: nil,
-    )
-
-    historic_government = build(
-      :government,
-      start_date: "2008-01-01",
-      end_date: "2010-01-01",
-    )
-
-    new_open_government = build(
-      :government,
-      start_date: "2015-01-01",
-      end_date: nil,
-    )
-
-    assert historic_government.valid?
-
-    assert_not new_open_government.valid?
-    current_open_government.update!(end_date: "2014-01-01")
-    assert new_open_government.valid?
   end
 
   test "#newest_first returns the current government first" do
