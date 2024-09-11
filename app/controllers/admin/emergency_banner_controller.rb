@@ -63,6 +63,10 @@ private
   end
 
   def redis_client
-    Redis.new
+    Redis.new(
+      reconnect_attempts: 4,
+      reconnect_delay: 15,
+      reconnect_delay_max: 60,
+    )
   end
 end
