@@ -1,5 +1,5 @@
 module ContentObjectStore
-  module HasLeadOrganisation
+  module ContentBlock::Edition::HasLeadOrganisation
     extend ActiveSupport::Concern
 
     included do

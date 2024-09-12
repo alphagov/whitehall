@@ -1,5 +1,5 @@
 module ContentObjectStore
-  module HasAuditTrail
+  module ContentBlock::Edition::HasAuditTrail
     extend ActiveSupport::Concern
 
     def self.acting_as(actor)

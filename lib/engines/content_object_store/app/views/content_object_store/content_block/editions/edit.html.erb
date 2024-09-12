@@ -7,4 +7,10 @@
   } %>
 <% end %>
 
+<% if @content_block_edition.scheduled? %>
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "There is currently a change scheduled for this content block. If you continue, the scheduled update will be cancelled.",
+  } %>
+<% end %>
+
 <%= render partial: "form", locals: { form: @form } %>

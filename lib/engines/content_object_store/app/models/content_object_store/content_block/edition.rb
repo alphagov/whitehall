@@ -1,12 +1,17 @@
 module ContentObjectStore
   module ContentBlock
     class Edition < ApplicationRecord
-      include ContentObjectStore::Documentable
-      include ContentObjectStore::ValidatesDetails
-      include ContentObjectStore::HasAuthors
-      include ContentObjectStore::HasAuditTrail
-      include ContentObjectStore::Workflow
-      include ContentObjectStore::HasLeadOrganisation
+      include Copyable
+      include Documentable
+      include HasAuditTrail
+      include HasAuthors
+      include HasLeadOrganisation
+      include ValidatesDetails
+      include Workflow
+
+      def update_document_reference_to_latest_edition!
+        document.update!(latest_edition_id: id)
+      end
     end
   end
 end

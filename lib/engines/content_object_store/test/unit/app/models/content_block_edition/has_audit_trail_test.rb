@@ -48,7 +48,7 @@ class ContentObjectStore::HasAuditTrailTest < ActiveSupport::TestCase
     test "changes Current.user for the duration of the block, reverting to the original user afterwards" do
       Current.user = @user
 
-      ContentObjectStore::HasAuditTrail.acting_as(@user2) do
+      ContentObjectStore::ContentBlock::Edition::HasAuditTrail.acting_as(@user2) do
         assert_equal @user2, Current.user
       end
 
@@ -59,7 +59,7 @@ class ContentObjectStore::HasAuditTrailTest < ActiveSupport::TestCase
       Current.user = @user
 
       assert_raises do
-        ContentObjectStore::AuditTrail.acting_as(@user2) { raise "Boom!" }
+        ContentObjectStore::ContentBlock::Edition::HasAuditTrail.acting_as(@user2) { raise "Boom!" }
       end
 
       assert_equal @user, Current.user

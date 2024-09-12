@@ -112,4 +112,11 @@ class ContentObjectStore::ContentBlockEditionTest < ActiveSupport::TestCase
       @content_block_edition.creator = create(:user)
     end
   end
+
+  test "#update_document_reference_to_latest_edition! updates the document reference to the latest edition" do
+    latest_edition = create(:content_block_edition, document: @content_block_edition.document)
+    latest_edition.update_document_reference_to_latest_edition!
+
+    assert_equal latest_edition.document.latest_edition_id, latest_edition.id
+  end
 end

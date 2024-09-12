@@ -1,5 +1,5 @@
 module ContentObjectStore
-  module Documentable
+  module ContentBlock::Edition::Documentable
     extend ActiveSupport::Concern
 
     included do
