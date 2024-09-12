@@ -7,6 +7,10 @@ module ContentObjectStore
       include HasLeadOrganisation
       include ValidatesDetails
       include Workflow
+
+      def update_document_reference_to_latest_edition!
+        document.update!(latest_edition_id: id)
+      end
     end
   end
 end
