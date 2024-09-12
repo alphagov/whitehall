@@ -449,3 +449,11 @@ end
 def click_save_and_continue
   click_on "Save and continue"
 end
+
+Then(/^I should see the object store's title in the header$/) do
+  expect(page).to have_selector(".govuk-header__product-name", text: "Content Object Store")
+end
+
+And(/^I should see the object store's navigation$/) do
+  expect(page).to have_selector("a.govuk-header__link[href='#{content_object_store.content_object_store_root_path}']", text: "Dashboard")
+end

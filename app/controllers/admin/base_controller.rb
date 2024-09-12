@@ -41,6 +41,11 @@ class Admin::BaseController < ApplicationController
   end
   helper_method :preview_design_system?
 
+  def product_name
+    "Whitehall Publisher"
+  end
+  helper_method :product_name
+
 private
 
   def forbidden!
