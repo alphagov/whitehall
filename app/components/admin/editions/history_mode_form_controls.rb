@@ -9,7 +9,7 @@ class Admin::Editions::HistoryModeFormControls < ViewComponent::Base
   end
 
   def renders_government_selector?
-    Flipflop.override_government? && @enforcer.can?(:select_government_for_history_mode)
+    @enforcer.can?(:select_government_for_history_mode)
   end
 
   # noinspection RubyMismatchedArgumentType
