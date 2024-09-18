@@ -13,6 +13,8 @@ class ContentObjectStore::PublishEditionServiceTest < ActiveSupport::TestCase
       ContentObjectStore::ContentBlock::Schema.stubs(:find_by_block_type)
                                               .returns(schema)
       @organisation = create(:organisation)
+
+      stub_publishing_api_has_embedded_content(content_id:, total: 0, results: [])
     end
 
     test "returns a ContentBlockEdition" do
@@ -57,6 +59,13 @@ class ContentObjectStore::PublishEditionServiceTest < ActiveSupport::TestCase
         "major",
       ]
 
+      fake_embedded_content_response = GdsApi::Response.new(stub("http_response",
+                                                                 code: 200, body: { "content_id" => "1234abc",
+                                                                                    "total" => 0,
+                                                                                    "results" => [] }.to_json))
+
+      publishing_api_mock.expect :get_content_by_embedded_document, fake_embedded_content_response, [content_id]
+
       Services.stub :publishing_api, publishing_api_mock do
         ContentObjectStore::PublishEditionService.new(schema).call(edition)
 
@@ -64,6 +73,29 @@ class ContentObjectStore::PublishEditionServiceTest < ActiveSupport::TestCase
         assert_equal "published", edition.state
         assert_equal edition.id, document.live_edition_id
       end
+    end
+
+    test "it queues publishing intents for host content on the Publishing API" do
+      host_content =
+        [
+          {
+            "title" => "Content title",
+            "document_type" => "document",
+            "base_path" => "/host-document",
+            "content_id" => "1234abc",
+            "primary_publishing_organisation" => {
+              "content_id" => "456abc",
+              "title" => "Organisation",
+              "base_path" => "/organisation/org",
+            },
+          },
+        ]
+
+      stub_publishing_api_has_embedded_content(content_id:, total: 0, results: host_content)
+
+      ContentObjectStore::PublishIntentWorker.expects(:perform_async).with("/host-document", Time.zone.now.to_s).once
+
+      ContentObjectStore::PublishEditionService.new(schema).call(edition)
     end
 
     test "if the publishing API request fails, the Whitehall ContentBlockEdition and ContentBlockDocument are rolled back" do
