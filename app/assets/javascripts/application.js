@@ -1,13 +1,8 @@
 //= require admin/stop-scripts-nomodule
 
 //= require govuk_publishing_components/dependencies
+//= require govuk_publishing_components/all_components
 //= require govuk_publishing_components/analytics-ga4
-//= require govuk_publishing_components/components/copy-to-clipboard
-//= require govuk_publishing_components/components/govspeak
-//= require govuk_publishing_components/components/reorderable-list
-//= require govuk_publishing_components/components/table
-//= require govuk_publishing_components/lib/trigger-event
-//= require govuk_publishing_components/lib/cookie-functions
 
 //= require components/autocomplete
 //= require components/govspeak-editor
