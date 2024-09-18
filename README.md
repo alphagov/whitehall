@@ -1,4 +1,4 @@
-# Whitehall
+# Whitehalls
 
 Whitehall (also known as 'Whitehall Admin' or 'Whitehall Publisher') is used by publishers to create and manage content (e.g. <http://whitehall-admin.dev.gov.uk/government/admin/news/new>).
 
