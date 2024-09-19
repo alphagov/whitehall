@@ -8,6 +8,8 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
                                              document: create(:content_block_document, :email_address, content_id:),
                                              details: { "foo" => "Foo text", "bar" => "Bar text" },
                                              organisation: create(:organisation))
+
+    stub_publishing_api_has_embedded_content(content_id:, total: 0, results: [])
   end
 
   describe "#call" do
@@ -125,6 +127,13 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
           "major",
         ]
 
+        fake_embedded_content_response = GdsApi::Response.new(stub("http_response",
+                                                                   code: 200, body: { "content_id" => "1234abc",
+                                                                                      "total" => 0,
+                                                                                      "results" => [] }.to_json))
+
+        publishing_api_mock.expect :get_content_by_embedded_document, fake_embedded_content_response, [content_id]
+
         Services.stub :publishing_api, publishing_api_mock do
           ContentObjectStore::UpdateEditionService
             .new(schema, @original_content_block_edition)
@@ -218,6 +227,13 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
         "major",
       ]
 
+      fake_embedded_content_response = GdsApi::Response.new(stub("http_response",
+                                                                 code: 200, body: { "content_id" => "1234abc",
+                                                                                    "total" => 0,
+                                                                                    "results" => [] }.to_json))
+
+      publishing_api_mock.expect :get_content_by_embedded_document, fake_embedded_content_response, [content_id]
+
       Services.stub :publishing_api, publishing_api_mock do
         ContentObjectStore::UpdateEditionService
           .new(schema, @original_content_block_edition)
@@ -225,6 +241,31 @@ class ContentObjectStore::UpdateEditionServiceTest < ActiveSupport::TestCase
 
         publishing_api_mock.verify
       end
+    end
+
+    test "it queues publishing intents for dependent content" do
+      dependent_content =
+        [
+          {
+            "title" => "Content title",
+            "document_type" => "document",
+            "base_path" => "/host-document",
+            "content_id" => "1234abc",
+            "primary_publishing_organisation" => {
+              "content_id" => "456abc",
+              "title" => "Organisation",
+              "base_path" => "/organisation/org",
+            },
+          },
+        ]
+
+      stub_publishing_api_has_embedded_content(content_id:, total: 0, results: dependent_content)
+
+      ContentObjectStore::PublishIntentWorker.expects(:perform_async).with("/host-document", Time.zone.now.to_s).once
+
+      ContentObjectStore::UpdateEditionService
+        .new(schema, @original_content_block_edition)
+        .call(edition_params)
     end
 
     test "if the publishing API request fails, the Whitehall ContentBlockEdition and ContentBlockDocument are rolled back" do
