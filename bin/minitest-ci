@@ -17,4 +17,4 @@ tests = test_files.
     i % ENV["CI_NODE_TOTAL"].to_i == ENV["CI_NODE_INDEX"].to_i
   end
 
-exec "bundle exec rails test #{tests.join(" ")}"
+exec "bundle exec rails test #{tests.join(" ")} --seed 2422"
