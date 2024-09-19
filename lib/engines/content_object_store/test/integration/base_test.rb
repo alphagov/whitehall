@@ -6,7 +6,7 @@ class TestController < ContentObjectStore::BaseController
   end
 end
 
-class ContentObjectStore::BaseControllerTest < ActionDispatch::IntegrationTest
+class ContentObjectStore::BaseTest < ActionDispatch::IntegrationTest
   setup do
     feature_flags.switch!(:content_object_store, true)
     login_as_admin
