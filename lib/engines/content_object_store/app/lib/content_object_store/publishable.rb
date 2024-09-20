@@ -57,7 +57,11 @@ module ContentObjectStore
         content_block_document: content_block_edition.document,
       )
       host_content_items.each do |host_content_item|
-        ContentObjectStore::PublishIntentWorker.perform_async(host_content_item.base_path, Time.zone.now.to_s)
+        ContentObjectStore::PublishIntentWorker.perform_async(
+          host_content_item.base_path,
+          host_content_item.publishing_app,
+          Time.zone.now.to_s,
+        )
       end
     end
 
