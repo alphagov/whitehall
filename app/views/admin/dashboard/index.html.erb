@@ -52,7 +52,7 @@
     <%= render "govuk_publishing_components/components/list", {
       visible_counters: true,
       items: [
-        link_to("GDS support form (Zendesk)", "https://support.publishing.service.gov.uk", class: "govuk-link"),
+        link_to("GDS support form (Zendesk)", Whitehall.support_url, class: "govuk-link"),
         link_to("'Find in admin' bookmarklet", admin_find_in_admin_bookmarklet_instructions_index_path, class: "govuk-link"),
       ],
     } %>
