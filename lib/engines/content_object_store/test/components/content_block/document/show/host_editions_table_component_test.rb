@@ -12,6 +12,7 @@ class ContentObjectStore::ContentBlock::Document::Show::HostEditionsTableCompone
         "title" => "Some title",
         "base_path" => "/foo",
         "document_type" => "document_type",
+        "publishing_app" => "publisher",
         "publishing_organisation" => {
           "content_id" => SecureRandom.uuid,
           "title" => "bar",
@@ -78,6 +79,7 @@ class ContentObjectStore::ContentBlock::Document::Show::HostEditionsTableCompone
           title: "Some title",
           base_path: "/foo",
           document_type: "document_type",
+          publishing_app: "publisher",
           publishing_organisation: {
             "content_id" => SecureRandom.uuid,
             "title" => nil,
