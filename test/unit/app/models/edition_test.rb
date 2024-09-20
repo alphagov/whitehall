@@ -806,6 +806,18 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal previous_government, edition.government
   end
 
+  test "instantiated edition fetches its most up to date #government association" do
+    current_government = create(:current_government)
+    previous_government = create(:previous_government)
+    edition = create(:edition, first_published_at: Time.zone.now, government_id: previous_government.id)
+    assert_equal previous_government, edition.government
+    # at this point, edition.government == previous_government
+    # But if the user updates the association to a different government, we don't want the old one to be returned
+    edition.government_id = current_government.id
+    edition.save!
+    assert_equal current_government, edition.government
+  end
+
   test "#government returns the current government for a newly published edition" do
     government = create(:current_government)
     edition = create(:edition, first_published_at: Time.zone.now)
