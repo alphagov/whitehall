@@ -16,6 +16,7 @@ class ContentObjectStore::GetHostContentItemsTest < ActiveSupport::TestCase
           "title" => "foo",
           "base_path" => "/foo",
           "document_type" => "something",
+          "publishing_app" => "publisher",
           "primary_publishing_organisation" => {
             "content_id" => SecureRandom.uuid,
             "title" => "bar",
@@ -63,6 +64,7 @@ class ContentObjectStore::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].title, response_body["results"][0]["title"]
       assert_equal result[0].base_path, response_body["results"][0]["base_path"]
       assert_equal result[0].document_type, response_body["results"][0]["document_type"]
+      assert_equal result[0].publishing_app, response_body["results"][0]["publishing_app"]
       assert_equal result[0].publishing_organisation, expected_publishing_organisation
     end
 

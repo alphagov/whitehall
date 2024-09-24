@@ -21,6 +21,7 @@ module ContentObjectStore
           base_path: item["base_path"],
           document_type: item["document_type"],
           publishing_organisation: item["primary_publishing_organisation"],
+          publishing_app: item["publishing_app"],
         )
       end
     end

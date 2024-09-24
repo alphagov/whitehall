@@ -121,6 +121,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
           "document_type" => "document",
           "base_path" => "/host-document",
           "content_id" => "1234abc",
+          "publishing_app" => "host_publisher",
           "primary_publishing_organisation" => {
             "content_id" => "456abc",
             "title" => "Organisation",
@@ -140,7 +141,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
     publishing_api_mock.expect :put_intent, {}, ["/host-document",
                                                  {
                                                    publish_time: Time.zone.now,
-                                                   publishing_app: "whitehall",
+                                                   publishing_app: "host_publisher",
                                                    rendering_app: "government-frontend",
                                                    routes: [{ path: "/host-document", type: "exact" }],
                                                  }]
@@ -280,6 +281,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
           "document_type" => "document",
           "base_path" => "/host-document",
           "content_id" => "1234abc",
+          "publishing_app" => "host_publisher",
           "primary_publishing_organisation" => {
             "content_id" => "456abc",
             "title" => "Organisation",
@@ -299,7 +301,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
     publishing_api_mock.expect :put_intent, {}, ["/host-document",
                                                  {
                                                    publish_time: Time.zone.now,
-                                                   publishing_app: "whitehall",
+                                                   publishing_app: "host_publisher",
                                                    rendering_app: "government-frontend",
                                                    routes: [{ path: "/host-document", type: "exact" }],
                                                  }]

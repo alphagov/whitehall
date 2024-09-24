@@ -83,6 +83,7 @@ class ContentObjectStore::PublishEditionServiceTest < ActiveSupport::TestCase
             "document_type" => "document",
             "base_path" => "/host-document",
             "content_id" => "1234abc",
+            "publishing_app" => "example-app",
             "primary_publishing_organisation" => {
               "content_id" => "456abc",
               "title" => "Organisation",
@@ -93,7 +94,11 @@ class ContentObjectStore::PublishEditionServiceTest < ActiveSupport::TestCase
 
       stub_publishing_api_has_embedded_content(content_id:, total: 0, results: host_content)
 
-      ContentObjectStore::PublishIntentWorker.expects(:perform_async).with("/host-document", Time.zone.now.to_s).once
+      ContentObjectStore::PublishIntentWorker.expects(:perform_async).with(
+        "/host-document",
+        "example-app",
+        Time.zone.now.to_s,
+      ).once
 
       ContentObjectStore::PublishEditionService.new(schema).call(edition)
     end
