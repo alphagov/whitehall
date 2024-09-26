@@ -1,12 +1,12 @@
 name: Autocomplete
 description: An autocomplete component, built to be accessible
 body: |
-  This component is build using [Accessible Autocomplete](https://github.com/alphagov/accessible-autocomplete).
+  This component is build using [Accessible Autocomplete Multiselect](https://github.com/alphagov/accessible-autocomplete-multiselect).
 
   Typically it is used to enhance a select element with autocomplete options.
 part_of_admin_layout: true
 accessibility_criteria: |
-  [Accessibility acceptance criteria](https://github.com/alphagov/accessible-autocomplete/blob/master/accessibility-criteria.md)
+  [Accessibility acceptance criteria](https://github.com/alphagov/accessible-autocomplete-multiselect/blob/master/accessibility-criteria.md)
 examples:
   default:
     data:
