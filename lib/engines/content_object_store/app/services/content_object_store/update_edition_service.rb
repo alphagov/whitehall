@@ -64,10 +64,24 @@ module ContentObjectStore
           update_document_params: @update_document_params,
         )
       end
+      send_publish_intents_for_host_documents(content_block_edition: @new_content_block_edition)
     end
 
     def create_content_block_edition
       @original_content_block_edition.create_copy(edition_params: @edition_params)
+    end
+
+    def send_publish_intents_for_host_documents(content_block_edition:)
+      host_content_items = ContentObjectStore::GetHostContentItems.by_embedded_document(
+        content_block_document: content_block_edition.document,
+      )
+      host_content_items.each do |host_content_item|
+        ContentObjectStore::PublishIntentWorker.perform_async(
+          host_content_item.base_path,
+          host_content_item.publishing_app,
+          content_block_edition.scheduled_publication.to_s,
+        )
+      end
     end
   end
 end

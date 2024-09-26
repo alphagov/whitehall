@@ -24,7 +24,6 @@ module ContentObjectStore
         publish_publishing_api_edition(content_id:)
         update_content_block_document_with_live_edition(content_block_edition)
         content_block_edition.public_send(:publish!)
-        remove_cache_for_host_content(content_block_edition:)
       rescue PublishingFailureError => e
         discard_publishing_api_edition(content_id:)
         raise e
@@ -51,19 +50,6 @@ module ContentObjectStore
     end
 
   private
-
-    def remove_cache_for_host_content(content_block_edition:)
-      host_content_items = ContentObjectStore::GetHostContentItems.by_embedded_document(
-        content_block_document: content_block_edition.document,
-      )
-      host_content_items.each do |host_content_item|
-        ContentObjectStore::PublishIntentWorker.perform_async(
-          host_content_item.base_path,
-          host_content_item.publishing_app,
-          Time.zone.now.to_s,
-        )
-      end
-    end
 
     def create_publishing_api_edition(content_id:, schema_id:, title:, details:, links:)
       Services.publishing_api.put_content(content_id, {

@@ -12,6 +12,8 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
     stub_request_for_schema("email_address")
 
     feature_flags.switch!(:content_object_store, true)
+
+    stub_publishing_api_has_embedded_content(content_id: @content_id, total: 0, results: [])
   end
 
   test "#publish posts the new edition to the Publishing API and marks edition as published" do
@@ -53,14 +55,6 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
       "major",
     ]
 
-    fake_embedded_content_response = GdsApi::Response.new(stub("http_response",
-                                                               code: 200, body: {
-                                                                 "total" => 0,
-                                                                 "results" => [],
-                                                               }.to_json))
-
-    publishing_api_mock.expect :get_content_by_embedded_document, fake_embedded_content_response, [@content_id]
-
     Services.stub :publishing_api, publishing_api_mock do
       post content_object_store.publish_content_object_store_content_block_edition_path(id: edition.id), params: {
         id: edition.id,
@@ -72,87 +66,6 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
       assert_equal document.live_edition_id, document.latest_edition_id
 
       assert_equal "published", new_edition.state
-    end
-  end
-
-  test "#publish creates publish intents for all host documents" do
-    details = {
-      foo: "Foo text",
-      bar: "Bar text",
-    }
-
-    organisation = create(:organisation)
-    document = create(:content_block_document, :email_address, content_id: @content_id, title: "Some Title")
-    edition = create(:content_block_edition, document:, details:, organisation:)
-
-    fake_put_content_response = GdsApi::Response.new(
-      stub("http_response", code: 200, body: {}),
-    )
-    fake_publish_content_response = GdsApi::Response.new(
-      stub("http_response", code: 200, body: {}),
-    )
-
-    publishing_api_mock = Minitest::Mock.new
-    publishing_api_mock.expect :put_content, fake_put_content_response, [
-      @content_id,
-      {
-        schema_name: "content_block_type",
-        document_type: "content_block_type",
-        publishing_app: "whitehall",
-        title: "Some Title",
-        details: {
-          "foo" => "Foo text",
-          "bar" => "Bar text",
-        },
-        links: {
-          primary_publishing_organisation: [organisation.content_id],
-        },
-      },
-    ]
-    publishing_api_mock.expect :publish, fake_publish_content_response, [
-      @content_id,
-      "major",
-    ]
-
-    host_content =
-      [
-        {
-          "title" => "Content title",
-          "document_type" => "document",
-          "base_path" => "/host-document",
-          "content_id" => "1234abc",
-          "publishing_app" => "host_publisher",
-          "primary_publishing_organisation" => {
-            "content_id" => "456abc",
-            "title" => "Organisation",
-            "base_path" => "/organisation/org",
-          },
-        },
-      ]
-
-    fake_embedded_content_response = GdsApi::Response.new(stub("http_response",
-                                                               code: 200, body: {
-                                                                 "total" => 1,
-                                                                 "results" => host_content,
-                                                               }.to_json))
-
-    publishing_api_mock.expect :get_content_by_embedded_document, fake_embedded_content_response, [@content_id]
-
-    publishing_api_mock.expect :put_intent, {}, ["/host-document",
-                                                 {
-                                                   publish_time: Time.zone.now,
-                                                   publishing_app: "host_publisher",
-                                                   rendering_app: "government-frontend",
-                                                   routes: [{ path: "/host-document", type: "exact" }],
-                                                 }]
-
-    Sidekiq::Testing.inline! do
-      Services.stub :publishing_api, publishing_api_mock do
-        post content_object_store.publish_content_object_store_content_block_edition_path(id: edition.id), params: {
-          id: edition.id,
-        }
-        publishing_api_mock.verify
-      end
     end
   end
 
@@ -235,7 +148,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
     end
   end
 
-  test "#update creates publish intents for host content" do
+  test "#update scheduling creates publish intents for host content" do
     details = {
       foo: "Foo text",
       bar: "Bar text",
@@ -300,7 +213,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
 
     publishing_api_mock.expect :put_intent, {}, ["/host-document",
                                                  {
-                                                   publish_time: Time.zone.now,
+                                                   publish_time: Time.zone.local(2024, 9, 2, 10, 5, 0),
                                                    publishing_app: "host_publisher",
                                                    rendering_app: "government-frontend",
                                                    routes: [{ path: "/host-document", type: "exact" }],
