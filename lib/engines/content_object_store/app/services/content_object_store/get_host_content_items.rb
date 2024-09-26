@@ -16,7 +16,10 @@ module ContentObjectStore
 
     def items
       content_items["results"].map do |item|
+        puts "content id is here #########"
+        puts item["content_id"]
         ContentObjectStore::HostContentItem.new(
+          content_id: item["content_id"],
           title: item["title"],
           base_path: item["base_path"],
           document_type: item["document_type"],
@@ -33,6 +36,8 @@ module ContentObjectStore
     def content_items
       @content_items ||= begin
         response = Services.publishing_api.get_content_by_embedded_document(@content_id)
+        puts "here in content items new"
+        puts response.parsed_content
         response.parsed_content
       end
     end

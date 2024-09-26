@@ -24,7 +24,12 @@ module ContentObjectStore
         publish_publishing_api_edition(content_id:)
         update_content_block_document_with_live_edition(content_block_edition)
         content_block_edition.public_send(:publish!)
-        remove_cache_for_host_content(content_block_edition:)
+        host_content_items = ContentObjectStore::GetHostContentItems.by_embedded_document(
+          content_block_document: content_block_edition.document,
+        )
+
+        remove_cache_for_host_content(content_block_edition:, host_content_items:)
+        add_editorial_remarks_to_host_content(content_block_edition:, host_content_items:, content_id:)
       rescue PublishingFailureError => e
         discard_publishing_api_edition(content_id:)
         raise e
@@ -52,10 +57,23 @@ module ContentObjectStore
 
   private
 
-    def remove_cache_for_host_content(content_block_edition:)
-      host_content_items = ContentObjectStore::GetHostContentItems.by_embedded_document(
-        content_block_document: content_block_edition.document,
-      )
+    def add_editorial_remarks_to_host_content(content_block_edition:, host_content_items:, content_id:)
+      host_content_items.each do |host_content_item|
+        puts "here in add remark"
+        # TODO: only if Whitehall publishing_app
+        # TODO: push this to an asyncrhonous job as could be 100s of items
+        host_edition = Document.find_by(content_id: host_content_item.content_id).live_edition
+        EditorialRemark.create!(
+          edition: host_edition,
+          body: "Content Block of title #{content_block_edition.title} and ID #{content_id} was updated",
+          author: Current.user,
+          created_at: Time.zone.now,
+          updated_at: Time.zone.now,
+        )
+      end
+    end
+
+    def remove_cache_for_host_content(content_block_edition:, host_content_items:)
       host_content_items.each do |host_content_item|
         ContentObjectStore::PublishIntentWorker.perform_async(
           host_content_item.base_path,
