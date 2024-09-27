@@ -1,0 +1,18 @@
+{
+  "base_path": "/programme-for-government",
+  "title": "",
+  "description": "",
+  "locale": "en",
+  "document_type": "landing_page",
+  "schema_name": "generic",
+  "publishing_app": "whitehall",
+  "rendering_app": "frontend",
+  "update_type": "major",
+  "details": {},
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/programme-for-government"
+    }
+  ]
+}
