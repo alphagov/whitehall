@@ -203,14 +203,4 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
       end
     end
   end
-
-  def mock_env(partial_env_hash)
-    old_env = ENV.to_hash
-    ENV.update partial_env_hash
-    begin
-      yield
-    ensure
-      ENV.replace old_env
-    end
-  end
 end
