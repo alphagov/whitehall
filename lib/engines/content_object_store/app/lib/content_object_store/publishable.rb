@@ -77,7 +77,7 @@ module ContentObjectStore
     end
 
     def publish_publishing_api_edition(content_id:)
-      Services.publishing_api.publish(content_id, "major")
+      Services.publishing_api.publish(content_id, "content_block")
     rescue GdsApi::HTTPErrorResponse => e
       raise PublishingFailureError, "Could not publish #{content_id} because: #{e.message}"
     end
