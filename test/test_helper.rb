@@ -96,6 +96,16 @@ class ActiveSupport::TestCase
     assert_output(/^(?!#{regex}).*$/, &block)
   end
 
+  def mock_env(partial_env_hash)
+    old_env = ENV.to_hash
+    ENV.update partial_env_hash
+    begin
+      yield
+    ensure
+      ENV.replace old_env
+    end
+  end
+
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*_args|

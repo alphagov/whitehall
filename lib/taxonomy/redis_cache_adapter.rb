@@ -4,6 +4,7 @@ module Taxonomy
     WORLD_TAXONS_CACHE_KEY = "world_taxonomy_taxons".freeze
 
     def initialize(redis_client: Redis.new(
+      url: ENV.fetch("TAXONOMY_CACHE_REDIS_URL", ENV["REDIS_URL"]),
       reconnect_attempts: 4,
       reconnect_delay: 15,
       reconnect_delay_max: 60,
