@@ -6,5 +6,6 @@ defaults:
   auto_merge: true
   update_external_dependencies: true
 overrides:
-  - dependency: rails # should be upgraded manually, see https://docs.publishing.service.gov.uk/manual/keeping-software-current.html#rails
-    auto_merge: false
+  - dependency: rails
+    allowed_semver_bumps:
+      - patch # minor/major bumps should be upgraded manually. See https://docs.publishing.service.gov.uk/manual/keeping-software-current.html#rails
