@@ -14,7 +14,7 @@
     "jasmine:browser": "yarn run jasmine:prepare && yarn run jasmine-browser-runner"
   },
   "dependencies": {
-    "accessible-autocomplete": "alphagov/accessible-autocomplete-multiselect",
+    "accessible-autocomplete-multiselect": "alphagov/accessible-autocomplete-multiselect",
     "choices.js": "^10.2.0",
     "cropperjs": "^1.6.2",
     "govspeak-visual-editor": "^3.0.0",

@@ -177,9 +177,9 @@ accepts@~1.3.8:
     mime-types "~2.1.34"
     negotiator "0.6.3"
 
-accessible-autocomplete@alphagov/accessible-autocomplete-multiselect:
+accessible-autocomplete-multiselect@alphagov/accessible-autocomplete-multiselect:
   version "2.0.4"
-  resolved "https://codeload.github.com/alphagov/accessible-autocomplete-multiselect/tar.gz/6b671690189f9a4b32940e60a7df781ed55d4dca"
+  resolved "https://codeload.github.com/alphagov/accessible-autocomplete-multiselect/tar.gz/066bbfcc03362d4ebb4927bc8ac6f9082cf99e32"
   dependencies:
     preact "^8.3.1"
 

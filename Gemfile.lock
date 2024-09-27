@@ -300,10 +300,11 @@ GEM
     govuk_personalisation (1.0.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (43.3.0)
+    govuk_publishing_components (43.5.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
+      ostruct
       plek
       rails (>= 6)
       rouge
@@ -692,6 +693,7 @@ GEM
       opentelemetry-semantic_conventions
     opentelemetry-semantic_conventions (1.10.1)
       opentelemetry-api (~> 1.0)
+    ostruct (0.6.0)
     pact (1.65.1)
       pact-mock_service (~> 3.0, >= 3.3.1)
       pact-support (~> 1.16, >= 1.16.9)
@@ -1032,7 +1034,7 @@ DEPENDENCIES
   govspeak
   govuk_app_config
   govuk_frontend_toolkit
-  govuk_publishing_components (= 43.3.0)
+  govuk_publishing_components
   govuk_schemas
   govuk_sidekiq
   govuk_test

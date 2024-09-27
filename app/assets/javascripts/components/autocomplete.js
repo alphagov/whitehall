@@ -1,4 +1,4 @@
-//= require accessible-autocomplete/dist/accessible-autocomplete.min.js
+//= require accessible-autocomplete-multiselect/dist/accessible-autocomplete.min.js
 'use strict'
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
