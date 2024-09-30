@@ -64,7 +64,7 @@ private
 
   def redis_client
     Redis.new(
-      url: ENV.fetch("EMERGENCY_BANNER_REDIS_URL", ENV["REDIS_URL"]),
+      url: ENV["EMERGENCY_BANNER_REDIS_URL"],
       reconnect_attempts: 4,
       reconnect_delay: 15,
       reconnect_delay_max: 60,

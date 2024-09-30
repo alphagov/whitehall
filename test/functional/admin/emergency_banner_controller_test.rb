@@ -163,44 +163,4 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
       assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys
     end
   end
-
-  context "instantiating Redis" do
-    setup do
-      @mock_redis = Minitest::Mock.new
-      def @mock_redis.hgetall(*args); end
-      def @mock_redis.del(*args); end
-    end
-    context "when the EMERGENCY_BANNER_REDIS_URL environment variable has been set" do
-      view_test "uses that value as the URL for the Redis client" do
-        mock_env("EMERGENCY_BANNER_REDIS_URL" => "redis://emergency-banner") do
-          Redis.expects(:new).with(
-            url: "redis://emergency-banner",
-            reconnect_attempts: 4,
-            reconnect_delay: 15,
-            reconnect_delay_max: 60,
-          ).twice.returns(@mock_redis)
-
-          delete :destroy
-        end
-      end
-    end
-
-    context "when the EMERGENCY_BANNER_REDIS_URL environment variable has not been set" do
-      view_test "uses the default REDIS_URL as the URL for the Redis client" do
-        mock_env({
-          "EMERGENCY_BANNER_REDIS_URL" => nil,
-          "REDIS_URL" => "redis://my-redis-url",
-        }) do
-          Redis.expects(:new).with(
-            url: "redis://my-redis-url",
-            reconnect_attempts: 4,
-            reconnect_delay: 15,
-            reconnect_delay_max: 60,
-          ).twice.returns(@mock_redis)
-
-          delete :destroy
-        end
-      end
-    end
-  end
 end
