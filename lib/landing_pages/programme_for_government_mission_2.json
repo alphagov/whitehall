@@ -4,7 +4,7 @@
   "description": "",
   "locale": "en",
   "document_type": "landing_page",
-  "schema_name": "generic",
+  "schema_name": "landing_page",
   "publishing_app": "whitehall",
   "rendering_app": "frontend",
   "update_type": "major",
