@@ -1,16 +1,4 @@
 class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore::BaseController
-  def new
-    if params[:block_type].blank?
-      @error_message = "You must select a block type" if params[:block_type] == ""
-      @schemas = ContentObjectStore::ContentBlock::Schema.all
-    else
-      @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(params[:block_type].underscore)
-      @form = ContentObjectStore::ContentBlock::EditionForm::Create.new(
-        content_block_edition: ContentObjectStore::ContentBlock::Edition.new,
-        schema: @schema,
-      )
-    end
-  end
 
   def create
     @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(block_type_param)
@@ -20,7 +8,7 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     redirect_to content_object_store.review_content_object_store_content_block_edition_path(new_edition)
   rescue ActiveRecord::RecordInvalid => e
     @form = ContentObjectStore::ContentBlock::EditionForm::Create.new(content_block_edition: e.record, schema: @schema)
-    render :new
+    render "content_object_store/content_block/documents/new"
   end
 
   def review
@@ -85,10 +73,6 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
   end
 
 private
-
-  def root_params
-    params.require(:content_object_store_content_block_edition)
-  end
 
   def block_type_param
     params.require("content_block/edition").require("document_attributes").require(:block_type)

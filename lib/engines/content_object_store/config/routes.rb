@@ -3,7 +3,11 @@ ContentObjectStore::Engine.routes.draw do
     root to: "content_block/documents#index", via: :get
 
     namespace :content_block, path: "content-block" do
-      resources :documents, only: %i[index show], path_names: { new: "(:block_type)/new" }
+      resources :documents, only: %i[index show new create], path_names: { new: "(:block_type)/new" }, path: "" do
+        collection do
+          post :new_document_options_redirect
+        end
+      end
       resources :editions, only: %i[new create edit update], path_names: { new: "(:block_type)/new" } do
         member do
           get :review

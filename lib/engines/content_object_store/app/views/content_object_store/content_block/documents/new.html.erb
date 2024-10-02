@@ -7,13 +7,13 @@
     } %>
   <% end %>
   <% content_for :page_title, "Select a block type" %>
-  <%= render partial: "schemas", locals: { schemas: @schemas} %>
+  <%= render partial: "content_object_store/content_block/documents/schemas", locals: { schemas: @schemas} %>
 <% else %>
   <% content_for :back_link do %>
     <%= render "govuk_publishing_components/components/back_link", {
-      href: content_object_store.new_content_object_store_content_block_edition_path,
+      href: content_object_store.new_content_object_store_content_block_document_path,
     } %>
   <% end %>
   <% content_for :title, "Create #{@schema.name}" %>
-  <%= render partial: "form", locals: { form: @form } %>
+  <%= render partial: "content_object_store/content_block/documents/form", locals: { form: @form } %>
 <% end %>

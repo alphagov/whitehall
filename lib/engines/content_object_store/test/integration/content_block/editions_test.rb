@@ -11,19 +11,6 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
     feature_flags.switch!(:content_object_store, true)
   end
 
-  describe "#new" do
-    before do
-      schemas = build_list(:content_block_schema, 1)
-      ContentObjectStore::ContentBlock::Schema.stubs(:all).returns(schemas)
-    end
-
-    it "shows an error message when block type is empty" do
-      visit "#{content_object_store.new_content_object_store_content_block_edition_path}?block_type="
-
-      assert_text "You must select a block type"
-    end
-  end
-
   describe "#create" do
     before do
       @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
@@ -101,7 +88,7 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
         },
       }
 
-      assert_template :new
+      assert_template "content_object_store/content_block/documents/new"
     end
   end
 end
