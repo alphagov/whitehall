@@ -23,6 +23,7 @@ class Publication < Publicationesque
   has_one :statistics_announcement
   attr_accessor :statistics_announcement_id
 
+  validate :statistics_announcement_is_matching_type, if: :statistics_announcement_exists?
   after_create :assign_statistics_announcement
 
   after_save :touch_statistics_announcement
@@ -30,6 +31,17 @@ class Publication < Publicationesque
   scope :statistical_publications, -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
   scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
   scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
+
+  def statistics_announcement_exists?
+    statistics_announcement.present? || statistics_announcement_id.present?
+  end
+
+  def statistics_announcement_is_matching_type
+    statistics_announcement = self.statistics_announcement || StatisticsAnnouncement.find(statistics_announcement_id)
+    unless statistics_announcement.publication_type == publication_type
+      errors.add(:publication_type_id, message: "does not match announcement type: must be '#{statistics_announcement.publication_type.singular_name}'")
+    end
+  end
 
   def touch_statistics_announcement
     if published? && !statistics_announcement.nil?

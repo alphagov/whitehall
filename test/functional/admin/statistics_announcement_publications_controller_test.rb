@@ -69,7 +69,7 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
 
     assert_response :success
     has_search_results_table
-    assert_select "ul.govuk-error-summary__list a", text: "Publication type does not match: must be statistics"
+    assert_select "ul.govuk-error-summary__list a", text: "Publication type does not match announcement type: must be 'Official Statistics'"
   end
 
 private

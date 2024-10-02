@@ -38,7 +38,10 @@ class StatisticsAnnouncement < ApplicationRecord
   has_many :statistics_announcement_organisations, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :organisations, through: :statistics_announcement_organisations
 
-  validate  :publication_is_matching_type, if: :publication
+  validates_associated :publication, if: :publication,
+                                     message: lambda { |_, publication|
+                                                "type #{publication[:value].errors[:publication_type_id].first}"
+                                              }
   validate  :redirect_not_circular, if: :unpublished?
   validates :publishing_state, inclusion: %w[published unpublished]
   validates :redirect_url, presence: { message: "must be provided when unpublishing an announcement" }, if: :unpublished?
@@ -243,16 +246,6 @@ private
       .where("change_note IS NOT NULL && change_note != ?", "")
       .order(:created_at)
       .last
-  end
-
-  def publication_is_matching_type
-    unless publication.publication_type == publication_type
-      errors.add(:publication, message: "type does not match: must be #{type_string}")
-    end
-  end
-
-  def type_string
-    national_statistic? ? "national statistics" : "statistics"
   end
 
   def redirect_not_circular
