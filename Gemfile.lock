@@ -395,6 +395,7 @@ GEM
       addressable (~> 2.8)
       childprocess (~> 5.0)
     link_header (0.0.8)
+    logger (1.6.1)
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
@@ -431,9 +432,10 @@ GEM
       webrick (~> 1.7)
       webrobots (~> 0.1.2)
     method_source (1.1.0)
-    mime-types (3.5.2)
+    mime-types (3.6.0)
+      logger
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.0903)
+    mime-types-data (3.2024.1001)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
