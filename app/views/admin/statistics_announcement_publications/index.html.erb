@@ -6,6 +6,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "The type of the document you are trying to connect must match the type of the statistics announcement. Only #{@statistics_announcement.publication_type.plural_name} documents will be shown.",
+      margin_bottom: 8,
+    } %>
+
     <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get do |_form| %>
       <%= render "govuk_publishing_components/components/search", {
         name: "title",

@@ -24,6 +24,35 @@ class PublicationTest < ActiveSupport::TestCase
     assert publication.valid?
   end
 
+  test "(on create) is not valid if the publication type does not match the announcement type" do
+    accredited_official_announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id)
+    non_accredited_publication = build(:draft_statistics)
+
+    non_accredited_publication.statistics_announcement_id = accredited_official_announcement.id
+
+    assert_not non_accredited_publication.valid?
+    assert_equal non_accredited_publication.errors[:publication_type_id], ["does not match announcement type: must be '#{accredited_official_announcement.publication_type.singular_name}'"]
+  end
+
+  test "(on edit) is not valid if the publication type does not match the announcement type" do
+    # statistics_announcement_id not available, statistics_announcement already set
+    accredited_official_announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id)
+    accredited_official_publication = create(:draft_national_statistics, statistics_announcement_id: accredited_official_announcement.id)
+
+    accredited_official_publication.publication_type_id = PublicationType::OfficialStatistics.id
+
+    assert_not accredited_official_publication.valid?
+    assert_equal accredited_official_publication.errors[:publication_type_id], ["does not match announcement type: must be '#{accredited_official_announcement.publication_type.singular_name}'"]
+  end
+
+  test "it saves the announcement association" do
+    accredited_official_announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id)
+    accredited_official_publication = create(:draft_national_statistics, statistics_announcement_id: accredited_official_announcement.id)
+
+    assert_equal accredited_official_announcement.reload.publication.id, accredited_official_publication.id
+    assert_equal accredited_official_publication.statistics_announcement.id, accredited_official_announcement.id
+  end
+
   test "should build a draft copy of the existing publication" do
     published = create(
       :published_publication,

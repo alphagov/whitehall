@@ -25,6 +25,12 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     refute_select ".govuk-table"
   end
 
+  view_test "GET :index shows inset text" do
+    get :index, params: { statistics_announcement_id: @official_statistics_announcement }
+
+    assert_select ".govuk-inset-text", text: "The type of the document you are trying to connect must match the type of the statistics announcement. Only Official Statistics documents will be shown."
+  end
+
   test "GET :index with search value passes title and default params to filter" do
     default_filter_params_with_title = @default_filter_params.merge(title: @title)
 
@@ -69,7 +75,7 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
 
     assert_response :success
     has_search_results_table
-    assert_select "ul.govuk-error-summary__list a", text: "Publication type does not match: must be statistics"
+    assert_select "ul.govuk-error-summary__list a", text: "Publication type does not match announcement type: must be 'Official Statistics'"
   end
 
 private

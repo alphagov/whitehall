@@ -92,14 +92,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     announcement.publication = national_statistics
     assert_not announcement.valid?
-    assert_equal ["type does not match: must be statistics"], announcement.errors[:publication]
+    assert_equal ["type does not match announcement type: must be 'Official Statistics'"], announcement.errors[:publication]
 
     announcement.publication_type_id = PublicationType::NationalStatistics.id
     assert announcement.valid?
 
     announcement.publication = policy_paper
     assert_not announcement.valid?
-    assert_equal ["type does not match: must be national statistics"], announcement.errors[:publication]
+    assert_equal ["type does not match announcement type: must be 'Accredited Official Statistics'"], announcement.errors[:publication]
   end
 
   test ".with_title_containing returns statistics announcements matching provided title" do
