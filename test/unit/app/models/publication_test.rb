@@ -45,6 +45,14 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal accredited_official_publication.errors[:publication_type_id], ["does not match announcement type: must be '#{accredited_official_announcement.publication_type.singular_name}'"]
   end
 
+  test "it saves the announcement association" do
+    accredited_official_announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id)
+    accredited_official_publication = create(:draft_national_statistics, statistics_announcement_id: accredited_official_announcement.id)
+
+    assert_equal accredited_official_announcement.reload.publication.id, accredited_official_publication.id
+    assert_equal accredited_official_publication.statistics_announcement.id, accredited_official_announcement.id
+  end
+
   test "should build a draft copy of the existing publication" do
     published = create(
       :published_publication,

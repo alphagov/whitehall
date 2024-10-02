@@ -16,15 +16,14 @@ class Publication < Publicationesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
 
+  before_validation :set_statistics_announcement
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
   validate :attachment_required_before_moving_out_of_draft
+  validate :statistics_announcement_is_matching_type, if: :statistics_announcement
 
   has_one :statistics_announcement
   attr_accessor :statistics_announcement_id
-
-  validate :statistics_announcement_is_matching_type, if: :statistics_announcement_exists?
-  after_create :assign_statistics_announcement
 
   after_save :touch_statistics_announcement
 
@@ -32,12 +31,13 @@ class Publication < Publicationesque
   scope :non_statistical_publications, -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
   scope :corporate_publications, -> { where(publication_type_id: PublicationType::CorporateReport.id) }
 
-  def statistics_announcement_exists?
-    statistics_announcement.present? || statistics_announcement_id.present?
+  def set_statistics_announcement
+    if statistics_announcement_id.present?
+      self.statistics_announcement = StatisticsAnnouncement.find(statistics_announcement_id)
+    end
   end
 
   def statistics_announcement_is_matching_type
-    statistics_announcement = self.statistics_announcement || StatisticsAnnouncement.find(statistics_announcement_id)
     unless statistics_announcement.publication_type == publication_type
       errors.add(:publication_type_id, message: "does not match announcement type: must be '#{statistics_announcement.publication_type.singular_name}'")
     end
@@ -174,12 +174,6 @@ class Publication < Publicationesque
 
   def deleted_associated_documents
     attachables.flat_map(&:deleted_html_attachments)
-  end
-
-  def assign_statistics_announcement
-    if statistics_announcement_id.present?
-      self.statistics_announcement = StatisticsAnnouncement.find(statistics_announcement_id)
-    end
   end
 
   def base_path
