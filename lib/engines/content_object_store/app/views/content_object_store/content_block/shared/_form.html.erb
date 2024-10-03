@@ -5,8 +5,8 @@
       method: :post,
       model: [content_object_store, @form.content_block_edition]) do |f| %>
   <%= hidden_field_tag "content_block/edition[document_attributes][block_type]",
-    @form.schema.block_type,
-    id: "content_object_store/content_block_edition_document_block_type" %>
+                       @form.schema.block_type,
+                       id: "content_object_store/content_block_edition_document_block_type" %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: {

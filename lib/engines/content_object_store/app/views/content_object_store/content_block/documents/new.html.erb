@@ -15,5 +15,5 @@
     } %>
   <% end %>
   <% content_for :title, "Create #{@schema.name}" %>
-  <%= render partial: "content_object_store/content_block/documents/form", locals: { form: @form } %>
+  <%= render partial: "content_object_store/content_block/shared/form", locals: { form: @form } %>
 <% end %>
