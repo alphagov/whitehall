@@ -7,6 +7,7 @@ ContentObjectStore::Engine.routes.draw do
         collection do
           post :new_document_options_redirect
         end
+        resources :editions, only: %i[new create]
       end
       resources :editions, only: %i[new create edit update], path_names: { new: "(:block_type)/new" } do
         member do

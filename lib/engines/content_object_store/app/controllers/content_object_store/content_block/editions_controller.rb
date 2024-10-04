@@ -1,20 +1,4 @@
 class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore::BaseController
-
-  def create
-    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(block_type_param)
-
-    new_edition = ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
-
-    redirect_to content_object_store.review_content_object_store_content_block_edition_path(new_edition)
-  rescue ActiveRecord::RecordInvalid => e
-    @form = ContentObjectStore::ContentBlock::EditionForm::Create.new(content_block_edition: e.record, schema: @schema)
-    render "content_object_store/content_block/documents/new"
-  end
-
-  def review
-    @content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
-  end
-
   EDIT_FORM_STEPS = {
     edit_block: "edit_block",
     review_links: "review_links",
@@ -39,6 +23,12 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
   def edit_block
     @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(
       content_block_edition: @content_block_edition, schema: @schema, edition_to_update_id: @content_block_edition.id,
+  def new
+    @content_block_document = ContentObjectStore::ContentBlock::Document.find(params[:document_id])
+    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(@content_block_document.block_type)
+    @form = ContentObjectStore::ContentBlock::EditionForm.new(
+      content_block_edition: @content_block_document.latest_edition,
+      schema: @schema,
     )
   end
 
@@ -46,22 +36,19 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     @content_block_document = @content_block_edition.document
     @edition_params = edition_params
 
+  def create
+    @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(block_type_param)
     new_edition = ContentObjectStore::ContentBlock::Edition.new(edition_params)
-    new_edition.document.id = @content_block_document.id
+    new_edition.document_id = params[:document_id]
+    new_edition.document.assign_attributes(edition_params[:document_attributes].except(:block_type))
 
-    if new_edition.valid?
-      @host_content_items = ContentObjectStore::GetHostContentItems.by_embedded_document(
-        content_block_document: @content_block_document,
-      )
-
-      render :review_links
+    if new_edition.valid? && new_edition.document.valid?
+      new_edition.save!
+      new_edition.document.save!
+      redirect_to content_object_store.content_object_store_content_block_step_path(id: new_edition.id, step: "review_links")
     else
-      @form = ContentObjectStore::ContentBlock::EditionForm::Update.new(
-        content_block_edition: new_edition,
-        schema: @schema, edition_to_update_id: @content_block_edition.id
-      )
-
-      render :edit
+      @form = ContentObjectStore::ContentBlock::EditionForm.new(content_block_edition: new_edition, schema: @schema)
+      render "content_object_store/content_block/documents/new"
     end
   end
 
@@ -70,6 +57,8 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     @edition_params = edition_params
 
     render :schedule_publishing
+  def review
+    @content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
   end
 
 private

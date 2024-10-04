@@ -12,9 +12,10 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
   end
 
   describe "#create" do
-    before do
-      @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
+    let(:content_block_document) { create(:content_block_document, :email_address) }
+    let!(:original_edition) { create(:content_block_edition, :email_address, document: content_block_document) }
 
+    before do
       stub_request_for_schema("email_address")
     end
 
@@ -30,42 +31,31 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
 
       organisation = create(:organisation)
 
-      # This UUID is created by the database so instead of loading the record
-      # we stub the initial creation so we know what UUID to check for.
-      ContentObjectStore::ContentBlock::Edition.any_instance.stubs(:create_random_id)
-                                               .returns(@content_id)
-
-      assert_changes -> { ContentObjectStore::ContentBlock::Document.count }, from: 0, to: 1 do
-        assert_changes -> { ContentObjectStore::ContentBlock::Edition.count }, from: 0, to: 1 do
-          assert_changes -> { ContentObjectStore::ContentBlock::EditionAuthor.count }, from: 0, to: 1 do
-            assert_changes -> { ContentObjectStore::ContentBlock::Version.count }, from: 0, to: 1 do
-              post content_object_store.content_object_store_content_block_editions_path, params: {
-                something: "else",
-                "content_block/edition": {
-                  document_attributes:,
-                  details:,
-                  organisation_id: organisation.id,
-                },
-              }
-            end
-          end
+      assert_changes -> { content_block_document.editions.count }, from: 1, to: 2 do
+        assert_changes -> { ContentObjectStore::ContentBlock::Version.count }, from: 1, to: 2 do
+          post content_object_store.content_object_store_content_block_document_editions_path(content_block_document), params: {
+            something: "else",
+            "content_block/edition": {
+              document_attributes:,
+              details:,
+              organisation_id: organisation.id,
+            },
+          }
         end
       end
 
-      new_document = ContentObjectStore::ContentBlock::Document.find_by!(content_id: @content_id)
-      new_edition = new_document.editions.first
-      new_author = ContentObjectStore::ContentBlock::EditionAuthor.first
-      new_version = ContentObjectStore::ContentBlock::Version.first
-      new_edition_organisation = ContentObjectStore::ContentBlock::EditionOrganisation.first
+      content_block_document.reload
+      new_edition = content_block_document.editions.last
+      new_author = ContentObjectStore::ContentBlock::EditionAuthor.last
+      new_version = ContentObjectStore::ContentBlock::Version.last
+      new_edition_organisation = ContentObjectStore::ContentBlock::EditionOrganisation.last
 
-      assert_equal document_attributes[:title], new_document.title
-      assert_equal document_attributes[:block_type], new_document.block_type
+      assert_equal document_attributes[:title], content_block_document.title
+      assert_equal document_attributes[:block_type], content_block_document.block_type
       assert_equal details, new_edition.details
 
-      assert_equal new_edition.document_id, new_document.id
+      assert_equal new_edition.document_id, content_block_document.id
       assert_equal new_edition.creator, new_author.user
-
-      assert_equal new_document.latest_edition_id, new_edition.id
 
       assert_equal new_version.whodunnit, new_author.user.id.to_s
 
@@ -73,14 +63,25 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
       assert_equal new_edition_organisation.content_block_edition_id, new_edition.id
     end
 
-    it "should render the template when a validation error occurs" do
-      edition = build(:content_block_edition)
-      err = ActiveRecord::RecordInvalid.new(edition)
-      ContentObjectStore::CreateEditionService.any_instance
-                                              .stubs(:call)
-                                              .raises(err)
+    it "should render the template when the edition is invalid" do
+      ContentObjectStore::ContentBlock::Edition.any_instance.expects(:valid?).returns(false)
 
-      post content_object_store.content_object_store_content_block_editions_path, params: {
+      post content_object_store.content_object_store_content_block_document_editions_path(content_block_document), params: {
+        "content_block/edition": {
+          document_attributes: {
+            block_type: "email_address",
+          },
+        },
+      }
+
+      assert_template "content_object_store/content_block/documents/new"
+    end
+
+    it "should render the template when the document is invalid" do
+      ContentObjectStore::ContentBlock::Edition.any_instance.expects(:valid?).returns(true)
+      ContentObjectStore::ContentBlock::Document.any_instance.expects(:valid?).returns(false)
+
+      post content_object_store.content_object_store_content_block_document_editions_path(content_block_document), params: {
         "content_block/edition": {
           document_attributes: {
             block_type: "email_address",
