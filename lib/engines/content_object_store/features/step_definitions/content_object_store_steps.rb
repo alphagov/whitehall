@@ -75,14 +75,14 @@ end
 Then("I should see a back link to the edit page") do
   expect(page).to have_link(
     "Back",
-    href: content_object_store.edit_content_object_store_content_block_edition_path(@content_block, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block]),
+    href: content_object_store.new_content_object_store_content_block_edition_path(@content_block.document),
   )
 end
 
 Then(/^I should see a back link to the review page$/) do
   expect(page).to have_link(
     "Back",
-    href: /^(?=.*\bChanged\b)(?=.*\bstep=review_links\b).*$/,
+    href: /^.*review_links.*$/,
   )
 end
 
@@ -191,7 +191,7 @@ Then("I should see the details for the email address content block") do
 end
 
 When("I click the first change link") do
-  first_link = find("a[href='#{content_object_store.edit_content_object_store_content_block_edition_path(@content_block, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block])}']", match: :first)
+  first_link = find("a[href='#{content_object_store.new_content_object_store_content_block_document_edition_path(@content_block.document)}']", match: :first)
   first_link.click
 end
 
@@ -369,10 +369,7 @@ end
 
 When("I am updating a content block") do
   # go to the edit page for the block
-  visit content_object_store.edit_content_object_store_content_block_edition_path(
-    @content_block,
-    step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block],
-  )
+  visit content_object_store.new_content_object_store_content_block_document_edition_path(@content_block.document)
   #  fill in the new data
   change_details
   # accept changes
@@ -433,10 +430,7 @@ Then("I should see a warning telling me there is a scheduled change") do
 end
 
 def visit_edit_page
-  visit content_object_store.edit_content_object_store_content_block_edition_path(
-    @content_block,
-    step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block],
-  )
+  visit content_object_store.new_content_object_store_content_block_document_edition_path(@content_block.document)
 end
 
 def change_details
