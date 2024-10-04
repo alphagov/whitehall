@@ -22,7 +22,7 @@ module ContentObjectStore
           },
         )
         publish_publishing_api_edition(content_id:)
-        update_content_block_document_with_live_edition(content_block_edition)
+        update_content_block_document_with_latest_edition(content_block_edition)
         content_block_edition.public_send(:publish!)
       rescue PublishingFailureError => e
         discard_publishing_api_edition(content_id:)
@@ -72,8 +72,11 @@ module ContentObjectStore
       Services.publishing_api.discard_draft(content_id)
     end
 
-    def update_content_block_document_with_live_edition(content_block_edition)
-      content_block_edition.document.update!(live_edition_id: content_block_edition.id)
+    def update_content_block_document_with_latest_edition(content_block_edition)
+      content_block_edition.document.update!(
+        latest_edition_id: content_block_edition.id,
+        live_edition_id: content_block_edition.id,
+      )
     end
   end
 end
