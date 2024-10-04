@@ -13,7 +13,6 @@ ContentObjectStore::Engine.routes.draw do
         member do
           get :review
           post :publish, to: "workflow#publish"
-          patch :update, to: "workflow#update"
           post :edit
           resources :steps, only: %i[show update], controller: "editions/steps", param: :step
         end
