@@ -1,3 +1,2 @@
 web: bin/rails server -p 3000 --restart
-# Dartsass' default watch doesn't work with GOVUK Docker, so poll for changes instead
-css: bin/rails dartsass:watch --poll
+css: bin/rails dartsass:watch
