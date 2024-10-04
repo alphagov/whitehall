@@ -73,12 +73,44 @@ module Admin::EditionsHelper
     ]
   end
 
-  def admin_world_location_filter_options(current_user)
-    options = [["All locations", ""]]
+  def admin_world_location_filter_options(current_user, selected)
+    options = [
+      [
+        "",
+        [
+          {
+            text: "All locations",
+            value: "",
+            selected: selected.blank?,
+          },
+        ],
+      ]
+    ]
     if current_user.world_locations.any?
-      options << ["My locations", "user"]
+      options << [
+        "",
+        [
+          {
+            text: "My locations",
+            value: "user",
+            selected: selected == "user",
+          },
+        ],
+      ]
     end
-    options + WorldLocation.ordered_by_name.map { |l| [l.name, l.id] }
+    options + WorldLocation.ordered_by_name.map do |l|
+      [l.name, l.id]
+      [
+        "",
+        [
+          {
+            text: l.name,
+            value: l.id,
+            selected: selected == l.id,
+          },
+        ],
+      ]
+    end
   end
 
   # Because of the unusual way lead organisations and supporting organisations

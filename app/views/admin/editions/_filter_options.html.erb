@@ -55,13 +55,7 @@
         id: "world_location_filter",
         name: "world_location",
         heading_size: "s",
-        options: admin_world_location_filter_options(current_user).map do |name, id|
-          {
-            text: name,
-            value: id,
-            selected: @filter.options[:world_location].to_s == id.to_s,
-          }
-        end,
+        grouped_options: admin_world_location_filter_options(current_user, @filter.options[:world_location]),
       } %>
     <% end %>
 
@@ -71,6 +65,7 @@
         id: "type_filter",
         name: "type",
         heading_size: "s",
+        # THIS IS WHERE 'grouped_options' gets passed
         grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
       } %>
     <% end %>
