@@ -12,9 +12,9 @@ ContentObjectStore::Engine.routes.draw do
       resources :editions, only: %i[new create edit update], path_names: { new: "(:block_type)/new" } do
         member do
           get :review
-          post :publish, to: "workflow#publish"
           post :edit
           resources :steps, only: %i[show update], controller: "editions/steps", param: :step
+          post :publish, to: "editions/workflow#publish"
         end
       end
     end
