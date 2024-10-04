@@ -81,9 +81,6 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  # Dartsass' default watch doesn't work with GOVUK Docker, so poll for changes instead
-  config.dartsass.build_options << " --poll"
-
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
