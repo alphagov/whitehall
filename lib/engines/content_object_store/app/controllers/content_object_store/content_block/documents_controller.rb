@@ -24,7 +24,7 @@ class ContentObjectStore::ContentBlock::DocumentsController < ContentObjectStore
   def create
     @schema = ContentObjectStore::ContentBlock::Schema.find_by_block_type(params[:block_type].underscore)
     new_edition = ContentObjectStore::CreateEditionService.new(@schema).call(edition_params)
-    redirect_to content_object_store.review_content_object_store_content_block_edition_path(new_edition)
+    redirect_to content_object_store.content_object_store_content_block_workflow_path(new_edition, step: ContentObjectStore::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review])
   rescue ActiveRecord::RecordInvalid => e
     @form = ContentObjectStore::ContentBlock::DocumentForm.new(content_block_edition: e.record, schema: @schema)
     render "content_object_store/content_block/documents/new"

@@ -17,15 +17,11 @@ class ContentObjectStore::ContentBlock::EditionsController < ContentObjectStore:
     if new_edition.valid? && new_edition.document.valid?
       new_edition.save!
       new_edition.document.save!
-      redirect_to content_object_store.content_object_store_content_block_step_path(id: new_edition.id, step: "review_links")
+      redirect_to content_object_store.content_object_store_content_block_workflow_path(id: new_edition.id, step: "review_links")
     else
       @form = ContentObjectStore::ContentBlock::EditionForm.new(content_block_edition: new_edition, schema: @schema)
       render "content_object_store/content_block/documents/new"
     end
-  end
-
-  def review
-    @content_block_edition = ContentObjectStore::ContentBlock::Edition.find(params[:id])
   end
 
 private

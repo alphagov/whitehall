@@ -25,9 +25,9 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         <%= form_with(
-              url: content_object_store.content_object_store_content_block_step_path(
+              url: content_object_store.content_object_store_content_block_workflow_path(
                 edition_id: @content_block_edition.id,
-                step: ContentObjectStore::ContentBlock::Editions::StepsController::VALID_STEPS[:review_links],
+                step: ContentObjectStore::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
               ),
               method: :put,
             ) do %>

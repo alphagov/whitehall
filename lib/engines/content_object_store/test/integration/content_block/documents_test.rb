@@ -107,7 +107,7 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
 
       post(content_object_store_content_block_documents_path, params:)
 
-      assert_redirected_to review_content_object_store_content_block_edition_path(content_block_edition)
+      assert_redirected_to content_object_store_content_block_workflow_path(content_block_edition, step: ContentObjectStore::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review])
     end
   end
 end
