@@ -17,6 +17,8 @@ module ContentObjectStore
 
       has_many :versions, through: :editions, source: :versions
 
+      scope :live, -> { where.not(latest_edition_id: nil) }
+
       def embed_code
         "{{embed:content_block_#{block_type}:#{content_id}}}"
       end

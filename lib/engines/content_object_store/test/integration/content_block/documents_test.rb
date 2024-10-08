@@ -33,6 +33,22 @@ class ContentObjectStore::ContentBlock::DocumentsTest < ActionDispatch::Integrat
       assert_no_text first_edition.details["email_address"]
       assert_text second_edition.details["email_address"]
     end
+
+    it "only returns documents with a latest edition" do
+      document_with_latest_edition = build(:content_block_document, :email_address, id: 123)
+      document_with_latest_edition.latest_edition = build(
+        :content_block_edition,
+        :email_address,
+        details: { "email_address" => "live_edition@example.com" },
+        document_id: document_with_latest_edition.id,
+      )
+
+      ContentObjectStore::ContentBlock::Document.expects(:live).returns([document_with_latest_edition])
+
+      visit content_object_store.content_object_store_content_block_documents_path
+
+      assert_text document_with_latest_edition.latest_edition.details["email_address"]
+    end
   end
 
   describe "#new" do

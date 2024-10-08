@@ -1,7 +1,6 @@
 module ContentObjectStore
   module ContentBlock
     class Edition < ApplicationRecord
-      include Copyable
       include Documentable
       include HasAuditTrail
       include HasAuthors

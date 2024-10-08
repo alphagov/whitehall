@@ -3,7 +3,7 @@ require "test_helper"
 class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  test "content_block_document exists with required data" do
+  it "exists with required data" do
     content_block_document = create(
       :content_block_document,
       :email_address,
@@ -20,7 +20,7 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
     assert_equal Time.zone.local(2000, 12, 31, 23, 59, 59).utc, content_block_document.updated_at
   end
 
-  test "it does not allow the block type to be changed" do
+  it "does not allow the block type to be changed" do
     content_block_document = create(:content_block_document, :email_address)
 
     assert_raise ActiveRecord::ReadonlyAttributeError do
@@ -28,19 +28,19 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
     end
   end
 
-  test "it can store the id of the latest edition" do
+  it "can store the id of the latest edition" do
     content_block_document = create(:content_block_document, :email_address)
     content_block_document.update!(latest_edition_id: 1)
     assert content_block_document.reload.latest_edition_id, 1
   end
 
-  test "it can store the id of the live edition" do
+  it "can store the id of the live edition" do
     content_block_document = create(:content_block_document, :email_address)
     content_block_document.update!(live_edition_id: 1)
     assert content_block_document.reload.live_edition_id, 1
   end
 
-  test "it gets its version history from its editions" do
+  it "gets its version history from its editions" do
     document = create(:content_block_document, :email_address)
     edition = create(
       :content_block_edition,
@@ -67,6 +67,19 @@ class ContentObjectStore::ContentBlockDocumentTest < ActiveSupport::TestCase
       second_edition = create(:content_block_edition, document:)
 
       assert_equal second_edition, document.latest_edition
+    end
+  end
+
+  describe ".live" do
+    it "only returns documents with a latest edition" do
+      document_with_latest_edition = create(:content_block_document, :email_address)
+      latest_edition = create(:content_block_edition, document: document_with_latest_edition)
+      document_with_latest_edition.latest_edition_id = latest_edition.id
+      document_with_latest_edition.save!
+
+      create(:content_block_document, :email_address, latest_edition_id: nil)
+
+      assert_equal [document_with_latest_edition], ContentObjectStore::ContentBlock::Document.live
     end
   end
 end

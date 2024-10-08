@@ -10,7 +10,6 @@ module ContentObjectStore
       @new_edition = build_edition(edition_params, document_id)
       @new_edition.assign_attributes(edition_params)
       @new_edition.save!
-      @new_edition.update_document_reference_to_latest_edition!
       @new_edition
     end
 
