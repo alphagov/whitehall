@@ -1,5 +1,5 @@
 <% content_for :context, product_name %>
-<% content_for :title, "Change #{@form.schema.name}" %>
+<% content_for :title, @form.title %>
 
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -7,7 +7,7 @@
   } %>
 <% end %>
 
-<% if @content_block_document.latest_edition.scheduled? %>
+<% if @content_block_document && @content_block_document.latest_edition.scheduled? %>
   <%= render "govuk_publishing_components/components/warning_text", {
     text: "There is currently a change scheduled for this content block. If you continue, the scheduled update will be cancelled.",
   } %>
