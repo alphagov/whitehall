@@ -451,3 +451,9 @@ end
 And(/^I should see the object store's navigation$/) do
   expect(page).to have_selector("a.govuk-header__link[href='#{content_object_store.content_object_store_root_path}']", text: "Dashboard")
 end
+
+Then(/^I should still see the live edition on the homepage$/) do
+  within(".govuk-summary-card", text: @content_block.document.title) do
+    expect(page).to have_content("Published")
+  end
+end

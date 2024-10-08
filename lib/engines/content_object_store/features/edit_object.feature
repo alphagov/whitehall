@@ -64,3 +64,8 @@ Feature: Edit a content object
     And I accept and publish
     Then the edition should have been updated successfully
 
+  Scenario: GDS editor still sees live edition when abandoning an edit
+    When I am updating a content block
+    And I visit the document object store
+    Then I should still see the live edition on the homepage
+

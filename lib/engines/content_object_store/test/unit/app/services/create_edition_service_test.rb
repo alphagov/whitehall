@@ -52,8 +52,6 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       assert_equal edition_params[:document_attributes][:block_type], new_document.block_type
       assert_equal edition_params[:details], new_edition.details
       assert_equal new_edition.document_id, new_document.id
-
-      assert_equal new_document.latest_edition_id, new_edition.id
     end
 
     describe "when a document id is provided" do
@@ -72,8 +70,6 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
         assert_equal new_title, document.title
         assert_equal edition_params[:details], new_edition.details
         assert_equal new_edition.document_id, document.id
-
-        assert_equal document.latest_edition_id, new_edition.id
       end
     end
   end
