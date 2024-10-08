@@ -3,7 +3,7 @@
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: content_object_store.edit_content_object_store_content_block_edition_path(@content_block_edition, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block]),
+    href: content_object_store.new_content_object_store_content_block_edition_path(@content_block_document.id),
   } %>
 <% end %>
 
@@ -25,11 +25,11 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         <%= form_with(
-              url: content_object_store.edit_content_object_store_content_block_edition_path(
-                "content_block/edition": @edition_params,
-                step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:schedule_publishing],
+              url: content_object_store.content_object_store_content_block_workflow_path(
+                edition_id: @content_block_edition.id,
+                step: ContentObjectStore::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
               ),
-              method: :post,
+              method: :put,
             ) do %>
           <div class="govuk-button-group govuk-!-margin-bottom-6">
             <%= render "govuk_publishing_components/components/button", {

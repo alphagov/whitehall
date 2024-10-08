@@ -77,7 +77,7 @@ private
 
   def edit_action
     {
-      href: helpers.content_object_store.edit_content_object_store_content_block_edition_path(content_block_document.latest_edition, step: ContentObjectStore::ContentBlock::EditionsController::EDIT_FORM_STEPS[:edit_block]),
+      href: helpers.content_object_store.new_content_object_store_content_block_document_edition_path(content_block_document),
       link_text: "Change",
     }
   end

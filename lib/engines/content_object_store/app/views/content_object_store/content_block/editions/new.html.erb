@@ -1,19 +1,16 @@
 <% content_for :context, product_name %>
+<% content_for :title, "Change #{@form.schema.name}" %>
 
-<% if @schemas %>
-  <% content_for :back_link do %>
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: content_object_store.content_object_store_content_block_documents_path,
-    } %>
-  <% end %>
-  <% content_for :page_title, "Select a block type" %>
-  <%= render partial: "schemas", locals: { schemas: @schemas} %>
-<% else %>
-  <% content_for :back_link do %>
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: content_object_store.new_content_object_store_content_block_edition_path,
-    } %>
-  <% end %>
-  <% content_for :title, "Create #{@schema.name}" %>
-  <%= render partial: "form", locals: { form: @form } %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: @form.back_path,
+  } %>
 <% end %>
+
+<% if @content_block_document.latest_edition.scheduled? %>
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "There is currently a change scheduled for this content block. If you continue, the scheduled update will be cancelled.",
+  } %>
+<% end %>
+
+<%= render partial: "content_object_store/content_block/shared/form", locals: { form: @form } %>
