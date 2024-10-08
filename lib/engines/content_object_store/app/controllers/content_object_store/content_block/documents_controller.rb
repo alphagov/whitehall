@@ -1,6 +1,6 @@
 class ContentObjectStore::ContentBlock::DocumentsController < ContentObjectStore::BaseController
   def index
-    @content_block_documents = ContentObjectStore::ContentBlock::Document.all
+    @content_block_documents = ContentObjectStore::ContentBlock::Document.live
   end
 
   def show

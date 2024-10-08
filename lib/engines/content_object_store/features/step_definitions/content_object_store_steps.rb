@@ -457,3 +457,7 @@ Then(/^I should still see the live edition on the homepage$/) do
     expect(page).to have_content("Published")
   end
 end
+
+Then(/^I should not see the draft document$/) do
+  expect(page).not_to have_content(@title)
+end

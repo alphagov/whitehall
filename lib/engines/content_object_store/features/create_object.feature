@@ -51,3 +51,14 @@ Feature: Create a content object
       | title            | email_address   | department | organisation |
       | my email address | xxxxx           | Somewhere  | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"
+
+  Scenario: Draft documents are not listed
+    When I visit the document object store
+    And I click to create an object
+    When I click on the "email_address" schema
+    Then I should see a form for the schema
+    When I complete the form with the following fields:
+      | title            | email_address   | department | organisation |
+      | my email address | foo@example.com | Somewhere  | Ministry of Example |
+    And I visit the document object store
+    Then I should not see the draft document
