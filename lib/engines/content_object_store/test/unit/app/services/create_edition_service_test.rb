@@ -5,7 +5,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
 
   describe "#call" do
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
-    let(:organisation_id) { "f67b4350-35c2-46a8-babf-e39f5a4f2a7e" }
+    let(:organisation) { create(:organisation) }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:new_title) { "New Title" }
     let(:edition_params) do
@@ -19,7 +19,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
           "bar" => "Bar text",
         },
         creator: build(:user),
-        organisation_id:,
+        organisation_id: organisation.id.to_s,
       }
     end
 
@@ -52,6 +52,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       assert_equal edition_params[:document_attributes][:block_type], new_document.block_type
       assert_equal edition_params[:details], new_edition.details
       assert_equal new_edition.document_id, new_document.id
+      assert_equal new_edition.lead_organisation.id, organisation.id
     end
 
     describe "when a document id is provided" do
@@ -70,6 +71,7 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
         assert_equal new_title, document.title
         assert_equal edition_params[:details], new_edition.details
         assert_equal new_edition.document_id, document.id
+        assert_equal new_edition.lead_organisation.id, organisation.id
       end
     end
   end
