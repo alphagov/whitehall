@@ -14,8 +14,9 @@ window.GOVUK.analyticsGa4.analyticsModules =
         links.forEach((link) => {
           const event = {
             event_name: 'navigation',
-            type: 'generic_link',
-            section: document.title.split(' - ')[0].replace('Error: ', '')
+            type: link.role === 'button' ? 'button' : 'generic_link',
+            section: document.title.split(' - ')[0].replace('Error: ', ''),
+            method: 'primary_click'
           }
           if (link.dataset.ga4Event) {
             Object.assign(event, JSON.parse(link.dataset.ga4Event))

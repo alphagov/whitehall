@@ -17,7 +17,18 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4LinkSetup', function () {
     Ga4LinkSetup.init()
 
     expect(link.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"generic_link","section":"Title"}'
+      '{"event_name":"navigation","type":"generic_link","section":"Title","method":"primary_click"}'
+    )
+  })
+
+  it('sends type:"button" for links with role="button"', function () {
+    link.role = 'button'
+
+    const Ga4LinkSetup = GOVUK.analyticsGa4.analyticsModules.Ga4LinkSetup
+    Ga4LinkSetup.init()
+
+    expect(link.dataset.ga4Event).toEqual(
+      '{"event_name":"navigation","type":"button","section":"Title","method":"primary_click"}'
     )
   })
 })

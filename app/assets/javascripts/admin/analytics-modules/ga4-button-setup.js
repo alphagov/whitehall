@@ -15,12 +15,12 @@ window.GOVUK.analyticsGa4.analyticsModules =
         )
         buttons.forEach((button) => {
           const event = {
-            event_name:
-              button.type === 'submit' ? 'form_response' : 'navigation',
-            type: 'generic_link',
+            event_name: 'navigation',
+            type: 'button',
             text: button.textContent,
             section: document.title.split(' - ')[0].replace('Error: ', ''),
-            action: button.textContent
+            action: button.textContent,
+            method: 'primary_click'
           }
           if (button.dataset.ga4Event) {
             Object.assign(event, JSON.parse(button.dataset.ga4Event))
