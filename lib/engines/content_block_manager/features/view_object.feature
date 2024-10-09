@@ -8,7 +8,7 @@ Feature: View a content object
     And an email address content block has been created
 
   Scenario: GDS Editor views a content object
-    When I visit the document object store
+    When I visit the Content Block Manager home page
     Then I should see the details for all documents
     When I click to view the document
     Then I should be taken back to the document page
@@ -17,7 +17,7 @@ Feature: View a content object
 
   Scenario: GDS Editor views dependent Content
     Given dependent content exists for a content block
-    When I visit the document object store
+    When I visit the Content Block Manager home page
     And I click to view the document
     Then I should see the dependent content listed
 

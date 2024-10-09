@@ -10,7 +10,7 @@ Feature: Edit a content object
     And dependent content exists for a content block
 
   Scenario: GDS Editor edits a content object
-    When I visit the document object store
+    When I visit the Content Block Manager home page
     Then I should see the details for all documents
     When I click to view the document
     Then I should see the details for the email address content block
@@ -34,7 +34,7 @@ Feature: Edit a content object
     | field         | type   | format | required |
     | email_address | string | email  | true     |
     And an email address content block has been created
-    When I visit the document object store
+    When I visit the Content Block Manager home page
     When I click to view the document
     When I click the first change link
     And I set all fields to blank
@@ -45,7 +45,7 @@ Feature: Edit a content object
     | field         | type   | format | required |
     | email_address | string | email  | true     |
     And an email address content block has been created
-    When I visit the document object store
+    When I visit the Content Block Manager home page
     When I click to view the document
     When I click the first change link
     When I complete the form with the following fields:
@@ -66,6 +66,6 @@ Feature: Edit a content object
 
   Scenario: GDS editor still sees live edition when abandoning an edit
     When I am updating a content block
-    And I visit the document object store
+    And I visit the Content Block Manager home page
     Then I should still see the live edition on the homepage
 

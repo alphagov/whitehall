@@ -155,8 +155,8 @@ When("I visit the page for the content block") do
   visit content_block_manager.content_block_manager_content_block_edition_path(@content_block)
 end
 
-When("I visit the document object store") do
-  visit content_block_manager.content_block_manager_content_block_documents_path
+When("I visit the Content Block Manager home page") do
+  visit content_block_manager.content_block_manager_root_path
 end
 
 Then("I should see the details for all documents") do
