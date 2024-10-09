@@ -4,8 +4,9 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe "#call" do
+    let!(:organisation) { create(:organisation) }
+
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
-    let(:organisation) { create(:organisation) }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:new_title) { "New Title" }
     let(:edition_params) do
@@ -55,6 +56,12 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
       assert_equal new_edition.lead_organisation.id, organisation.id
     end
 
+    it "sends the content block to the Publishing API as a draft" do
+      assert_draft_created_in_publishing_api(content_id) do
+        ContentObjectStore::CreateEditionService.new(schema).call(edition_params)
+      end
+    end
+
     describe "when a document id is provided" do
       let(:document) { create(:content_block_document, :email_address) }
       let!(:previous_edition) { create(:content_block_edition, :email_address, document:) }
@@ -73,6 +80,32 @@ class ContentObjectStore::CreateEditionServiceTest < ActiveSupport::TestCase
         assert_equal new_edition.document_id, document.id
         assert_equal new_edition.lead_organisation.id, organisation.id
       end
+
+      it "sends the content block to the Publishing API as a draft" do
+        assert_draft_created_in_publishing_api(document.content_id) do
+          ContentObjectStore::CreateEditionService.new(schema).call(edition_params, document_id: document.id)
+        end
+      end
     end
   end
+end
+
+def assert_draft_created_in_publishing_api(content_id, &block)
+  Services.publishing_api.expects(:put_content).with(
+    content_id,
+    {
+      schema_name: schema.id,
+      document_type: schema.id,
+      publishing_app: Whitehall::PublishingApp::WHITEHALL,
+      title: new_title,
+      details: edition_params[:details],
+      links: {
+        primary_publishing_organisation: [
+          organisation.content_id,
+        ],
+      },
+    },
+  )
+
+  block.call
 end
