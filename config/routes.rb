@@ -459,5 +459,5 @@ Whitehall::Application.routes.draw do
 
   mount GovukPublishingComponents::Engine, at: "/component-guide" unless Rails.env.production?
 
-  mount ContentBlockManager::Engine, at: "government/admin/content-block-manager", as: "content_block_manager"
+  mount ContentBlockManager::Engine, at: "content-block-manager", as: "content_block_manager"
 end
