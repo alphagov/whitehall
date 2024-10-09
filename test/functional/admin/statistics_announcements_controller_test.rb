@@ -41,6 +41,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select "input[name='statistics_announcement[title]']"
+    refute_select "#statistics_announcement_publication_type_id > fieldset > .govuk-hint"
   end
 
   # ==== POST :create ====
@@ -171,6 +172,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select "input[name='statistics_announcement[title]'][value='#{announcement.title}']"
+    assert_select "#statistics_announcement_publication_type_id .govuk-hint", "Please note that changing the statistics type will also automatically update the type of the connected document."
   end
 
   # ==== PUT :update ====
