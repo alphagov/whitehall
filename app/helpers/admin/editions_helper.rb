@@ -21,36 +21,31 @@ module Admin::EditionsHelper
     end
 
     [
-      [
-        "",
-        [
-          {
-            text: "All organisations",
-            value: "",
-            selected: selected_organisation.blank?,
-          },
-        ],
-      ],
-      [
-        "Live organisations",
-        organisations.map do |organisation|
+      {
+        text: "All organisations",
+        value: "",
+        selected: selected_organisation.blank?,
+      },
+      {
+        text: "Live organisations",
+        options: organisations.map do |organisation|
           {
             text: organisation.select_name,
             value: organisation.id,
             selected: selected_organisation.to_s == organisation.id.to_s,
           }
         end,
-      ],
-      [
-        "Closed organisations",
-        closed_organisations.map do |organisation|
+      },
+      {
+        text: "Closed organisations",
+        options: closed_organisations.map do |organisation|
           {
             text: organisation.select_name,
             value: organisation.id,
             selected: selected_organisation.to_s == organisation.id.to_s,
           }
         end,
-      ],
+      },
     ]
   end
 

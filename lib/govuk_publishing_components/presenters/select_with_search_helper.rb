@@ -7,7 +7,7 @@ module GovukPublishingComponents
     class SelectWithSearchHelper
       include ActionView::Helpers::FormOptionsHelper
 
-      attr_reader :options, :selected_option
+      attr_reader :options#, :selected_option
 
       delegate :describedby,
                :error_id,
@@ -35,15 +35,15 @@ module GovukPublishingComponents
       def options_html
         if @grouped_options.present?
           blank_option_if_include_blank +
-            grouped_options_for_select(
-              transform_grouped_options(@grouped_options),
-              selected_option,
+            transform_grouped_options(
+              @grouped_options,
+              #selected_option,
             )
         elsif @options.present?
           blank_option_if_include_blank +
             options_for_select(
               transform_options(@options),
-              selected_option,
+             # selected_option,
             )
         end
       end
@@ -58,7 +58,7 @@ module GovukPublishingComponents
 
       def transform_options(options)
         options.map do |option|
-          @selected_option = option[:value] if option[:selected]
+          #@selected_option = option[:value] if option[:selected]
           [
             option[:text],
             option[:value],
@@ -67,9 +67,17 @@ module GovukPublishingComponents
       end
 
       def transform_grouped_options(grouped_options)
-        grouped_options.map do |(group, options)|
-          [group, transform_options(options)]
+        html_snippets = grouped_options.map do |option|
+          if option[:options]
+            options = option[:options].map do |opt|
+              "<option value='#{opt[:value]}' #{opt[:selected] ? 'selected' : ''}>#{opt[:text]}</option>"
+            end
+            "<optgroup label='#{option[:text]}'>#{options.join('')}</optgroup>"
+          else
+            "<option value='#{option[:value]}' #{option[:selected] ? 'selected' : ''}>#{option[:text]}</option>"
+          end
         end
+        html_snippets.join("").html_safe
       end
 
       def blank_option_if_include_blank

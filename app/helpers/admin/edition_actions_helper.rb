@@ -89,34 +89,30 @@ module Admin::EditionActionsHelper
   end
 
   def filter_edition_type_options_for_select(user, selected)
+    # TODO
     options_for_select([["All types", ""]]) + edition_type_options_for_select(user, selected) + edition_sub_type_options_for_select(selected)
   end
 
   def filter_edition_type_opt_groups(user, selected)
     [
-      [
-        "",
-        [
-          {
-            text: "All types",
-            value: "",
-            selected: selected.blank?,
-          },
-        ],
-      ],
-      [
-        "Types",
-        type_options_container(user).map do |text, value|
+      {
+        text: "All types",
+        value: "",
+        selected: selected.blank?,
+      },
+      {
+        text: "Types",
+        options: type_options_container(user).map do |text, value|
           {
             text:,
             value:,
             selected: selected == value,
           }
         end,
-      ],
-      [
-        "Publication sub-types",
-        PublicationType.ordered_by_prevalence.map do |sub_type|
+      },
+      {
+        text: "Publication sub-types",
+        options: PublicationType.ordered_by_prevalence.map do |sub_type|
           value = "publication_#{sub_type.id}"
           {
             text: sub_type.plural_name,
@@ -124,10 +120,10 @@ module Admin::EditionActionsHelper
             selected: selected == value,
           }
         end,
-      ],
-      [
-        "News article sub-types",
-        NewsArticleType.all.map do |sub_type|
+      },
+      {
+        text: "News article sub-types",
+        options: NewsArticleType.all.map do |sub_type|
           value = "news_article_#{sub_type.id}"
           {
             text: sub_type.plural_name,
@@ -135,10 +131,10 @@ module Admin::EditionActionsHelper
             selected: selected == value,
           }
         end,
-      ],
-      [
-        "Speech sub-types",
-        SpeechType.all.map do |sub_type|
+      },
+      {
+        text: "Speech sub-types",
+        options: SpeechType.all.map do |sub_type|
           value = "speech_#{sub_type.id}"
           {
             text: sub_type.plural_name,
@@ -146,7 +142,7 @@ module Admin::EditionActionsHelper
             selected: selected == value,
           }
         end,
-      ],
+      },
     ]
   end
 

@@ -8,23 +8,23 @@
     error_message: errors_for_input(edition.errors, :publication_type_id),
     include_blank: true,
     grouped_options: [
-      [
-        "Common types",
-        PublicationType.primary,
-      ],
-      [
-        "Less common types",
-        PublicationType.less_common,
-      ],
-      [
-        "Use discouraged",
-        PublicationType.use_discouraged,
-      ],
+      {
+        text: "Common types",
+        options: PublicationType.primary,
+      },
+      {
+        text: "Less common types",
+        options: PublicationType.less_common,
+      },
+      {
+        text: "Use discouraged",
+        options: PublicationType.use_discouraged,
+      },
     ]
     .map do |group|
       [
-        group.first,
-        group.second.map do |publication_type|
+        group[:text],
+        group[:options].map do |publication_type|
           {
             text: publication_type.singular_name,
             value: publication_type.id,
