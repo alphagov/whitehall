@@ -27,6 +27,7 @@ if ENV["USE_I18N_COVERAGE"]
 end
 
 Dir[Rails.root.join("test/support/*.rb")].sort.each { |f| require f }
+Dir[Rails.root.join("lib/engines/**/test/support/*.rb")].sort.each { |f| require f }
 
 Whitehall::Application.load_tasks if Rake::Task.tasks.empty?
 

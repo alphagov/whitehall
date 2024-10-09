@@ -6,6 +6,7 @@ class ContentObjectStore::ContentBlock::WorkflowTest < ActionDispatch::Integrati
   extend Minitest::Spec::DSL
   include SidekiqTestHelpers
   include ContentObjectStore::Engine.routes.url_helpers
+  include ContentObjectStore::IntegrationTestHelpers
 
   let(:details) do
     {
@@ -174,11 +175,6 @@ def assert_edition_is_published(&block)
 
     assert_equal "published", new_edition.state
   end
-end
-
-def stub_request_for_schema(block_type)
-  schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema", body: {}, block_type:)
-  ContentObjectStore::ContentBlock::Schema.stubs(:find_by_block_type).with(block_type).returns(schema)
 end
 
 def update_params(edition_id:, organisation_id:)

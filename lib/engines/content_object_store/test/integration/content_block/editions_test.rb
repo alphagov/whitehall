@@ -5,6 +5,7 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
   include Capybara::DSL
   extend Minitest::Spec::DSL
   include ContentObjectStore::Engine.routes.url_helpers
+  include ContentObjectStore::IntegrationTestHelpers
 
   before do
     login_as_admin
@@ -183,12 +184,6 @@ class ContentObjectStore::ContentBlock::EditionsTest < ActionDispatch::Integrati
       end
     end
   end
-end
-
-def stub_request_for_schema(block_type)
-  schema = stub(id: "content_block_type", fields: %w[foo bar], name: "schema", body: {}, block_type:)
-  ContentObjectStore::ContentBlock::Schema.stubs(:find_by_block_type).with(block_type).returns(schema)
-  schema
 end
 
 def renders_errors(&block)
