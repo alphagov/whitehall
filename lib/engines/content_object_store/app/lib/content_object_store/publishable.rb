@@ -41,6 +41,28 @@ module ContentObjectStore
       end
     end
 
+    def create_draft_edition(schema)
+      raise ArgumentError, "Local database changes not given" unless block_given?
+
+      ActiveRecord::Base.transaction do
+        content_block_edition = yield
+        content_id = content_block_edition.document.content_id
+        organisation_id = content_block_edition.lead_organisation.content_id
+
+        create_publishing_api_edition(
+          content_id:,
+          schema_id: schema.id,
+          title: content_block_edition.title,
+          details: content_block_edition.details.to_h,
+          links: {
+            primary_publishing_organisation: [
+              organisation_id,
+            ],
+          },
+        )
+      end
+    end
+
     def update_content_block_document(new_content_block_edition:, update_document_params:)
       # Updates to a Document should never change its block type
       update_document_params.delete(:block_type)
