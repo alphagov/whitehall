@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      content_block_manager/content_block/edition/document:
+        title: Title

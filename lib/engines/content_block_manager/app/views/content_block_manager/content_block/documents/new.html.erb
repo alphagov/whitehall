@@ -1,0 +1,19 @@
+<% content_for :context, product_name %>
+
+<% if @schemas %>
+  <% content_for :back_link do %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: content_block_manager.content_block_manager_content_block_documents_path,
+    } %>
+  <% end %>
+  <% content_for :page_title, "Select a block type" %>
+  <%= render partial: "content_block_manager/content_block/documents/schemas", locals: { schemas: @schemas} %>
+<% else %>
+  <% content_for :back_link do %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: content_block_manager.new_content_block_manager_content_block_document_path,
+    } %>
+  <% end %>
+  <% content_for :title, "Create #{@schema.name}" %>
+  <%= render partial: "content_block_manager/content_block/shared/form", locals: { form: @form } %>
+<% end %>

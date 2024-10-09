@@ -22,6 +22,6 @@ Flipflop.configure do
   #   default: true,
   #   description: "Take over the world."
   feature :govspeak_visual_editor, description: "Enables a visual editor for Govspeak fields", default: false
-  feature :content_object_store, description: "Enables the object store for sharable content", default: Rails.env.development? || Whitehall.integration_or_staging?
+  feature :content_block_manager, description: "Enables the object store for sharable content", default: Rails.env.development? || Whitehall.integration_or_staging?
   feature :override_government, description: "Enables GDS Editors and Admins to override the government associated with a document", default: false
 end

@@ -1,0 +1,57 @@
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @form.content_block_edition)) %>
+
+<%= form_with(
+      url: @form.url,
+      method: :post,
+      model: [content_block_manager, @form.content_block_edition]) do |f| %>
+  <%= hidden_field_tag "content_block/edition[document_attributes][block_type]",
+                       @form.schema.block_type,
+                       id: "content_block_manager/content_block_edition_document_block_type" %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Title",
+    },
+    name: "content_block/edition[document_attributes][title]",
+    id: "content_block_manager/content_block/edition_document_title",
+    value: @form.content_block_edition.document&.title,
+    error_items: errors_for(@form.content_block_edition.errors, "document.title".to_sym),
+  } %>
+
+  <% @form.attributes.each do |field, _value| %>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: field.humanize,
+      },
+      name: "content_block/edition[details[#{field}]]",
+      id: "content_block_manager/content_block/edition_details_#{field}",
+      value: @form.content_block_edition.details&.fetch(field, nil),
+      error_items: errors_for(@form.content_block_edition.errors, "details_#{field}".to_sym),
+    } %>
+  <% end %>
+
+  <%= render "components/select_with_search", {
+    id: "content_block/edition_lead_organisation",
+    name: "content_block/edition[organisation_id]",
+    label:  "Lead organisation",
+    include_blank: true,
+    options: taggable_organisations_container.map do |name, id|
+      {
+        text: name,
+        value: id,
+        selected: id == @form.content_block_edition.edition_organisation&.organisation_id,
+      }
+    end,
+    error_message: errors_for_input(@form.content_block_edition.errors, "lead_organisation".to_sym),
+  } %>
+
+  <div class="govuk-button-group govuk-!-margin-bottom-6">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save and continue",
+      name: "save_and_continue",
+      value: "Save and continue",
+      type: "submit",
+    } %>
+    <%= link_to("Cancel", @form.back_path, class: "govuk-link") %>
+  </div>
+<% end %>
