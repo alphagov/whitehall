@@ -190,6 +190,88 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_select "ul.govuk-error-summary__list a", text: "Title can't be blank"
   end
 
+  test "PUT :update should update connected draft publication in Publishing API if announcement publication type has been changed" do
+    national_statistics = create(:draft_national_statistics, lead_organisations: [@organisation])
+    announcement = create(
+      :statistics_announcement,
+      publication_type_id: PublicationType::NationalStatistics.id,
+      publication: national_statistics,
+      organisation_ids: [@organisation.id],
+    )
+
+    announcement_presenter = PublishingApiPresenters.presenter_for(announcement)
+    announcement_content = announcement_presenter.content.merge(
+      title: "New title",
+      public_updated_at: Time.zone.now.as_json,
+    )
+
+    WebMock.reset!
+
+    expected_requests = [
+      stub_publishing_api_patch_links(announcement.content_id, links: announcement_presenter.links),
+      stub_publishing_api_put_content(announcement.content_id, with_locale(:en) { announcement_content }),
+      stub_publishing_api_publish(announcement.content_id, locale: "en", update_type: nil),
+    ]
+
+    put :update, params: {
+      id: announcement.id,
+      statistics_announcement: {
+        title: "New title",
+        publication_type_id: PublicationType::NationalStatistics.id,
+      },
+    }
+
+    assert_all_requested(expected_requests)
+  end
+
+  test "PUT :update should not update connected draft publication in Publishing API if announcement publication type has not been changed" do
+    national_statistics = create(:draft_national_statistics, lead_organisations: [@organisation])
+    announcement = create(
+      :statistics_announcement,
+      publication_type_id: PublicationType::NationalStatistics.id,
+      publication: national_statistics,
+      organisation_ids: [@organisation.id],
+    )
+
+    publication_presenter = PublishingApiPresenters.presenter_for(national_statistics)
+    publication_content = publication_presenter.content.merge(
+      document_type: "official_statistics",
+    )
+    html_attachment_presenter = PublishingApiPresenters.presenter_for(national_statistics.attachments.first)
+
+    announcement_presenter = PublishingApiPresenters.presenter_for(announcement)
+    announcement_details = announcement_presenter.content[:details].merge(
+      format_sub_type: "official",
+    )
+    announcement_content = announcement_presenter.content.merge(
+      title: "New title",
+      document_type: "official_statistics_announcement",
+      details: announcement_details,
+      public_updated_at: Time.zone.now.as_json,
+    )
+
+    WebMock.reset!
+
+    expected_requests = [
+      stub_publishing_api_patch_links(publication_presenter.content_id, links: publication_presenter.links),
+      stub_publishing_api_put_content(publication_presenter.content_id, with_locale(:en) { publication_content }),
+      stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
+      stub_publishing_api_patch_links(announcement.content_id, links: announcement_presenter.links),
+      stub_publishing_api_put_content(announcement.content_id, with_locale(:en) { announcement_content }),
+      stub_publishing_api_publish(announcement.content_id, locale: "en", update_type: nil),
+    ]
+
+    put :update, params: {
+      id: announcement.id,
+      statistics_announcement: {
+        title: "New title",
+        publication_type_id: PublicationType::OfficialStatistics.id,
+      },
+    }
+
+    assert_all_requested(expected_requests)
+  end
+
   # ==== POST :publish_cancellation ====
   test "POST :publish_cancellation cancels the announcement" do
     announcement = create(:statistics_announcement)
