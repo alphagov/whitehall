@@ -32,7 +32,10 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def update
     @statistics_announcement.assign_attributes(statistics_announcement_params)
+    require_publication_update = @statistics_announcement.publication && @statistics_announcement.publication_type_id_changed?
+
     if @statistics_announcement.save
+      Whitehall.edition_services.draft_updater(@statistics_announcement.publication, { current_user: }).perform! if require_publication_update
       redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
       render :edit
