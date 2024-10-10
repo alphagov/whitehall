@@ -1,0 +1,23 @@
+<% if flash[:error] %>
+  <%= render ContentBlockManager::ContentBlockEdition::New::ErrorSummaryComponent.new(
+    error_message: flash[:error],
+  ) %>
+<% end %>
+
+<%= form_with url: content_block_manager.new_document_options_redirect_content_block_manager_content_block_documents_path, method: :post do %>
+  <%= hidden_field_tag :block_type, "" %>
+
+  <%= render ContentBlockManager::ContentBlockEdition::New::SelectSchemaComponent.new(
+    heading: content_for(:page_title),
+    heading_caption: content_for(:context),
+    error_message: flash[:error],
+    schemas: @schemas,
+  ) %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save and continue",
+    name: "save_and_continue",
+    value: "Save and continue",
+    type: "submit",
+  } %>
+<% end %>
