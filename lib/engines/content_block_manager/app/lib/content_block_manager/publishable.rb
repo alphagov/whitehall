@@ -2,32 +2,28 @@ module ContentBlockManager
   module Publishable
     class PublishingFailureError < StandardError; end
 
-    def publish_with_rollback(schema)
-      raise ArgumentError, "Local database changes not given" unless block_given?
+    def publish_with_rollback(content_block_edition)
+      document = content_block_edition.document
+      content_id = document.content_id
 
-      ActiveRecord::Base.transaction do
-        content_block_edition = yield
-        content_id = content_block_edition.document.content_id
-        organisation_id = content_block_edition.lead_organisation.content_id
-
-        create_publishing_api_edition(
-          content_id:,
-          schema_id: schema.id,
-          title: content_block_edition.title,
-          details: content_block_edition.details,
-          links: {
-            primary_publishing_organisation: [
-              organisation_id,
-            ],
-          },
-        )
-        publish_publishing_api_edition(content_id:)
-        update_content_block_document_with_latest_edition(content_block_edition)
-        content_block_edition.public_send(:publish!)
-      rescue PublishingFailureError => e
-        discard_publishing_api_edition(content_id:)
-        raise e
-      end
+      create_publishing_api_edition(
+        content_id:,
+        schema_id: document.block_type,
+        title: content_block_edition.title,
+        details: content_block_edition.details,
+        links: {
+          primary_publishing_organisation: [
+            content_block_edition.lead_organisation.content_id,
+          ],
+        },
+      )
+      publish_publishing_api_edition(content_id:)
+      update_content_block_document_with_latest_edition(content_block_edition)
+      content_block_edition.public_send(:publish!)
+      content_block_edition
+    rescue PublishingFailureError => e
+      discard_publishing_api_edition(content_id:)
+      raise e
     end
 
     def schedule_with_rollback

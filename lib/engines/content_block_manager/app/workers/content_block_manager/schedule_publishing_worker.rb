@@ -46,12 +46,8 @@ module ContentBlockManager
       edition = ContentBlockManager::ContentBlock::Edition.find(edition_id)
       return if edition.published? || !edition.scheduled?
 
-      schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(edition.document.block_type)
-
       ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(publishing_robot) do
-        ContentBlockManager::PublishEditionService.new(
-          schema,
-        ).call(edition)
+        ContentBlockManager::PublishEditionService.new.call(edition)
       end
     rescue ContentBlockManager::Publishable::PublishingFailureError => e
       raise SchedulingFailure, e.message

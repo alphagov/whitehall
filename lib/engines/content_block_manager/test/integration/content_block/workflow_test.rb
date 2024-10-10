@@ -147,8 +147,8 @@ def assert_edition_is_published(&block)
   publishing_api_mock.expect :put_content, fake_put_content_response, [
     @content_id,
     {
-      schema_name: "content_block_type",
-      document_type: "content_block_type",
+      schema_name: document.block_type,
+      document_type: document.block_type,
       publishing_app: "whitehall",
       title: "Some Title",
       details: {
