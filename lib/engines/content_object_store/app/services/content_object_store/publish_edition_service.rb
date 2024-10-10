@@ -7,9 +7,7 @@ module ContentObjectStore
     end
 
     def call(edition)
-      title = edition.title
-      details = edition.details
-      publish_with_rollback(schema: @schema, title:, details:) do
+      publish_with_rollback(@schema) do
         edition
       end
       edition

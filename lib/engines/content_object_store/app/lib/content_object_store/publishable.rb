@@ -2,7 +2,7 @@ module ContentObjectStore
   module Publishable
     class PublishingFailureError < StandardError; end
 
-    def publish_with_rollback(schema:, title:, details:)
+    def publish_with_rollback(schema)
       raise ArgumentError, "Local database changes not given" unless block_given?
 
       ActiveRecord::Base.transaction do
@@ -13,8 +13,8 @@ module ContentObjectStore
         create_publishing_api_edition(
           content_id:,
           schema_id: schema.id,
-          title:,
-          details: details.to_h,
+          title: content_block_edition.title,
+          details: content_block_edition.details,
           links: {
             primary_publishing_organisation: [
               organisation_id,
