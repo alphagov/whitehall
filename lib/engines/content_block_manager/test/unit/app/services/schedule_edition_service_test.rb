@@ -75,9 +75,7 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
 
       edition.stub :update!, raises_exception do
         assert_raises(ArgumentError) do
-          ContentBlockManager::ScheduleEditionService
-            .new(schema)
-            .call(edition, scheduled_publication_params)
+          ContentBlockManager::ScheduleEditionService.new.call(edition, scheduled_publication_params)
         end
       end
     end

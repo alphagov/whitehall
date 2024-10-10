@@ -82,7 +82,7 @@ private
   end
 
   def publish
-    new_edition = ContentBlockManager::PublishEditionService.new(@schema).call(@content_block_edition)
+    new_edition = ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
     redirect_to content_block_manager.content_block_manager_content_block_document_path(new_edition.document),
                 flash: { notice: "#{new_edition.block_type.humanize} created successfully" }
   end
