@@ -6,7 +6,7 @@ FactoryBot.define do
     schema { build(:content_block_schema) }
     creator
 
-    organisation { FactoryBot.create(:organisation) }
+    organisation { FactoryBot.build(:organisation) }
 
     document_id { nil }
 
