@@ -177,4 +177,9 @@ class OrganisationBrandColour
     title: "Ministry of Housing, Communities & Local Government",
     class_name: "ministry-of-housing-communities-local-government",
   )
+  SeriousFraudOffice = create!(
+    id: 35,
+    title: "Serious Fraud Office",
+    class_name: "serious-fraud-office",
+  )
 end
