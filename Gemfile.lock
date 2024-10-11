@@ -273,10 +273,10 @@ GEM
       rake (>= 13)
     googleapis-common-protos-types (1.16.0)
       google-protobuf (>= 3.18, < 5.a)
-    govspeak (8.4.0)
+    govspeak (8.4.1)
       actionview (>= 6, < 7.2.2)
       addressable (>= 2.3.8, < 2.8.8)
-      govuk_publishing_components (>= 35.1, < 43.5.1)
+      govuk_publishing_components (>= 35.1)
       htmlentities (~> 4)
       i18n (>= 0.7, < 1.14.7)
       kramdown (>= 2.3.1, < 2.4.1)
@@ -300,7 +300,7 @@ GEM
     govuk_personalisation (1.0.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (43.5.0)
+    govuk_publishing_components (44.2.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
