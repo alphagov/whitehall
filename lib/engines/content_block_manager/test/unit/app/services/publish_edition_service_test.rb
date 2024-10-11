@@ -5,10 +5,13 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
 
   describe "#call" do
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
+    let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:document) { create(:content_block_document, :email_address, content_id:, title: "Some Title") }
     let(:edition) { create(:content_block_edition, document:, details: { "foo" => "Foo text", "bar" => "Bar text" }, organisation: @organisation) }
 
     setup do
+      ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type)
+                                               .returns(schema)
       @organisation = create(:organisation)
     end
 
@@ -35,8 +38,8 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
       publishing_api_mock.expect :put_content, fake_put_content_response, [
         content_id,
         {
-          schema_name: document.block_type,
-          document_type: document.block_type,
+          schema_name: schema.id,
+          document_type: schema.id,
           publishing_app: "whitehall",
           title: "Some Title",
           details: {
