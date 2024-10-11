@@ -22,15 +22,19 @@ class StatisticsAnnouncement < ApplicationRecord
 
   belongs_to :creator, class_name: "User"
   belongs_to :cancelled_by, class_name: "User"
-  belongs_to :publication, autosave: true
+  belongs_to :publication, autosave: true, validate: false
+  validates_associated :publication, if: :publication,
+                                     message: lambda { |_, publication|
+                                       "type #{publication[:value].errors[:publication_type_id].first}"
+                                     }
 
-  has_one  :current_release_date,
-           lambda {
-             joins(:statistics_announcement)
-                .where("statistics_announcements.current_release_date_id = statistics_announcement_dates.id")
-           },
-           class_name: "StatisticsAnnouncementDate",
-           inverse_of: :statistics_announcement
+  has_one :current_release_date,
+          lambda {
+            joins(:statistics_announcement)
+              .where("statistics_announcements.current_release_date_id = statistics_announcement_dates.id")
+          },
+          class_name: "StatisticsAnnouncementDate",
+          inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates,
            -> { order(created_at: :asc, id: :asc) },
            dependent: :destroy
@@ -38,11 +42,7 @@ class StatisticsAnnouncement < ApplicationRecord
   has_many :statistics_announcement_organisations, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :organisations, through: :statistics_announcement_organisations
 
-  validates_associated :publication, if: :publication,
-                                     message: lambda { |_, publication|
-                                       "type #{publication[:value].errors[:publication_type_id].first}"
-                                     }
-  validate  :redirect_not_circular, if: :unpublished?
+  validate :redirect_not_circular, if: :unpublished?
   validates :publishing_state, inclusion: %w[published unpublished]
   validates :redirect_url, presence: { message: "must be provided when unpublishing an announcement" }, if: :unpublished?
   validates :redirect_url, uri: true, allow_blank: true
@@ -125,7 +125,7 @@ class StatisticsAnnouncement < ApplicationRecord
 
   def self.with_topics(topic_ids)
     joins(:statistics_announcement_topics)
-    .where(statistics_announcement_topics: { topic_id: topic_ids })
+      .where(statistics_announcement_topics: { topic_id: topic_ids })
   end
 
   def last_change_note

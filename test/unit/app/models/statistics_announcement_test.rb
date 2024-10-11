@@ -347,6 +347,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id, publication: national_statistics)
 
     assert_not announcement.save
+    assert_equal 1, announcement.errors.count
     assert announcement.errors[:publication].include? "type does not match announcement type: must be 'Official Statistics'"
     assert_equal PublicationType::NationalStatistics.id, national_statistics.reload.publication_type_id
   end
@@ -361,7 +362,8 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     )
 
     assert_not announcement.save
-    assert announcement.errors[:publication].include? "type cannot be modified when edition is in the published state"
+    assert_equal 1, announcement.errors.count
+    assert_equal announcement.errors.first.full_message, "Publication type cannot be modified when edition is in the published state"
     assert_equal PublicationType::NationalStatistics.id, national_statistics.reload.publication_type_id
   end
   # === END: Publication Type update callback ===
