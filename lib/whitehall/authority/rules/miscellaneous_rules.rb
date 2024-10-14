@@ -8,6 +8,10 @@ module Whitehall::Authority::Rules
       end
     end
 
+    def can_for_landing_pages?(_action)
+      actor.gds_admin?
+    end
+
     def can_for_republish_content?(_action)
       actor.gds_admin?
     end
