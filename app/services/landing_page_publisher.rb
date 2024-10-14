@@ -1,4 +1,4 @@
-class PublishLandingPage
+class LandingPagePublisher
   attr_reader :landing_page
 
   def initialize(landing_page)

@@ -8,10 +8,10 @@ class LandingPage < ApplicationRecord
 private
 
   def publish_landing_page
-    PublishLandingPage.call(self)
+    LandingPagePublisher.call(self)
   end
 
   def unpublish_landing_page
-    # TODO
+    LandingPageUnpublisher.call(self)
   end
 end
