@@ -676,12 +676,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_14_133850) do
   end
 
   create_table "landing_pages", charset: "utf8mb3", force: :cascade do |t|
-    t.text "base_path", null: false
+    t.string "base_path", null: false
     t.text "yaml", size: :medium
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "title", null: false
-    t.text "description", null: false
+    t.string "title"
+    t.text "description"
+    t.index ["base_path"], name: "index_landing_pages_on_base_path", unique: true
   end
 
   create_table "link_checker_api_report_links", id: :integer, charset: "utf8mb3", force: :cascade do |t|
