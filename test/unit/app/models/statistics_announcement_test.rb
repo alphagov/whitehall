@@ -80,28 +80,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal expected_indexed_content, announcement.search_index
   end
 
-  test "only valid when associated publication is of a matching type" do
-    statistics          = create(:draft_statistics)
-    national_statistics = create(:draft_national_statistics)
-    policy_paper        = create(:draft_policy_paper)
-
-    announcement = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
-
-    announcement.publication = statistics
-    assert announcement.valid?
-
-    announcement.publication = national_statistics
-    assert_not announcement.valid?
-    assert_equal ["type does not match announcement type: must be 'Official Statistics'"], announcement.errors[:publication]
-
-    announcement.publication_type_id = PublicationType::NationalStatistics.id
-    assert announcement.valid?
-
-    announcement.publication = policy_paper
-    assert_not announcement.valid?
-    assert_equal ["type does not match announcement type: must be 'Accredited Official Statistics'"], announcement.errors[:publication]
-  end
-
   test ".with_title_containing returns statistics announcements matching provided title" do
     match = create(:statistics_announcement, title: "MQ5 statistics")
     create(:statistics_announcement, title: "PQ6 statistics")
@@ -291,6 +269,104 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     assert_equal statistics_announcement_date3.id, statistics_announcement.reload.current_release_date_id
   end
+
+  test "only valid when associated publication is of a matching type" do
+    statistics          = create(:draft_statistics)
+    national_statistics = create(:draft_national_statistics)
+    policy_paper        = create(:draft_policy_paper)
+
+    announcement = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
+
+    announcement.publication = statistics
+    assert announcement.valid?
+
+    announcement.publication = national_statistics
+    assert_not announcement.valid?
+    assert_equal ["type does not match announcement type: must be 'Official Statistics'"], announcement.errors[:publication]
+
+    announcement.publication_type_id = PublicationType::NationalStatistics.id
+    assert announcement.valid?
+
+    announcement.publication = policy_paper
+    assert_not announcement.valid?
+    assert_equal ["type does not match announcement type: must be 'Accredited Official Statistics'"], announcement.errors[:publication]
+  end
+
+  test "deleting statistics announcement does not delete publication" do
+    national_statistics = create(:draft_national_statistics, title: "Test")
+    announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id, publication: national_statistics)
+
+    announcement.delete
+    assert_equal Publication.find(national_statistics.id).title, "Test"
+    assert_equal StatisticsAnnouncement.where(id: announcement.id).count, 0
+  end
+
+  # === BEGIN: Publication Type update callback ===
+  test "should update publication type when there's no connected publication" do
+    announcement = create(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
+
+    announcement.publication_type_id = PublicationType::NationalStatistics.id
+    announcement.save!
+
+    assert announcement.valid?
+    assert announcement.errors.empty?
+  end
+
+  test "should update with same publication type when there's a connected draft publication" do
+    national_statistics = create(:draft_national_statistics)
+    announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id, publication: national_statistics)
+
+    announcement.assign_attributes(
+      publication_type_id: PublicationType::NationalStatistics.id,
+      title: "New title",
+    )
+    announcement.save!
+
+    assert announcement.valid?
+    assert announcement.errors.empty?
+    assert_equal PublicationType::NationalStatistics.id, national_statistics.reload.publication_type_id
+  end
+
+  test "should update with a different publication type and update publication when there's a connected draft publication" do
+    national_statistics = create(:draft_national_statistics)
+    announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id, publication: national_statistics)
+
+    announcement.assign_attributes(
+      publication_type_id: PublicationType::OfficialStatistics.id,
+      title: "New title",
+    )
+    announcement.save!
+
+    assert announcement.valid?
+    assert announcement.errors.empty?
+    assert_equal PublicationType::OfficialStatistics.id, national_statistics.reload.publication_type_id
+  end
+
+  test "should not create new announcement with publication of mismatched Publication type" do
+    national_statistics = create(:draft_national_statistics)
+    announcement = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id, publication: national_statistics)
+
+    assert_not announcement.save
+    assert_equal 1, announcement.errors.count
+    assert announcement.errors[:publication].include? "type does not match announcement type: must be 'Official Statistics'"
+    assert_equal PublicationType::NationalStatistics.id, national_statistics.reload.publication_type_id
+  end
+
+  test "should not update Publication type nor update publication when connected publication is published" do
+    national_statistics = create(:published_national_statistics)
+    announcement = create(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id, publication: national_statistics)
+
+    announcement.assign_attributes(
+      publication_type_id: PublicationType::OfficialStatistics.id,
+      title: "New title",
+    )
+
+    assert_not announcement.save
+    assert_equal 1, announcement.errors.count
+    assert_equal announcement.errors.first.full_message, "Publication type cannot be modified when edition is in the published state"
+    assert_equal PublicationType::NationalStatistics.id, national_statistics.reload.publication_type_id
+  end
+  # === END: Publication Type update callback ===
 
 private
 
