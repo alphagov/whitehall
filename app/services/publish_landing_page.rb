@@ -34,8 +34,8 @@ private
   def content_hash
     {
       "base_path": landing_page.base_path,
-      "title": "",
-      "description": "",
+      "title": "Basic Landing Page",
+      "description": "Basic Landing Page Stuff",
       "locale": "en",
       "document_type": "landing_page",
       "schema_name": "landing_page",
