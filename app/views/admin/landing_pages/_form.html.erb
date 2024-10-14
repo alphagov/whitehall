@@ -1,15 +1,43 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for [:admin, @landing_page] do |form| %>
+
+      <% if @is_new %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Base Path",
+          },
+          id: "landing_page_base_path",
+          name: "landing_page[base_path]",
+          value: landing_page.base_path,
+          heading_size: "l",
+          error_items: errors_for_input(landing_page.errors, :base_path),
+        } %>
+      <% else %>
+        <h3>Base Path: <%= landing_page.base_path %></h3>
+      <% end %>
+
       <%= render "govuk_publishing_components/components/input", {
         label: {
-          text: "Base Path",
+          text: "Title",
         },
-        id: "landing_page_base_path",
-        name: "landing_page[base_path]",
-        value: landing_page.base_path,
+        id: "landing_page_title",
+        name: "landing_page[title]",
+        value: landing_page.title,
         heading_size: "l",
-        error_items: errors_for_input(landing_page.errors, :base_path),
+        error_items: errors_for_input(landing_page.errors, :title),
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Description",
+          heading_size: "l",
+        },
+        id: "landing_page_description",
+        name: "landing_page[description]",
+        value: landing_page.description,
+        rows: 30,
+        error_items: errors_for(landing_page.errors, :description),
       } %>
 
       <%= render "govuk_publishing_components/components/textarea", {

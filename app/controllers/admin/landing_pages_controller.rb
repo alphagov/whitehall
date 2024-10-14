@@ -13,6 +13,7 @@ class Admin::LandingPagesController < Admin::BaseController
   def edit; end
 
   def new
+    @is_new = true
     @landing_page = LandingPage.new
   end
 
@@ -49,6 +50,8 @@ private
   def landing_page_params
     params.require(:landing_page).permit(
       :base_path,
+      :title,
+      :description,
       :yaml,
     )
   end

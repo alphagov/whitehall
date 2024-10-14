@@ -22,7 +22,9 @@ Whitehall::Application.routes.draw do
 
       resources :users, only: %i[index show edit update]
 
-      resources :landing_pages
+      resources :landing_pages do
+        get :confirm_destroy, on: :member
+      end
 
       scope :republishing do
         root to: "republishing#index", as: :republishing_index, via: :get

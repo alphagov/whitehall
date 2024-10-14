@@ -10,6 +10,9 @@
             text: "Base Path",
           },
           {
+            text: "Title",
+          },
+          {
             text: "Updated",
           },
           {
@@ -22,10 +25,13 @@
               text: tag.p(landing_page.base_path, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
             },
             {
+              text: tag.p(landing_page.title, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
+            },
+            {
               text: sanitize(tag.p("Updated #{time_ago_in_words landing_page.updated_at} ago", class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0")),
             },
             {
-              text: link_to(sanitize("Edit"), edit_admin_landing_page_path(landing_page), class: "govuk-link"),
+              text: link_to(sanitize("Edit"), edit_admin_landing_page_path(landing_page), class: "govuk-link") + tag.br + link_to(sanitize("Delete"), confirm_destroy_admin_landing_page_path(landing_page), class: "govuk-link"),
             },
           ]
         end,
