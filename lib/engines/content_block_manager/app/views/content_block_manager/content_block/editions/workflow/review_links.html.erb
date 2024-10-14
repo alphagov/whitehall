@@ -24,23 +24,29 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
-        <%= form_with(
-              url: content_block_manager.content_block_manager_content_block_workflow_path(
-                edition_id: @content_block_edition.id,
-                step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
-              ),
-              method: :put,
-            ) do %>
-          <div class="govuk-button-group govuk-!-margin-bottom-6">
-            <%= render "govuk_publishing_components/components/button", {
-              text: "Save and continue",
-              name: "save_and_continue",
-              value: "Save and continue",
-              type: "submit",
-            } %>
-            <%= link_to("Cancel", content_block_manager.content_block_manager_content_block_documents_path, class: "govuk-link") %>
+          <div class="govuk-button-group">
+          <%= form_with(
+                url: content_block_manager.content_block_manager_content_block_workflow_path(
+                  edition_id: @content_block_edition.id,
+                  step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
+                ),
+                method: :put,
+              ) do %>
+              <%= render "govuk_publishing_components/components/button", {
+                text: "Save and continue",
+                name: "save_and_continue",
+                value: "Save and continue",
+                type: "submit",
+              } %>
+            <% end %>
+            <%= render partial: "content_block_manager/content_block/shared/cancel_delete_button",
+                       locals: {
+                         url: content_block_manager.content_block_manager_content_block_edition_path(
+                           @content_block_edition,
+                           redirect_path: content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document),
+                         ),
+                       } %>
           </div>
-        <% end %>
       </div>
     </div>
 
