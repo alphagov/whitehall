@@ -4,11 +4,12 @@ module ContentBlockManager
 
     def publish_with_rollback(content_block_edition)
       document = content_block_edition.document
+      schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(document.block_type)
       content_id = document.content_id
 
       create_publishing_api_edition(
         content_id:,
-        schema_id: document.block_type,
+        schema_id: schema.id,
         title: content_block_edition.title,
         details: content_block_edition.details,
         links: {
