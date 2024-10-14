@@ -6,6 +6,5 @@ class AddLandingPages < ActiveRecord::Migration[7.1]
       t.datetime "created_at", precision: nil, null: false
       t.datetime "updated_at", precision: nil, null: false
     end
-
   end
 end

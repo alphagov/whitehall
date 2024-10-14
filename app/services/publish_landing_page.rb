@@ -46,9 +46,9 @@ private
       "routes": [
         {
           "type": "exact",
-          "path": landing_page.base_path
-        }
-      ]
+          "path": landing_page.base_path,
+        },
+      ],
     }
   end
 end
