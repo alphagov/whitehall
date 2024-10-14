@@ -24,6 +24,12 @@ class ContentBlockManager::ContentBlock::EditionsController < ContentBlockManage
     render "content_block_manager/content_block/editions/new"
   end
 
+  def destroy
+    edition_to_delete = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+    ContentBlockManager::DeleteEditionService.new.call(edition_to_delete)
+    redirect_to params[:redirect_path] || content_block_manager.content_block_manager_root_path
+  end
+
 private
 
   def block_type_param
