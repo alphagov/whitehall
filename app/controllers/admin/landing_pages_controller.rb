@@ -2,7 +2,6 @@ class Admin::LandingPagesController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :load_landing_page, only: %i[edit update confirm_destroy destroy]
 
-
   def enforce_permissions!
     # enforce_permission!(:administer, :landing_pages)
   end
