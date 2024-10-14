@@ -1,0 +1,36 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for [:admin, @landing_page] do |form| %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Base Path",
+        },
+        id: "landing_page_base_path",
+        name: "landing_page[base_path]",
+        value: landing_page.base_path,
+        heading_size: "l",
+        error_items: errors_for_input(landing_page.errors, :base_path),
+      } %>
+
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Detail YAML",
+          heading_size: "l",
+        },
+        id: "landing_page_yaml",
+        name: "landing_page[yaml]",
+        value: landing_page.yaml,
+        rows: 50,
+        error_items: errors_for(landing_page.errors, :yaml),
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+        } %>
+
+        <%= link_to("Cancel", admin_landing_pages_path, class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

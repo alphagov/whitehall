@@ -1,0 +1,5 @@
+<% content_for :page_title, "Landing page settings" %>
+<% content_for :title, "Landing page settings" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @landing_page)) %>
+
+<%= render "form", landing_page: @landing_page %>

@@ -22,6 +22,8 @@ Whitehall::Application.routes.draw do
 
       resources :users, only: %i[index show edit update]
 
+      resources :landing_pages
+
       scope :republishing do
         root to: "republishing#index", as: :republishing_index, via: :get
         scope :page do
