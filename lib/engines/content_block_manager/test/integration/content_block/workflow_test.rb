@@ -162,7 +162,7 @@ def assert_edition_is_published(&block)
   ]
   publishing_api_mock.expect :publish, fake_publish_content_response, [
     @content_id,
-    "major",
+    "content_block",
   ]
 
   Services.stub :publishing_api, publishing_api_mock do
