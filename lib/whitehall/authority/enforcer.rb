@@ -41,6 +41,7 @@ module Whitehall::Authority
     "Document" => Rules::DocumentRules,
     "Edition" => Rules::EditionRules,
     "FatalityNotice" => Rules::FatalityNoticeRules,
+    "LandingPage" => Rules::LandingPageRules,
     "MinisterialRole" => Rules::MinisterialRoleRules,
     "Person" => Rules::PersonRules,
     "PolicyGroup" => Rules::PolicyGroupRules,
