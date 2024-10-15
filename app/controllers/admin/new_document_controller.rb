@@ -25,6 +25,7 @@ private
       speech: new_admin_speech_path,
       statistical_data_set: new_admin_statistical_data_set_path,
       worldwide_organisation: new_admin_worldwide_organisation_path,
+      landing_page: new_admin_landing_page_path,
     }
     redirect_options[new_document_type]
   end
