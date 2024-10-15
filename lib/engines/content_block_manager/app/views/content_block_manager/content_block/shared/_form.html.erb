@@ -52,6 +52,10 @@
       value: "Save and continue",
       type: "submit",
     } %>
-    <%= link_to("Cancel", @form.back_path, class: "govuk-link") %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Cancel",
+      href: @form.back_path,
+      secondary_solid: true,
+    } %>
   </div>
 <% end %>

@@ -33,6 +33,10 @@ When("I click to create an object") do
   click_link "Create new object"
 end
 
+When("I click cancel") do
+  click_button "Cancel"
+end
+
 Then("I should see all the schemas listed") do
   @schemas.values.each do |schema|
     expect(page).to have_content(schema.name)
@@ -157,6 +161,18 @@ end
 
 When("I visit the Content Block Manager home page") do
   visit content_block_manager.content_block_manager_root_path
+end
+
+Then("I am taken back to Content Block Manager home page") do
+  assert_equal current_path, content_block_manager.content_block_manager_root_path
+end
+
+And("no draft Content Block Edition has been created") do
+  assert_equal 0, ContentBlockManager::ContentBlock::Edition.where(state: "draft").count
+end
+
+And("no draft Content Block Document has been created") do
+  assert_equal 0, ContentBlockManager::ContentBlock::Document.count
 end
 
 Then("I should see the details for all documents") do

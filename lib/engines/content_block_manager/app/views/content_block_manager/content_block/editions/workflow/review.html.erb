@@ -20,14 +20,21 @@
   <div class="govuk-grid-column-full">
     <%= form_with(url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]), method: :put) do %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Accept and publish",
-          name: "accept_and_publish",
-          value: "Accept and publish",
-          type: "submit",
-        } %>
-        <%= link_to("Cancel", content_block_manager.content_block_manager_content_block_documents_path, class: "govuk-link") %>
+        <div>
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Accept and publish",
+            name: "accept_and_publish",
+            value: "Accept and publish",
+            type: "submit",
+          } %>
+      <% end %>
+        </div>
+        <div>
+          <%= render partial: "content_block_manager/content_block/shared/cancel_delete_button",
+                     locals: {
+                       url:  content_block_manager.content_block_manager_content_block_edition_path(@content_block_edition),
+                     } %>
+          </div>
       </div>
-    <% end %>
   </div>
 </div>

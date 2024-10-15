@@ -29,6 +29,30 @@ Feature: Edit a content object
     And I should be taken back to the document page
     And I should see 2 publish events on the timeline
 
+  Scenario: GDS editor cancels the creation of an object when reviewing links
+    When I visit the Content Block Manager home page
+    When I click to view the document
+    When I click the first change link
+    Then I should see the edit form
+    When I fill out the form
+    Then I am shown where the changes will take place
+    And I click cancel
+    Then I should be taken back to the document page
+    And no draft Content Block Edition has been created
+
+  Scenario: GDS editor cancels the creation of an object before publishing
+    When I visit the Content Block Manager home page
+    When I click to view the document
+    When I click the first change link
+    Then I should see the edit form
+    When I fill out the form
+    Then I am shown where the changes will take place
+    When I save and continue
+    Then I am asked when I want to publish the change
+    And I click cancel
+    Then I should be taken back to the document page
+    And no draft Content Block Edition has been created
+
   Scenario: GDS editor sees validation errors for missing fields
     And a schema "email_address" exists with the following fields:
     | field         | type   | format | required |
