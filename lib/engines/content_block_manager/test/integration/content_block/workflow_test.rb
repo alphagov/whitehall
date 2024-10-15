@@ -151,6 +151,7 @@ def assert_edition_is_published(&block)
       document_type: "content_block_type",
       publishing_app: "whitehall",
       title: "Some Title",
+      content_id_alias: "some-title",
       details: {
         "foo" => "Foo text",
         "bar" => "Bar text",

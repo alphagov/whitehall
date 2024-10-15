@@ -42,6 +42,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
           document_type: schema.id,
           publishing_app: "whitehall",
           title: "Some Title",
+          content_id_alias: "some-title",
           details: {
             "foo" => "Foo text",
             "bar" => "Bar text",

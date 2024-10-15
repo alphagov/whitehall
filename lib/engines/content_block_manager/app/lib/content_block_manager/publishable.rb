@@ -6,9 +6,11 @@ module ContentBlockManager
       document = content_block_edition.document
       schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(document.block_type)
       content_id = document.content_id
+      content_id_alias = document.content_id_alias
 
       create_publishing_api_edition(
         content_id:,
+        content_id_alias:,
         schema_id: schema.id,
         title: content_block_edition.title,
         details: content_block_edition.details,
@@ -44,10 +46,12 @@ module ContentBlockManager
       ActiveRecord::Base.transaction do
         content_block_edition = yield
         content_id = content_block_edition.document.content_id
+        content_id_alias = content_block_edition.document.content_id_alias
         organisation_id = content_block_edition.lead_organisation.content_id
 
         create_publishing_api_edition(
           content_id:,
+          content_id_alias:,
           schema_id: schema.id,
           title: content_block_edition.title,
           details: content_block_edition.details.to_h,
@@ -70,12 +74,13 @@ module ContentBlockManager
 
   private
 
-    def create_publishing_api_edition(content_id:, schema_id:, title:, details:, links:)
+    def create_publishing_api_edition(content_id:, content_id_alias:, schema_id:, title:, details:, links:)
       Services.publishing_api.put_content(content_id, {
         schema_name: schema_id,
         document_type: schema_id,
         publishing_app: Whitehall::PublishingApp::WHITEHALL,
         title:,
+        content_id_alias:,
         details:,
         links:,
       })

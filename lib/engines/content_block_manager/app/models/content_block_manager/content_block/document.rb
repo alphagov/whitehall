@@ -1,6 +1,9 @@
 module ContentBlockManager
   module ContentBlock
     class Document < ApplicationRecord
+      extend FriendlyId
+      friendly_id :title, use: :slugged, slug_column: :content_id_alias, routes: :default
+
       has_many :editions,
                -> { order(created_at: :asc, id: :asc) },
                inverse_of: :document
