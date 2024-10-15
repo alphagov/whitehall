@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_02_102908) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_15_123028) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -199,6 +199,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_102908) do
     t.datetime "updated_at", precision: nil
     t.integer "latest_edition_id"
     t.integer "live_edition_id"
+    t.string "content_id_alias"
+    t.index ["content_id_alias"], name: "index_content_block_documents_on_content_id_alias", unique: true
     t.index ["latest_edition_id"], name: "index_content_block_documents_on_latest_edition_id"
     t.index ["live_edition_id"], name: "index_content_block_documents_on_live_edition_id"
   end
@@ -226,9 +228,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_102908) do
     t.bigint "document_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.bigint "user_id"
     t.string "state", default: "draft", null: false
     t.datetime "scheduled_publication", precision: nil
     t.index ["document_id"], name: "index_content_block_editions_on_document_id"
+    t.index ["user_id"], name: "index_content_block_editions_on_user_id"
   end
 
   create_table "content_block_versions", charset: "utf8mb3", force: :cascade do |t|
@@ -1291,7 +1295,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_102908) do
   add_foreign_key "content_block_editions", "content_block_documents", column: "document_id"
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "editions", "governments"
+  add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
