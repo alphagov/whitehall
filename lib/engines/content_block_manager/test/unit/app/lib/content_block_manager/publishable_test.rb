@@ -27,6 +27,7 @@ class ContentBlockManager::PublishableTest < ActiveSupport::TestCase
           document_type: schema.id,
           publishing_app: Whitehall::PublishingApp::WHITEHALL,
           title: content_block_edition.title,
+          content_id_alias: content_block_edition.document.content_id_alias,
           details: content_block_edition.details,
           links: {
             primary_publishing_organisation: [

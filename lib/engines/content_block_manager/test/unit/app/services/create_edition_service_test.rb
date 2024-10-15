@@ -57,7 +57,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
     end
 
     it "sends the content block to the Publishing API as a draft" do
-      assert_draft_created_in_publishing_api(content_id) do
+      assert_draft_created_in_publishing_api(content_id:, content_id_alias: new_title.parameterize) do
         ContentBlockManager::CreateEditionService.new(schema).call(edition_params)
       end
     end
@@ -82,7 +82,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
       end
 
       it "sends the content block to the Publishing API as a draft" do
-        assert_draft_created_in_publishing_api(document.content_id) do
+        assert_draft_created_in_publishing_api(content_id: document.content_id, content_id_alias: document.content_id_alias) do
           ContentBlockManager::CreateEditionService.new(schema).call(edition_params, document_id: document.id)
         end
       end
@@ -90,7 +90,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
   end
 end
 
-def assert_draft_created_in_publishing_api(content_id, &block)
+def assert_draft_created_in_publishing_api(content_id:, content_id_alias:, &block)
   Services.publishing_api.expects(:put_content).with(
     content_id,
     {
@@ -98,6 +98,7 @@ def assert_draft_created_in_publishing_api(content_id, &block)
       document_type: schema.id,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       title: new_title,
+      content_id_alias:,
       details: edition_params[:details],
       links: {
         primary_publishing_organisation: [
