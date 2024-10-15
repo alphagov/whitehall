@@ -1,4 +1,6 @@
 class LandingPage < Edition
+  skip_callback :validation, :before, :update_document_slug
+
   def publishing_api_presenter
     PublishingApi::LandingPagePresenter
   end
