@@ -18,6 +18,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
     assert_equal "email_address", content_block_document.block_type
     assert_equal Time.zone.local(2000, 12, 31, 23, 59, 59).utc, content_block_document.created_at
     assert_equal Time.zone.local(2000, 12, 31, 23, 59, 59).utc, content_block_document.updated_at
+    assert_equal "title", content_block_document.content_id_alias
   end
 
   it "does not allow the block type to be changed" do
@@ -80,6 +81,43 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
       create(:content_block_document, :email_address, latest_edition_id: nil)
 
       assert_equal [document_with_latest_edition], ContentBlockManager::ContentBlock::Document.live
+    end
+  end
+
+  describe "friendly_id" do
+    it "generates a content_id_alias" do
+      content_block_document = create(
+        :content_block_document,
+        :email_address,
+        title: "This is a title",
+      )
+
+      assert_equal "this-is-a-title", content_block_document.content_id_alias
+    end
+
+    it "ensures content_id_aliases are unique" do
+      content_block_documents = create_list(
+        :content_block_document,
+        2,
+        :email_address,
+        title: "This is a title",
+      )
+
+      assert_equal "this-is-a-title", content_block_documents[0].content_id_alias
+      assert_equal "this-is-a-title--2", content_block_documents[1].content_id_alias
+    end
+
+    it "does not change the alias if the title changes" do
+      content_block_document = create(
+        :content_block_document,
+        :email_address,
+        title: "This is a title",
+      )
+
+      content_block_document.title = "Something else"
+      content_block_document.save!
+
+      assert_equal "this-is-a-title", content_block_document.content_id_alias
     end
   end
 end
