@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_14_133850) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_14_110541) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_14_133850) do
     t.string "email"
     t.integer "call_for_evidence_response_form_id"
     t.text "postal_address"
-    t.index ["call_for_evidence_response_form_id"], name: "index_cfes_participations_on_cfes_response_form_id"
+    t.index ["call_for_evidence_response_form_id"], name: "index_cons_participations_on_cons_response_form_id"
     t.index ["edition_id"], name: "index_call_for_evidence_participations_on_edition_id"
   end
 
@@ -677,11 +677,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_14_133850) do
 
   create_table "landing_pages", charset: "utf8mb3", force: :cascade do |t|
     t.string "base_path", null: false
+    t.string "title"
+    t.text "description"
     t.text "yaml", size: :medium
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "title"
-    t.text "description"
     t.index ["base_path"], name: "index_landing_pages_on_base_path", unique: true
   end
 
@@ -1299,9 +1299,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_14_133850) do
   add_foreign_key "content_block_edition_authors", "content_block_editions", column: "edition_id"
   add_foreign_key "content_block_edition_organisations", "content_block_editions"
   add_foreign_key "content_block_editions", "content_block_documents", column: "document_id"
-  add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "editions", "governments"
+  add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
