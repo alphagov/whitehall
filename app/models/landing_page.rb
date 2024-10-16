@@ -22,7 +22,7 @@ class LandingPage < Edition
 
   def body_must_be_valid_yaml
     body_hash = YAML.load(body)
-    if body_hash.keys != ["blocks"]
+    if body_hash.keys != %w[blocks]
       errors.add(:body, "root element must be 'blocks:'")
     end
   rescue StandardError => e
