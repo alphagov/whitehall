@@ -25,6 +25,8 @@ Feature: Edit a content object
     And I should see a back link to the review page
     When I choose to publish the change now
     And I accept and publish
+    Then I should be taken to the confirmation page
+    When I click to view the content block
     Then the edition should have been updated successfully
     And I should be taken back to the document page
     And I should see 2 publish events on the timeline
@@ -86,6 +88,8 @@ Feature: Edit a content object
     When I make the changes
     And I choose to publish the change now
     And I accept and publish
+    Then I should be taken to the confirmation page
+    When I click to view the content block
     Then the edition should have been updated successfully
 
   Scenario: GDS editor still sees live edition when abandoning an edit

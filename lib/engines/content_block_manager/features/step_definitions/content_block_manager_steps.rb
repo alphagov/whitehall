@@ -119,8 +119,6 @@ When("I complete the form") do
 end
 
 Then("the edition should have been created successfully") do
-  assert_text "#{@schema.name} created successfully"
-
   edition = ContentBlockManager::ContentBlock::Edition.all.last
 
   assert_not_nil edition
@@ -130,6 +128,36 @@ Then("the edition should have been created successfully") do
   @details.keys.each do |k|
     assert_equal edition.details[k], @details[k]
   end
+end
+
+And("I should be taken to the confirmation page") do
+  assert_text "Your content block is available for use"
+  assert_text "Your content block has been published and is now available for use."
+
+  expect(page).to have_link(
+    "View content block",
+    href: content_block_manager.content_block_manager_content_block_document_path(
+      ContentBlockManager::ContentBlock::Edition.last.document,
+    ),
+  )
+end
+
+When("I click to view the content block") do
+  click_link href: content_block_manager.content_block_manager_content_block_document_path(
+    ContentBlockManager::ContentBlock::Edition.last.document,
+  )
+end
+
+When("I should be taken to the scheduled confirmation page") do
+  assert_text "Your content block is scheduled for change"
+  assert_text "Your content block has been edited and is now scheduled for change."
+
+  expect(page).to have_link(
+    "View content block",
+    href: content_block_manager.content_block_manager_content_block_document_path(
+      ContentBlockManager::ContentBlock::Edition.last.document,
+    ),
+  )
 end
 
 Then("I should be taken back to the document page") do

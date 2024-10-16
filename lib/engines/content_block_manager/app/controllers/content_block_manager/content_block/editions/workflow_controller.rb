@@ -8,6 +8,10 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     schedule_publishing: "schedule_publishing",
   }.freeze
 
+  SHARED_STEPS = {
+    confirmation: "confirmation",
+  }.freeze
+
   def show
     step = params[:step]
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
@@ -20,6 +24,8 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
       schedule_publishing
     when NEW_BLOCK_STEPS[:review]
       review
+    when SHARED_STEPS[:confirmation]
+      confirmation
     end
   end
 
@@ -46,6 +52,20 @@ private
     render :review
   end
 
+  def confirmation
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+
+    if params[:is_scheduled]
+      @panel_copy = "Your content block is scheduled for change"
+      @paragraph_copy = "Your content block has been edited and is now scheduled for change."
+    else
+      @panel_copy = "Your content block is available for use"
+      @paragraph_copy = "Your content block has been published and is now available for use."
+    end
+
+    render :confirmation
+  end
+
   def review_links
     @content_block_document = @content_block_edition.document
     @host_content_items = ContentBlockManager::GetHostContentItems.by_embedded_document(
@@ -70,20 +90,19 @@ private
       raise ActiveRecord::RecordInvalid, @content_block_edition
     elsif params[:schedule_publishing] == "schedule"
       ContentBlockManager::ScheduleEditionService.new(@schema).call(@content_block_edition, scheduled_publication_params)
-      message = "#{@content_block_edition.block_type.humanize} scheduled successfully"
     else
       publish and return
     end
 
-    redirect_to content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document),
-                flash: { notice: message }
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id,
+                                                                                        step: :confirmation,
+                                                                                        is_scheduled: true)
   rescue ActiveRecord::RecordInvalid
     render "content_block_manager/content_block/editions/workflow/schedule_publishing"
   end
 
   def publish
     new_edition = ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
-    redirect_to content_block_manager.content_block_manager_content_block_document_path(new_edition.document),
-                flash: { notice: "#{new_edition.block_type.humanize} created successfully" }
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step: :confirmation)
   end
 end
