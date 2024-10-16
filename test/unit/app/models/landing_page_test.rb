@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CaseStudyTest < ActiveSupport::TestCase
+class LandingPageTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   should_protect_against_xss_and_content_attacks_on :landing_page, :body
