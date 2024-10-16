@@ -17,3 +17,5 @@
       class: CheckAllOrganisationsLinksWorker
     LinkCheckerDeleteOldDataWorker:
       cron: '30 3 * * *' # Runs at 3:30 a.m every day
+    DeleteDraftContentBlocksWorker:
+      cron: '0 3 * * *' # Runs at 3:00 a.m every day
