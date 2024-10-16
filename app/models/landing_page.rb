@@ -17,7 +17,7 @@ class LandingPage < Edition
   end
 
   def base_path_must_not_be_taken
-    errors.add(:base_path, " is already taken") if Document.where(slug:).exists?
+    errors.add(:base_path, " is already taken") if Document.where(slug:).where.not(id: document.id).exists?
   end
 
   def body_must_be_valid_yaml
