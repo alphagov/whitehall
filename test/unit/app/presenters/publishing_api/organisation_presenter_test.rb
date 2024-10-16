@@ -127,6 +127,18 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal 6, present(organisation).content.dig(:details, :ordered_featured_documents).size
   end
 
+  test "caps number of featured documents at 7 for Number 10" do
+    features = (1..8).to_a.map do |i|
+      created_case_study = create(:published_case_study, title: "case-study-#{i}")
+      build(:feature, document: created_case_study.document, ordering: i)
+    end
+    organisation = create(:organisation, slug: "prime-ministers-office-10-downing-street")
+
+    create(:feature_list, featurable: organisation, features:)
+
+    assert_equal 7, present(organisation).content.dig(:details, :ordered_featured_documents).size
+  end
+
   test "presents an organisation’s custom logo" do
     organisation = create(
       :organisation_with_logo_and_assets,

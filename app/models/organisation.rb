@@ -112,6 +112,12 @@ class Organisation < ApplicationRecord
 
   has_many :offsite_links, as: :parent
 
+  def featured_documents_display_limit
+    return 7 if slug == "prime-ministers-office-10-downing-street"
+
+    FEATURED_DOCUMENTS_DISPLAY_LIMIT
+  end
+
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
   # and all that this implies. I really only want to expose a list of
