@@ -1,5 +1,8 @@
 class LandingPage < Edition
   skip_callback :validation, :before, :update_document_slug
+  validates :base_path, presence: true
+  validate :base_path_must_not_be_taken
+  validate :body_must_be_valid_yaml
 
   def publishing_api_presenter
     PublishingApi::LandingPagePresenter
@@ -11,5 +14,18 @@ class LandingPage < Edition
 
   def base_path
     slug
+  end
+
+  def base_path_must_not_be_taken
+    errors.add(:base_path, " is already taken") if Document.where(slug:).exists?
+  end
+
+  def body_must_be_valid_yaml
+    body_hash = YAML.load(body)
+    if body_hash.keys != ["blocks"]
+      errors.add(:body, "root element must be 'blocks:'")
+    end
+  rescue StandardError => e
+    errors.add(:body, "must be valid YAML: #{e.message}")
   end
 end
