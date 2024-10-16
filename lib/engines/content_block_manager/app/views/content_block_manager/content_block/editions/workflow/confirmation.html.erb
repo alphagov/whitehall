@@ -1,0 +1,28 @@
+<% content_for :page_title, "Your content block is available for use" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        <%= @panel_copy %>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters govuk-body">
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p><%= @paragraph_copy %><br>
+    If you need any support or want to delete an instance you can
+      <a class="govuk-link--no-visited-state" href="<%= Plek.external_url_for("support") %>">raise a support request</a>
+    </p>
+    <%= render "govuk_publishing_components/components/button", {
+        text: "View content block",
+        name: "view",
+        value: "view",
+        href: content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document.id),
+        secondary_solid: true,
+    } %>
+  </div>
+</div>
