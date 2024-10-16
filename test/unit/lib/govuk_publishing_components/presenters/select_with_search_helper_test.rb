@@ -68,14 +68,8 @@ class SelectWithSearchHelperPresenterTest < PresenterTestCase
     )
 
     expected = <<~HTML.strip
-      <optgroup label="">
       <option selected="selected" value="">All organisations</option>
-      </optgroup>
-
-      <optgroup label="">
       <option value="foo">All foo</option>
-      </optgroup>
-
       <optgroup label="Live organisations">
       <option value="foo">foo</option>
       <option value="bar">bar</option>

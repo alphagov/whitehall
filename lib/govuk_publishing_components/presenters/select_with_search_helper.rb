@@ -35,10 +35,7 @@ module GovukPublishingComponents
       def options_html
         if @grouped_options.present?
           blank_option_if_include_blank +
-            grouped_options_for_select(
-              transform_grouped_options(@grouped_options),
-              selected_option,
-            )
+            grouped_and_ungrouped_options_for_select(@grouped_options)
         elsif @options.present?
           blank_option_if_include_blank +
             options_for_select(
@@ -52,6 +49,24 @@ module GovukPublishingComponents
         {
           "module": "select-with-search",
         }.compact
+      end
+
+      def grouped_and_ungrouped_options_for_select(unsorted_options)
+        # Filter out the 'single option' options and treat them as simply `<option>`
+        # The remainder should be treated as true 'grouped options', i.e. `<optgroup>`
+        single_options = []
+        grouped_options = []
+        unsorted_options.each_with_index do |(group, options), _index|
+          if group == ""
+            single_options << options
+          else
+            grouped_options << [group, options]
+          end
+        end
+        single_options.flatten!
+
+        options_for_select(transform_options(single_options), selected_option) +
+          grouped_options_for_select(transform_grouped_options(grouped_options), selected_option)
       end
 
     private
