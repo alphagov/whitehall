@@ -95,7 +95,7 @@ describe('GOVUK.Modules.SelectWithSearch', function () {
     })
 
     it('renders groups and options', () => {
-      const list = component.querySelector('.choices__list[role=listbox]')
+      const list = component.querySelector('.choices__list--dropdown')
       expect(list.querySelectorAll('.choices__group').length).toEqual(4)
       expect(list.querySelectorAll('.choices__item--choice').length).toEqual(11)
     })
