@@ -2,4 +2,9 @@
   <p class="govuk-body"><strong>Use this format for:</strong> Special landing pages</p>
 </div>
 
+<div data-module="YamlEditor">
 <%= standard_edition_form(edition) {} %>
+</div>
+
+<%= stylesheet_link_tag "https://esm.sh/monaco-editor?css" %>
+<%= javascript_include_tag "components/yaml-editor.js", type: "module" %>
