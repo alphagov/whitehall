@@ -365,6 +365,64 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_not attachment_data.deleted?
   end
 
+  test "attachment data is deleted when its single attachment is destroyed" do
+    attachable = create(:published_news_article, :with_file_attachment)
+    new_attachable = attachable.reload.create_draft(create(:gds_editor))
+
+    assert_equal new_attachable.attachments.count, 1
+
+    attachment = new_attachable.attachments.first
+    attachment.destroy!
+
+    assert_not attachment.reload.attachment_data.deleted?
+
+
+    new_attachable.update(minor_change: true)
+    new_attachable.force_publish!
+
+    assert attachment.reload.attachment_data.deleted?
+  end
+
+  test "attachment data is deleted when new draft first attachment is deleted" do
+    earliest_attachable = create(:published_news_article, :with_file_attachment)
+    create(:file_attachment, file: file_fixture("whitepaper.pdf"), attachable: earliest_attachable)
+    latest_attachable = earliest_attachable.reload.create_draft(create(:gds_editor))
+
+    assert_equal latest_attachable.attachments.count, 2
+
+    earliest_attachment = latest_attachable.attachments.first
+    earliest_attachment.destroy!
+
+    assert_not earliest_attachment.reload.attachment_data.deleted?
+
+    latest_attachable.update(minor_change: true)
+    latest_attachable.force_publish!
+
+    assert earliest_attachment.reload.attachment_data.deleted?
+  end
+
+  test "attachment data is deleted when new draft second attachment is deleted" do
+    earliest_attachable = create(:published_news_article, :with_file_attachment)
+    create(:file_attachment, file: file_fixture("whitepaper.pdf"), attachable: earliest_attachable)
+    latest_attachable = earliest_attachable.reload.create_draft(create(:gds_editor))
+
+    assert_equal latest_attachable.attachments.count, 2
+
+    last_attachment = latest_attachable.attachments.last
+    last_attachment.destroy!
+
+    assert_not last_attachment.reload.attachment_data.deleted?
+
+    latest_attachable.update(minor_change: true)
+    latest_attachable.force_publish!
+
+    assert last_attachment.reload.attachment_data.deleted?
+  end
+
+  def attachment_updater(attachment_data)
+    ServiceListeners::AttachmentUpdater.call(attachment_data:)
+  end
+
   test "#draft_attachment_for(user) returns the attachment with a draft edition" do
     user = build(:user)
     attachment_data = build(:attachment_data)
