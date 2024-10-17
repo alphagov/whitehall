@@ -1,6 +1,7 @@
 class LandingPage < Edition
   include Edition::Organisations
 
+  skip_callback :validation, :before, :update_document_slug
   validates :base_path, presence: true
   validate :base_path_must_not_be_taken
   validate :body_must_be_valid_yaml
