@@ -1,6 +1,4 @@
-class LandingPage < Edition
-  include Edition::Organisations
-
+class LandingPage < DocumentCollection
   skip_callback :validation, :before, :update_document_slug
   validates :base_path, presence: true
   validate :base_path_must_not_be_taken
@@ -8,6 +6,10 @@ class LandingPage < Edition
 
   def publishing_api_presenter
     PublishingApi::LandingPagePresenter
+  end
+
+  def locale_can_be_changed?
+    false
   end
 
   def rendering_app
@@ -28,6 +30,10 @@ private
     errors.add(:base_path, " is already taken") if Document.where(slug:).where.not(id: document.id).exists?
   end
 
+  def has_topic_level_notifications?
+    false
+  end
+
   def body_must_be_valid_yaml
     body_hash = YAML.load(body)
     if body_hash.keys != %w[blocks]
@@ -35,5 +41,11 @@ private
     end
   rescue StandardError => e
     errors.add(:body, "must be valid YAML: #{e.message}")
+  end
+
+private
+
+  def body_required?
+    true
   end
 end

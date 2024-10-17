@@ -35,7 +35,9 @@ module PublishingApi
     end
 
     def edition_links
-      PayloadBuilder::Links.for(item).extract(%i[organisations])
+      links = PayloadBuilder::Links.for(item).extract(%i[organisations])
+      links[:documents] = item.content_ids.uniq
+      links
     end
 
     def document_type
