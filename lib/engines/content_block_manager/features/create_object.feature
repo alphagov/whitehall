@@ -26,7 +26,7 @@ Feature: Create a content object
     Then I am asked to check my answers
     When I accept and publish
     Then the edition should have been created successfully
-    And I should be taken back to the document page
+    And I should be taken to the confirmation page
 
   Scenario: GDS editor sees validation errors when not selecting an object type
     When I visit the Content Block Manager home page

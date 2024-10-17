@@ -12,8 +12,8 @@ Feature: Schedule a content object
     When I am updating a content block
     Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
-    Then the edition should have been scheduled successfully
-    And I should be taken back to the document page
+    And I should be taken to the scheduled confirmation page
+    When I click to view the content block
     And I should see the scheduled date on the object
     And I should see the scheduled event on the timeline
 

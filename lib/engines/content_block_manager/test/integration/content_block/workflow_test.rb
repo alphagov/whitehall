@@ -117,8 +117,9 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
               scheduled_at:,
             }
 
-            assert_redirected_to content_block_manager_content_block_document_path(document)
-            assert_equal "#{edition.block_type.humanize} scheduled successfully", flash[:notice]
+            assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id,
+                                                                                                         step: :confirmation,
+                                                                                                         is_scheduled: true)
           end
         end
 
