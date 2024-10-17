@@ -2,15 +2,20 @@
   <p class="govuk-body"><strong>Use this format for:</strong> Special landing pages</p>
 </div>
 
-<%= standard_edition_form(edition) do |form| %>
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Associations",
-    heading_level: 2,
-    heading_size: "l",
-    id: "associations",
-  } do %>
-    <div class="govuk-!-margin-bottom-4">
-      <%= render "organisation_fields", form: form, edition: edition %>
-    </div>
+<div data-module="YamlEditor">
+  <%= standard_edition_form(edition) do |form| %>
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "Associations",
+      heading_level: 2,
+      heading_size: "l",
+      id: "associations",
+    } do %>
+      <div class="govuk-!-margin-bottom-4">
+        <%= render "organisation_fields", form: form, edition: edition %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+
+<%= stylesheet_link_tag "https://esm.sh/monaco-editor?css" %>
+<%= javascript_include_tag "components/yaml-editor.js", type: "module" %>
