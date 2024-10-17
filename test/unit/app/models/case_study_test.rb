@@ -4,6 +4,8 @@ class CaseStudyTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   should_allow_image_attachments
+  should_be_attachable
+  should_allow_inline_attachments
   should_have_custom_lead_image
   should_protect_against_xss_and_content_attacks_on :case_study, :body
 

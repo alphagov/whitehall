@@ -160,7 +160,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for persisted editions which do not allow attachments" do
-    %i[case_study fatality_notice speech].each do |type|
+    %i[fatality_notice speech].each do |type|
       edition = build_stubbed(type)
 
       expected_output = [

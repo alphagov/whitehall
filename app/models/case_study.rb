@@ -1,6 +1,7 @@
 class CaseStudy < Edition
   include Edition::Searchable
 
+  include ::Attachable
   include Edition::Images
   include Edition::FactCheckable
   include Edition::CustomLeadImage
