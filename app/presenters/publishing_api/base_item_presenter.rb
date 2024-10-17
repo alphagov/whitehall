@@ -18,7 +18,7 @@ module PublishingApi
         publishing_app: Whitehall::PublishingApp::WHITEHALL,
         redirects: [],
         update_type:,
-      }
+      }.merge(PayloadBuilder::LastEditedByEditorId.for(item))
     end
   end
 end
