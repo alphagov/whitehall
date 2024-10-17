@@ -33,4 +33,13 @@ class FeatureTest < ActiveSupport::TestCase
     assert feature.end!
     assert_equal Time.zone.now, feature.reload.ended_at
   end
+
+  test "#end! sets the ended_at timestamp and saves the model even if it otherwise fails to validate" do
+    feature = create(:feature, ended_at: nil)
+    feature.started_at = nil
+
+    assert_nothing_raised do
+      feature.end!
+    end
+  end
 end

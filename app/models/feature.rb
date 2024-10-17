@@ -42,7 +42,7 @@ class Feature < ApplicationRecord
 
   def end!
     self.ended_at = Time.zone.now
-    save!
+    save!(validate: false)
   end
 
   def locale
