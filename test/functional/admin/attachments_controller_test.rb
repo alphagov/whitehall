@@ -82,6 +82,17 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     end
   end
 
+  test "DELETE :destroy handles file attachments for editions as attachable" do
+    attachable = create(:edition) # rubocop:disable Rails/SaveBang
+    attachment = create(:file_attachment, attachable:)
+
+    delete :destroy, params: { "edition_id" => attachable.id, id: attachment.id }
+    byebug
+    assert_response :redirect
+    assert Attachment.find(attachment.id).deleted?, "attachment should have been soft-deleted"
+  # TODO to add checks for AM
+  end
+
   test "POST :create handles duplicate ordering key exceptions" do
     attachable = create(:edition)
     FileAttachment.any_instance.expects(:save).raises(Mysql2::Error, "Duplicate entry 'GenericEdition-1234-56' for key 'no_duplicate_attachment_orderings'")
