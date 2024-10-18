@@ -356,6 +356,8 @@ When(/^dependent content exists for a content block$/) do
       "document_type" => "document",
       "base_path" => "/",
       "content_id" => SecureRandom.uuid,
+      "last_edited_by_editor_id" => SecureRandom.uuid,
+      "last_edited_at" => 2.days.ago.to_s,
       "primary_publishing_organisation" => {
         "content_id" => SecureRandom.uuid,
         "title" => "Organisation #{i}",
