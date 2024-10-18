@@ -22,6 +22,8 @@ module ContentBlockManager
           document_type: item["document_type"],
           publishing_organisation: item["primary_publishing_organisation"],
           publishing_app: item["publishing_app"],
+          last_edited_by_editor_id: item["last_edited_by_editor_id"],
+          last_edited_at: item["last_edited_at"],
         )
       end
     end

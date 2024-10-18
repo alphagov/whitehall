@@ -17,6 +17,8 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
           "base_path" => "/foo",
           "document_type" => "something",
           "publishing_app" => "publisher",
+          "last_edited_by_editor_id" => SecureRandom.uuid,
+          "last_edited_at" => "2023-01-01T08:00:00.000Z",
           "primary_publishing_organisation" => {
             "content_id" => SecureRandom.uuid,
             "title" => "bar",
@@ -65,6 +67,9 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].base_path, response_body["results"][0]["base_path"]
       assert_equal result[0].document_type, response_body["results"][0]["document_type"]
       assert_equal result[0].publishing_app, response_body["results"][0]["publishing_app"]
+      assert_equal result[0].last_edited_by_editor_id, response_body["results"][0]["last_edited_by_editor_id"]
+      assert_equal result[0].last_edited_at, Time.zone.parse(response_body["results"][0]["last_edited_at"])
+
       assert_equal result[0].publishing_organisation, expected_publishing_organisation
     end
 
