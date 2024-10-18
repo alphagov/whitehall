@@ -1,6 +1,7 @@
 class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManager::BaseController
   def index
-    @content_block_documents = ContentBlockManager::ContentBlock::Document.live
+    @filters = params_filters
+    @content_block_documents = ContentBlockManager::ContentBlock::Document::DocumentFilter.new(@filters).documents
   end
 
   def show
@@ -22,5 +23,13 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
     else
       redirect_to content_block_manager.new_content_block_manager_content_block_document_path, flash: { error: "You must select a block type" }
     end
+  end
+
+private
+
+  def params_filters
+    params.slice(:title)
+          .permit!
+          .to_h
   end
 end
