@@ -39,6 +39,7 @@ module PublishingApi
         %i[organisations government],
         )
       links[:documents] = item.content_ids.uniq
+      links
     end
 
     def document_type
