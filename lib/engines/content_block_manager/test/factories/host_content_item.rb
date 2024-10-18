@@ -5,7 +5,17 @@ FactoryBot.define do
     document_type { "something" }
     publishing_organisation { { name: "organisation", content_id: SecureRandom.uuid } }
     publishing_app { "publishing_app" }
+    last_edited_by_editor_id { SecureRandom.uuid }
+    last_edited_at { 2.days.ago.to_s }
 
-    initialize_with { new(title:, base_path:, document_type:, publishing_organisation:, publishing_app:) }
+    initialize_with do
+      new(title:,
+          base_path:,
+          document_type:,
+          publishing_organisation:,
+          publishing_app:,
+          last_edited_by_editor_id:,
+          last_edited_at:)
+    end
   end
 end

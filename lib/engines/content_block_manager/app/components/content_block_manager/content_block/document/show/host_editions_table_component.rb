@@ -24,8 +24,20 @@ private
         {
           text: organisation_link(content_item),
         },
+        {
+          text: updated_field_for(content_item),
+        },
       ]
     end
+  end
+
+  # TODO: Currently, we're only fetching Users from the local Whitehall database, which means
+  # content updated outside Whitehall with a `last_edited_by_editor_id` where the user
+  # does not have Whitehall access will show up as an unknown user. We are looking to
+  # fix this by possibly adding an endpoint to Signon, but this gets us part of the way
+  # there. Card for this work is here: https://trello.com/c/jVvs4nAP/640-get-author-information-from-signon
+  def users
+    @users ||= User.where(uid: host_content_items.map(&:last_edited_by_editor_id))
   end
 
   def content_link(content_item)
@@ -51,5 +63,11 @@ private
 
       Organisation.where(content_id: host_content_ids)
     end
+  end
+
+  def updated_field_for(content_item)
+    last_updated_by_user = content_item.last_edited_by_editor_id && users.find { |u| u.uid == content_item.last_edited_by_editor_id }
+    user_copy = last_updated_by_user ? mail_to(last_updated_by_user.email, last_updated_by_user.name, { class: "govuk-link" }) : "Unknown user"
+    "#{time_ago_in_words(content_item.last_edited_at)} ago by #{user_copy}".html_safe
   end
 end
