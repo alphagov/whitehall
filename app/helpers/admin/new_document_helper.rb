@@ -11,6 +11,7 @@ module Admin::NewDocumentHelper
     StatisticalDataSet,
     CallForEvidence,
     WorldwideOrganisation,
+    LandingPage,
   ].freeze
 
   def new_document_type_list
@@ -43,6 +44,7 @@ private
       speech: "Use this for speeches by ministers or other named spokespeople, and ministerial statements to Parliament.",
       statistical_data_set: "Use this for data that you publish monthly or more often without analysis.",
       worldwide_organisation: "Use this to create a new worldwide organisation page. Do not create a worldwide organisation unless you have permission from your managing editor or GOV.UK department lead.",
+      landing_page: "EXPERIMENTAL Use this to create landing pages.",
     }
     hint_text[new_document_type]
   end

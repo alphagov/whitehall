@@ -1,0 +1,12 @@
+<% if edition.new_record? %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Base Path",
+    },
+    name: "edition[document_attributes][slug]",
+    id: "edition_document_slug",
+    heading_size: "m",
+    value: edition.slug,
+    error_items: errors_for(edition.document.errors, :slug),
+  } %>
+<% end %>

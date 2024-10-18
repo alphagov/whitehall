@@ -232,6 +232,9 @@ en:
       international_treaty:
         one: International treaty
         other: International treaties
+      landing_page:
+        one: Landing page
+        other: Landing pages
       manual:
         one: Manual
         other: Manuals
