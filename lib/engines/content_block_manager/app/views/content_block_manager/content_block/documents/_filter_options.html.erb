@@ -1,0 +1,17 @@
+<%= form_with url: content_block_manager.content_block_manager_content_block_documents_path, method: :get do %>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: "Title",
+        bold: true,
+      },
+      hint: 'For example, "driving standards"',
+      name: "title",
+      id: "title_filter",
+      value: !@filters.nil? && @filters[:title],
+    } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "View results",
+    margin_bottom: 4,
+  } %>
+<% end %>
