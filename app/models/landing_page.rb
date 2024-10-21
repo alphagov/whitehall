@@ -1,5 +1,6 @@
 class LandingPage < Edition
   include Edition::Organisations
+  include Edition::Searchable
 
   skip_callback :validation, :before, :update_document_slug
   validates :base_path, presence: true
@@ -20,6 +21,10 @@ class LandingPage < Edition
 
   def self.access_limited_by_default?
     true
+  end
+
+  def indexable_content
+    Govspeak::Document.new(body).to_text
   end
 
 private
