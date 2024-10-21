@@ -140,6 +140,7 @@ def content_types
                                 DocumentCollection
                                 WorldwideOrganisation
                                 FatalityNotice
+                                LandingPage
                                 NewsArticle
                                 Publication
                                 Speech
