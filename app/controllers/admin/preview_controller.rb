@@ -7,6 +7,7 @@ class Admin::PreviewController < Admin::BaseController
     if Govspeak::HtmlValidator.new(params[:body]).valid?
       @images = Image.find(params.fetch(:image_ids, []))
       @alternative_format_contact_email = alternative_format_contact_email
+      @embeds = fetch_embeds(params[:body])
       render layout: false
     else
       render plain: "Content contains possible XSS exploits", status: :forbidden
@@ -14,6 +15,19 @@ class Admin::PreviewController < Admin::BaseController
   end
 
 private
+  def fetch_embeds(govspeak)
+    content_ids = Govspeak::EmbedExtractor.new(govspeak).content_ids
+    documents = ContentBlockManager::ContentBlock::Document.live.where(content_id: content_ids)
+    editions = ContentBlockManager::ContentBlock::Edition.where(id: documents.map(&:live_edition_id))
+    editions.map do |edition|
+      {
+        content_id: edition.document.content_id,
+        document_type: "content_block_#{edition.block_type}",
+        title: edition.title,
+        details: edition.details
+      }
+    end
+  end
 
   def alternative_format_contact_email
     return if alternative_format_provider_id.blank?

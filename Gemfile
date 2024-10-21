@@ -20,7 +20,7 @@ gem "fuzzy_match"
 gem "gds-api-adapters"
 gem "gds-sso"
 gem "globalize"
-gem "govspeak"
+gem "govspeak", github: 'alphagov/govspeak', branch: 'content-modelling/647-support-embeds-in-govpress'
 gem "govuk_app_config"
 gem "govuk_frontend_toolkit"
 gem "govuk_publishing_components"

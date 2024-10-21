@@ -105,7 +105,7 @@ module GovspeakHelper
     end
   end
 
-  def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
+  def bare_govspeak_to_html(govspeak, images = [], attachments = [], embeds = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
@@ -113,7 +113,7 @@ module GovspeakHelper
     govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
 
-    markup_to_nokogiri_doc(govspeak, images, attachments)
+    markup_to_nokogiri_doc(govspeak, images, attachments, embeds)
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
@@ -240,8 +240,8 @@ private
     nokogiri_el.inner_text[/^\d+.?[^\s]*/]
   end
 
-  def markup_to_nokogiri_doc(govspeak, images = [], attachments = [])
-    govspeak = build_govspeak_document(govspeak, images, attachments)
+  def markup_to_nokogiri_doc(govspeak, images = [], attachments = [], embeds = [])
+    govspeak = build_govspeak_document(govspeak, images, attachments, embeds)
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(govspeak.to_html)
@@ -268,11 +268,13 @@ private
     end
   end
 
-  def build_govspeak_document(govspeak, images = [], attachments = [])
+  def build_govspeak_document(govspeak, images = [], attachments = [], embeds = [])
+    puts embeds
     Govspeak::Document.new(
       govspeak,
       images:,
       attachments:,
+      embeds:,
       document_domains: [Whitehall.admin_host, Whitehall.public_host],
     )
   end

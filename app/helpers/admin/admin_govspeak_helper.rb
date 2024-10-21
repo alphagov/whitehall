@@ -1,10 +1,10 @@
 module Admin::AdminGovspeakHelper
   include GovspeakHelper
 
-  def govspeak_to_admin_html(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
+  def govspeak_to_admin_html(govspeak, images = [], attachments = [], embeds = [], alternative_format_contact_email = nil)
     images = prepare_images(images)
     attachments = prepare_attachments(attachments, alternative_format_contact_email)
-    wrapped_in_govspeak_div(bare_govspeak_to_admin_html(govspeak, images, attachments))
+    wrapped_in_govspeak_div(bare_govspeak_to_admin_html(govspeak, images, attachments, embeds))
   end
 
   def govspeak_edition_to_admin_html(edition)
@@ -20,8 +20,8 @@ module Admin::AdminGovspeakHelper
     wrapped_in_govspeak_div(bare_govspeak_to_admin_html(edition.body, images, attachments))
   end
 
-  def bare_govspeak_to_admin_html(govspeak, images = [], attachments = [])
-    bare_govspeak_to_html(govspeak, images, attachments) do |replacement_html, edition|
+  def bare_govspeak_to_admin_html(govspeak, images = [], attachments = [], embeds = [])
+    bare_govspeak_to_html(govspeak, images, attachments, embeds) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
         replacement_html = tag.del(replacement_html)
