@@ -37,6 +37,10 @@ When("I click cancel") do
   click_button "Cancel"
 end
 
+When("I click to view results") do
+  click_button "View results"
+end
+
 Then("I should see all the schemas listed") do
   @schemas.values.each do |schema|
     expect(page).to have_content(schema.name)
@@ -183,6 +187,25 @@ Given("an email address content block has been created") do
   @content_blocks.push(@content_block)
 end
 
+Given("an email address content block has been created with the title {string}") do |title|
+  @content_blocks ||= []
+  @email_address = "foo@example.com"
+  organisation = create(:organisation)
+  document = create(:content_block_document, :email_address, title:)
+  @content_block = create(
+    :content_block_edition,
+    :email_address,
+    document:,
+    details: { email_address: @email_address },
+    creator: @user,
+    organisation:,
+  )
+  ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
+    @content_block.publish!
+  end
+  @content_blocks.push(@content_block)
+end
+
 When("I visit the page for the content block") do
   visit content_block_manager.content_block_manager_content_block_edition_path(@content_block)
 end
@@ -212,6 +235,14 @@ Then("I should see the details for all documents") do
       document.latest_edition.details[:email_address],
     )
   end
+end
+
+Then("I should see the content block with title {string} returned") do |title|
+  expect(page).to have_selector(".govuk-summary-card__title", text: title)
+end
+
+Then("{string} content blocks are returned") do |count|
+  assert_text "#{count} #{'result'.pluralize(count.to_i)}"
 end
 
 When("I click to view the document") do
@@ -443,6 +474,10 @@ end
 When("I enter a date in the past") do
   past_date = 7.days.before(Time.zone.now).to_date
   fill_in_date_and_time_field(past_date)
+end
+
+When("I enter the title {string}") do |title|
+  fill_in "Title", with: title
 end
 
 Then("the edition should have been scheduled successfully") do
