@@ -7,7 +7,7 @@ module ContentBlockManager
     def documents
       documents = ContentBlock::Document
       documents = documents.live
-      documents = documents.with_title(@filters[:title]) if @filters[:title].present?
+      documents = documents.with_keyword(@filters[:keyword]) if @filters[:keyword].present?
       documents
     end
   end

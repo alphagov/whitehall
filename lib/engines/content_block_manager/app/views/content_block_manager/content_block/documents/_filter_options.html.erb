@@ -1,13 +1,13 @@
 <%= form_with url: content_block_manager.content_block_manager_content_block_documents_path, method: :get do %>
     <%= render "govuk_publishing_components/components/input", {
       label: {
-        text: "Title",
+        text: "Keyword",
         bold: true,
       },
       hint: 'For example, "driving standards"',
-      name: "title",
-      id: "title_filter",
-      value: !@filters.nil? && @filters[:title],
+      name: "keyword",
+      id: "keyword_filter",
+      value: !@filters.nil? && @filters[:keyword],
     } %>
 
   <%= render "govuk_publishing_components/components/button", {
