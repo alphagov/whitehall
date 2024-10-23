@@ -1,4 +1,6 @@
 class LandingPage < Edition
+  include ::Attachable
+  include Edition::Images
   include Edition::Organisations
 
   skip_callback :validation, :before, :update_document_slug
