@@ -6,7 +6,7 @@ namespace :asset_manager do
 
       next unless attachables.any?
       next if attachables.detect { |attachable| !attachable.is_a?(Edition) }
-      next if (attachables.map(&:state) - %w[unpublished superseded]).any?
+      next if (attachables.map(&:state) - %w[superseded]).any?
 
       attachment_data.assets.map do |asset|
         begin
@@ -17,16 +17,11 @@ namespace :asset_manager do
 
         next unless asset_manager_response["deleted"] == false
 
-        {
-          asset_url: asset_manager_response["file_url"],
-          document_path: attachables.last.public_url,
-          edition_state: attachables.last.state,
-        }
+        # return the content ID of any of the attachments (it's the same)
+        attachment_data.attachments.last.content_id
       end
     end
 
-    output.flatten.compact.each do |item|
-      puts [item[:asset_url], item[:document_path], item[:edition_state]].join(",")
-    end
+    puts output.compact
   end
 end

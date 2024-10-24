@@ -75,6 +75,47 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
+    context "given a published document with a draft" do
+      let(:managing_editor) { create(:managing_editor) }
+      let(:earliest_attachable) { create(:published_news_article, :with_file_attachment) }
+      let(:latest_attachable) { earliest_attachable.reload.create_draft(managing_editor) }
+      let(:attachment) { latest_attachable.attachments.first }
+      let(:original_asset) { attachment.attachment_data.assets.first.asset_manager_id }
+      let(:thumbnail_asset) { attachment.attachment_data.assets.second.asset_manager_id }
+
+      before do
+        login_as(managing_editor)
+
+        setup_publishing_api_for(latest_attachable)
+        stub_publishing_api_has_linkables([], document_type: "topic")
+        stub_publishing_api_expanded_links_with_taxons(latest_attachable.content_id, [])
+
+        stub_asset(original_asset)
+        stub_asset(thumbnail_asset)
+      end
+
+      it "deletes the corresponding asset in Asset Manager only when the new draft gets published" do
+        visit admin_news_article_path(latest_attachable)
+        click_link "Modify attachments"
+        within page.find("li", text: attachment.title) do
+          click_link "Delete attachment"
+        end
+        click_button "Delete attachment"
+        assert_text "Attachment deleted"
+
+        Services.asset_manager.expects(:delete_asset).never.with(thumbnail_asset)
+        Services.asset_manager.expects(:delete_asset).never.with(original_asset)
+
+        latest_attachable.update!(minor_change: true)
+        latest_attachable.force_publish!
+
+        Services.asset_manager.expects(:delete_asset).once.with(thumbnail_asset)
+        Services.asset_manager.expects(:delete_asset).once.with(original_asset)
+
+        AssetManagerAttachmentMetadataWorker.drain
+      end
+    end
+
   private
 
     def setup_publishing_api_for(edition)
