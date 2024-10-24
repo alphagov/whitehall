@@ -22,5 +22,14 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
         ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ keyword: "ministry of example" }).documents
       end
     end
+
+    describe "when a block type is given" do
+      it "returns live documents of the type given" do
+        document_scope_mock = mock
+        ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
+        document_scope_mock.expects(:where).with(block_type: "email_address").returns([])
+        ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ block_type: "email_address" }).documents
+      end
+    end
   end
 end
