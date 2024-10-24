@@ -10,8 +10,28 @@
       value: !@filters.nil? && @filters[:keyword],
     } %>
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "View results",
-    margin_bottom: 4,
-  } %>
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      heading: "Content block type",
+      heading_size: "s",
+      no_hint_text: true,
+      id: "block_type",
+      name: "block_type",
+      items: [
+        {
+          label: "Email address",
+          value: "email_address",
+          checked: !@filters.nil? && @filters[:block_type] == "email_address",
+        },
+        {
+          label: "Postal address",
+          value: "postal_address",
+          checked: !@filters.nil? && @filters[:block_type] == "postal_address",
+        },
+      ],
+    } %>
+
+    <%= render "govuk_publishing_components/components/button", {
+      text: "View results",
+      margin_bottom: 4,
+    } %>
 <% end %>

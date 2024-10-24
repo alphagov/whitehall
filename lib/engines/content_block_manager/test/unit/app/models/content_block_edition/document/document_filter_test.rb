@@ -9,6 +9,7 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
         document_scope_mock = mock
         ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
         document_scope_mock.expects(:with_keyword).never
+        document_scope_mock.expects(:where).never
 
         ContentBlockManager::ContentBlock::Document::DocumentFilter.new({}).documents
       end
@@ -20,6 +21,27 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
         ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
         document_scope_mock.expects(:with_keyword).with("ministry of example").returns([])
         ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ keyword: "ministry of example" }).documents
+      end
+    end
+
+    describe "when a block type is given" do
+      it "returns live documents of the type given" do
+        document_scope_mock = mock
+        ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
+        document_scope_mock.expects(:where).with(block_type: %w[email_address]).returns([])
+        ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ block_type: %w[email_address] }).documents
+      end
+    end
+
+    describe "when both block types and keyword is given" do
+      it "returns live documents of the type and keyword given" do
+        document_scope_mock = mock
+        ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
+        document_scope_mock.expects(:with_keyword).with("ministry of example").returns(document_scope_mock)
+        document_scope_mock.expects(:where).with(block_type: %w[email_address]).returns([])
+        ContentBlockManager::ContentBlock::Document::DocumentFilter.new(
+          { block_type: %w[email_address], keyword: "ministry of example" },
+        ).documents
       end
     end
   end
