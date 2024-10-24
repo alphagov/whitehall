@@ -1,0 +1,26 @@
+<%= form_with url: helpers.content_block_manager.content_block_manager_content_block_documents_path, method: :get do %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Keyword",
+      bold: true,
+    },
+    hint: 'For example, "driving standards"',
+    name: "keyword",
+    id: "keyword_filter",
+    value: !@filters.nil? && @filters[:keyword],
+  } %>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    heading: "Content block type",
+    heading_size: "s",
+    no_hint_text: true,
+    id: "block_type",
+    name: "block_type[]",
+    items: items_for_block_type,
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "View results",
+    margin_bottom: 4,
+  } %>
+<% end %>
