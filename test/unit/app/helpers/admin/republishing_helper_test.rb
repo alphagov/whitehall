@@ -2,37 +2,26 @@ require "test_helper"
 
 class Admin::RepublishingHelperTest < ActionView::TestCase
   test "#republishable_content_types returns a sorted list combining valid document types and other publishable content types" do
-    expected_content_types = %w[
-      CallForEvidence
-      CaseStudy
-      Consultation
-      Contact
-      CorporateInformationPage
-      DetailedGuide
-      DocumentCollection
-      FatalityNotice
-      Government
-      HistoricalAccount
-      LandingPage
-      NewsArticle
-      OperationalField
-      Organisation
-      Person
-      PolicyGroup
-      Publication
-      Role
-      RoleAppointment
-      Speech
-      StatisticalDataSet
-      StatisticsAnnouncement
-      TakePartPage
-      TopicalEvent
-      TopicalEventAboutPage
-      WorldLocationNews
-      WorldwideOrganisation
-    ]
+    Rails.application.eager_load!
+
+    # Ignore "abstract" Edition descendants
+    unexpected_content_types = %w[Announcement GenericEdition Publicationesque SearchableEdition]
+
+    expected_content_types = (
+      Edition.descendants.map(&:to_s) + non_editionable_content_types - unexpected_content_types
+    ).sort
 
     assert_equal expected_content_types, republishable_content_types
+  end
+
+  test "#non_editionable_content_types returns a list of non-editionable content types" do
+    Rails.application.eager_load!
+    expected_non_editionable_models = ApplicationRecord.subclasses
+      .select { |subclass| subclass.included_modules.include? PublishesToPublishingApi }
+      .map(&:to_s)
+      .sort
+
+    assert_equal expected_non_editionable_models, non_editionable_content_types.sort
   end
 
   test "#republishing_index_bulk_republishing_rows capitalises the first letter of the bulk content type" do
