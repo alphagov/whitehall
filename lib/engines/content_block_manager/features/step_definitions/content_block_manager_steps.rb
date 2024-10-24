@@ -23,6 +23,7 @@ Given("a schema {string} exists with the following fields:") do |block_type, tab
   }
   @schemas[block_type] = build(:content_block_schema, block_type:, body:)
   ContentBlockManager::ContentBlock::Schema.stubs(:all).returns(@schemas.values)
+  ContentBlockManager::ContentBlock::Schema.stubs(:valid_schemas).returns(@schemas.map { |s| s[0] })
 end
 
 When("I access the create object page") do
@@ -185,6 +186,16 @@ Given("an email address content block has been created") do
     @content_block.publish!
   end
   @content_blocks.push(@content_block)
+end
+
+Given("a {string} type of content block has been created with fields:") do |block_type, table|
+  fields = table.rows_hash
+  create(
+    :content_block_edition,
+    block_type.to_sym,
+    details: fields,
+    creator: @user,
+  )
 end
 
 Given("an email address content block has been created with the following email address and title:") do |table|
@@ -433,6 +444,10 @@ end
 
 Then(/^I choose to publish the change now$/) do
   choose "Publish the change now"
+end
+
+Then("I check the block type {string}") do |string|
+  check string
 end
 
 When("I revisit the edit page") do
