@@ -51,7 +51,7 @@ module PublishingApi
     def details
       body = YAML.load(item.body, permitted_classes: [Date])
       {
-        blocks: body.fetch(:blocks),
+        blocks: body.fetch("blocks"),
         collection_groups:,
       }
     end
