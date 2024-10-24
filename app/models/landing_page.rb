@@ -24,8 +24,6 @@ class LandingPage < DocumentCollection
     true
   end
 
-private
-
   def base_path_must_not_be_taken
     errors.add(:base_path, " is already taken") if Document.where(slug:).where.not(id: document.id).exists?
   end
