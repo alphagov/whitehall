@@ -187,16 +187,17 @@ Given("an email address content block has been created") do
   @content_blocks.push(@content_block)
 end
 
-Given("an email address content block has been created with the title {string}") do |title|
+Given("an email address content block has been created with the following email address and title:") do |table|
+  fields = table.rows_hash
   @content_blocks ||= []
   @email_address = "foo@example.com"
   organisation = create(:organisation)
-  document = create(:content_block_document, :email_address, title:)
+  document = create(:content_block_document, :email_address, title: fields[:title])
   @content_block = create(
     :content_block_edition,
     :email_address,
     document:,
-    details: { email_address: @email_address },
+    details: { email_address: fields[:email_address] },
     creator: @user,
     organisation:,
   )
@@ -476,8 +477,8 @@ When("I enter a date in the past") do
   fill_in_date_and_time_field(past_date)
 end
 
-When("I enter the title {string}") do |title|
-  fill_in "Title", with: title
+When("I enter the keyword {string}") do |keyword|
+  fill_in "Keyword", with: keyword
 end
 
 Then("the edition should have been scheduled successfully") do
