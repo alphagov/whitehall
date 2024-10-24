@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :landing_page, class: LandingPage, parent: :edition, traits: [:with_organisations] do
+  factory :landing_page, class: LandingPage, parent: :document_collection do
     title { "landing-page-title" }
     summary { "landing-page-summary" }
     body { "blocks:\n- type: govspeak\n  content: Hello!" }
