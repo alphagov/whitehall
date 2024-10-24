@@ -71,3 +71,39 @@ We are outputting a verbose enough text file to be able to validate the data, in
 Check that the all `AttachmentDatas` are deleted. There are under 100 results so we can manually check that all return `deleted?` true.
 Check that all `Assets` do not have a deleted timestamp set. There are under 100 results so we can manually check.
 
+# Drafts
+Extract all deleted attachments in draft into a `[all_drafts]attachments_deleted_in_wh_on_draft_editions.csv`.
+Use the sql query: 
+```shell
+  SELECT ad.id AS attachment_data_id, a.content_id AS attachment_content_id, assets.asset_manager_id
+  FROM attachment_data ad
+  INNER JOIN attachments a
+  ON a.attachment_data_id = ad.id
+  LEFT JOIN editions e
+  ON a.attachable_id = e.id
+  LEFT JOIN assets
+  ON assets.assetable_id=ad.id
+  WHERE e.state='draft'
+  AND a.attachable_type = 'Edition'
+  AND assets.assetable_type = 'AttachmentData'
+  AND a.deleted=TRUE;
+```
+We only want the ones that are first drafts.
+
+- extracts `ads = [...]` from the relevant column and manipulate the output to get only first drafts
+```
+first_draft_ads = ads.select{|ad_id| AttachmentData.find(ad_id).attachments.first.attachable.document.editions.count == 1}
+first_draft_ads.uniq!
+a = []
+first_draft_ads.each do |ad_id|
+  ad = AttachmentData.find(ad_id)
+  ad.assets.each do |asset|
+    a << "#{ad.id},#{ad.attachments.first.content_id},#{asset.asset_manager_id}"
+  end
+end
+
+puts a.join("\n") 
+```
+
+Run the rake task as normal.
+
