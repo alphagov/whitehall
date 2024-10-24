@@ -49,7 +49,25 @@ module PublishingApi
     attr_reader :item
 
     def details
-      YAML.load(item.body, permitted_classes: [Date])
+      body = YAML.load(item.body, permitted_classes: [Date])
+      {
+        blocks: body.fetch(:blocks),
+        collection_groups:,
+      }
+    end
+
+    def collection_groups
+      item.groups.map do |group|
+        {
+          title: group.heading,
+          body: govspeak_renderer.govspeak_to_html(group.body),
+          documents: group.content_ids,
+        }
+      end
+    end
+
+    def govspeak_renderer
+      @govspeak_renderer ||= Whitehall::GovspeakRenderer.new
     end
   end
 end
