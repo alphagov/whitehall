@@ -49,7 +49,7 @@ attachment_data_ids.map{|id| AttachmentData.find(id).deleted?}
 
 6. Test run
    - Run the script to identify assets on the sample csv by changing line 19 in the script to use `deleted_in_wh_on_superseded_editions_sample.csv` 
-   - Run `rake find_attachments_deleted_in_whitehall_but_not_in_asset_manager`
+   - Run `rake find_attachments_deleted_in_whitehall_but_not_in_asset_manager["superseded]`
 
 7. Manually validate test run output
 ```shell
@@ -64,7 +64,7 @@ attachment_data_ids.map{|id| AttachmentData.find(id).deleted?}
 ```
 
 8. Revert the test run changes and run the script to identify assets
-`rake find_attachments_deleted_in_whitehall_but_not_in_asset_manager`
+`rake find_attachments_deleted_in_whitehall_but_not_in_asset_manager["superseded"]`
 
 9. Validate output
 We are outputting a verbose enough text file to be able to validate the data, including the `AttachmentData` id and `Asset` id, as well as the desired data which is the `Attachment` content id.
