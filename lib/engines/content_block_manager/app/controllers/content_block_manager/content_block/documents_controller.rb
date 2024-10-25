@@ -28,7 +28,7 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
 private
 
   def params_filters
-    params.slice(:keyword, :block_type)
+    params.slice(:keyword, :block_type, :lead_organisation)
           .permit!
           .to_h
   end

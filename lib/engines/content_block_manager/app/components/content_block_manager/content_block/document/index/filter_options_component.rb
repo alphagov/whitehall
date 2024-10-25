@@ -15,4 +15,14 @@ private
       }
     end
   end
+
+  def options_for_lead_organisation
+    helpers.taggable_organisations_container.map do |name, id|
+      {
+        text: name,
+        value: id,
+        selected: !@filters.nil? && @filters[:lead_organisation] == id.to_s,
+      }
+    end
+  end
 end
