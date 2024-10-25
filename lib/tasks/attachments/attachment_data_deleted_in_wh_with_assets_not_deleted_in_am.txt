@@ -1,0 +1,191 @@
+119997,5a74c12b40f0b619c865a2b5,https://www.gov.uk/government/publications/home-office-section-6-maternity-leave-and-career-breaks,2023-09-22 13:56:23 +0100
+215680,5a7b893eed915d4147621035,https://www.england.nhs.uk/digital-gp-good-practice-guidance/,2023-09-22 15:36:18 +0100
+215681,5a7c5637e5274a2041cf3552,https://www.england.nhs.uk/digital-gp-good-practice-guidance/,2023-09-22 15:36:18 +0100
+215682,5a74f918ed915d502d6cc7e0,https://www.england.nhs.uk/digital-gp-good-practice-guidance/,2023-09-22 15:36:18 +0100
+348517,5a7e138ded915d74e6223f31,https://www.gov.uk/government/publications/application-to-publish-a-design-which-publication-was-deferred,2023-09-25 16:58:53 +0100
+348518,5a7e0ac840f0b62305b806ba,https://www.gov.uk/government/publications/application-to-publish-a-design-which-publication-was-deferred,2023-09-25 16:58:53 +0100
+417520,5a80e8c0e5274a2e87dbc810,https://www.gov.uk/government/publications/redundancy-payments-factsheet-issued-with-rp1,2023-09-26 14:18:28 +0100
+417520,5a80e8c0e5274a2e8ab52d99,https://www.gov.uk/government/publications/redundancy-payments-factsheet-issued-with-rp1,2023-09-26 14:18:28 +0100
+429632,5a74a818e5274a56317a614e,no redirect,2023-09-26 15:00:32 +0100
+429632,5a74a818ed915d0e8bf1a12f,no redirect,2023-09-26 15:00:32 +0100
+438405,5a8157e0e5274a2e87dbd1d6,no redirect,2023-09-26 15:15:21 +0100
+438405,5a8157e140f0b62302696cb2,no redirect,2023-09-26 15:15:21 +0100
+559781,5a748242ed915d0e8e398c40,no redirect,2023-09-26 18:38:18 +0100
+571780,5a7481dd40f0b604dd7ae7b3,no redirect,2023-09-26 18:53:46 +0100
+589786,5a80369b40f0b62305b89d84,no redirect,2023-09-26 19:09:47 +0100
+589786,5a803699e5274a2e87db8843,no redirect,2023-09-26 19:09:47 +0100
+622647,5a823ae6ed915d74e34026ce,https://www.gov.uk/government/consultations/enforcement-of-suspended-orders-alignment-of-procedures-in-the-county-court-and-high-court,2023-09-27 10:15:01 +0100
+654312,5a820f73e5274a2e87dc0ef8,https://www.gov.uk/government/publications/housing-benefit-speed-of-processing-supporting-information-and-frequently-asked-questions/speed-of-processing-sop-frequently-asked-questions,2023-09-27 11:03:25 +0100
+659103,5a8224dfe5274a2e8ab57b90,https://www.gov.uk/guidance/understanding-your-driving-test-result,2023-09-27 11:07:28 +0100
+674082,5a74817440f0b604dd7ae776,no redirect,2023-09-27 11:21:43 +0100
+681582,5a845946ed915d74e6238835,no redirect,2023-09-27 11:30:02 +0100
+688394,5aa6b4c1e5274a3e3603a86d,https://www.gov.uk/government/publications/make-a-claim-in-the-commercial-court-n1-cc,2023-09-27 11:36:09 +0100
+693189,5ab3b42840f0b65bb8ef2035,no redirect,2023-09-27 11:42:51 +0100
+693189,5ab3b42840f0b65bb5842994,no redirect,2023-09-27 11:42:51 +0100
+693190,5ab3b4d6e5274a3dcb6dd1ac,no redirect,2023-09-27 11:42:51 +0100
+693190,5ab3b4d640f0b65bb5842997,no redirect,2023-09-27 11:42:51 +0100
+693192,5ab3b5bced915d4f2d097280,no redirect,2023-09-27 11:42:51 +0100
+693192,5ab3b5bde5274a3dc898e319,no redirect,2023-09-27 11:42:51 +0100
+700701,5ad73699ed915d32a3a70cd1,https://www.gov.uk/government/publications/make-a-claim-in-the-commercial-court-n1-cc,2023-09-27 16:18:33 +0100
+705481,5af1c391e5274a698b72e811,https://www.gov.uk/government/publications/teacher-misconduct-panel-outcome-mr-steven-birkett,2023-09-27 16:22:51 +0100
+705481,5af1c391ed915d5869f41933,https://www.gov.uk/government/publications/teacher-misconduct-panel-outcome-mr-steven-birkett,2023-09-27 16:22:51 +0100
+713227,5b115d34ed915d2cc681ab6f,no redirect,2023-09-27 16:47:49 +0100
+713227,5b115d34ed915d2cd274dc0f,no redirect,2023-09-27 16:47:49 +0100
+713235,5b115db440f0b634d14c2209,no redirect,2023-09-27 16:47:50 +0100
+713235,5b115db3ed915d2cc8317509,no redirect,2023-09-27 16:47:50 +0100
+713329,5b1169b1e5274a18fa9d38e4,no redirect,2023-09-27 16:47:53 +0100
+718446,5b2baf9240f0b67f769a7353,no redirect,2023-09-27 16:52:27 +0100
+718852,5b2d11eae5274a55da87efb5,https://www.gov.uk/guidance/small-claims-mediation-service.cy,2023-09-27 16:52:48 +0100
+734552,5b758339ed915d14d5936cf3,no redirect,2023-09-27 17:14:13 +0100
+738234,5b8f792fe5274a0be10a1179,https://www.gov.uk/government/publications/small-claims-mediation-service-ex730,2023-09-27 17:17:26 +0100
+739408,5b9678bded915d66571c326e,no redirect,2023-09-27 17:18:25 +0100
+739411,5b967915ed915d666303c44b,no redirect,2023-09-27 17:18:25 +0100
+739411,5b967915e5274a13a7fd9595,no redirect,2023-09-27 17:18:25 +0100
+739412,5b96799a40f0b67896977b4d,no redirect,2023-09-27 17:18:25 +0100
+739412,5b96799aed915d665412c9c8,no redirect,2023-09-27 17:18:25 +0100
+744919,5bb3476040f0b62dd06e3278,no redirect,2023-09-27 17:27:33 +0100
+744919,5bb34760e5274a3e10bd93a3,no redirect,2023-09-27 17:27:33 +0100
+745079,5bb38937ed915d07704fb713,no redirect,2023-09-27 17:27:41 +0100
+745079,5bb3893740f0b64a1f91648a,no redirect,2023-09-27 17:27:41 +0100
+746115,5bb72b4fe5274a223236df18,no redirect,2023-09-27 17:28:37 +0100
+746115,5bb72b4fe5274a222b994bba,no redirect,2023-09-27 17:28:37 +0100
+747595,5bbf2562ed915d733ef99cd4,no redirect,2023-09-27 17:29:54 +0100
+747596,5bbf258440f0b6384eb145c9,no redirect,2023-09-27 17:29:54 +0100
+749354,5bcd5992e5274a6bd56072ec,no redirect,2023-09-27 17:31:22 +0100
+749354,5bc84da7e5274a122a786749,no redirect,2023-09-27 17:31:22 +0100
+750167,5bcd915de5274a6bd864f34e,no redirect,2023-09-27 17:41:49 +0100
+750167,5bcd915ded915d432e3c62bb,no redirect,2023-09-27 17:41:49 +0100
+750680,5bcf0ae4ed915d4346a3a9a8,no redirect,2023-09-27 17:42:14 +0100
+750680,5bcf0ae440f0b6442b5d12a2,no redirect,2023-09-27 17:42:14 +0100
+751204,5bd0837c40f0b6051ce5de56,no redirect,2023-09-27 17:42:39 +0100
+751204,5bd0837ce5274a6e3cff0c9e,no redirect,2023-09-27 17:42:39 +0100
+751205,5bd08397e5274a6e39bf2b93,no redirect,2023-09-27 17:42:39 +0100
+751205,5bd0839740f0b604cbff2294,no redirect,2023-09-27 17:42:39 +0100
+751525,5bd1cda2e5274a6e1f36edb9,no redirect,2023-09-27 17:42:54 +0100
+751525,5bd1cda240f0b6051ce5de73,no redirect,2023-09-27 17:42:54 +0100
+756087,5bec099240f0b667cb8b318a,no redirect,2023-09-27 17:46:48 +0100
+756087,5bec0992ed915d6a23c800b5,no redirect,2023-09-27 17:46:48 +0100
+756819,5bf3adb3ed915d1822db2531,no redirect,2023-09-27 17:47:25 +0100
+756819,5beea65f40f0b667c116bee3,no redirect,2023-09-27 17:47:25 +0100
+765565,5c17cdcced915d0c221e47b9,no redirect,2023-09-27 18:03:48 +0100
+767553,5c1ccd0540f0b66d07956774,no redirect,2023-09-27 18:05:31 +0100
+767553,5c1ccd05e5274a65c15425d2,no redirect,2023-09-27 18:05:31 +0100
+769159,5c35edbae5274a659322b1d3,no redirect,2023-09-27 18:06:58 +0100
+769159,5c332c0140f0b66d079567e6,no redirect,2023-09-27 18:06:58 +0100
+792037,5ca38c0b40f0b625e86eb23b,no redirect,2023-09-27 18:56:10 +0100
+792037,5ca38c0be5274a77d3b93a24,no redirect,2023-09-27 18:56:10 +0100
+803479,5ce52b9eed915d24811db1c0,https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/919624/Glossary_of_abbreviations.pdf,2023-09-27 19:10:15 +0100
+804536,5cf5bd56ed915d030129f18c,no redirect,2023-09-27 19:11:15 +0100
+804651,5cf5d082e5274a076158e6b0,no redirect,2023-09-27 19:11:22 +0100
+804666,5cf5e68540f0b60a1afd2f97,no redirect,2023-09-27 19:11:23 +0100
+809636,5d08ab2940f0b6094c6c8d50,no redirect,2023-09-27 19:16:09 +0100
+823181,5d47cf0ded915d706672c810,no redirect,2023-09-28 09:38:04 +0100
+823181,5d47cf0ded915d7060de6125,no redirect,2023-09-28 09:38:04 +0100
+826069,5d5a9e52e5274a07655d5b43,https://www.gov.uk/government/publications/hmrc-brexit-communications-resources,2023-09-28 09:41:37 +0100
+829632,5d70e9fb40f0b6092247e41b,https://www.gov.uk/government/publications/maternity-allowance-claim-form,2023-09-28 09:44:58 +0100
+840965,5db66aa640f0b637a2b059fd,no redirect,2023-09-28 10:18:30 +0100
+841940,5db6c0f3ed915d1d07006e7b,no redirect,2023-09-28 10:19:27 +0100
+841941,5db57b78ed915d1d0c3b7e7a,no redirect,2023-09-28 10:19:28 +0100
+848719,5de6fcdc40f0b650bf4dee49,no redirect,2023-09-28 10:26:24 +0100
+854409,5dfcad71e5274a33f074fefc,https://www.gov.uk/guidance/hmcts-video-hearings-service-guidance-for-joining-a-hearing,2023-09-28 10:47:36 +0100
+864729,5e4175a4e5274a08e229ca6f,https://www.gov.uk/government/publications/ethiopia-country-policy-and-information-notes,2023-09-28 11:05:36 +0100
+871877,5e6ad16ae90e070ac49db163,no redirect,2023-09-28 11:30:27 +0100
+871877,5e6ad2afe90e070acbbcd22d,no redirect,2023-09-28 11:30:27 +0100
+871884,5e6ad307d3bf7f2692fa8d8c,no redirect,2023-09-28 11:30:27 +0100
+871887,5e6ad2a5e90e070acd195b4d,no redirect,2023-09-28 11:30:27 +0100
+871887,5e68d928e90e070acbbcd208,no redirect,2023-09-28 11:30:27 +0100
+876566,5e7e4ca3e90e0706fc3ffa22,https://www.gov.uk/guidance/hmcts-telephone-and-video-hearings-during-coronavirus-outbreak,2023-09-28 11:34:42 +0100
+876567,5e7e508cd3bf7f134447df8d,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 11:34:42 +0100
+877574,5e85a9fd86650c74423c9aba,no redirect,2023-09-28 11:35:42 +0100
+880051,5e99b0c5e90e0704918ce3f6,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 11:45:59 +0100
+880996,5ea1c4c2e90e07048d8ecc7f,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 11:46:51 +0100
+882883,5eaee5fad3bf7f65241db060,no redirect,2023-09-28 11:48:32 +0100
+883855,5eb3f577d3bf7f5d37fa0d1b,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 11:49:28 +0100
+888352,5ed4e4abe90e0754d3f5eed5,no redirect,2023-09-28 11:53:33 +0100
+888391,5ed51bc7d3bf7f45fcf2c5df,no redirect,2023-09-28 11:53:35 +0100
+888416,5ed5c8fe86650c76b2fe7529,no redirect,2023-09-28 11:53:36 +0100
+888421,5ed5c7e3d3bf7f4600d9f3eb,no redirect,2023-09-28 11:53:37 +0100
+888453,5ed5d8aae90e0754d4e62535,no redirect,2023-09-28 11:53:38 +0100
+888523,5ed5e9a5e90e0754cc92fb59,no redirect,2023-09-28 11:53:42 +0100
+889195,5ed63148e90e0754cd08d6a4,https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/889861/disparities_review.pdf,2023-09-28 11:54:20 +0100
+890465,5eda4b9dd3bf7f45ff9c286f,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 11:59:18 +0100
+890466,5eda4bc986650c4ac13b1e64,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 11:59:18 +0100
+890467,5eda4beee90e071b7a39a660,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 11:59:18 +0100
+897289,5efdcb723a6f4023d1e338fe,https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/973254/countryside-code-leaflet.pdf,2023-09-28 12:05:48 +0100
+899839,5f0c3d4fe90e070320aadff2,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 12:08:08 +0100
+899932,5f0e4d52e90e070312c4c471,no redirect,2023-09-28 12:08:14 +0100
+900032,5f0c7a47e90e07031cfbeab8,https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/973254/countryside-code-leaflet.pdf,2023-09-28 12:26:49 +0100
+900858,5f0ee6bdd3bf7f03ab8a4e46,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 12:27:29 +0100
+901533,5f1175ef3a6f405c0e3b2c9e,no redirect,2023-09-28 12:28:04 +0100
+901940,5f154f973a6f405c0f80ac20,https://www.gov.uk/government/publications/dvsa-earned-recognition-vehicle-operator-standards,2023-09-28 12:28:26 +0100
+903373,5f199047e90e07456894011c,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 12:29:37 +0100
+903755,5f1af1c63a6f4072725b04fc,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 12:29:57 +0100
+907446,5f2be735e90e0732ddaf4234,https://www.gov.uk/government/publications/dvsa-earned-recognition-vehicle-operator-standards,2023-09-28 12:33:04 +0100
+911207,5f3fcea7e90e07529d276a73,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 13:09:28 +0100
+919314,5f64cae9d3bf7f723e21c115,https://www.gov.uk/guidance/hmcts-video-hearings-service-guidance-for-joining-a-hearing,2023-09-28 13:16:24 +0100
+920491,5f6b26bfe90e077ca74b2a05,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 13:19:50 +0100
+925120,5f7ee917e90e077417b16bd7,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 13:24:03 +0100
+925121,5f7ee940d3bf7f019526cd33,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 13:24:03 +0100
+925122,5f7ee9608fa8f51e789b7599,https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals,2023-09-28 13:24:03 +0100
+925161,5f85a6e4d3bf7f6ba4f450a3,no redirect,2023-09-28 13:24:06 +0100
+925161,5f7f0163e90e077418bbba06,no redirect,2023-09-28 13:24:06 +0100
+941701,5fd955a7d3bf7f40d2f0a657,no redirect,2023-09-28 14:14:10 +0100
+941701,5fce40fc8fa8f54d6480f471,no redirect,2023-09-28 14:14:10 +0100
+957939,601b736fe90e07128e743bb2,no redirect,2023-09-28 14:38:12 +0100
+961280,6026aa508fa8f5037d3719bb,https://www.gov.uk/government/publications/dvsa-earned-recognition-vehicle-operator-standards,2023-09-28 14:46:20 +0100
+980434,6087b3cdd3bf7f01343a0777,no redirect,2023-09-28 15:16:40 +0100
+980451,6087c0f98fa8f51b91f3d7fc,no redirect,2023-09-28 15:16:41 +0100
+980487,6087ccf38fa8f51b8da251e1,no redirect,2023-09-28 15:16:43 +0100
+980491,6087cd388fa8f51b940100a7,no redirect,2023-09-28 15:16:43 +0100
+980502,6087d05ae90e076aa7da9989,no redirect,2023-09-28 15:16:44 +0100
+980508,6087d14fe90e076ab285aed9,no redirect,2023-09-28 15:16:44 +0100
+980516,6087d45ed3bf7f0133234d01,no redirect,2023-09-28 15:16:44 +0100
+980528,6087d931d3bf7f0133234d02,no redirect,2023-09-28 15:16:45 +0100
+980532,6087dbb5e90e076aad25a5af,no redirect,2023-09-28 15:16:45 +0100
+980536,6087dc898fa8f51b92e94d66,no redirect,2023-09-28 15:16:45 +0100
+980541,6087df6dd3bf7f0139670b8b,no redirect,2023-09-28 15:16:46 +0100
+980638,6087fa258fa8f51b95cc0a00,no redirect,2023-09-28 15:16:50 +0100
+980667,608805208fa8f51b8b34c887,no redirect,2023-09-28 15:16:52 +0100
+980689,608813c98fa8f51b9988cbd2,no redirect,2023-09-28 15:16:53 +0100
+980777,60881c4dd3bf7f013633281b,no redirect,2023-09-28 15:16:57 +0100
+980797,60881f89d3bf7f01343a0795,no redirect,2023-09-28 15:16:58 +0100
+981011,60883569e90e076aad25a5c0,no redirect,2023-09-28 15:17:09 +0100
+981067,60883aae8fa8f51b8f716cc9,no redirect,2023-09-28 15:17:12 +0100
+981069,60883b0f8fa8f51b98b150bf,no redirect,2023-09-28 15:17:12 +0100
+981581,608934928fa8f51b940100d5,no redirect,2023-09-28 15:17:39 +0100
+981600,60893753e90e076aaca7d6aa,no redirect,2023-09-28 15:17:40 +0100
+984846,60996fac8fa8f56a3c1629c0,https://www.gov.uk/government/publications/face-coverings-in-education,2023-09-28 15:20:42 +0100
+987078,60a37164d3bf7f288f04e514,no redirect,2023-09-28 15:22:53 +0100
+997707,60db174b8fa8f50abc106be4,no redirect,2023-09-28 15:50:01 +0100
+1032258,618a86dad3bf7f56080b1d5c,https://www.gov.uk/government/publications/money-claim-online-user-guide,2023-09-29 08:47:24 +0100
+1070064,62611e02d3bf7f55c5f50fc6,https://assets.publishing.service.gov.uk/media/6639f9468603389a07a6d145/2022-20-11-Grants-Standard-SEVEN-v2.3.pdf,2023-09-29 09:25:58 +0100
+1075634,628297b2e90e071f5d4f1c6c,no redirect,2023-09-29 09:30:49 +0100
+1075702,62827c7ae90e071f5ee0e78d,no redirect,2023-09-29 09:30:52 +0100
+1075704,62827c7ae90e071f646c6b55,no redirect,2023-09-29 09:30:52 +0100
+1075761,6282889f8fa8f55615524db7,no redirect,2023-09-29 09:30:55 +0100
+1075814,628289dde90e071f62029b98,no redirect,2023-09-29 09:30:57 +0100
+1075818,62828a5d8fa8f5561f02a38b,no redirect,2023-09-29 09:30:57 +0100
+1075892,62828a5fe90e071f646c6b5d,no redirect,2023-09-29 09:31:01 +0100
+1075898,62828a9d8fa8f5561cd9b1e2,no redirect,2023-09-29 09:31:02 +0100
+1089182,62c7fe79d3bf7f2ffaa4a9f2,https://www.gov.uk/government/publications/national-tutoring-programme-guidance-for-schools-2022-to-2023,2023-10-02 08:48:46 +0100
+1161030,647de988b32b9e0012a961f4,no redirect,2023-10-02 10:19:38 +0100
+1161030,647de988103ca60013039962,no redirect,2023-10-02 10:19:38 +0100
+1164980,649555bb9e7a8b000c932a60,no redirect,2023-10-02 10:23:31 +0100
+1170995,64b50323995900000d002b80,https://www.gov.uk/government/publications/infrastructure-scheme-round-3-agreement-and-terms,2023-10-02 10:35:14 +0100
+1170997,64b5033007d4b8001334739e,https://www.gov.uk/government/publications/infrastructure-scheme-round-3-agreement-and-terms,2023-10-02 10:35:14 +0100
+1170998,64b5033d07d4b8000d347380,https://www.gov.uk/government/publications/infrastructure-scheme-round-3-agreement-and-terms,2023-10-02 10:35:14 +0100
+1213255,65a9510ab2f3c6000de5d56e,no redirect,2024-01-18 16:25:46 +0000
+1213255,65a9510aed27ca000d27b268,no redirect,2024-01-18 16:25:46 +0000
+1229914,65fdad14a6c0f7001aef9319,https://assets.publishing.service.gov.uk/media/6639f1a11834d96a0aa6d13f/2023-11-10_Minimum_Requirements_Guidance_INTRO_-_DRAFT_v2.5.pdf,2024-03-22 16:08:52 +0000
+1229915,65fdad29f1d3a0001d32ae6b,https://assets.publishing.service.gov.uk/media/6639f1b88603389a07a6d131/2023-11-10_Minimum_Requirement_ONE_-_SORs_-_v2.5.pdf,2024-03-22 16:09:13 +0000
+1229916,65fdad3465ca2f00117da945,https://assets.publishing.service.gov.uk/media/6639f1c98603389a07a6d132/2023-11-10_Minimum_Requirement__TWO_-_Approvals_and_Data_Capture_-_v2.5.pdf,2024-03-22 16:09:24 +0000
+1229917,65fdad3ea6c0f7001aef931a,https://assets.publishing.service.gov.uk/media/6682700a5b0d63b556a4b4e7/Minimum_Requirement_THREE__CGAP_-_v2.5_docx.pdf,2024-03-22 16:09:34 +0000
+1229918,65fdad4965ca2f00117da946,https://assets.publishing.service.gov.uk/media/6639f1f274933dccbbb6c2ac/2023-11-10_Minimum_Requirement_FOUR_-_Business_Case_-_v2.4.pdf,2024-03-22 16:09:44 +0000
+1229919,65fdad5465ca2ffef17da781,https://assets.publishing.service.gov.uk/media/6682701c97ea0c79abfe4dbb/Minimum_Requirement_FIVE_-_Competition_-v2.5.pdf,2024-03-22 16:09:55 +0000
+1229921,65fdad6265ca2f00117da949,https://assets.publishing.service.gov.uk/media/668271e197ea0c79abfe4dbf/Minimum_Requirement_SIX_-_Grant_Agreements_-_v2.5.pdf,2024-03-22 16:10:10 +0000
+1229922,65fdad85a6c0f7001aef931c,https://assets.publishing.service.gov.uk/media/668271f2aec8650b100901aa/Minimum_Requirement_EIGHT_-_Performance___Monitoring_-v2.5.1.pdf,2024-03-22 16:10:44 +0000
+1229923,65fdad90f1d3a0001d32ae6d,https://assets.publishing.service.gov.uk/media/668272037d26b2be17a4b4bc/Minimum_Requirement_NINE_-_Review___Reconciliation_-v2.5.pdf,2024-03-22 16:10:55 +0000
+1229924,65fdad9f65ca2ffef17da783,https://assets.publishing.service.gov.uk/media/668272115b0d63b556a4b4ef/Minimum_Requirement_TEN_-_Training-v2.4.pdf,2024-03-22 16:11:10 +0000
+1253893,669923d6ab418ab055592824,no redirect,2024-07-18 13:42:56 +0100
+1258311,66b1bde349b9c0597fdb0af7,no redirect,2024-08-06 07:08:32 +0100
+1258311,66b1bde3fc8e12ac3edb0abd,no redirect,2024-08-06 07:08:32 +0100
