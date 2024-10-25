@@ -10,6 +10,7 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
         ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
         document_scope_mock.expects(:with_keyword).never
         document_scope_mock.expects(:where).never
+        document_scope_mock.expects(:with_lead_organisation).never
 
         ContentBlockManager::ContentBlock::Document::DocumentFilter.new({}).documents
       end
@@ -33,14 +34,24 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
       end
     end
 
-    describe "when both block types and keyword is given" do
-      it "returns live documents of the type and keyword given" do
+    describe "when a lead organisation id is given" do
+      it "returns live documents with lead org given" do
+        document_scope_mock = mock
+        ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
+        document_scope_mock.expects(:with_lead_organisation).with("123").returns([])
+        ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ lead_organisation: "123" }).documents
+      end
+    end
+
+    describe "when block types, keyword and organisation is given" do
+      it "returns live documents with the filters given" do
         document_scope_mock = mock
         ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
         document_scope_mock.expects(:with_keyword).with("ministry of example").returns(document_scope_mock)
-        document_scope_mock.expects(:where).with(block_type: %w[email_address]).returns([])
+        document_scope_mock.expects(:where).with(block_type: %w[email_address]).returns(document_scope_mock)
+        document_scope_mock.expects(:with_lead_organisation).with("123").returns([])
         ContentBlockManager::ContentBlock::Document::DocumentFilter.new(
-          { block_type: %w[email_address], keyword: "ministry of example" },
+          { block_type: %w[email_address], keyword: "ministry of example", lead_organisation: "123" },
         ).documents
       end
     end
