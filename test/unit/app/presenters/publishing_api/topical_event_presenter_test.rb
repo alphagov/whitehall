@@ -155,11 +155,11 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
 
   test "it limits the number of featured items" do
     topical_event = create(:topical_event, start_date: Time.zone.today)
-    create_list(:topical_event_featuring, FeaturedLink::DEFAULT_SET_SIZE + 1, topical_event:)
+    create_list(:topical_event_featuring, TopicalEvent::MAX_FEATURED_DOCUMENTS + 1, topical_event:)
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
-    assert_equal FeaturedLink::DEFAULT_SET_SIZE, presenter.content.dig(:details, :ordered_featured_documents).length
+    assert_equal TopicalEvent::MAX_FEATURED_DOCUMENTS, presenter.content.dig(:details, :ordered_featured_documents).length
   end
 
   test "it ignores featured items if image variants are missing" do
