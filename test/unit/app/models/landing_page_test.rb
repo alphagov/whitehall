@@ -20,7 +20,13 @@ class LandingPageTest < ActiveSupport::TestCase
     assert_equal :base_path, landing_page.errors.first.attribute
   end
 
-  test "landing-page is not valid if body is not YAML with a root of blocks: " do
+  test "landing-page is valid if body is YAML with at least the blocks: element" do
+    document = build(:document, slug: "/landing-page/test")
+    landing_page = build(:landing_page, document:, body: "blocks:\nother:\n")
+    assert landing_page.valid?
+  end
+
+  test "landing-page is not valid if body is not YAML with at least the blocks: element" do
     document = build(:document, slug: "/landing-page/test")
     landing_page = build(:landing_page, document:, body: "blinks:")
     assert_not landing_page.valid?

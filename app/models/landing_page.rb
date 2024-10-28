@@ -31,8 +31,8 @@ private
 
   def body_must_be_valid_yaml
     body_hash = YAML.load(body)
-    if body_hash.keys != %w[blocks]
-      errors.add(:body, "root element must be 'blocks:'")
+    unless body_hash.keys.include?("blocks")
+      errors.add(:body, "must contain a root element 'blocks:'")
     end
   rescue StandardError => e
     errors.add(:body, "must be valid YAML: #{e.message}")
