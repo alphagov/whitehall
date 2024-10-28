@@ -23,7 +23,7 @@ Feature: Search for a content object
     When I visit the Content Block Manager home page
     Then my organisation is already selected as a filter
     And I should see the details for all documents from my organisation
-    When I select the lead organisation ""
+    When I select the lead organisation "All organisations"
     And I click to view results
     Then "3" content blocks are returned
 

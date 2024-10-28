@@ -264,7 +264,7 @@ Then("I should see the details for all documents from my organisation") do
     should_show_summary_card_for_email_address_content_block(
       document.title,
       document.latest_edition.details[:email_address],
-      )
+    )
   end
 end
 
