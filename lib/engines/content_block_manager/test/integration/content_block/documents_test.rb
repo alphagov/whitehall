@@ -7,7 +7,10 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
   include ContentBlockManager::Engine.routes.url_helpers
 
   setup do
-    login_as_admin
+    logout
+    @organisation = create(:organisation)
+    user = create(:user, organisation: @organisation)
+    login_as(user)
 
     feature_flags.switch!(:content_block_manager, true)
   end
@@ -20,12 +23,14 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
         :email_address,
         details: { "email_address" => "first_edition@example.com" },
         document_id: content_block_document.id,
+        organisation: @organisation,
       )
       second_edition = create(
         :content_block_edition,
         :email_address,
         details: { "email_address" => "second_edition@example.com" },
         document_id: content_block_document.id,
+        organisation: @organisation,
       )
 
       visit content_block_manager.content_block_manager_content_block_documents_path
@@ -42,12 +47,43 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
         details: { "email_address" => "live_edition@example.com" },
         document_id: document_with_latest_edition.id,
       )
+      document_without_latest_edition = build(:content_block_document, :email_address, title: "no latest edition")
+      document_mock = mock
 
-      ContentBlockManager::ContentBlock::Document.expects(:live).returns([document_with_latest_edition])
+      ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_mock)
+      document_mock.expects(:with_lead_organisation).with(@organisation.id.to_s).returns([document_with_latest_edition])
 
       visit content_block_manager.content_block_manager_content_block_documents_path
 
       assert_text document_with_latest_edition.latest_edition.details["email_address"]
+      assert_no_text document_without_latest_edition.title
+    end
+
+    describe "when no filter params are specified" do
+      describe "when there are no session filters" do
+        it "adds the users organisation as the lead organisation by default" do
+          visit content_block_manager.content_block_manager_content_block_documents_path
+
+          assert_current_path content_block_manager.content_block_manager_root_path({ lead_organisation: @organisation.id.to_s })
+        end
+      end
+
+      describe "when there are session filters" do
+        it "adds them to the params by default the next time user visits" do
+          visit content_block_manager.content_block_manager_content_block_documents_path({ keyword: "something" })
+          visit content_block_manager.content_block_manager_content_block_documents_path
+
+          assert_current_path content_block_manager.content_block_manager_root_path({ keyword: "something" })
+        end
+      end
+    end
+
+    describe "when there are filter params provided" do
+      it "does not change the params" do
+        visit content_block_manager.content_block_manager_content_block_documents_path({ lead_organisation: "123" })
+
+        assert_current_path content_block_manager.content_block_manager_content_block_documents_path({ lead_organisation: "123" })
+      end
     end
   end
 

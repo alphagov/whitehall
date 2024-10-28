@@ -1,7 +1,15 @@
 class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManager::BaseController
   def index
-    @filters = params_filters
-    @content_block_documents = ContentBlockManager::ContentBlock::Document::DocumentFilter.new(@filters).documents
+    if params_filters.any?
+      session[:content_block_filters] = params_filters
+      @filters = params_filters
+      @content_block_documents = ContentBlockManager::ContentBlock::Document::DocumentFilter.new(@filters).documents
+      render :index
+    elsif session_filters.any?
+      redirect_to content_block_manager.content_block_manager_root_path(session_filters)
+    else
+      redirect_to content_block_manager.content_block_manager_root_path(default_filters)
+    end
   end
 
   def show
@@ -31,5 +39,13 @@ private
     params.slice(:keyword, :block_type, :lead_organisation)
           .permit!
           .to_h
+  end
+
+  def session_filters
+    (session[:content_block_filters] || {}).to_h
+  end
+
+  def default_filters
+    { lead_organisation: current_user.organisation.try(:id) || "" }
   end
 end

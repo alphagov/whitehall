@@ -191,9 +191,13 @@ Given("a {string} type of content block has been created with fields:") do |bloc
   fields = table.rows_hash
   organisation_name = fields.delete("organisation")
   organisation = Organisation.where(name: organisation_name).first
+  title = fields.delete("title") || "title"
+  document = create(:content_block_document, block_type.to_sym, title:)
+
   create(
     :content_block_edition,
     block_type.to_sym,
+    document:,
     organisation:,
     details: fields,
     creator: @user,
@@ -248,6 +252,19 @@ Then("I should see the details for all documents") do
       document.title,
       document.latest_edition.details[:email_address],
     )
+  end
+end
+
+Then("my organisation is already selected as a filter") do
+  expect(page).to have_field("Lead organisation", with: @user.organisation.id)
+end
+
+Then("I should see the details for all documents from my organisation") do
+  ContentBlockManager::ContentBlock::Document.with_lead_organisation(@user.organisation.id).each do |document|
+    should_show_summary_card_for_email_address_content_block(
+      document.title,
+      document.latest_edition.details[:email_address],
+      )
   end
 end
 
