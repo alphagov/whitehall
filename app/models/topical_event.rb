@@ -29,6 +29,7 @@ class TopicalEvent < ApplicationRecord
   has_many :publications, through: :topical_event_memberships
   has_many :speeches, through: :topical_event_memberships
 
+  MAX_FEATURED_DOCUMENTS = 6
   has_many :features, inverse_of: :topical_event, dependent: :destroy
   has_many :offsite_links, as: :parent
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
