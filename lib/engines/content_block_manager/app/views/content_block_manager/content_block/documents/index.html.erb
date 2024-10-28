@@ -12,7 +12,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
-    <%= render "filter_options" %>
+    <%= render(
+          ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
+            filters: @filters,
+            ),
+          ) %>
   </div>
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-m"><%= pluralize(@content_block_documents.count, "result") %></h2>

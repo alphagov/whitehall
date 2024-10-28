@@ -187,6 +187,19 @@ Given("an email address content block has been created") do
   @content_blocks.push(@content_block)
 end
 
+Given("a {string} type of content block has been created with fields:") do |block_type, table|
+  fields = table.rows_hash
+  organisation_name = fields.delete("organisation")
+  organisation = Organisation.where(name: organisation_name).first
+  create(
+    :content_block_edition,
+    block_type.to_sym,
+    organisation:,
+    details: fields,
+    creator: @user,
+  )
+end
+
 Given("an email address content block has been created with the following email address and title:") do |table|
   fields = table.rows_hash
   @content_blocks ||= []
@@ -433,6 +446,14 @@ end
 
 Then(/^I choose to publish the change now$/) do
   choose "Publish the change now"
+end
+
+Then("I check the block type {string}") do |checkbox_name|
+  check checkbox_name
+end
+
+Then("I select the lead organisation {string}") do |organisation|
+  select organisation, from: "lead_organisation"
 end
 
 When("I revisit the edit page") do
