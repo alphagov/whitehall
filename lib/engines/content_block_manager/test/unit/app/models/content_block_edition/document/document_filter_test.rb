@@ -8,18 +8,18 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
       it "returns live documents" do
         document_scope_mock = mock
         ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
-        document_scope_mock.expects(:with_title).never
+        document_scope_mock.expects(:with_keyword).never
 
         ContentBlockManager::ContentBlock::Document::DocumentFilter.new({}).documents
       end
     end
 
-    describe "when a title filter is given" do
-      it "returns live documents with keyword in title" do
+    describe "when a keyword filter is given" do
+      it "returns live documents with keyword" do
         document_scope_mock = mock
         ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
-        document_scope_mock.expects(:with_title).returns([])
-        ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ title: "ministry of example" }).documents
+        document_scope_mock.expects(:with_keyword).with("ministry of example").returns([])
+        ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ keyword: "ministry of example" }).documents
       end
     end
   end
