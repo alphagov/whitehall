@@ -29,6 +29,20 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
     assert_selector "input[type='checkbox'][name='block_type[]'][value='postal_address']"
   end
 
+  test "returns organisations with an 'all organisations' option" do
+    helper_mock = mock
+    ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.any_instance.stubs(:helpers).returns(helper_mock)
+    helper_mock.stubs(:content_block_manager).returns(helper_mock)
+    helper_mock.stubs(:content_block_manager_content_block_documents_path).returns("path")
+    helper_mock.stubs(:taggable_organisations_container).returns(
+      [["Department of Placeholder", 1], ["Ministry of Example", 2]],
+    )
+    render_inline(ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(filters: {}))
+
+    assert_selector "select[name='lead_organisation']"
+    assert_selector "option[selected='selected'][value='']"
+  end
+
   test "selects organisation if selected in filters" do
     helper_mock = mock
     ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.any_instance.stubs(:helpers).returns(helper_mock)

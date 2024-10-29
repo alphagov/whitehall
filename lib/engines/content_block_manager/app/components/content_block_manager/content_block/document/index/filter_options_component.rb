@@ -11,18 +11,30 @@ private
       {
         label: schema_name.humanize,
         value: schema_name,
-        checked: !@filters.nil? && @filters[:block_type]&.include?(schema_name),
+        checked: @filters.any? && @filters[:block_type]&.include?(schema_name),
+      }
+    end
+  end
+
+  def all_organisations_option
+    {
+      text: "All organisations",
+      value: "",
+      selected: @filters.none? || @filters[:lead_organisation]&.empty?,
+    }
+  end
+
+  def taggable_organisations_options
+    helpers.taggable_organisations_container.map do |name, id|
+      {
+        text: name,
+        value: id,
+        selected: @filters.any? && @filters[:lead_organisation] == id.to_s,
       }
     end
   end
 
   def options_for_lead_organisation
-    helpers.taggable_organisations_container.map do |name, id|
-      {
-        text: name,
-        value: id,
-        selected: !@filters.nil? && @filters[:lead_organisation] == id.to_s,
-      }
-    end
+    [all_organisations_option, taggable_organisations_options].flatten
   end
 end
