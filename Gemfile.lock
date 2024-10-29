@@ -179,6 +179,7 @@ GEM
     database_cleaner-core (2.0.1)
     date (3.3.4)
     debug_inspector (1.2.0)
+    declarative (0.0.20)
     diff-lcs (1.5.1)
     diffy (3.4.3)
     dig_rb (1.0.1)
@@ -260,6 +261,30 @@ GEM
       activemodel (>= 4.2, < 7.2)
       activerecord (>= 4.2, < 7.2)
       request_store (~> 1.0)
+    google-apis-bigquery_v2 (0.72.0)
+      google-apis-core (>= 0.15.0, < 2.a)
+    google-apis-core (0.15.0)
+      addressable (~> 2.5, >= 2.5.1)
+      googleauth (~> 1.9)
+      httpclient (>= 2.8.1, < 3.a)
+      mini_mime (~> 1.0)
+      representable (~> 3.0)
+      retriable (>= 2.0, < 4.a)
+      rexml
+    google-cloud-bigquery (1.50.0)
+      bigdecimal (~> 3.0)
+      concurrent-ruby (~> 1.0)
+      google-apis-bigquery_v2 (~> 0.71)
+      google-apis-core (~> 0.13)
+      google-cloud-core (~> 1.6)
+      googleauth (~> 1.9)
+      mini_mime (~> 1.0)
+    google-cloud-core (1.7.0)
+      google-cloud-env (>= 1.0, < 3.a)
+      google-cloud-errors (~> 1.0)
+    google-cloud-env (2.1.1)
+      faraday (>= 1.0, < 3.a)
+    google-cloud-errors (1.4.0)
     google-protobuf (4.28.2)
       bigdecimal
       rake (>= 13)
@@ -274,6 +299,13 @@ GEM
       rake (>= 13)
     googleapis-common-protos-types (1.16.0)
       google-protobuf (>= 3.18, < 5.a)
+    googleauth (1.11.0)
+      faraday (>= 1.0, < 3.a)
+      google-cloud-env (~> 2.1)
+      jwt (>= 1.4, < 3.0)
+      multi_json (~> 1.11)
+      os (>= 0.9, < 2.0)
+      signet (>= 0.16, < 2.a)
     govspeak (8.4.1)
       actionview (>= 6, < 7.2.2)
       addressable (>= 2.3.8, < 2.8.8)
@@ -339,6 +371,7 @@ GEM
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
+    httpclient (2.8.3)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     i18n-coverage (0.2.0)
@@ -697,6 +730,7 @@ GEM
       opentelemetry-semantic_conventions
     opentelemetry-semantic_conventions (1.10.1)
       opentelemetry-api (~> 1.0)
+    os (1.1.4)
     ostruct (0.6.0)
     pact (1.65.2)
       pact-mock_service (~> 3.0, >= 3.3.1)
@@ -822,6 +856,10 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
+    representable (3.2.0)
+      declarative (< 0.1.0)
+      trailblazer-option (>= 0.1.1, < 0.2.0)
+      uber (< 0.2.0)
     request_store (1.7.0)
       rack (>= 1.4)
     responders (3.1.1)
@@ -832,6 +870,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    retriable (3.1.2)
     rexml (3.3.9)
     rinku (2.0.6)
     rouge (4.4.0)
@@ -923,6 +962,11 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 6, < 8)
       tilt (>= 1.4.0, < 3)
+    signet (0.19.0)
+      addressable (~> 2.8)
+      faraday (>= 0.17.5, < 3.a)
+      jwt (>= 1.5, < 3.0)
+      multi_json (~> 1.10)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -962,10 +1006,12 @@ GEM
     tins (1.33.0)
       bigdecimal
       sync
+    trailblazer-option (0.1.2)
     transitions (1.3.0)
     ttfunk (1.7.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uber (0.1.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.9.1)
@@ -1034,6 +1080,7 @@ DEPENDENCIES
   gds-api-adapters
   gds-sso
   globalize
+  google-cloud-bigquery
   govspeak
   govuk_app_config
   govuk_frontend_toolkit
