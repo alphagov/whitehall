@@ -82,4 +82,39 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     assert_equal @presented_content.dig(:details, :attachments, 0, :id),
                  attachment.id.to_s
   end
+
+  test "it merges its data with a document using extends:" do
+    create(
+      :landing_page,
+      document: create(:document, id: 12_346, slug: "/landing-page/parent"),
+      body: "menu: my-menu-data\nblocks:\n- type: govspeak\n  content: goodbye!",
+      title: "Landing Page Parent title",
+      summary: "Landing Page Parent summary",
+      first_published_at: @first_published_at = Time.zone.now,
+      updated_at: 1.year.ago,
+    )
+
+    landing_page = create(
+      :landing_page,
+      document: create(:document, id: 12_347, slug: "/landing-page/extends-test"),
+      body: "extends: /landing-page/parent\nblocks:\n- type: govspeak\n  content: hello!",
+      title: "Landing Page title",
+      summary: "Landing Page summary",
+      first_published_at: @first_published_at = Time.zone.now,
+      updated_at: 1.year.ago,
+    )
+
+    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_content = I18n.with_locale("en") { presented_landing_page.content }
+
+    expected_details = {
+      "menu" => "my-menu-data",
+      "blocks" => [
+        { "type" => "govspeak", "content" => "hello!" },
+      ],
+      "attachments" => [],
+    }
+
+    assert_equal expected_details, presented_content[:details].deep_stringify_keys
+  end
 end

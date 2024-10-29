@@ -47,8 +47,13 @@ module PublishingApi
     attr_reader :item
 
     def details
-      YAML.load(item.body, permitted_classes: [Date])
-        .merge(PayloadBuilder::Attachments.for(item))
+      body = YAML.load(item.body, permitted_classes: [Date])
+              .merge(PayloadBuilder::Attachments.for(item))
+      extends_slug = body.delete("extends")
+      return body unless extends_slug
+
+      extends = Document.find_by(slug: extends_slug).latest_edition
+      YAML.load(extends.body, permitted_classes: [Date]).merge(body)
     end
   end
 end
