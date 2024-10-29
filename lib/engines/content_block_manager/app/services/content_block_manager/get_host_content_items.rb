@@ -24,6 +24,7 @@ module ContentBlockManager
           publishing_app: item["publishing_app"],
           last_edited_by_editor_id: item["last_edited_by_editor_id"],
           last_edited_at: item["last_edited_at"],
+          page_views: page_views_for_base_path(item["base_path"]),
         )
       end
     end
@@ -31,6 +32,20 @@ module ContentBlockManager
   private
 
     attr_writer :content_id
+
+    def page_views_for_base_path(base_path)
+      page_views.find { |p| p.path == base_path }&.page_views || "0"
+    end
+
+    def page_views
+      @page_views ||= ContentBlockManager::PageViewsService.new(paths: base_paths).call
+    end
+
+    def base_paths
+      content_items["results"].map do |item|
+        item["base_path"]
+      end
+    end
 
     def content_items
       @content_items ||= begin

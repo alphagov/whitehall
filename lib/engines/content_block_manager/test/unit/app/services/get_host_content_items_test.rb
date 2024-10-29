@@ -29,8 +29,11 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
     }
   end
 
+  let(:document) { mock("content_block_document", content_id: target_content_id) }
+
   setup do
     stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 1, results: response_body["results"])
+    ContentBlockManager::PageViewsService.stubs(:new).with(paths: ["/foo"]).returns(stub(call: []))
   end
 
   describe "#items" do
@@ -53,8 +56,6 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
     end
 
     it "returns GetHostContentItems" do
-      document = mock("content_block_document", content_id: target_content_id)
-
       result = described_class.by_embedded_document(content_block_document: document)
 
       expected_publishing_organisation = {
@@ -69,6 +70,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].publishing_app, response_body["results"][0]["publishing_app"]
       assert_equal result[0].last_edited_by_editor_id, response_body["results"][0]["last_edited_by_editor_id"]
       assert_equal result[0].last_edited_at, Time.zone.parse(response_body["results"][0]["last_edited_at"])
+      assert_equal result[0].page_views, "0"
 
       assert_equal result[0].publishing_organisation, expected_publishing_organisation
     end
@@ -82,13 +84,28 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
       raises_exception = ->(*_args) { raise exception }
 
       Services.publishing_api.stub :get_content_by_embedded_document, raises_exception do
-        document = mock("content_block_document", content_id: target_content_id)
-
         assert_raises(GdsApi::HTTPErrorResponse) do
           described_class.by_embedded_document(
             content_block_document: document,
           )
         end
+      end
+    end
+
+    context "when PageViewsService has data for a page" do
+      let(:pageviews) do
+        [
+          ContentBlockManager::PageView.new(path: "/foo", page_views: "123"),
+        ]
+      end
+      setup do
+        ContentBlockManager::PageViewsService.stubs(:new).with(paths: ["/foo"]).returns(stub(call: pageviews))
+      end
+
+      it "returns the correct pageviews" do
+        result = described_class.by_embedded_document(content_block_document: document)
+
+        assert_equal result[0].page_views, "123"
       end
     end
   end
