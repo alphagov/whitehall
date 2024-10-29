@@ -48,6 +48,7 @@ module PublishingApi
 
     def details
       YAML.load(item.body, permitted_classes: [Date])
+        .merge(PayloadBuilder::Attachments.for(item))
     end
   end
 end

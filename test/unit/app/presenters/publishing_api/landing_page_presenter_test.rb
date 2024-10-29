@@ -7,6 +7,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
       document: create(:document, id: 12_345, slug: "/landing-page/test"),
       title: "Landing Page title",
       summary: "Landing Page summary",
+      attachments: [create(:file_attachment)],
       first_published_at: @first_published_at = Time.zone.now,
       updated_at: 1.year.ago,
     )
@@ -74,5 +75,11 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
   test "it presents edition links" do
     expected_links = {}
     assert expected_links, @presented_content[:links]
+  end
+
+  test "it presents attachments" do
+    attachment = @landing_page.attachments.first
+    assert_equal @presented_content.dig(:details, :attachments, 0, :id),
+                 attachment.id.to_s
   end
 end
