@@ -31,8 +31,11 @@ private
 
   def body_must_be_valid_yaml
     body_hash = YAML.load(body)
-    if body_hash.keys != %w[blocks]
-      errors.add(:body, "root element must be 'blocks:'")
+    unless body_hash.keys.include?("blocks")
+      errors.add(:body, "must contain a root element 'blocks:'")
+    end
+    if body_hash.key?("extends") && Document.find_by(slug: body_hash["extends"]).nil?
+      errors.add(:body, "extends #{body_hash.keys['extends']} but that document does not exist")
     end
   rescue StandardError => e
     errors.add(:body, "must be valid YAML: #{e.message}")
