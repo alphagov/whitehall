@@ -22,6 +22,9 @@ private
           text: content_item.document_type.humanize,
         },
         {
+          text: number_to_human(content_item.page_views),
+        },
+        {
           text: organisation_link(content_item),
         },
         {

@@ -26,6 +26,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "last_edited_by_editor_id" => last_edited_by_editor_id,
       "last_edited_at" => Time.zone.now.to_s,
       "publishing_organisation" => publishing_organisation,
+      "page_views" => 1_200_000,
     )
   end
   let(:host_content_items) { [host_content_item] }
@@ -58,6 +59,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
       assert_selector "tbody .govuk-table__cell", text: host_content_item.title
       assert_selector "tbody .govuk-table__cell", text: host_content_item.document_type.humanize
+      assert_selector "tbody .govuk-table__cell", text: "1.2 Million"
       assert_selector "tbody .govuk-table__cell", text: host_content_item.publishing_organisation["title"]
       assert_selector "tbody .govuk-table__cell", text: "#{time_ago_in_words(host_content_item.last_edited_at)} ago by #{user.name}"
       assert_link user.name, { href: "mailto:#{user.email}" }
