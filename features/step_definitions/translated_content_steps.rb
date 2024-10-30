@@ -13,7 +13,7 @@ Given(/^I have drafted a translatable document "([^"]*)" with a french translati
 end
 
 When(/^I create a foreign language only document$/) do
-  begin_drafting_document type: "document_collection", locale: "Cymraeg (Welsh)", title: "Foo"
+  begin_drafting_document type: "document_collection", locale: "Cymraeg (Welsh)", title: "Foreign Language Only"
   click_button "Save and go to document summary"
   expect(page).to have_content("This document is Welsh-only")
 end
@@ -33,6 +33,11 @@ end
 
 Then(/^the edition should return to being an English language only document$/) do
   expect(page).to_not have_content("This document is Welsh-only")
+end
+
+And(/^the foreign translation should be deleted$/) do
+  edition = Edition.where(title: "Foreign Language Only").last
+  expect(edition.translations.map(&:locale)).to eq(%i[en])
 end
 
 When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |french_title, english_title|

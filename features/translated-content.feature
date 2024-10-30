@@ -34,3 +34,4 @@ Feature: Providing translated content from gov.uk/government
     Then the foreign language only box should be checked
     And if I then un-check the foreign language only box
     Then the edition should return to being an English language only document
+    And the foreign translation should be deleted
