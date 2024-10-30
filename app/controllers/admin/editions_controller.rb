@@ -456,7 +456,13 @@ private
     return if edition_params.empty?
 
     edition_params[:title].strip! if edition_params[:title]
-    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank? || edition_params[:create_foreign_language_only].blank?
+    if edition_params[:primary_locale] != "en" && edition_params[:create_foreign_language_only].blank?
+      # the "Create a foreign language only {format}" checkbox was unchecked,
+      # indicating the user wants to switch the edition back to English
+      edition_params[:primary_locale] = "en"
+    elsif edition_params[:primary_locale].blank? || edition_params[:create_foreign_language_only].blank?
+      edition_params.delete(:primary_locale)
+    end
     edition_params.delete(:create_foreign_language_only)
     edition_params[:external_url] = nil if edition_params[:external] == "0"
     edition_params[:change_note] = nil if edition_params[:minor_change] == "true"

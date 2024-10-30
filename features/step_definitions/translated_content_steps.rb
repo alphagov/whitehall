@@ -12,6 +12,29 @@ Given(/^I have drafted a translatable document "([^"]*)" with a french translati
   end
 end
 
+When(/^I create a foreign language only document$/) do
+  begin_drafting_document type: "document_collection", locale: "Cymraeg (Welsh)", title: "Foo"
+  click_button "Save and go to document summary"
+  expect(page).to have_content("This document is Welsh-only")
+end
+
+And(/^I return to the edit screen$/) do
+  click_link "Edit draft"
+end
+
+Then(/^the foreign language only box should be checked$/) do
+  expect(page).to have_field("edition[create_foreign_language_only]", checked: true)
+end
+
+And(/^if I then un-check the foreign language only box$/) do
+  uncheck "Create a foreign language only"
+  click_button "Save and go to document summary"
+end
+
+Then(/^the edition should return to being an English language only document$/) do
+  expect(page).to_not have_content("This document is Welsh-only")
+end
+
 When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |french_title, english_title|
   visit admin_edition_path(Edition.find_by!(title: english_title))
   click_link "Add translation"
