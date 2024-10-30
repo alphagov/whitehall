@@ -3,8 +3,6 @@ require "mini_magick"
 class ImageData < ApplicationRecord
   attr_accessor :validate_on_image
 
-  VALID_WIDTH = 960
-  VALID_HEIGHT = 640
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
 
   has_many :images
@@ -14,8 +12,10 @@ class ImageData < ApplicationRecord
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
+  validates :valid_width, presence: true
+  validates :valid_height, presence: true
   validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." }
-  validates_with ImageValidator, size: [VALID_WIDTH, VALID_HEIGHT], if: :image_changed?
+  validates_with ImageValidator, if: :image_changed?
   validate :filename_is_unique
 
   delegate :width, :height, to: :dimensions
@@ -49,19 +49,17 @@ class ImageData < ApplicationRecord
 
 private
 
-  Dimensions = Struct.new(:width, :height)
-
   def dimensions
     @dimensions ||= if valid?
                       # Whitehall doesn't store local copies of original images. Once they've been
                       # uploaded to Asset Manager, we can't expect them to exist locally again.
-                      # But since every uploaded image has to be these exact dimensions, we can
+                      # But since every uploaded image has to have valid dimensions, we can
                       # be confident a valid image (either freshly uploaded, or already persisted)
                       # will be these exact dimensions.
-                      Dimensions.new(VALID_WIDTH, VALID_HEIGHT)
+                      Edition::Images::Dimensions.new(width: valid_width, height: valid_height)
                     else
                       image = MiniMagick::Image.open file.path
-                      Dimensions.new(image[:width], image[:height])
+                      Edition::Images::Dimensions.new(width: image[:width], height: image[:height])
                     end
   end
 

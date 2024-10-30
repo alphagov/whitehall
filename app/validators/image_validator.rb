@@ -39,12 +39,12 @@ private
   end
 
   def validate_size(record, image)
-    return unless @size
+    return unless @size || (record.valid_width && record.valid_height)
 
     actual_width = image[:width]
     actual_height = image[:height]
-    target_width = @size[0]
-    target_height = @size[1]
+    target_width = @size&.dig(0) || record.valid_width
+    target_height = @size&.dig(1) || record.valid_height
 
     too_small = actual_width < target_width || actual_height < target_height
     too_large = actual_width > target_width || actual_height > target_height

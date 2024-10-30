@@ -26,7 +26,9 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def create
     @new_image = @edition.images.build
-    @new_image.build_image_data(image_params["image_data"])
+    @new_image.build_image_data(
+      image_params[:image_data]&.merge(image_dimension_params),
+    )
 
     @new_image.image_data.validate_on_image = @new_image
     # so that auth_bypass_id is discoverable by AssetManagerStorage
@@ -91,5 +93,12 @@ private
 
   def image_params
     params.fetch(:image, {}).permit(image_data: [:file])
+  end
+
+  def image_dimension_params
+    ActionController::Parameters.new(
+      valid_width: @edition.valid_image_dimensions.width,
+      valid_height: @edition.valid_image_dimensions.height,
+    ).permit!
   end
 end

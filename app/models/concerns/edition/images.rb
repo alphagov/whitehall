@@ -1,6 +1,8 @@
 module Edition::Images
   extend ActiveSupport::Concern
 
+  Dimensions = Data.define(:width, :height)
+
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       @edition.images.each do |a|
@@ -37,6 +39,10 @@ module Edition::Images
 
   def allows_image_attachments?
     true
+  end
+
+  def valid_image_dimensions
+    Dimensions.new(width: 960, height: 640)
   end
 
 private

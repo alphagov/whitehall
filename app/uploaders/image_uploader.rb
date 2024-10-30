@@ -10,23 +10,27 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg]
   end
 
-  version :s960, if: :bitmap? do
+  version :s960, if: :use_960_versions? do
     process resize_to_fill: [960, 640]
   end
-  version :s712, from_version: :s960, if: :bitmap? do
+  version :s712, from_version: :s960, if: :use_960_versions? do
     process resize_to_fill: [712, 480]
   end
-  version :s630, from_version: :s960, if: :bitmap? do
+  version :s630, from_version: :s960, if: :use_960_versions? do
     process resize_to_fill: [630, 420]
   end
-  version :s465, from_version: :s960, if: :bitmap? do
+  version :s465, from_version: :s960, if: :use_960_versions? do
     process resize_to_fill: [465, 310]
   end
-  version :s300, from_version: :s960, if: :bitmap? do
+  version :s300, from_version: :s960, if: :use_960_versions? do
     process resize_to_fill: [300, 195]
   end
-  version :s216, from_version: :s960, if: :bitmap? do
+  version :s216, from_version: :s960, if: :use_960_versions? do
     process resize_to_fill: [216, 140]
+  end
+
+  def use_960_versions?(new_file)
+    model.valid_width == 960 && model.valid_height == 640 && bitmap?(new_file)
   end
 
   def bitmap?(new_file)
