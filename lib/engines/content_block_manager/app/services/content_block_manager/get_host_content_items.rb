@@ -38,7 +38,11 @@ module ContentBlockManager
     end
 
     def page_views
-      @page_views ||= ContentBlockManager::PageViewsService.new(paths: base_paths).call
+      @page_views ||= page_views_service.new(paths: base_paths).call
+    end
+
+    def page_views_service
+      ENV["BIGQUERY_PROJECT_ID"].blank? ? ContentBlockManager::PageViewsService::Local : ContentBlockManager::PageViewsService::Google
     end
 
     def base_paths
