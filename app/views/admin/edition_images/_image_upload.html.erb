@@ -15,6 +15,19 @@
     accept: "image/png, image/jpeg, image/gif, image/svg+xml",
   } %>
 
+  <% if @edition.all_valid_image_dimensions.size > 1 %>
+    <%= render "govuk_publishing_components/components/radio", {
+      heading: "What size should this image have?",
+      name: "valid_image_dimension_key",
+      items: @edition.all_valid_image_dimensions.map do |key, dimension|
+        {
+          value: key,
+          text: "#{key} (#{dimension.width} by #{dimension.height})"
+        }
+      end
+    } %>
+  <% end %>
+
    <%= render "govuk_publishing_components/components/details", {
       title: "You must use an SVG for charts and diagrams",
     } do %>

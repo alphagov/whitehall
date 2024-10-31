@@ -41,8 +41,14 @@ module Edition::Images
     true
   end
 
-  def valid_image_dimensions
-    Dimensions.new(width: 960, height: 640)
+  def valid_image_dimensions(_key)
+    all_valid_image_dimensions["Default"]
+  end
+
+  def all_valid_image_dimensions
+    {
+      "Default" => Dimensions.new(width: 960, height: 640),
+    }
   end
 
 private

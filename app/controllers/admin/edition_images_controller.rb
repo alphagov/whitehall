@@ -26,8 +26,9 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def create
     @new_image = @edition.images.build
+    valid_image_dimensions = @edition.valid_image_dimensions(params["valid_image_dimension_key"])
     @new_image.build_image_data(
-      image_params[:image_data]&.merge(image_dimension_params),
+      image_params[:image_data]&.merge(image_dimension_params(valid_image_dimensions)),
     )
 
     @new_image.image_data.validate_on_image = @new_image
@@ -95,10 +96,10 @@ private
     params.fetch(:image, {}).permit(image_data: [:file])
   end
 
-  def image_dimension_params
+  def image_dimension_params(valid_image_dimensions)
     ActionController::Parameters.new(
-      valid_width: @edition.valid_image_dimensions.width,
-      valid_height: @edition.valid_image_dimensions.height,
+      valid_width: valid_image_dimensions.width,
+      valid_height: valid_image_dimensions.height,
     ).permit!
   end
 end

@@ -1,11 +1,24 @@
 class LandingPage < Edition
   include ::Attachable
   include Edition::Organisations
+  include Edition::Images
 
   skip_callback :validation, :before, :update_document_slug
   validates :base_path, presence: true
   validate :base_path_must_not_be_taken
   validate :body_must_be_valid_yaml
+
+  def valid_image_dimensions(key)
+    all_valid_image_dimensions[key]
+  end
+
+  def all_valid_image_dimensions
+    super.merge(
+      "Mobile hero image (2x pixel density)" => Edition::Images::Dimensions.new(width: 1280, height: 854),
+      "Tablet hero image (2x pixel density)" => Edition::Images::Dimensions.new(width: 1536, height: 1024),
+      "Desktop hero image (2x pixel density)" => Edition::Images::Dimensions.new(width: 3840, height: 1220),
+    )
+  end
 
   def publishing_api_presenter
     PublishingApi::LandingPagePresenter
