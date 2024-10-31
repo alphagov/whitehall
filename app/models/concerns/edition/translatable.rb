@@ -28,6 +28,9 @@ module Edition::Translatable
       :remove_other_translations_if_primary_locale_no_longer_english,
       on: :update,
     )
+    around_save(
+      :remove_non_english_locale_if_primary_locale_switched_back_to_english,
+    )
 
     scope :in_default_locale, -> { joins(:translations).where("edition_translations.locale" => I18n.default_locale) }
     validate :locale_is_valid
@@ -72,7 +75,18 @@ private
     end
   end
 
-  # TODO: probably here is the method that needs tweaking / duplicating
+  def remove_non_english_locale_if_primary_locale_switched_back_to_english
+    puts "#{primary_locale.inspect} - remove_non_english_locale_if_primary_locale_switched_back_to_english"
+    if primary_locale_changed? && primary_locale == "en" # && translations.count == 1
+      puts "removing all but #{primary_locale.inspect} from #{translations.map(&:locale).inspect}"
+      # require "pry"
+      # binding.pry
+      translations.each do |translation|
+        translation.destroy unless translation.locale == primary_locale.to_sym
+      end
+    end
+  end
+
   def remove_other_translations_if_primary_locale_no_longer_english
     if translations.count > 1 && translations.first.locale != :en
       translations[1..].each(&:destroy)

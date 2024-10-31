@@ -101,41 +101,29 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    ActiveRecord::Base.transaction do
-      translation_locales = @edition.translations.map(&:locale)
-      @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(edition_params)
 
-      if updater.can_perform? && @edition.save_as(current_user)
-        updater.perform!
-        # TODO: move this into Edition::Translatable
-        if @remove_non_english_translation
-          foreign_locales = translation_locales - %w[en]
-          if foreign_locales.count == 1
-            foreign_locale = foreign_locales.first
-            @edition.remove_translations_for(foreign_locale)
-            @edition.destroy_associated(foreign_locale)
-          end
-        end
+    if updater.can_perform? && @edition.save_as(current_user)
+      updater.perform!
 
-        if @edition.link_check_reports.last
-          LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
-        end
-
-        redirect_to show_or_edit_path, saved_confirmation_notice
-      else
-        flash.now[:alert] = updater.failure_reason
-        build_edition_dependencies
-        fetch_version_and_remark_trails
-        construct_similar_slug_warning_error
-        render :edit
+      if @edition.link_check_reports.last
+        LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
       end
-    rescue ActiveRecord::StaleObjectError
-      flash.now[:alert] = "This document has been saved since you opened it"
-      @conflicting_edition = Edition.find(params[:id])
-      @edition.lock_version = @conflicting_edition.lock_version
+
+      redirect_to show_or_edit_path, saved_confirmation_notice
+    else
+      flash.now[:alert] = updater.failure_reason
       build_edition_dependencies
+      fetch_version_and_remark_trails
+      construct_similar_slug_warning_error
       render :edit
     end
+  rescue ActiveRecord::StaleObjectError
+    flash.now[:alert] = "This document has been saved since you opened it"
+    @conflicting_edition = Edition.find(params[:id])
+    @edition.lock_version = @conflicting_edition.lock_version
+    build_edition_dependencies
+    render :edit
   end
 
   def revise
@@ -472,7 +460,6 @@ private
       # the "Create a foreign language only {format}" checkbox was unchecked,
       # indicating the user wants to switch the edition back to English
       edition_params[:primary_locale] = "en"
-      @remove_non_english_translation = true
     elsif edition_params[:primary_locale].blank? || edition_params[:create_foreign_language_only].blank?
       edition_params.delete(:primary_locale)
     end
