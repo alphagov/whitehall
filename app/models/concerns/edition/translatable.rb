@@ -72,6 +72,7 @@ private
     end
   end
 
+  # TODO: probably here is the method that needs tweaking / duplicating
   def remove_other_translations_if_primary_locale_no_longer_english
     if translations.count > 1 && translations.first.locale != :en
       translations[1..].each(&:destroy)

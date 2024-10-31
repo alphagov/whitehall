@@ -102,14 +102,19 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     ActiveRecord::Base.transaction do
+      translation_locales = @edition.translations.map(&:locale)
       @edition.assign_attributes(edition_params)
 
       if updater.can_perform? && @edition.save_as(current_user)
         updater.perform!
-        # TODO: dynamic locale, and check that there are no other locales other than "en"
+        # TODO: move this into Edition::Translatable
         if @remove_non_english_translation
-          @edition.remove_translations_for("cy")
-          @edition.destroy_associated("cy")
+          foreign_locales = translation_locales - %w[en]
+          if foreign_locales.count == 1
+            foreign_locale = foreign_locales.first
+            @edition.remove_translations_for(foreign_locale)
+            @edition.destroy_associated(foreign_locale)
+          end
         end
 
         if @edition.link_check_reports.last
