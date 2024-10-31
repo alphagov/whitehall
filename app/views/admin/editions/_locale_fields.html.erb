@@ -1,4 +1,10 @@
 <div class="govuk-!-margin-bottom-8 app-view-edit-edition__locale-field js-locale-switcher-selector <%= "app-view-edit-edition__locale-field--hidden" unless edition.locale_can_be_changed? %>">
+  <%
+    locale_options = options_for_locales(Locale.non_english)
+    if form.object.primary_locale != "en"
+      locale_options = [%w[English en]] + locale_options
+    end
+  %>
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: "edition[create_foreign_language_only]",
     id: "edition_create_foreign_language_only",
@@ -19,7 +25,7 @@
           heading_size: "m",
           include_blank: true,
           errors: errors_for(edition.errors, :primary_locale),
-          options: options_for_locales(Locale.non_english).map do |language, value|
+          options: locale_options.map do |language, value|
             {
               text: language,
               value: value,

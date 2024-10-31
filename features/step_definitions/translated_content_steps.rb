@@ -12,6 +12,54 @@ Given(/^I have drafted a translatable document "([^"]*)" with a french translati
   end
 end
 
+When(/^I start creating a document where the locale can be changed$/) do
+  begin_drafting_document type: "document_collection", title: "Foo"
+end
+
+Then(/^I should see a "Foreign language only" checkbox$/) do
+  expect(page).to have_field("Create a foreign language only document collection")
+end
+
+Then(/^English should not appear on the list of language choices$/) do
+  expect(page).to_not have_selector("#edition_primary_locale option[value='en']")
+end
+
+When(/^I create a foreign language only document$/) do
+  begin_drafting_document type: "document_collection", locale: "Cymraeg (Welsh)", title: "Foreign Language Only"
+  click_button "Save and go to document summary"
+  expect(page).to have_content("This document is Welsh-only")
+end
+
+And(/^I return to the edit screen$/) do
+  click_link "Edit draft"
+end
+
+Then(/^the foreign language only box should be checked$/) do
+  expect(page).to have_field("edition[create_foreign_language_only]", checked: true)
+end
+
+Then(/^the foreign language only box should be unchecked$/) do
+  expect(page).to have_field("edition[create_foreign_language_only]", checked: false)
+end
+
+Then(/^English should appear as an option on the list of languages$/) do
+  expect(page).to have_selector("#edition_primary_locale option[value='en']")
+end
+
+Then(/^if I change the language to English$/) do
+  select "English", from: "Document language"
+  click_button "Save and go to document summary"
+end
+
+Then(/^the edition should return to being an English language only document$/) do
+  expect(page).to_not have_content("This document is Welsh-only")
+end
+
+And(/^the foreign translation should be deleted$/) do
+  edition = Edition.where(title: "Foreign Language Only").last
+  expect(edition.translations.map(&:locale)).to eq(%i[en])
+end
+
 When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |french_title, english_title|
   visit admin_edition_path(Edition.find_by!(title: english_title))
   click_link "Add translation"

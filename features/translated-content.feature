@@ -26,3 +26,21 @@ Feature: Providing translated content from gov.uk/government
     And the organisation "Wales Office" is translated into Welsh and has a contact "Wales Office, Cardiff"
     When I add a welsh translation "Cysylltwch â ni" to the "Wales Office, Cardiff" contact
     Then I should see on the admin organisation contacts page that "Wales Office, Cardiff" has a welsh translation "Cysylltwch â ni"
+
+  Scenario: No English option on 'foreign language only' list
+    Given I am a GDS editor
+    When I start creating a document where the locale can be changed
+    Then I should see a "Foreign language only" checkbox
+    And English should not appear on the list of language choices
+
+  Scenario: Switching back to English from a foreign language
+    Given I am a GDS editor
+    When I create a foreign language only document
+    And I return to the edit screen
+    Then the foreign language only box should be checked
+    And English should appear as an option on the list of languages
+    And if I change the language to English
+    Then the edition should return to being an English language only document
+    And the foreign translation should be deleted
+    When I return to the edit screen
+    Then the foreign language only box should be unchecked
