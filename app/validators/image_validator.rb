@@ -8,7 +8,6 @@ class ImageValidator < ActiveModel::Validator
   def initialize(options = {})
     super
     @method     = options[:method] || :file
-    @size       = options[:size] || nil
     @mime_types = options[:mime_types] || DEFAULT_MIME_TYPES
   end
 
@@ -16,6 +15,8 @@ class ImageValidator < ActiveModel::Validator
     return if file_for(record).blank?
     return unless File.exist?(file_for(record).path)
     return if file_for(record).file.content_type.match?(/svg/)
+
+    return unless validate_image_kind(record)
 
     begin
       image_path = file_for(record).path
@@ -39,12 +40,10 @@ private
   end
 
   def validate_size(record, image)
-    return unless @size || (record.valid_width && record.valid_height)
-
     actual_width = image[:width]
     actual_height = image[:height]
-    target_width = @size&.dig(0) || record.valid_width
-    target_height = @size&.dig(1) || record.valid_height
+    target_width = record.image_kind_config.valid_width
+    target_height = record.image_kind_config.valid_height
 
     too_small = actual_width < target_width || actual_height < target_height
     too_large = actual_width > target_width || actual_height > target_height
@@ -55,6 +54,15 @@ private
     problem = too_small ? "too small" : "too large"
     message = "is #{problem}. Select an image that is #{target_width} pixels wide and #{target_height} pixels tall"
     record.errors.add(@method, error_type, message:)
+  end
+
+  def validate_image_kind(record)
+    if record.image_kind_config.nil?
+      record.errors.add(@method, :invalid_kind, "is of image kind #{record.image_kind}, which is not configured")
+      false
+    else
+      true
+    end
   end
 
   def file_for(record)

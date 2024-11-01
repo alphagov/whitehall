@@ -28,22 +28,21 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert_validates_as_valid(subject, "960x640_gif.gif")
   end
 
-  test "with size option it should only accept original images of that size" do
-    subject = ImageValidator.new(size: [960, 640])
-
+  test "when model has image_kind = default it should only accept original images of that 960 x 640" do
+    subject = ImageValidator.new
     assert_validates_as_invalid(subject, "50x33_gif.gif")
     assert_validates_as_valid(subject, "960x640_jpeg.jpg")
   end
 
   test "error type is :too_small when the image is too small" do
-    subject = ImageValidator.new(size: [960, 640])
+    subject = ImageValidator.new
     too_small = build_example("50x33_gif.gif")
     subject.validate(too_small)
     assert too_small.errors.of_kind?(:file, :too_small)
   end
 
   test "error type is :too_large when the image is too large" do
-    subject = ImageValidator.new(size: [960, 640])
+    subject = ImageValidator.new
     too_large = build_example("960x960_jpeg.jpg")
     subject.validate(too_large)
     assert too_large.errors.of_kind?(:file, :too_large)
@@ -57,7 +56,7 @@ class ImageValidatorTest < ActiveSupport::TestCase
   end
 
   test "it allows SVG" do
-    subject = ImageValidator.new(size: [960, 640])
+    subject = ImageValidator.new
     assert_validates_as_valid(subject, "test-svg.svg")
   end
 

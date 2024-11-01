@@ -1,6 +1,8 @@
 require "mini_magick"
 
 class ImageData < ApplicationRecord
+  include ImageKind
+
   attr_accessor :validate_on_image
 
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
@@ -23,10 +25,6 @@ class ImageData < ApplicationRecord
 
   def filename
     file&.file&.filename
-  end
-
-  def image_kind
-    "default"
   end
 
   def auth_bypass_ids
