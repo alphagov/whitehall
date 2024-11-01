@@ -19,7 +19,11 @@
         src: @data_url,
         filename: @new_image.filename,
         type: @new_image.content_type,
+        dimensions: @valid_image_dimensions,
       } %>
+
+      <%# Pass the image dimensions back to the controller %>
+      <%= hidden_field_tag("valid_image_dimension_key", @valid_image_dimension_key) %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {

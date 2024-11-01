@@ -1,4 +1,14 @@
-<%= tag.div class: "app-c-image-cropper", tabindex: "0", data: {module: "image-cropper", filename:, type:}, "aria-live" => "polite" do %>
+<%= tag.div(
+  class: "app-c-image-cropper",
+  tabindex: "0",
+  data: {
+    module: "image-cropper",
+    filename:,
+    type:,
+    width: dimensions.width,
+    height: dimensions.height
+  },
+  "aria-live" => "polite") do %>
   <input type="file" class="js-cropped-image-input" name="<%= name %>" hidden>
   <%= tag.div class: "app-c-image-cropper__container" do %>
     <%= tag.img class: "app-c-image-cropper__image",

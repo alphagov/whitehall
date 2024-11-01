@@ -8,8 +8,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.$image = this.$imageCropper.querySelector(
       '.app-c-image-cropper__image'
     )
-    this.$targetWidth = 960
-    this.$targetHeight = 640
+    this.$targetWidth = parseInt(this.$imageCropper.dataset.width, 10)
+    this.$targetHeight = parseInt(this.$imageCropper.dataset.height, 10)
   }
 
   ImageCropper.prototype.init = function () {
