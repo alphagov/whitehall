@@ -73,7 +73,7 @@ private
   end
 
   def remove_other_translations_if_primary_locale_changed
-    return unless saved_change_to_primary_locale?
+    return unless saved_change_to_primary_locale? && translations.count == 2
 
     translations.each do |translation|
       translation.destroy! unless translation.locale.to_s == primary_locale

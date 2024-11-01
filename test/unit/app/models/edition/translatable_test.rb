@@ -113,4 +113,18 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert world_news_story.available_in_locale?(:fr)
     assert_not world_news_story.available_in_locale?(:en)
   end
+
+  test "changing primary locale of document that has lots of translations updates the primary locale of the translation but does not delete translations" do
+    world_news_story = create(
+      :news_article_world_news_story,
+      primary_locale: "en",
+    )
+    world_news_story.translations.create!(locale: "cy")
+    world_news_story.translations.create!(locale: "fr")
+    world_news_story.update!(primary_locale: "fr")
+    world_news_story.save!
+
+    assert_equal "fr", world_news_story.reload.primary_locale
+    assert_equal %i[en cy fr], world_news_story.reload.translations.map(&:locale)
+  end
 end
