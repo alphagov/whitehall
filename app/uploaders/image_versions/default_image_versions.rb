@@ -5,13 +5,13 @@ module ImageVersions
     extend ActiveSupport::Concern
 
     included do
-      Whitehall.image_kinds.each do |image_kind|
+      Whitehall.image_kinds.each do |image_kind, image_kind_config|
         use_versions_for_this_image_kind_proc = lambda do |uploader, opts|
           file = opts[:file]
-          uploader.model.image_kind == image_kind && bitmap?(file)
+          uploader.model.image_kind == image_kind && uploader.bitmap?(file)
         end
 
-        image_kind.versions.each do |v|
+        image_kind_config.versions.each do |v|
           version v.name, from_version: v.from_version, if: use_versions_for_this_image_kind_proc do
             process resize_to_fill: v.resize_to_fill
           end

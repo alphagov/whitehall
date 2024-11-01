@@ -27,7 +27,7 @@ module Whitehall
 
   class ImageKinds
     def self.build_image_kinds(hash)
-      hash.map { |name, config| ImageKind.new(name, config) }.freeze
+      hash.map { |name, config| [name, ImageKind.new(name, config)] }.to_h.freeze
     end
   end
 end

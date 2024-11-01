@@ -7,7 +7,7 @@ module ImageKind
     end
 
     def image_kind_config
-      @image_kind_config ||= Whitehall.image_kinds.find { _1.name == self.image_kind }
+      @image_kind_config ||= Whitehall.image_kinds.fetch(self.image_kind)
     end
   end
 end
