@@ -24,6 +24,7 @@ module ContentBlockManager
           publishing_app: item["publishing_app"],
           last_edited_by_editor_id: item["last_edited_by_editor_id"],
           last_edited_at: item["last_edited_at"],
+          unique_pageviews: item["unique_pageviews"],
         )
       end
     end
