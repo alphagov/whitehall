@@ -4,53 +4,18 @@ module ImageVersions
   module DefaultImageVersions
     extend ActiveSupport::Concern
 
-    VERSIONS = {
-      s960: {
-        width: 960,
-        height: 640,
-      },
-      s712: {
-        width: 712,
-        height: 480,
-        from_version: :s960,
-      },
-      s630: {
-        width: 630,
-        height: 420,
-        from_version: :s960,
-      },
-      s465: {
-        width: 465,
-        height: 310,
-        from_version: :s960,
-      },
-      s300: {
-        width: 300,
-        height: 195,
-        from_version: :s960,
-      },
-      s216: {
-        width: 216,
-        height: 140,
-        from_version: :s960,
-      },
-    }
-
     included do
-      use_default_versions_proc = -> (uploader, opts) do
-        uploader.use_default_versions?(version: opts[:version], file: opts[:file])
-      end
-
-      VERSIONS.each do |name, opts|
-        version name, from_version: opts[:from_version], if: use_default_versions_proc do
-          process resize_to_fill: opts.values_at(:width, :height)
+      Whitehall.image_kinds.each do |image_kind|
+        use_versions_for_this_image_kind_proc = lambda do |uploader, opts|
+          file = opts[:file]
+          uploader.model.image_kind == image_kind && bitmap?(file)
         end
-      end
 
-      def use_default_versions?(version:, file:)
-        result = bitmap?(file)
-        warn("use_default_versions?(#{version}, #{file}) -> #{result}")
-        result
+        image_kind.versions.each do |v|
+          version v.name, from_version: v.from_version, if: use_versions_for_this_image_kind_proc do
+            process resize_to_fill: v.resize_to_fill
+          end
+        end
       end
 
       def bitmap?(new_file)

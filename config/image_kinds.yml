@@ -1,0 +1,28 @@
+---
+default:
+  valid_width: 960
+  valid_height: 640
+  versions:
+  - name: s960
+    width: 960
+    height: 640
+  - name: s712
+    width: 712
+    height: 480
+    from_version: s960
+  - name: s630
+    width: 630
+    height: 420
+    from_version: s960
+  - name: s465
+    width: 465
+    height: 310
+    from_version: s960
+  - name: s300
+    width: 300
+    height: 195
+    from_version: s960
+  - name: s216
+    width: 216
+    height: 140
+    from_version: s960

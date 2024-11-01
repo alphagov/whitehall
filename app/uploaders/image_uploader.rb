@@ -11,7 +11,6 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg]
   end
 
-
   def image_cache
     if send("cache_id").present?
       file.file.gsub("/govuk/whitehall/carrierwave-tmp/", "")
