@@ -10,7 +10,19 @@ class ImageData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
+  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image do
+    def use_default_versions?(version:, file:)
+      warn("use_default_versions? valid_width = #{model.valid_width}")
+      case model.valid_width
+      when 960
+        warn("use_default_versions? calling super")
+        super
+      else
+        warn("Not using default versions, this image has weird dimensions")
+        false
+      end
+    end
+  end
 
   validates :valid_width, presence: true
   validates :valid_height, presence: true
