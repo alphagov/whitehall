@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/alphagov/govspeak.git
-  revision: e94331a79928cceadbbeb19e4f307ab3ddd53935
+  revision: e3cf58dd9396cb964376253993089167372b5ab9
   branch: integration-testing
   specs:
     govspeak (8.6.0)
