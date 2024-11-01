@@ -4,28 +4,47 @@ module ImageVersions
   module DefaultImageVersions
     extend ActiveSupport::Concern
 
+    VERSIONS = {
+      s960: {
+        width: 960,
+        height: 640,
+      },
+      s712: {
+        width: 712,
+        height: 480,
+        from_version: :s960,
+      },
+      s630: {
+        width: 630,
+        height: 420,
+        from_version: :s960,
+      },
+      s465: {
+        width: 465,
+        height: 310,
+        from_version: :s960,
+      },
+      s300: {
+        width: 300,
+        height: 195,
+        from_version: :s960,
+      },
+      s216: {
+        width: 216,
+        height: 140,
+        from_version: :s960,
+      },
+    }
+
     included do
       use_default_versions_proc = -> (uploader, opts) do
-        uploader.use_default_versions?(**opts)
+        uploader.use_default_versions?(version: opts[:version], file: opts[:file])
       end
 
-      version :s960, if: use_default_versions_proc do
-        process resize_to_fill: [960, 640]
-      end
-      version :s712, from_version: :s960, if: use_default_versions_proc do
-        process resize_to_fill: [712, 480]
-      end
-      version :s630, from_version: :s960, if: use_default_versions_proc do
-        process resize_to_fill: [630, 420]
-      end
-      version :s465, from_version: :s960, if: use_default_versions_proc do
-        process resize_to_fill: [465, 310]
-      end
-      version :s300, from_version: :s960, if: use_default_versions_proc do
-        process resize_to_fill: [300, 195]
-      end
-      version :s216, from_version: :s960, if: use_default_versions_proc do
-        process resize_to_fill: [216, 140]
+      VERSIONS.each do |name, opts|
+        version name, from_version: opts[:from_version], if: use_default_versions_proc do
+          process resize_to_fill: opts.values_at(:width, :height)
+        end
       end
 
       def use_default_versions?(version:, file:)
