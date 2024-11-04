@@ -37,6 +37,9 @@ class Admin::EditionImagesController < Admin::BaseController
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
     elsif new_image_needs_cropping?
+      image_kind_config = @new_image.image_data.image_kind_config
+      @valid_width = image_kind_config.valid_width
+      @valid_height = image_kind_config.valid_height
       @data_url = image_data_url
       render :crop
     else

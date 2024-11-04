@@ -14,11 +14,15 @@
       <p>If you need to crop your image, use your cursor or the arrow keys and “<kbd>+</kbd>” and “<kbd>-</kbd>” to select a part of the image. The part you select will be resized for GOV.UK. The shape is fixed.</p>
      </div>
 
+      <%= hidden_field_tag("image[image_data][image_kind]", @new_image.image_data.image_kind) %>
+
       <%= render "components/image_cropper", {
         name: "image[image_data][file]",
         src: @data_url,
         filename: @new_image.filename,
         type: @new_image.content_type,
+        width: @valid_width,
+        height: @valid_height,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
