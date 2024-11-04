@@ -1,6 +1,8 @@
 class TopicalEventFeaturingImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
 
+  include ImageKind
+
   has_one :topical_event_featuring, inverse_of: :image
   has_many :assets,
            as: :assetable,
@@ -8,7 +10,7 @@ class TopicalEventFeaturingImageData < ApplicationRecord
 
   validates :file, presence: true
 
-  validates_with ImageValidator, size: [960, 640]
+  validates_with ImageValidator
 
   delegate :url, to: :file
 

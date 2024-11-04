@@ -1,7 +1,10 @@
 require "test_helper"
+require_relative "../../../../lib/whitehall/image_kinds"
 
 class ImageValidatorTest < ActiveSupport::TestCase
-  EXAMPLE_MODEL = ImageData
+  def setup
+    @example_model = ImageData
+  end
 
   test "should accept a good jpeg image" do
     assert_validates_as_valid(ImageValidator.new, "960x640_jpeg.jpg")
@@ -28,22 +31,44 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert_validates_as_valid(subject, "960x640_gif.gif")
   end
 
-  test "with size option it should only accept original images of that size" do
-    subject = ImageValidator.new(size: [960, 640])
+  test "with image kind config on the model it should only accept original images of a valid size" do
+    @example_model = Class.new(ImageData) do
+      def image_kind_config
+        Whitehall::ImageKind.new(
+          "some image kind",
+          "display_name" => "some image kind display name",
+          "valid_width" => 50,
+          "valid_height" => 33,
+          "versions" => [],
+        )
+      end
+    end
 
-    assert_validates_as_invalid(subject, "50x33_gif.gif")
+    subject = ImageValidator.new
+
+    assert_validates_as_valid(subject, "50x33_gif.gif")
+    assert_validates_as_invalid(subject, "960x640_jpeg.jpg")
+  end
+
+  test "accepts any size if the model does not have image kind config" do
+    @example_model = Class.new(ImageData) do
+      undef_method :image_kind_config
+    end
+
+    subject = ImageValidator.new
+    assert_validates_as_valid(subject, "50x33_gif.gif")
     assert_validates_as_valid(subject, "960x640_jpeg.jpg")
   end
 
   test "error type is :too_small when the image is too small" do
-    subject = ImageValidator.new(size: [960, 640])
+    subject = ImageValidator.new
     too_small = build_example("50x33_gif.gif")
     subject.validate(too_small)
     assert too_small.errors.of_kind?(:file, :too_small)
   end
 
   test "error type is :too_large when the image is too large" do
-    subject = ImageValidator.new(size: [960, 640])
+    subject = ImageValidator.new
     too_large = build_example("960x960_jpeg.jpg")
     subject.validate(too_large)
     assert too_large.errors.of_kind?(:file, :too_large)
@@ -78,13 +103,13 @@ private
   def build_example(file_name)
     if file_name.present?
       File.open(Rails.root.join("test/fixtures/images", file_name)) do |file|
-        EXAMPLE_MODEL.new(file:).tap do |image_data|
+        @example_model.new(file:).tap do |image_data|
           carrierwave_file = image_data.file.file
           carrierwave_file.content_type = content_type(file_name)
         end
       end
     else
-      EXAMPLE_MODEL.new
+      @example_model.new
     end
   end
 
