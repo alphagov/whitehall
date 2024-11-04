@@ -42,6 +42,11 @@ gem "pdf-reader"
 gem "plek"
 gem "ptools"
 gem "rack"
+# TODO: remove after next version of Puma is released
+# See https://github.com/puma/puma/pull/3532
+# `require: false` is needed because you can't actually `require "rackup"`
+# due to a different bug: https://github.com/rack/rackup/commit/d03e1789
+gem "rackup", "1.0.0", require: false
 gem "rails-i18n"
 gem "rails_translation_manager"
 gem "rake"
