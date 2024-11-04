@@ -32,6 +32,10 @@ module Whitehall
     def deconstruct_keys(_keys)
       { name:, display_name:, valid_width:, valid_height:, versions: }
     end
+
+    def version_names
+      versions.map(&:name)
+    end
   end
 
   class ImageKinds

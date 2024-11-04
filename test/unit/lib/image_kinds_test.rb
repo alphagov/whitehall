@@ -36,6 +36,25 @@ class ImageKindsTest < ActiveSupport::TestCase
     end
   end
 
+  test "gets version names" do
+    result = Whitehall::ImageKinds.build_image_kinds(
+      "default" => {
+        "display_name" => "default display name",
+        "valid_width" => 0,
+        "valid_height" => 0,
+        "versions" => %w[a b c d e f g].map do
+          {
+            "name" => _1,
+            "width" => 0,
+            "height" => 0,
+          }
+        end,
+      },
+    )
+
+    assert_equal %w[a b c d e f g], result["default"].version_names
+  end
+
   test "raises errors when given invalid config" do
     # Missing display_name / valid_width / valid_height / versions keys
     assert_raise(KeyError, "key not found") { Whitehall::ImageKinds.build_image_kinds("default" => {}) }
