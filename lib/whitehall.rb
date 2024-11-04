@@ -195,6 +195,10 @@ module Whitehall
       YAML.load_file(Rails.root.join("config/worldwide_tagging_organisations.yml"))
   end
 
+  def self.image_kinds
+    @image_kinds ||= ImageKinds.build_image_kinds(YAML.load_file(Rails.root.join("config/image_kinds.yml")))
+  end
+
   def self.integration_or_staging?
     website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")
     %w[integration staging].any? { |environment| website_root.include?(environment) }
