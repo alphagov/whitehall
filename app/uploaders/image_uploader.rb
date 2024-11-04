@@ -10,23 +10,16 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg]
   end
 
-  version :s960, if: :bitmap? do
-    process resize_to_fill: [960, 640]
-  end
-  version :s712, from_version: :s960, if: :bitmap? do
-    process resize_to_fill: [712, 480]
-  end
-  version :s630, from_version: :s960, if: :bitmap? do
-    process resize_to_fill: [630, 420]
-  end
-  version :s465, from_version: :s960, if: :bitmap? do
-    process resize_to_fill: [465, 310]
-  end
-  version :s300, from_version: :s960, if: :bitmap? do
-    process resize_to_fill: [300, 195]
-  end
-  version :s216, from_version: :s960, if: :bitmap? do
-    process resize_to_fill: [216, 140]
+  Whitehall.image_kinds.each do |image_kind, image_kind_config|
+    use_versions_for_this_image_kind_proc = lambda do |uploader, opts|
+      uploader.model.image_kind == image_kind && uploader.bitmap?(opts[:file])
+    end
+
+    image_kind_config.versions.each do |v|
+      version v.name, from_version: v.from_version&.to_sym, if: use_versions_for_this_image_kind_proc do
+        process resize_to_fill: v.resize_to_fill
+      end
+    end
   end
 
   def bitmap?(new_file)
