@@ -6,6 +6,7 @@ private
       {
         key: item[:field],
         value: item[:value],
+        data: item[:data],
       }
     end
   end

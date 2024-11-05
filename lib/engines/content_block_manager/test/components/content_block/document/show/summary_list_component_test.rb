@@ -39,6 +39,8 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
     assert_selector ".govuk-summary-list__key", text: "Creator"
     assert_selector ".govuk-summary-list__value", text: content_block_edition.creator.name
 
+    assert_selector ".govuk-summary-list__row[data-module='copy-embed-code']", text: "Embed code"
+    assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_document.embed_code}']", text: "Embed code"
     assert_selector ".govuk-summary-list__key", text: "Embed code"
     assert_selector ".govuk-summary-list__value", text: content_block_document.embed_code
 
