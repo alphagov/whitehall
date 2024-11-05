@@ -60,7 +60,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
       assert_selector "tbody .govuk-table__cell", text: host_content_item.title
       assert_selector "tbody .govuk-table__cell", text: host_content_item.document_type.humanize
-      assert_selector "tbody .govuk-table__cell", text: "1.2 Million"
+      assert_selector "tbody .govuk-table__cell", text: "1.2m"
       assert_selector "tbody .govuk-table__cell", text: host_content_item.publishing_organisation["title"]
       assert_selector "tbody .govuk-table__cell", text: "#{time_ago_in_words(host_content_item.last_edited_at)} ago by #{user.name}"
       assert_link user.name, { href: "mailto:#{user.email}" }
