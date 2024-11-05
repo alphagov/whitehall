@@ -58,8 +58,12 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
       assert_selector "tbody .govuk-table__row", count: 1
 
-      assert_selector "tbody .govuk-table__cell", text: host_content_item.title
-      assert_selector "a[href='#{Plek.external_url_for('government-frontend') + host_content_item.base_path}']", text: host_content_item.title
+      assert_selector ".govuk-link" do |link|
+        assert_equal "#{host_content_item.title} (opens in new tab)", link.text
+        assert_equal Plek.external_url_for("government-frontend") + host_content_item.base_path, link[:href]
+        assert_equal "noopener", link[:rel]
+        assert_equal "_blank", link[:target]
+      end
       assert_selector "tbody .govuk-table__cell", text: host_content_item.document_type.humanize
       assert_selector "tbody .govuk-table__cell", text: "1.2m"
       assert_selector "tbody .govuk-table__cell", text: host_content_item.publishing_organisation["title"]

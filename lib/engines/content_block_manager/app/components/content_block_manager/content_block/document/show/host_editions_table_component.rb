@@ -52,8 +52,16 @@ private
     end
   end
 
+  def content_link_text(content_item)
+    sanitize [
+      content_item.title,
+      tag.span("(opens in new tab)", class: "govuk-visually-hidden"),
+    ].join(" ")
+  end
+
   def content_link(content_item)
-    link_to(content_item.title, frontend_path(content_item), class: "govuk-link")
+    link_to(content_link_text(content_item),
+            frontend_path(content_item), class: "govuk-link", target: "_blank", rel: "noopener")
   end
 
   def organisation_link(content_item)
