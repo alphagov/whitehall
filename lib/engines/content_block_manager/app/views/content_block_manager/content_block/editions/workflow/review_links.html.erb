@@ -13,6 +13,7 @@
   <div class="govuk-grid-column-full">
     <%= render(
           ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent.new(
+            is_preview: true,
             caption: "Content it appears in",
             host_content_items: @host_content_items,
             ),
