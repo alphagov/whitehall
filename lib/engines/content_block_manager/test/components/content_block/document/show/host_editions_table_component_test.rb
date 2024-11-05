@@ -60,7 +60,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
       assert_selector ".govuk-link" do |link|
         assert_equal "#{host_content_item.title} (opens in new tab)", link.text
-        assert_equal Plek.external_url_for("government-frontend") + host_content_item.base_path, link[:href]
+        assert_equal Plek.website_root + host_content_item.base_path, link[:href]
         assert_equal "noopener", link[:rel]
         assert_equal "_blank", link[:target]
       end
