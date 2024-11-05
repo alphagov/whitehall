@@ -48,7 +48,7 @@ private
     if @is_preview
       Plek.external_url_for("draft-origin") + content_item.base_path
     else
-      Plek.external_url_for("government-frontend") + content_item.base_path
+      Plek.website_root + content_item.base_path
     end
   end
 
