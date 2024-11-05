@@ -83,7 +83,7 @@ end
 Then("I should see a back link to the edit page") do
   expect(page).to have_link(
     "Back",
-    href: content_block_manager.new_content_block_manager_content_block_edition_path(@content_block.document),
+    href: content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document),
   )
 end
 

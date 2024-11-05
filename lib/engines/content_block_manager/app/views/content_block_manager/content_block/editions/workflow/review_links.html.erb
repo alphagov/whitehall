@@ -3,7 +3,7 @@
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: content_block_manager.new_content_block_manager_content_block_edition_path(@content_block_document.id),
+    href: content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block_document),
   } %>
 <% end %>
 
