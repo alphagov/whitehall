@@ -20,7 +20,7 @@ module PublishingApi
         details:,
         document_type: "take_part",
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::FRONTEND,
         schema_name: "take_part",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
