@@ -420,6 +420,7 @@ When(/^dependent content exists for a content block$/) do
       "content_id" => SecureRandom.uuid,
       "last_edited_by_editor_id" => SecureRandom.uuid,
       "last_edited_at" => 2.days.ago.to_s,
+      "host_content_id" => "abc12345",
       "primary_publishing_organisation" => {
         "content_id" => SecureRandom.uuid,
         "title" => "Organisation #{i}",
@@ -451,6 +452,16 @@ Then(/^I am shown where the changes will take place$/) do
     assert_text item["title"]
     break if item == @dependent_content.last
   end
+end
+
+And("the host documents link to the draft content store") do
+  @dependent_content.each do |item|
+    expect(page).to have_selector("a.govuk-link[href='#{Plek.external_url_for('draft-origin') + item['base_path']}']", text: item["title"])
+  end
+end
+
+When("I click on the first host document") do
+  click_on @dependent_content.first["title"]
 end
 
 When(/^I save and continue$/) do

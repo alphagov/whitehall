@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent < ViewComponent::Base
-  def initialize(caption:, host_content_items:)
+  def initialize(caption:, host_content_items:, is_preview: false)
     @caption = caption
     @host_content_items = host_content_items
+    @is_preview = is_preview
   end
 
 private
@@ -43,8 +44,24 @@ private
     @users ||= User.where(uid: host_content_items.map(&:last_edited_by_editor_id))
   end
 
+  def frontend_path(content_item)
+    if @is_preview
+      Plek.external_url_for("draft-origin") + content_item.base_path
+    else
+      Plek.external_url_for("government-frontend") + content_item.base_path
+    end
+  end
+
+  def content_link_text(content_item)
+    sanitize [
+      content_item.title,
+      tag.span("(opens in new tab)", class: "govuk-visually-hidden"),
+    ].join(" ")
+  end
+
   def content_link(content_item)
-    link_to(content_item.title, Plek.website_root + content_item.base_path, class: "govuk-link")
+    link_to(content_link_text(content_item),
+            frontend_path(content_item), class: "govuk-link", target: "_blank", rel: "noopener")
   end
 
   def organisation_link(content_item)
