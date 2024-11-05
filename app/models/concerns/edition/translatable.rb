@@ -25,7 +25,7 @@ module Edition::Translatable
       on: :update,
     )
     before_validation(
-      :remove_other_translations_if_primary_locale_no_longer_english,
+      :remove_other_translations_if_primary_locale_changed,
       on: :update,
     )
 
@@ -72,9 +72,11 @@ private
     end
   end
 
-  def remove_other_translations_if_primary_locale_no_longer_english
-    if translations.count > 1 && translations.first.locale != :en
-      translations[1..].each(&:destroy)
+  def remove_other_translations_if_primary_locale_changed
+    return unless saved_change_to_primary_locale? && translations.count == 2
+
+    translations.each do |translation|
+      translation.destroy! unless translation.locale.to_s == primary_locale
     end
   end
 
