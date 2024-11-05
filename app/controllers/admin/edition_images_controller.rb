@@ -93,6 +93,6 @@ private
   end
 
   def image_params
-    params.fetch(:image, {}).permit(image_data: [:file])
+    params.fetch(:image, {}).permit(image_data: %i[file image_kind])
   end
 end

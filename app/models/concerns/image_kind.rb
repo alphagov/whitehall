@@ -3,7 +3,7 @@ module ImageKind
 
   included do
     def image_kind
-      "default"
+      attributes.fetch("image_kind", "default")
     end
 
     def image_kind_config
