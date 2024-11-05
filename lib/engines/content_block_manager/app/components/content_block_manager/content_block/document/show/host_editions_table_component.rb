@@ -22,6 +22,9 @@ private
           text: content_item.document_type.humanize,
         },
         {
+          text: content_item.unique_pageviews ? number_to_human(content_item.unique_pageviews) : nil,
+        },
+        {
           text: organisation_link(content_item),
         },
         {

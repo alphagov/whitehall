@@ -16,6 +16,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
     }
   end
   let(:last_edited_by_editor_id) { user.uid }
+  let(:unique_pageviews) { 1_200_000 }
 
   let(:host_content_item) do
     ContentBlockManager::HostContentItem.new(
@@ -26,6 +27,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "last_edited_by_editor_id" => last_edited_by_editor_id,
       "last_edited_at" => Time.zone.now.to_s,
       "publishing_organisation" => publishing_organisation,
+      "unique_pageviews" => unique_pageviews,
     )
   end
   let(:host_content_items) { [host_content_item] }
@@ -58,6 +60,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
       assert_selector "tbody .govuk-table__cell", text: host_content_item.title
       assert_selector "tbody .govuk-table__cell", text: host_content_item.document_type.humanize
+      assert_selector "tbody .govuk-table__cell", text: "1.2 Million"
       assert_selector "tbody .govuk-table__cell", text: host_content_item.publishing_organisation["title"]
       assert_selector "tbody .govuk-table__cell", text: "#{time_ago_in_words(host_content_item.last_edited_at)} ago by #{user.name}"
       assert_link user.name, { href: "mailto:#{user.email}" }
@@ -133,6 +136,21 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       let(:last_edited_by_editor_id) { SecureRandom.uuid }
 
       it_returns_unknown_user
+    end
+
+    context "when unique pageviews can't be found" do
+      let(:unique_pageviews) { nil }
+
+      it "displays not found" do
+        render_inline(
+          described_class.new(
+            caption:,
+            host_content_items:,
+          ),
+        )
+
+        assert_selector "tbody .govuk-table__cell", text: "Not set"
+      end
     end
   end
 end
