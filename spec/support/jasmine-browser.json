@@ -4,9 +4,10 @@
     "application-*.js",
     "all-*.js"
   ],
-  "specDir": "spec/javascripts",
+  "specDir": ".",
   "specFiles": [
-    "**/*[sS]pec.js"
+    "spec/javascripts/**/*[sS]pec.js",
+    "lib/engines/**/spec/**/*[sS]pec.js"
   ],
   "helpers": [
     "https://unpkg.com/jasmine-ajax@4.0.0/lib/mock-ajax.js",
