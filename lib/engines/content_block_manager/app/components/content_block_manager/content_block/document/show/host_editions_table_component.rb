@@ -22,7 +22,7 @@ private
           text: content_item.document_type.humanize,
         },
         {
-          text: content_item.unique_pageviews ? number_to_human(content_item.unique_pageviews) : nil,
+          text: content_item.unique_pageviews ? number_to_human(content_item.unique_pageviews, format: "%n%u", precision: 3, significant: true, units: { thousand: "k", million: "m", billion: "b" }) : nil,
         },
         {
           text: organisation_link(content_item),
