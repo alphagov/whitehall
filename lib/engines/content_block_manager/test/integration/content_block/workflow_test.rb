@@ -25,8 +25,6 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
     stub_request_for_schema("email_address")
 
-    feature_flags.switch!(:content_block_manager, true)
-
     stub_publishing_api_has_embedded_content(content_id: @content_id, total: 0, results: [])
   end
 

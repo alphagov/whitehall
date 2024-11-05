@@ -9,7 +9,6 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
 
   before do
     login_as_admin
-    feature_flags.switch!(:content_block_manager, true)
   end
 
   describe "#new" do

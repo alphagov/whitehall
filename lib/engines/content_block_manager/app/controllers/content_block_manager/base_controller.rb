@@ -1,8 +1,9 @@
 class ContentBlockManager::BaseController < Admin::BaseController
-  before_action :check_block_manager_feature_flag, :set_sentry_tags, :prepend_views
+  before_action :check_block_manager_permissions, :set_sentry_tags, :prepend_views
 
-  def check_block_manager_feature_flag
-    forbidden! unless Flipflop.content_block_manager?
+  def check_block_manager_permissions
+    # Temporarily disable production access for non-admin users
+    forbidden! unless Whitehall.integration_or_staging? || current_user.gds_admin?
   end
 
   def scheduled_publication_params

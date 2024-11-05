@@ -8,7 +8,6 @@ end
 
 class ContentBlockManager::BaseTest < ActionDispatch::IntegrationTest
   setup do
-    feature_flags.switch!(:content_block_manager, true)
     login_as_admin
 
     @controller = TestController.new

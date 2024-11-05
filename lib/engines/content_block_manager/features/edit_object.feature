@@ -1,7 +1,6 @@
 Feature: Edit a content object
   Background:
-    Given the content block manager feature flag is enabled
-    And I am a GDS admin
+    Given I am a GDS admin
     And the organisation "Ministry of Example" exists
     And a schema "email_address" exists with the following fields:
       | field         | type   | format | required |

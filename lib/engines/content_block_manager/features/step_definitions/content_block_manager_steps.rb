@@ -5,9 +5,8 @@ Sidekiq.configure_client do |cfg|
   cfg.logger.level = ::Logger::WARN
 end
 
-Given(/^the content block manager feature flag is (enabled|disabled)$/) do |enabled|
-  @test_strategy ||= Flipflop::FeatureSet.current.test!
-  @test_strategy.switch!(:content_block_manager, enabled == "enabled")
+Given("I am in the staging or integration environment") do
+  Whitehall.stubs(:integration_or_staging?).returns(true)
 end
 
 Given("a schema {string} exists with the following fields:") do |block_type, table|
@@ -591,4 +590,8 @@ end
 
 Then(/^I should not see the draft document$/) do
   expect(page).not_to have_content(@title)
+end
+
+Then("I should see the content block manager home page") do
+  expect(page).to have_content("All content blocks")
 end
