@@ -18,12 +18,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       }
     }
     // NOTE: This is currently very specifically overriding the body field
-    //       in the edit edition form. If we actually wanted a YamlEditor,
+    //       in the edition form. If we actually wanted a YamlEditor,
     //       we would probably want it to be more general than this.
     //
     //       This should just be temporary code for the landing pages, while
     //       we work out a CMS though. So for now it's okay to be specific.
-    const form = this.module.querySelector('form#edit_edition')
+    const form = this.module.querySelector('form.edition-form')
     const outerContainer = form?.querySelector(
       '.app-c-govspeak-editor:has(#edition_body)'
     )
