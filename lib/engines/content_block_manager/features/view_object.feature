@@ -20,3 +20,11 @@ Feature: View a content object
     And I click to view the document
     Then I should see the dependent content listed
 
+  @javascript
+  Scenario: GDS Editor can copy embed code
+    When I visit the Content Block Manager home page
+    Then I should see the details for all documents
+    When I click to view the document
+    And I click to copy the embed code
+    Then the embed code should be copied to my clipboard
+

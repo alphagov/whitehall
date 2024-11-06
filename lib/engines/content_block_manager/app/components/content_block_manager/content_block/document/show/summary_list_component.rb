@@ -23,6 +23,10 @@ private
     {
       field: "Embed code",
       value: content_block_document.embed_code,
+      data: {
+        module: "copy-embed-code",
+        "embed-code": content_block_document.embed_code,
+      },
     }
   end
 

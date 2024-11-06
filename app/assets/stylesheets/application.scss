@@ -49,7 +49,7 @@ $govuk-page-width: 1140px;
 @import "./admin/views/whats-new";
 @import "./admin/views/worldwide-organisations-choose-main-office";
 
-@import "../../../lib/engines/content_block_manager/app/assets/stylesheets/content_block_manager/application";
+@import "./content_block_manager/application";
 
 .app-js-only {
   display: none;
