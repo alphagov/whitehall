@@ -18,7 +18,6 @@ window.GOVUK.analyticsGa4.analyticsModules =
             event_name: 'navigation',
             type: 'button',
             text: button.textContent,
-            action: button.textContent,
             method: 'primary_click'
           }
           if (button.dataset.ga4Event) {
