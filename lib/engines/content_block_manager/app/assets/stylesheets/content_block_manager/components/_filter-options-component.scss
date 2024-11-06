@@ -1,0 +1,62 @@
+.app-c-content-block-manager-filter-options {
+  .govuk-accordion__section-toggle,
+  .govuk-accordion__controls .govuk-accordion-nav__chevron {
+    @include govuk-visually-hidden;
+  }
+
+  @mixin chevron($dir) {
+    &:before {
+      border-style: solid;
+      border-width: 0.2em 0.2em 0 0;
+      content: "";
+      display: inline-block;
+      height: 0.45em;
+      left: 0.15em;
+      position: relative;
+      vertical-align: top;
+      width: 0.45em;
+
+      @include govuk-responsive-margin(3, "right");
+
+      @if $dir == "down" {
+        top: 0.2em;
+        transform: rotate(135deg);
+      }
+
+      @if $dir == "up" {
+        top: 0.35em;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .govuk-accordion__controls {
+    .govuk-accordion__show-all {
+      .govuk-accordion__show-all-text {
+        @include govuk-font($size: 19, $weight: bold);
+        color: govuk-colour("black");
+        @include chevron("down");
+      }
+
+      &[aria-expanded="true"] {
+        .govuk-accordion__show-all-text {
+          @include chevron("up");
+        }
+      }
+    }
+  }
+
+  .govuk-accordion__section-button {
+    .govuk-accordion__section-heading-text {
+      @include govuk-font($size: 19, $weight: bold);
+
+      @include chevron("down");
+    }
+
+    &[aria-expanded="true"] {
+      .govuk-accordion__section-heading-text {
+        @include chevron("up");
+      }
+    }
+  }
+}

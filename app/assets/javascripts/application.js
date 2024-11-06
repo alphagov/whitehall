@@ -2,6 +2,7 @@
 
 //= require govuk_publishing_components/dependencies
 //= require govuk_publishing_components/analytics-ga4
+//= require govuk_publishing_components/components/accordion
 //= require govuk_publishing_components/components/copy-to-clipboard
 //= require govuk_publishing_components/components/govspeak
 //= require govuk_publishing_components/components/reorderable-list
