@@ -584,7 +584,9 @@ end
 
 Then(/^I should still see the live edition on the homepage$/) do
   within(".govuk-summary-card", text: @content_block.document.title) do
-    expect(page).to have_content("Published")
+    @content_block.details.keys.each do |key|
+      expect(page).to have_content(@content_block.details[key])
+    end
   end
 end
 
