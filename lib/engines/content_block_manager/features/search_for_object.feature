@@ -1,9 +1,9 @@
 Feature: Search for a content object
   Background:
-    Given the content block manager feature flag is enabled
+    Given I am in the staging or integration environment
     And the organisation "Department of Placeholder" exists
     And the organisation "Ministry of Example" exists
-    Given I am an admin in the organisation "Department of Placeholder"
+    And I am an admin in the organisation "Department of Placeholder"
     And a schema "email_address" exists with the following fields:
       | email_address |
     And a schema "postal_address" exists with the following fields:

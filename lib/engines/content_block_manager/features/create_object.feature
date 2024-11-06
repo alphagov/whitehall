@@ -1,7 +1,6 @@
 Feature: Create a content object
 
   Background:
-    Given the content block manager feature flag is enabled
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
     And a schema "email_address" exists with the following fields:

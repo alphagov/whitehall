@@ -9,10 +9,8 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
   setup do
     logout
     @organisation = create(:organisation)
-    user = create(:user, organisation: @organisation)
+    user = create(:gds_admin, organisation: @organisation)
     login_as(user)
-
-    feature_flags.switch!(:content_block_manager, true)
   end
 
   describe "#index" do
