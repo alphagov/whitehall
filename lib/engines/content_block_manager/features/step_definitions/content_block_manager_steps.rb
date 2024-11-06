@@ -340,7 +340,7 @@ def should_show_summary_list_for_email_address_content_block(document_title, ema
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
   expect(page).to have_selector(".govuk-summary-list__value", text: organisation)
-  expect(page).to have_selector(".govuk-summary-list__key", text: "Creator")
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Last updated")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
 end
