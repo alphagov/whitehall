@@ -49,7 +49,9 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
       document_mock = mock
 
       ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_mock)
-      document_mock.expects(:with_lead_organisation).with(@organisation.id.to_s).returns([document_with_latest_edition])
+      document_mock.expects(:joins).with(:latest_edition).returns(document_mock)
+      document_mock.expects(:with_lead_organisation).with(@organisation.id.to_s).returns(document_mock)
+      document_mock.expects(:order).with("content_block_editions.updated_at DESC").returns([document_with_latest_edition])
 
       visit content_block_manager.content_block_manager_content_block_documents_path
 
