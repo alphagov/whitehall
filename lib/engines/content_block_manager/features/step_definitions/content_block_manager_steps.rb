@@ -244,7 +244,7 @@ And("no draft Content Block Document has been created") do
 end
 
 Then("I should see the details for all documents") do
-  assert_text "All content blocks"
+  assert_text "Content Block Manager"
 
   ContentBlockManager::ContentBlock::Document.find_each do |document|
     should_show_summary_card_for_email_address_content_block(
@@ -595,7 +595,7 @@ Then(/^I should not see the draft document$/) do
 end
 
 Then("I should see the content block manager home page") do
-  expect(page).to have_content("All content blocks")
+  expect(page).to have_content("Content Block Manager")
 end
 
 When("I click to copy the embed code") do
