@@ -24,6 +24,9 @@ window.GOVUK.analyticsGa4.analyticsModules =
             Object.assign(event, JSON.parse(button.dataset.ga4Event))
           }
           button.dataset.ga4Event = JSON.stringify(event)
+          button.dataset.module =
+            (button.dataset.module || '') + ' ga4-event-tracker'
+          GOVUK.modules.start(button)
         })
       })
     }
