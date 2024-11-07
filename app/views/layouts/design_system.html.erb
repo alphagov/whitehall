@@ -14,7 +14,7 @@
 <%= render "govuk_publishing_components/components/layout_for_admin",
            product_name:,
            environment: environment,
-           browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitized_title do %>
+           browser_title: controller_name do %>
 
   <div data-module="ga4-page-view-tracking" data-attributes='<%= track_analytics_data_on_load(sanitized_title) %>'></div>
 
