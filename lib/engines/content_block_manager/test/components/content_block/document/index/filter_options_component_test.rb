@@ -9,6 +9,7 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
     ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.any_instance.stubs(:helpers).returns(helper_mock)
     helper_mock.stubs(:content_block_manager).returns(helper_mock)
     helper_mock.stubs(:content_block_manager_content_block_documents_path).returns("path")
+    helper_mock.stubs(:content_block_manager_root_path).returns("path")
 
     helper_mock.stubs(:taggable_organisations_container).returns(
       [["Department of Placeholder", 1], ["Ministry of Example", 2]],

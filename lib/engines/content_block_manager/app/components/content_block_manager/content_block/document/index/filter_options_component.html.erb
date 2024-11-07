@@ -60,8 +60,15 @@
     ],
   } %>
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "View results",
-    margin_bottom: 4,
-  } %>
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "View results",
+      margin_bottom: 4,
+    } %>
+
+    <%= link_to "Reset all fields",
+                helpers.content_block_manager.content_block_manager_root_path(reset_fields: true),
+                class: "govuk-link" %>
+  </div>
+
 <% end %>
