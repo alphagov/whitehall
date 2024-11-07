@@ -33,7 +33,7 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
     call_for_evidence_participation = build(:call_for_evidence_participation)
     call_for_evidence_response_form = build(:call_for_evidence_response_form, call_for_evidence_participation:)
     call_for_evidence_response_form_data = create(:call_for_evidence_response_form_data, call_for_evidence_response_form:)
-    Sidekiq::Worker.clear_all
+    Sidekiq::Job.clear_all
 
     filename = "greenpaper.pdf"
     response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }

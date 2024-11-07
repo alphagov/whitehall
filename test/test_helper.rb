@@ -66,7 +66,7 @@ class ActiveSupport::TestCase
   setup do
     @feature_flags = Flipflop::FeatureSet.current.test!
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
-    Sidekiq::Worker.clear_all
+    Sidekiq::Job.clear_all
     stub_any_publishing_api_call
     stub_publishing_api_publish_intent
     Services.stubs(:asset_manager).returns(stub_everything("asset-manager"))
@@ -74,7 +74,7 @@ class ActiveSupport::TestCase
 
   teardown do
     Timecop.return
-    Sidekiq::Worker.clear_all
+    Sidekiq::Job.clear_all
   end
 
   def acting_as(actor, &block)

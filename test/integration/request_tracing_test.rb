@@ -37,7 +37,7 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
       force_publish(@draft_edition, inbound_headers)
 
       # Simulate each worker running in a separate thread
-      worker_classes = Sidekiq::Worker.jobs.map { |job| job["class"] }.uniq.map(&:constantize)
+      worker_classes = Sidekiq::Job.jobs.map { |job| job["class"] }.uniq.map(&:constantize)
       worker_classes.each do |worker_class|
         while worker_class.jobs.any?
           GdsApi::GovukHeaders.clear_headers

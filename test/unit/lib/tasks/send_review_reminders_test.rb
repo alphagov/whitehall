@@ -3,7 +3,7 @@ require "rake"
 
 class SendReviewRemindersTest < ActiveSupport::TestCase
   teardown do
-    Sidekiq::Worker.clear_all
+    Sidekiq::Job.clear_all
   end
 
   test "it queues a ReviewReminderNotifierWorker for every reminder that is due" do

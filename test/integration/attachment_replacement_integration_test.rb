@@ -34,7 +34,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when attachment is replaced" do
         before do
-          Sidekiq::Worker.clear_all
+          Sidekiq::Job.clear_all
 
           visit admin_news_article_path(edition)
           click_link "Modify attachments"
@@ -66,7 +66,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when new draft is created and attachment is replaced" do
         before do
-          Sidekiq::Worker.clear_all
+          Sidekiq::Job.clear_all
 
           visit admin_news_article_path(edition)
           click_button "Create new edition"
