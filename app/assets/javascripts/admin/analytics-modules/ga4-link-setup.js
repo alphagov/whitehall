@@ -15,7 +15,6 @@ window.GOVUK.analyticsGa4.analyticsModules =
           const event = {
             event_name: 'navigation',
             type: link.role === 'button' ? 'button' : 'generic_link',
-            section: document.title.split(' - ')[0].replace('Error: ', ''),
             method: 'primary_click'
           }
           if (link.dataset.ga4Event) {

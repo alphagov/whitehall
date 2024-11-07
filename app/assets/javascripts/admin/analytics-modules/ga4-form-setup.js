@@ -15,7 +15,6 @@ window.GOVUK.analyticsGa4.analyticsModules =
         )
         moduleElement.dataset.ga4Form = JSON.stringify({
           event_name: 'form_response',
-          section: document.title.split(' - ')[0].replace('Error: ', ''),
           action: submitButton.textContent.toLowerCase()
         })
       })

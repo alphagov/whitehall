@@ -18,7 +18,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
     Ga4FormSetup.init()
 
     expect(container.dataset.ga4Form).toEqual(
-      '{"event_name":"form_response","section":"Title","action":"button"}'
+      '{"event_name":"form_response","action":"button"}'
     )
   })
 })

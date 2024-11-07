@@ -9,8 +9,6 @@ window.GOVUK.analyticsGa4.analyticsModules =
       event_name: 'select_content',
       type: 'select',
       text: selectText,
-      section: document.title.split(' - ')[0].replace('Error: ', ''),
-      action: selectText,
       tool_name: 'Visual Editor'
     }
   }
@@ -22,8 +20,6 @@ window.GOVUK.analyticsGa4.analyticsModules =
       text: buttonText,
       external: 'false',
       method: 'primary click',
-      section: document.title.split(' - ')[0].replace('Error: ', ''),
-      action: 'select',
       tool_name: 'Visual Editor'
     }
   }

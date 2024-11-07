@@ -1,6 +1,5 @@
 describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', function () {
   it('triggers ga4 tracking on visualEditorSelectChange event', function () {
-    document.title = 'Title - Text'
     const container = document.createElement('div')
     const select = document.createElement('select')
     container.setAttribute('data-module', 'ga4-visual-editor-event-handlers')
@@ -28,8 +27,6 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', fun
       event_name: 'select_content',
       type: 'select',
       text: 'DROPDOWN',
-      section: 'Title',
-      action: 'DROPDOWN',
       tool_name: 'Visual Editor'
     }
 
@@ -40,7 +37,6 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', fun
   })
 
   it('triggers ga4 tracking on visualEditorButtonClick event', function () {
-    document.title = 'Title - Text'
     const container = document.createElement('div')
     const button = document.createElement('button')
     container.setAttribute('data-module', 'ga4-visual-editor-event-handlers')
@@ -70,8 +66,6 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4VisualEditorEventHandlers', fun
       text: 'BUTTON',
       external: 'false',
       method: 'primary click',
-      section: 'Title',
-      action: 'select',
       tool_name: 'Visual Editor'
     }
 
