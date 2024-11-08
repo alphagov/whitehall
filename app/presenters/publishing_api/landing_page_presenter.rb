@@ -81,7 +81,16 @@ module PublishingApi
     def present_hero_image(desktop, tablet, mobile)
       images = find_images(desktop, tablet, mobile)
       return { errors: ["Some image expressions weren't correctly formatted, or images could not be found"] } if images.any?(&:nil?)
-      return { errors: ["Some image variants hadn't finished uploading"] } unless images.map(&:image_data).all?(&:all_asset_variants_uploaded?)
+
+      image_data = images.map(&:image_data)
+      desktop_image_kind, tablet_image_kind, mobile_image_kind = image_data.map(&:image_kind)
+      errors = [
+        ("Some image variants hadn't finished uploading" unless image_data.all?(&:all_asset_variants_uploaded?)),
+        ("Desktop image is of the wrong image kind: #{desktop_image_kind}" unless desktop_image_kind == "hero_desktop"),
+        ("Tablet image is of the wrong image kind: #{tablet_image_kind}" unless tablet_image_kind == "hero_tablet"),
+        ("Mobile image is of the wrong image kind: #{mobile_image_kind}" unless mobile_image_kind == "hero_mobile"),
+      ].compact
+      return { errors: } unless errors.empty?
 
       desktop_image, tablet_image, mobile_image = images
 

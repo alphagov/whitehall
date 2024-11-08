@@ -233,12 +233,61 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
     assert_pattern do
       details =>
+        {
+          blocks: [
+            {
+              type: "hero",
+              image: {
+                errors: ["Some image expressions weren't correctly formatted, or images could not be found"],
+              }
+            },
+          ],
+        }
+    end
+  end
+
+  test "it presents errors if image kinds don't match up" do
+    body = <<~YAML
+      blocks:
+      - type: hero
+        image:
+          sources:
+            desktop: "[Image: hero_image_mobile_2x.png]" # NOTE - using mobile image for desktop field
+            tablet: "[Image: hero_image_desktop_2x.png]" # NOTE - using desktop image for tablet field
+            mobile: "[Image: hero_image_tablet_2x.png]" # NOTE - using tablet image for desktop field
+    YAML
+
+    landing_page = create(
+      :landing_page,
+      document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
+      body:,
+      title: "Landing Page title",
+      summary: "Landing Page summary",
+      first_published_at: @first_published_at = Time.zone.now,
+      updated_at: 1.year.ago,
+      images: [
+        build(:image, image_data: build(:hero_image_data, image_kind: "hero_desktop", file: upload_fixture("hero_image_desktop_2x.png", "image/png"))),
+        build(:image, image_data: build(:hero_image_data, image_kind: "hero_tablet", file: upload_fixture("hero_image_tablet_2x.png", "image/png"))),
+        build(:image, image_data: build(:hero_image_data, image_kind: "hero_mobile", file: upload_fixture("hero_image_mobile_2x.png", "image/png"))),
+      ],
+    )
+
+    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_content = I18n.with_locale("en") { presented_landing_page.content }
+    details = presented_content[:details].deep_symbolize_keys
+
+    assert_pattern do
+      details =>
       {
         blocks: [
           {
             type: "hero",
             image: {
-               errors: ["Some image expressions weren't correctly formatted, or images could not be found"],
+               errors: [
+                 "Desktop image is of the wrong image kind: hero_mobile",
+                 "Tablet image is of the wrong image kind: hero_desktop",
+                 "Mobile image is of the wrong image kind: hero_tablet",
+               ],
             }
           },
         ],
