@@ -197,6 +197,17 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, ".image.embedded"
   end
 
+  test "should ignore images with non-default image kinds" do
+    embed_code = "[Image: minister-of-funk.960x640.jpg]"
+    body = "#Heading\n\n#{embed_code}\n\n##Subheading"
+    image = build(:image)
+    image.image_data.image_kind = "some_non_default_image_kind"
+    document = build(:published_news_article, images: [image], body:)
+
+    html = govspeak_edition_to_html(document)
+    refute_select_within_html html, ".image.embedded"
+  end
+
   test "should not convert documents with no block attachments" do
     text = "#Heading\n\n!@2"
     document = build(:published_detailed_guide, body: text)
