@@ -718,10 +718,11 @@ GEM
       diff-lcs (~> 1.5)
       expgen (~> 0.1)
       rainbow (~> 3.1.1)
-    pact_broker-client (1.76.1)
+    pact_broker-client (1.77.0)
       base64 (~> 0.2)
       dig_rb (~> 1.0)
       httparty (>= 0.21.0, < 1.0.0)
+      ostruct
       rake (~> 13.0)
       table_print (~> 1.5)
       term-ansicolor (~> 1.7)
@@ -959,7 +960,7 @@ GEM
     tilt (2.4.0)
     timecop (0.9.10)
     timeout (0.4.2)
-    tins (1.33.0)
+    tins (1.37.0)
       bigdecimal
       sync
     transitions (1.3.0)
