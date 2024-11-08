@@ -117,4 +117,132 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
     assert_equal expected_details, presented_content[:details].deep_stringify_keys
   end
+
+  test "it recursively expands images in the body" do
+    body = <<~YAML
+      blocks:
+      - type: hero
+        image:
+          sources:
+            desktop: "[Image: hero_image_desktop_2x.png]"
+            tablet: "[Image: hero_image_tablet_2x.png]"
+            mobile: "[Image: hero_image_mobile_2x.png]"
+        hero_content:
+          blocks:
+          - type: govspeak
+            content: "some content"
+      - type: grid_container
+        blocks:
+        - type: hero
+          image:
+            sources:
+              desktop: "[Image: hero_image_desktop_2x.png]"
+              tablet: "[Image: hero_image_tablet_2x.png]"
+              mobile: "[Image: hero_image_mobile_2x.png]"
+          hero_content:
+            blocks:
+            - type: govspeak
+              content: "some content"
+    YAML
+
+    landing_page = create(
+      :landing_page,
+      document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
+      body:,
+      title: "Landing Page title",
+      summary: "Landing Page summary",
+      first_published_at: @first_published_at = Time.zone.now,
+      updated_at: 1.year.ago,
+      images: [
+        build(:image, image_data: build(:hero_image_data, image_kind: "hero_desktop", file: upload_fixture("hero_image_desktop_2x.png", "image/png"))),
+        build(:image, image_data: build(:hero_image_data, image_kind: "hero_tablet", file: upload_fixture("hero_image_tablet_2x.png", "image/png"))),
+        build(:image, image_data: build(:hero_image_data, image_kind: "hero_mobile", file: upload_fixture("hero_image_mobile_2x.png", "image/png"))),
+      ],
+    )
+
+    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_content = I18n.with_locale("en") { presented_landing_page.content }
+
+    assert_pattern do
+      presented_content[:details].deep_symbolize_keys => {
+      blocks: [
+        {
+          type: "hero",
+          image: {
+            sources: {
+              desktop_2x: "http://asset-manager/asset_manager_id_hero_desktop_2x",
+              desktop: "http://asset-manager/asset_manager_id_hero_desktop_1x",
+              tablet_2x: "http://asset-manager/asset_manager_id_hero_tablet_2x",
+              tablet: "http://asset-manager/asset_manager_id_hero_tablet_1x",
+              mobile_2x: "http://asset-manager/asset_manager_id_hero_mobile_2x",
+              mobile: "http://asset-manager/asset_manager_id_hero_mobile_1x",
+            }
+          },
+          hero_content: {
+            blocks: [ { type: "govspeak", content: String } ]
+          }
+        },
+        {
+          type: "grid_container",
+          blocks: [{
+            type: "hero",
+            image: {
+              sources: {
+                desktop_2x: "http://asset-manager/asset_manager_id_hero_desktop_2x",
+                desktop: "http://asset-manager/asset_manager_id_hero_desktop_1x",
+                tablet_2x: "http://asset-manager/asset_manager_id_hero_tablet_2x",
+                tablet: "http://asset-manager/asset_manager_id_hero_tablet_1x",
+                mobile_2x: "http://asset-manager/asset_manager_id_hero_mobile_2x",
+                mobile: "http://asset-manager/asset_manager_id_hero_mobile_1x",
+              }
+            },
+            hero_content: {
+              blocks: [ { type: "govspeak", content: String } ]
+            }
+          }],
+        },
+      ]}
+    end
+  end
+
+  test "it presents errors if files are not found" do
+    body = <<~YAML
+      blocks:
+      - type: hero
+        image:
+          sources:
+            desktop: "[Image: non-existent-file.jpg]"
+            tablet: "[Image: non-existent-file.jpg]"
+            mobile: "[Image: non-existent-file.jpg]"
+    YAML
+
+    landing_page = create(
+      :landing_page,
+      document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
+      body:,
+      title: "Landing Page title",
+      summary: "Landing Page summary",
+      first_published_at: @first_published_at = Time.zone.now,
+      updated_at: 1.year.ago,
+      images: [],
+    )
+
+    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_content = I18n.with_locale("en") { presented_landing_page.content }
+    details = presented_content[:details].deep_symbolize_keys
+
+    assert_pattern do
+      details =>
+      {
+        blocks: [
+          {
+            type: "hero",
+            image: {
+               errors: ["Some image expressions weren't correctly formatted, or images could not be found"],
+            }
+          },
+        ],
+      }
+    end
+  end
 end
