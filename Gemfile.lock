@@ -239,7 +239,7 @@ GEM
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (97.0.0)
+    gds-api-adapters (97.1.0)
       addressable
       link_header
       null_logger
@@ -437,7 +437,7 @@ GEM
     mime-types (3.6.0)
       logger
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.1001)
+    mime-types-data (3.2024.1105)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
