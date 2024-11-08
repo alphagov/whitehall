@@ -29,3 +29,45 @@ default:
       width: 216
       height: 140
       from_version: s960
+hero_mobile:
+  display_name: "Mobile hero image (2x pixel density) (1280 by 854)"
+  valid_width: 1280
+  valid_height: 854
+  permitted_uses:
+    - hero
+  versions:
+    - name: hero_mobile_2x
+      width: 1280
+      height: 854
+    - name: hero_mobile_1x
+      width: 640
+      height: 427
+      from_version: hero_mobile_2x
+hero_tablet:
+  display_name: "Tablet hero image (2x pixel density) (1536 by 1024)"
+  valid_width: 1536
+  valid_height: 1024
+  permitted_uses:
+    - hero
+  versions:
+    - name: hero_tablet_2x
+      width: 1536
+      height: 1024
+    - name: hero_tablet_1x
+      width: 768
+      height: 512
+      from_version: hero_tablet_2x
+hero_desktop:
+  display_name: "Desktop hero image (2x pixel density) (3840 by 1220)"
+  valid_width: 3840
+  valid_height: 1220
+  permitted_uses:
+    - hero
+  versions:
+    - name: hero_desktop_2x
+      width: 3840
+      height: 1220
+    - name: hero_desktop_1x
+      width: 1920
+      height: 610
+      from_version: hero_desktop_2x

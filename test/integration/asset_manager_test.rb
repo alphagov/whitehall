@@ -116,7 +116,7 @@ class AssetManagerIntegrationTest
 
     test "sends original and all versions of the image to Asset Manager" do
       Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{@filename}/ }.returns(@response)
-      ImageUploader.versions.each_key do |version_prefix|
+      %w[s960 s712 s630 s465 s300 s216].each do |version_prefix|
         Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{version_prefix}_#{@filename}/ }.returns(@response)
       end
 
