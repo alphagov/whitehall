@@ -11,6 +11,7 @@ private
     [
       *details_items,
       organisation_item,
+      instructions_item,
       confirm_item,
       date_item,
     ]
@@ -29,6 +30,13 @@ private
     {
       field: "Lead organisation",
       value: content_block_edition.lead_organisation,
+    }
+  end
+
+  def instructions_item
+    {
+      field: "Instructions to publishers",
+      value: content_block_edition.instructions_to_publishers.presence || "None",
     }
   end
 

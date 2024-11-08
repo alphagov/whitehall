@@ -21,7 +21,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
   it "renders a published content block correctly" do
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 7
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__key", text: "Title"
     assert_selector ".govuk-summary-list__value", text: content_block_document.title
     assert_selector ".govuk-summary-list__actions", text: "Change"
@@ -40,6 +40,9 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
     assert_selector ".govuk-summary-list__key", text: "Last updated"
     assert_selector ".govuk-summary-list__value", text: "1 day ago by #{content_block_edition.creator.name}"
 
+    assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
+    assert_selector ".govuk-summary-list__value", text: "None"
+
     assert_selector ".govuk-summary-list__row[data-module='copy-embed-code']", text: "Embed code"
     assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_document.embed_code}']", text: "Embed code"
     assert_selector ".govuk-summary-list__key", text: "Embed code"
@@ -54,9 +57,20 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 8
+    assert_selector ".govuk-summary-list__row", count: 9
 
     assert_selector ".govuk-summary-list__key", text: "Scheduled for publication at"
     assert_selector ".govuk-summary-list__value", text: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)
+  end
+
+  describe "when there are instructions to publishers" do
+    it "renders them" do
+      content_block_document.latest_edition.instructions_to_publishers = "instructions"
+
+      render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
+
+      assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
+      assert_selector ".govuk-summary-list__value", text: "instructions"
+    end
   end
 end

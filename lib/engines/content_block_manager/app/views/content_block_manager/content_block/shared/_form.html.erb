@@ -45,6 +45,16 @@
     error_message: errors_for_input(@form.content_block_edition.errors, "lead_organisation".to_sym),
   } %>
 
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Instructions to publishers (optional)",
+    },
+    name: "content_block/edition[instructions_to_publishers]",
+    id: "content_block/edition_instructions_to_publishers",
+    value: @form.content_block_edition&.instructions_to_publishers,
+    error_items: errors_for(@form.content_block_edition.errors, "instructions_to_publishers".to_sym),
+  } %>
+
   <div class="govuk-button-group govuk-!-margin-bottom-6">
     <%= render "govuk_publishing_components/components/button", {
       text: "Save and continue",

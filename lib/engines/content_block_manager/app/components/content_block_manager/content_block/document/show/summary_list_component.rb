@@ -12,6 +12,7 @@ private
       title_item,
       *details_items,
       organisation_item,
+      instructions_item,
       last_updated_item,
       embed_code_item,
       state_item,
@@ -42,6 +43,14 @@ private
     {
       field: "Lead organisation",
       value: content_block_document.latest_edition.lead_organisation,
+      edit: edit_action,
+    }
+  end
+
+  def instructions_item
+    {
+      field: "Instructions to publishers",
+      value: content_block_document.latest_edition.instructions_to_publishers.presence || "None",
       edit: edit_action,
     }
   end

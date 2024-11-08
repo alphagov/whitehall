@@ -16,9 +16,10 @@ private
       title_item,
       *details_items,
       organisation_item,
+      (instructions_item if content_block_document.latest_edition.instructions_to_publishers.present?),
       last_updated_item,
       embed_code_item,
-    ]
+    ].compact
   end
 
   def title

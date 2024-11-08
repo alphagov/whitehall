@@ -20,8 +20,8 @@ Feature: Create a content object
     Then I should see a form for the schema
     And I should see a back link to the select schema page
     When I complete the form with the following fields:
-      | title            | email_address   | department | organisation |
-      | my email address | foo@example.com | Somewhere  | Ministry of Example |
+      | title            | email_address   | department | organisation        | instructions_to_publishers |
+      | my email address | foo@example.com | Somewhere  | Ministry of Example | this is important  |
     Then I am asked to check my answers
     When I accept and publish
     Then the edition should have been created successfully
@@ -50,6 +50,15 @@ Feature: Create a content object
       | title            | email_address   | department | organisation |
       | my email address | xxxxx           | Somewhere  | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"
+
+  Scenario: GDS editor does not see error when not providing instructions to publishers
+    When I visit the Content Block Manager home page
+    And I click to create an object
+    When I click on the "email_address" schema
+    When I complete the form with the following fields:
+      | title            | email_address   | department | organisation        |
+      | my email address | foo@example.com | Somewhere  | Ministry of Example |
+    Then I am asked to check my answers
 
   Scenario: GDS editor cancels the creation of an object
     When I visit the Content Block Manager home page

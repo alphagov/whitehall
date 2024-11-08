@@ -97,11 +97,14 @@ When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")
   @organisation = fields.delete("organisation")
+  @instructions_to_publishers = fields.delete("instructions_to_publishers")
   @details = fields
 
   fill_in "Title", with: @title
 
   select @organisation, from: "content_block/edition_lead_organisation"
+
+  fill_in "Instructions to publishers", with: @instructions_to_publishers
 
   fields.keys.each do |k|
     fill_in "content_block_manager/content_block/edition_details_#{k}", with: @details[k]
@@ -127,8 +130,9 @@ Then("the edition should have been created successfully") do
   assert_not_nil edition
   assert_not_nil edition.document
 
-  assert_equal edition.title, @title
-  @details.keys.each do |k|
+  assert_equal @title, edition.title
+  assert_equal @instructions_to_publishers, edition.instructions_to_publishers,
+               @details.keys.each do |k|
     assert_equal edition.details[k], @details[k]
   end
 end
@@ -308,10 +312,7 @@ Then("I should see the edit form") do
 end
 
 When("I fill out the form") do
-  fill_in "Title", with: "Changed title"
-  fill_in "Email address", with: "changed@example.com"
-  select "Ministry of Example", from: "content_block/edition_lead_organisation"
-  click_save_and_continue
+  change_details
 end
 
 When("I set all fields to blank") do
@@ -322,7 +323,12 @@ When("I set all fields to blank") do
 end
 
 Then("the edition should have been updated successfully") do
-  should_show_summary_list_for_email_address_content_block("Changed title", "changed@example.com", "Ministry of Example")
+  should_show_summary_list_for_email_address_content_block(
+    "Changed title",
+    "changed@example.com",
+    "Ministry of Example",
+    "new context information",
+  )
 end
 
 def should_show_summary_card_for_email_address_content_block(document_title, email_address)
@@ -332,7 +338,7 @@ def should_show_summary_card_for_email_address_content_block(document_title, ema
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
-def should_show_summary_list_for_email_address_content_block(document_title, email_address, organisation)
+def should_show_summary_list_for_email_address_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
@@ -340,6 +346,10 @@ def should_show_summary_list_for_email_address_content_block(document_title, ema
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
   expect(page).to have_selector(".govuk-summary-list__value", text: organisation)
+  if instructions_to_publishers
+    expect(page).to have_selector(".govuk-summary-list__key", text: "Instructions to publishers")
+    expect(page).to have_selector(".govuk-summary-list__value", text: instructions_to_publishers)
+  end
   expect(page).to have_selector(".govuk-summary-list__key", text: "Last updated")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
@@ -567,6 +577,7 @@ def change_details
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
   select "Ministry of Example", from: "content_block/edition_lead_organisation"
+  fill_in "Instructions to publishers", with: "new context information"
   click_save_and_continue
 end
 
