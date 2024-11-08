@@ -17,7 +17,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
   let(:organisation) { create(:organisation) }
   let(:document) { create(:content_block_document, :email_address, content_id: @content_id, title: "Some Title") }
-  let(:edition) { create(:content_block_edition, document:, details:, organisation:) }
+  let(:edition) { create(:content_block_edition, document:, details:, organisation:, instructions_to_publishers: "instructions") }
 
   setup do
     login_as_admin
@@ -151,6 +151,7 @@ def assert_edition_is_published(&block)
       publishing_app: "whitehall",
       title: "Some Title",
       content_id_alias: "some-title",
+      instructions_to_publishers: "instructions",
       details: {
         "foo" => "Foo text",
         "bar" => "Bar text",
