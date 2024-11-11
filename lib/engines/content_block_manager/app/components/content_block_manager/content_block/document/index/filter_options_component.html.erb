@@ -1,35 +1,74 @@
-<%= form_with url: helpers.content_block_manager.content_block_manager_content_block_documents_path, method: :get do %>
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "Keyword",
-      bold: true,
-    },
-    hint: 'For example, "driving standards"',
-    name: "keyword",
-    id: "keyword_filter",
-    value: !@filters.nil? && @filters[:keyword],
+<%= form_with url: helpers.content_block_manager.content_block_manager_content_block_documents_path, method: :get, class: "app-c-content-block-manager-filter-options" do %>
+  <%= render "govuk_publishing_components/components/accordion", {
+    disable_ga4: true,
+    items: [
+      {
+        heading: {
+          text: "Search by keyword",
+        },
+        content: {
+          html: (
+            render "govuk_publishing_components/components/input", {
+              label: {
+                text: "Keyword",
+                bold: true,
+              },
+              hint: 'For example, "driving standards"',
+              name: "keyword",
+              id: "keyword_filter",
+              value: @filters.present? && @filters[:keyword],
+            }
+          ),
+        },
+        expanded: @filters&.fetch(:keyword, nil).present?,
+      },
+      {
+        heading: {
+          text: "Content block type",
+        },
+        content: {
+          html: (
+            render "govuk_publishing_components/components/checkboxes", {
+              heading: "Content block type",
+              visually_hide_heading: true,
+              heading_size: "s",
+              no_hint_text: true,
+              id: "block_type",
+              name: "block_type[]",
+              items: items_for_block_type,
+            }
+          ),
+        },
+        expanded: @filters&.fetch(:block_type, nil).present?,
+      },
+      {
+        heading: {
+          text: "Lead organisation",
+        },
+        content: {
+          html: (
+            render "components/select_with_search", {
+              id: "lead_organisation",
+              name: "lead_organisation",
+              include_blank: false,
+              options: options_for_lead_organisation,
+            }
+          ),
+        },
+        expanded: @filters&.fetch(:lead_organisation, nil).present?,
+      },
+    ],
   } %>
 
-  <%= render "govuk_publishing_components/components/checkboxes", {
-    heading: "Content block type",
-    heading_size: "s",
-    no_hint_text: true,
-    id: "block_type",
-    name: "block_type[]",
-    items: items_for_block_type,
-  } %>
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "View results",
+      margin_bottom: 4,
+    } %>
 
-  <%= render "components/select_with_search", {
-    id: "lead_organisation",
-    name: "lead_organisation",
-    label:  "Lead organisation",
-    heading_size: "s",
-    include_blank: false,
-    options: options_for_lead_organisation,
-  } %>
+    <%= link_to "Reset all fields",
+                helpers.content_block_manager.content_block_manager_root_path(reset_fields: true),
+                class: "govuk-link" %>
+  </div>
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "View results",
-    margin_bottom: 4,
-  } %>
 <% end %>

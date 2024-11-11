@@ -5,7 +5,7 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
       @filters = params_filters
       @content_block_documents = ContentBlockManager::ContentBlock::Document::DocumentFilter.new(@filters).documents
       render :index
-    elsif session_filters.any?
+    elsif params[:reset_fields].blank? && session_filters.any?
       redirect_to content_block_manager.content_block_manager_root_path(session_filters)
     else
       redirect_to content_block_manager.content_block_manager_root_path(default_filters)

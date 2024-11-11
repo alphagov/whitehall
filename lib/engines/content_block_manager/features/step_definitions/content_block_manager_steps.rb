@@ -244,7 +244,7 @@ And("no draft Content Block Document has been created") do
 end
 
 Then("I should see the details for all documents") do
-  assert_text "All content blocks"
+  assert_text "Content Block Manager"
 
   ContentBlockManager::ContentBlock::Document.find_each do |document|
     should_show_summary_card_for_email_address_content_block(
@@ -340,7 +340,7 @@ def should_show_summary_list_for_email_address_content_block(document_title, ema
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
   expect(page).to have_selector(".govuk-summary-list__value", text: organisation)
-  expect(page).to have_selector(".govuk-summary-list__key", text: "Creator")
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Last updated")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
   expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
 end
@@ -584,7 +584,9 @@ end
 
 Then(/^I should still see the live edition on the homepage$/) do
   within(".govuk-summary-card", text: @content_block.document.title) do
-    expect(page).to have_content("Published")
+    @content_block.details.keys.each do |key|
+      expect(page).to have_content(@content_block.details[key])
+    end
   end
 end
 
@@ -593,7 +595,7 @@ Then(/^I should not see the draft document$/) do
 end
 
 Then("I should see the content block manager home page") do
-  expect(page).to have_content("All content blocks")
+  expect(page).to have_content("Content Block Manager")
 end
 
 When("I click to copy the embed code") do

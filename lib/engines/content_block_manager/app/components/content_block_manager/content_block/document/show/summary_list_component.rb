@@ -12,7 +12,7 @@ private
       title_item,
       *details_items,
       organisation_item,
-      creator_item,
+      last_updated_item,
       embed_code_item,
       state_item,
       scheduled_item,
@@ -56,11 +56,15 @@ private
     end
   end
 
-  def creator_item
+  def last_updated_item
     {
-      field: "Creator",
-      value: content_block_document.latest_edition.creator.name,
+      field: "Last updated",
+      value: last_updated_value,
     }
+  end
+
+  def last_updated_value
+    "#{time_ago_in_words(content_block_document.latest_edition.updated_at)} ago by #{content_block_document.latest_edition.creator.name}"
   end
 
   def state_item

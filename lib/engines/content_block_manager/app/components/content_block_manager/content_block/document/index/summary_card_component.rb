@@ -11,6 +11,16 @@ private
     end
   end
 
+  def items
+    [
+      title_item,
+      *details_items,
+      organisation_item,
+      last_updated_item,
+      embed_code_item,
+    ]
+  end
+
   def title
     content_block_document.title
   end

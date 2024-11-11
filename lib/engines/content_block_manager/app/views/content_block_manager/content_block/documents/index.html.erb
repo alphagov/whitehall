@@ -1,12 +1,23 @@
-<% content_for :context, product_name %>
-<% content_for :title, "All content blocks" %>
+<% content_for :title, product_name %>
+<% content_for :title_margin_bottom, 6 %>
 
 <div class="govuk-grid-row govuk-!-margin-bottom-8">
   <div class="govuk-grid-column-full">
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Create new object",
-      href: content_block_manager.new_content_block_manager_content_block_document_path,
-    } %>
+    <p class="govuk-body govuk-!-margin-bottom-1">Create, edit and use modular content.</p>
+    <p class="govuk-body">If you need any support or want to delete a content block, you can raise a support request.</p>
+    <span class="govuk-!-margin-right-2">
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create new object",
+        href: content_block_manager.new_content_block_manager_content_block_document_path,
+      } %>
+    </span>
+    <span>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Raise a support request",
+        href: "https://govuk.zendesk.com",
+        secondary_solid: true,
+      } %>
+    </span>
   </div>
 </div>
 
@@ -20,6 +31,8 @@
   </div>
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-m"><%= pluralize(@content_block_documents.count, "result") %></h2>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <p class="govuk-body"><strong>Sorted by last updated first</strong></p>
     <% @content_block_documents.each do |content_block_document| %>
       <%= render ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:) %>
     <% end %>

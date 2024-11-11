@@ -49,7 +49,9 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
       document_mock = mock
 
       ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_mock)
-      document_mock.expects(:with_lead_organisation).with(@organisation.id.to_s).returns([document_with_latest_edition])
+      document_mock.expects(:joins).with(:latest_edition).returns(document_mock)
+      document_mock.expects(:with_lead_organisation).with(@organisation.id.to_s).returns(document_mock)
+      document_mock.expects(:order).with("content_block_editions.updated_at DESC").returns([document_with_latest_edition])
 
       visit content_block_manager.content_block_manager_content_block_documents_path
 
@@ -67,11 +69,20 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
       end
 
       describe "when there are session filters" do
-        it "adds them to the params by default the next time user visits" do
+        before do
           visit content_block_manager.content_block_manager_content_block_documents_path({ keyword: "something" })
+        end
+
+        it "adds them to the params by default the next time user visits" do
           visit content_block_manager.content_block_manager_content_block_documents_path
 
           assert_current_path content_block_manager.content_block_manager_root_path({ keyword: "something" })
+        end
+
+        it "resets the filters when reset_fields is set" do
+          visit content_block_manager.content_block_manager_content_block_documents_path({ reset_fields: true })
+
+          assert_current_path content_block_manager.content_block_manager_root_path({ lead_organisation: @organisation.id.to_s })
         end
       end
     end
