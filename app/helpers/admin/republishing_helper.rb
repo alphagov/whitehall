@@ -68,11 +68,23 @@ module Admin::RepublishingHelper
   end
 
   def republishable_content_types
-    editionable_content_types = Edition.descendants.select { |descendant|
-      descendant.descendants.count.zero?
-    }.map(&:to_s)
+    editionable_content_types = %w[
+      CallForEvidence
+      CaseStudy
+      Consultation
+      CorporateInformationPage
+      DetailedGuide
+      DocumentCollection
+      WorldwideOrganisation
+      FatalityNotice
+      LandingPage
+      NewsArticle
+      Publication
+      Speech
+      StatisticalDataSet
+    ]
 
-    [editionable_content_types, non_editionable_content_types].flatten.sort
+    [*editionable_content_types, *non_editionable_content_types].sort
   end
 
   def republishable_content_types_select_options
@@ -101,7 +113,22 @@ module Admin::RepublishingHelper
   end
 
   def non_editionable_content_types
-    ApplicationRecord.subclasses.select { |subclass| subclass.included_modules.include? PublishesToPublishingApi }.map(&:to_s)
+    %w[
+      Contact
+      Government
+      HistoricalAccount
+      OperationalField
+      Organisation
+      Person
+      PolicyGroup
+      Role
+      RoleAppointment
+      StatisticsAnnouncement
+      TakePartPage
+      TopicalEvent
+      TopicalEventAboutPage
+      WorldLocationNews
+    ]
   end
 
   def content_ids_string_to_array(content_ids_string)
