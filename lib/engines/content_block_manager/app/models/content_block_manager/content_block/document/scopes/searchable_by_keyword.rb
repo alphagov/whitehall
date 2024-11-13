@@ -2,6 +2,12 @@ module ContentBlockManager
   module ContentBlock::Document::Scopes::SearchableByKeyword
     extend ActiveSupport::Concern
 
+    SQL = <<-SQL.freeze
+        content_block_documents.title REGEXP :pattern OR#{' '}
+        content_block_editions.details REGEXP :pattern OR#{' '}
+        content_block_editions.instructions_to_publishers REGEXP :pattern
+    SQL
+
     included do
       scope :with_keyword,
             lambda { |keywords|
@@ -11,7 +17,7 @@ module ContentBlockManager
                 "(?=.*#{escaped_word})"
               }.join
               joins(:latest_edition)
-                .where("content_block_documents.title REGEXP :pattern OR content_block_editions.details REGEXP :pattern", pattern:)
+                .where(SQL, pattern:)
             }
     end
   end
