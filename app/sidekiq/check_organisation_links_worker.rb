@@ -1,7 +1,7 @@
 # Calls the Link Checker API to verify all links in public editions, either per organisation or not
 class CheckOrganisationLinksWorker
   include Rails.application.routes.url_helpers
-  include Sidekiq::Worker
+  include Sidekiq::Job
   ORGANISATION_EDITION_LIMIT = 500
   FIND_EACH_BATCH_SIZE = 50
 
