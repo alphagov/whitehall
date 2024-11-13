@@ -12,6 +12,8 @@ FactoryBot.define do
 
     scheduled_publication { nil }
 
+    instructions_to_publishers { nil }
+
     ContentBlockManager::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
         document { build(:content_block_document, block_type: type) }

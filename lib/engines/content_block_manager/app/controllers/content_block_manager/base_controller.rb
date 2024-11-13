@@ -19,6 +19,7 @@ class ContentBlockManager::BaseController < Admin::BaseController
           .permit(
             :organisation_id,
             :creator,
+            :instructions_to_publishers,
             "scheduled_publication(1i)",
             "scheduled_publication(2i)",
             "scheduled_publication(3i)",

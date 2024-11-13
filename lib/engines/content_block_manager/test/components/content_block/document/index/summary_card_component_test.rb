@@ -42,6 +42,9 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
     assert_selector ".govuk-summary-list__key", text: "Lead organisation"
     assert_selector ".govuk-summary-list__value", text: content_block_edition.lead_organisation.name
 
+    assert_no_selector ".govuk-summary-list__key", text: "Instructions to publishers"
+    assert_no_selector ".govuk-summary-list__value", text: "None"
+
     assert_selector ".govuk-summary-list__key", text: "Last updated"
     assert_selector ".govuk-summary-list__value", text: "1 day ago by #{content_block_edition.creator.name}"
 
@@ -49,5 +52,18 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
     assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_document.embed_code}']", text: "Embed code"
     assert_selector ".govuk-summary-list__key", text: "Embed code"
     assert_selector ".govuk-summary-list__value", text: content_block_document.embed_code
+  end
+
+  describe "when there are instructions to publishers" do
+    it "renders them" do
+      content_block_document.latest_edition.instructions_to_publishers = "instructions"
+
+      render_inline(ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:))
+
+      assert_selector ".govuk-summary-list__row", count: 7
+
+      assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
+      assert_selector ".govuk-summary-list__value", text: "instructions"
+    end
   end
 end

@@ -7,7 +7,15 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:document) { create(:content_block_document, :email_address, content_id:, title: "Some Title") }
-    let(:edition) { create(:content_block_edition, document:, details: { "foo" => "Foo text", "bar" => "Bar text" }, organisation: @organisation) }
+    let(:edition) do
+      create(
+        :content_block_edition,
+        document:,
+        details: { "foo" => "Foo text", "bar" => "Bar text" },
+        organisation: @organisation,
+        instructions_to_publishers: "instructions",
+      )
+    end
 
     setup do
       ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type)
@@ -43,6 +51,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
           publishing_app: "whitehall",
           title: "Some Title",
           content_id_alias: "some-title",
+          instructions_to_publishers: "instructions",
           details: {
             "foo" => "Foo text",
             "bar" => "Bar text",

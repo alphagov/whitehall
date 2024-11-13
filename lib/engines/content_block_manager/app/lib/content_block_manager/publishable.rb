@@ -14,6 +14,7 @@ module ContentBlockManager
         schema_id: schema.id,
         title: content_block_edition.title,
         details: content_block_edition.details,
+        instructions_to_publishers: content_block_edition.instructions_to_publishers,
         links: {
           primary_publishing_organisation: [
             content_block_edition.lead_organisation.content_id,
@@ -54,6 +55,7 @@ module ContentBlockManager
           content_id_alias:,
           schema_id: schema.id,
           title: content_block_edition.title,
+          instructions_to_publishers: content_block_edition.instructions_to_publishers,
           details: content_block_edition.details.to_h,
           links: {
             primary_publishing_organisation: [
@@ -74,12 +76,13 @@ module ContentBlockManager
 
   private
 
-    def create_publishing_api_edition(content_id:, content_id_alias:, schema_id:, title:, details:, links:)
+    def create_publishing_api_edition(content_id:, content_id_alias:, schema_id:, title:, instructions_to_publishers:, details:, links:)
       Services.publishing_api.put_content(content_id, {
         schema_name: schema_id,
         document_type: schema_id,
         publishing_app: Whitehall::PublishingApp::WHITEHALL,
         title:,
+        instructions_to_publishers:,
         content_id_alias:,
         details:,
         links:,

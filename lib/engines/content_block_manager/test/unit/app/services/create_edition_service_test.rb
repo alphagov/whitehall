@@ -100,6 +100,7 @@ def assert_draft_created_in_publishing_api(content_id:, content_id_alias:, &bloc
       title: new_title,
       content_id_alias:,
       details: edition_params[:details],
+      instructions_to_publishers: edition_params[:instructions_to_publishers],
       links: {
         primary_publishing_organisation: [
           organisation.content_id,

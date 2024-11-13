@@ -29,6 +29,7 @@ class ContentBlockManager::PublishableTest < ActiveSupport::TestCase
           title: content_block_edition.title,
           content_id_alias: content_block_edition.document.content_id_alias,
           details: content_block_edition.details,
+          instructions_to_publishers: content_block_edition.instructions_to_publishers,
           links: {
             primary_publishing_organisation: [
               content_block_edition.lead_organisation.content_id,
