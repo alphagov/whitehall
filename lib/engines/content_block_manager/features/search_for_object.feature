@@ -8,15 +8,15 @@ Feature: Search for a content object
       | email_address |
     And a schema "postal_address" exists with the following fields:
       | an_address |
-    And a "postal_address" type of content block has been created with fields:
+    And 1 content blocks of type postal_address have been created with the fields:
       | title |  "an address" |
       | an_address  | ABC123 |
       | organisation | Department of Placeholder |
-    And a "email_address" type of content block has been created with fields:
+    And 1 content blocks of type email_address have been created with the fields:
       | title | example search title |
       | email_address  | hello@example.com |
       | organisation | Department of Placeholder |
-    And a "email_address" type of content block has been created with fields:
+    And 1 content blocks of type email_address have been created with the fields:
       | title | ministry address |
       | email_address  | ministry@example.com |
       | organisation | Ministry of Example |
