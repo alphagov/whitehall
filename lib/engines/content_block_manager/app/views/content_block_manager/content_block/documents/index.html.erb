@@ -30,7 +30,7 @@
           ) %>
   </div>
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-m"><%= pluralize(@content_block_documents.count, "result") %></h2>
+    <h2 class="govuk-heading-m"><%= pluralize(@content_block_documents.total_count, "result") %></h2>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <p class="govuk-body"><strong>Sorted by last updated first</strong></p>
     <% @content_block_documents.each do |content_block_document| %>

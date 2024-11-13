@@ -286,7 +286,7 @@ Then("I should see the content block with title {string} returned") do |title|
   expect(page).to have_selector(".govuk-summary-card__title", text: title)
 end
 
-Then("{string} content blocks are returned") do |count|
+Then("{string} content blocks are returned in total") do |count|
   assert_text "#{count} #{'result'.pluralize(count.to_i)}"
 end
 
