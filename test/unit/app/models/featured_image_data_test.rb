@@ -55,7 +55,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
   test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
     featured_image_data = create(:featured_image_data)
-    Sidekiq::Job.clear_all
+    Sidekiq::Worker.clear_all
 
     filename = "big-cheese.960x640.jpg"
     response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }

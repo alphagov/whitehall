@@ -3,7 +3,7 @@ require "rake"
 
 class ResluggingTest < ActiveSupport::TestCase
   teardown do
-    Sidekiq::Job.clear_all
+    Sidekiq::Worker.clear_all
   end
 
   test "it should reslug the world location" do

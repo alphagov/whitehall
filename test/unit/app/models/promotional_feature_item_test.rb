@@ -128,7 +128,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
 
   test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
     promotional_feature_item = create(:promotional_feature_item)
-    Sidekiq::Job.clear_all
+    Sidekiq::Worker.clear_all
 
     filename = "big-cheese.960x640.jpg"
     response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }
