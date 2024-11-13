@@ -205,6 +205,52 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#republish_all_non_editionable_content" do
+    test "queues all non-editionable content for republishing, excluding individual pages" do
+      BulkRepublisher.any_instance.stubs(:non_editionable_content_types).returns(%w[Contact Role])
+
+      Whitehall::PublishingApi.expects(:bulk_republish_async).with(create(:contact))
+      Whitehall::PublishingApi.expects(:bulk_republish_async).with(create(:role))
+
+      Contact.any_instance.stubs(:can_publish_to_publishing_api?).returns(true)
+      Role.any_instance.stubs(:can_publish_to_publishing_api?).returns(true)
+
+      BulkRepublisher.new.republish_all_non_editionable_content
+    end
+
+    test "doesn't queue documents" do
+      2.times do
+        document = create(:document)
+
+        PublishingApiDocumentRepublishingWorker
+          .expects(:perform_async_in_queue)
+          .with("bulk_republishing", document.id, true)
+          .never
+      end
+
+      BulkRepublisher.new.republish_all_non_editionable_content
+    end
+
+    test "doesn't queue individual pages" do
+      [
+        "PublishingApi::HistoricalAccountsIndexPresenter",
+        "PublishingApi::HowGovernmentWorksPresenter",
+        "PublishingApi::OperationalFieldsIndexPresenter",
+        "PublishingApi::MinistersIndexPresenter",
+        "PublishingApi::EmbassiesIndexPresenter",
+        "PublishingApi::WorldIndexPresenter",
+        "PublishingApi::OrganisationsIndexPresenter",
+      ].each do |presenter|
+        PresentPageToPublishingApiWorker
+          .expects(:perform_async)
+          .with(presenter)
+          .never
+      end
+
+      BulkRepublisher.new.republish_all_non_editionable_content
+    end
+  end
+
   describe "#republish_all_published_organisation_about_us_pages" do
     test "queues all published organisation 'About us' pages for republishing" do
       queue_sequence = sequence("queue")

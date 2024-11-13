@@ -43,6 +43,12 @@ class BulkRepublisher
     republish_all_documents_by_ids(document_ids)
   end
 
+  def republish_all_non_editionable_content
+    non_editionable_content_types.each do |type|
+      republish_all_by_non_editionable_type(type.constantize)
+    end
+  end
+
   def republish_all_by_type(content_type)
     begin
       content_type_klass = content_type.constantize

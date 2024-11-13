@@ -39,6 +39,13 @@ module Admin::RepublishingHelper
         confirmation_path: admin_bulk_republishing_confirm_path("all-documents-with-publicly-visible-editions-with-html-attachments"),
         republish_method: -> { BulkRepublisher.new.republish_all_documents_with_publicly_visible_editions_with_html_attachments },
       },
+      all_non_editionable_content: {
+        id: "all-non-editionable-content",
+        name: "all non-editionable content",
+        republishing_path: admin_bulk_republishing_republish_path("all-non-editionable-content"),
+        confirmation_path: admin_bulk_republishing_confirm_path("all-non-editionable-content"),
+        republish_method: -> { BulkRepublisher.new.republish_all_non_editionable_content },
+      },
       all_published_organisation_about_us_pages: {
         id: "all-published-organisation-about-us-pages",
         name: "all published organisation 'About us' pages",

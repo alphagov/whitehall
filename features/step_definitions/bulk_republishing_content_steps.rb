@@ -83,6 +83,22 @@ Then(/^I can see that all documents with publicly-visible editions with HTML att
   expect(page).to have_selector(".gem-c-success-alert", text: "All documents with publicly-visible editions with HTML attachments have been queued for republishing")
 end
 
+Given(/^Non-editionable content exists$/) do
+  create(:contact)
+  create(:role)
+end
+
+When(/^I request a bulk republishing of all non-editionable content$/) do
+  visit admin_republishing_index_path
+  find("#all-non-editionable-content").click
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
+  click_button("Confirm republishing")
+end
+
+Then(/^I can see that all non-editionable content has been queued for republishing$/) do
+  expect(page).to have_selector(".gem-c-success-alert", text: "All non-editionable content have been queued for republishing")
+end
+
 Given(/^Published organisation "About us" pages exist$/) do
   2.times { create(:about_corporate_information_page) }
 end
