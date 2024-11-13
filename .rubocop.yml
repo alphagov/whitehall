@@ -34,11 +34,11 @@ Style/HashEachMethods:
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 
-# Sidekiq workers don't support keyword arguments which make this cop hard
+# Sidekiq jobs don't support keyword arguments which make this cop hard
 # to apply while maintaining backwards compatibility.
 Style/OptionalBooleanParameter:
   Exclude:
-    - 'app/workers/*.rb'
+    - 'app/sidekiq/*.rb'
 
 Lint/MissingSuper:
   Exclude:

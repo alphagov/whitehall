@@ -33,7 +33,7 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
     consultation_participation = build(:consultation_participation)
     consultation_response_form = build(:consultation_response_form, consultation_participation:)
     consultation_response_form_data = create(:consultation_response_form_data, consultation_response_form:)
-    Sidekiq::Worker.clear_all
+    Sidekiq::Job.clear_all
 
     filename = "greenpaper.pdf"
     response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }

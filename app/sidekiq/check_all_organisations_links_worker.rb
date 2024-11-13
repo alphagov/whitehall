@@ -2,7 +2,7 @@
 require "sidekiq-scheduler"
 
 class CheckAllOrganisationsLinksWorker
-  include Sidekiq::Worker
+  include Sidekiq::Job
 
   def perform
     GovukStatsd.time("link-checking-debug.check-all-organisations-worker") do
