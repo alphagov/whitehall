@@ -319,12 +319,11 @@ GEM
     govuk_schemas (5.0.4)
       faker (~> 3.4.1)
       json-schema (>= 2.8, < 4.4)
-    govuk_sidekiq (8.0.1)
+    govuk_sidekiq (9.0.1)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
-      redis (< 5)
-      redis-namespace (~> 1.6)
-      sidekiq (~> 6.5, >= 6.5.12)
+      redis-client (>= 0.22.2)
+      sidekiq (~> 7.0, < 8)
     govuk_test (4.1.0)
       brakeman (>= 5.0.2)
       capybara (>= 3.36)
@@ -822,8 +821,8 @@ GEM
     record_tag_helper (1.0.1)
       actionview (>= 5)
     redis (4.8.1)
-    redis-namespace (1.11.0)
-      redis (>= 4)
+    redis-client (0.22.2)
+      connection_pool
     regexp_parser (2.9.2)
     reline (0.5.11)
       io-console (~> 0.5)
@@ -921,10 +920,12 @@ GEM
     sentry-sidekiq (5.21.0)
       sentry-ruby (~> 5.21.0)
       sidekiq (>= 3.0)
-    sidekiq (6.5.12)
-      connection_pool (>= 2.2.5, < 3)
-      rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
+    sidekiq (7.3.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
     sidekiq-scheduler (5.0.6)
       rufus-scheduler (~> 3.2)
       sidekiq (>= 6, < 8)
@@ -1084,6 +1085,7 @@ DEPENDENCIES
   rails_translation_manager
   rake
   record_tag_helper
+  redis
   responders
   rinku
   rubocop-govuk
