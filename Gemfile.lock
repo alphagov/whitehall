@@ -1085,6 +1085,7 @@ DEPENDENCIES
   rails_translation_manager
   rake
   record_tag_helper
+  redis
   responders
   rinku
   rubocop-govuk
