@@ -63,3 +63,14 @@ Feature: Search for a content object
     And I click to view results
     And I click to copy the embed code for the content block "ministry address"
     Then the embed code should be copied to my clipboard
+
+  Scenario: GDS Editor can view more than one page
+    When 15 content blocks of type email_address have been created with the fields:
+      | title | ministry address |
+      | email_address  | ministry@example.com |
+      | organisation | Ministry of Example |
+    When I visit the Content Block Manager home page
+    And I select the lead organisation "Ministry of Example"
+    And I click to view results
+    And I click on page 2
+    Then "1" content blocks are returned

@@ -36,5 +36,7 @@
     <% @content_block_documents.each do |content_block_document| %>
       <%= render ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:) %>
     <% end %>
+
+    <%= paginate(@content_block_documents, theme: "govuk_paginator") %>
   </div>
 </div>
