@@ -23,6 +23,7 @@ class RepublishingEvent < ApplicationRecord
     all_documents_with_pre_publication_editions_with_html_attachments
     all_documents_with_publicly_visible_editions_with_attachments
     all_documents_with_publicly_visible_editions_with_html_attachments
+    all_individual_pages
     all_non_editionable_content
     all_published_organisation_about_us_pages
     all_by_type

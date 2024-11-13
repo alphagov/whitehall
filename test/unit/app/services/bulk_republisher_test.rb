@@ -205,6 +205,54 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#republish_all_individual_pages" do
+    test "queues individual pages for republishing" do
+      queue_sequence = sequence("queue")
+
+      [
+        "PublishingApi::HistoricalAccountsIndexPresenter",
+        "PublishingApi::HowGovernmentWorksPresenter",
+        "PublishingApi::OperationalFieldsIndexPresenter",
+        "PublishingApi::MinistersIndexPresenter",
+        "PublishingApi::EmbassiesIndexPresenter",
+        "PublishingApi::WorldIndexPresenter",
+        "PublishingApi::OrganisationsIndexPresenter",
+      ].each do |presenter|
+        PresentPageToPublishingApiWorker
+          .expects(:perform_async)
+          .with(presenter)
+          .in_sequence(queue_sequence)
+      end
+
+      BulkRepublisher.new.republish_all_individual_pages
+    end
+
+    test "doesn't queue documents" do
+      2.times do
+        document = create(:document)
+
+        PublishingApiDocumentRepublishingWorker
+          .expects(:perform_async_in_queue)
+          .with("bulk_republishing", document.id, true)
+          .never
+      end
+
+      BulkRepublisher.new.republish_all_individual_pages
+    end
+
+    test "doesn't queue non-editionable content" do
+      BulkRepublisher.any_instance.stubs(:non_editionable_content_types).returns(%w[Contact Role])
+
+      Whitehall::PublishingApi.expects(:bulk_republish_async).with(create(:contact)).never
+      Whitehall::PublishingApi.expects(:bulk_republish_async).with(create(:role)).never
+
+      Contact.any_instance.stubs(:can_publish_to_publishing_api?).returns(true)
+      Role.any_instance.stubs(:can_publish_to_publishing_api?).returns(true)
+
+      BulkRepublisher.new.republish_all_individual_pages
+    end
+  end
+
   describe "#republish_all_non_editionable_content" do
     test "queues all non-editionable content for republishing, excluding individual pages" do
       BulkRepublisher.any_instance.stubs(:non_editionable_content_types).returns(%w[Contact Role])
