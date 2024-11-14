@@ -37,6 +37,7 @@ class ImageValidatorTest < ActiveSupport::TestCase
         Whitehall::ImageKind.new(
           "some image kind",
           "display_name" => "some image kind display name",
+          "permitted_uses" => [],
           "valid_width" => 50,
           "valid_height" => 33,
           "versions" => [],

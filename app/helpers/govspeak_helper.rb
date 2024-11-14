@@ -48,7 +48,7 @@ module GovspeakHelper
 
   def prepare_images(images)
     images
-      .select { |image| image.image_data&.image_kind == "default" }
+      .select { |image| image.image_data&.image_kind_config&.permits? "govspeak_embed" }
       .select { |image| image.image_data&.all_asset_variants_uploaded? }
       .map do |image|
       {

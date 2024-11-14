@@ -3,6 +3,8 @@ default:
   display_name: "Default (960 by 640)"
   valid_width: 960
   valid_height: 640
+  permitted_uses:
+    - govspeak_embed
   versions:
     - name: s960
       width: 960
