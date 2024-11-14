@@ -14,7 +14,7 @@ class SpecialRoute
         content_id: "dbe329f1-359c-43f7-8944-580d4742aa91",
         title: "Get involved",
         description: "Find out how you can engage with government directly, and take part locally, nationally or internationally.",
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::FRONTEND,
         document_type: "get_involved",
         schema_name: "get_involved",
       },
