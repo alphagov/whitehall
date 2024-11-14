@@ -1,0 +1,63 @@
+.app-c-host-editions-table {
+  .govuk-table__header {
+    .app-table__sort-link {
+      display: inline-block;
+      position: relative;
+      padding-right: $sort-link-arrow-size;
+      color: $govuk-link-colour;
+      text-decoration: none;
+      @include govuk-link-style-no-visited-state;
+    }
+
+    .app-table__sort-link:focus {
+      @include govuk-focused-text;
+    }
+
+    .app-table__sort-link::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      right: 0;
+      @include govuk-shape-arrow($direction: up, $base: $sort-link-arrow-size-small, $display: block);
+    }
+
+    .app-table__sort-link::before {
+      content: "";
+      position: absolute;
+      top: 13px;
+      right: 0;
+      @include govuk-shape-arrow($direction: down, $base: $sort-link-arrow-size-small, $display: block);
+    }
+  }
+
+  .govuk-table__header--active {
+    .app-table__sort-link {
+      padding-right: govuk-spacing(4);
+    }
+
+    .app-table__sort-link--ascending::before,
+    .app-table__sort-link--descending::before {
+      content: none;
+    }
+
+    .app-table__sort-link--ascending::after {
+      content: "";
+      position: absolute;
+      top: $sort-link-arrow-spacing;
+      right: 0;
+      margin-left: govuk-spacing(1);
+
+      @include govuk-shape-arrow($direction: up, $base: $sort-link-arrow-size, $display: inline-block);
+    }
+
+    .app-table__sort-link--descending::after {
+      content: "";
+      position: absolute;
+      top: $sort-link-arrow-spacing;
+      right: 0;
+      margin-left: govuk-spacing(1);
+
+      @include govuk-shape-arrow($direction: down, $base: $sort-link-arrow-size, $display: inline-block);
+    }
+  }
+}
