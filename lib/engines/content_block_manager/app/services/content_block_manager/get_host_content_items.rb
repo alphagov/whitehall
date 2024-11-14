@@ -4,18 +4,22 @@ require "uri"
 
 module ContentBlockManager
   class GetHostContentItems
-    attr_reader :content_id
+    attr_reader :content_id, :page, :order
 
-    def initialize(content_id:)
+    DEFAULT_ORDER = "-unique_pageviews".freeze
+
+    def initialize(content_id:, page: nil, order: nil)
       self.content_id = content_id
+      self.page = page
+      self.order = order || DEFAULT_ORDER
     end
 
-    def self.by_embedded_document(content_block_document:)
-      new(content_id: content_block_document.content_id).items
+    def self.by_embedded_document(content_block_document:, page: nil, order: nil)
+      new(content_id: content_block_document.content_id, page:, order:).items
     end
 
     def items
-      content_items["results"].map do |item|
+      items = content_items["results"].map do |item|
         ContentBlockManager::HostContentItem.new(
           title: item["title"],
           base_path: item["base_path"],
@@ -27,15 +31,17 @@ module ContentBlockManager
           unique_pageviews: item["unique_pageviews"],
         )
       end
+
+      ContentBlockManager::HostContentItems.new(items, content_items["total"], content_items["total_pages"])
     end
 
   private
 
-    attr_writer :content_id
+    attr_writer :content_id, :page, :order
 
     def content_items
       @content_items ||= begin
-        response = Services.publishing_api.get_content_by_embedded_document(@content_id)
+        response = Services.publishing_api.get_content_by_embedded_document(@content_id, { page:, order: }.compact)
         response.parsed_content
       end
     end

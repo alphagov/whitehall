@@ -25,7 +25,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
     stub_request_for_schema("email_address")
 
-    stub_publishing_api_has_embedded_content(content_id: @content_id, total: 0, results: [])
+    stub_publishing_api_has_embedded_content(content_id: @content_id, total: 0, results: [], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER)
   end
 
   describe "when creating a new content block" do

@@ -428,7 +428,11 @@ When(/^dependent content exists for a content block$/) do
     }
   end
 
-  stub_publishing_api_has_embedded_content(content_id: anything, results: @dependent_content, total: @dependent_content.length)
+  stub_publishing_api_has_embedded_content_for_any_content_id(
+    results: @dependent_content,
+    total: @dependent_content.length,
+    order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+  )
 end
 
 Then(/^I should see the dependent content listed$/) do
