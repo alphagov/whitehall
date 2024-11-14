@@ -57,7 +57,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def export
     if filter && filter.exportable?
-      DocumentListExportWorker.perform_async(params_filters_with_default_state, current_user.id)
+      DocumentListExportWorker.perform_async(params_filters_with_default_state.as_json, current_user.id)
       flash[:notice] = "The document list is being exported"
     else
       flash[:alert] = "The document list is too large for export"
