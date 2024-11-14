@@ -133,4 +133,25 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
       assert_equal new_content_block_manager_content_block_edition_path(block_type:), path
     end
   end
+
+  describe "#show" do
+    let(:edition) { create(:content_block_edition, :email_address) }
+    let(:document) { edition.document }
+
+    it "returns information about the document" do
+      stub_publishing_api_has_embedded_content_for_any_content_id(
+        results: [],
+        total: 0,
+        order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+      )
+
+      visit content_block_manager_content_block_document_path(document)
+
+      assert_text document.title
+    end
+
+    it_returns_embedded_content do
+      visit content_block_manager_content_block_document_path(document)
+    end
+  end
 end
