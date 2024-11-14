@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
+class ContentBlockManager::HostContentItemTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe "#last_edited_at" do
