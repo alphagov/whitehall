@@ -18,13 +18,13 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
     ContentBlockManager::ContentBlock::Schema.stubs(:valid_schemas).returns(%w[email_address postal_address])
   end
 
-  it "collapses all sections by default" do
+  it "expands all sections by default" do
     render_inline(
       ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
         filters: {},
       ),
     )
-    assert_selector ".govuk-accordion__section--expanded", count: 0
+    assert_selector ".govuk-accordion__section--expanded", count: 3
   end
 
   it "adds value of keyword to text input from filter" do
@@ -34,7 +34,6 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
       ),
     )
 
-    assert_selector ".govuk-accordion__section--expanded", count: 1
     assert_selector ".govuk-accordion__section--expanded", text: "Keyword"
     assert_selector "input[name='keyword'][value='ministry defense']"
   end
@@ -57,7 +56,6 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
       ),
     )
 
-    assert_selector ".govuk-accordion__section--expanded", count: 1
     assert_selector ".govuk-accordion__section--expanded", text: "Content block type"
 
     assert_selector "input[type='checkbox'][name='block_type[]'][value='email_address'][checked]"
@@ -78,7 +76,6 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
       ),
     )
 
-    assert_selector ".govuk-accordion__section--expanded", count: 1
     assert_selector ".govuk-accordion__section--expanded", text: "Lead organisation"
 
     assert_selector "select[name='lead_organisation']"

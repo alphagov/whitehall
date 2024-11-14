@@ -46,6 +46,6 @@ private
   end
 
   def default_filters
-    { lead_organisation: current_user.organisation.try(:id) || "" }
+    { lead_organisation: "" }
   end
 end
