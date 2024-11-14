@@ -24,11 +24,11 @@ Feature: Search for a content object
 
   Scenario: GDS Editor can filter by organisation
     When I visit the Content Block Manager home page
-    Then my organisation is already selected as a filter
-    And I should see the details for all documents from my organisation
-    When I select the lead organisation "All organisations"
+    Then 'all organisations' is already selected as a filter
+    And "3" content blocks are returned in total
+    When I select the lead organisation "Department of Placeholder"
     And I click to view results
-    Then "3" content blocks are returned in total
+    Then I should see the details for all documents from my organisation
 
   Scenario: GDS Editor searches for a content object by keyword in instructions to publishers
     When I visit the Content Block Manager home page

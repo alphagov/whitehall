@@ -271,8 +271,8 @@ Then("I should see the details for all documents") do
   end
 end
 
-Then("my organisation is already selected as a filter") do
-  expect(page).to have_field("Lead organisation", with: @user.organisation.id)
+Then("'all organisations' is already selected as a filter") do
+  expect(page).to have_field("Lead organisation", with: "")
 end
 
 Then("I should see the details for all documents from my organisation") do

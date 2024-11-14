@@ -55,10 +55,10 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
 
     describe "when no filter params are specified" do
       describe "when there are no session filters" do
-        it "adds the users organisation as the lead organisation by default" do
+        it "sets the filter to 'all organisations' by default" do
           visit content_block_manager.content_block_manager_content_block_documents_path
 
-          assert_current_path content_block_manager.content_block_manager_root_path({ lead_organisation: @organisation.id.to_s })
+          assert_current_path content_block_manager.content_block_manager_root_path({ lead_organisation: "" })
         end
       end
 
@@ -76,7 +76,7 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
         it "resets the filters when reset_fields is set" do
           visit content_block_manager.content_block_manager_content_block_documents_path({ reset_fields: true })
 
-          assert_current_path content_block_manager.content_block_manager_root_path({ lead_organisation: @organisation.id.to_s })
+          assert_current_path content_block_manager.content_block_manager_root_path({ lead_organisation: "" })
         end
       end
     end
