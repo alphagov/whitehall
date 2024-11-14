@@ -39,6 +39,20 @@ module Admin::RepublishingHelper
         confirmation_path: admin_bulk_republishing_confirm_path("all-documents-with-publicly-visible-editions-with-html-attachments"),
         republish_method: -> { BulkRepublisher.new.republish_all_documents_with_publicly_visible_editions_with_html_attachments },
       },
+      all_individual_pages: {
+        id: "all-individual-pages",
+        name: "all individual pages",
+        republishing_path: admin_bulk_republishing_republish_path("all-individual-pages"),
+        confirmation_path: admin_bulk_republishing_confirm_path("all-individual-pages"),
+        republish_method: -> { BulkRepublisher.new.republish_all_individual_pages },
+      },
+      all_non_editionable_content: {
+        id: "all-non-editionable-content",
+        name: "all non-editionable content",
+        republishing_path: admin_bulk_republishing_republish_path("all-non-editionable-content"),
+        confirmation_path: admin_bulk_republishing_confirm_path("all-non-editionable-content"),
+        republish_method: -> { BulkRepublisher.new.republish_all_non_editionable_content },
+      },
       all_published_organisation_about_us_pages: {
         id: "all-published-organisation-about-us-pages",
         name: "all published organisation 'About us' pages",
@@ -85,6 +99,27 @@ module Admin::RepublishingHelper
     ]
 
     [*editionable_content_types, *non_editionable_content_types].sort
+  end
+
+  def republishable_pages
+    [
+      "PublishingApi::HistoricalAccountsIndexPresenter",
+      "PublishingApi::HowGovernmentWorksPresenter",
+      "PublishingApi::OperationalFieldsIndexPresenter",
+      "PublishingApi::MinistersIndexPresenter",
+      "PublishingApi::EmbassiesIndexPresenter",
+      "PublishingApi::WorldIndexPresenter",
+      "PublishingApi::OrganisationsIndexPresenter",
+    ].map do |presenter_class_string|
+      presenter_instance = presenter_class_string.constantize.new
+
+      {
+        title: presenter_instance.title,
+        public_path: presenter_instance.base_path,
+        slug: presenter_instance.base_path.split("/").last,
+        presenter: presenter_class_string,
+      }
+    end
   end
 
   def republishable_content_types_select_options

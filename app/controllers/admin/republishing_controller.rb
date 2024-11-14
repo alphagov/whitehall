@@ -187,27 +187,6 @@ private
     enforce_permission!(:administer, :republish_content)
   end
 
-  def republishable_pages
-    [
-      "PublishingApi::HistoricalAccountsIndexPresenter",
-      "PublishingApi::HowGovernmentWorksPresenter",
-      "PublishingApi::OperationalFieldsIndexPresenter",
-      "PublishingApi::MinistersIndexPresenter",
-      "PublishingApi::EmbassiesIndexPresenter",
-      "PublishingApi::WorldIndexPresenter",
-      "PublishingApi::OrganisationsIndexPresenter",
-    ].map do |presenter_class_string|
-      presenter_instance = presenter_class_string.constantize.new
-
-      {
-        title: presenter_instance.title,
-        public_path: presenter_instance.base_path,
-        slug: presenter_instance.base_path.split("/").last,
-        presenter: presenter_class_string,
-      }
-    end
-  end
-
   def build_republishing_event(action:, content_id:)
     RepublishingEvent.new(user: current_user, reason: params.fetch(:reason), action:, content_id:, bulk: false)
   end
