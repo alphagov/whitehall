@@ -3,7 +3,7 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
     if params_filters.any?
       session[:content_block_filters] = params_filters
       @filters = params_filters
-      @content_block_documents = ContentBlockManager::ContentBlock::Document::DocumentFilter.new(@filters).documents
+      @content_block_documents = ContentBlockManager::ContentBlock::Document::DocumentFilter.new(@filters).paginated_documents
       render :index
     elsif params[:reset_fields].blank? && session_filters.any?
       redirect_to content_block_manager.content_block_manager_root_path(session_filters)
@@ -36,7 +36,7 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
 private
 
   def params_filters
-    params.slice(:keyword, :block_type, :lead_organisation)
+    params.slice(:keyword, :block_type, :lead_organisation, :page)
           .permit!
           .to_h
   end

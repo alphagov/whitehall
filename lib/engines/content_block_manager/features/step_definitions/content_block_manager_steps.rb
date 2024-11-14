@@ -36,6 +36,14 @@ When("I click cancel") do
   click_button "Cancel"
 end
 
+Then(/^I click on page ([^"]*)$/) do |page_number|
+  click_link page_number
+end
+
+When("I click on page ") do
+  click_button "Cancel"
+end
+
 When("I click to view results") do
   click_button "View results"
 end
@@ -190,21 +198,24 @@ Given("an email address content block has been created") do
   @content_blocks.push(@content_block)
 end
 
-Given("a {string} type of content block has been created with fields:") do |block_type, table|
+Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields:$/) do |count, block_type, table|
   fields = table.rows_hash
   organisation_name = fields.delete("organisation")
   organisation = Organisation.where(name: organisation_name).first
   title = fields.delete("title") || "title"
-  document = create(:content_block_document, block_type.to_sym, title:)
 
-  create(
-    :content_block_edition,
-    block_type.to_sym,
-    document:,
-    organisation:,
-    details: fields,
-    creator: @user,
-  )
+  (1..count.to_i).each do |_i|
+    document = create(:content_block_document, block_type.to_sym, title:)
+
+    create(
+      :content_block_edition,
+      block_type.to_sym,
+      document:,
+      organisation:,
+      details: fields,
+      creator: @user,
+    )
+  end
 end
 
 Given("an email address content block has been created with the following email address and title:") do |table|
@@ -275,7 +286,7 @@ Then("I should see the content block with title {string} returned") do |title|
   expect(page).to have_selector(".govuk-summary-card__title", text: title)
 end
 
-Then("{string} content blocks are returned") do |count|
+Then("{string} content blocks are returned in total") do |count|
   assert_text "#{count} #{'result'.pluralize(count.to_i)}"
 end
 

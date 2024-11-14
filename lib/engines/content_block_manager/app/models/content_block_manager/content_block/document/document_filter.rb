@@ -4,7 +4,21 @@ module ContentBlockManager
       @filters = filters
     end
 
-    def documents
+    def paginated_documents
+      unpaginated_documents.page(page).per(default_page_size)
+    end
+
+  private
+
+    def page
+      @filters[:page].presence || 1
+    end
+
+    def default_page_size
+      Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE
+    end
+
+    def unpaginated_documents
       documents = ContentBlock::Document
       documents = documents.live
       documents = documents.joins(:latest_edition)

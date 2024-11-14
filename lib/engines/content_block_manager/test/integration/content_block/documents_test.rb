@@ -38,22 +38,16 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
     end
 
     it "only returns documents with a latest edition" do
-      document_with_latest_edition = build(:content_block_document, :email_address, id: 123)
-      document_with_latest_edition.latest_edition = build(
+      document_with_latest_edition = create(:content_block_document, :email_address)
+      document_with_latest_edition.latest_edition = create(
         :content_block_edition,
         :email_address,
         details: { "email_address" => "live_edition@example.com" },
         document_id: document_with_latest_edition.id,
       )
-      document_without_latest_edition = build(:content_block_document, :email_address, title: "no latest edition")
-      document_mock = mock
+      document_without_latest_edition = create(:content_block_document, :email_address, title: "no latest edition")
 
-      ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_mock)
-      document_mock.expects(:joins).with(:latest_edition).returns(document_mock)
-      document_mock.expects(:with_lead_organisation).with(@organisation.id.to_s).returns(document_mock)
-      document_mock.expects(:order).with("content_block_editions.updated_at DESC").returns([document_with_latest_edition])
-
-      visit content_block_manager.content_block_manager_content_block_documents_path
+      visit content_block_manager.content_block_manager_content_block_documents_path({ lead_organisation: "" })
 
       assert_text document_with_latest_edition.latest_edition.details["email_address"]
       assert_no_text document_without_latest_edition.title
