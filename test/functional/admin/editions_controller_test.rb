@@ -309,6 +309,25 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test "passes raw JSON to the export worker" do
+    login_as :gds_editor
+    Admin::EditionFilter.any_instance.stubs(exportable?: true)
+
+    stub = proc do |params, _user_id|
+      assert_not params.instance_of?(ActiveSupport::HashWithIndifferentAccess)
+    end
+
+    DocumentListExportWorker.stub :perform_async, stub do
+      post :export,
+           params: {
+             include_last_author: true,
+             include_link_check_reports: true,
+             include_unpublishing: true,
+             state: "active",
+           }
+    end
+  end
+
   view_test "prevents oversized exports" do
     login_as :gds_editor
     Admin::EditionFilter.any_instance.stubs(exportable?: false)
