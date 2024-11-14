@@ -56,16 +56,8 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
       let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links] }
 
       describe "#show" do
-        it "shows host content items" do
-          host_content_items = build_list(:host_content_item, 2)
-          ContentBlockManager::GetHostContentItems.expects(:by_embedded_document)
-                                                 .with(content_block_document: document)
-                                                 .returns(host_content_items)
-
-          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
-
-          assert_template "content_block_manager/content_block/editions/workflow/review_links"
-          assert_equal host_content_items, assigns(:host_content_items)
+        it_returns_embedded_content do
+          visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
         end
       end
 

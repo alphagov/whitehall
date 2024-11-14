@@ -68,8 +68,13 @@ private
 
   def review_links
     @content_block_document = @content_block_edition.document
+    @order = params[:order]
+    @page = params[:page]
+
     @host_content_items = ContentBlockManager::GetHostContentItems.by_embedded_document(
       content_block_document: @content_block_document,
+      order: @order,
+      page: @page,
     )
 
     render :review_links
