@@ -12,6 +12,7 @@ Feature: Search for a content object
       | title |  "an address" |
       | an_address  | ABC123 |
       | organisation | Department of Placeholder |
+      | instructions_to_publishers | for GDS use only |
     And 1 content blocks of type email_address have been created with the fields:
       | title | example search title |
       | email_address  | hello@example.com |
@@ -28,6 +29,13 @@ Feature: Search for a content object
     When I select the lead organisation "All organisations"
     And I click to view results
     Then "3" content blocks are returned in total
+
+  Scenario: GDS Editor searches for a content object by keyword in instructions to publishers
+    When I visit the Content Block Manager home page
+    And I enter the keyword "GDS"
+    And I click to view results
+    Then I should see the content block with title "an address" returned
+    And "1" content blocks are returned in total
 
   Scenario: GDS Editor searches for a content object by keyword in title
     When I visit the Content Block Manager home page

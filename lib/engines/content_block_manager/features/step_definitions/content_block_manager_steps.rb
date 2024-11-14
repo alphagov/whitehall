@@ -203,6 +203,7 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
   organisation_name = fields.delete("organisation")
   organisation = Organisation.where(name: organisation_name).first
   title = fields.delete("title") || "title"
+  instructions_to_publishers = fields.delete("instructions_to_publishers")
 
   (1..count.to_i).each do |_i|
     document = create(:content_block_document, block_type.to_sym, title:)
@@ -214,6 +215,7 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
       organisation:,
       details: fields,
       creator: @user,
+      instructions_to_publishers:,
     )
   end
 end

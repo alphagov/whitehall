@@ -37,6 +37,18 @@ class ContentBlockManager::SearchableByKeywordTest < ActiveSupport::TestCase
       assert_equal [document_with_first_keyword], ContentBlockManager::ContentBlock::Document.with_keyword("foo bar")
     end
 
+    test "should find documents with instructions to publishers containing keyword" do
+      document_with_first_keyword = create(:content_block_document, :email_address, title: "example title")
+      _edition_with_first_keyword = create(:content_block_edition,
+                                           document: document_with_first_keyword,
+                                           instructions_to_publishers: "foo")
+      document_without_first_keyword = create(:content_block_document, :email_address, title: "this document is about muppets")
+      _edition_without_first_keyword = create(:content_block_edition,
+                                              document: document_without_first_keyword,
+                                              instructions_to_publishers: "bar")
+      assert_equal [document_with_first_keyword], ContentBlockManager::ContentBlock::Document.with_keyword("foo")
+    end
+
     test "should find documents with details or title containing keyword" do
       document_with_keyword_in_details = create(:content_block_document, :email_address, title: "example title")
       _edition_with_keyword = create(:content_block_edition,
