@@ -1,15 +1,31 @@
 # frozen_string_literal: true
 
 class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent < ViewComponent::Base
-  def initialize(caption:, host_content_items:, is_preview: false)
+  TABLE_ID = "host_editions"
+
+  def initialize(caption:, host_content_items:, is_preview: false, current_page: nil, order: nil)
     @caption = caption
     @host_content_items = host_content_items
     @is_preview = is_preview
+    @current_page = current_page.presence || 1
+    @order = order.presence || ContentBlockManager::GetHostContentItems::DEFAULT_ORDER
+  end
+
+  def current_page
+    @current_page.to_i
+  end
+
+  def total_pages
+    host_content_items.total_pages.to_i
+  end
+
+  def base_pagination_path
+    "#{request.url}##{TABLE_ID}"
   end
 
 private
 
-  attr_reader :caption, :host_content_items
+  attr_reader :caption, :host_content_items, :order
 
   def rows
     return [] unless host_content_items
@@ -33,6 +49,22 @@ private
         },
       ]
     end
+  end
+
+  def sort_direction(param)
+    case order
+    when param
+      "ascending"
+    when "-#{param}"
+      "descending"
+    end
+  end
+
+  def sort_link(param)
+    if sort_direction(param) == "ascending"
+      param = "-#{param}"
+    end
+    helpers.content_block_manager.url_for(only_path: false, params: { order: param }, anchor: TABLE_ID)
   end
 
   # TODO: Currently, we're only fetching Users from the local Whitehall database, which means
