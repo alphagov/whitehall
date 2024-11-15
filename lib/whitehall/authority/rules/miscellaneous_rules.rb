@@ -12,6 +12,10 @@ module Whitehall::Authority::Rules
       actor.gds_admin?
     end
 
+    def can_for_retag_content?(_action)
+      actor.gds_admin?
+    end
+
     def can_for_emergency_banner?(_action)
       actor.gds_admin?
     end
