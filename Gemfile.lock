@@ -217,7 +217,7 @@ GEM
       net-http
     ffi (1.16.3)
     find_a_port (1.0.1)
-    flipflop (2.7.1)
+    flipflop (2.8.0)
       activesupport (>= 4.0)
       terminal-table (>= 1.8)
     fog-aws (3.29.0)
