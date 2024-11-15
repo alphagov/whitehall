@@ -10,7 +10,8 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
   let(:response_body) do
     {
       "content_id" => SecureRandom.uuid,
-      "total" => 1,
+      "total" => 111,
+      "total_pages" => 12,
       "results" => [
         {
           "title" => "foo",
@@ -31,22 +32,55 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
   end
 
   setup do
-    stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 1, results: response_body["results"])
+    stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 111, total_pages: 12, results: response_body["results"], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER)
   end
 
   describe "#items" do
-    it "calls the Publishing API for the content which embeds the target" do
-      fake_api_response = GdsApi::Response.new(
+    let(:fake_api_response) do
+      GdsApi::Response.new(
         stub("http_response", code: 200, body: response_body.to_json),
       )
-      publishing_api_mock = Minitest::Mock.new
-      publishing_api_mock.expect :get_content_by_embedded_document, fake_api_response, [target_content_id]
+    end
+    let(:publishing_api_mock) { Minitest::Mock.new }
+
+    it "calls the Publishing API for the content which embeds the target" do
+      publishing_api_mock.expect :get_content_by_embedded_document, fake_api_response, [target_content_id, { order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER }]
 
       Services.stub :publishing_api, publishing_api_mock do
         document = mock("content_block_document", content_id: target_content_id)
 
         described_class.by_embedded_document(
           content_block_document: document,
+        )
+
+        publishing_api_mock.verify
+      end
+    end
+
+    it "supports pagination" do
+      publishing_api_mock.expect :get_content_by_embedded_document, fake_api_response, [target_content_id, { page: 1, order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER }]
+
+      Services.stub :publishing_api, publishing_api_mock do
+        document = mock("content_block_document", content_id: target_content_id)
+
+        described_class.by_embedded_document(
+          content_block_document: document,
+          page: 1,
+        )
+
+        publishing_api_mock.verify
+      end
+    end
+
+    it "supports sorting" do
+      publishing_api_mock.expect :get_content_by_embedded_document, fake_api_response, [target_content_id, { order: "-abc" }]
+
+      Services.stub :publishing_api, publishing_api_mock do
+        document = mock("content_block_document", content_id: target_content_id)
+
+        described_class.by_embedded_document(
+          content_block_document: document,
+          order: "-abc",
         )
 
         publishing_api_mock.verify
@@ -63,6 +97,9 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
         "title" => response_body["results"][0]["primary_publishing_organisation"]["title"],
         "base_path" => response_body["results"][0]["primary_publishing_organisation"]["base_path"],
       }
+
+      assert_equal result.total, response_body["total"]
+      assert_equal result.total_pages, response_body["total_pages"]
 
       assert_equal result[0].title, response_body["results"][0]["title"]
       assert_equal result[0].base_path, response_body["results"][0]["base_path"]

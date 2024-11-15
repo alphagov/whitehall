@@ -15,9 +15,13 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
   def show
     @content_block_document = ContentBlockManager::ContentBlock::Document.find(params[:id])
     @content_block_versions = @content_block_document.versions
+    @order = params[:order]
+    @page = params[:page]
 
     @host_content_items = ContentBlockManager::GetHostContentItems.by_embedded_document(
       content_block_document: @content_block_document,
+      order: @order,
+      page: @page,
     )
   end
 

@@ -30,7 +30,14 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "unique_pageviews" => unique_pageviews,
     )
   end
-  let(:host_content_items) { [host_content_item] }
+  let(:host_content_items) do
+    build(
+      :host_content_items,
+      items: [host_content_item],
+      total: 20,
+      total_pages: 2,
+    )
+  end
 
   def self.it_returns_unknown_user
     it "returns Unknown user" do
@@ -42,6 +49,12 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       )
 
       assert_selector "tbody .govuk-table__cell", text: "#{time_ago_in_words(host_content_item.last_edited_at)} ago by Unknown user"
+    end
+  end
+
+  around do |test|
+    with_request_url content_block_manager_path do
+      test.call
     end
   end
 
@@ -169,6 +182,133 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
         )
 
         assert_selector "a[href='#{Plek.external_url_for('draft-origin') + host_content_item.base_path}']", text: host_content_item.title
+      end
+    end
+
+    describe "sorting headers" do
+      it "adds the table header as an anchor tag to each header" do
+        render_inline(
+          described_class.new(
+            caption:,
+            host_content_items:,
+          ),
+        )
+
+        assert_selector "a.app-table__sort-link[href*='##{ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent::TABLE_ID}']", count: 5
+      end
+
+      it "shows all the headers unordered by default" do
+        render_inline(
+          described_class.new(
+            caption:,
+            host_content_items:,
+          ),
+        )
+
+        assert_selector "a.app-table__sort-link[href*='order=title']", text: "Title"
+        assert_selector "a.app-table__sort-link[href*='order=document_type']", text: "Document Type"
+        assert_selector "a.app-table__sort-link[href*='order=unique_pageviews']", text: "Unique pageviews"
+        assert_selector "a.app-table__sort-link[href*='order=primary_publishing_organisation_title']", text: "Publishing organisation"
+        assert_selector "a.app-table__sort-link[href*='order=last_edited_at']", text: "Updated"
+
+        assert_selector ".govuk-table__header--active a", text: "Unique pageviews"
+      end
+
+      %w[title document_type unique_pageviews primary_publishing_organisation_title last_edited_at].each do |order|
+        it "shows the link as selected when #{order} is in ascending order" do
+          render_inline(
+            described_class.new(
+              caption:,
+              host_content_items:,
+              order:,
+            ),
+          )
+
+          assert_selector ".govuk-table__header--active a.app-table__sort-link.app-table__sort-link--ascending[href*='order=-#{order}']"
+        end
+
+        it "shows the link as selected when #{order} is in descending order" do
+          render_inline(
+            described_class.new(
+              caption:,
+              host_content_items:,
+              order: "-#{order}",
+            ),
+          )
+
+          assert_selector ".govuk-table__header--active a.app-table__sort-link.app-table__sort-link--descending[href*='order=#{order}']"
+        end
+      end
+    end
+
+    describe "pagination" do
+      context "when there is only one page" do
+        let(:host_content_items) do
+          build(
+            :host_content_items,
+            items: [host_content_item],
+            total: 1,
+            total_pages: 1,
+          )
+        end
+
+        it "does not show pagination" do
+          render_inline(
+            described_class.new(
+              caption:,
+              host_content_items:,
+            ),
+          )
+
+          assert_no_selector ".govuk-pagination__list"
+        end
+      end
+
+      context "when there is more than one page" do
+        let(:host_content_items) do
+          build(
+            :host_content_items,
+            items: [host_content_item],
+            total: 20,
+            total_pages: 2,
+          )
+        end
+
+        it "adds the table header as an anchor tag to each pagination link" do
+          render_inline(
+            described_class.new(
+              caption:,
+              host_content_items:,
+            ),
+          )
+
+          assert_selector "ul.govuk-pagination__list a.govuk-pagination__link[href*='##{ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent::TABLE_ID}']", count: 2
+          assert_selector ".govuk-pagination__next a.govuk-pagination__link[href*='##{ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent::TABLE_ID}']"
+        end
+
+        it "shows the first page as selected by default" do
+          render_inline(
+            described_class.new(
+              caption:,
+              host_content_items:,
+            ),
+          )
+
+          assert_selector ".govuk-pagination__list"
+          assert_selector "a.govuk-pagination__link[aria-current='page']", text: "1"
+        end
+
+        it "shows the currently selected page" do
+          render_inline(
+            described_class.new(
+              caption:,
+              host_content_items:,
+              current_page: 2,
+            ),
+          )
+
+          assert_selector "a.govuk-pagination__link[aria-current='page']", text: "2"
+        end
       end
     end
   end

@@ -2,25 +2,47 @@
 <!-- TODO: The prototype wants to show a counter beneath the title but
 before the table, the existing component doesn't support that so I've left
 it out for now-->
-<%= render "govuk_publishing_components/components/table", {
-  caption:,
-  caption_classes: "govuk-heading-l",
-  head: [
-    {
-      text: "Title",
-    },
-    {
-      text: "Document Type",
-    },
-    {
-      text: "Unique pageviews",
-    },
-    {
-      text: "Publishing organisation",
-    },
-    {
-      text: "Updated",
-    },
-  ],
-  rows:,
-} %>
+<div class="app-c-host-editions-table" id="<%= TABLE_ID %>">
+  <%= render "govuk_publishing_components/components/table", {
+    caption:,
+    caption_classes: "govuk-heading-l",
+    head: [
+      {
+        text: "Title",
+        href: sort_link("title"),
+        sort_direction: sort_direction("title"),
+      },
+      {
+        text: "Document Type",
+        href: sort_link("document_type"),
+        sort_direction: sort_direction("document_type"),
+      },
+      {
+        text: "Unique pageviews",
+        href: sort_link("unique_pageviews"),
+        sort_direction: sort_direction("unique_pageviews"),
+      },
+      {
+        text: "Publishing organisation",
+        href: sort_link("primary_publishing_organisation_title"),
+        sort_direction: sort_direction("primary_publishing_organisation_title"),
+      },
+      {
+        text: "Updated",
+        href: sort_link("last_edited_at"),
+        sort_direction: sort_direction("last_edited_at"),
+      },
+    ],
+    rows:,
+  } %>
+
+  <% if total_pages > 1 %>
+    <% Admin::PaginationHelper.pagination_hash(current_page:, total_pages:, path: base_pagination_path).tap do |hash| %>
+      <%= render "components/pagination", {
+        previous_href: hash[:previous_href],
+        next_href: hash[:next_href],
+        items: hash[:items],
+      } %>
+    <% end %>
+  <% end %>
+</div>
