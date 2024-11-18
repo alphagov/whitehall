@@ -39,6 +39,11 @@ class ContentBlockManager::BaseController < Admin::BaseController
     "Content Block Manager"
   end
 
+  def support_url
+    "#{Plek.external_url_for('support')}/general_request/new"
+  end
+  helper_method :support_url
+
   # This ensures we can override views if we need to without altering the Engine's load order, which
   # may have unintended consequences
   def prepend_views
