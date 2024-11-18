@@ -35,13 +35,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       '.app-c-govspeak-editor__preview-button-wrapper'
     )
     const textArea = innerContainer?.querySelector('#edition_body')
-    const value = textArea?.value
-    if (!value) {
+    if (!textArea) {
       console.warn(
         'YamlEditor: DOM structure did not match expectations, falling back to doing nothing'
       )
       return
     }
+    const value = textArea.value
 
     const monacoHostDiv = document.createElement('div')
     monacoHostDiv.style.width = '100%'
