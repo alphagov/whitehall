@@ -10,6 +10,8 @@ describe('GOVUK.Modules.ImageCropper', () => {
     component = document.createElement('div')
     component.setAttribute('data-filename', 'test.png')
     component.setAttribute('data-type', 'image/png')
+    component.setAttribute('data-width', '960')
+    component.setAttribute('data-height', '640')
     component.setAttribute('class', 'app-c-image-cropper')
     component.innerHTML = `
       <input type="file" class="js-cropped-image-input" name="image" hidden>

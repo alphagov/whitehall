@@ -24,6 +24,28 @@ class WhitehallTest < ActiveSupport::TestCase
     ENV["TEST_ENV_NUMBER"] = before
   end
 
+  test "Whitehall.image_kinds is populated with defaults from config" do
+    assert_pattern do
+      Whitehall.image_kinds["default"] => {
+        name: "default",
+        valid_width: 960,
+        valid_height: 640,
+        versions: [
+          { name: "s960" },
+          *_rest
+        ],
+      }
+    end
+  end
+
+  test "Whitehall.image_kinds all have distinct version names" do
+    # It's important that version names are globally unique to ensure that
+    # asset variants in the database are not ambiguous
+    all_version_names = Whitehall.image_kinds.values.flat_map(&:version_names)
+    unique_version_names = all_version_names.uniq
+    assert_equal all_version_names.size, unique_version_names.size
+  end
+
   test "Whitehall.integration_or_staging? tells us if we are in the right env" do
     before = ENV["GOVUK_WEBSITE_ROOT"]
 

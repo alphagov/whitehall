@@ -15,6 +15,21 @@
     accept: "image/png, image/jpeg, image/gif, image/svg+xml",
   } %>
 
+  <% if @edition.permitted_image_kinds.size == 1 %>
+    <%= hidden_field_tag("image[image_data][image_kind]", @edition.permitted_image_kinds.first.name) %>
+  <% else %>
+    <%= render "govuk_publishing_components/components/radio", {
+      heading: "What kind of image is this?",
+      name: "image[image_data][image_kind]",
+      items: @edition.permitted_image_kinds.map do |image_kind|
+        {
+          value: image_kind.name,
+          text: image_kind.display_name,
+        }
+      end,
+    } %>
+  <% end %>
+
    <%= render "govuk_publishing_components/components/details", {
       title: "You must use an SVG for charts and diagrams",
     } do %>

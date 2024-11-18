@@ -39,6 +39,10 @@ module Edition::Images
     true
   end
 
+  def permitted_image_kinds
+    Whitehall.image_kinds.values_at("default")
+  end
+
 private
 
   def no_substantive_attributes?(attrs)

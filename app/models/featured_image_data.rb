@@ -1,5 +1,6 @@
 class FeaturedImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
+  include ImageKind
 
   belongs_to :featured_imageable, polymorphic: true
 
@@ -10,7 +11,7 @@ class FeaturedImageData < ApplicationRecord
   validates :file, presence: true
   validates :featured_imageable, presence: true
 
-  validates_with ImageValidator, size: [960, 640]
+  validates_with ImageValidator
 
   delegate :url, to: :file
 

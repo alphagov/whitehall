@@ -197,6 +197,25 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, ".image.embedded"
   end
 
+  test "should ignore images with image kinds which do not permit use in govspeak embeds" do
+    embed_code = "[Image: minister-of-funk.960x640.jpg]"
+    body = "#Heading\n\n#{embed_code}\n\n##Subheading"
+    image = build(:image)
+    image_data = image.image_data
+    def image_data.image_kind_config = Whitehall::ImageKind.new(
+      "some name",
+      "display_name" => "some display name",
+      "valid_width" => 0,
+      "valid_height" => 0,
+      "permitted_uses" => [],
+      "versions" => [],
+    )
+    document = build(:published_news_article, images: [image], body:)
+
+    html = govspeak_edition_to_html(document)
+    refute_select_within_html html, ".image.embedded"
+  end
+
   test "should not convert documents with no block attachments" do
     text = "#Heading\n\n!@2"
     document = build(:published_detailed_guide, body: text)

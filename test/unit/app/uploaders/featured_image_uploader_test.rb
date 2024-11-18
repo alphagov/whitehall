@@ -33,6 +33,11 @@ class FeaturedImageUploaderTest < ActiveSupport::TestCase
     assert_match %r{^system}, uploader.store_dir
   end
 
+  test "should use default versions" do
+    uploader = FeaturedImageUploader.new(create(:featured_image_data), "mounted-as")
+    assert_equal %i[s960 s712 s630 s465 s300 s216], uploader.versions.keys
+  end
+
 private
 
   def assert_image_has_correct_size(asset_path)

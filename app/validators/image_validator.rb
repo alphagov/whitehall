@@ -8,7 +8,6 @@ class ImageValidator < ActiveModel::Validator
   def initialize(options = {})
     super
     @method     = options[:method] || :file
-    @size       = options[:size] || nil
     @mime_types = options[:mime_types] || DEFAULT_MIME_TYPES
   end
 
@@ -39,12 +38,12 @@ private
   end
 
   def validate_size(record, image)
-    return unless @size
+    return unless record.respond_to?(:image_kind_config)
 
     actual_width = image[:width]
     actual_height = image[:height]
-    target_width = @size[0]
-    target_height = @size[1]
+    target_width = record.image_kind_config.valid_width
+    target_height = record.image_kind_config.valid_height
 
     too_small = actual_width < target_width || actual_height < target_height
     too_large = actual_width > target_width || actual_height > target_height

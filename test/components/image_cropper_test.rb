@@ -17,6 +17,8 @@ class ImagecropperComponentTest < ComponentTestCase
       src: "src",
       filename: "filename",
       type: "type",
+      width: 960,
+      height: 640,
     })
 
     assert_select ".app-c-image-cropper"
