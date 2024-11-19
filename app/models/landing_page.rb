@@ -1,6 +1,7 @@
 class LandingPage < Edition
   include ::Attachable
   include Edition::Organisations
+  include Edition::Images
 
   skip_callback :validation, :before, :update_document_slug
   validates :base_path, presence: true
@@ -21,6 +22,10 @@ class LandingPage < Edition
 
   def self.access_limited_by_default?
     true
+  end
+
+  def permitted_image_kinds
+    super + Whitehall.image_kinds.values.select { _1.permits?("hero") }
   end
 
 private
