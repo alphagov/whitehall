@@ -16,7 +16,7 @@ module SearchApiPresenters
   end
 
   def self.searchable_classes_for_government_index
-    searchable_classes - [DetailedGuide]
+    searchable_classes - [DetailedGuide, LandingPage]
   end
 
   def self.searchable_classes
