@@ -3,12 +3,13 @@
 class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent < ViewComponent::Base
   TABLE_ID = "host_editions"
 
-  def initialize(caption:, host_content_items:, is_preview: false, current_page: nil, order: nil)
+  def initialize(caption:, host_content_items:, content_block_edition:, is_preview: false, current_page: nil, order: nil)
     @caption = caption
     @host_content_items = host_content_items
     @is_preview = is_preview
     @current_page = current_page.presence || 1
     @order = order.presence || ContentBlockManager::GetHostContentItems::DEFAULT_ORDER
+    @content_block_edition = content_block_edition
   end
 
   def current_page
@@ -25,7 +26,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
 private
 
-  attr_reader :caption, :host_content_items, :order
+  attr_reader :caption, :host_content_items, :order, :content_block_edition
 
   def rows
     return [] unless host_content_items
@@ -81,7 +82,7 @@ private
 
   def frontend_path(content_item)
     if @is_preview
-      Plek.external_url_for("draft-origin") + content_item.base_path
+      helpers.content_block_manager.content_block_manager_content_block_host_content_preview_path(id: content_block_edition.id, host_content_id: content_item.host_content_id)
     else
       Plek.website_root + content_item.base_path
     end

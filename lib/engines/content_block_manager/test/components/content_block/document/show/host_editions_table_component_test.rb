@@ -2,7 +2,7 @@ require "test_helper"
 
 class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
-  include Rails.application.routes.url_helpers
+  include ContentBlockManager::Engine.routes.url_helpers
   include ActionView::Helpers::DateHelper
 
   let(:described_class) { ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent }
@@ -28,6 +28,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "last_edited_at" => Time.zone.now.to_s,
       "publishing_organisation" => publishing_organisation,
       "unique_pageviews" => unique_pageviews,
+      "host_content_id" => SecureRandom.uuid,
       "instances" => 1,
     )
   end
@@ -40,12 +41,17 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
     )
   end
 
+  let(:content_block_edition) do
+    build(:content_block_edition, :email_address, id: SecureRandom.uuid)
+  end
+
   def self.it_returns_unknown_user
     it "returns Unknown user" do
       render_inline(
         described_class.new(
           caption:,
           host_content_items:,
+          content_block_edition:,
         ),
       )
 
@@ -54,7 +60,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
   end
 
   around do |test|
-    with_request_url content_block_manager_path do
+    with_request_url content_block_manager_root_path do
       test.call
     end
   end
@@ -65,6 +71,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
         described_class.new(
           caption:,
           host_content_items:,
+          content_block_edition:,
         ),
       )
 
@@ -91,6 +98,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           described_class.new(
             caption:,
             host_content_items:,
+            content_block_edition:,
           ),
         )
         assert_no_selector "tbody .govuk-table__cell a", text: host_content_item.publishing_organisation["title"]
@@ -101,12 +109,13 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       it "links to the organisation instead of printing the name" do
         organisation = create(:organisation, content_id: host_content_item.publishing_organisation["content_id"], name: host_content_item.publishing_organisation["title"])
 
-        expected_href = admin_organisation_path(organisation)
+        expected_href = Rails.application.routes.url_helpers.admin_organisation_path(organisation)
 
         render_inline(
           described_class.new(
             caption:,
             host_content_items:,
+            content_block_edition:,
           ),
         )
         assert_selector "tbody .govuk-table__cell a",
@@ -130,6 +139,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           described_class.new(
             caption:,
             host_content_items:,
+            content_block_edition:,
           ),
         )
 
@@ -165,6 +175,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           described_class.new(
             caption:,
             host_content_items:,
+            content_block_edition:,
           ),
         )
 
@@ -179,10 +190,11 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
             is_preview: true,
             caption:,
             host_content_items:,
+            content_block_edition:,
           ),
         )
 
-        assert_selector "a[href='#{Plek.external_url_for('draft-origin') + host_content_item.base_path}']", text: host_content_item.title
+        assert_selector "a[href='#{content_block_manager_content_block_host_content_preview_path(id: content_block_edition.id, host_content_id: host_content_item.host_content_id)}']", text: host_content_item.title
       end
     end
 
@@ -192,6 +204,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           described_class.new(
             caption:,
             host_content_items:,
+            content_block_edition:,
           ),
         )
 
@@ -203,6 +216,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           described_class.new(
             caption:,
             host_content_items:,
+            content_block_edition:,
           ),
         )
 
@@ -223,6 +237,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
               caption:,
               host_content_items:,
               order:,
+              content_block_edition:,
             ),
           )
 
@@ -235,6 +250,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
               caption:,
               host_content_items:,
               order: "-#{order}",
+              content_block_edition:,
             ),
           )
 
@@ -259,6 +275,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
             described_class.new(
               caption:,
               host_content_items:,
+              content_block_edition:,
             ),
           )
 
@@ -281,6 +298,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
             described_class.new(
               caption:,
               host_content_items:,
+              content_block_edition:,
             ),
           )
 
@@ -293,6 +311,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
             described_class.new(
               caption:,
               host_content_items:,
+              content_block_edition:,
             ),
           )
 
@@ -306,6 +325,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
               caption:,
               host_content_items:,
               current_page: 2,
+              content_block_edition:,
             ),
           )
 
