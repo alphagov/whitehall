@@ -172,7 +172,7 @@ module Whitehall
   end
 
   def self.edition_route_path_segments
-    %w[news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities collections supporting-pages calls-for-evidence worldwide-organisations]
+    %w[news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities collections supporting-pages calls-for-evidence worldwide-organisations landing-pages]
   end
 
   def self.analytics_format(format)
