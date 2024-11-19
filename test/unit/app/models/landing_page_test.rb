@@ -20,6 +20,12 @@ class LandingPageTest < ActiveSupport::TestCase
     assert_equal :base_path, landing_page.errors.first.attribute
   end
 
+  test "landing-page is not valid if base_path does not start with a slash" do
+    document = build(:document, slug: "landing-page/test")
+    landing_page = build(:landing_page, document:, body: "blocks: []")
+    assert_not landing_page.valid?
+  end
+
   test "landing-page is valid if body is YAML with at least the blocks: element" do
     document = build(:document, slug: "/landing-page/test")
     landing_page = build(:landing_page, document:, body: "blocks:\nother:\n")

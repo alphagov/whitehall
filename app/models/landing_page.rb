@@ -4,7 +4,7 @@ class LandingPage < Edition
   include Edition::Images
 
   skip_callback :validation, :before, :update_document_slug
-  validates :base_path, presence: true
+  validates :base_path, presence: true, format: { with: /\A\/.*\z/, message: "must start with a slash (/)" }
   validate :base_path_must_not_be_taken
   validate :body_must_be_valid_yaml
 

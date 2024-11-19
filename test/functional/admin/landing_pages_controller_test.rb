@@ -47,7 +47,8 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
   end
 
   test "GET :edit fetches the supplied instance" do
-    page = create(:landing_page, organisations: [@organisation])
+    document = create(:document, slug: "/some-slug-starting-with-slash")
+    page = create(:landing_page, organisations: [@organisation], document:)
 
     get :edit, params: { id: page }
 
@@ -58,7 +59,8 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
 
   test "PUT :update changes the supplied instance with the supplied params" do
     attrs = attributes_for(:landing_page, title: "Hello there")
-    page = create(:landing_page, organisations: [@organisation], title: "Goodbye")
+    document = create(:document, slug: "/some-slug-starting-with-slash")
+    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", document:)
 
     post :update, params: {
       id: page,
@@ -72,7 +74,8 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
 
   test "PUT :update doesn't save the new instance when the supplied params are invalid" do
     attrs = attributes_for(:landing_page, title: "")
-    page = create(:landing_page, organisations: [@organisation], title: "Goodbye")
+    document = create(:document, slug: "/some-slug-starting-with-slash")
+    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", document:)
 
     post :update, params: { id: page, edition: attrs }
 
