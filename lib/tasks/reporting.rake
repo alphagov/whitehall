@@ -1,11 +1,6 @@
 require "ruby-progressbar"
 
 namespace :reporting do
-  desc "A CSV report of non-HTML attachments uploads published by all organisations"
-  task published_attachments_report: :environment do
-    Reports::PublishedAttachmentsReport.new.report
-  end
-
   desc "Prints a list of content IDs for documents whose govspeak content contains a given regular expression"
   task :matching_docs, [:regex] => :environment do |_, args|
     regex = Regexp.new(/#{args[:regex]}/).to_s
