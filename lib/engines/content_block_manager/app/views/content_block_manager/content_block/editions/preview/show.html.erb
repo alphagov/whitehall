@@ -1,0 +1,18 @@
+<% content_for :page_title, "Preview content block in host document" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters govuk-body">
+    <h1>Preview Host Document</h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <h2><%= @preview_content[:title] %></h2>
+        <p><strong>Document type: </strong><%= @preview_content[:document_type] %></p>
+        <p><strong>Publishing app: </strong><%= @preview_content[:publishing_app] %></p>
+        <p><a href="<%= @preview_content[:frontend_path] %>">View on Gov.uk</a></p>
+      </div>
+      <div class="govuk-grid-column-two-thirds">
+        <iframe id="preview-iframe" style="width:100%;height:80vh;" srcdoc="<%= @preview_content[:html] %>"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
