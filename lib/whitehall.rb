@@ -162,6 +162,7 @@ module Whitehall
       DetailedGuide,
       DocumentCollection,
       FatalityNotice,
+      LandingPage,
       NewsArticle,
       Publication,
       Speech,
