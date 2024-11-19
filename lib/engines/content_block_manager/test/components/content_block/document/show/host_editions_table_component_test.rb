@@ -28,6 +28,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "last_edited_at" => Time.zone.now.to_s,
       "publishing_organisation" => publishing_organisation,
       "unique_pageviews" => unique_pageviews,
+      "instances" => 1,
     )
   end
   let(:host_content_items) do
@@ -194,7 +195,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           ),
         )
 
-        assert_selector "a.app-table__sort-link[href*='##{ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent::TABLE_ID}']", count: 5
+        assert_selector "a.app-table__sort-link[href*='##{ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent::TABLE_ID}']", count: 6
       end
 
       it "shows all the headers unordered by default" do
@@ -207,6 +208,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
         assert_selector "a.app-table__sort-link[href*='order=title']", text: "Title"
         assert_selector "a.app-table__sort-link[href*='order=document_type']", text: "Document Type"
+        assert_selector "a.app-table__sort-link[href*='order=instances']", text: "Instances"
         assert_selector "a.app-table__sort-link[href*='order=unique_pageviews']", text: "Unique pageviews"
         assert_selector "a.app-table__sort-link[href*='order=primary_publishing_organisation_title']", text: "Publishing organisation"
         assert_selector "a.app-table__sort-link[href*='order=last_edited_at']", text: "Updated"
@@ -214,7 +216,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
         assert_selector ".govuk-table__header--active a", text: "Unique pageviews"
       end
 
-      %w[title document_type unique_pageviews primary_publishing_organisation_title last_edited_at].each do |order|
+      %w[title document_type unique_pageviews primary_publishing_organisation_title last_edited_at instances].each do |order|
         it "shows the link as selected when #{order} is in ascending order" do
           render_inline(
             described_class.new(
