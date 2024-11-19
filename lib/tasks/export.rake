@@ -38,51 +38,6 @@ namespace :export do
     end
   end
 
-  desc "Export list of published editions for orgs export:published_editions ORGS=org-slug"
-  task :published_editions, [:orgs] => :environment do |_t, _args|
-    orgs = if ENV["ORGS"]
-             Organisation.where(slug: ENV["ORGS"].split(",")).all
-           else
-             Organisation.all
-           end
-    puts "Processing #{orgs.map(&:display_name)}"
-    path = "tmp/published_editions-#{Time.zone.now.to_i}.csv"
-    puts "generating csv in #{path}"
-
-    CSV.open(path, "w") do |csv|
-      csv << [
-        "Org",
-        "URL",
-        "Admin URL",
-        "Title",
-        "Type",
-        "public_timestamp",
-        "People",
-        "Document collections",
-        "Policies",
-        "Topics",
-        "Topical events",
-      ]
-
-      orgs.each do |org|
-        org.published_editions.each do |edition|
-          csv << [
-            org.display_name,
-            edition.public_url,
-            admin_edition_url(edition),
-            edition.title,
-            edition.display_type,
-            edition.public_timestamp,
-            edition.respond_to?(:role_appointments) ? edition.role_appointments.map(&:slug).join("|") : nil,
-            edition.respond_to?(:published_document_collections) ? edition.published_document_collections.map(&:slug).join("|") : nil,
-            edition.respond_to?(:topics) ? edition.topics.map(&:slug).join("|") : nil,
-            edition.respond_to?(:topical_events) ? edition.topical_events.map(&:slug).join("|") : nil,
-          ]
-        end
-      end
-    end
-  end
-
   desc "Exports mappings between organisations and analytics keys"
   task organisation_analytics: :environment do
     puts "Mappings orgs to analytics keys..."
