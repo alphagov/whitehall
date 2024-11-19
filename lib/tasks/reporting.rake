@@ -1,5 +1,3 @@
-require "ruby-progressbar"
-
 namespace :reporting do
   desc "Prints a list of content IDs for documents whose govspeak content contains a given regular expression"
   task :matching_docs, [:regex] => :environment do |_, args|

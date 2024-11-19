@@ -1093,7 +1093,6 @@ DEPENDENCIES
   responders
   rinku
   rubocop-govuk
-  ruby-progressbar
   rubyzip
   sentry-sidekiq
   sidekiq-scheduler
