@@ -21,6 +21,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
           "last_edited_by_editor_id" => SecureRandom.uuid,
           "last_edited_at" => "2023-01-01T08:00:00.000Z",
           "unique_pageviews" => 123,
+          "instances" => 1,
           "primary_publishing_organisation" => {
             "content_id" => SecureRandom.uuid,
             "title" => "bar",
@@ -108,6 +109,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].last_edited_by_editor_id, response_body["results"][0]["last_edited_by_editor_id"]
       assert_equal result[0].last_edited_at, Time.zone.parse(response_body["results"][0]["last_edited_at"])
       assert_equal result[0].unique_pageviews, response_body["results"][0]["unique_pageviews"]
+      assert_equal result[0].instances, response_body["results"][0]["instances"]
 
       assert_equal result[0].publishing_organisation, expected_publishing_organisation
     end

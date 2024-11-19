@@ -8,6 +8,7 @@ module ContentBlockManager
     :last_edited_by_editor_id,
     :last_edited_at,
     :unique_pageviews,
+    :instances,
   )
 
     def last_edited_at
