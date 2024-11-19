@@ -19,6 +19,8 @@ module ContentBlockManager
     end
 
     def items
+      puts "content items results"
+      puts content_items["results"][0]
       items = content_items["results"].map do |item|
         ContentBlockManager::HostContentItem.new(
           title: item["title"],
@@ -29,6 +31,7 @@ module ContentBlockManager
           last_edited_by_editor_id: item["last_edited_by_editor_id"],
           last_edited_at: item["last_edited_at"],
           unique_pageviews: item["unique_pageviews"],
+          host_content_id: item["host_content_id"],
         )
       end
 
