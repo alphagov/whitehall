@@ -229,19 +229,6 @@ namespace :publishing_api do
       end
     end
 
-    desc "Republish documents by content ids from CSV"
-    task :documents_by_content_ids_from_csv, [:csv_file_name] => :environment do |_, args|
-      csv = CSV.read(Rails.root.join("lib/tasks/#{args[:csv_file_name]}.csv"), headers: true)
-      content_ids = csv["content_id"].uniq
-      document_ids = Document.where(content_id: content_ids).pluck(:id)
-
-      puts "Bulk republishing #{document_ids.count} documents"
-
-      document_ids.each do |id|
-        PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", id, true)
-      end
-    end
-
     desc "Republish all documents"
     task all_documents: :environment do
       puts "Enqueueing #{Document.count} documents"

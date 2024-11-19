@@ -366,27 +366,6 @@ class PublishingApiRake < ActiveSupport::TestCase
       end
     end
 
-    describe "#documents_by_content_ids_from_csv" do
-      let(:task) { Rake::Task["publishing_api:bulk_republish:documents_by_content_ids_from_csv"] }
-
-      test "Republishes documents by content ids from csv" do
-        edition = create(:publication)
-        filename = "content_ids_#{Time.zone.now.to_i}"
-
-        File.write("lib/tasks/#{filename}.csv", "content_id\n#{edition.content_id}")
-
-        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
-          "bulk_republishing",
-          edition.document.id,
-          true,
-        )
-
-        capture_io { task.invoke(filename) }
-
-        File.delete("lib/tasks/#{filename}.csv")
-      end
-    end
-
     describe "#all_documents" do
       let(:task) { Rake::Task["publishing_api:bulk_republish:all_documents"] }
 
