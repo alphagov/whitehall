@@ -100,4 +100,5 @@ Feature: Edit a content object
     When I revisit the edit page
     And I fill out the form
     Then I am shown where the changes will take place
-    And the host documents link to the draft content store
+    When I click on the first host document
+    Then I am taken to the preview page

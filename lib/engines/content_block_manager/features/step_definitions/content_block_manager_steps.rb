@@ -438,7 +438,7 @@ When(/^dependent content exists for a content block$/) do
     {
       "title" => "Content #{i}",
       "document_type" => "document",
-      "base_path" => "/",
+      "base_path" => "/host-content-path-#{i}",
       "content_id" => SecureRandom.uuid,
       "last_edited_by_editor_id" => SecureRandom.uuid,
       "last_edited_at" => 2.days.ago.to_s,
@@ -487,7 +487,37 @@ And("the host documents link to the draft content store") do
 end
 
 When("I click on the first host document") do
-  click_on @dependent_content.first["title"]
+  @current_host_document = @dependent_content.first
+  stub_request(
+    :get,
+    "#{Plek.find('publishing-api')}/v2/content/#{@current_host_document['host_content_id']}",
+  ).to_return(
+    status: 200,
+    body: {
+      details: {
+        body: "<p>title</p>",
+      },
+      title: @current_host_document["title"],
+      document_type: "news_story",
+      base_path: @current_host_document["base_path"],
+      publishing_app: "test",
+    }.to_json,
+  )
+
+  stub_request(
+    :get,
+    Plek.website_root + @current_host_document["base_path"],
+  ).to_return(
+    status: 200,
+    body: "<h1>#{@current_host_document['title']}</h1><p>iframe preview</p>",
+  )
+
+  click_on @current_host_document["title"]
+end
+
+Then("I am taken to the preview page") do
+  assert_text @current_host_document["title"]
+  # TODO: check iframe content rendered somehow? not currently returned in page
 end
 
 When(/^I save and continue$/) do

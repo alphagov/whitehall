@@ -43,7 +43,7 @@ module PublishingApiTestHelpers
   def expect_no_republishing(*editions)
     editions.each do |edition|
       Services.publishing_api.expects(:put_content)
-        .with(content_id: edition.content_id).never
+              .with(content_id: edition.content_id).never
     end
   end
 

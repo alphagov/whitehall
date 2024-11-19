@@ -31,6 +31,8 @@ private
     return [] unless host_content_items
 
     host_content_items.map do |content_item|
+      puts "here is content item"
+      puts content_item.inspect
       [
         {
           text: content_link(content_item),
@@ -78,7 +80,7 @@ private
 
   def frontend_path(content_item)
     if @is_preview
-      Plek.external_url_for("draft-origin") + content_item.base_path
+      helpers.content_block_manager.content_block_manager_content_block_preview_path(host_content_id: content_item.host_content_id)
     else
       Plek.website_root + content_item.base_path
     end
