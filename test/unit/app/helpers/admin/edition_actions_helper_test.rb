@@ -45,4 +45,11 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
 
     assert_same_elements @editions + ["Fatality notices"], types
   end
+
+  test "#filter_edition_type_opt_groups should include landing pages when the user is an admin" do
+    filter_options = filter_edition_type_opt_groups(create(:gds_admin), nil)
+    types = filter_options[1].last.map { |type| type[:text] }
+
+    assert_same_elements @editions + ["Fatality notices", "Landing pages"], types
+  end
 end
