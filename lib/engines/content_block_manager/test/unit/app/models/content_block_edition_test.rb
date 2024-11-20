@@ -14,14 +14,14 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
   let(:content_block_edition) do
     ContentBlockManager::ContentBlock::Edition.new(
-      created_at: created_at,
-      updated_at: updated_at,
-      details: details,
+      created_at:,
+      updated_at:,
+      details:,
       document_attributes: {
         block_type: "email_address",
-        title: title,
+        title:,
       },
-      creator: creator,
+      creator:,
       organisation_id: organisation.id.to_s,
     )
   end
@@ -76,9 +76,9 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
   it "validates the presence of a document block_type" do
     content_block_edition = build(
       :content_block_edition,
-      created_at: created_at,
-      updated_at: updated_at,
-      details: details,
+      created_at:,
+      updated_at:,
+      details:,
       document_attributes: {
         block_type: nil,
       },
@@ -92,9 +92,9 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
   it "validates the presence of a document title" do
     content_block_edition = build(
       :content_block_edition,
-      created_at: created_at,
-      updated_at: updated_at,
-      details: details,
+      created_at:,
+      updated_at:,
+      details:,
       document_attributes: {
         title: nil,
       },
@@ -126,6 +126,24 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       latest_edition.update_document_reference_to_latest_edition!
 
       assert_equal latest_edition.document.latest_edition_id, latest_edition.id
+    end
+  end
+
+  describe "#render" do
+    let(:rendered_response) { "RENDERED" }
+    let(:stub_block) { stub("ContentBlockTools::ContentBlock", render: rendered_response) }
+    let(:document) { content_block_edition.document }
+
+    it "initializes and renders a content block" do
+      ContentBlockTools::ContentBlock.expects(:new)
+                                     .with(
+                                       document_type: "content_block_#{document.block_type}",
+                                       content_id: document.content_id,
+                                       title:,
+                                       details:,
+                                     ).returns(stub_block)
+
+      assert_equal content_block_edition.render, rendered_response
     end
   end
 end
