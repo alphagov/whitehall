@@ -18,7 +18,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= form_with(url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]), method: :put) do %>
+    <%= form_with(url: content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: ContentBlockManager::ContentBlock::Editions::WorkflowController::SHARED_STEPS[:review],
+      scheduled_at: @scheduled_at,
+      ), method: :put) do %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <div>
           <%= render "govuk_publishing_components/components/button", {

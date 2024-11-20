@@ -170,7 +170,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
       end
 
       it "redirects to the review step when successful" do
-        redirects_to_step(ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]) do
+        redirects_to_step(ContentBlockManager::ContentBlock::Editions::WorkflowController::SHARED_STEPS[:review]) do
           post content_block_manager.content_block_manager_content_block_editions_path, params: {
             something: "else",
             "content_block/edition": {

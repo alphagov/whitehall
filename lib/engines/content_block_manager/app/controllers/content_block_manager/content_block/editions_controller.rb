@@ -17,7 +17,7 @@ class ContentBlockManager::ContentBlock::EditionsController < ContentBlockManage
   def create
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(block_type_param)
     new_edition = ContentBlockManager::CreateEditionService.new(@schema).call(edition_params, document_id: params[:document_id])
-    step = params[:document_id] ? ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links] : ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]
+    step = params[:document_id] ? ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links] : ContentBlockManager::ContentBlock::Editions::WorkflowController::SHARED_STEPS[:review]
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step:)
   rescue ActiveRecord::RecordInvalid => e
     @form = ContentBlockManager::ContentBlock::EditionForm.for(content_block_edition: e.record, schema: @schema)

@@ -1,6 +1,5 @@
 class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentBlockManager::BaseController
   NEW_BLOCK_STEPS = {
-    review: "review",
     edit_draft: "edit_draft",
   }.freeze
 
@@ -10,6 +9,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   }.freeze
 
   SHARED_STEPS = {
+    review: "review",
     confirmation: "confirmation",
   }.freeze
 
@@ -25,7 +25,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
       review_links
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
       schedule_publishing
-    when NEW_BLOCK_STEPS[:review]
+    when SHARED_STEPS[:review]
       review
     when SHARED_STEPS[:confirmation]
       confirmation
@@ -41,10 +41,23 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     when UPDATE_BLOCK_STEPS[:review_links]
       redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: :schedule_publishing)
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
+      # TODO: put this into own method with error handling below
+      if params[:schedule_publishing].blank?
+        @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
+        raise ActiveRecord::RecordInvalid, @content_block_edition
+      else
+        # TODO: how to validate scheduled publication?
+        redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+          id: @content_block_edition.id,
+          step: SHARED_STEPS[:review],
+          scheduled_at: params[:schedule_publishing] == "schedule" ? scheduled_publication_params : nil,
+        )
+      end
+    when SHARED_STEPS[:review]
       schedule_or_publish
-    when NEW_BLOCK_STEPS[:review]
-      publish
     end
+  rescue ActiveRecord::RecordInvalid
+    render "content_block_manager/content_block/editions/workflow/schedule_publishing"
   end
 
 private
@@ -61,8 +74,13 @@ private
 
   def review
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+    @scheduled_at = scheduled_publication_params.to_h if has_scheduled_date
 
     render :review
+  end
+
+  def has_scheduled_date
+    params[:scheduled_at].present?
   end
 
   def confirmation
@@ -103,10 +121,7 @@ private
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
 
-    if params[:schedule_publishing].blank?
-      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
-      raise ActiveRecord::RecordInvalid, @content_block_edition
-    elsif params[:schedule_publishing] == "schedule"
+    if has_scheduled_date
       ContentBlockManager::ScheduleEditionService.new(@schema).call(@content_block_edition, scheduled_publication_params)
     else
       publish and return
@@ -115,8 +130,6 @@ private
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id,
                                                                                         step: :confirmation,
                                                                                         is_scheduled: true)
-  rescue ActiveRecord::RecordInvalid
-    render "content_block_manager/content_block/editions/workflow/schedule_publishing"
   end
 
   def publish

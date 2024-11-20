@@ -108,11 +108,17 @@ When("I complete the form with the following fields:") do |table|
   @instructions_to_publishers = fields.delete("instructions_to_publishers")
   @details = fields
 
-  fill_in "Title", with: @title
+  if @title.present?
+    fill_in "Title", with: @title
+  end
 
-  select @organisation, from: "content_block/edition_lead_organisation"
+  if @organisation.present?
+    select @organisation, from: "content_block/edition_lead_organisation"
+  end
 
-  fill_in "Instructions to publishers", with: @instructions_to_publishers
+  if @instructions_to_publishers.present?
+    fill_in "Instructions to publishers", with: @instructions_to_publishers
+  end
 
   fields.keys.each do |k|
     fill_in "content_block_manager/content_block/edition_details_#{k}", with: @details[k]
@@ -427,8 +433,16 @@ Then("I am asked to check my answers") do
   assert_text "Check your answers"
 end
 
-Then("I accept and publish") do
-  click_on "Accept and publish"
+Then(/^I accept and publish \(without Sidekiq\)/) do
+  Sidekiq::Testing.fake! do
+    click_on "Accept and publish"
+  end
+end
+
+Then(/^I accept and publish \(with Sidekiq\)/) do
+  Sidekiq::Testing.inline! do
+    click_on "Accept and publish"
+  end
 end
 
 When(/^dependent content exists for a content block$/) do
@@ -536,9 +550,7 @@ When("I schedule the change for 7 days in the future") do
   @future_date = 7.days.since(Time.zone.now)
   fill_in_date_and_time_field(@future_date)
 
-  Sidekiq::Testing.fake! do
-    click_on "Accept and publish"
-  end
+  click_on "Save and continue"
 end
 
 When("I enter an invalid date") do
@@ -559,14 +571,12 @@ Then("the edition should have been scheduled successfully") do
   assert_text "#{@schema.name} scheduled successfully"
 end
 
-And("the block is scheduled and published") do
+And("the block is scheduled") do
   create(:scheduled_publishing_robot)
-  near_future_date = 1.minute.from_now
+  near_future_date = 2.minutes.from_now
   fill_in_date_and_time_field(near_future_date)
 
-  Sidekiq::Testing.inline! do
-    click_on "Accept and publish"
-  end
+  click_on "Save and continue"
 end
 
 Then("published state of the object is shown") do

@@ -30,7 +30,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
   describe "when creating a new content block" do
     describe "when reviewing the changes" do
-      let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review] }
+      let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::SHARED_STEPS[:review] }
 
       describe "#show" do
         it "shows the new edition for review" do

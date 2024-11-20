@@ -11,6 +11,8 @@ Feature: Schedule a content object
     When I am updating a content block
     Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    Then I am asked to check my answers
+    And I accept and publish (without Sidekiq)
     And I should be taken to the scheduled confirmation page
     When I click to view the content block
     And I should see the scheduled date on the object
@@ -20,7 +22,9 @@ Feature: Schedule a content object
     When I am updating a content block
     Then I am asked when I want to publish the change
     When I choose to schedule the change
-    And the block is scheduled and published
+    And the block is scheduled
+    Then I am asked to check my answers
+    And I accept and publish (with Sidekiq)
     Then published state of the object is shown
     And I should see the publish event on the timeline
 
@@ -28,7 +32,7 @@ Feature: Schedule a content object
     When I am updating a content block
     Then I am asked when I want to publish the change
     When I choose to schedule the change
-    And I accept and publish
+    And I save and continue
     Then I see the errors prompting me to provide a date and time
 
   Scenario: GDS Editor does not provide a valid date for scheduling
@@ -36,7 +40,7 @@ Feature: Schedule a content object
     Then I am asked when I want to publish the change
     When I choose to schedule the change
     And I enter an invalid date
-    And I accept and publish
+    And I save and continue
     Then I see the errors informing me the date is invalid
 
   Scenario: GDS Editor provides a date in the past for scheduling
@@ -44,5 +48,5 @@ Feature: Schedule a content object
     Then I am asked when I want to publish the change
     When I choose to schedule the change
     And I enter a date in the past
-    And I accept and publish
+    And I save and continue
     Then I see the errors informing me the date must be in the future

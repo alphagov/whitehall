@@ -23,12 +23,31 @@ Feature: Edit a content object
     Then I am asked when I want to publish the change
     And I should see a back link to the review page
     When I choose to publish the change now
-    And I accept and publish
+    When I save and continue
+    Then I am asked to check my answers
+    And I accept and publish (without Sidekiq)
     Then I should be taken to the confirmation page
     When I click to view the content block
     Then the edition should have been updated successfully
     And I should be taken back to the document page
     And I should see 2 publish events on the timeline
+
+  Scenario: GDS Editor edits answers during edit form
+    When I am updating a content block
+    And I am asked when I want to publish the change
+    And I schedule the change for 7 days in the future
+    Then I am asked to check my answers
+    When I click the first edit link
+    When I complete the form with the following fields:
+      | title            |
+      | changed my mind |
+    Then I am shown where the changes will take place
+    When I save and continue
+    When I choose to publish the change now
+    When I save and continue
+    Then I am asked to check my answers
+    When I accept and publish (without Sidekiq)
+    Then I should be taken to the confirmation page
 
   Scenario: GDS editor cancels the creation of an object when reviewing links
     When I visit the Content Block Manager home page
@@ -82,11 +101,13 @@ Feature: Edit a content object
     When I am updating a content block
     And I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    And I accept and publish (without Sidekiq)
     When I revisit the edit page
     Then I should see a warning telling me there is a scheduled change
     When I make the changes
     And I choose to publish the change now
-    And I accept and publish
+    And I save and continue
+    And I accept and publish (without Sidekiq)
     Then I should be taken to the confirmation page
     When I click to view the content block
     Then the edition should have been updated successfully
