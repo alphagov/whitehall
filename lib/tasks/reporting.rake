@@ -1,4 +1,22 @@
 namespace :reporting do
+  # The following Rake task might not work out of the box. Known issues include:
+  # - MySQL regex timeouts. The guidance for this Rake task in the developer
+  #   docs covers this: https://docs.publishing.service.gov.uk/manual/find-usage-of-govspeak-in-content.html#searching-for-raw-govspeak-in-whitehall
+  #
+  # - Missing associations. The `print_result` method might error if fields
+  #   like `base_path` or `slug` (which is often used to build the base path)
+  #   are delegated to an associated model, and the associated instance has a
+  #   state of `deleted`
+  #
+  #   You can work around this by editing the model, for example in
+  #   `ConsultationResponse`, allowing nil on a delegated method:
+  #
+  #   `delegate :slug, to: :consultation, allow_nil: true`
+  #
+  #   Or in `WorldwideOffice`, unscoping the edition association so that deleted
+  #   editions can be found:
+  #
+  #   `belongs_to :edition, -> { unscope(:where) }`
   desc "Prints a list of content IDs for documents whose govspeak content contains a given regular expression"
   task :matching_docs, [:regex] => :environment do |_, args|
     regex = Regexp.new(/#{args[:regex]}/).to_s
@@ -17,7 +35,8 @@ namespace :reporting do
     .where.not(attachable: nil)
     .where("govspeak_contents.body REGEXP ?", regex)
     .find_each do |object|
-      next unless object.attachable.state == "published"
+      # Attachables include non-editionable content which doesn't have a state
+      next if object.attachable.respond_to?(:state) && object.attachable.state != "published"
 
       print_result(object)
     end
