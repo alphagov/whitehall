@@ -8,6 +8,7 @@ FactoryBot.define do
     last_edited_by_editor_id { SecureRandom.uuid }
     last_edited_at { 2.days.ago.to_s }
     unique_pageviews { 123 }
+    instances { 1 }
 
     initialize_with do
       new(title:,
@@ -17,7 +18,8 @@ FactoryBot.define do
           publishing_app:,
           last_edited_by_editor_id:,
           last_edited_at:,
-          unique_pageviews:)
+          unique_pageviews:,
+          instances:)
     end
   end
 end

@@ -29,6 +29,7 @@ module ContentBlockManager
           last_edited_by_editor_id: item["last_edited_by_editor_id"],
           last_edited_at: item["last_edited_at"],
           unique_pageviews: item["unique_pageviews"],
+          instances: item["instances"],
         )
       end
 
