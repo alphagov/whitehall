@@ -10,6 +10,7 @@ gem "bootsnap", require: false
 gem "carrierwave"
 gem "carrierwave-i18n"
 gem "chronic"
+gem "content_block_tools"
 gem "dalli"
 gem "dartsass-rails"
 gem "diffy"
