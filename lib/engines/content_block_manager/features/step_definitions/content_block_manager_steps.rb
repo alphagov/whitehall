@@ -312,11 +312,6 @@ Then("I should see the details for the email address content block") do
   )
 end
 
-When("I click the first change link") do
-  first_link = find("a[href='#{content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)}']", match: :first)
-  first_link.click
-end
-
 When("I click the first edit link") do
   click_link "Edit"
 end
@@ -358,7 +353,7 @@ end
 def should_show_summary_list_for_email_address_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
-  expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
+  expect(page).to have_selector(".govuk-summary-list__actions", text: "Edit")
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
@@ -369,7 +364,6 @@ def should_show_summary_list_for_email_address_content_block(document_title, ema
   end
   expect(page).to have_selector(".govuk-summary-list__key", text: "Last updated")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
-  expect(page).to have_selector(".govuk-summary-list__actions", text: "Change")
 end
 
 def should_show_edit_form_for_email_address_content_block(document_title, email_address)
