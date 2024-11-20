@@ -1,6 +1,7 @@
 class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentBlockManager::BaseController
   NEW_BLOCK_STEPS = {
     review: "review",
+    edit_draft: "edit_draft",
   }.freeze
 
   UPDATE_BLOCK_STEPS = {
@@ -18,6 +19,8 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
 
     case step
+    when NEW_BLOCK_STEPS[:edit_draft]
+      edit_draft
     when UPDATE_BLOCK_STEPS[:review_links]
       review_links
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
@@ -45,6 +48,16 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   end
 
 private
+
+  def edit_draft
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+    @form = ContentBlockManager::ContentBlock::EditionForm.for(
+      content_block_edition: @content_block_edition,
+      schema: @schema,
+    )
+
+    render "content_block_manager/content_block/editions/new"
+  end
 
   def review
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])

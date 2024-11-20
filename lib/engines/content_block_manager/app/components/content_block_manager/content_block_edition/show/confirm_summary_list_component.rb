@@ -9,12 +9,20 @@ private
 
   def items
     [
+      edit_item,
       *details_items,
       organisation_item,
       instructions_item,
       confirm_item,
       date_item,
     ]
+  end
+
+  def edit_item
+    {
+      field: "#{content_block_edition.document.block_type.humanize} details",
+      edit: edit_action,
+    }
   end
 
   def details_items
@@ -51,6 +59,13 @@ private
     {
       field: "Publish date",
       value: I18n.l(content_block_edition.created_at.to_date, format: :long_ordinal),
+    }
+  end
+
+  def edit_action
+    {
+      href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:edit_draft]),
+      link_text: "Edit",
     }
   end
 end

@@ -7,7 +7,7 @@ class ContentBlockManager::ContentBlock::EditionForm
   attr_reader :content_block_edition, :schema
 
   def self.for(content_block_edition:, schema:)
-    content_block_edition.document&.id ? Update.new(content_block_edition:, schema:) : Create.new(content_block_edition:, schema:)
+    content_block_edition.document&.latest_edition_id ? Update.new(content_block_edition:, schema:) : Create.new(content_block_edition:, schema:)
   end
 
   def initialize(content_block_edition:, schema:)

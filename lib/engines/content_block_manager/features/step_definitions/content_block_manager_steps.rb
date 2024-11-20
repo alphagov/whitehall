@@ -317,6 +317,10 @@ When("I click the first change link") do
   first_link.click
 end
 
+When("I click the first edit link") do
+  click_link "Edit"
+end
+
 Then("I should see the edit form") do
   should_show_edit_form_for_email_address_content_block(
     @content_block.document.title,
