@@ -54,7 +54,6 @@ gem "record_tag_helper", require: false
 gem "redis"
 gem "responders"
 gem "rinku", require: "rails_rinku"
-gem "ruby-progressbar", require: false
 gem "rubyzip"
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"

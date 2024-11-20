@@ -1,5 +1,3 @@
-require "csv"
-
 namespace :db do
   namespace :data do
     desc "Run all data migrations, or a specific version assigned to environment variable VERSION"
