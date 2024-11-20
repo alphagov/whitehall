@@ -108,11 +108,11 @@ When("I complete the form with the following fields:") do |table|
   @instructions_to_publishers = fields.delete("instructions_to_publishers")
   @details = fields
 
-  fill_in "Title", with: @title
+  fill_in "Title", with: @title if @title.present?
 
-  select @organisation, from: "content_block/edition_lead_organisation"
+  select @organisation, from: "content_block/edition_lead_organisation" if @organisation.present?
 
-  fill_in "Instructions to publishers", with: @instructions_to_publishers
+  fill_in "Instructions to publishers", with: @instructions_to_publishers if @instructions_to_publishers.present?
 
   fields.keys.each do |k|
     fill_in "content_block_manager/content_block/edition_details_#{k}", with: @details[k]
@@ -138,9 +138,10 @@ Then("the edition should have been created successfully") do
   assert_not_nil edition
   assert_not_nil edition.document
 
-  assert_equal @title, edition.title
-  assert_equal @instructions_to_publishers, edition.instructions_to_publishers,
-               @details.keys.each do |k|
+  assert_equal @title, edition.title if @title.present?
+  assert_equal @instructions_to_publishers, edition.instructions_to_publishers if @instructions_to_publishers.present?
+
+  @details.keys.each do |k|
     assert_equal edition.details[k], @details[k]
   end
 end
@@ -315,6 +316,10 @@ end
 When("I click the first change link") do
   first_link = find("a[href='#{content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)}']", match: :first)
   first_link.click
+end
+
+When("I click the first edit link") do
+  click_link "Edit"
 end
 
 Then("I should see the edit form") do
