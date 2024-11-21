@@ -129,6 +129,18 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     end
   end
 
+  describe ".current_versions" do
+    it "returns current published versions" do
+      document = create(:content_block_document, :email_address)
+      edition = create(:content_block_edition, :email_address, state: "published", document:)
+      draft_edition = create(:content_block_edition, :email_address, state: "draft", document:)
+      document.latest_edition = draft_edition
+      document.save!
+
+      assert_equal ContentBlockManager::ContentBlock::Edition.current_versions.to_a, [edition]
+    end
+  end
+
   describe "#render" do
     let(:rendered_response) { "RENDERED" }
     let(:stub_block) { stub("ContentBlockTools::ContentBlock", render: rendered_response) }
