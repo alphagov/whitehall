@@ -55,6 +55,7 @@ class FileAttachment < Attachment
       filename:,
       number_of_pages:,
       preview_url:,
+      attachment_data_id:,
     }
   end
 
@@ -64,6 +65,12 @@ private
     attachable.alternative_format_contact_email
   rescue NoMethodError
     nil
+  end
+
+  def attachment_data_id
+    return unless csv? && attachable.is_a?(Edition) && attachment_data.all_asset_variants_uploaded?
+
+    attachment_data.id
   end
 
   def preview_url
