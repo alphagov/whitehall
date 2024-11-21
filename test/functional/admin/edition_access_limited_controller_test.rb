@@ -64,6 +64,8 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
       supporting_organisations: [second_organisation],
     )
 
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id)
+
     editorial_remark = "Updating the organisations at the users request."
 
     put :update,
