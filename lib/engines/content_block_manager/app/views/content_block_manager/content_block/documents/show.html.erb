@@ -6,11 +6,16 @@
   } %>
 <% end %>
 
-<%= render(
-      ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(
-        content_block_document: @content_block_document,
-      ),
-    ) %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-m">Details</h2>
+    <%= render(
+          ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(
+            content_block_document: @content_block_document,
+          ),
+        ) %>
+  </div>
+</div>
 
 <div class="govuk-grid-row govuk-!-padding-top-8">
   <div class="govuk-grid-column-full">
