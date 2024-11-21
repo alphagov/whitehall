@@ -13,7 +13,7 @@ Feature: Edit a content object
     Then I should see the details for all documents
     When I click to view the document
     Then I should see the details for the email address content block
-    When I click the first change link
+    When I click the first edit link
     Then I should see the edit form
     And I should see a back link to the document page
     When I fill out the form
@@ -33,7 +33,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object when reviewing links
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first change link
+    When I click the first edit link
     Then I should see the edit form
     When I fill out the form
     Then I am shown where the changes will take place
@@ -44,7 +44,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object before publishing
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first change link
+    When I click the first edit link
     Then I should see the edit form
     When I fill out the form
     Then I am shown where the changes will take place
@@ -61,7 +61,7 @@ Feature: Edit a content object
     And an email address content block has been created
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first change link
+    When I click the first edit link
     And I set all fields to blank
     Then I should see errors for the required fields
 
@@ -72,7 +72,7 @@ Feature: Edit a content object
     And an email address content block has been created
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first change link
+    When I click the first edit link
     When I complete the form with the following fields:
     | title            | email_address   | organisation |
     | my email address | xxxxx           | Ministry of Example |

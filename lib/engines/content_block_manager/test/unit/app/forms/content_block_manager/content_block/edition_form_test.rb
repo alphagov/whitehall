@@ -13,8 +13,8 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     )
   end
 
-  describe "when initialized for an edition with an existing document" do
-    let(:content_block_document) { build(:content_block_document, id: 123) }
+  describe "when initialized for an edition with an existing document and live edition" do
+    let(:content_block_document) { build(:content_block_document, :email_address, id: 123, latest_edition_id: "5b271577-3d3d-475d-986a-246d8c4063a3") }
     let(:content_block_edition) { build(:content_block_edition, :email_address, document: content_block_document) }
 
     let(:result) do

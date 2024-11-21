@@ -21,18 +21,20 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
   it "renders a published content block correctly" do
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 8
+    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__actions", count: 1
+
+    assert_selector ".govuk-summary-list__key", text: "Email address details"
+    assert_selector ".govuk-summary-list__actions", text: "Edit"
+
     assert_selector ".govuk-summary-list__key", text: "Title"
     assert_selector ".govuk-summary-list__value", text: content_block_document.title
-    assert_selector ".govuk-summary-list__actions", text: "Change"
 
     assert_selector ".govuk-summary-list__key", text: "Foo"
     assert_selector ".govuk-summary-list__value", text: "bar"
-    assert_selector ".govuk-summary-list__actions", text: "Change"
 
     assert_selector ".govuk-summary-list__key", text: "Something"
     assert_selector ".govuk-summary-list__value", text: "else"
-    assert_selector ".govuk-summary-list__actions", text: "Change"
 
     assert_selector ".govuk-summary-list__key", text: "Lead organisation"
     assert_selector ".govuk-summary-list__value", text: "Department for Example"
@@ -57,7 +59,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 10
 
     assert_selector ".govuk-summary-list__key", text: "Scheduled for publication at"
     assert_selector ".govuk-summary-list__value", text: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)

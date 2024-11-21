@@ -72,6 +72,23 @@ Feature: Create a content object
     And no draft Content Block Edition has been created
     And no draft Content Block Document has been created
 
+  Scenario: GDS editor edits answers during creation of an object
+    When I visit the Content Block Manager home page
+    And I click to create an object
+    When I click on the "email_address" schema
+    When I complete the form with the following fields:
+      | title            | email_address   | department | organisation |
+      | my email address | foo@example.com | Somewhere  | Ministry of Example |
+    Then I am asked to check my answers
+    When I click the first edit link
+    And I complete the form with the following fields:
+      | title            |
+      | my email address 2 |
+    Then I am asked to check my answers
+    When I accept and publish
+    Then the edition should have been created successfully
+    And I should be taken to the confirmation page
+
   Scenario: Draft documents are not listed
     When I visit the Content Block Manager home page
     And I click to create an object

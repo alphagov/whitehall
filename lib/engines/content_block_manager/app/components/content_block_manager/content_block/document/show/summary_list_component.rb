@@ -9,6 +9,7 @@ private
 
   def items
     [
+      edit_item,
       title_item,
       *details_items,
       organisation_item,
@@ -18,6 +19,13 @@ private
       state_item,
       scheduled_item,
     ].compact
+  end
+
+  def edit_item
+    {
+      field: "#{content_block_document.block_type.humanize} details",
+      edit: edit_action,
+    }
   end
 
   def embed_code_item
@@ -35,7 +43,6 @@ private
     {
       field: "Title",
       value: content_block_document.title,
-      edit: edit_action,
     }
   end
 
@@ -43,7 +50,6 @@ private
     {
       field: "Lead organisation",
       value: content_block_document.latest_edition.lead_organisation,
-      edit: edit_action,
     }
   end
 
@@ -51,7 +57,6 @@ private
     {
       field: "Instructions to publishers",
       value: content_block_document.latest_edition.instructions_to_publishers.presence || "None",
-      edit: edit_action,
     }
   end
 
@@ -60,7 +65,6 @@ private
       {
         field: key.humanize,
         value:,
-        edit: edit_action,
       }
     end
   end
@@ -95,7 +99,7 @@ private
   def edit_action
     {
       href: helpers.content_block_manager.new_content_block_manager_content_block_document_edition_path(content_block_document),
-      link_text: "Change",
+      link_text: "Edit",
     }
   end
 end

@@ -30,6 +30,8 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
                     content_block_edition:,
                   ))
 
+    assert_selector ".govuk-summary-list__key", text: "Email address details"
+    assert_selector ".govuk-summary-list__actions", text: "Edit"
     assert_selector ".govuk-summary-list__key", text: "New interesting fact"
     assert_selector ".govuk-summary-list__value", text: "value of fact"
     assert_selector ".govuk-summary-list__key", text: "Lead organisation"
