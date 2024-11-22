@@ -310,7 +310,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (45.5.0)
+    govuk_publishing_components (45.6.0)
       chartkick
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
