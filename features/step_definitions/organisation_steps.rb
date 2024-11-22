@@ -35,8 +35,8 @@ When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
   fill_in "Logo formatted name", with: organisation_name
   select "Ministerial department", from: "Organisation type"
   select "Jazz Bizniz", from: "organisation_topical_event_ids_0"
-  selector = ".app-view-organisation__featured_links"
-  within selector do
+  selector = ".app-view-organisation__featured_links .js-add-another__fieldset"
+  within selector, match: :first do
     expect(page).to_not have_content("English:")
     fill_in "Title", with: "Top task 1"
     fill_in "URL", with: "http://mainstream.co.uk"
@@ -56,10 +56,12 @@ When(/^I add a translation for an organisation called "([^"]*)"$/) do |organisat
   fill_in "Name", with: "Organisation Name in another language"
   fill_in "Acronym", with: "ABC"
   fill_in "Logo formatted name", with: "Organisation Name in another language"
-  fill_in "Title", with: "Top task 1 in another language"
-  expect(page).to have_field("organisation_featured_links[0]_title"), with: "Top task 1 in another language"
-  fill_in "URL", with: "http://mainstream.wales"
-  expect(page).to have_field("organisation_featured_links[0]_url"), with: "http://mainstream.co.uk"
+  within ".js-add-another__fieldset", match: :first do
+    fill_in "Title", with: "Top task 1 in another language"
+    expect(page).to have_field("organisation_featured_links[0]_title"), with: "Top task 1 in another language"
+    fill_in "URL", with: "http://mainstream.wales"
+    expect(page).to have_field("organisation_featured_links[0]_url"), with: "http://mainstream.co.uk"
+  end
 
   click_button "Save"
 end
