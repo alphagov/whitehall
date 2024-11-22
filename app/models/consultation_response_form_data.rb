@@ -6,10 +6,6 @@ class ConsultationResponseFormData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  has_many :assets,
-           as: :assetable,
-           inverse_of: :assetable
-
   validates :file, presence: true
 
   def auth_bypass_ids
@@ -30,6 +26,6 @@ class ConsultationResponseFormData < ApplicationRecord
   end
 
   def assets_match_updated_image_filename
-    assets.reject { |asset| asset.filename.include?(carrierwave_file) }.empty?
+    assets.all? { |asset| asset.filename.include?(filename) } if filename
   end
 end

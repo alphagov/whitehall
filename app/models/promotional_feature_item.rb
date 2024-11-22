@@ -65,6 +65,6 @@ private
   end
 
   def assets_match_updated_image_filename
-    assets.reject { |asset| asset.filename.include?(self[:image]) }.empty?
+    assets.all? { |asset| asset.filename.include?(self[:image]) } if self[:image]
   end
 end
