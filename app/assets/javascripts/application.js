@@ -3,6 +3,7 @@
 //= require govuk_publishing_components/dependencies
 //= require govuk_publishing_components/analytics-ga4
 //= require govuk_publishing_components/components/accordion
+//= require govuk_publishing_components/components/add-another
 //= require govuk_publishing_components/components/copy-to-clipboard
 //= require govuk_publishing_components/components/govspeak
 //= require govuk_publishing_components/components/reorderable-list
@@ -23,7 +24,6 @@
 //= require admin/analytics-modules/ga4-page-view-tracking.js
 //= require admin/analytics-modules/ga4-paste-tracker.js
 
-//= require admin/modules/add-another
 //= require admin/modules/document-history-paginator
 //= require admin/modules/locale-switcher
 //= require admin/modules/navbar-toggle
