@@ -4,12 +4,25 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:described_class) { ContentBlockManager::GetPreviewContent }
-  let(:host_content_id) { "64570503-7a7f-4fca-80c1-e6dce7278419" }
+  let(:host_content_id) { SecureRandom.uuid }
+  let(:preview_content_id) { SecureRandom.uuid }
   let(:host_title) { "Test" }
   let(:host_base_path) { "/test" }
   let(:uri_mock) { mock }
   let(:fake_frontend_response) do
-    "<!DOCTYPE html><body><p>test</p></body>"
+    "<body><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
+  end
+  let(:block_render) do
+    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">new@new.com</span>"
+  end
+  let(:expected_html) do
+    "<body><p>test</p>#{block_render}</body>"
+  end
+  let(:document) do
+    build(:content_block_document, :email_address, content_id: preview_content_id)
+  end
+  let(:block_to_preview) do
+    build(:content_block_edition, :email_address, document:, details: { "email_address" => "new@new.com" })
   end
 
   describe "#preview_content" do
@@ -17,16 +30,22 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
       stub_publishing_api_has_item(content_id: host_content_id, title: host_title, base_path: host_base_path)
     end
 
-    it "returns the title and raw frontend HTML for a document" do
+    it "returns the title and preview HTML for a document" do
       Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
-      Nokogiri::HTML.expects(:parse).with(fake_frontend_response).returns(fake_frontend_response)
+      block_to_preview.expects(:render).returns(block_render)
 
       expected_content = {
         title: host_title,
-        html: fake_frontend_response,
+        html: Nokogiri::HTML.parse(expected_html),
       }
 
-      assert_equal expected_content, ContentBlockManager::GetPreviewContent.new(content_id: host_content_id).preview_content
+      actual_content = ContentBlockManager::GetPreviewContent.new(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+      ).preview_content
+
+      assert_equal expected_content[:title], actual_content[:title]
+      assert_equal expected_content[:html].to_s, actual_content[:html].to_s
     end
   end
 end
