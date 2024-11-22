@@ -1,0 +1,12 @@
+<%= form.fields_for :fatality_notice_casualties, casualty do |fatality_form| %>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Personal details",
+      bold: true,
+    },
+    value: fatality_form.object.personal_details,
+    name: "edition[fatality_notice_casualties_attributes][#{index}][personal_details]",
+    id: "edition_fatality_notice_casualties_#{index}_personal_details",
+    rows: 2,
+  } %>
+<% end %>
