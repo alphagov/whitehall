@@ -40,8 +40,6 @@ class FeaturedImageData < ApplicationRecord
 private
 
   def assets_match_updated_image_filename
-    return false unless carrierwave_image
-
-    assets.all? { |asset| asset.filename.include?(carrierwave_image) }
+    assets.all? { |asset| asset.filename.include?(filename) } if filename
   end
 end

@@ -27,6 +27,6 @@ class CallForEvidenceResponseFormData < ApplicationRecord
   end
 
   def assets_match_updated_image_filename
-    assets.reject { |asset| asset.filename.include?(carrierwave_file) }.empty?
+    assets.all? { |asset| asset.filename.include?(filename) } if filename
   end
 end
