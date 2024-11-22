@@ -1,0 +1,21 @@
+<%= contact_form.fields_for :contact_numbers, contact_number do |contact_number_form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Label",
+    },
+    name: "#{name}[contact_numbers_attributes][#{index}][label]",
+    id: "#{id}_contact_numbers_attributes_#{index}_label",
+    heading_size: "s",
+    value: contact_number_form.object.label,
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Number",
+    },
+    name: "#{name}[contact_numbers_attributes][#{index}][number]",
+    id: "#{id}_contact_numbers_attributes_#{index}_number",
+    heading_size: "s",
+    value: contact_number_form.object.number,
+  } %>
+<% end %>

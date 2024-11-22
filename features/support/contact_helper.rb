@@ -15,8 +15,10 @@ module ContactHelper
     fill_in "Street address", with: contact_details[:street_address]
     fill_in "Postal code", with: contact_details[:postal_code]
     fill_in "Email", with: contact_details[:email]
-    fill_in "Label", with: contact_details[:phone_number_label]
-    fill_in "Number", with: contact_details[:phone_number]
+    within ".js-add-another__fieldset", match: :first do
+      fill_in "Label", with: contact_details[:phone_number_label]
+      fill_in "Number", with: contact_details[:phone_number]
+    end
     select contact_details[:country], from: "Country"
     # allow passing in nil to say - don't try to choose the feature on
     # home page? setting; maybe because it's the first office for a world
@@ -41,8 +43,10 @@ module ContactHelper
     fill_in "Street address", with: contact_details[:street_address]
     fill_in "Postal code", with: contact_details[:postal_code]
     fill_in "Email", with: contact_details[:email]
-    fill_in "Label", with: contact_details[:phone_number_label]
-    fill_in "Number", with: contact_details[:phone_number]
+    within ".js-add-another__fieldset", match: :first do
+      fill_in "Label", with: contact_details[:phone_number_label]
+      fill_in "Number", with: contact_details[:phone_number]
+    end
     select contact_details[:country], from: "Country"
     # allow passing in nil to say - don't try to choose the feature on
     # home page? setting; maybe because it's the first office for a world
@@ -67,8 +71,10 @@ module ContactHelper
     fill_in "Street address", with: contact_details[:street_address]
     fill_in "Postal code", with: contact_details[:postal_code]
     fill_in "Email", with: contact_details[:email]
-    fill_in "Label", with: contact_details[:phone_number_label]
-    fill_in "Number", with: contact_details[:phone_number]
+    within ".js-add-another__fieldset", match: :first do
+      fill_in "Label", with: contact_details[:phone_number_label]
+      fill_in "Number", with: contact_details[:phone_number]
+    end
     select contact_details[:country], from: "Country"
     # allow passing in nil to say - don't try to choose the feature on
     # home page? setting; maybe because it's the first office for a world

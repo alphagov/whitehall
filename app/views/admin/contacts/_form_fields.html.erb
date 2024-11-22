@@ -101,30 +101,16 @@
     heading_level: 2,
     heading_size: "l",
   } do %>
-    <div data-module="AddAnother" data-add-text="Add phone number">
-      <%= contact_form.fields_for :contact_numbers, contact_form.object.contact_numbers do |contact_number_form| %>
-        <div class=" js-duplicate-fields-set govuk-!-margin-bottom-4">
-          <%= render "govuk_publishing_components/components/input", {
-            label: {
-              text: "Label",
-            },
-            name: "#{name}[contact_numbers_attributes][#{contact_number_form.index}][label]",
-            id: "#{id}_contact_numbers_attributes_#{contact_number_form.index}_label",
-            heading_size: "m",
-            value: contact_number_form.object.label,
-          } %>
-
-          <%= render "govuk_publishing_components/components/input", {
-            label: {
-              text: "Number",
-            },
-            name: "#{name}[contact_numbers_attributes][#{contact_number_form.index}][number]",
-            id: "#{id}_contact_numbers_attributes_#{contact_number_form.index}_number",
-            heading_size: "m",
-            value: contact_number_form.object.number,
-          } %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "govuk_publishing_components/components/add_another", {
+      fieldset_legend: "Phone number",
+      add_button_text: "Add phone number",
+      items: contact_form.object.contact_numbers.each_with_index.map do  |contact_number, index|
+        {
+          fields: render(partial: "admin/contacts/contact_number_fields", locals: { contact_form:, contact_number:, index:, name:, id: }),
+          destroy_checkbox: render("govuk_publishing_components/components/checkboxes", { name: "#{name}[contact_numbers_attributes][#{index}][_destroy]", items: [{label: "Delete", value: "1" }]}),
+        }
+      end,
+      empty: render(partial: "admin/contacts/contact_number_fields", locals: { contact_form:, contact_number: ContactNumber.new, index: contact_form.object.contact_numbers.length, name:, id: }),
+    } %>
   <% end %>
 </div>
