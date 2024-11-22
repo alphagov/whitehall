@@ -1,0 +1,27 @@
+<%= form.fields_for :social_media_accounts, social_media_account do |social_media_form| %>
+  <%= render "govuk_publishing_components/components/select", {
+    id: "topical_event_social_media_accounts_attributes_#{index}_social_media_service_id",
+    label: "Service (required)",
+    name: "topical_event[social_media_accounts_attributes][#{index}][social_media_service_id]",
+    heading_size: "s",
+    options: [{ text: "", value: "" }] +
+      SocialMediaService.all.map do |social_media|
+        {
+          text: social_media.name,
+          value: social_media.id,
+          selected: social_media_form.object.social_media_service_id == social_media.id,
+        }
+      end,
+    full_width: true,
+  } %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "URL (required)",
+    },
+    name: "topical_event[social_media_accounts_attributes][#{index}][url]",
+    id: "topical_event_social_media_accounts_attributes_#{index}_url",
+    value: social_media_form.object.url,
+    heading_size: "s",
+    error_items: errors_for(social_media_form.object.errors, :url),
+  } %>
+<% end %>
