@@ -15,8 +15,11 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
   let(:block_render) do
     "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">new@new.com</span>"
   end
+  let(:block_render_with_style) do
+    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\" style=\"background-color: yellow;\">new@new.com</span>"
+  end
   let(:expected_html) do
-    "<body><p>test</p>#{block_render}</body>"
+    "<body><p>test</p>#{block_render_with_style}</body>"
   end
   let(:document) do
     build(:content_block_document, :email_address, content_id: preview_content_id)

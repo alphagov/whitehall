@@ -44,13 +44,26 @@ module ContentBlockManager
     end
 
     def replace_existing_content_blocks(nokogiri_html)
-      existing_content_block_spans(nokogiri_html).each do |span|
-        span.replace @content_block_edition.render
-      end
+      replace_blocks(nokogiri_html)
+      style_blocks(nokogiri_html)
       nokogiri_html
     end
 
-    def existing_content_block_spans(nokogiri_html)
+    def replace_blocks(nokogiri_html)
+      content_block_spans(nokogiri_html).each do |span|
+        span.replace @content_block_edition.render
+      end
+    end
+
+    BLOCK_STYLE = "background-color: yellow;".freeze
+
+    def style_blocks(nokogiri_html)
+      content_block_spans(nokogiri_html).each do |span|
+        span["style"] = "background-color: yellow;"
+      end
+    end
+
+    def content_block_spans(nokogiri_html)
       nokogiri_html.css("span[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
     end
   end
