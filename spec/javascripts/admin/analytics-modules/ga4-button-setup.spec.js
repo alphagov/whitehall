@@ -18,7 +18,7 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"button","text":"Button","method":"primary_click"}'
+      '{"event_name":"navigation","type":"button","text":"Button"}'
     )
   })
 
@@ -29,7 +29,7 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"button","text":"Button","method":"primary_click"}'
+      '{"event_name":"navigation","type":"button","text":"Button"}'
     )
   })
 
@@ -42,7 +42,7 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"custom_event_name","type":"button","text":"Button","method":"primary_click"}'
+      '{"event_name":"custom_event_name","type":"button","text":"Button"}'
     )
   })
 })

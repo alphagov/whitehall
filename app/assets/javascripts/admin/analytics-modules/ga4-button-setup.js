@@ -15,8 +15,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
           const event = {
             event_name: 'navigation',
             type: 'button',
-            text: button.textContent,
-            method: 'primary_click'
+            text: button.textContent
           }
           if (button.dataset.ga4Event) {
             Object.assign(event, JSON.parse(button.dataset.ga4Event))
