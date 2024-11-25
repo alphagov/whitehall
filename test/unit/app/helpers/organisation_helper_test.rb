@@ -118,6 +118,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent2 = create(:organisation)
     child = create(:organisation, parent_organisations: [parent1, parent2])
     result = organisation_display_name_and_parental_relationship(child)
+
     assert_match parent1.name, result
     assert_match parent2.name, result
   end
@@ -142,7 +143,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child])
 
     description = organisation_display_name_including_parental_and_child_relationships(parent)
-    assert description.include? ", supported by"
+    assert_equal "PAN is a ministerial department, supported by 1 public body.", strip_html_tags(description)
   end
 
   test "organisations of type other with children are described correctly" do
@@ -150,8 +151,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:organisation, organisation_type_key: "other", acronym: "OON", name: "Other Organisation Name", child_organisations: [child])
 
     description = organisation_display_name_including_parental_and_child_relationships(parent)
-    assert description.include? "is supported by"
-    assert_not description.include? "is an other"
+    assert_equal "OON is supported by 1 public body.", strip_html_tags(description)
   end
 
   test "organisations of type other with no relationships are described correctly" do
@@ -160,6 +160,16 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     description = organisation_display_name_including_parental_and_child_relationships(organisation)
     assert description.include? "Other Organisation Name"
-    assert_not description.include? "is an other"
+    assert_equal "OON", strip_html_tags(description)
+  end
+
+  test "organisations of type other with parent and multiple children are described correctly" do
+    child1 = create(:organisation, acronym: "CO", name: "Child Organisation 1")
+    child2 = create(:organisation, acronym: "CO", name: "Child Organisation 2")
+    parent = create(:organisation, acronym: "PO", name: "Parent Organisation Name")
+    org = create(:organisation, organisation_type_key: "other", acronym: "TO", name: "This Organisation", child_organisations: [child1, child2], parent_organisations: [parent])
+
+    description = organisation_display_name_including_parental_and_child_relationships(org)
+    assert_equal "TO works with the Parent Organisation Name and is supported by 2 agencies and public bodies.", strip_html_tags(description)
   end
 end
