@@ -5,8 +5,9 @@ class LandingPage::BaseBlock
 
   validates :type, presence: true
 
-  def initialize(source)
+  def initialize(source, images)
     @source = source
+    @images = images
     @type = @source["type"]
   end
 

@@ -1,9 +1,9 @@
 class LandingPage::BlockFactory
-  def self.build_all(blocks)
-    (blocks || []).map { build(_1) }
+  def self.build_all(blocks, images)
+    (blocks || []).map { build(_1, images) }
   end
 
-  def self.build(block)
-    LandingPage::BaseBlock.new(block)
+  def self.build(block, images)
+    LandingPage::BaseBlock.new(block, images)
   end
 end

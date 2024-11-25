@@ -9,7 +9,7 @@ class LandingPage::Body
     blocks.each { |b| errors.merge!(b.errors) if b.invalid? }
   end
 
-  def initialize(raw_body)
+  def initialize(raw_body, images)
     @raw_body = raw_body
 
     @yaml_errors = []
@@ -23,7 +23,7 @@ class LandingPage::Body
     extend_body
     @breadcrumbs = body["breadcrumbs"]
     @navigation_groups = body["navigation_groups"]
-    @blocks = LandingPage::BlockFactory.build_all(body["blocks"])
+    @blocks = LandingPage::BlockFactory.build_all(body["blocks"], images)
   end
 
   def present_for_publishing_api
