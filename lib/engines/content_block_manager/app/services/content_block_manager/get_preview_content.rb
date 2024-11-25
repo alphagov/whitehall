@@ -4,19 +4,20 @@ require "uri"
 
 module ContentBlockManager
   class GetPreviewContent
+    def self.for_content_id(content_id:, content_block_edition:)
+      new(content_id:, content_block_edition:).for_content_id
+    end
+
+    def for_content_id
+      ContentBlockManager::PreviewContent.new(title: content_item["title"], html:)
+    end
+
+  private
+
     def initialize(content_id:, content_block_edition:)
       @content_id = content_id
       @content_block_edition = content_block_edition
     end
-
-    def preview_content
-      {
-        title: content_item["title"],
-        html:,
-      }
-    end
-
-  private
 
     def html
       @html ||= preview_html
@@ -50,8 +51,9 @@ module ContentBlockManager
     end
 
     def replace_blocks(nokogiri_html)
+      @preview_content_block_render ||= @content_block_edition.render
       content_block_spans(nokogiri_html).each do |span|
-        span.replace @content_block_edition.render
+        span.replace @preview_content_block_render
       end
     end
 
@@ -59,7 +61,7 @@ module ContentBlockManager
 
     def style_blocks(nokogiri_html)
       content_block_spans(nokogiri_html).each do |span|
-        span["style"] = "background-color: yellow;"
+        span["style"] = BLOCK_STYLE
       end
     end
 

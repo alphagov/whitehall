@@ -42,13 +42,13 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
         html: Nokogiri::HTML.parse(expected_html),
       }
 
-      actual_content = ContentBlockManager::GetPreviewContent.new(
+      actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
         content_id: host_content_id,
         content_block_edition: block_to_preview,
-      ).preview_content
+      )
 
-      assert_equal expected_content[:title], actual_content[:title]
-      assert_equal expected_content[:html].to_s, actual_content[:html].to_s
+      assert_equal expected_content[:title], actual_content.title
+      assert_equal expected_content[:html].to_s, actual_content.html.to_s
     end
   end
 end
