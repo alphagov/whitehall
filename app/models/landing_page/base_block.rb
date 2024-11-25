@@ -1,7 +1,7 @@
 class LandingPage::BaseBlock
   include ActiveModel::API
 
-  attr_reader :type
+  attr_reader :type, :images
 
   validates :type, presence: true
 

@@ -27,11 +27,13 @@ class LandingPage::Body
   end
 
   def present_for_publishing_api
-    {
+    return { "errors" => errors.to_a } if invalid?
+
+    body.merge({
       breadcrumbs:,
       navigation_groups:,
       blocks: blocks.map(&:present_for_publishing_api),
-    }
+    }).compact
   end
 
   def body_to_extend
@@ -59,6 +61,7 @@ class LandingPage::Body
   def extend_body
     return if body_to_extend.nil?
 
+    body.delete("extends")
     body.reverse_merge!(body_to_extend)
   end
 end

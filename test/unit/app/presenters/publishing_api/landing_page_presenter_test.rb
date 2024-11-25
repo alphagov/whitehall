@@ -79,8 +79,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
   test "it presents attachments" do
     attachment = @landing_page.attachments.first
-    assert_equal @presented_content.dig(:details, :attachments, 0, :id),
-                 attachment.id.to_s
+    assert_equal attachment.id.to_s, @presented_content.dig(:details, :attachments, 0, :id)
   end
 
   test "it merges its data with a document using extends:" do
@@ -214,9 +213,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             desktop: "[Image: non-existent-file.jpg]"
             tablet: "[Image: non-existent-file.jpg]"
             mobile: "[Image: non-existent-file.jpg]"
+        hero_content:
+          blocks:
+          - type: some-block-type
     YAML
 
-    landing_page = create(
+    landing_page = build(
       :landing_page,
       document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
       body:,
@@ -234,13 +236,10 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     assert_pattern do
       details =>
         {
-          blocks: [
-            {
-              type: "hero",
-              image: {
-                errors: ["Some image expressions weren't correctly formatted, or images could not be found"],
-              }
-            },
+          errors: [
+            "Desktop image can't be blank",
+            "Tablet image can't be blank",
+            "Mobile image can't be blank",
           ],
         }
     end
@@ -255,9 +254,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             desktop: "[Image: hero_image_mobile_2x.png]" # NOTE - using mobile image for desktop field
             tablet: "[Image: hero_image_desktop_2x.png]" # NOTE - using desktop image for tablet field
             mobile: "[Image: hero_image_tablet_2x.png]" # NOTE - using tablet image for desktop field
+        hero_content:
+          blocks:
+          - type: some-block-type
     YAML
 
-    landing_page = create(
+    landing_page = build(
       :landing_page,
       document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
       body:,
@@ -279,17 +281,10 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     assert_pattern do
       details =>
       {
-        blocks: [
-          {
-            type: "hero",
-            image: {
-               errors: [
-                 "Desktop image is of the wrong image kind: hero_mobile",
-                 "Tablet image is of the wrong image kind: hero_desktop",
-                 "Mobile image is of the wrong image kind: hero_tablet",
-               ],
-            }
-          },
+        errors: [
+          "Desktop image is of the wrong image kind: hero_mobile",
+          "Tablet image is of the wrong image kind: hero_desktop",
+          "Mobile image is of the wrong image kind: hero_tablet",
         ],
       }
     end

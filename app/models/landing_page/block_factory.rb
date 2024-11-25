@@ -4,6 +4,11 @@ class LandingPage::BlockFactory
   end
 
   def self.build(block, images)
-    LandingPage::BaseBlock.new(block, images)
+    case block.symbolize_keys
+    in { type: "hero" }
+      LandingPage::HeroBlock.new(block, images)
+    else
+      LandingPage::BaseBlock.new(block, images)
+    end
   end
 end
