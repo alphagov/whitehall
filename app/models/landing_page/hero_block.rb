@@ -18,6 +18,9 @@ class LandingPage::HeroBlock < LandingPage::BaseBlock
     actual_kind = value.image_data.image_kind
     record.errors.add(attr, "is of the wrong image kind: #{actual_kind}") if actual_kind != expected_kind
   end
+  validate do
+    hero_content_blocks.each { |b| errors.merge!(b.errors) if b.invalid? }
+  end
 
   def initialize(source, images)
     super
@@ -32,14 +35,14 @@ class LandingPage::HeroBlock < LandingPage::BaseBlock
   def present_for_publishing_api
     return { "errors" => errors.to_a } if invalid?
 
-    @source.merge({
+    super.merge({
       "image" => {
         # NOTE: alt text is always blank for hero images, as they are decorative
         "alt" => "",
         "sources" => present_image_sources,
       },
       "hero_content" => {
-        "blocks" => @hero_content_blocks.map(&:present_for_publishing_api),
+        "blocks" => hero_content_blocks.map(&:present_for_publishing_api),
       },
     })
   end

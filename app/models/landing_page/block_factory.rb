@@ -7,6 +7,8 @@ class LandingPage::BlockFactory
     case block.symbolize_keys
     in { type: "hero" }
       LandingPage::HeroBlock.new(block, images)
+    in { blocks: Array }
+      LandingPage::ParentBlock.new(block, images)
     else
       LandingPage::BaseBlock.new(block, images)
     end
