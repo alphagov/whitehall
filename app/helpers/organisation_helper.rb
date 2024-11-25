@@ -22,7 +22,7 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    name = ERB::Util.h(organisation_display_name(organisation))
+    name = ERB::Util.h(organisation_display_name(organisation)).strip
     type_name = organisation_type_name(organisation)
     relationship = ERB::Util.h(add_indefinite_article(type_name))
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
@@ -53,7 +53,7 @@ module OrganisationHelper
 
     if child_organisations.any?
       organisation_name.chomp!(".")
-      organisation_name += organisation_type_name(organisation) != "other" ? ", supported by " : " is supported by "
+      organisation_name += supporting_organisation_text(organisation)
 
       child_relationships_link_text = child_organisations.size.to_s
       child_relationships_link_text += child_organisations.size == 1 ? " public body" : " agencies and public bodies"
@@ -66,9 +66,16 @@ module OrganisationHelper
     organisation_name.html_safe
   end
 
+  def supporting_organisation_text(organisation)
+    return ", supported by " if organisation_type_name(organisation) != "other"
+    return " and is supported by " if organisation.parent_organisations.any?
+
+    " is supported by "
+  end
+
   def organisation_relationship_html(organisation)
-    prefix = needs_definite_article?(organisation.name) ? "the " : ""
-    (prefix + link_to(organisation.name, organisation.public_path, class: "brand__color"))
+    prefix = needs_definite_article?(organisation.name.strip) ? "the " : ""
+    (prefix + link_to(organisation.name.strip, organisation.public_path, class: "brand__color"))
   end
 
   def needs_definite_article?(phrase)

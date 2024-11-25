@@ -32,12 +32,11 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     html.gsub(/<[^>]*?>/, "")
   end
 
-  def assert_relationship_type_is_described_as(type_key, expected_description)
-    parent = create(:organisation)
-    child = create(:organisation, parent_organisations: [parent], organisation_type: OrganisationType.get(type_key))
-    expected_text = expected_description.sub("{this_org_name}", child.name).sub("{parent_org_name}", parent.name)
+  def assert_relationship_type_is_described_as(type_key, expected_description, org_name, parent_org_name)
+    parent = create(:organisation, name: parent_org_name)
+    child = create(:organisation, parent_organisations: [parent], organisation_type: OrganisationType.get(type_key), name: org_name)
     actual_html = organisation_display_name_and_parental_relationship(child)
-    assert_equal expected_text, strip_html_tags(actual_html)
+    assert_equal expected_description, strip_html_tags(actual_html)
   end
 
   def assert_definite_article_skipped(parent_organisation_name)
@@ -91,17 +90,17 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_match %r{the <a class="brand__color" href="/government/organisations/#{parent.to_param}">#{parent.name}</a>}, organisation_display_name_and_parental_relationship(child)
   end
 
-  test "relationship types are described correctly" do
-    assert_relationship_type_is_described_as(:ministerial_department, "{this_org_name} is a ministerial department of the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:non_ministerial_department, "{this_org_name} is a non-ministerial department.")
-    assert_relationship_type_is_described_as(:executive_agency, "{this_org_name} is an executive agency, sponsored by the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:executive_ndpb, "{this_org_name} is an executive non-departmental public body, sponsored by the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:advisory_ndpb, "{this_org_name} is an advisory non-departmental public body, sponsored by the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:special_health_authority, "{this_org_name} is a special health authority, sponsored by the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:tribunal, "{this_org_name} is a tribunal of the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:public_corporation, "{this_org_name} is a public corporation of the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:independent_monitoring_body, "{this_org_name} is an independent monitoring body of the {parent_org_name}.")
-    assert_relationship_type_is_described_as(:other, "{this_org_name} works with the {parent_org_name}.")
+  test "relationship types are described correctly and trailing spaces are removed" do
+    assert_relationship_type_is_described_as(:ministerial_department, "org1 is a ministerial department of the parent org1.", "org1 ", "parent org1 ")
+    assert_relationship_type_is_described_as(:non_ministerial_department, "org2 is a non-ministerial department.", "org2 ", "parent org2 ")
+    assert_relationship_type_is_described_as(:executive_agency, "org3 is an executive agency, sponsored by the parent org3.", "org3 ", "parent org3 ")
+    assert_relationship_type_is_described_as(:executive_ndpb, "org4 is an executive non-departmental public body, sponsored by the parent org4.", "org4 ", "parent org4 ")
+    assert_relationship_type_is_described_as(:advisory_ndpb, "org5 is an advisory non-departmental public body, sponsored by the parent org5.", "org5 ", "parent org5 ")
+    assert_relationship_type_is_described_as(:special_health_authority, "org6 is a special health authority, sponsored by the parent org6.", "org6 ", "parent org6 ")
+    assert_relationship_type_is_described_as(:tribunal, "org7 is a tribunal of the parent org7.", "org7 ", "parent org7 ")
+    assert_relationship_type_is_described_as(:public_corporation, "org8 is a public corporation of the parent org8.", "org8 ", "parent org8 ")
+    assert_relationship_type_is_described_as(:independent_monitoring_body, "org9 is an independent monitoring body of the parent org9.", "org9 ", "parent org9 ")
+    assert_relationship_type_is_described_as(:other, "org10 works with the parent org10.", "org10 ", "parent org10 ")
   end
 
   test "definite article skipped for certain parent organisations" do
@@ -119,6 +118,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent2 = create(:organisation)
     child = create(:organisation, parent_organisations: [parent1, parent2])
     result = organisation_display_name_and_parental_relationship(child)
+
     assert_match parent1.name, result
     assert_match parent2.name, result
   end
@@ -143,7 +143,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child])
 
     description = organisation_display_name_including_parental_and_child_relationships(parent)
-    assert description.include? ", supported by"
+    assert_equal "PAN is a ministerial department, supported by 1 public body.", strip_html_tags(description)
   end
 
   test "organisations of type other with children are described correctly" do
@@ -151,8 +151,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:organisation, organisation_type_key: "other", acronym: "OON", name: "Other Organisation Name", child_organisations: [child])
 
     description = organisation_display_name_including_parental_and_child_relationships(parent)
-    assert description.include? "is supported by"
-    assert_not description.include? "is an other"
+    assert_equal "OON is supported by 1 public body.", strip_html_tags(description)
   end
 
   test "organisations of type other with no relationships are described correctly" do
@@ -161,6 +160,16 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     description = organisation_display_name_including_parental_and_child_relationships(organisation)
     assert description.include? "Other Organisation Name"
-    assert_not description.include? "is an other"
+    assert_equal "OON", strip_html_tags(description)
+  end
+
+  test "organisations of type other with parent and multiple children are described correctly" do
+    child1 = create(:organisation, acronym: "CO", name: "Child Organisation 1")
+    child2 = create(:organisation, acronym: "CO", name: "Child Organisation 2")
+    parent = create(:organisation, acronym: "PO", name: "Parent Organisation Name")
+    org = create(:organisation, organisation_type_key: "other", acronym: "TO", name: "This Organisation", child_organisations: [child1, child2], parent_organisations: [parent])
+
+    description = organisation_display_name_including_parental_and_child_relationships(org)
+    assert_equal "TO works with the Parent Organisation Name and is supported by 2 agencies and public bodies.", strip_html_tags(description)
   end
 end
