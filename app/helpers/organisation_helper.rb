@@ -22,7 +22,7 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    name = ERB::Util.h(organisation_display_name(organisation))
+    name = ERB::Util.h(organisation_display_name(organisation)).strip
     type_name = organisation_type_name(organisation)
     relationship = ERB::Util.h(add_indefinite_article(type_name))
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
@@ -67,8 +67,8 @@ module OrganisationHelper
   end
 
   def organisation_relationship_html(organisation)
-    prefix = needs_definite_article?(organisation.name) ? "the " : ""
-    (prefix + link_to(organisation.name, organisation.public_path, class: "brand__color"))
+    prefix = needs_definite_article?(organisation.name.strip) ? "the " : ""
+    (prefix + link_to(organisation.name.strip, organisation.public_path, class: "brand__color"))
   end
 
   def needs_definite_article?(phrase)
