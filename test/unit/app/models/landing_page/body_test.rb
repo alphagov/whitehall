@@ -82,4 +82,13 @@ class LandingPageBodyTest < ActiveSupport::TestCase
       "Body extends /some-document-which-does-not-exist but that document does not exist, or does not have a YAML body",
     ], subject.errors.to_a
   end
+
+  test "is invalid when given invalid blocks" do
+    subject = LandingPage::Body.new(<<~YAML)
+      blocks:
+      - error: no type
+    YAML
+    assert subject.invalid?
+    assert_equal ["Type can't be blank"], subject.errors.to_a
+  end
 end

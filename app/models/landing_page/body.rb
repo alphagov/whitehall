@@ -5,6 +5,9 @@ class LandingPage::Body
 
   validates :blocks, presence: true
   validate :validate_extends_document_exists
+  validate do
+    blocks.each { |b| errors.merge!(b.errors) if b.invalid? }
+  end
 
   def initialize(raw_body)
     @raw_body = raw_body
@@ -20,14 +23,14 @@ class LandingPage::Body
     extend_body
     @breadcrumbs = body["breadcrumbs"]
     @navigation_groups = body["navigation_groups"]
-    @blocks = body["blocks"]
+    @blocks = LandingPage::BlockFactory.build_all(body["blocks"])
   end
 
   def present_for_publishing_api
     {
       breadcrumbs:,
       navigation_groups:,
-      blocks:,
+      blocks: blocks.map(&:present_for_publishing_api),
     }
   end
 

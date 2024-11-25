@@ -7,7 +7,7 @@ class LandingPage < Edition
   validates :base_path, presence: true, format: { with: /\A\/.*\z/, message: "must start with a slash (/)" }
   validate :base_path_must_not_be_taken
   validate do
-    errors.merge!(landing_page_body.errors) unless landing_page_body.valid?
+    errors.merge!(landing_page_body.errors) if landing_page_body.invalid?
   end
 
   def publishing_api_presenter
