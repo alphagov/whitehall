@@ -1,30 +1,61 @@
 class LandingPage::Body
   include ActiveModel::API
 
-  attr_reader :raw_body, :extends, :breadcrumbs, :navigation_groups, :blocks
+  attr_reader :raw_body, :body, :extends, :breadcrumbs, :navigation_groups, :blocks
 
   validates :blocks, presence: true
-  validate :extends_a_document_which_exists
+  validate :validate_extends_document_exists
 
   def initialize(raw_body)
     @raw_body = raw_body
 
     @yaml_errors = []
-    body = begin
+    @body = begin
       YAML.load(@raw_body)
     rescue StandardError => e
       @yaml_errors << e
       {}
     end
     @extends = body["extends"]
+    extend_body
     @breadcrumbs = body["breadcrumbs"]
     @navigation_groups = body["navigation_groups"]
     @blocks = body["blocks"]
   end
 
-  def extends_a_document_which_exists
-    return unless extends.present?
+  def present_for_publishing_api
+    {
+      breadcrumbs:,
+      navigation_groups:,
+      blocks:,
+    }
+  end
 
-    errors.add(:body, "extends #{extends} but that document does not exist") unless Document.find_by(slug: extends)
+  def body_to_extend
+    @body_to_extend ||= begin
+      return if extends.blank?
+
+      edition = Document.find_by(slug: extends)&.latest_edition
+      return if edition.nil?
+
+      parsed_body = begin
+        YAML.safe_load(edition.body, permitted_classes: [Date])
+      rescue StandardError
+        nil
+      end
+      parsed_body if parsed_body.is_a?(Hash)
+    end
+  end
+
+  def validate_extends_document_exists
+    return unless extends.present? && body_to_extend.nil?
+
+    errors.add(:body, "extends #{extends} but that document does not exist, or does not have a YAML body")
+  end
+
+  def extend_body
+    return if body_to_extend.nil?
+
+    body.reverse_merge!(body_to_extend)
   end
 end

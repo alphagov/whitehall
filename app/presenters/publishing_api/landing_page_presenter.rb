@@ -49,14 +49,7 @@ module PublishingApi
     attr_reader :item
 
     def details
-      body = YAML.load(item.body, permitted_classes: [Date])
-              .merge(PayloadBuilder::Attachments.for(item))
-      extends_slug = body.delete("extends")
-      if extends_slug
-        extends = Document.find_by(slug: extends_slug).latest_edition
-        extends_body = YAML.safe_load(extends.body, permitted_classes: [Date])
-        body.reverse_merge!(extends_body)
-      end
+      body = item.landing_page_body.present_for_publishing_api
 
       recursively_expand_images(body.deep_symbolize_keys)
     end
