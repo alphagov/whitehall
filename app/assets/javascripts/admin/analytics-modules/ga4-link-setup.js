@@ -16,10 +16,10 @@ window.GOVUK.analyticsGa4.analyticsModules =
             event_name: 'navigation',
             type: link.role === 'button' ? 'button' : 'generic_link'
           }
-          if (link.dataset.ga4Event) {
-            Object.assign(event, JSON.parse(link.dataset.ga4Event))
+          if (link.dataset.ga4Link) {
+            Object.assign(event, JSON.parse(link.dataset.ga4Link))
           }
-          link.dataset.ga4Event = JSON.stringify(event)
+          link.dataset.ga4Link = JSON.stringify(event)
         })
       })
     }
