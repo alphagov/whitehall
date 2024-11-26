@@ -30,6 +30,7 @@ module ContentBlockManager
           last_edited_at: item["last_edited_at"],
           unique_pageviews: item["unique_pageviews"],
           instances: item["instances"],
+          host_content_id: item["host_content_id"],
         )
       end
 

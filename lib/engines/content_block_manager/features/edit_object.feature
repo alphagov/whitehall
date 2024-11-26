@@ -96,8 +96,10 @@ Feature: Edit a content object
     And I visit the Content Block Manager home page
     Then I should still see the live edition on the homepage
 
+  @javascript
   Scenario: GDS editor can preview a host document
     When I revisit the edit page
     And I fill out the form
     Then I am shown where the changes will take place
-    And the host documents link to the draft content store
+    When I click on the first host document
+    Then The preview page opens in a new tab

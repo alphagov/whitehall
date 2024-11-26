@@ -9,6 +9,7 @@ module ContentBlockManager
     :last_edited_at,
     :unique_pageviews,
     :instances,
+    :host_content_id,
   )
 
     def last_edited_at
