@@ -10,7 +10,7 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
   let(:host_base_path) { "/test" }
   let(:uri_mock) { mock }
   let(:fake_frontend_response) do
-    "<body><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
+    "<body class=\"govuk-body\"><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
   end
   let(:block_render) do
     "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">new@new.com</span>"
@@ -19,10 +19,10 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
     "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\" style=\"background-color: yellow;\">new@new.com</span>"
   end
   let(:expected_html) do
-    "<body><p>test</p>#{block_render_with_style}</body>"
+    "<body class=\"govuk-body draft\"><p>test</p>#{block_render_with_style}</body>"
   end
   let(:error_html) do
-    "<html><body><p>Preview not found</p></body></html>"
+    "<html><body class=\" draft\"><p>Preview not found</p></body></html>"
   end
   let(:document) do
     build(:content_block_document, :email_address, content_id: preview_content_id)
