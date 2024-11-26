@@ -40,7 +40,7 @@ module ContentBlockManager
 
     def preview_html
       uri = URI(frontend_path)
-      nokogiri_html = Nokogiri::HTML.parse(Net::HTTP.get(uri))
+      nokogiri_html = html_snapshot_from_frontend(uri)
       replace_existing_content_blocks(nokogiri_html)
     end
 
@@ -67,6 +67,17 @@ module ContentBlockManager
 
     def content_block_spans(nokogiri_html)
       nokogiri_html.css("span[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
+    end
+
+    ERROR_HTML = "<html><body><p>Preview not found</p></body></html>".freeze
+
+    def html_snapshot_from_frontend(uri)
+      begin
+        raw_html = Net::HTTP.get(uri)
+      rescue StandardError
+        raw_html = ERROR_HTML
+      end
+      Nokogiri::HTML.parse(raw_html)
     end
   end
 end
