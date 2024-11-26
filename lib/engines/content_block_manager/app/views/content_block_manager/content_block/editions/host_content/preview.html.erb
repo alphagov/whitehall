@@ -1,11 +1,14 @@
 <% content_for :page_title, "Preview content block in host document" %>
 <% content_for :context, "Preview content block" %>
 <% content_for :title, @preview_content.title %>
-<% content_for :title_margin_bottom, 0 %>
+<% content_for :title_margin_bottom, 3 %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-body govuk-!-margin-bottom-0">
-    <p><strong>Document title: </strong><%= @preview_content.title %></p>
+    <ul class="govuk-list">
+      <li><strong>Document title: </strong><%= @preview_content.title %></li>
+      <li><strong>Instances: </strong><%= @preview_content.instances_count %></li>
+    </ul>
   </div>
 </div>
 <hr class="govuk-section-break govuk-!-margin-bottom-8 govuk-section-break--visible">

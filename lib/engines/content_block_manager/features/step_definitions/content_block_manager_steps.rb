@@ -508,15 +508,16 @@ When("I click on the first host document") do
     Plek.website_root + @current_host_document["base_path"],
   ).to_return(
     status: 200,
-    body: "<h1>#{@current_host_document['title']}</h1><p>iframe preview</p>",
+    body: "<body><h1>#{@current_host_document['title']}</h1><p>iframe preview</p>#{@content_block.render}</body>",
   )
 
   click_on @current_host_document["title"]
 end
 
-Then("The preview page opens in a new tab") do
+Then("the preview page opens in a new tab") do
   page.switch_to_window(page.windows.last)
   assert_text "Preview content block"
+  assert_text "Instances: 1"
   within_frame "preview" do
     assert_text @current_host_document["title"]
   end

@@ -9,7 +9,7 @@ module ContentBlockManager
     end
 
     def for_content_id
-      ContentBlockManager::PreviewContent.new(title: content_item["title"], html:)
+      ContentBlockManager::PreviewContent.new(title: content_item["title"], html:, instances_count:)
     end
 
   private
@@ -67,6 +67,10 @@ module ContentBlockManager
 
     def content_block_spans(nokogiri_html)
       nokogiri_html.css("span[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
+    end
+
+    def instances_count
+      content_block_spans(html).length
     end
 
     ERROR_HTML = "<html><body><p>Preview not found</p></body></html>".freeze

@@ -37,12 +37,11 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
       block_to_preview.expects(:render).returns(block_render)
     end
 
-    it "returns the title and preview HTML for a document" do
+    it "returns the title of host document" do
       Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
 
       expected_content = {
         title: host_title,
-        html: Nokogiri::HTML.parse(expected_html),
       }
 
       actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
@@ -51,6 +50,35 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
       )
 
       assert_equal expected_content[:title], actual_content.title
+    end
+
+    it "returns the count of instances" do
+      Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
+
+      expected_content = {
+        instances_count: 1,
+      }
+
+      actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+      )
+
+      assert_equal expected_content[:instances_count], actual_content.instances_count
+    end
+
+    it "returns the preview html" do
+      Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
+
+      expected_content = {
+        html: Nokogiri::HTML.parse(expected_html),
+      }
+
+      actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+      )
+
       assert_equal expected_content[:html].to_s, actual_content.html.to_s
     end
 
