@@ -66,7 +66,11 @@ module PublishingApi
       in { type: "hero", image: { sources: { desktop:, tablet:, mobile: } }, **rest }
         {
           type: "hero",
-          image: present_hero_image(desktop, tablet, mobile),
+          image: {
+            # Hero images are decorative, so they should always have empty alt text
+            alt: "",
+            sources: present_hero_image_sources(desktop, tablet, mobile),
+          },
           **recursively_expand_images(rest),
         }
       in Hash => h
@@ -78,7 +82,7 @@ module PublishingApi
       end
     end
 
-    def present_hero_image(desktop, tablet, mobile)
+    def present_hero_image_sources(desktop, tablet, mobile)
       images = find_images(desktop, tablet, mobile)
       return { errors: ["Some image expressions weren't correctly formatted, or images could not be found"] } if images.any?(&:nil?)
 
@@ -95,15 +99,12 @@ module PublishingApi
       desktop_image, tablet_image, mobile_image = images
 
       {
-        alt: present_alt_text(images),
-        sources: {
-          desktop: desktop_image.url(:hero_desktop_1x),
-          desktop_2x: desktop_image.url(:hero_desktop_2x),
-          tablet: tablet_image.url(:hero_tablet_1x),
-          tablet_2x: tablet_image.url(:hero_tablet_2x),
-          mobile: mobile_image.url(:hero_mobile_1x),
-          mobile_2x: mobile_image.url(:hero_mobile_2x),
-        },
+        desktop: desktop_image.url(:hero_desktop_1x),
+        desktop_2x: desktop_image.url(:hero_desktop_2x),
+        tablet: tablet_image.url(:hero_tablet_1x),
+        tablet_2x: tablet_image.url(:hero_tablet_2x),
+        mobile: mobile_image.url(:hero_mobile_1x),
+        mobile_2x: mobile_image.url(:hero_mobile_2x),
       }
     end
 
@@ -116,19 +117,6 @@ module PublishingApi
           image_id = match.captures.first
           item.images.find { _1.filename == image_id }
         end
-      end
-    end
-
-    def present_alt_text(images)
-      unique_alt_text = images.map(&:alt_text).compact.uniq
-      case unique_alt_text
-      in []
-        nil
-      in [alt_text]
-        alt_text
-      in Array
-        warn("Different images had different alt text, using the first option")
-        unique_alt_text.first
       end
     end
   end

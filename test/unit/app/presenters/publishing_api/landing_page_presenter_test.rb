@@ -238,7 +238,9 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             {
               type: "hero",
               image: {
-                errors: ["Some image expressions weren't correctly formatted, or images could not be found"],
+                sources: {
+                  errors: ["Some image expressions weren't correctly formatted, or images could not be found"],
+                }
               }
             },
           ],
@@ -283,11 +285,13 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
           {
             type: "hero",
             image: {
-               errors: [
-                 "Desktop image is of the wrong image kind: hero_mobile",
-                 "Tablet image is of the wrong image kind: hero_desktop",
-                 "Mobile image is of the wrong image kind: hero_tablet",
-               ],
+              sources: {
+                errors: [
+                  "Desktop image is of the wrong image kind: hero_mobile",
+                  "Tablet image is of the wrong image kind: hero_desktop",
+                  "Mobile image is of the wrong image kind: hero_tablet",
+                ],
+              }
             }
           },
         ],
