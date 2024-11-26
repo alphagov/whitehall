@@ -25,22 +25,6 @@ class FileAttachmentTest < ActiveSupport::TestCase
     assert_not attachment.html?
   end
 
-  test "should be invalid if an attachment already exists on the attachable with the same filename" do
-    attachable = create(:policy_group, attachments: [build(:file_attachment, file: file_fixture("whitepaper.pdf"))])
-    duplicate  = build(:file_attachment, file: file_fixture("whitepaper.pdf"), attachable:)
-
-    assert_not duplicate.valid?
-    assert_match %r{This policy group already has a file called "whitepaper.pdf"}, duplicate.errors[:base].first
-  end
-
-  test "unique filename check does not explode if file is not present" do
-    attachable = create(:policy_group, attachments: [build(:file_attachment)])
-    attachment = build(:file_attachment, attachable:, file: nil)
-
-    assert_not attachment.valid?
-    assert_match %r{can't be blank}, attachment.errors[:"attachment_data.file"].first
-  end
-
   test "update with empty nested attachment data attributes still works" do
     attachment = create(:file_attachment)
 

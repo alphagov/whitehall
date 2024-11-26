@@ -20,8 +20,6 @@ class FileAttachment < Attachment
 
   accepts_nested_attributes_for :attachment_data, reject_if: ->(attributes) { attributes[:file].blank? && attributes[:file_cache].blank? }
 
-  validate :filename_is_unique
-
   def filename_changed?
     previous_attachment_data_id = attachment_data_id_was
     previous_attachment_data = AttachmentData.find(previous_attachment_data_id)
@@ -70,11 +68,5 @@ private
     return unless csv? && attachable.is_a?(Edition) && attachment_data.all_asset_variants_uploaded?
 
     Plek.asset_root + "/media/#{attachment_data.id}/#{filename}/preview"
-  end
-
-  def filename_is_unique
-    if attachable && attachable.attachments.any? { |a| a.file? && a != self && a.filename.downcase == filename.try(:downcase) }
-      errors.add(:base, message: "This #{attachable_model_name} already has a file called \"#{filename}\"")
-    end
   end
 end
