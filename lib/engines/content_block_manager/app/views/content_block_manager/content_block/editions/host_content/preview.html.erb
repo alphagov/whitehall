@@ -5,10 +5,9 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-body govuk-!-margin-bottom-0">
-    <ul class="govuk-list">
-      <li><strong>Document title: </strong><%= @preview_content.title %></li>
-      <li><strong>Instances: </strong><%= @preview_content.instances_count %></li>
-    </ul>
+    <%= render(ContentBlockManager::ContentBlockEdition::HostContent::PreviewDetailsComponent.new(
+          content_block_edition: @content_block_edition,
+          preview_content: @preview_content)) %>
   </div>
 </div>
 <hr class="govuk-section-break govuk-!-margin-bottom-8 govuk-section-break--visible">

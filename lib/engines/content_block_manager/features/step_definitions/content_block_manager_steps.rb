@@ -518,6 +518,7 @@ Then("the preview page opens in a new tab") do
   page.switch_to_window(page.windows.last)
   assert_text "Preview content block"
   assert_text "Instances: 1"
+  assert_text "Email address: changed@example.com"
   within_frame "preview" do
     assert_text @current_host_document["title"]
   end
