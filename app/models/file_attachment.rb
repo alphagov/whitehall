@@ -20,7 +20,7 @@ class FileAttachment < Attachment
 
   accepts_nested_attributes_for :attachment_data, reject_if: ->(attributes) { attributes[:file].blank? && attributes[:file_cache].blank? }
 
-  validate :filename_is_unique
+  validate :filename_is_unique, on: :user_input
 
   def filename_changed?
     previous_attachment_data_id = attachment_data_id_was
