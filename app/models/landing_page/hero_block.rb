@@ -1,4 +1,4 @@
-class LandingPage::HeroBlock < LandingPage::BaseBlock
+class LandingPage::HeroBlock < LandingPage::CompoundBlock
   include ActiveModel::API
 
   IMAGE_PATTERN = /^\[Image:\s*(.*?)\s*\]/
@@ -8,9 +8,9 @@ class LandingPage::HeroBlock < LandingPage::BaseBlock
     mobile_image: "hero_mobile",
   }.freeze
 
-  attr_reader :desktop_image, :tablet_image, :mobile_image, :hero_content_blocks
+  attr_reader :desktop_image, :tablet_image, :mobile_image
 
-  validates :desktop_image, :tablet_image, :mobile_image, :hero_content_blocks, presence: true
+  validates :desktop_image, :tablet_image, :mobile_image, presence: true
   validates_each :desktop_image, :tablet_image, :mobile_image do |record, attr, value|
     next if value.blank?
 
@@ -18,13 +18,9 @@ class LandingPage::HeroBlock < LandingPage::BaseBlock
     actual_kind = value.image_data.image_kind
     record.errors.add(attr, "is of the wrong image kind: #{actual_kind}") if actual_kind != expected_kind
   end
-  validate do
-    hero_content_blocks.each { |b| errors.merge!(b.errors) if b.invalid? }
-  end
 
-  def initialize(source, images)
-    super
-    @hero_content_blocks = LandingPage::BlockFactory.build_all(source.dig("hero_content", "blocks"), images)
+  def initialize(source, images, content_blocks)
+    super(source, images, "hero_content", content_blocks)
 
     image_sources = @source.dig("image", "sources") || {}
     @desktop_image = find_image(image_sources["desktop"])
@@ -33,16 +29,11 @@ class LandingPage::HeroBlock < LandingPage::BaseBlock
   end
 
   def present_for_publishing_api
-    return { "errors" => errors.to_a } if invalid?
-
     super.merge({
       "image" => {
         # NOTE: alt text is always blank for hero images, as they are decorative
         "alt" => "",
         "sources" => present_image_sources,
-      },
-      "hero_content" => {
-        "blocks" => hero_content_blocks.map(&:present_for_publishing_api),
       },
     })
   end

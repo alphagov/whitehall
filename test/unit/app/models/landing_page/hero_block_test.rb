@@ -7,6 +7,7 @@ class HeroBlockTest < ActiveSupport::TestCase
       build(:image, image_data: build(:hero_image_data, image_kind: "hero_tablet", file: upload_fixture("hero_image_tablet_2x.png", "image/png"))),
       build(:image, image_data: build(:hero_image_data, image_kind: "hero_mobile", file: upload_fixture("hero_image_mobile_2x.png", "image/png"))),
     ]
+    @valid_hero_content_blocks = [{ "type" => "some-block-type" }]
     @valid_hero_block_config = {
       "type" => "hero",
       "image" => {
@@ -16,19 +17,17 @@ class HeroBlockTest < ActiveSupport::TestCase
           "mobile" => "[Image: hero_image_mobile_2x.png]",
         },
       },
-      "hero_content" => {
-        "blocks" => [{ "type" => "some-block-type" }],
-      },
+      "hero_content" => { "blocks" => @valid_hero_content_blocks },
     }
   end
 
   test "valid when given correct params" do
-    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, @valid_hero_block_images)
+    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, @valid_hero_block_images, @valid_hero_content_blocks)
     assert subject.valid?
   end
 
   test "presents hero blocks to publishing api" do
-    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, @valid_hero_block_images)
+    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, @valid_hero_block_images, @valid_hero_content_blocks)
     expected_result = {
       "type" => "hero",
       "image" => {
@@ -50,7 +49,7 @@ class HeroBlockTest < ActiveSupport::TestCase
   end
 
   test "invalid when missing images" do
-    subject = LandingPage::HeroBlock.new(@valid_hero_block_config.except("image"), @valid_hero_block_images)
+    subject = LandingPage::HeroBlock.new(@valid_hero_block_config.except("image"), @valid_hero_block_images, @valid_hero_content_blocks)
     assert subject.invalid?
     assert_equal [
       "Desktop image can't be blank",
@@ -61,7 +60,7 @@ class HeroBlockTest < ActiveSupport::TestCase
 
   test "invalid when image expressions are not found" do
     no_images = []
-    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, no_images)
+    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, no_images, @valid_hero_content_blocks)
     assert subject.invalid?
     assert_equal [
       "Desktop image can't be blank",
@@ -71,15 +70,14 @@ class HeroBlockTest < ActiveSupport::TestCase
   end
 
   test "invalid when missing hero content blocks" do
-    subject = LandingPage::HeroBlock.new(@valid_hero_block_config.except("hero_content"), @valid_hero_block_images)
+    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, @valid_hero_block_images, nil)
     assert subject.invalid?
-    assert_equal ["Hero content blocks can't be blank"], subject.errors.to_a
+    assert_equal ["Content blocks can't be blank"], subject.errors.to_a
   end
 
   test "invalid when hero content blocks are invalid" do
-    invalid_blocks_config = { "blocks" => [{ "invalid" => "because I do not have a type" }] }
-    block_config = @valid_hero_block_config.merge("hero_content" => invalid_blocks_config)
-    subject = LandingPage::HeroBlock.new(block_config, @valid_hero_block_images)
+    invalid_blocks_config = [{ "invalid" => "because I do not have a type" }]
+    subject = LandingPage::HeroBlock.new(@valid_hero_block_config, @valid_hero_block_images, invalid_blocks_config)
     assert subject.invalid?
     assert_equal ["Type can't be blank"], subject.errors.to_a
   end
