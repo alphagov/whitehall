@@ -53,7 +53,7 @@ class LandingPage::Body
   def validate_extends_document_exists
     return unless extends.present? && body_to_extend.nil?
 
-    errors.add(:body, "extends #{extends} but that document does not exist, or does not have a YAML body")
+    errors.add(:extends, "from #{extends} but that document does not exist, or does not have a YAML body")
   end
 
   def extend_body

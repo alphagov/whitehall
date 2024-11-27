@@ -11,6 +11,8 @@ class LandingPage::BaseBlock
   end
 
   def present_for_publishing_api
+    raise "cannot present invalid block to publishing api - errors: #{errors.to_a}" if invalid?
+
     @source
   end
 end
