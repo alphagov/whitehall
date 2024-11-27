@@ -27,6 +27,10 @@
     {
       "type": "exact",
       "path": "/government/case-studies.json"
+    },
+    {
+      "type": "exact",
+      "path": "/government/case-studies.atom"
     }
   ]
 }

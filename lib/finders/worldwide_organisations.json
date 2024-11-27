@@ -25,6 +25,10 @@
     {
       "type": "exact",
       "path": "/world/organisations.json"
+    },
+    {
+      "type": "exact",
+      "path": "/world/organisations.atom"
     }
   ]
 }

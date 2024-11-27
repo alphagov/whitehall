@@ -43,6 +43,10 @@
     {
       "type": "exact",
       "path": "/government/statistical-data-sets.json"
+    },
+    {
+      "type": "exact",
+      "path": "/government/statistical-data-sets.atom"
     }
   ]
 }
