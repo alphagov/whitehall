@@ -118,7 +118,55 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     assert_equal expected_details, presented_content[:details].deep_stringify_keys
   end
 
-  test "it recursively expands images in the body" do
+  test "it expands landing page images in the body" do
+    body = <<~YAML
+      blocks:
+      - type: image
+        image:
+          alt: "some alt text"
+          sources:
+            desktop: "[Image: landing_page_image.png]"
+            tablet: "[Image: landing_page_image.png]"
+            mobile: "[Image: landing_page_image.png]"
+    YAML
+
+    landing_page = create(
+      :landing_page,
+      document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
+      body:,
+      title: "Landing Page title",
+      summary: "Landing Page summary",
+      first_published_at: @first_published_at = Time.zone.now,
+      updated_at: 1.year.ago,
+      images: [
+        build(:image, image_data: build(:landing_page_image_data, file: upload_fixture("landing_page_image.png", "image/png"))),
+      ],
+    )
+
+    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_content = I18n.with_locale("en") { presented_landing_page.content }
+
+    assert_pattern do
+      presented_content[:details].deep_symbolize_keys => {
+        blocks: [
+          {
+            type: "image",
+            image: {
+              alt: "some alt text",
+              sources: {
+                desktop_2x: "http://asset-manager/asset_manager_id_landing_page_desktop_2x",
+                desktop: "http://asset-manager/asset_manager_id_landing_page_desktop_1x",
+                tablet_2x: "http://asset-manager/asset_manager_id_landing_page_tablet_2x",
+                tablet: "http://asset-manager/asset_manager_id_landing_page_tablet_1x",
+                mobile_2x: "http://asset-manager/asset_manager_id_landing_page_mobile_2x",
+                mobile: "http://asset-manager/asset_manager_id_landing_page_mobile_1x",
+              }
+            },
+          },
+        ]}
+    end
+  end
+  test "it recursively expands hero images in the body" do
     body = <<~YAML
       blocks:
       - type: hero

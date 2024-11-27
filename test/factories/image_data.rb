@@ -43,6 +43,26 @@ FactoryBot.define do
     end
   end
 
+  factory :landing_page_image_data, class: ImageData do
+    file { image_fixture_file }
+
+    image_kind { "landing_page_image" }
+
+    after(:build) do |image_data|
+      image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: image_data.filename)
+      variants = %w[landing_page_desktop_2x landing_page_desktop_1x landing_page_tablet_2x landing_page_tablet_1x landing_page_mobile_2x landing_page_mobile_1x]
+      variants.each do |variant|
+        image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_#{variant}", variant: Asset.variants[variant], filename: "#{variant}_#{image_data.filename}")
+      end
+
+      # Defining this method is a bit of a hack, but with FactoryBot created model,
+      # the file_url method just returns nil, which makes it less useful for testing
+      def image_data.file_url(variant)
+        "http://asset-manager/#{assets.find_by(variant:).asset_manager_id}"
+      end
+    end
+  end
+
   factory :image_data, parent: :generic_image_data, traits: [:jpg]
   factory :image_data_for_svg, parent: :generic_image_data, traits: [:svg]
   factory :image_data_with_no_assets, parent: :generic_image_data

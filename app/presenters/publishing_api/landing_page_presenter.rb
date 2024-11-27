@@ -73,6 +73,15 @@ module PublishingApi
           },
           **recursively_expand_images(rest),
         }
+      in { type: "image", image: { alt:, sources: { desktop:, tablet:, mobile: } }, **rest }
+        {
+          type: "image",
+          image: {
+            alt:,
+            sources: present_landing_page_image_sources(desktop, tablet, mobile),
+          },
+          **recursively_expand_images(rest),
+        }
       in Hash => h
         h.transform_values { recursively_expand_images(_1) }
       in Array => a
@@ -80,6 +89,20 @@ module PublishingApi
       else
         input
       end
+    end
+
+    def present_image_source(key, expected_image_kind, image_expression)
+      image = find_images(image_expression)
+      return { errors: ["Some image expressions weren't correctly formatted, or images could not be found"] } if image.nil?
+
+      image_data = image.image_data
+      image_kind = image_data.image_kind
+      errors = [
+        ("Some image variants hadn't finished uploading" unless image_data.all_asset_variants_uploaded?),
+        ("#{key.humanize} image is of the wrong image kind: #{image_kind}" unless image_kind == expected_image_kind),
+      ].compact
+      return { key => { errors: } } unless errors.empty?
+
     end
 
     def present_hero_image_sources(desktop, tablet, mobile)
@@ -105,6 +128,32 @@ module PublishingApi
         tablet_2x: tablet_image.url(:hero_tablet_2x),
         mobile: mobile_image.url(:hero_mobile_1x),
         mobile_2x: mobile_image.url(:hero_mobile_2x),
+      }
+    end
+
+    def present_landing_page_image_sources(desktop, tablet, mobile)
+      images = find_images(desktop, tablet, mobile)
+      return { errors: ["Some image expressions weren't correctly formatted, or images could not be found"] } if images.any?(&:nil?)
+
+      image_data = images.map(&:image_data)
+      desktop_image_kind, tablet_image_kind, mobile_image_kind = image_data.map(&:image_kind)
+      errors = [
+        ("Some image variants hadn't finished uploading" unless image_data.all?(&:all_asset_variants_uploaded?)),
+        ("Desktop image is of the wrong image kind: #{desktop_image_kind}" unless desktop_image_kind == "landing_page_image"),
+        ("Tablet image is of the wrong image kind: #{tablet_image_kind}" unless tablet_image_kind == "landing_page_image"),
+        ("Mobile image is of the wrong image kind: #{mobile_image_kind}" unless mobile_image_kind == "landing_page_image"),
+      ].compact
+      return { errors: } unless errors.empty?
+
+      desktop_image, tablet_image, mobile_image = images
+
+      {
+        desktop: desktop_image.url(:landing_page_desktop_1x),
+        desktop_2x: desktop_image.url(:landing_page_desktop_2x),
+        tablet: tablet_image.url(:landing_page_tablet_1x),
+        tablet_2x: tablet_image.url(:landing_page_tablet_2x),
+        mobile: mobile_image.url(:landing_page_mobile_1x),
+        mobile_2x: mobile_image.url(:landing_page_mobile_2x),
       }
     end
 

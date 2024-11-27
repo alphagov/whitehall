@@ -25,7 +25,7 @@ class LandingPage < Edition
   end
 
   def permitted_image_kinds
-    super + Whitehall.image_kinds.values.select { _1.permits?("hero") }
+    super + Whitehall.image_kinds.values.select { _1.permitted_uses.intersect?(%w[hero landing_page]) }
   end
 
 private
