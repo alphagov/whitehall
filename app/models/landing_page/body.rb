@@ -7,18 +7,30 @@ class LandingPage::Body
   validate :validate_extends_document_exists
   validate do
     blocks.each { |b| errors.merge!(b.errors) if b.invalid? }
+
+    begin
+      YAML.load(@raw_body)
+    rescue StandardError => e
+      errors.add(:yaml, e.message)
+    end
   end
 
   def initialize(raw_body, images)
     @raw_body = raw_body
 
-    @yaml_errors = []
+    # Defaults if we can't load the body
+    @extends = nil
+    @blocks = []
+    @breadcrumbs = nil
+    @navigation_groups = nil
+
     @body = begin
       YAML.load(@raw_body)
-    rescue StandardError => e
-      @yaml_errors << e
-      {}
+    rescue StandardError
+      nil
     end
+    return if @body.nil?
+
     @extends = body["extends"]
     extend_body
     @breadcrumbs = body["breadcrumbs"]

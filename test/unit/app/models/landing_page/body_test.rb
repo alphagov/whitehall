@@ -9,6 +9,14 @@ class LandingPageBodyTest < ActiveSupport::TestCase
     assert_equal ["Blocks can't be blank"], subject.errors.to_a
   end
 
+  test "is invalid with badly formed YAML" do
+    subject = LandingPage::Body.new("{", EMPTY_IMAGES)
+    assert subject.invalid?
+    errors = subject.errors.to_a
+    assert_equal "Blocks can't be blank", errors.first
+    assert_match(/Yaml .* did not find expected node content/, errors.second)
+  end
+
   test "is invalid with empty blocks" do
     subject = LandingPage::Body.new(<<~YAML, EMPTY_IMAGES)
       blocks: []
@@ -81,7 +89,7 @@ class LandingPageBodyTest < ActiveSupport::TestCase
     YAML
     assert subject.invalid?
     assert_equal [
-      "Body extends /some-document-which-does-not-exist but that document does not exist, or does not have a YAML body",
+      "Extends from /some-document-which-does-not-exist but that document does not exist, or does not have a YAML body",
     ], subject.errors.to_a
   end
 
