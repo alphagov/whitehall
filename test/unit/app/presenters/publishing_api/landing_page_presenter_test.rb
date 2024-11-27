@@ -140,8 +140,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
               mobile: "[Image: hero_image_mobile_2x.png]"
           hero_content:
             blocks:
-            - type: govspeak
-              content: "some content"
+            - type: image
+              image:
+                sources:
+                  desktop: "[Image: landing_page_image.png]"
+                  tablet: "[Image: landing_page_image.png]"
+                  mobile: "[Image: landing_page_image.png]"
     YAML
 
     landing_page = create(
@@ -156,6 +160,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
         build(:image, image_data: build(:hero_image_data, image_kind: "hero_desktop", file: upload_fixture("hero_image_desktop_2x.png", "image/png"))),
         build(:image, image_data: build(:hero_image_data, image_kind: "hero_tablet", file: upload_fixture("hero_image_tablet_2x.png", "image/png"))),
         build(:image, image_data: build(:hero_image_data, image_kind: "hero_mobile", file: upload_fixture("hero_image_mobile_2x.png", "image/png"))),
+        build(:image, image_data: build(:landing_page_image_data, file: upload_fixture("landing_page_image.png", "image/png"))),
       ],
     )
 
@@ -196,7 +201,19 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
               }
             },
             hero_content: {
-              blocks: [ { type: "govspeak", content: String } ]
+              blocks: [{
+                type: "image",
+                image: {
+                  sources: {
+                    desktop_2x: "http://asset-manager/landing_page_desktop_2x",
+                    desktop: "http://asset-manager/landing_page_desktop_1x",
+                    tablet_2x: "http://asset-manager/landing_page_tablet_2x",
+                    tablet: "http://asset-manager/landing_page_tablet_1x",
+                    mobile_2x: "http://asset-manager/landing_page_mobile_2x",
+                    mobile: "http://asset-manager/landing_page_mobile_1x",
+                  }
+                },
+              }]
             }
           }],
         },

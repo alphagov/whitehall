@@ -29,6 +29,36 @@ default:
       width: 216
       height: 140
       from_version: s960
+landing_page_image:
+  display_name: "Landing page image (2x pixel density) (1260 by 944)"
+  valid_width: 1260
+  valid_height: 944
+  permitted_uses:
+    - landing_page
+  versions:
+    - name: landing_page_desktop_2x
+      width: 1260
+      height: 944
+    - name: landing_page_desktop_1x
+      width: 630
+      height: 472
+      from_version: landing_page_desktop_2x
+    - name: landing_page_tablet_2x
+      width: 1416
+      height: 1062
+      from_version: landing_page_desktop_2x
+    - name: landing_page_tablet_1x
+      width: 708
+      height: 531
+      from_version: landing_page_desktop_2x
+    - name: landing_page_mobile_2x
+      width: 1220
+      height: 914
+      from_version: landing_page_desktop_2x
+    - name: landing_page_mobile_1x
+      width: 610
+      height: 457
+      from_version: landing_page_desktop_2x
 hero_mobile:
   display_name: "Mobile hero image (2x pixel density) (1280 by 960)"
   valid_width: 1280
