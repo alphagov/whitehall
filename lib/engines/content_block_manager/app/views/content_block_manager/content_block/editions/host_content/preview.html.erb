@@ -1,5 +1,5 @@
 <% content_for :page_title, "Preview content block in host document" %>
-<% content_for :context, "Preview content block" %>
+<% content_for :context, "Preview #{@content_block_edition.block_type.humanize.downcase}" %>
 <% content_for :title, @preview_content.title %>
 <% content_for :title_margin_bottom, 3 %>
 
