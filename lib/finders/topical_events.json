@@ -51,6 +51,10 @@
      {
        "type": "exact",
        "path": "/government/topical-events.json"
+     },
+     {
+       "type": "exact",
+       "path": "/government/topical-events.atom"
      }
    ]
 }
