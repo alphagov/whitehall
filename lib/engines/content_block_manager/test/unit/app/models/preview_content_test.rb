@@ -5,10 +5,12 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
 
   let(:title) { "Ministry of Example" }
   let(:html) { "<p>Ministry of Example</p>" }
-  let(:preview_content) { build(:preview_content, title:, html:) }
+  let(:instances_count) { "2" }
+  let(:preview_content) { build(:preview_content, title:, instances_count:, html:) }
 
-  it "returns title and html" do
+  it "returns title, html and instances count" do
     assert_equal preview_content.title, title
     assert_equal preview_content.html, html
+    assert_equal preview_content.instances_count, instances_count
   end
 end

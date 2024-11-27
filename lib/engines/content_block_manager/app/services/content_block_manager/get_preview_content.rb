@@ -9,7 +9,7 @@ module ContentBlockManager
     end
 
     def for_content_id
-      ContentBlockManager::PreviewContent.new(title: content_item["title"], html:)
+      ContentBlockManager::PreviewContent.new(title: content_item["title"], html:, instances_count:)
     end
 
   private
@@ -41,6 +41,7 @@ module ContentBlockManager
     def preview_html
       uri = URI(frontend_path)
       nokogiri_html = html_snapshot_from_frontend(uri)
+      add_draft_style(nokogiri_html)
       replace_existing_content_blocks(nokogiri_html)
     end
 
@@ -69,6 +70,10 @@ module ContentBlockManager
       nokogiri_html.css("span[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
     end
 
+    def instances_count
+      content_block_spans(html).length
+    end
+
     ERROR_HTML = "<html><body><p>Preview not found</p></body></html>".freeze
 
     def html_snapshot_from_frontend(uri)
@@ -78,6 +83,14 @@ module ContentBlockManager
         raw_html = ERROR_HTML
       end
       Nokogiri::HTML.parse(raw_html)
+    end
+
+    def add_draft_style(nokogiri_html)
+      nokogiri_html.css("body").each do |body|
+        body["class"] ||= ""
+        body["class"] += " draft"
+      end
+      nokogiri_html
     end
   end
 end

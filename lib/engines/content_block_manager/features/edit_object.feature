@@ -102,4 +102,4 @@ Feature: Edit a content object
     And I fill out the form
     Then I am shown where the changes will take place
     When I click on the first host document
-    Then The preview page opens in a new tab
+    Then the preview page opens in a new tab

@@ -1,0 +1,5 @@
+<ul class="govuk-list">
+  <% list_items.each do |item| %>
+    <li><strong><%= item[:key] %>: </strong><%= item[:value] %></li>
+  <% end %>
+</ul>

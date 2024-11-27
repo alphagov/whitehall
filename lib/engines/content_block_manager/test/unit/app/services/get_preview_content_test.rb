@@ -10,7 +10,7 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
   let(:host_base_path) { "/test" }
   let(:uri_mock) { mock }
   let(:fake_frontend_response) do
-    "<body><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
+    "<body class=\"govuk-body\"><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
   end
   let(:block_render) do
     "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">new@new.com</span>"
@@ -19,10 +19,10 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
     "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\" style=\"background-color: yellow;\">new@new.com</span>"
   end
   let(:expected_html) do
-    "<body><p>test</p>#{block_render_with_style}</body>"
+    "<body class=\"govuk-body draft\"><p>test</p>#{block_render_with_style}</body>"
   end
   let(:error_html) do
-    "<html><body><p>Preview not found</p></body></html>"
+    "<html><body class=\" draft\"><p>Preview not found</p></body></html>"
   end
   let(:document) do
     build(:content_block_document, :email_address, content_id: preview_content_id)
@@ -37,12 +37,11 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
       block_to_preview.expects(:render).returns(block_render)
     end
 
-    it "returns the title and preview HTML for a document" do
+    it "returns the title of host document" do
       Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
 
       expected_content = {
         title: host_title,
-        html: Nokogiri::HTML.parse(expected_html),
       }
 
       actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
@@ -51,6 +50,35 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
       )
 
       assert_equal expected_content[:title], actual_content.title
+    end
+
+    it "returns the count of instances" do
+      Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
+
+      expected_content = {
+        instances_count: 1,
+      }
+
+      actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+      )
+
+      assert_equal expected_content[:instances_count], actual_content.instances_count
+    end
+
+    it "returns the preview html" do
+      Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
+
+      expected_content = {
+        html: Nokogiri::HTML.parse(expected_html),
+      }
+
+      actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+      )
+
       assert_equal expected_content[:html].to_s, actual_content.html.to_s
     end
 
