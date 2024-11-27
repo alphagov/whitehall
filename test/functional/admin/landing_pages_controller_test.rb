@@ -18,7 +18,8 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves a new instance with the supplied valid params" do
-    landing_page_attrs = attributes_for(:landing_page, title: "Hello there", summary: "Landing page summary", body: "blocks:")
+    body = "blocks: [{ type: some-type }]"
+    landing_page_attrs = attributes_for(:landing_page, title: "Hello there", summary: "Landing page summary", body:)
                              .merge(
                                lead_organisation_ids: [@organisation.id],
                                document_attributes: {
@@ -31,7 +32,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
     assert assigns(:edition).persisted?
     assert_equal "Hello there", assigns(:edition).title
     assert_equal "Landing page summary", assigns(:edition).summary
-    assert_equal "blocks:", assigns(:edition).body
+    assert_equal body, assigns(:edition).body
     assert_equal "/landing-page/test", assigns(:edition).base_path
     assert_redirected_to admin_landing_page_path(assigns(:edition))
   end

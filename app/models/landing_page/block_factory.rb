@@ -4,15 +4,15 @@ class LandingPage::BlockFactory
   end
 
   def self.build(block, images)
-    case block.symbolize_keys
-    in { type: "box", box_content: }
-      LandingPage::CompoundBlock.new(block, images, "box_content", box_content)
-    in { type: "card", card_content: }
-      LandingPage::CompoundBlock.new(block, images, "card_content", card_content)
-    in { type: "featured", featured_content: }
-      LandingPage::CompoundBlock.new(block, images, "featured_content", featured_content)
-    in { type: "hero", hero_content: }
-      LandingPage::HeroBlock.new(block, images, hero_content)
+    case block.with_indifferent_access
+    in { type: "box", box_content: { blocks: } }
+      LandingPage::CompoundBlock.new(block, images, "box_content", blocks)
+    in { type: "card", card_content: { blocks: } }
+      LandingPage::CompoundBlock.new(block, images, "card_content", blocks)
+    in { type: "featured", featured_content: { blocks: } }
+      LandingPage::CompoundBlock.new(block, images, "featured_content", blocks)
+    in { type: "hero", hero_content: { blocks: } }
+      LandingPage::HeroBlock.new(block, images, blocks)
     in { type: String, blocks: Array }
       LandingPage::ParentBlock.new(block, images)
     else

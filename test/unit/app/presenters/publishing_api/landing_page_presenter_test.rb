@@ -169,12 +169,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
           type: "hero",
           image: {
             sources: {
-              desktop_2x: "http://asset-manager/asset_manager_id_hero_desktop_2x",
-              desktop: "http://asset-manager/asset_manager_id_hero_desktop_1x",
-              tablet_2x: "http://asset-manager/asset_manager_id_hero_tablet_2x",
-              tablet: "http://asset-manager/asset_manager_id_hero_tablet_1x",
-              mobile_2x: "http://asset-manager/asset_manager_id_hero_mobile_2x",
-              mobile: "http://asset-manager/asset_manager_id_hero_mobile_1x",
+              desktop_2x: "http://asset-manager/hero_desktop_2x",
+              desktop: "http://asset-manager/hero_desktop_1x",
+              tablet_2x: "http://asset-manager/hero_tablet_2x",
+              tablet: "http://asset-manager/hero_tablet_1x",
+              mobile_2x: "http://asset-manager/hero_mobile_2x",
+              mobile: "http://asset-manager/hero_mobile_1x",
             }
           },
           hero_content: {
@@ -187,12 +187,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             type: "hero",
             image: {
               sources: {
-                desktop_2x: "http://asset-manager/asset_manager_id_hero_desktop_2x",
-                desktop: "http://asset-manager/asset_manager_id_hero_desktop_1x",
-                tablet_2x: "http://asset-manager/asset_manager_id_hero_tablet_2x",
-                tablet: "http://asset-manager/asset_manager_id_hero_tablet_1x",
-                mobile_2x: "http://asset-manager/asset_manager_id_hero_mobile_2x",
-                mobile: "http://asset-manager/asset_manager_id_hero_mobile_1x",
+                desktop_2x: "http://asset-manager/hero_desktop_2x",
+                desktop: "http://asset-manager/hero_desktop_1x",
+                tablet_2x: "http://asset-manager/hero_tablet_2x",
+                tablet: "http://asset-manager/hero_tablet_1x",
+                mobile_2x: "http://asset-manager/hero_mobile_2x",
+                mobile: "http://asset-manager/hero_mobile_1x",
               }
             },
             hero_content: {
@@ -204,7 +204,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     end
   end
 
-  test "it presents errors if files are not found" do
+  test "raises errors if files are not found" do
     body = <<~YAML
       blocks:
       - type: hero
@@ -230,18 +230,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     )
 
     presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
-    presented_content = I18n.with_locale("en") { presented_landing_page.content }
-    details = presented_content[:details].deep_symbolize_keys
-
-    assert_pattern do
-      details =>
-        {
-          errors: [
-            "Desktop image can't be blank",
-            "Tablet image can't be blank",
-            "Mobile image can't be blank",
-          ],
-        }
+    assert_raises(StandardError, match: /cannot present invalid body/) do
+      I18n.with_locale("en") { presented_landing_page.content }
     end
   end
 
@@ -275,18 +265,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     )
 
     presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
-    presented_content = I18n.with_locale("en") { presented_landing_page.content }
-    details = presented_content[:details].deep_symbolize_keys
-
-    assert_pattern do
-      details =>
-      {
-        errors: [
-          "Desktop image is of the wrong image kind: hero_mobile",
-          "Tablet image is of the wrong image kind: hero_desktop",
-          "Mobile image is of the wrong image kind: hero_tablet",
-        ],
-      }
+    assert_raises(StandardError, match: /cannot present invalid body/) do
+      I18n.with_locale("en") { presented_landing_page.content }
     end
   end
 end

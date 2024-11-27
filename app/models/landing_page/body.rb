@@ -39,7 +39,7 @@ class LandingPage::Body
   end
 
   def present_for_publishing_api
-    return { "errors" => errors.to_a } if invalid?
+    raise "cannot present invalid body to publishing api - errors: #{errors.to_a}" if invalid?
 
     body.merge({
       breadcrumbs:,
