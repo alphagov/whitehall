@@ -29,7 +29,7 @@ private
   def summary_card_actions
     [
       {
-        label: "View/edit",
+        label: "View",
         href: helpers.content_block_manager.content_block_manager_content_block_document_path(content_block_document),
       },
     ]

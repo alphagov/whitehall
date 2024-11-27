@@ -28,6 +28,8 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
     assert_selector ".govuk-summary-card__action", count: 1
     assert_selector ".govuk-summary-card__action .govuk-link[href='#{content_block_manager_content_block_document_path(content_block_document)}']"
 
+    assert_selector ".govuk-link", text: "View"
+
     assert_selector ".govuk-summary-list__row", count: 6
 
     assert_selector ".govuk-summary-list__key", text: "Title"
