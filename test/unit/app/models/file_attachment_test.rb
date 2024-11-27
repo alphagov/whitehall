@@ -29,7 +29,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     attachable = create(:policy_group, attachments: [build(:file_attachment, file: file_fixture("whitepaper.pdf"))])
     duplicate  = build(:file_attachment, file: file_fixture("whitepaper.pdf"), attachable:)
 
-    assert_not duplicate.valid?
+    assert_not duplicate.valid?(:user_input)
     assert_match %r{This policy group already has a file called "whitepaper.pdf"}, duplicate.errors[:base].first
   end
 
