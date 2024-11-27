@@ -26,9 +26,9 @@ class LandingPageTest < ActiveSupport::TestCase
     assert_not landing_page.valid?
   end
 
-  test "landing-page is valid if body is YAML with at least the blocks: element" do
+  test "landing-page is valid if body is YAML with at least one block" do
     document = build(:document, slug: "/landing-page/test")
-    landing_page = build(:landing_page, document:, body: "blocks:\nother:\n")
+    landing_page = build(:landing_page, document:, body: "blocks: [{ type: some-type }]\nother:\n")
     assert landing_page.valid?
   end
 
@@ -39,11 +39,11 @@ class LandingPageTest < ActiveSupport::TestCase
     assert_equal :body, landing_page.errors.first.attribute
   end
 
-  test "landing-page is valid if includes the extends: and the extends element is valud" do
-    create(:document, slug: "/homepage")
+  test "landing-page is valid if includes the extends: and the extends element is valid" do
+    create(:landing_page, document: create(:document, slug: "/homepage"), body: "blocks: [{ type: some-type }]")
 
     document = build(:document, slug: "/landing-page/test")
-    landing_page = build(:landing_page, document:, body: "extends: /homepage\nblocks:")
+    landing_page = build(:landing_page, document:, body: "extends: /homepage\nblocks: [{ type: some-type }]")
     assert landing_page.valid?
   end
 

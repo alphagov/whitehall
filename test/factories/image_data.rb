@@ -38,7 +38,7 @@ FactoryBot.define do
       # Defining this method is a bit of a hack, but with FactoryBot created model,
       # the file_url method just returns nil, which makes it less useful for testing
       def image_data.file_url(variant)
-        "http://asset-manager/#{assets.find_by(variant:).asset_manager_id}"
+        "http://asset-manager/#{variant}"
       end
     end
   end

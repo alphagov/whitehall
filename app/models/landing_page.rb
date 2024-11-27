@@ -6,7 +6,12 @@ class LandingPage < Edition
   skip_callback :validation, :before, :update_document_slug
   validates :base_path, presence: true, format: { with: /\A\/.*\z/, message: "must start with a slash (/)" }
   validate :base_path_must_not_be_taken
-  validate :body_must_be_valid_yaml
+  validate do
+    if landing_page_body.invalid?
+      errors.add(:body, "contained errors")
+      errors.merge!(landing_page_body.errors)
+    end
+  end
 
   def publishing_api_presenter
     PublishingApi::LandingPagePresenter
@@ -28,21 +33,17 @@ class LandingPage < Edition
     super + Whitehall.image_kinds.values.select { _1.permits?("hero") }
   end
 
+  def landing_page_body
+    if @landing_page_body&.raw_body == body
+      @landing_page_body
+    else
+      @landing_page_body = LandingPage::Body.new(body, images)
+    end
+  end
+
 private
 
   def base_path_must_not_be_taken
     errors.add(:base_path, " is already taken") if Document.where(slug:).where.not(id: document.id).exists?
-  end
-
-  def body_must_be_valid_yaml
-    body_hash = YAML.load(body)
-    unless body_hash.keys.include?("blocks")
-      errors.add(:body, "must contain a root element 'blocks:'")
-    end
-    if body_hash.key?("extends") && Document.find_by(slug: body_hash["extends"]).nil?
-      errors.add(:body, "extends #{body_hash.keys['extends']} but that document does not exist")
-    end
-  rescue StandardError => e
-    errors.add(:body, "must be valid YAML: #{e.message}")
   end
 end

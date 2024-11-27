@@ -79,8 +79,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
   test "it presents attachments" do
     attachment = @landing_page.attachments.first
-    assert_equal @presented_content.dig(:details, :attachments, 0, :id),
-                 attachment.id.to_s
+    assert_equal attachment.id.to_s, @presented_content.dig(:details, :attachments, 0, :id)
   end
 
   test "it merges its data with a document using extends:" do
@@ -170,12 +169,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
           type: "hero",
           image: {
             sources: {
-              desktop_2x: "http://asset-manager/asset_manager_id_hero_desktop_2x",
-              desktop: "http://asset-manager/asset_manager_id_hero_desktop_1x",
-              tablet_2x: "http://asset-manager/asset_manager_id_hero_tablet_2x",
-              tablet: "http://asset-manager/asset_manager_id_hero_tablet_1x",
-              mobile_2x: "http://asset-manager/asset_manager_id_hero_mobile_2x",
-              mobile: "http://asset-manager/asset_manager_id_hero_mobile_1x",
+              desktop_2x: "http://asset-manager/hero_desktop_2x",
+              desktop: "http://asset-manager/hero_desktop_1x",
+              tablet_2x: "http://asset-manager/hero_tablet_2x",
+              tablet: "http://asset-manager/hero_tablet_1x",
+              mobile_2x: "http://asset-manager/hero_mobile_2x",
+              mobile: "http://asset-manager/hero_mobile_1x",
             }
           },
           hero_content: {
@@ -188,12 +187,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             type: "hero",
             image: {
               sources: {
-                desktop_2x: "http://asset-manager/asset_manager_id_hero_desktop_2x",
-                desktop: "http://asset-manager/asset_manager_id_hero_desktop_1x",
-                tablet_2x: "http://asset-manager/asset_manager_id_hero_tablet_2x",
-                tablet: "http://asset-manager/asset_manager_id_hero_tablet_1x",
-                mobile_2x: "http://asset-manager/asset_manager_id_hero_mobile_2x",
-                mobile: "http://asset-manager/asset_manager_id_hero_mobile_1x",
+                desktop_2x: "http://asset-manager/hero_desktop_2x",
+                desktop: "http://asset-manager/hero_desktop_1x",
+                tablet_2x: "http://asset-manager/hero_tablet_2x",
+                tablet: "http://asset-manager/hero_tablet_1x",
+                mobile_2x: "http://asset-manager/hero_mobile_2x",
+                mobile: "http://asset-manager/hero_mobile_1x",
               }
             },
             hero_content: {
@@ -205,7 +204,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     end
   end
 
-  test "it presents errors if files are not found" do
+  test "raises errors if files are not found" do
     body = <<~YAML
       blocks:
       - type: hero
@@ -214,9 +213,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             desktop: "[Image: non-existent-file.jpg]"
             tablet: "[Image: non-existent-file.jpg]"
             mobile: "[Image: non-existent-file.jpg]"
+        hero_content:
+          blocks:
+          - type: some-block-type
     YAML
 
-    landing_page = create(
+    landing_page = build(
       :landing_page,
       document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
       body:,
@@ -228,21 +230,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     )
 
     presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
-    presented_content = I18n.with_locale("en") { presented_landing_page.content }
-    details = presented_content[:details].deep_symbolize_keys
-
-    assert_pattern do
-      details =>
-        {
-          blocks: [
-            {
-              type: "hero",
-              image: {
-                errors: ["Some image expressions weren't correctly formatted, or images could not be found"],
-              }
-            },
-          ],
-        }
+    assert_raises(StandardError, match: /cannot present invalid body/) do
+      I18n.with_locale("en") { presented_landing_page.content }
     end
   end
 
@@ -255,9 +244,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             desktop: "[Image: hero_image_mobile_2x.png]" # NOTE - using mobile image for desktop field
             tablet: "[Image: hero_image_desktop_2x.png]" # NOTE - using desktop image for tablet field
             mobile: "[Image: hero_image_tablet_2x.png]" # NOTE - using tablet image for desktop field
+        hero_content:
+          blocks:
+          - type: some-block-type
     YAML
 
-    landing_page = create(
+    landing_page = build(
       :landing_page,
       document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
       body:,
@@ -273,25 +265,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     )
 
     presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
-    presented_content = I18n.with_locale("en") { presented_landing_page.content }
-    details = presented_content[:details].deep_symbolize_keys
-
-    assert_pattern do
-      details =>
-      {
-        blocks: [
-          {
-            type: "hero",
-            image: {
-               errors: [
-                 "Desktop image is of the wrong image kind: hero_mobile",
-                 "Tablet image is of the wrong image kind: hero_desktop",
-                 "Mobile image is of the wrong image kind: hero_tablet",
-               ],
-            }
-          },
-        ],
-      }
+    assert_raises(StandardError, match: /cannot present invalid body/) do
+      I18n.with_locale("en") { presented_landing_page.content }
     end
   end
 end
