@@ -29,7 +29,7 @@ When("I access the create object page") do
 end
 
 When("I click to create an object") do
-  click_link "Create new object"
+  click_link "Create content block"
 end
 
 When("I click cancel") do
