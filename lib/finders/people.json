@@ -27,6 +27,10 @@
     {
       "type": "exact",
       "path": "/government/people.json"
+    },
+    {
+      "type": "exact",
+      "path": "/government/people.atom"
     }
   ]
 }
