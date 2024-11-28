@@ -90,22 +90,4 @@ namespace :publishing do
       end
     end
   end
-
-  namespace :overdue do
-    desc "List scheduled editions overdue for publication by more than one minute"
-    task list: :environment do
-      puts sprintf("%6s  %-25s  %s", "ID", "Scheduled date", "Title")
-      Edition.due_for_publication(1.minute).each do |edition|
-        puts sprintf("%6s  %-25s  %s", edition.id, edition.scheduled_publication.to_s, edition.title)
-      end
-    end
-
-    desc "Publishes scheduled editions overdue for publication by more than one minute"
-    task publish: :environment do
-      Edition.due_for_publication(1.minute).each do |edition|
-        puts "Publishing overdue scheduled edition #{edition.id}"
-        ScheduledPublishingWorker.new.perform(edition.id)
-      end
-    end
-  end
 end
