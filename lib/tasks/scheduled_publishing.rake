@@ -57,19 +57,6 @@ namespace :publishing do
       puts "---"
     end
 
-    desc "Queues missing jobs for any scheduled editions (including overdue ones)"
-    task queue_missing_jobs: :environment do
-      queued_ids      = ScheduledPublishingWorker.queued_edition_ids
-      missing_jobs    = Edition.scheduled.reject { |edition| queued_ids.include?(edition.id) }
-      puts "#{Edition.scheduled.count} editions scheduled for publication, of which #{missing_jobs.size} do not have a job."
-
-      puts "Queueing missing jobs..."
-      missing_jobs.each do |edition|
-        ScheduledPublishingWorker.queue(edition)
-        puts "#{edition.id} queued"
-      end
-    end
-
     desc "Clears all jobs then requeues all scheduled editions (intended for use after a db restore)"
     task requeue_all_jobs: :environment do
       ScheduledPublishingWorker.dequeue_all
