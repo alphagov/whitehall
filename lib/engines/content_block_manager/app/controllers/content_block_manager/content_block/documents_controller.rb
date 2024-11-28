@@ -40,7 +40,7 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
 private
 
   def params_filters
-    params.slice(:keyword, :block_type, :lead_organisation, :page)
+    params.slice(:keyword, :block_type, :lead_organisation, :page, :last_updated_to, :last_updated_from)
           .permit!
           .to_h
   end
