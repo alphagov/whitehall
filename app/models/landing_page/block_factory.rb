@@ -10,9 +10,11 @@ class LandingPage::BlockFactory
     in { type: "card", card_content: { blocks: } }
       LandingPage::CompoundBlock.new(block, images, "card_content", blocks)
     in { type: "featured", featured_content: { blocks: } }
-      LandingPage::CompoundBlock.new(block, images, "featured_content", blocks)
+      LandingPage::FeaturedBlock.new(block, images, blocks)
     in { type: "hero", hero_content: { blocks: } }
       LandingPage::HeroBlock.new(block, images, blocks)
+    in { type: "image" }
+      LandingPage::ImageBlock.new(block, images)
     in { type: String, blocks: Array }
       LandingPage::ParentBlock.new(block, images)
     else
