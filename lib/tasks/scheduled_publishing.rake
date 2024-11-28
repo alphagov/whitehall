@@ -14,7 +14,7 @@ namespace :publishing do
       end
     end
 
-    desc "Clears all jobs then requeues all scheduled editions (intended for use after a db restore)"
+    desc "Clears all scheduled publishing jobs then requeues all scheduled editions (and open/close actions for editions that 'HasOpeningAndClosingDates'). This task is intended to be used after a db restore or in the event of the Sidekiq queue being emptied."
     task requeue_all_jobs: :environment do
       ScheduledPublishingWorker.dequeue_all
 
@@ -25,9 +25,13 @@ namespace :publishing do
       end
       puts ""
 
-      # Consultations work slightly different to scheduled editions
-      puts "Queuing consultation jobs"
+      # Consultations and Calls for Evidence work slightly different to scheduled editions
+      puts "Queuing Consultation jobs"
       Consultation.open.or(Consultation.upcoming)
+        .find_each(&:schedule_republishing_workers)
+
+      puts "Queuing CallForEvidence jobs"
+      CallForEvidence.open.or(CallForEvidence.upcoming)
         .find_each(&:schedule_republishing_workers)
     end
   end
