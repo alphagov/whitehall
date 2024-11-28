@@ -30,21 +30,5 @@ namespace :publishing do
       Consultation.open.or(Consultation.upcoming)
         .find_each(&:schedule_republishing_workers)
     end
-
-    desc "Finds editions that were meant to be published between 23:00 yesterday and 01:00 today - helps debug failed publications owing to British Summer Time"
-    task around_midnight: :environment do
-      yesterday = Date.yesterday
-      today = Time.zone.today
-
-      time_from = Time.zone.local(yesterday.year, yesterday.month, yesterday.day, 23, 0, 0)
-      time_to = Time.zone.local(today.year, today.month, today.day, 0, 0, 0)
-
-      editions = Edition.where("scheduled_publication between ? and ?", time_from, time_to)
-
-      puts "Document Id, Edition Id, Slug, Type"
-      editions.each do |edition|
-        puts "#{edition.document.id}, #{edition.id}, #{edition.slug}, #{edition.type}"
-      end
-    end
   end
 end
