@@ -1,23 +1,27 @@
-<% content_for :title, product_name %>
+
 <% content_for :title_margin_bottom, 6 %>
 
-<div class="govuk-grid-row govuk-!-margin-bottom-8">
-  <div class="govuk-grid-column-full">
-    <p class="govuk-body">If you need any support or want to delete a content block, you can raise a support request.</p>
-    <span class="govuk-!-margin-right-2">
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Create new object",
-        href: content_block_manager.new_content_block_manager_content_block_document_path,
-      } %>
-    </span>
-    <span>
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Raise a support request",
-        href: support_url,
-        secondary_solid: true,
-      } %>
-    </span>
-  </div>
+<div class="govuk-grid-row content-block-manager-header">
+    <div class="govuk-grid-column-one-half">
+      <h1 class="gem-c-title__text govuk-heading-xl">
+        Content Block Manager
+      </h1>
+    </div>
+    <div class="govuk-grid-column-one-half content-block-manager-header--column-right">
+      <div>
+        <span class="govuk-!-margin-right-2">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Create content block",
+            href: content_block_manager.new_content_block_manager_content_block_document_path,
+          } %>
+        </span>
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Raise a support request",
+            href: support_url,
+            secondary_solid: true,
+          } %>
+      </div>
+    </div>
 </div>
 
 <div class="govuk-grid-row">

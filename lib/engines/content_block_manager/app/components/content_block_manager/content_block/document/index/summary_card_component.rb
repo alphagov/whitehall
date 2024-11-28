@@ -16,8 +16,8 @@ private
       title_item,
       *details_items,
       organisation_item,
-      (instructions_item if content_block_document.latest_edition.instructions_to_publishers.present?),
       last_updated_item,
+      (instructions_item if content_block_document.latest_edition.instructions_to_publishers.present?),
       embed_code_item,
     ].compact
   end
@@ -29,7 +29,7 @@ private
   def summary_card_actions
     [
       {
-        label: "View/edit",
+        label: "View",
         href: helpers.content_block_manager.content_block_manager_content_block_document_path(content_block_document),
       },
     ]
