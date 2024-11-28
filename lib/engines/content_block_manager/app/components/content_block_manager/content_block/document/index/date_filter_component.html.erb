@@ -1,0 +1,50 @@
+<%= render("components/datetime_fields", {
+  heading_size: "s",
+  field_name: "last_updated_from",
+  prefix: "last_updated_from",
+  date_heading: "From",
+  date_only: true,
+  year: {
+    id: "last_updated_from_1i",
+    name: "last_updated_from[1i]",
+    label: "Year",
+    width: 4,
+  },
+  month: {
+    id: "last_updated_from_2i",
+    name: "last_updated_from[2i]",
+    label: "Month",
+    width: 2,
+  },
+  day: {
+    id: "last_updated_from_3i",
+    name: "last_updated_from[3i]",
+    label: "Day",
+    width: 2,
+  },
+}) %>
+<%= render("components/datetime_fields", {
+  heading_size: "s",
+  field_name: "last_updated_to",
+  prefix: "last_updated_to",
+  date_heading: "To",
+  date_only: true,
+  year: {
+    id: "last_updated_to_1i",
+    name: "last_updated_to[1i]",
+    label: "Year",
+    width: 4,
+  },
+  month: {
+    id: "last_updated_to_2i",
+    name: "last_updated_to[2i]",
+    label: "Month",
+    width: 2,
+  },
+  day: {
+    id: "last_updated_to_3i",
+    name: "last_updated_to[3i]",
+    label: "Day",
+    width: 2,
+  },
+}) %>
