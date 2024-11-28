@@ -14,49 +14,6 @@ namespace :publishing do
       end
     end
 
-    desc "Counts scheduled publications for the next 8 weeks"
-    task next_8_weeks: :environment do
-      scheduled = Edition.scheduled
-      now = Time.zone.now
-      end_of_this_week = now.end_of_week
-      monday = now.beginning_of_week + 1.week
-      sunday = end_of_this_week + 1.week
-      past_scheduled_count = scheduled.where("scheduled_publication < ?", now).count
-      rest_of_the_week_count = scheduled.where("scheduled_publication >= ?", now).where("scheduled_publication < ?", end_of_this_week).count
-      puts "---"
-      puts "There are currently #{scheduled.count} scheduled publications in Whitehall."
-      puts "Of all the scheduled publications:"
-      puts " - #{past_scheduled_count} were scheduled before now (#{now.rfc822})"
-      puts " - #{rest_of_the_week_count} are scheduled between now (#{now.rfc822}) and the end of this week (#{end_of_this_week.rfc822})"
-      8.times do
-        weekly_count = scheduled.where("scheduled_publication >= ?", monday).where("scheduled_publication < ?", sunday).count
-        puts " - #{weekly_count} are scheduled in the week beginning on #{monday.rfc822}"
-        monday += 1.week
-        sunday += 1.week
-      end
-      remaining_count = scheduled.where("scheduled_publication >= ?", monday).count
-      puts " - #{remaining_count} are scheduled on or after #{monday.rfc822}"
-      puts "---"
-    end
-
-    desc "Counts publications that are scheduled at the same time"
-    task at_same_time: :environment do
-      grouped_publications_dates = Edition.scheduled.pluck(:scheduled_publication).group_by(&:itself).transform_values(&:count)
-      less_then_five_count = grouped_publications_dates.count { |_k, v| v < 5 }
-      between_five_and_nine_count = grouped_publications_dates.count { |_k, v| v >= 5 && v <= 9 }
-      ten_or_more_count = grouped_publications_dates.count { |_k, v| v >= 10 }
-      puts "---"
-      puts "In #{less_then_five_count} instances, less than 5 publications are scheduled at the same time."
-      puts "In #{between_five_and_nine_count} instances, between 5 and 9 publications are scheduled at the same time."
-      puts "In #{ten_or_more_count} instances, 10 or more publications are scheduled at the same time."
-      puts "The #{ten_or_more_count} instances in which 10 or more publications are scheduled at the same time are divided as follows:"
-      grouped_publications_dates_above_threshold = grouped_publications_dates.select { |_k, v| v >= 10 }
-      grouped_publications_dates_above_threshold.each do |date, count|
-        puts " - #{count} publications scheduled on #{date.rfc822}"
-      end
-      puts "---"
-    end
-
     desc "Clears all jobs then requeues all scheduled editions (intended for use after a db restore)"
     task requeue_all_jobs: :environment do
       ScheduledPublishingWorker.dequeue_all
