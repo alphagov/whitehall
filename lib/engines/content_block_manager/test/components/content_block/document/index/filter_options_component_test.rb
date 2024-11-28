@@ -24,7 +24,7 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
         filters: {},
       ),
     )
-    assert_selector ".govuk-accordion__section--expanded", count: 3
+    assert_selector ".govuk-accordion__section--expanded", count: 4
   end
 
   it "adds value of keyword to text input from filter" do
@@ -80,5 +80,17 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
 
     assert_selector "select[name='lead_organisation']"
     assert_selector "option[selected='selected'][value=2]"
+  end
+
+  it "filters by last updated date" do
+    render_inline(
+      ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
+        filters: { lead_organisation: "2" },
+      ),
+    )
+
+    assert_selector ".govuk-accordion__section--expanded", text: "Last updated date"
+    assert_selector "h3", text: "From"
+    assert_selector "h3", text: "To"
   end
 end

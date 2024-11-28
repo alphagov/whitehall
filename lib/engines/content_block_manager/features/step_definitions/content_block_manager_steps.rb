@@ -661,6 +661,24 @@ And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
   click_on "Save and continue"
 end
 
+When("one of the content blocks was updated 2 days ago") do
+  content_block_document = ContentBlockManager::ContentBlock::Document.all.last
+  content_block_document.latest_edition.updated_at = 2.days.before(Time.zone.now)
+  content_block_document.latest_edition.save!
+end
+
+When("I add a filter for blocks updated two days ago") do
+  date = 2.days.before(Time.zone.now)
+
+  fill_in "last_updated_from_1i", with: date.year
+  fill_in "last_updated_from_2i", with: date.month
+  fill_in "last_updated_from_3i", with: date.day
+
+  fill_in "last_updated_to_1i", with: date.year
+  fill_in "last_updated_to_2i", with: date.month
+  fill_in "last_updated_to_3i", with: date.day
+end
+
 When("I enter an invalid date") do
   fill_in "Year", with: "01"
 end

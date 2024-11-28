@@ -64,6 +64,13 @@ Feature: Search for a content object
     And I click to view results
     And "1" content blocks are returned in total
 
+  Scenario: GDS Editor searches for a content object by last updated date
+    When one of the content blocks was updated 2 days ago
+    When I visit the Content Block Manager home page
+    And I add a filter for blocks updated two days ago
+    And I click to view results
+    And "1" content blocks are returned in total
+
   @javascript
   Scenario: GDS Editor can copy embed code
     When I visit the Content Block Manager home page

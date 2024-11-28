@@ -56,6 +56,17 @@
         },
         expanded: true,
       },
+      {
+        heading: {
+          text: "Last updated date",
+        },
+        content: {
+          html: (
+            render(ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new)
+          ),
+        },
+        expanded: true,
+      },
     ],
   } %>
 
