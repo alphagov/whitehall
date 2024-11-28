@@ -3,6 +3,7 @@ module ContentBlockManager
     class Document < ApplicationRecord
       include Scopes::SearchableByKeyword
       include Scopes::SearchableByLeadOrganisation
+      include Scopes::SearchableByUpdatedDate
 
       extend FriendlyId
       friendly_id :title, use: :slugged, slug_column: :content_id_alias, routes: :default
