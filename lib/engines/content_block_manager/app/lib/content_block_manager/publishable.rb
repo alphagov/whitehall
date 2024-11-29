@@ -86,6 +86,7 @@ module ContentBlockManager
         content_id_alias:,
         details:,
         links:,
+        update_type: "major",
       })
     end
 

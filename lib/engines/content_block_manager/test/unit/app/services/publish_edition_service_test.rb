@@ -59,6 +59,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
           links: {
             primary_publishing_organisation: [@organisation.content_id],
           },
+          update_type: "major",
         },
       ]
       publishing_api_mock.expect :publish, fake_publish_content_response, [

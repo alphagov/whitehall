@@ -106,6 +106,7 @@ def assert_draft_created_in_publishing_api(content_id:, content_id_alias:, &bloc
           organisation.content_id,
         ],
       },
+      update_type: "major",
     },
   )
 

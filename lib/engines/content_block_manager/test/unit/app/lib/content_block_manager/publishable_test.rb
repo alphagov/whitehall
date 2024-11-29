@@ -35,6 +35,7 @@ class ContentBlockManager::PublishableTest < ActiveSupport::TestCase
               content_block_edition.lead_organisation.content_id,
             ],
           },
+          update_type: "major",
         },
       )
 
