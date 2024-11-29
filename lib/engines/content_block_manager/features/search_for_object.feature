@@ -71,6 +71,12 @@ Feature: Search for a content object
     And I click to view results
     And "1" content blocks are returned in total
 
+  Scenario: GDS Editor sees errors when searching by invalid dates
+    When I visit the Content Block Manager home page
+    And I input invalid dates to filter by
+    And I click to view results
+    Then I should see a message that the filter dates are invalid
+
   @javascript
   Scenario: GDS Editor can copy embed code
     When I visit the Content Block Manager home page

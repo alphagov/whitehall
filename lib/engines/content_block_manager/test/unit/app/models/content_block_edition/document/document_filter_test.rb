@@ -115,4 +115,68 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "date validation" do
+    let(:document_filter) { ContentBlockManager::ContentBlock::Document::DocumentFilter.new(filters) }
+
+    %i[last_updated_from last_updated_to].each do |attribute|
+      describe "when #{attribute} contains non-date values" do
+        let(:filters) do
+          {
+            "#{attribute}": { "3i" => "ddddd", "2i" => "ffsdfsd", "1i" => "ffff" },
+          }
+        end
+
+        it "returns invalid" do
+          assert_not document_filter.valid?
+        end
+
+        it "returns errors" do
+          errors = document_filter.errors
+          assert_equal errors.count, 1
+          assert_equal errors.first.attribute, attribute.to_s
+          assert_equal errors.first.full_message, I18n.t("content_block_document.index.errors.date.invalid", attribute: attribute.to_s.humanize)
+        end
+      end
+
+      describe "when #{attribute} contains has missing values" do
+        let(:filters) do
+          {
+            "#{attribute}": { "3i" => "", "2i" => "3", "1i" => "2026" },
+          }
+        end
+
+        it "returns invalid" do
+          assert_not document_filter.valid?
+        end
+
+        it "returns errors" do
+          errors = document_filter.errors
+          assert_equal errors.count, 1
+          assert_equal errors.first.attribute, attribute.to_s
+          assert_equal errors.first.full_message, I18n.t("content_block_document.index.errors.date.invalid", attribute: attribute.to_s.humanize)
+        end
+      end
+    end
+
+    describe "when last_updated_from is after last_updated_to" do
+      let(:filters) do
+        {
+          last_updated_from: { "3i" => "3", "2i" => "2", "1i" => "2026" },
+          last_updated_to: { "3i" => "1", "2i" => "1", "1i" => "2025" },
+        }
+      end
+
+      it "returns invalid" do
+        assert_not document_filter.valid?
+      end
+
+      it "returns errors" do
+        errors = document_filter.errors
+        assert_equal errors.count, 1
+        assert_equal errors.first.attribute, "last_updated_from"
+        assert_equal errors.first.full_message, I18n.t("content_block_document.index.errors.date.range.invalid")
+      end
+    end
+  end
 end

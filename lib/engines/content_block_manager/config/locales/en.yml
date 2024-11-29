@@ -3,6 +3,13 @@ en:
     attributes:
       content_block_manager/content_block/edition/document:
         title: Title
+  content_block_document:
+    index:
+      errors:
+        date:
+          invalid: "%{attribute} is not a valid date"
+          range:
+            invalid: "From date must be before to date"
   content_block_edition:
     confirmation_page:
       scheduled:

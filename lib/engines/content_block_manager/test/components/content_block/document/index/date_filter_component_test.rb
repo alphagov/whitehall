@@ -37,4 +37,19 @@ class ContentBlockManager::ContentBlock::Document::Index::DateFilterComponentTes
     assert_selector "input[name='last_updated_to[2i]'][value='4']"
     assert_selector "input[name='last_updated_to[1i]'][value='2026']"
   end
+
+  it "renders errors if there are errors on the date filter" do
+    errors = [
+      ContentBlockManager::ContentBlock::Document::DocumentFilter::FILTER_ERROR.new(
+        attribute: "last_updated_from", full_message: "From date is not in the correct format",
+      ),
+      ContentBlockManager::ContentBlock::Document::DocumentFilter::FILTER_ERROR.new(
+        attribute: "last_updated_to", full_message: "To date is not in the correct format",
+      ),
+    ]
+    render_inline(ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new(errors:))
+
+    assert_selector ".govuk-error-message", text: "From date is not in the correct format"
+    assert_selector ".govuk-error-message", text: "To date is not in the correct format"
+  end
 end

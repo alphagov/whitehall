@@ -445,6 +445,11 @@ Then("I should see a message that I need to confirm the details are correct") do
   assert_text "Confirm details are correct", minimum: 2
 end
 
+Then("I should see a message that the filter dates are invalid") do
+  expect(page).to have_selector("a[href='#last_updated_from_3i']"), text: "Last updated from is not a valid date"
+  expect(page).to have_selector("a[href='#last_updated_to_3i']"), text: "Last updated to is not a valid date"
+end
+
 Then("I should see a permissions error") do
   assert_text "Permissions error"
 end
@@ -677,6 +682,16 @@ When("I add a filter for blocks updated two days ago") do
   fill_in "last_updated_to_1i", with: date.year
   fill_in "last_updated_to_2i", with: date.month
   fill_in "last_updated_to_3i", with: date.day
+end
+
+When("I input invalid dates to filter by") do
+  fill_in "last_updated_from_1i", with: "1"
+  fill_in "last_updated_from_2i", with: "34"
+  fill_in "last_updated_from_3i", with: "56"
+
+  fill_in "last_updated_to_1i", with: "1"
+  fill_in "last_updated_to_2i", with: "67"
+  fill_in "last_updated_to_3i", with: "56"
 end
 
 When("I enter an invalid date") do
