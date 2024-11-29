@@ -1,0 +1,31 @@
+<%
+  featured_links = form.object.featured_links
+  new_featured_link = LocalisedModel.new(FeaturedLink.new, I18n.default_locale)
+  model = form.object.model_name.singular
+
+  if form.object.respond_to?(:visible_featured_links_count)
+    visible_links = form.object.visible_featured_links_count
+  else
+    visible_links = FeaturedLink::DEFAULT_SET_SIZE
+  end
+
+  remove_banner ||= false
+%>
+
+<% unless remove_banner %>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: "Only the first #{visible_links} links will be shown on the public site.",
+  } %>
+<% end %>
+
+<%= render "govuk_publishing_components/components/add_another", {
+  fieldset_legend: "Featured link",
+  add_button_text: "Add another featured link",
+  items: featured_links.each_with_index.map do  |featured_link, index|
+    {
+      fields: render(partial: "admin/shared/featured_link_fields", locals: { form:, featured_link:, index:, model: }),
+      destroy_checkbox: render("govuk_publishing_components/components/checkboxes", { name: "#{model}[featured_links_attributes][#{index}[_destroy]", items: [{label: "Delete", value: "1" }]}),
+    }
+  end,
+  empty: render(partial: "admin/shared/featured_link_fields", locals: { form:, featured_link: new_featured_link, index: featured_links.length, model: }),
+} %>

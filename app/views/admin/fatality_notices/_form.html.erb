@@ -34,21 +34,16 @@
 
     <h4 class="govuk-heading-m">Casualties (required)</h4>
 
-    <div data-module="AddAnother" data-add-text="Add another person" class="govuk-!-margin-bottom-4">
-      <%= form.fields_for :fatality_notice_casualties do |fatality_form| %>
-        <div class="js-duplicate-fields-set govuk-!-margin-top-4">
-          <%= render "govuk_publishing_components/components/textarea", {
-            label: {
-              text: "Personal details",
-              bold: true,
-            },
-            value: fatality_form.object.personal_details,
-            name: "edition[fatality_notice_casualties_attributes][#{fatality_form.index}][personal_details]",
-            id: "edition_fatality_notice_casualties_#{fatality_form.index}_personal_details",
-            rows: 2,
-          } %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "govuk_publishing_components/components/add_another", {
+      fieldset_legend: "Person",
+      add_button_text: "Add another person",
+      items: form.object.fatality_notice_casualties.each_with_index.map do  |casualty, index|
+        {
+          fields: render(partial: "admin/fatality_notices/casualty_fields", locals: { form:, casualty:, index: }),
+          destroy_checkbox: render("govuk_publishing_components/components/checkboxes", { name: "edition[fatality_notice_casualties_attributes][#{index}][_destroy]", items: [{label: "Delete", value: "1" }]}),
+        }
+      end,
+      empty: render(partial: "admin/fatality_notices/casualty_fields", locals: { form:, casualty: FatalityNoticeCasualty.new, index: form.object.fatality_notice_casualties.length }),
+    } %>
   <% end %>
 <% end %>

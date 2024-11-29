@@ -28,8 +28,10 @@ When(/^I add a new promotional feature with a single item which has an image$/) 
   fill_in "Item title url", with: "http://big-cheese.co"
   attach_file :image, Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
   fill_in "Image description", with: "The Big Cheese"
-  fill_in "URL", with: "http://test.com"
-  fill_in "Text", with: "someText"
+  within ".js-add-another__fieldset", match: :first do
+    fill_in "URL", with: "http://test.com"
+    fill_in "Text", with: "someText"
+  end
 
   click_button "Save"
 end
@@ -47,8 +49,10 @@ When(/^I add a new promotional feature with a single item which has a YouTube UR
   fill_in "YouTube video URL (required)", with: "https://www.youtube.com/watch?v=fFmDQn9Lbl4"
   fill_in "YouTube description (required)", with: "Description of video."
   fill_in "Image description", with: "The Big Cheese"
-  fill_in "URL", with: "http://test.com"
-  fill_in "Text", with: "someText"
+  within ".js-add-another__fieldset", match: :first do
+    fill_in "URL", with: "http://test.com"
+    fill_in "Text", with: "someText"
+  end
 
   click_button "Save"
 end

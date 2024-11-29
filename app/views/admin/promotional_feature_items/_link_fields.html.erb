@@ -1,0 +1,23 @@
+<%= form.fields_for :links, link do |link_form| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "URL",
+    },
+    name: "#{name}[links_attributes][#{index}][url]",
+    id: "#{id}_links_attributes_#{index}_url",
+    value: link_form.object.url,
+    heading_size: "s",
+    error_items: errors_for(link_form.object.errors, :url),
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Text",
+    },
+    name: "#{name}[links_attributes][#{index}][text]",
+    id: "#{id}_links_attributes_#{index}_text",
+    value: link_form.object.text,
+    heading_size: "s",
+    error_items: errors_for(link_form.object.errors, :text),
+  } %>
+<% end %>

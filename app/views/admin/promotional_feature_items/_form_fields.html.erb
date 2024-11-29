@@ -69,33 +69,15 @@
   legend_text: "Feature item links",
   heading_size: "l",
 } do %>
-  <div data-module="AddAnother" data-add-text="Add link" class="govuk-!-margin-bottom-4">
-    <%= form.fields_for :links do |link_form| %>
-      <div class="js-duplicate-fields-set">
-        <div class="govuk-!-margin-bottom-6">
-          <%= render "govuk_publishing_components/components/input", {
-            label: {
-              text: "URL",
-            },
-            name: "#{name}[[links_attributes][#{link_form.index}][url]",
-            id: "#{id}_links_attributes_#{link_form.index}_url",
-            value: link_form.object.url,
-            heading_size: "m",
-            error_items: errors_for(link_form.object.errors, :url),
-          } %>
-
-          <%= render "govuk_publishing_components/components/input", {
-            label: {
-              text: "Text",
-            },
-            name: "#{name}[[links_attributes][#{link_form.index}][text]",
-            id: "#{id}_links_attributes_#{link_form.index}_text",
-            value: link_form.object.text,
-            heading_size: "m",
-            error_items: errors_for(link_form.object.errors, :text),
-          } %>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <%= render "govuk_publishing_components/components/add_another", {
+    fieldset_legend: "Link",
+    add_button_text: "Add link",
+    items: form.object.links.each_with_index.map do  |link, index|
+      {
+        fields: render(partial: "admin/promotional_feature_items/link_fields", locals: { form:, link:, index:, name:, id: }),
+        destroy_checkbox: render("govuk_publishing_components/components/checkboxes", { name: "#{name}[links_attributes][#{index}][_destroy]", items: [{label: "Delete", value: "1" }]}),
+      }
+    end,
+    empty: render(partial: "admin/promotional_feature_items/link_fields", locals: { form:, link: PromotionalFeatureLink.new, index: form.object.links.length, name:, id: }),
+  } %>
 <% end %>
