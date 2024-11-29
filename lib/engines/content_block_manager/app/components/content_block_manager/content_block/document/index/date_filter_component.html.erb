@@ -4,6 +4,7 @@
   prefix: "last_updated_from",
   date_heading: "From",
   date_only: true,
+  error_items: helpers.errors_for(@errors, "last_updated_from"),
   year: {
     id: "last_updated_from_1i",
     name: "last_updated_from[1i]",
@@ -32,6 +33,7 @@
   prefix: "last_updated_to",
   date_heading: "To",
   date_only: true,
+  error_items: helpers.errors_for(@errors, "last_updated_to"),
   year: {
     id: "last_updated_to_1i",
     name: "last_updated_to[1i]",

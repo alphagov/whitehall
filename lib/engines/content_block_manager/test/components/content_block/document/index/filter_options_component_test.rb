@@ -82,14 +82,21 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
     assert_selector "option[selected='selected'][value=2]"
   end
 
-  it "passes filters to Date component" do
+  it "passes filters and errors to Date component" do
     filters = { lead_organisation: "2" }
-    date_component = ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new(filters:)
-    ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.expects(:new).with(filters:).returns(date_component)
+    errors = [
+      ContentBlockManager::ContentBlock::Document::DocumentFilter::FILTER_ERROR.new(
+        attribute: "last_updated_from", full_message: "From date is not in the correct format",
+      ),
+    ]
+    date_component = ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new(filters:, errors:)
+    ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.expects(:new).with(filters:, errors:)
+                                                                           .returns(date_component)
 
     render_inline(
       ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
         filters:,
+        errors:,
       ),
     )
 
