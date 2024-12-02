@@ -62,7 +62,8 @@
 
 .timeline__latest {
   @include govuk-font($size: 19, $weight: bold);
-  background: #ffdd00;
+  color: govuk-colour("white");
+  background: govuk-colour("blue");
   padding: 0.25rem 0.5rem;
   font-size: 1rem !important;
   line-height: 1.25 !important;
