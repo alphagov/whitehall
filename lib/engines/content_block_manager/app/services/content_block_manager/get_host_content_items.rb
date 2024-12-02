@@ -34,7 +34,21 @@ module ContentBlockManager
         )
       end
 
-      ContentBlockManager::HostContentItems.new(items, content_items["total"], content_items["total_pages"])
+      ContentBlockManager::HostContentItems.new(
+        items:,
+        total: content_items["total"],
+        total_pages: content_items["total_pages"],
+        rollup:,
+      )
+    end
+
+    def rollup
+      ContentBlockManager::HostContentItems::Rollup.new(
+        views: content_items["rollup"]["views"],
+        locations: content_items["rollup"]["locations"],
+        instances: content_items["rollup"]["instances"],
+        organisations: content_items["rollup"]["organisations"],
+      )
     end
 
   private

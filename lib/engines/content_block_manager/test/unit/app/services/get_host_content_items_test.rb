@@ -9,11 +9,14 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
 
   let(:host_content_id) { SecureRandom.uuid }
 
+  let(:rollup) { build(:rollup) }
+
   let(:response_body) do
     {
       "content_id" => SecureRandom.uuid,
       "total" => 111,
       "total_pages" => 12,
+      "rollup" => rollup.to_h,
       "results" => [
         {
           "title" => "foo",
@@ -36,7 +39,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
   end
 
   setup do
-    stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 111, total_pages: 12, results: response_body["results"], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER)
+    stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 111, total_pages: 12, results: response_body["results"], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER, rollup: response_body["rollup"])
   end
 
   describe "#items" do
@@ -104,6 +107,11 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
 
       assert_equal result.total, response_body["total"]
       assert_equal result.total_pages, response_body["total_pages"]
+
+      assert_equal result.rollup.views, rollup.views
+      assert_equal result.rollup.locations, rollup.locations
+      assert_equal result.rollup.instances, rollup.instances
+      assert_equal result.rollup.organisations, rollup.organisations
 
       assert_equal result[0].title, response_body["results"][0]["title"]
       assert_equal result[0].base_path, response_body["results"][0]["base_path"]
