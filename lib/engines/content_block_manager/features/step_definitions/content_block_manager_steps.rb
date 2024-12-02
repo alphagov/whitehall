@@ -308,7 +308,7 @@ When("I click to view the edition") do
 end
 
 Then("I should see the details for the email address content block") do
-  assert_text "Manage an Email address"
+  assert_text "View email address"
 
   should_show_summary_list_for_email_address_content_block(
     @content_block.document.title,
