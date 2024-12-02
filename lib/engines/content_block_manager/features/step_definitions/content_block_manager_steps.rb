@@ -465,7 +465,7 @@ When(/^dependent content exists for a content block$/) do
 end
 
 Then(/^I should see the dependent content listed$/) do
-  assert_text "Content appears in"
+  assert_text "List of locations"
 
   @dependent_content.each do |item|
     assert_text item["title"]
