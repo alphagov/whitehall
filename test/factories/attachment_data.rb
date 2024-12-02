@@ -7,7 +7,6 @@ FactoryBot.define do
 
       after(:build) do |attachment_data|
         attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: attachment_data.filename)
-        attachment_data.assets << build(:asset, asset_manager_id: "asset_manager_id_thumbnail", variant: Asset.variants[:thumbnail], filename: "thumbnail_#{attachment_data.filename}.png")
       end
     end
 

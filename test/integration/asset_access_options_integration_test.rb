@@ -141,12 +141,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
           ).returns(asset_manager_response)
-          Services.asset_manager.expects(:create_asset).with(
-            has_entries(
-              access_limited_organisation_ids: [organisation.content_id],
-              auth_bypass_ids: [edition.auth_bypass_id],
-            ),
-          ).returns(asset_manager_response)
 
           AssetManagerCreateAssetWorker.drain
         end
