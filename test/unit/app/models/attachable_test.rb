@@ -75,12 +75,6 @@ class AttachableTest < ActiveSupport::TestCase
     edition
   end
 
-  test "should return the URL of a thumbnail when the edition has a thumbnailable attachment" do
-    edition = build_edition_with_three_attachments
-
-    assert_equal @greenpaper_pdf.url(:thumbnail), edition.thumbnail_url
-  end
-
   test "should include attachment details into the #search_index" do
     attachment = build(
       :file_attachment,

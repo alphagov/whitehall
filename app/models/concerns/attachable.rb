@@ -143,10 +143,6 @@ module Attachable
     end
   end
 
-  def thumbnail_url
-    attachments.select { |a| a.content_type == AttachmentUploader::PDF_CONTENT_TYPE }.first.url(:thumbnail)
-  end
-
   def has_official_document?
     has_command_paper? || has_act_paper?
   end

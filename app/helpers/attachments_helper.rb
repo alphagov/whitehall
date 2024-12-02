@@ -42,9 +42,7 @@ module AttachmentsHelper
       params[:file_size] = attachment.file_size
     end
 
-    # PDF attachments used to have a thumbnail, now just a generic icon.
     if attachment.pdf?
-      params[:thumbnail_url] = attachment.file.thumbnail.url
       params[:number_of_pages] = attachment.number_of_pages
     end
 
