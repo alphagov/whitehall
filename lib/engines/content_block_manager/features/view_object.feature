@@ -19,6 +19,7 @@ Feature: View a content object
     When I visit the Content Block Manager home page
     And I click to view the document
     Then I should see the dependent content listed
+    And I should see the rollup data for the dependent content
 
   @javascript
   Scenario: GDS Editor can copy embed code
