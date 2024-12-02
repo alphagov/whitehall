@@ -18,6 +18,7 @@ Feature: Edit a content object
     And I should see a back link to the document page
     When I fill out the form
     Then I am shown where the changes will take place
+    And I see the rollup data for the dependent content
     And I should see a back link to the edit page
     When I save and continue
     Then I am asked when I want to publish the change
@@ -37,6 +38,7 @@ Feature: Edit a content object
     Then I should see the edit form
     When I fill out the form
     Then I am shown where the changes will take place
+    And I see the rollup data for the dependent content
     And I click cancel
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
@@ -48,6 +50,7 @@ Feature: Edit a content object
     Then I should see the edit form
     When I fill out the form
     Then I am shown where the changes will take place
+    And I see the rollup data for the dependent content
     When I save and continue
     Then I am asked when I want to publish the change
     And I click cancel
@@ -101,5 +104,6 @@ Feature: Edit a content object
     When I revisit the edit page
     And I fill out the form
     Then I am shown where the changes will take place
+    And I see the rollup data for the dependent content
     When I click on the first host document
     Then the preview page opens in a new tab

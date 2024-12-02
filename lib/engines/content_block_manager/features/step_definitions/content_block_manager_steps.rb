@@ -456,7 +456,7 @@ When(/^dependent content exists for a content block$/) do
     results: @dependent_content,
     total: @dependent_content.length,
     order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
-    rollup: @rollup
+    rollup: @rollup,
   )
 end
 
@@ -469,7 +469,7 @@ Then(/^I should see the dependent content listed$/) do
   end
 end
 
-Then(/^I should see the rollup data for the dependent content$/) do
+Then(/^I (should )?see the rollup data for the dependent content$/) do |_should|
   @rollup.keys.each do |k|
     within ".rollup-details__rollup-metric.#{k}" do
       assert_text k.to_s.titleize

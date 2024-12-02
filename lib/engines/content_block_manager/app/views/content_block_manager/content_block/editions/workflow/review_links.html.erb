@@ -9,6 +9,14 @@
 
 <p class="govuk-body">The new <%= @content_block_document.block_type.humanize.downcase %> will appear on the following content after you publish the change.</p>
 
+<%=
+  render(
+    ContentBlockManager::ContentBlock::Document::Show::HostEditionsRollupComponent.new(
+      rollup: @host_content_items.rollup,
+      ),
+  )
+%>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= render(
