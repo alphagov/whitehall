@@ -85,7 +85,6 @@ class AttachmentsHelperTest < ActionView::TestCase
       content_type: "application/pdf",
       filename: attachment.filename,
       file_size: attachment.file_size,
-      thumbnail_url: attachment.file.thumbnail.url,
       number_of_pages: 2,
     }
     assert_equal expect_params, attachment_component_params(attachment)
