@@ -221,13 +221,13 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
         )
 
         assert_selector "a.app-table__sort-link[href*='order=title']", text: "Title"
-        assert_selector "a.app-table__sort-link[href*='order=document_type']", text: "Document Type"
+        assert_selector "a.app-table__sort-link[href*='order=document_type']", text: "Type"
         assert_selector "a.app-table__sort-link[href*='order=instances']", text: "Instances"
-        assert_selector "a.app-table__sort-link[href*='order=unique_pageviews']", text: "Unique pageviews"
-        assert_selector "a.app-table__sort-link[href*='order=primary_publishing_organisation_title']", text: "Publishing organisation"
-        assert_selector "a.app-table__sort-link[href*='order=last_edited_at']", text: "Updated"
+        assert_selector "a.app-table__sort-link[href*='order=unique_pageviews']", text: "Views (30 days)"
+        assert_selector "a.app-table__sort-link[href*='order=primary_publishing_organisation_title']", text: "Lead organisation"
+        assert_selector "a.app-table__sort-link[href*='order=last_edited_at']", text: "Last updated"
 
-        assert_selector ".govuk-table__header--active a", text: "Unique pageviews"
+        assert_selector ".govuk-table__header--active a", text: "Views (30 days)"
       end
 
       %w[title document_type unique_pageviews primary_publishing_organisation_title last_edited_at instances].each do |order|
