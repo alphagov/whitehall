@@ -1,0 +1,19 @@
+<div class="govuk-grid-row rollup-details">
+  <div class="govuk-grid-column-full">
+    <h2 class="rollup-details__title">Metrics</h2>
+    <% metrics.each do |name, value| %>
+      <div class="govuk-grid-column-one-quarter rollup-details__rollup-metric <%= name %>">
+        <%=
+          render(
+            "govuk_publishing_components/components/glance_metric",
+            name: name.to_s.titleize,
+            figure: value[:figure],
+            measurement_display_label: value[:display_label],
+            measurement_explicit_label: value[:explicit_label],
+            heading_level: 3,
+            )
+        %>
+      </div>
+    <% end %>
+  </div>
+</div>
