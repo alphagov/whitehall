@@ -5,6 +5,15 @@
     href: content_block_manager.content_block_manager_content_block_documents_path,
   } %>
 <% end %>
+<% content_for :title_side do %>
+  <div class="support-request-wrapper">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Raise a support request",
+      href: support_url,
+      secondary_solid: true,
+    } %>
+  </div>
+<% end %>
 
 <%=
   render(
