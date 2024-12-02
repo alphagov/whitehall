@@ -14,10 +14,8 @@ private
       *details_items,
       organisation_item,
       instructions_item,
-      last_updated_item,
+      status_item,
       embed_code_item,
-      state_item,
-      scheduled_item,
     ].compact
   end
 
@@ -69,31 +67,26 @@ private
     end
   end
 
-  def last_updated_item
-    {
-      field: "Last updated",
-      value: last_updated_value,
-    }
+  def status_item
+    if content_block_document.latest_edition.state == "scheduled"
+      {
+        field: "Status",
+        value: scheduled_value,
+      }
+    else
+      {
+        field: "Status",
+        value: last_updated_value,
+      }
+    end
   end
 
   def last_updated_value
-    "#{time_ago_in_words(content_block_document.latest_edition.updated_at)} ago by #{content_block_document.latest_edition.creator.name}"
+    "Published #{time_ago_in_words(content_block_document.latest_edition.updated_at)} ago by #{content_block_document.latest_edition.creator.name}"
   end
 
-  def state_item
-    {
-      field: "State",
-      value: content_block_document.latest_edition.state.titleize,
-    }
-  end
-
-  def scheduled_item
-    if content_block_document.latest_edition.state == "scheduled"
-      {
-        field: "Scheduled for publication at",
-        value: I18n.l(content_block_document.latest_edition.scheduled_publication, format: :long_ordinal),
-      }
-    end
+  def scheduled_value
+    "Scheduled for publication at #{I18n.l(content_block_document.latest_edition.scheduled_publication, format: :long_ordinal)}"
   end
 
   def edit_action
