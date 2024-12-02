@@ -1,8 +1,6 @@
 class AttachmentUploader < WhitehallUploader
   PDF_CONTENT_TYPE = "application/pdf".freeze
   INDEXABLE_TYPES = %w[csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml].freeze
-
-  THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
   FALLBACK_PDF_THUMBNAIL = File.expand_path("../assets/images/pub-cover.png", __dir__)
   EXTENSION_ALLOW_LIST = %w[chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt vcf wsdl xls xlsm xlsx xlt xml xsd xslt zip].freeze
 
