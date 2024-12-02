@@ -143,10 +143,6 @@ module Attachable
     end
   end
 
-  def has_thumbnail?
-    thumbnailable_attachments.any?
-  end
-
   def thumbnail_url
     thumbnailable_attachments.first.url(:thumbnail)
   end

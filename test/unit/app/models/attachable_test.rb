@@ -65,20 +65,6 @@ class AttachableTest < ActiveSupport::TestCase
     assert publication.valid?
   end
 
-  test "should say a edition does not have a thumbnail when it has no attachments" do
-    edition = create(:publication)
-    assert_not edition.has_thumbnail?
-  end
-
-  test "should say a edition does not have a thumbnail when it has no thumbnailable attachments" do
-    sample_csv = build(:file_attachment, file: upload_fixture("sample-from-excel.csv", "text/csv"))
-
-    edition = create(:publication)
-    edition.attachments << sample_csv
-
-    assert_not edition.has_thumbnail?
-  end
-
   def build_edition_with_three_attachments
     edition = create(:publication)
 
@@ -87,12 +73,6 @@ class AttachableTest < ActiveSupport::TestCase
     edition.attachments << @two_pages_pdf = create(:file_attachment, file: upload_fixture("two-pages.pdf"), attachable: edition)
 
     edition
-  end
-
-  test "should say an edition has a thumbnail when it has a thumbnailable attachment" do
-    edition = build_edition_with_three_attachments
-
-    assert edition.has_thumbnail?
   end
 
   test "should return the URL of a thumbnail when the edition has a thumbnailable attachment" do
