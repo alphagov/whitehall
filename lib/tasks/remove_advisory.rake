@@ -19,6 +19,7 @@ namespace :remove_advisory_from_editions do
 
     published_content_containing_advisory_govspeak.each do |document_id|
       edition = Document.find(document_id).latest_edition
+      # should you be passing in the edition here rather than the document_id?
       Govspeak::RemoveAdvisoryService.new(document_id, regex).process!
       successes << edition.content_id
       print "S"

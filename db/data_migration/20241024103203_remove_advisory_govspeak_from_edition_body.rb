@@ -1,3 +1,5 @@
+## If I understand it correctly, we don't need this file?
+
 published_content_containing_advisory_govspeak = []
 
 regex = Regexp.new(/(^@)([\s\S]*?)(@?)(?=(?:^\$CTA|\r?\n\r?\n|^@|$))/m).to_s
