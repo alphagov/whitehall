@@ -183,7 +183,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.4.0)
+    date (3.4.1)
     debug_inspector (1.2.0)
     diff-lcs (1.5.1)
     diffy (3.4.3)
@@ -310,7 +310,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (46.0.0)
+    govuk_publishing_components (46.1.0)
       chartkick
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
@@ -367,7 +367,7 @@ GEM
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     invalid_utf8_rejector (0.0.4)
-    io-console (0.7.2)
+    io-console (0.8.0)
     irb (1.14.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -407,7 +407,7 @@ GEM
       addressable (~> 2.8)
       childprocess (~> 5.0)
     link_header (0.0.8)
-    logger (1.6.1)
+    logger (1.6.2)
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
@@ -763,7 +763,8 @@ GEM
       pry (>= 0.13, < 0.15)
     pry-rails (0.3.11)
       pry (>= 0.13.0)
-    psych (5.2.0)
+    psych (5.2.1)
+      date
       stringio
     ptools (1.5.0)
     public_suffix (6.0.1)
@@ -917,7 +918,7 @@ GEM
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-linux-gnu)
       google-protobuf (~> 4.26)
-    securerandom (0.3.2)
+    securerandom (0.4.0)
     selenium-webdriver (4.21.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
