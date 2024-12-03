@@ -30,6 +30,8 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
     end
 
     it "schedules a new Edition via the Content Block Worker" do
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).never
+
       ContentBlockManager::SchedulePublishingWorker.expects(:queue).with do |expected_edition|
         expected_edition.id = edition.id &&
           expected_edition.scheduled_publication.year == scheduled_publication_params[:"scheduled_publication(1i)"].to_i &&
@@ -45,6 +47,23 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
         .call(edition, scheduled_publication_params)
 
       assert updated_edition.scheduled?
+    end
+
+    it "dequeues existing jobs if the edition is already scheduled" do
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with do |expected_edition|
+        expected_edition.id = edition.id
+      end
+
+      ContentBlockManager::SchedulePublishingWorker.expects(:queue).with do |expected_edition|
+        expected_edition.id = edition.id
+      end
+
+      edition.update!(scheduled_publication_params)
+      edition.schedule!
+
+      ContentBlockManager::ScheduleEditionService
+        .new(schema)
+        .call(edition, scheduled_publication_params)
     end
 
     it "does not persist the changes if the Worker request fails" do

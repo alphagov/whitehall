@@ -21,7 +21,11 @@ module ContentBlockManager
       ActiveRecord::Base.transaction do
         content_block_edition = yield
 
-        content_block_edition.schedule!
+        if content_block_edition.scheduled?
+          ContentBlockManager::SchedulePublishingWorker.dequeue(content_block_edition)
+        else
+          content_block_edition.schedule!
+        end
         ContentBlockManager::SchedulePublishingWorker.queue(content_block_edition)
       end
     end
