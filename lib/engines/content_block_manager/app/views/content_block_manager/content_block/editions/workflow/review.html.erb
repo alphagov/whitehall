@@ -1,5 +1,5 @@
 <% content_for :context, "Create a content block" %>
-<% content_for :title, "Check your answers" %>
+<% content_for :title, "Review #{@content_block_edition.block_type.humanize.downcase}" %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
     href: content_block_manager.content_block_manager_content_block_documents_path,
