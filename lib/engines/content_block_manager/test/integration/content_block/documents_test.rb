@@ -98,7 +98,7 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
 
       visit new_content_block_manager_content_block_document_path
 
-      assert_text "Select a block type"
+      assert_text "Select a content block"
     end
   end
 

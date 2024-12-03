@@ -14,10 +14,19 @@
     schemas: @schemas,
   ) %>
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Save and continue",
-    name: "save_and_continue",
-    value: "Save and continue",
-    type: "submit",
-  } %>
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save and continue",
+      name: "save_and_continue",
+      value: "Save and continue",
+      type: "submit",
+    } %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Cancel",
+      name: "cancel",
+      value: "cancel",
+      href: content_block_manager.content_block_manager_content_block_documents_path,
+      secondary_solid: true,
+    } %>
+  </div>
 <% end %>

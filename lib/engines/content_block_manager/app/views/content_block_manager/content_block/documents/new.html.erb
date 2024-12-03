@@ -1,4 +1,4 @@
-<% content_for :context, product_name %>
+<% content_for :context, "Create a content block" %>
 
 <% if @schemas %>
   <% content_for :back_link do %>
@@ -6,7 +6,7 @@
       href: content_block_manager.content_block_manager_content_block_documents_path,
     } %>
   <% end %>
-  <% content_for :page_title, "Select a block type" %>
+  <% content_for :page_title, "Select a content block" %>
   <%= render partial: "content_block_manager/content_block/documents/schemas", locals: { schemas: @schemas} %>
 <% else %>
   <% content_for :back_link do %>
