@@ -29,9 +29,19 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
     end
 
     it "publishes the Edition in Whitehall" do
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).never
+
       ContentBlockManager::PublishEditionService.new.call(edition)
       assert_equal "published", edition.state
       assert_equal edition.id, document.live_edition_id
+    end
+
+    it "removes any existing queues if the edition is already scheduled" do
+      edition.expects(:scheduled?).returns(true)
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with(edition)
+
+      ContentBlockManager::PublishEditionService.new.call(edition)
+      assert_equal "published", edition.state
     end
 
     it "creates an Edition in the Publishing API" do

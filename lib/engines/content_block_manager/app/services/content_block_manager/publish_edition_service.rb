@@ -26,7 +26,8 @@ module ContentBlockManager
             content_block_edition.lead_organisation.content_id,
           ],
         },
-        )
+      )
+      ContentBlockManager::SchedulePublishingWorker.dequeue(content_block_edition) if content_block_edition.scheduled?
       publish_publishing_api_edition(content_id:)
       update_content_block_document_with_latest_edition(content_block_edition)
       content_block_edition.public_send(:publish!)
