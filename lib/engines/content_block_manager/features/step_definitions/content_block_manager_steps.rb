@@ -429,6 +429,10 @@ Then("I should see a message that the {string} field is an invalid {string}") do
   assert_text "#{ContentBlockManager::ContentBlock::Edition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
 end
 
+Then("I should see a message that I need to confirm the details are correct") do
+  assert_text "Confirm details are correct", minimum: 2
+end
+
 Then("I should see a permissions error") do
   assert_text "Permissions error"
 end
@@ -454,6 +458,10 @@ end
 
 Then("I am asked to review my answers") do
   assert_text "Review email address"
+end
+
+Then("I confirm my answers are correct") do
+  check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
 end
 
 Then("I accept and publish") do

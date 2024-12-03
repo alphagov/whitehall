@@ -6,6 +6,13 @@
   } %>
 <% end %>
 
+<% if @error_summary_errors %>
+  <%= render "govuk_publishing_components/components/error_summary", {
+    title: "There is a problem",
+    items: @error_summary_errors,
+  } %>
+<% end %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= render(
@@ -16,9 +23,28 @@
   </div>
 </div>
 
+<%= form_with(url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]), method: :put) do %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= form_with(url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]), method: :put) do %>
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: "is_confirmed",
+      id: "is_confirmed",
+      heading: "Confirm",
+      visually_hide_heading: true,
+      no_hint_text: true,
+      error: @confirm_error_copy,
+      items: [
+        {
+          label: "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct.",
+          value: true,
+        },
+      ],
+    } %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <div>
           <%= render "govuk_publishing_components/components/button", {

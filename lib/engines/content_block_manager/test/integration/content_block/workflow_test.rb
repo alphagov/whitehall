@@ -44,8 +44,20 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
       describe "#update" do
         it "posts the new edition to the Publishing API and marks edition as published" do
           assert_edition_is_published do
-            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:, is_confirmed: true)
           end
+        end
+      end
+    end
+
+    describe "when the edition details have not been confirmed" do
+      let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review] }
+
+      describe "#update" do
+        it "returns to the review page" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_template "content_block_manager/content_block/editions/workflow/review"
         end
       end
     end
