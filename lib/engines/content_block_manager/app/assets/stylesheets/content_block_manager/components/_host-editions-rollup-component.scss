@@ -1,0 +1,31 @@
+.rollup-details {
+  background: govuk-colour("light-grey");
+  margin-bottom: govuk-spacing(8);
+
+  .govuk-grid-column-full {
+    padding: 0;
+  }
+
+  &__title {
+    @include govuk-visually-hidden;
+  }
+
+  &__rollup-metric {
+    .gem-c-glance-metric {
+      border: none;
+      margin: govuk-spacing(6);
+      padding: 0;
+
+      &__heading {
+        @include govuk-font(19, $weight: regular, $line-height: 1);
+
+        min-height: 1em;
+      }
+
+      &__context {
+        border: none;
+        min-height: 0;
+      }
+    }
+  }
+}

@@ -6,7 +6,8 @@ class ContentBlockManager::HostContentItemsTest < ActiveSupport::TestCase
   let(:items) { build_list(:host_content_item, 5) }
   let(:total) { 12 }
   let(:total_pages) { 2 }
-  let(:host_content_items) { build(:host_content_items, items:, total:, total_pages:) }
+  let(:rollup) { build(:rollup) }
+  let(:host_content_items) { build(:host_content_items, items:, total:, total_pages:, rollup:) }
 
   it "delegates array methods to items" do
     ([].methods - Object.methods).each do |method|

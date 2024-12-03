@@ -450,10 +450,13 @@ When(/^dependent content exists for a content block$/) do
     }
   end
 
+  @rollup = build(:rollup).to_h
+
   stub_publishing_api_has_embedded_content_for_any_content_id(
     results: @dependent_content,
     total: @dependent_content.length,
     order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+    rollup: @rollup,
   )
 end
 
@@ -463,6 +466,17 @@ Then(/^I should see the dependent content listed$/) do
   @dependent_content.each do |item|
     assert_text item["title"]
     break if item == @dependent_content.last
+  end
+end
+
+Then(/^I (should )?see the rollup data for the dependent content$/) do |_should|
+  @rollup.keys.each do |k|
+    within ".rollup-details__rollup-metric.#{k}" do
+      assert_text k.to_s.titleize
+      within ".gem-c-glance-metric__figure" do
+        assert_text @rollup[k]
+      end
+    end
   end
 end
 

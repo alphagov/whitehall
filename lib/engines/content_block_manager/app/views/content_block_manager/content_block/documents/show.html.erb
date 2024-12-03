@@ -6,6 +6,14 @@
   } %>
 <% end %>
 
+<%=
+  render(
+    ContentBlockManager::ContentBlock::Document::Show::HostEditionsRollupComponent.new(
+      rollup: @host_content_items.rollup,
+    ),
+  )
+%>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h2 class="govuk-heading-m">Details</h2>
