@@ -10,6 +10,7 @@ private
   def items
     [
       edit_item,
+      title_item,
       *details_items,
       organisation_item,
       instructions_item,
@@ -22,6 +23,13 @@ private
     {
       field: "#{content_block_edition.document.block_type.humanize} details",
       edit: edit_action,
+    }
+  end
+
+  def title_item
+    {
+      field: "Title",
+      value: content_block_edition.title,
     }
   end
 
