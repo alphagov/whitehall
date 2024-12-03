@@ -24,7 +24,7 @@ class ContentBlockManager::ContentBlock::EditionForm
 
   class Create < ContentBlockManager::ContentBlock::EditionForm
     def title
-      "Create a new #{schema.name}"
+      "Create #{schema.name.downcase}"
     end
 
     def url
