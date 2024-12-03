@@ -69,6 +69,10 @@ Then("I should see a back link to the document list page") do
   expect(page).to have_link("Back", href: content_block_manager.content_block_manager_content_block_documents_path)
 end
 
+Then("I should see a Cancel button to the document list page") do
+  expect(page).to have_link("Cancel", href: content_block_manager.content_block_manager_content_block_documents_path)
+end
+
 Then("I should see a back link to the select schema page") do
   expect(page).to have_link("Back", href: content_block_manager.new_content_block_manager_content_block_document_path)
 end
