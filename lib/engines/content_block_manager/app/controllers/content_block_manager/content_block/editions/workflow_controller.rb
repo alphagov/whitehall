@@ -47,6 +47,11 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     end
   end
 
+  def context
+    "Edit content block"
+  end
+  helper_method :context
+
 private
 
   def edit_draft

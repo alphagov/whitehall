@@ -1,5 +1,5 @@
-<% content_for :context, "Manage #{add_indefinite_article @content_block_document.block_type.humanize}" %>
-<% content_for :title, "Where the change will appear" %>
+<% content_for :context, context %>
+<% content_for :title, "Preview #{@content_block_document.block_type.humanize.downcase}" %>
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -7,7 +7,9 @@
   } %>
 <% end %>
 
-<p class="govuk-body">The new <%= @content_block_document.block_type.humanize.downcase %> will appear on the following content after you publish the change.</p>
+<p class="govuk-body">
+  The list does not include content in PDF or beyond <a href="https://gov.uk" class="govuk-link">GOV.UK</a>.
+</p>
 
 <%=
   render(
@@ -22,7 +24,7 @@
     <%= render(
           ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent.new(
             is_preview: true,
-            caption: "Content it appears in",
+            caption: "List of locations",
             host_content_items: @host_content_items,
             current_page: @page,
             order: @order,

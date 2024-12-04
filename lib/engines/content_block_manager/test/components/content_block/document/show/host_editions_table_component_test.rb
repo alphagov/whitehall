@@ -170,7 +170,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
     context "when unique pageviews can't be found" do
       let(:unique_pageviews) { nil }
 
-      it "displays not found" do
+      it "displays a zero" do
         render_inline(
           described_class.new(
             caption:,
@@ -179,7 +179,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           ),
         )
 
-        assert_selector "tbody .govuk-table__cell", text: "Not set"
+        assert_selector "tbody .govuk-table__cell", text: "0"
       end
     end
 
