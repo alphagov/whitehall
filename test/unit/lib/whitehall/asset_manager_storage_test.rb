@@ -61,17 +61,6 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     assert_equal "http://assets-host/media/asset_manager_id_s216/s216_#{model.filename}", model.file.url(:s216)
   end
 
-  # TODO: commented out to get the tests passing.
-  # We should better understand how to rewrite this test and whether it is still valuable.
-  #
-  # test "returns nil when the model has assets but the requested variant is not available" do
-  #   model = build(:attachment_data_with_asset, attachable: build(:draft_edition, id: 1))
-  #   model.save!
-  #   model.reload
-
-  #   assert_nil model.file.url(:thumbnail)
-  # end
-
   test "returns store path when the model has no assets, although it should (still uploading or error has occurred)" do
     model = build(:attachment_data_with_no_assets, attachable: build(:draft_edition, id: 1))
     model.save!
