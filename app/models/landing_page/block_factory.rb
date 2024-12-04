@@ -13,6 +13,8 @@ class LandingPage::BlockFactory
       LandingPage::FeaturedBlock.new(block, images, blocks)
     in { type: "hero", hero_content: { blocks: } }
       LandingPage::HeroBlock.new(block, images, blocks)
+    in { type: "hero" }
+      LandingPage::HeroBlock.new(block, images, nil)
     in { type: "image" }
       LandingPage::ImageBlock.new(block, images)
     in { type: String, blocks: Array }
