@@ -489,7 +489,7 @@ Then(/^I should see an error prompting me to choose an object type$/) do
 end
 
 Then(/^I am shown where the changes will take place$/) do
-  expect(page).to have_selector("h1", text: "Where the change will appear")
+  expect(page).to have_selector("h1", text: "Preview email address")
 
   @dependent_content.each do |item|
     assert_text item["title"]
