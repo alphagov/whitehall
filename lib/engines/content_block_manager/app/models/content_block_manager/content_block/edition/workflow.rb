@@ -5,7 +5,7 @@ module ContentBlockManager
 
     module ClassMethods
       def valid_state?(state)
-        %w[draft published scheduled].include?(state)
+        %w[draft published scheduled superseded].include?(state)
       end
     end
 
@@ -20,12 +20,16 @@ module ContentBlockManager
         state :draft
         state :published
         state :scheduled
+        state :superseded
 
         event :publish do
           transitions from: %i[draft scheduled], to: :published
         end
         event :schedule do
           transitions from: %i[draft], to: :scheduled
+        end
+        event :supersede do
+          transitions from: %i[scheduled], to: :superseded
         end
       end
     end
