@@ -7,7 +7,9 @@
   } %>
 <% end %>
 
-<p class="govuk-body">The new <%= @content_block_document.block_type.humanize.downcase %> will appear on the following content after you publish the change.</p>
+<p class="govuk-body">
+  The list does not include content in PDF or beyond <a href="https://gov.uk" class="govuk-link">GOV.UK</a>.
+</p>
 
 <%=
   render(
