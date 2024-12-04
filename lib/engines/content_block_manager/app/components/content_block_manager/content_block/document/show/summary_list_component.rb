@@ -72,6 +72,11 @@ private
       {
         field: "Status",
         value: scheduled_value,
+        edit: {
+          href: helpers.content_block_manager.content_block_manager_content_block_document_schedule_edit_path(content_block_document),
+          link_text: sanitize("Edit <span class='govuk-visually-hidden'>schedule</span>"),
+          link_text_no_enhance: true,
+        },
       }
     else
       {
