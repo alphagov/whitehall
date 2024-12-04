@@ -428,8 +428,8 @@ Then("I should see the scheduled event on the timeline") do
   expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}")
 end
 
-Then("I am asked to check my answers") do
-  assert_text "Check your answers"
+Then("I am asked to review my answers") do
+  assert_text "Review email address"
 end
 
 Then("I accept and publish") do

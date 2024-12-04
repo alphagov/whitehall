@@ -10,6 +10,10 @@ And(/^I click save$/) do
   click_button "Save"
 end
 
+And(/^I click confirm$/) do
+  click_button "Confirm"
+end
+
 And(/^I select a previously published date in the future$/) do
   check "This document has previously been published on another website"
   within "#edition_previously_published" do

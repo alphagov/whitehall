@@ -10,11 +10,10 @@ private
   def items
     [
       edit_item,
+      title_item,
       *details_items,
       organisation_item,
       instructions_item,
-      confirm_item,
-      date_item,
     ]
   end
 
@@ -22,6 +21,13 @@ private
     {
       field: "#{content_block_edition.document.block_type.humanize} details",
       edit: edit_action,
+    }
+  end
+
+  def title_item
+    {
+      field: "Title",
+      value: content_block_edition.title,
     }
   end
 
@@ -45,20 +51,6 @@ private
     {
       field: "Instructions to publishers",
       value: content_block_edition.instructions_to_publishers.presence || "None",
-    }
-  end
-
-  def confirm_item
-    {
-      field: "Confirm",
-      value: "I confirm that I am happy for the content block to be changed on these pages.",
-    }
-  end
-
-  def date_item
-    {
-      field: "Publish date",
-      value: I18n.l(content_block_edition.created_at.to_date, format: :long_ordinal),
     }
   end
 
