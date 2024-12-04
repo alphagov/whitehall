@@ -159,6 +159,15 @@ And("I should be taken to the confirmation page for a published block") do
       ContentBlockManager::ContentBlock::Edition.last.document,
     ),
   )
+
+  has_support_button
+end
+
+def has_support_button
+  expect(page).to have_link(
+    "Raise a support request",
+    href: Whitehall.support_url,
+  )
 end
 
 And("I should be taken to the confirmation page for a new block") do
@@ -171,6 +180,8 @@ And("I should be taken to the confirmation page for a new block") do
       ContentBlockManager::ContentBlock::Edition.last.document,
     ),
   )
+
+  has_support_button
 end
 
 When("I click to view the content block") do
@@ -189,6 +200,8 @@ When("I should be taken to the scheduled confirmation page") do
       ContentBlockManager::ContentBlock::Edition.last.document,
     ),
   )
+
+  has_support_button
 end
 
 Then("I should be taken back to the document page") do
