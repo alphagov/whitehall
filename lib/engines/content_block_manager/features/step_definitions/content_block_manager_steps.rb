@@ -150,9 +150,20 @@ Then("the edition should have been created successfully") do
   end
 end
 
-And("I should be taken to the confirmation page") do
-  assert_text "Your content block is available for use"
-  assert_text "Your content block has been published and is now available for use."
+And("I should be taken to the confirmation page for a published block") do
+  assert_text "Email address published"
+  assert_text "You can now view the updated content block. If you need any support or want to delete a content block you can raise a support request."
+  expect(page).to have_link(
+    "View content block",
+    href: content_block_manager.content_block_manager_content_block_document_path(
+      ContentBlockManager::ContentBlock::Edition.last.document,
+    ),
+  )
+end
+
+And("I should be taken to the confirmation page for a new block") do
+  assert_text "Email address created"
+  assert_text "You can now view the content block. If you need any support or want to delete a content block you can raise a support request."
 
   expect(page).to have_link(
     "View content block",
@@ -169,8 +180,8 @@ When("I click to view the content block") do
 end
 
 When("I should be taken to the scheduled confirmation page") do
-  assert_text "Your content block is scheduled for change"
-  assert_text "Your content block has been edited and is now scheduled for change."
+  assert_text "Email address scheduled to publish on #{@future_date.strftime('%e %B %Y%l:%M%P').strip}"
+  assert_text "You can now view the updated schedule of the content block."
 
   expect(page).to have_link(
     "View content block",
