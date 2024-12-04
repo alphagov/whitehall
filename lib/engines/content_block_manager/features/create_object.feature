@@ -26,7 +26,7 @@ Feature: Create a content object
     Then I am asked to review my answers
     When I click confirm
     Then the edition should have been created successfully
-    And I should be taken to the confirmation page
+    And I should be taken to the confirmation page for a new block
 
   Scenario: GDS editor sees validation errors when not selecting an object type
     When I visit the Content Block Manager home page
@@ -88,7 +88,7 @@ Feature: Create a content object
     Then I am asked to review my answers
     When I click confirm
     Then the edition should have been created successfully
-    And I should be taken to the confirmation page
+    And I should be taken to the confirmation page for a new block
 
   Scenario: Draft documents are not listed
     When I visit the Content Block Manager home page

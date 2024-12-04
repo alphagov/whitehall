@@ -25,7 +25,7 @@ Feature: Edit a content object
     And I should see a back link to the review page
     When I choose to publish the change now
     And I accept and publish
-    Then I should be taken to the confirmation page
+    Then I should be taken to the confirmation page for a published block
     When I click to view the content block
     Then the edition should have been updated successfully
     And I should be taken back to the document page
@@ -90,7 +90,7 @@ Feature: Edit a content object
     When I make the changes
     And I choose to publish the change now
     And I accept and publish
-    Then I should be taken to the confirmation page
+    Then I should be taken to the confirmation page for a published block
     When I click to view the content block
     Then the edition should have been updated successfully
 
