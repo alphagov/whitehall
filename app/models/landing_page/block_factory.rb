@@ -5,16 +5,14 @@ class LandingPage::BlockFactory
 
   def self.build(block, images)
     case block.with_indifferent_access
-    in { type: "box", box_content: { blocks: } }
-      LandingPage::CompoundBlock.new(block, images, "box_content", blocks)
-    in { type: "card", card_content: { blocks: } }
-      LandingPage::CompoundBlock.new(block, images, "card_content", blocks)
-    in { type: "featured", featured_content: { blocks: } }
-      LandingPage::FeaturedBlock.new(block, images, blocks)
-    in { type: "hero", hero_content: { blocks: } }
-      LandingPage::HeroBlock.new(block, images, blocks)
+    in { type: "box" }
+      LandingPage::CompoundBlock.new(block, images, "box_content")
+    in { type: "card" }
+      LandingPage::CompoundBlock.new(block, images, "card_content")
+    in { type: "featured" }
+      LandingPage::FeaturedBlock.new(block, images)
     in { type: "hero" }
-      LandingPage::HeroBlock.new(block, images, nil)
+      LandingPage::HeroBlock.new(block, images)
     in { type: "image" }
       LandingPage::ImageBlock.new(block, images)
     in { type: String, blocks: Array }
