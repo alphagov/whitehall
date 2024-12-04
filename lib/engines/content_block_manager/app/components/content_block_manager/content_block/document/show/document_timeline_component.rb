@@ -12,7 +12,7 @@ private
     content_block_versions.reject { |version| version.state.nil? }.map do |version|
       {
         title: title(version),
-        byline: User.find_by_id(version.whodunnit)&.name || "unknown user",
+        byline: User.find_by_id(version.whodunnit)&.then { |user| helpers.linked_author(user, { class: "govuk-link" }) } || "unknown user",
         date: time_html(version.created_at),
       }
     end

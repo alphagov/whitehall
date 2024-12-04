@@ -308,7 +308,7 @@ When("I click to view the edition") do
 end
 
 Then("I should see the details for the email address content block") do
-  assert_text "Manage an Email address"
+  assert_text "View email address"
 
   should_show_summary_list_for_email_address_content_block(
     @content_block.document.title,
@@ -367,7 +367,7 @@ def should_show_summary_list_for_email_address_content_block(document_title, ema
     expect(page).to have_selector(".govuk-summary-list__key", text: "Instructions to publishers")
     expect(page).to have_selector(".govuk-summary-list__value", text: instructions_to_publishers)
   end
-  expect(page).to have_selector(".govuk-summary-list__key", text: "Last updated")
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Status")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
 end
 
@@ -465,7 +465,7 @@ When(/^dependent content exists for a content block$/) do
 end
 
 Then(/^I should see the dependent content listed$/) do
-  assert_text "Content appears in"
+  assert_text "List of locations"
 
   @dependent_content.each do |item|
     assert_text item["title"]
@@ -625,12 +625,12 @@ end
 
 Then("published state of the object is shown") do
   visit content_block_manager.content_block_manager_content_block_document_path(@content_block.document)
-  expect(page).to have_selector(".govuk-summary-list__key", text: "State")
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Status")
   expect(page).to have_selector(".govuk-summary-list__value", text: "Published")
 end
 
 Then("I should see the scheduled date on the object") do
-  expect(page).to have_selector(".govuk-summary-list__key", text: "Scheduled for publication at")
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Status")
   expect(page).to have_selector(".govuk-summary-list__value", text: I18n.l(@future_date, format: :long_ordinal).squish)
 end
 
