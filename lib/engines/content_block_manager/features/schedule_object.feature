@@ -42,6 +42,27 @@ Feature: Schedule a content object
     Then I should see the scheduled date on the object
     And there should only be one job scheduled
 
+  @disable-sidekiq-test-mode
+  Scenario: GDS Editor publishes a new version of a previously scheduled content object
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    And I schedule the change for 7 days in the future
+    When I am updating a content block
+    And I choose to publish the change now
+    And I accept and publish
+    Then there should be no jobs scheduled
+
+  @disable-sidekiq-test-mode
+  Scenario: GDS Editor schedules a new version of a previously scheduled content block
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    And I schedule the change for 7 days in the future
+    When I click to view the content block
+    And I click to edit the schedule
+    And I schedule the change for 5 days in the future
+    When I click to view the content block
+    Then there should only be one job scheduled
+
   Scenario: A scheduled content object is published
     When I am updating a content block
     Then I am asked when I want to publish the change

@@ -15,6 +15,8 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
   end
 
   setup do
+    ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type)
+                                             .returns(schema)
     stub_publishing_api_has_embedded_content(content_id:, total: 0, results: [], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER)
   end
 
@@ -64,6 +66,29 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
       ContentBlockManager::ScheduleEditionService
         .new(schema)
         .call(edition, scheduled_publication_params)
+    end
+
+    it "supersedes any previously scheduled editions" do
+      scheduled_editions = create_list(:content_block_edition, 2,
+                                       document: edition.document,
+                                       scheduled_publication: 7.days.from_now,
+                                       state: "scheduled")
+
+      ContentBlockManager::SchedulePublishingWorker.expects(:queue).with do |expected_edition|
+        expected_edition.id = edition.id
+      end
+
+      scheduled_editions.each do |scheduled_edition|
+        ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with(scheduled_edition)
+      end
+
+      ContentBlockManager::ScheduleEditionService
+        .new(schema)
+        .call(edition, scheduled_publication_params)
+
+      scheduled_editions.each do |scheduled_edition|
+        assert scheduled_edition.reload.superseded?
+      end
     end
 
     it "does not persist the changes if the Worker request fails" do

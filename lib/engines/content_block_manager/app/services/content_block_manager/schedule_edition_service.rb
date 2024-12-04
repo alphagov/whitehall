@@ -1,5 +1,7 @@
 module ContentBlockManager
   class ScheduleEditionService
+    include Concerns::Dequeueable
+
     def initialize(schema)
       @schema = schema
     end
@@ -15,6 +17,7 @@ module ContentBlockManager
     end
 
   private
+
     def schedule_with_rollback
       raise ArgumentError, "Local database changes not given" unless block_given?
 
@@ -26,6 +29,8 @@ module ContentBlockManager
         else
           content_block_edition.schedule!
         end
+
+        dequeue_all_previously_queued_editions(content_block_edition)
         ContentBlockManager::SchedulePublishingWorker.queue(content_block_edition)
       end
     end

@@ -139,5 +139,22 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
         assert_nil document.live_edition_id
       end
     end
+
+    it "supersedes any previously scheduled editions" do
+      scheduled_editions = create_list(:content_block_edition, 2,
+                                       document:,
+                                       scheduled_publication: 7.days.from_now,
+                                       state: "scheduled")
+
+      scheduled_editions.each do |scheduled_edition|
+        ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with(scheduled_edition)
+      end
+
+      ContentBlockManager::PublishEditionService.new.call(edition)
+
+      scheduled_editions.each do |scheduled_edition|
+        assert scheduled_edition.reload.superseded?
+      end
+    end
   end
 end
