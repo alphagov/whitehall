@@ -1,10 +1,12 @@
 class ContentBlockManager::ContentBlock::EditionsController < ContentBlockManager::BaseController
   def new
     if params[:document_id]
+      @title = "Edit a content block"
       @content_block_document = ContentBlockManager::ContentBlock::Document.find(params[:document_id])
       @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_document.block_type)
       content_block_edition = @content_block_document.latest_edition
     else
+      @title = "Create a content block"
       @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(params[:block_type].underscore)
       content_block_edition = ContentBlockManager::ContentBlock::Edition.new
     end

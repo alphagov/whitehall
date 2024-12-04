@@ -25,7 +25,9 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
           schema:,
         ).returns(form)
 
-        get content_block_manager.new_content_block_manager_content_block_document_edition_path(content_block_document)
+        visit content_block_manager.new_content_block_manager_content_block_document_edition_path(content_block_document)
+
+        assert_text "Edit a content block"
       end
     end
 
@@ -40,7 +42,9 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
           schema:,
         ).returns(form)
 
-        get content_block_manager.new_content_block_manager_content_block_edition_path(block_type: "block-type")
+        visit content_block_manager.new_content_block_manager_content_block_edition_path(block_type: "block-type")
+
+        assert_text "Create a content block"
       end
     end
   end
