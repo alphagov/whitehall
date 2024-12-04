@@ -18,7 +18,6 @@ class LandingPage::CompoundBlock < LandingPage::BaseBlock
 
   attr_reader :content_blocks, :content_block_key
 
-  validates :content_blocks, presence: true
   validate do
     content_blocks.each { |b| errors.merge!(b.errors) if b.invalid? }
   end
@@ -30,6 +29,10 @@ class LandingPage::CompoundBlock < LandingPage::BaseBlock
   end
 
   def present_for_publishing_api
-    super.merge({ content_block_key => { "blocks" => content_blocks.map(&:present_for_publishing_api) } })
+    if content_blocks.blank?
+      super
+    else
+      super.merge({ content_block_key => { "blocks" => content_blocks.map(&:present_for_publishing_api) } })
+    end
   end
 end
