@@ -437,14 +437,4 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     assert_not attachment_data.all_asset_variants_uploaded?
   end
-
-  # TODO: commented out to get the tests passing.
-  # We should consider rewriting the test using a temporary model that has an asset variant.
-  #
-  # test "#all_asset_variants_uploaded? returns false if some asset variants are missing" do
-  #   attachment_data = build(:attachment_data_with_no_assets, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
-  #   attachment_data.assets << build(:asset)
-
-  #   assert_not attachment_data.all_asset_variants_uploaded?
-  # end
 end

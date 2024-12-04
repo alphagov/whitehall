@@ -61,9 +61,8 @@ class AttachmentData < ApplicationRecord
 
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = pdf? ? AttachmentUploader.versions.keys.push(:original) : [Asset.variants[:original].to_sym]
 
-    (required_variants - asset_variants).empty?
+    (%i[original] - asset_variants).empty?
   end
 
   def update_file_attributes
