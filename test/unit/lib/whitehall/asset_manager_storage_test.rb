@@ -53,16 +53,13 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     assert_equal "http://assets-host/media/asset_manager_id/sample.docx", model.file.url
   end
 
-  # TODO: commented out to get the tests passing.
-  # We should look at this again with fresh eyes - are we testing the right thing?
-  #
-  # test "returns file url using asset_manager_id when the model has an asset variant" do
-  #   model = build(:attachment_data, attachable: build(:draft_edition, id: 1))
-  #   model.save!
-  #   model.reload
+  test "returns file url using asset_manager_id when the model has an asset variant" do
+    model = build(:image_data)
+    model.save!
+    model.reload
 
-  #   assert_equal "http://assets-host/media/asset_manager_id_thumbnail/thumbnail_greenpaper.pdf.png", model.file.url(:thumbnail)
-  # end
+    assert_equal "http://assets-host/media/asset_manager_id_s216/s216_#{model.filename}", model.file.url(:s216)
+  end
 
   # TODO: commented out to get the tests passing.
   # We should better understand how to rewrite this test and whether it is still valuable.
