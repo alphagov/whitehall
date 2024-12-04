@@ -37,15 +37,24 @@ class CompoundBlockTest < ActiveSupport::TestCase
     assert_equal(expected_result, subject.present_for_publishing_api)
   end
 
-  test "invalid when missing content blocks" do
+  test "valid when missing content blocks" do
     subject = LandingPage::CompoundBlock.new(
       @valid_block_config,
       EMPTY_IMAGES,
       "compound_block_content",
       nil,
     )
-    assert subject.invalid?
-    assert_equal ["Content blocks can't be blank"], subject.errors.to_a
+    assert subject.valid?
+  end
+
+  test "presents without missing content blocks" do
+    subject = LandingPage::CompoundBlock.new(
+      @valid_block_config.except("compound_block_content"),
+      EMPTY_IMAGES,
+      "compound_block_content",
+      nil,
+    )
+    assert_equal({ "type" => "some-compound-block" }, subject.present_for_publishing_api)
   end
 
   test "invalid when content blocks are invalid" do

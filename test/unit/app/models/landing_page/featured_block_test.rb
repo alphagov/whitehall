@@ -68,10 +68,9 @@ class FeaturedBlockTest < ActiveSupport::TestCase
     ], subject.errors.to_a
   end
 
-  test "invalid when missing featured content blocks" do
+  test "valid when missing featured content blocks" do
     subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, @valid_featured_images, nil)
-    assert subject.invalid?
-    assert_equal ["Content blocks can't be blank"], subject.errors.to_a
+    assert subject.valid?
   end
 
   test "invalid when featured content blocks are invalid" do
