@@ -24,7 +24,7 @@ Feature: Create a content object
       | title            | email_address   | department | organisation        | instructions_to_publishers |
       | my email address | foo@example.com | Somewhere  | Ministry of Example | this is important  |
     Then I am asked to review my answers
-    When I accept and publish
+    When I click confirm
     Then the edition should have been created successfully
     And I should be taken to the confirmation page
 
@@ -86,7 +86,7 @@ Feature: Create a content object
       | title            |
       | my email address 2 |
     Then I am asked to review my answers
-    When I accept and publish
+    When I click confirm
     Then the edition should have been created successfully
     And I should be taken to the confirmation page
 
