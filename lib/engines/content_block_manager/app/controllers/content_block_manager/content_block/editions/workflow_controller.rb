@@ -1,4 +1,6 @@
 class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentBlockManager::BaseController
+  include CanScheduleOrPublish
+
   NEW_BLOCK_STEPS = {
     review: "review",
     edit_draft: "edit_draft",
@@ -115,27 +117,8 @@ private
     render :schedule_publishing
   end
 
-  def schedule_or_publish
-    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-    @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
-
-    if params[:schedule_publishing].blank?
-      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
-      raise ActiveRecord::RecordInvalid, @content_block_edition
-    elsif params[:schedule_publishing] == "schedule"
-      ContentBlockManager::ScheduleEditionService.new(@schema).call(@content_block_edition, scheduled_publication_params)
-    else
-      publish and return
-    end
-
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id,
-                                                                                        step: :confirmation,
-                                                                                        is_scheduled: true)
-  rescue ActiveRecord::RecordInvalid
-    render "content_block_manager/content_block/editions/workflow/schedule_publishing"
-  end
-
   REVIEW_ERROR = Data.define(:attribute, :full_message)
+
   def publish
     if params[:step] == NEW_BLOCK_STEPS[:review] && params[:is_confirmed].blank?
       @confirm_error_copy = "Confirm details are correct"
