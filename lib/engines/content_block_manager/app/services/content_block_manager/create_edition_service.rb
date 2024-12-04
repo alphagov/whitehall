@@ -1,7 +1,5 @@
 module ContentBlockManager
   class CreateEditionService
-    include Publishable
-
     def initialize(schema)
       @schema = schema
     end

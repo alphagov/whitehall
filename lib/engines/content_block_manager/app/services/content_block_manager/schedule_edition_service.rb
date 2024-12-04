@@ -1,7 +1,5 @@
 module ContentBlockManager
   class ScheduleEditionService
-    include Publishable
-
     def initialize(schema)
       @schema = schema
     end
@@ -17,6 +15,16 @@ module ContentBlockManager
     end
 
   private
+    def schedule_with_rollback
+      raise ArgumentError, "Local database changes not given" unless block_given?
+
+      ActiveRecord::Base.transaction do
+        content_block_edition = yield
+
+        content_block_edition.schedule!
+        ContentBlockManager::SchedulePublishingWorker.queue(content_block_edition)
+      end
+    end
 
     def send_publish_intents_for_host_documents(content_block_edition:)
       host_content_items = ContentBlockManager::GetHostContentItems.by_embedded_document(
