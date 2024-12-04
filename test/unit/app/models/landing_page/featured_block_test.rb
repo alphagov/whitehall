@@ -5,7 +5,6 @@ class FeaturedBlockTest < ActiveSupport::TestCase
     @valid_featured_images = [
       build(:image, image_data: build(:landing_page_image_data, file: upload_fixture("landing_page_image.png", "image/png"))),
     ]
-    @valid_featured_content_blocks = [{ "type" => "some-block-type" }]
     @valid_featured_block_config = {
       "type" => "featured",
       "image" => {
@@ -16,17 +15,17 @@ class FeaturedBlockTest < ActiveSupport::TestCase
           "mobile" => "[Image: landing_page_image.png]",
         },
       },
-      "featured_content" => { "blocks" => @valid_featured_content_blocks },
+      "featured_content" => { "blocks" => [{ "type" => "some-block-type" }] },
     }
   end
 
   test "valid when given correct params" do
-    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, @valid_featured_images, @valid_featured_content_blocks)
+    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, @valid_featured_images)
     assert subject.valid?
   end
 
   test "presents featured blocks to publishing api" do
-    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, @valid_featured_images, @valid_featured_content_blocks)
+    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, @valid_featured_images)
     expected_result = {
       "type" => "featured",
       "image" => {
@@ -48,7 +47,7 @@ class FeaturedBlockTest < ActiveSupport::TestCase
   end
 
   test "invalid when missing images" do
-    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config.except("image"), @valid_featured_images, @valid_featured_content_blocks)
+    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config.except("image"), @valid_featured_images)
     assert subject.invalid?
     assert_equal [
       "Desktop image can't be blank",
@@ -59,7 +58,7 @@ class FeaturedBlockTest < ActiveSupport::TestCase
 
   test "invalid when image expressions are not found" do
     no_images = []
-    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, no_images, @valid_featured_content_blocks)
+    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, no_images)
     assert subject.invalid?
     assert_equal [
       "Desktop image can't be blank",
@@ -69,13 +68,19 @@ class FeaturedBlockTest < ActiveSupport::TestCase
   end
 
   test "valid when missing featured content blocks" do
-    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, @valid_featured_images, nil)
+    subject = LandingPage::FeaturedBlock.new(
+      @valid_featured_block_config.except("featured_content"),
+      @valid_featured_images,
+    )
     assert subject.valid?
   end
 
   test "invalid when featured content blocks are invalid" do
     invalid_blocks_config = [{ "invalid" => "because I do not have a type" }]
-    subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, @valid_featured_images, invalid_blocks_config)
+    subject = LandingPage::FeaturedBlock.new(
+      @valid_featured_block_config.merge("featured_content" => { "blocks" => invalid_blocks_config }),
+      @valid_featured_images,
+    )
     assert subject.invalid?
     assert_equal ["Type can't be blank"], subject.errors.to_a
   end

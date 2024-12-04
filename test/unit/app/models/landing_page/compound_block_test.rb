@@ -16,7 +16,6 @@ class CompoundBlockTest < ActiveSupport::TestCase
       @valid_block_config,
       EMPTY_IMAGES,
       "compound_block_content",
-      @valid_content_blocks,
     )
     assert subject.valid?
   end
@@ -26,7 +25,6 @@ class CompoundBlockTest < ActiveSupport::TestCase
       @valid_block_config,
       EMPTY_IMAGES,
       "compound_block_content",
-      @valid_content_blocks,
     )
     expected_result = {
       "type" => "some-compound-block",
@@ -39,10 +37,9 @@ class CompoundBlockTest < ActiveSupport::TestCase
 
   test "valid when missing content blocks" do
     subject = LandingPage::CompoundBlock.new(
-      @valid_block_config,
+      @valid_block_config.except("compound_block_content"),
       EMPTY_IMAGES,
       "compound_block_content",
-      nil,
     )
     assert subject.valid?
   end
@@ -52,7 +49,6 @@ class CompoundBlockTest < ActiveSupport::TestCase
       @valid_block_config.except("compound_block_content"),
       EMPTY_IMAGES,
       "compound_block_content",
-      nil,
     )
     assert_equal({ "type" => "some-compound-block" }, subject.present_for_publishing_api)
   end
@@ -60,10 +56,9 @@ class CompoundBlockTest < ActiveSupport::TestCase
   test "invalid when content blocks are invalid" do
     invalid_blocks_config = [{ "invalid" => "because I do not have a type" }]
     subject = LandingPage::CompoundBlock.new(
-      @valid_block_config,
+      @valid_block_config.merge("compound_block_content" => { "blocks" => invalid_blocks_config }),
       EMPTY_IMAGES,
       "compound_block_content",
-      invalid_blocks_config,
     )
     assert subject.invalid?
     assert_equal ["Type can't be blank"], subject.errors.to_a

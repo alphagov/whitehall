@@ -19,8 +19,8 @@ class LandingPage::HeroBlock < LandingPage::CompoundBlock
     record.errors.add(attr, "is of the wrong image kind: #{actual_kind}") if actual_kind != expected_kind
   end
 
-  def initialize(source, images, content_blocks)
-    super(source, images, "hero_content", content_blocks)
+  def initialize(source, images)
+    super(source, images, "hero_content")
 
     image_sources = @source.dig("image", "sources") || {}
     @desktop_image = find_image(image_sources["desktop"])
