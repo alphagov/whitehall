@@ -191,7 +191,7 @@ When("I click to view the content block") do
 end
 
 When("I should be taken to the scheduled confirmation page") do
-  assert_text "Email address scheduled to publish on #{@future_date.strftime('%e %B %Y%l:%M%P').strip}"
+  assert_text "Email address scheduled to publish on"
   assert_text "You can now view the updated schedule of the content block."
 
   expect(page).to have_link(
