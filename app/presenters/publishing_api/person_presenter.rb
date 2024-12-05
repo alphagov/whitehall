@@ -36,7 +36,7 @@ module PublishingApi
     def details
       details_hash = {}
 
-      if item.image&.all_asset_variants_uploaded? && item.image&.url(:s465)
+      if item.image&.all_asset_variants_uploaded? && item.image.url(:s465)
         logger.error("PersonPresenter: Person of ID##{item.id} has image with url '#{item.image&.url(:s465)}'") if item.image.url(:s465).include?("carrierwave-tmp")
         details_hash[:image] = { url: item.image.url(:s465), alt_text: item.name }
       end

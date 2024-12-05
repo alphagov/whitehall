@@ -44,7 +44,7 @@ module PublishingApi
     end
 
     def image_url
-      return item.image.url(:s300) if item.image&.all_asset_variants_uploaded? && item.image&.url(:s300)
+      return item.image.url(:s300) if item.image&.all_asset_variants_uploaded? && item.image.url(:s300)
 
       placeholder_image_url
     end

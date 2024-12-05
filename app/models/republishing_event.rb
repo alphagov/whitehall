@@ -17,19 +17,7 @@ class RepublishingEvent < ApplicationRecord
   validates :content_ids, absence: true, unless: -> { bulk_content_type == "all_documents_by_content_ids" }
   validate :content_ids_is_a_non_empty_array_of_strings, if: -> { bulk_content_type == "all_documents_by_content_ids" }
 
-  enum :bulk_content_type, %i[
-    all_documents
-    all_documents_with_pre_publication_editions
-    all_documents_with_pre_publication_editions_with_html_attachments
-    all_documents_with_publicly_visible_editions_with_attachments
-    all_documents_with_publicly_visible_editions_with_html_attachments
-    all_individual_pages
-    all_non_editionable_content
-    all_published_organisation_about_us_pages
-    all_by_type
-    all_documents_by_organisation
-    all_documents_by_content_ids
-  ]
+  enum :bulk_content_type, { all_documents: 0, all_documents_with_pre_publication_editions: 1, all_documents_with_pre_publication_editions_with_html_attachments: 2, all_documents_with_publicly_visible_editions_with_attachments: 3, all_documents_with_publicly_visible_editions_with_html_attachments: 4, all_individual_pages: 5, all_non_editionable_content: 6, all_published_organisation_about_us_pages: 7, all_by_type: 8, all_documents_by_organisation: 9, all_documents_by_content_ids: 10 }
 
   def content_ids_is_a_non_empty_array_of_strings
     return errors.add(:content_ids, "is not an array") unless content_ids.is_a?(Array)
