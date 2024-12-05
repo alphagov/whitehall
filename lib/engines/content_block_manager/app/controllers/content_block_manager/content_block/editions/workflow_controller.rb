@@ -52,6 +52,22 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   end
   helper_method :context
 
+  def confirmation_copy
+    ConfirmationCopy = DATA.define(panel_copy:, paragraph_copy:)
+    if params[:is_scheduled]
+      panel_copy = "#{@content_block_edition.block_type.humanize} scheduled to publish on #{I18n.l(@content_block_edition.scheduled_publication, format: :long_ordinal)}"
+      paragraph_copy = "You can now view the updated schedule of the content block."
+    elsif more_than_one_edition?
+      panel_copy = "#{@content_block_edition.block_type.humanize} published"
+      paragraph_copy = "You can now view the updated content block."
+    else
+      panel_copy = "#{@content_block_edition.block_type.humanize} created"
+      paragraph_copy = "You can now view the content block."
+    end
+    ConfirmationCopy.new(panel_copy:, paragraph_copy:)
+  end
+  helper_method :confirmation_copy
+
 private
 
   def edit_draft
@@ -76,19 +92,6 @@ private
     confirmation_copy
 
     render :confirmation
-  end
-
-  def confirmation_copy
-    if params[:is_scheduled]
-      @panel_copy = "#{@content_block_edition.block_type.humanize} scheduled to publish on #{I18n.l(@content_block_edition.scheduled_publication, format: :long_ordinal)}"
-      @paragraph_copy = "You can now view the updated schedule of the content block."
-    elsif more_than_one_edition?
-      @panel_copy = "#{@content_block_edition.block_type.humanize} published"
-      @paragraph_copy = "You can now view the updated content block."
-    else
-      @panel_copy = "#{@content_block_edition.block_type.humanize} created"
-      @paragraph_copy = "You can now view the content block."
-    end
   end
 
   def more_than_one_edition?
