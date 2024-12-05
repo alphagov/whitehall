@@ -6,7 +6,6 @@ class PublishingApiWorker < WorkerBase
               update_type = nil,
               locale = I18n.default_locale.to_s,
               bulk_publishing = false)
-
     model = class_for(model_name).unscoped.find_by(id:)
     return if model.nil?
 

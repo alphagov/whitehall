@@ -341,7 +341,9 @@ class MigrateWorldwideOrganisationsToEditions < ActiveRecord::Migration[7.1]
 
             ## We only want to capture the first create event as a "create", every other draft CIP created should be a "update"
             ## Otherwise we get "Document created" appear within the history of the draft edition
+            # rubocop:disable Lint/Void
             create_exists if version.event == "create"
+            # rubocop:enable Lint/Void
           end
 
           ## Override the draft edition's timestamps to reflect the draft CIPs we have used to create it
