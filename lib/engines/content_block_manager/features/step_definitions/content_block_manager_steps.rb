@@ -404,7 +404,7 @@ def should_show_summary_list_for_email_address_content_block(document_title, ema
 end
 
 def should_show_edit_form_for_email_address_content_block(document_title, email_address)
-  expect(page).to have_content("Change Email address")
+  expect(page).to have_content("Edit Email address")
   expect(page).to have_field("Title", with: document_title)
   expect(page).to have_field("Email address", with: email_address)
   expect(page).to have_content("Save and continue")
