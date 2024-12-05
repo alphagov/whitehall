@@ -1,7 +1,8 @@
 class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent < ViewComponent::Base
   include ActionView::Helpers::RecordTagHelper
-  def initialize(filters:)
+  def initialize(filters:, errors: nil)
     @filters = filters
+    @errors = errors
   end
 
 private

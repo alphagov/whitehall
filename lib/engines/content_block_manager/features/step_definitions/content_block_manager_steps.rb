@@ -429,6 +429,11 @@ Then("I should see a message that the {string} field is an invalid {string}") do
   assert_text "#{ContentBlockManager::ContentBlock::Edition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
 end
 
+Then("I should see a message that the filter dates are invalid") do
+  expect(page).to have_selector("a[href='#last_updated_from_3i']"), text: "Last updated from is not a valid date"
+  expect(page).to have_selector("a[href='#last_updated_to_3i']"), text: "Last updated to is not a valid date"
+end
+
 Then("I should see a permissions error") do
   assert_text "Permissions error"
 end
@@ -617,6 +622,34 @@ When("I schedule the change for 7 days in the future") do
   Sidekiq::Testing.fake! do
     click_on "Accept and publish"
   end
+end
+
+When("one of the content blocks was updated 2 days ago") do
+  content_block_edition = ContentBlockManager::ContentBlock::Document.all.last
+  content_block_edition.updated_at = 2.days.before(Time.zone.now)
+  content_block_edition.save!
+end
+
+When("I add a filter for blocks updated two days ago") do
+  date = 2.days.before(Time.zone.now)
+
+  fill_in "last_updated_from_1i", with: date.year
+  fill_in "last_updated_from_2i", with: date.month
+  fill_in "last_updated_from_3i", with: date.day
+
+  fill_in "last_updated_to_1i", with: date.year
+  fill_in "last_updated_to_2i", with: date.month
+  fill_in "last_updated_to_3i", with: date.day
+end
+
+When("I input invalid dates to filter by") do
+  fill_in "last_updated_from_1i", with: "1"
+  fill_in "last_updated_from_2i", with: "34"
+  fill_in "last_updated_from_3i", with: "56"
+
+  fill_in "last_updated_to_1i", with: "1"
+  fill_in "last_updated_to_2i", with: "67"
+  fill_in "last_updated_to_3i", with: "56"
 end
 
 When("I enter an invalid date") do
