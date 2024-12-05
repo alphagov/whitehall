@@ -14,17 +14,17 @@ class ContentBlockManager::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::
     document_2.latest_edition = edition_2
     document_2.save!
 
-    html = """
+    html = "
       <p>Hello there</p>
       <p>#{edition_2.document.embed_code}</p>
       <p>#{edition_1.document.embed_code}</p>
-    """
+    "
 
-    expected = """
+    expected = "
       <p>Hello there</p>
       <p>#{edition_2.render}</p>
       <p>#{edition_1.render}</p>
-    """
+    "
 
     result = ContentBlockManager::FindAndReplaceEmbedCodesService.call(html)
 
