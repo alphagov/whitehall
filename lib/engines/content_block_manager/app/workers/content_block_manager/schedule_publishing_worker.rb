@@ -49,7 +49,7 @@ module ContentBlockManager
       ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(publishing_robot) do
         ContentBlockManager::PublishEditionService.new.call(edition)
       end
-    rescue ContentBlockManager::Publishable::PublishingFailureError => e
+    rescue ContentBlockManager::PublishEditionService::PublishingFailureError => e
       raise SchedulingFailure, e.message
     end
 

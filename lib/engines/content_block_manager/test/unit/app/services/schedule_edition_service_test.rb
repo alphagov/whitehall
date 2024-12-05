@@ -15,6 +15,8 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
   end
 
   setup do
+    ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type)
+                                             .returns(schema)
     stub_publishing_api_has_embedded_content(content_id:, total: 0, results: [], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER)
   end
 
@@ -30,6 +32,8 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
     end
 
     it "schedules a new Edition via the Content Block Worker" do
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).never
+
       ContentBlockManager::SchedulePublishingWorker.expects(:queue).with do |expected_edition|
         expected_edition.id = edition.id &&
           expected_edition.scheduled_publication.year == scheduled_publication_params[:"scheduled_publication(1i)"].to_i &&
@@ -45,6 +49,46 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
         .call(edition, scheduled_publication_params)
 
       assert updated_edition.scheduled?
+    end
+
+    it "dequeues existing jobs if the edition is already scheduled" do
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with do |expected_edition|
+        expected_edition.id = edition.id
+      end
+
+      ContentBlockManager::SchedulePublishingWorker.expects(:queue).with do |expected_edition|
+        expected_edition.id = edition.id
+      end
+
+      edition.update!(scheduled_publication_params)
+      edition.schedule!
+
+      ContentBlockManager::ScheduleEditionService
+        .new(schema)
+        .call(edition, scheduled_publication_params)
+    end
+
+    it "supersedes any previously scheduled editions" do
+      scheduled_editions = create_list(:content_block_edition, 2,
+                                       document: edition.document,
+                                       scheduled_publication: 7.days.from_now,
+                                       state: "scheduled")
+
+      ContentBlockManager::SchedulePublishingWorker.expects(:queue).with do |expected_edition|
+        expected_edition.id = edition.id
+      end
+
+      scheduled_editions.each do |scheduled_edition|
+        ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with(scheduled_edition)
+      end
+
+      ContentBlockManager::ScheduleEditionService
+        .new(schema)
+        .call(edition, scheduled_publication_params)
+
+      scheduled_editions.each do |scheduled_edition|
+        assert scheduled_edition.reload.superseded?
+      end
     end
 
     it "does not persist the changes if the Worker request fails" do

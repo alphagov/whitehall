@@ -617,14 +617,12 @@ When("I choose to schedule the change") do
   choose "Schedule the change for the future"
 end
 
-When("I schedule the change for 7 days in the future") do
+And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
   choose "Schedule the change for the future"
-  @future_date = 7.days.since(Time.zone.now)
+  @future_date = number_of_days.days.since(Time.zone.now)
   fill_in_date_and_time_field(@future_date)
 
-  Sidekiq::Testing.fake! do
-    click_on "Accept and publish"
-  end
+  click_on "Accept and publish"
 end
 
 When("I enter an invalid date") do
@@ -655,7 +653,7 @@ And("the block is scheduled and published") do
   end
 end
 
-Then("published state of the object is shown") do
+Then("the published state of the object should be shown") do
   visit content_block_manager.content_block_manager_content_block_document_path(@content_block.document)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Status")
   expect(page).to have_selector(".govuk-summary-list__value", text: "Published")
@@ -729,4 +727,18 @@ Then("the embed code should be copied to my clipboard") do
   page.driver.browser.execute_cdp("Browser.grantPermissions", origin: page.server_url, permissions: %w[clipboardReadWrite])
   clip_text = page.evaluate_async_script("navigator.clipboard.readText().then(arguments[0])")
   expect(clip_text).to eq(@embed_code)
+end
+
+When("I click to edit the schedule") do
+  find("a", text: "Edit schedule").click
+end
+
+Then(/^there should only be one job scheduled$/) do
+  jobs = Sidekiq::ScheduledSet.new.select { |job| job.item["class"] == ContentBlockManager::SchedulePublishingWorker.to_s }
+  expect(jobs.count).to eq(1)
+end
+
+Then(/^there should be no jobs scheduled$/) do
+  jobs = Sidekiq::ScheduledSet.new.select { |job| job.item["class"] == ContentBlockManager::SchedulePublishingWorker.to_s }
+  expect(jobs.count).to eq(0)
 end

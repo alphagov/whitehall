@@ -81,6 +81,7 @@ Feature: Edit a content object
     | my email address | xxxxx           | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"
 
+  @enable-sidekiq-test-mode
   Scenario: GDS editor can override a previously scheduled object
     When I am updating a content block
     And I am asked when I want to publish the change

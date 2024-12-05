@@ -8,6 +8,9 @@ ContentBlockManager::Engine.routes.draw do
           post :new_document_options_redirect
         end
         resources :editions, only: %i[new create]
+        get "schedule/edit", to: "documents/schedule#edit", as: :schedule_edit
+        put "schedule", to: "documents/schedule#update", as: :update_schedule
+        patch "schedule", to: "documents/schedule#update"
       end
       resources :editions, only: %i[new create destroy], path_names: { new: ":block_type/new" } do
         member do

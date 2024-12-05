@@ -2,6 +2,7 @@ require "test_helper"
 
 class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
+  include ContentBlockManager::Engine.routes.url_helpers
 
   let(:organisation) { create(:organisation, name: "Department for Example") }
   let(:content_block_edition) do
@@ -60,6 +61,8 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
 
     assert_selector ".govuk-summary-list__key", text: "Status"
     assert_selector ".govuk-summary-list__value", text: "Scheduled for publication at #{I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)}"
+    assert_selector ".govuk-summary-list__actions", text: "Edit schedule"
+    assert_selector ".govuk-summary-list__actions a[href='#{content_block_manager_content_block_document_schedule_edit_path(content_block_document)}']"
   end
 
   describe "when there are instructions to publishers" do

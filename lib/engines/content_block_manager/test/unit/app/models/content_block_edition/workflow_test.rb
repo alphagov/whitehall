@@ -34,4 +34,10 @@ class ContentBlockManager::WorkflowTest < ActiveSupport::TestCase
     edition.schedule!
     assert edition.scheduled?
   end
+
+  test "superseding a scheduled edition transitions it into the superseded state" do
+    edition = create(:content_block_edition, :email_address, scheduled_publication: 7.days.since(Time.zone.now).to_date, state: "scheduled")
+    edition.supersede!
+    assert edition.superseded?
+  end
 end

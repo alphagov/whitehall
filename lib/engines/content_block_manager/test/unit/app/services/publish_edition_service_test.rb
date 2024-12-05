@@ -29,9 +29,19 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
     end
 
     it "publishes the Edition in Whitehall" do
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).never
+
       ContentBlockManager::PublishEditionService.new.call(edition)
       assert_equal "published", edition.state
       assert_equal edition.id, document.live_edition_id
+    end
+
+    it "removes any existing queues if the edition is already scheduled" do
+      edition.expects(:scheduled?).returns(true)
+      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with(edition)
+
+      ContentBlockManager::PublishEditionService.new.call(edition)
+      assert_equal "published", edition.state
     end
 
     it "creates an Edition in the Publishing API" do
@@ -127,6 +137,23 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
         end
         assert_equal "draft", edition.state
         assert_nil document.live_edition_id
+      end
+    end
+
+    it "supersedes any previously scheduled editions" do
+      scheduled_editions = create_list(:content_block_edition, 2,
+                                       document:,
+                                       scheduled_publication: 7.days.from_now,
+                                       state: "scheduled")
+
+      scheduled_editions.each do |scheduled_edition|
+        ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with(scheduled_edition)
+      end
+
+      ContentBlockManager::PublishEditionService.new.call(edition)
+
+      scheduled_editions.each do |scheduled_edition|
+        assert scheduled_edition.reload.superseded?
       end
     end
   end

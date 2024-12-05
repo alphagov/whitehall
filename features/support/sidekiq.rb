@@ -14,3 +14,9 @@ Around("@disable-sidekiq-test-mode") do |_scenario, block|
     block.call
   end
 end
+
+Around("@enable-sidekiq-test-mode") do |_scenario, block|
+  Sidekiq::Testing.fake! do
+    block.call
+  end
+end
