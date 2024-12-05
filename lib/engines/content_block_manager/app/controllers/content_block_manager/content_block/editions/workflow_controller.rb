@@ -135,8 +135,15 @@ private
     render "content_block_manager/content_block/editions/workflow/schedule_publishing"
   end
 
+  REVIEW_ERROR = Data.define(:attribute, :full_message)
   def publish
-    new_edition = ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step: :confirmation)
+    if params[:step] == NEW_BLOCK_STEPS[:review] && params[:is_confirmed].blank?
+      @confirm_error_copy = "Confirm details are correct"
+      @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
+      render "content_block_manager/content_block/editions/workflow/review"
+    else
+      new_edition = ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
+      redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step: :confirmation)
+    end
   end
 end

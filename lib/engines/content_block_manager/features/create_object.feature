@@ -24,6 +24,7 @@ Feature: Create a content object
       | title            | email_address   | department | organisation        | instructions_to_publishers |
       | my email address | foo@example.com | Somewhere  | Ministry of Example | this is important  |
     Then I am asked to review my answers
+    And I confirm my answers are correct
     When I click confirm
     Then the edition should have been created successfully
     And I should be taken to the confirmation page for a new block
@@ -51,6 +52,19 @@ Feature: Create a content object
       | title            | email_address   | department | organisation |
       | my email address | xxxxx           | Somewhere  | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"
+
+  Scenario: GDS editor sees validation errors for unconfirmed answers
+    When I visit the Content Block Manager home page
+    And I click to create an object
+    Then I should see all the schemas listed
+    When I click on the "email_address" schema
+    Then I should see a form for the schema
+    When I complete the form with the following fields:
+      | title            | email_address   | department | organisation |
+      | my email address | foo@example.com           | Somewhere  | Ministry of Example |
+    Then I am asked to review my answers
+    When I click confirm
+    Then I should see a message that I need to confirm the details are correct
 
   Scenario: GDS editor does not see error when not providing instructions to publishers
     When I visit the Content Block Manager home page
@@ -86,6 +100,7 @@ Feature: Create a content object
       | title            |
       | my email address 2 |
     Then I am asked to review my answers
+    And I confirm my answers are correct
     When I click confirm
     Then the edition should have been created successfully
     And I should be taken to the confirmation page for a new block
