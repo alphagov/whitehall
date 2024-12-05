@@ -33,7 +33,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     end
 
     it "sets the correct title" do
-      assert_equal "Change Email address", result.title
+      assert_equal "Edit Email address", result.title
     end
 
     it "sets the correct urls" do
