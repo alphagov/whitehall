@@ -29,7 +29,7 @@ module ContentBlockManager
           ],
         },
       )
-      ContentBlockManager::SchedulePublishingWorker.dequeue(content_block_edition) if content_block_edition.scheduled?
+      dequeue_current_edition_if_previously_scheduled(content_block_edition)
       dequeue_all_previously_queued_editions(content_block_edition)
       publish_publishing_api_edition(content_id:)
       update_content_block_document_with_latest_edition(content_block_edition)
