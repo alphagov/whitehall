@@ -52,8 +52,8 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   end
   helper_method :context
 
+  CONFIRMATION_COPY = Data.define(:panel_copy, :paragraph_copy)
   def confirmation_copy
-    ConfirmationCopy = DATA.define(panel_copy:, paragraph_copy:)
     if params[:is_scheduled]
       panel_copy = "#{@content_block_edition.block_type.humanize} scheduled to publish on #{I18n.l(@content_block_edition.scheduled_publication, format: :long_ordinal)}"
       paragraph_copy = "You can now view the updated schedule of the content block."
@@ -64,7 +64,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
       panel_copy = "#{@content_block_edition.block_type.humanize} created"
       paragraph_copy = "You can now view the content block."
     end
-    ConfirmationCopy.new(panel_copy:, paragraph_copy:)
+    CONFIRMATION_COPY.new(panel_copy:, paragraph_copy:)
   end
   helper_method :confirmation_copy
 
@@ -88,8 +88,6 @@ private
 
   def confirmation
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-
-    confirmation_copy
 
     render :confirmation
   end
