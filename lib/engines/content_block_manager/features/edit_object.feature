@@ -25,6 +25,9 @@ Feature: Edit a content object
     And I should see a back link to the review page
     When I choose to publish the change now
     And I save and continue
+    Then I am asked to review my answers
+    And I confirm my answers are correct
+    When I click confirm
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block
     Then the edition should have been updated successfully
@@ -86,11 +89,17 @@ Feature: Edit a content object
     When I am updating a content block
     And I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    Then I am asked to review my answers
+    And I confirm my answers are correct
+    When I click confirm
     When I revisit the edit page
     Then I should see a warning telling me there is a scheduled change
     When I make the changes
     And I choose to publish the change now
     And I save and continue
+    Then I am asked to review my answers
+    And I confirm my answers are correct
+    When I click confirm
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block
     Then the edition should have been updated successfully
