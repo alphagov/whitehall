@@ -2,6 +2,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   include CanScheduleOrPublish
 
   NEW_BLOCK_STEPS = {
+    review: "review",
     edit_draft: "edit_draft",
   }.freeze
 
@@ -11,7 +12,6 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   }.freeze
 
   SHARED_STEPS = {
-    review: "review",
     confirmation: "confirmation",
   }.freeze
 
@@ -27,7 +27,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
       review_links
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
       schedule_publishing
-    when SHARED_STEPS[:review]
+    when NEW_BLOCK_STEPS[:review]
       review
     when SHARED_STEPS[:confirmation]
       confirmation
@@ -44,7 +44,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
       redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: :schedule_publishing)
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
       schedule_or_publish
-    when SHARED_STEPS[:review]
+    when NEW_BLOCK_STEPS[:review]
       publish
     end
   end
@@ -120,7 +120,7 @@ private
   REVIEW_ERROR = Data.define(:attribute, :full_message)
 
   def publish
-    if params[:step] == SHARED_STEPS[:review] && params[:is_confirmed].blank?
+    if params[:step] == NEW_BLOCK_STEPS[:review] && params[:is_confirmed].blank?
       @confirm_error_copy = "Confirm details are correct"
       @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
       render "content_block_manager/content_block/editions/workflow/review"
