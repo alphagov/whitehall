@@ -10,7 +10,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   describe "attachment deletion" do
     context "given a draft document with multiple file attachments" do
       let(:managing_editor) { create(:managing_editor) }
-      let(:first_attachment) { build(:file_attachment_with_asset, attachable: edition, title: "first attachment") }
+      let(:first_attachment) { build(:csv_attachment, attachable: edition, title: "first attachment") }
       let(:first_asset_id) { "asset_manager_id" }
       let(:second_attachment) { build(:file_attachment, attachable: edition) }
       let(:second_asset_id_original) { "asset_manager_id_original" }

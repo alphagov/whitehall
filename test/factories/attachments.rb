@@ -19,16 +19,6 @@ FactoryBot.define do
       end
     end
 
-    trait(:doc) do
-      transient do
-        file { File.open(Rails.root.join("test/fixtures/sample.docx")) }
-      end
-
-      after(:build) do |attachment, evaluator|
-        attachment.attachment_data ||= build(:attachment_data_with_asset, file: evaluator.file, attachable: attachment.attachable)
-      end
-    end
-
     trait(:csv) do
       transient do
         file { File.open(Rails.root.join("test/fixtures/sample.csv")) }
@@ -47,7 +37,6 @@ FactoryBot.define do
   end
 
   factory :file_attachment, parent: :attachment, traits: [:pdf]
-  factory :file_attachment_with_asset, parent: :attachment, traits: [:doc]
   factory :csv_attachment, parent: :attachment, traits: [:csv]
   factory :file_attachment_with_no_assets, parent: :attachment, traits: [:with_no_assets]
 
