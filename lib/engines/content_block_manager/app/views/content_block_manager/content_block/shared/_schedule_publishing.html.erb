@@ -33,12 +33,14 @@
             checked:  is_scheduled_param == "now",
             text: "Publish the edit now",
             hint_text: "The edit will be made when you select publish and users will see it immediately.",
+            bold: true,
           },
           {
             value: "schedule",
             checked: is_scheduled_param == "schedule",
             text: "Schedule the edit for the future",
             hint_text: "The edit will be published on a date and time you choose.",
+            bold: true,
             conditional: render("components/datetime_fields", {
               heading_size: "s",
               field_name: "scheduled_publication",
