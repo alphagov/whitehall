@@ -4,7 +4,7 @@
   <div class="govuk-grid-column-three-quarters">
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">
-        <%= confirmation_copy.panel_copy %>
+        <%= confirmation_copy(is_scheduled: @is_scheduled, content_block_edition: @content_block_edition).panel_copy %>
       </h1>
     </div>
   </div>
@@ -13,7 +13,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters govuk-body">
     <h2 class="govuk-heading-m">What happens next?</h2>
-    <p><%= confirmation_copy.paragraph_copy %> If you need any support or want to delete a content block you can raise a support request.
+    <p><%= confirmation_copy(is_scheduled: @is_scheduled, content_block_edition: @content_block_edition).paragraph_copy %> If you need any support or want to delete a content block you can raise a support request.
     </p>
     <div class="govuk-button-group">
       <%= render "govuk_publishing_components/components/button", {

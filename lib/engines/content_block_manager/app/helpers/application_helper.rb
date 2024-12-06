@@ -1,5 +1,5 @@
 module ContentBlockManager
-  module WorkflowHelper
+  module ApplicationHelper
 
     CONFIRMATION_COPY = Data.define(:panel_copy, :paragraph_copy)
     def confirmation_copy(is_scheduled:, content_block_edition:)
