@@ -83,8 +83,12 @@ private
       raise ActiveRecord::RecordInvalid, @content_block_edition
     elsif  params[:schedule_publishing] == "schedule"
       @content_block_edition.update(scheduled_publication_params)
+      @content_block_edition.schedule!
       raise ActiveRecord::RecordInvalid, @content_block_edition if @content_block_edition.errors.any?
     end
+
+    @schedule_publishing = params[:schedule_publishing]
+    @scheduled_at = scheduled_publication_params
 
     render :review_update
   rescue ActiveRecord::RecordInvalid
