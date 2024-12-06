@@ -9,12 +9,12 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
   describe "attachment replacement" do
     let(:managing_editor) { create(:managing_editor) }
-    let(:filename) { "sample.docx" }
+    let(:filename) { "sample.csv" }
     let(:asset_manager_id) { "asset_manager_id" }
     let(:replacement_filename) { "sample.rtf" }
     let(:replacement_asset_manager_id) { "replacement-asset-id" }
     let(:variant) { Asset.variants[:original] }
-    let(:attachment) { build(:file_attachment_with_asset, title: "attachment-title", attachable: edition) }
+    let(:attachment) { build(:csv_attachment, title: "attachment-title", attachable: edition) }
 
     before do
       login_as(managing_editor)
