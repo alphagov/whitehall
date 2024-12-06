@@ -38,7 +38,7 @@ class ContentBlockManager::ContentBlock::EditionForm
 
   class Update < ContentBlockManager::ContentBlock::EditionForm
     def title
-      "Change #{schema.name}"
+      "Edit #{schema.name}"
     end
 
     def url
