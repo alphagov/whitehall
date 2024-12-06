@@ -125,7 +125,7 @@ class OrganisationBrandColour
   TheOfficeOfTheLeaderOfTheHouseOfCommons = create!(
     id: 24,
     title: "Office of the Leader of the House of Commons",
-    class_name: "the-office-of-the-leader-of-the-house-of-commons",
+    class_name: "office-of-the-leader-of-the-house-of-commons",
   )
   UKExportFinance = create!(
     id: 25,
@@ -165,7 +165,7 @@ class OrganisationBrandColour
   DepartmentForScienceInnovationAndTechnology = create!(
     id: 32,
     title: "Department for Science, Innovation & Technology",
-    class_name: "department-for-science-innovation-and-technology",
+    class_name: "department-for-science-innovation-technology",
   )
   PrimeMinistersOffice10DowningStreet = create!(
     id: 33,
