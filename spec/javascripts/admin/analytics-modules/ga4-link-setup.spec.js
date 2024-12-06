@@ -33,7 +33,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4LinkSetup', function () {
   })
 
   it('excludes links that serve as tab controls', function () {
-    link.role = 'tab'
+    link.classList.add('govuk-tabs__tab')
 
     const Ga4LinkSetup = GOVUK.analyticsGa4.analyticsModules.Ga4LinkSetup
     Ga4LinkSetup.init()
