@@ -18,7 +18,7 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"button","text":"Button"}'
+      '{"event_name":"select_content","type":"button","text":"Button"}'
     )
   })
 
