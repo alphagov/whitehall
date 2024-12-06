@@ -88,7 +88,7 @@ private
     end
 
     @schedule_publishing = params[:schedule_publishing]
-    @scheduled_at = scheduled_publication_params
+    @scheduled_at = scheduled_publication_params.to_h
 
     render :review_update
   rescue ActiveRecord::RecordInvalid

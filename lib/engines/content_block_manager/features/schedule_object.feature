@@ -25,13 +25,13 @@ Feature: Schedule a content object
     When I am updating a content block
     Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    Then I am asked to review my answers
+    And I confirm my answers are correct
+    And I click confirm
     When I click to view the content block
     And I click to edit the schedule
     And I choose to publish the change now
     And I save and continue
-    Then I am asked to review my answers
-    And I confirm my answers are correct
-    When I click confirm
     When I click to view the content block
     Then the published state of the object should be shown
     And there should be no jobs scheduled
@@ -41,12 +41,12 @@ Feature: Schedule a content object
     When I am updating a content block
     Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    Then I am asked to review my answers
+    And I confirm my answers are correct
+    And I click confirm
     When I click to view the content block
     And I click to edit the schedule
     And I schedule the change for 5 days in the future
-    Then I am asked to review my answers
-    And I confirm my answers are correct
-    When I click confirm
     When I click to view the content block
     Then I should see the scheduled date on the object
     And there should only be one job scheduled
@@ -62,6 +62,9 @@ Feature: Schedule a content object
     When I am updating a content block
     And I choose to publish the change now
     And I save and continue
+    Then I am asked to review my answers
+    And I confirm my answers are correct
+    When I click confirm
     Then there should be no jobs scheduled
 
   @disable-sidekiq-test-mode
@@ -75,9 +78,6 @@ Feature: Schedule a content object
     When I click to view the content block
     And I click to edit the schedule
     And I schedule the change for 5 days in the future
-    Then I am asked to review my answers
-    And I confirm my answers are correct
-    When I click confirm
     When I click to view the content block
     Then there should only be one job scheduled
 
