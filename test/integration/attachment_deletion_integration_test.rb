@@ -10,10 +10,10 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   describe "attachment deletion" do
     context "given a draft document with multiple file attachments" do
       let(:managing_editor) { create(:managing_editor) }
-      let(:first_attachment) { build(:file_attachment_with_asset, attachable: edition, title: "first attachment") }
-      let(:first_asset_id) { "asset_manager_id" }
+      let(:first_attachment) { build(:csv_attachment, attachable: edition, title: "first attachment") }
+      let(:first_asset_id) { first_attachment.attachment_data.assets.first.asset_manager_id }
       let(:second_attachment) { build(:file_attachment, attachable: edition) }
-      let(:second_asset_id_original) { "asset_manager_id_original" }
+      let(:second_asset_id) { second_attachment.attachment_data.assets.first.asset_manager_id }
       let(:edition) { create(:news_article) }
 
       before do
@@ -24,7 +24,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         stub_asset(first_asset_id)
-        stub_asset(second_asset_id_original)
+        stub_asset(second_asset_id)
 
         edition.attachments << [first_attachment, second_attachment]
         edition.save!
@@ -64,7 +64,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
         it "deletes all corresponding assets in Asset Manager" do
           Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
-          Services.asset_manager.expects(:delete_asset).once.with(second_asset_id_original)
+          Services.asset_manager.expects(:delete_asset).once.with(second_asset_id)
           assert_equal AssetManagerAttachmentMetadataWorker.jobs.count, 2
 
           AssetManagerAttachmentMetadataWorker.drain

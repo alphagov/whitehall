@@ -34,7 +34,7 @@ class AssetManager::AttachmentDeleterTest < ActiveSupport::TestCase
       let(:deleted) { true }
 
       it "deletes attachment asset in Asset Manager" do
-        delete_worker.expects(:call).with("asset_manager_id_original")
+        delete_worker.expects(:call).with("asset_manager_id")
 
         worker.call(attachment_data)
       end

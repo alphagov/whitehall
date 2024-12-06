@@ -46,11 +46,11 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   end
 
   test "returns file url using asset_manager_id when the model has the original asset" do
-    model = build(:attachment_data_with_asset, attachable: build(:draft_edition, id: 1))
+    model = build(:attachment_data, attachable: build(:draft_edition, id: 1))
     model.save!
     model.reload
 
-    assert_equal "http://assets-host/media/asset_manager_id/sample.docx", model.file.url
+    assert_equal "http://assets-host/media/asset_manager_id/greenpaper.pdf", model.file.url
   end
 
   test "returns file url using asset_manager_id when the model has an asset variant" do

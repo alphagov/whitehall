@@ -15,7 +15,7 @@ class AssetManagerTest < ActiveSupport::TestCase
   %w[unpublished superseded].each do |state|
     context "for an asset attached only to a #{state} edition" do
       let(:edition) { create(:"#{state}_publication") }
-      let(:attachment) { create(:file_attachment_with_asset, attachable: edition) }
+      let(:attachment) { create(:file_attachment, attachable: edition) }
 
       context "when asset is not deleted from asset manager" do
         before do
@@ -57,7 +57,7 @@ class AssetManagerTest < ActiveSupport::TestCase
 
   context "for an asset attached only to a draft edition" do
     let(:edition) { create(:draft_publication) }
-    let(:attachment) { create(:file_attachment_with_asset, attachable: edition) }
+    let(:attachment) { create(:file_attachment, attachable: edition) }
 
     context "when asset is not deleted from asset manager" do
       before do
@@ -86,7 +86,7 @@ class AssetManagerTest < ActiveSupport::TestCase
 
   context "for an asset attached only to a published edition" do
     let(:edition) { create(:published_publication) }
-    let(:attachment) { create(:file_attachment_with_asset, attachable: edition) }
+    let(:attachment) { create(:file_attachment, attachable: edition) }
 
     context "when asset is not deleted from asset manager" do
       before do
@@ -114,7 +114,7 @@ class AssetManagerTest < ActiveSupport::TestCase
   end
 
   context "for an asset attached to both published and superseded editions" do
-    let(:attachment) { create(:file_attachment_with_asset) }
+    let(:attachment) { create(:file_attachment) }
     let(:edition_1) { create(:superseded_publication, :with_alternative_format_provider, attachments: [attachment]) }
     let(:edition_2) { create(:published_publication, :with_alternative_format_provider, attachments: [attachment]) }
 
@@ -144,7 +144,7 @@ class AssetManagerTest < ActiveSupport::TestCase
   end
 
   context "for an asset attached only to something that is not an edition" do
-    let(:attachment) { create(:file_attachment_with_asset, attachable: create(:double)) }
+    let(:attachment) { create(:file_attachment, attachable: create(:double)) }
 
     test "it should include no output in the report" do
       assert_output("") { task.invoke }
