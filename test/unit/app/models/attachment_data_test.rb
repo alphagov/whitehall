@@ -432,6 +432,21 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert attachment_data.all_asset_variants_uploaded?
   end
 
+  test "#all_asset_variants_uploaded? skips over any legacy asset variants present" do
+    attachment_data = build(:attachment_data)
+
+    original_pdf_asset = build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: attachment_data.filename)
+    # Unable to set `variant: :thumbnail` here (which is what we really want to test)
+    # as it's not a valid enum and there seems to be no way of stubbing it.
+    # But setting to `nil` does the same thing for the purposes of this test.
+    legacy_thumbnail_asset = build(:asset, asset_manager_id: "asset_manager_id_thumbnail", variant: nil, filename: "thumbnail_#{attachment_data.filename}.png")
+
+    attachment_data.assets << original_pdf_asset
+    attachment_data.assets << legacy_thumbnail_asset
+
+    assert attachment_data.all_asset_variants_uploaded?
+  end
+
   test "#all_asset_variants_uploaded? returns false if there are no assets" do
     attachment_data = build(:attachment_data_with_no_assets)
 
