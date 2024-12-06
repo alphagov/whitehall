@@ -1,5 +1,5 @@
 <% content_for :context, context %>
-<% content_for :title, "When do you want to publish the change?" %>
+<% content_for :title, "Select publish date" %>
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -16,8 +16,6 @@
   is_scheduled_param = params["schedule_publishing"]
 %>
 
-<p class="govuk-body">Choose when you would like the change to be made.</p>
-
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @content_block_edition)) %>
 
 <div class="govuk-grid-row">
@@ -33,12 +31,16 @@
           {
             value: "now",
             checked:  is_scheduled_param == "now",
-            text: "Publish the change now",
+            text: "Publish the edit now",
+            hint_text: "The edit will be made when you select publish and users will see it immediately.",
+            bold: true,
           },
           {
             value: "schedule",
             checked: is_scheduled_param == "schedule",
-            text: "Schedule the change for the future",
+            text: "Schedule the edit for the future",
+            hint_text: "The edit will be published on a date and time you choose.",
+            bold: true,
             conditional: render("components/datetime_fields", {
               heading_size: "s",
               field_name: "scheduled_publication",
@@ -86,9 +88,9 @@
       <div class="govuk-button-group">
         <div>
           <%= render "govuk_publishing_components/components/button", {
-            text: "Accept and publish",
-            name: "accept_and_publish",
-            value: "Accept and publish",
+            text: "Save and continue",
+            name: "save_and_continue",
+            value: "Save and continue",
             type: "submit",
           } %>
     <% end %>
