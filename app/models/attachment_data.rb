@@ -60,7 +60,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def all_asset_variants_uploaded?
-    asset_variants = assets.map(&:variant).map(&:to_sym)
+    asset_variants = assets.map(&:variant).compact.map(&:to_sym)
 
     (%i[original] - asset_variants).empty?
   end
