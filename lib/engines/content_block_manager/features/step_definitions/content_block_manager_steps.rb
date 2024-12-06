@@ -622,7 +622,7 @@ And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
   @future_date = number_of_days.days.since(Time.zone.now)
   fill_in_date_and_time_field(@future_date)
 
-  click_on "Accept and publish"
+  click_on "Save and continue"
 end
 
 When("I enter an invalid date") do
@@ -649,7 +649,7 @@ And("the block is scheduled and published") do
   fill_in_date_and_time_field(near_future_date)
 
   Sidekiq::Testing.inline! do
-    click_on "Accept and publish"
+    click_on "Save and continue"
   end
 end
 
