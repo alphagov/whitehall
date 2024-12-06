@@ -579,7 +579,7 @@ When(/^I save and continue$/) do
 end
 
 Then(/^I am asked when I want to publish the change$/) do
-  assert_text "When do you want to publish the change?"
+  assert_text "Select publish date"
 end
 
 Then(/^I choose to publish the change now$/) do
