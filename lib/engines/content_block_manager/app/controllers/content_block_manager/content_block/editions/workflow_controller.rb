@@ -9,6 +9,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   UPDATE_BLOCK_STEPS = {
     review_links: "review_links",
     schedule_publishing: "schedule_publishing",
+    review_update: "review_update",
   }.freeze
 
   SHARED_STEPS = {
@@ -43,6 +44,8 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     when UPDATE_BLOCK_STEPS[:review_links]
       redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: :schedule_publishing)
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
+      review_update
+    when UPDATE_BLOCK_STEPS[:review_update]
       schedule_or_publish
     when NEW_BLOCK_STEPS[:review]
       publish
@@ -70,6 +73,19 @@ private
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
     render :review
+  end
+
+  def review_update
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+
+    if params[:schedule_publishing].blank?
+      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
+      raise ActiveRecord::RecordInvalid, @content_block_edition
+    end
+
+    render :review_update
+  rescue ActiveRecord::RecordInvalid
+    render :schedule_publishing
   end
 
   def confirmation
