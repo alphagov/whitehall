@@ -12,15 +12,18 @@ window.GOVUK.analyticsGa4.analyticsModules =
       moduleElements.forEach(function (moduleElement) {
         const links = moduleElement.querySelectorAll('a')
         links.forEach((link) => {
+          // Exclude links that serve as tab controls as they have their own event tracking
+          if (link.role === 'tab') {
+            return
+          }
           const event = {
             event_name: 'navigation',
-            type: link.role === 'button' ? 'button' : 'generic_link',
-            method: 'primary_click'
+            type: link.role === 'button' ? 'button' : 'generic_link'
           }
-          if (link.dataset.ga4Event) {
-            Object.assign(event, JSON.parse(link.dataset.ga4Event))
+          if (link.dataset.ga4Link) {
+            Object.assign(event, JSON.parse(link.dataset.ga4Link))
           }
-          link.dataset.ga4Event = JSON.stringify(event)
+          link.dataset.ga4Link = JSON.stringify(event)
         })
       })
     }

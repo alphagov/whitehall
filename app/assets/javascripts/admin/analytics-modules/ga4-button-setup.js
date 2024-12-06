@@ -10,15 +10,13 @@ window.GOVUK.analyticsGa4.analyticsModules =
         "[data-module~='ga4-button-setup']"
       )
       moduleElements.forEach(function (moduleElement) {
-        const buttons = moduleElement.querySelectorAll(
-          'button, [role="button"]'
-        )
+        const buttons = moduleElement.querySelectorAll('button')
         buttons.forEach((button) => {
           const event = {
-            event_name: 'navigation',
+            event_name:
+              button.type === 'submit' ? 'navigation' : 'select_content',
             type: 'button',
-            text: button.textContent,
-            method: 'primary_click'
+            text: button.textContent
           }
           if (button.dataset.ga4Event) {
             Object.assign(event, JSON.parse(button.dataset.ga4Event))

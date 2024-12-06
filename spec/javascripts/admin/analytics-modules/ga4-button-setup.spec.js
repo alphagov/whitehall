@@ -18,7 +18,7 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"button","text":"Button","method":"primary_click"}'
+      '{"event_name":"select_content","type":"button","text":"Button"}'
     )
   })
 
@@ -29,7 +29,7 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"button","text":"Button","method":"primary_click"}'
+      '{"event_name":"navigation","type":"button","text":"Button"}'
     )
   })
 
@@ -42,21 +42,7 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     ga4ButtonSetup.init()
 
     expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"custom_event_name","type":"button","text":"Button","method":"primary_click"}'
-    )
-  })
-
-  it('adds ga4 event data to nodes with the button role', function () {
-    const link = document.createElement('a')
-    link.textContent = 'Link'
-    link.role = 'button'
-    button.replaceWith(link)
-
-    const ga4ButtonSetup = GOVUK.analyticsGa4.analyticsModules.Ga4ButtonSetup
-    ga4ButtonSetup.init()
-
-    expect(link.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"button","text":"Link","method":"primary_click"}'
+      '{"event_name":"custom_event_name","type":"button","text":"Button"}'
     )
   })
 })
