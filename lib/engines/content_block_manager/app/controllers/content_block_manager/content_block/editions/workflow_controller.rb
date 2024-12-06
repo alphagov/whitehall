@@ -81,6 +81,9 @@ private
     if params[:schedule_publishing].blank?
       @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
       raise ActiveRecord::RecordInvalid, @content_block_edition
+    elsif  params[:schedule_publishing] == "schedule"
+      @content_block_edition.update(scheduled_publication_params)
+      raise ActiveRecord::RecordInvalid, @content_block_edition if @content_block_edition.errors.any?
     end
 
     render :review_update
