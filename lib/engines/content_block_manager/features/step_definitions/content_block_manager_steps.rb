@@ -583,7 +583,7 @@ Then(/^I am asked when I want to publish the change$/) do
 end
 
 Then(/^I choose to publish the change now$/) do
-  choose "Publish the change now"
+  choose "Publish the edit now"
 end
 
 Then("I check the block type {string}") do |checkbox_name|
@@ -614,11 +614,11 @@ When("I am updating a content block") do
 end
 
 When("I choose to schedule the change") do
-  choose "Schedule the change for the future"
+  choose "Schedule the edit for the future"
 end
 
 And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
-  choose "Schedule the change for the future"
+  choose "Schedule the edit for the future"
   @future_date = number_of_days.days.since(Time.zone.now)
   fill_in_date_and_time_field(@future_date)
 

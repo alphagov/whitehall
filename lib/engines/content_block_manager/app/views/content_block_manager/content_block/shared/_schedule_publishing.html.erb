@@ -31,12 +31,12 @@
           {
             value: "now",
             checked:  is_scheduled_param == "now",
-            text: "Publish the change now",
+            text: "Publish the edit now",
           },
           {
             value: "schedule",
             checked: is_scheduled_param == "schedule",
-            text: "Schedule the change for the future",
+            text: "Schedule the edit for the future",
             conditional: render("components/datetime_fields", {
               heading_size: "s",
               field_name: "scheduled_publication",
