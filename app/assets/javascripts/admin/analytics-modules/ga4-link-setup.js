@@ -12,6 +12,10 @@ window.GOVUK.analyticsGa4.analyticsModules =
       moduleElements.forEach(function (moduleElement) {
         const links = moduleElement.querySelectorAll('a')
         links.forEach((link) => {
+          // Exclude links that serve as tab controls as they have their own event tracking
+          if (link.role === 'tab') {
+            return
+          }
           const event = {
             event_name: 'navigation',
             type: link.role === 'button' ? 'button' : 'generic_link'
