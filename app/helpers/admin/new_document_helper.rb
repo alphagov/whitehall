@@ -20,7 +20,7 @@ module Admin::NewDocumentHelper
       .select { |edition_type| can?(:create, edition_type) }
       .map do |edition_type|
       title_value = edition_type.name.underscore
-      title_label = title_value.humanize
+      title_label = title_value.gsub("editionable_", "").humanize
       {
         value: title_value,
         text: title_label,
