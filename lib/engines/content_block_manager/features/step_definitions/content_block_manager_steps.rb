@@ -151,12 +151,14 @@ Then("the edition should have been created successfully") do
 end
 
 And("I should be taken to the confirmation page for a published block") do
-  assert_text "Email address published"
-  assert_text "You can now view the updated content block. If you need any support or want to delete a content block you can raise a support request."
+  content_block_edition = ContentBlockManager::ContentBlock::Edition.last
+
+  assert_text ContentBlockManager::ConfirmationCopyPresenter.new(content_block_edition).for_panel
+  assert_text ContentBlockManager::ConfirmationCopyPresenter.new(content_block_edition).for_paragraph
   expect(page).to have_link(
     "View content block",
     href: content_block_manager.content_block_manager_content_block_document_path(
-      ContentBlockManager::ContentBlock::Edition.last.document,
+      content_block_edition.document,
     ),
   )
 
@@ -171,13 +173,15 @@ def has_support_button
 end
 
 And("I should be taken to the confirmation page for a new block") do
-  assert_text "Email address created"
-  assert_text "You can now view the content block. If you need any support or want to delete a content block you can raise a support request."
+  content_block = ContentBlockManager::ContentBlock::Edition.last
+
+  assert_text ContentBlockManager::ConfirmationCopyPresenter.new(content_block).for_panel
+  assert_text ContentBlockManager::ConfirmationCopyPresenter.new(content_block).for_paragraph
 
   expect(page).to have_link(
     "View content block",
     href: content_block_manager.content_block_manager_content_block_document_path(
-      ContentBlockManager::ContentBlock::Edition.last.document,
+      content_block.document,
     ),
   )
 
@@ -191,13 +195,15 @@ When("I click to view the content block") do
 end
 
 When("I should be taken to the scheduled confirmation page") do
-  assert_text "Email address scheduled to publish on"
-  assert_text "You can now view the updated schedule of the content block."
+  content_block_edition = ContentBlockManager::ContentBlock::Edition.last
+
+  assert_text ContentBlockManager::ConfirmationCopyPresenter.new(content_block_edition).for_panel.squish
+  assert_text ContentBlockManager::ConfirmationCopyPresenter.new(content_block_edition).for_paragraph
 
   expect(page).to have_link(
     "View content block",
     href: content_block_manager.content_block_manager_content_block_document_path(
-      ContentBlockManager::ContentBlock::Edition.last.document,
+      content_block_edition.document,
     ),
   )
 
