@@ -75,26 +75,9 @@ private
   def confirmation
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
-    confirmation_copy
+    @confirmation_copy = ContentBlockManager::ConfirmationCopyPresenter.new(@content_block_edition)
 
     render :confirmation
-  end
-
-  def confirmation_copy
-    if params[:is_scheduled]
-      @panel_copy = "#{@content_block_edition.block_type.humanize} scheduled to publish on #{I18n.l(@content_block_edition.scheduled_publication, format: :long_ordinal)}"
-      @paragraph_copy = "You can now view the updated schedule of the content block."
-    elsif more_than_one_edition?
-      @panel_copy = "#{@content_block_edition.block_type.humanize} published"
-      @paragraph_copy = "You can now view the updated content block."
-    else
-      @panel_copy = "#{@content_block_edition.block_type.humanize} created"
-      @paragraph_copy = "You can now view the content block."
-    end
-  end
-
-  def more_than_one_edition?
-    @content_block_edition.document.editions.count > 1
   end
 
   def review_links
