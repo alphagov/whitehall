@@ -1,4 +1,5 @@
 require_relative "../support/stubs"
+require_relative "../support/dependent_content"
 
 # Suppress noisy Sidekiq logging in the test output
 Sidekiq.configure_client do |cfg|
@@ -478,6 +479,7 @@ When(/^dependent content exists for a content block$/) do
       "last_edited_by_editor_id" => SecureRandom.uuid,
       "last_edited_at" => 2.days.ago.to_s,
       "host_content_id" => "abc12345",
+      "instances" => 1,
       "primary_publishing_organisation" => {
         "content_id" => SecureRandom.uuid,
         "title" => "Organisation #{i}",
@@ -494,6 +496,8 @@ When(/^dependent content exists for a content block$/) do
     order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
     rollup: @rollup,
   )
+
+  stub_publishing_api_has_embedded_content_details(@dependent_content.first)
 end
 
 Then(/^I should see the dependent content listed$/) do

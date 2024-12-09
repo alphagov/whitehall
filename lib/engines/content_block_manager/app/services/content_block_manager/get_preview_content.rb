@@ -90,8 +90,13 @@ module ContentBlockManager
       nokogiri_html.css("span[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
     end
 
+    def metadata
+      response = Services.publishing_api.get_host_content_item_for_content_id(@content_block_edition.document.content_id, @content_id)
+      response.parsed_content
+    end
+
     def instances_count
-      content_block_spans(html).length
+      metadata["instances"]
     end
 
     ERROR_HTML = "<html><body><p>Preview not found</p></body></html>".freeze
