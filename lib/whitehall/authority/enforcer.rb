@@ -48,5 +48,6 @@ module Whitehall::Authority
     "Organisation" => Rules::OrganisationRules,
     "Government" => Rules::GovernmentRules,
     "StatisticsAnnouncement" => Rules::StatisticsAnnouncementRules,
+    "EditionableTopicalEvent" => Rules::EditionableTopicalEventRules,
   }.freeze
 end

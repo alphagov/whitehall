@@ -163,6 +163,8 @@ Whitehall::Application.routes.draw do
       end
       resources :operational_fields, except: [:show]
 
+      resources :editionable_topical_events, path: "editionable-topical-events", except: [:index]
+
       resources :topical_events, path: "topical-events" do
         resource :topical_event_about_pages, path: "about"
         resources :topical_event_featurings, path: "featurings" do
