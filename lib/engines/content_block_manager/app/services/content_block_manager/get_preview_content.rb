@@ -4,8 +4,10 @@ require "uri"
 
 module ContentBlockManager
   class GetPreviewContent
-    def self.for_content_id(content_id:, content_block_edition:)
-      new(content_id:, content_block_edition:).for_content_id
+    include ContentBlockManager::Engine.routes.url_helpers
+
+    def self.for_content_id(content_id:, content_block_edition:, base_path: nil)
+      new(content_id:, content_block_edition:, base_path:).for_content_id
     end
 
     def for_content_id
@@ -14,9 +16,10 @@ module ContentBlockManager
 
   private
 
-    def initialize(content_id:, content_block_edition:)
+    def initialize(content_id:, content_block_edition:, base_path: nil)
       @content_id = content_id
       @content_block_edition = content_block_edition
+      @base_path = base_path
     end
 
     def html
@@ -34,15 +37,32 @@ module ContentBlockManager
       Rails.env.development? ? Plek.external_url_for("government-frontend") : Plek.website_root
     end
 
+    def base_path
+      @base_path || content_item["base_path"]
+    end
+
     def frontend_path
-      frontend_base_path + content_item["base_path"]
+      frontend_base_path + base_path
     end
 
     def preview_html
       uri = URI(frontend_path)
       nokogiri_html = html_snapshot_from_frontend(uri)
+      update_local_link_paths(nokogiri_html)
       add_draft_style(nokogiri_html)
       replace_existing_content_blocks(nokogiri_html)
+    end
+
+    def update_local_link_paths(nokogiri_html)
+      url = content_block_manager_content_block_host_content_preview_path(id: @content_block_edition.id, host_content_id: @content_id)
+      nokogiri_html.css("a").each do |link|
+        next if link[:href].start_with?("//") || link[:href].start_with?("http")
+
+        link[:href] = "#{url}?base_path=#{link[:href]}"
+        link[:target] = "_parent"
+      end
+
+      nokogiri_html
     end
 
     def replace_existing_content_blocks(nokogiri_html)
@@ -70,8 +90,13 @@ module ContentBlockManager
       nokogiri_html.css("span[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
     end
 
+    def metadata
+      response = Services.publishing_api.get_host_content_item_for_content_id(@content_block_edition.document.content_id, @content_id)
+      response.parsed_content
+    end
+
     def instances_count
-      content_block_spans(html).length
+      metadata["instances"]
     end
 
     ERROR_HTML = "<html><body><p>Preview not found</p></body></html>".freeze

@@ -2,6 +2,8 @@ require "test_helper"
 
 class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
+  include ContentBlockManager::Engine.routes.url_helpers
+  include TextAssertions
 
   let(:described_class) { ContentBlockManager::GetPreviewContent }
   let(:host_content_id) { SecureRandom.uuid }
@@ -28,7 +30,16 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
     build(:content_block_document, :email_address, content_id: preview_content_id)
   end
   let(:block_to_preview) do
-    build(:content_block_edition, :email_address, document:, details: { "email_address" => "new@new.com" })
+    build(:content_block_edition, :email_address, document:, details: { "email_address" => "new@new.com" }, id: 1)
+  end
+  let(:metadata_response) do
+    stub(:response, parsed_content: { "instances" => 2 })
+  end
+
+  before do
+    Services.publishing_api.expects(:get_host_content_item_for_content_id)
+            .with(block_to_preview.document.content_id, host_content_id)
+            .returns(metadata_response)
   end
 
   describe "#for_content_id" do
@@ -55,16 +66,12 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
     it "returns the count of instances" do
       Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
 
-      expected_content = {
-        instances_count: 1,
-      }
-
       actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
         content_id: host_content_id,
         content_block_edition: block_to_preview,
       )
 
-      assert_equal expected_content[:instances_count], actual_content.instances_count
+      assert_equal 2, actual_content.instances_count
     end
 
     it "returns the preview html" do
@@ -98,6 +105,45 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
 
       assert_equal expected_content[:title], actual_content.title
       assert_equal expected_content[:html].to_s, actual_content.html.to_s
+    end
+
+    it "updates any link paths" do
+      fake_frontend_response = "
+        <a href='/foo'>Internal link</a>
+        <a href='https://example.com'>External link</a>
+        <a href='//example.com'>Protocol relative link</a>
+      "
+      Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
+
+      actual_content = ContentBlockManager::GetPreviewContent.for_content_id(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+      )
+
+      url = content_block_manager_content_block_host_content_preview_path(id: block_to_preview.id, host_content_id:)
+
+      expected_content = Nokogiri::HTML.parse("
+        <html>
+          <body class=' draft'>
+            <a href='#{url}?base_path=/foo' target='_parent'>Internal link</a>
+            <a href='https://example.com'>External link</a>
+            <a href='//example.com'>Protocol relative link</a>
+          </body>
+        </html>
+      ").to_s
+
+      assert_equal_ignoring_whitespace actual_content.html.to_s, expected_content
+    end
+
+    it "allows a base_path to be provided" do
+      base_path = "something/different"
+      Net::HTTP.expects(:get).with(URI(Plek.website_root + base_path)).returns("")
+
+      ContentBlockManager::GetPreviewContent.for_content_id(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+        base_path:,
+      )
     end
   end
 end

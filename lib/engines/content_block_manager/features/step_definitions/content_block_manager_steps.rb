@@ -558,7 +558,15 @@ When("I click on the first host document") do
     Plek.website_root + @current_host_document["base_path"],
   ).to_return(
     status: 200,
-    body: "<body><h1>#{@current_host_document['title']}</h1><p>iframe preview</p>#{@content_block.render}</body>",
+    body: "<body><h1>#{@current_host_document['title']}</h1><p>iframe preview <a href=\"/other-page\">Link to other page</a></p>#{@content_block.render}</body>",
+  )
+
+  stub_request(
+    :get,
+    "#{Plek.website_root}/other-page",
+  ).to_return(
+    status: 200,
+    body: "<body><h1>#{@current_host_document['title']}</h1><p>other page</p>#{@content_block.render}</body>",
   )
 
   click_on @current_host_document["title"]
@@ -571,6 +579,19 @@ Then("the preview page opens in a new tab") do
   assert_text "Email address: changed@example.com"
   within_frame "preview" do
     assert_text @current_host_document["title"]
+  end
+end
+
+When("I click on a link within the frame") do
+  within_frame "preview" do
+    click_on "Link to other page"
+  end
+end
+
+Then("I should see the content of the linked page") do
+  within_frame "preview" do
+    assert_text "other page"
+    assert_text "changed@example.com"
   end
 end
 
