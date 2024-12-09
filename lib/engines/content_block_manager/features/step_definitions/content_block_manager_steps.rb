@@ -579,11 +579,11 @@ When(/^I save and continue$/) do
 end
 
 Then(/^I am asked when I want to publish the change$/) do
-  assert_text "When do you want to publish the change?"
+  assert_text "Select publish date"
 end
 
 Then(/^I choose to publish the change now$/) do
-  choose "Publish the change now"
+  choose "Publish the edit now"
 end
 
 Then("I check the block type {string}") do |checkbox_name|
@@ -614,15 +614,15 @@ When("I am updating a content block") do
 end
 
 When("I choose to schedule the change") do
-  choose "Schedule the change for the future"
+  choose "Schedule the edit for the future"
 end
 
 And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
-  choose "Schedule the change for the future"
+  choose "Schedule the edit for the future"
   @future_date = number_of_days.days.since(Time.zone.now)
   fill_in_date_and_time_field(@future_date)
 
-  click_on "Accept and publish"
+  click_on "Save and continue"
 end
 
 When("I enter an invalid date") do
@@ -649,7 +649,7 @@ And("the block is scheduled and published") do
   fill_in_date_and_time_field(near_future_date)
 
   Sidekiq::Testing.inline! do
-    click_on "Accept and publish"
+    click_on "Save and continue"
   end
 end
 
