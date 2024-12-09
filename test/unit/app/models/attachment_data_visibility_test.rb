@@ -116,7 +116,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
         context "when attachment is replaced" do
           before do
-            replacement_attachment_data = build(:attachment_data_with_asset, to_replace_id: attachment_data.id, attachable:)
+            replacement_attachment_data = build(:attachment_data, to_replace_id: attachment_data.id, attachable:)
             attachment.update!(attachment_data: replacement_attachment_data)
           end
 

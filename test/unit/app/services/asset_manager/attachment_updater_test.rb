@@ -150,18 +150,14 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         it "it updates asset with matching replacement IDs based on asset variant" do
           replacement = AttachmentData.create!(file: File.open(fixture_path.join("whitepaper.pdf")), attachable: edition)
           replacement_original_asset = Asset.new(asset_manager_id: "replacement_original_asset_manager_id", variant: Asset.variants[:original], filename: "whitepaper.pdf")
-          replacement_thumbnail_asset = Asset.new(asset_manager_id: "replacement_thumbnail_asset_manager_id", variant: Asset.variants[:thumbnail], filename: "thumbnail_whitepaper.pdf.png")
-          replacement.assets = [replacement_original_asset, replacement_thumbnail_asset]
+          replacement.assets = [replacement_original_asset]
 
           attachment.attachment_data.replace_with!(replacement)
 
           replacement_attributes = { "replacement_id" => replacement_original_asset.asset_manager_id }
-          replacement_thumbnail_attributes = { "replacement_id" => replacement_thumbnail_asset.asset_manager_id }
 
           AssetManager::AssetUpdater.expects(:call)
                                     .with(attachment.attachment_data.assets.first.asset_manager_id, replacement_attributes)
-          AssetManager::AssetUpdater.expects(:call)
-                                    .with(attachment.attachment_data.assets.last.asset_manager_id, replacement_thumbnail_attributes)
 
           AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
@@ -178,7 +174,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           replacement_attributes = { "replacement_id" => replacement_original_asset.asset_manager_id }
 
           AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.first.asset_manager_id, replacement_attributes)
-          AssetManager::AssetUpdater.expects(:call).with(attachment.attachment_data.assets.last.asset_manager_id, replacement_attributes)
 
           AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
