@@ -6,8 +6,8 @@ module ContentBlockManager
   class GetPreviewContent
     include ContentBlockManager::Engine.routes.url_helpers
 
-    def self.for_content_id(content_id:, content_block_edition:)
-      new(content_id:, content_block_edition:).for_content_id
+    def self.for_content_id(content_id:, content_block_edition:, base_path: nil)
+      new(content_id:, content_block_edition:, base_path:).for_content_id
     end
 
     def for_content_id
@@ -16,9 +16,10 @@ module ContentBlockManager
 
   private
 
-    def initialize(content_id:, content_block_edition:)
+    def initialize(content_id:, content_block_edition:, base_path: nil)
       @content_id = content_id
       @content_block_edition = content_block_edition
+      @base_path = base_path
     end
 
     def html
@@ -36,8 +37,12 @@ module ContentBlockManager
       Rails.env.development? ? Plek.external_url_for("government-frontend") : Plek.website_root
     end
 
+    def base_path
+      @base_path || content_item["base_path"]
+    end
+
     def frontend_path
-      frontend_base_path + content_item["base_path"]
+      frontend_base_path + base_path
     end
 
     def preview_html

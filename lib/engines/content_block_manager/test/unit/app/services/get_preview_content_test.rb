@@ -129,5 +129,16 @@ class ContentBlockManager::GetPreviewContentTest < ActiveSupport::TestCase
 
       assert_equal_ignoring_whitespace actual_content.html.to_s, expected_content
     end
+
+    it "allows a base_path to be provided" do
+      base_path = "something/different"
+      Net::HTTP.expects(:get).with(URI(Plek.website_root + base_path)).returns("")
+
+      ContentBlockManager::GetPreviewContent.for_content_id(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+        base_path:,
+      )
+    end
   end
 end
