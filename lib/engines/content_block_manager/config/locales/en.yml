@@ -4,6 +4,10 @@ en:
       content_block_manager/content_block/edition/document:
         title: Title
   content_block_edition:
+    update:
+      title: "Edit %{block_type}"
+    create:
+      title: "Create %{block_type}"
     confirmation_page:
       scheduled:
         banner: "%{block_type} scheduled to publish on %{date}"
