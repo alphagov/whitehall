@@ -25,6 +25,7 @@ Feature: Edit a content object
     And I should see a back link to the review page
     When I choose to publish the change now
     And I save and continue
+    When I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block
     Then the edition should have been updated successfully
@@ -81,16 +82,31 @@ Feature: Edit a content object
     | my email address | xxxxx           | Ministry of Example |
     Then I should see a message that the "email_address" field is an invalid "email"
 
+  Scenario: GDS editor sees validation errors for unconfirmed answers
+    When I visit the Content Block Manager home page
+    When I click to view the document
+    When I click the first edit link
+    When I fill out the form
+    Then I am shown where the changes will take place
+    When I save and continue
+    And I choose to publish the change now
+    When I save and continue
+    Then I am asked to review my answers
+    When I click confirm
+    Then I should see a message that I need to confirm the details are correct
+
   @enable-sidekiq-test-mode
   Scenario: GDS editor can override a previously scheduled object
     When I am updating a content block
     And I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    When I review and confirm my answers are correct
     When I revisit the edit page
     Then I should see a warning telling me there is a scheduled change
     When I make the changes
     And I choose to publish the change now
     And I save and continue
+    When I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block
     Then the edition should have been updated successfully

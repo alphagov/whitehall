@@ -9,6 +9,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   UPDATE_BLOCK_STEPS = {
     review_links: "review_links",
     schedule_publishing: "schedule_publishing",
+    review_update: "review_update",
   }.freeze
 
   SHARED_STEPS = {
@@ -43,6 +44,8 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     when UPDATE_BLOCK_STEPS[:review_links]
       redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: :schedule_publishing)
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
+      review_update
+    when UPDATE_BLOCK_STEPS[:review_update]
       schedule_or_publish
     when NEW_BLOCK_STEPS[:review]
       publish
@@ -76,6 +79,37 @@ private
 
   def review_url
     content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review])
+  end
+
+  def review_update_url
+    schedule_publishing = params[:schedule_publishing]
+    scheduled_at = scheduled_publication_params.to_h
+
+    content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_update],
+      schedule_publishing:,
+      scheduled_at:,
+    )
+  end
+
+  def review_update
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+
+    if params[:schedule_publishing].blank?
+      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
+      raise ActiveRecord::RecordInvalid, @content_block_edition
+    elsif params[:schedule_publishing] == "schedule"
+      @content_block_edition.update!(scheduled_publication_params)
+      @content_block_edition.schedule!
+      raise ActiveRecord::RecordInvalid, @content_block_edition if @content_block_edition.errors.any?
+    end
+
+    @url = review_update_url
+
+    render :review
+  rescue ActiveRecord::RecordInvalid
+    render :schedule_publishing
   end
 
   def confirmation

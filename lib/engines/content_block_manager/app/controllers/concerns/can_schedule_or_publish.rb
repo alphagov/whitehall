@@ -1,23 +1,24 @@
 module CanScheduleOrPublish
   extend ActiveSupport::Concern
 
-  def schedule_or_publish(template = "content_block_manager/content_block/editions/workflow/schedule_publishing")
-    @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
-
-    if params[:schedule_publishing].blank?
-      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
-      raise ActiveRecord::RecordInvalid, @content_block_edition
-    elsif params[:schedule_publishing] == "schedule"
-      ContentBlockManager::ScheduleEditionService.new(@schema).call(@content_block_edition, scheduled_publication_params)
+  def schedule_or_publish
+    if params[:step] == ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_update] && params[:is_confirmed].blank?
+      @confirm_error_copy = "Confirm details are correct"
+      @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
+      render "content_block_manager/content_block/editions/workflow/review_update"
     else
-      publish and return
-    end
+      @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
 
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id,
-                                                                                        step: :confirmation,
-                                                                                        is_scheduled: true)
-  rescue ActiveRecord::RecordInvalid
-    render template
+      if params[:schedule_publishing] == "schedule"
+        ContentBlockManager::ScheduleEditionService.new(@schema).call(@content_block_edition, scheduled_publication_params)
+      else
+        publish and return
+      end
+
+      redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id,
+                                                                                          step: :confirmation,
+                                                                                          is_scheduled: true)
+    end
   end
 
   def publish
