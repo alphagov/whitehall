@@ -3,3 +3,14 @@ en:
     attributes:
       content_block_manager/content_block/edition/document:
         title: Title
+  content_block_edition:
+    confirmation_page:
+      scheduled:
+        banner: "%{block_type} scheduled to publish on %{date}"
+        detail: You can now view the updated schedule of the content block.
+      created:
+        banner: "%{block_type} created"
+        detail: You can now view the content block.
+      updated:
+        banner: "%{block_type} published"
+        detail: You can now view the updated content block.
