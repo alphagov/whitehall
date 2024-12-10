@@ -71,5 +71,48 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
         ContentBlockManager::ContentBlock::Document::DocumentFilter.new({ page: 2 }).paginated_documents
       end
     end
+
+    describe "last updated dates" do
+      describe "when dates are missing" do
+        it "does not filter by date if one or more date element is missing" do
+          document_scope_mock.expects(:page).with(1).returns(document_scope_mock)
+
+          ContentBlockManager::ContentBlock::Document::DocumentFilter.new(
+            {
+              last_updated_from: { "3i" => "", "2i" => "2", "1i" => "2025" },
+              last_updated_to: { "3i" => "", "2i" => "", "1i" => ""  },
+            },
+          ).paginated_documents
+        end
+      end
+
+      describe "when dates are valid" do
+        it "filters using last updated from date" do
+          document_scope_mock.expects(:page).with(1).returns(document_scope_mock)
+
+          expected_date_time = Time.zone.local(2025, 2, 1)
+
+          document_scope_mock.expects(:from_date).with(expected_date_time).returns(document_scope_mock)
+          ContentBlockManager::ContentBlock::Document::DocumentFilter.new(
+            {
+              last_updated_from: { "3i" => "1", "2i" => "2", "1i" => "2025" },
+            },
+          ).paginated_documents
+        end
+
+        it "filters using last updated to date" do
+          document_scope_mock.expects(:page).with(1).returns(document_scope_mock)
+
+          expected_date_time = Time.zone.local(2026, 4, 3).end_of_day
+
+          document_scope_mock.expects(:to_date).with(expected_date_time).returns(document_scope_mock)
+          ContentBlockManager::ContentBlock::Document::DocumentFilter.new(
+            {
+              last_updated_to: { "3i" => "3", "2i" => "4", "1i" => "2026" },
+            },
+          ).paginated_documents
+        end
+      end
+    end
   end
 end
