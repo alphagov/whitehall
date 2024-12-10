@@ -199,7 +199,11 @@ end
 When("I should be taken to the scheduled confirmation page") do
   content_block_edition = ContentBlockManager::ContentBlock::Edition.last
 
-  assert_text I18n.t("content_block_edition.confirmation_page.scheduled.banner", block_type: "Email address", date: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal))
+  assert_text I18n.t(
+    "content_block_edition.confirmation_page.scheduled.banner",
+    block_type: "Email address",
+    date: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal),
+  ).squish
   assert_text I18n.t("content_block_edition.confirmation_page.scheduled.detail")
 
   expect(page).to have_link(
