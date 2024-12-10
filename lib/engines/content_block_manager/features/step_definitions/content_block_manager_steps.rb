@@ -249,8 +249,9 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
   (1..count.to_i).each do |_i|
     document = create(:content_block_document, block_type.to_sym, title:)
 
-    create(
+    editions = create_list(
       :content_block_edition,
+      3,
       block_type.to_sym,
       document:,
       organisation:,
@@ -258,6 +259,9 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
       creator: @user,
       instructions_to_publishers:,
     )
+
+    document.latest_edition = editions.last
+    document.save!
   end
 end
 

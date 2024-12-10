@@ -83,6 +83,7 @@ module ContentBlockManager
       documents = documents.with_lead_organisation(@filters[:lead_organisation]) if @filters[:lead_organisation].present?
       documents = documents.from_date(from_date) if valid? && from_date
       documents = documents.to_date(to_date) if valid? && to_date
+      documents = documents.distinct
       documents.order("content_block_editions.updated_at DESC")
     end
   end
