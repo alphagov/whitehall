@@ -69,7 +69,13 @@ private
   def review
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
+    @url = review_url
+
     render :review
+  end
+
+  def review_url
+    content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review])
   end
 
   def confirmation
@@ -106,6 +112,7 @@ private
     if params[:step] == NEW_BLOCK_STEPS[:review] && params[:is_confirmed].blank?
       @confirm_error_copy = "Confirm details are correct"
       @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
+      @url = review_url
       render "content_block_manager/content_block/editions/workflow/review"
     else
       new_edition = ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
