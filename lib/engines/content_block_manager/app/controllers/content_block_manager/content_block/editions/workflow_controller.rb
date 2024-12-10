@@ -46,9 +46,9 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
       review_update
     when UPDATE_BLOCK_STEPS[:review_update]
-      schedule_or_publish
+      validate_review_page("review_update")
     when NEW_BLOCK_STEPS[:review]
-      publish
+      validate_review_page("review")
     end
   end
 
@@ -78,7 +78,10 @@ private
   end
 
   def review_url
-    content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review])
+    content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review],
+    )
   end
 
   def review_update_url
@@ -142,15 +145,14 @@ private
 
   REVIEW_ERROR = Data.define(:attribute, :full_message)
 
-  def publish
-    if params[:step] == NEW_BLOCK_STEPS[:review] && params[:is_confirmed].blank?
+  def validate_review_page(step)
+    if (step == NEW_BLOCK_STEPS[:review] || step == UPDATE_BLOCK_STEPS[:review_update]) && params[:is_confirmed].blank?
       @confirm_error_copy = I18n.t("content_block_edition.review_page.errors.confirm")
       @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
-      @url = review_url
+      @url = step == NEW_BLOCK_STEPS[:review] ? review_url : review_update_url
       render "content_block_manager/content_block/editions/workflow/review"
     else
-      new_edition = ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
-      redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step: :confirmation)
+      schedule_or_publish
     end
   end
 end
