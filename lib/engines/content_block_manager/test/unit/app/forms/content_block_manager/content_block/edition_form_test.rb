@@ -33,7 +33,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     end
 
     it "sets the correct title" do
-      assert_equal "Change Email address", result.title
+      assert_equal I18n.t("content_block_edition.update.title", block_type: "email address"), result.title
     end
 
     it "sets the correct urls" do
@@ -61,7 +61,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     end
 
     it "sets the correct title" do
-      assert_equal "Create email address", result.title
+      assert_equal I18n.t("content_block_edition.create.title", block_type: "email address"), result.title
     end
 
     it "sets the correct urls" do

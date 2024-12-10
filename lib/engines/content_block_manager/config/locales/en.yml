@@ -11,6 +11,10 @@ en:
           range:
             invalid: "From date must be before to date"
   content_block_edition:
+    update:
+      title: "Edit %{block_type}"
+    create:
+      title: "Create %{block_type}"
     confirmation_page:
       scheduled:
         banner: "%{block_type} scheduled to publish on %{date}"
