@@ -21,3 +21,6 @@ en:
       updated:
         banner: "%{block_type} published"
         detail: You can now view the updated content block.
+    review_page:
+      errors:
+        confirm: Confirm details are correct
