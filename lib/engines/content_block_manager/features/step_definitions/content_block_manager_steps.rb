@@ -1,4 +1,5 @@
 require_relative "../support/stubs"
+require_relative "../support/dependent_content"
 
 # Suppress noisy Sidekiq logging in the test output
 Sidekiq.configure_client do |cfg|
@@ -478,6 +479,7 @@ When(/^dependent content exists for a content block$/) do
       "last_edited_by_editor_id" => SecureRandom.uuid,
       "last_edited_at" => 2.days.ago.to_s,
       "host_content_id" => "abc12345",
+      "instances" => 1,
       "primary_publishing_organisation" => {
         "content_id" => SecureRandom.uuid,
         "title" => "Organisation #{i}",
@@ -494,6 +496,8 @@ When(/^dependent content exists for a content block$/) do
     order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
     rollup: @rollup,
   )
+
+  stub_publishing_api_has_embedded_content_details(@dependent_content.first)
 end
 
 Then(/^I should see the dependent content listed$/) do
@@ -558,7 +562,15 @@ When("I click on the first host document") do
     Plek.website_root + @current_host_document["base_path"],
   ).to_return(
     status: 200,
-    body: "<body><h1>#{@current_host_document['title']}</h1><p>iframe preview</p>#{@content_block.render}</body>",
+    body: "<body><h1>#{@current_host_document['title']}</h1><p>iframe preview <a href=\"/other-page\">Link to other page</a></p>#{@content_block.render}</body>",
+  )
+
+  stub_request(
+    :get,
+    "#{Plek.website_root}/other-page",
+  ).to_return(
+    status: 200,
+    body: "<body><h1>#{@current_host_document['title']}</h1><p>other page</p>#{@content_block.render}</body>",
   )
 
   click_on @current_host_document["title"]
@@ -571,6 +583,19 @@ Then("the preview page opens in a new tab") do
   assert_text "Email address: changed@example.com"
   within_frame "preview" do
     assert_text @current_host_document["title"]
+  end
+end
+
+When("I click on a link within the frame") do
+  within_frame "preview" do
+    click_on "Link to other page"
+  end
+end
+
+Then("I should see the content of the linked page") do
+  within_frame "preview" do
+    assert_text "other page"
+    assert_text "changed@example.com"
   end
 end
 

@@ -108,3 +108,5 @@ Feature: Edit a content object
     And I see the rollup data for the dependent content
     When I click on the first host document
     Then the preview page opens in a new tab
+    When I click on a link within the frame
+    Then I should see the content of the linked page
