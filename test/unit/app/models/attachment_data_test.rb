@@ -143,22 +143,15 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_not attachment.pdf?
   end
 
-  test "should return the url to a PNG for PDF thumbnails" do
-    greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
-    attachment = create(:attachment_data, file: greenpaper_pdf, attachable: build(:draft_publication, id: 1))
-    attachment.reload
-    assert attachment.url(:thumbnail).ends_with?("thumbnail_greenpaper.pdf.png"), "unexpected url ending: #{attachment.url(:thumbnail)}"
-  end
-
-  test "should successfully create PDF and PNG thumbnail from the file_cache after a validation failure" do
+  test "should successfully create PDF from the file_cache after a validation failure" do
     greenpaper_pdf = upload_fixture("greenpaper.pdf", "application/pdf")
     attachable = create(:draft_publication, id: 1)
     attachment = build(:attachment_data, file: greenpaper_pdf, attachable:)
 
     second_attempt_attachment = build(:attachment_data_with_no_assets, file: nil, file_cache: attachment.file_cache, attachable:)
 
-    Services.asset_manager.expects(:create_asset).twice.with { |value|
-      (value[:file].path.ends_with? "greenpaper.pdf") || (value[:file].path.ends_with? "greenpaper.pdf.png")
+    Services.asset_manager.expects(:create_asset).once.with { |value|
+      (value[:file].path.ends_with? "greenpaper.pdf")
     }.returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => "greenpaper.pdf")
 
     assert second_attempt_attachment.save
@@ -439,15 +432,23 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert attachment_data.all_asset_variants_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if there are no assets" do
-    attachment_data = build(:attachment_data_with_no_assets)
+  test "#all_asset_variants_uploaded? skips over any legacy asset variants present" do
+    attachment_data = build(:attachment_data)
 
-    assert_not attachment_data.all_asset_variants_uploaded?
+    original_pdf_asset = build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: attachment_data.filename)
+    # Unable to set `variant: :thumbnail` here (which is what we really want to test)
+    # as it's not a valid enum and there seems to be no way of stubbing it.
+    # But setting to `nil` does the same thing for the purposes of this test.
+    legacy_thumbnail_asset = build(:asset, asset_manager_id: "asset_manager_id_thumbnail", variant: nil, filename: "thumbnail_#{attachment_data.filename}.png")
+
+    attachment_data.assets << original_pdf_asset
+    attachment_data.assets << legacy_thumbnail_asset
+
+    assert attachment_data.all_asset_variants_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if some asset variants are missing" do
-    attachment_data = build(:attachment_data_with_no_assets, content_type: AttachmentUploader::PDF_CONTENT_TYPE)
-    attachment_data.assets << build(:asset)
+  test "#all_asset_variants_uploaded? returns false if there are no assets" do
+    attachment_data = build(:attachment_data_with_no_assets)
 
     assert_not attachment_data.all_asset_variants_uploaded?
   end

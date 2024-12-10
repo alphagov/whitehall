@@ -44,7 +44,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
     assert_select_within_html html, ".gem-c-attachment-link", count: 2
   end
 
-  test "converts block attachments and handles thumbnails for PDFs" do
+  test "converts block attachments" do
     body = "#Heading\n\nText. \n\n!@1\n\n Fooble"
     edition = create(
       :published_detailed_guide,
@@ -54,10 +54,6 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
         build(:file_attachment, id: 1),
       ],
     )
-
-    # The content_type doesn't get set for some reason, so set it manually
-    ad = edition.attachments.first.attachment_data
-    ad.update_column(:content_type, "application/pdf")
 
     html = render_govspeak(edition)
     assert_select_within_html html, "a[href='#{edition.attachments.first.url}']"
