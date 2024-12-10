@@ -248,7 +248,7 @@ GEM
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (97.5.0)
+    gds-api-adapters (97.6.0)
       addressable
       link_header
       null_logger
@@ -341,7 +341,7 @@ GEM
     highline (3.0.1)
     htmlentities (4.3.4)
     http-accept (1.7.0)
-    http-cookie (1.0.7)
+    http-cookie (1.0.8)
       domain_name (~> 0.5)
     httparty (0.22.0)
       csv
