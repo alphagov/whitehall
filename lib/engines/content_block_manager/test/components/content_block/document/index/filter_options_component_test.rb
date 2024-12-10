@@ -82,15 +82,17 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
     assert_selector "option[selected='selected'][value=2]"
   end
 
-  it "filters by last updated date" do
+  it "passes filters to Date component" do
+    filters = { lead_organisation: "2" }
+    date_component = ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new(filters:)
+    ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.expects(:new).with(filters:).returns(date_component)
+
     render_inline(
       ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
-        filters: { lead_organisation: "2" },
+        filters:,
       ),
     )
 
     assert_selector ".govuk-accordion__section--expanded", text: "Last updated date"
-    assert_selector "h3", text: "From"
-    assert_selector "h3", text: "To"
   end
 end

@@ -62,7 +62,7 @@
         },
         content: {
           html: (
-            render(ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new)
+            render(ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new(filters: @filters))
           ),
         },
         expanded: true,
