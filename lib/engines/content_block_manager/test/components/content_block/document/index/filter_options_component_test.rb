@@ -24,7 +24,7 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
         filters: {},
       ),
     )
-    assert_selector ".govuk-accordion__section--expanded", count: 3
+    assert_selector ".govuk-accordion__section--expanded", count: 4
   end
 
   it "adds value of keyword to text input from filter" do
@@ -80,5 +80,26 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
 
     assert_selector "select[name='lead_organisation']"
     assert_selector "option[selected='selected'][value=2]"
+  end
+
+  it "passes filters and errors to Date component" do
+    filters = { lead_organisation: "2" }
+    errors = [
+      ContentBlockManager::ContentBlock::Document::DocumentFilter::FILTER_ERROR.new(
+        attribute: "last_updated_from", full_message: "From date is not in the correct format",
+      ),
+    ]
+    date_component = ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.new(filters:, errors:)
+    ContentBlockManager::ContentBlock::Document::Index::DateFilterComponent.expects(:new).with(filters:, errors:)
+                                                                           .returns(date_component)
+
+    render_inline(
+      ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
+        filters:,
+        errors:,
+      ),
+    )
+
+    assert_selector ".govuk-accordion__section--expanded", text: "Last updated date"
   end
 end

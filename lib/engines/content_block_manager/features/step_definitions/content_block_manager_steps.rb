@@ -249,8 +249,9 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
   (1..count.to_i).each do |_i|
     document = create(:content_block_document, block_type.to_sym, title:)
 
-    create(
+    editions = create_list(
       :content_block_edition,
+      3,
       block_type.to_sym,
       document:,
       organisation:,
@@ -258,6 +259,9 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
       creator: @user,
       instructions_to_publishers:,
     )
+
+    document.latest_edition = editions.last
+    document.save!
   end
 end
 
@@ -443,6 +447,11 @@ end
 
 Then("I should see a message that I need to confirm the details are correct") do
   assert_text "Confirm details are correct", minimum: 2
+end
+
+Then("I should see a message that the filter dates are invalid") do
+  expect(page).to have_selector("a[href='#last_updated_from_3i']"), text: "Last updated from is not a valid date"
+  expect(page).to have_selector("a[href='#last_updated_to_3i']"), text: "Last updated to is not a valid date"
 end
 
 Then("I should see a permissions error") do
@@ -659,6 +668,34 @@ And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
   fill_in_date_and_time_field(@future_date)
 
   click_on "Save and continue"
+end
+
+When("one of the content blocks was updated 2 days ago") do
+  content_block_document = ContentBlockManager::ContentBlock::Document.all.last
+  content_block_document.latest_edition.updated_at = 2.days.before(Time.zone.now)
+  content_block_document.latest_edition.save!
+end
+
+When("I add a filter for blocks updated two days ago") do
+  date = 2.days.before(Time.zone.now)
+
+  fill_in "last_updated_from_1i", with: date.year
+  fill_in "last_updated_from_2i", with: date.month
+  fill_in "last_updated_from_3i", with: date.day
+
+  fill_in "last_updated_to_1i", with: date.year
+  fill_in "last_updated_to_2i", with: date.month
+  fill_in "last_updated_to_3i", with: date.day
+end
+
+When("I input invalid dates to filter by") do
+  fill_in "last_updated_from_1i", with: "1"
+  fill_in "last_updated_from_2i", with: "34"
+  fill_in "last_updated_from_3i", with: "56"
+
+  fill_in "last_updated_to_1i", with: "1"
+  fill_in "last_updated_to_2i", with: "67"
+  fill_in "last_updated_to_3i", with: "56"
 end
 
 When("I enter an invalid date") do
