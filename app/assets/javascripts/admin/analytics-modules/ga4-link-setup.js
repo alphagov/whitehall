@@ -13,7 +13,10 @@ window.GOVUK.analyticsGa4.analyticsModules =
         const links = moduleElement.querySelectorAll('a')
         links.forEach((link) => {
           // Exclude links that serve as tab controls as they have their own event tracking
-          if (link.role === 'tab') {
+          // It would be preferable to use the role ARIA attribute to do this, but it's not present yet
+          // when this module is initialised because the tabs component adds the role.
+          // Component modules are initialised after analytics modules by GOV.UK Publishing components
+          if (link.classList.contains('govuk-tabs__tab')) {
             return
           }
           const event = {
