@@ -450,7 +450,7 @@ Then("I should see a message that the {string} field is an invalid {string}") do
 end
 
 Then("I should see a message that I need to confirm the details are correct") do
-  assert_text "Confirm details are correct", minimum: 2
+  assert_text I18n.t("content_block_edition.review_page.errors.confirm"), minimum: 2
 end
 
 Then("I should see a message that the filter dates are invalid") do

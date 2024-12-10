@@ -3,7 +3,7 @@ module CanScheduleOrPublish
 
   def schedule_or_publish
     if params[:step] == ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_update] && params[:is_confirmed].blank?
-      @confirm_error_copy = "Confirm details are correct"
+      @confirm_error_copy = I18n.t("content_block_edition.review_page.errors.confirm")
       @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
       render "content_block_manager/content_block/editions/workflow/review_update"
     else
