@@ -122,6 +122,12 @@ module DocumentHelper
     fill_in_worldwide_organisation_fields(**options.slice(:world_location))
   end
 
+  def begin_drafting_editionable_topical_event(options)
+    begin_drafting_document options.merge(type: "editionable_topical_event")
+
+    fill_in_editionable_topical_event_fields(**options.slice(:topical_event))
+  end
+
   def pdf_attachment
     Rails.root.join("features/fixtures/attachment.pdf")
   end
@@ -130,6 +136,8 @@ module DocumentHelper
     select world_location, from: "World locations"
     fill_in "Logo formatted name", with: "Logo\r\nformatted\r\nname\r\n"
   end
+
+  def fill_in_editionable_topical_event_fields; end
 
   def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
     select announcement_type, from: "News article type"
