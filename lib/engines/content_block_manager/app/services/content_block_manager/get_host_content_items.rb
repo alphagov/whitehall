@@ -57,7 +57,7 @@ module ContentBlockManager
 
     def content_items
       @content_items ||= begin
-        response = Services.publishing_api.get_content_by_embedded_document(@content_id, { page:, order: }.compact)
+        response = Services.publishing_api.get_host_content_for_content_id(@content_id, { page:, order: }.compact)
         response.parsed_content
       end
     end
