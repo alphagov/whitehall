@@ -15,7 +15,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
 
   test "#entries is a list of VersionPresenter and EditorialRemark objects when no 'only' argument is passed in" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    assert_equal [Document::PaginatedTimeline::VersionPresenter, EditorialRemark].to_set,
+    assert_equal [Queries::VersionPresenter, EditorialRemark].to_set,
                  timeline.entries.map(&:class).to_set
   end
 
@@ -113,7 +113,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
   test "VersionPresenter correctly determines actions" do
     mock_pagination(per_page: 30) do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionPresenter) }
+      entries = timeline.entries.select { |e| e.instance_of?(Queries::VersionPresenter) }
       expected_actions = %w[updated
                             editioned
                             published
@@ -129,7 +129,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
 
   test "VersionPresenter correctly determines actors" do
     timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionPresenter) }
+    entries = timeline.entries.select { |e| e.instance_of?(Queries::VersionPresenter) }
     expected_actors = [@user,
                        @user,
                        @user2,
