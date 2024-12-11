@@ -13,6 +13,7 @@ class PublishingApi::EditionableTopicalEventPresenterTest < ActiveSupport::TestC
     expected_hash = {
       base_path: public_path,
       title: topical_event.title,
+      description: topical_event.summary,
       schema_name: "topical_event",
       document_type: "editionable_topical_event",
       locale: "en",
