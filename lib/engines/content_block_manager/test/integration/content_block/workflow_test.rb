@@ -96,15 +96,27 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
       describe "#update" do
         describe "when choosing to publish immediately" do
-          it "posts the new edition to the Publishing API and marks edition as published" do
-            assert_edition_is_published do
-              put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:), params: { schedule_publishing: "now" }
-            end
+          it "shows the review page" do
+            scheduled_at = {
+              "scheduled_publication(1i)": "",
+              "scheduled_publication(2i)": "",
+              "scheduled_publication(3i)": "",
+              "scheduled_publication(4i)": "",
+              "scheduled_publication(5i)": "",
+            }
+
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+                params: {
+                  schedule_publishing: "now",
+                  scheduled_at:,
+                }
+
+            assert_template "content_block_manager/content_block/editions/workflow/review"
           end
         end
 
         describe "when scheduling publication" do
-          it "schedules the edition and redirects" do
+          it "shows the review page" do
             scheduled_at = {
               "scheduled_publication(1i)": "2024",
               "scheduled_publication(2i)": "01",
@@ -112,16 +124,13 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
               "scheduled_publication(4i)": "12",
               "scheduled_publication(5i)": "00",
             }
-            ContentBlockManager::ScheduleEditionService.any_instance.expects(:call).with(edition, ActionController::Parameters.new(scheduled_at).permit!)
 
             put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:), params: {
               schedule_publishing: "schedule",
               scheduled_at:,
             }
 
-            assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id,
-                                                                                                         step: :confirmation,
-                                                                                                         is_scheduled: true)
+            assert_template "content_block_manager/content_block/editions/workflow/review"
           end
         end
 

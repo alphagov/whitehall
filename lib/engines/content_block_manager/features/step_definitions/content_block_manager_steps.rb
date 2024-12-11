@@ -437,6 +437,10 @@ Then("I see the errors informing me the date is invalid") do
   assert_text "Scheduled publication is not in the correct format", minimum: 2
 end
 
+Then("I see the error message {string}") do |text|
+  assert_text text, minimum: 2
+end
+
 Then("I see the errors informing me the date must be in the future") do
   assert_text "Scheduled publication date and time must be in the future", minimum: 2
 end
@@ -446,7 +450,7 @@ Then("I should see a message that the {string} field is an invalid {string}") do
 end
 
 Then("I should see a message that I need to confirm the details are correct") do
-  assert_text "Confirm details are correct", minimum: 2
+  assert_text I18n.t("content_block_edition.review_page.errors.confirm"), minimum: 2
 end
 
 Then("I should see a message that the filter dates are invalid") do
@@ -487,6 +491,12 @@ end
 
 Then("I accept and publish") do
   click_on "Accept and publish"
+end
+
+When("I review and confirm my answers are correct") do
+  assert_text "Review email address"
+  check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
+  click_on "Confirm"
 end
 
 When(/^dependent content exists for a content block$/) do

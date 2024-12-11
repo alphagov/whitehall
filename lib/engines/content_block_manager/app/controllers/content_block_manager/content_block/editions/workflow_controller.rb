@@ -9,6 +9,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   UPDATE_BLOCK_STEPS = {
     review_links: "review_links",
     schedule_publishing: "schedule_publishing",
+    review_update: "review_update",
   }.freeze
 
   SHARED_STEPS = {
@@ -43,9 +44,11 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     when UPDATE_BLOCK_STEPS[:review_links]
       redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: :schedule_publishing)
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
-      schedule_or_publish
+      review_update
+    when UPDATE_BLOCK_STEPS[:review_update]
+      validate_review_page("review_update")
     when NEW_BLOCK_STEPS[:review]
-      publish
+      validate_review_page("review")
     end
   end
 
@@ -69,7 +72,47 @@ private
   def review
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
+    @url = review_url
+
     render :review
+  end
+
+  def review_url
+    content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review],
+    )
+  end
+
+  def review_update_url
+    schedule_publishing = params[:schedule_publishing]
+    scheduled_at = scheduled_publication_params.to_h
+
+    content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_update],
+      schedule_publishing:,
+      scheduled_at:,
+    )
+  end
+
+  def review_update
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+
+    if params[:schedule_publishing].blank?
+      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
+      raise ActiveRecord::RecordInvalid, @content_block_edition
+    elsif params[:schedule_publishing] == "schedule"
+      @content_block_edition.update!(scheduled_publication_params)
+      @content_block_edition.schedule!
+      raise ActiveRecord::RecordInvalid, @content_block_edition if @content_block_edition.errors.any?
+    end
+
+    @url = review_update_url
+
+    render :review
+  rescue ActiveRecord::RecordInvalid
+    render :schedule_publishing
   end
 
   def confirmation
@@ -102,14 +145,14 @@ private
 
   REVIEW_ERROR = Data.define(:attribute, :full_message)
 
-  def publish
-    if params[:step] == NEW_BLOCK_STEPS[:review] && params[:is_confirmed].blank?
-      @confirm_error_copy = "Confirm details are correct"
+  def validate_review_page(step)
+    if (step == NEW_BLOCK_STEPS[:review] || step == UPDATE_BLOCK_STEPS[:review_update]) && params[:is_confirmed].blank?
+      @confirm_error_copy = I18n.t("content_block_edition.review_page.errors.confirm")
       @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
+      @url = step == NEW_BLOCK_STEPS[:review] ? review_url : review_update_url
       render "content_block_manager/content_block/editions/workflow/review"
     else
-      new_edition = ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
-      redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step: :confirmation)
+      schedule_or_publish
     end
   end
 end
