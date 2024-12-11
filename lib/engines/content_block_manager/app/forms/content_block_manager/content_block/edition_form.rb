@@ -24,7 +24,7 @@ class ContentBlockManager::ContentBlock::EditionForm
 
   class Create < ContentBlockManager::ContentBlock::EditionForm
     def title
-      "Create #{schema.name.downcase}"
+      I18n.t("content_block_edition.create.title", block_type: schema.name.downcase)
     end
 
     def url
@@ -38,7 +38,7 @@ class ContentBlockManager::ContentBlock::EditionForm
 
   class Update < ContentBlockManager::ContentBlock::EditionForm
     def title
-      "Change #{schema.name}"
+      I18n.t("content_block_edition.update.title", block_type: schema.name.downcase)
     end
 
     def url
