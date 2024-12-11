@@ -193,6 +193,9 @@ en:
       edition:
         one: Edition
         other: Editions
+      editionable_topical_event:
+        one: Topical event
+        other: Topical events
       edition_with_appointment:
         one: Edition with appointment
         other: Editions with appointment
