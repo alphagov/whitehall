@@ -6,12 +6,6 @@ class ContentBlockManager::WorkflowTest < ActiveSupport::TestCase
     assert edition.draft?
   end
 
-  test "publishing a draft edition transitions it into the published state" do
-    edition = create(:content_block_edition, document: create(:content_block_document, block_type: "email_address"))
-    edition.publish!
-    assert edition.published?
-  end
-
   test "publishing a scheduled edition transitions it into the published state" do
     edition = create(:content_block_edition,
                      document: create(

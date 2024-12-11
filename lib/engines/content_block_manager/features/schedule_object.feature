@@ -124,3 +124,11 @@ Feature: Schedule a content object
     And I enter a date in the past
     And I save and continue
     Then I see the errors informing me the date must be in the future
+
+  Scenario: GDS Editor cancels after scheduling a block
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    When I choose to schedule the change
+    And the block is scheduled and published
+    And I click cancel
+    Then I am taken back to Content Block Manager home page
