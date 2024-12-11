@@ -71,4 +71,34 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
       assert_selector ".govuk-summary-list__value", text: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)
     end
   end
+
+  describe "when the content block is being updated and published immediately" do
+    it "shows a publish now row" do
+      organisation = create(:organisation, name: "Department for Example")
+
+      content_block_document = create(:content_block_document, :email_address, title: "Some title")
+
+      _previous_edition = create(
+        :content_block_edition,
+        :email_address,
+        organisation:,
+        document: content_block_document,
+      )
+
+      content_block_edition = create(
+        :content_block_edition,
+        :email_address,
+        details: { "interesting_fact" => "value of fact" },
+        organisation:,
+        document: content_block_document,
+      )
+
+      render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent.new(
+                      content_block_edition:,
+                    ))
+
+      assert_selector ".govuk-summary-list__key", text: "Publish date"
+      assert_selector ".govuk-summary-list__value", text: I18n.l(Time.zone.today, format: :long_ordinal)
+    end
+  end
 end

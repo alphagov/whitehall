@@ -72,6 +72,11 @@ private
         field: "Scheduled date and time",
         value: scheduled_value,
       }
+    elsif content_block_edition.document.editions.count > 1
+      {
+        field: "Publish date",
+        value: I18n.l(Time.zone.today, format: :long_ordinal),
+      }
     end
   end
 end
