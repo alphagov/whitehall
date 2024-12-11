@@ -5,4 +5,10 @@ FactoryBot.define do
   end
 
   factory :draft_editionable_topical_event, parent: :editionable_topical_event, traits: [:draft]
+
+  trait(:with_social_media_account) do
+    after :create do |organisation, _evaluator|
+      create(:social_media_account, socialable: organisation, social_media_service: create(:social_media_service, name: "Blog"))
+    end
+  end
 end
