@@ -1,7 +1,8 @@
 require "test_helper"
 
 class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponentTest < ViewComponent::TestCase
-  test "it renders instructions to publishers" do
+  extend Minitest::Spec::DSL
+  it "it renders instructions to publishers" do
     content_block_edition = create(
       :content_block_edition,
       :email_address,
@@ -16,7 +17,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
     assert_selector ".govuk-summary-list__value", text: "some instructions"
   end
 
-  test "renders a summary list component with the edition details to confirm" do
+  it "renders a summary list component with the edition details to confirm" do
     organisation = create(:organisation, name: "Department for Example")
 
     content_block_document = create(:content_block_document, :email_address, title: "Some title")
