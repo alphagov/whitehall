@@ -6,9 +6,20 @@ class PublishingApi::EditionableTopicalEventPresenterTest < ActiveSupport::TestC
   end
 
   test "presents a Topical Event ready for adding to the publishing API" do
-    topical_event = create(:editionable_topical_event)
+    topical_event = create(:editionable_topical_event,
+                           :with_social_media_account)
 
     public_path = topical_event.public_path
+
+    expected_details = {
+      social_media_links: [
+        {
+          href: topical_event.social_media_accounts.first.url,
+          service_type: topical_event.social_media_accounts.first.service_name.parameterize,
+          title: topical_event.social_media_accounts.first.display_name,
+        },
+      ],
+    }
 
     expected_hash = {
       base_path: public_path,
@@ -22,7 +33,7 @@ class PublishingApi::EditionableTopicalEventPresenterTest < ActiveSupport::TestC
       public_updated_at: topical_event.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      details: {},
+      details: expected_details,
       update_type: "major",
     }
 

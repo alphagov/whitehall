@@ -35,8 +35,22 @@ module PublishingApi
       {}
     end
 
+  private
+
     def details
-      {}
+      {}.tap do |details|
+        details[:social_media_links] = social_media_links
+      end
+    end
+
+    def social_media_links
+      item.social_media_accounts.map do |social_media_account|
+        {
+          href: social_media_account.url,
+          service_type: social_media_account.service_name.parameterize,
+          title: social_media_account.display_name,
+        }
+      end
     end
   end
 end
