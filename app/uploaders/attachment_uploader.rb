@@ -1,9 +1,6 @@
 class AttachmentUploader < WhitehallUploader
   PDF_CONTENT_TYPE = "application/pdf".freeze
   INDEXABLE_TYPES = %w[csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml].freeze
-
-  THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
-  FALLBACK_PDF_THUMBNAIL = File.expand_path("../assets/images/pub-cover.png", __dir__)
   EXTENSION_ALLOW_LIST = %w[chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt vcf wsdl xls xlsm xlsx xlt xml xsd xslt zip].freeze
 
   before :cache, :validate_zipfile_contents!
@@ -19,27 +16,6 @@ class AttachmentUploader < WhitehallUploader
     content_type = "text/csv" if content_type == "text/comma-separated-values"
     content_type = "application/pdf" if content_type == "application/octet-stream"
     file.content_type = content_type
-  end
-
-  version :thumbnail, if: :pdf? do
-    def full_filename(for_file)
-      "#{super}.png"
-    end
-
-    def full_original_filename
-      "#{super}.png"
-    end
-
-    process :generate_thumbnail
-    before :store, :set_correct_content_type
-
-    def set_correct_content_type(_ignore_argument)
-      @file.content_type = "image/png"
-    end
-  end
-
-  def generate_thumbnail
-    FileUtils.cp(FALLBACK_PDF_THUMBNAIL, path)
   end
 
   def pdf?(file)

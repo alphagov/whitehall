@@ -8,9 +8,8 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
   end
   let(:attachment_data) { FactoryBot.create(:attachment_data, attachable: create(:draft_publication)) }
 
-  test "updates an attachment and its variant" do
-    AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_original", auth_bypass_id_attributes)
-    AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_thumbnail", auth_bypass_id_attributes)
+  test "updates a file attachment's original asset" do
+    AssetManager::AssetUpdater.expects(:call).with("asset_manager_id", auth_bypass_id_attributes)
 
     AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
     AssetManagerUpdateAssetWorker.drain

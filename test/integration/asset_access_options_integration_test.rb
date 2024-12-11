@@ -141,12 +141,6 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
           ).returns(asset_manager_response)
-          Services.asset_manager.expects(:create_asset).with(
-            has_entries(
-              access_limited_organisation_ids: [organisation.content_id],
-              auth_bypass_ids: [edition.auth_bypass_id],
-            ),
-          ).returns(asset_manager_response)
 
           AssetManagerCreateAssetWorker.drain
         end
@@ -262,7 +256,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
     def add_file_attachment_with_asset(filename, to:)
       to.attachments << FactoryBot.build(
-        :file_attachment_with_asset,
+        :file_attachment,
         title: filename,
         attachable: to,
       )
@@ -272,10 +266,10 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       fixture_path.join(filename)
     end
 
-    def stub_asset(asset_manger_id, attributes = {})
-      url_id = "http://asset-manager/assets/#{asset_manger_id}"
+    def stub_asset(asset_manager_id, attributes = {})
+      url_id = "http://asset-manager/assets/#{asset_manager_id}"
       Services.asset_manager.stubs(:asset)
-              .with(asset_manger_id)
+              .with(asset_manager_id)
               .returns(attributes.merge(id: url_id).stringify_keys)
     end
   end

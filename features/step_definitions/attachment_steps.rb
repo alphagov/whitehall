@@ -1,5 +1,5 @@
 When(/^the attachment has been uploaded to the asset-manager$/) do
-  expect(Attachment.last.attachment_data.assets.size).to equal 2
+  expect(Attachment.last.attachment_data.assets.size).to equal 1
 end
 
 When(/^I start editing the attachments from the .*? page$/) do

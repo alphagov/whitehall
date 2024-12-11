@@ -11,7 +11,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     let(:filename) { "sample.docx" }
     let(:asset_manager_id) { "asset_manager_id" }
     let(:topic_taxon) { build(:taxon_hash) }
-    let(:variant) { Asset.variants[:original] }
 
     before do
       login_as create(:managing_editor)
@@ -20,12 +19,11 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given a file attachment" do
-      let(:attachment) { build(:file_attachment_with_asset, attachable:) }
       let(:attachable) { edition }
 
       before do
         setup_publishing_api_for(edition)
-        attachable.attachments << attachment
+        attachable.attachments << build(:file_attachment, attachable:)
         attachable.save!
       end
 

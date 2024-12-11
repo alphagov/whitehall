@@ -8,9 +8,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
   include TaxonomyHelper
 
   describe "attachment link header" do
-    let(:filename) { "sample.docx" }
     let(:asset_manager_id) { "asset_manager_id" }
-    let(:variant) { Asset.variants[:original] }
 
     before do
       login_as create(:managing_editor)
@@ -20,12 +18,11 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given a file attachment" do
-      let(:attachment) { build(:file_attachment_with_asset, attachable:) }
       let(:attachable) { edition }
       let(:topic_taxon) { build(:taxon_hash) }
 
       before do
-        attachable.attachments << attachment
+        attachable.attachments << build(:file_attachment, attachable:)
         attachable.save!
       end
 
@@ -53,10 +50,6 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
     def setup_publishing_api_for(edition)
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
       stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
-    end
-
-    def path_to_attachment(filename)
-      fixture_path.join(filename)
     end
 
     def stub_asset(asset_manger_id, attributes = {})

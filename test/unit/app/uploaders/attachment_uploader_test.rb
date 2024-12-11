@@ -40,17 +40,6 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     assert_match %r{^system}, uploader.store_dir
   end
 
-  test "should not generate thumbnail versions of non pdf files" do
-    AttachmentUploader.enable_processing = true
-
-    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
-    uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
-
-    assert_nil uploader.thumbnail.path
-
-    AttachmentUploader.enable_processing = false
-  end
-
   test "should be able to attach a xsd file" do
     AttachmentUploader.enable_processing = true
 
@@ -188,73 +177,6 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   def complete_and_broken_shape_arcgis_file_list
     broken_arcgis_file_list +
       comprehensive_arcgis_file_list.map { |f| f.gsub("london", "paris") }
-  end
-end
-
-class AttachmentUploaderPDFTest < ActiveSupport::TestCase
-  include ActionDispatch::TestProcess
-  extend Minitest::Spec::DSL
-
-  setup do
-    AttachmentUploader.enable_processing = true
-    @edition = create(:draft_publication, id: 1)
-    @uploader = AttachmentUploader.new(AttachmentData.new(attachable: @edition), "mounted-as")
-  end
-
-  teardown do
-    AttachmentUploader.enable_processing = false
-  end
-
-  test "should provide a thumbnail of the PDF" do
-    assert_respond_to @uploader, :thumbnail
-  end
-
-  test "should store the thumbnail with the PNG extension" do
-    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
-    assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
-  end
-
-  test "should ensure the content type of the stored thumbnail is image/png" do
-    @uploader.store!(file_fixture("two-pages-with-content.pdf"))
-    assert_equal "image/png", @uploader.thumbnail.file.content_type
-  end
-
-  test "should store an actual PNG as thumbnail" do
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
-
-    expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
-
-    AssetManagerCreateAssetWorker.drain
-  end
-
-  test "should always use the generic thumbnail for PDFs" do
-    AttachmentData.create!(file: file_fixture("two-pages-with-content.pdf"), attachable: @edition)
-
-    expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
-
-    AssetManagerCreateAssetWorker.drain
-  end
-
-  def expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
-    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
-    Services.asset_manager.expects(:create_asset).with { |value|
-      if value[:file].path.ends_with?(".png")
-        generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
-        assert_equal File.binread(generic_thumbnail_path),
-                     File.binread(value[:file].path),
-                     "Thumbnailing when PDF conversion fails should use default image."
-      end
-    }.returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
-  end
-
-  def expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
-    Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
-    Services.asset_manager.expects(:create_asset).with { |value|
-      if value[:file].path.ends_with?(".png")
-        type = `file -b --mime-type "#{value[:file].path}"`
-        assert_equal "image/png", type.strip
-      end
-    }.returns("id" => "http://asset-manager/assets/some-id", "name" => "pub-cover.png")
   end
 end
 
