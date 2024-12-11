@@ -206,7 +206,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
   end
 
   def mock_pagination(per_page:, &block)
-    Document::PaginatedTimeline.stub_const(:PER_PAGE, per_page, &block)
+    Document::PaginatedTimelineQuery.stub_const(:PER_PAGE, per_page, &block)
   end
 
   def some_time_passes
