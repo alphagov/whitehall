@@ -163,6 +163,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     Whitehall::PublishingApi
       .expects(:save_draft)
+      .with(instance_of(FileAttachment))
       .never
 
     post :create, params: { edition_id: @edition.id, type: "file", attachment: }
