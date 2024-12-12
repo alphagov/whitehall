@@ -1,0 +1,27 @@
+
+<div class="govspeak-help">
+  <h2 class="govuk-heading-l">Blocks</h2>
+
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Action Link",
+  } do %>
+    <p class='govuk-body'>A wrapper around the action link component.</p>
+    <pre>
+      - type: action_link
+        text: "Learn more about our goals"
+        href: "/landing-page/goals"
+    </pre>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Big Number",
+  } do %>
+    <p class='govuk-body'>A wrapper around the Big number component</p<>>
+    <pre>
+      - type: big_number
+        number: £75m
+        label: amount of money that looks big</pre>
+    </pre>
+  <% end %>
+
+</div>

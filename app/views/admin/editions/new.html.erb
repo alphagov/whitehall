@@ -21,6 +21,6 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-    <%= simple_formatting_sidebar hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true %>
+    <%= simple_formatting_sidebar hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true, show_landing_page_help: @edition.document.document.document_type == "LandingPage" %>
   </div>
 </div>
