@@ -63,44 +63,6 @@ class Document::PaginatedTimelineQueryTest < ActiveSupport::TestCase
     end
   end
 
-  describe "#remarks" do
-    it "returns all the remarks keyed by ID" do
-      query = Document::PaginatedTimelineQuery.new(document: @document, page: 1)
-      expected_remarks = {
-        @editorial_remark1.id => @editorial_remark1,
-        @editorial_remark2.id => @editorial_remark2,
-        @editorial_remark3.id => @editorial_remark3,
-      }
-
-      assert_equal query.remarks, expected_remarks
-    end
-  end
-
-  describe "#versions" do
-    it "returns all the versions, presented as VersionDecorator items" do
-      page1_query = Document::PaginatedTimelineQuery.new(document: @document, page: 1)
-      page2_query = Document::PaginatedTimelineQuery.new(document: @document, page: 2)
-
-      versions = @document.edition_versions.where.not(state: "superseded")
-      version_presenter_mocks = []
-
-      versions.each do |version|
-        version_decorator_mock = mock("VersionDecorator", id: version.id)
-        VersionDecorator.stubs(:new).with { |v, **_args|
-          v.id == version.id
-        }.returns(version_decorator_mock)
-        version_presenter_mocks.push(version_presenter_mock)
-      end
-
-      all_versions = [*page1_query.versions, *page2_query.versions]
-
-      expected_versions = version_presenter_mocks.index_by(&:id)
-
-      assert_equal all_versions.count, versions.count
-      assert_equal all_versions.to_h, expected_versions
-    end
-  end
-
   def seed_document_event_history
     acting_as(@user) do
       @document = create(:document)

@@ -10,8 +10,8 @@ class Document::PaginatedTimeline
   def entries
     @entries ||= begin
       raw_entries = query.raw_entries
-      remarks = query.remarks
-      versions = query.versions
+      remarks = document.remarks_by_ids(query.remark_ids)
+      versions = document.decorated_edition_versions_by_ids(query.version_ids)
 
       raw_entries.map do |entry|
         case entry.model

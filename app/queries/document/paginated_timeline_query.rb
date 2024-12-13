@@ -21,26 +21,6 @@ class Document
       end
     end
 
-    def remarks
-      document_remarks.where(id: remark_ids).index_by(&:id)
-    end
-
-    def versions
-      versions = document_versions.where(id: version_ids)
-      versions.map.with_index { |version, index|
-        version = VersionDecorator.new(
-          version,
-          is_first_edition: version.item_id == first_edition_id,
-          previous_version: versions[index - 1],
-        )
-        [version.id, version]
-      }.to_h
-    end
-
-  private
-
-    attr_reader :document, :page, :only
-
     def remark_ids
       raw_entries.select { |r| r.model == "EditorialRemark" }.map(&:id)
     end
@@ -48,6 +28,10 @@ class Document
     def version_ids
       raw_entries.select { |r| r.model == "Version" }.map(&:id)
     end
+
+  private
+
+    attr_reader :document, :page, :only
 
     def paginated_query
       sql = <<~SQL
@@ -67,14 +51,6 @@ class Document
       ApplicationRecord.connection.exec_query(sql, "SQL", bind_params)
     end
 
-    def document_versions
-      @document.edition_versions.where.not(state: "superseded")
-    end
-
-    def document_remarks
-      @document.editorial_remarks
-    end
-
     def timeline_sql
       case only
       when "history"
@@ -87,25 +63,21 @@ class Document
     end
 
     def versions_query
-      document_versions.select(
-        "'#{document_versions.class_name}' AS model_name",
+      document.active_edition_versions.select(
+        "'#{Version}' AS model_name",
         *common_fields,
       ).to_sql
     end
 
     def remarks_query
-      document_remarks.select(
-        "'#{document_remarks.class_name}' AS model_name",
+      document.editorial_remarks.select(
+        "'#{EditorialRemark}' AS model_name",
         *common_fields,
       ).to_sql
     end
 
     def common_fields
       %i[id created_at]
-    end
-
-    def first_edition_id
-      @first_edition_id ||= document.editions.pick(:id)
     end
   end
 end
