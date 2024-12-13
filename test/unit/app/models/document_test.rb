@@ -595,4 +595,114 @@ class DocumentTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "#remarks_by_ids" do
+    it "returns all the remarks keyed by ID" do
+      document = create(:document)
+      edition1 = create(:published_edition, document: document)
+      edition2 = create(:published_edition, document: document)
+      edition3 = create(:published_edition, document: document)
+
+      editorial_remark1 = create(:editorial_remark, edition: edition1)
+      editorial_remark2 = create(:editorial_remark, edition: edition2)
+      editorial_remark3 = create(:editorial_remark, edition: edition3)
+      _other_remark = create(:editorial_remark, edition: edition3)
+
+      expected_remarks = {
+        editorial_remark1.id => editorial_remark1,
+        editorial_remark2.id => editorial_remark2,
+        editorial_remark3.id => editorial_remark3,
+      }
+
+      actual_remarks = document.remarks_by_ids([editorial_remark1.id, editorial_remark2.id, editorial_remark3.id])
+
+      assert_equal actual_remarks, expected_remarks
+    end
+  end
+
+  describe "#decorated_edition_versions_by_ids" do
+    it "returns all the versions, presented as VersionDecorator items" do
+      document = create(:document)
+      edition1 = create(:published_edition, document: document)
+      edition2 = create(:published_edition, document: document)
+      edition3 = create(:published_edition, document: document)
+
+      version1 = create(:version, item: edition1, item_type: "Edition", state: "published")
+      version2 = create(:version, item: edition2, item_type: "Edition", state: "published")
+      version3 = create(:version, item: edition3, item_type: "Edition", state: "published")
+      _excluded_version = create(:version, item: edition3)
+      _superseded_version = create(:version, item: edition2, state: "superseded")
+
+      versions = [version1, version2, version3]
+
+      version1_stub =  stub(id: version1.id)
+      version2_stub =  stub(id: version2.id)
+      version3_stub =  stub(id: version3.id)
+
+      VersionDecorator.stubs(:new).with { |v, **args|
+        v.id == version1.id &&
+          args[:is_first_edition] == true &&
+          args[:previous_version] == version3
+      }.returns(version1_stub)
+
+      VersionDecorator.stubs(:new).with { |v, **args|
+        v.id == version2.id &&
+          args[:is_first_edition] == false &&
+          args[:previous_version] == version1
+      }.returns(version2_stub)
+
+      VersionDecorator.stubs(:new).with { |v, **args|
+        v.id == version3.id &&
+          args[:is_first_edition] == false &&
+          args[:previous_version] == version2
+      }.returns(version3_stub)
+
+      all_versions = document.decorated_edition_versions_by_ids(
+        versions.map(&:id),
+      )
+
+      expected_versions = {
+        version1.id => version1_stub,
+        version2.id => version2_stub,
+        version3.id => version3_stub,
+      }
+
+      assert_equal all_versions.count, versions.count
+      assert_equal all_versions.to_h, expected_versions
+    end
+  end
+
+  describe "#first_edition_id" do
+    it "returns the ID of the first edition" do
+      document = create(:document)
+      edition1 = create(:published_edition, document: document)
+      _edition2 = create(:published_edition, document: document)
+
+      assert_equal document.first_edition_id, edition1.id
+    end
+  end
+
+  describe "#active_edition_versions" do
+    it "returns only active edition versions" do
+      document = create(:document)
+      edition1 = create(:published_edition, document: document)
+      edition2 = create(:published_edition, document: document)
+
+      create(:version, item: edition1, item_type: "Edition", state: "published")
+      create(:version, item: edition1, item_type: "Edition", state: "published")
+      create(:version, item: edition2, item_type: "Edition", state: "published")
+
+      expected_versions = [
+        *edition1.versions,
+        *edition2.versions,
+      ]
+
+      _superseded_version = create(:version, item: edition2, state: "superseded")
+      _document_version = create(:version, item: document)
+
+      actual_versions = document.active_edition_versions
+
+      assert_same_elements expected_versions, actual_versions
+    end
+  end
 end

@@ -60,6 +60,31 @@ class Document < ApplicationRecord
     find_by(document_type: document_types, slug:)
   end
 
+  def remarks_by_ids(remark_ids)
+    editorial_remarks.where(id: remark_ids).index_by(&:id)
+  end
+
+  def active_edition_versions
+    edition_versions.where.not(state: "superseded")
+  end
+
+  def decorated_edition_versions_by_ids(version_ids)
+    versions = active_edition_versions.where(id: version_ids)
+
+    versions.map.with_index { |version, index|
+      version = VersionDecorator.new(
+        version,
+        is_first_edition: version.item_id == first_edition_id,
+        previous_version: versions[index - 1],
+      )
+      [version.id, version]
+    }.to_h
+  end
+
+  def first_edition_id
+    @first_edition_id ||= editions.pick(:id)
+  end
+
   def similar_slug_exists?
     scope = Document.where(document_type:)
     sequence_separator = friendly_id_config.sequence_separator
