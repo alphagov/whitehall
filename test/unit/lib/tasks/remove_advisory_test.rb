@@ -37,39 +37,39 @@ class RemoveAdvisoryTasksTest < ActiveSupport::TestCase
     assert_match "^example^\n$CTA", new_edition.body
   end
 
-    test "published_html_attachments processes HTML attachments with plain advisory" do
-      edition = create(:published_edition)
-      attachment = create(:html_attachment, attachable: edition, body: "@example@")
-      create(:gds_team_user, name: "GDS Inside Government Team")
+  test "published_html_attachments processes HTML attachments with plain advisory" do
+    edition = create(:published_edition)
+    attachment = create(:html_attachment, attachable: edition, body: "@example@")
+    create(:gds_team_user, name: "GDS Inside Government Team")
 
-      Rake::Task["remove_advisory_from_editions:published_html_attachments"].invoke
+    Rake::Task["remove_advisory_from_editions:published_html_attachments"].invoke
 
-      new_edition = attachment.attachable.document.latest_edition
-      new_attachment = new_edition.html_attachments.first
-      assert_match "^example^", new_attachment.body
-    end
+    new_edition = attachment.attachable.document.latest_edition
+    new_attachment = new_edition.html_attachments.first
+    assert_match "^example^", new_attachment.body
+  end
 
-    test "published_html_attachments processes HTML attachments with advisory followed by blank lines" do
-      edition = create(:published_edition)
-      attachment = create(:html_attachment, attachable: edition, body: "@example\n\n")
-      create(:gds_team_user, name: "GDS Inside Government Team")
+  test "published_html_attachments processes HTML attachments with advisory followed by blank lines" do
+    edition = create(:published_edition)
+    attachment = create(:html_attachment, attachable: edition, body: "@example\n\n")
+    create(:gds_team_user, name: "GDS Inside Government Team")
 
-      Rake::Task["remove_advisory_from_editions:published_html_attachments"].invoke
+    Rake::Task["remove_advisory_from_editions:published_html_attachments"].invoke
 
-      new_edition = attachment.attachable.document.latest_edition
-      new_attachment = new_edition.html_attachments.first
-      assert_match "^example^", new_attachment.body
-    end
+    new_edition = attachment.attachable.document.latest_edition
+    new_attachment = new_edition.html_attachments.first
+    assert_match "^example^", new_attachment.body
+  end
 
-    test "published_html_attachments processes HTML attachments with advisory followed by call to action" do
-      edition = create(:published_edition)
-      attachment = create(:html_attachment, attachable: edition, body: "@example\n$CTA")
-      create(:gds_team_user, name: "GDS Inside Government Team")
+  test "published_html_attachments processes HTML attachments with advisory followed by call to action" do
+    edition = create(:published_edition)
+    attachment = create(:html_attachment, attachable: edition, body: "@example\n$CTA")
+    create(:gds_team_user, name: "GDS Inside Government Team")
 
-      Rake::Task["remove_advisory_from_editions:published_html_attachments"].invoke
+    Rake::Task["remove_advisory_from_editions:published_html_attachments"].invoke
 
-      new_edition = attachment.attachable.document.latest_edition
-      new_attachment = new_edition.html_attachments.first
-      assert_match "^example^", new_attachment.body
-    end
+    new_edition = attachment.attachable.document.latest_edition
+    new_attachment = new_edition.html_attachments.first
+    assert_match "^example^", new_attachment.body
+  end
 end

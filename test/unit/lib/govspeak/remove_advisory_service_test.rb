@@ -6,11 +6,11 @@ class Govspeak::RemoveAdvisoryServiceTest < ActiveSupport::TestCase
     edition = create(:published_edition, body:)
 
     expected = {
-          opening_at: "@",
-          content_after_at: " New online safety legislation is coming which will aim to reduce online harms.",
-          closing_at: "",
-          other_possible_line_ends: nil,
-        }
+      opening_at: "@",
+      content_after_at: " New online safety legislation is coming which will aim to reduce online harms.",
+      closing_at: "",
+      other_possible_line_ends: nil,
+    }
     service = Govspeak::RemoveAdvisoryService.new(edition)
     assert_equal expected, service.advisory_match_group(body)
   end
@@ -20,11 +20,11 @@ class Govspeak::RemoveAdvisoryServiceTest < ActiveSupport::TestCase
     edition = create(:published_edition, body:)
 
     expected = {
-          opening_at: "@",
-          content_after_at: " New online safety legislation is coming which will aim to reduce online harms.",
-          closing_at: "@",
-          other_possible_line_ends: nil,
-        }
+      opening_at: "@",
+      content_after_at: " New online safety legislation is coming which will aim to reduce online harms.",
+      closing_at: "@",
+      other_possible_line_ends: nil,
+    }
     service = Govspeak::RemoveAdvisoryService.new(edition)
     assert_equal expected, service.advisory_match_group(body)
   end
