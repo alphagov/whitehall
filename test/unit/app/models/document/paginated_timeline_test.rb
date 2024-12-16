@@ -1,66 +1,60 @@
 require "test_helper"
 
 class PaginatedTimelineTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   setup do
     @user = create(:departmental_editor)
     @user2 = create(:departmental_editor)
+    HostContentUpdateEvent.stubs(:all_for_date_window).returns([])
     seed_document_event_history
   end
 
-  test "#entries are ordered newest first (reverse chronological order)" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    entry_timestamps = timeline.entries.map(&:created_at)
-    assert_equal entry_timestamps.sort.reverse, entry_timestamps
-  end
+  describe "#entries" do
+    it "orders newest first (reverse chronological order)" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      entry_timestamps = timeline.entries.map(&:created_at)
+      assert_equal entry_timestamps.sort.reverse, entry_timestamps
+    end
 
-  test "#entries is a list of VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    assert_equal [VersionDecorator, EditorialRemark].to_set,
-                 timeline.entries.map(&:class).to_set
-  end
+    it "is is a list of VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      assert_equal [VersionDecorator, EditorialRemark].to_set,
+                   timeline.entries.map(&:class).to_set
+    end
 
-  test "#total_count counts the list of VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    assert_equal 11, timeline.total_count
-  end
+    it "paginates correctly" do
+      expect_total_count = 11
+      results_per_page = 4
+      expect_total_pages = 3
 
-  test "#entries are paginated correctly" do
-    expect_total_count = 11
-    results_per_page = 4
-    expect_total_pages = 3
-
-    # Get paginated results
-    paginated_results = nil
-    mock_pagination(per_page: results_per_page) do
-      paginated_results = (1..expect_total_pages).map do |page|
-        Document::PaginatedTimeline.new(document: @document, page:).entries
+      # Get paginated results
+      paginated_results = nil
+      mock_pagination(per_page: results_per_page) do
+        paginated_results = (1..expect_total_pages).map do |page|
+          Document::PaginatedTimeline.new(document: @document, page:).entries
+        end
       end
+
+      # Get unpaginated results by setting per_page to the total count
+      unpaginated_results = mock_pagination(per_page: expect_total_count) do
+        Document::PaginatedTimeline.new(document: @document, page: 1).entries
+      end
+
+      # Compare unpaginated results to paginated results
+      assert_equal unpaginated_results.each_slice(results_per_page).to_a, paginated_results
     end
 
-    # Get unpaginated results by setting per_page to the total count
-    unpaginated_results = mock_pagination(per_page: expect_total_count) do
-      Document::PaginatedTimeline.new(document: @document, page: 1).entries
+    it "is a list of EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
+      expected_entries = [@editorial_remark3, @editorial_remark2, @editorial_remark1]
+
+      assert_equal expected_entries, timeline.entries
     end
 
-    # Compare unpaginated results to paginated results
-    assert_equal unpaginated_results.each_slice(results_per_page).to_a, paginated_results
-  end
-
-  test "#entries is a list of EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
-    expected_entries = [@editorial_remark3, @editorial_remark2, @editorial_remark1]
-
-    assert_equal expected_entries, timeline.entries
-  end
-
-  test "#total_count counts the total EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
-    assert_equal 3, timeline.total_count
-  end
-
-  test "#entries is a list of VersionDecorator objects when 'history' is passed in as a 'only' argument" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
-    expected_actions = %w[updated
+    it "is a list of VersionDecorator objects when 'history' is passed in as a 'only' argument" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
+      expected_actions = %w[updated
                           editioned
                           published
                           submitted
@@ -69,26 +63,72 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
                           submitted
                           created]
 
-    assert_equal expected_actions, timeline.entries.map(&:action)
+      assert_equal expected_actions, timeline.entries.map(&:action)
+    end
+
+    it "correctly determines actions" do
+      mock_pagination(per_page: 30) do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+        entries = timeline.entries.select { |e| e.instance_of?(VersionDecorator) }
+        expected_actions = %w[updated
+                              editioned
+                              published
+                              submitted
+                              updated
+                              rejected
+                              submitted
+                              created]
+
+        assert_equal expected_actions, entries.map(&:action)
+      end
+    end
+
+    it "correctly determines actors" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      entries = timeline.entries.select { |e| e.instance_of?(VersionDecorator) }
+      expected_actors = [@user,
+                         @user,
+                         @user2,
+                         @user,
+                         @user,
+                         @user2,
+                         @user]
+
+      assert_equal expected_actors, entries.map(&:actor)
+    end
   end
 
-  test "#total_count counts the total VersionDecorator objects when 'history' is passed into the 'only' argument" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
-    assert_equal 8, timeline.total_count
+  describe "#total_count" do
+    it "counts the list of VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      assert_equal 11, timeline.total_count
+    end
+
+    it "counts the total EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
+      assert_equal 3, timeline.total_count
+    end
+
+    it "counts the total VersionDecorator objects when 'history' is passed into the 'only' argument" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
+      assert_equal 8, timeline.total_count
+    end
   end
 
-  test "#only is the 'only' constructor argument" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    assert_nil timeline.only
+  describe "#only" do
+    it "is the 'only' constructor argument" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      assert_nil timeline.only
 
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
-    assert_equal "history", timeline.only
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
+      assert_equal "history", timeline.only
 
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
-    assert_equal "internal_notes", timeline.only
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
+      assert_equal "internal_notes", timeline.only
+    end
   end
 
-  test "it implements methods required by Kaminari for pagination" do
+  it "implements methods required by Kaminari for pagination" do
     results_per_page = 4
     expect_total_count = 11
     expect_total_pages = 3
@@ -110,56 +150,31 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     end
   end
 
-  test "VersionDecorator correctly determines actions" do
-    mock_pagination(per_page: 30) do
+  describe "#entries_on_newer_editions" do
+    it "returns entries on newer editions than the one passed in" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      entries = timeline.entries.select { |e| e.instance_of?(VersionDecorator) }
-      expected_actions = %w[updated
-                            editioned
-                            published
-                            submitted
-                            updated
-                            rejected
-                            submitted
-                            created]
+      expected_entries = timeline.entries.slice(1, 2)
 
-      assert_equal expected_actions, entries.map(&:action)
+      assert_equal expected_entries, timeline.entries_on_newer_editions(@first_edition)
+    end
+  end
+  
+  describe "#entries_on_current_edition" do
+    it "returns entries for the edition passed in" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      expected_entries = timeline.entries - timeline.entries.slice(1, 2)
+
+      assert_equal expected_entries, timeline.entries_on_current_edition(@first_edition)
     end
   end
 
-  test "VersionDecorator correctly determines actors" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    entries = timeline.entries.select { |e| e.instance_of?(VersionDecorator) }
-    expected_actors = [@user,
-                       @user,
-                       @user2,
-                       @user,
-                       @user,
-                       @user2,
-                       @user]
+  describe "#entries_on_previous_editions" do
+    it "returns entries on previous editions" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+      expected_entries = timeline.entries - timeline.entries.slice(1, 2)
 
-    assert_equal expected_actors, entries.map(&:actor)
-  end
-
-  test "#entries_on_newer_editions returns entries on newer editions than the one passed in" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    expected_entries = timeline.entries.slice(1, 2)
-
-    assert_equal expected_entries, timeline.entries_on_newer_editions(@first_edition)
-  end
-
-  test "#entries_on_current_edition returns entries for the edition passed in" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    expected_entries = timeline.entries - timeline.entries.slice(1, 2)
-
-    assert_equal expected_entries, timeline.entries_on_current_edition(@first_edition)
-  end
-
-  test "#entries_on_previous_editions returns entries on previous editions" do
-    timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-    expected_entries = timeline.entries - timeline.entries.slice(1, 2)
-
-    assert_equal expected_entries, timeline.entries_on_previous_editions(@newest_edition)
+      assert_equal expected_entries, timeline.entries_on_previous_editions(@newest_edition)
+    end
   end
 
   def seed_document_event_history
