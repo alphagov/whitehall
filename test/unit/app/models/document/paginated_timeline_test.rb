@@ -17,7 +17,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
       assert_equal entry_timestamps.sort.reverse, entry_timestamps
     end
 
-    it "is is a list of VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
+    it "is a list of VersionDecorator and EditorialRemark objects when 'only' argument is not present" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
       assert_equal [VersionDecorator, EditorialRemark].to_set,
                    timeline.entries.map(&:class).to_set
@@ -43,27 +43,6 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
 
       # Compare unpaginated results to paginated results
       assert_equal unpaginated_results.each_slice(results_per_page).to_a, paginated_results
-    end
-
-    it "is a list of EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
-      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
-      expected_entries = [@editorial_remark3, @editorial_remark2, @editorial_remark1]
-
-      assert_equal expected_entries, timeline.entries
-    end
-
-    it "is a list of VersionDecorator objects when 'history' is passed in as a 'only' argument" do
-      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
-      expected_actions = %w[updated
-                          editioned
-                          published
-                          submitted
-                          updated
-                          rejected
-                          submitted
-                          created]
-
-      assert_equal expected_actions, timeline.entries.map(&:action)
     end
 
     it "correctly determines actions" do
@@ -95,6 +74,140 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
                          @user]
 
       assert_equal expected_actors, entries.map(&:actor)
+    end
+
+    describe "when there are HostContentUpdateEvents present" do
+      let(:host_content_update_events) { build_list(:host_content_update_event, 3) }
+
+      before do
+        HostContentUpdateEvent.stubs(:all_for_date_window).returns(host_content_update_events)
+      end
+
+      it "orders newest first (reverse chronological order)" do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+        entry_timestamps = timeline.entries.flatten.map(&:created_at)
+        assert_equal entry_timestamps.sort.reverse, entry_timestamps
+      end
+
+      it "is a list of VersionDecorator and EditorialRemark and HostContentUpdateEvent objects when 'only' argument is not present" do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+        assert_equal [VersionDecorator, EditorialRemark, HostContentUpdateEvent].to_set,
+                     timeline.entries.map(&:class).to_set
+      end
+
+      it "includes all of the HostContentUpdateEvent objects" do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+
+        host_content_update_events.each do |event|
+          assert_includes timeline.entries, event
+        end
+      end
+
+      describe "fetching HostContentUpdateEvents" do
+        before do
+          HostContentUpdateEvent.reset_mocha
+        end
+
+        describe "when on the first page" do
+          it "requests a date window from the first created_at date of the next page to the current datetime" do
+            Timecop.freeze do
+              page2_entries = Document::PaginatedTimeline.new(document: @document, page: 2).query.raw_entries
+
+              HostContentUpdateEvent.expects(:all_for_date_window).with(
+                document: @document,
+                from: page2_entries.first.created_at.to_time.utc,
+                to: Time.zone.now.to_time.round.utc,
+              ).at_least_once.returns(host_content_update_events)
+
+              Document::PaginatedTimeline.new(document: @document, page: 1).entries
+            end
+          end
+
+          describe "when there are no results" do
+            it "does not request any events" do
+              timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+              timeline.query.expects(:raw_entries).at_least_once.returns([])
+
+              HostContentUpdateEvent.expects(:all_for_date_window).never
+
+              timeline.entries
+            end
+          end
+        end
+
+        describe "when not on the first page" do
+          it "requests a window between the first created_at date of the next page to the first created_at date of the current page" do
+            mock_pagination(per_page: 3) do
+              page2_entries = Document::PaginatedTimeline.new(document: @document, page: 2).query.raw_entries
+              page3_entries = Document::PaginatedTimeline.new(document: @document, page: 3).query.raw_entries
+
+              HostContentUpdateEvent.expects(:all_for_date_window).with(
+                document: @document,
+                from: page3_entries.first.created_at.to_time.utc,
+                to: page2_entries.first.created_at.to_time.utc,
+              ).at_least_once.returns(host_content_update_events)
+
+              Document::PaginatedTimeline.new(document: @document, page: 2).entries
+            end
+          end
+        end
+
+        describe "when on the last page" do
+          it "fetches with the created_at date for the last item" do
+            Timecop.freeze do
+              mock_pagination(per_page: 30) do
+                timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+                timeline_entries = timeline.query.raw_entries
+
+                HostContentUpdateEvent.expects(:all_for_date_window).with(
+                  document: @document,
+                  from: timeline_entries.last.created_at.to_time.utc,
+                  to: timeline_entries.first.created_at.to_time.utc,
+                ).at_least_once.returns(host_content_update_events)
+
+                timeline.entries
+              end
+            end
+          end
+        end
+      end
+    end
+
+    describe "when only argument is set to history" do
+      it "is a list of VersionDecorator objects" do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
+        expected_actions = %w[updated
+                              editioned
+                              published
+                              submitted
+                              updated
+                              rejected
+                              submitted
+                              created]
+
+        assert_equal expected_actions, timeline.entries.map(&:action)
+      end
+
+      it "does not fetch any HostContentUpdateEvents" do
+        HostContentUpdateEvent.expects(:all_for_date_window).never
+
+        Document::PaginatedTimeline.new(document: @document, page: 1, only: "history").entries
+      end
+    end
+
+    describe "when only argument is set to internal_notes" do
+      it "is a list of EditorialRemark objects when 'internal_notes'" do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
+        expected_entries = [@editorial_remark3, @editorial_remark2, @editorial_remark1]
+
+        assert_equal expected_entries, timeline.entries
+      end
+
+      it "does not fetch any HostContentUpdateEvents" do
+        HostContentUpdateEvent.expects(:all_for_date_window).never
+
+        Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes").entries
+      end
     end
   end
 

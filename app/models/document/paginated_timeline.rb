@@ -13,13 +13,19 @@ class Document::PaginatedTimeline
       remarks = document.remarks_by_ids(query.remark_ids)
       versions = document.decorated_edition_versions_by_ids(query.version_ids)
 
-      raw_entries.map do |entry|
+      versions_and_remarks = raw_entries.map do |entry|
         case entry.model
         when "Version"
           versions.fetch(entry.id)
         when "EditorialRemark"
           remarks.fetch(entry.id)
         end
+      end
+
+      if only.present?
+        versions_and_remarks
+      else
+        [*versions_and_remarks, *host_content_update_events].sort_by(&:created_at).reverse!
       end
     end
   end
@@ -87,6 +93,32 @@ class Document::PaginatedTimeline
       current_page - 1
     else
       false
+    end
+  end
+
+private
+
+  def host_content_update_events
+    return [] if query.raw_entries.empty?
+
+    @host_content_update_events ||= HostContentUpdateEvent.all_for_date_window(
+      document:,
+      from: date_window.last,
+      to: date_window.first,
+    )
+  end
+
+  def date_window
+    @date_window ||= begin
+      start = page == 1 ? Time.zone.now : query.raw_entries.first.created_at
+      ends = next_page_entries ? next_page_entries.first.created_at : query.raw_entries.last.created_at
+      (start.to_time.round.utc..ends.to_time.round.utc)
+    end
+  end
+
+  def next_page_entries
+    if next_page
+      Document::PaginatedTimelineQuery.new(document:, page: next_page, only:).raw_entries
     end
   end
 end
