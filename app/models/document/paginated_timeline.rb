@@ -33,7 +33,7 @@ class Document::PaginatedTimeline
       if entry.is_a?(EditorialRemark)
         entry.edition_id > edition.id
       else
-        entry.version.item_id > edition.id
+        entry.item_id > edition.id
       end
     end
   end
@@ -43,7 +43,7 @@ class Document::PaginatedTimeline
       if entry.is_a?(EditorialRemark)
         entry.edition_id == edition.id
       else
-        entry.version.item_id == edition.id
+        entry.item_id == edition.id
       end
     end
   end
@@ -53,7 +53,7 @@ class Document::PaginatedTimeline
       if entry.is_a?(EditorialRemark)
         entry.edition_id < edition.id
       else
-        entry.version.item_id < edition.id
+        entry.item_id < edition.id
       end
     end
   end

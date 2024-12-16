@@ -77,7 +77,7 @@ class Document::PaginatedTimelineQueryTest < ActiveSupport::TestCase
   end
 
   describe "#versions" do
-    it "returns all the versions, presented as VersionPresenter items" do
+    it "returns all the versions, presented as VersionDecorator items" do
       page1_query = Document::PaginatedTimelineQuery.new(document: @document, page: 1)
       page2_query = Document::PaginatedTimelineQuery.new(document: @document, page: 2)
 
@@ -85,10 +85,10 @@ class Document::PaginatedTimelineQueryTest < ActiveSupport::TestCase
       version_presenter_mocks = []
 
       versions.each do |version|
-        version_presenter_mock = mock("Queries::VersionPresenter", id: version.id)
-        Queries::VersionPresenter.stubs(:new).with { |v, **_args|
+        version_decorator_mock = mock("VersionDecorator", id: version.id)
+        VersionDecorator.stubs(:new).with { |v, **_args|
           v.id == version.id
-        }.returns(version_presenter_mock)
+        }.returns(version_decorator_mock)
         version_presenter_mocks.push(version_presenter_mock)
       end
 

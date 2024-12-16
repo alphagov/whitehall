@@ -28,12 +28,12 @@ class Document
     def versions
       versions = document_versions.where(id: version_ids)
       versions.map.with_index { |version, index|
-        presenter = Queries::VersionPresenter.new(
+        version = VersionDecorator.new(
           version,
           is_first_edition: version.item_id == first_edition_id,
           previous_version: versions[index - 1],
         )
-        [version.id, presenter]
+        [version.id, version]
       }.to_h
     end
 
