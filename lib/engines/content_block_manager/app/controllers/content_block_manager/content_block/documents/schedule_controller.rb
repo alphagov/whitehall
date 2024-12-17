@@ -9,18 +9,11 @@ class ContentBlockManager::ContentBlock::Documents::ScheduleController < Content
   def update
     document = ContentBlockManager::ContentBlock::Document.find(params[:document_id])
     @content_block_edition = document.latest_edition
-    validate_update
-  end
+    validate_scheduled_edition
 
-private
+    @url = review_update_url
 
-  def validate_update
-    if params[:schedule_publishing].blank?
-      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
-      raise ActiveRecord::RecordInvalid, @content_block_edition
-    else
-      schedule_or_publish
-    end
+    render "content_block_manager/content_block/editions/workflow/review"
   rescue ActiveRecord::RecordInvalid
     render "content_block_manager/content_block/documents/schedule/edit"
   end
