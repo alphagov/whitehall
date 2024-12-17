@@ -77,7 +77,9 @@ Whitehall::Application.routes.draw do
       end
 
       resources :documents, only: [] do
-        resources :review_reminders, only: %i[new create edit update]
+        resources :review_reminders, only: %i[new create edit update destroy] do
+          get :confirm_destroy, on: :member
+        end
       end
 
       resources :authors, only: [:show]

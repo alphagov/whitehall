@@ -1,6 +1,6 @@
 class Admin::ReviewRemindersController < Admin::BaseController
   before_action :load_document
-  before_action :load_review_reminder, only: %i[edit update]
+  before_action :load_review_reminder, only: %i[edit update confirm_destroy destroy]
   before_action :build_review_reminder, only: %i[new create]
   before_action :enforce_permissions!
 
@@ -22,6 +22,13 @@ class Admin::ReviewRemindersController < Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def confirm_destroy; end
+
+  def destroy
+    @review_reminder.destroy!
+    redirect_to admin_edition_path(@document.latest_edition), notice: "Review reminder deleted"
   end
 
 private

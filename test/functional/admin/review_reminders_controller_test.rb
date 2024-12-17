@@ -103,4 +103,22 @@ class Admin::ReviewRemindersControllerTest < ActionController::TestCase
     assert_equal assigns(:review_reminder).email_address, ""
     assert_template :edit
   end
+
+  test "GET to :confirm_destroy assigns the correct values and renders the correct template" do
+    review_reminder = create(:review_reminder, document: @document)
+
+    get :confirm_destroy, params: { document_id: @document, id: review_reminder }
+
+    assert_equal assigns(:document), @document
+    assert_equal assigns(:review_reminder), review_reminder
+    assert_template :confirm_destroy
+  end
+
+  test "DELETE to :destroy destroys the review reminder" do
+    review_reminder = create(:review_reminder, document: @document)
+
+    delete :destroy, params: { document_id: @document, id: review_reminder }
+
+    assert @document.reload.review_reminder.nil?
+  end
 end
