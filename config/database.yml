@@ -1,5 +1,5 @@
 default: &default
-  encoding: utf8
+  encoding: utf8mb4
   adapter: mysql2
   prepared_statements: true
   variables:
