@@ -14,7 +14,8 @@ private
       *details_items,
       organisation_item,
       instructions_item,
-    ]
+      status_item,
+    ].compact
   end
 
   def edit_item
@@ -59,5 +60,23 @@ private
       href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:edit_draft]),
       link_text: "Edit",
     }
+  end
+
+  def scheduled_value
+    I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)
+  end
+
+  def status_item
+    if content_block_edition.scheduled_publication
+      {
+        field: "Scheduled date and time",
+        value: scheduled_value,
+      }
+    elsif content_block_edition.document.editions.count > 1
+      {
+        field: "Publish date",
+        value: I18n.l(Time.zone.today, format: :long_ordinal),
+      }
+    end
   end
 end

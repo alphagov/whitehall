@@ -44,7 +44,7 @@ Feature: Edit a content object
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
 
-  Scenario: GDS editor cancels the creation of an object before publishing
+  Scenario: GDS editor cancels the creation of an object before scheduling
     When I visit the Content Block Manager home page
     When I click to view the document
     When I click the first edit link
@@ -56,6 +56,18 @@ Feature: Edit a content object
     Then I am asked when I want to publish the change
     And I click cancel
     Then I should be taken back to the document page
+    And no draft Content Block Edition has been created
+
+  Scenario: GDS editor cancels the creation of an object before confirming answers
+    When I visit the Content Block Manager home page
+    When I click to view the document
+    When I click the first edit link
+    When I fill out the form
+    When I save and continue
+    When I choose to publish the change now
+    And I save and continue
+    And I click cancel
+    Then I am taken back to Content Block Manager home page
     And no draft Content Block Edition has been created
 
   Scenario: GDS editor sees validation errors for missing fields
