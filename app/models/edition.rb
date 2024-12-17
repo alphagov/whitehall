@@ -101,7 +101,7 @@ class Edition < ApplicationRecord
 
   def self.scheduled_for_publication_as(slug)
     document = Document.at_slug(document_type, slug)
-    document && document.scheduled_edition
+    document&.scheduled_edition
   end
 
   def skip_main_validation?

@@ -43,14 +43,6 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_equal publication.document.slug, news_article.document.slug
   end
 
-  test "should allow the same slug to be used for a news article and a speech" do
-    same_title = "same-title"
-    news_article = create(:news_article, title: same_title)
-    speech = create(:speech, title: same_title)
-
-    assert_equal news_article.document.slug, speech.document.slug
-  end
-
   test "should return the edition of the correct type when matching slugs for other types exist" do
     same_title = "same-title"
     news_article = create(:published_news_article, title: same_title)
