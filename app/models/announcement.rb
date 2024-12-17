@@ -8,10 +8,6 @@ class Announcement < Edition
   include Edition::WorldLocations
   include Edition::TopicalEvents
 
-  def self.sti_names
-    ([self] + descendants).map(&:sti_name)
-  end
-
   def self.published_with_eager_loading(ids)
     published.with_translations.includes([:document, { organisations: :translations }]).where(id: ids)
   end
