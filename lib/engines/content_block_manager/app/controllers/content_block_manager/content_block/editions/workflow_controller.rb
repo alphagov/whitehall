@@ -96,21 +96,10 @@ private
     )
   end
 
-  def validate_scheduled_edition
-    @content_block_edition.assign_attributes(scheduled_publication_params)
-    @content_block_edition.assign_attributes(state: "scheduled")
-    raise ActiveRecord::RecordInvalid unless @content_block_edition.valid?
-  end
-
   def review_update
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
-    if params[:schedule_publishing].blank?
-      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
-      raise ActiveRecord::RecordInvalid, @content_block_edition
-    elsif params[:schedule_publishing] == "schedule"
-      validate_scheduled_edition
-    end
+    validate_scheduled_edition
 
     @url = review_update_url
 
