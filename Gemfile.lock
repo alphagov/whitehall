@@ -834,7 +834,7 @@ GEM
     record_tag_helper (1.0.1)
       actionview (>= 5)
     redis (4.8.1)
-    redis-client (0.22.2)
+    redis-client (0.23.0)
       connection_pool
     regexp_parser (2.9.3)
     reline (0.5.12)
@@ -927,11 +927,11 @@ GEM
     sentry-rails (5.22.0)
       railties (>= 5.0)
       sentry-ruby (~> 5.22.0)
-    sentry-ruby (5.22.0)
+    sentry-ruby (5.22.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.22.0)
-      sentry-ruby (~> 5.22.0)
+    sentry-sidekiq (5.22.1)
+      sentry-ruby (~> 5.22.1)
       sidekiq (>= 3.0)
     sidekiq (7.3.6)
       connection_pool (>= 2.3.0)
