@@ -4,7 +4,8 @@ class VersionDecoratorTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:user) { build(:user) }
-  let(:edition) { build(:edition) }
+  let(:item_id) { 5 }
+  let(:edition) { build(:edition, id: item_id) }
   let(:version) { build(:version, user:, item: edition) }
   let(:is_first_edition) { false }
   let(:previous_version) { build(:version, user:, item: edition) }
@@ -76,6 +77,42 @@ class VersionDecoratorTest < ActiveSupport::TestCase
 
         decorator.action
       end
+    end
+  end
+
+  describe "#is_for_newer_edition?" do
+    it "returns true if the version's item_id is less than the edition's id" do
+      edition_to_compare = build(:edition, id: item_id - 1)
+      assert decorator.is_for_newer_edition?(edition_to_compare)
+    end
+
+    it "returns false if the version's item_id is greater than the edition's id" do
+      edition_to_compare = build(:edition, id: item_id + 1)
+      assert_not decorator.is_for_newer_edition?(edition_to_compare)
+    end
+  end
+
+  describe "#is_for_current_edition?" do
+    it "returns true if the version's item_id is equal to the edition's id" do
+      edition_to_compare = build(:edition, id: item_id)
+      assert decorator.is_for_current_edition?(edition_to_compare)
+    end
+
+    it "returns true if the version's item_id is not equal to the edition's id" do
+      edition_to_compare = build(:edition, id: item_id + 1)
+      assert_not decorator.is_for_current_edition?(edition_to_compare)
+    end
+  end
+
+  describe "#is_for_older_edition?" do
+    it "returns true if the version's item_id is greater than the edition's id" do
+      edition_to_compare = build(:edition, id: item_id + 1)
+      assert decorator.is_for_older_edition?(edition_to_compare)
+    end
+
+    it "returns false if the version's item_id is less than the edition's id" do
+      edition_to_compare = build(:edition, id: item_id - 1)
+      assert_not decorator.is_for_older_edition?(edition_to_compare)
     end
   end
 end
