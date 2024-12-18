@@ -167,7 +167,7 @@ private
   end
 
   def recruitment_url_row
-    return if organisation.custom_jobs_url.blank?
+    return "" if organisation.custom_jobs_url.blank?
 
     {
       field: "Recruitment URL",
