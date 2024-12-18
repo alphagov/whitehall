@@ -21,6 +21,7 @@ Flipflop.configure do
   # feature :world_domination,
   #   default: true,
   #   description: "Take over the world."
+  feature :delete_review_reminders, description: "Enables deletion of review reminders", default: false
   feature :govspeak_visual_editor, description: "Enables a visual editor for Govspeak fields", default: false
   feature :override_government, description: "Enables GDS Editors and Admins to override the government associated with a document", default: false
   feature :show_link_to_content_block_manager, description: "Shows link to Content Block Manager from Whitehall editor", default: Whitehall.integration_or_staging?

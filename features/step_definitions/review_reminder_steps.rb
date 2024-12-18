@@ -1,3 +1,8 @@
+And(/^The delete review reminder feature flag is "(enabled|disabled)"$/) do |enabled|
+  @test_strategy ||= Flipflop::FeatureSet.current.test!
+  @test_strategy.switch!(:delete_review_reminders, enabled == "enabled")
+end
+
 And(/^I add a review date of "([^"]*)" and the email address "([^"]*)" on the edit page$/) do |date, email|
   click_link "Edit draft"
   check "Set a reminder to review this content after it has been published"
@@ -17,6 +22,11 @@ end
 Then(/^I should see the review date of "([^"]*)" on the edition summary page$/) do |date|
   assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Review date"
   assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: date
+end
+
+Then(/^I should not see a review date on the edition summary page$/) do
+  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Review date"
+  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "Not set"
 end
 
 When(/^I click the button "([^"]*)" on the edition summary page for "([^"]*)"$/) do |label, title|
@@ -44,4 +54,9 @@ When(/^I filter by review overdue$/) do
   visit admin_editions_path
   check "Review overdue"
   click_on "Search"
+end
+
+And(/^I delete the review date$/) do
+  click_link "Delete"
+  click_button "Delete"
 end
