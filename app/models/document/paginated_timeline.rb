@@ -35,33 +35,15 @@ class Document::PaginatedTimeline
   end
 
   def entries_on_newer_editions(edition)
-    @entries_on_newer_editions ||= entries.select do |entry|
-      if entry.is_a?(EditorialRemark)
-        entry.edition_id > edition.id
-      else
-        entry.item_id > edition.id
-      end
-    end
+    entries.select { |e| e.is_for_newer_edition?(edition) }
   end
 
   def entries_on_current_edition(edition)
-    @entries_on_current_edition ||= entries.select do |entry|
-      if entry.is_a?(EditorialRemark)
-        entry.edition_id == edition.id
-      else
-        entry.item_id == edition.id
-      end
-    end
+    entries.select { |e| e.is_for_current_edition?(edition) }
   end
 
   def entries_on_previous_editions(edition)
-    @entries_on_previous_editions ||= entries.select do |entry|
-      if entry.is_a?(EditorialRemark)
-        entry.edition_id < edition.id
-      else
-        entry.item_id < edition.id
-      end
-    end
+    entries.select { |e| e.is_for_older_edition?(edition) }
   end
 
   def total_count
