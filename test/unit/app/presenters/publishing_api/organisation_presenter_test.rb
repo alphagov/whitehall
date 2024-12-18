@@ -64,12 +64,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
           crest: "single-identity",
         },
         foi_exempt: false,
-        ordered_corporate_information_pages: [
-          {
-            title: "Jobs",
-            href: "https://www.civilservicejobs.service.gov.uk/csr",
-          },
-        ],
+        ordered_corporate_information_pages: [],
         secondary_corporate_information_pages: "",
         ordered_featured_links: [],
         ordered_featured_documents: [],
