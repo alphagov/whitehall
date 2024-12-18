@@ -13,6 +13,7 @@
   image_cache_name ||= "#{name}[image_cache]"
   remove_alt_text_field ||= false
   image_uploaded ||= false
+  image_hint ||= nil
 
   root_classes = %w(app-c-single-image-upload govuk-form-group)
 %>
@@ -70,7 +71,7 @@
       heading_size: label_size,
     },
     name: image_name,
-    hint: "Images must be 960px by 640px",
+    hint: image_hint || "Images must be 960px by 640px",
     id: image_id,
     value: image_src,
     error_items: error_items,
