@@ -263,30 +263,75 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     end
   end
 
-  describe "#entries_on_newer_editions" do
-    it "returns entries on newer editions than the one passed in" do
-      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      expected_entries = timeline.entries.slice(1, 2)
-
-      assert_equal expected_entries, timeline.entries_on_newer_editions(@first_edition)
+  describe "filtering entries" do
+    let(:entries_for_newer_editions) do
+      2.times.map do
+        stub("entry", is_for_newer_edition?: true, is_for_current_edition?: false, is_for_older_edition?: false)
+      end
     end
-  end
-  
-  describe "#entries_on_current_edition" do
-    it "returns entries for the edition passed in" do
-      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      expected_entries = timeline.entries - timeline.entries.slice(1, 2)
 
-      assert_equal expected_entries, timeline.entries_on_current_edition(@first_edition)
+    let(:entries_for_current_edition) do
+      4.times.map do
+        stub("entry", is_for_newer_edition?: false, is_for_current_edition?: true, is_for_older_edition?: false)
+      end
     end
-  end
 
-  describe "#entries_on_previous_editions" do
-    it "returns entries on previous editions" do
-      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      expected_entries = timeline.entries - timeline.entries.slice(1, 2)
+    let(:entries_for_older_editions) do
+      3.times.map do
+        stub("entry", is_for_newer_edition?: false, is_for_current_edition?: false, is_for_older_edition?: true)
+      end
+    end
 
-      assert_equal expected_entries, timeline.entries_on_previous_editions(@newest_edition)
+    let(:all_entries) do
+      [*entries_for_newer_editions, *entries_for_current_edition, *entries_for_older_editions]
+    end
+
+    let(:timeline) { Document::PaginatedTimeline.new(document: @document, page: 1) }
+
+    before do
+      timeline.stubs(:entries).returns(all_entries)
+    end
+
+    describe "#entries_on_newer_editions" do
+      it "returns entries on newer editions than the one passed in" do
+        assert_equal entries_for_newer_editions, timeline.entries_on_newer_editions(@first_edition)
+      end
+
+      it "calls the entries with the expected edition" do
+        all_entries.each do |entry|
+          entry.expects(:is_for_newer_edition?).with(@first_edition)
+        end
+
+        timeline.entries_on_newer_editions(@first_edition)
+      end
+    end
+
+    describe "#entries_on_current_edition" do
+      it "returns entries for the edition passed in" do
+        assert_equal entries_for_current_edition, timeline.entries_on_current_edition(@first_edition)
+      end
+
+      it "calls the entries with the expected edition" do
+        all_entries.each do |entry|
+          entry.expects(:is_for_current_edition?).with(@first_edition)
+        end
+
+        timeline.entries_on_current_edition(@first_edition)
+      end
+    end
+
+    describe "#entries_on_previous_editions" do
+      it "returns entries on previous editions" do
+        assert_equal entries_for_older_editions, timeline.entries_on_previous_editions(@newest_edition)
+      end
+
+      it "calls the entries with the expected edition" do
+        all_entries.each do |entry|
+          entry.expects(:is_for_older_edition?).with(@first_edition)
+        end
+
+        timeline.entries_on_previous_editions(@first_edition)
+      end
     end
   end
 
