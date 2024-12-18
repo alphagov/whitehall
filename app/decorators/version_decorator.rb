@@ -24,7 +24,19 @@ class VersionDecorator < SimpleDelegator
     end
   end
 
-  private
+  def is_for_newer_edition?(edition)
+    item_id > edition.id
+  end
+
+  def is_for_current_edition?(edition)
+    item_id == edition.id
+  end
+
+  def is_for_older_edition?(edition)
+    item_id < edition.id
+  end
+
+private
 
   def previous_version
     # we can avoid n+1 queries by using our preloaded_prev_version
