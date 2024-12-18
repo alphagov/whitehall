@@ -16,7 +16,17 @@ class HostContentUpdateEvent < Data.define(:author, :created_at, :content_id, :c
     end
   end
 
-  private
+  def is_for_newer_edition?(edition)
+    edition.superseded? && created_at.after?(edition.superseded_at)
+  end
+
+  def is_for_current_edition?(edition)
+    edition.published_at && created_at.after?(edition.published_at) && !is_for_newer_edition?(edition)
+  end
+
+  def is_for_older_edition?(edition)
+    !is_for_newer_edition?(edition) && !is_for_current_edition?(edition)
+  end
 
   def self.get_user_for_uuid(uuid)
     User.find_by(uid: uuid)

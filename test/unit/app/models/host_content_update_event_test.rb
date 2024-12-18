@@ -74,4 +74,89 @@ class HostContentUpdateEventTest < ActiveSupport::TestCase
       assert_equal result.second.content_title, "Another exciting piece of content"
     end
   end
+
+  describe "Timeline helpers" do
+    let(:created_at) { Time.zone.now - 1.month }
+    let(:host_content_update_event) { build(:host_content_update_event, created_at:) }
+
+    describe "when the edition is published" do
+      let(:edition) { build(:edition) }
+
+      before do
+        edition.stubs(:published_at).returns(created_at - 12.months)
+      end
+
+      describe "when the event occurred after the edition was superseded" do
+        before do
+          edition.stubs(:superseded?).returns(true)
+          edition.stubs(:superseded_at).returns(created_at - 2.days)
+        end
+
+        describe "#is_for_newer_edition?" do
+          it "returns true" do
+            assert host_content_update_event.is_for_newer_edition?(edition)
+          end
+        end
+
+        describe "#is_for_current_edition?" do
+          it "returns false" do
+            assert_not host_content_update_event.is_for_current_edition?(edition)
+          end
+        end
+
+        describe "#is_for_older_edition?" do
+          it "returns false" do
+            assert_not host_content_update_event.is_for_older_edition?(edition)
+          end
+        end
+      end
+
+      describe "when the event occurred before the edition was superseded" do
+        before do
+          edition.stubs(:superseded?).returns(true)
+          edition.stubs(:superseded_at).returns(created_at + 2.days)
+        end
+
+        describe "#is_for_newer_edition?" do
+          it "returns false" do
+            assert_not host_content_update_event.is_for_newer_edition?(edition)
+          end
+        end
+
+        describe "#is_for_current_edition?" do
+          it "returns true" do
+            assert host_content_update_event.is_for_current_edition?(edition)
+          end
+        end
+
+        describe "#is_for_older_edition?" do
+          it "returns false" do
+            assert_not host_content_update_event.is_for_older_edition?(edition)
+          end
+        end
+      end
+    end
+
+    describe "when the edition is draft" do
+      let(:edition) { build(:edition, :draft) }
+
+      describe "#is_for_newer_edition?" do
+        it "returns false" do
+          assert_not host_content_update_event.is_for_newer_edition?(edition)
+        end
+      end
+
+      describe "#is_for_current_edition?" do
+        it "returns false" do
+          assert_not host_content_update_event.is_for_current_edition?(edition)
+        end
+      end
+
+      describe "#is_for_older_edition?" do
+        it "returns true" do
+          assert host_content_update_event.is_for_older_edition?(edition)
+        end
+      end
+    end
+  end
 end
