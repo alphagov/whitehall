@@ -29,5 +29,6 @@ Feature: Review reminders
     And The delete review reminder feature flag is "enabled"
     And a review reminder exists for "Standard Beard Lengths" with the date "2032-1-1"
     When I click the link "Delete review date" on the edition summary page for "Standard Beard Lengths"
-    And I delete the review date
+    Then I should see the review date of "1 January 2032" on the deletion confirmation page
+    When I delete the review date
     Then I should not see a review date on the edition summary page
