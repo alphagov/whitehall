@@ -9,7 +9,6 @@ class Organisation < ApplicationRecord
 
   date_attributes(:closed_at)
 
-  DEFAULT_JOBS_URL = "https://www.civilservicejobs.service.gov.uk/csr".freeze
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
   has_one :default_news_image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
@@ -416,7 +415,7 @@ class Organisation < ApplicationRecord
   end
 
   def jobs_url
-    custom_jobs_url.presence || DEFAULT_JOBS_URL
+    custom_jobs_url.presence
   end
 
   def indexable_content
