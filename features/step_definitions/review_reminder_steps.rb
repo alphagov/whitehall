@@ -35,6 +35,12 @@ When(/^I click the button "([^"]*)" on the edition summary page for "([^"]*)"$/)
   click_on label
 end
 
+When(/^I click the link "([^"]*)" on the edition summary page for "([^"]*)"$/) do |label, title|
+  edition = Edition.find_by!(title:)
+  visit admin_edition_path(edition)
+  click_link label
+end
+
 And(/^a review reminder exists for "([^"]*)" with the date "([^"]*)"$/) do |title, date|
   edition = Edition.find_by!(title:)
   create(:review_reminder, document: edition.document, review_at: date)
@@ -57,6 +63,5 @@ When(/^I filter by review overdue$/) do
 end
 
 And(/^I delete the review date$/) do
-  click_link "Delete"
   click_button "Delete"
 end

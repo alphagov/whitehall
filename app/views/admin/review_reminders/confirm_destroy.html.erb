@@ -14,7 +14,7 @@
           destructive: true,
         } %>
 
-        <%= link_to("Cancel", edit_admin_document_review_reminder_path(@document, @review_reminder), class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", admin_edition_path(@document.latest_edition), class: "govuk-link govuk-link--no-visited-state") %>
       </div>
     <% end %>
   </section>
