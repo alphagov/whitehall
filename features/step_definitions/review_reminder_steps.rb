@@ -24,6 +24,10 @@ Then(/^I should see the review date of "([^"]*)" on the edition summary page$/) 
   assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: date
 end
 
+Then(/^I should see the review date of "([^"]*)" on the deletion confirmation page$/) do |date|
+  assert_selector ".govuk-body", text: "Review date: #{date}"
+end
+
 Then(/^I should not see a review date on the edition summary page$/) do
   assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Review date"
   assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "Not set"
@@ -33,6 +37,12 @@ When(/^I click the button "([^"]*)" on the edition summary page for "([^"]*)"$/)
   edition = Edition.find_by!(title:)
   visit admin_edition_path(edition)
   click_on label
+end
+
+When(/^I click the link "([^"]*)" on the edition summary page for "([^"]*)"$/) do |label, title|
+  edition = Edition.find_by!(title:)
+  visit admin_edition_path(edition)
+  click_link label
 end
 
 And(/^a review reminder exists for "([^"]*)" with the date "([^"]*)"$/) do |title, date|
@@ -57,6 +67,5 @@ When(/^I filter by review overdue$/) do
 end
 
 And(/^I delete the review date$/) do
-  click_link "Delete"
   click_button "Delete"
 end

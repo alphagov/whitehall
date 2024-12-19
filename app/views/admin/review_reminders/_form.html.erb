@@ -47,9 +47,6 @@
       text: "Save",
     } %>
 
-    <% if Flipflop.delete_review_reminders? && review_reminder.persisted? %>
-      <%= link_to("Delete", confirm_destroy_admin_document_review_reminder_path(document, review_reminder), class: "govuk-link gem-link--destructive govuk-link--no-visited-state") %>
-    <% end %>
     <%= link_to("Cancel", admin_edition_path(@document.latest_edition), class: "govuk-link govuk-link--no-visited-state") %>
   </div>
 <% end %>
