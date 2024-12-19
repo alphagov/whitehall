@@ -1,0 +1,20 @@
+.app-view-editions-host-content-update-event-entry {
+  &__list-item {
+    margin-bottom: govuk-spacing(4);
+  }
+
+  &__detail {
+    margin-top: govuk-spacing(0);
+    margin-bottom: govuk-spacing(0);
+  }
+
+  &__heading {
+    margin-bottom: govuk-spacing(1);
+  }
+
+  &__datetime {
+    margin-top: govuk-spacing(0);
+    margin-bottom: govuk-spacing(0);
+    color: $govuk-secondary-text-colour;
+  }
+}
