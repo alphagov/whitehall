@@ -14,6 +14,7 @@ Before do
   GdsApi::PublishingApi.any_instance.stubs(:put_content)
   GdsApi::PublishingApi.any_instance.stubs(:patch_links)
   GdsApi::PublishingApi.any_instance.stubs(:unpublish)
+  GdsApi::PublishingApi.any_instance.stubs(:get_events_for_content_id).returns([])
 
   need1 = {
     "content_id" => SecureRandom.uuid,
