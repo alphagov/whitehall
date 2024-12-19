@@ -119,6 +119,14 @@ module Edition::Workflow
     true
   end
 
+  def superseded_at
+    versions.find { |v| v.state == "superseded" }&.created_at
+  end
+
+  def published_at
+    versions.find { |v| v.state == "published" }&.created_at
+  end
+
 private
 
   def destroy_associations_with_edition_dependencies_and_dependants

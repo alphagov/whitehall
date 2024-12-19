@@ -92,6 +92,16 @@ When("I publish {edition}") do |edition|
   publish
 end
 
+When("I force publish a new edition of {edition}") do |edition|
+  stub_publishing_api_links_with_taxons(edition.content_id, %w[a-taxon-content-id])
+  visit_edition_admin edition.title
+  click_button "Create new edition"
+  fill_in_change_note_if_required
+  apply_to_all_nations_if_required
+  click_button "Save and go to document summary"
+  publish(force: true)
+end
+
 When("I force publish {edition}") do |edition|
   stub_publishing_api_links_with_taxons(edition.content_id, %w[a-taxon-content-id])
   visit_edition_admin edition.title, :draft
@@ -139,7 +149,7 @@ end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
   document_type = document_type.tr(" ", "_")
-  document = document_type.classify.constantize.find_by(title:)
+  document = document_type.classify.constantize.where(title:).last
   visit send("edit_admin_#{document_type}_path", document)
 end
 
