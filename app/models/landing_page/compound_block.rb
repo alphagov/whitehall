@@ -22,9 +22,10 @@ class LandingPage::CompoundBlock < LandingPage::BaseBlock
     content_blocks.each { |b| errors.merge!(b.errors) if b.invalid? }
   end
 
-  def initialize(source, images, content_block_key, content_blocks)
+  def initialize(source, images, content_block_key)
     super(source, images)
     @content_block_key = content_block_key
+    content_blocks = source.dig(content_block_key, "blocks")
     @content_blocks = LandingPage::BlockFactory.build_all(content_blocks, images)
   end
 
