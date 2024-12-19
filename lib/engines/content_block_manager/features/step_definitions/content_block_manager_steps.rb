@@ -775,6 +775,11 @@ And(/^I should see the object store's navigation$/) do
   expect(page).to have_selector("a.govuk-header__link[href='#{content_block_manager.content_block_manager_root_path}']", text: "Dashboard")
 end
 
+And("I should see the object store's phase banner") do
+  expect(page).to have_selector(".govuk-tag", text: "Alpha")
+  expect(page).to have_link("feedback", href: "mailto:govuk-publishing-content-modelling-team@digital.cabinet-office.gov.uk")
+end
+
 Then(/^I should still see the live edition on the homepage$/) do
   within(".govuk-summary-card", text: @content_block.document.title) do
     @content_block.details.keys.each do |key|
