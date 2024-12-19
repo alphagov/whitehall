@@ -19,7 +19,6 @@
 
 //= require admin/analytics-modules/ga4-button-setup.js
 //= require admin/analytics-modules/ga4-link-setup.js
-//= require admin/analytics-modules/ga4-form-setup.js
 //= require admin/analytics-modules/ga4-visual-editor-event-handlers.js
 //= require admin/analytics-modules/ga4-page-view-tracking.js
 //= require admin/analytics-modules/ga4-paste-tracker.js
