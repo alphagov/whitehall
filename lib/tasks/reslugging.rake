@@ -1,4 +1,3 @@
-require "gds_api/router"
 require "gds_api/publishing_api"
 
 namespace :reslug do
