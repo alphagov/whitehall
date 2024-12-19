@@ -1,0 +1,26 @@
+<div class="govuk-!-margin-bottom-4">
+  <%= debug(hero_block) %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Hero",
+    font_size: "m",
+    heading_level: 3
+  } %>
+  <% %w[Desktop Tablet Mobile].each do |variant| %>
+    <%= render "components/select_with_search", {
+      # id: "edition_blocks_hero_todo_#{variant}",
+      # name: "edition[blocks][todo_#{variant}]",
+      label: "#{variant} Image",
+      heading_size: "s",
+      include_blank: true,
+      options: [
+        {
+          text: "Some image name",
+          value: "some id",
+          selected: false,
+        }
+      ]
+    } %>
+  <% end %>
+</div>
+
+<%= render hero_block.content_blocks %>

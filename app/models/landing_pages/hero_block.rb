@@ -1,4 +1,4 @@
-class LandingPage::HeroBlock < LandingPage::CompoundBlock
+class LandingPages::HeroBlock < LandingPages::CompoundBlock
   include ActiveModel::API
 
   IMAGE_PATTERN = /^\[Image:\s*(.*?)\s*\]/

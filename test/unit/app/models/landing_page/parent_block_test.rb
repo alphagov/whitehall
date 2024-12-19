@@ -2,7 +2,7 @@ require "test_helper"
 
 class ParentBlockTest < ActiveSupport::TestCase
   test "valid when given correct params" do
-    subject = LandingPage::ParentBlock.new({
+    subject = LandingPages::ParentBlock.new({
       "type" => "some-parent-type",
       "blocks" => [],
     }, [])
@@ -10,7 +10,7 @@ class ParentBlockTest < ActiveSupport::TestCase
   end
 
   test "invalid when child blocks are invalid" do
-    subject = LandingPage::ParentBlock.new({
+    subject = LandingPages::ParentBlock.new({
       "type" => "some-parent-type",
       "blocks" => [{ "invalid" => "because I do not have a type" }],
     }, [])

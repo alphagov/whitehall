@@ -37,7 +37,7 @@ class LandingPage < Edition
     if @landing_page_body&.raw_body == body
       @landing_page_body
     else
-      @landing_page_body = LandingPage::Body.new(body, images)
+      @landing_page_body = LandingPages::Body.new(body, images)
     end
   end
 

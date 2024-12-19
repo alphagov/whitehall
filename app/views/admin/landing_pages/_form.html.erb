@@ -5,6 +5,16 @@
 <div data-module="YamlEditor">
   <%= standard_edition_form(edition) do |form| %>
     <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: "Landing Page Content",
+      heading_level: 2,
+      heading_size: "l",
+      id: "content",
+    } do %>
+      <% if edition.landing_page_body.present? %>
+        <%= render(edition.landing_page_body.blocks) %>
+      <% end %>
+    <% end %>
+    <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "Associations",
       heading_level: 2,
       heading_size: "l",

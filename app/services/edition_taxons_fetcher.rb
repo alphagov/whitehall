@@ -37,6 +37,7 @@ private
   end
 
   def taxon_links
+    return []
     response["expanded_links"].fetch("taxons", [])
   rescue GdsApi::HTTPNotFound
     []

@@ -1,4 +1,4 @@
-class LandingPage::Body
+class LandingPages::Body
   include ActiveModel::API
 
   attr_reader :raw_body, :body, :extends, :breadcrumbs, :navigation_groups, :blocks
@@ -35,7 +35,7 @@ class LandingPage::Body
     extend_body
     @breadcrumbs = body["breadcrumbs"]
     @navigation_groups = body["navigation_groups"]
-    @blocks = LandingPage::BlockFactory.build_all(body["blocks"], images)
+    @blocks = LandingPages::BlockFactory.build_all(body["blocks"], images)
   end
 
   def present_for_publishing_api

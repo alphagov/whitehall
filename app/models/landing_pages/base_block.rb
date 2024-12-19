@@ -1,4 +1,4 @@
-class LandingPage::BaseBlock
+class LandingPages::BaseBlock
   include ActiveModel::API
 
   attr_reader :type, :images
@@ -15,5 +15,9 @@ class LandingPage::BaseBlock
     raise "cannot present invalid block to publishing api - errors: #{errors.to_a}" if invalid?
 
     @source
+  end
+
+  def render_in(view_context)
+    view_context.render partial: "admin/landing_pages/blocks/#{model_name.element}"
   end
 end

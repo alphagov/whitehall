@@ -8,6 +8,7 @@ module Document::Needs
   end
 
   def get_user_needs_from_publishing_api
+    return nil
     response = Services.publishing_api.get_links(
       content_id,
     )

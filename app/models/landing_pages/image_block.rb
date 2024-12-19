@@ -1,9 +1,9 @@
-class LandingPage::FeaturedBlock < LandingPage::CompoundBlock
+class LandingPages::ImageBlock < LandingPages::BaseBlock
   include ActiveModel::API
   include LandingPageImageBlock
 
-  def initialize(source, images, content_blocks)
-    super(source, images, "featured_content", content_blocks)
+  def initialize(source, images)
+    super(source, images)
 
     image_sources = @source.dig("image", "sources") || {}
     @desktop_image = find_image(image_sources["desktop"])

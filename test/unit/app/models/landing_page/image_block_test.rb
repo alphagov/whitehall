@@ -18,12 +18,12 @@ class ImageBlockTest < ActiveSupport::TestCase
   end
 
   test "valid when given correct params" do
-    subject = LandingPage::ImageBlock.new(@valid_image_block_config, @valid_landing_page_images)
+    subject = LandingPages::ImageBlock.new(@valid_image_block_config, @valid_landing_page_images)
     assert subject.valid?
   end
 
   test "presents hero blocks to publishing api" do
-    subject = LandingPage::ImageBlock.new(@valid_image_block_config, @valid_landing_page_images)
+    subject = LandingPages::ImageBlock.new(@valid_image_block_config, @valid_landing_page_images)
     expected_result = {
       "type" => "image",
       "image" => {
@@ -42,7 +42,7 @@ class ImageBlockTest < ActiveSupport::TestCase
   end
 
   test "invalid when missing images" do
-    subject = LandingPage::ImageBlock.new(@valid_image_block_config.except("image"), @valid_landing_page_images)
+    subject = LandingPages::ImageBlock.new(@valid_image_block_config.except("image"), @valid_landing_page_images)
     assert subject.invalid?
     assert_equal [
       "Desktop image can't be blank",
@@ -53,7 +53,7 @@ class ImageBlockTest < ActiveSupport::TestCase
 
   test "invalid when image expressions are not found" do
     no_images = []
-    subject = LandingPage::ImageBlock.new(@valid_image_block_config, no_images)
+    subject = LandingPages::ImageBlock.new(@valid_image_block_config, no_images)
     assert subject.invalid?
     assert_equal [
       "Desktop image can't be blank",
