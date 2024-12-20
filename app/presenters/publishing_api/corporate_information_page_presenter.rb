@@ -153,6 +153,8 @@ module PublishingApi
       end
 
       def payload_for_jobs
+        return if organisation.jobs_url.blank?
+
         {
           title: "Jobs",
           url: organisation.jobs_url,

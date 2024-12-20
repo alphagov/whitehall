@@ -202,10 +202,12 @@ module PublishingApi
         }
       end
 
-      cips << {
-        title: I18n.t("organisation.corporate_information.jobs"),
-        href: item.jobs_url,
-      }
+      if item.jobs_url.present?
+        cips << {
+          title: I18n.t("organisation.corporate_information.jobs"),
+          href: item.jobs_url,
+        }
+      end
 
       cips
     end
