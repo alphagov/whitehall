@@ -20,7 +20,7 @@ module ContentBlockManager
         content_id:,
         content_id_alias:,
         schema_id: schema.id,
-        title: content_block_edition.title,
+        title: content_block_edition.document_title,
         details: content_block_edition.details,
         instructions_to_publishers: content_block_edition.instructions_to_publishers,
         links: {

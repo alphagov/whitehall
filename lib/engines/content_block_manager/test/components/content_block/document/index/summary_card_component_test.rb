@@ -24,7 +24,7 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
   it "renders a published content block as a summary card" do
     render_inline(ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-card__title", text: content_block_edition.title
+    assert_selector ".govuk-summary-card__title", text: content_block_edition.document_title
     assert_selector ".govuk-summary-card__action", count: 1
     assert_selector ".govuk-summary-card__action .govuk-link[href='#{content_block_manager_content_block_document_path(content_block_document)}']"
 
@@ -33,7 +33,7 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
     assert_selector ".govuk-summary-list__row", count: 6
 
     assert_selector ".govuk-summary-list__key", text: "Title"
-    assert_selector ".govuk-summary-list__value", text: content_block_edition.title
+    assert_selector ".govuk-summary-list__value", text: content_block_edition.document_title
 
     assert_selector ".govuk-summary-list__key", text: "Foo"
     assert_selector ".govuk-summary-list__value", text: "bar"
