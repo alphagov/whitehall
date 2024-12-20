@@ -26,6 +26,8 @@ private
   def render_entry(entry)
     if entry.is_a?(EditorialRemark)
       render(Admin::Editions::EditorialRemarkComponent.new(editorial_remark: entry))
+    elsif entry.is_a?(HostContentUpdateEvent)
+      render(Admin::Editions::HostContentUpdateEventComponent.new(entry))
     else
       render(Admin::Editions::AuditTrailEntryComponent.new(entry:, edition:))
     end
