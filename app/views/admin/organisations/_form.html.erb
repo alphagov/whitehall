@@ -319,25 +319,6 @@
     </div>
   <% end %>
 
-  <div class="govuk-!-margin-top-6">
-    <% if can?(:manage_important_board_members, @organisation) && @organisation.management_roles.any? %>
-      <%= render "govuk_publishing_components/components/select", {
-        name: "organisation[important_board_members]",
-        id: "organisation_important_board_members",
-        label: "Display management team images (required)",
-        heading_size: "l",
-        error_message: errors_for_input(@organisation.errors, :important_board_members),
-        options: (1..@organisation.management_roles.count).map do |n|
-          {
-            text: n,
-            value: n,
-            selected: @organisation.important_board_members == n,
-          }
-        end,
-      } %>
-    <% end %>
-  </div>
-
   <div class="app-view-organisation__form__non-departmental-public-body-field js-view-organisation__form__non-departmental-public-body-fields <%= "app-view-organisation__form__non-departmental-public-body-fields--hidden" unless organisation.type&.non_departmental_public_body? %>">
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "Non-Departmental Public Body Information",

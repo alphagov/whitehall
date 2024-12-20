@@ -25,7 +25,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       analytics_identifier: "O123",
       parent_organisations: [parent_organisation],
       url: "https://www.gov.uk/oot",
-      important_board_members: 5,
       default_news_image: news_image,
     )
     create(
@@ -75,7 +74,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         ordered_featured_links: [],
         ordered_featured_documents: [],
         ordered_promotional_features: [],
-        important_board_members: 5,
         organisation_featuring_priority: "news",
         organisation_govuk_status: {
           status: "live",

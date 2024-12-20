@@ -107,7 +107,6 @@ private
       :public_meetings,
       :public_minutes,
       :regulatory_function,
-      :important_board_members,
       :custom_jobs_url,
       :homepage_type,
       :political,
