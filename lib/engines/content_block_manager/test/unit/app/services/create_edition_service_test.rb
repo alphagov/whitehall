@@ -50,6 +50,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
       new_edition = new_document.editions.first
 
       assert_equal new_title, new_document.title
+      assert_equal new_title, new_edition.title
       assert_equal edition_params[:document_attributes][:block_type], new_document.block_type
       assert_equal edition_params[:details], new_edition.details
       assert_equal new_edition.document_id, new_document.id
@@ -70,6 +71,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
         new_edition = document.editions.last
 
         assert_equal new_title, document.title
+        assert_equal new_title, new_edition.title
         assert_equal edition_params[:details], new_edition.details
         assert_equal new_edition.document_id, document.id
         assert_equal new_edition.lead_organisation.id, organisation.id

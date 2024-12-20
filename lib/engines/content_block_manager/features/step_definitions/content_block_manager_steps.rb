@@ -144,6 +144,7 @@ Then("the edition should have been created successfully") do
   assert_not_nil edition.document
 
   assert_equal @title, edition.document_title if @title.present?
+  assert_equal @title, edition.title if @title.present?
   assert_equal @instructions_to_publishers, edition.instructions_to_publishers if @instructions_to_publishers.present?
 
   @details.keys.each do |k|
@@ -386,6 +387,10 @@ Then("the edition should have been updated successfully") do
     "Ministry of Example",
     "new context information",
   )
+
+  # TODO: this can be removed once the summary list is referring to the Edition's title, not the Document title
+  edition = ContentBlockManager::ContentBlock::Edition.all.last
+  assert_equal "Changed title", edition.title
 end
 
 def should_show_summary_card_for_email_address_content_block(document_title, email_address)
