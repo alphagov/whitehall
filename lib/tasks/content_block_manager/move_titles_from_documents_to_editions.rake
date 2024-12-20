@@ -1,4 +1,4 @@
-desc "Moves the title from Content Block Documents to their Editions"
+desc "Moves the title from Content Block Documents to any Editions that do not have titles."
 task :move_titles_from_documents_to_editions, %i[confirmation_string] => :environment do |_, args|
   document_count = 0
   edition_count = 0
@@ -10,13 +10,17 @@ task :move_titles_from_documents_to_editions, %i[confirmation_string] => :enviro
 
     document.editions.each do |edition|
       document = edition.document
-      if is_real
-        edition.update!(title: document.title)
+      if edition.title.blank?
+        if is_real
+          edition.update!(title: document.title)
+        else
+          edition.assign_attributes(title: document.title)
+        end
+        edition_count += 1
+        puts "Edition title set to #{edition.title} for Edition #{edition.id}"
       else
-        edition.assign_attributes(title: document.title)
+        puts "Skipping Edition #{edition.id} because title already set"
       end
-      edition_count += 1
-      puts "Edition title set to #{edition.title} for Edition #{edition.id}"
     end
   end
 
