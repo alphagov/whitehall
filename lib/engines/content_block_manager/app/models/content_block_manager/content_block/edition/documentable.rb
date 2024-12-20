@@ -11,8 +11,8 @@ module ContentBlockManager
       accepts_nested_attributes_for :document
     end
 
-    def title
-      document&.title || @title
+    def document_title
+      document&.title || @document_title
     end
 
     def block_type
@@ -24,7 +24,7 @@ module ContentBlockManager
         self.document = ContentBlock::Document.new(
           content_id: create_random_id,
           block_type: @block_type,
-          title: @title,
+          title: @document_title,
         )
       elsif document.new_record?
         document.content_id = create_random_id if document.content_id.blank?

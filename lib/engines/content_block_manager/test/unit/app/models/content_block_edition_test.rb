@@ -53,7 +53,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     content_block_edition.reload
     document = content_block_edition.document
 
-    assert_equal document.title, content_block_edition.title
+    assert_equal document.title, content_block_edition.document_title
   end
 
   it "creates a document" do

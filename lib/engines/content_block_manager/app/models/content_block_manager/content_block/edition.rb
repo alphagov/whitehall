@@ -22,7 +22,7 @@ module ContentBlockManager
         ContentBlockTools::ContentBlock.new(
           document_type: "content_block_#{block_type}",
           content_id: document.content_id,
-          title:,
+          title: document_title,
           details:,
         ).render
       end

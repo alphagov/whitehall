@@ -143,7 +143,7 @@ Then("the edition should have been created successfully") do
   assert_not_nil edition
   assert_not_nil edition.document
 
-  assert_equal @title, edition.title if @title.present?
+  assert_equal @title, edition.document_title if @title.present?
   assert_equal @instructions_to_publishers, edition.instructions_to_publishers if @instructions_to_publishers.present?
 
   @details.keys.each do |k|
