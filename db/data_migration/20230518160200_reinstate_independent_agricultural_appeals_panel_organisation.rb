@@ -8,7 +8,6 @@ def recreate_organisation_and_dependencies
     organisation_logo_type_id: 2,
     analytics_identifier: "PB210",
     handles_fatalities: false,
-    important_board_members: 1,
     default_news_organisation_image_data_id: nil,
     closed_at: nil,
     organisation_brand_colour_id: 7,

@@ -91,16 +91,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_match %r{logo.png}, Organisation.last.logo.file.filename
   end
 
-  test "POST create can set number of important board members" do
-    post :create,
-         params: {
-           organisation: example_organisation_attributes
-                           .merge(important_board_members: 1),
-         }
-
-    assert_equal 1, Organisation.last.important_board_members
-  end
-
   test "POST on :create with invalid data re-renders the new form" do
     attributes = example_organisation_attributes
 
@@ -136,34 +126,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :edit
     assert_equal organisation, assigns(:organisation)
-  end
-
-  view_test "GET on :edit allows entry of important board members only data to Editors and above" do
-    organisation = create(:organisation)
-    junior_board_member_role = create(:board_member_role)
-    senior_board_member_role = create(:board_member_role)
-
-    create(:organisation_role, organisation:, role: senior_board_member_role)
-    create(:organisation_role, organisation:, role: junior_board_member_role)
-
-    managing_editor = create(:managing_editor, organisation:)
-    departmental_editor = create(:departmental_editor, organisation:)
-    world_editor = create(:world_editor, organisation:)
-
-    get :edit, params: { id: organisation }
-    assert_select "select#organisation_important_board_members option", count: 2
-
-    login_as(departmental_editor)
-    get :edit, params: { id: organisation }
-    assert_select "select#organisation_important_board_members option", count: 2
-
-    login_as(managing_editor)
-    get :edit, params: { id: organisation }
-    assert_select "select#organisation_important_board_members option", count: 2
-
-    login_as(world_editor)
-    get :edit, params: { id: organisation }
-    assert_select "select#organisation_important_board_members option", count: 0
   end
 
   view_test "GET :edit renders hidden id field for default news image" do

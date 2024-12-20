@@ -164,18 +164,6 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, other_org).can?(:manage_featured_links)
   end
 
-  test "can manage important board members for their organisation" do
-    user = department_editor
-
-    editors_org = user.organisation
-    other_org = build(:organisation)
-    child_org = create(:organisation, parent_organisations: [editors_org])
-
-    assert enforcer_for(user, editors_org).can?(:manage_important_board_members)
-    assert_not enforcer_for(user, child_org).can?(:manage_important_board_members)
-    assert_not enforcer_for(user, other_org).can?(:manage_important_board_members)
-  end
-
   test "can export editions" do
     assert enforcer_for(department_editor, Edition).can?(:export)
   end

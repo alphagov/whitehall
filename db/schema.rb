@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_11_142527) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_20_143730) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -788,7 +788,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_11_142527) do
     t.integer "organisation_logo_type_id", default: 2
     t.string "analytics_identifier"
     t.boolean "handles_fatalities", default: false
-    t.integer "important_board_members", default: 1
     t.datetime "closed_at", precision: nil
     t.integer "organisation_brand_colour_id"
     t.boolean "ocpa_regulated"

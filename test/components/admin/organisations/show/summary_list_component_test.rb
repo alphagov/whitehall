@@ -25,7 +25,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 8
+    assert_selector ".govuk-summary-list__row", count: 7
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Name"
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: organisation.name
     assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Logo formatted name"
@@ -38,10 +38,8 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
     assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: organisation.govuk_status.titleize
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Featured link position"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "News priority"
-    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Management team images on homepage"
-    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: organisation.important_board_members
-    assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__key", text: "Analytics identifier"
-    assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__value", text: organisation.analytics_identifier
+    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Analytics identifier"
+    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: organisation.analytics_identifier
   end
 
   test "renders acronym_row if the organisation has an acronym" do
@@ -49,7 +47,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Acronym"
     assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: organisation.acronym
   end
@@ -59,7 +57,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Brand colour"
     assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: organisation.organisation_brand_colour.title
   end
@@ -70,7 +68,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Default news image"
     assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value img[src='#{news_image.file.url(:s300)}']"
   end
@@ -80,7 +78,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Organisation’s URL"
     assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "http://parrot.org"
     assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__actions a[href='#{organisation.url}']", text: /View/
@@ -91,7 +89,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Accessible formats request email"
     assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: organisation.alternative_format_contact_email
   end
@@ -103,7 +101,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 11
+    assert_selector ".govuk-summary-list__row", count: 10
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Reason for closure"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: organisation.govuk_closed_status
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Organisation closed on"
@@ -121,7 +119,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 12
+    assert_selector ".govuk-summary-list__row", count: 11
     assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__key", text: "Superseding organisation 1"
     assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__value", text: superseding_organisation1.name
     assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__actions a[href='#{superseding_organisation1.public_url}']", text: /View/
@@ -135,7 +133,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Organisation chart URL"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: organisation.organisation_chart_url
   end
@@ -145,7 +143,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Recruitment URL"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: organisation.custom_jobs_url
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{organisation.custom_jobs_url}']", text: /View/
@@ -156,7 +154,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Publishes content associated with the current government"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "Yes"
   end
@@ -168,7 +166,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Sponsoring organisation"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: parent_organisation.name
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{parent_organisation.public_url}']", text: /View/
@@ -182,7 +180,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 10
+    assert_selector ".govuk-summary-list__row", count: 9
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Sponsoring organisation 1"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: parent_organisation1.name
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{parent_organisation1.public_url}']", text: /View/
@@ -198,7 +196,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Topical event"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: topical_event.name
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{topical_event.public_url}']", text: /View/
@@ -212,7 +210,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 10
+    assert_selector ".govuk-summary-list__row", count: 9
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Topical event 1"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: topical_event1.name
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{topical_event1.public_url}']", text: /View/
@@ -228,7 +226,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
+    assert_selector ".govuk-summary-list__row", count: 8
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Featured link"
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: featured_link.title
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__actions a[href='#{featured_link.url}']", text: /View/
@@ -242,7 +240,7 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 10
+    assert_selector ".govuk-summary-list__row", count: 9
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Featured link 1"
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: featured_link1.title
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__actions a[href='#{featured_link1.url}']", text: /View/
@@ -256,8 +254,8 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
 
     render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
 
-    assert_selector ".govuk-summary-list__row", count: 9
-    assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__key", text: "Exempt from Freedom of Information requests"
-    assert_selector ".govuk-summary-list__row:nth-child(8) .govuk-summary-list__value", text: "Yes"
+    assert_selector ".govuk-summary-list__row", count: 8
+    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Exempt from Freedom of Information requests"
+    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: "Yes"
   end
 end

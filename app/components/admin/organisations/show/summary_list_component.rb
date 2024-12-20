@@ -35,7 +35,6 @@ private
       topical_events_row,
       featured_links_position_row,
       featured_links_row,
-      management_team_row,
       foi_exempt_row,
       analytics_identifier_row,
     ]
@@ -222,15 +221,6 @@ private
         },
       }
     end
-  end
-
-  def management_team_row
-    return if organisation.important_board_members.blank?
-
-    {
-      field: "Management team images on homepage",
-      value: organisation.important_board_members,
-    }
   end
 
   def foi_exempt_row
