@@ -5,6 +5,7 @@ module ContentBlockManager
     end
 
     def call(edition_params, document_id: nil)
+      edition_params[:title] = edition_params[:document_attributes][:title]
       @new_edition = build_edition(edition_params, document_id)
       @new_edition.assign_attributes(edition_params)
       @new_edition.save!

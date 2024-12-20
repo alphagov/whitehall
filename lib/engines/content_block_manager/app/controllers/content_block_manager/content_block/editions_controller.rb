@@ -18,6 +18,7 @@ class ContentBlockManager::ContentBlock::EditionsController < ContentBlockManage
 
   def create
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(block_type_param)
+    # TODO: is this the only place that a new Edition is ever created? if so, that's the only place we need to update title
     new_edition = ContentBlockManager::CreateEditionService.new(@schema).call(edition_params, document_id: params[:document_id])
     step = params[:document_id] ? ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links] : ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step:)
