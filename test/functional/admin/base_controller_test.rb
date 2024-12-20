@@ -147,6 +147,18 @@ class Admin::BaseControllerTest < ActionController::TestCase
     assert_not_current_item("/government/admin/organisations/my-test-org/features")
   end
 
+  view_test "dashboard page is inaccessible when maintenance mode is enabled" do
+    test_strategy = Flipflop::FeatureSet.current.test!
+    test_strategy.switch!(:maintenance_mode, true)
+    login_as :gds_editor
+    @controller = Admin::DashboardController.new
+    get :index
+
+    assert_response :service_unavailable
+    assert_template "admin/errors/down_for_maintenance"
+    test_strategy.switch!(:maintenance_mode, false)
+  end
+
 private
 
   def assert_not_current_item(path)
