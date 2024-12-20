@@ -929,12 +929,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
   end
 
-  test "#jobs_url defaults to the default jobs url" do
-    organisation = build(:organisation)
-    assert_equal Organisation::DEFAULT_JOBS_URL, organisation.jobs_url
-  end
-
-  test "#jobs_url can be overridden" do
+  test "#jobs_url can be set" do
     organisation = build(:organisation, custom_jobs_url: "http://jobs.com/")
 
     assert organisation.valid?

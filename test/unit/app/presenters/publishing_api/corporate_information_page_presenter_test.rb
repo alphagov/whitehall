@@ -275,10 +275,6 @@ module PublishingApi::CorporateInformationPagePresenterTest
       jobs = [
         @procurement_corporate_information_page.content_id,
         @recruitment_corporate_information_page.content_id,
-        {
-          title: "Jobs",
-          url: corporate_information_page.organisation.jobs_url,
-        },
       ]
 
       our_information = [
