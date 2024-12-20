@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_current_user
   before_action :set_authenticated_user_header
+  before_action :check_maintenance_mode
 
   rescue_from Notifications::Client::BadRequestError, with: :notify_bad_request
 
@@ -26,6 +27,12 @@ private
   def set_authenticated_user_header
     if current_user && GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user].nil?
       GdsApi::GovukHeaders.set_header(:x_govuk_authenticated_user, current_user.uid)
+    end
+  end
+
+  def check_maintenance_mode
+    if Flipflop.maintenance_mode?
+      render "admin/errors/down_for_maintenance", status: :service_unavailable
     end
   end
 

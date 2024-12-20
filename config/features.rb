@@ -21,6 +21,7 @@ Flipflop.configure do
   # feature :world_domination,
   #   default: true,
   #   description: "Take over the world."
+  feature :maintenance_mode, description: "Put Whitehall into maintenance mode for planned downtime", default: false
   feature :delete_review_reminders, description: "Enables deletion of review reminders", default: false
   feature :govspeak_visual_editor, description: "Enables a visual editor for Govspeak fields", default: false
   feature :override_government, description: "Enables GDS Editors and Admins to override the government associated with a document", default: false
