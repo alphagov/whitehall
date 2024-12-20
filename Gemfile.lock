@@ -265,9 +265,10 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    globalize (6.3.0)
-      activemodel (>= 4.2, < 7.2)
-      activerecord (>= 4.2, < 7.2)
+    globalize (7.0.0)
+      activemodel (>= 7.0, < 8.1)
+      activerecord (>= 7.0, < 8.1)
+      activesupport (>= 7.0, < 8.1)
       request_store (~> 1.0)
     google-protobuf (4.29.2)
       bigdecimal
