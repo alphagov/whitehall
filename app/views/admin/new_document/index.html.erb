@@ -2,9 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with url: admin_new_document_options_path, data: {
-      module: "ga4-form-setup ga4-form-tracker",
-    } do %>
+    <%= form_with url: admin_new_document_options_path do %>
       <%= render "govuk_publishing_components/components/radio", {
         heading: "New document",
         heading_level: 1,
