@@ -299,6 +299,9 @@ end
 
 And("no draft Content Block Edition has been created") do
   assert_equal 0, ContentBlockManager::ContentBlock::Edition.where(state: "draft").count
+  # TODO: check title hasn't changed
+  # latest_content_block = ContentBlockManager::ContentBlock::Edition.last
+  # assert_equal latest_content_block.title, @content_block.title
 end
 
 And("no draft Content Block Document has been created") do
