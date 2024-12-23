@@ -133,7 +133,10 @@ namespace :publishing_api do
       args.with_defaults(locale: "en")
 
       document = Document.find_by(content_id: args[:content_id])
-      abort "Document with this content ID exists: #{document}" if document
+      if document
+        puts "Document with this content ID exists: #{document}"
+        next
+      end
 
       response = Services.publishing_api.unpublish(
         args[:content_id],
