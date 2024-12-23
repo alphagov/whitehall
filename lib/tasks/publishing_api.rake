@@ -145,7 +145,7 @@ namespace :publishing_api do
         alternative_path: args[:alternative_path].strip,
       )
 
-      puts response
+      puts response.inspect
     end
   end
 
@@ -182,7 +182,7 @@ namespace :publishing_api do
       alternative_path: statistics_announcement.redirect_url,
     )
 
-    puts response
+    puts response.inspect
   end
 
   namespace :redirect_html_attachments do
