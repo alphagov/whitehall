@@ -133,7 +133,10 @@ namespace :publishing_api do
       args.with_defaults(locale: "en")
 
       document = Document.find_by(content_id: args[:content_id])
-      abort "Document with this content ID exists: #{document}" if document
+      if document
+        puts "Document with this content ID exists: #{document}"
+        next
+      end
 
       response = Services.publishing_api.unpublish(
         args[:content_id],
@@ -142,8 +145,44 @@ namespace :publishing_api do
         alternative_path: args[:alternative_path].strip,
       )
 
-      puts response
+      puts response.inspect
     end
+  end
+
+  desc "Manually redirect already unpublished Statistics Announcements"
+  # Statistics Announcements are not the same as other documents - once unpublished, they disappear for the user,
+  # meaning users are unable to set different redirects or reasons for the removed statistics announcement
+  task :redirect_unpublished_statistics_announcement, %i[slug alternative_url locale] => :environment do |_, args|
+    args.with_defaults(locale: "en")
+
+    results = StatisticsAnnouncement.unscoped.where(slug: args[:slug])
+    if results.empty?
+      puts "Could not find Statistics Announcement with slug #{args[:slug]}"
+      next
+    end
+    if results.count > 1
+      puts "More than one Statistics Announcement (including Unpublished) with slug #{args[:slug]}"
+      next
+    end
+    if results.first.publishing_state != "unpublished"
+      puts "Statistics Announcement with slug #{args[:slug]} is not unpublished"
+      next
+    end
+
+    puts "Updating redirect URL..."
+    statistics_announcement = results.first
+    statistics_announcement.redirect_url = args[:alternative_url].strip
+    statistics_announcement.save!
+
+    puts "Unpublishing from Publishing API..."
+    response = Services.publishing_api.unpublish(
+      statistics_announcement.content_id,
+      type: "redirect",
+      locale: args[:locale],
+      alternative_path: statistics_announcement.redirect_url,
+    )
+
+    puts response.inspect
   end
 
   namespace :redirect_html_attachments do
