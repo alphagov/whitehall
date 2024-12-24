@@ -593,6 +593,118 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_lead_and_supporting_edition_organisation_attributes_for(edition_type)
+      test_strategy = Flipflop::FeatureSet.current.test!
+      edition_class = class_for(edition_type)
+
+      view_test "new should display lead edition organisation attributes fields" do
+        test_strategy.switch!(:add_another_for_lead_organisations, true)
+        get :new
+
+        assert_select "form#new_edition" do
+          assert_select("#edition_lead_edition_organisations_attributes_0_organisation_id")
+          assert_select("#edition_supporting_organisation_ids_")
+        end
+        test_strategy.switch!(:add_another_for_lead_organisations, false)
+      end
+
+      test "new should set first lead edition organisation to users organisation" do
+        test_strategy.switch!(:add_another_for_lead_organisations, true)
+        editors_org = create(:organisation)
+        @user = login_as create(:departmental_editor, organisation: editors_org)
+        get :new
+
+        assert_equal assigns(:edition).edition_organisations.first.organisation, editors_org
+        assert_equal assigns(:edition).edition_organisations.first.lead, true
+        assert_equal assigns(:edition).edition_organisations.first.lead_ordering, 0
+        test_strategy.switch!(:add_another_for_lead_organisations, false)
+      end
+
+      test "create should associate edition organisations with edition" do
+        first_organisation = create(:organisation)
+        second_organisation = create(:organisation)
+        attributes = controller_attributes_for(edition_type).except(:lead_organisation_ids)
+
+        post :create,
+             params: {
+               edition: attributes.merge(
+                 lead_edition_organisations_attributes: [{
+                                                           organisation_id: second_organisation.id,
+                                                           lead_ordering: 0
+                                                         }, [
+                                                           { organisation_id: first_organisation.id, lead_ordering: 1 }
+                                                         ]],
+               ),
+             }
+
+        assert_response :redirect
+        edition = edition_class.last
+        assert_equal [first_organisation, second_organisation], edition.lead_organisations
+      end
+
+      view_test "edit should display lead edition organisations attributes fields" do
+        test_strategy.switch!(:add_another_for_lead_organisations, true)
+        edition = create(edition_type) # rubocop:disable Rails/SaveBang
+
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          assert_select("#edition_lead_edition_organisations_attributes_0_organisation_id")
+          assert_select("#edition_supporting_organisation_ids_")
+        end
+        test_strategy.switch!(:add_another_for_lead_organisations, false)
+      end
+
+      test "update should associate edition organisations with editions" do
+        first_organisation = create(:organisation)
+        second_organisation = create(:organisation)
+
+        edition = create(edition_type, organisations: [first_organisation])
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_edition_organisations_attributes: [{
+                                                          id: edition.edition_organisations.first.id,
+                                                          organisation_id: first_organisation.id,
+                                                          lead_ordering: 0,
+                                                        }, { organisation_id: second_organisation.id, lead_ordering: 1 }],
+              },
+            }
+
+        edition.reload
+        assert_equal [second_organisation, first_organisation], edition.lead_organisations.to_a
+      end
+
+      test "update should allow removal of an edition organisation" do
+        organisation1 = create(:organisation)
+        organisation2 = create(:organisation)
+
+        edition = create(edition_type, organisations: [organisation1, organisation2])
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_edition_organisations_attributes: [{
+                                                          id: edition.lead_edition_organisations.first.id,
+                                                          organisation_id: organisation1.id,
+                                                          lead_ordering: 0,
+                                                          _destroy: 1,
+                                                        }, {
+                                                          id: edition.lead_edition_organisations.last.id,
+                                                          organisation_id: organisation2.id,
+                                                          lead_ordering: 1,
+                                                        }],
+              },
+            }
+
+        edition.reload
+        assert_equal [organisation2], edition.lead_organisations
+      end
+    end
+
     def should_allow_only_lead_organisations_for(edition_type)
       edition_class = class_for(edition_type)
 

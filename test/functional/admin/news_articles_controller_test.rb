@@ -11,6 +11,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_editing_of :news_article
 
   should_allow_lead_and_supporting_organisations_for :news_article
+  should_allow_lead_and_supporting_edition_organisation_attributes_for :news_article
   should_allow_role_appointments_for :news_article
   should_allow_association_between_world_locations_and :news_article
   should_allow_association_with_worldwide_organisations :world_news_story, edition_parent_type: :news_article, factory_name: :news_article_world_news_story, required: true

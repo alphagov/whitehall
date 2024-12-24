@@ -247,6 +247,7 @@ private
       {
         all_nation_applicability: [],
         lead_organisation_ids: [],
+        lead_edition_organisations_attributes: %i[id organisation_id lead_ordering _destroy],
         supporting_organisation_ids: [],
         organisation_ids: [],
         role_ids: [],
@@ -390,6 +391,7 @@ private
   def build_default_organisation
     if @edition.can_be_related_to_organisations?
       @edition.edition_organisations.build(lead_ordering: 0, lead: true, organisation: current_user.organisation)
+      @edition.lead_edition_organisations.build(lead_ordering: 0, organisation: current_user.organisation)
     end
   end
 

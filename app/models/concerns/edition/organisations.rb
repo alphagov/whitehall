@@ -11,7 +11,14 @@ module Edition::Organisations
 
   included do
     has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true
+    has_many :lead_edition_organisations, -> { where(lead: true).order("edition_organisations.lead_ordering") }, foreign_key: :edition_id, class_name: "EditionOrganisation", autosave: true
+    has_many :supporting_edition_organisations, -> { where(lead: false) }, foreign_key: :edition_id, class_name: "EditionOrganisation", autosave: true
     has_many :organisations, -> { includes(:translations) }, through: :edition_organisations
+    has_many :lead_organisations, -> { includes(:translations) }, through: :lead_edition_organisations, source: :organisation
+    has_many :supporting_organisations, -> { includes(:translations) }, through: :supporting_edition_organisations, source: :organisation
+
+    accepts_nested_attributes_for :lead_edition_organisations, allow_destroy: true
+    accepts_nested_attributes_for :supporting_edition_organisations, allow_destroy: true
 
     before_validation :mark_for_destruction_all_edition_organisations_for_destruction
     after_save :clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
@@ -22,44 +29,16 @@ module Edition::Organisations
     add_trait Trait
   end
 
-  def lead_edition_organisations
-    edition_organisations.where(lead: true).order("edition_organisations.lead_ordering")
-  end
-
-  def supporting_edition_organisations
-    edition_organisations.where(lead: false)
-  end
-
-  def lead_organisations
-    organisations.where(edition_organisations: { lead: true }).reorder("edition_organisations.lead_ordering")
-  end
-
-  def lead_organisation_ids
-    lead_organisations.pluck(:id)
-  end
-
   def sorted_organisations
     organisations.alphabetical
-  end
-
-  def lead_organisations=(new_lead_organisations)
-    self.lead_organisation_ids = new_lead_organisations.map(&:id)
   end
 
   def lead_organisation_ids=(new_lead_organisation_ids)
     __mange_edition_organisations(new_lead_organisation_ids, for_lead: true)
   end
 
-  def supporting_organisations
-    organisations.where(edition_organisations: { lead: false })
-  end
-
-  def supporting_organisations=(new_supporting_organisations)
-    self.supporting_organisation_ids = new_supporting_organisations.map(&:id)
-  end
-
-  def supporting_organisation_ids=(new_supporting_organisation_ids)
-    __mange_edition_organisations(new_supporting_organisation_ids, for_lead: false)
+  def supporting_organisation_ids=(new_lead_organisation_ids)
+    __mange_edition_organisations(new_lead_organisation_ids, for_lead: false)
   end
 
   def association_with_organisation(organisation)
@@ -93,7 +72,7 @@ module Edition::Organisations
 private
 
   def at_least_one_lead_organisation
-    if !skip_organisation_validation? && !edition_organisations.detect(&:lead?)
+    if !skip_organisation_validation? && (!lead_edition_organisations.any? || !edition_organisations.detect(&:lead?))
       errors.add(:lead_organisations, "at least one required")
     end
   end
