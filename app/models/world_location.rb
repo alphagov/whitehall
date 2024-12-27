@@ -42,6 +42,8 @@ class WorldLocation < ApplicationRecord
 
   scope :ordered_by_name, -> { with_translations(I18n.default_locale).order("world_location_translations.name") }
 
+  include PublishesToPublishingApi
+
   def self.active
     where(active: true)
   end

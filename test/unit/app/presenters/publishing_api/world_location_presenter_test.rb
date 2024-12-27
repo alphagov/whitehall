@@ -20,6 +20,8 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
       details: {},
       analytics_identifier: "WL123",
       update_type: "major",
+      base_path: nil,
+      rendering_app: nil,
     }
     expected_links = {}
 

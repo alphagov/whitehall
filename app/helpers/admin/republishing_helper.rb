@@ -162,6 +162,7 @@ module Admin::RepublishingHelper
       TakePartPage
       TopicalEvent
       TopicalEventAboutPage
+      WorldLocation
       WorldLocationNews
     ]
   end

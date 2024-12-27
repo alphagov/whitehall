@@ -22,6 +22,8 @@ module PublishingApi
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         schema_name: "world_location",
+        base_path: nil,
+        rendering_app: nil,
       )
       if item.international_delegation?
         content.merge!(PayloadBuilder::PolymorphicPath.for(item))
