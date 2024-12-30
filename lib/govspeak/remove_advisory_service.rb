@@ -91,11 +91,7 @@ module Govspeak
     end
 
     def regexp_for_advisory_markup
-      opening_at = "(^@)"
-      content_after_at = '([\s\S]*?)'
-      closing_at = "(@?)"
-      other_possible_line_ends = '(?:^\$CTA|\r?\n\r?\n|^@|$)'
-      Regexp.new("#{opening_at}#{content_after_at}#{closing_at}(?=#{other_possible_line_ends})", Regexp::MULTILINE)
+      Govspeak::EmbeddedContentPatterns::ADVISORY.to_s
     end
 
     def replace_advisory_with_information_callout(match, body_content)

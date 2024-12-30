@@ -48,4 +48,45 @@ class Govspeak::RemoveAdvisoryServiceTest < ActiveSupport::TestCase
 
     assert_equal expected, service.replace_all_advisories(edition.body)
   end
+
+  test "replace_all_advisories will replace advisories with no space after the @" do
+    body = "@This is a very important message or warning@"
+    edition = create(:published_edition, body:)
+    service = Govspeak::RemoveAdvisoryService.new(edition)
+
+    expected = "^This is a very important message or warning^"
+
+    assert_equal expected, service.replace_all_advisories(edition.body)
+  end
+
+  test "replace_all_advisories will replace advisories with no closing @" do
+    body = "\r\n@ New online safety legislation is coming which will aim to reduce online harms.\r\n\r\n"
+    edition = create(:published_edition, body:)
+    service = Govspeak::RemoveAdvisoryService.new(edition)
+
+    expected = "\r\n^ New online safety legislation is coming which will aim to reduce online harms.^\r\n\r\n"
+
+    assert_equal expected, service.replace_all_advisories(edition.body)
+  end
+
+  test "replace_all_advisories will not replace anything resembling an email address" do
+    body = "\r\nFor further information please get in touch at contact@foobar.com.\r\n\r\n"
+    edition = create(:published_edition, body:)
+    service = Govspeak::RemoveAdvisoryService.new(edition)
+
+    expected = "\r\nFor further information please get in touch at contact@foobar.com.\r\n\r\n"
+
+    assert_equal expected, service.replace_all_advisories(edition.body)
+  end
+
+  test "replace_all_advisories will not replace twitter handles" do
+    # NB any instances of twitter handles at the start of a line have been handled separately
+    body = "\r\nTo hear more you can follow us at on @foobar\r\n\r\n"
+    edition = create(:published_edition, body:)
+    service = Govspeak::RemoveAdvisoryService.new(edition)
+
+    expected = "\r\nTo hear more you can follow us at on @foobar\r\n\r\n"
+
+    assert_equal expected, service.replace_all_advisories(edition.body)
+  end
 end
