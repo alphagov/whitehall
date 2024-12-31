@@ -145,7 +145,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    csv (3.3.0)
+    csv (3.3.2)
     cucumber (9.2.0)
       builder (~> 3.2)
       cucumber-ci-environment (> 9, < 11)
@@ -338,7 +338,8 @@ GEM
     hashdiff (1.1.1)
     hashery (2.1.2)
     hashie (5.0.0)
-    highline (3.0.1)
+    highline (3.1.1)
+      reline
     htmlentities (4.3.4)
     http-accept (1.7.0)
     http-cookie (1.0.8)
@@ -814,7 +815,7 @@ GEM
     rails-i18n (7.0.10)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
-    rails_translation_manager (1.7.0)
+    rails_translation_manager (1.8.0)
       activesupport
       csv (~> 3.2)
       i18n-tasks
