@@ -90,7 +90,6 @@ module PublishingApi
         ordered_featured_links: featured_links,
         ordered_featured_documents: featured_documents(item, item.featured_documents_display_limit),
         ordered_promotional_features: promotional_features,
-        important_board_members:,
         organisation_featuring_priority:,
         organisation_govuk_status:,
         organisation_type:,
@@ -333,10 +332,6 @@ module PublishingApi
         .map(&:current_person)
         .compact
         .map(&:content_id)
-    end
-
-    def important_board_members
-      item.important_board_members
     end
 
     def organisation_featuring_priority
