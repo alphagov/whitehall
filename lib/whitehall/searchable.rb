@@ -29,12 +29,6 @@ module Whitehall
         end
       end
 
-      def amend(link, changes)
-        repeatedly do
-          make_request(:post, documents_url(link:), MultiJson.encode(changes))
-        end
-      end
-
       def delete(id, options = {})
         type = options[:type] || "edition"
         repeatedly do

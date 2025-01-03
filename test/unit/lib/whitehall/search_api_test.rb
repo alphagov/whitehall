@@ -165,14 +165,6 @@ class SearchableTest < ActiveSupport::TestCase
     index.add(one_document)
   end
 
-  test "amend should post amendments to a document by its link" do
-    new_document = { "title" => "Cheese", "indexable_content" => "Blah" }
-    stub_request(:post, link_url).with(body: new_document).to_return(status(200))
-    index = Whitehall::Searchable::Index.new(search_api_url, index_name)
-    index.amend(link, "title" => "Cheese", "indexable_content" => "Blah")
-    assert_requested :post, link_url, body: new_document
-  end
-
   test "commit should post to search_api" do
     stub_request(:post, commit_url).to_return(status(200))
     index = Whitehall::Searchable::Index.new(search_api_url, index_name)
