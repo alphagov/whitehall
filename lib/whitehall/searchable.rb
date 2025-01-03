@@ -1,8 +1,4 @@
-require "benchmark"
-require "json"
-require "multi_json"
 require "null_logger"
-require "rest_client"
 
 module Whitehall
   module Searchable
@@ -17,14 +13,14 @@ module Whitehall
 
       def add(entry)
         repeatedly do
-          make_request(:post, documents_url, MultiJson.encode([entry]))
+          Services.search_api_client.post_json(documents_url, [entry], user_agent: "whitehall (searchable)")
         end
       end
 
       def add_batch(entries)
         entries.each_slice(@batch_size) do |batch|
           repeatedly do
-            make_request(:post, documents_url, MultiJson.encode(batch))
+            Services.search_api_client.post_json(documents_url, batch, user_agent: "whitehall (searchable)")
           end
         end
       end
@@ -32,19 +28,19 @@ module Whitehall
       def delete(id, options = {})
         type = options[:type] || "edition"
         repeatedly do
-          make_request(:delete, documents_url(id:, type:))
+          Services.search_api_client.delete_json(documents_url(id:, type:), user_agent: "whitehall (searchable)")
         end
       end
 
       def delete_all
         repeatedly do
-          make_request(:delete, "#{documents_url}?delete_all=1")
+          Services.search_api_client.delete_json("#{documents_url}?delete_all=1", user_agent: "whitehall (searchable)")
         end
       end
 
       def commit
         repeatedly do
-          make_request(:post, [@index_url, "commit"].join("/"), MultiJson.encode({}))
+          Services.search_api_client.post_json([@index_url, "commit"].join("/"), {}, user_agent: "whitehall (searchable)")
         end
       end
 
@@ -53,48 +49,13 @@ module Whitehall
       def repeatedly
         @attempts.times do |i|
           return yield
-        rescue RestClient::RequestFailed, RestClient::ServerBrokeConnection => e
+        rescue GdsApi::HTTPErrorResponse => e
           @logger.warn e.message
           raise if @attempts == i + 1
 
           @logger.info "Retrying..."
           sleep(@retry_delay) if @retry_delay
         end
-      end
-
-      def log_request(method, url, payload = nil)
-        log("Searchable request", method, url, payload)
-      end
-
-      def log_response(method, call_time, response, url, payload = nil)
-        time = sprintf("%.03f", call_time)
-        result = response.length.positive? ? JSON.parse(response).fetch("result", "UNKNOWN") : "UNKNOWN"
-        log("Searchable response", method, url, payload, time:, result:)
-      end
-
-      def log(message, method, url, payload = nil, fields = {})
-        if payload.is_a? Hash
-          @logger.info(fields.merge(msg: message, method: method.upcase, url:, slug: payload[:slug], content_id: payload[:content_id]))
-        else
-          @logger.info(fields.merge(msg: message, method: method.upcase, url:))
-        end
-      end
-
-      def make_request(method, *args)
-        response = nil
-        log_request(method, *args)
-        call_time = Benchmark.realtime do
-          response = RestClient.send(
-            method,
-            *args,
-            content_type: :json,
-            accept: :json,
-            user_agent: "whitehall (searchable)",
-            authorization: "Bearer #{ENV['RUMMAGER_BEARER_TOKEN'] || 'example'}",
-          )
-        end
-        log_response(method, call_time, response, *args)
-        response
       end
 
       def documents_url(options = {})
