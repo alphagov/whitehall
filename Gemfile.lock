@@ -293,7 +293,7 @@ GEM
       nokogiri (~> 1.12)
       rinku (~> 2.0)
       sanitize (~> 6)
-    govuk_app_config (9.15.6)
+    govuk_app_config (9.15.7)
       logstasher (~> 2.1)
       opentelemetry-exporter-otlp (>= 0.25, < 0.30)
       opentelemetry-instrumentation-all (>= 0.39.1, < 0.71.0)
@@ -412,7 +412,7 @@ GEM
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
-    loofah (2.23.1)
+    loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
