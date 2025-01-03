@@ -1,5 +1,6 @@
 require "gds_api/publishing_api"
 require "gds_api/asset_manager"
+require "gds_api/search"
 
 module Services
   def self.publishing_api
@@ -23,6 +24,13 @@ module Services
       Plek.find("publishing-api"),
       bearer_token: ENV.fetch("PUBLISHING_API_BEARER_TOKEN", "example"),
       timeout:,
+    )
+  end
+
+  def self.search_api_client
+    @search_api_client ||= GdsApi::Search.new(
+      Plek.find("search-api"),
+      bearer_token: ENV["RUMMAGER_BEARER_TOKEN"] || "example",
     )
   end
 end
