@@ -10,7 +10,7 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
     edition = build_stubbed(:edition)
     version = edition.versions.new(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11))
     version.stubs(:user).returns(actor)
-    audit = Queries::VersionPresenter.new(version, is_first_edition: true)
+    audit = VersionDecorator.new(version, is_first_edition: true)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition:))
 
@@ -23,7 +23,7 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
   test "it constructs output based on the entry when an actor is absent" do
     edition = build_stubbed(:edition)
     version = edition.versions.new(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: nil)
-    audit = Queries::VersionPresenter.new(version, is_first_edition: true)
+    audit = VersionDecorator.new(version, is_first_edition: true)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition:))
 
@@ -37,7 +37,7 @@ class Admin::Editions::AuditTrailEntryComponentTest < ViewComponent::TestCase
     edition.versions.new(event: "create", created_at: Time.zone.local(2020, 1, 1, 11, 11), whodunnit: actor.id)
     version = edition.versions.new(event: "published", created_at: Time.zone.local(2020, 1, 1, 11, 11), state: "published")
     version.stubs(:user).returns(actor)
-    audit = Queries::VersionPresenter.new(version, is_first_edition: true)
+    audit = VersionDecorator.new(version, is_first_edition: true)
     newer_edition = build_stubbed(:edition, :draft)
 
     render_inline(Admin::Editions::AuditTrailEntryComponent.new(entry: audit, edition: newer_edition))

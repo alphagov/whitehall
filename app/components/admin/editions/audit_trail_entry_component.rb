@@ -25,6 +25,6 @@ private
   end
 
   def compare_with_previous_version?
-    entry.action == "published" && edition.id != entry.version.item_id
+    entry.action == "published" && edition.id != entry.item_id
   end
 end
