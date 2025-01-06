@@ -347,6 +347,14 @@ class Edition < ApplicationRecord
     true
   end
 
+  def superseded_at
+    versions.find { |v| v.state == "superseded" }&.created_at
+  end
+
+  def published_at
+    versions.find { |v| v.state == "published" }&.created_at
+  end
+
   def government
     if government_id.present?
       Government.find(government_id)
