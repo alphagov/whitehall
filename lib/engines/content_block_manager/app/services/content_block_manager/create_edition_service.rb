@@ -5,6 +5,7 @@ module ContentBlockManager
     end
 
     def call(edition_params, document_id: nil)
+      edition_params[:title] = edition_params[:document_attributes][:title]
       @new_edition = build_edition(edition_params, document_id)
       @new_edition.assign_attributes(edition_params)
       @new_edition.save!
@@ -17,6 +18,7 @@ module ContentBlockManager
       if document_id.nil?
         ContentBlockManager::ContentBlock::Edition.new(edition_params)
       else
+        # TODO: is this covered when adding title?
         ContentBlockManager::ContentBlock::Edition.new(
           document_id:,
           document_attributes: edition_params.delete(:document_attributes).except(:block_type).merge({ id: document_id }),
