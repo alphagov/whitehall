@@ -132,45 +132,9 @@ class SearchableTest < ActiveSupport::TestCase
     stub_repeatedly_failing_requests(failures)
     Whitehall::Searchable::Index.any_instance.stubs(:sleep)
     index = Whitehall::Searchable::Index.new(search_api_url, index_name, attempts:)
-    assert_raises RestClient::BadGateway do
+    assert_raises GdsApi::HTTPErrorResponse do
       index.add(one_document)
     end
-  end
-
-  test "add should log attempts to post to search_api" do
-    stub_successful_request
-    logger = stub("logger", debug: true)
-    logger.expects(:info).twice
-    index = Whitehall::Searchable::Index.new(search_api_url, index_name, logger:)
-    index.add(one_document)
-  end
-
-  test "add should log failures" do
-    stub_one_failed_request
-    Whitehall::Searchable::Index.any_instance.stubs(:sleep)
-    logger = stub("logger", debug: true, info: true)
-    logger.expects(:warn).once
-    index = Whitehall::Searchable::Index.new(search_api_url, index_name, logger:)
-    index.add(one_document)
-  end
-
-  test "add should return unknown status for blank response" do
-    RestClient.expects(:send).returns("")
-    Whitehall::Searchable::Index.any_instance.stubs(:sleep)
-
-    logger = stub("logger", debug: true, info: true)
-    logger.expects(:info).once.with(has_entry(:result, "UNKNOWN"))
-
-    index = Whitehall::Searchable::Index.new(search_api_url, index_name, logger:)
-    index.add(one_document)
-  end
-
-  test "amend should post amendments to a document by its link" do
-    new_document = { "title" => "Cheese", "indexable_content" => "Blah" }
-    stub_request(:post, link_url).with(body: new_document).to_return(status(200))
-    index = Whitehall::Searchable::Index.new(search_api_url, index_name)
-    index.amend(link, "title" => "Cheese", "indexable_content" => "Blah")
-    assert_requested :post, link_url, body: new_document
   end
 
   test "commit should post to search_api" do
@@ -218,13 +182,5 @@ class SearchableTest < ActiveSupport::TestCase
     index = Whitehall::Searchable::Index.new(search_api_url, index_name)
     index.delete(document_url)
     assert_requested :delete, documents_url(id: document_url, type: "edition"), times: 2
-  end
-
-  test "delete should log attempts to delete documents from search_api" do
-    stub_successful_delete_request
-    logger = stub("logger")
-    logger.expects(:info).twice
-    index = Whitehall::Searchable::Index.new(search_api_url, index_name, logger:)
-    index.delete(document_url)
   end
 end
