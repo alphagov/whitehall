@@ -54,17 +54,22 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     assert_selector ".app-view-editions__newer-edition-entries h3", text: "On newer editions"
     assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 2
     assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-editorial-remark__list-item", count: 1
+    assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-host-content-update-event-entry__list-item", count: 0
 
     assert_selector ".app-view-editions__current-edition-entries h3", text: "On this edition"
     assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 4
     assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-editorial-remark__list-item", count: 1
+    assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-host-content-update-event-entry__list-item", count: 1
 
     assert_selector ".app-view-editions__previous-edition-entries h3", text: "On previous editions"
     assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 2
     assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-editorial-remark__list-item", count: 0
+    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-host-content-update-event-entry__list-item", count: 2
   end
 
   def seed_document_event_history
+    @events = []
+
     acting_as(@user) do
       @document = create(:document)
       @first_edition = create(:draft_edition, document: @document, major_change_published_at: Time.zone.now)
@@ -97,6 +102,10 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     end
 
     some_time_passes
+    @events << build(:host_content_update_event, created_at: Time.zone.now)
+    some_time_passes
+    @events << build(:host_content_update_event, created_at: Time.zone.now)
+    some_time_passes
 
     acting_as(@user) do
       @second_edition = create(:draft_edition, document: @document, major_change_published_at: Time.zone.now)
@@ -109,6 +118,8 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     end
 
     some_time_passes
+    @events << build(:host_content_update_event, created_at: Time.zone.now)
+    some_time_passes
 
     acting_as(@user2) do
       @third_edition = create(:draft_edition, document: @document, major_change_published_at: Time.zone.now)
@@ -117,6 +128,8 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
       some_time_passes
       create(:editorial_remark, edition: @third_edition, author: @user, body: "Drafted to include newer changes.")
     end
+
+    HostContentUpdateEvent.stubs(:all_for_date_window).returns(@events)
   end
 
   def some_time_passes

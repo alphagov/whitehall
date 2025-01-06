@@ -997,6 +997,48 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal false, edition.images_have_unique_filenames?
   end
 
+  test "#superseded_at returns the date an edition was superseded at when a superseded version exists" do
+    superseded_at = Time.zone.now - 3.days
+
+    edition = build(:edition)
+    edition.versions = [
+      build(:version, state: "published", item: edition),
+      build(:version, state: "superseded", created_at: superseded_at, item: edition),
+    ]
+
+    assert_equal edition.superseded_at, superseded_at
+  end
+
+  test "#superseded_at returns nil when a superseded version does not exist" do
+    edition = build(:edition)
+    edition.versions = [
+      build(:version, state: "published", item: edition),
+    ]
+
+    assert_nil edition.superseded_at
+  end
+
+  test "#published_at returns the date an edition was published at when a published version exists" do
+    published_at = Time.zone.now - 3.days
+
+    edition = build(:edition)
+    edition.versions = [
+      build(:version, state: "published", created_at: published_at, item: edition),
+      build(:version, state: "superseded", item: edition),
+    ]
+
+    assert_equal edition.published_at, published_at
+  end
+
+  test "#published_at returns nil when a published version does not exist" do
+    edition = build(:edition)
+    edition.versions = [
+      build(:version, state: "created", item: edition),
+    ]
+
+    assert_nil edition.published_at
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

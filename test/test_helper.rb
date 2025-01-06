@@ -69,6 +69,7 @@ class ActiveSupport::TestCase
     Sidekiq::Job.clear_all
     stub_any_publishing_api_call
     stub_publishing_api_publish_intent
+    Services.publishing_api.stubs(:get_events_for_content_id).returns([])
     Services.stubs(:asset_manager).returns(stub_everything("asset-manager"))
   end
 

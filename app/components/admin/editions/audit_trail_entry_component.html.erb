@@ -3,7 +3,7 @@
 
   <% if compare_with_previous_version? %>
     <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-0">
-      <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: entry.version.item_id), class: "govuk-link" %>
+      <%= link_to "[Compare with previous version]", diff_admin_edition_path(@edition, audit_trail_entry_id: entry.item_id), class: "govuk-link" %>
     </p>
   <% end %>
 
