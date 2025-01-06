@@ -17,9 +17,9 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
       assert_equal entry_timestamps.sort.reverse, entry_timestamps
     end
 
-    it "is a list of VersionDecorator and EditorialRemark objects when 'only' argument is not present" do
+    it "is a list of Document::PaginatedTimeline::VersionDecorator and EditorialRemark objects when 'only' argument is not present" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      assert_equal [VersionDecorator, EditorialRemark].to_set,
+      assert_equal [Document::PaginatedTimeline::VersionDecorator, EditorialRemark].to_set,
                    timeline.entries.map(&:class).to_set
     end
 
@@ -48,7 +48,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     it "correctly determines actions" do
       mock_pagination(per_page: 30) do
         timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-        entries = timeline.entries.select { |e| e.instance_of?(VersionDecorator) }
+        entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionDecorator) }
         expected_actions = %w[updated
                               editioned
                               published
@@ -64,7 +64,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
 
     it "correctly determines actors" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      entries = timeline.entries.select { |e| e.instance_of?(VersionDecorator) }
+      entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionDecorator) }
       expected_actors = [@user,
                          @user,
                          @user2,
@@ -89,9 +89,9 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
         assert_equal entry_timestamps.sort.reverse, entry_timestamps
       end
 
-      it "is a list of VersionDecorator and EditorialRemark and HostContentUpdateEvent objects when 'only' argument is not present" do
+      it "is a list of Document::PaginatedTimeline::VersionDecorator and EditorialRemark and HostContentUpdateEvent objects when 'only' argument is not present" do
         timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-        assert_equal [VersionDecorator, EditorialRemark, HostContentUpdateEvent].to_set,
+        assert_equal [Document::PaginatedTimeline::VersionDecorator, EditorialRemark, HostContentUpdateEvent].to_set,
                      timeline.entries.map(&:class).to_set
       end
 
@@ -174,7 +174,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     end
 
     describe "when only argument is set to history" do
-      it "is a list of VersionDecorator objects" do
+      it "is a list of Document::PaginatedTimeline::VersionDecorator objects" do
         timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
         expected_actions = %w[updated
                               editioned
@@ -212,7 +212,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
   end
 
   describe "#total_count" do
-    it "counts the list of VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
+    it "counts the list of Document::PaginatedTimeline::VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
       assert_equal 11, timeline.total_count
     end
@@ -222,7 +222,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
       assert_equal 3, timeline.total_count
     end
 
-    it "counts the total VersionDecorator objects when 'history' is passed into the 'only' argument" do
+    it "counts the total Document::PaginatedTimeline::VersionDecorator objects when 'history' is passed into the 'only' argument" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "history")
       assert_equal 8, timeline.total_count
     end

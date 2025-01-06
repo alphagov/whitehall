@@ -1,4 +1,4 @@
-class VersionDecorator < SimpleDelegator
+class Document::PaginatedTimeline::VersionDecorator < SimpleDelegator
   def initialize(version, is_first_edition: false, previous_version: nil)
     @is_first_edition = is_first_edition
     @preloaded_previous_version = previous_version

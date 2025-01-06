@@ -72,7 +72,7 @@ class Document < ApplicationRecord
     versions = active_edition_versions.where(id: version_ids)
 
     versions.map.with_index { |version, index|
-      version = VersionDecorator.new(
+      version = Document::PaginatedTimeline::VersionDecorator.new(
         version,
         is_first_edition: version.item_id == first_edition_id,
         previous_version: versions[index - 1],

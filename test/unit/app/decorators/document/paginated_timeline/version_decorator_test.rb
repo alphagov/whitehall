@@ -1,6 +1,6 @@
 require "test_helper"
 
-class VersionDecoratorTest < ActiveSupport::TestCase
+class Document::PaginatedTimeline::VersionDecoratorTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:user) { build(:user) }
@@ -10,18 +10,18 @@ class VersionDecoratorTest < ActiveSupport::TestCase
   let(:is_first_edition) { false }
   let(:previous_version) { build(:version, user:, item: edition) }
 
-  let(:decorator) { VersionDecorator.new(version, is_first_edition:, previous_version:) }
+  let(:decorator) { Document::PaginatedTimeline::VersionDecorator.new(version, is_first_edition:, previous_version:) }
 
   describe "#==" do
     it "is true if the class, ID and action are the same" do
-      other_decorator = VersionDecorator.new(version, is_first_edition:, previous_version:)
+      other_decorator = Document::PaginatedTimeline::VersionDecorator.new(version, is_first_edition:, previous_version:)
 
       assert decorator == other_decorator
     end
 
     it "is not true if the class ID and action are different" do
       other_version = build(:version, user:, item: edition, id: 444)
-      other_decorator = VersionDecorator.new(other_version, is_first_edition:, previous_version:)
+      other_decorator = Document::PaginatedTimeline::VersionDecorator.new(other_version, is_first_edition:, previous_version:)
 
       assert_not decorator == other_decorator
     end

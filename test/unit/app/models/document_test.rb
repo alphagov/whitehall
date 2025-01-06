@@ -621,7 +621,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   describe "#decorated_edition_versions_by_ids" do
-    it "returns all the versions, presented as VersionDecorator items" do
+    it "returns all the versions, presented as Document::PaginatedTimeline::VersionDecorator items" do
       document = create(:document)
       edition1 = create(:published_edition, document: document)
       edition2 = create(:published_edition, document: document)
@@ -639,19 +639,19 @@ class DocumentTest < ActiveSupport::TestCase
       version2_stub =  stub(id: version2.id)
       version3_stub =  stub(id: version3.id)
 
-      VersionDecorator.stubs(:new).with { |v, **args|
+      Document::PaginatedTimeline::VersionDecorator.stubs(:new).with { |v, **args|
         v.id == version1.id &&
           args[:is_first_edition] == true &&
           args[:previous_version] == version3
       }.returns(version1_stub)
 
-      VersionDecorator.stubs(:new).with { |v, **args|
+      Document::PaginatedTimeline::VersionDecorator.stubs(:new).with { |v, **args|
         v.id == version2.id &&
           args[:is_first_edition] == false &&
           args[:previous_version] == version1
       }.returns(version2_stub)
 
-      VersionDecorator.stubs(:new).with { |v, **args|
+      Document::PaginatedTimeline::VersionDecorator.stubs(:new).with { |v, **args|
         v.id == version3.id &&
           args[:is_first_edition] == false &&
           args[:previous_version] == version2
