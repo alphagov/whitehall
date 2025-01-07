@@ -1,5 +1,11 @@
 en:
   activerecord:
+    errors:
+      models:
+        content_block_manager/content_block/document:
+          attributes:
+            block_type:
+              blank: Select a content block
     attributes:
       content_block_manager/content_block/edition/document:
         title: Title

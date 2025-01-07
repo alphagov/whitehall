@@ -564,7 +564,7 @@ Then(/^I (should )?see the rollup data for the dependent content$/) do |_should|
 end
 
 Then(/^I should see an error prompting me to choose an object type$/) do
-  assert_text "You must select a block type"
+  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank")
 end
 
 Then(/^I am shown where the changes will take place$/) do

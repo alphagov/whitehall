@@ -79,7 +79,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     )
 
     assert_invalid content_block_edition
-    assert content_block_edition.errors.full_messages.include?("Document block type cannot be blank")
+    assert_includes content_block_edition.errors.messages[:"document.block_type"], I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank")
   end
 
   it "validates the presence of an edition title" do
