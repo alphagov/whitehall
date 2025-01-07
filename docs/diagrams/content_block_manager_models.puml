@@ -6,7 +6,6 @@ together {
     class ContentBlockDocument {
         content_id
         block_type
-        title
     }
     database content_block_documents
     ContentBlockDocument .> content_block_documents
@@ -17,6 +16,7 @@ together {
         details
         document_id
         state
+        title
     }
     database content_block_editions
     ContentBlockEdition .> content_block_editions
