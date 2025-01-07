@@ -12,19 +12,12 @@ module ContentBlockManager
     end
 
     def block_type
-      document&.block_type || @block_type
+      @block_type ||= document&.block_type
     end
 
     def ensure_presence_of_document
-      if document.blank?
-        self.document = ContentBlock::Document.new(
-          content_id: create_random_id,
-          block_type: @block_type,
-          sluggable_string: title,
-        )
-      elsif document.new_record?
+      if document.new_record?
         document.content_id = create_random_id if document.content_id.blank?
-        document.block_type = @block_type if document.block_type.blank?
         document.sluggable_string = title if document.sluggable_string.blank?
       end
     end
