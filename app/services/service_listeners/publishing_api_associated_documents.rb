@@ -55,22 +55,30 @@ module ServiceListeners
                     end
 
       current_associated_documents.each do |associated_document|
-        if associated_document.respond_to?(:translations)
-          associated_document.translations.each do |translation|
+        locales_to_unpublish =
+          if associated_document.respond_to?(:translations)
+            associated_document.translations.map(&:locale).map(&:to_s)
+          else
+            [locale_for_document(associated_document).to_s]
+          end
+
+        locales_to_unpublish.each do |locale|
+          if associated_document.respond_to?(:base_path)
             PublishingApiRedirectWorker.new.perform(
               associated_document.content_id,
               destination,
-              translation.locale.to_s,
+              locale,
+              allow_draft,
+            )
+          else
+            PublishingApiGoneWorker.new.perform(
+              associated_document.content_id,
+              nil,
+              nil,
+              locale,
               allow_draft,
             )
           end
-        else
-          PublishingApiRedirectWorker.new.perform(
-            associated_document.content_id,
-            destination,
-            locale_for_document(associated_document).to_s,
-            allow_draft,
-          )
         end
       end
     end
