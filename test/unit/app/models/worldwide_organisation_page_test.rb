@@ -42,7 +42,7 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
     page = build(:worldwide_organisation_page, edition: nil)
 
     assert_not page.valid?
-    assert page.errors[:edition].include?("can't be blank")
+    assert page.errors[:edition].include?("cannot be blank")
   end
 
   test "should not be valid when corporate information page type is `about us`" do

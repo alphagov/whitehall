@@ -50,7 +50,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     post :create, params: { organisation_id: @organisation, edition: corporate_information_page_attributes(body: nil) }
     @organisation.reload
     assert_select "form[action='#{admin_organisation_corporate_information_pages_path(@organisation)}']"
-    assert_select ".govuk-error-summary a", text: "Body can't be blank", href: "#edition_body"
+    assert_select ".govuk-error-summary a", text: "Body cannot be blank", href: "#edition_body"
   end
 
   view_test "GET :edit should display form without type selector for existing corporate information page" do
@@ -83,7 +83,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     new_attributes = { body: "", summary: "New summary" }
     put :update, params: { organisation_id: @organisation, id: corporate_information_page, edition: new_attributes }
-    assert_select ".govuk-error-summary a", text: "Body can't be blank", href: "#edition_body"
+    assert_select ".govuk-error-summary a", text: "Body cannot be blank", href: "#edition_body"
 
     assert_select "form[action='#{admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)}']" do
       assert_select "textarea[name='edition[body]']", new_attributes[:body]

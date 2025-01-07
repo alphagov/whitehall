@@ -48,7 +48,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
     assert_not publisher.perform!
     assert_not edition.published?
-    assert_equal "This edition is invalid: Title can't be blank", publisher.failure_reason
+    assert_equal "This edition is invalid: Title cannot be blank", publisher.failure_reason
   end
 
   test "#perform! with a re-editioned document updates the version numbers" do

@@ -45,9 +45,9 @@ class ImageBlockTest < ActiveSupport::TestCase
     subject = LandingPage::ImageBlock.new(@valid_image_block_config.except("image"), @valid_landing_page_images)
     assert subject.invalid?
     assert_equal [
-      "Desktop image can't be blank",
-      "Tablet image can't be blank",
-      "Mobile image can't be blank",
+      "Desktop image cannot be blank",
+      "Tablet image cannot be blank",
+      "Mobile image cannot be blank",
     ], subject.errors.to_a
   end
 
@@ -56,9 +56,9 @@ class ImageBlockTest < ActiveSupport::TestCase
     subject = LandingPage::ImageBlock.new(@valid_image_block_config, no_images)
     assert subject.invalid?
     assert_equal [
-      "Desktop image can't be blank",
-      "Tablet image can't be blank",
-      "Mobile image can't be blank",
+      "Desktop image cannot be blank",
+      "Tablet image cannot be blank",
+      "Mobile image cannot be blank",
     ], subject.errors.to_a
   end
 end

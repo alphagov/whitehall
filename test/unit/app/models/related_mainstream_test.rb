@@ -3,7 +3,7 @@ require "test_helper"
 class RelatedMainstreamTest < ActiveSupport::TestCase
   test "raises an error if creating a record with a nil content_id" do
     detailed_guide = create(:detailed_guide)
-    assert_raises StandardError, match: "Validation failed: Content can't be blank" do
+    assert_raises StandardError, match: "Validation failed: Content cannot be blank" do
       RelatedMainstream.create!(edition_id: detailed_guide.id, content_id: nil)
     end
   end
@@ -19,7 +19,7 @@ class RelatedMainstreamTest < ActiveSupport::TestCase
   end
 
   test "raises an error if creating a record with a nil edition" do
-    assert_raises StandardError, match: "Validation failed: Edition can't be blank" do
+    assert_raises StandardError, match: "Validation failed: Edition cannot be blank" do
       RelatedMainstream.create!(edition_id: nil, content_id: "5a2fea6a-360a-49ba-97b3-46d3612ec198")
     end
   end

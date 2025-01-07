@@ -52,9 +52,9 @@ class HeroBlockTest < ActiveSupport::TestCase
     subject = LandingPage::HeroBlock.new(@valid_hero_block_config.except("image"), @valid_hero_block_images)
     assert subject.invalid?
     assert_equal [
-      "Desktop image can't be blank",
-      "Tablet image can't be blank",
-      "Mobile image can't be blank",
+      "Desktop image cannot be blank",
+      "Tablet image cannot be blank",
+      "Mobile image cannot be blank",
     ], subject.errors.to_a
   end
 
@@ -63,9 +63,9 @@ class HeroBlockTest < ActiveSupport::TestCase
     subject = LandingPage::HeroBlock.new(@valid_hero_block_config, no_images)
     assert subject.invalid?
     assert_equal [
-      "Desktop image can't be blank",
-      "Tablet image can't be blank",
-      "Mobile image can't be blank",
+      "Desktop image cannot be blank",
+      "Tablet image cannot be blank",
+      "Mobile image cannot be blank",
     ], subject.errors.to_a
   end
 
@@ -81,6 +81,6 @@ class HeroBlockTest < ActiveSupport::TestCase
       @valid_hero_block_images,
     )
     assert subject.invalid?
-    assert_equal ["Type can't be blank"], subject.errors.to_a
+    assert_equal ["Type cannot be blank"], subject.errors.to_a
   end
 end

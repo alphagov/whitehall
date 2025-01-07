@@ -143,7 +143,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
         }
 
     assert_template :edit
-    assert_equal ["Editorial remark can't be blank"], assigns(:edition).errors.full_messages
+    assert_equal ["Editorial remark cannot be blank"], assigns(:edition).errors.full_messages
     assert edition.reload.access_limited
   end
 

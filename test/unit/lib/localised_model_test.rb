@@ -46,7 +46,7 @@ class LocalisedModelTest < ActiveSupport::TestCase
     localised_model = LocalisedModel.new(model, :es)
 
     assert_not localised_model.valid?
-    assert_equal ["can't be blank"], localised_model.errors[:title]
+    assert_equal ["cannot be blank"], localised_model.errors[:title]
   end
 
   test "ActiveRecord has_many associations are localised" do
@@ -69,11 +69,11 @@ class LocalisedModelTest < ActiveSupport::TestCase
     model = create(:news_article)
     localised_model = LocalisedModel.new(model, :es)
     assert_not localised_model.update(title: "")
-    assert_equal ["can't be blank"], localised_model.errors[:title]
+    assert_equal ["cannot be blank"], localised_model.errors[:title]
 
     organisation = create(:organisation)
     localised_model = LocalisedModel.new(organisation, :fr)
     assert_not localised_model.update(name: "")
-    assert_equal ["can't be blank"], localised_model.errors[:name]
+    assert_equal ["cannot be blank"], localised_model.errors[:name]
   end
 end

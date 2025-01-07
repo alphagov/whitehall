@@ -42,7 +42,7 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
   test "should be invalid without a url" do
     account = build(:social_media_account, url: nil)
     assert_not account.valid?
-    assert_includes account.errors.full_messages, "Url can't be blank"
+    assert_includes account.errors.full_messages, "Url cannot be blank"
   end
 
   test "should be invalid with a malformed url" do
@@ -64,7 +64,7 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
   test "should be invalid without a social media service" do
     account = build(:social_media_account, social_media_service_id: nil)
     assert_not account.valid?
-    assert_includes account.errors.full_messages, "Social media service can't be blank"
+    assert_includes account.errors.full_messages, "Social media service cannot be blank"
   end
 
   test "display_name is the title if present" do

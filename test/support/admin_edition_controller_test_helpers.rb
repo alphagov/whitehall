@@ -151,9 +151,9 @@ module AdminEditionControllerTestHelpers
                edition: attributes.merge(title: ""),
              }
 
-        assert_select ".gem-c-error-message.govuk-error-message", text: "Error: Title can't be blank"
+        assert_select ".gem-c-error-message.govuk-error-message", text: "Error: Title cannot be blank"
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
-        assert_select ".govuk-error-summary a", text: "Title can't be blank", href: "#edition_title"
+        assert_select ".govuk-error-summary a", text: "Title cannot be blank", href: "#edition_title"
       end
 
       test "removes blank space from titles for new editions" do
@@ -305,7 +305,7 @@ module AdminEditionControllerTestHelpers
 
         assert_equal "A Title", edition.reload.title
         assert_template "editions/edit"
-        assert_select ".govuk-error-summary a", text: "Title can't be blank", href: "#edition_title"
+        assert_select ".govuk-error-summary a", text: "Title cannot be blank", href: "#edition_title"
       end
 
       test "update with a stale edition should render edit page with conflicting edition" do

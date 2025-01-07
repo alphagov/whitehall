@@ -50,6 +50,6 @@ class TopicalEventFeaturing < ApplicationRecord
   end
 
   def image_is_present
-    errors.add(:"image.file", "can't be blank") if image.blank?
+    errors.add(:"image.file", :blank) if image.blank?
   end
 end

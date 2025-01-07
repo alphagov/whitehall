@@ -30,7 +30,7 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
 
     assert_nil edition.reload.lead_image
     assert_redirected_to admin_edition_images_path(edition)
-    assert_equal "This edition is invalid: Change note can't be blank", flash[:alert]
+    assert_equal "This edition is invalid: Change note cannot be blank", flash[:alert]
   end
 
   test "PATCH :update does not update the lead image when edition's body contains the images markdown" do

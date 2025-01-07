@@ -21,9 +21,9 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
 
     assert_equal page.all(".gem-c-error-summary__list-item").count, 3
     assert_equal page.all(".gem-c-error-summary__list-item a").count, 3
-    assert_equal first_link.text, "Title can't be blank"
+    assert_equal first_link.text, "Title cannot be blank"
     assert_equal first_link[:href], "#error_summary_test_object_title"
-    assert_equal second_link.text, "Date can't be blank"
+    assert_equal second_link.text, "Date cannot be blank"
     assert_equal second_link[:href], "#error_summary_test_object_date"
     assert_equal third_link.text, "Date is invalid"
     assert_equal third_link[:href], "#error_summary_test_object_date"
@@ -38,9 +38,9 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
 
     assert_equal page.all(".gem-c-error-summary__list-item").count, 3
     assert_equal page.all(".gem-c-error-summary__list-item a").count, 3
-    assert_equal first_link.text, "Title can't be blank"
+    assert_equal first_link.text, "Title cannot be blank"
     assert_equal first_link[:href], "#parent_class_title"
-    assert_equal second_link.text, "Date can't be blank"
+    assert_equal second_link.text, "Date cannot be blank"
     assert_equal second_link[:href], "#parent_class_date"
     assert_equal third_link.text, "Date is invalid"
     assert_equal third_link[:href], "#parent_class_date"
@@ -60,14 +60,14 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal first_link["data-module"], "ga4-auto-tracker"
     assert_equal first_link_data["event_name"], "form_error"
     assert_equal first_link_data["type"], "Editing Error Summary Test Object"
-    assert_equal first_link_data["text"], "Title can't be blank"
+    assert_equal first_link_data["text"], "Title cannot be blank"
     assert_equal first_link_data["section"], "Title"
     assert_equal first_link_data["action"], "error"
 
     assert_equal second_link["data-module"], "ga4-auto-tracker"
     assert_equal second_link_data["event_name"], "form_error"
     assert_equal second_link_data["type"], "Editing Error Summary Test Object"
-    assert_equal second_link_data["text"], "Date can't be blank"
+    assert_equal second_link_data["text"], "Date cannot be blank"
     assert_equal second_link_data["section"], "Date"
     assert_equal second_link_data["action"], "error"
 
@@ -97,9 +97,9 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
 
     assert_equal page.all(".gem-c-error-summary__list-item").count, 3
     assert_equal page.all(".gem-c-error-summary__list-item a").count, 3
-    assert_equal first_link.text, "Title can't be blank"
+    assert_equal first_link.text, "Title cannot be blank"
     assert_equal first_link[:href], "#error_summary_test_object_title"
-    assert_equal second_link.text, "Date can't be blank"
+    assert_equal second_link.text, "Date cannot be blank"
     assert_equal second_link[:href], "#error_summary_test_object_date"
     assert_equal third_link.text, "Date is invalid"
     assert_equal third_link[:href], "#error_summary_test_object_date"
@@ -114,9 +114,9 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
 
     assert_equal page.all(".gem-c-error-summary__list-item").count, 3
     assert_equal page.all(".gem-c-error-summary__list-item a").count, 3
-    assert_equal first_link.text, "Title can't be blank"
+    assert_equal first_link.text, "Title cannot be blank"
     assert_equal first_link[:href], "#error_summary_test_object_title"
-    assert_equal second_link.text, "Date can't be blank"
+    assert_equal second_link.text, "Date cannot be blank"
     assert_equal second_link[:href], "#error_summary_test_object_date"
     assert_equal third_link.text, "Date is invalid"
     assert_equal third_link[:href], "#error_summary_test_object_date"

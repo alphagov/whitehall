@@ -58,7 +58,7 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     edition = build(:call_for_evidence, external: true, external_url: nil)
 
     assert_not edition.valid?
-    assert_equal "can't be blank", edition.errors[:external_url].first
+    assert_equal "cannot be blank", edition.errors[:external_url].first
 
     edition.external_url = "bad.url"
     assert_not edition.valid?

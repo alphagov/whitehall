@@ -77,7 +77,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :republish_page, params: { page_slug: "past-prime-ministers", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_page"
   end
 
@@ -203,7 +203,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :republish_organisation, params: { organisation_slug: "an-existing-organisation", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_organisation"
   end
 
@@ -307,7 +307,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :republish_person, params: { person_slug: "existing-person", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_person"
   end
 
@@ -411,7 +411,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :republish_role, params: { role_slug: "an-existing-role", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_role"
   end
 
@@ -515,7 +515,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
     post :republish_document, params: { document_slug: "an-existing-document", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_document"
   end
 

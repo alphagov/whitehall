@@ -21,7 +21,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     topical_event_featuring_image_data = build(:featured_image_data, file: nil)
 
     assert_not topical_event_featuring_image_data.valid?
-    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File can't be blank"
+    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File cannot be blank"
   end
 
   test "accepts valid image uploads" do
@@ -100,7 +100,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     featured_image_data = build(:featured_image_data, featured_imageable: nil)
 
     assert_not featured_image_data.valid?
-    assert_equal featured_image_data.errors.messages[:featured_imageable], ["can't be blank"]
+    assert_equal featured_image_data.errors.messages[:featured_imageable], ["cannot be blank"]
   end
 
   test "#republish_on_assets_ready should republish organisation and associations if assets are ready" do

@@ -36,7 +36,7 @@ examples:
       id: single-image-upload-with-error
       name: single-image-upload-with-error
       error_items:
-        - text: Image can't be blank
+        - text: Image cannot be blank
   with_image_uploaded:
     data:
       id: single-image-upload-with-image
