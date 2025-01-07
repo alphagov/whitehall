@@ -71,15 +71,6 @@ private
     helpers.content_block_manager.url_for(only_path: false, params: { order: param }, anchor: TABLE_ID)
   end
 
-  # TODO: Currently, we're only fetching Users from the local Whitehall database, which means
-  # content updated outside Whitehall with a `last_edited_by_editor_id` where the user
-  # does not have Whitehall access will show up as an unknown user. We are looking to
-  # fix this by possibly adding an endpoint to Signon, but this gets us part of the way
-  # there. Card for this work is here: https://trello.com/c/jVvs4nAP/640-get-author-information-from-signon
-  def users
-    @users ||= User.where(uid: host_content_items.map(&:last_edited_by_editor_id))
-  end
-
   def frontend_path(content_item)
     if @is_preview
       helpers.content_block_manager.content_block_manager_content_block_host_content_preview_path(id: content_block_edition.id, host_content_id: content_item.host_content_id)
@@ -122,8 +113,7 @@ private
   end
 
   def updated_field_for(content_item)
-    last_updated_by_user = content_item.last_edited_by_editor_id && users.find { |u| u.uid == content_item.last_edited_by_editor_id }
-    user_copy = last_updated_by_user ? mail_to(last_updated_by_user.email, last_updated_by_user.name, { class: "govuk-link" }) : "Unknown user"
+    user_copy = content_item.last_edited_by_editor ? mail_to(content_item.last_edited_by_editor.email, content_item.last_edited_by_editor.name, { class: "govuk-link" }) : "Unknown user"
     "#{time_ago_in_words(content_item.last_edited_at)} ago by #{user_copy}".html_safe
   end
 end
