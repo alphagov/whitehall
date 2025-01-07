@@ -27,7 +27,6 @@ module ContentBlockManager
           publishing_organisation: item["primary_publishing_organisation"],
           publishing_app: item["publishing_app"],
           last_edited_by_editor: editor_for_uid(item["last_edited_by_editor_id"]),
-          last_edited_by_editor_id: item["last_edited_by_editor_id"],
           last_edited_at: item["last_edited_at"],
           unique_pageviews: item["unique_pageviews"],
           instances: item["instances"],

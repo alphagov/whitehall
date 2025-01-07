@@ -40,7 +40,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
     }
   end
 
-  let(:editors) { build_list(:host_content_item_editor, 1) }
+  let(:editor) { build(:host_content_item_editor, uid: last_edited_by_editor_id) }
 
   setup do
     stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 111, total_pages: 12, results: response_body["results"], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER, rollup: response_body["rollup"])
@@ -57,7 +57,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
 
     before do
       Services.expects(:publishing_api).returns(publishing_api_mock)
-      ContentBlockManager::HostContentItem::Editor.stubs(:with_uuids).returns(editors)
+      ContentBlockManager::HostContentItem::Editor.stubs(:with_uuids).returns([editor])
     end
 
     it "calls the Publishing API for the content which embeds the target" do
@@ -92,7 +92,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
 
     it "calls the editor finder with the correct argument" do
       publishing_api_mock.expects(:get_host_content_for_content_id).returns(fake_api_response)
-      ContentBlockManager::HostContentItem::Editor.expects(:with_uuids).with([last_edited_by_editor_id]).returns(editors)
+      ContentBlockManager::HostContentItem::Editor.expects(:with_uuids).with([last_edited_by_editor_id]).returns([editor])
 
       described_class.by_embedded_document(content_block_document: document)
     end
@@ -120,7 +120,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].base_path, response_body["results"][0]["base_path"]
       assert_equal result[0].document_type, response_body["results"][0]["document_type"]
       assert_equal result[0].publishing_app, response_body["results"][0]["publishing_app"]
-      assert_equal result[0].last_edited_by_editor_id, response_body["results"][0]["last_edited_by_editor_id"]
+      assert_equal result[0].last_edited_by_editor, editor
       assert_equal result[0].last_edited_at, Time.zone.parse(response_body["results"][0]["last_edited_at"])
       assert_equal result[0].unique_pageviews, response_body["results"][0]["unique_pageviews"]
       assert_equal result[0].instances, response_body["results"][0]["instances"]

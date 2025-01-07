@@ -6,7 +6,6 @@ module ContentBlockManager
     :publishing_organisation,
     :publishing_app,
     :last_edited_by_editor,
-    :last_edited_by_editor_id,
     :last_edited_at,
     :unique_pageviews,
     :instances,

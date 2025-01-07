@@ -23,7 +23,6 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "base_path" => "/foo",
       "document_type" => "document_type",
       "publishing_app" => "publisher",
-      "last_edited_by_editor_id" => SecureRandom.uuid,
       "last_edited_by_editor" => last_edited_by_editor,
       "last_edited_at" => Time.zone.now.to_s,
       "publishing_organisation" => publishing_organisation,
