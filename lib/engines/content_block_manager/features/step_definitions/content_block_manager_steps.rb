@@ -533,6 +533,10 @@ When(/^dependent content exists for a content block$/) do
   )
 
   stub_publishing_api_has_embedded_content_details(@dependent_content.first)
+
+  stub_request(:get, "#{Plek.find('signon', external: true)}/api/users")
+    .with(query: { uuids: @dependent_content.map { |item| item["last_edited_by_editor_id"] } })
+    .to_return(body: [].to_json)
 end
 
 Then(/^I should see the dependent content listed$/) do
