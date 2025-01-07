@@ -48,54 +48,45 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
         stub("http_response", code: 200, body: response_body.to_json),
       )
     end
-    let(:publishing_api_mock) { Minitest::Mock.new }
+    let(:publishing_api_mock) { stub("GdsApi::PublishingApi") }
+    let(:document) { mock("content_block_document", content_id: target_content_id) }
+
+    before do
+      Services.expects(:publishing_api).returns(publishing_api_mock)
+    end
 
     it "calls the Publishing API for the content which embeds the target" do
-      publishing_api_mock.expect :get_host_content_for_content_id, fake_api_response, [target_content_id, { order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER }]
+      publishing_api_mock.expects(:get_host_content_for_content_id)
+                         .with(target_content_id, { order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER })
+                         .returns(fake_api_response)
 
-      Services.stub :publishing_api, publishing_api_mock do
-        document = mock("content_block_document", content_id: target_content_id)
-
-        described_class.by_embedded_document(
-          content_block_document: document,
-        )
-
-        publishing_api_mock.verify
-      end
+      described_class.by_embedded_document(content_block_document: document)
     end
 
     it "supports pagination" do
-      publishing_api_mock.expect :get_host_content_for_content_id, fake_api_response, [target_content_id, { page: 1, order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER }]
+      publishing_api_mock.expects(:get_host_content_for_content_id)
+                         .with(target_content_id, { page: 1, order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER })
+                         .returns(fake_api_response)
 
-      Services.stub :publishing_api, publishing_api_mock do
-        document = mock("content_block_document", content_id: target_content_id)
-
-        described_class.by_embedded_document(
-          content_block_document: document,
-          page: 1,
-        )
-
-        publishing_api_mock.verify
-      end
+      described_class.by_embedded_document(
+        content_block_document: document,
+        page: 1,
+      )
     end
 
     it "supports sorting" do
-      publishing_api_mock.expect :get_host_content_for_content_id, fake_api_response, [target_content_id, { order: "-abc" }]
+      publishing_api_mock.expects(:get_host_content_for_content_id)
+                         .with(target_content_id, { order: "-abc" })
+                         .returns(fake_api_response)
 
-      Services.stub :publishing_api, publishing_api_mock do
-        document = mock("content_block_document", content_id: target_content_id)
-
-        described_class.by_embedded_document(
-          content_block_document: document,
-          order: "-abc",
-        )
-
-        publishing_api_mock.verify
-      end
+      described_class.by_embedded_document(
+        content_block_document: document,
+        order: "-abc",
+      )
     end
 
     it "returns GetHostContentItems" do
-      document = mock("content_block_document", content_id: target_content_id)
+      publishing_api_mock.expects(:get_host_content_for_content_id).returns(fake_api_response)
 
       result = described_class.by_embedded_document(content_block_document: document)
 
@@ -127,21 +118,18 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
     end
 
     it "returns an error if the content that embeds the target can't be loaded" do
-      exception = GdsApi::HTTPErrorResponse.new(
-        500,
-        "An internal error message",
-        "error" => { "message" => "Some backend error" },
+      publishing_api_mock.expects(:get_host_content_for_content_id).raises(
+        GdsApi::HTTPErrorResponse.new(
+          500,
+          "An internal error message",
+          "error" => { "message" => "Some backend error" },
+        ),
       )
-      raises_exception = ->(*_args) { raise exception }
-
-      Services.publishing_api.stub :get_host_content_for_content_id, raises_exception do
-        document = mock("content_block_document", content_id: target_content_id)
-
-        assert_raises(GdsApi::HTTPErrorResponse) do
-          described_class.by_embedded_document(
-            content_block_document: document,
-          )
-        end
+      
+      assert_raises(GdsApi::HTTPErrorResponse) do
+        described_class.by_embedded_document(
+          content_block_document: document,
+        )
       end
     end
   end
