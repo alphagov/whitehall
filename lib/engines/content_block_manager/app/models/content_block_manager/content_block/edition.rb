@@ -4,8 +4,8 @@ module ContentBlockManager
       include Documentable
       include HasAuditTrail
       include HasAuthors
-      include HasLeadOrganisation
       include ValidatesDetails
+      include HasLeadOrganisation
       include Workflow
 
       validates :title, presence: true
