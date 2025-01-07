@@ -11,6 +11,7 @@ Feature: Showing content block updates in history
     Then I should see an entry for the content block "Some email address" on the current edition
 
   Scenario: Content block update exists for a previous edition
+    Given some time has passed
     When I force publish a new edition of the news article "Stubble to be Outlawed"
     And I am on the edit page for news article "Stubble to be Outlawed"
     And I click the "History" tab
