@@ -25,7 +25,8 @@ class ContentBlockManager::BaseController < Admin::BaseController
             "scheduled_publication(3i)",
             "scheduled_publication(4i)",
             "scheduled_publication(5i)",
-            document_attributes: %w[title block_type],
+            :title,
+            document_attributes: %w[block_type],
             details: @schema.fields,
           )
           .merge!(creator: current_user)

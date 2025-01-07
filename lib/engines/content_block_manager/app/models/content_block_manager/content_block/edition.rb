@@ -8,6 +8,8 @@ module ContentBlockManager
       include ValidatesDetails
       include Workflow
 
+      validates :title, presence: true
+
       scope :current_versions, lambda {
         joins(
           "LEFT JOIN content_block_documents document ON document.latest_edition_id = content_block_editions.id",
@@ -22,7 +24,7 @@ module ContentBlockManager
         ContentBlockTools::ContentBlock.new(
           document_type: "content_block_#{block_type}",
           content_id: document.content_id,
-          title: document_title,
+          title:,
           details:,
         ).render
       end

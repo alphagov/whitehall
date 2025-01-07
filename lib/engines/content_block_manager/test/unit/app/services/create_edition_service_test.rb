@@ -12,7 +12,6 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
     let(:edition_params) do
       {
         document_attributes: {
-          title: new_title,
           block_type: "email_address",
         }.with_indifferent_access,
         details: {
@@ -21,6 +20,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
         },
         creator: build(:user),
         organisation_id: organisation.id.to_s,
+        title: new_title,
       }
     end
 
@@ -49,9 +49,8 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
       new_document = ContentBlockManager::ContentBlock::Document.find_by!(content_id:)
       new_edition = new_document.editions.first
 
-      assert_equal new_title, new_document.title
-      assert_equal new_title, new_edition.title
       assert_equal edition_params[:document_attributes][:block_type], new_document.block_type
+      assert_equal new_title, new_edition.title
       assert_equal edition_params[:details], new_edition.details
       assert_equal new_edition.document_id, new_document.id
       assert_equal new_edition.lead_organisation.id, organisation.id
@@ -70,9 +69,8 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
 
         new_edition = document.editions.last
 
-        assert_equal new_title, document.title
-        assert_equal new_title, new_edition.title
         assert_equal edition_params[:details], new_edition.details
+        assert_equal edition_params[:title], new_edition.title
         assert_equal new_edition.document_id, document.id
         assert_equal new_edition.lead_organisation.id, organisation.id
       end

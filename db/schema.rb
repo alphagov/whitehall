@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_06_111536) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_06_160308) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -193,7 +193,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_06_111536) do
 
   create_table "content_block_documents", charset: "utf8mb3", force: :cascade do |t|
     t.string "content_id"
-    t.string "title"
+    t.string "sluggable_string"
     t.string "block_type"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil

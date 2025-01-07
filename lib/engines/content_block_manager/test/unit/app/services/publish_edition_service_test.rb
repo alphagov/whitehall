@@ -6,7 +6,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
   describe "#call" do
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
-    let(:document) { create(:content_block_document, :email_address, content_id:, title: "Some Title") }
+    let(:document) { create(:content_block_document, :email_address, content_id:, sluggable_string: "some-edition-title") }
     let(:edition) do
       create(
         :content_block_edition,
@@ -14,6 +14,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
         details: { "foo" => "Foo text", "bar" => "Bar text" },
         organisation: @organisation,
         instructions_to_publishers: "instructions",
+        title: "Some Edition Title",
       )
     end
 
@@ -59,8 +60,8 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
           schema_name: schema.id,
           document_type: schema.id,
           publishing_app: "whitehall",
-          title: "Some Title",
-          content_id_alias: "some-title",
+          title: "Some Edition Title",
+          content_id_alias: "some-edition-title",
           instructions_to_publishers: "instructions",
           details: {
             "foo" => "Foo text",
