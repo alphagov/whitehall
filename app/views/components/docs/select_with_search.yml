@@ -1,6 +1,10 @@
 name: Select with search
 description: A dropdown select with search
 body: |
+  NOTE: this component currently fails WCAG compliance for keyboard navigation, as the total number of options are not 
+  announced when using Voice Over - the [autocomplete](./autocomplete.yml) component can provide same functionality and 
+  meets the accessibility requirements.
+  
   Use this component to create a JavaScript-enhanced dropdown select.
 
   It's powered by [Choices.js][], which is similar to [Select2][] but without the jQuery dependency.
