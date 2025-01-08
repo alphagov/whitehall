@@ -1,14 +1,14 @@
 module ContentBlockManager
   module ContentBlock
     class Edition < ApplicationRecord
+      validates :title, presence: true
+
       include Documentable
       include HasAuditTrail
       include HasAuthors
       include ValidatesDetails
       include HasLeadOrganisation
       include Workflow
-
-      validates :title, presence: true
 
       scope :current_versions, lambda {
         joins(
