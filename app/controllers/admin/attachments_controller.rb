@@ -202,6 +202,12 @@ private
     result = attachment.save(context: :user_input)
 
     if attachable_is_an_edition?
+      # The below call to the draft updater edition service is much slower than the raw attachment updater called elsewhere
+      # in this controller because it calls Publishing API synchronously twice.
+      # Therefore at that point the create asset call has completed, and therefore the `all_asset_variants_uploaded?` check
+      # in the metadata worker will pass. That means that the replacements will work.
+      # However when the edition has not been saved with a valid change note, the updater does not run, resulting in replacement
+      # failures, as the attachment updater does not run because not all assets have finished uploading.
       draft_updater = Whitehall.edition_services.draft_updater(attachable)
       draft_updater.perform!
     elsif result && attachment.is_a?(HtmlAttachment)
