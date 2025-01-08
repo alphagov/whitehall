@@ -40,6 +40,19 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
       assert_equal content_block_manager_content_block_document_path(id: content_block_edition.document.id), result.back_path
       assert_equal content_block_manager_content_block_document_editions_path(document_id: content_block_edition.document.id), result.url
     end
+
+    describe "when the errors include a sluggable_string error" do
+      before do
+        content_block_document.sluggable_string = nil
+        content_block_edition.title = nil
+        content_block_edition.valid?
+      end
+
+      it "removes the error from the object" do
+        assert_equal 1, result.content_block_edition.errors.count
+        assert_not_includes result.content_block_edition.errors.map(&:attribute), "document.sluggable_string".to_sym
+      end
+    end
   end
 
   describe "when initialized for an edition without an existing document" do
@@ -67,6 +80,19 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     it "sets the correct urls" do
       assert_equal new_content_block_manager_content_block_document_path, result.back_path
       assert_equal content_block_manager_content_block_editions_path, result.url
+    end
+
+    describe "when the errors include a sluggable_string error" do
+      before do
+        content_block_edition.title = nil
+        content_block_edition.document = build(:content_block_document, :email_address, sluggable_string: nil)
+        content_block_edition.valid?
+      end
+
+      it "removes the error from the object" do
+        assert_equal 1, result.content_block_edition.errors.count
+        assert_not_includes result.content_block_edition.errors.map(&:attribute), "document.sluggable_string".to_sym
+      end
     end
   end
 end

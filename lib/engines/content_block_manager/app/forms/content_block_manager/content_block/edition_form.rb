@@ -4,7 +4,7 @@
 class ContentBlockManager::ContentBlock::EditionForm
   include ContentBlockManager::Engine.routes.url_helpers
 
-  attr_reader :content_block_edition, :schema
+  attr_reader :schema
 
   def self.for(content_block_edition:, schema:)
     content_block_edition.document&.latest_edition_id ? Update.new(content_block_edition:, schema:) : Create.new(content_block_edition:, schema:)
@@ -13,6 +13,11 @@ class ContentBlockManager::ContentBlock::EditionForm
   def initialize(content_block_edition:, schema:)
     @content_block_edition = content_block_edition
     @schema = schema
+  end
+
+  def content_block_edition
+    @content_block_edition.errors.delete("document.sluggable_string")
+    @content_block_edition
   end
 
   def attributes
