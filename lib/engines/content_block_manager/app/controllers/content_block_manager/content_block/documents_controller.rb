@@ -30,6 +30,16 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
     )
   end
 
+  def content_id
+    content_block_document = ContentBlockManager::ContentBlock::Document.where(content_id: params[:content_id]).first
+
+    if content_block_document.present?
+      redirect_to content_block_manager.content_block_manager_content_block_document_path(content_block_document)
+    else
+      raise ActiveRecord::RecordNotFound, "Could not find Content Block with Content ID #{params[:content_id]}"
+    end
+  end
+
   def new
     @schemas = ContentBlockManager::ContentBlock::Schema.all
   end

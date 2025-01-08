@@ -148,4 +148,11 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
       visit content_block_manager_content_block_document_path(document)
     end
   end
+
+  describe "#content_id" do
+    it "returns 404 if the document doesn't exist" do
+      visit content_block_manager_content_block_content_id_path("123")
+      assert_text "Could not find Content Block with Content ID 123"
+    end
+  end
 end

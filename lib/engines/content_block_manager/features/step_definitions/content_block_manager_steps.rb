@@ -297,6 +297,11 @@ When("I visit the Content Block Manager home page") do
   visit content_block_manager.content_block_manager_root_path
 end
 
+When("I visit a block's content ID endpoint") do
+  block = ContentBlockManager::ContentBlock::Document.last
+  visit content_block_manager.content_block_manager_content_block_content_id_path(block.content_id)
+end
+
 Then("I am taken back to Content Block Manager home page") do
   assert_equal current_path, content_block_manager.content_block_manager_root_path
 end
