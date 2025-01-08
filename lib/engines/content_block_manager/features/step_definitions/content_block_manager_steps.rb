@@ -115,12 +115,12 @@ When("I complete the form with the following fields:") do |table|
 
   fill_in "Title", with: @title if @title.present?
 
-  select @organisation, from: "content_block/edition_lead_organisation" if @organisation.present?
+  select @organisation, from: "content_block_manager_content_block_edition_lead_organisation" if @organisation.present?
 
   fill_in "Instructions to publishers", with: @instructions_to_publishers if @instructions_to_publishers.present?
 
   fields.keys.each do |k|
-    fill_in "content_block_manager/content_block/edition_details_#{k}", with: @details[k]
+    fill_in "content_block_manager_content_block_edition_details_#{k}", with: @details[k]
   end
 
   click_save_and_continue
@@ -771,7 +771,7 @@ end
 def change_details
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
-  select "Ministry of Example", from: "content_block/edition_lead_organisation"
+  select "Ministry of Example", from: "content_block_manager_content_block_edition_lead_organisation"
   fill_in "Instructions to publishers", with: "new context information"
   click_save_and_continue
 end
