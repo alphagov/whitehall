@@ -15,11 +15,11 @@ class ErrorsHelperTest < ActionView::TestCase
   end
 
   test "#errors_for_input returns errors for the attribute passed in" do
-    assert_equal errors_for_input(@object_with_errors.errors, :title), "Title can't be blank"
+    assert_equal errors_for_input(@object_with_errors.errors, :title), "Title cannot be blank"
   end
 
   test "#errors_for_input formats the error message when there are multiple errors on a field" do
-    assert_equal errors_for_input(@object_with_errors.errors, :date), "Date can't be blank<br>Date is invalid"
+    assert_equal errors_for_input(@object_with_errors.errors, :date), "Date cannot be blank<br>Date is invalid"
   end
 
   test "#errors_for_input does not return an empty string when object has unrelated error" do
@@ -31,11 +31,11 @@ class ErrorsHelperTest < ActionView::TestCase
   end
 
   test "#errors_for returns errors for the attribute passed in" do
-    assert_equal errors_for(@object_with_errors.errors, :title), [{ text: "Title can't be blank" }]
+    assert_equal errors_for(@object_with_errors.errors, :title), [{ text: "Title cannot be blank" }]
   end
 
   test "#errors_for formats the error message when there are multiple errors on a field" do
-    assert_equal errors_for(@object_with_errors.errors, :date), [{ text: "Date can't be blank" }, { text: "Date is invalid" }]
+    assert_equal errors_for(@object_with_errors.errors, :date), [{ text: "Date cannot be blank" }, { text: "Date is invalid" }]
   end
 
   test "#errors_for does not return an empty string when object has unrelated error" do

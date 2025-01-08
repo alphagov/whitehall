@@ -5,7 +5,7 @@ class PromotionalFeatureLinkTest < ActiveSupport::TestCase
     %w[url text promotional_feature_item].each do |attribute|
       link = build(:promotional_feature_link, attribute => nil)
       assert_not link.valid?
-      assert_includes link.errors[attribute], "can't be blank"
+      assert_includes link.errors[attribute], "cannot be blank"
     end
   end
 

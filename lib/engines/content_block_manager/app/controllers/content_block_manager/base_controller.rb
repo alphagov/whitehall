@@ -52,7 +52,7 @@ class ContentBlockManager::BaseController < Admin::BaseController
 
   def validate_scheduled_edition
     if params[:schedule_publishing].blank?
-      @content_block_edition.errors.add(:schedule_publishing, "cannot be blank")
+      @content_block_edition.errors.add(:schedule_publishing, t("errors.messages.blank"))
       raise ActiveRecord::RecordInvalid, @content_block_edition
     elsif params[:schedule_publishing] == "schedule"
       @content_block_edition.assign_attributes(scheduled_publication_params)

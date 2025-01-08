@@ -38,7 +38,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     attachment = build(:file_attachment, attachable:, file: nil)
 
     assert_not attachment.valid?
-    assert_match %r{can't be blank}, attachment.errors[:"attachment_data.file"].first
+    assert_match %r{cannot be blank}, attachment.errors[:"attachment_data.file"].first
   end
 
   test "update with empty nested attachment data attributes still works" do

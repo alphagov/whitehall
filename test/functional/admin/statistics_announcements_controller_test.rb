@@ -99,7 +99,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     post :create, params: { statistics_announcement: { title: "", summary: "Summary text" } }
 
     assert_response :success
-    assert_select "ul.govuk-error-summary__list a", text: "Title can't be blank"
+    assert_select "ul.govuk-error-summary__list a", text: "Title cannot be blank"
     assert_not StatisticsAnnouncement.any?
   end
 
@@ -189,7 +189,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     put :update, params: { id: announcement.id, statistics_announcement: { title: "" } }
 
     assert_response :success
-    assert_select "ul.govuk-error-summary__list a", text: "Title can't be blank"
+    assert_select "ul.govuk-error-summary__list a", text: "Title cannot be blank"
   end
 
   test "PUT :update should update connected draft publication in Publishing API if announcement publication type has been changed" do

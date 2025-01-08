@@ -64,7 +64,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   view_test "POST :upload_zip with no zip file requests that zip file be specified" do
     post_to_upload_zip(nil)
-    assert_select ".gem-c-error-summary__list-item", /file can't be blank/
+    assert_select ".gem-c-error-summary__list-item", /file cannot be blank/
   end
 
   view_test "POST :upload_zip prompts for metadata for each file in the zip" do

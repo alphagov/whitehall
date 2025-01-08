@@ -6,14 +6,14 @@ class LandingPageBodyTest < ActiveSupport::TestCase
   test "is invalid with empty YAML" do
     subject = LandingPage::Body.new("", EMPTY_IMAGES)
     assert subject.invalid?
-    assert_equal ["Blocks can't be blank"], subject.errors.to_a
+    assert_equal ["Blocks cannot be blank"], subject.errors.to_a
   end
 
   test "is invalid with badly formed YAML" do
     subject = LandingPage::Body.new("{", EMPTY_IMAGES)
     assert subject.invalid?
     errors = subject.errors.to_a
-    assert_equal "Blocks can't be blank", errors.first
+    assert_equal "Blocks cannot be blank", errors.first
     assert_match(/Yaml .* did not find expected node content/, errors.second)
   end
 
@@ -22,7 +22,7 @@ class LandingPageBodyTest < ActiveSupport::TestCase
       blocks: []
     YAML
     assert subject.invalid?
-    assert_equal ["Blocks can't be blank"], subject.errors.to_a
+    assert_equal ["Blocks cannot be blank"], subject.errors.to_a
   end
 
   test "is valid with a single unknown block in YAML" do
@@ -99,6 +99,6 @@ class LandingPageBodyTest < ActiveSupport::TestCase
       - error: no type
     YAML
     assert subject.invalid?
-    assert_equal ["Type can't be blank"], subject.errors.to_a
+    assert_equal ["Type cannot be blank"], subject.errors.to_a
   end
 end

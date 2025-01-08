@@ -176,7 +176,7 @@ module TestsForNationalApplicability
 
       put :update, params: { id: edition, edition: attributes }
 
-      assert_page_has_error(/Title can't be blank/)
+      assert_page_has_error(/Title cannot be blank/)
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false)

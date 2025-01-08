@@ -50,9 +50,9 @@ class FeaturedBlockTest < ActiveSupport::TestCase
     subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config.except("image"), @valid_featured_images)
     assert subject.invalid?
     assert_equal [
-      "Desktop image can't be blank",
-      "Tablet image can't be blank",
-      "Mobile image can't be blank",
+      "Desktop image cannot be blank",
+      "Tablet image cannot be blank",
+      "Mobile image cannot be blank",
     ], subject.errors.to_a
   end
 
@@ -61,9 +61,9 @@ class FeaturedBlockTest < ActiveSupport::TestCase
     subject = LandingPage::FeaturedBlock.new(@valid_featured_block_config, no_images)
     assert subject.invalid?
     assert_equal [
-      "Desktop image can't be blank",
-      "Tablet image can't be blank",
-      "Mobile image can't be blank",
+      "Desktop image cannot be blank",
+      "Tablet image cannot be blank",
+      "Mobile image cannot be blank",
     ], subject.errors.to_a
   end
 
@@ -82,6 +82,6 @@ class FeaturedBlockTest < ActiveSupport::TestCase
       @valid_featured_images,
     )
     assert subject.invalid?
-    assert_equal ["Type can't be blank"], subject.errors.to_a
+    assert_equal ["Type cannot be blank"], subject.errors.to_a
   end
 end

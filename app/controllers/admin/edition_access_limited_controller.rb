@@ -11,7 +11,7 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
 
     if changed?
       if editorial_remark.blank?
-        @edition.errors.add(:editorial_remark, "can't be blank")
+        @edition.errors.add(:editorial_remark, t("errors.messages.blank"))
 
         render :edit
       else

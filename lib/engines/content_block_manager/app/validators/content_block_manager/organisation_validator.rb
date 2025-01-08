@@ -4,7 +4,7 @@ class ContentBlockManager::OrganisationValidator < ActiveModel::Validator
   def validate(edition)
     @edition = edition
     if edition.edition_organisation.blank?
-      edition.errors.add("lead_organisation", :blank, message: "cannot be blank")
+      edition.errors.add("lead_organisation", :blank)
     end
   end
 end

@@ -16,7 +16,7 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
   def add_blank_errors(error)
     missing_keys = error.dig("details", "missing_keys") || []
     missing_keys.each do |k|
-      edition.errors.add("details_#{k}", :blank, message: "cannot be blank")
+      edition.errors.add("details_#{k}", :blank)
     end
   end
 

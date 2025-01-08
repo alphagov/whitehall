@@ -250,7 +250,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     @attributes[:email_address] = ""
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
-    assert_equal "There was a problem: Email address can't be blank", flash[:alert]
+    assert_equal "There was a problem: Email address cannot be blank", flash[:alert]
   end
 
   test "redirect back to the edition preview if the fact checker's email address is missing" do

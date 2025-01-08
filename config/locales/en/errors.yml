@@ -1,4 +1,7 @@
 en:
+  errors:
+    messages:
+      blank: "cannot be blank"
   activerecord:
     attributes:
       publication/nation_inapplicabilities:

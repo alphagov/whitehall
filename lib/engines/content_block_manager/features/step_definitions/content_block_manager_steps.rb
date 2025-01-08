@@ -425,7 +425,7 @@ def should_show_edit_form_for_email_address_content_block(document_title, email_
 end
 
 Then("I should see errors for the required fields") do
-  assert_text "Title can't be blank"
+  assert_text "Title cannot be blank"
 
   required_fields = @schema.body["required"]
   required_fields.each do |required_field|

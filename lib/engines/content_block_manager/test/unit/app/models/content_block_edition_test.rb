@@ -86,7 +86,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     )
 
     assert_invalid content_block_edition
-    assert content_block_edition.errors.full_messages.include?("Document block type can't be blank")
+    assert content_block_edition.errors.full_messages.include?("Document block type cannot be blank")
   end
 
   it "validates the presence of a document title" do
@@ -102,7 +102,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     )
 
     assert_invalid content_block_edition
-    assert content_block_edition.errors.full_messages.include?("Title can't be blank")
+    assert content_block_edition.errors.full_messages.include?("Title cannot be blank")
   end
 
   it "adds a creator and first edition author for new records" do

@@ -28,7 +28,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     scheduler = EditionScheduler.new(edition)
 
     assert_not scheduler.can_perform?
-    assert_equal "This edition is invalid: Title can't be blank", scheduler.failure_reason
+    assert_equal "This edition is invalid: Title cannot be blank", scheduler.failure_reason
   end
 
   test "an edition cannot be scheduled without a scheduled_publication timestamp" do

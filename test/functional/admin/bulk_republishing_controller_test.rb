@@ -45,7 +45,7 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
 
     post :republish, params: { bulk_content_type: "all-published-organisation-about-us-pages", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm"
   end
 
@@ -128,7 +128,7 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
 
     post :republish_by_type, params: { content_type: "organisation", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_by_type"
   end
 
@@ -231,7 +231,7 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
 
     post :republish_documents_by_organisation, params: { organisation_slug: "an-existing-organisation", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_documents_by_organisation"
   end
 
@@ -360,7 +360,7 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
 
     post :republish_documents_by_content_ids, params: { content_ids: "abc-123, def-456", reason: "" }
 
-    assert_equal ["Reason can't be blank"], assigns(:republishing_event).errors.full_messages
+    assert_equal ["Reason cannot be blank"], assigns(:republishing_event).errors.full_messages
     assert_template "confirm_documents_by_content_ids"
   end
 
