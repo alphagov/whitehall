@@ -92,7 +92,7 @@ Feature: Edit a content object
     When I complete the form with the following fields:
     | title            | email_address   | organisation |
     | my email address | xxxxx           | Ministry of Example |
-    Then I should see a message that the "email_address" field is an invalid "email"
+    Then I should see a message that the field is an invalid "Email address"
 
   Scenario: GDS editor sees validation errors for unconfirmed answers
     When I visit the Content Block Manager home page

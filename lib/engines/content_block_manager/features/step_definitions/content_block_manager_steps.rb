@@ -458,8 +458,8 @@ Then("I see the errors informing me the date must be in the future") do
   assert_text "Scheduled publication date and time must be in the future", minimum: 2
 end
 
-Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|
-  assert_text "#{ContentBlockManager::ContentBlock::Edition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
+Then("I should see a message that the field is an invalid {string}") do |format|
+  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: format)
 end
 
 Then("I should see a message that I need to confirm the details are correct") do

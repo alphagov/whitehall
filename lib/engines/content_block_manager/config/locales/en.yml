@@ -6,6 +6,10 @@ en:
           attributes:
             block_type:
               blank: Select a content block
+        content_block_manager/content_block/edition:
+          format: "%{message}"
+          invalid: "Invalid %{attribute}"
+          blank: "%{attribute} cannot be blank"
     attributes:
       content_block_manager/content_block/edition/document:
         title: Title
