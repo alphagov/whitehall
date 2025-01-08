@@ -3,6 +3,7 @@ ContentBlockManager::Engine.routes.draw do
     root to: "content_block/documents#index", via: :get
 
     namespace :content_block, path: "content-block" do
+      get "content-id/:content_id", to: "documents#content_id", as: :content_id
       resources :documents, only: %i[index show new], path_names: { new: "(:block_type)/new" }, path: "" do
         collection do
           post :new_document_options_redirect

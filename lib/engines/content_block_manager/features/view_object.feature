@@ -14,6 +14,10 @@ Feature: View a content object
     And I should see the details for the email address content block
     And I should see 1 publish events on the timeline
 
+  Scenario: GDS Editor views a content object using the content ID
+    When I visit a block's content ID endpoint
+    And I should see the details for the email address content block
+
   Scenario: GDS Editor views dependent Content
     Given dependent content exists for a content block
     When I visit the Content Block Manager home page
