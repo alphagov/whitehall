@@ -20,11 +20,12 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
   it "renders a summary list component with the edition details to confirm" do
     organisation = create(:organisation, name: "Department for Example")
 
-    content_block_document = create(:content_block_document, :email_address, title: "Some title")
+    content_block_document = create(:content_block_document, :email_address)
 
     content_block_edition = create(
       :content_block_edition,
       :email_address,
+      title: "Some edition title",
       details: { "interesting_fact" => "value of fact" },
       organisation:,
       document: content_block_document,
@@ -37,7 +38,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
     assert_selector ".govuk-summary-list__key", text: "Email address details"
     assert_selector ".govuk-summary-list__actions", text: "Edit"
     assert_selector ".govuk-summary-list__key", text: "Title"
-    assert_selector ".govuk-summary-list__value", text: "Some title"
+    assert_selector ".govuk-summary-list__value", text: "Some edition title"
     assert_selector ".govuk-summary-list__key", text: "New interesting fact"
     assert_selector ".govuk-summary-list__value", text: "value of fact"
     assert_selector ".govuk-summary-list__key", text: "Lead organisation"
@@ -50,7 +51,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
     it "shows the scheduled date time" do
       organisation = create(:organisation, name: "Department for Example")
 
-      content_block_document = create(:content_block_document, :email_address, title: "Some title")
+      content_block_document = create(:content_block_document, :email_address)
 
       content_block_edition = create(
         :content_block_edition,
@@ -76,7 +77,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
     it "shows a publish now row" do
       organisation = create(:organisation, name: "Department for Example")
 
-      content_block_document = create(:content_block_document, :email_address, title: "Some title")
+      content_block_document = create(:content_block_document, :email_address)
 
       _previous_edition = create(
         :content_block_edition,

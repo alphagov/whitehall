@@ -3,7 +3,7 @@ module ContentBlockManager
     extend ActiveSupport::Concern
 
     SQL = <<-SQL.freeze
-        content_block_documents.title REGEXP :pattern OR#{' '}
+        content_block_editions.title REGEXP :pattern OR#{' '}
         content_block_editions.details REGEXP :pattern OR#{' '}
         content_block_editions.instructions_to_publishers REGEXP :pattern
     SQL

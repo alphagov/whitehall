@@ -53,9 +53,9 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
     let(:content_block_document) { create(:content_block_document, :email_address) }
     let!(:original_edition) { create(:content_block_edition, :email_address, document: content_block_document) }
 
+    let(:title) { "Some Title" }
     let(:document_attributes) do
       {
-        title: "Some Title",
         block_type: "email_address",
       }.with_indifferent_access
     end
@@ -81,6 +81,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
                 document_attributes:,
                 details:,
                 organisation_id: organisation.id,
+                title:,
               },
             }
           end
@@ -92,8 +93,8 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
         new_version = ContentBlockManager::ContentBlock::Version.last
         new_edition_organisation = ContentBlockManager::ContentBlock::EditionOrganisation.last
 
-        assert_equal document_attributes[:title], content_block_document.title
         assert_equal document_attributes[:block_type], content_block_document.block_type
+        assert_equal title, new_edition.title
         assert_equal details, new_edition.details
 
         assert_equal new_edition.document_id, content_block_document.id
@@ -137,6 +138,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
           "content_block/edition": {
             document_attributes:,
             details:,
+            title:,
             organisation_id: organisation.id,
           },
         }
@@ -147,7 +149,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
         version = ContentBlockManager::ContentBlock::Version.last
         edition_organisation = ContentBlockManager::ContentBlock::EditionOrganisation.last
 
-        assert_equal document_attributes[:title], document.title
+        assert_equal title, edition.title
         assert_equal document_attributes[:block_type], document.block_type
         assert_equal details, edition.details
 

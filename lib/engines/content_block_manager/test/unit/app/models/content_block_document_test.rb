@@ -8,13 +8,13 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
       :content_block_document,
       :email_address,
       content_id: "52084b2d-4a52-4e69-ba91-3052b07c7eb6",
-      title: "Title",
+      sluggable_string: "Title",
       created_at: Time.zone.local(2000, 12, 31, 23, 59, 59).utc,
       updated_at: Time.zone.local(2000, 12, 31, 23, 59, 59).utc,
     )
 
     assert_equal "52084b2d-4a52-4e69-ba91-3052b07c7eb6", content_block_document.content_id
-    assert_equal "Title", content_block_document.title
+    assert_equal "Title", content_block_document.sluggable_string
     assert_equal "email_address", content_block_document.block_type
     assert_equal Time.zone.local(2000, 12, 31, 23, 59, 59).utc, content_block_document.created_at
     assert_equal Time.zone.local(2000, 12, 31, 23, 59, 59).utc, content_block_document.updated_at
@@ -89,7 +89,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
       content_block_document = create(
         :content_block_document,
         :email_address,
-        title: "This is a title",
+        sluggable_string: "This is a title",
       )
 
       assert_equal "this-is-a-title", content_block_document.content_id_alias
@@ -100,24 +100,34 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
         :content_block_document,
         2,
         :email_address,
-        title: "This is a title",
+        sluggable_string: "This is a title",
       )
 
       assert_equal "this-is-a-title", content_block_documents[0].content_id_alias
       assert_equal "this-is-a-title--2", content_block_documents[1].content_id_alias
     end
 
-    it "does not change the alias if the title changes" do
+    it "does not change the alias if the sluggable string changes" do
       content_block_document = create(
         :content_block_document,
         :email_address,
-        title: "This is a title",
+        sluggable_string: "This is a title",
       )
 
-      content_block_document.title = "Something else"
+      content_block_document.sluggable_string = "Something else"
       content_block_document.save!
 
       assert_equal "this-is-a-title", content_block_document.content_id_alias
+    end
+  end
+
+  describe "title" do
+    it "returns the latest edition's title" do
+      document = create(:content_block_document, :email_address)
+      _oldest_edition = create(:content_block_edition, document:)
+      latest_edition = create(:content_block_edition, document:, title: "I am the latest edition")
+
+      assert_equal latest_edition.title, document.title
     end
   end
 end

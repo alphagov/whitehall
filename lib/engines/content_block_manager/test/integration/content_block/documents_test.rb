@@ -45,12 +45,12 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
         details: { "email_address" => "live_edition@example.com" },
         document_id: document_with_latest_edition.id,
       )
-      document_without_latest_edition = create(:content_block_document, :email_address, title: "no latest edition")
+      _document_without_latest_edition = create(:content_block_document, :email_address, sluggable_string: "no latest edition")
 
       visit content_block_manager.content_block_manager_content_block_documents_path({ lead_organisation: "" })
 
       assert_text document_with_latest_edition.latest_edition.details["email_address"]
-      assert_no_text document_without_latest_edition.title
+      assert_text "1 result"
     end
 
     describe "when no filter params are specified" do

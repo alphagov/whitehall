@@ -143,7 +143,6 @@ Then("the edition should have been created successfully") do
   assert_not_nil edition
   assert_not_nil edition.document
 
-  assert_equal @title, edition.document_title if @title.present?
   assert_equal @title, edition.title if @title.present?
   assert_equal @instructions_to_publishers, edition.instructions_to_publishers if @instructions_to_publishers.present?
 
@@ -233,6 +232,7 @@ Given("an email address content block has been created") do
     details: { email_address: @email_address },
     creator: @user,
     organisation:,
+    title: "previously created title",
   )
   ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
     @content_block.publish!
@@ -248,7 +248,7 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
   instructions_to_publishers = fields.delete("instructions_to_publishers")
 
   (1..count.to_i).each do |_i|
-    document = create(:content_block_document, block_type.to_sym, title:)
+    document = create(:content_block_document, block_type.to_sym, sluggable_string: title.parameterize(separator: "_"))
 
     editions = create_list(
       :content_block_edition,
@@ -259,6 +259,7 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
       details: fields,
       creator: @user,
       instructions_to_publishers:,
+      title:,
     )
 
     document.latest_edition = editions.last
@@ -271,7 +272,8 @@ Given("an email address content block has been created with the following email 
   @content_blocks ||= []
   @email_address = "foo@example.com"
   organisation = create(:organisation)
-  document = create(:content_block_document, :email_address, title: fields[:title])
+  title = fields.delete("title") || "title"
+  document = create(:content_block_document, :email_address, sluggable_string: title.parameterize(separator: "_"))
   @content_block = create(
     :content_block_edition,
     :email_address,
@@ -279,6 +281,7 @@ Given("an email address content block has been created with the following email 
     details: { email_address: fields[:email_address] },
     creator: @user,
     organisation:,
+    title:,
   )
   ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
     @content_block.publish!
@@ -811,8 +814,8 @@ When("I click to copy the embed code for the content block {string}") do |conten
   within(".govuk-summary-card", text: content_block_name) do
     find("a", text: "Copy code").click
     has_text?("Code copied")
-    document = ContentBlockManager::ContentBlock::Document.find_by(title: content_block_name)
-    @embed_code = document.embed_code
+    edition = ContentBlockManager::ContentBlock::Edition.find_by(title: content_block_name)
+    @embed_code = edition.document.embed_code
   end
 end
 

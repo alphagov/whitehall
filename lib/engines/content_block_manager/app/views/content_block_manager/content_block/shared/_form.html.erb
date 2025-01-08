@@ -12,10 +12,10 @@
     label: {
       text: "Title",
     },
-    name: "content_block/edition[document_attributes][title]",
-    id: "content_block_manager/content_block/edition_document_title",
-    value: @form.content_block_edition.document&.title,
-    error_items: errors_for(@form.content_block_edition.errors, "document.title".to_sym),
+    name: "content_block/edition[title]",
+    id: "content_block_manager/content_block/edition_title",
+    value: @form.content_block_edition&.title,
+    error_items: errors_for(@form.content_block_edition.errors, "edition.title".to_sym),
   } %>
 
   <% @form.attributes.each do |field, _value| %>

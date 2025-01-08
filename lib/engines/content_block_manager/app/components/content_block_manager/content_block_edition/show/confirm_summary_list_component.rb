@@ -28,7 +28,7 @@ private
   def title_item
     {
       field: "Title",
-      value: content_block_edition.document_title,
+      value: content_block_edition.title,
     }
   end
 

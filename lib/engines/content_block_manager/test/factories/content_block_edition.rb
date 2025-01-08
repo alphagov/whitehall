@@ -14,6 +14,8 @@ FactoryBot.define do
 
     instructions_to_publishers { nil }
 
+    title { "Factory Title for Edition" }
+
     ContentBlockManager::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
         document { build(:content_block_document, block_type: type) }

@@ -8,7 +8,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
   let(:created_at) { Time.zone.local(2000, 12, 31, 23, 59, 59).utc }
   let(:updated_at) { Time.zone.local(2000, 12, 31, 23, 59, 59).utc }
   let(:details) { { "some_field" => "some_content" } }
-  let(:title) { "Document title" }
+  let(:title) { "Edition title" }
   let(:creator) { create(:user) }
   let(:organisation) { create(:organisation) }
 
@@ -19,10 +19,10 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       details:,
       document_attributes: {
         block_type: "email_address",
-        title:,
       },
       creator:,
       organisation_id: organisation.id.to_s,
+      title:,
     )
   end
 
@@ -38,6 +38,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     assert_equal created_at, content_block_edition.created_at
     assert_equal updated_at, content_block_edition.updated_at
     assert_equal details, content_block_edition.details
+    assert_equal title, content_block_edition.title
   end
 
   it "persists the block type to the document" do
@@ -46,14 +47,6 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     document = content_block_edition.document
 
     assert_equal document.block_type, content_block_edition.block_type
-  end
-
-  it "persists the title to the document" do
-    content_block_edition.save!
-    content_block_edition.reload
-    document = content_block_edition.document
-
-    assert_equal document.title, content_block_edition.document_title
   end
 
   it "creates a document" do
@@ -89,16 +82,15 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     assert content_block_edition.errors.full_messages.include?("Document block type cannot be blank")
   end
 
-  it "validates the presence of a document title" do
+  it "validates the presence of an edition title" do
     content_block_edition = build(
       :content_block_edition,
       created_at:,
       updated_at:,
       details:,
-      document_attributes: {
-        title: nil,
-      },
+      document_attributes: {},
       organisation_id: organisation.id.to_s,
+      title: nil,
     )
 
     assert_invalid content_block_edition
