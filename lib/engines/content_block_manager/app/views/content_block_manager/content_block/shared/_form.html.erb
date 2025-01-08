@@ -31,19 +31,20 @@
     } %>
   <% end %>
 
-  <%= render "components/select_with_search", {
+  <%= render "components/autocomplete", {
     id: "#{parent_class}_lead_organisation",
     name: "content_block/edition[organisation_id]",
-    label:  "Lead organisation",
-    include_blank: true,
-    options: taggable_organisations_container.map do |name, id|
-      {
-        text: name,
-        value: id,
-        selected: id == @form.content_block_edition.edition_organisation&.organisation_id,
-      }
-    end,
-    error_message: errors_for_input(@form.content_block_edition.errors, "lead_organisation".to_sym),
+    label: {
+      text: "Lead organisation",
+    },
+    select: {
+      multiple: false,
+      options: [""] + taggable_organisations_container,
+      selected: @form.content_block_edition.edition_organisation&.organisation_id,
+    },
+    autocomplete_configuration_options: {
+      showAllValues: true,
+    },
   } %>
 
   <%= render "govuk_publishing_components/components/textarea", {

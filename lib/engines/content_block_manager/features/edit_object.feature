@@ -131,7 +131,7 @@ Feature: Edit a content object
   @javascript
   Scenario: GDS editor can preview a host document
     When I revisit the edit page
-    And I fill out the form
+    And I save and continue
     Then I am shown where the changes will take place
     And I see the rollup data for the dependent content
     When I click on the first host document
