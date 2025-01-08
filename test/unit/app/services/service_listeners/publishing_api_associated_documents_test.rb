@@ -481,6 +481,29 @@ module ServiceListeners
         call(worldwide_organisation)
       end
 
+      test "for an worldwide organisation that has been unpublished publishes a gone unpublishing for all the office contact translations" do
+        worldwide_organisation = create(:unpublished_worldwide_organisation, :with_translated_main_office, translated_into: :fr)
+        office = worldwide_organisation.main_office
+
+        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+          office.contact.content_id,
+          nil,
+          nil,
+          "en",
+          false,
+        )
+
+        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+          office.contact.content_id,
+          nil,
+          nil,
+          "fr",
+          false,
+        )
+
+        call(worldwide_organisation)
+      end
+
       test "for an worldwide organisation that has been consolidated publishes a redirect to the alternative url" do
         worldwide_organisation = create(:unpublished_worldwide_organisation_consolidated, :with_main_office, :with_page)
         office = worldwide_organisation.main_office
@@ -493,9 +516,10 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneWorker.any_instance.expects(:perform).with(
           office.contact.content_id,
-          "/government/another/page",
+          nil,
+          nil,
           "en",
           false,
         )
@@ -533,9 +557,10 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneWorker.any_instance.expects(:perform).with(
           office.contact.content_id,
-          "/government/another/page",
+          nil,
+          nil,
           "en",
           false,
         )
@@ -569,9 +594,10 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneWorker.any_instance.expects(:perform).with(
           office.contact.content_id,
-          external_url,
+          nil,
+          nil,
           "en",
           false,
         )
@@ -610,9 +636,10 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneWorker.any_instance.expects(:perform).with(
           office.contact.content_id,
-          worldwide_organisation.search_link,
+          nil,
+          nil,
           "en",
           false,
         )
