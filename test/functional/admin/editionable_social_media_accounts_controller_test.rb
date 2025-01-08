@@ -110,8 +110,8 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     }
 
     assert_response :redirect
-    assert_equal "Account title", @edition.social_media_accounts.last.title
-    assert_equal "https://www.social.gov.uk", @edition.social_media_accounts.last.url
+    account = @edition.social_media_accounts.where(title: "Account title").first
+    assert_equal "https://www.social.gov.uk", account.url
   end
 
   view_test "POST :create with invalid data shows errors" do
@@ -145,5 +145,33 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
 
     assert_response :redirect
     assert_empty @edition.social_media_accounts
+  end
+
+  view_test "GET :reorder displays the reorderable social media accounts" do
+    edition = create(:worldwide_organisation)
+    social_media_accounts = create_list(:social_media_account, 2, socialable: edition)
+    get :reorder, params: { edition_id: edition.id }
+
+    assert_response :success
+    assert_select ".gem-c-reorderable-list__item", count: social_media_accounts.size
+    assert_select "form" do
+      assert_select "[action=?]", order_admin_edition_social_media_accounts_path(edition)
+    end
+  end
+
+  test "PUT :order updates the ordering of social media accounts" do
+    edition = create(:worldwide_organisation)
+    social_media_account1 = create(:social_media_account, socialable: edition, ordering: 1)
+    social_media_account2 = create(:social_media_account, socialable: edition, ordering: 2)
+
+    put :order,
+        params: { edition_id: edition.id,
+                  ordering: {
+                    social_media_account2.id.to_s => "1",
+                    social_media_account1.id.to_s => "2",
+                  } }
+
+    assert_response :redirect
+    assert_equal [social_media_account2, social_media_account1], edition.reload.social_media_accounts
   end
 end

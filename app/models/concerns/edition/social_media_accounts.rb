@@ -16,7 +16,7 @@ module Edition::SocialMediaAccounts
   end
 
   included do
-    has_many :social_media_accounts, as: :socialable, dependent: :destroy, autosave: true
+    has_many :social_media_accounts, -> { extending(UserOrderableExtension).order(:ordering) }, as: :socialable, dependent: :destroy, autosave: true
 
     add_trait Trait
   end

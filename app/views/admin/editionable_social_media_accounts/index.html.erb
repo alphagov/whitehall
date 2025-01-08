@@ -18,11 +18,22 @@
       <%= link_to "Add new social media account", new_admin_edition_social_media_account_path(@edition), class: "govuk-link govuk-link--no-visited-state" %>
     </p>
 
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Social media accounts",
-      font_size: "l",
-      margin_bottom: 3,
-    } %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Social media accounts",
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+    </div>
+    <% if @edition.social_media_accounts.many? %>
+      <div class="govuk-grid-column-one-third">
+        <p class="govuk-body govuk-!-text-align-right">
+          <%= link_to("Reorder", reorder_admin_edition_social_media_accounts_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+        </p>
+      </div>
+    <% end %>
+  </div>
 
     <% if @edition.social_media_accounts.any? %>
       <% @editionable_social_media_accounts_index_presenter.social_media_accounts.each do |social_media_account| %>
