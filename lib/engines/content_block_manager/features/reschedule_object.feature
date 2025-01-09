@@ -45,4 +45,4 @@ Feature: Schedule a content object
     When I click to view the content block
     And I click to edit the schedule
     And I save and continue
-    Then I see the error message "Schedule publishing cannot be blank"
+    Then I should see an error message telling me that schedule publishing cannot be blank

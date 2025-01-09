@@ -139,7 +139,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
             put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
 
             assert_template "content_block_manager/content_block/editions/workflow/schedule_publishing"
-            assert_match(/Schedule publishing cannot be blank/, response.body)
+            assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank')}/, response.body)
           end
         end
       end

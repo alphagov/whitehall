@@ -10,6 +10,17 @@ en:
           format: "%{message}"
           invalid: "Invalid %{attribute}"
           blank: "%{attribute} cannot be blank"
+          attributes:
+            schedule_publishing:
+              blank: "Select publish date"
+            scheduled_publication:
+              blank: "Scheduled publication date and time cannot be blank"
+              invalid_date: "Invalid scheduled publication date and time"
+              future_date: "Scheduled publication date and time must be in the future"
+              date:
+                blank: "Scheduled publication date cannot be blank"
+              time:
+                blank: "Scheduled publication time cannot be blank"
     attributes:
       content_block_manager/content_block/edition/document:
         title: Title
