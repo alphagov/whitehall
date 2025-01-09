@@ -115,12 +115,12 @@ When("I complete the form with the following fields:") do |table|
 
   fill_in "Title", with: @title if @title.present?
 
-  select @organisation, from: "content_block/edition_lead_organisation" if @organisation.present?
+  select @organisation, from: "content_block_manager_content_block_edition_lead_organisation" if @organisation.present?
 
   fill_in "Instructions to publishers", with: @instructions_to_publishers if @instructions_to_publishers.present?
 
   fields.keys.each do |k|
-    fill_in "content_block_manager/content_block/edition_details_#{k}", with: @details[k]
+    fill_in "content_block_manager_content_block_edition_details_#{k}", with: @details[k]
   end
 
   click_save_and_continue
@@ -447,19 +447,19 @@ Then("I see the errors prompting me to provide a date and time") do
 end
 
 Then("I see the errors informing me the date is invalid") do
-  assert_text "Scheduled publication is not in the correct format", minimum: 2
+  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.attributes.scheduled_publication.time.blank"), minimum: 2
 end
 
-Then("I see the error message {string}") do |text|
-  assert_text text, minimum: 2
+Then("I should see an error message telling me that schedule publishing cannot be blank") do
+  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank"), minimum: 2
 end
 
 Then("I see the errors informing me the date must be in the future") do
-  assert_text "Scheduled publication date and time must be in the future", minimum: 2
+  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.attributes.scheduled_publication.future_date"), minimum: 2
 end
 
-Then("I should see a message that the {string} field is an invalid {string}") do |field_name, format|
-  assert_text "#{ContentBlockManager::ContentBlock::Edition.human_attribute_name("details_#{field_name}")} is an invalid #{format.titleize}"
+Then("I should see a message that the field is an invalid {string}") do |format|
+  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: format)
 end
 
 Then("I should see a message that I need to confirm the details are correct") do
@@ -568,7 +568,7 @@ Then(/^I (should )?see the rollup data for the dependent content$/) do |_should|
 end
 
 Then(/^I should see an error prompting me to choose an object type$/) do
-  assert_text "You must select a block type"
+  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank")
 end
 
 Then(/^I am shown where the changes will take place$/) do
@@ -775,7 +775,7 @@ end
 def change_details
   fill_in "Title", with: "Changed title"
   fill_in "Email address", with: "changed@example.com"
-  select "Ministry of Example", from: "content_block/edition_lead_organisation"
+  select "Ministry of Example", from: "content_block_manager_content_block_edition_lead_organisation"
   fill_in "Instructions to publishers", with: "new context information"
   click_save_and_continue
 end

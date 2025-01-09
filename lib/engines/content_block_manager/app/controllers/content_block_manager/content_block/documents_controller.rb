@@ -48,7 +48,7 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
     if params[:block_type].present?
       redirect_to content_block_manager.new_content_block_manager_content_block_edition_path(block_type: params.require(:block_type))
     else
-      redirect_to content_block_manager.new_content_block_manager_content_block_document_path, flash: { error: "You must select a block type" }
+      redirect_to content_block_manager.new_content_block_manager_content_block_document_path, flash: { error: I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank") }
     end
   end
 

@@ -35,9 +35,10 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
     )
 
     assert_equal content_block_edition.valid?, false
-    assert_equal content_block_edition.errors.messages[:details_foo], ["cannot be blank"]
-    assert_equal content_block_edition.errors.messages[:details_bar], ["cannot be blank"]
-    assert_equal content_block_edition.errors.full_messages, ["Foo cannot be blank", "Bar cannot be blank"]
+    assert_equal content_block_edition.errors.full_messages, [
+      I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.blank", attribute: "Foo"),
+      I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.blank", attribute: "Bar"),
+    ]
   end
 
   test "it validates the format of fields" do
@@ -52,8 +53,9 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
     )
 
     assert_equal content_block_edition.valid?, false
-    assert_equal content_block_edition.errors.messages[:details_foo], ["is an invalid Email"]
-    assert_equal content_block_edition.errors.messages[:details_bar], ["is an invalid Date"]
-    assert_equal content_block_edition.errors.full_messages, ["Foo is an invalid Email", "Bar is an invalid Date"]
+    assert_equal content_block_edition.errors.full_messages, [
+      I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: "Foo"),
+      I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: "Bar"),
+    ]
   end
 end

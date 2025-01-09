@@ -1,5 +1,26 @@
 en:
   activerecord:
+    errors:
+      models:
+        content_block_manager/content_block/document:
+          attributes:
+            block_type:
+              blank: Select a content block
+        content_block_manager/content_block/edition:
+          format: "%{message}"
+          invalid: "Invalid %{attribute}"
+          blank: "%{attribute} cannot be blank"
+          attributes:
+            schedule_publishing:
+              blank: "Select publish date"
+            scheduled_publication:
+              blank: "Scheduled publication date and time cannot be blank"
+              invalid_date: "Invalid scheduled publication date and time"
+              future_date: "Scheduled publication date and time must be in the future"
+              date:
+                blank: "Scheduled publication date cannot be blank"
+              time:
+                blank: "Scheduled publication time cannot be blank"
     attributes:
       content_block_manager/content_block/edition/document:
         title: Title
@@ -27,4 +48,4 @@ en:
         detail: You can now view the updated content block.
     review_page:
       errors:
-        confirm: Confirm details are correct
+        confirm: Tick box to confirm details are correct

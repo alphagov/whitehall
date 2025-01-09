@@ -22,9 +22,7 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
 
   def add_format_errors(error)
     key = error["data_pointer"].delete_prefix("/")
-    format = error["schema"]["format"]
-    message = format.present? ? "is an invalid #{format.humanize}" : "is invalid"
-    edition.errors.add("details_#{key}", :invalid, message:)
+    edition.errors.add("details_#{key}", :invalid)
   end
 
   def validate_with_schema(edition)

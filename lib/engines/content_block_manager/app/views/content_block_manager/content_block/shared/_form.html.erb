@@ -1,21 +1,22 @@
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @form.content_block_edition)) %>
+<% parent_class = "content_block_manager_content_block_edition" %>
+
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @form.content_block_edition, parent_class:)) %>
 
 <%= form_with(
       url: @form.url,
       method: :post,
       model: [content_block_manager, @form.content_block_edition]) do |f| %>
   <%= hidden_field_tag "content_block/edition[document_attributes][block_type]",
-                       @form.schema.block_type,
-                       id: "content_block_manager/content_block_edition_document_block_type" %>
+                       @form.schema.block_type %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Title",
     },
     name: "content_block/edition[title]",
-    id: "content_block_manager/content_block/edition_title",
+    id: "#{parent_class}_title",
     value: @form.content_block_edition&.title,
-    error_items: errors_for(@form.content_block_edition.errors, "edition.title".to_sym),
+    error_items: errors_for(@form.content_block_edition.errors, "title".to_sym),
   } %>
 
   <% @form.attributes.each do |field, _value| %>
@@ -24,14 +25,14 @@
         text: field.humanize,
       },
       name: "content_block/edition[details[#{field}]]",
-      id: "content_block_manager/content_block/edition_details_#{field}",
+      id: "#{parent_class}_details_#{field}",
       value: @form.content_block_edition.details&.fetch(field, nil),
       error_items: errors_for(@form.content_block_edition.errors, "details_#{field}".to_sym),
     } %>
   <% end %>
 
   <%= render "components/select_with_search", {
-    id: "content_block/edition_lead_organisation",
+    id: "#{parent_class}_lead_organisation",
     name: "content_block/edition[organisation_id]",
     label:  "Lead organisation",
     include_blank: true,
@@ -50,7 +51,7 @@
       text: "Instructions to publishers (optional)",
     },
     name: "content_block/edition[instructions_to_publishers]",
-    id: "content_block/edition_instructions_to_publishers",
+    id: "#{parent_class}_instructions_to_publishers",
     value: @form.content_block_edition&.instructions_to_publishers,
     error_items: errors_for(@form.content_block_edition.errors, "instructions_to_publishers".to_sym),
   } %>

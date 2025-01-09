@@ -7,6 +7,7 @@ class ContentBlockManager::OrganisationValidatorTest < ActiveSupport::TestCase
     content_block_edition = build(:content_block_edition, organisation: nil, document: build(:content_block_document, :email_address))
 
     assert_equal false, content_block_edition.valid?
-    assert_equal ["cannot be blank"], content_block_edition.errors.messages[:lead_organisation]
+
+    assert_equal [I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.blank", attribute: "Lead organisation")], content_block_edition.errors.full_messages
   end
 end

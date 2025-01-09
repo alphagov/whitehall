@@ -114,7 +114,7 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
       follow_redirect!
 
       assert_equal new_content_block_manager_content_block_document_path, path
-      assert_equal "You must select a block type", flash[:error]
+      assert_equal I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank"), flash[:error]
     end
 
     it "redirects when the block type is specified" do
