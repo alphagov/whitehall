@@ -6,7 +6,6 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
   include ActionView::Helpers::DateHelper
 
   let(:described_class) { ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent }
-  let(:user) { create(:user) }
   let(:caption) { "Some caption" }
   let(:publishing_organisation) do
     {
@@ -15,16 +14,16 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "base_path" => "/bar",
     }
   end
-  let(:last_edited_by_editor_id) { user.uid }
   let(:unique_pageviews) { 1_200_000 }
 
+  let(:last_edited_by_editor) { build(:host_content_item_editor) }
   let(:host_content_item) do
     ContentBlockManager::HostContentItem.new(
       "title" => "Some title",
       "base_path" => "/foo",
       "document_type" => "document_type",
       "publishing_app" => "publisher",
-      "last_edited_by_editor_id" => last_edited_by_editor_id,
+      "last_edited_by_editor" => last_edited_by_editor,
       "last_edited_at" => Time.zone.now.to_s,
       "publishing_organisation" => publishing_organisation,
       "unique_pageviews" => unique_pageviews,
@@ -88,8 +87,8 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       assert_selector "tbody .govuk-table__cell", text: host_content_item.document_type.humanize
       assert_selector "tbody .govuk-table__cell", text: "1.2m"
       assert_selector "tbody .govuk-table__cell", text: host_content_item.publishing_organisation["title"]
-      assert_selector "tbody .govuk-table__cell", text: "#{time_ago_in_words(host_content_item.last_edited_at)} ago by #{user.name}"
-      assert_link user.name, { href: "mailto:#{user.email}" }
+      assert_selector "tbody .govuk-table__cell", text: "#{time_ago_in_words(host_content_item.last_edited_at)} ago by #{last_edited_by_editor.name}"
+      assert_link last_edited_by_editor.name, { href: "mailto:#{last_edited_by_editor.email}" }
     end
 
     context "when the organisation does NOT exist within Whitehall" do
@@ -147,22 +146,8 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       end
     end
 
-    context "when last_edited_by_editor_id is nil" do
-      let(:last_edited_by_editor_id) { nil }
-
-      it_returns_unknown_user
-
-      context "and a user exists with a nil uuid" do
-        before do
-          create(:user, uid: nil)
-        end
-
-        it_returns_unknown_user
-      end
-    end
-
-    context "when last_edited_by_editor_id refers to a user id which is not present in Whitehall" do
-      let(:last_edited_by_editor_id) { SecureRandom.uuid }
+    context "when last_edited_by_editor is nil" do
+      let(:last_edited_by_editor) { nil }
 
       it_returns_unknown_user
     end

@@ -9,6 +9,8 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
 
   let(:host_content_id) { SecureRandom.uuid }
 
+  let(:last_edited_by_editor_id) { SecureRandom.uuid }
+
   let(:rollup) { build(:rollup) }
 
   let(:response_body) do
@@ -23,7 +25,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
           "base_path" => "/foo",
           "document_type" => "something",
           "publishing_app" => "publisher",
-          "last_edited_by_editor_id" => SecureRandom.uuid,
+          "last_edited_by_editor_id" => last_edited_by_editor_id,
           "last_edited_at" => "2023-01-01T08:00:00.000Z",
           "unique_pageviews" => 123,
           "instances" => 1,
@@ -38,6 +40,8 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
     }
   end
 
+  let(:editor) { build(:host_content_item_editor, uid: last_edited_by_editor_id) }
+
   setup do
     stub_publishing_api_has_embedded_content(content_id: target_content_id, total: 111, total_pages: 12, results: response_body["results"], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER, rollup: response_body["rollup"])
   end
@@ -48,54 +52,53 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
         stub("http_response", code: 200, body: response_body.to_json),
       )
     end
-    let(:publishing_api_mock) { Minitest::Mock.new }
+    let(:publishing_api_mock) { stub("GdsApi::PublishingApi") }
+    let(:document) { mock("content_block_document", content_id: target_content_id) }
+
+    before do
+      Services.expects(:publishing_api).returns(publishing_api_mock)
+      ContentBlockManager::HostContentItem::Editor.stubs(:with_uuids).returns([editor])
+    end
 
     it "calls the Publishing API for the content which embeds the target" do
-      publishing_api_mock.expect :get_host_content_for_content_id, fake_api_response, [target_content_id, { order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER }]
+      publishing_api_mock.expects(:get_host_content_for_content_id)
+                         .with(target_content_id, { order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER })
+                         .returns(fake_api_response)
 
-      Services.stub :publishing_api, publishing_api_mock do
-        document = mock("content_block_document", content_id: target_content_id)
-
-        described_class.by_embedded_document(
-          content_block_document: document,
-        )
-
-        publishing_api_mock.verify
-      end
+      described_class.by_embedded_document(content_block_document: document)
     end
 
     it "supports pagination" do
-      publishing_api_mock.expect :get_host_content_for_content_id, fake_api_response, [target_content_id, { page: 1, order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER }]
+      publishing_api_mock.expects(:get_host_content_for_content_id)
+                         .with(target_content_id, { page: 1, order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER })
+                         .returns(fake_api_response)
 
-      Services.stub :publishing_api, publishing_api_mock do
-        document = mock("content_block_document", content_id: target_content_id)
-
-        described_class.by_embedded_document(
-          content_block_document: document,
-          page: 1,
-        )
-
-        publishing_api_mock.verify
-      end
+      described_class.by_embedded_document(
+        content_block_document: document,
+        page: 1,
+      )
     end
 
     it "supports sorting" do
-      publishing_api_mock.expect :get_host_content_for_content_id, fake_api_response, [target_content_id, { order: "-abc" }]
+      publishing_api_mock.expects(:get_host_content_for_content_id)
+                         .with(target_content_id, { order: "-abc" })
+                         .returns(fake_api_response)
 
-      Services.stub :publishing_api, publishing_api_mock do
-        document = mock("content_block_document", content_id: target_content_id)
+      described_class.by_embedded_document(
+        content_block_document: document,
+        order: "-abc",
+      )
+    end
 
-        described_class.by_embedded_document(
-          content_block_document: document,
-          order: "-abc",
-        )
+    it "calls the editor finder with the correct argument" do
+      publishing_api_mock.expects(:get_host_content_for_content_id).returns(fake_api_response)
+      ContentBlockManager::HostContentItem::Editor.expects(:with_uuids).with([last_edited_by_editor_id]).returns([editor])
 
-        publishing_api_mock.verify
-      end
+      described_class.by_embedded_document(content_block_document: document)
     end
 
     it "returns GetHostContentItems" do
-      document = mock("content_block_document", content_id: target_content_id)
+      publishing_api_mock.expects(:get_host_content_for_content_id).returns(fake_api_response)
 
       result = described_class.by_embedded_document(content_block_document: document)
 
@@ -117,7 +120,7 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].base_path, response_body["results"][0]["base_path"]
       assert_equal result[0].document_type, response_body["results"][0]["document_type"]
       assert_equal result[0].publishing_app, response_body["results"][0]["publishing_app"]
-      assert_equal result[0].last_edited_by_editor_id, response_body["results"][0]["last_edited_by_editor_id"]
+      assert_equal result[0].last_edited_by_editor, editor
       assert_equal result[0].last_edited_at, Time.zone.parse(response_body["results"][0]["last_edited_at"])
       assert_equal result[0].unique_pageviews, response_body["results"][0]["unique_pageviews"]
       assert_equal result[0].instances, response_body["results"][0]["instances"]
@@ -126,22 +129,33 @@ class ContentBlockManager::GetHostContentItemsTest < ActiveSupport::TestCase
       assert_equal result[0].publishing_organisation, expected_publishing_organisation
     end
 
+    describe "when last_edited_by_editor_id is nil" do
+      let(:last_edited_by_editor_id) { nil }
+
+      it "does not call #with_uuids" do
+        publishing_api_mock.expects(:get_host_content_for_content_id).returns(fake_api_response)
+
+        ContentBlockManager::HostContentItem::Editor.expects(:with_uuids).never
+
+        result = described_class.by_embedded_document(content_block_document: document)
+
+        assert_equal result[0].last_edited_by_editor, nil
+      end
+    end
+
     it "returns an error if the content that embeds the target can't be loaded" do
-      exception = GdsApi::HTTPErrorResponse.new(
-        500,
-        "An internal error message",
-        "error" => { "message" => "Some backend error" },
+      publishing_api_mock.expects(:get_host_content_for_content_id).raises(
+        GdsApi::HTTPErrorResponse.new(
+          500,
+          "An internal error message",
+          "error" => { "message" => "Some backend error" },
+        ),
       )
-      raises_exception = ->(*_args) { raise exception }
 
-      Services.publishing_api.stub :get_host_content_for_content_id, raises_exception do
-        document = mock("content_block_document", content_id: target_content_id)
-
-        assert_raises(GdsApi::HTTPErrorResponse) do
-          described_class.by_embedded_document(
-            content_block_document: document,
-          )
-        end
+      assert_raises(GdsApi::HTTPErrorResponse) do
+        described_class.by_embedded_document(
+          content_block_document: document,
+        )
       end
     end
   end
