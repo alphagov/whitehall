@@ -1,6 +1,8 @@
 
 <% content_for :title_margin_bottom, 6 %>
 
+<% content_for :page_title, "Home" %>
+
 <% if @error_summary_errors %>
   <%= render "govuk_publishing_components/components/error_summary", {
     title: "There is a problem",

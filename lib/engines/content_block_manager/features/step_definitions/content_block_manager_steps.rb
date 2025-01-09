@@ -788,6 +788,10 @@ Then(/^I should see the object store's title in the header$/) do
   expect(page).to have_selector(".govuk-header__product-name", text: "Content Block Manager")
 end
 
+Then(/^I should see the object store's home page title$/) do
+  expect(page).to have_title "Home - GOV.UK Content Block Manager"
+end
+
 And(/^I should see the object store's navigation$/) do
   expect(page).to have_selector("a.govuk-header__link[href='#{content_block_manager.content_block_manager_root_path}']", text: "Dashboard")
 end
