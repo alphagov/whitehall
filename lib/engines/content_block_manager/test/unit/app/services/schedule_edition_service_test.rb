@@ -17,7 +17,7 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
   setup do
     ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type)
                                              .returns(schema)
-    stub_publishing_api_has_embedded_content(content_id:, total: 0, results: [], order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER)
+    stub_publishing_api_has_embedded_content(content_id:, total: 0, results: [], order: ContentBlockManager::HostContentItem::DEFAULT_ORDER)
   end
 
   describe "#call" do
@@ -141,7 +141,7 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
           },
         ]
 
-      stub_publishing_api_has_embedded_content(content_id:, total: 0, results: dependent_content, order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER)
+      stub_publishing_api_has_embedded_content(content_id:, total: 0, results: dependent_content, order: ContentBlockManager::HostContentItem::DEFAULT_ORDER)
 
       ContentBlockManager::PublishIntentWorker.expects(:perform_async).with(
         "/host-document",

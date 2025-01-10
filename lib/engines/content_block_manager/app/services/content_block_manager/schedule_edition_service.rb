@@ -33,9 +33,7 @@ module ContentBlockManager
     end
 
     def send_publish_intents_for_host_documents(content_block_edition:)
-      host_content_items = ContentBlockManager::GetHostContentItems.by_embedded_document(
-        content_block_document: content_block_edition.document,
-      )
+      host_content_items = ContentBlockManager::HostContentItem.for_document(content_block_edition.document)
       host_content_items.each do |host_content_item|
         ContentBlockManager::PublishIntentWorker.perform_async(
           host_content_item.base_path,

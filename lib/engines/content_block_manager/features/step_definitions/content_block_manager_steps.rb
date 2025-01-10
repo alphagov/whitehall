@@ -536,7 +536,7 @@ When(/^dependent content exists for a content block$/) do
   stub_publishing_api_has_embedded_content_for_any_content_id(
     results: @dependent_content,
     total: @dependent_content.length,
-    order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+    order: ContentBlockManager::HostContentItem::DEFAULT_ORDER,
     rollup: @rollup,
   )
 
