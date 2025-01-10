@@ -34,6 +34,7 @@ class HostContentUpdateEventTest < ActiveSupport::TestCase
                 "title" => "An exciting piece of content",
                 "content_id" => "ef224ae6-7a81-4c59-830b-e9884fe57ec8",
                 "updated_by_user_uid" => user.uid,
+                "document_type" => "content_block_email_address",
               },
             },
           },
@@ -53,6 +54,7 @@ class HostContentUpdateEventTest < ActiveSupport::TestCase
                 "title" => "Another exciting piece of content",
                 "content_id" => "5c5520ce-6677-4a76-bd6e-4515f46a804e",
                 "updated_by_user_uid" => nil,
+                "document_type" => "content_block_something_else",
               },
             },
           },
@@ -67,11 +69,13 @@ class HostContentUpdateEventTest < ActiveSupport::TestCase
       assert_equal result.first.created_at, Time.zone.parse("2024-01-01T00:00:00.000Z")
       assert_equal result.first.content_id, "ef224ae6-7a81-4c59-830b-e9884fe57ec8"
       assert_equal result.first.content_title, "An exciting piece of content"
+      assert_equal result.first.document_type, "Email address"
 
       assert_nil result.second.author
       assert_equal result.second.created_at, Time.zone.parse("2023-12-01T00:00:00.000Z")
       assert_equal result.second.content_id, "5c5520ce-6677-4a76-bd6e-4515f46a804e"
       assert_equal result.second.content_title, "Another exciting piece of content"
+      assert_equal result.second.document_type, "Something else"
     end
   end
 
