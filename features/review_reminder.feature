@@ -26,7 +26,6 @@ Feature: Review reminders
 
   Scenario: Deleting the review date for a published publication
     Given a published publication "Standard Beard Lengths" with a PDF attachment
-    And The delete review reminder feature flag is "enabled"
     And a review reminder exists for "Standard Beard Lengths" with the date "2032-1-1"
     When I click the link "Delete review date" on the edition summary page for "Standard Beard Lengths"
     Then I should see the review date of "1 January 2032" on the deletion confirmation page
