@@ -3,13 +3,14 @@
     margin-bottom: govuk-spacing(4);
   }
 
-  &__detail {
+  &__detail,
+  &__link {
     margin-top: govuk-spacing(0);
     margin-bottom: govuk-spacing(0);
   }
 
   &__heading {
-    margin-bottom: govuk-spacing(1);
+    margin-bottom: govuk-spacing(0);
   }
 
   &__datetime {

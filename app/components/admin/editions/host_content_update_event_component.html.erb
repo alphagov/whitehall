@@ -1,8 +1,12 @@
 <div class="app-view-editions-host-content-update-event-entry__list-item">
-  <h4 class="govuk-heading-s app-view-editions-host-content-update-event-entry__heading">Content Block Update</h4>
+  <h4 class="govuk-heading-s app-view-editions-host-content-update-event-entry__heading">Content block updated</h4>
 
-  <p class="govuk-body app-view-editions-host-content-update-event-entry__detail">
-    <%= activity %>
+  <p class="app-view-editions-host-content-update-event-entry__detail">
+    <%= block_type %>: <%= block_name %>
+  </p>
+
+  <p class="govuk-body app-view-editions-host-content-update-event-entry__link">
+    <%= link_to link_text, helpers.content_block_manager.content_block_manager_content_block_content_id_path(content_id: event.content_id), class: "govuk-link" %>
   </p>
 
   <p class="govuk-body-s app-view-editions-host-content-update-event-entry__datetime">

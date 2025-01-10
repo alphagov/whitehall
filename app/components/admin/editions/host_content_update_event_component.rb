@@ -9,8 +9,16 @@ private
 
   attr_reader :event
 
-  def activity
-    "#{event.content_title.strip} updated"
+  def block_type
+    event.document_type
+  end
+
+  def block_name
+    event.content_title.strip
+  end
+
+  def link_text
+    "[View#{tag.span(" #{block_name}", class: 'govuk-visually-hidden')} in Content Block Manager]".html_safe
   end
 
   def time
