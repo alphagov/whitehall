@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :host_content_items, class: "ContentBlockManager::HostContentItems" do
+  factory :host_content_items, class: "ContentBlockManager::HostContentItem::Items" do
     total_pages { 1 }
     total { 10 }
     items { build_list(:host_content_item, 10) }
@@ -13,7 +13,7 @@ FactoryBot.define do
     end
   end
 
-  factory :rollup, class: "ContentBlockManager::HostContentItems::Rollup" do
+  factory :rollup, class: "ContentBlockManager::HostContentItem::Items::Rollup" do
     views { Random.rand(0..10) }
     locations { Random.rand(0..10) }
     instances { Random.rand(0..10) }

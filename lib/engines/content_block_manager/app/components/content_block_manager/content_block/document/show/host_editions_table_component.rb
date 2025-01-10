@@ -8,7 +8,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
     @host_content_items = host_content_items
     @is_preview = is_preview
     @current_page = current_page.presence || 1
-    @order = order.presence || ContentBlockManager::GetHostContentItems::DEFAULT_ORDER
+    @order = order.presence || ContentBlockManager::HostContentItem::DEFAULT_ORDER
     @content_block_edition = content_block_edition
   end
 

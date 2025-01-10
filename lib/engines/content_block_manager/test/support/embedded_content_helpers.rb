@@ -25,7 +25,7 @@ class ActionDispatch::IntegrationTest
       stub_publishing_api_has_embedded_content_for_any_content_id(
         results: host_content_items,
         total: host_content_items.length,
-        order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+        order: ContentBlockManager::HostContentItem::DEFAULT_ORDER,
       )
 
       ContentBlockManager::HostContentItem::Editor.stubs(:with_uuids).with(host_content_items.map { |i| i["last_edited_by_editor_id"] }).returns(host_content_item_users)
@@ -51,7 +51,7 @@ class ActionDispatch::IntegrationTest
         results: host_content_items,
         total:,
         total_pages: 4,
-        order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+        order: ContentBlockManager::HostContentItem::DEFAULT_ORDER,
       )
 
       pages.each.with_index(2) do |page, i|
@@ -59,7 +59,7 @@ class ActionDispatch::IntegrationTest
           results: page,
           total:,
           total_pages: 4,
-          order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+          order: ContentBlockManager::HostContentItem::DEFAULT_ORDER,
           page_number: i.to_s,
         )
       end

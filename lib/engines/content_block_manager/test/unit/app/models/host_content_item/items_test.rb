@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentBlockManager::HostContentItemsTest < ActiveSupport::TestCase
+class ContentBlockManager::HostContentItem::ItemsTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:items) { build_list(:host_content_item, 5) }

@@ -23,8 +23,8 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
     @order = params[:order]
     @page = params[:page]
 
-    @host_content_items = ContentBlockManager::GetHostContentItems.by_embedded_document(
-      content_block_document: @content_block_document,
+    @host_content_items = ContentBlockManager::HostContentItem.for_document(
+      @content_block_document,
       order: @order,
       page: @page,
     )

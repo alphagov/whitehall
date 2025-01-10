@@ -136,7 +136,7 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
       stub_publishing_api_has_embedded_content_for_any_content_id(
         results: [],
         total: 0,
-        order: ContentBlockManager::GetHostContentItems::DEFAULT_ORDER,
+        order: ContentBlockManager::HostContentItem::DEFAULT_ORDER,
       )
 
       visit content_block_manager_content_block_document_path(document)
