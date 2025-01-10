@@ -97,10 +97,10 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when new draft is created and attachment is replaced twice" do
         before do
-
           [
-           { id: replacement_asset_manager_id, filename: replacement_filename },
-           { id: double_replacement_asset_manager_id, filename: double_replacement_filename }].each do |item|
+            { id: replacement_asset_manager_id, filename: replacement_filename },
+            { id: double_replacement_asset_manager_id, filename: double_replacement_filename },
+          ].each do |item|
             Services.asset_manager.expects(:create_asset).with { |args|
               args[:file].path =~ /#{item[:filename]}/
             }.returns("id" => "http://asset-manager/assets/#{item[:id]}", "name" => item[:filename])
@@ -110,11 +110,10 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           Sidekiq::Job.clear_all
         end
 
-        it "updates replacement_id for attachment in Asset Manager" do
+        it "when remove_draft_change_note_validation is true, without pre-saving the edition - runs a set of 3 draft & replacement updates for attachment in Asset Manager" do
+          feature_flags.switch!(:remove_draft_change_note_validation, true)
           visit admin_news_article_path(edition)
           click_button "Create new edition"
-          # choose "No – it’s a minor edit that does not change the meaning"
-          # click_button "Save"
 
           AssetManagerCreateAssetWorker.drain
           PublishingApiDraftUpdateWorker.drain
@@ -139,12 +138,109 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           PublishingApiDraftUpdateWorker.drain
           AssetManagerAttachmentMetadataWorker.drain
 
+          Services.asset_manager.expects(:update_asset)
+                  .times(3)
+                  .with(replacement_asset_manager_id, { "replacement_id" => double_replacement_asset_manager_id })
+          Services.asset_manager.expects(:update_asset)
+                  .times(3)
+                  .with(double_replacement_asset_manager_id, has_entry({ "draft" => true }))
+
+          within page.find("li", text: replacement_filename) do
+            click_link "Edit attachment"
+          end
+          attach_file "Replace file", path_to_attachment(double_replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'attachment-title' updated"
+
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
+        end
+
+        it "when remove_draft_change_note_validation is false, when pre-saving the edition - runs a set of 3 draft & replacement updates for attachment in Asset Manager" do
+          feature_flags.switch!(:remove_draft_change_note_validation, false)
+          visit admin_news_article_path(edition)
+          click_button "Create new edition"
+          choose "No – it’s a minor edit that does not change the meaning"
+          click_button "Save"
+
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
+
+          Services.asset_manager.expects(:update_asset)
+                  .times(3)
+                  .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
+          Services.asset_manager.expects(:update_asset)
+                  .times(3)
+                  .with(replacement_asset_manager_id, has_entry({ "draft" => true }))
+
+          click_link "Attachments 1"
+          within page.find("li", text: filename) do
+            click_link "Edit attachment"
+          end
+          attach_file "Replace file", path_to_attachment(replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'attachment-title' updated"
+
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
 
           Services.asset_manager.expects(:update_asset)
                   .times(3)
                   .with(replacement_asset_manager_id, { "replacement_id" => double_replacement_asset_manager_id })
           Services.asset_manager.expects(:update_asset)
                   .times(3)
+                  .with(double_replacement_asset_manager_id, has_entry({ "draft" => true }))
+
+          within page.find("li", text: replacement_filename) do
+            click_link "Edit attachment"
+          end
+          attach_file "Replace file", path_to_attachment(double_replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'attachment-title' updated"
+
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
+        end
+
+        it "when remove_draft_change_note_validation is false, without pre-saving the edition - runs only 1 set of updates for attachment in Asset Manager" do
+          # TODO: - to show the difference between the scenarios we'd ideally have 0 update and 3 updates respectively in the two flagged contexts
+
+          feature_flags.switch!(:remove_draft_change_note_validation, false)
+          visit admin_news_article_path(edition)
+          click_button "Create new edition"
+
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
+
+          Services.asset_manager.expects(:update_asset)
+                  .times(1)
+                  .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
+          Services.asset_manager.expects(:update_asset)
+                  .times(1)
+                  .with(replacement_asset_manager_id, has_entry({ "draft" => true }))
+
+          click_link "Attachments 1"
+          within page.find("li", text: filename) do
+            click_link "Edit attachment"
+          end
+          attach_file "Replace file", path_to_attachment(replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'attachment-title' updated"
+
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
+
+          Services.asset_manager.expects(:update_asset)
+                  .times(1)
+                  .with(replacement_asset_manager_id, { "replacement_id" => double_replacement_asset_manager_id })
+          Services.asset_manager.expects(:update_asset)
+                  .times(1)
                   .with(double_replacement_asset_manager_id, has_entry({ "draft" => true }))
 
           within page.find("li", text: replacement_filename) do

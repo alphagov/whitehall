@@ -19,6 +19,12 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert publication.document.content_id.present?
   end
 
+  test "should generate a content_id for the document of a new draft with the save_draft context" do
+    publication = build(:publication)
+    assert publication.valid?(:save_draft)
+    assert publication.document.content_id.present?
+  end
+
   test "should generate a content_id and slug on a document when present" do
     document = build(:document, content_id: nil, slug: nil)
     publication = build(:publication, document:)

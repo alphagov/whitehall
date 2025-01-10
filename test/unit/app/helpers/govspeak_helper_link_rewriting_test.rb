@@ -99,7 +99,7 @@ private
     writer = create(:writer)
     new_draft = edition.create_draft(writer)
     new_draft.change_note = "change-note"
-    new_draft.save_as(writer)
+    new_draft.save!(user: writer)
     new_draft.submit!
     publish(new_draft)
     [edition, new_draft]
@@ -110,7 +110,7 @@ private
     writer = create(:writer)
     new_draft = edition.create_draft(writer)
     new_draft.change_note = "change-note"
-    new_draft.save_as(writer)
+    new_draft.save!(user: writer)
     [edition, new_draft]
   end
 end

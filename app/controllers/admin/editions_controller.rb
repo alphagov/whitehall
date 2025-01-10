@@ -103,7 +103,7 @@ class Admin::EditionsController < Admin::BaseController
   def update
     @edition.assign_attributes(edition_params)
 
-    if updater.can_perform? && @edition.save_as(current_user)
+    if updater.can_perform? && @edition.save(user: current_user, context: Flipflop.remove_draft_change_note_validation? && :save_draft)
       updater.perform!
 
       if @edition.link_check_reports.last

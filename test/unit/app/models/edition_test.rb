@@ -246,16 +246,16 @@ class EditionTest < ActiveSupport::TestCase
   test ".authored_by includes editions edited by given user" do
     publication = create(:publication)
     writer = create(:writer)
-    publication.save_as(writer)
+    publication.save!(user: writer)
     assert Edition.authored_by(writer).include?(publication)
   end
 
   test ".authored_by includes editions only once no matter how many edits a user has made" do
     publication = create(:publication)
     writer = create(:writer)
-    publication.save_as(writer)
-    publication.save_as(writer)
-    publication.save_as(writer)
+    publication.save!(user: writer)
+    publication.save!(user: writer)
+    publication.save!(user: writer)
     assert_equal 1, Edition.authored_by(writer).size
   end
 

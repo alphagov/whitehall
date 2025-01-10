@@ -7,7 +7,15 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test "a draft is invalid without change note once saved if a published edition already exists" do
+  test "when validation context is save_draft a draft is valid without change note once saved if a published edition already exists" do
+    feature_flags.switch!(:remove_draft_change_note_validation, true)
+    published_edition = create(:published_edition)
+    edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
+    assert edition.valid?(:save_draft)
+  end
+
+  test "when remove_draft_change_note_validation is false - a draft is invalid without change note once saved if a published edition already exists" do
+    feature_flags.switch!(:remove_draft_change_note_validation, false)
     published_edition = create(:published_edition)
     edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
     assert_not edition.valid?

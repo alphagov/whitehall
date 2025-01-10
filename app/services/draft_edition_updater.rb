@@ -12,7 +12,7 @@ class DraftEditionUpdater < EditionService
       "A #{edition.state} edition may not be updated."
     elsif should_check_current_user_will_retain_access? && access_limit_excludes_current_user?
       "Access can only be limited by users belonging to an organisation tagged to the document"
-    elsif !edition.valid?
+    elsif !edition.valid?(Flipflop.remove_draft_change_note_validation? && :save_draft)
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
     end
   end

@@ -9,7 +9,7 @@ class EditionAuthBypassUpdater
 
   def call
     @edition.set_auth_bypass_id
-    @edition.save_as(@current_user)
+    @edition.save!(user: @current_user)
     @updater.perform!
 
     update_file_attachments(@edition)

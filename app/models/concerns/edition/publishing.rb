@@ -39,8 +39,11 @@ module Edition::Publishing
 
   def change_note_required?
     return false if new_record?
+    return false if previous_edition.blank?
+    # TODO: replace with except_on check for this in Rails 8
+    return false if validation_context == :save_draft
 
-    pre_publication? && previous_edition.present?
+    Edition::PRE_PUBLICATION_STATES.include?(state)
   end
 
   def change_note_present!

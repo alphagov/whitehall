@@ -26,4 +26,5 @@ Flipflop.configure do
   feature :govspeak_visual_editor, description: "Enables a visual editor for Govspeak fields", default: false
   feature :override_government, description: "Enables GDS Editors and Admins to override the government associated with a document", default: false
   feature :show_link_to_content_block_manager, description: "Shows link to Content Block Manager from Whitehall editor", default: Whitehall.integration_or_staging?
+  feature :remove_draft_change_note_validation, description: "Remove the change note validation for editions in draft state", default: false
 end

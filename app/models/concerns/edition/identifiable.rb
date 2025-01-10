@@ -4,8 +4,8 @@ module Edition::Identifiable
   included do
     belongs_to :document, touch: true
     validates :document, presence: true
-    before_validation :ensure_presence_of_document, on: :create
-    before_validation :update_document_slug, on: :update
+    before_validation :ensure_presence_of_document, on: %i[create save_draft]
+    before_validation :update_document_slug, on: %i[update save_draft]
     before_validation :propagate_type_to_document
 
     scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }

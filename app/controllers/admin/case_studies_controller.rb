@@ -6,7 +6,7 @@ class Admin::CaseStudiesController < Admin::EditionsController
   def update_image_display_option
     @edition.assign_attributes(image_display_option_params)
 
-    if updater.can_perform? && @edition.save_as(current_user)
+    if updater.can_perform? && @edition.save(user: current_user)
       @edition.update_lead_image
       updater.perform!
 

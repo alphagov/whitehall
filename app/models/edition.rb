@@ -124,6 +124,17 @@ class Edition < ApplicationRecord
     publicly_visible_and_available_in_english
   end
 
+  # rubocop:disable Rails/ActiveRecordOverride
+  def save(**options, &block)
+    saved = super
+    if saved && options.key?(:user)
+      edition_authors.create!(user: options[:user])
+      recent_edition_openings.where(editor_id: options[:user]).delete_all
+    end
+    saved
+  end
+  # rubocop:enable Rails/ActiveRecordOverride
+
   def creator
     edition_authors.first&.user
   end

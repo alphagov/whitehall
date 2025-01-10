@@ -96,68 +96,50 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test "#save_as saves the edition" do
+  test "#save with user option records the new creator if save succeeds" do
     edition = create(:publication)
-    edition.expects(:save)
-    edition.save_as(create(:user))
-  end
-
-  test "#save_as records the new creator if save succeeds" do
-    edition = create(:publication)
-    edition.stubs(:save).returns(true)
     user = create(:user)
-    edition.save_as(user)
+    edition.save!(user:)
     assert_equal 2, edition.edition_authors.count
     assert_equal user, edition.edition_authors.last.user
   end
 
-  test "#save_as does not record new creator if save fails" do
+  test "#save with user option does not record new creator if save fails" do
     edition = create(:publication)
-    edition.stubs(:save).returns(true)
     user = create(:user)
-    edition.save_as(user)
+    edition.save!(user:)
     assert_equal 2, edition.edition_authors.count
     assert_equal user, edition.edition_authors.last.user
   end
 
-  test "#save_as returns true if save succeeds" do
-    edition = create(:publication)
-    edition.stubs(:save).returns(true)
-    assert edition.save_as(create(:user))
-  end
-
-  test "#save_as updates the document slug if this is the first draft" do
+  test "#save with user option updates the document slug if this is the first draft" do
     edition = create(:submitted_publication, title: "First Title")
-    edition.save_as(user = create(:user))
+    user = create(:user)
+    edition.save!(user:)
 
     edition.title = "Second Title"
-    edition.save_as(user)
+    edition.save!(user:)
     publish(edition)
 
     assert_nil Publication.published_as("first-title")
     assert_equal edition, Publication.published_as("second-title")
   end
 
-  test "#save_as does not alter the slug if this edition has previously been published" do
+  test "#save with user option does not alter the slug if this edition has previously been published" do
     edition = create(:submitted_publication, title: "First Title")
-    edition.save_as(user = create(:user))
+    user = create(:user)
+    edition.save!(user:)
     publish(edition)
 
     new_draft = edition.create_draft(user)
     new_draft.title = "Second Title"
     new_draft.change_note = "change-note"
-    new_draft.save_as(user)
+    new_draft.save!(user:)
     new_draft.submit!
     publish(new_draft)
 
     assert_equal new_draft, Publication.published_as("first-title")
     assert_nil Publication.published_as("second-title")
-  end
-
-  test "#save_as returns false if save fails" do
-    edition = create(:publication)
-    edition.stubs(:save).returns(false)
-    assert_not edition.save_as(create(:user))
   end
 
   test "#supersede! on a depended-upon edition destroys its dependencies" do
