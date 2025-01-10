@@ -182,7 +182,7 @@ private
         href:,
         secondary_quiet: true,
       })
-      if Flipflop.delete_review_reminders? && review_reminder.present?
+      if review_reminder.present?
         actions << link_to("Delete review date", confirm_destroy_admin_document_review_reminder_path(@edition.document, @edition.document.review_reminder), class: "govuk-link gem-link--destructive govuk-link--no-visited-state")
       end
     end

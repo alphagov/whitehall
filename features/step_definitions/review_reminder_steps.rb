@@ -1,8 +1,3 @@
-And(/^The delete review reminder feature flag is "(enabled|disabled)"$/) do |enabled|
-  @test_strategy ||= Flipflop::FeatureSet.current.test!
-  @test_strategy.switch!(:delete_review_reminders, enabled == "enabled")
-end
-
 And(/^I add a review date of "([^"]*)" and the email address "([^"]*)" on the edit page$/) do |date, email|
   click_link "Edit draft"
   check "Set a reminder to review this content after it has been published"

@@ -27,8 +27,6 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
   end
 
   test "actions for published edition with review date" do
-    @test_strategy ||= Flipflop::FeatureSet.current.test!
-    @test_strategy.switch!(:delete_review_reminders, true)
     current_user = build_stubbed(:user)
     edition = create(:published_edition)
     create(:review_reminder, :reminder_due, document: edition.document)
@@ -40,7 +38,6 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "a", text: "Delete review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a[href='https://www.test.gov.uk/government/generic-editions/#{edition.title}']", text: "View on website (opens in new tab)"
-    @test_strategy.switch!(:delete_review_reminders, false)
   end
 
   test "actions for published edition for non-english document" do
