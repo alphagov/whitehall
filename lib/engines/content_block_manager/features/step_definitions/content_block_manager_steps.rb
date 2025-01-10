@@ -627,7 +627,7 @@ Then("the preview page opens in a new tab") do
   page.switch_to_window(page.windows.last)
   assert_text "Preview email address"
   assert_text "Instances: 1"
-  assert_text "Email address: changed@example.com"
+  assert_text "Email address: #{@email_address}"
   within_frame "preview" do
     assert_text @current_host_document["title"]
   end
@@ -642,7 +642,7 @@ end
 Then("I should see the content of the linked page") do
   within_frame "preview" do
     assert_text "other page"
-    assert_text "changed@example.com"
+    assert_text @email_address
   end
 end
 
