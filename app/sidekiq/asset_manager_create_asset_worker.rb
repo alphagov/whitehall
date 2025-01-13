@@ -42,14 +42,16 @@ private
   end
 
   def enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
-    assetable = assetable_type.constantize.find(assetable_id)
-    assetable.republish_on_assets_ready if assetable.respond_to? :republish_on_assets_ready
-
     if attachable_model_class
       if attachable_model_class.constantize.ancestors.include?(Edition)
         PublishingApiDraftUpdateWorker.perform_async(attachable_model_class, attachable_model_id)
-      else
-        AssetManagerAttachmentMetadataWorker.perform_async(assetable_id)
+      end
+
+      AssetManagerAttachmentMetadataWorker.perform_async(assetable_id)
+    else
+      assetable = assetable_type.constantize.find(assetable_id)
+      if assetable.respond_to?(:republish_on_assets_ready)
+        assetable.republish_on_assets_ready
       end
     end
   end

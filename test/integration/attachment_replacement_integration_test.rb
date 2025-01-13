@@ -10,9 +10,11 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
   describe "attachment replacement" do
     let(:managing_editor) { create(:managing_editor) }
     let(:filename) { "sample.csv" }
-    let(:asset_manager_id) { "asset_manager_id" }
     let(:replacement_filename) { "sample.rtf" }
+    let(:double_replacement_filename) { "sample.docx" }
+    let(:asset_manager_id) { "asset_manager_id" }
     let(:replacement_asset_manager_id) { "replacement-asset-id" }
+    let(:double_replacement_asset_manager_id) { "double-replacement-asset-id" }
     let(:variant) { Asset.variants[:original] }
     let(:attachment) { build(:csv_attachment, title: "attachment-title", attachable: edition) }
 
@@ -89,6 +91,71 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
                   .at_least_once
                   .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
 
+          AssetManagerAttachmentMetadataWorker.drain
+        end
+      end
+
+      context "when new draft is created and attachment is replaced twice" do
+        before do
+          [
+            { id: replacement_asset_manager_id, filename: replacement_filename },
+            { id: double_replacement_asset_manager_id, filename: double_replacement_filename },
+          ].each do |item|
+            Services.asset_manager.expects(:create_asset).with { |args|
+              args[:file].path =~ /#{item[:filename]}/
+            }.returns("id" => "http://asset-manager/assets/#{item[:id]}", "name" => item[:filename])
+          end
+          stub_asset(double_replacement_asset_manager_id)
+
+          Sidekiq::Job.clear_all
+        end
+
+        it "without pre-saving the edition - updates draft & replacement for asset in Asset Manager" do
+          visit admin_news_article_path(edition)
+          click_button "Create new edition"
+
+          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
+
+          Services.asset_manager.expects(:update_asset)
+                  .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
+                  .once
+          Services.asset_manager.expects(:update_asset)
+                  .with(replacement_asset_manager_id, has_entry({ "draft" => true }))
+                  .once
+
+          click_link "Attachments 1"
+          within page.find("li", text: filename) do
+            click_link "Edit attachment"
+          end
+          attach_file "Replace file", path_to_attachment(replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'attachment-title' updated"
+
+          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
+
+          Services.asset_manager.expects(:update_asset)
+                  .with(replacement_asset_manager_id, { "replacement_id" => double_replacement_asset_manager_id })
+                  .once
+          Services.asset_manager.expects(:update_asset)
+                  .with(double_replacement_asset_manager_id, has_entry({ "draft" => true }))
+                  .once
+
+          within page.find("li", text: replacement_filename) do
+            click_link "Edit attachment"
+          end
+          attach_file "Replace file", path_to_attachment(double_replacement_filename)
+          click_button "Save"
+          assert_text "Attachment 'attachment-title' updated"
+
+          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerCreateAssetWorker.drain
+          PublishingApiDraftUpdateWorker.drain
           AssetManagerAttachmentMetadataWorker.drain
         end
       end
