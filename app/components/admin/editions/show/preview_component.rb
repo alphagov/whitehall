@@ -15,10 +15,6 @@ private
 
   attr_reader :edition
 
-  def versioning_completed
-    @versioning_completed ||= edition.versioning_completed?
-  end
-
   def preview_link(link_text, href)
     link_to(link_text,
             href,

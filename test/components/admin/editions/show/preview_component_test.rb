@@ -60,14 +60,13 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-details__summary-text", text: "Share document preview", count: 0
   end
 
-  test "does not render preview or sharable preview functionality and informs the user when versioning needs to be completed" do
-    edition = build(:publication, document: @document)
-    edition.stubs(:versioning_completed?).returns(false)
+  test "does not render preview or sharable preview functionality and informs the user when edition has not been saved" do
+    edition = build(:publication, document: @document, title: nil)
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
 
     assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)", count: 0
     assert_selector ".govuk-details__summary-text", text: "Share document preview", count: 0
-    assert_selector ".govuk-inset-text", text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
+    assert_selector ".govuk-inset-text", text: "To see the changes and share a document preview link, save the document."
   end
 end

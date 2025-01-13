@@ -131,7 +131,7 @@ module Admin::EditionsHelper
 
   def standard_edition_publishing_controls(form, edition)
     tag.div(class: "publishing-controls") do
-      if edition.change_note_required?
+      if edition.previous_edition.present?
         concat render("change_notes", form:, edition:)
       end
 

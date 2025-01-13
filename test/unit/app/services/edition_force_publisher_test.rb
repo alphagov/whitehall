@@ -16,6 +16,8 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
   test "#perform! deletes any unpublishings for the edition" do
     unpublishing = create(:unpublishing)
     edition = unpublishing.edition
+    edition.change_note = "Major change"
+    edition.save!
 
     EditionForcePublisher.new(edition).perform!
 

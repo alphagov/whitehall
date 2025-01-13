@@ -142,8 +142,6 @@ class Edition < ApplicationRecord
   end
 
   def versioning_completed?
-    return true unless change_note_required?
-
     change_note.present? || minor_change
   end
 

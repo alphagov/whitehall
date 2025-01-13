@@ -177,6 +177,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
             before do
               new_edition.reload
+              new_edition.change_note = "Minor change"
             end
 
             it "is not deleted" do
@@ -410,6 +411,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
             before do
               new_edition.reload
+              new_edition.change_note = "Major change"
             end
 
             it "is not deleted" do

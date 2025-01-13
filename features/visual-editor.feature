@@ -11,7 +11,6 @@ Feature: Save edition content with visual editor
     When I fill in the required fields for publication "Publication with visual editor" in organisation "Visual ministry"
     And I save and go to document summary
     Then I should see the visual editor on subsequent edits of the publication
-    And I force publish the publication "Publication with visual editor"
 
   @javascript
   Scenario: I create a new publication and exit the visual editor experience

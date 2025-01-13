@@ -928,13 +928,6 @@ class EditionTest < ActiveSupport::TestCase
     end
   end
 
-  test "#versioning_completed? returns true if change note is not required" do
-    edition = build(:edition, change_note: nil, minor_change: false)
-    edition.stubs(:change_note_required?).returns(false)
-
-    assert edition.versioning_completed?
-  end
-
   test "#versioning_completed? returns true when a change note is present" do
     edition = build(:edition, change_note: "This is a change.", minor_change: false)
     edition.stubs(:change_note_required?).returns(true)

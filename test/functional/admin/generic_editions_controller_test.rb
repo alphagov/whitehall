@@ -100,15 +100,4 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     get :show, params: { id: draft_edition }
     assert_select ".govuk-link", text: "Preview on website (opens in new tab)", href: draft_edition.public_url(draft: true)
   end
-
-  view_test "GET :show doesn't render preview link if publically visible, change note is blank and edition is a major version" do
-    published_edition = create(:published_edition)
-    draft_edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
-    stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
-
-    get :show, params: { id: draft_edition }
-
-    assert_select ".govuk-link", text: "Preview on website (opens in new tab)", href: draft_edition.public_url(draft: true), count: 0
-    assert_select ".govuk-inset-text", text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
-  end
 end

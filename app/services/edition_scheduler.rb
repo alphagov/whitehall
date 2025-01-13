@@ -10,6 +10,10 @@ class EditionScheduler < EditionService
   end
 
   def failure_reason
+    # Make sure edition is being validated as though it were scheduled so that change note validation is enabled
+    old_state = edition.state
+    edition.state = :scheduled
+
     @failure_reason ||= if !edition.valid?
                           "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
                         elsif !can_transition?
@@ -21,6 +25,9 @@ class EditionScheduler < EditionService
                         elsif DataHygiene::GovspeakLinkValidator.new(edition.body).errors.any?
                           "This edition contains links which violate linking guidelines"
                         end
+
+    edition.state = old_state
+    @failure_reason
   end
 
 private

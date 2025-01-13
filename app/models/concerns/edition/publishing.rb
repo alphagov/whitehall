@@ -38,9 +38,9 @@ module Edition::Publishing
   end
 
   def change_note_required?
-    return false if new_record?
+    return false if state == "draft"
 
-    pre_publication? && previous_edition.present?
+    previous_edition.present?
   end
 
   def change_note_present!

@@ -8,12 +8,17 @@ class EditionPublisher < EditionService
   def failure_reasons
     return @failure_reasons if @failure_reasons
 
+    # Make sure edition is being validated as though it were published so that change note validation is enabled
+    old_state = edition.state
+    edition.state = :published
+
     reasons = []
     reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
     reasons << "This edition contains links which violate linking guidelines" if govspeak_link_errors.any?
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
     reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}" if scheduled_for_publication?
 
+    edition.state = old_state
     @failure_reasons = reasons
   end
 

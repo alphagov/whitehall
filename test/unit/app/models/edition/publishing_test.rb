@@ -7,28 +7,28 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test "a draft is invalid without change note once saved if a published edition already exists" do
+  test "a draft is valid without change note once saved if a published edition already exists" do
     published_edition = create(:published_edition)
     edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
-    assert_not edition.valid?
+    assert edition.valid?
   end
 
   test "a submitted edition is invalid without change note once saved if a published edition already exists" do
     published_edition = create(:published_edition)
-    edition = create(:submitted_edition, change_note: nil, minor_change: false, document: published_edition.document)
+    edition = build(:submitted_edition, change_note: nil, minor_change: false, document: published_edition.document)
     assert_not edition.valid?
   end
 
   test "a rejected edition is invalid without change note once saved if a published edition already exists" do
     published_edition = create(:published_edition)
-    edition = create(:rejected_edition, change_note: nil, minor_change: false, document: published_edition.document)
+    edition = build(:rejected_edition, change_note: nil, minor_change: false, document: published_edition.document)
     assert_not edition.valid?
   end
 
-  test "a draft is invalid without change note once saved if an unpublished edition already exists" do
+  test "a draft is valid without change note once saved if an unpublished edition already exists" do
     unpublished_edition = create(:unpublished_edition)
     edition = create(:draft_edition, change_note: nil, minor_change: false, document: unpublished_edition.document)
-    assert_not edition.valid?
+    assert edition.valid?
   end
 
   test "is valid without change note if no published edition already exists" do
