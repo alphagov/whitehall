@@ -77,7 +77,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       let(:earliest_attachable) { create(:published_news_article, :with_file_attachment) }
       let(:latest_attachable) { earliest_attachable.reload.create_draft(managing_editor) }
       let(:attachment) { latest_attachable.attachments.first }
-      let(:original_asset) { attachment.attachment_data.assets.first.asset_manager_id }
+      let(:original_asset_manager_id) { attachment.attachment_data.assets.first.asset_manager_id }
+      let(:topic_taxon) { build(:taxon_hash) }
 
       before do
         login_as(managing_editor)
@@ -85,8 +86,13 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         setup_publishing_api_for(latest_attachable)
         stub_publishing_api_has_linkables([], document_type: "topic")
         stub_publishing_api_expanded_links_with_taxons(latest_attachable.content_id, [])
+        stub_publishing_api_links_with_taxons(latest_attachable.content_id, [topic_taxon["content_id"]])
 
-        stub_asset(original_asset)
+        stub_asset(original_asset_manager_id)
+
+        latest_attachable.update!(minor_change: true)
+
+        AssetManagerAttachmentMetadataWorker.drain
       end
 
       it "deletes the corresponding asset in Asset Manager only when the new draft gets published" do
@@ -98,14 +104,61 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         click_button "Delete attachment"
         assert_text "Attachment deleted"
 
-        Services.asset_manager.expects(:delete_asset).never.with(original_asset)
-
-        latest_attachable.update!(minor_change: true)
-        latest_attachable.force_publish!
-
-        Services.asset_manager.expects(:delete_asset).once.with(original_asset)
-
+        Services.asset_manager.expects(:update_asset).once.with(original_asset_manager_id, has_entry({ "draft" => false }))
         AssetManagerAttachmentMetadataWorker.drain
+
+        visit admin_news_article_path(latest_attachable)
+        click_link "Force publish"
+        assert_text "Reason for force publishing"
+        fill_in "Reason for force publishing", with: "testing"
+        click_button "Force publish"
+        assert_text "The document #{latest_attachable.title} has been published"
+
+        Services.asset_manager.expects(:delete_asset).once.with(original_asset_manager_id)
+        AssetManagerAttachmentMetadataWorker.drain
+      end
+
+      context "when the attachment has been replaced" do
+        let(:replacement_asset_manager_id) { "replacement_asset_manager_id" }
+
+        before do
+          stub_asset(replacement_asset_manager_id)
+
+          replacement_data = create(:attachment_data, attachable: latest_attachable)
+          attachment.attachment_data.replaced_by = replacement_data
+          attachment.attachment_data.save!
+
+          asset = replacement_data.assets.first
+          asset.asset_manager_id = replacement_asset_manager_id
+          asset.save!
+
+          attachment.attachment_data = replacement_data
+          attachment.save!
+        end
+
+        it "deletes the corresponding asset in Asset Manager and updates the asset to live, only when the new draft gets published" do
+          visit admin_news_article_path(latest_attachable)
+          click_link "Modify attachments"
+          within page.find("li", text: attachment.title) do
+            click_link "Delete attachment"
+          end
+          click_button "Delete attachment"
+          assert_text "Attachment deleted"
+
+          Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entry({ "draft" => true }))
+          AssetManagerAttachmentMetadataWorker.drain
+
+          visit admin_news_article_path(latest_attachable)
+          click_link "Force publish"
+          assert_text "Reason for force publishing"
+          fill_in "Reason for force publishing", with: "testing"
+          click_button "Force publish"
+          assert_text "The document #{latest_attachable.title} has been published"
+
+          Services.asset_manager.expects(:delete_asset).once.with(replacement_asset_manager_id)
+          Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entry({ "draft" => false }))
+          AssetManagerAttachmentMetadataWorker.drain
+        end
       end
     end
 
