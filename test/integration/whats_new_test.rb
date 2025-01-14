@@ -25,9 +25,9 @@ class WhatsNewTest < ActionDispatch::IntegrationTest
     get admin_whats_new_path
 
     if I18n.t("admin.whats_new.show_banner") || I18n.t("admin.feedback.show_banner")
-      assert_select ".gem-c-phase-banner", count: 1
+      assert_select "#whats_new_banner.gem-c-phase-banner", count: 1
     else
-      assert_select ".gem-c-phase-banner", count: 0
+      assert_select "#whats_new_banner.gem-c-phase-banner", count: 0
     end
   end
 end

@@ -1,0 +1,6 @@
+en:
+  admin:
+    maintenance_banner:
+      show_banner: true
+      message: |
+        Whitehall Publisher will be unavailable on 3 February from 8pm to 10pm for essential maintenance. Scheduled publishing may be delayed.

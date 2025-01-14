@@ -2,6 +2,7 @@
 
 <% if t('admin.whats_new.show_banner') %>
   <%= render "govuk_publishing_components/components/phase_banner", {
+      id: "whats_new_banner",
       phase: "What's new",
       message: sanitize("Improvements to the editor workflow -
         #{
@@ -16,6 +17,7 @@
     } %>
 <% elsif show_feedback_banner %>
   <%= render "govuk_publishing_components/components/phase_banner", {
+      id: "feedback_banner",
       phase: "Feedback",
       message: mail_to(
         "publishing-service-feedback@digital.cabinet-office.gov.uk",
@@ -25,4 +27,12 @@
         },
       ),
     } %>
+<% end %>
+<% if t('admin.maintenance_banner.show_banner') %>
+  <%= render "govuk_publishing_components/components/phase_banner", {
+    id: "maintenance_banner",
+    phase: "Maintenance",
+    message: t("admin.maintenance_banner.message"),
+    disable_ga4: true,
+  } %>
 <% end %>
