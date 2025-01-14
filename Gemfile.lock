@@ -132,7 +132,6 @@ GEM
       ssrf_filter (~> 1.0)
     carrierwave-i18n (3.0.0)
       carrierwave (>= 3.0.0, < 4)
-    chartkick (5.1.2)
     childprocess (5.0.0)
     chronic (0.10.2)
     climate_control (1.2.0)
@@ -310,8 +309,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (46.4.0)
-      chartkick
+    govuk_publishing_components (48.0.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
