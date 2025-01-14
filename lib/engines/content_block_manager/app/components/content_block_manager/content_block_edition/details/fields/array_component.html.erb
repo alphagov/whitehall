@@ -1,0 +1,16 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: field.humanize,
+  heading_level: 3,
+  heading_size: "l",
+} do %>
+  <% render "govuk_publishing_components/components/add_another", {
+    fieldset_legend: field.humanize,
+    add_button_text: "Add #{field.humanize.singularize}",
+    items: items.each_with_index.map do  |object, index|
+      {
+        fields: fields(object:, index:).html_safe,
+      }
+    end,
+    empty: fields(object: {}, index: 0).html_safe,
+  } %>
+<% end %>
