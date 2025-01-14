@@ -16,7 +16,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
   end
   let(:unique_pageviews) { 1_200_000 }
 
-  let(:last_edited_by_editor) { build(:host_content_item_editor) }
+  let(:last_edited_by_editor) { build(:signon_user) }
   let(:host_content_item) do
     ContentBlockManager::HostContentItem.new(
       "title" => "Some title",

@@ -41,7 +41,7 @@ class ContentBlockManager::HostContentItemTest < ActiveSupport::TestCase
       }
     end
 
-    let(:editor) { build(:host_content_item_editor, uid: last_edited_by_editor_id) }
+    let(:editor) { build(:signon_user, uid: last_edited_by_editor_id) }
 
     let(:fake_api_response) do
       GdsApi::Response.new(
@@ -53,7 +53,7 @@ class ContentBlockManager::HostContentItemTest < ActiveSupport::TestCase
 
     before do
       Services.expects(:publishing_api).returns(publishing_api_mock)
-      ContentBlockManager::HostContentItem::Editor.stubs(:with_uuids).returns([editor])
+      ContentBlockManager::SignonUser.stubs(:with_uuids).returns([editor])
     end
 
     it "calls the Publishing API for the content which embeds the target" do
@@ -82,7 +82,7 @@ class ContentBlockManager::HostContentItemTest < ActiveSupport::TestCase
 
     it "calls the editor finder with the correct argument" do
       publishing_api_mock.expects(:get_host_content_for_content_id).returns(fake_api_response)
-      ContentBlockManager::HostContentItem::Editor.expects(:with_uuids).with([last_edited_by_editor_id]).returns([editor])
+      ContentBlockManager::SignonUser.expects(:with_uuids).with([last_edited_by_editor_id]).returns([editor])
 
       described_class.for_document(document)
     end
@@ -125,7 +125,7 @@ class ContentBlockManager::HostContentItemTest < ActiveSupport::TestCase
       it "returns nil for last_edited_by_editor" do
         publishing_api_mock.expects(:get_host_content_for_content_id).returns(fake_api_response)
 
-        ContentBlockManager::HostContentItem::Editor.expects(:with_uuids).never
+        ContentBlockManager::SignonUser.expects(:with_uuids).never
 
         result = described_class.for_document(document)
 

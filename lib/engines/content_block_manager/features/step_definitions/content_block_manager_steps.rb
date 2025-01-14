@@ -543,7 +543,7 @@ When(/^dependent content exists for a content block$/) do
 
   stub_publishing_api_has_embedded_content_details(@dependent_content.first)
 
-  @host_content_editor = build(:host_content_item_editor, uid: host_editor_id)
+  @host_content_editor = build(:signon_user, uid: host_editor_id)
 
   stub_request(:get, "#{Plek.find('signon', external: true)}/api/users")
   .with(query: { uuids: [host_editor_id] })
