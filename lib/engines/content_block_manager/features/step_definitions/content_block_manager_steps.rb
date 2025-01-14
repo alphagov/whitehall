@@ -513,13 +513,14 @@ When("I review and confirm my answers are correct") do
 end
 
 When(/^dependent content exists for a content block$/) do
+  host_editor_id = SecureRandom.uuid
   @dependent_content = 10.times.map do |i|
     {
       "title" => "Content #{i}",
       "document_type" => "document",
       "base_path" => "/host-content-path-#{i}",
       "content_id" => SecureRandom.uuid,
-      "last_edited_by_editor_id" => SecureRandom.uuid,
+      "last_edited_by_editor_id" => host_editor_id,
       "last_edited_at" => 2.days.ago.to_s,
       "host_content_id" => "abc12345",
       "instances" => 1,
@@ -542,9 +543,11 @@ When(/^dependent content exists for a content block$/) do
 
   stub_publishing_api_has_embedded_content_details(@dependent_content.first)
 
+  @host_content_editor = build(:host_content_item_editor, uid: host_editor_id)
+
   stub_request(:get, "#{Plek.find('signon', external: true)}/api/users")
-    .with(query: { uuids: @dependent_content.map { |item| item["last_edited_by_editor_id"] } })
-    .to_return(body: [].to_json)
+  .with(query: { uuids: [host_editor_id] })
+  .to_return(body: [@host_content_editor].to_json)
 end
 
 Then(/^I should see the dependent content listed$/) do
@@ -554,6 +557,8 @@ Then(/^I should see the dependent content listed$/) do
     assert_text item["title"]
     break if item == @dependent_content.last
   end
+
+  expect(page).to have_link(@host_content_editor.name, href: content_block_manager.content_block_manager_user_path(@host_content_editor.uid))
 end
 
 Then(/^I (should )?see the rollup data for the dependent content$/) do |_should|

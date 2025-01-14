@@ -88,7 +88,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       assert_selector "tbody .govuk-table__cell", text: "1.2m"
       assert_selector "tbody .govuk-table__cell", text: host_content_item.publishing_organisation["title"]
       assert_selector "tbody .govuk-table__cell", text: "#{time_ago_in_words(host_content_item.last_edited_at)} ago by #{last_edited_by_editor.name}"
-      assert_link last_edited_by_editor.name, { href: "mailto:#{last_edited_by_editor.email}" }
+      assert_link last_edited_by_editor.name, { href: content_block_manager_user_path(last_edited_by_editor.uid) }
     end
 
     context "when the organisation does NOT exist within Whitehall" do

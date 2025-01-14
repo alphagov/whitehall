@@ -113,7 +113,14 @@ private
   end
 
   def updated_field_for(content_item)
-    user_copy = content_item.last_edited_by_editor ? mail_to(content_item.last_edited_by_editor.email, content_item.last_edited_by_editor.name, { class: "govuk-link" }) : "Unknown user"
+    user_copy = if content_item.last_edited_by_editor
+                  link_to(
+                    content_item.last_edited_by_editor.name,
+                    helpers.content_block_manager.content_block_manager_user_path(content_item.last_edited_by_editor.uid), { class: "govuk-link" }
+                  )
+                else
+                  "Unknown user"
+                end
     "#{time_ago_in_words(content_item.last_edited_at)} ago by #{user_copy}".html_safe
   end
 end
