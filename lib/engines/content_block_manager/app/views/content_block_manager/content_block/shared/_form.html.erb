@@ -19,17 +19,12 @@
     error_items: errors_for(@form.content_block_edition.errors, "title".to_sym),
   } %>
 
-  <% @form.attributes.each do |field, _value| %>
-    <%= render "govuk_publishing_components/components/input", {
-      label: {
-        text: field.humanize,
-      },
-      name: "content_block/edition[details[#{field}]]",
-      id: "#{parent_class}_details_#{field}",
-      value: @form.content_block_edition.details&.fetch(field, nil),
-      error_items: errors_for(@form.content_block_edition.errors, "details_#{field}".to_sym),
-    } %>
-  <% end %>
+  <%=
+    render ContentBlockManager::ContentBlockEdition::Details::FormComponent.new(
+      content_block_edition: @form.content_block_edition,
+      schema: @form.schema,
+    )
+  %>
 
   <%= render "components/autocomplete", {
     id: "#{parent_class}_lead_organisation",
