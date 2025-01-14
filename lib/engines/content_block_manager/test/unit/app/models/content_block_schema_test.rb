@@ -22,6 +22,35 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     assert_equal schema.block_type, "email_address"
   end
 
+  describe ".permitted_params" do
+    it "returns permitted params" do
+      assert_equal schema.permitted_params, %w[foo bar]
+    end
+
+    describe "when the body includes an array" do
+      let(:body) do
+        {
+          "properties" => {
+            "foo" => {},
+            "bar" => {
+              "type" => "array",
+              "items" => {
+                "properties" => {
+                  "item1" => {},
+                  "item2" => {},
+                },
+              },
+            },
+          },
+        }
+      end
+
+      it "returns permitted params including an array's properties" do
+        assert_equal schema.permitted_params, ["foo", { "bar" => %w[item1 item2] }]
+      end
+    end
+  end
+
   describe ".valid_schemas" do
     test "it returns the contents of the VALID_SCHEMA constant" do
       assert_equal ContentBlockManager::ContentBlock::Schema.valid_schemas, %w[
