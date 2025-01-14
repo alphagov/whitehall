@@ -9,7 +9,9 @@
     } %>
 
     <%= render "govuk_publishing_components/components/list", {
-      aria_label: "A list of active ministerial appointments.",
+      aria: {
+        label: "A list of active ministerial appointments."
+      },
       visible_counters: true,
       extra_spacing: true,
       margin_bottom: 8,
