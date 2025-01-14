@@ -7,7 +7,7 @@ Then(/^I should see an entry for the content block "([^"]*)" on the (current|pre
   selector = current_or_previous == "current" ? ".app-view-editions__current-edition-entries" : ".app-view-editions__previous-edition-entries"
 
   within selector do
-    assert_text "Content Block Update"
-    assert_text "#{content_block} updated"
+    assert_text "Content block updated"
+    assert_text content_block
   end
 end

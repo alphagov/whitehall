@@ -4,9 +4,10 @@ FactoryBot.define do
     created_at { Time.zone.now }
     content_id { SecureRandom.uuid }
     content_title { "Some title" }
+    document_type { "Some document type" }
 
     initialize_with do
-      new(author:, created_at:, content_id:, content_title:)
+      new(author:, created_at:, content_id:, content_title:, document_type:)
     end
   end
 end

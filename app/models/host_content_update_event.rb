@@ -1,4 +1,4 @@
-class HostContentUpdateEvent < Data.define(:author, :created_at, :content_id, :content_title)
+class HostContentUpdateEvent < Data.define(:author, :created_at, :content_id, :content_title, :document_type)
   def self.all_for_date_window(document:, from:, to:)
     events = Services.publishing_api.get_events_for_content_id(document.content_id, {
       action: "HostContentUpdateJob",
@@ -12,6 +12,7 @@ class HostContentUpdateEvent < Data.define(:author, :created_at, :content_id, :c
         created_at: Time.zone.parse(event["created_at"]),
         content_id: event["payload"]["source_block"]["content_id"],
         content_title: event["payload"]["source_block"]["title"],
+        document_type: humanize_document_type(event["payload"]["source_block"]["document_type"]),
       )
     end
   end
@@ -30,5 +31,9 @@ class HostContentUpdateEvent < Data.define(:author, :created_at, :content_id, :c
 
   def self.get_user_for_uuid(uuid)
     User.find_by(uid: uuid)
+  end
+
+  def self.humanize_document_type(document_type)
+    document_type.delete_prefix("content_block_").humanize
   end
 end
