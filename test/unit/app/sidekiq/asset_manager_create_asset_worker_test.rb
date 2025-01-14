@@ -6,7 +6,8 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
     @worker = AssetManagerCreateAssetWorker.new
     @asset_manager_id = "asset_manager_id"
     @organisation = FactoryBot.create(:organisation)
-    @model_without_assets = FactoryBot.create(:attachment_data_with_no_assets, attachable: create(:draft_publication))
+    @attachable = create(:draft_publication)
+    @model_without_assets = FactoryBot.create(:attachment_data_with_no_assets, attachable: @attachable)
     @asset_manager_response = {
       "id" => "http://asset-manager/assets/#{@asset_manager_id}",
       "name" => File.basename(@file),
@@ -23,26 +24,26 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
       args[:file].path == @file.path
     }.returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
   end
 
   test "marks the asset as draft if instructed" do
     Services.asset_manager.expects(:create_asset).with(has_entry(draft: true)).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true)
+    @worker.perform(@file.path, @asset_params, true, @attachable.class.to_s, @attachable.id)
   end
 
   test "removes the local temp file after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
     assert_not File.exist?(@file.path)
   end
 
   test "removes the local temp directory after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
     assert_not Dir.exist?(File.dirname(@file))
   end
 
@@ -100,7 +101,7 @@ class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
   test "stores corresponding asset_manager_id and filename for current file attachment" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params)
+    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
 
     assert_equal 1, Asset.where(asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: File.basename(@file)).count
   end

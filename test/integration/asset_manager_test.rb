@@ -9,6 +9,7 @@ class AssetManagerIntegrationTest
       @edition = create(:draft_publication)
       @attachment = FactoryBot.build(:file_attachment_with_no_assets, file: file_fixture(@filename), attachable: @edition)
       @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
     end
 
     test "sends the attachment to Asset Manager" do
