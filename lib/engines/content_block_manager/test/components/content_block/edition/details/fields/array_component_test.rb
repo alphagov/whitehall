@@ -15,6 +15,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
       ),
     )
 
+    assert_selector "div.govuk-form-group##{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_my_array"
+
     properties.each do |property|
       expected_name = "content_block/edition[details[[my_array][][#{property}]]]"
       expected_id = "#{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_my_array_0_#{property}"
@@ -46,5 +48,20 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
         assert_selector "input[type=\"text\"][id=\"#{expected_id}\"][value=\"#{value}\"]"
       end
     end
+  end
+
+  it "shows an error when an error is present" do
+    content_block_edition.errors.add(:details_my_array, "Some error goes here")
+
+    render_inline(
+      ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponent.new(
+        content_block_edition:,
+        field: "my_array",
+        properties:,
+      ),
+    )
+
+    assert_selector "div.govuk-form-group--error##{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_my_array"
+    assert_selector ".govuk-error-message", text: "Some error goes here"
   end
 end

@@ -12,6 +12,14 @@ private
     content_block_edition.details&.fetch(field, []) || []
   end
 
+  def id
+    "#{PARENT_CLASS}_details_#{field}"
+  end
+
+  def error_message
+    error_items&.first&.fetch(:text)
+  end
+
   def fields(object:, index:)
     properties.map { |key|
       render ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
