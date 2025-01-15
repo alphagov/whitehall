@@ -19,7 +19,7 @@ class ActionDispatch::IntegrationTest
       end
     end
 
-    let(:host_content_item_users) { build_list(:host_content_item_editor, 10) }
+    let(:host_content_item_users) { build_list(:signon_user, 10) }
 
     before do
       stub_publishing_api_has_embedded_content_for_any_content_id(
@@ -28,7 +28,7 @@ class ActionDispatch::IntegrationTest
         order: ContentBlockManager::HostContentItem::DEFAULT_ORDER,
       )
 
-      ContentBlockManager::HostContentItem::Editor.stubs(:with_uuids).with(host_content_items.map { |i| i["last_edited_by_editor_id"] }).returns(host_content_item_users)
+      ContentBlockManager::SignonUser.stubs(:with_uuids).with(host_content_items.map { |i| i["last_edited_by_editor_id"] }).returns(host_content_item_users)
     end
 
     it "returns host content items" do

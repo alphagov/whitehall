@@ -2,6 +2,8 @@ ContentBlockManager::Engine.routes.draw do
   namespace :content_block_manager, path: "/" do
     root to: "content_block/documents#index", via: :get
 
+    resources :users, only: %i[show]
+
     namespace :content_block, path: "content-block" do
       get "content-id/:content_id", to: "documents#content_id", as: :content_id
       resources :documents, only: %i[index show new], path_names: { new: "(:block_type)/new" }, path: "" do

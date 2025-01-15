@@ -513,13 +513,14 @@ When("I review and confirm my answers are correct") do
 end
 
 When(/^dependent content exists for a content block$/) do
+  host_editor_id = SecureRandom.uuid
   @dependent_content = 10.times.map do |i|
     {
       "title" => "Content #{i}",
       "document_type" => "document",
       "base_path" => "/host-content-path-#{i}",
       "content_id" => SecureRandom.uuid,
-      "last_edited_by_editor_id" => SecureRandom.uuid,
+      "last_edited_by_editor_id" => host_editor_id,
       "last_edited_at" => 2.days.ago.to_s,
       "host_content_id" => "abc12345",
       "instances" => 1,
@@ -542,9 +543,11 @@ When(/^dependent content exists for a content block$/) do
 
   stub_publishing_api_has_embedded_content_details(@dependent_content.first)
 
+  @host_content_editor = build(:signon_user, uid: host_editor_id)
+
   stub_request(:get, "#{Plek.find('signon', external: true)}/api/users")
-    .with(query: { uuids: @dependent_content.map { |item| item["last_edited_by_editor_id"] } })
-    .to_return(body: [].to_json)
+  .with(query: { uuids: [host_editor_id] })
+  .to_return(body: [@host_content_editor].to_json)
 end
 
 Then(/^I should see the dependent content listed$/) do
@@ -554,6 +557,8 @@ Then(/^I should see the dependent content listed$/) do
     assert_text item["title"]
     break if item == @dependent_content.last
   end
+
+  expect(page).to have_link(@host_content_editor.name, href: content_block_manager.content_block_manager_user_path(@host_content_editor.uid))
 end
 
 Then(/^I (should )?see the rollup data for the dependent content$/) do |_should|
@@ -850,4 +855,29 @@ end
 Then(/^there should be no jobs scheduled$/) do
   jobs = Sidekiq::ScheduledSet.new.select { |job| job.item["class"] == ContentBlockManager::SchedulePublishingWorker.to_s }
   expect(jobs.count).to eq(0)
+end
+
+Given("A user exists with uuid {string}") do |uuid|
+  @user_from_signon = build(
+    :signon_user,
+    uid: uuid,
+    name: "John Doe",
+    email: "john@doe.com",
+    organisation: build(:signon_user_organisation, content_id: "456", name: "User's Org", slug: "users-org"),
+  )
+
+  stub_request(:get, "#{Plek.find('signon', external: true)}/api/users")
+    .with(query: { uuids: [uuid] })
+    .to_return(body: [@user_from_signon].to_json)
+end
+
+When("I visit the user page for uuid {string}") do |uuid|
+  visit content_block_manager.content_block_manager_user_path(uuid)
+end
+
+Then("I should see the details for that user") do
+  expect(page).to have_selector("h1", text: @user_from_signon.name)
+  expect(page).to have_selector(".govuk-summary-list__value", text: @user_from_signon.name)
+  expect(page).to have_selector(".govuk-summary-list__value", text: @user_from_signon.email)
+  expect(page).to have_selector(".govuk-summary-list__value", text: @user_from_signon.organisation.name)
 end

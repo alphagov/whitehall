@@ -24,8 +24,8 @@ module ContentBlockManager
           }.compact,
         ).parsed_content
 
-        editor_uuids = api_response["results"].map { |c| c["last_edited_by_editor_id"] }.compact
-        editors = editor_uuids.present? ? Editor.with_uuids(editor_uuids) : []
+        editor_uuids = api_response["results"].map { |c| c["last_edited_by_editor_id"] }.compact.uniq
+        editors = editor_uuids.present? ? ContentBlockManager::SignonUser.with_uuids(editor_uuids) : []
 
         items = api_response["results"].map do |record|
           from_api_record(record, editors)
