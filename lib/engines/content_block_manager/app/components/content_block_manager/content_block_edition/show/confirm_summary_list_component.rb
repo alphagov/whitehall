@@ -1,4 +1,6 @@
 class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::EditionHelper
+
   def initialize(content_block_edition:)
     @content_block_edition = content_block_edition
   end
@@ -33,11 +35,14 @@ private
   end
 
   def details_items
-    content_block_edition.details.map do |key, value|
-      {
-        field: "New #{key.humanize.downcase}",
-        value:,
-      }
+    summary_list_entries_for_details(content_block_edition.details, title_style: :confirm)
+  end
+
+  def list_entry_for_items(items)
+    tag.ul(class: "govuk-list") do
+      items.map do |embedded_key, embedded_value|
+        concat(tag.li("#{embedded_key.humanize}: #{embedded_value}"))
+      end
     end
   end
 

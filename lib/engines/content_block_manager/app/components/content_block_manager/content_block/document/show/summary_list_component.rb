@@ -1,4 +1,6 @@
 class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::EditionHelper
+
   def initialize(content_block_document:)
     @content_block_document = content_block_document
   end
@@ -59,12 +61,7 @@ private
   end
 
   def details_items
-    content_block_document.latest_edition.details.map do |key, value|
-      {
-        field: key.humanize,
-        value:,
-      }
-    end
+    summary_list_entries_for_details(content_block_document.latest_edition.details)
   end
 
   def status_item

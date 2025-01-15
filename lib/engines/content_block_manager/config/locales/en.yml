@@ -11,6 +11,9 @@ en:
           invalid: "Invalid %{attribute}"
           blank: "%{attribute} cannot be blank"
           attributes:
+            details:
+              blank: "%{attribute} cannot be blank"
+              invalid: "Invalid %{attribute}"
             schedule_publishing:
               blank: "Select publish date"
             scheduled_publication:

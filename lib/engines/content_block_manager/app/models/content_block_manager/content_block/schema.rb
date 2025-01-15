@@ -29,6 +29,16 @@ module ContentBlockManager
         @body["properties"].keys
       end
 
+      def permitted_params
+        @body["properties"].map do |k, v|
+          if v["type"] == "array"
+            { k => v["items"]["properties"].keys }
+          else
+            k
+          end
+        end
+      end
+
       def block_type
         @block_type ||= id.delete_prefix("#{SCHEMA_PREFIX}_")
       end
