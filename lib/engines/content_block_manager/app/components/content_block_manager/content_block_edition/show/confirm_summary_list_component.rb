@@ -33,11 +33,28 @@ private
   end
 
   def details_items
-    content_block_edition.details.map do |key, value|
-      {
-        field: "New #{key.humanize.downcase}",
-        value:,
-      }
+    content_block_edition.details.map { |key, value|
+      if value.is_a?(Array)
+        value.each.with_index(1).map do |items, i|
+          {
+            field: "New #{key.humanize.downcase.singularize} #{i}",
+            value: list_entry_for_items(items),
+          }
+        end
+      else
+        {
+          field: "New #{key.humanize.downcase}",
+          value:,
+        }
+      end
+    }.flatten
+  end
+
+  def list_entry_for_items(items)
+    tag.ul(class: "govuk-list") do
+      items.map do |embedded_key, embedded_value|
+        concat(tag.li("#{embedded_key.humanize}: #{embedded_value}"))
+      end
     end
   end
 

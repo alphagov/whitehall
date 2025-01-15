@@ -2,6 +2,10 @@ require "test_helper"
 
 class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
+
+  let(:organisation) { create(:organisation, name: "Department for Example") }
+  let(:content_block_document) { create(:content_block_document, :email_address) }
+
   it "it renders instructions to publishers" do
     content_block_edition = create(
       :content_block_edition,
@@ -18,10 +22,6 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
   end
 
   it "renders a summary list component with the edition details to confirm" do
-    organisation = create(:organisation, name: "Department for Example")
-
-    content_block_document = create(:content_block_document, :email_address)
-
     content_block_edition = create(
       :content_block_edition,
       :email_address,
@@ -49,10 +49,6 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
 
   describe "when the content block is scheduled" do
     it "shows the scheduled date time" do
-      organisation = create(:organisation, name: "Department for Example")
-
-      content_block_document = create(:content_block_document, :email_address)
-
       content_block_edition = create(
         :content_block_edition,
         :email_address,
@@ -75,10 +71,6 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
 
   describe "when the content block is being updated and published immediately" do
     it "shows a publish now row" do
-      organisation = create(:organisation, name: "Department for Example")
-
-      content_block_document = create(:content_block_document, :email_address)
-
       _previous_edition = create(
         :content_block_edition,
         :email_address,
@@ -100,6 +92,35 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
 
       assert_selector ".govuk-summary-list__key", text: "Publish date"
       assert_selector ".govuk-summary-list__value", text: I18n.l(Time.zone.today, format: :long_ordinal)
+    end
+  end
+
+  describe "when the content block contains nested content" do
+    it "shows a list of keys and values for each embedded item" do
+      content_block_edition = build_stubbed(
+        :content_block_edition,
+        :email_address,
+        details: { "facts" => [
+          { "interesting_fact" => "value 1 of fact", "another_interesting_fact" => "another value 1 of fact" },
+          { "interesting_fact" => "value 2 of fact", "another_interesting_fact" => "another value 2 of fact" },
+        ] },
+        organisation:,
+        document: content_block_document,
+      )
+
+      render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent.new(
+                      content_block_edition:,
+                    ))
+
+      page.find ".govuk-summary-list__row", text: "New fact 1" do
+        assert_selector "li", text: "Interesting fact: value 1 of fact"
+        assert_selector "li", text: "Another interesting fact: another value 1 of fact"
+      end
+
+      page.find ".govuk-summary-list__row", text: "New fact 2" do
+        assert_selector "li", text: "Interesting fact: value 2 of fact"
+        assert_selector "li", text: "Another interesting fact: another value 2 of fact"
+      end
     end
   end
 end
