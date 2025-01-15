@@ -34,6 +34,7 @@
   <%= render "components/autocomplete", {
     id: "#{parent_class}_lead_organisation",
     name: "content_block/edition[organisation_id]",
+    error_items: errors_for(@form.content_block_edition.errors, "lead_organisation".to_sym),
     label: {
       text: "Lead organisation",
     },
