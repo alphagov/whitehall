@@ -22,6 +22,12 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     assert_equal schema.block_type, "email_address"
   end
 
+  describe ".permitted_params" do
+    it "returns permitted params" do
+      assert_equal schema.permitted_params, %w[foo bar]
+    end
+  end
+
   describe ".valid_schemas" do
     test "it returns the contents of the VALID_SCHEMA constant" do
       assert_equal ContentBlockManager::ContentBlock::Schema.valid_schemas, %w[

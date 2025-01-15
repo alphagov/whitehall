@@ -29,6 +29,10 @@ module ContentBlockManager
         @body["properties"].keys
       end
 
+      def permitted_params
+        fields
+      end
+
       def block_type
         @block_type ||= id.delete_prefix("#{SCHEMA_PREFIX}_")
       end
