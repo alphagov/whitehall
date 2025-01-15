@@ -35,9 +35,12 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
           stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
           stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
 
+          assert_sets_draft_status_in_asset_manager_to false
+
           visit admin_news_article_path(edition)
           force_publish_document
-          assert_sets_draft_status_in_asset_manager_to false
+
+          PublishAttachmentAssetJob.drain
         end
       end
 
@@ -64,9 +67,12 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
           stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
           stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
 
+          assert_sets_draft_status_in_asset_manager_to false
+
           visit admin_consultation_path(edition)
           force_publish_document
-          assert_sets_draft_status_in_asset_manager_to false
+
+          PublishAttachmentAssetJob.drain
         end
       end
 
@@ -80,9 +86,12 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
           stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
           stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
 
+          assert_sets_draft_status_in_asset_manager_to false
+
           visit admin_consultation_path(edition)
           force_publish_document
-          assert_sets_draft_status_in_asset_manager_to false
+
+          PublishAttachmentAssetJob.drain
         end
       end
     end
@@ -102,6 +111,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
         AssetManagerCreateAssetWorker.drain
 
         assert_sets_draft_status_in_asset_manager_to false
+        AssetManagerAttachmentMetadataWorker.drain
       end
     end
 
@@ -133,7 +143,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
                             .with(asset_manager_id, has_entry("draft", draft))
                             .at_least_once
       expectation.never if never
-      AssetManagerAttachmentMetadataWorker.drain
     end
 
     def refute_sets_draft_status_in_asset_manager_to(draft)

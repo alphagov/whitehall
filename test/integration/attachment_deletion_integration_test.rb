@@ -15,6 +15,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       let(:second_attachment) { build(:file_attachment, attachable: edition) }
       let(:second_asset_id) { second_attachment.attachment_data.assets.first.asset_manager_id }
       let(:edition) { create(:news_article) }
+      let(:topic_taxon) { build(:taxon_hash) }
 
       before do
         login_as(managing_editor)
@@ -22,6 +23,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         setup_publishing_api_for(edition)
         stub_publishing_api_has_linkables([], document_type: "topic")
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+        stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
 
         stub_asset(first_asset_id)
         stub_asset(second_asset_id)
@@ -31,7 +33,9 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context "when one attachment is deleted" do
-        before do
+        it "deletes the corresponding asset in Asset Manager when the edition is published" do
+          Services.asset_manager.expects(:delete_asset).never
+
           visit admin_news_article_path(edition)
           click_link "Modify attachments"
           within page.find("li", text: first_attachment.title) do
@@ -39,19 +43,19 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           end
           click_button "Delete attachment"
           assert_text "Attachment deleted"
-        end
 
-        it "deletes the corresponding asset in Asset Manager" do
           Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
-          assert_equal AssetManagerAttachmentMetadataWorker.jobs.count, 1
+          Services.asset_manager.expects(:update_asset).once.with(first_asset_id, has_entry({ "draft" => false }))
+          Services.asset_manager.expects(:update_asset).once.with(second_asset_id, has_entry({ "draft" => false }))
 
-          AssetManagerAttachmentMetadataWorker.drain
-        end
+          visit admin_news_article_path(edition)
+          click_link "Force publish"
+          assert_text "Reason for force publishing"
+          fill_in "Reason for force publishing", with: "testing"
+          click_button "Force publish"
+          assert_text "The document #{edition.title} has been published"
 
-        it "queues one worker to delete the asset" do
-          queued_ids = AssetManagerAttachmentMetadataWorker.jobs.map { |job| job["args"].first }
-
-          assert_equal queued_ids, [first_attachment.attachment_data.id]
+          PublishAttachmentAssetJob.drain
         end
       end
 
@@ -91,8 +95,6 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         stub_asset(original_asset_manager_id)
 
         latest_attachable.update!(minor_change: true)
-
-        AssetManagerAttachmentMetadataWorker.drain
       end
 
       it "deletes the corresponding asset in Asset Manager only when the new draft gets published" do
@@ -104,8 +106,10 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         click_button "Delete attachment"
         assert_text "Attachment deleted"
 
-        Services.asset_manager.expects(:update_asset).once.with(original_asset_manager_id, has_entry({ "draft" => false }))
-        AssetManagerAttachmentMetadataWorker.drain
+        Services.asset_manager.expects(:update_asset)
+                .with(original_asset_manager_id, has_entry({ "draft" => false }))
+                .at_least_once
+        Services.asset_manager.expects(:delete_asset).once.with(original_asset_manager_id)
 
         visit admin_news_article_path(latest_attachable)
         click_link "Force publish"
@@ -114,8 +118,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         click_button "Force publish"
         assert_text "The document #{latest_attachable.title} has been published"
 
-        Services.asset_manager.expects(:delete_asset).once.with(original_asset_manager_id)
-        AssetManagerAttachmentMetadataWorker.drain
+        PublishAttachmentAssetJob.drain
       end
 
       context "when the attachment has been replaced" do
@@ -145,8 +148,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           click_button "Delete attachment"
           assert_text "Attachment deleted"
 
-          Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entry({ "draft" => true }))
-          AssetManagerAttachmentMetadataWorker.drain
+          Services.asset_manager.expects(:delete_asset).once.with(replacement_asset_manager_id)
+          Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entry({ "draft" => false }))
 
           visit admin_news_article_path(latest_attachable)
           click_link "Force publish"
@@ -155,9 +158,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           click_button "Force publish"
           assert_text "The document #{latest_attachable.title} has been published"
 
-          Services.asset_manager.expects(:delete_asset).once.with(replacement_asset_manager_id)
-          Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entry({ "draft" => false }))
-          AssetManagerAttachmentMetadataWorker.drain
+          PublishAttachmentAssetJob.drain
         end
       end
     end

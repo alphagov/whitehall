@@ -48,9 +48,7 @@ class Admin::AttachmentsController < Admin::BaseController
   def confirm_destroy; end
 
   def destroy
-    attachment_data = attachment.attachment_data
     attachment.destroy!
-    attachment_updater(attachment_data)
     redirect_to attachable_attachments_path(attachable), notice: "Attachment deleted"
   end
 

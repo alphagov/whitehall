@@ -31,16 +31,15 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
         let(:asset_initially_draft) { true }
 
         it "sets link to parent document in Asset Manager when document is published" do
-          visit admin_news_article_path(edition)
-          force_publish_document
-
           parent_document_url = edition.public_url
-
           Services.asset_manager.expects(:update_asset)
                   .at_least_once
                   .with(asset_manager_id, has_entry("parent_document_url", parent_document_url))
 
-          AssetManagerAttachmentMetadataWorker.drain
+          visit admin_news_article_path(edition)
+          force_publish_document
+
+          PublishAttachmentAssetJob.drain
         end
       end
     end
