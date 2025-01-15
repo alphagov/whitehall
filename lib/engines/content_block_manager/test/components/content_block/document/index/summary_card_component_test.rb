@@ -68,4 +68,25 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
       assert_selector ".govuk-summary-list__value", text: "instructions"
     end
   end
+
+  describe "when the content block contains nested content" do
+    it "shows a list of keys and values for each embedded item" do
+      content_block_document.latest_edition.details = { "facts" => [
+        { "interesting_fact" => "value 1 of fact", "another_interesting_fact" => "another value 1 of fact" },
+        { "interesting_fact" => "value 2 of fact", "another_interesting_fact" => "another value 2 of fact" },
+      ] }
+
+      render_inline(ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:))
+
+      page.find ".govuk-summary-list__row", text: "Fact 1" do
+        assert_selector "li", text: "Interesting fact: value 1 of fact"
+        assert_selector "li", text: "Another interesting fact: another value 1 of fact"
+      end
+
+      page.find ".govuk-summary-list__row", text: "Fact 2" do
+        assert_selector "li", text: "Interesting fact: value 2 of fact"
+        assert_selector "li", text: "Another interesting fact: another value 2 of fact"
+      end
+    end
+  end
 end

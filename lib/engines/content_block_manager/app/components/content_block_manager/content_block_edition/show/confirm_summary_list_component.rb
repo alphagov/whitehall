@@ -1,4 +1,6 @@
 class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::EditionHelper
+
   def initialize(content_block_edition:)
     @content_block_edition = content_block_edition
   end
@@ -33,21 +35,7 @@ private
   end
 
   def details_items
-    content_block_edition.details.map { |key, value|
-      if value.is_a?(Array)
-        value.each.with_index(1).map do |items, i|
-          {
-            field: "New #{key.humanize.downcase.singularize} #{i}",
-            value: list_entry_for_items(items),
-          }
-        end
-      else
-        {
-          field: "New #{key.humanize.downcase}",
-          value:,
-        }
-      end
-    }.flatten
+    summary_list_entries_for_details(content_block_edition.details, title_style: :confirm)
   end
 
   def list_entry_for_items(items)
