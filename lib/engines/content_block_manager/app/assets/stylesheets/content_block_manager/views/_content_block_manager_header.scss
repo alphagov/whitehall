@@ -4,7 +4,7 @@
 
   &--column-right {
     display: flex;
-    align-self: center;
+    align-self: flex-start;
     justify-content: flex-end;
   }
 }
