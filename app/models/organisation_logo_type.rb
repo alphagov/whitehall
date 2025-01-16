@@ -55,4 +55,7 @@ class OrganisationLogoType
   PrimeMinistersOffice10DowningStreet = create!(
     id: 16, title: "Prime Minister's Office, 10 Downing Street", class_name: "no10",
   )
+  GdsCrest = create!(
+    id: 17, title: "GDS", class_name: "gds",
+  )
 end
