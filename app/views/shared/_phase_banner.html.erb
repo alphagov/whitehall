@@ -1,5 +1,3 @@
-<% show_feedback_banner ||= true %>
-
 <% if t('admin.whats_new.show_banner') %>
   <%= render "govuk_publishing_components/components/phase_banner", {
       id: "whats_new_banner",
@@ -15,7 +13,8 @@
           )
         }.", attributes: %w(class href)),
     } %>
-<% elsif show_feedback_banner %>
+<% end %>
+<% if t('admin.feedback.show_banner') %>
   <%= render "govuk_publishing_components/components/phase_banner", {
       id: "feedback_banner",
       phase: "Feedback",
