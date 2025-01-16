@@ -1,7 +1,6 @@
 class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManager::BaseController
   def index
     if params_filters.any?
-      session[:content_block_filters] = params_filters
       @filters = params_filters
       filter_result = ContentBlockManager::ContentBlock::Document::DocumentFilter.new(@filters)
       @content_block_documents = filter_result.paginated_documents
@@ -10,8 +9,6 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
         @error_summary_errors = @errors.map { |error| { text: error.full_message, href: "##{error.attribute}_3i" } }
       end
       render :index
-    elsif params[:reset_fields].blank? && session_filters.any?
-      redirect_to content_block_manager.content_block_manager_root_path(session_filters)
     else
       redirect_to content_block_manager.content_block_manager_root_path(default_filters)
     end
@@ -58,10 +55,6 @@ private
     params.slice(:keyword, :block_type, :lead_organisation, :page, :last_updated_to, :last_updated_from)
           .permit!
           .to_h
-  end
-
-  def session_filters
-    (session[:content_block_filters] || {}).to_h
   end
 
   def default_filters
