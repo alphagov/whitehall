@@ -1,5 +1,8 @@
 <%=
 content_tag(:div) do
-  render "govuk_publishing_components/components/#{component_name}", { message: }
+  render "govuk_publishing_components/components/#{component_name}", {
+    message: message,
+    data_attributes: data_attributes,
+  }
 end
 %>
