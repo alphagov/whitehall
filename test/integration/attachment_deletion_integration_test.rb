@@ -60,18 +60,15 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context "when draft document is discarded" do
-        before do
-          visit admin_news_article_path(edition)
-          click_link "Delete draft"
-          click_button "Delete"
-        end
-
         it "deletes all corresponding assets in Asset Manager" do
           Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
           Services.asset_manager.expects(:delete_asset).once.with(second_asset_id)
-          assert_equal AssetManagerAttachmentMetadataWorker.jobs.count, 2
 
-          AssetManagerAttachmentMetadataWorker.drain
+          visit admin_news_article_path(edition)
+          click_link "Delete draft"
+          click_button "Delete"
+
+          DeleteAttachmentAssetJob.drain
         end
       end
     end

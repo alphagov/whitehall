@@ -6,10 +6,6 @@ class AssetManagerAttachmentMetadataWorker < WorkerBase
 
     return if attachment_data.blank?
 
-    # This call needs to be here to run when we do an edition discard.
-    # See next commit where we remove this call in favour of a custom discard service listener.
-    AssetManager::AttachmentDeleter.call(attachment_data)
-
     return unless attachment_data.all_asset_variants_uploaded?
 
     AssetManager::AttachmentUpdater.call(attachment_data)
