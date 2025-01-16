@@ -25,9 +25,11 @@ module ContentBlockManager
     end
 
     def record_update
-      user = Current.user
-      state = try(:state)
-      versions.create!(event: "updated", user:, state:)
+      unless draft?
+        user = Current.user
+        state = try(:state)
+        versions.create!(event: "updated", user:, state:)
+      end
     end
   end
 end
