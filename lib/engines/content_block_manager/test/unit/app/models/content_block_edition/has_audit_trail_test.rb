@@ -7,11 +7,16 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
     it "creates a 'created' version with the current user" do
       user = create("user")
       Current.user = user
-      edition = create(
+      edition = build(
         :content_block_edition,
         creator: user,
         document: create(:content_block_document, :email_address),
       )
+
+      assert_changes -> { edition.versions.count }, from: 0, to: 1 do
+        edition.save
+      end
+
       version = edition.versions.first
 
       assert_equal user.id.to_s, version.whodunnit
@@ -29,13 +34,28 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
         document: create(:content_block_document, :email_address),
       )
       edition.scheduled_publication = Time.zone.now
-      edition.schedule!
+
+      assert_changes -> { edition.versions.count }, from: 1, to: 2 do
+        edition.schedule!
+      end
 
       version = edition.versions.first
 
       assert_equal user.id.to_s, version.whodunnit
       assert_equal "updated", version.event
       assert_equal "scheduled", version.state
+    end
+
+    it "does not record a version when updating an existing draft" do
+      edition = create(
+        :content_block_edition,
+        document: create(:content_block_document, :email_address),
+        state: "draft",
+      )
+
+      assert_no_changes -> { edition.versions.count } do
+        edition.update!(details: { "foo": "bar" })
+      end
     end
   end
 
