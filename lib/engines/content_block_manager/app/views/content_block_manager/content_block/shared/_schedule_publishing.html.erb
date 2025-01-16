@@ -96,13 +96,23 @@
     <% end %>
     </div>
     <div>
-      <%= render partial: "content_block_manager/content_block/shared/cancel_delete_button",
-                 locals: {
-                   url: content_block_manager.content_block_manager_content_block_edition_path(
-                     @content_block_edition,
-                     redirect_path: content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document),
-                     ),
-                 } %>
+      <% if is_rescheduling %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Cancel",
+          name: "Cancel",
+          value: "Cancel",
+          href: back_link,
+          secondary_solid: true,
+        } %>
+      <% else %>
+        <%= render partial: "content_block_manager/content_block/shared/cancel_delete_button",
+                   locals: {
+                     url: content_block_manager.content_block_manager_content_block_edition_path(
+                       @content_block_edition,
+                       redirect_path: content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document),
+                       ),
+                   } %>
+      <% end %>
     </div>
     </div>
   </div>
