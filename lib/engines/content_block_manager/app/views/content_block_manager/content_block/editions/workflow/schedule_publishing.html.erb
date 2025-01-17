@@ -1,12 +1,16 @@
-<%= render "content_block_manager/content_block/shared/schedule_publishing", {
-  context:,
-  back_link: content_block_manager.content_block_manager_content_block_workflow_path(
-    edition_id: @content_block_edition.id,
-    step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
-    ),
-  form_url: content_block_manager.content_block_manager_content_block_workflow_path(
-    edition_id: @content_block_edition.id,
-    step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:schedule_publishing],
-    ),
-  is_rescheduling: false,
-} %>
+<%=
+    render ContentBlockManager::Shared::SchedulePublishingComponent.new(
+      content_block_edition: @content_block_edition,
+      params:,
+      context:,
+      back_link: content_block_manager.content_block_manager_content_block_workflow_path(
+        edition_id: @content_block_edition.id,
+        step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
+      ),
+      form_url: content_block_manager.content_block_manager_content_block_workflow_path(
+        edition_id: @content_block_edition.id,
+        step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:schedule_publishing],
+      ),
+      is_rescheduling: false,
+    )
+%>
