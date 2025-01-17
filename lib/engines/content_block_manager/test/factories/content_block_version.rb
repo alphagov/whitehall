@@ -12,5 +12,6 @@ FactoryBot.define do
     end
     whodunnit { create(:user).id }
     state {}
+    changed_fields {}
   end
 end

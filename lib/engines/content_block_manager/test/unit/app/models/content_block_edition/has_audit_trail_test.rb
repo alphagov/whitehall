@@ -3,9 +3,10 @@ require "test_helper"
 class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
+  let(:user) { create("user") }
+
   describe "record_create" do
     it "creates a 'created' version with the current user" do
-      user = create("user")
       Current.user = user
       edition = build(
         :content_block_edition,
@@ -26,7 +27,6 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
 
   describe "record_update" do
     it "creates a 'updated' version after scheduling an edition" do
-      user = create("user")
       Current.user = user
       edition = create(
         :content_block_edition,
@@ -55,6 +55,104 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
 
       assert_no_changes -> { edition.versions.count } do
         edition.update!(details: { "foo": "bar" })
+      end
+    end
+
+    describe "when there are changes to the content of a block" do
+      describe "when a top level field on an edition has changed" do
+        %w[title instructions_to_publishers].each do |field|
+          it "records the changes" do
+            old_value = "old_value"
+            new_value = "new_value"
+            Current.user = user
+            organisation = build(:organisation)
+            document = create(:content_block_document, :email_address)
+            previous_edition = create(
+              :content_block_edition,
+              creator: user,
+              document:,
+              organisation:,
+            )
+            previous_edition.update!(field => old_value)
+            new_edition = create(
+              :content_block_edition,
+              creator: user,
+              document:,
+              state: "draft",
+              organisation:,
+            )
+            new_edition.update!(field => new_value)
+
+            new_edition.publish!
+
+            version = new_edition.versions.first
+
+            assert_equal version.changed_fields, [{ "field_name" => field, "previous" => old_value, "new" => new_value }]
+          end
+        end
+
+        describe "when the organisation has changed" do
+          it "records the changes" do
+            old_organisation = build(:organisation, id: "123", name: "Old Organisation")
+            Organisation.expects(:find).with(old_organisation.id).returns(old_organisation)
+
+            Current.user = user
+            document = create(:content_block_document, :email_address)
+            _previous_edition = create(
+              :content_block_edition,
+              creator: user,
+              document:,
+              organisation: old_organisation,
+            )
+            new_edition = create(
+              :content_block_edition,
+              creator: user,
+              document:,
+              state: "draft",
+              organisation: build(:organisation, name: "New Organisation", id: "456"),
+            )
+
+            new_edition.publish!
+
+            version = new_edition.versions.first
+
+            assert_equal version.changed_fields, [{ "field_name" => "lead_organisation", "previous" => "Old Organisation", "new" => "New Organisation" }]
+          end
+        end
+      end
+
+      describe "when a field in the edition details has changed" do
+        it "records the changes" do
+          organisation = build(:organisation)
+
+          Current.user = user
+          document = create(:content_block_document, :email_address)
+          _previous_edition = create(
+            :content_block_edition,
+            creator: user,
+            document:,
+            title: "same title",
+            instructions_to_publishers: "same instructions",
+            details: { "email_address": "old@example.com" },
+            organisation:,
+          )
+          new_edition = create(
+            :content_block_edition,
+            creator: user,
+            document:,
+            title: "same title",
+            instructions_to_publishers: "same instructions",
+            details: { "email_address": "new@example.com" },
+            state: "draft",
+            organisation:,
+          )
+
+          new_edition.publish!
+
+          version = new_edition.versions.first
+
+          assert_equal version.changed_fields, [{ "field_name" => "email_address", "new" => "new@example.com", "previous" => "old@example.com" }]
+        end
       end
     end
   end
