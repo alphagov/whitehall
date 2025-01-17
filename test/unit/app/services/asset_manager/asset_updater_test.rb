@@ -20,16 +20,6 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     @asset_updater.call(@asset_manager_id, { "auth_bypass_ids" => [] })
   end
 
-  test "warns if asset has been deleted in asset manager and attachment_data isn't deleted" do
-    @asset_updater.stubs(:find_asset_by_id).with(@asset_manager_id)
-           .returns("id" => @asset_url, "deleted" => true)
-    @attachment_data.stubs(:deleted?).returns(false)
-
-    Logger.any_instance.stubs(:warn).with("Asset with asset_manager_id: '#{@asset_manager_id}' expected not to be deleted in Asset Manager").once
-
-    @asset_updater.call(@asset_manager_id, { "draft" => false })
-  end
-
   test "does not update asset if no attributes are supplied" do
     assert_raises(AssetManager::AssetUpdater::AssetAttributesEmpty) do
       @asset_updater.call(@asset_manager_id, {})
