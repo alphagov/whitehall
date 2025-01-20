@@ -182,4 +182,9 @@ class OrganisationBrandColour
     title: "Serious Fraud Office",
     class_name: "serious-fraud-office",
   )
+  Gds = create!(
+    id: 36,
+    title: "GDS",
+    class_name: "government-digital-service",
+  )
 end
