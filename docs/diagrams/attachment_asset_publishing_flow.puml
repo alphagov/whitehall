@@ -1,0 +1,52 @@
+@startuml attachment_asset_publishing_flow
+
+title The sequence of publishing an edition with a file attachment in Whitehall
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
+box "Whitehall" #f2fef8
+actor publisher
+participant EditionWorkflowController
+participant EditionPublisher
+participant EditionServiceCoordinator
+participant PublishingApiPusher
+participant AttachmentAssetPublisher
+participant Attachment
+end box
+
+box Whitehall worker (Sidekiq)
+participant PublishAttachmentAssetJob
+end box
+
+box "Asset Manager" #f2f8fe
+participant AssetManager
+end box
+
+box "Publishing API" #f2f8fe
+participant PublishingApi
+end box
+
+publisher -> EditionWorkflowController : publish
+EditionWorkflowController -> EditionPublisher : publish
+activate EditionPublisher
+EditionPublisher -> PublishingApiPusher : push(publish)
+activate PublishingApiPusher
+PublishingApiPusher --> PublishingApi : update_draft
+PublishingApiPusher --> PublishingApi : publish
+deactivate PublishingApiPusher
+EditionPublisher -> EditionServiceCoordinator : publish
+deactivate EditionPublisher
+EditionServiceCoordinator -> AttachmentAssetPublisher : call
+
+activate AttachmentAssetPublisher
+AttachmentAssetPublisher -> Attachment : "Load edition attachments"
+AttachmentAssetPublisher --> PublishAttachmentAssetJob : Enqueue
+deactivate
+
+group Happens once per attachment
+activate PublishAttachmentAssetJob
+PublishAttachmentAssetJob -> AssetManager : Delete deleted attachment assets
+PublishAttachmentAssetJob -> AssetManager : Set `draft` to false
+deactivate
+end group
+@enduml
