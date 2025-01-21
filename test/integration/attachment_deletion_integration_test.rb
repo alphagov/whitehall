@@ -25,8 +25,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
         stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
 
-        stub_asset(first_asset_id)
-        stub_asset(second_asset_id)
+        stub_asset(first_asset_id, { "draft" => true, "parent_document_url" => edition.public_url(draft: true) })
+        stub_asset(second_asset_id, { "draft" => true, "parent_document_url" => edition.public_url(draft: true) })
 
         edition.attachments << [first_attachment, second_attachment]
         edition.save!
@@ -45,8 +45,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           assert_text "Attachment deleted"
 
           Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
-          Services.asset_manager.expects(:update_asset).once.with(first_asset_id, has_entry({ "draft" => false }))
-          Services.asset_manager.expects(:update_asset).once.with(second_asset_id, has_entry({ "draft" => false }))
+          Services.asset_manager.expects(:update_asset).once.with(first_asset_id, has_entries({ "draft" => false, "parent_document_url" => edition.public_url(draft: false) }))
+          Services.asset_manager.expects(:update_asset).once.with(second_asset_id, has_entries({ "draft" => false, "parent_document_url" => edition.public_url(draft: false) }))
 
           visit admin_news_article_path(edition)
           click_link "Force publish"
@@ -89,7 +89,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         stub_publishing_api_expanded_links_with_taxons(latest_attachable.content_id, [])
         stub_publishing_api_links_with_taxons(latest_attachable.content_id, [topic_taxon["content_id"]])
 
-        stub_asset(original_asset_manager_id)
+        stub_asset(original_asset_manager_id, { "draft" => false, "parent_document_url" => latest_attachable.public_url(draft: false) })
 
         latest_attachable.update!(minor_change: true)
       end
@@ -103,10 +103,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         click_button "Delete attachment"
         assert_text "Attachment deleted"
 
-        Services.asset_manager.expects(:update_asset)
-                .with(original_asset_manager_id, has_entry({ "draft" => false }))
-                .at_least_once
         Services.asset_manager.expects(:delete_asset).once.with(original_asset_manager_id)
+        Services.asset_manager.expects(:update_asset).never
 
         visit admin_news_article_path(latest_attachable)
         click_link "Force publish"
@@ -122,7 +120,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         let(:replacement_asset_manager_id) { "replacement_asset_manager_id" }
 
         before do
-          stub_asset(replacement_asset_manager_id)
+          stub_asset(replacement_asset_manager_id, { "draft" => true, "parent_document_url" => latest_attachable.public_url(draft: true) })
 
           replacement_data = create(:attachment_data, attachable: latest_attachable)
           attachment.attachment_data.replaced_by = replacement_data
@@ -146,7 +144,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           assert_text "Attachment deleted"
 
           Services.asset_manager.expects(:delete_asset).once.with(replacement_asset_manager_id)
-          Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entry({ "draft" => false }))
+          Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entries({ "draft" => false, "parent_document_url" => latest_attachable.public_url(draft: false) }))
 
           visit admin_news_article_path(latest_attachable)
           click_link "Force publish"
