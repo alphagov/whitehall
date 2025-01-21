@@ -76,6 +76,10 @@ Whitehall::Application.routes.draw do
         end
       end
 
+      scope :retagging do
+        root to: "retagging#index", as: :retagging_index, via: :get
+      end
+
       resources :documents, only: [] do
         resources :review_reminders, only: %i[new create edit update destroy] do
           get :confirm_destroy, on: :member
