@@ -108,4 +108,34 @@ class PolicyGroupTest < ActiveSupport::TestCase
 
     assert_empty policy_group.depended_upon_contacts
   end
+
+  test "deletes assets belonging to deleted attachments on save" do
+    first_attachment = create(:file_attachment, ordering: 1)
+    second_attachment = create(:file_attachment, ordering: 2)
+    policy_group = FactoryBot.create(
+      :policy_group,
+      attachments: [first_attachment, second_attachment],
+    )
+    first_attachment.destroy!
+    second_attachment.destroy!
+
+    DeleteAttachmentAssetJob.expects(:perform_async).with(first_attachment.attachment_data.id).once
+    DeleteAttachmentAssetJob.expects(:perform_async).with(second_attachment.attachment_data.id).once
+
+    policy_group.save!
+  end
+
+  test "does not delete assets belonging to not deleted attachments on save" do
+    first_attachment = create(:file_attachment, ordering: 1)
+    second_attachment = create(:file_attachment, ordering: 2)
+    policy_group = FactoryBot.create(
+      :policy_group,
+      attachments: [first_attachment, second_attachment],
+    )
+
+    DeleteAttachmentAssetJob.expects(:perform_async).with(first_attachment.attachment_data.id).never
+    DeleteAttachmentAssetJob.expects(:perform_async).with(second_attachment.attachment_data.id).never
+
+    policy_group.save!
+  end
 end

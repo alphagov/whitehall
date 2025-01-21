@@ -218,6 +218,37 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
+    context "given a policy group" do
+      let(:managing_editor) { create(:managing_editor) }
+      let(:attachable) { create(:policy_group) }
+      let(:attachment) { build(:file_attachment, attachable:) }
+      let(:asset_manager_id) { attachment.attachment_data.assets.first.asset_manager_id }
+
+      before do
+        login_as(managing_editor)
+        stub_asset(asset_manager_id, { "draft" => false, "parent_document_url" => nil })
+
+        attachable.attachments << [attachment]
+        attachable.save!
+      end
+
+      it "deletes the corresponding asset in Asset Manager when the policy group is saved" do
+        Services.asset_manager.expects(:delete_asset).once.with(asset_manager_id)
+        Services.asset_manager.expects(:update_asset).with(asset_manager_id).never
+
+        visit admin_policy_group_attachments_path(attachable)
+        within page.find("li", text: attachment.title) do
+          click_link "Delete attachment"
+        end
+        click_button "Delete attachment"
+        assert_text "Attachment deleted"
+        click_link "Group"
+        click_button "Save"
+
+        DeleteAttachmentAssetJob.drain
+      end
+    end
+
   private
 
     def setup_publishing_api_for(edition)
