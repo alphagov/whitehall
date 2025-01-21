@@ -6,9 +6,8 @@ module ContentBlockManager
       @schema = schema
     end
 
-    def call(edition, scheduled_publication_params)
+    def call(edition)
       schedule_with_rollback do
-        edition.update!(scheduled_publication_params)
         edition.update_document_reference_to_latest_edition!
         edition
       end
