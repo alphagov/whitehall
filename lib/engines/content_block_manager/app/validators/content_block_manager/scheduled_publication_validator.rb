@@ -2,12 +2,10 @@ class ContentBlockManager::ScheduledPublicationValidator < ActiveModel::Validato
   attr_reader :edition
 
   def validate(edition)
-    if edition.state == "scheduled"
-      if edition.scheduled_publication.blank?
-        edition.errors.add("scheduled_publication", :blank)
-      elsif edition.scheduled_publication < Time.zone.now
-        edition.errors.add("scheduled_publication", :future_date)
-      end
+    if edition.scheduled_publication.blank?
+      edition.errors.add("scheduled_publication", :blank)
+    elsif edition.scheduled_publication < Time.zone.now
+      edition.errors.add("scheduled_publication", :future_date)
     end
   end
 end

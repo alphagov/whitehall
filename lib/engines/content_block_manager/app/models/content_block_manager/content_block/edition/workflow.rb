@@ -14,7 +14,7 @@ module ContentBlockManager
 
       date_attributes :scheduled_publication
 
-      validates_with ContentBlockManager::ScheduledPublicationValidator
+      validates_with ContentBlockManager::ScheduledPublicationValidator, if: -> { validation_context == :scheduling || state == "scheduled" }
 
       state_machine auto_scopes: true do
         state :draft
