@@ -158,6 +158,66 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
+    context "given an outcome on a draft consultation" do
+      let(:managing_editor) { create(:managing_editor) }
+      let(:topic_taxon) { build(:taxon_hash) }
+      let(:edition) { create(:draft_consultation) }
+      let(:attachable) { edition.create_outcome!(FactoryBot.attributes_for(:consultation_outcome)) }
+      let(:attachment) { build(:csv_attachment, attachable:) }
+      let(:asset_id) { attachment.attachment_data.assets.first.asset_manager_id }
+
+      before do
+        login_as(managing_editor)
+
+        setup_publishing_api_for(edition)
+        stub_publishing_api_has_linkables([], document_type: "topic")
+        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+        stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
+
+        stub_asset(asset_id, { "draft" => true, "parent_document_url" => nil })
+
+        attachable.attachments << [attachment]
+        attachable.save!
+      end
+
+      it "deletes the corresponding asset in Asset Manager when the edition is published and updates its draft setting to false" do
+        Services.asset_manager.expects(:delete_asset).never
+
+        visit admin_consultation_path(edition)
+        click_link "Edit draft"
+        click_link "Final outcome"
+        within page.find("li", text: attachment.title) do
+          click_link "Delete attachment"
+        end
+        click_button "Delete attachment"
+        assert_text "Attachment deleted"
+
+        Services.asset_manager.expects(:delete_asset).once.with(asset_id)
+        Services.asset_manager.expects(:update_asset).once.with(asset_id, has_entries({ "draft" => false }))
+
+        visit admin_consultation_path(edition)
+        click_link "Force publish"
+        assert_text "Reason for force publishing"
+        fill_in "Reason for force publishing", with: "testing"
+        click_button "Force publish"
+        assert_text "The document #{edition.title} has been published"
+
+        PublishAttachmentAssetJob.drain
+      end
+
+      context "when draft consultation is discarded" do
+        it "deletes all outcome attachment assets in Asset Manager" do
+          Services.asset_manager.expects(:delete_asset).once.with(asset_id)
+
+          visit admin_consultation_path(edition)
+          click_link "Delete draft"
+          click_button "Delete"
+
+          DeleteAttachmentAssetJob.drain
+        end
+      end
+    end
+
   private
 
     def setup_publishing_api_for(edition)
