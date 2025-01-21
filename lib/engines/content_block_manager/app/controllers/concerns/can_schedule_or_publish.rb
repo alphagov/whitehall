@@ -4,8 +4,8 @@ module CanScheduleOrPublish
   def schedule_or_publish
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
 
-    if params[:schedule_publishing] == "schedule"
-      ContentBlockManager::ScheduleEditionService.new(@schema).call(@content_block_edition, scheduled_publication_params)
+    if is_scheduling?
+      ContentBlockManager::ScheduleEditionService.new(@schema).call(@content_block_edition)
     else
       publish and return
     end
@@ -21,15 +21,22 @@ module CanScheduleOrPublish
   end
 
   def validate_scheduled_edition
-    if params[:schedule_publishing].blank?
-      @content_block_edition.errors.add(:schedule_publishing, t("activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank"))
-      raise ActiveRecord::RecordInvalid, @content_block_edition
-    elsif params[:schedule_publishing] == "schedule"
+    case params[:schedule_publishing]
+    when "schedule"
       validate_scheduled_publication_params
 
-      @content_block_edition.assign_attributes(scheduled_publication_params)
-      @content_block_edition.assign_attributes(state: "scheduled")
-      raise ActiveRecord::RecordInvalid, @content_block_edition unless @content_block_edition.valid?
+      @content_block_edition.update!(scheduled_publication_params)
+      if @content_block_edition.valid?(:scheduling)
+        @content_block_edition.save!
+      else
+        raise ActiveRecord::RecordInvalid, @content_block_edition
+      end
+    when "now"
+      @content_block_edition.update!(scheduled_publication: nil, state: "draft")
+      ContentBlockManager::SchedulePublishingWorker.dequeue(@content_block_edition)
+    else
+      @content_block_edition.errors.add(:schedule_publishing, t("activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank"))
+      raise ActiveRecord::RecordInvalid, @content_block_edition
     end
   end
 
@@ -64,15 +71,13 @@ module CanScheduleOrPublish
   end
 
   def review_update_url
-    schedule_publishing = params[:schedule_publishing]
-    scheduled_at = scheduled_publication_params.to_h
-
     content_block_manager.content_block_manager_content_block_workflow_path(
       @content_block_edition,
       step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_update],
-      schedule_publishing:,
-      scheduled_at:,
     )
   end
 
+  def is_scheduling?
+    @content_block_edition.scheduled_publication.present?
+  end
 end
