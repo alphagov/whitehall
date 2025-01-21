@@ -48,9 +48,8 @@
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <div>
           <%= render "govuk_publishing_components/components/button", {
-            text: "Confirm",
+            text: is_scheduling? ? "Schedule" : "Publish",
             name: "confirm",
-            value: "Confirm",
             type: "submit",
           } %>
       <% end %>

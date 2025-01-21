@@ -24,8 +24,7 @@ Feature: Create a content object
       | title            | email_address   | department | organisation        | instructions_to_publishers |
       | my email address | foo@example.com | Somewhere  | Ministry of Example | this is important  |
     Then I am asked to review my answers
-    And I confirm my answers are correct
-    When I click confirm
+    And I review and confirm my answers are correct
     Then the edition should have been created successfully
     And I should be taken to the confirmation page for a new block
 
@@ -63,7 +62,7 @@ Feature: Create a content object
       | title            | email_address   | department | organisation |
       | my email address | foo@example.com           | Somewhere  | Ministry of Example |
     Then I am asked to review my answers
-    When I click confirm
+    When I click publish without confirming my details
     Then I should see a message that I need to confirm the details are correct
 
   Scenario: GDS editor does not see error when not providing instructions to publishers
@@ -101,8 +100,7 @@ Feature: Create a content object
       | my email address 2 |
     Then I am asked to review my answers
     And I confirm my answers are correct
-    When I click confirm
-    Then the edition should have been created successfully
+    And I review and confirm my answers are correct
     And I should be taken to the confirmation page for a new block
 
   Scenario: Draft documents are not listed

@@ -1,6 +1,13 @@
 require "test_helper"
 
 class EditionFormTestClass
+  class << self
+    def helper_method(method)
+      @helper_methods ||= []
+      @helper_methods << method
+    end
+  end
+
   include CanScheduleOrPublish
   include I18n::Base
 

@@ -104,7 +104,7 @@ Feature: Edit a content object
     And I choose to publish the change now
     When I save and continue
     Then I am asked to review my answers
-    When I click confirm
+    When I click publish without confirming my details
     Then I should see a message that I need to confirm the details are correct
 
   @enable-sidekiq-test-mode

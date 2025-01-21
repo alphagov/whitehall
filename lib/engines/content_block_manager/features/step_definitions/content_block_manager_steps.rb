@@ -509,7 +509,11 @@ end
 When("I review and confirm my answers are correct") do
   assert_text "Review email address"
   check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
-  click_on "Confirm"
+  click_on @is_scheduled ? "Schedule" : "Publish"
+end
+
+When("I click publish without confirming my details") do
+  click_on "Publish"
 end
 
 When(/^dependent content exists for a content block$/) do
@@ -660,6 +664,7 @@ Then(/^I am asked when I want to publish the change$/) do
 end
 
 Then(/^I choose to publish the change now$/) do
+  @is_scheduled = false
   choose "Publish the edit now"
 end
 
@@ -697,6 +702,7 @@ end
 And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
   choose "Schedule the edit for the future"
   @future_date = number_of_days.days.since(Time.zone.now)
+  @is_scheduled = true
   fill_in_date_and_time_field(@future_date)
 
   click_on "Save and continue"
@@ -749,6 +755,7 @@ Then("the edition should have been scheduled successfully") do
 end
 
 And("the block is scheduled and published") do
+  @is_scheduled = true
   create(:scheduled_publishing_robot)
   near_future_date = 1.minute.from_now
   fill_in_date_and_time_field(near_future_date)

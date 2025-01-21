@@ -1,6 +1,10 @@
 module CanScheduleOrPublish
   extend ActiveSupport::Concern
 
+  def self.included(base)
+    base.helper_method :is_scheduling?
+  end
+
   def schedule_or_publish
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
 
