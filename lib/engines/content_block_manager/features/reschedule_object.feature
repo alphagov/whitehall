@@ -58,3 +58,16 @@ Feature: Schedule a content object
     And I click the cancel link
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
+
+  @disable-sidekiq-test-mode
+  Scenario: GDS editor cancels the rescheduling of an object on the confirmation page
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    And I schedule the change for 7 days in the future
+    When I review and confirm my answers are correct
+    When I click to view the content block
+    And I click to edit the schedule
+    And I schedule the change for 5 days in the future
+    And I click cancel
+    Then I am taken back to Content Block Manager home page
+    And no draft Content Block Edition has been created

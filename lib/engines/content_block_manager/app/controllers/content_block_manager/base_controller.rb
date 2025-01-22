@@ -50,16 +50,4 @@ class ContentBlockManager::BaseController < Admin::BaseController
   def prepend_views
     prepend_view_path Rails.root.join("lib/engines/content_block_manager/app/views")
   end
-
-  def review_update_url
-    schedule_publishing = params[:schedule_publishing]
-    scheduled_at = scheduled_publication_params.to_h
-
-    content_block_manager.content_block_manager_content_block_workflow_path(
-      @content_block_edition,
-      step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_update],
-      schedule_publishing:,
-      scheduled_at:,
-    )
-  end
 end

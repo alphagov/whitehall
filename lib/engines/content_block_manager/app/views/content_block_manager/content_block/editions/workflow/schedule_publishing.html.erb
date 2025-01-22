@@ -4,11 +4,11 @@
       params:,
       context:,
       back_link: content_block_manager.content_block_manager_content_block_workflow_path(
-        edition_id: @content_block_edition.id,
+        @content_block_edition,
         step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
       ),
       form_url: content_block_manager.content_block_manager_content_block_workflow_path(
-        edition_id: @content_block_edition.id,
+        @content_block_edition,
         step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:schedule_publishing],
       ),
       is_rescheduling: false,
