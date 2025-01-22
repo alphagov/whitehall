@@ -10,13 +10,11 @@ Feature: Schedule a content object
   @disable-sidekiq-test-mode
   Scenario: GDS Editor immediately publishes a scheduled content object
     When I am updating a content block
-    Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
     And I choose to publish the change now
-    And I save and continue
     When I review and confirm my answers are correct
     When I click to view the content block
     Then the published state of the object should be shown
@@ -25,7 +23,6 @@ Feature: Schedule a content object
   @disable-sidekiq-test-mode
   Scenario: GDS Editor reschedules a content object
     When I am updating a content block
-    Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
     When I review and confirm my answers are correct
     When I click to view the content block
@@ -39,7 +36,6 @@ Feature: Schedule a content object
   @disable-sidekiq-test-mode
   Scenario: GDS Editor tries to reschedule a content object without choosing to schedule
     When I am updating a content block
-    Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
     When I review and confirm my answers are correct
     When I click to view the content block
@@ -50,7 +46,6 @@ Feature: Schedule a content object
   @disable-sidekiq-test-mode
   Scenario: GDS editor cancels the rescheduling of an object
     When I am updating a content block
-    Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
     When I review and confirm my answers are correct
     When I click to view the content block
@@ -62,7 +57,6 @@ Feature: Schedule a content object
   @disable-sidekiq-test-mode
   Scenario: GDS editor cancels the rescheduling of an object on the confirmation page
     When I am updating a content block
-    Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
     When I review and confirm my answers are correct
     When I click to view the content block

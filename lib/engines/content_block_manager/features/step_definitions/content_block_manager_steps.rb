@@ -92,20 +92,6 @@ Then("I should see a back link to the show page") do
   expect(page).to have_link("Back", href: content_block_manager.content_block_manager_content_block_edition_path(id))
 end
 
-Then("I should see a back link to the edit page") do
-  expect(page).to have_link(
-    "Back",
-    href: content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document),
-  )
-end
-
-Then(/^I should see a back link to the review page$/) do
-  expect(page).to have_link(
-    "Back",
-    href: /^.*review_links.*$/,
-  )
-end
-
 When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")
@@ -374,13 +360,6 @@ When("I click the first edit link") do
   click_link "Edit"
 end
 
-Then("I should see the edit form") do
-  should_show_edit_form_for_email_address_content_block(
-    @content_block.document.title,
-    @email_address,
-  )
-end
-
 When("I fill out the form") do
   change_details
 end
@@ -511,7 +490,6 @@ Then("I accept and publish") do
 end
 
 When("I review and confirm my answers are correct") do
-  assert_text "Review email address"
   check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
   click_on @is_scheduled ? "Schedule" : "Publish"
 end
@@ -570,27 +548,11 @@ Then(/^I should see the dependent content listed$/) do
 end
 
 Then(/^I (should )?see the rollup data for the dependent content$/) do |_should|
-  @rollup.keys.each do |k|
-    within ".rollup-details__rollup-metric.#{k}" do
-      assert_text k.to_s.titleize
-      within ".gem-c-glance-metric__figure" do
-        assert_text @rollup[k]
-      end
-    end
-  end
+  should_show_rollup_data
 end
 
 Then(/^I should see an error prompting me to choose an object type$/) do
   assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank")
-end
-
-Then(/^I am shown where the changes will take place$/) do
-  expect(page).to have_selector("h1", text: "Preview email address")
-
-  @dependent_content.each do |item|
-    assert_text item["title"]
-    break if item == @dependent_content.last
-  end
 end
 
 And("the host documents link to the draft content store") do
@@ -663,13 +625,10 @@ When(/^I save and continue$/) do
   click_save_and_continue
 end
 
-Then(/^I am asked when I want to publish the change$/) do
-  assert_text "Select publish date"
-end
-
 Then(/^I choose to publish the change now$/) do
   @is_scheduled = false
   choose "Publish the edit now"
+  click_save_and_continue
 end
 
 Then("I check the block type {string}") do |checkbox_name|
@@ -784,6 +743,10 @@ Then("I should see a warning telling me there is a scheduled change") do
   assert_text "There is currently a change scheduled"
 end
 
+When("I continue after reviewing the links") do
+  click_save_and_continue
+end
+
 def visit_edit_page
   visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
 end
@@ -891,4 +854,64 @@ Then("I should see the details for that user") do
   expect(page).to have_selector(".govuk-summary-list__value", text: @user_from_signon.name)
   expect(page).to have_selector(".govuk-summary-list__value", text: @user_from_signon.email)
   expect(page).to have_selector(".govuk-summary-list__value", text: @user_from_signon.organisation.name)
+end
+
+Then(/^I should be on the "([^"]*)" step$/) do |step|
+  case step
+  when "edit"
+    should_show_edit_form
+  when "review_links"
+    should_show_dependent_content
+    should_show_rollup_data
+  when "schedule_publishing"
+    should_show_publish_form
+  when "review"
+    should_be_on_review_step
+  end
+end
+
+Then(/^I should see a back link to the "([^"]*)" step$/) do |step|
+  link = if step == "edit"
+           content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
+         else
+           content_block_manager.content_block_manager_content_block_workflow_path(
+             @content_block.document.editions.last,
+             step:,
+           )
+         end
+  expect(page).to have_link("Back", href: link)
+end
+def should_show_edit_form
+  should_show_edit_form_for_email_address_content_block(
+    @content_block.document.title,
+    @email_address,
+  )
+end
+
+def should_show_dependent_content
+  expect(page).to have_selector("h1", text: "Preview email address")
+
+  @dependent_content.each do |item|
+    assert_text item["title"]
+    break if item == @dependent_content.last
+  end
+end
+
+def should_show_rollup_data
+  @rollup.keys.each do |k|
+    within ".rollup-details__rollup-metric.#{k}" do
+      assert_text k.to_s.titleize
+      within ".gem-c-glance-metric__figure" do
+        assert_text @rollup[k]
+      end
+    end
+  end
+end
+
+def should_show_publish_form
+  assert_text "Select publish date"
+end
+
+def should_be_on_review_step
+  assert_text "Review email address"
 end

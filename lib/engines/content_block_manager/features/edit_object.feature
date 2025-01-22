@@ -10,21 +10,19 @@ Feature: Edit a content object
 
   Scenario: GDS Editor edits a content object
     When I visit the Content Block Manager home page
-    Then I should see the details for all documents
-    When I click to view the document
-    Then I should see the details for the email address content block
-    When I click the first edit link
-    Then I should see the edit form
+    And I click to view the document
+    And I click the first edit link
+    Then I should be on the "edit" step
     And I should see a back link to the document page
     When I fill out the form
-    Then I am shown where the changes will take place
-    And I see the rollup data for the dependent content
-    And I should see a back link to the edit page
-    When I save and continue
-    Then I am asked when I want to publish the change
-    And I should see a back link to the review page
+    Then I should be on the "review_links" step
+    And I should see a back link to the "edit" step
+    When I continue after reviewing the links
+    Then I should be on the "schedule_publishing" step
+    And I should see a back link to the "review_links" step
     When I choose to publish the change now
-    And I save and continue
+    Then I should be on the "review" step
+    And I should see a back link to the "schedule_publishing" step
     When I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block
@@ -36,36 +34,28 @@ Feature: Edit a content object
     When I visit the Content Block Manager home page
     When I click to view the document
     When I click the first edit link
-    Then I should see the edit form
     When I fill out the form
-    Then I am shown where the changes will take place
-    And I see the rollup data for the dependent content
     And I click cancel
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
 
   Scenario: GDS editor cancels the creation of an object before scheduling
     When I visit the Content Block Manager home page
-    When I click to view the document
+    And I click to view the document
     When I click the first edit link
-    Then I should see the edit form
-    When I fill out the form
-    Then I am shown where the changes will take place
-    And I see the rollup data for the dependent content
-    When I save and continue
-    Then I am asked when I want to publish the change
-    And I click cancel
+    And I fill out the form
+    And I continue after reviewing the links
+    When I click cancel
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
 
   Scenario: GDS editor cancels the creation of an object before confirming answers
     When I visit the Content Block Manager home page
-    When I click to view the document
+    And I click to view the document
     When I click the first edit link
-    When I fill out the form
-    When I save and continue
+    And I fill out the form
+    And I continue after reviewing the links
     When I choose to publish the change now
-    And I save and continue
     And I click cancel
     Then I am taken back to Content Block Manager home page
     And no draft Content Block Edition has been created
