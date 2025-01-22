@@ -105,13 +105,12 @@
           secondary_solid: true,
         } %>
       <% else %>
-        <%= render partial: "content_block_manager/content_block/shared/cancel_delete_button",
-                   locals: {
-                     url: helpers.content_block_manager.content_block_manager_content_block_edition_path(
-                       content_block_edition,
-                       redirect_path: helpers.content_block_manager.content_block_manager_content_block_document_path(content_block_edition.document),
-                       ),
-                   } %>
+        <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: helpers.content_block_manager.
+              content_block_manager_content_block_edition_path(
+                content_block_edition, redirect_path:
+                  helpers.content_block_manager.content_block_manager_content_block_document_path(content_block_edition.document)
+              ),
+            ) %>
       <% end %>
     </div>
     </div>

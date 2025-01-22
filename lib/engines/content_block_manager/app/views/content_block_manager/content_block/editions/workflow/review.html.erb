@@ -56,10 +56,9 @@
       <% end %>
         </div>
         <div>
-          <%= render partial: "content_block_manager/content_block/shared/cancel_delete_button",
-                     locals: {
-                       url:  content_block_manager.content_block_manager_content_block_edition_path(@content_block_edition),
-                     } %>
+          <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: content_block_manager.
+              content_block_manager_content_block_edition_path(@content_block_edition),
+            ) %>
           </div>
       </div>
   </div>
