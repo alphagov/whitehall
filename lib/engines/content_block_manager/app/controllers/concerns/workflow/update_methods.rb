@@ -6,6 +6,7 @@ module Workflow::UpdateMethods
   UPDATE_ACTIONS = {
     review_links: :redirect_to_schedule,
     schedule_publishing: :validate_schedule,
+    internal_note: :update_internal_note,
     review_update: :validate_review_page,
     review: :validate_review_page,
   }.freeze
@@ -22,9 +23,21 @@ module Workflow::UpdateMethods
 
     validate_scheduled_edition
 
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :review)
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+      id: @content_block_edition.id,
+      step: :internal_note,
+    )
   rescue ActiveRecord::RecordInvalid
     render "content_block_manager/content_block/editions/workflow/schedule_publishing"
+  end
+
+  def update_internal_note
+    @content_block_edition.update!(internal_change_note: edition_params[:internal_change_note])
+
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+      id: @content_block_edition.id,
+      step: :review_update,
+    )
   end
 
   def validate_review_page

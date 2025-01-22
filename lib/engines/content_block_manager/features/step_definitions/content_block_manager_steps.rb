@@ -881,6 +881,12 @@ Then(/^I should see a back link to the "([^"]*)" step$/) do |step|
          end
   expect(page).to have_link("Back", href: link)
 end
+
+When(/^I add an internal note$/) do
+  fill_in "Describe the change for internal users", with: "Some internal note goes here"
+  click_save_and_continue
+end
+
 def should_show_edit_form
   should_show_edit_form_for_email_address_content_block(
     @content_block.document.title,

@@ -1,0 +1,40 @@
+<% content_for :context, context %>
+<% content_for :title, "Add internal change note" %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: @back_path,
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: :internal_note,
+      ), method: :put do %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Describe the change for internal users",
+        },
+        name: "content_block/edition[internal_change_note]",
+        id: "content_block_manager_content_block_edition_title",
+        value: @content_block_edition.internal_change_note,
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save and continue",
+          name: "save_and_continue",
+          value: "Save and continue",
+          type: "submit",
+        } %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Cancel",
+          href: @back_path,
+          secondary_solid: true,
+        } %>
+      </div>
+    <% end %>
+  </div>
+</div>

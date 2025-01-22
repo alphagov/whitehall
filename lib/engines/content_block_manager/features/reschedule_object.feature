@@ -11,6 +11,7 @@ Feature: Schedule a content object
   Scenario: GDS Editor immediately publishes a scheduled content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
+    And I add an internal note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -24,6 +25,7 @@ Feature: Schedule a content object
   Scenario: GDS Editor reschedules a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
+    And I add an internal note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -37,6 +39,7 @@ Feature: Schedule a content object
   Scenario: GDS Editor tries to reschedule a content object without choosing to schedule
     When I am updating a content block
     And I schedule the change for 7 days in the future
+    And I add an internal note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -47,6 +50,7 @@ Feature: Schedule a content object
   Scenario: GDS editor cancels the rescheduling of an object
     When I am updating a content block
     And I schedule the change for 7 days in the future
+    And I add an internal note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -58,6 +62,7 @@ Feature: Schedule a content object
   Scenario: GDS editor cancels the rescheduling of an object on the confirmation page
     When I am updating a content block
     And I schedule the change for 7 days in the future
+    And I add an internal note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
