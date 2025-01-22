@@ -42,7 +42,7 @@
           <%= form_with(
                 url: content_block_manager.content_block_manager_content_block_workflow_path(
                   edition_id: @content_block_edition.id,
-                  step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links],
+                  step: :review_links,
                 ),
                 method: :put,
               ) do %>

@@ -57,7 +57,7 @@ private
 
   def edit_action
     {
-      href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:edit_draft]),
+      href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :edit_draft),
       link_text: "Edit",
     }
   end

@@ -16,7 +16,7 @@ class ContentBlockManager::ContentBlock::Documents::ScheduleController < Content
 
     validate_scheduled_edition
 
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :review_update)
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :review)
   rescue ActiveRecord::RecordInvalid
     render "content_block_manager/content_block/documents/schedule/edit"
   end

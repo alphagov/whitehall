@@ -77,7 +77,7 @@ module CanScheduleOrPublish
   def review_update_url
     content_block_manager.content_block_manager_content_block_workflow_path(
       @content_block_edition,
-      step: ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_update],
+      step: :review,
     )
   end
 
