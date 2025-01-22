@@ -31,7 +31,7 @@
       end,
     } %>
 
-    <%= form_with(url: "#", method: :post) do %>
+    <%= form_with(url: admin_retagging_publish_path, method: :post) do %>
       <input type="hidden" name="csv_input" value="<%= params[:csv_input] %>">
       <p class="govuk-body">
         <%= render "govuk_publishing_components/components/button", {
