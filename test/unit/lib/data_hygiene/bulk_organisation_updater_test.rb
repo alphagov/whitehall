@@ -1,23 +1,14 @@
 require "test_helper"
 
 class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
-  def process(csv_file)
-    file = Tempfile.new("bulk_update_organisation")
-    file.write(csv_file)
-    file.close
+  def process(raw_csv)
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
 
-    begin
-      Sidekiq::Testing.fake! do
-        DataHygiene::BulkOrganisationUpdater.call(File.read(file.path))
-      end
-    ensure
-      file.unlink
+    Sidekiq::Testing.fake! do
+      updater.call
     end
-  end
 
-  # Stubs stdout to avoid noise in tests
-  def process_silently(csv_file)
-    assert_output { process(csv_file) }
+    updater
   end
 
   test "it has a `validate` method that tracks invalid inputs as an `errors` array" do
@@ -172,10 +163,13 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       document_type: "Publication",
       slug:,
     )
+    create(:organisation, slug: "lead-organisation")
 
-    assert_output(/ambiguous slug/) do
-      process(csv_file)
-    end
+    updater = process(csv_file)
+    assert_equal(
+      updater.errors,
+      ["Ambiguous slug: shared-slug (document_types: [\"DetailedGuide\", \"Publication\"])"],
+    )
   end
 
   test "it ignores the 'document type' field unless the 'slug' field is ambiguous" do
@@ -194,7 +188,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     organisation = create(:organisation, slug: "lead-organisation")
 
     # it works when slug is unique, despite the invalid document type
-    process_silently(csv_with_bad_document_type)
+    updater = process(csv_with_bad_document_type)
     assert_equal publication.lead_organisations, [organisation]
 
     # create two more documents with the same slug but different types
@@ -202,12 +196,11 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     news_article = create(:news_article, document: build(:document, slug:))
 
     # cannot find document with the specified document_type now that the slug is ambiguous
-    assert_output(/could not find document/) do
-      process(csv_with_bad_document_type)
-    end
+    updater.validate
+    assert_equal(updater.errors, ["Document not found: shared-slug"])
 
     # it works when the CSV specifies a valid document type
-    process_silently(csv_with_valid_document_type)
+    process(csv_with_valid_document_type)
     assert_equal case_study.lead_organisations, [organisation]
     assert_not_equal news_article.lead_organisations, [organisation]
   end
@@ -222,7 +215,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     edition = create(:published_publication, document:)
     organisation = create(:organisation, slug: "lead-organisation")
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -240,7 +233,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal edition.supporting_organisations, [organisation1, organisation2]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -267,7 +260,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:save_draft).once
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal draft_edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
@@ -290,7 +283,9 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       supporting_organisations: [supporting_organisation1, supporting_organisation2],
     )
 
-    assert_output(/no update required/) do
+    document_stub = Minitest::Mock.new
+    document_stub.expect(:update, nil) { raise "update was called when it shouldn't have been!" }
+    document.stub(:update, document_stub) do
       process(csv_file)
     end
 
@@ -312,7 +307,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:patch_links).with(announcement).once
     Whitehall::PublishingApi.expects(:publish).with(announcement).once
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal [lead_organisation, supporting_organisation1, supporting_organisation2], announcement.reload.organisations
   end
@@ -327,7 +322,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
     supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
-    create(
+    document = create(
       :statistics_announcement,
       slug: "this-is-a-slug",
       organisations: [lead_organisation, supporting_organisation1, supporting_organisation2],
@@ -336,7 +331,9 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:patch_links).never
     Whitehall::PublishingApi.expects(:publish).never
 
-    assert_output(/no update required/) do
+    document_stub = Minitest::Mock.new
+    document_stub.expect(:update, nil) { raise "update was called when it shouldn't have been!" }
+    document.stub(:update, document_stub) do
       process(csv_file)
     end
   end

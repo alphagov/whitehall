@@ -13,10 +13,6 @@ module DataHygiene
       end
     end
 
-    def self.call(*args)
-      new(*args).call
-    end
-
     def validate
       expected_headers_sorted = ["Document type", "New lead organisations", "New supporting organisations", "Slug"]
       @validated_rows = @parsed_csv.each_with_index.map do |row, index|
@@ -105,15 +101,15 @@ module DataHygiene
       statistics_announcements = StatisticsAnnouncement.where(slug:)
 
       if documents.many?
-        errors << "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
-        puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
+        errors << "Ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
+        nil
       elsif documents.any?
         documents.first
       elsif statistics_announcements.any?
         statistics_announcements.first
       else
         errors << "Document not found: #{slug}"
-        puts "error: #{slug}: could not find document"
+        nil
       end
     end
 
@@ -162,16 +158,7 @@ module DataHygiene
           new_supporting_organisations,
         )
 
-      if pre_publication_edition_updated || published_edition_updated
-        puts "#{document.slug}: UPDATED"
-      else
-        if published_edition || pre_publication_edition
-          puts "#{document.slug}: no update required"
-        else
-          puts "#{document.slug}: no edition found to update"
-        end
-        return
-      end
+      return unless pre_publication_edition_updated || published_edition_updated
 
       if !published_edition_updated
         Whitehall::PublishingApi.save_draft(
@@ -201,11 +188,8 @@ module DataHygiene
     end
 
     def update_statistics_announcement(document, new_organisations)
-      if document.organisations == new_organisations
-        puts "#{document.slug}: no update required"
-      else
+      if document.organisations != new_organisations
         document.update(organisations: new_organisations) # rubocop:disable Rails/SaveBang
-        puts "#{document.slug}: UPDATED"
       end
     end
   end

@@ -13,11 +13,6 @@ namespace :data_hygiene do
     end
   end
 
-  desc "Bulk update the organisations associated with documents."
-  task :bulk_update_organisation, %i[csv_filename] => :environment do |_, args|
-    DataHygiene::BulkOrganisationUpdater.call(File.read(args[:csv_filename]))
-  end
-
   desc "Move content from one role to another (DANGER!)."
   task :migrate_role_content, %i[old_role_appointment new_role_appointment] => :environment do |_task, args|
     old_role_app = RoleAppointment.find(args[:old_role_appointment])
