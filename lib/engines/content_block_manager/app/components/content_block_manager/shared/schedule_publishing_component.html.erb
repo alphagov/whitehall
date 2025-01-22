@@ -16,7 +16,7 @@
   is_scheduled_param = params["schedule_publishing"]
 %>
 
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @content_block_edition)) %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: content_block_edition)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -26,7 +26,7 @@
         name: "schedule_publishing",
         id: "schedule_publishing",
         heading_size: "xl",
-        error_items: errors_for(@content_block_edition.errors, :schedule_publishing),
+        error_items: helpers.errors_for(content_block_edition.errors, :schedule_publishing),
         items: [
           {
             value: "now",
@@ -48,7 +48,7 @@
               date_heading: "Date",
               date_hint: "For example, 01 08 2025",
               time_hint: "For example, 09:30 or 19:30",
-              error_items: errors_for(@content_block_edition.errors, :scheduled_publication),
+              error_items: helpers.errors_for(content_block_edition.errors, :scheduled_publication),
               year: {
                 value: year_param.blank? ? nil : year_param.to_i,
                 id: "scheduled_at_scheduled_publication_1i",
@@ -96,13 +96,22 @@
     <% end %>
     </div>
     <div>
-      <%= render partial: "content_block_manager/content_block/shared/cancel_delete_button",
-                 locals: {
-                   url: content_block_manager.content_block_manager_content_block_edition_path(
-                     @content_block_edition,
-                     redirect_path: content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document),
-                     ),
-                 } %>
+      <% if is_rescheduling %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Cancel",
+          name: "Cancel",
+          value: "Cancel",
+          href: back_link,
+          secondary_solid: true,
+        } %>
+      <% else %>
+        <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: helpers.content_block_manager.
+              content_block_manager_content_block_edition_path(
+                content_block_edition, redirect_path:
+                  helpers.content_block_manager.content_block_manager_content_block_document_path(content_block_edition.document)
+              ),
+            ) %>
+      <% end %>
     </div>
     </div>
   </div>

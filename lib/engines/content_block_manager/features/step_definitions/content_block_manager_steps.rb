@@ -37,12 +37,12 @@ When("I click cancel") do
   click_button "Cancel"
 end
 
-Then(/^I click on page ([^"]*)$/) do |page_number|
-  click_link page_number
+When("I click the cancel link") do
+  click_link "Cancel"
 end
 
-When("I click on page ") do
-  click_button "Cancel"
+Then(/^I click on page ([^"]*)$/) do |page_number|
+  click_link page_number
 end
 
 When("I click to view results") do

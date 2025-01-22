@@ -46,3 +46,15 @@ Feature: Schedule a content object
     And I click to edit the schedule
     And I save and continue
     Then I should see an error message telling me that schedule publishing cannot be blank
+
+  @disable-sidekiq-test-mode
+  Scenario: GDS editor cancels the rescheduling of an object
+    When I am updating a content block
+    Then I am asked when I want to publish the change
+    And I schedule the change for 7 days in the future
+    When I review and confirm my answers are correct
+    When I click to view the content block
+    And I click to edit the schedule
+    And I click the cancel link
+    Then I should be taken back to the document page
+    And no draft Content Block Edition has been created
