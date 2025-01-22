@@ -14,6 +14,8 @@ class Admin::RetaggingController < Admin::BaseController
       sanitized_errors = updater.errors.map { |err| sanitize(err) }
       flash[:alert] = "Errors with CSV input: <br>#{sanitized_errors.join('<br>')}".html_safe
       render :index
+    else
+      @docs_to_update = updater.summarise_changes
     end
   end
 

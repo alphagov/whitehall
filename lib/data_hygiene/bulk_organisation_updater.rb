@@ -19,7 +19,7 @@ module DataHygiene
 
     def validate
       expected_headers_sorted = ["Document type", "New lead organisations", "New supporting organisations", "Slug"]
-      @parsed_csv.each_with_index do |row, index|
+      @validated_rows = @parsed_csv.each_with_index.map do |row, index|
         if index.zero? && row.headers.compact.sort != expected_headers_sorted
           errors << "Expected the following headers: #{expected_headers_sorted.join(',')}. Detected: #{row.headers.join(',')}"
           break
@@ -32,6 +32,42 @@ module DataHygiene
 
         validate_row(row)
       end
+    end
+
+    def summarise_changes
+      @validated_rows.map do |hash|
+        {
+          slug: hash[:document].slug,
+          lead_orgs_summary: diff_orgs(
+            hash[:document].latest_edition.lead_organisations.map(&:slug),
+            hash[:lead_orgs].map(&:slug),
+          ),
+          supporting_orgs_summary: diff_orgs(
+            hash[:document].latest_edition.supporting_organisations.map(&:slug),
+            hash[:supporting_orgs].map(&:slug),
+          ),
+        }
+      end
+    end
+
+    def diff_orgs(old_orgs, new_orgs)
+      orgs_added = new_orgs - old_orgs
+      orgs_removed = old_orgs - new_orgs
+
+      status = []
+      if old_orgs == new_orgs
+        status << "Unchanged"
+      elsif old_orgs.sort == new_orgs.sort
+        status << "Reordered (from #{old_orgs.join(', ')})"
+      else
+        if orgs_added.count.positive?
+          status << "Added #{orgs_added.join(', ')}"
+        end
+        if orgs_removed.count.positive?
+          status << "Removed #{orgs_removed.join(', ')}"
+        end
+      end
+      status.join(", ") + ". Result: #{new_orgs.join(', ')}"
     end
 
   private
@@ -52,9 +88,10 @@ module DataHygiene
     end
 
     def validate_row(row)
-      find_document(row)
-      find_new_lead_organisations(row)
-      find_new_supporting_organisations(row)
+      document = find_document(row)
+      lead_orgs = find_new_lead_organisations(row)
+      supporting_orgs = find_new_supporting_organisations(row)
+      { document:, lead_orgs:, supporting_orgs: }
     end
 
     def find_document(row)

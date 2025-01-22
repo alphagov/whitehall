@@ -1,0 +1,43 @@
+<% content_for :page_title, "Retag content - preview changes" %>
+<% content_for :title, "Retag content - preview changes" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-full-width">
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Slug",
+        },
+        {
+          text: "Lead organisations",
+        },
+        {
+          text: "Supporting organisations",
+        },
+      ],
+      rows: @docs_to_update.map do |hash|
+        [
+          {
+            text: hash[:slug],
+          },
+          {
+            text: hash[:lead_orgs_summary],
+          },
+          {
+            text: hash[:supporting_orgs_summary],
+          },
+        ]
+      end,
+    } %>
+
+    <%= form_with(url: "#", method: :post) do %>
+      <input type="hidden" name="csv_input" value="<%= params[:csv_input] %>">
+      <p class="govuk-body">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Publish changes",
+        } %>
+      </p>
+    <% end %>
+  </section>
+</div>

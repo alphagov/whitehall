@@ -80,6 +80,70 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     assert_equal(updater.errors, [])
   end
 
+  test "it has a `summarise_changes` method that returns a hash summarising the changes" do
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,new-lead-organisation,new-supporting-organisation
+      another-slug,Publication,"new-lead-organisation,old-lead-organisation"
+      final-slug,Publication,old-lead-organisation,new-supporting-organisation
+    CSV
+
+    old_lead_org = create(:organisation, slug: "old-lead-organisation")
+    new_lead_org = create(:organisation, slug: "new-lead-organisation")
+    create(:organisation, slug: "new-supporting-organisation")
+    old_supporting_org = create(:organisation, slug: "old-supporting-organisation")
+
+    doc1 = create(:document, slug: "some-slug")
+    create(
+      :publication,
+      :published,
+      document: doc1,
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+    )
+    doc2 = create(:document, slug: "another-slug")
+    create(
+      :publication,
+      :published,
+      document: doc2,
+      lead_organisations: [old_lead_org, new_lead_org],
+      supporting_organisations: [old_supporting_org],
+    )
+    doc3 = create(:document, slug: "final-slug")
+    create(
+      :publication,
+      :published,
+      document: doc3,
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [],
+    )
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(updater.errors, [])
+    assert_equal(
+      updater.summarise_changes,
+      [
+        {
+          slug: "some-slug",
+          lead_orgs_summary: "Added new-lead-organisation, Removed old-lead-organisation. Result: new-lead-organisation",
+          supporting_orgs_summary: "Added new-supporting-organisation, Removed old-supporting-organisation. Result: new-supporting-organisation",
+        },
+        {
+          slug: "another-slug",
+          lead_orgs_summary: "Reordered (from old-lead-organisation, new-lead-organisation). Result: new-lead-organisation, old-lead-organisation",
+          supporting_orgs_summary: "Removed old-supporting-organisation. Result: ",
+        },
+        {
+          slug: "final-slug",
+          lead_orgs_summary: "Unchanged. Result: old-lead-organisation",
+          supporting_orgs_summary: "Added new-supporting-organisation. Result: new-supporting-organisation",
+        },
+      ],
+    )
+  end
+
   test "it fails with invalid CSV data" do
     csv_file = <<~CSV
       document slug,document type,new lead organisation,supporting organisations
