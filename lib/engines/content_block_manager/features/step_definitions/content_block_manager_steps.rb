@@ -306,6 +306,10 @@ Then("I am taken back to Content Block Manager home page") do
   assert_equal current_path, content_block_manager.content_block_manager_root_path
 end
 
+Then("I am taken back to the view page of the content block") do
+  assert_equal current_path, content_block_manager.content_block_manager_content_block_document_path(@content_block.document)
+end
+
 And("no draft Content Block Edition has been created") do
   assert_equal 0, ContentBlockManager::ContentBlock::Edition.where(state: "draft").count
 end
