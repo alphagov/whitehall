@@ -30,6 +30,8 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
       schedule_publishing
     when NEW_BLOCK_STEPS[:review]
       review
+    when UPDATE_BLOCK_STEPS[:review_update]
+      review_update
     when SHARED_STEPS[:confirmation]
       confirmation
     end
@@ -44,7 +46,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     when UPDATE_BLOCK_STEPS[:review_links]
       redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: :schedule_publishing)
     when UPDATE_BLOCK_STEPS[:schedule_publishing]
-      review_update
+      validate_schedule
     when UPDATE_BLOCK_STEPS[:review_update]
       validate_review_page("review_update")
     when NEW_BLOCK_STEPS[:review]
@@ -84,10 +86,18 @@ private
     )
   end
 
-  def review_update
+  def validate_schedule
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
     validate_scheduled_edition
+
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :review_update)
+  rescue ActiveRecord::RecordInvalid
+    render "content_block_manager/content_block/editions/workflow/schedule_publishing"
+  end
+
+  def review_update
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
     @url = review_update_url
 

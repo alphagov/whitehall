@@ -96,7 +96,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
       describe "#update" do
         describe "when choosing to publish immediately" do
-          it "shows the review page" do
+          it "redirects to the review step" do
             scheduled_at = {
               "scheduled_publication(1i)": "",
               "scheduled_publication(2i)": "",
@@ -111,12 +111,12 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
                   scheduled_at:,
                 }
 
-            assert_template "content_block_manager/content_block/editions/workflow/review"
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_update)
           end
         end
 
         describe "when scheduling publication" do
-          it "shows the review page" do
+          it "redirects to the review step" do
             scheduled_at = {
               "scheduled_publication(1i)": "2024",
               "scheduled_publication(2i)": "01",
@@ -130,7 +130,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
               scheduled_at:,
             }
 
-            assert_template "content_block_manager/content_block/editions/workflow/review"
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_update)
           end
         end
 
