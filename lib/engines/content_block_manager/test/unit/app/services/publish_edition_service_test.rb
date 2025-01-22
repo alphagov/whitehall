@@ -37,14 +37,6 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
       assert_equal edition.id, document.live_edition_id
     end
 
-    it "removes any existing queues if the edition is already scheduled" do
-      edition.expects(:scheduled?).returns(true)
-      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with(edition)
-
-      ContentBlockManager::PublishEditionService.new.call(edition)
-      assert_equal "published", edition.state
-    end
-
     it "creates an Edition in the Publishing API" do
       fake_put_content_response = GdsApi::Response.new(
         stub("http_response", code: 200, body: {}),

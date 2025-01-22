@@ -38,22 +38,6 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
       assert updated_edition.scheduled?
     end
 
-    it "dequeues existing jobs if the edition is already scheduled" do
-      ContentBlockManager::SchedulePublishingWorker.expects(:dequeue).with do |expected_edition|
-        expected_edition.id = edition.id
-      end
-
-      ContentBlockManager::SchedulePublishingWorker.expects(:queue).with do |expected_edition|
-        expected_edition.id = edition.id
-      end
-
-      edition.schedule!
-
-      ContentBlockManager::ScheduleEditionService
-        .new(schema)
-        .call(edition)
-    end
-
     it "supersedes any previously scheduled editions" do
       scheduled_editions = create_list(:content_block_edition, 2,
                                        document: edition.document,

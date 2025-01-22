@@ -11,10 +11,6 @@ module ContentBlockManager
           edition.supersede!
         end
       end
-
-      def dequeue_current_edition_if_previously_scheduled(content_block_edition)
-        ContentBlockManager::SchedulePublishingWorker.dequeue(content_block_edition) if content_block_edition.scheduled?
-      end
     end
   end
 end
