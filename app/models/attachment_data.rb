@@ -95,6 +95,10 @@ class AttachmentData < ApplicationRecord
     !significant_attachable.publicly_visible?
   end
 
+  def needs_publishing?
+    attachments.size == 1 && attachments.first.attachable.publicly_visible?
+  end
+
   delegate :accessible_to?, to: :significant_attachable
 
   delegate :access_limited?, to: :last_attachable
@@ -125,6 +129,7 @@ class AttachmentData < ApplicationRecord
 
   def visible_edition_for(user)
     visible_attachable = visible_attachable_for(user)
+    # below code seems wrong, policy group is not a edition but could be visible
     visible_attachable.is_a?(Edition) ? visible_attachable : nil
   end
 

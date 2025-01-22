@@ -70,6 +70,10 @@ class Consultation < Publicationesque
     [self, outcome, public_feedback].compact
   end
 
+  def delete_all_attachments
+    attachables.map(&:attachments).flatten.each(&:destroy)
+  end
+
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end

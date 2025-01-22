@@ -21,11 +21,6 @@ private
     raise AssetAttributesEmpty, asset_manager_id if new_attributes.empty?
 
     attributes = find_asset_by_id(asset_manager_id)
-    asset_deleted = attributes["deleted"]
-
-    if asset_deleted
-      logger.warn("Asset with asset_manager_id: '#{asset_manager_id}' expected not to be deleted in Asset Manager")
-    end
 
     keys = new_attributes.keys
     unless attributes.slice(*keys) == new_attributes.slice(*keys)

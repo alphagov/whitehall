@@ -60,6 +60,10 @@ class CallForEvidence < Publicationesque
     [self, outcome].compact
   end
 
+  def delete_all_attachments
+    attachables.map(&:attachments).flatten.each(&:destroy)
+  end
+
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end

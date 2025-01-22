@@ -6,8 +6,6 @@ class AssetManagerAttachmentMetadataWorker < WorkerBase
 
     return if attachment_data.blank?
 
-    AssetManager::AttachmentDeleter.call(attachment_data)
-
     return unless attachment_data.all_asset_variants_uploaded?
 
     AssetManager::AttachmentUpdater.call(attachment_data)

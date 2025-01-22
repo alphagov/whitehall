@@ -15,6 +15,7 @@ class PolicyGroup < ApplicationRecord
   after_create :extract_dependencies
   after_update :extract_dependencies
   after_destroy :remove_all_dependencies
+  after_update :publish_deleted_attachments
 
   def extract_dependencies
     remove_all_dependencies
@@ -25,6 +26,14 @@ class PolicyGroup < ApplicationRecord
         dependable_type: "Contact",
         dependable_id: contact.id,
       )
+    end
+  end
+
+  def publish_deleted_attachments
+    deleted_attachments.each do |attachment|
+      next unless attachment.attachment_data.present? && attachment.deleted?
+
+      DeleteAttachmentAssetJob.perform_async(attachment.attachment_data.id)
     end
   end
 

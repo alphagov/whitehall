@@ -8,12 +8,8 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
     let(:attachment_data) { create(:attachment_data, attachable: edition) }
     let(:worker) { AssetManagerAttachmentMetadataWorker.new }
 
-    it "calls both updater and deleter" do
+    it "calls updater" do
       AssetManager::AttachmentUpdater.expects(:call).with(attachment_data)
-
-      AssetManager::AttachmentDeleter.expects(:call).with(
-        attachment_data,
-      )
 
       worker.perform(attachment_data.id)
     end
@@ -23,12 +19,6 @@ class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
 
       it "does not call updater" do
         AssetManager::AttachmentUpdater.expects(:call).never
-
-        worker.perform(attachment_data.id)
-      end
-
-      it "calls deleter" do
-        AssetManager::AttachmentDeleter.expects(:call)
 
         worker.perform(attachment_data.id)
       end

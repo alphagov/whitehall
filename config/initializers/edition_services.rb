@@ -1,7 +1,13 @@
 Whitehall::Application.config.to_prepare do
   Whitehall.edition_services.tap do |coordinator|
-    coordinator.subscribe do |_event, edition, _options|
-      ServiceListeners::AttachmentUpdater.call(attachable: edition)
+    coordinator.subscribe do |event, edition, _options|
+      if %w[publish force_publish].include?(event)
+        ServiceListeners::AttachmentAssetPublisher.call(edition)
+      elsif event == "delete"
+        ServiceListeners::AttachmentAssetDeleter.call(edition)
+      else
+        ServiceListeners::AttachmentUpdater.call(attachable: edition)
+      end
     end
 
     coordinator.subscribe("unpublish") do |_event, edition, _options|
