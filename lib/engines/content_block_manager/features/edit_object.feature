@@ -31,6 +31,7 @@ Feature: Edit a content object
     Then the edition should have been updated successfully
     And I should be taken back to the document page
     And I should see 2 publish events on the timeline
+    And I should see the edition diff in a table
 
   Scenario: GDS editor cancels the creation of an object when reviewing links
     When I visit the Content Block Manager home page

@@ -14,6 +14,7 @@ private
         title: title(version),
         byline: User.find_by_id(version.whodunnit)&.then { |user| helpers.linked_author(user, { class: "govuk-link" }) } || "unknown user",
         date: time_html(version.created_at),
+        table_rows: table_rows(version),
       }
     end
   end
@@ -33,5 +34,15 @@ private
       datetime: date_time.iso8601,
       lang: "en",
     )
+  end
+
+  def table_rows(version)
+    if version.changed_fields.present?
+      rows = []
+      version.changed_fields.map do |changed_field|
+        rows.append([{ text: changed_field["field_name"].humanize }, { text: changed_field["previous"] }, { text: changed_field["new"] }])
+      end
+      rows
+    end
   end
 end

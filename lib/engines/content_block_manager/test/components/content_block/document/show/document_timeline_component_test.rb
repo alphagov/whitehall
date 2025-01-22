@@ -6,6 +6,11 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
   include ApplicationHelper
 
   test "renders a timeline component with events in correct order" do
+    changed_fields = [ContentBlockManager::ContentBlock::Version::ChangedField.new(
+      field_name: "email_address",
+      new: "new@email.com",
+      previous: "old@email.com",
+    )]
     @user = create(:user)
     @version_1 = create(
       :content_block_version,
@@ -23,6 +28,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       event: "updated",
       whodunnit: @user.id,
       state: "scheduled",
+      changed_fields:,
     )
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
@@ -35,6 +41,8 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
     assert_equal "by #{linked_author(@user, { class: 'govuk-link' })}", page.all(".timeline__byline")[0].native.inner_html
     assert_equal  I18n.l(@version_3.created_at, format: :long_ordinal),
                   page.all("time[datetime='#{@version_3.created_at.iso8601}']")[1].text
+    assert_equal "old@email.com", page.all("td")[0].text
+    assert_equal "new@email.com", page.all("td")[1].text
 
     assert_equal "Email address published", page.all(".timeline__title")[1].text
     assert_equal "by #{linked_author(@user, { class: 'govuk-link' })}", page.all(".timeline__byline")[1].native.inner_html
