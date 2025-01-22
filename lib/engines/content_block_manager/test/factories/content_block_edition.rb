@@ -18,6 +18,10 @@ FactoryBot.define do
 
     internal_change_note { "Something changed" }
 
+    change_note { "Something changed publicly" }
+
+    major_change { true }
+
     ContentBlockManager::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
         document { build(:content_block_document, block_type: type) }

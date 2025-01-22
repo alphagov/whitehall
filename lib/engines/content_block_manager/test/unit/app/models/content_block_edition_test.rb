@@ -12,6 +12,8 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
   let(:creator) { create(:user) }
   let(:organisation) { create(:organisation) }
   let(:internal_change_note) { "My internal change note" }
+  let(:change_note) { "My internal change note" }
+  let(:major_change) { true }
 
   let(:content_block_edition) do
     ContentBlockManager::ContentBlock::Edition.new(
@@ -25,6 +27,8 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       organisation_id: organisation.id.to_s,
       title:,
       internal_change_note:,
+      change_note:,
+      major_change:,
     )
   end
 
@@ -42,6 +46,8 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     assert_equal details, content_block_edition.details
     assert_equal title, content_block_edition.title
     assert_equal internal_change_note, content_block_edition.internal_change_note
+    assert_equal change_note, content_block_edition.change_note
+    assert_equal major_change, content_block_edition.major_change
   end
 
   it "persists the block type to the document" do
