@@ -8,12 +8,13 @@
       This is to be used for machinery of government changes.
     </p>
 
-    <%= form_with(url: "#", method: :post) do %>
+    <%= form_with(url: admin_retagging_preview_path, method: :post) do %>
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
           text: "Paste the CSV contents, as per the guidance below.",
         },
         name: "csv_input",
+        value: "#{params[:csv_input]}",
       } %>
       <p class="govuk-body">
         <%= render "govuk_publishing_components/components/button", {

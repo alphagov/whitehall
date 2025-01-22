@@ -8,7 +8,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     begin
       Sidekiq::Testing.fake! do
-        DataHygiene::BulkOrganisationUpdater.call(file.path)
+        DataHygiene::BulkOrganisationUpdater.call(File.read(file.path))
       end
     ensure
       file.unlink
@@ -18,6 +18,66 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
   # Stubs stdout to avoid noise in tests
   def process_silently(csv_file)
     assert_output { process(csv_file) }
+  end
+
+  test "it has a `validate` method that tracks invalid inputs as an `errors` array" do
+    raw_csv = <<~CSV
+      Foo,
+
+      bar,baz
+    CSV
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+    assert_equal(
+      updater.errors,
+      ["Expected the following headers: Document type,New lead organisations,New supporting organisations,Slug. Detected: Foo,"],
+    )
+
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,lead-organisation,supporting-organisation,some extra data here which should trip up the validator
+    CSV
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+    assert_equal(
+      updater.errors,
+      ["Exactly four fields expected. Detected: 5 ([\"some-slug\", \"Publication\", \"lead-organisation\", \"supporting-organisation\", \"some extra data here which should trip up the validator\"])"],
+    )
+  end
+
+  test "it has a `validate` method that tracks invalid documents and organisations in the `errors` array" do
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,lead-organisation,supporting-organisation
+    CSV
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(
+      updater.errors,
+      [
+        "Document not found: some-slug",
+        "Organisation not found: lead-organisation",
+        "Organisation not found: supporting-organisation",
+      ],
+    )
+  end
+
+  test "it has a `validate` method that returns empty `errors` array if no errors" do
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,lead-organisation,supporting-organisation
+    CSV
+
+    create(:document, document_type: "DetailedGuide", slug: "some-slug")
+    create(:organisation, slug: "lead-organisation")
+    create(:organisation, slug: "supporting-organisation")
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(updater.errors, [])
   end
 
   test "it fails with invalid CSV data" do

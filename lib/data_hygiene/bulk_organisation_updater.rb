@@ -1,11 +1,14 @@
 module DataHygiene
   class BulkOrganisationUpdater
-    def initialize(filename)
-      @filename = filename
+    attr_accessor :errors
+
+    def initialize(raw_csv)
+      @parsed_csv = CSV.parse(raw_csv, headers: true)
+      @errors = []
     end
 
     def call
-      CSV.foreach(filename, **CSV_OPTIONS) do |row|
+      @parsed_csv.each do |row|
         process_row(row)
       end
     end
@@ -14,13 +17,24 @@ module DataHygiene
       new(*args).call
     end
 
+    def validate
+      expected_headers_sorted = ["Document type", "New lead organisations", "New supporting organisations", "Slug"]
+      @parsed_csv.each_with_index do |row, index|
+        if index.zero? && row.headers.compact.sort != expected_headers_sorted
+          errors << "Expected the following headers: #{expected_headers_sorted.join(',')}. Detected: #{row.headers.join(',')}"
+          break
+        end
+
+        if row.fields.count != 4
+          errors << "Exactly four fields expected. Detected: #{row.fields.count} (#{row.fields})"
+          break
+        end
+
+        validate_row(row)
+      end
+    end
+
   private
-
-    attr_reader :filename
-
-    CSV_OPTIONS = {
-      headers: true,
-    }.freeze
 
     def process_row(row)
       document = find_document(row)
@@ -37,6 +51,12 @@ module DataHygiene
       end
     end
 
+    def validate_row(row)
+      find_document(row)
+      find_new_lead_organisations(row)
+      find_new_supporting_organisations(row)
+    end
+
     def find_document(row)
       slug = row.fetch("Slug")&.strip&.split("/")&.last
       document_type = row.fetch("Document type")&.strip&.delete(" ")
@@ -48,12 +68,14 @@ module DataHygiene
       statistics_announcements = StatisticsAnnouncement.where(slug:)
 
       if documents.many?
+        errors << "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
         puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
       elsif documents.any?
         documents.first
       elsif statistics_announcements.any?
         statistics_announcements.first
       else
+        errors << "Document not found: #{slug}"
         puts "error: #{slug}: could not find document"
       end
     end
@@ -65,9 +87,7 @@ module DataHygiene
       column_data.split(",").map do |slug|
         Organisation.find_by!(slug: slug.strip.split("/").last)
       rescue ActiveRecord::RecordNotFound
-        puts "error: couldn't find organisation: #{slug.strip}"
-
-        raise
+        errors << "Organisation not found: #{slug.strip}"
       end
     end
 

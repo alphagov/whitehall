@@ -10,7 +10,7 @@ class Admin::RetaggingControllerTest < ActionController::TestCase
   view_test "GDS Admin users should be able to GET :index and see a textarea for CSV input" do
     get :index
 
-    assert_select "form[action='#'][method='post']", count: 1
+    assert_select "form[action='/government/admin/retagging'][method='post']", count: 1
     assert_select "textarea[name='csv_input']", count: 1
 
     assert_response :ok

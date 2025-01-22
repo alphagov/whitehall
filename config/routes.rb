@@ -76,9 +76,8 @@ Whitehall::Application.routes.draw do
         end
       end
 
-      scope :retagging do
-        root to: "retagging#index", as: :retagging_index, via: :get
-      end
+      get "/retagging" => "retagging#index", as: :retagging_index
+      post "/retagging" => "retagging#preview", as: :retagging_preview
 
       resources :documents, only: [] do
         resources :review_reminders, only: %i[new create edit update destroy] do
