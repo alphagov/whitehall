@@ -70,3 +70,13 @@
   display: inline-block !important;
   margin-bottom: 10px !important;
 }
+
+.timeline__diff-table {
+  margin-top: govuk-spacing(1);
+
+  .govuk-details__text {
+    margin-top: govuk-spacing(1);
+    border: none;
+    padding-left: 0;
+  }
+}

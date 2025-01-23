@@ -40,5 +40,46 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
     assert_equal "by #{linked_author(@user, { class: 'govuk-link' })}", page.all(".timeline__byline")[1].native.inner_html
     assert_equal  I18n.l(@version_2.created_at, format: :long_ordinal),
                   page.all("time[datetime='#{@version_2.created_at.iso8601}']")[1].text
+
+    assert_no_selector ".govuk-table"
+  end
+
+  test "renders the edition diff table in correct order" do
+    field_diffs = [
+      {
+        "field_name": "title",
+        "new_value": "new title",
+        "previous_value": "old title",
+      },
+      {
+        "field_name": "email_address",
+        "new_value": "new@email.com",
+        "previous_value": "old@email.com",
+      },
+      {
+        "field_name": "instructions_to_publishers",
+        "new_value": "new instructions",
+        "previous_value": "old instructions",
+      },
+    ]
+    @user = create(:user)
+    @version = create(
+      :content_block_version,
+      event: "updated",
+      whodunnit: @user.id,
+      state: "scheduled",
+      field_diffs: field_diffs,
+    )
+
+    render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
+                    content_block_versions: [@version],
+                  ))
+
+    assert_equal "old title", page.all("td")[0].text
+    assert_equal "new title", page.all("td")[1].text
+    assert_equal "old@email.com", page.all("td")[2].text
+    assert_equal "new@email.com", page.all("td")[3].text
+    assert_equal "old instructions", page.all("td")[4].text
+    assert_equal "new instructions", page.all("td")[5].text
   end
 end

@@ -16,6 +16,35 @@
       <p class="timeline__date">
         <%= item[:date] %>
       </p>
+
+      <% if item[:table_rows].present? %>
+        <div class="timeline__diff-table">
+          <%= render "govuk_publishing_components/components/details", {
+            title: "Details of changes",
+            open: i == 0,
+          } do %>
+            <% capture do %>
+              <%= render "govuk_publishing_components/components/table", {
+                first_cell_is_header: true,
+                head: [
+                  {
+                    text: tag.span("Fields", class: "govuk-visually-hidden"),
+                  },
+                  {
+                    text: "Previous version",
+                    format: "string",
+                  },
+                  {
+                    text: "This version",
+                    format: "string",
+                  },
+                ],
+                rows: item[:table_rows],
+              } %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
