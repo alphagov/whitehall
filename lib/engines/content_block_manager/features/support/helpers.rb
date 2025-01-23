@@ -51,3 +51,37 @@ def has_support_button
     href: Whitehall.support_url,
   )
 end
+
+def schedule_change(number_of_days)
+  choose "Schedule the edit for the future"
+  @future_date = number_of_days.days.since(Time.zone.now)
+  @is_scheduled = true
+  fill_in_date_and_time_field(@future_date)
+
+  click_on "Save and continue"
+end
+
+def update_content_block
+  # go to the edit page for the block
+  visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
+  #  fill in the new data
+  change_details
+  # accept changes
+  click_save_and_continue
+end
+
+def add_internal_note
+  fill_in "Describe the change for internal users", with: "Some internal note goes here"
+  click_save_and_continue
+end
+
+def add_change_note
+  choose "Yes - information has been added, updated or removed"
+  fill_in "Describe the edit for users", with: "Some text"
+  click_save_and_continue
+end
+
+def review_and_confirm
+  check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
+  click_on @is_scheduled ? "Schedule" : "Publish"
+end

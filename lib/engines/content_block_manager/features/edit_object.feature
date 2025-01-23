@@ -107,11 +107,7 @@ Feature: Edit a content object
 
   @enable-sidekiq-test-mode
   Scenario: GDS editor can override a previously scheduled object
-    When I am updating a content block
-    And I schedule the change for 7 days in the future
-    And I add an internal note
-    And I add a change note
-    When I review and confirm my answers are correct
+    Given I have scheduled a change for 7 days in the future
     When I revisit the edit page
     Then I should see a warning telling me there is a scheduled change
     When I make the changes

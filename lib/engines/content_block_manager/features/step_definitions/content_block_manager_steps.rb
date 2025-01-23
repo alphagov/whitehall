@@ -315,8 +315,7 @@ Then("I accept and publish") do
 end
 
 When("I review and confirm my answers are correct") do
-  check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
-  click_on @is_scheduled ? "Schedule" : "Publish"
+  review_and_confirm
 end
 
 When("I click publish without confirming my details") do
@@ -347,12 +346,7 @@ When("I make the changes") do
 end
 
 When("I am updating a content block") do
-  # go to the edit page for the block
-  visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
-  #  fill in the new data
-  change_details
-  # accept changes
-  click_save_and_continue
+  update_content_block
 end
 
 When("one of the content blocks was updated 2 days ago") do
@@ -377,9 +371,7 @@ When("I continue after reviewing the links") do
 end
 
 When(/^I add a change note$/) do
-  choose "Yes - information has been added, updated or removed"
-  fill_in "Describe the edit for users", with: "Some text"
-  click_save_and_continue
+  add_change_note
 end
 
 Then(/^I should see the object store's title in the header$/) do
@@ -416,6 +408,5 @@ Then("I should see the content block manager home page") do
 end
 
 When(/^I add an internal note$/) do
-  fill_in "Describe the change for internal users", with: "Some internal note goes here"
-  click_save_and_continue
+  add_internal_note
 end

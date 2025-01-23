@@ -1,3 +1,5 @@
+require_relative "../support/helpers"
+
 Then("I see the errors prompting me to provide a date and time") do
   assert_text "Scheduled publication date and time cannot be blank", minimum: 2
 end
@@ -19,12 +21,7 @@ When("I choose to schedule the change") do
 end
 
 And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
-  choose "Schedule the edit for the future"
-  @future_date = number_of_days.days.since(Time.zone.now)
-  @is_scheduled = true
-  fill_in_date_and_time_field(@future_date)
-
-  click_on "Save and continue"
+  schedule_change(number_of_days)
 end
 
 Then("the edition should have been scheduled successfully") do
@@ -58,4 +55,12 @@ end
 
 Then("I should see a warning telling me there is a scheduled change") do
   assert_text "There is currently a change scheduled"
+end
+
+Given(/^I have scheduled a change for (\d+) days in the future$/) do |number_of_days|
+  update_content_block
+  schedule_change(number_of_days)
+  add_internal_note
+  add_change_note
+  review_and_confirm
 end
