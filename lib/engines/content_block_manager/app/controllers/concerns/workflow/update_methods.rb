@@ -7,6 +7,7 @@ module Workflow::UpdateMethods
     review_links: :redirect_to_schedule,
     schedule_publishing: :validate_schedule,
     internal_note: :update_internal_note,
+    change_note: :update_change_note,
     review_update: :validate_review_page,
     review: :validate_review_page,
   }.freeze
@@ -36,8 +37,20 @@ module Workflow::UpdateMethods
 
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
       id: @content_block_edition.id,
+      step: :change_note,
+    )
+  end
+
+  def update_change_note
+    @content_block_edition.assign_attributes(change_note: edition_params[:change_note], major_change: edition_params[:major_change])
+    @content_block_edition.save!(context: :change_note)
+
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+      id: @content_block_edition.id,
       step: :review_update,
     )
+  rescue ActiveRecord::RecordInvalid
+    render :change_note
   end
 
   def validate_review_page

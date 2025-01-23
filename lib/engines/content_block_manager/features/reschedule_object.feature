@@ -12,6 +12,7 @@ Feature: Schedule a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -26,6 +27,7 @@ Feature: Schedule a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -40,6 +42,7 @@ Feature: Schedule a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -51,6 +54,7 @@ Feature: Schedule a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule
@@ -63,6 +67,7 @@ Feature: Schedule a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I click to view the content block
     And I click to edit the schedule

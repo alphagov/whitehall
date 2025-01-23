@@ -6,6 +6,7 @@ module Workflow::ShowMethods
     review_links: :review_links,
     schedule_publishing: :schedule_publishing,
     internal_note: :internal_note,
+    change_note: :change_note,
     review: :review,
     review_update: :review_update,
     confirmation: :confirmation,
@@ -51,13 +52,23 @@ module Workflow::ShowMethods
     render :internal_note
   end
 
+  def change_note
+    @content_block_document = @content_block_edition.document
+    @back_path = content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: :internal_note,
+    )
+
+    render :change_note
+  end
+
   def review_update
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
     @url = review_update_url
     @back_path = content_block_manager.content_block_manager_content_block_workflow_path(
       @content_block_edition,
-      step: :internal_note,
+      step: :change_note,
     )
 
     render :review

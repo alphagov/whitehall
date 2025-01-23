@@ -1,0 +1,67 @@
+<% content_for :context, context %>
+<% content_for :title, "Do users have to know the content has changed?" %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: @back_path,
+  } %>
+<% end %>
+
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @content_block_edition)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: content_block_manager.content_block_manager_content_block_workflow_path(
+      @content_block_edition,
+      step: :change_note,
+      ), method: :put do %>
+
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "content_block/edition[major_change]",
+        id: "content_block_manager_content_block_edition_major_change",
+        error_items: errors_for(@content_block_edition.errors, :major_change),
+        items: [
+          {
+            value: "1",
+            checked: @content_block_edition.major_change === true,
+            text: "Yes - information has been added, updated or removed",
+            hint_text: "A change note will be published on the page and emailed to users subscribed to email alerts. The 'last updated' date will change.",
+            bold: true,
+            conditional: render("govuk_publishing_components/components/textarea", {
+              label: {
+                text: "Describe the edit for users",
+              },
+              name: "content_block/edition[change_note]",
+              id: "content_block_manager_content_block_edition_change_note",
+              error_items: errors_for(@content_block_edition.errors, :change_note),
+              value: @content_block_edition.change_note,
+              hint: (tag.p('Tell users what has changed, where and why. Write in full sentences, leading with the most important words. For example, "College A has been removed from the registered sponsors list because its licence has been suspended."', class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0") +
+                link_to("Guidance about change notes (opens in a new tab)", "https://www.gov.uk/guidance/content-design/writing-for-gov-uk#change-notes", target: "_blank", class: "govuk-link", rel: "noopener")).html_safe,
+            }),
+          },
+          {
+            value: "0",
+            checked: @content_block_edition.major_change === false,
+            text: "No - it's a minor edit that does not change the meaning",
+            hint_text: "This includes fixing a typo or broken link, a style change or similar. Users signed up to email alerts will not get notified and the 'last updated' date will not change.",
+            bold: true,
+          },
+        ],
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save and continue",
+          name: "save_and_continue",
+          value: "Save and continue",
+          type: "submit",
+        } %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Cancel",
+          href: @back_path,
+          secondary_solid: true,
+        } %>
+      </div>
+    <% end %>
+  </div>
+</div>

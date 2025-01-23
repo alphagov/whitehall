@@ -12,6 +12,7 @@ Feature: Schedule a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     And I should be taken to the scheduled confirmation page
     When I click to view the content block
@@ -23,10 +24,12 @@ Feature: Schedule a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I am updating a content block
     And I choose to publish the change now
     And I save and continue
+    And I add a change note
     When I review and confirm my answers are correct
     Then there should be no jobs scheduled
 
@@ -35,6 +38,7 @@ Feature: Schedule a content object
     When I choose to schedule the change
     And the block is scheduled and published
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     Then the published state of the object should be shown
     And I should see the publish event on the timeline
@@ -64,5 +68,6 @@ Feature: Schedule a content object
     When I choose to schedule the change
     And the block is scheduled and published
     And I add an internal note
+    And I add a change note
     And I click cancel
     Then I am taken back to Content Block Manager home page

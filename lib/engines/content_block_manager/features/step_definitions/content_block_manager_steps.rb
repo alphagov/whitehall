@@ -747,6 +747,12 @@ When("I continue after reviewing the links") do
   click_save_and_continue
 end
 
+When(/^I add a change note$/) do
+  choose "Yes - information has been added, updated or removed"
+  fill_in "Describe the edit for users", with: "Some text"
+  click_save_and_continue
+end
+
 def visit_edit_page
   visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
 end
@@ -867,6 +873,8 @@ Then(/^I should be on the "([^"]*)" step$/) do |step|
     should_show_publish_form
   when "review"
     should_be_on_review_step
+  when "change_note"
+    should_be_on_change_note_step
   end
 end
 
@@ -920,4 +928,8 @@ end
 
 def should_be_on_review_step
   assert_text "Review email address"
+end
+
+def should_be_on_change_note_step
+  assert_text "Do users have to know the content has changed?"
 end

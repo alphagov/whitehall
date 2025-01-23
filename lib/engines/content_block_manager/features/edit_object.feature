@@ -24,8 +24,11 @@ Feature: Edit a content object
     Then I should be on the "internal_note" step
     And I should see a back link to the "schedule_publishing" step
     When I add an internal note
-    Then I should be on the "review" step
+    Then I should be on the "change_note" step
     And I should see a back link to the "internal_note" step
+    When I add a change note
+    Then I should be on the "review" step
+    And I should see a back link to the "change_note" step
     When I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block
@@ -60,6 +63,7 @@ Feature: Edit a content object
     And I continue after reviewing the links
     When I choose to publish the change now
     And I add an internal note
+    And I add a change note
     When I click cancel
     Then I am taken back to Content Block Manager home page
     And no draft Content Block Edition has been created
@@ -96,6 +100,7 @@ Feature: Edit a content object
     And I continue after reviewing the links
     And I choose to publish the change now
     And I add an internal note
+    And I add a change note
     Then I am asked to review my answers
     When I click publish without confirming my details
     Then I should see a message that I need to confirm the details are correct
@@ -105,12 +110,14 @@ Feature: Edit a content object
     When I am updating a content block
     And I schedule the change for 7 days in the future
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I revisit the edit page
     Then I should see a warning telling me there is a scheduled change
     When I make the changes
     And I choose to publish the change now
     And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block

@@ -168,7 +168,61 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
           assert_equal edition.reload.internal_change_note, change_note
 
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :change_note)
+        end
+      end
+    end
+
+    describe "when updating the change note" do
+      let(:step) { :change_note }
+
+      describe "#show" do
+        it "shows the form" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_template "content_block_manager/content_block/editions/workflow/change_note"
+        end
+      end
+
+      describe "#update" do
+        it "adds the note and redirects" do
+          change_note = "This is my note"
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "major_change" => "1",
+                  "change_note" => change_note,
+                },
+              }
+
+          assert_equal edition.reload.change_note, change_note
+          assert_equal edition.reload.major_change, true
+
           assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_update)
+        end
+
+        it "shows an error if the change is major and the change note is blank" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "major_change" => "1",
+                  "change_note" => "",
+                },
+              }
+
+          assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.blank', attribute: 'Change note')}/, response.body)
+        end
+
+        it "shows an error if major_change is blank" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "major_change" => "",
+                  "change_note" => "",
+                },
+              }
+
+          assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.major_change.inclusion')}/, response.body)
         end
       end
     end
