@@ -4,29 +4,19 @@ module Workflow::UpdateMethods
   REVIEW_ERROR = Data.define(:attribute, :full_message)
 
   UPDATE_ACTIONS = {
-    review_links: :redirect_to_schedule,
+    review_links: :redirect_to_next_step,
     schedule_publishing: :validate_schedule,
     internal_note: :update_internal_note,
     change_note: :update_change_note,
     review: :validate_review_page,
   }.freeze
 
-  def redirect_to_schedule
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
-      id: @content_block_edition.id,
-      step: :schedule_publishing,
-    )
-  end
-
   def validate_schedule
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
     validate_scheduled_edition
 
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
-      id: @content_block_edition.id,
-      step: :internal_note,
-    )
+    redirect_to_next_step
   rescue ActiveRecord::RecordInvalid
     render "content_block_manager/content_block/editions/workflow/schedule_publishing"
   end
@@ -34,20 +24,14 @@ module Workflow::UpdateMethods
   def update_internal_note
     @content_block_edition.update!(internal_change_note: edition_params[:internal_change_note])
 
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
-      id: @content_block_edition.id,
-      step: :change_note,
-    )
+    redirect_to_next_step
   end
 
   def update_change_note
     @content_block_edition.assign_attributes(change_note: edition_params[:change_note], major_change: edition_params[:major_change])
     @content_block_edition.save!(context: :change_note)
 
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
-      id: @content_block_edition.id,
-      step: :review,
-    )
+    redirect_to_next_step
   rescue ActiveRecord::RecordInvalid
     render :change_note
   end
@@ -60,5 +44,16 @@ module Workflow::UpdateMethods
     else
       schedule_or_publish
     end
+  end
+
+private
+
+  def redirect_to_next_step
+    next_step = Workflow::Step.by_name(params[:step])&.next_step
+
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+      id: @content_block_edition.id,
+      step: next_step&.name,
+    )
   end
 end
