@@ -1,4 +1,4 @@
-@startuml asset-attachment-upload-flow
+@startuml asset_attachment_upload_flow
 
 title The sequence of uploading a file attachment in Whitehall (AttachmentData)
 skinparam BoxPadding 20
@@ -9,14 +9,14 @@ actor publisher
 participant Controller
 participant AttachmentData
 participant "AssetManager\nStorage" as AssetManagerStorage
-participant "DraftEditor\nUpdater" as DraftEditionUpdater
+participant "DraftEdition\nUpdater" as DraftEditionUpdater
 end box
 
 box Whitehall worker (Sidekiq)
 participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
 participant Asset
 participant "PublishingApi\nDraftUpdateWorker" as PublishingApiDraftUpdateWorker
-participant "DraftEditor\nUpdater" as bgDraftEditionUpdater
+participant "DraftEdition\nUpdater" as bgDraftEditionUpdater
 participant "AssetManager\nAttachmentMetadataWorker" as AssetManagerAttachmentMetadataWorker
 end box
 

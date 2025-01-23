@@ -47,9 +47,22 @@ a new Asset model was proposed. Find the related ADR for the asset model [here](
 
 ### File attachments upload flow
 *Editionable Content* types such as **News Articles** and **Consultations**, as well as **Policy Groups**, can have attachments.
-Uploads and republishing actions are managed asynchronously in the background by a Sidekiq worker.
+Uploads and republishing actions are managed asynchronously in the background by a Sidekiq job. Note that the diagram below will look slightly different for non-editionable attachables (Worldwide Organisation Pages, Consultation and Call for Evidence Responses, and Policy Groups) depending on their publishing mechanism.
 
 ![Attachment Upload Flow](diagrams/asset_attachment_upload_flow.png)
+
+#### File attachment replacements
+
+Asset Manager supports "replacing" existing assets with a new one. Replacement is essentially a special type of redirect for asset-to-asset redirects (as opposed to the general redirect URL attribute supported by Asset Manager, which redirects assets to non-asset URLs). Replacement is necessary to ensure that bookmarks and links to existing attachment assets still work even if the binary asset file has changed.
+
+When a new asset is uploaded as a replacement for the previous one, the flow is identical to the upload flow, but the `AssetManagerAttachmentMetadataWorker` also sends a request to Asset Manager to mark the previous asset as replaced. Note that the replacement does not take effect until the new asset is no longer flagged as a draft. This occurs when the edition is published.
+
+### File attachments publishing flow
+Changes to assets are not applied to Asset Manager until an edition is published, because the previous edition may have attachments that still refer to those assets. Consequently, and somewhat surprisingly, we delete assets associated with deleted attachments at the time of publishing. We also set the draft flag to `false` for all assets associated with the attachment. That includes setting the draft flag to `false` for deleted assets because, if the deleted draft asset was a replacement for a previous attachment asset, the replacement will not be applied until the draft flag is set to `false`.
+
+These actions are performed asynchronously as a Sidekiq job, because some editions have large numbers of attachments which would make sending these requests synchronously unacceptably slow for publishers. Sidekiq also supports automatically retrying any requests that fail, which helps the system to be more robust.
+
+![Attachment Publishing Flow for Editionable Attachables](diagrams/attachment_asset_publishing_flow.png)
 
 ### Images upload flow
 *Editionable Content* types such as **News Articles** and **Consultations** can have images that are used within the document.
