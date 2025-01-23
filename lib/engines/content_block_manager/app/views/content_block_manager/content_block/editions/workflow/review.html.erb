@@ -1,8 +1,9 @@
 <% content_for :context, "Create a content block" %>
 <% content_for :title, "Review #{@content_block_edition.block_type.humanize.downcase}" %>
+
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: @back_path,
+    href: back_path(@content_block_edition, "review"),
   } %>
 <% end %>
 
@@ -23,7 +24,10 @@
   </div>
 </div>
 
-<%= form_with(url: @url, method: :put) do %>
+<%= form_with(
+      url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :review),
+      method: :put,
+    ) do %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= render "govuk_publishing_components/components/checkboxes", {
