@@ -21,11 +21,7 @@ Feature: Schedule a content object
 
   @disable-sidekiq-test-mode
   Scenario: GDS Editor publishes a new version of a previously scheduled content object
-    When I am updating a content block
-    And I schedule the change for 7 days in the future
-    And I add an internal note
-    And I add a change note
-    When I review and confirm my answers are correct
+    Given I have scheduled a change for 7 days in the future
     When I am updating a content block
     And I choose to publish the change now
     And I save and continue
