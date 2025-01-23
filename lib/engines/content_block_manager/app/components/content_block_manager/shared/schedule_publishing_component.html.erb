@@ -8,11 +8,6 @@
 <% end %>
 
 <%
-  year_param = params.dig("scheduled_at", "scheduled_publication(1i)")
-  month_param = params.dig("scheduled_at", "scheduled_publication(2i)")
-  day_param = params.dig("scheduled_at", "scheduled_publication(3i)")
-  hour_param = params.dig("scheduled_at", "scheduled_publication(4i)")
-  minute_param =  params.dig("scheduled_at", "scheduled_publication(5i)")
   is_scheduled_param = params["schedule_publishing"]
 %>
 
