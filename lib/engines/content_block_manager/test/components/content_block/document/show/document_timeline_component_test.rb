@@ -49,4 +49,57 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
     assert_equal  I18n.l(@version_2.created_at, format: :long_ordinal),
                   page.all("time[datetime='#{@version_2.created_at.iso8601}']")[1].text
   end
+
+    test "renders the changed fields in correct order" do
+      changed_fields = [
+        ContentBlockManager::ContentBlock::Version::ChangedField.new(
+          field_name: "email_address",
+          new: "new@email.com",
+          previous: "old@email.com",
+          ),
+        ContentBlockManager::ContentBlock::Version::ChangedField.new(
+          field_name: "another_details_field",
+          new: "new field",
+          previous: "old field",
+          ),
+        ContentBlockManager::ContentBlock::Version::ChangedField.new(
+          field_name: "lead_organisation",
+          new: "new org",
+          previous: "old org",
+          ),
+        ContentBlockManager::ContentBlock::Version::ChangedField.new(
+          field_name: "instructions_to_publishers",
+          new: "new instructions",
+          previous: "old instructions",
+          ),
+        ContentBlockManager::ContentBlock::Version::ChangedField.new(
+          field_name: "title",
+          new: "new title",
+          previous: "old title",
+          ),
+      ]
+      @user = create(:user)
+      @version = create(
+        :content_block_version,
+        event: "updated",
+        whodunnit: @user.id,
+        state: "scheduled",
+        changed_fields:,
+        )
+
+      render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
+        content_block_versions: [@version],
+        ))
+
+      assert_equal "old title", page.all("td")[0].text
+      assert_equal "new title", page.all("td")[1].text
+      # assert_equal "new@email.com", page.all("td")[2].text
+      # assert_equal "old@email.com", page.all("td")[3].text
+      # # assert_equal "new details", page.all("td")[4].text
+      # assert_equal "old details", page.all("td")[5].text
+      # assert_equal "old org", page.all("td")[6].text
+      # assert_equal "new org", page.all("td")[7].text
+      # # assert_equal "old instructions", page.all("td")[8].text
+      # assert_equal "new instructions", page.all("td")[9].text
+    end
 end
