@@ -21,6 +21,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       updated_at:,
       details:,
       document_attributes: {
+        sluggable_string: "Something",
         block_type: "email_address",
       },
       creator:,
@@ -104,6 +105,37 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
     assert_invalid content_block_edition
     assert content_block_edition.errors.full_messages.include?("Title cannot be blank")
+  end
+
+  describe "change note validation" do
+    it "validates the presence of a change note if the change is major" do
+      content_block_edition.change_note = nil
+      content_block_edition.major_change = true
+
+      assert_invalid content_block_edition, context: :change_note
+      assert content_block_edition.errors.full_messages.include?("Change note cannot be blank")
+    end
+
+    it "is valid when the change is major and a change note is provided" do
+      content_block_edition.change_note = "something"
+      content_block_edition.major_change = true
+
+      assert_valid content_block_edition, context: :change_note
+    end
+
+    it "validates the presence of the major_change boolean" do
+      content_block_edition.major_change = nil
+
+      assert_invalid content_block_edition, context: :change_note
+      assert content_block_edition.errors.full_messages.include?("Select if users have to know the content has changed")
+    end
+
+    it "is valid when the change is minor and a change note is not provided" do
+      content_block_edition.change_note = nil
+      content_block_edition.major_change = false
+
+      assert_valid content_block_edition, context: :change_note
+    end
   end
 
   it "adds a creator and first edition author for new records" do
