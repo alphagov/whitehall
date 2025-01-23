@@ -13,6 +13,8 @@ en:
           attributes:
             schedule_publishing:
               blank: "Select publish date"
+            major_change:
+              inclusion: "Select if users have to know the content has changed"
             scheduled_publication:
               blank: "Scheduled publication date and time cannot be blank"
               invalid_date: "Invalid scheduled publication date and time"

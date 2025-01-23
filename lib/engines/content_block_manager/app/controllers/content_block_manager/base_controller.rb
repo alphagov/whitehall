@@ -26,6 +26,9 @@ class ContentBlockManager::BaseController < Admin::BaseController
             "scheduled_publication(4i)",
             "scheduled_publication(5i)",
             :title,
+            :internal_change_note,
+            :change_note,
+            :major_change,
             document_attributes: %w[block_type],
             details: @schema.permitted_params,
           )

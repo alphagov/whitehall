@@ -119,7 +119,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
       end
 
       it "redirects to the review links step when successful" do
-        redirects_to_step(ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links]) do
+        redirects_to_step(:review_links) do
           post content_block_manager.content_block_manager_content_block_document_editions_path(content_block_document), params: {
             "content_block/edition": {
               document_attributes: {
@@ -176,7 +176,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
       end
 
       it "redirects to the review step when successful" do
-        redirects_to_step(ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review]) do
+        redirects_to_step(:review) do
           post content_block_manager.content_block_manager_content_block_editions_path, params: {
             something: "else",
             "content_block/edition": {

@@ -10,8 +10,9 @@ Feature: Schedule a content object
   @enable-sidekiq-test-mode
   Scenario: GDS Editor schedules a content object
     When I am updating a content block
-    Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     And I should be taken to the scheduled confirmation page
     When I click to view the content block
@@ -21,34 +22,35 @@ Feature: Schedule a content object
   @disable-sidekiq-test-mode
   Scenario: GDS Editor publishes a new version of a previously scheduled content object
     When I am updating a content block
-    Then I am asked when I want to publish the change
     And I schedule the change for 7 days in the future
+    And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     When I am updating a content block
     And I choose to publish the change now
     And I save and continue
+    And I add a change note
     When I review and confirm my answers are correct
     Then there should be no jobs scheduled
 
   Scenario: A scheduled content object is published
     When I am updating a content block
-    Then I am asked when I want to publish the change
     When I choose to schedule the change
     And the block is scheduled and published
+    And I add an internal note
+    And I add a change note
     When I review and confirm my answers are correct
     Then the published state of the object should be shown
     And I should see the publish event on the timeline
 
   Scenario: GDS Editor does not provide date for scheduling
     When I am updating a content block
-    Then I am asked when I want to publish the change
     When I choose to schedule the change
     And I save and continue
     Then I see the errors prompting me to provide a date and time
 
   Scenario: GDS Editor does not provide a valid date for scheduling
     When I am updating a content block
-    Then I am asked when I want to publish the change
     When I choose to schedule the change
     And I enter an invalid date
     And I save and continue
@@ -56,7 +58,6 @@ Feature: Schedule a content object
 
   Scenario: GDS Editor provides a date in the past for scheduling
     When I am updating a content block
-    Then I am asked when I want to publish the change
     When I choose to schedule the change
     And I enter a date in the past
     And I save and continue
@@ -64,8 +65,9 @@ Feature: Schedule a content object
 
   Scenario: GDS Editor cancels after scheduling a block
     When I am updating a content block
-    Then I am asked when I want to publish the change
     When I choose to schedule the change
     And the block is scheduled and published
+    And I add an internal note
+    And I add a change note
     And I click cancel
     Then I am taken back to Content Block Manager home page

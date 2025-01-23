@@ -2,6 +2,8 @@ module ContentBlockManager
   module ContentBlock
     class Edition < ApplicationRecord
       validates :title, presence: true
+      validates :change_note, presence: true, if: :major_change?, on: :change_note
+      validates :major_change, inclusion: [true, false], on: :change_note
 
       include Documentable
       include HasAuditTrail

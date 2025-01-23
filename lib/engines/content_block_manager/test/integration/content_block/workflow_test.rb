@@ -30,7 +30,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
   describe "when creating a new content block" do
     describe "when reviewing the changes" do
-      let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review] }
+      let(:step) { :review }
 
       describe "#show" do
         it "shows the new edition for review" do
@@ -51,7 +51,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
     end
 
     describe "when the edition details have not been confirmed" do
-      let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::NEW_BLOCK_STEPS[:review] }
+      let(:step) { :review }
 
       describe "#update" do
         it "returns to the review page" do
@@ -65,7 +65,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
   describe "when updating an existing content block" do
     describe "when reviewing the links" do
-      let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:review_links] }
+      let(:step) { :review_links }
 
       describe "#show" do
         it_returns_embedded_content do
@@ -83,7 +83,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
     end
 
     describe "when scheduling or publishing" do
-      let(:step) { ContentBlockManager::ContentBlock::Editions::WorkflowController::UPDATE_BLOCK_STEPS[:schedule_publishing] }
+      let(:step) { :schedule_publishing }
 
       describe "#show" do
         it "shows the form" do
@@ -96,7 +96,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
       describe "#update" do
         describe "when choosing to publish immediately" do
-          it "redirects to the review step" do
+          it "redirects to the internal note step" do
             scheduled_at = {
               "scheduled_publication(1i)": "",
               "scheduled_publication(2i)": "",
@@ -111,12 +111,12 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
                   scheduled_at:,
                 }
 
-            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_update)
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :internal_note)
           end
         end
 
         describe "when scheduling publication" do
-          it "redirects to the review step" do
+          it "redirects to the internal note page" do
             scheduled_at = {
               "scheduled_publication(1i)": "2024",
               "scheduled_publication(2i)": "01",
@@ -130,7 +130,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
               scheduled_at:,
             }
 
-            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_update)
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :internal_note)
           end
         end
 
@@ -142,6 +142,106 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
             assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank')}/, response.body)
           end
         end
+      end
+    end
+
+    describe "when updating the internal note" do
+      let(:step) { :internal_note }
+
+      describe "#show" do
+        it "shows the form" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_template "content_block_manager/content_block/editions/workflow/internal_note"
+        end
+      end
+
+      describe "#update" do
+        it "adds the note and redirects" do
+          change_note = "This is my note"
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "internal_change_note" => change_note,
+                },
+              }
+
+          assert_equal edition.reload.internal_change_note, change_note
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :change_note)
+        end
+      end
+    end
+
+    describe "when updating the change note" do
+      let(:step) { :change_note }
+
+      describe "#show" do
+        it "shows the form" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_template "content_block_manager/content_block/editions/workflow/change_note"
+        end
+      end
+
+      describe "#update" do
+        it "adds the note and redirects" do
+          change_note = "This is my note"
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "major_change" => "1",
+                  "change_note" => change_note,
+                },
+              }
+
+          assert_equal edition.reload.change_note, change_note
+          assert_equal edition.reload.major_change, true
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_update)
+        end
+
+        it "shows an error if the change is major and the change note is blank" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "major_change" => "1",
+                  "change_note" => "",
+                },
+              }
+
+          assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.blank', attribute: 'Change note')}/, response.body)
+        end
+
+        it "shows an error if major_change is blank" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "major_change" => "",
+                  "change_note" => "",
+                },
+              }
+
+          assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.major_change.inclusion')}/, response.body)
+        end
+      end
+    end
+  end
+
+  describe "when an unknown step is provided" do
+    describe "#show" do
+      it "shows the new edition for review" do
+        get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "some_random_step")
+
+        assert_response :missing
+      end
+    end
+
+    describe "#update" do
+      it "posts the new edition to the Publishing API and marks edition as published" do
+        put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "some_random_step")
+
+        assert_response :missing
       end
     end
   end
