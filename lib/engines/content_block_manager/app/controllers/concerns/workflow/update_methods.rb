@@ -8,7 +8,6 @@ module Workflow::UpdateMethods
     schedule_publishing: :validate_schedule,
     internal_note: :update_internal_note,
     change_note: :update_change_note,
-    review_update: :validate_review_page,
     review: :validate_review_page,
   }.freeze
 
@@ -47,7 +46,7 @@ module Workflow::UpdateMethods
 
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
       id: @content_block_edition.id,
-      step: :review_update,
+      step: :review,
     )
   rescue ActiveRecord::RecordInvalid
     render :change_note
@@ -57,20 +56,9 @@ module Workflow::UpdateMethods
     if params[:is_confirmed].blank?
       @confirm_error_copy = I18n.t("content_block_edition.review_page.errors.confirm")
       @error_summary_errors = [{ text: @confirm_error_copy, href: "#is_confirmed-0" }]
-      @url = on_review_page? ? review_url : review_update_url
-      render "content_block_manager/content_block/editions/workflow/review"
+      render :review
     else
       schedule_or_publish
     end
-  end
-
-private
-
-  def on_review_page?
-    params[:step] == :review
-  end
-
-  def on_review_update_page?
-    params[:step] == :review_update
   end
 end

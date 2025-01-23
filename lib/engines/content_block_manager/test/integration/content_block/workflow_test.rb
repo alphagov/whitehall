@@ -198,7 +198,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           assert_equal edition.reload.change_note, change_note
           assert_equal edition.reload.major_change, true
 
-          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_update)
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
         end
 
         it "shows an error if the change is major and the change note is blank" do

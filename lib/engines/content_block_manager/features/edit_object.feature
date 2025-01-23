@@ -16,7 +16,7 @@ Feature: Edit a content object
     And I should see a back link to the document page
     When I fill out the form
     Then I should be on the "review_links" step
-    And I should see a back link to the "edit" step
+    And I should see a back link to the "edit_draft" step
     When I continue after reviewing the links
     Then I should be on the "schedule_publishing" step
     And I should see a back link to the "review_links" step

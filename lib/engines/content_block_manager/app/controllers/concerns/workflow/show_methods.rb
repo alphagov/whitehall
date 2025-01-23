@@ -8,7 +8,6 @@ module Workflow::ShowMethods
     internal_note: :internal_note,
     change_note: :change_note,
     review: :review,
-    review_update: :review_update,
     confirmation: :confirmation,
   }.freeze
 
@@ -54,18 +53,8 @@ module Workflow::ShowMethods
     render :change_note
   end
 
-  def review_update
-    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-
-    @url = review_update_url
-
-    render :review
-  end
-
   def review
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-
-    @url = review_url
 
     render :review
   end
