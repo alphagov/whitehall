@@ -3,9 +3,12 @@ require "test_helper"
 class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
+  let(:user) { create("user") }
+  let(:organisation) { build(:organisation) }
+  let(:document) { build(:content_block_document, :email_address) }
+
   describe "record_create" do
     it "creates a 'created' version with the current user" do
-      user = create("user")
       Current.user = user
       edition = build(
         :content_block_edition,
@@ -26,7 +29,6 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
 
   describe "record_update" do
     it "creates a 'updated' version after scheduling an edition" do
-      user = create("user")
       Current.user = user
       edition = create(
         :content_block_edition,
@@ -56,6 +58,19 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
       assert_no_changes -> { edition.versions.count } do
         edition.update!(details: { "foo": "bar" })
       end
+    end
+
+    it "checks for any field_diffs" do
+      Current.user = user
+      edition = create(
+        :content_block_edition,
+        creator: user,
+        document: create(:content_block_document, :email_address),
+      )
+      edition.scheduled_publication = Time.zone.now
+
+      ContentBlockManager::ContentBlock::FieldDiff.expects(:all_for_edition).with(edition:).returns(nil)
+      edition.schedule!
     end
   end
 
