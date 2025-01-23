@@ -46,6 +46,15 @@ class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
     end
   end
 
+  def reorder
+    @reorderable_social_media_accounts = @edition.social_media_accounts
+  end
+
+  def order
+    @edition.social_media_accounts.reorder_without_callbacks!(params.require(:ordering))
+    redirect_to admin_edition_social_media_accounts_path(@edition), notice: "Social media accounts reordered"
+  end
+
 private
 
   def find_edition

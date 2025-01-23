@@ -250,6 +250,10 @@ Whitehall::Application.routes.draw do
         resources :lead_images, controller: "edition_lead_images", only: %i[update]
         resources :social_media_accounts, only: %i[create destroy edit index new update], controller: "editionable_social_media_accounts" do
           get :confirm_destroy, on: :member
+          collection do
+            get :reorder
+            put :order
+          end
         end
       end
 

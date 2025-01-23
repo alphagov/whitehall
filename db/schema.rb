@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_06_160308) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_08_102234) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -1006,6 +1006,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_06_160308) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "socialable_type"
+    t.integer "ordering"
     t.index ["social_media_service_id"], name: "index_social_media_accounts_on_social_media_service_id"
     t.index ["socialable_id"], name: "index_social_media_accounts_on_organisation_id"
   end
