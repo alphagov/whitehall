@@ -130,4 +130,18 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
       assert_equal latest_edition.title, document.title
     end
   end
+
+  describe "#is_new_block?" do
+    it "returns true when there is one associated edition" do
+      document = create(:content_block_document, :email_address, editions: create_list(:content_block_edition, 1, :email_address))
+
+      assert document.is_new_block?
+    end
+
+    it "returns false when there is more than one associated edition" do
+      document = create(:content_block_document, :email_address, editions: create_list(:content_block_edition, 2, :email_address))
+
+      assert_not document.is_new_block?
+    end
+  end
 end
