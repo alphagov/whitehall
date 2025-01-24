@@ -1,16 +1,6 @@
 module Workflow::ShowMethods
   extend ActiveSupport::Concern
 
-  SHOW_ACTIONS = {
-    edit_draft: :edit_draft,
-    review_links: :review_links,
-    schedule_publishing: :schedule_publishing,
-    internal_note: :internal_note,
-    change_note: :change_note,
-    review: :review,
-    confirmation: :confirmation,
-  }.freeze
-
   def edit_draft
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
     @form = ContentBlockManager::ContentBlock::EditionForm.for(

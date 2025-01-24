@@ -3,14 +3,6 @@ module Workflow::UpdateMethods
 
   REVIEW_ERROR = Data.define(:attribute, :full_message)
 
-  UPDATE_ACTIONS = {
-    review_links: :redirect_to_next_step,
-    schedule_publishing: :validate_schedule,
-    internal_note: :update_internal_note,
-    change_note: :update_change_note,
-    review: :validate_review_page,
-  }.freeze
-
   def validate_schedule
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
