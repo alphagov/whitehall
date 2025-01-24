@@ -19,13 +19,13 @@
     </div>
 
     <div class="govuk-!-margin-bottom-4">
-      <%= render "govuk_publishing_components/components/input", {
+      <%= render "govuk_publishing_components/components/textarea", {
         label: {
           text: "Street address",
+          heading_size: "m",
         },
         name: "#{name}[street_address]",
-        id: "#{id}_street_address",
-        heading_size: "m",
+        textarea_id: "#{id}_street_address",
         value: contact_form.object.street_address,
         error_items: errors_for(contact_form.object.errors, :street_address),
       } %>
