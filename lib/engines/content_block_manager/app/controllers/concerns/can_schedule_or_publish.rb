@@ -74,13 +74,6 @@ module CanScheduleOrPublish
     ]
   end
 
-  def review_update_url
-    content_block_manager.content_block_manager_content_block_workflow_path(
-      @content_block_edition,
-      step: :review,
-    )
-  end
-
   def is_scheduling?
     @content_block_edition.scheduled_publication.present?
   end

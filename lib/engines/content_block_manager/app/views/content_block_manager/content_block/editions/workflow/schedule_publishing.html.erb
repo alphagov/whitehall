@@ -3,10 +3,7 @@
       content_block_edition: @content_block_edition,
       params:,
       context:,
-      back_link: content_block_manager.content_block_manager_content_block_workflow_path(
-        @content_block_edition,
-        step: :review_links,
-      ),
+      back_link: back_path(@content_block_edition, "schedule_publishing"),
       form_url: content_block_manager.content_block_manager_content_block_workflow_path(
         @content_block_edition,
         step: :schedule_publishing,

@@ -33,6 +33,10 @@ module ContentBlockManager
       def title
         @title ||= latest_edition&.title
       end
+
+      def is_new_block?
+        editions.count == 1
+      end
     end
   end
 end

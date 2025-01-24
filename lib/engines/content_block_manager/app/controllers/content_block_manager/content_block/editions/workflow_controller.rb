@@ -5,7 +5,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
 
   def show
     step = params[:step].to_sym
-    action = SHOW_ACTIONS[step]
+    action = Workflow::Step.by_name(step)&.show_action
 
     if action
       @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
@@ -18,7 +18,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
 
   def update
     step = params[:step].to_sym
-    action = UPDATE_ACTIONS[step]
+    action = Workflow::Step.by_name(step)&.update_action
 
     if action
       @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
