@@ -143,7 +143,7 @@ Then("I should see {edition} in the list of published documents") do |edition|
 end
 
 Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
-  expect(new_title).to eq(find(".gem-c-title__context").text)
+  expect(new_title).to eq(find(".govuk-caption-xl").text)
   expect(page).to have_selector(".conflict h2", text: latest_title)
 end
 
