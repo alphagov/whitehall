@@ -1,0 +1,264 @@
+ar:
+  direction: rtl
+  english_name: Arabic
+  native_name: العربية
+az:
+  direction: ltr
+  english_name: Azeri
+  native_name: Azərbaycanca
+be:
+  direction: ltr
+  english_name: Belarusian
+  native_name: Беларуская
+bg:
+  direction: ltr
+  english_name: Bulgarian
+  native_name: Български
+bn:
+  direction: ltr
+  english_name: Bangla
+  native_name: বাংলা
+cs:
+  direction: ltr
+  english_name: Czech
+  native_name: Čeština
+cy:
+  direction: ltr
+  english_name: Welsh
+  native_name: Cymraeg
+da:
+  direction: ltr
+  english_name: Danish
+  native_name: Dansk
+de:
+  direction: ltr
+  english_name: German
+  native_name: Deutsch
+dr:
+  direction: rtl
+  english_name: Dari
+  native_name: دری
+el:
+  direction: ltr
+  english_name: Greek
+  native_name: Ελληνικά
+en:
+  direction: ltr
+  english_name: English
+  native_name: English
+es:
+  direction: ltr
+  english_name: Spanish
+  native_name: Español
+es-419:
+  direction: ltr
+  english_name: Latin American Spanish
+  native_name: Español de América Latina
+et:
+  direction: ltr
+  english_name: Estonian
+  native_name: Eesti
+fa:
+  direction: rtl
+  english_name: Persian
+  native_name: فارسی
+fi:
+  direction: ltr
+  english_name: Finnish
+  native_name: Suomi
+fr:
+  direction: ltr
+  english_name: French
+  native_name: Français
+gd:
+  direction: ltr
+  english_name: Irish
+  native_name: Gaeilge
+gu:
+  direction: ltr
+  english_name: Gujarati
+  native_name: ગુજરાતી
+he:
+  direction: rtl
+  english_name: Hebrew
+  native_name: עברית
+hi:
+  direction: ltr
+  english_name: Hindi
+  native_name: हिन्दी
+hr:
+  direction: ltr
+  english_name: Croatian
+  native_name: Hrvatski
+hu:
+  direction: ltr
+  english_name: Hungarian
+  native_name: Magyar
+hy:
+  direction: ltr
+  english_name: Armenian
+  native_name: Հայերեն
+id:
+  direction: ltr
+  english_name: Indonesian
+  native_name: Bahasa Indonesia
+is:
+  direction: ltr
+  english_name: Icelandic
+  native_name: Íslenska
+it:
+  direction: ltr
+  english_name: Italian
+  native_name: Italiano
+ja:
+  direction: ltr
+  english_name: Japanese
+  native_name: 日本語
+ka:
+  direction: ltr
+  english_name: Georgian
+  native_name: ქართული
+kk:
+  direction: ltr
+  english_name: Kazakh
+  native_name: Қазақ
+ko:
+  direction: ltr
+  english_name: Korean
+  native_name: 한국어
+lt:
+  direction: ltr
+  english_name: Lithuanian
+  native_name: Lietuvių
+lv:
+  direction: ltr
+  english_name: Latvian
+  native_name: Latviešu
+ms:
+  direction: ltr
+  english_name: Malay
+  native_name: Bahasa Melayu
+mt:
+  direction: ltr
+  english_name: Maltese
+  native_name: Malti
+ne:
+  direction: ltr
+  english_name: Nepali
+  native_name: नेपाली
+nl:
+  direction: ltr
+  english_name: Dutch
+  native_name: Nederlands
+'no':
+  direction: ltr
+  english_name: Norwegian
+  native_name: Norsk
+pa:
+  direction: ltr
+  english_name: Punjabi Gurmukhi
+  native_name: ਪੰਜਾਬੀ
+pa-pk:
+  direction: rtl
+  english_name: Punjabi Shahmukhi
+  native_name: پنجابی
+pl:
+  direction: ltr
+  english_name: Polish
+  native_name: Polski
+ps:
+  direction: rtl
+  english_name: Pashto
+  native_name: پښتو
+pt:
+  direction: ltr
+  english_name: Portuguese
+  native_name: Português
+ro:
+  direction: ltr
+  english_name: Romanian
+  native_name: Română
+ru:
+  direction: ltr
+  english_name: Russian
+  native_name: Русский
+si:
+  direction: ltr
+  english_name: Sinhala
+  native_name: සිංහල
+sk:
+  direction: ltr
+  english_name: Slovak
+  native_name: Slovenčina
+sl:
+  direction: ltr
+  english_name: Slovene
+  native_name: Slovenščina
+so:
+  direction: ltr
+  english_name: Somali
+  native_name: Soomaali
+sq:
+  direction: ltr
+  english_name: Albanian
+  native_name: Shqip
+sr:
+  direction: ltr
+  english_name: Serbian
+  native_name: Српски
+sv:
+  direction: ltr
+  english_name: Swedish
+  native_name: Svenska
+sw:
+  direction: ltr
+  english_name: Swahili
+  native_name: Kiswahili
+ta:
+  direction: ltr
+  english_name: Tamil
+  native_name: தமிழ்
+th:
+  direction: ltr
+  english_name: Thai
+  native_name: ไทย
+tk:
+  direction: ltr
+  english_name: Turkmen
+  native_name: Türkmen
+tr:
+  direction: ltr
+  english_name: Turkish
+  native_name: Türkçe
+uk:
+  direction: ltr
+  english_name: Ukrainian
+  native_name: Українська
+ur:
+  direction: rtl
+  english_name: Urdu
+  native_name: اردو
+uz:
+  direction: ltr
+  english_name: Uzbek
+  native_name: Oʻzbek
+vi:
+  direction: ltr
+  english_name: Vietnamese
+  native_name: Tiếng Việt
+yi:
+  direction: rtl
+  english_name: Yiddish
+  native_name: ייִדיש
+zh:
+  direction: ltr
+  english_name: Chinese
+  native_name: 中文
+zh-hk:
+  direction: ltr
+  english_name: Cantonese
+  native_name: 粵語
+zh-tw:
+  direction: ltr
+  english_name: Traditional Chinese
+  native_name: 繁體中文
