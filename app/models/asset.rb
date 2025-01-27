@@ -16,7 +16,7 @@ class Asset < ApplicationRecord
     end
   end
 
-  enum variant: {
+  enum :variant, {
     original: "original".freeze,
   }.merge(
     Whitehall.image_kinds.values

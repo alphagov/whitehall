@@ -28,7 +28,7 @@ module Whitehall
   class Application < Rails::Application
     require "whitehall"
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.1
+    config.load_defaults 7.2
 
     # Disable rails 7.0+ button_to behaviour
     config.action_view.button_to_generates_button_tag = false

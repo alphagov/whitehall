@@ -58,9 +58,9 @@ When(/^I add a translation for an organisation called "([^"]*)"$/) do |organisat
   fill_in "Logo formatted name", with: "Organisation Name in another language"
   within ".js-add-another__fieldset", match: :first do
     fill_in "Title", with: "Top task 1 in another language"
-    expect(page).to have_field("organisation_featured_links[0]_title"), with: "Top task 1 in another language"
+    expect(page).to have_field("organisation_featured_links[0]_title", with: "Top task 1 in another language")
     fill_in "URL", with: "http://mainstream.wales"
-    expect(page).to have_field("organisation_featured_links[0]_url"), with: "http://mainstream.co.uk"
+    expect(page).to have_field("organisation_featured_links[0]_url", with: "http://mainstream.wales")
   end
 
   click_button "Save"

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "7.1.5.1"
+gem "rails", "~> 7.2.2"
 
 gem "activemodel-serializers-xml"
 gem "addressable"
@@ -95,6 +95,7 @@ group :test do
   gem "mocha"
   gem "rack-test"
   gem "rails-controller-testing"
+  gem "rails-dom-testing"
   gem "simplecov", require: false
   gem "timecop"
   gem "webmock", require: false
