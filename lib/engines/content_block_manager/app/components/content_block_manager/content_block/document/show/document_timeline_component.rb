@@ -14,6 +14,7 @@ private
         title: title(version),
         byline: User.find_by_id(version.whodunnit)&.then { |user| helpers.linked_author(user, { class: "govuk-link" }) } || "unknown user",
         date: time_html(version.created_at),
+        table_rows: table_rows(version),
       }
     end
   end
@@ -33,5 +34,17 @@ private
       datetime: date_time.iso8601,
       lang: "en",
     )
+  end
+
+  def table_rows(version)
+    if version.field_diffs.present?
+      version.field_diffs.map do |field|
+        [
+          { text: field["field_name"].humanize },
+          { text: field["previous_value"] },
+          { text: field["new_value"] },
+        ]
+      end
+    end
   end
 end

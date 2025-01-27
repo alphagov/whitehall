@@ -16,3 +16,8 @@ Then("I should see the scheduled event on the timeline") do
   expect(page).to have_selector(".timeline__title", text: "Email address scheduled")
   expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}")
 end
+
+And("I should see the edition diff in a table") do
+  expect(page).to have_selector(".govuk-table__cell", text: "Changed title")
+  expect(page).to have_selector(".govuk-table__cell", text: @content_block.document.title)
+end

@@ -28,7 +28,7 @@ module ContentBlockManager
       unless draft?
         user = Current.user
         state = try(:state)
-        versions.create!(event: "updated", user:, state:)
+        versions.create!(event: "updated", user:, state:, field_diffs: ContentBlockManager::ContentBlock::FieldDiff.all_for_edition(edition: self))
       end
     end
   end

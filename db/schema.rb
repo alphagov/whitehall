@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_22_155447) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_24_165847) do
   create_table "assets", charset: "utf8mb3", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -247,6 +247,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_155447) do
     t.string "whodunnit"
     t.datetime "created_at", precision: nil, null: false
     t.text "state"
+    t.json "field_diffs"
     t.index ["item_id"], name: "index_content_block_versions_on_item_id"
     t.index ["item_type"], name: "index_content_block_versions_on_item_type"
   end
