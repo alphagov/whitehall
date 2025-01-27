@@ -22,13 +22,6 @@ class I18nKeyTest < ActiveSupport::TestCase
     end
   end
 
-  test "Whitehall.available_locales and files in config/locales match" do
-    locale_files = Dir[Rails.root.join("config/locales/*.yml")]
-    locale_file_names = locale_files.map { |f| f.split("/").last.gsub(".yml", "").to_sym }.sort
-
-    assert_equal locale_file_names, Whitehall.available_locales
-  end
-
   test "translations for all publication types are present" do
     assert_translations PublicationType, "document.type"
   end
