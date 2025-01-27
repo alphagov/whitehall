@@ -1,0 +1,29 @@
+---
+cy:
+  corporate_information_page:
+    type:
+      link_text:
+        welsh_language_scheme: cyhoeddi yn y Gymraeg
+      title:
+        about: Amdanom ni
+        about_our_services: Am ein gwasanaethau
+        access_and_opening: Mynediad i'r swyddfa ac amseroedd agor
+        accessible_documents_policy: Polisi dogfennau hygyrch
+        complaints_procedure: Gweithdrefn gwyno
+        equality_and_diversity: Cydraddoldeb ac amrywiaeth
+        media_enquiries: Ymholiadau gan y cyfryngau
+        membership: Aelodaeth
+        modern_slavery_statement: Datganiad ar gaethwasiaeth fodern
+        our_energy_use: Ein defnydd o ynni
+        our_governance: Ein llywodraethiant
+        personal_information_charter: Siarter gwybodaeth bersonol
+        petitions_and_campaigns: Deisebau ac ymgyrchoedd
+        procurement: Caffael yn %{organisation_name}
+        publication_scheme: Cynllun cyhoeddi
+        recruitment: Gweithio i %{organisation_name}
+        research: Ymchwil yn %{organisation_name}
+        social_media_use: Defnydd o'r cyfryngau cymdeithasol
+        staff_update: Newyddion a gwybodaeth staff
+        statistics: Ystadegau yn %{organisation_name}
+        terms_of_reference: Cylch gorchwyl
+        welsh_language_scheme: Cynllun iaith Gymraeg
