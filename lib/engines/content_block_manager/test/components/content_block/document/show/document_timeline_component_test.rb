@@ -5,26 +5,30 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
   include ActionView::Helpers::UrlHelper
   include ApplicationHelper
   extend Minitest::Spec::DSL
-  
+
   let(:user) { create(:user) }
 
   test "renders a timeline component with events in correct order" do
+    item = build(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil)
     version_1 = create(
       :content_block_version,
       event: "created",
       whodunnit: user.id,
+      item:,
     )
     version_2 = create(
       :content_block_version,
       event: "updated",
       whodunnit: user.id,
       state: "published",
+      item:,
     )
     version_3 = create(
       :content_block_version,
       event: "updated",
       whodunnit: user.id,
       state: "scheduled",
+      item:,
     )
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
@@ -44,6 +48,8 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
                   page.all("time[datetime='#{version_2.created_at.iso8601}']")[1].text
 
     assert_no_selector ".govuk-table"
+    assert_no_selector "h2", text: "Internal note"
+    assert_no_selector "h2", text: "Public note"
   end
 
   test "renders the edition diff table in correct order" do
@@ -82,5 +88,37 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
     assert_equal "new@email.com", page.all("td")[3].text
     assert_equal "old instructions", page.all("td")[4].text
     assert_equal "new instructions", page.all("td")[5].text
+  end
+
+  test "renders an internal change note" do
+    edition = create(:content_block_edition, :email_address, internal_change_note: "changed x to y")
+    version = create(
+      :content_block_version,
+      item: edition,
+      event: "updated",
+      state: "published",
+    )
+
+    render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
+                    content_block_versions: [version],
+                  ))
+
+    assert_selector "p", text: "changed x to y"
+  end
+
+  test "renders a public change note" do
+    edition = create(:content_block_edition, :email_address, change_note: "changed a to b")
+    version = create(
+      :content_block_version,
+      item: edition,
+      event: "updated",
+      state: "published",
+    )
+
+    render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
+                    content_block_versions: [version],
+                  ))
+
+    assert_selector "p", text: "changed a to b"
   end
 end

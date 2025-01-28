@@ -51,8 +51,6 @@
 
 .timeline__date {
   @include govuk-font($size: 16);
-  margin-top: govuk-spacing(1);
-  margin-bottom: 0;
 }
 
 .timeline__description {
@@ -78,5 +76,11 @@
     margin-top: govuk-spacing(1);
     border: none;
     padding-left: 0;
+  }
+}
+
+.timeline__note {
+  .govuk-body {
+    margin-bottom: govuk-spacing(2);
   }
 }
