@@ -71,13 +71,15 @@ def update_content_block
 end
 
 def add_internal_note
-  fill_in "Describe the change for internal users", with: "Some internal note goes here"
+  @internal_note = "Some internal note goes here"
+  fill_in "Describe the change for internal users", with: @internal_note
   click_save_and_continue
 end
 
 def add_change_note
+  @change_note = "Some text"
   choose "Yes - information has been added, updated or removed"
-  fill_in "Describe the edit for users", with: "Some text"
+  fill_in "Describe the edit for users", with: @change_note
   click_save_and_continue
 end
 

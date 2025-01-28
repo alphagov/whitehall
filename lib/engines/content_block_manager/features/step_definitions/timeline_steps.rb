@@ -7,6 +7,11 @@ Then(/^I should see ([^"]*) publish events on the timeline$/) do |count|
   expect(page).to have_selector(".timeline__title", text: "Email address published", count:)
 end
 
+Then("I should see the notes on the timeline") do
+  expect(page).to have_selector("p", text: @internal_note)
+  expect(page).to have_selector("p", text: @change_note)
+end
+
 Then("I should see the publish event on the timeline") do
   expect(page).to have_selector(".timeline__title", text: "Email address published")
   expect(page).to have_selector(".timeline__byline", text: "by Scheduled Publishing Robot")

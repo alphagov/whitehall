@@ -15,6 +15,8 @@ private
         byline: User.find_by_id(version.whodunnit)&.then { |user| helpers.linked_author(user, { class: "govuk-link" }) } || "unknown user",
         date: time_html(version.created_at),
         table_rows: table_rows(version),
+        internal_change_note: internal_change_note(version),
+        change_note: change_note(version),
       }
     end
   end
@@ -46,5 +48,13 @@ private
         ]
       end
     end
+  end
+
+  def internal_change_note(version)
+    version.item.internal_change_note
+  end
+
+  def change_note(version)
+    version.item.change_note
   end
 end

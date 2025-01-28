@@ -45,6 +45,22 @@
           <% end %>
         </div>
       <% end %>
+
+      <div>
+      <% if item[:internal_change_note].present? %>
+          <div class="timeline__note">
+            <h2 class="timeline__title">Internal note</h2>
+            <p class="govuk-body"><%= item[:internal_change_note] %></p>
+          </div>
+      <% end %>
+
+      <% if item[:change_note].present? %>
+          <div class="timeline__note">
+            <h2 class="timeline__title">Public note</h2>
+            <p class="govuk-body"><%= item[:change_note] %></p>
+          </div>
+      <% end %>
+      </div>
     </div>
   <% end %>
 </div>
