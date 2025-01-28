@@ -93,20 +93,8 @@ And("the changes should have been actioned") do
   expect(doc1.latest_edition.lead_organisations.map(&:slug)).to eq(%w[cabinet-office government-digital-service])
   expect(doc1.latest_edition.supporting_organisations.map(&:slug)).to eq(%w[geospatial-commission])
   expect(doc2.latest_edition.lead_organisations.map(&:slug)).to eq(%w[government-digital-service])
-  # The `.sort` below is needed as, without it, the response is
-  # `geospatial-commission, cabinet-office` despite the order specified in the CSV.
-  #
-  # This may not be desired behaviour but it has been the behaviour to date (in the rake task,
-  # which our new form replaces) so as far as we know, has not been an issue in the past.
-  # Just noting here for reference.
-  #
-  # NB, the `new_supporting_organisations` parameter in `BulkOrganisationUpdater`'s `update_edition`
-  # method DOES have the organisations coming through in the correct order, so it only seems to
-  # go out of order in the `edition.update(supporting_organisations: new_supporting_organisations)`
-  # call.
-  #
-  # NB, the same issue does not affect `lead_organisations`, presumably because the
-  # "edition_organisations" table has a `lead_ordering` integer to track the order. There is no
-  # equivalent ordering tracking for supporting organisations.
+  # The `.sort` below is needed as otherwise the response is `geospatial-commission, cabinet-office`
+  # despite the order specified in the CSV. It's an established rule of the Whitehall domain that we
+  # don't care about the order of supporting organisations.
   expect(doc2.latest_edition.supporting_organisations.map(&:slug).sort).to eq(%w[cabinet-office geospatial-commission])
 end
