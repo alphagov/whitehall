@@ -10,6 +10,13 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
 
   test "renders a timeline component with events in correct order" do
     item = build(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil)
+    scheduled_item = build(
+      :content_block_edition,
+      :email_address,
+      change_note: nil,
+      internal_change_note: nil,
+      scheduled_publication: 2.days.from_now,
+    )
     version_1 = create(
       :content_block_version,
       event: "created",
@@ -28,7 +35,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       event: "updated",
       whodunnit: user.id,
       state: "scheduled",
-      item:,
+      item: scheduled_item,
     )
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
@@ -37,12 +44,12 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
 
     assert_selector ".timeline__item", count: 2
 
-    assert_equal "Email address scheduled", page.all(".timeline__title")[0].text
+    assert_equal "Scheduled for publishing on #{scheduled_item.scheduled_publication.to_fs(:long_ordinal_with_at)}", page.all(".timeline__title")[0].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[0].native.inner_html
-    assert_equal  version_2.created_at.to_fs(:long_ordinal_with_at),
+    assert_equal  version_3.created_at.to_fs(:long_ordinal_with_at),
                   page.all("time[datetime='#{version_3.created_at.iso8601}']")[1].text
 
-    assert_equal "Email address published", page.all(".timeline__title")[1].text
+    assert_equal "Published", page.all(".timeline__title")[1].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[1].native.inner_html
     assert_equal  version_2.created_at.to_fs(:long_ordinal_with_at),
                   page.all("time[datetime='#{version_2.created_at.iso8601}']")[1].text
@@ -74,7 +81,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       :content_block_version,
       event: "updated",
       whodunnit: user.id,
-      state: "scheduled",
+      state: "published",
       field_diffs: field_diffs,
     )
 

@@ -22,7 +22,14 @@ private
   end
 
   def title(version)
-    "#{version.item.block_type.humanize} #{version.state}"
+    case version.state
+    when "published"
+      version.state.capitalize
+    when "scheduled"
+      "Scheduled for publishing on #{version.item.scheduled_publication.to_fs(:long_ordinal_with_at)}"
+    else
+      "#{version.item.block_type.humanize} #{version.state}"
+    end
   end
 
   def first_created_edition
