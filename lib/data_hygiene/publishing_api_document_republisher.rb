@@ -19,7 +19,7 @@ module DataHygiene
     end
 
     def perform
-      logger.info "Queuing #{documents.count} #{edition_class} instances for republishing to the Publishing API"
+      logger.info("Queuing #{documents.count} #{edition_class} instances for republishing to the Publishing API")
       documents.find_each do |document|
         Whitehall::PublishingApi.republish_document_async(document, bulk: true)
         logger << "."
@@ -31,7 +31,7 @@ module DataHygiene
   private
 
     def documents
-      Document.where("id in (SELECT document_id from editions where type=?)", edition_class)
+      Document.where("id in (SELECT document_id from editions where type=?)", edition_class.to_s)
     end
   end
 end

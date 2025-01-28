@@ -28,7 +28,7 @@ class WorldLocation < ApplicationRecord
 
   after_commit :republish_index_pages_to_publishing_api
 
-  enum world_location_type: { world_location: 1, international_delegation: 3 }
+  enum :world_location_type, { world_location: 1, international_delegation: 3 }
 
   accepts_nested_attributes_for :edition_world_locations
 
