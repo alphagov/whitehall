@@ -39,12 +39,12 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
 
     assert_equal "Email address scheduled", page.all(".timeline__title")[0].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[0].native.inner_html
-    assert_equal  I18n.l(version_3.created_at, format: :long_ordinal),
+    assert_equal  version_2.created_at.to_fs(:long_ordinal_with_at),
                   page.all("time[datetime='#{version_3.created_at.iso8601}']")[1].text
 
     assert_equal "Email address published", page.all(".timeline__title")[1].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[1].native.inner_html
-    assert_equal  I18n.l(version_2.created_at, format: :long_ordinal),
+    assert_equal  version_2.created_at.to_fs(:long_ordinal_with_at),
                   page.all("time[datetime='#{version_2.created_at.iso8601}']")[1].text
 
     assert_no_selector ".govuk-table"

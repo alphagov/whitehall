@@ -31,7 +31,7 @@ private
 
   def time_html(date_time)
     tag.time(
-      I18n.l(date_time, format: :long_ordinal),
+      date_time.to_fs(:long_ordinal_with_at),
       class: "date",
       datetime: date_time.iso8601,
       lang: "en",
