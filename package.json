@@ -33,7 +33,7 @@
     "postcss": "^8.5.1",
     "prettier": "^3.4.2",
     "standard": "^17.1.2",
-    "stylelint": "^16.13.2",
+    "stylelint": "^16.14.0",
     "stylelint-config-gds": "^2.0.0"
   },
   "resolutions": {
