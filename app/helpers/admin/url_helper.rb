@@ -82,6 +82,12 @@ module Admin::UrlHelper
     end
   end
 
+  def admin_retag_content_link
+    if can?(:administer, :retag_content)
+      admin_link "Retag content", admin_retagging_index_path
+    end
+  end
+
 private
 
   def active_link_class(path_matcher)

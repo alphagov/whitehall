@@ -4,28 +4,23 @@
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <details class="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          Guidance on republishing content
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        <p class="govuk-body">
-          Sometimes it may be necessary to republish content to the Publishing API. This will refresh the content on the website.
-        </p>
+    <%= render "govuk_publishing_components/components/details", {
+      title: "Guidance on republishing content",
+    } do %>
+      <p class="govuk-body">
+        Sometimes it may be necessary to republish content to the Publishing API. This will refresh the content on the website.
+      </p>
 
-        <p class="govuk-body">
-          For example, if we make an update to govspeak and a publishing application pre-renders that content prior to its submission to Publishing API, that would require us to re-render and save new HTML for content.
-        </p>
+      <p class="govuk-body">
+        For example, if we make an update to govspeak and a publishing application pre-renders that content prior to its submission to Publishing API, that would require us to re-render and save new HTML for content.
+      </p>
 
-        <p class="govuk-body">
-          The following actions will allow you to republish content that was originally published in this application.
-          Any linked editions will also be republished through dependency resolution.
-          Try to pick the republishing task most focused to the scope of what you need to republish to avoid unnecessary server load.
-        </p>
-      </div>
-    </details>
+      <p class="govuk-body">
+        The following actions will allow you to republish content that was originally published in this application.
+        Any linked editions will also be republished through dependency resolution.
+        Try to pick the republishing task most focused to the scope of what you need to republish to avoid unnecessary server load.
+      </p>
+    <% end %>
 
     <h2 class="govuk-heading-m">Individual pages</h2>
 

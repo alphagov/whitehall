@@ -1,23 +1,138 @@
 require "test_helper"
 
 class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
-  def process(csv_file)
-    file = Tempfile.new("bulk_update_organisation")
-    file.write(csv_file)
-    file.close
+  def process(raw_csv)
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
 
-    begin
-      Sidekiq::Testing.fake! do
-        DataHygiene::BulkOrganisationUpdater.call(file.path)
-      end
-    ensure
-      file.unlink
+    Sidekiq::Testing.fake! do
+      updater.call
     end
+
+    updater
   end
 
-  # Stubs stdout to avoid noise in tests
-  def process_silently(csv_file)
-    assert_output { process(csv_file) }
+  test "it has a `validate` method that tracks invalid inputs as an `errors` array" do
+    raw_csv = <<~CSV
+      Foo,
+
+      bar,baz
+    CSV
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+    assert_equal(
+      updater.errors,
+      ["Expected the following headers: Document type,New lead organisations,New supporting organisations,Slug. Detected: Foo,"],
+    )
+
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,lead-organisation,supporting-organisation,some extra data here which should trip up the validator
+    CSV
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+    assert_equal(
+      updater.errors,
+      ["Exactly four fields expected. Detected: 5 ([\"some-slug\", \"Publication\", \"lead-organisation\", \"supporting-organisation\", \"some extra data here which should trip up the validator\"])"],
+    )
+  end
+
+  test "it has a `validate` method that tracks invalid documents and organisations in the `errors` array" do
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,lead-organisation,supporting-organisation
+    CSV
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(
+      updater.errors,
+      [
+        "Document not found: some-slug",
+        "Organisation not found: lead-organisation",
+        "Organisation not found: supporting-organisation",
+      ],
+    )
+  end
+
+  test "it has a `validate` method that returns empty `errors` array if no errors" do
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,lead-organisation,supporting-organisation
+    CSV
+
+    create(:document, document_type: "DetailedGuide", slug: "some-slug")
+    create(:organisation, slug: "lead-organisation")
+    create(:organisation, slug: "supporting-organisation")
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(updater.errors, [])
+  end
+
+  test "it has a `summarise_changes` method that returns a hash summarising the changes" do
+    raw_csv = <<~CSV
+      Slug,Document type,New lead organisations,New supporting organisations
+      some-slug,Publication,new-lead-organisation,new-supporting-organisation
+      another-slug,Publication,"new-lead-organisation,old-lead-organisation"
+      final-slug,Publication,old-lead-organisation,new-supporting-organisation
+    CSV
+
+    old_lead_org = create(:organisation, slug: "old-lead-organisation")
+    new_lead_org = create(:organisation, slug: "new-lead-organisation")
+    create(:organisation, slug: "new-supporting-organisation")
+    old_supporting_org = create(:organisation, slug: "old-supporting-organisation")
+
+    doc1 = create(:document, slug: "some-slug")
+    create(
+      :publication,
+      :published,
+      document: doc1,
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+    )
+    doc2 = create(:document, slug: "another-slug")
+    create(
+      :publication,
+      :published,
+      document: doc2,
+      lead_organisations: [old_lead_org, new_lead_org],
+      supporting_organisations: [old_supporting_org],
+    )
+    doc3 = create(:document, slug: "final-slug")
+    create(
+      :publication,
+      :published,
+      document: doc3,
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [],
+    )
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(updater.errors, [])
+    assert_equal(
+      updater.summarise_changes,
+      [
+        {
+          slug: "some-slug",
+          lead_orgs_summary: "Added new-lead-organisation, Removed old-lead-organisation. Result: new-lead-organisation",
+          supporting_orgs_summary: "Added new-supporting-organisation, Removed old-supporting-organisation. Result: new-supporting-organisation",
+        },
+        {
+          slug: "another-slug",
+          lead_orgs_summary: "Reordered (from old-lead-organisation, new-lead-organisation). Result: new-lead-organisation, old-lead-organisation",
+          supporting_orgs_summary: "Removed old-supporting-organisation. Result: ",
+        },
+        {
+          slug: "final-slug",
+          lead_orgs_summary: "Unchanged. Result: old-lead-organisation",
+          supporting_orgs_summary: "Added new-supporting-organisation. Result: new-supporting-organisation",
+        },
+      ],
+    )
   end
 
   test "it fails with invalid CSV data" do
@@ -48,10 +163,13 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       document_type: "Publication",
       slug:,
     )
+    create(:organisation, slug: "lead-organisation")
 
-    assert_output(/ambiguous slug/) do
-      process(csv_file)
-    end
+    updater = process(csv_file)
+    assert_equal(
+      updater.errors,
+      ["Ambiguous slug: shared-slug (document_types: [\"DetailedGuide\", \"Publication\"])"],
+    )
   end
 
   test "it ignores the 'document type' field unless the 'slug' field is ambiguous" do
@@ -70,7 +188,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     organisation = create(:organisation, slug: "lead-organisation")
 
     # it works when slug is unique, despite the invalid document type
-    process_silently(csv_with_bad_document_type)
+    updater = process(csv_with_bad_document_type)
     assert_equal publication.lead_organisations, [organisation]
 
     # create two more documents with the same slug but different types
@@ -78,12 +196,11 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     news_article = create(:news_article, document: build(:document, slug:))
 
     # cannot find document with the specified document_type now that the slug is ambiguous
-    assert_output(/could not find document/) do
-      process(csv_with_bad_document_type)
-    end
+    updater.validate
+    assert_equal(updater.errors, ["Document not found: shared-slug"])
 
     # it works when the CSV specifies a valid document type
-    process_silently(csv_with_valid_document_type)
+    process(csv_with_valid_document_type)
     assert_equal case_study.lead_organisations, [organisation]
     assert_not_equal news_article.lead_organisations, [organisation]
   end
@@ -98,7 +215,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     edition = create(:published_publication, document:)
     organisation = create(:organisation, slug: "lead-organisation")
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -116,7 +233,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal edition.supporting_organisations, [organisation1, organisation2]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
@@ -143,7 +260,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:save_draft).once
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal draft_edition.lead_organisations, [organisation]
     assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
@@ -166,7 +283,9 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       supporting_organisations: [supporting_organisation1, supporting_organisation2],
     )
 
-    assert_output(/no update required/) do
+    document_stub = Minitest::Mock.new
+    document_stub.expect(:update, nil) { raise "update was called when it shouldn't have been!" }
+    document.stub(:update, document_stub) do
       process(csv_file)
     end
 
@@ -188,7 +307,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:patch_links).with(announcement).once
     Whitehall::PublishingApi.expects(:publish).with(announcement).once
 
-    process_silently(csv_file)
+    process(csv_file)
 
     assert_equal [lead_organisation, supporting_organisation1, supporting_organisation2], announcement.reload.organisations
   end
@@ -203,7 +322,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
     supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
-    create(
+    document = create(
       :statistics_announcement,
       slug: "this-is-a-slug",
       organisations: [lead_organisation, supporting_organisation1, supporting_organisation2],
@@ -212,7 +331,9 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:patch_links).never
     Whitehall::PublishingApi.expects(:publish).never
 
-    assert_output(/no update required/) do
+    document_stub = Minitest::Mock.new
+    document_stub.expect(:update, nil) { raise "update was called when it shouldn't have been!" }
+    document.stub(:update, document_stub) do
       process(csv_file)
     end
   end

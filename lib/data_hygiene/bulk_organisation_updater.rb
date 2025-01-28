@@ -1,26 +1,72 @@
 module DataHygiene
   class BulkOrganisationUpdater
-    def initialize(filename)
-      @filename = filename
+    attr_accessor :errors
+
+    def initialize(raw_csv)
+      @parsed_csv = CSV.parse(raw_csv, headers: true)
+      @errors = []
     end
 
     def call
-      CSV.foreach(filename, **CSV_OPTIONS) do |row|
+      @parsed_csv.each do |row|
         process_row(row)
       end
     end
 
-    def self.call(*args)
-      new(*args).call
+    def validate
+      expected_headers_sorted = ["Document type", "New lead organisations", "New supporting organisations", "Slug"]
+      @validated_rows = @parsed_csv.each_with_index.map do |row, index|
+        if index.zero? && row.headers.compact.sort != expected_headers_sorted
+          errors << "Expected the following headers: #{expected_headers_sorted.join(',')}. Detected: #{row.headers.join(',')}"
+          break
+        end
+
+        if row.fields.count != 4
+          errors << "Exactly four fields expected. Detected: #{row.fields.count} (#{row.fields})"
+          break
+        end
+
+        validate_row(row)
+      end
+    end
+
+    def summarise_changes
+      @validated_rows.map do |hash|
+        {
+          slug: hash[:document].slug,
+          lead_orgs_summary: diff_orgs(
+            hash[:document].latest_edition.lead_organisations.map(&:slug),
+            hash[:lead_orgs].map(&:slug),
+          ),
+          supporting_orgs_summary: diff_orgs(
+            hash[:document].latest_edition.supporting_organisations.map(&:slug),
+            hash[:supporting_orgs].map(&:slug),
+          ),
+        }
+      end
+    end
+
+    def diff_orgs(old_orgs, new_orgs)
+      orgs_added = new_orgs - old_orgs
+      orgs_removed = old_orgs - new_orgs
+
+      status = []
+      if old_orgs == new_orgs
+        status << "Unchanged"
+      elsif old_orgs.sort == new_orgs.sort
+        status << "Reordered (from #{old_orgs.join(', ')})"
+      else
+        if orgs_added.count.positive?
+          status << "Added #{orgs_added.join(', ')}"
+        end
+        if orgs_removed.count.positive?
+          status << "Removed #{orgs_removed.join(', ')}"
+        end
+      end
+      status.join(", ") + ". Result: #{new_orgs.join(', ')}"
     end
 
   private
-
-    attr_reader :filename
-
-    CSV_OPTIONS = {
-      headers: true,
-    }.freeze
 
     def process_row(row)
       document = find_document(row)
@@ -37,6 +83,13 @@ module DataHygiene
       end
     end
 
+    def validate_row(row)
+      document = find_document(row)
+      lead_orgs = find_new_lead_organisations(row)
+      supporting_orgs = find_new_supporting_organisations(row)
+      { document:, lead_orgs:, supporting_orgs: }
+    end
+
     def find_document(row)
       slug = row.fetch("Slug")&.strip&.split("/")&.last
       document_type = row.fetch("Document type")&.strip&.delete(" ")
@@ -48,13 +101,15 @@ module DataHygiene
       statistics_announcements = StatisticsAnnouncement.where(slug:)
 
       if documents.many?
-        puts "error: ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
+        errors << "Ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
+        nil
       elsif documents.any?
         documents.first
       elsif statistics_announcements.any?
         statistics_announcements.first
       else
-        puts "error: #{slug}: could not find document"
+        errors << "Document not found: #{slug}"
+        nil
       end
     end
 
@@ -65,9 +120,7 @@ module DataHygiene
       column_data.split(",").map do |slug|
         Organisation.find_by!(slug: slug.strip.split("/").last)
       rescue ActiveRecord::RecordNotFound
-        puts "error: couldn't find organisation: #{slug.strip}"
-
-        raise
+        errors << "Organisation not found: #{slug.strip}"
       end
     end
 
@@ -105,16 +158,7 @@ module DataHygiene
           new_supporting_organisations,
         )
 
-      if pre_publication_edition_updated || published_edition_updated
-        puts "#{document.slug}: UPDATED"
-      else
-        if published_edition || pre_publication_edition
-          puts "#{document.slug}: no update required"
-        else
-          puts "#{document.slug}: no edition found to update"
-        end
-        return
-      end
+      return unless pre_publication_edition_updated || published_edition_updated
 
       if !published_edition_updated
         Whitehall::PublishingApi.save_draft(
@@ -144,11 +188,8 @@ module DataHygiene
     end
 
     def update_statistics_announcement(document, new_organisations)
-      if document.organisations == new_organisations
-        puts "#{document.slug}: no update required"
-      else
+      if document.organisations != new_organisations
         document.update(organisations: new_organisations) # rubocop:disable Rails/SaveBang
-        puts "#{document.slug}: UPDATED"
       end
     end
   end

@@ -1,0 +1,65 @@
+<% content_for :page_title, "Retag content" %>
+<% content_for :title, "Retag content" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">
+      This is to be used for machinery of government changes.
+    </p>
+
+    <%= form_with(url: admin_retagging_preview_path, method: :post) do %>
+      <%= render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Paste the CSV contents, as per the guidance below.",
+        },
+        name: "csv_input",
+        value: "#{params[:csv_input]}",
+      } %>
+      <p class="govuk-body">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Preview changes",
+        } %>
+      </p>
+    <% end %>
+  </section>
+</div>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-m">Guidance</h2>
+
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Slug",
+        },
+        {
+          text: "Document type",
+        },
+        {
+          text: "New lead organisations",
+        },
+        {
+          text: "New supporting organisations",
+        },
+      ],
+      rows: [
+        [
+          {
+            text: "The slug of the document.",
+          },
+          {
+            text: "The type of the document, for example DetailedGuide. This is used when more than one document is matched by the Slug.",
+          },
+          {
+            text: "The slugs of the new leading organisations (separated by a comma). These will replace any existing organisations.",
+          },
+          {
+            text: "The slugs of the new supporting organisations (separated by a comma). These will replace any existing organisations.",
+          },
+        ],
+      ],
+    } %>
+  </section>
+</div>
