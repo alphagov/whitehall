@@ -59,6 +59,56 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :internal_note)}']"
   end
 
+  describe "when the change is major" do
+    it "shows the public change note" do
+      content_block_edition = create(
+        :content_block_edition,
+        :email_address,
+        instructions_to_publishers: "some instructions",
+        major_change: true,
+        change_note: "Some change note",
+      )
+
+      render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent.new(
+                      content_block_edition:,
+                    ))
+
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Do users have to know the content has changed?"
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "Yes"
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions", text: "Edit"
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :change_note)}']"
+
+      assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Public change note"
+      assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: "Some change note"
+      assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__actions", text: "Edit"
+      assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__actions a[href='#{content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :change_note)}']"
+    end
+  end
+
+  describe "when the change is not major" do
+    it "shows the public change note" do
+      content_block_edition = create(
+        :content_block_edition,
+        :email_address,
+        instructions_to_publishers: "some instructions",
+        major_change: false,
+        change_note: "Some change note",
+      )
+
+      render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent.new(
+                      content_block_edition:,
+                    ))
+
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Do users have to know the content has changed?"
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "No"
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions", text: "Edit"
+      assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :change_note)}']"
+
+      refute_selector ".govuk-summary-list__key", text: "Public change note"
+      refute_selector ".govuk-summary-list__value", text: "Some change note"
+    end
+  end
+
   describe "when the content block is scheduled" do
     it "shows the scheduled date time" do
       organisation = create(:organisation, name: "Department for Example")

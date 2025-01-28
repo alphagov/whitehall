@@ -15,6 +15,7 @@ private
       organisation_item,
       instructions_item,
       internal_change_note_item,
+      *change_note_items,
       status_item,
     ].compact
   end
@@ -62,6 +63,32 @@ private
       value: content_block_edition.internal_change_note.presence || "None",
       edit: {
         href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :internal_note),
+        link_text: "Edit",
+      },
+    }
+  end
+
+  def change_note_items
+    content_block_edition.major_change ? [major_change_item, external_change_note_item] : [major_change_item]
+  end
+
+  def major_change_item
+    {
+      field: "Do users have to know the content has changed?",
+      value: content_block_edition.major_change ? "Yes" : "No",
+      edit: {
+        href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :change_note),
+        link_text: "Edit",
+      },
+    }
+  end
+
+  def external_change_note_item
+    {
+      field: "Public change note",
+      value: content_block_edition.change_note,
+      edit: {
+        href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :change_note),
         link_text: "Edit",
       },
     }
