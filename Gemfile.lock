@@ -425,19 +425,6 @@ GEM
     matrix (0.4.2)
     maxitest (5.8.0)
       minitest (>= 5.14.0, < 5.26.0)
-    mechanize (2.13.0)
-      addressable (~> 2.8)
-      base64
-      domain_name (~> 0.5, >= 0.5.20190701)
-      http-cookie (~> 1.0, >= 1.0.3)
-      mime-types (~> 3.3)
-      net-http-digest_auth (~> 1.4, >= 1.4.1)
-      net-http-persistent (>= 2.5.2, < 5.0.dev)
-      nkf
-      nokogiri (~> 1.11, >= 1.11.2)
-      rubyntlm (~> 0.6, >= 0.6.3)
-      webrick (~> 1.7)
-      webrobots (~> 0.1.2)
     method_source (1.1.0)
     mime-types (3.6.0)
       logger
@@ -460,9 +447,6 @@ GEM
     mysql2 (0.5.6)
     net-http (0.4.1)
       uri
-    net-http-digest_auth (1.4.1)
-    net-http-persistent (4.0.5)
-      connection_pool (~> 2.2)
     net-imap (0.5.5)
       date
       net-protocol
@@ -474,7 +458,6 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.4)
-    nkf (0.2.0)
     nokogiri (1.18.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -899,8 +882,6 @@ GEM
       ffi (~> 1.12)
       logger
     ruby2_keywords (0.0.5)
-    rubyntlm (0.6.5)
-      base64
     rubyzip (2.3.2)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
@@ -1009,7 +990,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.1)
-    webrobots (0.1.2)
     websocket (1.2.10)
     websocket-driver (0.7.7)
       base64
@@ -1076,7 +1056,6 @@ DEPENDENCIES
   mail-notify
   marcel
   maxitest
-  mechanize
   mime-types
   mini_magick
   minitest
