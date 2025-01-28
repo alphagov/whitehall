@@ -1094,7 +1094,6 @@ DEPENDENCIES
   ptools
   rack
   rack-test
-  rackup (= 1.0.0)
   rails (~> 7.2.2)
   rails-controller-testing
   rails-dom-testing
