@@ -15,6 +15,7 @@ private
       organisation_item,
       instructions_item,
       status_item,
+      internal_change_note_item,
       embed_code_item,
     ].compact
   end
@@ -84,6 +85,13 @@ private
         value: last_updated_value,
       }
     end
+  end
+
+  def internal_change_note_item
+    {
+      field: "Internal change note",
+      value: content_block_document.latest_edition.internal_change_note.presence || "None",
+    }
   end
 
   def last_updated_value

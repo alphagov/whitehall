@@ -15,6 +15,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
       scheduled_publication: Time.zone.now,
       state: "published",
       updated_at: 1.day.ago,
+      internal_change_note: "Some internal change note",
     )
   end
   let(:content_block_document) { content_block_edition.document }
@@ -22,7 +23,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
   it "renders a published content block correctly" do
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 8
+    assert_selector ".govuk-summary-list__row", count: 9
     assert_selector ".govuk-summary-list__actions", count: 1
 
     assert_selector ".govuk-summary-list__key", text: "Email address details"
@@ -43,6 +44,9 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
     assert_selector ".govuk-summary-list__key", text: "Status"
     assert_selector ".govuk-summary-list__value", text: "Published 1 day ago by #{content_block_edition.creator.name}"
 
+    assert_selector ".govuk-summary-list__key", text: "Internal change note"
+    assert_selector ".govuk-summary-list__value", text: "Some internal change note"
+
     assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
     assert_selector ".govuk-summary-list__value", text: "None"
 
@@ -57,7 +61,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTes
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 8
+    assert_selector ".govuk-summary-list__row", count: 9
 
     assert_selector ".govuk-summary-list__key", text: "Status"
     assert_selector ".govuk-summary-list__value", text: "Scheduled for publication at #{I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)}"
