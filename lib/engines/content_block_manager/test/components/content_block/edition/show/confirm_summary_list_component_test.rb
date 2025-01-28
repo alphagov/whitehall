@@ -2,6 +2,8 @@ require "test_helper"
 
 class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
+  include ContentBlockManager::Engine.routes.url_helpers
+
   it "it renders instructions to publishers" do
     content_block_edition = create(
       :content_block_edition,
@@ -29,22 +31,32 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
       details: { "interesting_fact" => "value of fact" },
       organisation:,
       document: content_block_document,
+      internal_change_note: "Some internal info",
     )
 
     render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent.new(
                     content_block_edition:,
                   ))
 
-    assert_selector ".govuk-summary-list__key", text: "Email address details"
-    assert_selector ".govuk-summary-list__actions", text: "Edit"
-    assert_selector ".govuk-summary-list__key", text: "Title"
-    assert_selector ".govuk-summary-list__value", text: "Some edition title"
-    assert_selector ".govuk-summary-list__key", text: "New interesting fact"
-    assert_selector ".govuk-summary-list__value", text: "value of fact"
-    assert_selector ".govuk-summary-list__key", text: "Lead organisation"
-    assert_selector ".govuk-summary-list__value", text: "Department for Example"
-    assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
-    assert_selector ".govuk-summary-list__value", text: "None"
+    assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Email address details"
+    assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions", text: "Edit"
+
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Title"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "Some edition title"
+
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "New interesting fact"
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: "value of fact"
+
+    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Lead organisation"
+    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "Department for Example"
+
+    assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Instructions to publishers"
+    assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "None"
+
+    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Internal change note"
+    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "Some internal info"
+    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions", text: "Edit"
+    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :internal_note)}']"
   end
 
   describe "when the content block is scheduled" do

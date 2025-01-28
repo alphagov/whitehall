@@ -14,6 +14,7 @@ private
       *details_items,
       organisation_item,
       instructions_item,
+      internal_change_note_item,
       status_item,
     ].compact
   end
@@ -52,6 +53,17 @@ private
     {
       field: "Instructions to publishers",
       value: content_block_edition.instructions_to_publishers.presence || "None",
+    }
+  end
+
+  def internal_change_note_item
+    {
+      field: "Internal change note",
+      value: content_block_edition.internal_change_note.presence || "None",
+      edit: {
+        href: helpers.content_block_manager.content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :internal_note),
+        link_text: "Edit",
+      },
     }
   end
 
