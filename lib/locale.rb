@@ -6,8 +6,15 @@ Locale = Struct.new(:code) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
+  attr_reader :languages
+
   def initialize(code)
     super(code.to_sym)
+    @languages = Locale.load_language_configs
+  end
+
+  def self.load_language_configs
+    @load_language_configs ||= YAML.load_file(Rails.root.join("config/languages.yml"))
   end
 
   def self.model_name
@@ -19,7 +26,7 @@ Locale = Struct.new(:code) do
   end
 
   def self.all
-    I18n.available_locales.map do |l|
+    load_language_configs.keys.map do |l|
       new(l)
     end
   end
@@ -56,11 +63,11 @@ Locale = Struct.new(:code) do
   end
 
   def native_language_name
-    I18n.t("language_names.#{code}", locale: code)
+    languages[code.to_s]["native_name"]
   end
 
   def english_language_name
-    I18n.t("language_names.#{code}", locale: ENGLISH_LOCALE_CODE)
+    languages[code.to_s]["english_name"]
   end
 
   def native_and_english_language_name
@@ -68,7 +75,7 @@ Locale = Struct.new(:code) do
   end
 
   def rtl?
-    I18n.t("i18n.direction", locale: code, default: "ltr") == "rtl"
+    languages[code.to_s]["direction"] == "rtl"
   end
 
   def to_param
