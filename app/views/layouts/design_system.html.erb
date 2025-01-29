@@ -60,8 +60,8 @@
                 text: yield(:title),
                 heading_level: 1,
                 font_size: "xl",
+                margin_bottom: 8,
               }
-              heading_options[:margin_bottom] = yield(:title_margin_bottom).to_i if yield(:title_margin_bottom).present?
             %>
             <%= render "govuk_publishing_components/components/heading", heading_options %>
           </div>
