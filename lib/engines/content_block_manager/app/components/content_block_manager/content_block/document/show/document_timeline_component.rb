@@ -28,7 +28,11 @@ private
   def title(version)
     case version.state
     when "published"
-      version.state.capitalize
+      if version == first_published_version
+        "#{version.item.block_type.humanize} created"
+      else
+        version.state.capitalize
+      end
     when "scheduled"
       "Scheduled for publishing on #{version.item.scheduled_publication.to_fs(:long_ordinal_with_at)}"
     else
@@ -36,8 +40,8 @@ private
     end
   end
 
-  def first_created_edition
-    content_block_versions.last
+  def first_published_version
+    @first_published_version ||= content_block_versions[-2]
   end
 
   def time_html(date_time)

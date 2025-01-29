@@ -12,7 +12,7 @@ Feature: View a content object
     When I click to view the document
     Then I should be taken back to the document page
     And I should see the details for the email address content block
-    And I should see 1 publish events on the timeline
+    And I should see the created event on the timeline
 
   Scenario: GDS Editor views a content object using the content ID
     When I visit a block's content ID endpoint
