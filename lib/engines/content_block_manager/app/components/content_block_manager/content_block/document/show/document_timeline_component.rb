@@ -9,7 +9,7 @@ private
   attr_reader :content_block_versions
 
   def items
-    content_block_versions.reject { |version| version.state.nil? }.map do |version|
+    content_block_versions.reject { |version| show_to_user?(version) }.map do |version|
       {
         title: title(version),
         byline: User.find_by_id(version.whodunnit)&.then { |user| helpers.linked_author(user, { class: "govuk-link" }) } || "unknown user",
@@ -19,6 +19,10 @@ private
         change_note: change_note(version),
       }
     end
+  end
+
+  def show_to_user?(version)
+    version.state.nil? || version.state == "superseded"
   end
 
   def title(version)

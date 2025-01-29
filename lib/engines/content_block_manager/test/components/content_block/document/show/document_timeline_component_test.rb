@@ -42,7 +42,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
                     content_block_versions: [version_3, version_2, version_1],
                   ))
 
-    assert_selector ".timeline__item", count: 2
+    assert_selector ".timeline__item", count: 3
 
     assert_equal "Scheduled for publishing on #{scheduled_item.scheduled_publication.to_fs(:long_ordinal_with_at)}", page.all(".timeline__title")[0].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[0].native.inner_html
@@ -127,5 +127,19 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
                   ))
 
     assert_selector "p", text: "changed a to b"
+  end
+
+  test "it does not render superseded update events" do
+    version = create(
+      :content_block_version,
+      event: "updated",
+      state: "superseded",
+    )
+
+    render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
+                    content_block_versions: [version],
+                  ))
+
+    assert_no_selector ".timeline__item"
   end
 end
