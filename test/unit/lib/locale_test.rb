@@ -1,6 +1,16 @@
 require "test_helper"
 
 class LocaleTest < ActiveSupport::TestCase
+  test "provides a list of all available locale symbols" do
+    Locale.stubs(:load_language_configs).returns({
+      "ar" => { "direction" => "rtl" },
+      "en" => { "direction" => "ltr" },
+      "fr" => { "direction" => "ltr" },
+      "ur" => { "direction" => "rtl" },
+    })
+    assert_equal %w[ar en fr ur], Locale.all_keys
+  end
+
   test "provides a list of all available locales" do
     Locale.stubs(:load_language_configs).returns({
       "ar" => { "direction" => "rtl" },

@@ -31,6 +31,10 @@ Locale = Struct.new(:code) do
     end
   end
 
+  def self.all_keys
+    load_language_configs.keys
+  end
+
   def self.non_english
     all.reject(&:english?)
   end

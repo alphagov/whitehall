@@ -1,3 +1,5 @@
+require_relative "./locale"
+
 module Whitehall
   autoload :Random, "whitehall/random"
   autoload :RandomKey, "whitehall/random_key"
@@ -27,74 +29,7 @@ module Whitehall
   end
 
   def self.available_locales
-    %i[
-      ar
-      az
-      be
-      bg
-      bn
-      cs
-      cy
-      da
-      de
-      dr
-      el
-      en
-      es
-      es-419
-      et
-      fa
-      fi
-      fr
-      gd
-      gu
-      he
-      hi
-      hr
-      hu
-      hy
-      id
-      is
-      it
-      ja
-      ka
-      kk
-      ko
-      lt
-      lv
-      ms
-      mt
-      ne
-      nl
-      no
-      pa
-      pa-pk
-      pl
-      ps
-      pt
-      ro
-      ru
-      si
-      sk
-      sl
-      so
-      sq
-      sr
-      sv
-      sw
-      ta
-      th
-      tk
-      tr
-      uk
-      ur
-      uz
-      vi
-      yi
-      zh
-      zh-hk
-      zh-tw
-    ]
+    Locale.all_keys.map(&:to_sym)
   end
 
   def self.system_binaries
