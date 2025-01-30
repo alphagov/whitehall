@@ -21,6 +21,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       :content_block_version,
       event: "created",
       whodunnit: user.id,
+      created_at: 4.days.ago,
       item:,
     )
     version_2 = create(
@@ -28,6 +29,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       event: "updated",
       whodunnit: user.id,
       state: "published",
+      created_at: 3.days.ago,
       item:,
     )
     version_3 = create(
@@ -35,6 +37,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       event: "updated",
       whodunnit: user.id,
       state: "published",
+      created_at: 2.days.ago,
       item:,
     )
     version_4 = create(
@@ -42,6 +45,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       event: "updated",
       whodunnit: user.id,
       state: "scheduled",
+      created_at: 1.day.ago,
       item: scheduled_item,
     )
 
@@ -54,17 +58,17 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
     assert_equal "Scheduled for publishing on #{scheduled_item.scheduled_publication.to_fs(:long_ordinal_with_at)}", page.all(".timeline__title")[0].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[0].native.inner_html
     assert_equal  version_4.created_at.to_fs(:long_ordinal_with_at),
-                  page.all("time[datetime='#{version_4.created_at.iso8601}']")[0].text
+                  page.find("time[datetime='#{version_4.created_at.iso8601}']").text
 
     assert_equal "Published", page.all(".timeline__title")[1].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[1].native.inner_html
     assert_equal  version_2.created_at.to_fs(:long_ordinal_with_at),
-                  page.all("time[datetime='#{version_2.created_at.iso8601}']")[1].text
+                  page.find("time[datetime='#{version_2.created_at.iso8601}']").text
 
     assert_equal "Email address created", page.all(".timeline__title")[2].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[2].native.inner_html
     assert_equal  version_3.created_at.to_fs(:long_ordinal_with_at),
-                  page.all("time[datetime='#{version_3.created_at.iso8601}']")[2].text
+                  page.find("time[datetime='#{version_3.created_at.iso8601}']").text
 
     assert_no_selector ".govuk-table"
     assert_no_selector "h2", text: "Internal note"

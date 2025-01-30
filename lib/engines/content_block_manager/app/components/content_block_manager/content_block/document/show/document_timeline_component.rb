@@ -9,7 +9,7 @@ private
   attr_reader :content_block_versions
 
   def items
-    content_block_versions.reject { |version| show_to_user?(version) }.map do |version|
+    content_block_versions.reject { |version| hide_from_user?(version) }.map do |version|
       {
         title: title(version),
         byline: User.find_by_id(version.whodunnit)&.then { |user| helpers.linked_author(user, { class: "govuk-link" }) } || "unknown user",
@@ -21,7 +21,7 @@ private
     end
   end
 
-  def show_to_user?(version)
+  def hide_from_user?(version)
     version.state.nil? || version.state == "superseded"
   end
 
@@ -41,7 +41,7 @@ private
   end
 
   def first_published_version
-    @first_published_version ||= content_block_versions[-2]
+    @first_published_version ||= content_block_versions.filter { |v| v.state == "published" }.min_by(&:created_at)
   end
 
   def time_html(date_time)
