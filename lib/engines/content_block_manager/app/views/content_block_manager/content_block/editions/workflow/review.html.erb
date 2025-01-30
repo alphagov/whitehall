@@ -51,20 +51,10 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-      <div class="govuk-button-group govuk-!-margin-bottom-6">
-        <div>
-          <%= render "govuk_publishing_components/components/button", {
-            text: is_scheduling? ? "Schedule" : "Publish",
-            name: "confirm",
-            type: "submit",
-            form: "review"
-          } %>
-        </div>
-        <div>
-          <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: content_block_manager.
-            content_block_manager_content_block_edition_path(@content_block_edition),
-            ) %>
-        </div>
-      </div>
+    <%= render ContentBlockManager::Shared::ContinueOrCancelButtonGroup.new(
+      form_id: "review",
+      button_text: is_scheduling? ? "Schedule" : "Publish",
+      content_block_edition: @content_block_edition,
+    ) %>
   </div>
 </div>

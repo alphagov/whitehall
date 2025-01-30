@@ -66,4 +66,4 @@ Feature: Schedule a content object
     And I add an internal note
     And I add a change note
     And I click cancel
-    Then I am taken back to Content Block Manager home page
+    Then I should be taken back to the document page
