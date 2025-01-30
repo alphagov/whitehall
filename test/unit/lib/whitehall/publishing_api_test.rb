@@ -323,12 +323,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested gone_request
   end
 
-  test ".unpublish_async queues a PublishingApiUnpublishingWorker job for the unpublishing" do
-    unpublishing = build(:unpublishing, id: 1)
-    PublishingApiUnpublishingWorker.expects(:perform_async).with(1)
-    Whitehall::PublishingApi.unpublish_async(unpublishing)
-  end
-
   test ".unpublish_sync immediately runs a PublishingApiUnpublishingWorker job for the unpublishing" do
     unpublishing = build(:unpublishing, id: 1)
     stubbed_worker = stub("worker", perform: nil)
