@@ -329,6 +329,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.unpublish_async(unpublishing)
   end
 
+  test ".unpublish_sync immediately runs a PublishingApiUnpublishingWorker job for the unpublishing" do
+    unpublishing = build(:unpublishing, id: 1)
+    stubbed_worker = stub("worker", perform: nil)
+    PublishingApiUnpublishingWorker.expects(:new).returns(stubbed_worker)
+    stubbed_worker.expects(:perform).with(1)
+    Whitehall::PublishingApi.unpublish_sync(unpublishing)
+  end
+
   test ".publish handles the specific exception" do
     raises_exception = lambda { |_, _, _|
       body = {
