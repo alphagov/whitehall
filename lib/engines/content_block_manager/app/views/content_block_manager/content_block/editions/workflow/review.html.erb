@@ -24,26 +24,28 @@
   </div>
 </div>
 
-<%= form_with(
-      url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :review),
-      method: :put,
-    ) do %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= render "govuk_publishing_components/components/checkboxes", {
-      name: "is_confirmed",
-      id: "is_confirmed",
-      heading: "Confirm",
-      visually_hide_heading: true,
-      no_hint_text: true,
-      error: @confirm_error_copy,
-      items: [
-        {
-          label: "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct.",
-          value: true,
-        },
-      ],
-    } %>
+    <%= form_with(
+          url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :review),
+          method: :put,
+          id: "review",
+          ) do %>
+        <%= render "govuk_publishing_components/components/checkboxes", {
+          name: "is_confirmed",
+          id: "is_confirmed",
+          heading: "Confirm",
+          visually_hide_heading: true,
+          no_hint_text: true,
+          error: @confirm_error_copy,
+          items: [
+            {
+              label: "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct.",
+              value: true,
+            },
+          ],
+        } %>
+    <% end %>
   </div>
 </div>
 
@@ -55,14 +57,14 @@
             text: is_scheduling? ? "Schedule" : "Publish",
             name: "confirm",
             type: "submit",
+            form: "review"
           } %>
-      <% end %>
         </div>
         <div>
           <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: content_block_manager.
-              content_block_manager_content_block_edition_path(@content_block_edition),
+            content_block_manager_content_block_edition_path(@content_block_edition),
             ) %>
-          </div>
+        </div>
       </div>
   </div>
 </div>
