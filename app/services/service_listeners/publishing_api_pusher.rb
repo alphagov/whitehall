@@ -18,7 +18,7 @@ module ServiceListeners
         api.patch_links(edition)
         api.save_draft_translation(edition, options.fetch(:locale))
       when "unpublish"
-        api.unpublish_async(edition.unpublishing)
+        api.unpublish_sync(edition.unpublishing)
       when "withdraw"
         edition.translations.each do |translation|
           api.publish_withdrawal_async(

@@ -83,7 +83,7 @@ module ServiceListeners
 
     test "unpublish publishes the unpublishing" do
       edition = create(:unpublished_publication)
-      Whitehall::PublishingApi.expects(:unpublish_async).with(edition.unpublishing)
+      Whitehall::PublishingApi.expects(:unpublish_sync).with(edition.unpublishing)
       stub_associated_document_pusher(edition, "unpublish")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "unpublish")
