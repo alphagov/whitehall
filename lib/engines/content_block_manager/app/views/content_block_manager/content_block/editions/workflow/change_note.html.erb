@@ -14,7 +14,7 @@
     <%= form_with url: content_block_manager.content_block_manager_content_block_workflow_path(
       @content_block_edition,
       step: :change_note,
-      ), method: :put do %>
+      ), method: :put, id: "change_note" do %>
 
       <%= render "govuk_publishing_components/components/radio", {
         name: "content_block/edition[major_change]",
@@ -48,20 +48,11 @@
           },
         ],
       } %>
-
-      <div class="govuk-button-group govuk-!-margin-bottom-6">
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Save and continue",
-          name: "save_and_continue",
-          value: "Save and continue",
-          type: "submit",
-        } %>
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Cancel",
-          href: @back_path,
-          secondary_solid: true,
-        } %>
-      </div>
     <% end %>
+
+    <%= render ContentBlockManager::Shared::ContinueOrCancelButtonGroup.new(
+      form_id: "change_note",
+      content_block_edition: @content_block_edition,
+      ) %>
   </div>
 </div>
