@@ -10,10 +10,18 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
 
   test "renders a timeline component with events in correct order" do
     item = build(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil)
+    scheduled_item = build(
+      :content_block_edition,
+      :email_address,
+      change_note: nil,
+      internal_change_note: nil,
+      scheduled_publication: 2.days.from_now,
+    )
     version_1 = create(
       :content_block_version,
       event: "created",
       whodunnit: user.id,
+      created_at: 4.days.ago,
       item:,
     )
     version_2 = create(
@@ -21,31 +29,46 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       event: "updated",
       whodunnit: user.id,
       state: "published",
+      created_at: 3.days.ago,
       item:,
     )
     version_3 = create(
       :content_block_version,
       event: "updated",
       whodunnit: user.id,
-      state: "scheduled",
+      state: "published",
+      created_at: 2.days.ago,
       item:,
+    )
+    version_4 = create(
+      :content_block_version,
+      event: "updated",
+      whodunnit: user.id,
+      state: "scheduled",
+      created_at: 1.day.ago,
+      item: scheduled_item,
     )
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
-                    content_block_versions: [version_3, version_2, version_1],
+                    content_block_versions: [version_4, version_3, version_2, version_1],
                   ))
 
-    assert_selector ".timeline__item", count: 2
+    assert_selector ".timeline__item", count: 3
 
-    assert_equal "Email address scheduled", page.all(".timeline__title")[0].text
+    assert_equal "Scheduled for publishing on #{scheduled_item.scheduled_publication.to_fs(:long_ordinal_with_at)}", page.all(".timeline__title")[0].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[0].native.inner_html
-    assert_equal  I18n.l(version_3.created_at, format: :long_ordinal),
-                  page.all("time[datetime='#{version_3.created_at.iso8601}']")[1].text
+    assert_equal  version_4.created_at.to_fs(:long_ordinal_with_at),
+                  page.find("time[datetime='#{version_4.created_at.iso8601}']").text
 
-    assert_equal "Email address published", page.all(".timeline__title")[1].text
+    assert_equal "Published", page.all(".timeline__title")[1].text
     assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[1].native.inner_html
-    assert_equal  I18n.l(version_2.created_at, format: :long_ordinal),
-                  page.all("time[datetime='#{version_2.created_at.iso8601}']")[1].text
+    assert_equal  version_2.created_at.to_fs(:long_ordinal_with_at),
+                  page.find("time[datetime='#{version_2.created_at.iso8601}']").text
+
+    assert_equal "Email address created", page.all(".timeline__title")[2].text
+    assert_equal "by #{linked_author(user, { class: 'govuk-link' })}", page.all(".timeline__byline")[2].native.inner_html
+    assert_equal  version_3.created_at.to_fs(:long_ordinal_with_at),
+                  page.find("time[datetime='#{version_3.created_at.iso8601}']").text
 
     assert_no_selector ".govuk-table"
     assert_no_selector "h2", text: "Internal note"
@@ -74,7 +97,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       :content_block_version,
       event: "updated",
       whodunnit: user.id,
-      state: "scheduled",
+      state: "published",
       field_diffs: field_diffs,
     )
 
@@ -120,5 +143,19 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
                   ))
 
     assert_selector "p", text: "changed a to b"
+  end
+
+  test "it does not render superseded update events" do
+    version = create(
+      :content_block_version,
+      event: "updated",
+      state: "superseded",
+    )
+
+    render_inline(ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
+                    content_block_versions: [version],
+                  ))
+
+    assert_no_selector ".timeline__item"
   end
 end

@@ -21,6 +21,10 @@
   }
 }
 
+.timeline__header {
+  margin-bottom: govuk-spacing(1);
+}
+
 .timeline__item {
   padding-bottom: govuk-spacing(6);
   padding-left: govuk-spacing(4);
@@ -50,7 +54,10 @@
 }
 
 .timeline__date {
-  @include govuk-font($size: 16);
+  @include govuk-font($size: 19);
+  margin-top: govuk-spacing(1);
+  margin-bottom: govuk-spacing(1);
+  color: $govuk-secondary-text-colour;
 }
 
 .timeline__description {
