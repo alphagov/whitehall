@@ -84,6 +84,22 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     assert_equal flash[:alert], "Please select a new document option"
   end
 
+  view_test "GET #index renders Topical Event Edition when the editionable_topical_events feature flag is enabled" do
+    feature_flags.switch! :editionable_topical_events, true
+
+    get :index
+
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=editionable_topical_event]", count: 1
+  end
+
+  view_test "GET #index does not render Topical Event Edition when the editionable_topical_events feature flag is not enabled" do
+    feature_flags.switch! :editionable_topical_events, false
+
+    get :index
+
+    refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=editionable_topical_event]"
+  end
+
 private
 
   def radio_button_values
@@ -106,6 +122,7 @@ private
       "publication": new_admin_publication_path,
       "speech": new_admin_speech_path,
       "statistical_data_set": new_admin_statistical_data_set_path,
+      "editionable_topical_event": new_admin_editionable_topical_event_path,
       "worldwide_organisation": new_admin_worldwide_organisation_path,
     }
   end
