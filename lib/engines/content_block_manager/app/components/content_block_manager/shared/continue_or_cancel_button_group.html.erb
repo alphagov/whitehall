@@ -1,0 +1,18 @@
+<div class="govuk-button-group govuk-!-margin-bottom-6">
+  <div>
+    <%= render "govuk_publishing_components/components/button", {
+      text: button_text,
+      name: "confirm",
+      type: "submit",
+      form: form_id,
+    } %>
+  </div>
+  <div>
+    <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(
+      url: helpers.content_block_manager.content_block_manager_content_block_edition_path(
+        content_block_edition,
+        redirect_path:,
+      ),
+    ) %>
+  </div>
+</div>

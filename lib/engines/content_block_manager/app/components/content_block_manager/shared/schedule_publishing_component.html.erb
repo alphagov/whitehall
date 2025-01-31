@@ -15,7 +15,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with url: form_url, method: :put do %>
+    <%= form_with url: form_url, method: :put, id: "schedule_publishing" do %>
 
       <%= render "govuk_publishing_components/components/radio", {
         name: "schedule_publishing",
@@ -79,35 +79,36 @@
           },
         ],
       } %>
-
-      <div class="govuk-button-group">
-        <div>
-          <%= render "govuk_publishing_components/components/button", {
-            text: "Save and continue",
-            name: "save_and_continue",
-            value: "Save and continue",
-            type: "submit",
-          } %>
     <% end %>
-    </div>
-    <div>
-      <% if is_rescheduling %>
+
+    <div class="govuk-button-group">
+      <div>
         <%= render "govuk_publishing_components/components/button", {
-          text: "Cancel",
-          name: "Cancel",
-          value: "Cancel",
-          href: back_link,
-          secondary_solid: true,
+          text: "Save and continue",
+          name: "save_and_continue",
+          value: "Save and continue",
+          type: "submit",
+          form: "schedule_publishing",
         } %>
-      <% else %>
-        <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: helpers.content_block_manager.
-              content_block_manager_content_block_edition_path(
-                content_block_edition, redirect_path:
-                  helpers.content_block_manager.content_block_manager_content_block_document_path(content_block_edition.document)
-              ),
-            ) %>
-      <% end %>
-    </div>
+      </div>
+      <div>
+        <% if is_rescheduling %>
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Cancel",
+            name: "Cancel",
+            value: "Cancel",
+            href: back_link,
+            secondary_solid: true,
+          } %>
+        <% else %>
+          <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: helpers.content_block_manager.
+            content_block_manager_content_block_edition_path(
+              content_block_edition, redirect_path:
+              helpers.content_block_manager.content_block_manager_content_block_document_path(content_block_edition.document)
+            ),
+          ) %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

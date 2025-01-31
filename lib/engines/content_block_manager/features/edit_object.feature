@@ -18,17 +18,17 @@ Feature: Edit a content object
     Then I should be on the "review_links" step
     And I should see a back link to the "edit_draft" step
     When I continue after reviewing the links
-    Then I should be on the "schedule_publishing" step
-    And I should see a back link to the "review_links" step
-    When I choose to publish the change now
     Then I should be on the "internal_note" step
-    And I should see a back link to the "schedule_publishing" step
+    And I should see a back link to the "review_links" step
     When I add an internal note
     Then I should be on the "change_note" step
     And I should see a back link to the "internal_note" step
     When I add a change note
-    Then I should be on the "review" step
+    Then I should be on the "schedule_publishing" step
     And I should see a back link to the "change_note" step
+    When I choose to publish the change now
+    Then I should be on the "review" step
+    And I should see a back link to the "schedule_publishing" step
     When I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block
@@ -63,11 +63,11 @@ Feature: Edit a content object
     When I click the first edit link
     And I fill out the form
     And I continue after reviewing the links
-    When I choose to publish the change now
-    And I add an internal note
+    When I add an internal note
     And I add a change note
+    And I choose to publish the change now
     When I click cancel
-    Then I am taken back to Content Block Manager home page
+    Then I should be taken back to the document page
     And no draft Content Block Edition has been created
 
   Scenario: GDS editor sees validation errors for missing fields
@@ -100,9 +100,9 @@ Feature: Edit a content object
     When I click the first edit link
     When I fill out the form
     And I continue after reviewing the links
-    And I choose to publish the change now
     And I add an internal note
     And I add a change note
+    And I choose to publish the change now
     Then I am asked to review my answers
     When I click publish without confirming my details
     Then I should see a message that I need to confirm the details are correct
@@ -113,9 +113,9 @@ Feature: Edit a content object
     When I revisit the edit page
     Then I should see a warning telling me there is a scheduled change
     When I make the changes
-    And I choose to publish the change now
     And I add an internal note
     And I add a change note
+    And I choose to publish the change now
     When I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a published block
     When I click to view the content block

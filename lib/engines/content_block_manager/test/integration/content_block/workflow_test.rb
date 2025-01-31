@@ -77,70 +77,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         it "redirects to the next step" do
           put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
 
-          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :schedule_publishing)
-        end
-      end
-    end
-
-    describe "when scheduling or publishing" do
-      let(:step) { :schedule_publishing }
-
-      describe "#show" do
-        it "shows the form" do
-          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
-
-          assert_template "content_block_manager/content_block/editions/workflow/schedule_publishing"
-          assert_equal document, assigns(:content_block_document)
-        end
-      end
-
-      describe "#update" do
-        describe "when choosing to publish immediately" do
-          it "redirects to the internal note step" do
-            scheduled_at = {
-              "scheduled_publication(1i)": "",
-              "scheduled_publication(2i)": "",
-              "scheduled_publication(3i)": "",
-              "scheduled_publication(4i)": "",
-              "scheduled_publication(5i)": "",
-            }
-
-            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
-                params: {
-                  schedule_publishing: "now",
-                  scheduled_at:,
-                }
-
-            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :internal_note)
-          end
-        end
-
-        describe "when scheduling publication" do
-          it "redirects to the internal note page" do
-            scheduled_at = {
-              "scheduled_publication(1i)": "2024",
-              "scheduled_publication(2i)": "01",
-              "scheduled_publication(3i)": "01",
-              "scheduled_publication(4i)": "12",
-              "scheduled_publication(5i)": "00",
-            }
-
-            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:), params: {
-              schedule_publishing: "schedule",
-              scheduled_at:,
-            }
-
-            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :internal_note)
-          end
-        end
-
-        describe "when leaving the schedule_publishing param blank" do
-          it "shows an error message" do
-            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
-
-            assert_template "content_block_manager/content_block/editions/workflow/schedule_publishing"
-            assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank')}/, response.body)
-          end
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :internal_note)
         end
       end
     end
@@ -198,7 +135,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           assert_equal edition.reload.change_note, change_note
           assert_equal edition.reload.major_change, true
 
-          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :schedule_publishing)
         end
 
         it "shows an error if the change is major and the change note is blank" do
@@ -223,6 +160,69 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
               }
 
           assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.major_change.inclusion')}/, response.body)
+        end
+      end
+    end
+
+    describe "when scheduling or publishing" do
+      let(:step) { :schedule_publishing }
+
+      describe "#show" do
+        it "shows the form" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_template "content_block_manager/content_block/editions/workflow/schedule_publishing"
+          assert_equal document, assigns(:content_block_document)
+        end
+      end
+
+      describe "#update" do
+        describe "when choosing to publish immediately" do
+          it "redirects to the review step" do
+            scheduled_at = {
+              "scheduled_publication(1i)": "",
+              "scheduled_publication(2i)": "",
+              "scheduled_publication(3i)": "",
+              "scheduled_publication(4i)": "",
+              "scheduled_publication(5i)": "",
+            }
+
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+                params: {
+                  schedule_publishing: "now",
+                  scheduled_at:,
+                }
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
+          end
+        end
+
+        describe "when scheduling publication" do
+          it "redirects to the internal note page" do
+            scheduled_at = {
+              "scheduled_publication(1i)": "2024",
+              "scheduled_publication(2i)": "01",
+              "scheduled_publication(3i)": "01",
+              "scheduled_publication(4i)": "12",
+              "scheduled_publication(5i)": "00",
+            }
+
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:), params: {
+              schedule_publishing: "schedule",
+              scheduled_at:,
+            }
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
+          end
+        end
+
+        describe "when leaving the schedule_publishing param blank" do
+          it "shows an error message" do
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+            assert_template "content_block_manager/content_block/editions/workflow/schedule_publishing"
+            assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank')}/, response.body)
+          end
         end
       end
     end

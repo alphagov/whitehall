@@ -59,8 +59,8 @@ end
 
 Given(/^I have scheduled a change for (\d+) days in the future$/) do |number_of_days|
   update_content_block
-  schedule_change(number_of_days)
   add_internal_note
   add_change_note
+  schedule_change(number_of_days)
   review_and_confirm
 end

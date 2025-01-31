@@ -53,5 +53,5 @@ Feature: Schedule a content object
     And I click to edit the schedule
     And I schedule the change for 5 days in the future
     And I click cancel
-    Then I am taken back to Content Block Manager home page
+    Then I should be taken back to the document page
     And no draft Content Block Edition has been created
