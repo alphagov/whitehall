@@ -15,6 +15,8 @@ private
       organisation_item,
       instructions_item,
       status_item,
+      internal_change_note_item,
+      *change_note_items,
       embed_code_item,
     ].compact
   end
@@ -47,19 +49,19 @@ private
   def organisation_item
     {
       field: "Lead organisation",
-      value: content_block_document.latest_edition.lead_organisation,
+      value: content_block_edition.lead_organisation,
     }
   end
 
   def instructions_item
     {
       field: "Instructions to publishers",
-      value: content_block_document.latest_edition.instructions_to_publishers.presence || "None",
+      value: content_block_edition.instructions_to_publishers.presence || "None",
     }
   end
 
   def details_items
-    content_block_document.latest_edition.details.map do |key, value|
+    content_block_edition.details.map do |key, value|
       {
         field: key.humanize,
         value:,
@@ -68,7 +70,7 @@ private
   end
 
   def status_item
-    if content_block_document.latest_edition.state == "scheduled"
+    if content_block_edition.state == "scheduled"
       {
         field: "Status",
         value: scheduled_value,
@@ -86,12 +88,37 @@ private
     end
   end
 
+  def internal_change_note_item
+    {
+      field: "Internal change note",
+      value: content_block_edition.internal_change_note.presence || "None",
+    }
+  end
+
+  def change_note_items
+    content_block_edition.major_change ? [major_change_item, external_change_note_item] : [major_change_item]
+  end
+
+  def major_change_item
+    {
+      field: "Do users have to know the content has changed?",
+      value: content_block_edition.major_change ? "Yes" : "No",
+    }
+  end
+
+  def external_change_note_item
+    {
+      field: "Public change note",
+      value: content_block_edition.change_note,
+    }
+  end
+
   def last_updated_value
-    "Published #{time_ago_in_words(content_block_document.latest_edition.updated_at)} ago by #{content_block_document.latest_edition.creator.name}"
+    "Published #{time_ago_in_words(content_block_edition.updated_at)} ago by #{content_block_edition.creator.name}"
   end
 
   def scheduled_value
-    "Scheduled for publication at #{I18n.l(content_block_document.latest_edition.scheduled_publication, format: :long_ordinal)}"
+    "Scheduled for publication at #{I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)}"
   end
 
   def edit_action
@@ -99,5 +126,9 @@ private
       href: helpers.content_block_manager.new_content_block_manager_content_block_document_edition_path(content_block_document),
       link_text: "Edit",
     }
+  end
+
+  def content_block_edition
+    @content_block_edition = content_block_document.latest_edition
   end
 end

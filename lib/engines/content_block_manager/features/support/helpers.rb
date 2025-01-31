@@ -72,7 +72,7 @@ end
 
 def add_internal_note
   @internal_note = "Some internal note goes here"
-  fill_in "Describe the change for internal users", with: @internal_note
+  fill_in "Explain what changes you did or did not make and why. This adds a record in the change history.", with: @internal_note
   click_save_and_continue
 end
 

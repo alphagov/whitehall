@@ -1,5 +1,5 @@
 <% content_for :context, context %>
-<% content_for :title, "Add internal change note" %>
+<% content_for :title, "Create internal change note" %>
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -15,7 +15,7 @@
       ), method: :put do %>
       <%= render "govuk_publishing_components/components/textarea", {
         label: {
-          text: "Describe the change for internal users",
+          text: "Explain what changes you did or did not make and why. This adds a record in the change history.",
         },
         name: "content_block/edition[internal_change_note]",
         id: "content_block_manager_content_block_edition_title",

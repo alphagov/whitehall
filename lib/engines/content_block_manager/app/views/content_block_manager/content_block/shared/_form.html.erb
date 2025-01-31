@@ -48,6 +48,7 @@
       text: "Instructions to publishers (optional)",
     },
     name: "content_block/edition[instructions_to_publishers]",
+    hint: "Add a lasting note for anyone editing this content block, for example 'Tell HMRC's content team when this block changes.'",
     textarea_id: "#{parent_class}_instructions_to_publishers",
     value: @form.content_block_edition&.instructions_to_publishers,
     error_items: errors_for(@form.content_block_edition.errors, "instructions_to_publishers".to_sym),

@@ -275,7 +275,7 @@ Then("I should see the details for the email address content block") do
 end
 
 When("I click the first edit link") do
-  click_link "Edit"
+  click_link "Edit", match: :first
 end
 
 When("I fill out the form") do
