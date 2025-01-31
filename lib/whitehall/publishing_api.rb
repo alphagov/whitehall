@@ -150,8 +150,8 @@ module Whitehall
       PublishingApiWithdrawalWorker.perform_async(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
     end
 
-    def self.unpublish_async(unpublishing)
-      PublishingApiUnpublishingWorker.perform_async(unpublishing.id)
+    def self.unpublish_sync(unpublishing)
+      PublishingApiUnpublishingWorker.new.perform(unpublishing.id)
     end
 
     def self.save_draft_redirect_async(base_path, redirects, locale = I18n.default_locale.to_s)
