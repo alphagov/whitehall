@@ -4,7 +4,7 @@ class OrganisationType
     advisory_ndpb: { name: "Advisory non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
     civil_service: { name: "Civil Service", analytics_prefix: "CS", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
     court: { name: "Court", analytics_prefix: "CO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
-    devolved_administration: { name: "Devolved administration", analytics_prefix: "DA", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
+    devolved_administration: { name: "Devolved government", analytics_prefix: "DA", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
     executive_agency: { name: "Executive agency", analytics_prefix: "EA", agency_or_public_body: true, non_departmental_public_body: false, allowed_promotional: false },
     executive_ndpb: { name: "Executive non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true, non_departmental_public_body: true, allowed_promotional: false },
     executive_office: { name: "Executive office", analytics_prefix: "EO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },

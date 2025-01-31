@@ -191,7 +191,7 @@ class PublishingApi::OrganisationsPresenterTest < ActiveSupport::TestCase
               crest: "single-identity",
             },
             separate_website: true,
-            format: "Devolved administration",
+            format: "Devolved government",
             updated_at: Time.zone.now,
             slug: organisation_seven.slug,
             acronym: nil,
