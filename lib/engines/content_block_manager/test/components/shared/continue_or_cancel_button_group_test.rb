@@ -45,14 +45,11 @@ class ContentBlockManager::Shared::ContinueOrCancelButtonGroupTest < ViewCompone
       content_block_edition.document.stubs(:editions).returns([*content_block_edition, build_stubbed_list(:content_block_edition, 2)])
     end
 
-    it "renders with the correct form ID and URLs" do
+    it "renders with a link to the cancel page" do
       render_inline component
 
       assert_selector "button[form='my_form_id']", text: "Save and continue"
-      assert_selector "form[action='#{content_block_manager_content_block_edition_path(
-        content_block_edition,
-        redirect_path: content_block_manager_content_block_document_path(content_block_edition.document),
-      )}']"
+      assert_selector "a[href='#{cancel_content_block_manager_content_block_workflow_index_path(content_block_edition)}']"
     end
   end
 end

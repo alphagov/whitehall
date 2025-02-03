@@ -8,11 +8,19 @@
     } %>
   </div>
   <div>
-    <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(
-      url: helpers.content_block_manager.content_block_manager_content_block_edition_path(
-        content_block_edition,
-        redirect_path:,
-      ),
-    ) %>
+    <% if is_editing? %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Cancel",
+        href: helpers.content_block_manager.cancel_content_block_manager_content_block_workflow_index_path(content_block_edition),
+        secondary_solid: true,
+      } %>
+    <% else %>
+      <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(
+        url: helpers.content_block_manager.content_block_manager_content_block_edition_path(
+          content_block_edition,
+          redirect_path: helpers.content_block_manager.content_block_manager_content_block_documents_path,
+        ),
+      ) %>
+    <% end %>
   </div>
 </div>

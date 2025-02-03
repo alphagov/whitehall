@@ -18,6 +18,14 @@ When("I click cancel") do
   click_button "Cancel"
 end
 
+When("I choose to delete the in-progress draft") do
+  click_button "Delete in-progress draft"
+end
+
+When("I click to save and come back later") do
+  click_link "Save and come back later"
+end
+
 When("I click the cancel link") do
   click_link "Cancel"
 end

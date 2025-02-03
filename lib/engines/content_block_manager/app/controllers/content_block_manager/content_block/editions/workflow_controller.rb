@@ -16,6 +16,10 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
     end
   end
 
+  def cancel
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+  end
+
   def update
     step = params[:step].to_sym
     action = Workflow::Step.by_name(step)&.update_action

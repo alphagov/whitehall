@@ -52,6 +52,7 @@ Feature: Schedule a content object
     When I click to view the content block
     And I click to edit the schedule
     And I schedule the change for 5 days in the future
-    And I click cancel
+    And I click the cancel link
+    And I choose to delete the in-progress draft
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created

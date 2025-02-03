@@ -43,7 +43,8 @@ Feature: Edit a content object
     When I click to view the document
     When I click the first edit link
     When I fill out the form
-    And I click cancel
+    And I click the cancel link
+    And I choose to delete the in-progress draft
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
 
@@ -53,7 +54,8 @@ Feature: Edit a content object
     When I click the first edit link
     And I fill out the form
     And I continue after reviewing the links
-    When I click cancel
+    When I click the cancel link
+    And I choose to delete the in-progress draft
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
 
@@ -66,7 +68,8 @@ Feature: Edit a content object
     When I add an internal note
     And I add a change note
     And I choose to publish the change now
-    When I click cancel
+    When I click the cancel link
+    And I choose to delete the in-progress draft
     Then I should be taken back to the document page
     And no draft Content Block Edition has been created
 
@@ -140,8 +143,8 @@ Feature: Edit a content object
     And I click to view the document
     And I click the first edit link
     And I fill out the form
-    When I visit the Content Block Manager home page
-    When I click to view the document
+    And I click the cancel link
+    And I click to save and come back later
     Then I should see a notification that a draft is in progress
     When I click on the link to continue editing
     And I update the content block and publish
