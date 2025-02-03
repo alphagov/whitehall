@@ -37,6 +37,10 @@ module ContentBlockManager
       def is_new_block?
         editions.count == 1
       end
+
+      def has_newer_draft?
+        latest_edition_id != editions.select(:id, :created_at).order(created_at: :asc).last.id
+      end
     end
   end
 end
