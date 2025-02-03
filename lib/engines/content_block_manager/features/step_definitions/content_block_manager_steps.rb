@@ -428,6 +428,10 @@ Then(/^I should not see a notification that a draft is in progress$/) do
   expect(page).to_not have_content("A newer draft exists for this content block")
 end
 
+Then("there should be no draft editions remaining") do
+  expect(@content_block.document.reload.editions.select { |e| e.state == "draft" }.count).to eq(0)
+end
+
 When(/^I click on the link to continue editing$/) do
   click_on "Continue editing"
 end

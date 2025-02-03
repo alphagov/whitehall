@@ -64,6 +64,73 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
   end
 
   describe "when updating an existing content block" do
+    describe "when editing an existing edition" do
+      let(:step) { :edit_draft }
+
+      describe "#show" do
+        it "shows the form" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_template "content_block_manager/content_block/editions/workflow/edit_draft"
+        end
+      end
+
+      describe "#update" do
+        it "updates the block and redirects to the next flow if editing an existing block" do
+          ContentBlockManager::ContentBlock::Document.any_instance.stubs(:is_new_block?).returns(false)
+
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "title" => "New title",
+                  "details" => {
+                    "foo" => "bar",
+                  },
+                },
+              }
+
+          assert_equal edition.reload.title, "New title"
+          assert_equal edition.reload.details["foo"], "bar"
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
+        end
+
+        it "updates the block and redirects to the review page if editing a new block" do
+          ContentBlockManager::ContentBlock::Document.any_instance.stubs(:is_new_block?).returns(true)
+
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "title" => "New title",
+                  "details" => {
+                    "foo" => "bar",
+                  },
+                },
+              }
+
+          assert_equal edition.reload.title, "New title"
+          assert_equal edition.reload.details["foo"], "bar"
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
+        end
+
+        it "shows an error if a required field is blank" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "title" => "",
+                  "details" => {
+                    "foo" => "bar",
+                  },
+                },
+              }
+
+          assert_template "content_block_manager/content_block/editions/workflow/edit_draft"
+          assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.blank', attribute: 'Title')}/, response.body)
+        end
+      end
+    end
+
     describe "when reviewing the links" do
       let(:step) { :review_links }
 

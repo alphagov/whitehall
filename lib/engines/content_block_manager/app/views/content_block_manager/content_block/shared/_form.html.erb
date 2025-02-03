@@ -4,7 +4,7 @@
 
 <%= form_with(
       url: @form.url,
-      method: :post,
+      method: @form.form_method,
       model: [content_block_manager, @form.content_block_edition]) do |f| %>
   <%= hidden_field_tag "content_block/edition[document_attributes][block_type]",
                        @form.schema.block_type %>

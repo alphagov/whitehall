@@ -151,5 +151,5 @@ Feature: Edit a content object
     When I visit the Content Block Manager home page
     And I click to view the document
     Then I should not see a notification that a draft is in progress
-
+    And there should be no draft editions remaining
 

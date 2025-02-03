@@ -3,12 +3,10 @@ module Workflow::ShowMethods
 
   def edit_draft
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-    @form = ContentBlockManager::ContentBlock::EditionForm.for(
-      content_block_edition: @content_block_edition,
-      schema: @schema,
-    )
+    @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
+    @form = ContentBlockManager::ContentBlock::EditionForm::Edit.new(content_block_edition: @content_block_edition, schema: @schema)
 
-    render "content_block_manager/content_block/editions/new"
+    render :edit_draft
   end
 
   def review_links

@@ -19,7 +19,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
       it "initializes the form for the latest edition" do
         ContentBlockManager::ContentBlock::Document.expects(:find).with(content_block_document.id.to_s).returns(content_block_document)
         schema = stub_request_for_schema(content_block_document.block_type)
-        form = stub(:form, title: "title", url: "url", back_path: "back_path", content_block_edition: original_edition, schema:, attributes: {})
+        form = stub(:form, title: "title", url: "url", back_path: "back_path", content_block_edition: original_edition, schema:, attributes: {}, form_method: :post)
         ContentBlockManager::ContentBlock::EditionForm.expects(:for).with(
           content_block_edition: original_edition,
           schema:,
@@ -36,7 +36,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
         edition = create(:content_block_edition, :email_address)
         ContentBlockManager::ContentBlock::Edition.expects(:new).returns(edition)
         schema = stub_request_for_schema("block_type")
-        form = stub(:form, title: "title", url: "url", back_path: "back_path", content_block_edition: edition, schema:, attributes: {})
+        form = stub(:form, title: "title", url: "url", back_path: "back_path", content_block_edition: edition, schema:, attributes: {}, form_method: :post)
         ContentBlockManager::ContentBlock::EditionForm.expects(:for).with(
           content_block_edition: edition,
           schema:,
