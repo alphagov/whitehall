@@ -18,6 +18,7 @@
 
       <%= render "govuk_publishing_components/components/radio", {
         name: "content_block/edition[major_change]",
+        hint: "Some content types show public change notes. GOV.UK users can subscribe to email alerts and RSS feeds and receive public change notes. Telling users when published information has changed is important for transparency.",
         id: "content_block_manager_content_block_edition_major_change",
         error_items: errors_for(@content_block_edition.errors, :major_change),
         items: [
@@ -25,7 +26,7 @@
             value: "1",
             checked: @content_block_edition.major_change === true,
             text: "Yes - information has been added, updated or removed",
-            hint_text: "A change note will be published on the page and emailed to users subscribed to email alerts. The 'last updated' date will change.",
+            hint_text: "A change note will be published on every relevant page containing the content block you've changed. Change notes will also be emailed to users subscribed to email alerts for every page affected by this change. The 'last updated' date will change on pages that display it.",
             bold: true,
             conditional: render("govuk_publishing_components/components/textarea", {
               label: {
@@ -35,8 +36,7 @@
               id: "content_block_manager_content_block_edition_change_note",
               error_items: errors_for(@content_block_edition.errors, :change_note),
               value: @content_block_edition.change_note,
-              hint: (tag.p('Tell users what has changed, where and why. Write in full sentences, leading with the most important words. For example, "College A has been removed from the registered sponsors list because its licence has been suspended."', class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0") +
-                link_to("Guidance about change notes (opens in a new tab)", "https://www.gov.uk/guidance/content-design/writing-for-gov-uk#change-notes", target: "_blank", class: "govuk-link", rel: "noopener")).html_safe,
+              hint: "Tell users what has been edited, where and why. Write in full sentences, leading with the most important words. For example, \"The full basic State Pension rate has changed from £85 per week to £93.60 per week.\"",
             }),
           },
           {
