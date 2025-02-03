@@ -14,10 +14,10 @@ class ContentBlockManager::ContentBlock::WorkflowStepTest < ActiveSupport::TestC
   describe "#next_step" do
     [
       %i[edit_draft review_links],
-      %i[review_links schedule_publishing],
-      %i[schedule_publishing internal_note],
+      %i[review_links internal_note],
       %i[internal_note change_note],
-      %i[change_note review],
+      %i[change_note schedule_publishing],
+      %i[schedule_publishing review],
       %i[review confirmation],
     ].each do |current_step, expected_step|
       it "returns #{expected_step} step when the current step is #{current_step}" do
@@ -30,10 +30,10 @@ class ContentBlockManager::ContentBlock::WorkflowStepTest < ActiveSupport::TestC
   describe "#previous_step" do
     [
       %i[review_links edit_draft],
-      %i[schedule_publishing review_links],
-      %i[internal_note schedule_publishing],
+      %i[internal_note review_links],
       %i[change_note internal_note],
-      %i[review change_note],
+      %i[schedule_publishing change_note],
+      %i[review schedule_publishing],
     ].each do |current_step, expected_step|
       it "returns #{expected_step} step when the current step is #{current_step}" do
         step = Workflow::Step.by_name(current_step)

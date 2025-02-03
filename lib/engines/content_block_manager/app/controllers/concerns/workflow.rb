@@ -3,9 +3,9 @@ module Workflow
     ALL = [
       Step.new(:edit_draft, :edit_draft, nil),
       Step.new(:review_links, :review_links, :redirect_to_next_step),
-      Step.new(:schedule_publishing, :schedule_publishing, :validate_schedule),
       Step.new(:internal_note, :internal_note, :update_internal_note),
       Step.new(:change_note, :change_note, :update_change_note),
+      Step.new(:schedule_publishing, :schedule_publishing, :validate_schedule),
       Step.new(:review, :review, :validate_review_page),
       Step.new(:confirmation, :confirmation, nil),
     ].freeze

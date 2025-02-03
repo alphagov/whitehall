@@ -21,16 +21,25 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= render(
-          ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent.new(
-            is_preview: true,
-            caption: "List of locations",
-            host_content_items: @host_content_items,
-            current_page: @page,
-            order: @order,
-            content_block_edition: @content_block_edition,
-            ),
-          ) %>
+    <%= form_with(
+        url: content_block_manager.content_block_manager_content_block_workflow_path(
+          edition_id: @content_block_edition.id,
+          step: :review_links,
+          ),
+        id: "review_links",
+        method: :put,
+        ) do %>
+          <%= render(
+                ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent.new(
+                  is_preview: true,
+                  caption: "List of locations",
+                  host_content_items: @host_content_items,
+                  current_page: @page,
+                  order: @order,
+                  content_block_edition: @content_block_edition,
+                  ),
+                ) %>
+      <% end %>
   </div>
 </div>
 
@@ -38,30 +47,11 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
-          <div class="govuk-button-group">
-          <%= form_with(
-                url: content_block_manager.content_block_manager_content_block_workflow_path(
-                  edition_id: @content_block_edition.id,
-                  step: :review_links,
-                ),
-                method: :put,
-              ) do %>
-              <%= render "govuk_publishing_components/components/button", {
-                text: "Save and continue",
-                name: "save_and_continue",
-                value: "Save and continue",
-                type: "submit",
-              } %>
-            <% end %>
-            <%= render ContentBlockManager::Shared::CancelAndDeleteButtonComponent.new(url: content_block_manager.
-                content_block_manager_content_block_edition_path(
-                  @content_block_edition, redirect_path:
-                    content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document)
-                  ),
-                ) %>
-          </div>
+        <%= render ContentBlockManager::Shared::ContinueOrCancelButtonGroup.new(
+          form_id: "review_links",
+          content_block_edition: @content_block_edition,
+          ) %>
       </div>
     </div>
-
   </div>
 </div>

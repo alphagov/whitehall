@@ -347,6 +347,8 @@ end
 
 When("I am updating a content block") do
   update_content_block
+  add_internal_note
+  add_change_note
 end
 
 When("one of the content blocks was updated 2 days ago") do
