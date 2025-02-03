@@ -11,4 +11,6 @@ class Admin::FlashMessageComponent < ViewComponent::Base
       @message
     end
   end
+
+  def data_attributes; end
 end
