@@ -53,7 +53,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
     assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Instructions to publishers"
     assert_selector ".govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "None"
 
-    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Internal change note"
+    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Internal note"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "Some internal info"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions", text: "Edit"
     assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{content_block_manager_content_block_workflow_path(id: content_block_edition.id, step: :internal_note)}']"

@@ -15,8 +15,6 @@ private
       organisation_item,
       instructions_item,
       status_item,
-      internal_change_note_item,
-      *change_note_items,
       embed_code_item,
     ].compact
   end
@@ -86,31 +84,6 @@ private
         value: last_updated_value,
       }
     end
-  end
-
-  def internal_change_note_item
-    {
-      field: "Internal change note",
-      value: content_block_edition.internal_change_note.presence || "None",
-    }
-  end
-
-  def change_note_items
-    content_block_edition.major_change ? [major_change_item, external_change_note_item] : [major_change_item]
-  end
-
-  def major_change_item
-    {
-      field: "Do users have to know the content has changed?",
-      value: content_block_edition.major_change ? "Yes" : "No",
-    }
-  end
-
-  def external_change_note_item
-    {
-      field: "Public change note",
-      value: content_block_edition.change_note,
-    }
   end
 
   def last_updated_value
