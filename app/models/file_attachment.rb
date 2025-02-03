@@ -42,10 +42,6 @@ class FileAttachment < Attachment
     "file"
   end
 
-  def should_generate_new_friendly_id?
-    false
-  end
-
   def publishing_api_details_for_format
     {
       accessible: accessible?,

@@ -101,10 +101,6 @@ class Document < ApplicationRecord
     ).count > 1
   end
 
-  def should_generate_new_friendly_id?
-    sluggable_string.present?
-  end
-
   def update_slug_if_possible(new_title)
     return if ever_published_editions.present? || invalid?
 

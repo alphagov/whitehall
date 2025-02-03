@@ -21,10 +21,6 @@ class ExternalAttachment < Attachment
     false
   end
 
-  def should_generate_new_friendly_id?
-    false
-  end
-
   # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
   def opendocument?
     false

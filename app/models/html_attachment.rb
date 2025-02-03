@@ -60,12 +60,6 @@ class HtmlAttachment < Attachment
     end
   end
 
-  def should_generate_new_friendly_id?
-    return false unless sluggable_locale?
-
-    slug.nil? || attachable.nil? || safely_resluggable?
-  end
-
   def deep_clone
     super.tap do |clone|
       clone.slug = slug
