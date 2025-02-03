@@ -15,7 +15,6 @@
     "filter": {
       "format": "person"
     },
-    "format_name": "All ministers and senior officials on GOV.UK",
     "show_summaries": true,
     "default_documents_per_page": 50
   },
