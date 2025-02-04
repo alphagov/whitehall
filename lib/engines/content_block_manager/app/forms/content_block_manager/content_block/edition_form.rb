@@ -27,6 +27,10 @@ class ContentBlockManager::ContentBlock::EditionForm
     end
   end
 
+  def form_method
+    :post
+  end
+
   class Create < ContentBlockManager::ContentBlock::EditionForm
     def title
       I18n.t("content_block_edition.create.title", block_type: schema.name.downcase)
@@ -52,6 +56,24 @@ class ContentBlockManager::ContentBlock::EditionForm
 
     def back_path
       content_block_manager_content_block_document_path(@content_block_edition.document)
+    end
+  end
+
+  class Edit < ContentBlockManager::ContentBlock::EditionForm
+    def title
+      I18n.t("content_block_edition.update.title", block_type: schema.name.downcase)
+    end
+
+    def url
+      content_block_manager_content_block_workflow_path(@content_block_edition, step: "edit_draft")
+    end
+
+    def back_path
+      content_block_manager_content_block_document_path(@content_block_edition.document)
+    end
+
+    def form_method
+      :put
     end
   end
 end

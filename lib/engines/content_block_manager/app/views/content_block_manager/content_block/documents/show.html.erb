@@ -1,3 +1,4 @@
+<% content_for :page_full_width, true %>
 <% content_for :context, "View #{@content_block_document.block_type.humanize.downcase}" %>
 <% content_for :title, @content_block_document.title %>
 <% content_for :back_link do %>
@@ -13,6 +14,16 @@
       secondary_solid: true,
     } %>
   </div>
+<% end %>
+
+<% if @content_block_document.has_newer_draft? %>
+  <%
+    content_for :banner, render("govuk_publishing_components/components/notice", {
+      title: "A newer draft exists for this content block",
+      description_govspeak: sanitize("<p>#{link_to "Continue editing", content_block_manager.content_block_manager_content_block_workflow_path(@content_block_document.latest_draft, step: :edit_draft)}</p>"),
+      show_banner_title: false,
+    })
+  %>
 <% end %>
 
 <%=

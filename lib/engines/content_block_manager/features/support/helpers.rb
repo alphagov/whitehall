@@ -61,6 +61,11 @@ def schedule_change(number_of_days)
   click_on "Save and continue"
 end
 
+def publish_now
+  choose "Publish the edit now"
+  click_save_and_continue
+end
+
 def update_content_block
   # go to the edit page for the block
   visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)

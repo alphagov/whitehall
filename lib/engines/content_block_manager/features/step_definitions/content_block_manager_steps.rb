@@ -18,6 +18,14 @@ When("I click cancel") do
   click_button "Cancel"
 end
 
+When("I choose to delete the in-progress draft") do
+  click_button "Delete in-progress draft"
+end
+
+When("I click to save and come back later") do
+  click_link "Save and come back later"
+end
+
 When("I click the cancel link") do
   click_link "Cancel"
 end
@@ -328,8 +336,7 @@ end
 
 Then(/^I choose to publish the change now$/) do
   @is_scheduled = false
-  choose "Publish the edit now"
-  click_save_and_continue
+  publish_now
 end
 
 Then("I check the block type {string}") do |checkbox_name|
@@ -411,4 +418,29 @@ end
 
 When(/^I add an internal note$/) do
   add_internal_note
+end
+
+Then(/^I should see a notification that a draft is in progress$/) do
+  expect(page).to have_content("A newer draft exists for this content block")
+end
+
+Then(/^I should not see a notification that a draft is in progress$/) do
+  expect(page).to_not have_content("A newer draft exists for this content block")
+end
+
+Then("there should be no draft editions remaining") do
+  expect(@content_block.document.reload.editions.select { |e| e.state == "draft" }.count).to eq(0)
+end
+
+When(/^I click on the link to continue editing$/) do
+  click_on "Continue editing"
+end
+
+And(/^I update the content block and publish$/) do
+  change_details
+  click_save_and_continue
+  add_internal_note
+  add_change_note
+  publish_now
+  review_and_confirm
 end

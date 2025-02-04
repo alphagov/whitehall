@@ -3,6 +3,26 @@ module Workflow::UpdateMethods
 
   REVIEW_ERROR = Data.define(:attribute, :full_message)
 
+  def update_draft
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+    @content_block_edition.assign_attributes(edition_params.except(:creator, :document_attributes))
+    @content_block_edition.save!
+
+    if @content_block_edition.document.is_new_block?
+      redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+        id: @content_block_edition.id,
+        step: :review,
+      )
+    else
+      redirect_to_next_step
+    end
+  rescue ActiveRecord::RecordInvalid
+    @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
+    @form = ContentBlockManager::ContentBlock::EditionForm::Edit.new(content_block_edition: @content_block_edition, schema: @schema)
+
+    render :edit_draft
+  end
+
   def validate_schedule
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 

@@ -17,7 +17,11 @@ ContentBlockManager::Engine.routes.draw do
       end
       resources :editions, only: %i[new create destroy], path_names: { new: ":block_type/new" } do
         member do
-          resources :workflow, only: %i[show update], controller: "editions/workflow", param: :step
+          resources :workflow, only: %i[show update], controller: "editions/workflow", param: :step do
+            collection do
+              get :cancel, to: "editions/workflow#cancel"
+            end
+          end
           resources :host_content, only: %i[preview], controller: "editions/host_content", param: :id do
             get :preview, to: "editions/host_content#preview"
           end

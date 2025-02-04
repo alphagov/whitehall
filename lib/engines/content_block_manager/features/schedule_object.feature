@@ -57,5 +57,6 @@ Feature: Schedule a content object
     When I am updating a content block
     When I choose to schedule the change
     And the block is scheduled and published
-    And I click cancel
+    And I click the cancel link
+    And I choose to delete the in-progress draft
     Then I should be taken back to the document page

@@ -144,4 +144,38 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
       assert_not document.is_new_block?
     end
   end
+
+  describe "#has_newer_draft?" do
+    let(:document) { create(:content_block_document, :email_address) }
+
+    it "returns false when the newest edition is the same as the latest edition" do
+      _older_edition = create(:content_block_edition, :email_address, created_at: Time.zone.now - 2.days, document:)
+      edition = create(:content_block_edition, :email_address, created_at: Time.zone.now, document:)
+      document.latest_edition_id = edition.id
+      document.save!
+
+      assert_not document.has_newer_draft?
+    end
+
+    it "returns true when the newest edition is not the same as the latest edition" do
+      edition = create(:content_block_edition, :email_address, created_at: Time.zone.now - 2.days, document:)
+      _newer_edition = create(:content_block_edition, :email_address, created_at: Time.zone.now, document:)
+      document.latest_edition_id = edition.id
+      document.save!
+
+      assert document.has_newer_draft?
+    end
+  end
+
+  describe "#latest_draft" do
+    let(:document) { create(:content_block_document, :email_address) }
+
+    it "returns the latest draft edition" do
+      _older_draft = create(:content_block_edition, :email_address, created_at: Time.zone.now - 2.days, document:, state: "draft")
+      newest_draft = create(:content_block_edition, :email_address, created_at: Time.zone.now - 1.day, document:, state: "draft")
+      _newest_edition = create(:content_block_edition, :email_address, created_at: Time.zone.now, document:, state: "published")
+
+      assert_equal newest_draft, document.latest_draft
+    end
+  end
 end
