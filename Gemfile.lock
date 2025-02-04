@@ -187,7 +187,7 @@ GEM
     drb (2.2.1)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
-    erb_lint (0.7.0)
+    erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
@@ -398,7 +398,7 @@ GEM
     kaminari-core (1.2.2)
     kramdown (2.5.1)
       rexml (>= 3.3.9)
-    language_server-protocol (3.17.0.3)
+    language_server-protocol (3.17.0.4)
     launchy (3.1.0)
       addressable (~> 2.8)
       childprocess (~> 5.0)
@@ -723,7 +723,7 @@ GEM
       term-ansicolor (~> 1.7)
       thor (>= 0.20, < 2.0)
     parallel (1.26.3)
-    parser (3.3.6.0)
+    parser (3.3.7.0)
       ast (~> 2.4.1)
       racc
     parslet (2.0.0)
