@@ -127,6 +127,10 @@ class CallForEvidence < Publicationesque
     )
   end
 
+  def can_index_in_search?
+    false
+  end
+
   def allows_html_attachments?
     true
   end

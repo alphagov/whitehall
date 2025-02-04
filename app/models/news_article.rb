@@ -92,6 +92,10 @@ class NewsArticle < Announcement
     PublishingApi::NewsArticlePresenter
   end
 
+  def can_index_in_search?
+    false
+  end
+
 private
 
   def organisations_are_not_associated
