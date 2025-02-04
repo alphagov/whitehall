@@ -249,11 +249,31 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected_slug, attachment.to_param
   end
 
+  test "slug is created even if the English title contains non-ASCII characters (since it's highly unlikely to be ALL non-ASCII characters like other languages)" do
+    attachment = create(:html_attachment, locale: "en", title: "A page about copyright ©")
+
+    expected_slug = "a-page-about-copyright"
+    assert_equal expected_slug, attachment.slug
+    assert_equal expected_slug, attachment.to_param
+  end
+
   test "slug is cleared when changing from english to non-english" do
     attachment = create(:html_attachment, locale: "en")
 
     attachment.update!(locale: "fr")
     assert attachment.slug.blank?
+  end
+
+  test "#identifier falls back to content_id if no slug available" do
+    attachment = create(:html_attachment)
+    attachment.slug = nil
+    assert_equal attachment.content_id, attachment.identifier
+  end
+
+  test "#identifier uses the slug if it's been set, irrespective of locale" do
+    attachment = create(:html_attachment, locale: "cy")
+    attachment.slug = "foo"
+    assert_equal "foo", attachment.identifier
   end
 
   test "#translated_locales lists only the attachment's locale" do
