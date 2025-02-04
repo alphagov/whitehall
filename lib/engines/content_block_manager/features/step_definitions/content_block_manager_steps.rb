@@ -19,11 +19,11 @@ When("I click cancel") do
 end
 
 When("I choose to delete the in-progress draft") do
-  click_button "Delete in-progress draft"
+  click_button "Delete draft"
 end
 
 When("I click to save and come back later") do
-  click_link "Save and come back later"
+  click_link "Save for later"
 end
 
 When("I click the cancel link") do
@@ -421,11 +421,11 @@ When(/^I add an internal note$/) do
 end
 
 Then(/^I should see a notification that a draft is in progress$/) do
-  expect(page).to have_content("A newer draft exists for this content block")
+  expect(page).to have_content("There’s a saved draft of this content block")
 end
 
 Then(/^I should not see a notification that a draft is in progress$/) do
-  expect(page).to_not have_content("A newer draft exists for this content block")
+  expect(page).to_not have_content("There’s a saved draft of this content block")
 end
 
 Then("there should be no draft editions remaining") do

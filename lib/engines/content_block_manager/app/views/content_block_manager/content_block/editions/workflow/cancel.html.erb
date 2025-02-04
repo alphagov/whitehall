@@ -1,10 +1,10 @@
 <% content_for :context, context %>
-<% content_for :title, "Do you want to save your progress, or delete the draft entirely?" %>
+<% content_for :title, "Do you want to save your draft, or delete it?" %>
 
 <div class="govuk-button-group govuk-!-margin-bottom-6">
   <div>
     <%= render "govuk_publishing_components/components/button", {
-      text: "Save and come back later",
+      text: "Save for later",
       href: content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document),
     } %>
   </div>
@@ -17,7 +17,7 @@
           method: :patch,
         ) do %>
       <%= render "govuk_publishing_components/components/button", {
-        text: "Delete in-progress draft",
+        text: "Delete draft",
         name: "_method",
         value: "delete",
         type: "submit",
