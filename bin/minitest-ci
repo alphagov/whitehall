@@ -17,4 +17,12 @@ tests = test_files.
     i % ENV["CI_NODE_TOTAL"].to_i == ENV["CI_NODE_INDEX"].to_i
   end
 
-exec "bundle exec rails test #{tests.join(" ")}"
+result = %x(bundle exec rails test #{tests.join(" ")})
+
+puts result
+
+# If the tests fail, output the tests in the failing subset of tests, to aid with debugging.
+unless $? == 0
+  puts "Test files run: \n#{tests.join("\n")}"
+  exit 1
+end
