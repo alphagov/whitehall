@@ -29,6 +29,10 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
   end
 
   describe "when creating a new content block" do
+    before do
+      ContentBlockManager::ContentBlock::Document.any_instance.stubs(:is_new_block?).returns(true)
+    end
+
     describe "when reviewing the changes" do
       let(:step) { :review }
 
@@ -38,6 +42,13 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
           assert_template "content_block_manager/content_block/editions/workflow/review"
           assert_equal edition, assigns(:content_block_edition)
+        end
+
+        it "shows the correct context and confirmation text" do
+          visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_text "Create content block"
+          assert_text "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
         end
       end
 
@@ -64,6 +75,10 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
   end
 
   describe "when updating an existing content block" do
+    before do
+      ContentBlockManager::ContentBlock::Document.any_instance.stubs(:is_new_block?).returns(false)
+    end
+
     describe "when editing an existing edition" do
       let(:step) { :edit_draft }
 
@@ -291,6 +306,17 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
             assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.schedule_publishing.blank')}/, response.body)
           end
         end
+      end
+    end
+
+    describe "when on the review step" do
+      let(:step) { :review }
+
+      it "shows the correct context and confirmation text" do
+        visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+        assert_text "Edit content block"
+        assert_text "By editing this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
       end
     end
   end

@@ -34,7 +34,7 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   end
 
   def context
-    "Edit content block"
+    @content_block_edition.document.is_new_block? ? "Create content block" : "Edit content block"
   end
   helper_method :context
 

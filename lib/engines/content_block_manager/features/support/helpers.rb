@@ -89,6 +89,6 @@ def add_change_note
 end
 
 def review_and_confirm
-  check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
+  check "is_confirmed"
   click_on @is_scheduled ? "Schedule" : "Publish"
 end
