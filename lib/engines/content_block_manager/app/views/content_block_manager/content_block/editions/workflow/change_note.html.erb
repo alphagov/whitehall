@@ -18,7 +18,7 @@
 
       <%= render "govuk_publishing_components/components/radio", {
         name: "content_block/edition[major_change]",
-        hint: "Some content types show public change notes. GOV.UK users can subscribe to email alerts and RSS feeds and receive public change notes. Telling users when published information has changed is important for transparency.",
+        hint: "Some content types show public change notes. GOV.UK users can subscribe to email alerts and RSS feeds to receive public change notes. Telling users when published information has changed is important for transparency.",
         id: "content_block_manager_content_block_edition_major_change",
         error_items: errors_for(@content_block_edition.errors, :major_change),
         items: [
@@ -36,7 +36,7 @@
               id: "content_block_manager_content_block_edition_change_note",
               error_items: errors_for(@content_block_edition.errors, :change_note),
               value: @content_block_edition.change_note,
-              hint: "Tell users what has been edited, where and why. Write in full sentences, leading with the most important words. For example, \"The full basic State Pension rate has changed from £85 per week to £93.60 per week.\"",
+              hint: "Tell users what has been edited, where and why. Write in full sentences, leading with the most important words. For example, \"The full basic State Pension rate has changed from £156.20 per week to £169.50 per week.\"",
             }),
           },
           {
