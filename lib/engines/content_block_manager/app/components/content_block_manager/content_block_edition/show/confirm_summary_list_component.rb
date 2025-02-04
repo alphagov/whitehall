@@ -14,7 +14,6 @@ private
       *details_items,
       organisation_item,
       instructions_item,
-      internal_change_note_item,
       *change_note_items,
       status_item,
     ].compact
@@ -57,6 +56,12 @@ private
     }
   end
 
+  def change_note_items
+    return [] if content_block_edition.document.is_new_block?
+
+    content_block_edition.major_change ? [internal_change_note_item, major_change_item, external_change_note_item] : [internal_change_note_item, major_change_item]
+  end
+
   def internal_change_note_item
     {
       field: "Internal note",
@@ -66,10 +71,6 @@ private
         link_text: "Edit",
       },
     }
-  end
-
-  def change_note_items
-    content_block_edition.major_change ? [major_change_item, external_change_note_item] : [major_change_item]
   end
 
   def major_change_item
