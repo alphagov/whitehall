@@ -69,11 +69,12 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     end
 
     context "given a published document with HTML attachment" do
-      let(:edition) { create(:published_publication, :with_html_attachment) }
+      let(:edition) { create(:published_publication, :with_alternative_format_provider) }
 
       it "unpublishes the HTML attachment when the document is unpublished" do
         visit admin_publication_path(edition)
-        assert_redirected_in_publishing_api(edition.html_attachments.first.content_id, redirect_path)
+        assert_gone_in_publishing_api(edition.document.content_id, "")
+        assert_redirected_in_publishing_api_html(edition.html_attachments.first.content_id, redirect_path)
 
         unpublish_document_published_in_error
         assert_sets_redirect_url_in_asset_manager_to redirect_url
@@ -187,7 +188,21 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       AssetManagerAttachmentRedirectUrlUpdateWorker.drain
     end
 
-    def assert_redirected_in_publishing_api(content_id, redirect_path)
+    def assert_gone_in_publishing_api(content_id, redirect_path)
+      Services.publishing_api.expects(:unpublish)
+              .with(
+                content_id,
+                type: "gone",
+                alternative_path: redirect_path,
+                locale: "en",
+                allow_draft: false,
+                discard_drafts: true,
+                explanation: nil,
+              )
+              .once
+    end
+
+    def assert_redirected_in_publishing_api_html(content_id, redirect_path)
       Services.publishing_api.expects(:unpublish)
               .with(
                 content_id,
