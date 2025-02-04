@@ -146,8 +146,8 @@ module Whitehall
       PublishingApiVanishWorker.perform_async(document_content_id, locale.to_s)
     end
 
-    def self.publish_withdrawal_async(document_content_id, explanation, unpublished_at, locale = I18n.default_locale.to_s)
-      PublishingApiWithdrawalWorker.perform_async(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
+    def self.publish_withdrawal_sync(document_content_id, explanation, unpublished_at, locale = I18n.default_locale.to_s)
+      PublishingApiWithdrawalWorker.new.perform(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
     end
 
     def self.unpublish_sync(unpublishing)

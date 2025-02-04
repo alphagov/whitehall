@@ -21,7 +21,7 @@ module ServiceListeners
         api.unpublish_sync(edition.unpublishing)
       when "withdraw"
         edition.translations.each do |translation|
-          api.publish_withdrawal_async(
+          api.publish_withdrawal_sync(
             edition.content_id,
             edition.unpublishing.explanation,
             edition.unpublishing.unpublished_at,
