@@ -89,6 +89,7 @@ module Admin::RepublishingHelper
       CorporateInformationPage
       DetailedGuide
       DocumentCollection
+      EditionableTopicalEvent
       WorldwideOrganisation
       FatalityNotice
       LandingPage
