@@ -22,6 +22,113 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     assert_equal schema.block_type, "email_address"
   end
 
+  describe "when a schema has embedded objects" do
+    let(:body) do
+      {
+        "properties" => {
+          "foo" => {
+            "type" => "string",
+          },
+          "bar" => {
+            "type" => "object",
+            "patternProperties" => {
+              "*" => {
+                "type" => "object",
+                "properties" => {
+                  "my_string" => {
+                    "type" => "string",
+                  },
+                  "something_else" => {
+                    "type" => "string",
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
+    end
+
+    describe "#fields" do
+      it "removes object fields" do
+        assert_equal schema.fields, %w[foo]
+      end
+    end
+
+    describe "#subschema" do
+      it "returns a given subschema" do
+        subschema = schema.subschema("bar")
+
+        assert_equal subschema.id, "bar"
+        assert_equal subschema.fields, %w[my_string something_else]
+      end
+
+      describe "when an order is given in the subschema" do
+        let(:body) do
+          {
+            "properties" => {
+              "foo" => {
+                "type" => "string",
+              },
+              "bar" => {
+                "type" => "object",
+                "patternProperties" => {
+                  "*" => {
+                    "type" => "object",
+                    "order" => %w[something_else my_string],
+                    "properties" => {
+                      "my_string" => {
+                        "type" => "string",
+                      },
+                      "something_else" => {
+                        "type" => "string",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
+
+        it "orders fields when an order is given" do
+          subschema = schema.subschema("bar")
+
+          assert_equal subschema.fields, %w[something_else my_string]
+        end
+      end
+
+      describe "when an invalid subschema is given" do
+        let(:body) do
+          {
+            "properties" => {
+              "foo" => {
+                "type" => "string",
+              },
+              "bar" => {
+                "type" => "object",
+                "properties" => {
+                  "my_string" => {
+                    "type" => "string",
+                  },
+                  "something_else" => {
+                    "type" => "string",
+                  },
+                },
+              },
+            },
+          }
+        end
+
+        it "raises an error" do
+          assert_raises ArgumentError, "Subschema `bar` is invalid" do
+            schema.subschema("bar")
+          end
+        end
+      end
+    end
+  end
+
   describe ".permitted_params" do
     it "returns permitted params" do
       assert_equal schema.permitted_params, %w[foo bar]
