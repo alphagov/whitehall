@@ -315,7 +315,7 @@ Then("I am asked to review my answers") do
 end
 
 Then("I confirm my answers are correct") do
-  check "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
+  check "is_confirmed"
 end
 
 Then("I accept and publish") do
