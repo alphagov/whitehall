@@ -3,7 +3,7 @@ module ContentBlockManager
     class Schema
       SCHEMA_PREFIX = "content_block".freeze
 
-      VALID_SCHEMAS = %w[email_address postal_address].freeze
+      VALID_SCHEMAS = %w[email_address postal_address pension].freeze
       private_constant :VALID_SCHEMAS
 
       def self.valid_schemas
@@ -26,7 +26,11 @@ module ContentBlockManager
       end
 
       def fields
-        @body["properties"].keys
+        (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+      end
+
+      def embedded_objects
+        @body["properties"].select { |_k, v| v["type"] == "object" }
       end
 
       def permitted_params

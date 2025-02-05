@@ -33,6 +33,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       assert_equal ContentBlockManager::ContentBlock::Schema.valid_schemas, %w[
         email_address
         postal_address
+        pension
       ]
     end
   end
@@ -146,6 +147,40 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     test "returns false when the schema has correct prefix but a suffix that is not valid" do
       schema_name = "#{ContentBlockManager::ContentBlock::Schema::SCHEMA_PREFIX}_something"
       assert_equal ContentBlockManager::ContentBlock::Schema.is_valid_schema?(schema_name), false
+    end
+  end
+
+  describe "when a schema has embedded objects" do
+    let(:body) do
+      {
+        "properties" => {
+          "foo" => {
+            "type" => "string",
+          },
+          "bar" => {
+            "type" => "object",
+            "patternProperties" => {
+              "*" => {
+                "type" => "object",
+                "properties" => {
+                  "my_string" => {
+                    "type" => "string",
+                  },
+                  "something_else" => {
+                    "type" => "string",
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
+    end
+
+    describe "#fields" do
+      it "removes object fields" do
+        assert_equal schema.fields, %w[foo]
+      end
     end
   end
 end
