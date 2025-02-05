@@ -8,11 +8,7 @@ class ContentBlockManager::ContentBlock::Documents::ScheduleController < Content
 
   def update
     document = ContentBlockManager::ContentBlock::Document.find(params[:document_id])
-    previous_edition = document.latest_edition
-    @content_block_edition = previous_edition.dup
-    @content_block_edition.state = "draft"
-    @content_block_edition.organisation = previous_edition.lead_organisation
-    @content_block_edition.creator = current_user
+    @content_block_edition = document.latest_edition.clone_edition(creator: current_user)
 
     validate_scheduled_edition
 

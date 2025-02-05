@@ -201,7 +201,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
     it "appends to the object if it already exists" do
       content_block_edition.details["something"] = {
-        "another-thing" => {}
+        "another-thing" => {},
       }
 
       content_block_edition.add_object_to_details("something", { "name" => "My thing", "something" => "else" })
@@ -213,6 +213,27 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       content_block_edition.add_object_to_details("something", { "something" => "else" })
 
       assert_equal content_block_edition.details["something"], { "random-string" => { "something" => "else" } }
+    end
+  end
+
+  describe "#clone_edition" do
+    it "clones an edition in draft with the specified creator" do
+      content_block_edition = create(
+        :content_block_edition, :email_address,
+        title: "Some title",
+        details: { "my" => "details" },
+        state: "published"
+      )
+      creator = create(:user)
+
+      new_edition = content_block_edition.clone_edition(creator:)
+
+      assert_equal new_edition.state, "draft"
+      assert_nil new_edition.id
+      assert_equal new_edition.organisation, content_block_edition.lead_organisation
+      assert_equal new_edition.creator, creator
+      assert_equal new_edition.title, content_block_edition.title
+      assert_equal new_edition.details, content_block_edition.details
     end
   end
 end
