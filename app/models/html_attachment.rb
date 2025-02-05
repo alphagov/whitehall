@@ -61,7 +61,7 @@ class HtmlAttachment < Attachment
   end
 
   def should_generate_new_friendly_id?
-    slug.nil? || attachable.nil? || safely_resluggable?
+    safely_resluggable?
   end
 
   def deep_clone
