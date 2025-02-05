@@ -219,31 +219,51 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given a policy group" do
-      let(:managing_editor) { create(:managing_editor) }
+      let(:gds_editor) { create(:gds_editor) }
       let(:attachable) { create(:policy_group) }
-      let(:attachment) { build(:file_attachment, attachable:) }
-      let(:asset_manager_id) { attachment.attachment_data.assets.first.asset_manager_id }
+      let(:first_attachment) { build(:file_attachment, attachable:) }
+      let(:second_attachment) { build(:file_attachment, attachable:) }
+      let(:first_asset_manager_id) { first_attachment.attachment_data.assets.first.asset_manager_id }
+      let(:second_asset_manager_id) { second_attachment.attachment_data.assets.first.asset_manager_id }
 
       before do
-        login_as(managing_editor)
-        stub_asset(asset_manager_id, { "draft" => false, "parent_document_url" => nil })
+        login_as(gds_editor)
+        stub_asset(first_asset_manager_id, { "draft" => false, "parent_document_url" => nil })
+        stub_asset(second_asset_manager_id, { "draft" => false, "parent_document_url" => nil })
 
-        attachable.attachments << [attachment]
+        attachable.attachments << [first_attachment, second_attachment]
         attachable.save!
       end
 
-      it "deletes the corresponding asset in Asset Manager when the policy group is saved" do
-        Services.asset_manager.expects(:delete_asset).once.with(asset_manager_id)
-        Services.asset_manager.expects(:update_asset).with(asset_manager_id).never
+      it "deletes the corresponding asset in Asset Manager for a deleted attachment, when the policy group is saved" do
+        Services.asset_manager.expects(:delete_asset).once.with(first_asset_manager_id)
+        Services.asset_manager.expects(:update_asset).with(first_asset_manager_id).never
 
         visit admin_policy_group_attachments_path(attachable)
-        within page.find("li", text: attachment.title) do
+        within page.find("li", text: first_attachment.title) do
           click_link "Delete attachment"
         end
         click_button "Delete attachment"
         assert_text "Attachment deleted"
         click_link "Group"
         click_button "Save"
+
+        DeleteAttachmentAssetJob.drain
+      end
+
+      it "deleted the corresponding assets of all attachments, when the policy group is deleted" do
+        Services.asset_manager.expects(:delete_asset).once.with(first_asset_manager_id)
+        Services.asset_manager.expects(:delete_asset).once.with(second_asset_manager_id)
+
+        visit admin_policy_groups_path
+        within page.find("tr", text: attachable.name) do
+          click_link "Delete"
+        end
+        click_button "Delete"
+        assert_text "\"#{attachable.name}\" deleted."
+
+        assert_equal first_attachment.reload.deleted, true
+        assert_equal second_attachment.reload.deleted, true
 
         DeleteAttachmentAssetJob.drain
       end
