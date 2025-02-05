@@ -7,7 +7,7 @@ class HtmlAttachment < Attachment
           autosave: true,
           inverse_of: :html_attachment
 
-  before_validation :clear_slug_if_non_english_locale
+  before_save :ensure_slug_is_valid
 
   validates :govspeak_content, presence: true
 
@@ -61,8 +61,6 @@ class HtmlAttachment < Attachment
   end
 
   def should_generate_new_friendly_id?
-    return false unless sluggable_locale?
-
     slug.nil? || attachable.nil? || safely_resluggable?
   end
 
@@ -121,17 +119,12 @@ private
     root + public_path(options)
   end
 
-  def sluggable_locale?
-    locale.blank? || (locale == "en")
-  end
+  # Sense-check that the title converted to ASCII contains more than just hyphens!
+  def ensure_slug_is_valid
+    return unless slug.present? && slug.count("A-Za-z") < 4
 
-  def sluggable_string
-    sluggable_locale? ? title : nil
-  end
-
-  def clear_slug_if_non_english_locale
-    if locale_changed? && !sluggable_locale?
-      self.slug = nil
-    end
+    # Force slug to be `nil` - but only if attachment isn't live already.
+    # A `nil` slug will fall back to using the content_id as the slug.
+    self.slug = nil if safely_resluggable?
   end
 end

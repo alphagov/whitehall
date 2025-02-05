@@ -46,18 +46,6 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
-  test "#url returns absolute path to the draft stack when previewing for non-english locale" do
-    edition = create(:draft_publication, :with_html_attachment)
-    attachment = edition.attachments.first
-    attachment.update!(locale: "fi")
-
-    expected = "https://draft-origin.test.gov.uk/government/publications/"
-    expected += "#{edition.slug}/#{attachment.content_id}?preview=#{attachment.id}"
-    actual = attachment.url(preview: true, full_url: true)
-
-    assert_equal expected, actual
-  end
-
   test "#url returns absolute path to the live site when not previewing" do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
@@ -69,29 +57,10 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
-  test "#url returns absolute path to the live site when not previewing for non-english locale" do
-    edition = create(:published_publication, :with_html_attachment)
-    attachment = edition.attachments.first
-    attachment.update!(locale: "fi")
-
-    expected = "https://www.test.gov.uk/government/publications/"
-    expected += "#{edition.slug}/#{attachment.content_id}"
-    actual = attachment.url(full_url: true)
-
-    assert_equal expected, actual
-  end
-
   test "#url returns relative path by default" do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
     assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
-  end
-
-  test "#url returns relative path by default for non-english locale" do
-    edition = create(:published_publication, :with_html_attachment)
-    attachment = edition.attachments.first
-    attachment.update!(locale: "fi")
-    assert_equal "/government/publications/#{edition.slug}/#{attachment.content_id}", attachment.url
   end
 
   test "#url works when an attachment with english locale has special characters in title" do
@@ -111,7 +80,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     statistics = create(:published_national_statistics)
     attachment = statistics.attachments.last
     attachment.update!(locale: "fi")
-    assert_equal "/government/statistics/#{statistics.slug}/#{attachment.content_id}", attachment.url
+    assert_equal "/government/statistics/#{statistics.slug}/#{attachment.slug}", attachment.url
   end
 
   test "#url works with consultation outcomes" do
@@ -124,7 +93,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     consultation = create(:consultation_with_outcome_html_attachment)
     attachment = consultation.outcome.attachments.first
     attachment.update!(locale: "fi")
-    assert_equal "/government/consultations/#{consultation.slug}/outcome/#{attachment.content_id}", attachment.url
+    assert_equal "/government/consultations/#{consultation.slug}/outcome/#{attachment.slug}", attachment.url
   end
 
   test "#url works with consultation public feedback" do
@@ -137,7 +106,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     consultation = create(:consultation_with_public_feedback_html_attachment)
     attachment = consultation.public_feedback.attachments.first
     attachment.update!(locale: "fi")
-    assert_equal "/government/consultations/#{consultation.slug}/public-feedback/#{attachment.content_id}", attachment.url
+    assert_equal "/government/consultations/#{consultation.slug}/public-feedback/#{attachment.slug}", attachment.url
   end
 
   test "#url works with call for evidence outcomes" do
@@ -232,7 +201,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "an-html-attachment", second_draft_attachment.slug
   end
 
-  test "slug is not created for non-english attachments" do
+  test "slug is not created for non-english attachments if conversion to non-ASCII isn't possible" do
     # Additional attachment to ensure the duplicate detection behaviour isn't triggered
     create(:html_attachment, locale: "fr")
     attachment = create(:html_attachment, locale: "ar", title: "المملكة المتحدة والمملكة العربية السعودية")
@@ -257,11 +226,66 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected_slug, attachment.to_param
   end
 
-  test "slug is cleared when changing from english to non-english" do
-    attachment = create(:html_attachment, locale: "en")
+  test "slug is created for non-english attachments where conversion to ASCII is possible" do
+    attachment = create(:html_attachment, locale: "cs", title: "toto je náhodný název")
 
-    attachment.update!(locale: "fr")
-    assert attachment.slug.blank?
+    expected_slug = "toto-je-nahodny-nazev"
+    assert_equal expected_slug, attachment.slug
+    assert_equal expected_slug, attachment.to_param
+  end
+
+  test "slug requires minimum 3 azAZ characters" do
+    attachment = create(:html_attachment, locale: "cs", title: "tot")
+    assert_equal nil, attachment.slug
+  end
+
+  test "slug reverts to nil, if document has never been published, if title is changed such that minimum 3 azAZ characters is not reached" do
+    attachment = build(:html_attachment, title: "an-html-attachment")
+
+    create(:draft_publication, attachments: [attachment])
+
+    attachment.title = "foo"
+    attachment.save!
+    attachment.reload
+
+    assert_equal nil, attachment.slug
+  end
+
+  test "even if slug is considered too short NOW, slug on legacy old attachment is not updated when the title is changed if document is published" do
+    edition = create(
+      :published_publication,
+      attachments: [
+        build(:html_attachment, title: "an-html-attachment"),
+      ],
+    )
+    # Bypass validations and callbacks to manually set slug
+    attachment = edition.attachments.first
+    attachment.update_column(:slug, "foo")
+    assert_equal "foo", attachment.slug
+
+    #  now check slug not overridden
+    draft = edition.create_draft(create(:writer))
+    attachment = draft.attachments.first
+    attachment.title = "a-new-title"
+    attachment.save!
+    attachment.reload
+    assert_equal "foo", attachment.slug
+  end
+
+  # This behaviour is built into the friendly_id gem
+  test "slug is made unique if there is an existing clash" do
+    edition = create(
+      :published_publication,
+      attachments: [
+        build(:html_attachment, locale: "en", title: "food"),
+        build(:html_attachment, locale: "cs", title: "food"),
+      ],
+    )
+    attachment_1 = edition.attachments.first
+    attachment_2 = edition.attachments.last
+
+    assert_equal "food", attachment_1.slug
+    assert_equal "food--2", attachment_2.slug
   end
 
   test "#identifier falls back to content_id if no slug available" do
