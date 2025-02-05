@@ -119,6 +119,22 @@ And("I should be taken to the confirmation page for a new block") do
   has_support_button
 end
 
+And("I should be taken to the confirmation page for a new {string}") do |block_type|
+  content_block = ContentBlockManager::ContentBlock::Edition.last
+
+  assert_text I18n.t("content_block_edition.confirmation_page.created.banner", block_type: block_type.titlecase)
+  assert_text I18n.t("content_block_edition.confirmation_page.created.detail")
+
+  expect(page).to have_link(
+    "View content block",
+    href: content_block_manager.content_block_manager_content_block_document_path(
+      content_block.document,
+    ),
+  )
+
+  has_support_button
+end
+
 When("I click to view the content block") do
   click_link href: content_block_manager.content_block_manager_content_block_document_path(
     ContentBlockManager::ContentBlock::Edition.last.document,
@@ -312,6 +328,10 @@ end
 
 Then("I am asked to review my answers") do
   assert_text "Review email address"
+end
+
+Then("I am asked to review my answers for a {string}") do |block_type|
+  assert_text "Review #{block_type}"
 end
 
 Then("I confirm my answers are correct") do
