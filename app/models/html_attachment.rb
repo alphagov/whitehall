@@ -83,9 +83,7 @@ class HtmlAttachment < Attachment
   end
 
   def identifier
-    return slug if slug_eligible?
-
-    content_id
+    slug || content_id
   end
 
   def base_path
@@ -129,10 +127,6 @@ private
 
   def sluggable_string
     sluggable_locale? ? title : nil
-  end
-
-  def slug_eligible?
-    title.ascii_only? && sluggable_locale?
   end
 
   def clear_slug_if_non_english_locale
