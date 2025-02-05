@@ -1,20 +1,28 @@
-<% content_for :page_full_width, true %>
-<% content_for :context, "View #{@content_block_document.block_type.humanize.downcase}" %>
-<% content_for :title, @content_block_document.title %>
+<% content_for :page_title, @content_block_document.title %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
     href: content_block_manager.content_block_manager_content_block_documents_path,
   } %>
 <% end %>
-<% content_for :title_side do %>
-  <div class="support-request-wrapper">
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Raise a support request",
-      href: support_url,
-      secondary_solid: true,
-    } %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <h1 class="govuk-heading-xl"><%= @content_block_document.title %></h1>
   </div>
-<% end %>
+  <div class="govuk-grid-column-one-half content-block-manager-header--column-right">
+    <div class="govuk-button-group">
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Edit #{@content_block_document.block_type.humanize.downcase}",
+        href: content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block_document),
+      } %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Raise a support request",
+        href: support_url,
+        secondary_solid: true,
+      } %>
+    </div>
+  </div>
+</div>
 
 <% if @content_block_document.has_newer_draft? %>
   <%

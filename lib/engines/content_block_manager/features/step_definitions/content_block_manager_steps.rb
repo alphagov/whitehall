@@ -289,7 +289,7 @@ When("I click to view the edition") do
 end
 
 Then("I should see the details for the email address content block") do
-  assert_text "View email address"
+  expect(page).to have_selector("h1", text: @content_block.document.title)
 
   should_show_summary_list_for_email_address_content_block(
     @content_block.document.title,
@@ -300,6 +300,10 @@ end
 
 When("I click the first edit link") do
   click_link "Edit", match: :first
+end
+
+When("I click to edit the {string}") do |block_type|
+  click_link "Edit #{block_type}", match: :first
 end
 
 When("I fill out the form") do

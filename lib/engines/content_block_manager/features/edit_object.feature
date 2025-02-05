@@ -11,7 +11,7 @@ Feature: Edit a content object
   Scenario: GDS Editor edits a content object
     When I visit the Content Block Manager home page
     And I click to view the document
-    And I click the first edit link
+    And I click to edit the "email address"
     Then I should be on the "edit" step
     And I should see a back link to the document page
     When I fill out the form
@@ -41,7 +41,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object when reviewing links
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first edit link
+    When I click to edit the "email address"
     When I fill out the form
     And I click the cancel link
     And I choose to delete the in-progress draft
@@ -51,7 +51,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object before scheduling
     When I visit the Content Block Manager home page
     And I click to view the document
-    When I click the first edit link
+    When I click to edit the "email address"
     And I fill out the form
     And I continue after reviewing the links
     When I click the cancel link
@@ -62,7 +62,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object before confirming answers
     When I visit the Content Block Manager home page
     And I click to view the document
-    When I click the first edit link
+    When I click to edit the "email address"
     And I fill out the form
     And I continue after reviewing the links
     When I add an internal note
@@ -80,7 +80,7 @@ Feature: Edit a content object
     And an email address content block has been created
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first edit link
+    When I click to edit the "email address"
     And I set all fields to blank
     Then I should see errors for the required fields
 
@@ -91,7 +91,7 @@ Feature: Edit a content object
     And an email address content block has been created
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first edit link
+    When I click to edit the "email address"
     When I complete the form with the following fields:
     | title            | email_address   | organisation |
     | my email address | xxxxx           | Ministry of Example |
@@ -100,7 +100,7 @@ Feature: Edit a content object
   Scenario: GDS editor sees validation errors for unconfirmed answers
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click the first edit link
+    When I click to edit the "email address"
     When I fill out the form
     And I continue after reviewing the links
     And I add an internal note
@@ -141,7 +141,7 @@ Feature: Edit a content object
   Scenario: GDS editor sees notification about an in-progress draft
     When I visit the Content Block Manager home page
     And I click to view the document
-    And I click the first edit link
+    And I click to edit the "email address"
     And I fill out the form
     And I click the cancel link
     And I click to save and come back later
