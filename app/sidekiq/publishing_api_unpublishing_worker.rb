@@ -2,6 +2,7 @@ class PublishingApiUnpublishingWorker < WorkerBase
   sidekiq_options queue: "publishing_api"
 
   def perform(unpublishing_id, allow_draft = false)
+    # byebug
     unpublishing = Unpublishing.includes(:edition).find(unpublishing_id)
     edition = unpublishing.edition
 

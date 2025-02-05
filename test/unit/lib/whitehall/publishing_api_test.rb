@@ -323,10 +323,25 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested gone_request
   end
 
-  test ".unpublish_async queues a PublishingApiUnpublishingWorker job for the unpublishing" do
+  test ".unpublish_sync immediately runs a PublishingApiUnpublishingWorker job for the unpublishing" do
     unpublishing = build(:unpublishing, id: 1)
-    PublishingApiUnpublishingWorker.expects(:perform_async).with(1)
-    Whitehall::PublishingApi.unpublish_async(unpublishing)
+    stubbed_worker = stub("worker", perform: nil)
+    PublishingApiUnpublishingWorker.expects(:new).returns(stubbed_worker)
+    stubbed_worker.expects(:perform).with(1)
+    Whitehall::PublishingApi.unpublish_sync(unpublishing)
+  end
+
+  test ".publish_withdrawal_sync immediately runs a PublishingApiWithdrawalWorker job for the withdrawal" do
+    document_content_id = "12345"
+    explanation = "This document has been withdrawn"
+    unpublished_at = Time.zone.now
+    locale = "en"
+
+    stubbed_worker = stub("worker", perform: nil)
+    PublishingApiWithdrawalWorker.expects(:new).returns(stubbed_worker)
+    stubbed_worker.expects(:perform).with(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
+
+    Whitehall::PublishingApi.publish_withdrawal_sync(document_content_id, explanation, unpublished_at, locale)
   end
 
   test ".publish handles the specific exception" do
