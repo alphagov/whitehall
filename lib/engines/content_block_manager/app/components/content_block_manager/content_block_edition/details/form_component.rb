@@ -12,9 +12,15 @@ private
     format = @schema.body.dig("properties", field, "type")
     if format == "string"
       ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
-        content_block_edition:,
-        field:,
+        **component_args(field),
       )
     end
+  end
+
+  def component_args(field)
+    {
+      content_block_edition:,
+      field:,
+    }
   end
 end
