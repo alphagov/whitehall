@@ -191,4 +191,28 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal content_block_edition.render, rendered_response
     end
   end
+
+  describe "#add_object_to_details" do
+    it "adds an object with the correct key to the details hash" do
+      content_block_edition.add_object_to_details("something", { "name" => "My thing", "something" => "else" })
+
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "My thing", "something" => "else" } }
+    end
+
+    it "appends to the object if it already exists" do
+      content_block_edition.details["something"] = {
+        "another-thing" => {}
+      }
+
+      content_block_edition.add_object_to_details("something", { "name" => "My thing", "something" => "else" })
+      assert_equal content_block_edition.details["something"], { "another-thing" => {}, "my-thing" => { "name" => "My thing", "something" => "else" } }
+    end
+
+    it "creates a random key if a name is not provided" do
+      SecureRandom.expects(:alphanumeric).returns("RANDOM-STRING")
+      content_block_edition.add_object_to_details("something", { "something" => "else" })
+
+      assert_equal content_block_edition.details["something"], { "random-string" => { "something" => "else" } }
+    end
+  end
 end
