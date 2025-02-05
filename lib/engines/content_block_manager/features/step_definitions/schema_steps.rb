@@ -21,7 +21,7 @@ When("I click on the {string} schema") do |schema_id|
 end
 
 Then("I should see a form for the schema") do
-  expect(page).to have_content(@schema.name)
+  expect(page).to have_text("Create #{@schema.name.downcase}")
 end
 
 Then("I should see all the schemas listed") do
