@@ -1,9 +1,9 @@
 .rollup-details {
-  background: govuk-colour("light-grey");
   margin-bottom: govuk-spacing(8);
 
-  .govuk-grid-column-full {
-    padding: 0;
+  &__background {
+    background-color: govuk-colour("light-grey");
+    background-clip: content-box;
   }
 
   &__title {
