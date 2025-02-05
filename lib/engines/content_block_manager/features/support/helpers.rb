@@ -1,4 +1,4 @@
-def should_show_summary_card_for_email_address_content_block(document_title, email_address)
+def should_show_summary_title_for_email_address_content_block(document_title, email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")

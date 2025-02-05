@@ -254,7 +254,7 @@ Then("I should see the details for all documents") do
   assert_text "Content Block Manager"
 
   ContentBlockManager::ContentBlock::Document.find_each do |document|
-    should_show_summary_card_for_email_address_content_block(
+    should_show_summary_title_for_email_address_content_block(
       document.title,
       document.latest_edition.details[:email_address],
     )
@@ -263,7 +263,7 @@ end
 
 Then("I should see the details for all documents from my organisation") do
   ContentBlockManager::ContentBlock::Document.with_lead_organisation(@user.organisation.id).each do |document|
-    should_show_summary_card_for_email_address_content_block(
+    should_show_summary_title_for_email_address_content_block(
       document.title,
       document.latest_edition.details[:email_address],
     )
@@ -291,7 +291,7 @@ end
 Then("I should see the details for the email address content block") do
   expect(page).to have_selector("h1", text: @content_block.document.title)
 
-  should_show_summary_list_for_email_address_content_block(
+  should_show_summary_card_for_email_address_content_block(
     @content_block.document.title,
     @email_address,
     @organisation,
@@ -318,7 +318,7 @@ When("I set all fields to blank") do
 end
 
 Then("the edition should have been updated successfully") do
-  should_show_summary_list_for_email_address_content_block(
+  should_show_summary_card_for_email_address_content_block(
     "Changed title",
     "changed@example.com",
     "Ministry of Example",
