@@ -179,7 +179,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           ),
         )
 
-        assert_selector "a[href='#{content_block_manager_content_block_host_content_preview_path(id: content_block_edition.id, host_content_id: host_content_item.host_content_id)}']", text: host_content_item.title
+        assert_selector "a[href='#{host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: host_content_item.host_content_id)}']", text: host_content_item.title
       end
     end
 

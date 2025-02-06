@@ -7,4 +7,7 @@
 #
 # Rails 5.0 introduced this config option so that apps made with earlier
 # versions of Rails are not affected when upgrading.
-ActiveSupport.to_time_preserves_timezone = true
+#
+# Rails 8.0 deprecates setting `true` for the config option, from 8.1 `to_time`
+# will always preserve the full timezone rather than the offset of the receiver.
+ActiveSupport.to_time_preserves_timezone = :zone

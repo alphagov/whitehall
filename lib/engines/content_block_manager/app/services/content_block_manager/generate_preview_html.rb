@@ -45,7 +45,7 @@ module ContentBlockManager
     end
 
     def update_local_link_paths(nokogiri_html)
-      url = content_block_manager_content_block_host_content_preview_path(id: content_block_edition.id, host_content_id: content_id)
+      url = host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: content_id)
       nokogiri_html.css("a").each do |link|
         next if link[:href].start_with?("//") || link[:href].start_with?("http")
 

@@ -24,7 +24,7 @@ private
   end
 
   def name
-    "content_block/edition[details[#{field}]]"
+    "content_block/edition[details][#{field}]"
   end
 
   def id

@@ -6,22 +6,20 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
-  # Eager load code on boot. This eager loads most of Rails and
-  # your application in memory, allowing both threaded web servers
-  # and those relying on copy on write to perform better.
-  # Rake tasks automatically ignore this option for performance.
+  # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
   config.eager_load = true
 
-  # Full error reports are disabled and caching is turned off.
+  # Full error reports are disabled.
   config.consider_all_requests_local = false
-  config.action_controller.perform_caching = false
 
-  # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
-  # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  # Turn on fragment caching in view templates.
+  config.action_controller.perform_caching = false
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   config.public_file_server.enabled = true
+
+  # Cache assets for far-future expiry since they are all digest stamped.
+  config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
 
   # Compress JavaScripts and CSS.
   # Can also use `Terser.new(mangle: false)` to disable name mangling
@@ -53,6 +51,9 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
+  # Skip http-to-https redirect for the default health check endpoint.
+  # config.ssl_options = { redirect: { exclude: ->(request) { request.path.match?("^\/healthcheck") } } }
+
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
@@ -65,13 +66,19 @@ Rails.application.configure do
                                          .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
   end
 
+  # Prevent health checks from clogging up the logs.
+  config.silence_healthcheck_path = "^\/healthcheck"
+
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
-  # Prefix memcache keys to avoid name clashes when sharing a cache.
+  # Don't log any deprecations.
+  config.active_support.report_deprecations = false
+
+  # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :mem_cache_store, nil, { namespace: ENV.fetch("MEMCACHE_KEY_PREFIX", "whitehall"), compress: true }
 
-  # Use a real queuing backend for Active Job (and separate queues per environment).
+  # Replace the default in-process and non-durable queuing backend for Active Job.
   # config.active_job.queue_adapter = :resque
   # config.active_job.queue_name_prefix = "whitehall_production"
 
@@ -94,6 +101,9 @@ Rails.application.configure do
     config.action_mailer.delivery_method = :notify
   end
 
+  # Set host to be used by links generated in mailer templates.
+  # config.action_mailer.default_url_options = { host: "example.com" }
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
@@ -103,6 +113,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Only use :id for inspections in production.
+  config.active_record.attributes_for_inspect = [:id]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
