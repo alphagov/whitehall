@@ -1,14 +1,14 @@
-def should_show_summary_card_for_email_address_content_block(document_title, email_address)
+def should_show_summary_title_for_email_address_content_block(document_title, email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
-def should_show_summary_list_for_email_address_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
+def should_show_summary_card_for_email_address_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
+  expect(page).to have_selector(".govuk-summary-card__title", text: "Email address details")
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
-  expect(page).to have_selector(".govuk-summary-list__actions", text: "Edit")
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
