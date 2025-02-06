@@ -14,7 +14,7 @@ class PolicyGroup < ApplicationRecord
 
   after_create :extract_dependencies
   after_update :extract_dependencies
-  after_destroy :remove_all_dependencies
+  after_destroy :remove_all_dependencies, :delete_all_attachments
   after_update :publish_deleted_attachments
 
   def extract_dependencies
@@ -39,6 +39,16 @@ class PolicyGroup < ApplicationRecord
 
   def remove_all_dependencies
     policy_group_dependencies.delete_all
+  end
+
+  def delete_all_attachments
+    attachments.each do |attachment|
+      attachment.destroy!
+
+      next unless attachment.attachment_data
+
+      DeleteAttachmentAssetJob.perform_async(attachment.attachment_data.id)
+    end
   end
 
   def access_limited_object
