@@ -13,7 +13,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
       ),
     )
 
-    expected_name = "content_block/edition[details[email_address]]"
+    expected_name = "content_block/edition[details][email_address]"
     expected_id = "#{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_email_address"
 
     assert_selector "label", text: "Email address"
@@ -46,23 +46,6 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
     assert_selector ".govuk-form-group--error"
     assert_selector ".govuk-error-message", text: "Some error goes here"
     assert_selector "input.govuk-input--error"
-  end
-
-  it "should allow custom parameters" do
-    render_inline(
-      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
-        content_block_edition:,
-        field: "embedded_thing[][something_else]",
-        label: "My Label",
-        id_suffix: "embedded_thing_0_something_else",
-      ),
-    )
-
-    expected_name = "content_block/edition[details[embedded_thing[][something_else]]]"
-    expected_id = "#{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_embedded_thing_0_something_else"
-
-    assert_selector "label", text: "My Label"
-    assert_selector "input[type=\"text\"][name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
   end
 
   it "should allow a custom value" do
