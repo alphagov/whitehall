@@ -16,7 +16,7 @@ Feature: Create an embedded content object
     When I visit the page to create a new "rate" for the block
     Then I should see a form to create a "rate" for the content block
     When I complete the "rate" form with the following fields:
-      | name    | amount |
-      | my rate | 122.50 |
+      | name    | amount  |
+      | my rate | £122.50 |
     Then the "rate" should have been created successfully
     And I should see confirmation that my "rate" has been created

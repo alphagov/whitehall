@@ -127,6 +127,37 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
     assert_error errors:, key: :details_things_something_else, type: "invalid", attribute: "Something else"
   end
 
+  describe "validating against a regular expression" do
+    let(:body) do
+      {
+        "type" => "object",
+        "required" => %w[foo],
+        "additionalProperties" => false,
+        "properties" => {
+          "foo" => {
+            "type" => "string",
+            "pattern" => "£[0-9]+\\.[0-9]+",
+          },
+        },
+      }
+    end
+
+    it "returns an error if the pattern is incorrect" do
+      content_block_edition = build(
+        :content_block_edition,
+        :email_address,
+        details: {
+          foo: "1234",
+        },
+        schema:,
+      )
+
+      assert_equal content_block_edition.valid?, false
+      errors = content_block_edition.errors
+      assert_error errors:, key: :details_foo, type: "invalid", attribute: "Foo"
+    end
+  end
+
   def assert_error(errors:, key:, type:, attribute:)
     assert_equal errors[key], [I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.#{type}", attribute:)]
   end

@@ -7,7 +7,7 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
     errors.each do |e|
       if e["type"] == "required"
         add_blank_errors(e)
-      elsif e["type"] == "format"
+      elsif %w[format pattern].include?(e["type"])
         add_format_errors(e)
       end
     end
