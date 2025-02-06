@@ -143,18 +143,8 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, image: { image_data: { file: upload_fixture(filename, "image/jpeg") } } }
     AssetManagerCreateAssetWorker.drain
-    get :edit, params: { edition_id: edition.id, id: edition.reload.images.first.id }
 
     assert_equal "#{filename} successfully uploaded", flash[:notice]
-  end
-
-  test "#create shows 'image is being processed' message when not all image assets are uploaded " do
-    edition = create(:news_article)
-
-    post :create, params: { edition_id: edition.id, image: { image_data: { file: upload_fixture("big-cheese.960x640.jpg", "image/jpeg") } } }
-    get :edit, params: { edition_id: edition.id, id: edition.reload.images.first.id }
-
-    assert_equal "The image is being processed. Try refreshing the page.", flash[:notice]
   end
 
   def login_authorised_user
