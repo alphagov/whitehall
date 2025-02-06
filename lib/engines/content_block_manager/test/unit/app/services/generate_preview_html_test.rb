@@ -75,7 +75,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
       base_path: host_base_path,
     ).call
 
-    url = content_block_manager_content_block_host_content_preview_path(id: block_to_preview.id, host_content_id:)
+    url = host_content_preview_content_block_manager_content_block_edition_path(id: block_to_preview.id, host_content_id:)
 
     expected_content = Nokogiri::HTML.parse("
         <html>

@@ -22,9 +22,7 @@ ContentBlockManager::Engine.routes.draw do
               get :cancel, to: "editions/workflow#cancel"
             end
           end
-          resources :host_content, only: %i[preview], controller: "editions/host_content", param: :id do
-            get :preview, to: "editions/host_content#preview"
-          end
+          get :preview, to: "editions/host_content#preview", path: "host-content/:host_content_id/preview", as: :host_content_preview
         end
       end
     end

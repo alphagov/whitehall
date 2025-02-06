@@ -101,7 +101,7 @@ Whitehall::Application.routes.draw do
           get :reorder, on: :collection
           put :order, on: :collection
 
-          resources :document_collection_group_memberships, path: "members", only: %i[index destroy reorder] do
+          resources :document_collection_group_memberships, path: "members", only: %i[index destroy] do
             get :confirm_destroy, on: :member
             get :reorder, on: :collection
             put :order, on: :collection
@@ -300,24 +300,20 @@ Whitehall::Application.routes.draw do
         resource :public_feedback, controller: "consultation_responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
       end
 
-      resources :consultation_responses, only: :none do
-        resources :attachments do
-          put :order, on: :collection
-          get :confirm_destroy, on: :member
-          get :reorder, on: :collection
-        end
+      resources :attachments, path: "consultation-responses/:consultation_response_id/attachments", as: "consultation_response_attachments" do
+        put :order, on: :collection
+        get :confirm_destroy, on: :member
+        get :reorder, on: :collection
       end
 
       resources :calls_for_evidence, path: "calls-for-evidence", except: [:index] do
         resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
       end
 
-      resources :call_for_evidence_responses, only: :none do
-        resources :attachments do
-          put :order, on: :collection
-          get :confirm_destroy, on: :member
-          get :reorder, on: :collection
-        end
+      resources :attachments, path: "call-for-evidence-responses/:call_for_evidence_response_id/attachments", as: "call_for_evidence_response_attachments" do
+        put :order, on: :collection
+        get :confirm_destroy, on: :member
+        get :reorder, on: :collection
       end
 
       resources :speeches, except: [:index]
