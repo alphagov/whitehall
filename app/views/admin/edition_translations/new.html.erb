@@ -6,9 +6,12 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render "govuk_publishing_components/components/title", {
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Add translation",
       context: @edition.title,
-      title: "Add translation",
+      font_size: "xl",
+      heading_level: 1,
+      margin_bottom: 8,
     } %>
 
     <%= form_with url: admin_edition_translations_path(@edition.id) do |form| %>

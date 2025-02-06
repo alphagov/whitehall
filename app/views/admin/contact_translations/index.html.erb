@@ -2,9 +2,12 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render "govuk_publishing_components/components/title", {
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "New translation",
       context: @contact.title,
-      title: "New translation",
+      font_size: "xl",
+      heading_level: 1,
+      margin_bottom: 8,
     } %>
 
     <%= form_with url:admin_organisation_contact_translations_path(@contactable,@contact) do |form| %>
