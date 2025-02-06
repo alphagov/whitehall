@@ -21,3 +21,15 @@ Feature: Create an embedded content object
       | my rate | £122.50 | weekly  |
     Then the "rate" should have been created successfully
     And I should see confirmation that my "rate" has been created
+
+  Scenario: GDS editor sees validation errors for required fields
+    When I visit the page to create a new "rate" for the block
+    And I click save
+    Then I should see errors for the required "rate" fields
+
+  Scenario: GDS editor sees validation errors for an invalid field
+    When I visit the page to create a new "rate" for the block
+    When I complete the "rate" form with the following fields:
+      | name    | amount        | cadence |
+      | my rate | NOT AN AMOUNT | weekly  |
+    Then I should see an error for an invalid "amount"

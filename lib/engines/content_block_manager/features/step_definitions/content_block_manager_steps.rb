@@ -485,3 +485,9 @@ And(/^I update the content block and publish$/) do
   publish_now
   review_and_confirm
 end
+
+Then("I should see an error for an invalid {string}") do |attribute|
+  expect(page).to have_content(
+    I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: attribute.humanize),
+  )
+end

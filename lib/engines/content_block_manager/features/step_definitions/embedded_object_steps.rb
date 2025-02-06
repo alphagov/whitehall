@@ -39,3 +39,11 @@ Then("the {string} should have been created successfully") do |object_type|
     assert_equal edition.details[object_type.parameterize.pluralize][key][k], @details[k]
   end
 end
+
+Then("I should see errors for the required {string} fields") do |object_type|
+  schema = @schemas.values.first.subschema(object_type.pluralize)
+  required_fields = schema.body["required"]
+  required_fields.each do |required_field|
+    assert_text "#{ContentBlockManager::ContentBlock::Edition.human_attribute_name("details_#{required_field}")} cannot be blank", minimum: 2
+  end
+end
