@@ -1,0 +1,39 @@
+<% content_for :context, @content_block_document.title %>
+<% content_for :title, "Create #{@subschema.name.singularize.downcase}" %>
+
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: content_block_manager.content_block_manager_content_block_document_path(@content_block_document),
+  } %>
+<% end %>
+
+<% if @content_block_edition %>
+  <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @content_block_edition, parent_class: "content_block_manager_content_block_edition")) %>
+<% end %>
+
+<%= form_with url: content_block_manager.content_block_manager_content_block_document_embedded_objects_url(document_id: @content_block_document.id), method: :post do |form| %>
+  <%= form.hidden_field :object_type, value: @subschema.block_type %>
+
+  <%=
+    render ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
+      content_block_edition: @content_block_edition,
+      schema: @subschema,
+      object_name: @subschema.block_type,
+      params: @params,
+    )
+  %>
+
+  <div class="govuk-button-group govuk-!-margin-bottom-6">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save and continue",
+      name: "save_and_continue",
+      value: "Save and continue",
+      type: "submit",
+    } %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Cancel",
+      href: content_block_manager.content_block_manager_content_block_document_path(@content_block_document),
+      secondary_solid: true,
+    } %>
+  </div>
+<% end %>

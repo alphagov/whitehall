@@ -185,6 +185,23 @@ Given("an email address content block has been created") do
   @content_blocks.push(@content_block)
 end
 
+Given("a pension content block has been created") do
+  @content_blocks ||= []
+  organisation = create(:organisation)
+  @content_block = create(
+    :content_block_edition,
+    :pension,
+    details: { description: "Some text" },
+    creator: @user,
+    organisation:,
+    title: "My pension",
+  )
+  ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
+    @content_block.publish!
+  end
+  @content_blocks.push(@content_block)
+end
+
 Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields:$/) do |count, block_type, table|
   fields = table.rows_hash
   organisation_name = fields.delete("organisation")
