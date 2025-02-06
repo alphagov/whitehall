@@ -30,6 +30,22 @@ module ContentBlockManager
           details:,
         ).render
       end
+
+      def clone_edition(creator:)
+        new_edition = dup
+        new_edition.state = "draft"
+        new_edition.organisation = lead_organisation
+        new_edition.creator = creator
+
+        new_edition
+      end
+
+      def add_object_to_details(object_type, body)
+        key = body["name"]&.parameterize.presence || SecureRandom.alphanumeric.downcase
+
+        details[object_type] ||= {}
+        details[object_type][key] = body.to_h
+      end
     end
   end
 end

@@ -191,4 +191,49 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal content_block_edition.render, rendered_response
     end
   end
+
+  describe "#add_object_to_details" do
+    it "adds an object with the correct key to the details hash" do
+      content_block_edition.add_object_to_details("something", { "name" => "My thing", "something" => "else" })
+
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "My thing", "something" => "else" } }
+    end
+
+    it "appends to the object if it already exists" do
+      content_block_edition.details["something"] = {
+        "another-thing" => {},
+      }
+
+      content_block_edition.add_object_to_details("something", { "name" => "My thing", "something" => "else" })
+      assert_equal content_block_edition.details["something"], { "another-thing" => {}, "my-thing" => { "name" => "My thing", "something" => "else" } }
+    end
+
+    it "creates a random key if a name is not provided" do
+      SecureRandom.expects(:alphanumeric).returns("RANDOM-STRING")
+      content_block_edition.add_object_to_details("something", { "something" => "else" })
+
+      assert_equal content_block_edition.details["something"], { "random-string" => { "something" => "else" } }
+    end
+  end
+
+  describe "#clone_edition" do
+    it "clones an edition in draft with the specified creator" do
+      content_block_edition = create(
+        :content_block_edition, :email_address,
+        title: "Some title",
+        details: { "my" => "details" },
+        state: "published"
+      )
+      creator = create(:user)
+
+      new_edition = content_block_edition.clone_edition(creator:)
+
+      assert_equal new_edition.state, "draft"
+      assert_nil new_edition.id
+      assert_equal new_edition.organisation, content_block_edition.lead_organisation
+      assert_equal new_edition.creator, creator
+      assert_equal new_edition.title, content_block_edition.title
+      assert_equal new_edition.details, content_block_edition.details
+    end
+  end
 end

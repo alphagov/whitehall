@@ -34,4 +34,12 @@ private
   def error_items
     errors_for(content_block_edition.errors, "details_#{@id_suffix || field}".to_sym)
   end
+
+  def hint
+    I18n.t("content_block_edition.details.hints.#{translation_lookup}", default: nil)
+  end
+
+  def translation_lookup
+    @id_suffix ? @id_suffix.gsub("_", ".") : field
+  end
 end

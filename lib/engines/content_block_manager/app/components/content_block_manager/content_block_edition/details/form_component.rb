@@ -11,10 +11,23 @@ private
   def component_for_field(field)
     format = @schema.body.dig("properties", field, "type")
     if format == "string"
-      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
-        content_block_edition:,
-        field:,
-      )
+      enum = @schema.body.dig("properties", field, "enum")
+      if enum
+        ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
+          **component_args(field).merge(enum:),
+        )
+      else
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          **component_args(field),
+        )
+      end
     end
+  end
+
+  def component_args(field)
+    {
+      content_block_edition:,
+      field:,
+    }
   end
 end

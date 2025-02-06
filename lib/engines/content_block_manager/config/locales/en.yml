@@ -51,3 +51,7 @@ en:
     review_page:
       errors:
         confirm: Tick box to confirm details are correct
+    details:
+      hints:
+        rates:
+          amount: "Enter an exact amount, with the currency symbol - for example: £122.50"
