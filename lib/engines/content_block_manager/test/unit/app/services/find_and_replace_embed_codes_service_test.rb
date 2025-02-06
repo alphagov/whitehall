@@ -22,8 +22,8 @@ class ContentBlockManager::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::
 
     expected = "
       <p>Hello there</p>
-      <p>#{edition_2.render}</p>
-      <p>#{edition_1.render}</p>
+      <p>#{edition_2.render(edition_2.document.embed_code)}</p>
+      <p>#{edition_1.render(edition_1.document.embed_code)}</p>
     "
 
     result = ContentBlockManager::FindAndReplaceEmbedCodesService.call(html)
