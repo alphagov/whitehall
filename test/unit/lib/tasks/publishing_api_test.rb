@@ -16,7 +16,7 @@ class PublishingApiRake < ActiveSupport::TestCase
           format: "special_route",
           publishing_app: Whitehall::PublishingApp::WHITEHALL,
           update_type: "major",
-          type: "prefix",
+          type: "exact",
           public_updated_at: Time.zone.now.iso8601,
         }
 

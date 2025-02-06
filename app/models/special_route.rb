@@ -7,7 +7,6 @@ class SpecialRoute
         title: "Government feed",
         description: "This route serves the feed of published content",
         rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
-        type: "exact",
       },
       {
         base_path: "/government/get-involved",
