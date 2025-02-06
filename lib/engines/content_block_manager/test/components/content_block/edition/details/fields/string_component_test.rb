@@ -59,4 +59,35 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
 
     assert_selector 'input[value="some custom value"]'
   end
+
+  describe "hints" do
+    it "should render hint text when a translation exists" do
+      I18n.expects(:t).with("content_block_edition.details.hints.email_address", default: nil).returns("Some hint text")
+
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          field: "email_address",
+          value: "some custom value",
+        ),
+      )
+
+      assert_selector ".govuk-hint", text: "Some hint text"
+    end
+
+    it "should use the id_suffix for the hint text when provided" do
+      I18n.expects(:t).with("content_block_edition.details.hints.my.suffix", default: nil).returns("Some hint text")
+
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          field: "email_address",
+          value: "some custom value",
+          id_suffix: "my_suffix",
+        ),
+      )
+
+      assert_selector ".govuk-hint", text: "Some hint text"
+    end
+  end
 end
