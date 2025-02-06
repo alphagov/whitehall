@@ -178,6 +178,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     let(:rendered_response) { "RENDERED" }
     let(:stub_block) { stub("ContentBlockTools::ContentBlock", render: rendered_response) }
     let(:document) { content_block_edition.document }
+    let(:embed_code) { "embed_code" }
 
     it "initializes and renders a content block" do
       ContentBlockTools::ContentBlock.expects(:new)
@@ -186,9 +187,10 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
                                        content_id: document.content_id,
                                        title:,
                                        details:,
+                                       embed_code:,
                                      ).returns(stub_block)
 
-      assert_equal content_block_edition.render, rendered_response
+      assert_equal content_block_edition.render(embed_code), rendered_response
     end
   end
 end
