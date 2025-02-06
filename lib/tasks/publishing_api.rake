@@ -14,8 +14,8 @@ namespace :publishing_api do
           format: "special_route",
           publishing_app: Whitehall::PublishingApp::WHITEHALL,
           update_type: "major",
-          type: "prefix",
           public_updated_at: Time.zone.now.iso8601,
+          type: "exact",
         }.merge(route),
       )
     end
