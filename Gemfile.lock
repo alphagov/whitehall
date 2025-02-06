@@ -911,8 +911,8 @@ GEM
     sentry-ruby (5.22.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.22.1)
-      sentry-ruby (~> 5.22.1)
+    sentry-sidekiq (5.22.3)
+      sentry-ruby (~> 5.22.3)
       sidekiq (>= 3.0)
     sidekiq (7.3.8)
       base64
