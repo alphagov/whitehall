@@ -1,4 +1,4 @@
-class ContentBlockManager::ContentBlock::EmbeddedObjectsController < ContentBlockManager::BaseController
+class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < ContentBlockManager::BaseController
   before_action :initialize_document_and_schema
 
   def new

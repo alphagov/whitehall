@@ -11,7 +11,7 @@ ContentBlockManager::Engine.routes.draw do
           post :new_document_options_redirect
         end
         resources :editions, only: %i[new create]
-        resources :embedded_objects, only: %i[new create], path_names: { new: ":object_type/new" }
+        resources :embedded_objects, only: %i[new create], path_names: { new: ":object_type/new" }, controller: "documents/embedded_objects"
         get "schedule/edit", to: "documents/schedule#edit", as: :schedule_edit
         put "schedule", to: "documents/schedule#update", as: :update_schedule
         patch "schedule", to: "documents/schedule#update"
