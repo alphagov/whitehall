@@ -17,7 +17,12 @@ When("I complete the {string} form with the following fields:") do |object_type,
   fields = table.hashes.first
   @details = fields
   fields.keys.each do |k|
-    fill_in "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}", with: @details[k]
+    field = find_field "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}"
+    if field.tag_name == "select"
+      select @details[k].humanize, from: field[:id]
+    else
+      fill_in field[:id], with: @details[k]
+    end
   end
 
   click_save_and_continue

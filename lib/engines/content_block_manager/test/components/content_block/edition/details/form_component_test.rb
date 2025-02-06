@@ -15,6 +15,10 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
         "bar" => {
           "type" => "string",
         },
+        "baz" => {
+          "type" => "string",
+          "enum" => %w[some enum],
+        },
       },
     }
   end
@@ -25,6 +29,7 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
   it "renders fields for each property" do
     foo_stub = stub("string_component")
     bar_stub = stub("string_component")
+    baz_stub = stub("string_component")
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
@@ -36,6 +41,12 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
       field: "bar",
     ).returns(bar_stub)
 
+    ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
+      content_block_edition:,
+      field: "baz",
+      enum: %w[some enum],
+    ).returns(baz_stub)
+
     component = ContentBlockManager::ContentBlockEdition::Details::FormComponent.new(
       content_block_edition:,
       schema:,
@@ -43,6 +54,7 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
 
     component.expects(:render).with(foo_stub)
     component.expects(:render).with(bar_stub)
+    component.expects(:render).with(baz_stub)
 
     render_inline(component)
   end
