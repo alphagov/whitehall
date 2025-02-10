@@ -14,7 +14,7 @@ private
     {
       content_block_edition:,
       label: field.humanize,
-      field: "#{object_name}[#{field}]",
+      field: [object_name, field],
       id_suffix: "#{object_name}_#{field}",
       value: params[field],
     }

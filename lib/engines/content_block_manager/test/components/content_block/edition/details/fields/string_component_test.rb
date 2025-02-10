@@ -90,4 +90,20 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
       assert_selector ".govuk-hint", text: "Some hint text"
     end
   end
+
+  describe "when field is an array" do
+    it "renders with the correct name" do
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          label: "foo",
+          field: %w[foo bar],
+        ),
+      )
+
+      expected_name = "content_block/edition[details][foo][bar]"
+
+      assert_selector "input[type=\"text\"][name=\"#{expected_name}\"]"
+    end
+  end
 end
