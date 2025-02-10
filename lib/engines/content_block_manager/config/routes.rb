@@ -23,6 +23,8 @@ ContentBlockManager::Engine.routes.draw do
               get :cancel, to: "editions/workflow#cancel"
             end
           end
+          get "embedded-objects/:object_type/:object_name/edit", to: "editions/embedded_objects#edit", as: :edit_embedded_object
+          put "embedded-objects/:object_type/:object_name", to: "editions/embedded_objects#update", as: :embedded_object
           get :preview, to: "editions/host_content#preview", path: "host-content/:host_content_id/preview", as: :host_content_preview
         end
       end
