@@ -216,6 +216,31 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#update_object_with_details" do
+    before do
+      content_block_edition.details["something"] = { "my-thing" => { "name" => "My thing", "something" => "else" } }
+    end
+
+    it "updates a given object's details" do
+      content_block_edition.update_object_with_details("something", "my-thing", { "name" => "My thing", "something" => "changed" })
+
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "My thing", "something" => "changed" } }
+    end
+
+    it "removes the original object if the name changes" do
+      content_block_edition.update_object_with_details("something", "my-thing", { "name" => "Other thing", "something" => "changed" })
+
+      assert_equal content_block_edition.details["something"], { "other-thing" => { "name" => "Other thing", "something" => "changed" } }
+    end
+
+    it "creates a random key if a name is not provided" do
+      SecureRandom.expects(:alphanumeric).at_least_once.returns("RANDOM-STRING")
+      content_block_edition.update_object_with_details("something", "my-thing", { "something" => "changed" })
+
+      assert_equal content_block_edition.details["something"], { "random-string" => { "something" => "changed" } }
+    end
+  end
+
   describe "#clone_edition" do
     it "clones an edition in draft with the specified creator" do
       content_block_edition = create(
