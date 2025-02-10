@@ -24,7 +24,12 @@ private
   end
 
   def name
-    "content_block/edition[details][#{field}]"
+    if field.is_a?(Array)
+      fields = field.map { |f| "[#{f}]" }.join
+      "content_block/edition[details]#{fields}"
+    else
+      "content_block/edition[details][#{field}]"
+    end
   end
 
   def id
