@@ -12,5 +12,14 @@ class Admin::FlashMessageComponent < ViewComponent::Base
     end
   end
 
-  def data_attributes; end
+  def data_attributes
+    {
+      module: "ga4-auto-tracker",
+      "ga4-auto": {
+        event_name: "flash_notice",
+        text: message,
+        action: "success_alerts",
+      }.to_json,
+    }
+  end
 end
