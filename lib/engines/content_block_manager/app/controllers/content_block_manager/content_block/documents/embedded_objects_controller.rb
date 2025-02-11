@@ -13,9 +13,11 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
     @content_block_edition.add_object_to_details(@subschema.block_type, @params)
     @content_block_edition.save!
 
-    ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
-    flash[:notice] = "#{@subschema.name.singularize} created"
-    redirect_to content_block_manager.content_block_manager_content_block_document_path(@content_block_document)
+    redirect_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
+      @content_block_edition,
+      object_type: @subschema.block_type,
+      object_name: @content_block_edition.key_for_object(@params),
+    )
   rescue ActiveRecord::RecordInvalid
     render :new
   end

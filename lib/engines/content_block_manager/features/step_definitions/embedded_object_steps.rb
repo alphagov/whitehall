@@ -28,6 +28,10 @@ When("I complete the {string} form with the following fields:") do |object_type,
   click_save_and_continue
 end
 
+Then("I should be asked to review my {string}") do |object_type|
+  assert_text "Review #{object_type}"
+end
+
 Then("the {string} should have been created successfully") do |object_type|
   edition = ContentBlockManager::ContentBlock::Edition.all.last
 
@@ -58,4 +62,13 @@ end
 
 And("I click to create a new {string}") do |object_type|
   click_on "Create #{object_type}"
+end
+
+And("I review and confirm my {string} is correct") do |_object_type|
+  check "is_confirmed"
+  click_on "Create"
+end
+
+And(/^I click create$/) do
+  click_on "Create"
 end

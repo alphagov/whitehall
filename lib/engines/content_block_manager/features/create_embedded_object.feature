@@ -21,6 +21,10 @@ Feature: Create an embedded content object
     When I complete the "rate" form with the following fields:
       | name    | amount  | cadence |
       | my rate | £122.50 | weekly  |
+    Then I should be asked to review my "rate"
+    And I click create
+    Then I should see a message that I need to confirm the details are correct
+    When I review and confirm my "rate" is correct
     Then the "rate" should have been created successfully
     And I should see confirmation that my "rate" has been created
     And I should see details of my "rate"
