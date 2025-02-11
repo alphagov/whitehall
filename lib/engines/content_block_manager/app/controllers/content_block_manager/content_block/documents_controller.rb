@@ -16,6 +16,7 @@ class ContentBlockManager::ContentBlock::DocumentsController < ContentBlockManag
 
   def show
     @content_block_document = ContentBlockManager::ContentBlock::Document.find(params[:id])
+    @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_document.block_type)
     @content_block_versions = @content_block_document.versions
     @order = params[:order]
     @page = params[:page]

@@ -47,3 +47,15 @@ Then("I should see errors for the required {string} fields") do |object_type|
     assert_text "#{ContentBlockManager::ContentBlock::Edition.human_attribute_name("details_#{required_field}")} cannot be blank", minimum: 2
   end
 end
+
+And("I should see details of my {string}") do |object_type|
+  within "div[data-testid='#{object_type.pluralize}_listing']" do
+    @details.keys.each do |k|
+      assert_text @details[k]
+    end
+  end
+end
+
+And("I click to create a new {string}") do |object_type|
+  click_on "Create #{object_type}"
+end

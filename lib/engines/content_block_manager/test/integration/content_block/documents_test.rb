@@ -5,6 +5,7 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
   include Capybara::DSL
   extend Minitest::Spec::DSL
   include ContentBlockManager::Engine.routes.url_helpers
+  include ContentBlockManager::IntegrationTestHelpers
 
   setup do
     logout
@@ -111,6 +112,10 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
   describe "#show" do
     let(:edition) { create(:content_block_edition, :email_address) }
     let(:document) { edition.document }
+
+    before do
+      stub_request_for_schema(document.block_type)
+    end
 
     it "returns information about the document" do
       stub_publishing_api_has_embedded_content_for_any_content_id(
