@@ -11,6 +11,10 @@ module Services
     @publishing_api_with_low_timeout ||= publishing_api_client_with_timeout(1)
   end
 
+  def self.publishing_api_with_huge_timeout
+    @publishing_api_with_huge_timeout ||= publishing_api_client_with_timeout(60)
+  end
+
   def self.asset_manager
     @asset_manager ||= GdsApi::AssetManager.new(
       Plek.find("asset-manager"),

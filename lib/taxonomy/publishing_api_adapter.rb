@@ -30,14 +30,9 @@ module Taxonomy
     end
 
     def expanded_links_hash(content_id)
-      publishing_api_with_huge_timeout.get_expanded_links(content_id, with_drafts: false).to_h
+      Services.publishing_api_with_huge_timeout.get_expanded_links(content_id, with_drafts: false).to_h
     rescue GdsApi::HTTPNotFound
       {}
-    end
-
-    def publishing_api_with_huge_timeout
-      @publishing_api_with_huge_timeout ||=
-        Services.publishing_api_client_with_timeout(60)
     end
   end
 end
