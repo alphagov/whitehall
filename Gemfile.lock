@@ -355,8 +355,8 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
-    image_processing (1.13.0)
-      mini_magick (>= 4.9.5, < 5)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
       ruby-vips (>= 2.0.17, < 3)
     inline_svg (1.10.0)
       activesupport (>= 3.0)
@@ -432,7 +432,9 @@ GEM
       logger
       mime-types-data (~> 3.2015)
     mime-types-data (3.2025.0107)
-    mini_magick (4.13.2)
+    mini_magick (5.1.2)
+      benchmark
+      logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     minitest (5.25.4)
