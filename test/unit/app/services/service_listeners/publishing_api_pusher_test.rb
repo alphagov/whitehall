@@ -66,11 +66,11 @@ module ServiceListeners
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
       )
 
-      Whitehall::PublishingApi.expects(:publish_withdrawal_async)
+      Whitehall::PublishingApi.expects(:publish_withdrawal_sync)
         .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.unpublished_at, edition.primary_locale)
 
       translations.each do |translation|
-        Whitehall::PublishingApi.expects(:publish_withdrawal_async)
+        Whitehall::PublishingApi.expects(:publish_withdrawal_sync)
           .with(edition.document.content_id, edition.unpublishing.explanation, edition.unpublishing.unpublished_at, translation.to_s)
       end
 
@@ -83,7 +83,7 @@ module ServiceListeners
 
     test "unpublish publishes the unpublishing" do
       edition = create(:unpublished_publication)
-      Whitehall::PublishingApi.expects(:unpublish_async).with(edition.unpublishing)
+      Whitehall::PublishingApi.expects(:unpublish_sync).with(edition.unpublishing)
       stub_associated_document_pusher(edition, "unpublish")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "unpublish")

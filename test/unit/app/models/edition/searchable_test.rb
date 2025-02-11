@@ -64,7 +64,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   test "should add edition to search index on withdrawing" do
     edition = create(:published_searchable_edition)
 
-    Whitehall::PublishingApi.stubs(:publish_withdrawal_async)
+    Whitehall::PublishingApi.stubs(:publish_withdrawal_sync)
 
     edition.build_unpublishing(explanation: "Old policy", unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
