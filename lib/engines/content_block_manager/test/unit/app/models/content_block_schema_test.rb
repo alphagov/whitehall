@@ -55,6 +55,14 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       end
     end
 
+    describe "#subschemas" do
+      it "returns subschemas" do
+        subschemas = schema.subschemas
+
+        assert_equal subschemas.map(&:id), %w[bar]
+      end
+    end
+
     describe "#subschema" do
       it "returns a given subschema" do
         subschema = schema.subschema("bar")
