@@ -7,10 +7,6 @@ module Services
     @publishing_api ||= publishing_api_client_with_timeout(20)
   end
 
-  def self.publishing_api_with_low_timeout
-    @publishing_api_with_low_timeout ||= publishing_api_client_with_timeout(1)
-  end
-
   def self.publishing_api_with_huge_timeout
     @publishing_api_with_huge_timeout ||= publishing_api_client_with_timeout(60)
   end
