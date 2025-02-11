@@ -82,7 +82,11 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
         },
       }
 
-      assert_redirected_to content_block_manager.content_block_manager_content_block_document_path(edition.document)
+      assert_redirected_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
+        edition,
+        object_type:,
+        object_name: "embedded",
+      )
 
       updated_edition = edition.reload
 
@@ -105,7 +109,11 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
         },
       }
 
-      assert_redirected_to content_block_manager.content_block_manager_content_block_document_path(edition.document)
+      assert_redirected_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
+        edition,
+        object_type:,
+        object_name: "new-name",
+      )
 
       updated_edition = edition.reload
 

@@ -72,3 +72,7 @@ end
 And(/^I click create$/) do
   click_on "Create"
 end
+
+When(/^I click edit$/) do
+  click_on "Edit"
+end
