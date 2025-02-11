@@ -29,7 +29,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
       :content_block_edition,
       :email_address,
       title: "Some edition title",
-      details: { "interesting_fact" => "value of fact" },
+      details: { "interesting_fact" => "value of fact", "something" => { "else" => "value" } },
       organisation:,
       document: content_block_document,
       internal_change_note: "Some internal info",
@@ -38,6 +38,8 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponen
     render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryListComponent.new(
                     content_block_edition:,
                   ))
+
+    assert_selector ".govuk-summary-list__row", count: 8
 
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Email address details"
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions", text: "Edit"

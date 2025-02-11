@@ -34,7 +34,7 @@ private
   end
 
   def details_items
-    content_block_edition.details.map do |key, value|
+    content_block_edition.first_class_details.map do |key, value|
       {
         field: "New #{key.humanize.downcase}",
         value:,

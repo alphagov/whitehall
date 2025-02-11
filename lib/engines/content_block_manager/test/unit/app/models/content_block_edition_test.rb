@@ -236,4 +236,17 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal new_edition.details, content_block_edition.details
     end
   end
+
+  describe "#first_class_details" do
+    it "removed embedded objects" do
+      content_block_edition = create(
+        :content_block_edition, :email_address,
+        title: "Some title",
+        details: { "my" => "details", "embedded" => { "something" => { "is" => "here" } } },
+        state: "published"
+      )
+
+      assert_equal content_block_edition.first_class_details, { "my" => "details" }
+    end
+  end
 end
