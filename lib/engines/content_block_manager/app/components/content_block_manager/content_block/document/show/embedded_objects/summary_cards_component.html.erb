@@ -1,0 +1,7 @@
+<% embedded_objects.keys.each do |key| %>
+  <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardComponent.new(
+    content_block_edition:,
+    object_type:,
+    object_name: key,
+  ) %>
+<% end %>
