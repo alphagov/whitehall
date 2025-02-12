@@ -14,6 +14,9 @@ module ContentBlockManager::IntegrationTestHelpers
       permitted_params: %i[foo bar],
       subschemas:,
     )
+    subschemas.each do |subschema|
+      schema.stubs(:subschema).with(subschema.id).returns(subschema)
+    end
     ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type).with(block_type).returns(schema)
     schema
   end

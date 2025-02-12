@@ -9,6 +9,19 @@ module Workflow::ShowMethods
     render :edit_draft
   end
 
+  # This handles the optional embedded objects in the flow, delegating to `embedded_objects`
+  def method_missing(method_name, *arguments, &block)
+    if method_name.to_s =~ /embedded_(.*)/
+      embedded_objects(::Regexp.last_match(1))
+    else
+      super
+    end
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    method_name.to_s.start_with?("embedded_") || super
+  end
+
   def review_links
     @content_block_document = @content_block_edition.document
     @order = params[:order]
@@ -69,5 +82,18 @@ module Workflow::ShowMethods
   end
   included do
     helper_method :back_path
+  end
+
+private
+
+  def embedded_objects(subschema_name)
+    @subschema = @schema.subschema(subschema_name)
+    @step_name = current_step.name
+
+    if @subschema
+      render :embedded_objects
+    else
+      raise ActionController::RoutingError, "Subschema #{subschema_name} does not exist"
+    end
   end
 end

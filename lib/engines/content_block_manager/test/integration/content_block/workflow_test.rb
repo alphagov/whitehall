@@ -19,11 +19,11 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
   let(:document) { create(:content_block_document, :email_address, content_id: @content_id, sluggable_string: "some-slug") }
   let(:edition) { create(:content_block_edition, document:, details:, organisation:, instructions_to_publishers: "instructions", title: "Some Edition Title") }
 
+  let!(:schema) { stub_request_for_schema("email_address") }
+
   setup do
     login_as_admin
     @content_id = "49453854-d8fd-41da-ad4c-f99dbac601c3"
-
-    stub_request_for_schema("email_address")
 
     stub_publishing_api_has_embedded_content(content_id: @content_id, total: 0, results: [], order: ContentBlockManager::HostContentItem::DEFAULT_ORDER)
   end
@@ -244,6 +244,45 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           assert_match(/#{I18n.t('activerecord.errors.models.content_block_manager/content_block/edition.attributes.major_change.inclusion')}/, response.body)
         end
       end
+
+      describe "when subschemas are present" do
+        let(:subschemas) do
+          [
+            stub("subschema", id: "subschema_1", name: "subschema_1"),
+            stub("subschema", id: "subschema_2", name: "subschema_2"),
+          ]
+        end
+
+        let!(:schema) { stub_request_for_schema("email_address", subschemas:) }
+
+        describe "#show" do
+          it "shows the form for the first subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+          end
+
+          it "shows the form for the second subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
+
+            assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+          end
+        end
+
+        describe "#update" do
+          it "redirects to the second subschema" do
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :embedded_subschema_2)
+          end
+
+          it "redirects to review links" do
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
+          end
+        end
+      end
     end
 
     describe "when scheduling or publishing" do
@@ -333,6 +372,16 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
     describe "#update" do
       it "posts the new edition to the Publishing API and marks edition as published" do
         put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "some_random_step")
+
+        assert_response :missing
+      end
+    end
+  end
+
+  describe "when an unknown subschema step is provided" do
+    describe "#show" do
+      it "shows the new edition for review" do
+        get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_something")
 
         assert_response :missing
       end
