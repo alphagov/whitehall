@@ -54,4 +54,20 @@ module Workflow::ShowMethods
 
     render :confirmation
   end
+
+  def back_path
+    if current_step.name == "review" && @content_block_edition.document.is_new_block?
+      content_block_manager.content_block_manager_content_block_documents_path
+    else
+      return nil unless previous_step
+
+      content_block_manager.content_block_manager_content_block_workflow_path(
+        @content_block_edition,
+        step: previous_step.name,
+      )
+    end
+  end
+  included do
+    helper_method :back_path
+  end
 end
