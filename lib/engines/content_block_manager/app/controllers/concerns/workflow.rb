@@ -9,23 +9,5 @@ module Workflow
       Step.new(:review, :review, :validate_review_page),
       Step.new(:confirmation, :confirmation, nil),
     ].freeze
-
-    def self.by_name(name)
-      ALL.find { |step| step.name == name.to_sym }
-    end
-
-    def previous_step
-      ALL[index - 1]
-    end
-
-    def next_step
-      ALL[index + 1]
-    end
-
-  private
-
-    def index
-      ALL.find_index { |step| step.name == name.to_sym }
-    end
   end
 end

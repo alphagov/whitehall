@@ -1,18 +1,17 @@
 class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentBlockManager::BaseController
   include CanScheduleOrPublish
+
+  include Workflow::Steps
   include Workflow::ShowMethods
   include Workflow::UpdateMethods
 
   def show
-    step = params[:step].to_sym
-    action = Workflow::Step.by_name(step)&.show_action
+    action = current_step&.show_action
 
     if action
-      @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-      @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
       send(action)
     else
-      raise ActionController::RoutingError, "Step #{step} does not exist"
+      raise ActionController::RoutingError, "Step #{params[:step]} does not exist"
     end
   end
 
@@ -21,15 +20,12 @@ class ContentBlockManager::ContentBlock::Editions::WorkflowController < ContentB
   end
 
   def update
-    step = params[:step].to_sym
-    action = Workflow::Step.by_name(step)&.update_action
+    action = current_step&.update_action
 
     if action
-      @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-      @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
       send(action)
     else
-      raise ActionController::RoutingError, "Step #{step} does not exist"
+      raise ActionController::RoutingError, "Step #{params[:step]} does not exist"
     end
   end
 
