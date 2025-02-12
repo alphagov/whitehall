@@ -6,7 +6,19 @@ module Workflow::Steps
   end
 
   def steps
-    @steps ||= Workflow::Step::ALL
+    @steps ||= if @schema.subschemas.any?
+                 standard_steps = Workflow::Step::ALL.map(&:dup)
+                 extra_steps = @schema.subschemas.map do |subschema|
+                   Workflow::Step.new(
+                     "embedded_#{subschema.id}".to_sym,
+                     "embedded_#{subschema.id}".to_sym,
+                     :redirect_to_next_step,
+                   )
+                 end
+                 standard_steps.insert(1, extra_steps).flatten!
+               else
+                 Workflow::Step::ALL
+               end
   end
 
   def current_step
