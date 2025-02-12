@@ -1,66 +1,11 @@
 <h2 class="govuk-heading-l">Change history</h2>
 
 <div class="timeline">
-  <% items.each_with_index do |item, i| %>
-    <div class="timeline__item">
-
-      <div class="timeline__header">
-        <% if i == 0 %>
-          <span class="timeline__latest">Latest</span>
-          <br>
-        <% end %>
-        <h2 class="timeline__title"><%= item[:title] %></h2>
-        <p class="timeline__byline">by <%= item[:byline] %></p>
-      </div>
-
-      <p class="timeline__date">
-        <%= item[:date] %>
-      </p>
-
-      <% if item[:table_rows].present? %>
-        <div class="timeline__diff-table">
-          <%= render "govuk_publishing_components/components/details", {
-            title: "Details of changes",
-            open: i == 0,
-          } do %>
-            <% capture do %>
-              <%= render "govuk_publishing_components/components/table", {
-                first_cell_is_header: true,
-                head: [
-                  {
-                    text: tag.span("Fields", class: "govuk-visually-hidden"),
-                  },
-                  {
-                    text: "Previous version",
-                    format: "string",
-                  },
-                  {
-                    text: "This version",
-                    format: "string",
-                  },
-                ],
-                rows: item[:table_rows],
-              } %>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-
-      <div>
-      <% if item[:internal_change_note].present? %>
-          <div class="timeline__note">
-            <h2 class="timeline__title">Internal note</h2>
-            <p class="govuk-body"><%= item[:internal_change_note] %></p>
-          </div>
-      <% end %>
-
-      <% if item[:change_note].present? %>
-          <div class="timeline__note">
-            <h2 class="timeline__title">Public note</h2>
-            <p class="govuk-body"><%= item[:change_note] %></p>
-          </div>
-      <% end %>
-      </div>
-    </div>
+  <% versions.each_with_index do |version, i| %>
+    <%= render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::TimelineItemComponent.new(
+      version:,
+      is_first_published_version: version.id == first_published_version.id,
+      is_latest: i == 0,
+    ) %>
   <% end %>
 </div>
