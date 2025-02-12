@@ -10,9 +10,9 @@ module Workflow::Steps
                  standard_steps = Workflow::Step::ALL.map(&:dup)
                  extra_steps = @schema.subschemas.map do |subschema|
                    Workflow::Step.new(
-                     "embedded_#{subschema.id}".to_sym,
-                     "embedded_#{subschema.id}".to_sym,
-                     :redirect_to_next_step,
+                     "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
+                     "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
+                     :redirect_to_next_subschema_or_continue,
                    )
                  end
                  standard_steps.insert(1, extra_steps).flatten!

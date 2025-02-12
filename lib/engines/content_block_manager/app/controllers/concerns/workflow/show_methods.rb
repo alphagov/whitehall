@@ -11,7 +11,7 @@ module Workflow::ShowMethods
 
   # This handles the optional embedded objects in the flow, delegating to `embedded_objects`
   def method_missing(method_name, *arguments, &block)
-    if method_name.to_s =~ /embedded_(.*)/
+    if method_name.to_s =~ /#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
       embedded_objects(::Regexp.last_match(1))
     else
       super
@@ -19,7 +19,7 @@ module Workflow::ShowMethods
   end
 
   def respond_to_missing?(method_name, include_private = false)
-    method_name.to_s.start_with?("embedded_") || super
+    method_name.to_s.start_with?(Workflow::Step::SUBSCHEMA_PREFIX) || super
   end
 
   def review_links

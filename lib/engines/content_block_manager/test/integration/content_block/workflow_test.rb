@@ -72,6 +72,45 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         end
       end
     end
+
+    describe "when subschemas are present" do
+      let(:subschemas) do
+        [
+          stub("subschema", id: "subschema_1", name: "subschema_1"),
+          stub("subschema", id: "subschema_2", name: "subschema_2"),
+        ]
+      end
+
+      let!(:schema) { stub_request_for_schema("email_address", subschemas:) }
+
+      describe "#show" do
+        it "shows the form for the first subschema" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+          assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+        end
+
+        it "shows the form for the second subschema" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
+
+          assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+        end
+      end
+
+      describe "#update" do
+        it "redirects to the second subschema" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :embedded_subschema_2)
+        end
+
+        it "redirects to the review page" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
+        end
+      end
+    end
   end
 
   describe "when updating an existing content block" do

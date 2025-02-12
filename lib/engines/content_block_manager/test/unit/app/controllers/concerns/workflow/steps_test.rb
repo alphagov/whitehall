@@ -101,8 +101,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
       it "inserts the subschemas into the flow" do
         assert_equal workflow.steps, [
           Workflow::Step::ALL[0],
-          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_step),
-          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step),
+          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_subschema_or_continue),
+          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_subschema_or_continue),
           Workflow::Step::ALL[1..],
         ].flatten
       end
