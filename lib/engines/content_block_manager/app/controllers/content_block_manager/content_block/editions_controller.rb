@@ -19,8 +19,7 @@ class ContentBlockManager::ContentBlock::EditionsController < ContentBlockManage
   def create
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(block_type_param)
     new_edition = ContentBlockManager::CreateEditionService.new(@schema).call(edition_params, document_id: params[:document_id])
-    step = params[:document_id] ? :review_links : :review
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step:)
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: new_edition.id, step: next_step)
   rescue ActiveRecord::RecordInvalid => e
     @form = ContentBlockManager::ContentBlock::EditionForm.for(content_block_edition: e.record, schema: @schema)
     render "content_block_manager/content_block/editions/new"
@@ -36,5 +35,15 @@ private
 
   def block_type_param
     params.require("content_block/edition").require("document_attributes").require(:block_type)
+  end
+
+  def next_step
+    if @schema.subschemas.any?
+      "embedded_#{@schema.subschemas.first.id}"
+    elsif params[:document_id]
+      :review_links
+    else
+      :review
+    end
   end
 end
