@@ -45,10 +45,24 @@ module ContentBlockManager
       end
 
       def add_object_to_details(object_type, body)
-        key = body["name"]&.parameterize.presence || SecureRandom.alphanumeric.downcase
+        key = key_for_object(body)
 
         details[object_type] ||= {}
         details[object_type][key] = body.to_h
+      end
+
+      def update_object_with_details(object_type, object_name, body)
+        key = key_for_object(body)
+
+        if key != object_name
+          details[object_type].delete(object_name)
+        end
+
+        add_object_to_details(object_type, body)
+      end
+
+      def key_for_object(object)
+        object["name"]&.parameterize.presence || SecureRandom.alphanumeric.downcase
       end
     end
   end
