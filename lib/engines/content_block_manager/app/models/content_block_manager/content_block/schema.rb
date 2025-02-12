@@ -51,6 +51,10 @@ module ContentBlockManager
         subschemas.find { |s| s.id == name }
       end
 
+      def subschemas
+        @subschemas ||= embedded_objects.map { |object| EmbeddedSchema.new(*object) }
+      end
+
       def permitted_params
         fields
       end
@@ -78,10 +82,6 @@ module ContentBlockManager
 
       def embedded_objects
         @body["properties"].select { |_k, v| v["type"] == "object" }
-      end
-
-      def subschemas
-        @subschemas ||= embedded_objects.map { |object| EmbeddedSchema.new(*object) }
       end
     end
   end

@@ -14,13 +14,16 @@ Feature: Create an embedded content object
     And a pension content block has been created
 
   Scenario: GDS editor creates a rate
-    When I visit the page to create a new "rate" for the block
+    When I visit the Content Block Manager home page
+    And I click to view the document
+    And I click to create a new "rate"
     Then I should see a form to create a "rate" for the content block
     When I complete the "rate" form with the following fields:
       | name    | amount  | cadence |
       | my rate | £122.50 | weekly  |
     Then the "rate" should have been created successfully
     And I should see confirmation that my "rate" has been created
+    And I should see details of my "rate"
 
   Scenario: GDS editor sees validation errors for required fields
     When I visit the page to create a new "rate" for the block

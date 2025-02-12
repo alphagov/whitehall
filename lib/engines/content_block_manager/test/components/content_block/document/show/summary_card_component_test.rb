@@ -9,7 +9,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
     create(
       :content_block_edition,
       :email_address,
-      details: { foo: "bar", something: "else" },
+      details: { foo: "bar", something: "else", "embedded" => { "something" => { "is" => "here" } } },
       creator: build(:user),
       organisation:,
       scheduled_publication: Time.zone.now,

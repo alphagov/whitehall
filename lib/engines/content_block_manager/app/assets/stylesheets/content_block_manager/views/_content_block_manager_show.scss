@@ -6,3 +6,15 @@
     margin-top: govuk-spacing(6);
   }
 }
+
+.subschema-listing {
+  &__heading {
+    display: flex;
+  }
+
+  &__create-button-wrapper {
+    display: flex;
+    align-self: flex-start;
+    justify-content: flex-end;
+  }
+}

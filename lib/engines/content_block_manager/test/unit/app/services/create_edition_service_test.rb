@@ -74,6 +74,30 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
         assert_equal new_edition.document_id, document.id
         assert_equal new_edition.lead_organisation.id, organisation.id
       end
+
+      describe "when a previous edition has details that are not provided in the params" do
+        let!(:previous_edition) do
+          create(
+            :content_block_edition, :email_address,
+            document:,
+            details: { "foo" => "Old text", "bar" => "Old text", "something" => { "else" => { "is" => "here" } } }
+          )
+        end
+
+        it "does not overwrite the non-provided details" do
+          ContentBlockManager::CreateEditionService.new(schema).call(edition_params, document_id: document.id)
+
+          new_edition = document.editions.last
+
+          assert_equal edition_params[:title], new_edition.title
+          assert_equal new_edition.document_id, document.id
+          assert_equal new_edition.lead_organisation.id, organisation.id
+
+          assert_equal edition_params[:details]["foo"], new_edition.details["foo"]
+          assert_equal edition_params[:details]["bar"], new_edition.details["bar"]
+          assert_equal edition_params[:details]["something"], { "else" => { "is" => "here" } }
+        end
+      end
     end
   end
 end

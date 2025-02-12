@@ -31,6 +31,10 @@ module ContentBlockManager
         ).render
       end
 
+      def first_class_details
+        details.select { |_k, v| v.is_a?(String) }
+      end
+
       def clone_edition(creator:)
         new_edition = dup
         new_edition.state = "draft"
