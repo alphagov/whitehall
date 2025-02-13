@@ -21,6 +21,20 @@
             content_block_edition: @content_block_edition,
             ),
           ) %>
+
+    <% @schema.subschemas.each do |subschema| %>
+      <% @content_block_edition.details[subschema.id]&.keys&.each do |k| %>
+        <div data-test-id="review_embedded_<%= k %>">
+          <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+            content_block_edition: @content_block_edition,
+            object_type: subschema.id,
+            object_name: k,
+            show_edit_action: true,
+            redirect_url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}"),
+            ) %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
