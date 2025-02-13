@@ -20,10 +20,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= render ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::ConfirmSummaryCardComponent.new(
+    <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
       content_block_edition: @content_block_edition,
       object_type: @subschema.block_type,
       object_name: @object_name,
+      show_edit_action: true,
     ) %>
   </div>
 </div>
