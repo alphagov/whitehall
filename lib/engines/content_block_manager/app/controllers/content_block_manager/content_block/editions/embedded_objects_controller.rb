@@ -4,6 +4,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
   before_action :initialize_edition_and_schema
 
   def edit
+    @redirect_url = params[:redirect_url]
     @object_name = params[:object_name]
     @object = @content_block_edition.details.dig(params[:object_type], params[:object_name])
 
@@ -15,12 +16,18 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
     @content_block_edition.update_object_with_details(params[:object_type], params[:object_name], @object)
     @content_block_edition.save!
 
-    redirect_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
-      @content_block_edition,
-      object_type: @subschema.block_type,
-      object_name: @content_block_edition.key_for_object(@object),
-    )
+    if params[:redirect_url].present?
+      flash[:notice] = "#{@subschema.name.singularize} edited. You can add another #{@subschema.name.singularize.downcase} or continue to create #{@schema.name.singularize.downcase} block"
+      redirect_to params[:redirect_url], allow_other_host: false
+    else
+      redirect_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
+        @content_block_edition,
+        object_type: @subschema.block_type,
+        object_name: @content_block_edition.key_for_object(@object),
+      )
+    end
   rescue ActiveRecord::RecordInvalid
+    @redirect_url = params[:redirect_url]
     @object_name = params[:object_name]
     render :edit
   end

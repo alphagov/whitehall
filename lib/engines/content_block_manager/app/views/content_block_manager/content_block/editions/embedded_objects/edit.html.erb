@@ -10,6 +10,7 @@
       object_name: @object_name,
     ), method: :put) do |form| %>
   <%= form.hidden_field :object_type, value: @subschema.block_type %>
+  <%= form.hidden_field :redirect_url, value: @redirect_url %>
 
   <%=
     render ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
