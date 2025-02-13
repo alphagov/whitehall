@@ -1,14 +1,15 @@
 class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent < ViewComponent::Base
-  def initialize(content_block_edition:, object_type:, object_name:, show_edit_action: false)
+  def initialize(content_block_edition:, object_type:, object_name:, show_edit_action: false, redirect_url: nil)
     @content_block_edition = content_block_edition
     @object_type = object_type
     @object_name = object_name
     @show_edit_action = show_edit_action
+    @redirect_url = redirect_url
   end
 
 private
 
-  attr_reader :content_block_edition, :object_type, :object_name, :show_edit_action
+  attr_reader :content_block_edition, :object_type, :object_name, :show_edit_action, :redirect_url
 
   def title
     "#{object_type.titleize.singularize} details"
@@ -36,6 +37,7 @@ private
             content_block_edition,
             object_type:,
             object_name:,
+            redirect_url:,
           ),
         },
       ]

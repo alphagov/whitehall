@@ -80,4 +80,27 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       assert_selector ".govuk-summary-list__value", text: "Value 2"
     end
   end
+
+  it "renders a summary list with edit link and redirect url if provided" do
+    component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+      content_block_edition:,
+      object_type: "embedded-objects",
+      object_name: "my-embedded-object",
+      show_edit_action: true,
+      redirect_url: "https://example.com",
+    )
+
+    render_inline component
+
+    assert_selector ".govuk-summary-card__title", text: "Embedded Object details"
+
+    expected_edit_path = edit_embedded_object_content_block_manager_content_block_edition_path(
+      content_block_edition,
+      object_type: "embedded-objects",
+      object_name: "my-embedded-object",
+      redirect_url: "https://example.com",
+    )
+
+    assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{expected_edit_path}']", text: "Edit"
+  end
 end
