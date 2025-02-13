@@ -3,6 +3,20 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
 
   before_action :initialize_edition_and_schema
 
+  def new; end
+
+  def create
+    @object = object_params(@subschema).dig(:details, @subschema.block_type)
+    @content_block_edition.add_object_to_details(@subschema.block_type, @object)
+    @content_block_edition.save!
+
+    flash[:notice] = "#{@subschema.name.singularize} created. You can add another #{@subschema.name.singularize.downcase} or continue to create #{@schema.name.singularize.downcase} block"
+    step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
+    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
+  rescue ActiveRecord::RecordInvalid
+    render :new
+  end
+
   def edit
     @redirect_url = params[:redirect_url]
     @object_name = params[:object_name]

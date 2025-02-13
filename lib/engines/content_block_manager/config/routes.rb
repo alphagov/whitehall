@@ -23,6 +23,8 @@ ContentBlockManager::Engine.routes.draw do
               get :cancel, to: "editions/workflow#cancel"
             end
           end
+          get "embedded-objects/:object_type/new", to: "editions/embedded_objects#new", as: :new_embedded_object
+          post "embedded-objects/:object_type", to: "editions/embedded_objects#create", as: :create_embedded_object
           get "embedded-objects/:object_type/:object_name/edit", to: "editions/embedded_objects#edit", as: :edit_embedded_object
           put "embedded-objects/:object_type/:object_name", to: "editions/embedded_objects#update", as: :embedded_object
           get "embedded-objects/:object_type/:object_name/review", to: "editions/embedded_objects#review", as: :review_embedded_object

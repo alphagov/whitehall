@@ -16,13 +16,49 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
   let(:edition) { create(:content_block_edition, :email_address, details: { "something" => { "embedded" => { "name" => "Embedded", "is" => "here" } } }) }
 
   let(:stub_schema) { stub("schema", body: [], name: "Schema") }
-  let(:stub_subschema) { stub("subschema", name: "Something", block_type: object_type, fields: [], permitted_params: %w[name is]) }
+  let(:stub_subschema) { stub("subschema", name: "Something", block_type: object_type, fields: [], permitted_params: %w[name is], id: "something") }
 
   let(:object_type) { "something" }
 
   before do
     ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type).with(edition.document.block_type).returns(stub_schema)
     stub_schema.stubs(:subschema).with(object_type).returns(stub_subschema)
+  end
+
+  describe "#create" do
+    it "should create an embedded object for an edition" do
+      post content_block_manager.create_embedded_object_content_block_manager_content_block_edition_path(
+        edition,
+        object_type:,
+      ), params: {
+        "content_block/edition" => {
+          details: {
+            object_type => {
+              "name" => "New Thing",
+              "is" => "something",
+            },
+          },
+        },
+      }
+
+      assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(
+        edition, step: "#{Workflow::Step::SUBSCHEMA_PREFIX}#{object_type}"
+      )
+
+      updated_edition = edition.reload
+
+      assert_equal updated_edition.details, {
+        "something" => {
+          "embedded" => {
+            "name" => "Embedded", "is" => "here"
+          },
+          "new-thing" => {
+            "name" => "New Thing", "is" => "something"
+          },
+        },
+      }
+      assert_equal "Something created. You can add another something or continue to create schema block", flash[:notice]
+    end
   end
 
   describe "#edit" do
