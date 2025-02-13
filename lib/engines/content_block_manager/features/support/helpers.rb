@@ -6,11 +6,21 @@ def should_show_summary_title_for_email_address_content_block(document_title, em
 end
 
 def should_show_summary_card_for_email_address_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
-  expect(page).to have_selector(".govuk-summary-card__title", text: "Email address details")
-  expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
-  expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
+  should_show_generic_content_block_details("email_address", document_title, organisation, instructions_to_publishers)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
+end
+
+def should_show_summary_card_for_pension_content_block(document_title, description, organisation, instructions_to_publishers = nil)
+  should_show_generic_content_block_details("pension", document_title, organisation, instructions_to_publishers)
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Description")
+  expect(page).to have_selector(".govuk-summary-list__value", text: description)
+end
+
+def should_show_generic_content_block_details(block_type, document_title, organisation, instructions_to_publishers = nil)
+  expect(page).to have_selector(".govuk-summary-card__title", text: "#{block_type.humanize} details")
+  expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
+  expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")
   expect(page).to have_selector(".govuk-summary-list__value", text: organisation)
   if instructions_to_publishers
@@ -19,6 +29,14 @@ def should_show_summary_card_for_email_address_content_block(document_title, ema
   end
   expect(page).to have_selector(".govuk-summary-list__key", text: "Status")
   expect(page).to have_selector(".govuk-summary-list__value", text: @user.name)
+end
+
+def should_show_edit_form_for_pension_content_block(content_block)
+  expect(page).to have_content(I18n.t("content_block_edition.update.title", block_type: "pension"))
+  expect(page).to have_field("Title", with: content_block.title)
+  expect(page).to have_field("Description", with: content_block.details["description"])
+  expect(page).to have_content("Save and continue")
+  expect(page).to have_content("Cancel")
 end
 
 def should_show_edit_form_for_email_address_content_block(document_title, email_address)
@@ -33,9 +51,16 @@ def visit_edit_page
   visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
 end
 
-def change_details
+def change_details(object_type: "email_address")
   fill_in "Title", with: "Changed title"
-  fill_in "Email address", with: "changed@example.com"
+
+  case object_type
+  when "pension"
+    fill_in "Description", with: "New description"
+  else
+    fill_in "Email address", with: "changed@example.com"
+  end
+
   select "Ministry of Example", from: "content_block_manager_content_block_edition_lead_organisation"
   fill_in "Instructions to publishers", with: "new context information"
   click_save_and_continue

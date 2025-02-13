@@ -90,7 +90,7 @@ end
 And("I should be taken to the confirmation page for a published block") do
   content_block_edition = ContentBlockManager::ContentBlock::Edition.last
 
-  assert_text I18n.t("content_block_edition.confirmation_page.updated.banner", block_type: "Email address")
+  assert_text I18n.t("content_block_edition.confirmation_page.updated.banner", block_type: content_block_edition.document.block_type.humanize)
   assert_text I18n.t("content_block_edition.confirmation_page.updated.detail")
 
   expect(page).to have_link(
@@ -324,7 +324,7 @@ When("I click to edit the {string}") do |block_type|
 end
 
 When("I fill out the form") do
-  change_details
+  change_details(object_type: @content_block.document.block_type)
 end
 
 When("I set all fields to blank") do
@@ -335,12 +335,24 @@ When("I set all fields to blank") do
 end
 
 Then("the edition should have been updated successfully") do
-  should_show_summary_card_for_email_address_content_block(
-    "Changed title",
-    "changed@example.com",
-    "Ministry of Example",
-    "new context information",
-  )
+  block_type = @content_block.document.block_type
+
+  case block_type
+  when "pension"
+    should_show_summary_card_for_pension_content_block(
+      "Changed title",
+      "New description",
+      "Ministry of Example",
+      "new context information",
+    )
+  else
+    should_show_summary_card_for_email_address_content_block(
+      "Changed title",
+      "changed@example.com",
+      "Ministry of Example",
+      "new context information",
+    )
+  end
 
   # TODO: this can be removed once the summary list is referring to the Edition's title, not the Document title
   edition = ContentBlockManager::ContentBlock::Edition.all.last
