@@ -76,3 +76,38 @@ end
 When(/^I click edit$/) do
   click_on "Edit"
 end
+
+And(/^that pension has a rate with the following fields:$/) do |table|
+  rate = table.hashes.first
+  @content_block.details["rates"] = {
+    rate[:name].parameterize.to_s => {
+      "name" => rate[:name],
+      "amount" => rate[:amount],
+      "cadence" => rate[:cadence],
+    },
+  }
+  @content_block.save!
+end
+
+And(/^I should see the rates for that block$/) do
+  @content_block.details["rates"].keys.each do |k|
+    within "div[data-test-id=embedded_#{k}]" do
+      @content_block.details["rates"][k].each do |_k, value|
+        assert_text value
+      end
+    end
+  end
+end
+
+When(/^I click to edit the first rate$/) do
+  key = @content_block.details["rates"].keys.first
+  within "div[data-test-id=embedded_#{key}]" do
+    click_on "Edit"
+  end
+end
+
+And(/^I should see the updated rates for that block$/) do
+  @details.keys.each do |k|
+    assert_text @details[k]
+  end
+end
