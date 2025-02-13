@@ -9,7 +9,7 @@ module ContentBlockManager
         content_block = content_blocks.find { |c| c.document.content_id == reference.content_id }
         next if content_block.nil?
 
-        html.gsub!(reference.embed_code, content_block.render)
+        html.gsub!(reference.embed_code, content_block.render(reference.embed_code))
       end
 
       html

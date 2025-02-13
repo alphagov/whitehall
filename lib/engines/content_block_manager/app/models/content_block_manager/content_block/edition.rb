@@ -22,12 +22,13 @@ module ContentBlockManager
         document.update!(latest_edition_id: id)
       end
 
-      def render
+      def render(embed_code)
         ContentBlockTools::ContentBlock.new(
           document_type: "content_block_#{block_type}",
           content_id: document.content_id,
           title:,
           details:,
+          embed_code:,
         ).render
       end
 

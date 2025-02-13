@@ -11,13 +11,13 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
   let(:host_base_path) { "/test" }
   let(:uri_mock) { mock }
   let(:fake_frontend_response) do
-    "<body class=\"govuk-body\"><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
+    "<body class=\"govuk-body\"><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
   end
   let(:block_render) do
-    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\">new@new.com</span>"
+    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">new@new.com</span>"
   end
   let(:block_render_with_style) do
-    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\" style=\"background-color: yellow;\">new@new.com</span>"
+    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\" data-embed-code=\"embed-code\" style=\"background-color: yellow;\">new@new.com</span>"
   end
   let(:expected_html) do
     "<body class=\"govuk-body draft\"><p>test</p>#{block_render_with_style}</body>"

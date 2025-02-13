@@ -72,7 +72,8 @@ module ContentBlockManager
 
     def replace_blocks(nokogiri_html)
       content_block_spans(nokogiri_html).each do |span|
-        span.replace content_block_edition.render
+        embed_code = span["data-embed-code"]
+        span.replace content_block_edition.render(embed_code)
       end
     end
 
