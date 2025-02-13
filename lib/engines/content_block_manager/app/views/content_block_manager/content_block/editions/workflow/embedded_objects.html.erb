@@ -1,5 +1,5 @@
 <% content_for :context, context %>
-<% content_for :title, "Create internal note" %>
+<% content_for :title, @subschema.name %>
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -11,20 +11,22 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with url: content_block_manager.content_block_manager_content_block_workflow_path(
       @content_block_edition,
-      step: :internal_note,
-      ), method: :put, id: "internal_note" do %>
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          text: '<p class="govuk-body">Explain what changes you did or did not make and why.</p>'.html_safe,
-        },
-        name: "content_block/edition[internal_change_note]",
-        id: "content_block_manager_content_block_edition_title",
-        value: @content_block_edition.internal_change_note,
+      step: @step_name,
+      ), method: :put, id: "embedded_objects" do %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Create #{@subschema.name.downcase} for this #{@schema.name}. Alternatively, #{@subschema.name.downcase} can be created and edited later too.",
+      } %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Create #{@subschema.name.singularize.downcase}",
+        href: "#",
+        secondary_solid: true,
+        margin_bottom: 6,
       } %>
     <% end %>
 
     <%= render ContentBlockManager::Shared::ContinueOrCancelButtonGroup.new(
-      form_id: "internal_note",
+      form_id: "embedded_objects",
       content_block_edition: @content_block_edition,
       ) %>
   </div>

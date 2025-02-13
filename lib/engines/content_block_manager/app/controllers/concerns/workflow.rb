@@ -1,5 +1,7 @@
 module Workflow
   class Step < Data.define(:name, :show_action, :update_action)
+    SUBSCHEMA_PREFIX = "embedded_".freeze
+
     ALL = [
       Step.new(:edit_draft, :edit_draft, :update_draft),
       Step.new(:review_links, :review_links, :redirect_to_next_step),
@@ -10,22 +12,8 @@ module Workflow
       Step.new(:confirmation, :confirmation, nil),
     ].freeze
 
-    def self.by_name(name)
-      ALL.find { |step| step.name == name.to_sym }
-    end
-
-    def previous_step
-      ALL[index - 1]
-    end
-
-    def next_step
-      ALL[index + 1]
-    end
-
-  private
-
-    def index
-      ALL.find_index { |step| step.name == name.to_sym }
+    def is_subschema?
+      name.to_s.start_with?(SUBSCHEMA_PREFIX)
     end
   end
 end

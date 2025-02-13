@@ -23,6 +23,22 @@ module Workflow::UpdateMethods
     render :edit_draft
   end
 
+  def redirect_to_next_subschema_or_continue
+    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
+    if @content_block_edition.document.is_new_block?
+      if next_step.is_subschema?
+        redirect_to_next_step
+      else
+        redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+          id: @content_block_edition.id,
+          step: :review,
+        )
+      end
+    else
+      redirect_to_next_step
+    end
+  end
+
   def validate_schedule
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
 
@@ -61,8 +77,6 @@ module Workflow::UpdateMethods
 private
 
   def redirect_to_next_step
-    next_step = Workflow::Step.by_name(params[:step])&.next_step
-
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
       id: @content_block_edition.id,
       step: next_step&.name,

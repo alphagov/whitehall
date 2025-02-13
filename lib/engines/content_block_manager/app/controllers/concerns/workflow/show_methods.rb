@@ -9,6 +9,19 @@ module Workflow::ShowMethods
     render :edit_draft
   end
 
+  # This handles the optional embedded objects in the flow, delegating to `embedded_objects`
+  def method_missing(method_name, *arguments, &block)
+    if method_name.to_s =~ /#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
+      embedded_objects(::Regexp.last_match(1))
+    else
+      super
+    end
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    method_name.to_s.start_with?(Workflow::Step::SUBSCHEMA_PREFIX) || super
+  end
+
   def review_links
     @content_block_document = @content_block_edition.document
     @order = params[:order]
@@ -53,5 +66,34 @@ module Workflow::ShowMethods
     @confirmation_copy = ContentBlockManager::ConfirmationCopyPresenter.new(@content_block_edition)
 
     render :confirmation
+  end
+
+  def back_path
+    if current_step.name == "review" && @content_block_edition.document.is_new_block?
+      content_block_manager.content_block_manager_content_block_documents_path
+    else
+      return nil unless previous_step
+
+      content_block_manager.content_block_manager_content_block_workflow_path(
+        @content_block_edition,
+        step: previous_step.name,
+      )
+    end
+  end
+  included do
+    helper_method :back_path
+  end
+
+private
+
+  def embedded_objects(subschema_name)
+    @subschema = @schema.subschema(subschema_name)
+    @step_name = current_step.name
+
+    if @subschema
+      render :embedded_objects
+    else
+      raise ActionController::RoutingError, "Subschema #{subschema_name} does not exist"
+    end
   end
 end
