@@ -15,14 +15,50 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
 
   let(:edition) { create(:content_block_edition, :email_address, details: { "something" => { "embedded" => { "name" => "Embedded", "is" => "here" } } }) }
 
-  let(:stub_schema) { stub("schema", body: []) }
-  let(:stub_subschema) { stub("subschema", name: object_type, block_type: object_type, fields: [], permitted_params: %w[name is]) }
+  let(:stub_schema) { stub("schema", body: [], name: "Schema") }
+  let(:stub_subschema) { stub("subschema", name: "Something", block_type: object_type, fields: [], permitted_params: %w[name is], id: "something") }
 
   let(:object_type) { "something" }
 
   before do
     ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type).with(edition.document.block_type).returns(stub_schema)
     stub_schema.stubs(:subschema).with(object_type).returns(stub_subschema)
+  end
+
+  describe "#create" do
+    it "should create an embedded object for an edition" do
+      post content_block_manager.create_embedded_object_content_block_manager_content_block_edition_path(
+        edition,
+        object_type:,
+      ), params: {
+        "content_block/edition" => {
+          details: {
+            object_type => {
+              "name" => "New Thing",
+              "is" => "something",
+            },
+          },
+        },
+      }
+
+      assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(
+        edition, step: "#{Workflow::Step::SUBSCHEMA_PREFIX}#{object_type}"
+      )
+
+      updated_edition = edition.reload
+
+      assert_equal updated_edition.details, {
+        "something" => {
+          "embedded" => {
+            "name" => "Embedded", "is" => "here"
+          },
+          "new-thing" => {
+            "name" => "New Thing", "is" => "something"
+          },
+        },
+      }
+      assert_equal "Something created. You can add another something or continue to create schema block", flash[:notice]
+    end
   end
 
   describe "#edit" do
@@ -38,6 +74,17 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       assert_equal assigns(:subschema), stub_subschema
       assert_equal assigns(:object_name), "embedded"
       assert_equal assigns(:object), { "is" => "here", "name" => "Embedded" }
+    end
+
+    it "should assign the redirect_url if given" do
+      get content_block_manager.edit_embedded_object_content_block_manager_content_block_edition_path(
+        edition,
+        object_type:,
+        object_name: "embedded",
+        redirect_url: "https://example.com",
+      )
+
+      assert_equal assigns(:redirect_url), "https://example.com"
     end
 
     it "should 404 if the subschema does not exist" do
@@ -91,6 +138,27 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       updated_edition = edition.reload
 
       assert_equal updated_edition.details, { "something" => { "embedded" => { "name" => "Embedded", "is" => "different" } } }
+    end
+
+    it "should redirect if a redirect_url is given" do
+      put content_block_manager.embedded_object_content_block_manager_content_block_edition_path(
+        edition,
+        object_type:,
+        object_name: "embedded",
+      ), params: {
+        redirect_url: content_block_manager.content_block_manager_content_block_documents_path,
+        "content_block/edition" => {
+          details: {
+            object_type => {
+              "name" => "Embedded",
+              "is" => "different",
+            },
+          },
+        },
+      }
+
+      assert_redirected_to content_block_manager.content_block_manager_content_block_documents_path
+      assert_equal "Something edited. You can add another something or continue to create schema block", flash[:notice]
     end
 
     it "should rename the object if a new name is given" do

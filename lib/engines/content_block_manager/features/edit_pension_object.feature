@@ -12,6 +12,9 @@ Feature: Edit a pension object
       | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
       | cadence   | string | string |          | weekly,monthly |                  |
     And a pension content block has been created
+    And that pension has a rate with the following fields:
+      | name    | amount  | cadence |
+      | My rate | £123.45 | weekly  |
 
   Scenario: GDS Editor edits a pension object
     When I visit the Content Block Manager home page
@@ -21,6 +24,13 @@ Feature: Edit a pension object
     And I should see a back link to the document page
     When I fill out the form
     Then I should be on the "embedded_rates" step
+    And I should see the rates for that block
+    When I click to edit the first rate
+    When I complete the "rate" form with the following fields:
+      | name    | amount  | cadence |
+      | My rate | £122.50 | weekly  |
+    Then I should be on the "embedded_rates" step
+    And I should see the updated rates for that block
     When I save and continue
     Then I should be on the "review_links" step
     And I should see a back link to the "embedded_rates" step
@@ -41,6 +51,28 @@ Feature: Edit a pension object
     When I click to view the content block
     Then the edition should have been updated successfully
     And I should be taken back to the document page
-    And I should see 1 publish events on the timeline
     And I should see the notes on the timeline
     And I should see the edition diff in a table
+    And I should see details of my "rate"
+
+  Scenario: GDS Editor edits a pension object and creates a new rate
+    When I visit the Content Block Manager home page
+    And I click to view the document
+    And I click to edit the "pension"
+    When I fill out the form
+    And I click to create a new "rate"
+    And I complete the "rate" form with the following fields:
+      | name     | amount  | cadence  |
+      | New rate | £127.91 | monthly  |
+    Then I should be on the "embedded_rates" step
+    And I should see the updated rates for that block
+    When I save and continue
+    And I continue after reviewing the links
+    And I add an internal note
+    And I add a change note
+    And I choose to publish the change now
+    When I review and confirm my answers are correct
+    Then I should be taken to the confirmation page for a published block
+    When I click to view the content block
+    Then the edition should have been updated successfully
+    And I should see details of my "rate"

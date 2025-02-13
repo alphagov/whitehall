@@ -31,13 +31,13 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Summar
     object1_double = stub("summary_card_1")
     object2_double = stub("summary_card_2")
 
-    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
+    ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
       content_block_edition:,
       object_type: "embedded-objects",
       object_name: "my-embedded-object",
     ).returns(object1_double)
 
-    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
+    ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
       content_block_edition:,
       object_type: "embedded-objects",
       object_name: "my-other-embedded-object",
@@ -55,7 +55,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Summar
   end
 
   it "does not render any cards when there are no embedded objects of a particular type" do
-    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardComponent.expects(:new).never
+    ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:new).never
 
     render_inline ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardsComponent.new(
       content_block_document:,

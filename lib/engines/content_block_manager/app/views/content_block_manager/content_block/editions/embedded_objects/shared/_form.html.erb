@@ -1,0 +1,24 @@
+<%= form.hidden_field :object_type, value: @subschema.block_type %>
+
+<%=
+  render ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
+    content_block_edition: @content_block_edition,
+    schema: @subschema,
+    object_name: @subschema.block_type,
+    params: @object,
+  )
+%>
+
+<div class="govuk-button-group govuk-!-margin-bottom-6">
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save and continue",
+    name: "save_and_continue",
+    value: "Save and continue",
+    type: "submit",
+  } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Cancel",
+    href: @redirect_url,
+    secondary_solid: true,
+  } %>
+</div>
