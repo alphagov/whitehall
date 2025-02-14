@@ -5,7 +5,7 @@ module ContentBlockManager
     end
 
     def call
-      embed_content_references.each do |reference|
+      embed_content_references.uniq.each do |reference|
         content_block = content_blocks.find { |c| c.document.content_id == reference.content_id }
         next if content_block.nil?
 
