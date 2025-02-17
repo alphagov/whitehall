@@ -7,11 +7,13 @@ class ContentBlockManager::ContentBlockEdition::HostContent::PreviewDetailsCompo
 private
 
   def list_items
-    [*details_items, instances_item]
+    [*details_items.compact, instances_item]
   end
 
   def details_items
     @content_block_edition.details.map do |key, value|
+      next unless value.is_a?(String)
+
       { key: key.humanize, value: }
     end
   end

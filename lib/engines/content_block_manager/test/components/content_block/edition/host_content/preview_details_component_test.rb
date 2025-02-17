@@ -18,4 +18,30 @@ class ContentBlockManager::ContentBlockEdition::HostContent::PreviewDetailsCompo
     assert_selector "li", text: "Email address: example@example.com"
     assert_selector "li", text: "Instances: 2"
   end
+
+  context "when there are subschemas in the edition's details" do
+    let(:content_block_edition) do
+      build(:content_block_edition, :pension, details: {
+        "description": "Basic state pension",
+        "rates": {
+          "rate1":
+            { "name": "rate1", "amount": "£100.5", "cadence": "weekly", "description": "" },
+          "rate2":
+              { "name": "rate2", "amount": "£11.1", "cadence": "monthly", "description": "1111" },
+        },
+      })
+    end
+    it "returns a list of details for preview content" do
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::HostContent::PreviewDetailsComponent.new(
+          content_block_edition:,
+          preview_content:,
+        ),
+      )
+
+      assert_selector "li", count: 2
+      assert_selector "li", text: "Description: Basic state pension"
+      assert_selector "li", text: "Instances: 2"
+    end
+  end
 end
