@@ -59,6 +59,13 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
 
       assert_equal document.embed_code, "{{embed:content_block_email_address:#{uuid}}}"
     end
+
+    it "returns embed code for a particular field" do
+      uuid = SecureRandom.uuid
+      document = create(:content_block_document, :pension, content_id: uuid)
+
+      assert_equal document.embed_code_for_field("rates/rate2/name"), "{{embed:content_block_pension:#{uuid}/rates/rate2/name}}"
+    end
   end
 
   describe "latest_edition" do

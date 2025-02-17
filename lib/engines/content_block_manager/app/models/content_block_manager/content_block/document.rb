@@ -27,7 +27,11 @@ module ContentBlockManager
       scope :live, -> { where.not(latest_edition_id: nil) }
 
       def embed_code
-        "{{embed:content_block_#{block_type}:#{content_id}}}"
+        "#{embed_code_prefix}}}"
+      end
+
+      def embed_code_for_field(field_path)
+        "#{embed_code_prefix}/#{field_path}}}"
       end
 
       def title
@@ -44,6 +48,12 @@ module ContentBlockManager
 
       def latest_draft
         editions.where(state: :draft).order(created_at: :asc).last
+      end
+
+    private
+
+      def embed_code_prefix
+        "{{embed:content_block_#{block_type}:#{content_id}"
       end
     end
   end
