@@ -103,4 +103,18 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
 
     assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{expected_edit_path}']", text: "Edit"
   end
+
+  it "renders copy code buttons" do
+    component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+      content_block_edition:,
+      object_type: "embedded-objects",
+      object_name: "my-embedded-object",
+    )
+
+    render_inline component
+
+    assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/name')}']", text: "Name"
+    assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/field-1')}']", text: "Field 1"
+    assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/field-2')}']", text: "Field 2"
+  end
 end

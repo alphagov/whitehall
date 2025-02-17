@@ -300,6 +300,12 @@ When("I click to view the document") do
   click_link href: content_block_manager.content_block_manager_content_block_document_path(@content_block.document)
 end
 
+When("I click to view the document with title {string}") do |title|
+  content_block = ContentBlockManager::ContentBlock::Edition.where(title:).first
+
+  click_link href: content_block_manager.content_block_manager_content_block_document_path(content_block.document)
+end
+
 When("I click to view the edition") do
   @schema = @schemas[@content_block.document.block_type]
   click_link href: content_block_manager.content_block_manager_content_block_edition_path(@content_block)

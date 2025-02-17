@@ -2,6 +2,18 @@ Feature: View a content object
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
+    And a schema "pension" exists with the following fields:
+      | field         | type   | format | required |
+      | description   | string | string | true     |
+    And the schema "pension" has a subschema with the name "rates" and the following fields:
+      | field     | type   | format | required | enum           | pattern          |
+      | name      | string | string | true     |                |                  |
+      | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
+      | cadence   | string | string |          | weekly,monthly |                  |
+    And a pension content block has been created
+    And that pension has a rate with the following fields:
+      | name    | amount  | cadence |
+      | My rate | £123.45 | weekly  |
     And a schema "email_address" exists with the following fields:
       | email_address |
     And an email address content block has been created
@@ -26,10 +38,17 @@ Feature: View a content object
     And I should see the rollup data for the dependent content
 
   @javascript
-  Scenario: GDS Editor can copy embed code
+  Scenario: GDS Editor can copy embed code for whole block
     When I visit the Content Block Manager home page
     Then I should see the details for all documents
     When I click to view the document
     And I click to copy the embed code
+    Then the embed code should be copied to my clipboard
+
+  @javascript
+  Scenario: GDS Editor can copy embed code for a specific field
+    When I visit the Content Block Manager home page
+    When I click to view the document with title "My pension"
+    And I click to copy the embed code for the pension "My pension", rate "My rate" and field "name"
     Then the embed code should be copied to my clipboard
 
