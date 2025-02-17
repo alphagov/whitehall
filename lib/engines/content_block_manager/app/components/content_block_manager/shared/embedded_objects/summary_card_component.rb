@@ -20,10 +20,16 @@ private
       {
         key: key.titleize,
         value: object[key],
-        data: {
-          module: "copy-embed-code",
-          "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_name}/#{key}"),
-        },
+        data: copy_embed_code(key),
+      }
+    end
+  end
+
+  def copy_embed_code(key)
+    unless is_editable
+      {
+        module: "copy-embed-code",
+        "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_name}/#{key}"),
       }
     end
   end
