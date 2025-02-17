@@ -4,7 +4,9 @@
   error_items ||= []
   aria = error_id if error_items.any?
   select ||= {}
-  autocomplete_configuration_options ||= {}
+  autocomplete_configuration_options ||= {
+    showAllValues: true,
+  }
 
   data_attributes ||= {}
   data_attributes[:module] ||= ""
