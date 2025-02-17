@@ -12,13 +12,9 @@ class ContentBlockManager::ContentBlockVersionTest < ActiveSupport::TestCase
   end
   let(:whodunnit) { SecureRandom.uuid }
   let(:field_diffs) do
-    [
-      ContentBlockManager::ContentBlock::FieldDiff.new(
-        field_name: "some_field",
-        new_value: "new value",
-        previous_value: "previous value",
-      ),
-    ].to_json
+    {
+      "some_field" => ["previous value", "new value"],
+    }.to_json
   end
 
   let(:content_block_version) do

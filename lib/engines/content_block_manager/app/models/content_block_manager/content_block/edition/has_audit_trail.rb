@@ -11,6 +11,8 @@ module ContentBlockManager
     end
 
     included do
+      include ContentBlock::Edition::Diffable
+
       has_many :versions, -> { order(created_at: :desc, id: :desc) }, as: :item
 
       after_create :record_create
@@ -28,7 +30,7 @@ module ContentBlockManager
       unless draft?
         user = Current.user
         state = try(:state)
-        versions.create!(event: "updated", user:, state:, field_diffs: ContentBlockManager::ContentBlock::FieldDiff.all_for_edition(edition: self))
+        versions.create!(event: "updated", user:, state:, field_diffs: generate_diff)
       end
     end
   end
