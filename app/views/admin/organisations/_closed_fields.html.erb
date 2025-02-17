@@ -47,18 +47,18 @@
 <%= render "components/autocomplete", {
   id: "organisation_superseding_organisation_ids",
   name: "organisation[superseding_organisation_ids][]",
+  include_blank: true,
   label: {
     text: "Superseding organisations",
     heading_size: "m",
   },
   select: {
-    options: [""] +
-      (Organisation.with_translations(:en) - [organisation]).map do |org|
-        [
-          org.name,
-          org.id,
-        ]
-      end,
+    options: (Organisation.with_translations(:en) - [organisation]).map do |org|
+               [
+                 org.name,
+                 org.id,
+               ]
+             end,
     multiple: true,
     selected: organisation.superseding_organisation_ids,
   },

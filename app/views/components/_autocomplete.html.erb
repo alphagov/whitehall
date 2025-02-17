@@ -4,6 +4,7 @@
   error_items ||= []
   aria = error_id if error_items.any?
   select ||= {}
+  include_blank ||= false
   autocomplete_configuration_options ||= {
     showAllValues: true,
   }
@@ -38,7 +39,10 @@
   <% end %>
 
   <%= select_tag name,
-    options_for_select(select[:options], select[:selected]),
+    options_for_select(
+      include_blank ? ([""] + select[:options]) : select[:options],
+      select[:selected],
+    ),
     id: id,
     class: "govuk-select",
     size: select[:size],

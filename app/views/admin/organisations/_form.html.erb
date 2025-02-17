@@ -246,13 +246,12 @@
         heading_size: "m",
       },
       select: {
-        options: [""] +
-          (Organisation.with_translations(:en) - [organisation]).map do |org|
-            [
-              org.name,
-              org.id,
-            ]
-          end,
+        options: (Organisation.with_translations(:en) - [organisation]).map do |org|
+                   [
+                     org.name,
+                     org.id,
+                   ]
+                 end,
         multiple: true,
         selected: organisation.parent_organisation_ids,
       },
