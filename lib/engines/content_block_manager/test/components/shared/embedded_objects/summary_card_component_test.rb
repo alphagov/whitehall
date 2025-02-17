@@ -50,7 +50,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       content_block_edition:,
       object_type: "embedded-objects",
       object_name: "my-embedded-object",
-      show_edit_action: true,
+      is_editable: true,
     )
 
     render_inline component
@@ -86,7 +86,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       content_block_edition:,
       object_type: "embedded-objects",
       object_name: "my-embedded-object",
-      show_edit_action: true,
+      is_editable: true,
       redirect_url: "https://example.com",
     )
 
