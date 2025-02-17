@@ -1,11 +1,12 @@
 class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent < ViewComponent::Base
-  def initialize(version:)
+  def initialize(version:, schema:)
     @version = version
+    @schema = schema
   end
 
 private
 
-  attr_reader :version
+  attr_reader :version, :schema
 
   def rows
     version.field_diffs.map do |field|

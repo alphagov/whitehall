@@ -7,6 +7,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   extend Minitest::Spec::DSL
 
   let(:user) { create(:user) }
+  let(:schema) { build(:content_block_schema) }
 
   let(:content_block_edition) { build(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil) }
   let(:version) do
@@ -28,6 +29,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   let(:component) do
     ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::TimelineItemComponent.new(
       version:,
+      schema:,
       is_first_published_version:,
       is_latest:,
     )
@@ -122,11 +124,12 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
     it "renders the table component" do
       table_component = ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
         version: build(:content_block_version, field_diffs: []),
+        schema:,
       )
 
       ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent
         .expects(:new)
-        .with(version:)
+        .with(version:, schema:)
         .returns(table_component)
 
       component

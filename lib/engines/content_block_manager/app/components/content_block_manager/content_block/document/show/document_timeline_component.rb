@@ -1,12 +1,13 @@
 class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent < ViewComponent::Base
   include ActionView::Helpers::RecordTagHelper
-  def initialize(content_block_versions:)
+  def initialize(content_block_versions:, schema:)
     @content_block_versions = content_block_versions
+    @schema = schema
   end
 
 private
 
-  attr_reader :content_block_versions
+  attr_reader :content_block_versions, :schema
 
   def versions
     content_block_versions.reject { |version| hide_from_user?(version) }

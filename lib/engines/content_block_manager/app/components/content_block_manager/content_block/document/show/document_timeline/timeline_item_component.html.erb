@@ -21,7 +21,8 @@
         <% capture do %>
           <%= render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
             version:,
-          ) %>
+            schema:,
+            ) %>
         <% end %>
       <% end %>
     </div>

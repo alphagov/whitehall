@@ -98,6 +98,7 @@
     <%= render(
           ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
             content_block_versions: @content_block_versions,
+            schema: @schema,
           ),
         ) %>
   </div>

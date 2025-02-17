@@ -4,6 +4,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Field
   extend Minitest::Spec::DSL
 
   let(:user) { build_stubbed(:user) }
+  let(:schema) { build(:content_block_schema) }
 
   it "renders the edition diff table in correct order" do
     field_diffs = [
@@ -34,6 +35,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Field
     render_inline(
       ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
         version:,
+        schema:,
       ),
     )
 
