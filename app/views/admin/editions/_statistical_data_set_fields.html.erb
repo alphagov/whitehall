@@ -2,12 +2,13 @@
   <%= render "components/autocomplete", {
     id: "edition_statistical_data_set_document_ids",
     name: "edition[statistical_data_set_document_ids][]",
+    include_blank: true,
     label: {
       text: "Statistical data sets",
       heading_size: "m",
     },
     select: {
-      options: [""] + taggable_statistical_data_sets_container,
+      options: taggable_statistical_data_sets_container,
       multiple: true,
       selected: edition.statistical_data_set_document_ids,
     },

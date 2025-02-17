@@ -14,7 +14,6 @@ class AutocompleteComponentTest < ComponentTestCase
       },
       select: {
         options: [
-          [""],
           ["France", "fr"],
           ["Germany", "de"],
           ["United Kingdom", "uk"],
@@ -41,6 +40,13 @@ class AutocompleteComponentTest < ComponentTestCase
     data[:select][:selected] = "de"
     render_component(data)
     assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']"
+  end
+
+  test "renders with a blank option" do
+    data = component_data
+    data[:include_blank] = true
+    render_component(data)
+    assert_select ".app-c-autocomplete .govuk-select option[value='']"
   end
 
   test "renders with an error" do

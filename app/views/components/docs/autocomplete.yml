@@ -17,7 +17,24 @@ examples:
       select:
         options:
           -
-            -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+
+  with_blank_option:
+    data:
+      id: autocomplete
+      name: autocomplete
+      include_blank: true
+      label:
+        text: Select your country
+      select:
+        options:
           -
             - France
             - fr
@@ -101,8 +118,6 @@ examples:
         text: Select your country
       select:
         options:
-          -
-            -
           -
             - France
             - fr
