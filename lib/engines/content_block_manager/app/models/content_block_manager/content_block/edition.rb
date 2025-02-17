@@ -11,6 +11,7 @@ module ContentBlockManager
       include ValidatesDetails
       include HasLeadOrganisation
       include Workflow
+      include Diffable
 
       scope :current_versions, lambda {
         joins(
