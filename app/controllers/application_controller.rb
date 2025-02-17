@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
-
+  helper ComponentGuideHelper
   protect_from_forgery
 
   before_action :set_current_user
