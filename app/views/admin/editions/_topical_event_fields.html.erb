@@ -5,8 +5,8 @@
     include_blank: true,
     label: {
       text: "Topical events",
-      heading_size: "m",
     },
+    heading_size: "m",
     select: {
       options: TopicalEvent.order(:name).map { |topical_event| [topical_event.name, topical_event.id]},
       multiple: true,

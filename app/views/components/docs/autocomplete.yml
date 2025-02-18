@@ -45,6 +45,26 @@ examples:
             - United Kingdom
             - uk
 
+  with_custom_heading_size:
+    data:
+      id: autocomplete
+      name: autocomplete
+      include_blank: true
+      label:
+        text: Select your country
+      heading_size: xl
+      select:
+        options:
+          -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+
   with_selected_value:
     data:
       id: autocomplete-selected

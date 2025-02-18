@@ -22,8 +22,8 @@
         error_items: errors_for(historical_account.errors, :political_parties),
         label: {
           text: "Political parties (required)",
-          heading_size: "l",
         },
+        heading_size: "l",
         select: {
           options: PoliticalParty.all.map do |party|
             [
