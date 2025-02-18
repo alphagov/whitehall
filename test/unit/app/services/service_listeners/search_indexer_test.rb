@@ -2,7 +2,7 @@ require "test_helper"
 
 class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
   test "#index! indexes published edition" do
-    edition = create(:published_news_article)
+    edition = create(:published_case_study)
 
     expect_indexing(edition)
     ServiceListeners::SearchIndexer.new(edition).index!
@@ -42,10 +42,10 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
   end
 
   test "#index! removes the edition from the search index if the current edition cannot be indexed, but the previous edition was indexed" do
-    english_edition = create(:news_article_world_news_story, :published)
+    english_edition = create(:case_study, :published)
     ServiceListeners::SearchIndexer.new(english_edition).index!
     non_english_edition = I18n.with_locale(:fr) do
-      create(:news_article_world_news_story, :published, primary_locale: :fr, document: english_edition.document)
+      create(:case_study, :published, primary_locale: :fr, document: english_edition.document)
     end
 
     expect_removal_from_index(english_edition)
