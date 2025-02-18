@@ -22,10 +22,9 @@
           include_blank: true,
           label: "Related guides",
           heading_size: "m",
+          options: taggable_detailed_guides_container(edition.related_detailed_guide_ids),
           select: {
-            options: taggable_detailed_guides_container,
             multiple: true,
-            selected: edition.related_detailed_guide_ids,
           },
         } %>
       <% end %>

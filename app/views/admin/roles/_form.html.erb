@@ -34,8 +34,14 @@
     label: "Organisations",
     heading_size: "l",
     name: "role[organisation_ids][]",
+    options: Organisation.with_translations(:en).map do |org|
+      {
+        text: org.select_name,
+        value: org.id,
+        selected: role.organisation_ids.include?(org.id),
+      }
+    end,
     select: {
-      options:  options_from_collection_for_select(Organisation.with_translations(:en), "id", "select_name", role.organisation_ids),
       multiple: true,
     },
   } %>

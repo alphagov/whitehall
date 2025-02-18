@@ -13,17 +13,13 @@ examples:
       id: autocomplete
       name: autocomplete
       label: Select your country
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
 
   with_blank_option:
     data:
@@ -31,17 +27,13 @@ examples:
       name: autocomplete
       include_blank: true
       label: Select your country
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
 
   with_missing_name:
     description: If no name is provided, name defaults to the (required) value of id.
@@ -61,17 +53,13 @@ examples:
       include_blank: true
       label: Select your country
       heading_size: xl
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
 
   with_selected_value:
     data:
@@ -79,34 +67,26 @@ examples:
       name: autocomplete-selected
       label: Select your country
       hint: Only a few countries are available
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
-        selected: de
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+          selected: true
+        - text: United Kingdom
+          value: uk
 
   with_error:
     data:
       name: autocomplete-with-error
       label: Autocomplete with error
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
       error_items:
         - text: There is a problem with this input
 
@@ -117,19 +97,15 @@ examples:
       label: Select your country
       select:
         multiple: true
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
-        selected:
-            - fr
-            - de
+      options:
+        - text: France
+          value: fr
+          selected: true
+        - text: Germany
+          value: de
+          selected: true
+        - text: United Kingdom
+          value: uk
 
   with_data_attributes:
     data:
@@ -139,17 +115,13 @@ examples:
         module: not-a-module
         loose: moose
       label: Select your country
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
 
   autocomplete_with_configuration_options:
     data:
@@ -158,15 +130,12 @@ examples:
       label: Status
       select:
         multiple: true
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
       autocomplete_configuration_options:
         showAllValues: false

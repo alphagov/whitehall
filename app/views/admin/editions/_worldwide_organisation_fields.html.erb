@@ -8,10 +8,9 @@
     include_blank: true,
     label: "Worldwide organisations" + "#{' (required)' if required}",
     heading_size: "m",
+    options: taggable_worldwide_organisations_container(edition.worldwide_organisation_document_ids),
     select: {
-      options: taggable_worldwide_organisations_container,
       multiple: true,
-      selected: edition.worldwide_organisation_document_ids,
     },
   } %>
 <% end %>

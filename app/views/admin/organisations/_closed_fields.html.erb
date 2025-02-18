@@ -50,15 +50,15 @@
   include_blank: true,
   label: "Superseding organisations",
   heading_size: "m",
+  options: (Organisation.with_translations(:en) - [organisation]).map do |org|
+              {
+                text: org.name,
+                value: org.id,
+                selected: organisation.superseding_organisation_ids.include?(org.id),
+              }
+            end,
   select: {
-    options: (Organisation.with_translations(:en) - [organisation]).map do |org|
-               [
-                 org.name,
-                 org.id,
-               ]
-             end,
     multiple: true,
-    selected: organisation.superseding_organisation_ids,
   },
 } %>
 

@@ -11,10 +11,9 @@
           include_blank: true,
           label: "Select associated user needs",
           heading_size: "l",
+          options: taggable_needs_container(@document.need_ids),
           select: {
-            options: taggable_needs_container,
             multiple: true,
-            selected: @document.need_ids,
           },
       } %>
 

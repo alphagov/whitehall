@@ -22,15 +22,15 @@
         error_items: errors_for(historical_account.errors, :political_parties),
         label: "Political parties (required)",
         heading_size: "l",
+        options: PoliticalParty.all.map do |party|
+          {
+            text: party.name,
+            value: party.id,
+            selected: historical_account.political_party_ids.include?(party.id),
+          }
+        end,
         select: {
-          options: PoliticalParty.all.map do |party|
-            [
-              party.name,
-              party.id,
-            ]
-          end,
           multiple: true,
-          selected: historical_account.political_party_ids,
         },
       } %>
 
