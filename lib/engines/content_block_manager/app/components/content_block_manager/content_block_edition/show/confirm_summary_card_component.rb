@@ -30,7 +30,7 @@ private
   def details_items
     content_block_edition.first_class_details.map do |key, value|
       {
-        key: "New #{key.humanize.downcase}",
+        key: key.humanize,
         value:,
       }
     end
