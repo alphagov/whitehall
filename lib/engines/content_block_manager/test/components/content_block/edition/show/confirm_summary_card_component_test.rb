@@ -43,7 +43,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponen
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__key", text: "Title"
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: "Some edition title"
 
-    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "New interesting fact"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Interesting fact"
     assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: "value of fact"
 
     assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "Lead organisation"
