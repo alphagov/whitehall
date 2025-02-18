@@ -16,13 +16,29 @@ private
   end
 
   def rows
-    object.keys.map do |key|
-      {
-        key: key.titleize,
-        value: object[key],
-        data: copy_embed_code(key),
-      }
-    end
+    object.keys.map { |key|
+      rows = [
+        {
+          key: key.titleize,
+          value: object[key],
+          data: copy_embed_code(key),
+        },
+      ]
+      rows.push(embed_code_row(key))
+      rows
+    }.flatten
+  end
+
+  # This generates a row containing the embed code for the field above it -
+  # it will be deleted if javascript is enabled by copy-embed-code.js.
+  def embed_code_row(key)
+    {
+      key: "Embed code",
+      value: content_block_edition.document.embed_code_for_field("#{object_type}/#{object_name}/#{key}"),
+      data: {
+        "embed-code-row": "delete-if-js",
+      },
+    }
   end
 
   def copy_embed_code(key)

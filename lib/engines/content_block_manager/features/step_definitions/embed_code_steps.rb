@@ -27,3 +27,9 @@ Then("the embed code should be copied to my clipboard") do
   clip_text = page.evaluate_async_script("navigator.clipboard.readText().then(arguments[0])")
   expect(clip_text).to eq(@embed_code)
 end
+
+Then("the embed code for the content block {string}, rate {string} and field {string} should be visible") do |pension_title, rate_name, field_name|
+  edition = ContentBlockManager::ContentBlock::Edition.find_by(title: pension_title)
+  embed_code = edition.document.embed_code_for_field("rates/#{rate_name.parameterize.presence}/#{field_name}")
+  expect(page).to have_content(embed_code)
+end
