@@ -7,8 +7,8 @@
     error_items: errors_for(edition.errors, :world_locations),
     label: {
       text: "World locations" + "#{' (required)' if required}",
-      heading_size: "m",
     },
+    heading_size: "m",
     select: {
       options: taggable_world_locations_container,
       multiple: true,
