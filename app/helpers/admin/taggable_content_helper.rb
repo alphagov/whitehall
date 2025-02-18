@@ -1,15 +1,6 @@
 # A bunch of helpers for efficiently generating select options for taggable
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
-  # Returns an Array that represents the current set of taggable topical
-  # events. Each element of the array consists of two values: the name and ID
-  # of the topical event.
-  def taggable_topical_events_container
-    Rails.cache.fetch(taggable_topical_events_cache_digest, expires_in: 1.day) do
-      TopicalEvent.order(:name).map { |te| [te.name, te.id] }
-    end
-  end
-
   # Returns an Array that represents the current set of taggable organisations.
   # Each element of the array consists of two values: the select_name and the
   # ID of the organisation
@@ -51,17 +42,6 @@ module Admin::TaggableContentHelper
   def taggable_role_appointments_container
     Rails.cache.fetch(taggable_role_appointments_cache_digest, expires_in: 1.day) do
       role_appointments_container_for(RoleAppointment)
-    end
-  end
-
-  # Returns an Array that represents the taggable ministerial roles. Each
-  # element of the array consists of two values: the name of the ministerial
-  # role with the organisation and current holder and its ID.
-  def taggable_ministerial_roles_container
-    Rails.cache.fetch(taggable_ministerial_roles_cache_digest, expires_in: 1.day) do
-      MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
-        ["#{role.name}, #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})", role.id]
-      end
     end
   end
 
@@ -112,17 +92,6 @@ module Admin::TaggableContentHelper
     end
   end
 
-  # Returns an Array representing the taggable document collections and their
-  # groups. Each element of the array consists of two values: the
-  # collection/group name and the ID of the group.
-  def taggable_document_collection_groups_container
-    Rails.cache.fetch(taggable_document_collection_groups_cache_digest, expires_in: 1.day) do
-      DocumentCollection.latest_edition.alphabetical.includes(:groups).flat_map do |collection|
-        collection.groups.map { |group| ["#{collection.title} (#{group.heading})", group.id] }
-      end
-    end
-  end
-
   # Returns an Array that represents the taggable worldwide organisations.
   # Each element of the array consists of two values: the name of the worldwide
   # organisation and its ID.
@@ -166,13 +135,6 @@ module Admin::TaggableContentHelper
     @taggable_role_appointments_cache_digest ||= calculate_digest(RoleAppointment.order(:id), "role-appointments")
   end
 
-  # Returns an MD5 digest representing the current set of taggable ministerial
-  # rile appointments. THis will change if any ministerial role is added or
-  # updated.
-  def taggable_ministerial_roles_cache_digest
-    @taggable_ministerial_roles_cache_digest ||= calculate_digest(MinisterialRole.order(:id), "ministerial-roles")
-  end
-
   # Returns an MD5 digest representing all the detailed guides. This wil change
   # if any detailed guides are added or updated.
   def taggable_detailed_guides_cache_digest
@@ -202,13 +164,6 @@ module Admin::TaggableContentHelper
   # changed.
   def taggable_alternative_format_providers_cache_digest
     @taggable_alternative_format_providers_cache_digest ||= calculate_digest(Organisation.order(:id), "alternative-format-providers")
-  end
-
-  # Returns an MD5 digest representing the taggable document collection
-  # groups. This will change if any document collection or group within
-  # the collection is changed or any new ones are added.
-  def taggable_document_collection_groups_cache_digest
-    @taggable_document_collection_groups_cache_digest ||= calculate_digest(Document.where(document_type: "DocumentCollection").order(:id), "document-collection-groups")
   end
 
   # Returns an MD5 digest representing the taggable worldwide organisations. This
