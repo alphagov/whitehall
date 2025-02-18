@@ -51,7 +51,6 @@ examples:
       name: autocomplete-selected
       label:
         text: Select your country
-        bold: true
       hint: Only a few countries are available
       select:
         options:
