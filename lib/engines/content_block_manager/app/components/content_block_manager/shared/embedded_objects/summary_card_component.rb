@@ -36,7 +36,7 @@ private
       key: "Embed code",
       value: content_block_edition.document.embed_code_for_field("#{object_type}/#{object_name}/#{key}"),
       data: {
-        "embed-code-row": "delete-if-js",
+        "embed-code-row": "true",
       },
     }
   end

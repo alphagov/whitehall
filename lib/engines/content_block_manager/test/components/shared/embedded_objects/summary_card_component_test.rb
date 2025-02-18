@@ -68,9 +68,9 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
 
     render_inline component
 
-    assert_selector ".govuk-summary-list__row[data-embed-code-row='delete-if-js']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/name")
-    assert_selector ".govuk-summary-list__row[data-embed-code-row='delete-if-js']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-1")
-    assert_selector ".govuk-summary-list__row[data-embed-code-row='delete-if-js']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-2")
+    assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/name")
+    assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-1")
+    assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-2")
   end
 
   describe "when card is editable" do
