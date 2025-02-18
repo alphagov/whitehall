@@ -5,7 +5,13 @@ module Workflow::UpdateMethods
 
   def update_draft
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-    @content_block_edition.assign_attributes(edition_params.except(:creator, :document_attributes))
+
+    @content_block_edition.assign_attributes(
+      title: edition_params[:title],
+      organisation_id: edition_params[:organisation_id],
+      instructions_to_publishers: edition_params[:instructions_to_publishers],
+      details: @content_block_edition.details.merge(edition_params[:details]),
+    )
     @content_block_edition.save!
 
     if @content_block_edition.document.is_new_block?
