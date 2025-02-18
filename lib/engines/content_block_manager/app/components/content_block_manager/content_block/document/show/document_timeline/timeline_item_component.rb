@@ -43,4 +43,12 @@ private
   def change_note
     version.item.change_note
   end
+
+  def embedded_object_diffs
+    schema.subschemas.map { |subschema|
+      version.field_diffs.dig("details", subschema.id).map do |object_id, field_diff|
+        { object_id:, field_diff:, subschema_id: subschema.id }
+      end
+    }.flatten
+  end
 end

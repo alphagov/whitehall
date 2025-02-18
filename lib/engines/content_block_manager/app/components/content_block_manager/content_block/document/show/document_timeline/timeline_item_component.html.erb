@@ -23,6 +23,13 @@
             version:,
             schema:,
             ) %>
+
+          <% embedded_object_diffs.each do |item| %>
+            <%= render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent.new(
+              **item,
+              content_block_edition: version.item,
+              ) %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
