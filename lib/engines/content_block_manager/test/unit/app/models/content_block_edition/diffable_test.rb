@@ -36,7 +36,12 @@ class ContentBlockManager::DiffableTest < ActiveSupport::TestCase
         edition.title = "Something new"
         edition.save!
 
-        expected_diff = { "title" => ["Something old", "Something new"] }
+        expected_diff = {
+          "title" => ContentBlockManager::ContentBlock::DiffItem.new(
+            previous_value: "Something old",
+            new_value: "Something new",
+          ),
+        }
 
         assert_equal edition.generate_diff, expected_diff
       end
@@ -48,7 +53,14 @@ class ContentBlockManager::DiffableTest < ActiveSupport::TestCase
         edition.details = { "email_address": "new@example.com" }
         edition.save!
 
-        expected_diff = { "details" => { "email_address" => %w[old@example.com new@example.com] } }
+        expected_diff = {
+          "details" => {
+            "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(
+              previous_value: "old@example.com",
+              new_value: "new@example.com",
+            ),
+          },
+        }
 
         assert_equal edition.generate_diff, expected_diff
       end
@@ -82,13 +94,22 @@ class ContentBlockManager::DiffableTest < ActiveSupport::TestCase
           "details" => {
             "rates" => {
               "rate-1" => {
-                "amount" => %w[£124.55 £124.22],
+                "amount" => ContentBlockManager::ContentBlock::DiffItem.new(
+                  previous_value: "£124.55",
+                  new_value: "£124.22",
+                ),
               },
               "other-rate" => {
-                "amount" => ["£5", nil],
+                "amount" => ContentBlockManager::ContentBlock::DiffItem.new(
+                  previous_value: "£5",
+                  new_value: nil,
+                ),
               },
               "rate-2" => {
-                "amount" => [nil, "£99.50"],
+                "amount" => ContentBlockManager::ContentBlock::DiffItem.new(
+                  previous_value: nil,
+                  new_value: "£99.50",
+                ),
               },
             },
           },
@@ -107,7 +128,12 @@ class ContentBlockManager::DiffableTest < ActiveSupport::TestCase
         edition.organisation = new_organisation
         edition.save!
 
-        expected_diff = { "lead_organisation" => ["One Organisation", "Another Organisation"] }
+        expected_diff = {
+          "lead_organisation" => ContentBlockManager::ContentBlock::DiffItem.new(
+            previous_value: "One Organisation",
+            new_value: "Another Organisation",
+          ),
+        }
 
         assert_equal edition.generate_diff, expected_diff
       end
@@ -119,7 +145,12 @@ class ContentBlockManager::DiffableTest < ActiveSupport::TestCase
         edition.instructions_to_publishers = "New instructions"
         edition.save!
 
-        expected_diff = { "instructions_to_publishers" => ["Old instructions", "New instructions"] }
+        expected_diff = {
+          "instructions_to_publishers" => ContentBlockManager::ContentBlock::DiffItem.new(
+            previous_value: "Old instructions",
+            new_value: "New instructions",
+          ),
+        }
 
         assert_equal edition.generate_diff, expected_diff
       end

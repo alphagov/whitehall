@@ -108,7 +108,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   end
 
   describe "when field diffs are present" do
-    let(:field_diffs) { [{ "something" => "here" }] }
+    let(:field_diffs) { { "foo" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "previous value", new_value: "new value") } }
     let(:version) do
       build(
         :content_block_version,
@@ -167,8 +167,8 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
           "details" => {
             "embedded_schema" => {
               "something" => {
-                "field1" => %w[before after],
-                "field2" => %w[before after],
+                "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+                "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
               },
             },
           },
@@ -195,8 +195,8 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
           .with(
             object_id: "something",
             field_diff: {
-              "field1" => %w[before after],
-              "field2" => %w[before after],
+              "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+              "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
             },
             subschema_id: "embedded_schema",
             content_block_edition:,

@@ -5,10 +5,10 @@ module ContentBlockManager
     def generate_diff
       diff = {}
       unless document.is_new_block?
-        diff["title"] = [previous_edition.title, title] if previous_edition.title != title
+        diff["title"] = ContentBlock::DiffItem.new(previous_value: previous_edition.title, new_value: title) if previous_edition.title != title
         diff["details"] = details_diff if details_diff.any?
-        diff["lead_organisation"] = [previous_org.name, lead_organisation.name] if lead_organisation != previous_org
-        diff["instructions_to_publishers"] = [previous_edition.instructions_to_publishers, instructions_to_publishers] if previous_edition.instructions_to_publishers != instructions_to_publishers
+        diff["lead_organisation"] = ContentBlock::DiffItem.new(previous_value: previous_org.name, new_value: lead_organisation.name) if lead_organisation != previous_org
+        diff["instructions_to_publishers"] = ContentBlock::DiffItem.new(previous_value: previous_edition.instructions_to_publishers, new_value: instructions_to_publishers) if previous_edition.instructions_to_publishers != instructions_to_publishers
       end
       diff
     end
@@ -40,7 +40,7 @@ module ContentBlockManager
         if previous_value.is_a?(String) || new_value.is_a?(String)
           next unless previous_value != new_value
 
-          diff[key] = [previous_value, new_value]
+          diff[key] = ContentBlock::DiffItem.new(previous_value:, new_value:)
         elsif previous_value.is_a?(Hash) || new_value.is_a?(Hash)
           diff[key] = generate_details_diff(previous_value, new_value)
         end

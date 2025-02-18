@@ -14,8 +14,8 @@ private
     field_diff.map do |field, diffs|
       [
         { text: field.humanize },
-        { text: diffs[0] },
-        { text: diffs[1] },
+        { text: diffs.previous_value },
+        { text: diffs.new_value },
       ]
     end
   end

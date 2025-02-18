@@ -20,16 +20,16 @@ private
   def title_row
     [
       { text: "Title" },
-      { text: version.field_diffs["title"][0] },
-      { text: version.field_diffs["title"][1] },
+      { text: version.field_diffs["title"].previous_value },
+      { text: version.field_diffs["title"].new_value },
     ]
   end
 
   def organisation_row
     [
       { text: "Lead organisation" },
-      { text: version.field_diffs["lead_organisation"][0] },
-      { text: version.field_diffs["lead_organisation"][1] },
+      { text: version.field_diffs["lead_organisation"].previous_value },
+      { text: version.field_diffs["lead_organisation"].new_value },
     ]
   end
 
@@ -40,8 +40,8 @@ private
 
       [
         { text: field.humanize },
-        { text: field_diff[0] },
-        { text: field_diff[1] },
+        { text: field_diff.previous_value },
+        { text: field_diff.new_value },
       ]
     end
   end
@@ -49,8 +49,8 @@ private
   def instructions_to_publishers_row
     [
       { text: "Instructions to publishers" },
-      { text: version.field_diffs["instructions_to_publishers"][0] },
-      { text: version.field_diffs["instructions_to_publishers"][1] },
+      { text: version.field_diffs["instructions_to_publishers"].previous_value },
+      { text: version.field_diffs["instructions_to_publishers"].new_value },
     ]
   end
 end

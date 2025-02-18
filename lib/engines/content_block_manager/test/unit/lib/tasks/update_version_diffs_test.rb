@@ -26,23 +26,23 @@ class UpdateVersionDiffsTest < ActiveSupport::TestCase
 
     Rake.application.invoke_task("content_block_manager:update_version_diffs")
 
-    assert_nil version_1.reload.field_diffs
+    assert_equal ({}), version_1.reload.field_diffs
     assert_equal ({
-      "title" => ["Edition 1", "Edition 2"],
+      "title" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "Edition 1", new_value: "Edition 2"),
       "details" => {
-        "email_address" => %w[something@something.com something@else.com],
+        "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "something@something.com", new_value: "something@else.com"),
       },
     }), version_2.reload.field_diffs
     assert_equal ({
-      "title" => ["Edition 2", "Edition 3"],
+      "title" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "Edition 2", new_value: "Edition 3"),
       "details" => {
-        "email_address" => %w[something@else.com something@else.org],
+        "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "something@else.com", new_value: "something@else.org"),
       },
     }), version_3.reload.field_diffs
     assert_equal ({
-      "title" => ["Edition 3", "Edition 4"],
+      "title" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "Edition 3", new_value: "Edition 4"),
       "details" => {
-        "email_address" => %w[something@else.org another@thing.org],
+        "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "something@else.org", new_value: "another@thing.org"),
       },
     }), version_4.reload.field_diffs
   end

@@ -5,7 +5,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Embed
 
   let(:field_diff) do
     {
-      "email_address" => %w[old@email.com new@email.com],
+      "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old@email.com", new_value: "new@email.com"),
     }
   end
 

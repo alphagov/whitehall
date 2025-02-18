@@ -8,11 +8,11 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Field
 
   it "renders the edition diff table in correct order" do
     field_diffs = {
-      "title" => ["old title", "new title"],
+      "title" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old title", new_value: "new title"),
       "details" => {
-        "email_address" => %w[old@email.com new@email.com],
+        "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old@email.com", new_value: "new@email.com"),
       },
-      "instructions_to_publishers" => ["old instructions", "new instructions"],
+      "instructions_to_publishers" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old instructions", new_value: "new instructions"),
     }
     version = build(
       :content_block_version,
