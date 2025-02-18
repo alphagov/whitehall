@@ -1,29 +1,34 @@
 # A bunch of helpers for efficiently generating select options for taggable
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
-  # Returns an Array that represents the current set of taggable organisations.
-  # Each element of the array consists of two values: the select_name and the
-  # ID of the organisation
-  def taggable_organisations_container
+  def taggable_organisations_container(selected_ids = [])
     cached_taggable_organisations.map do |o|
-      [o.select_name, o.id]
+      {
+        text: o.select_name,
+        value: o.id,
+        selected: selected_ids.include?(o.id),
+      }
     end
   end
 
-  # Returns an Array that represents the current set of taggable ministerial
-  # role appointments (both past and present). Each element of the array
-  # consists of two values: a selectable label (consisting of the person, the
-  # role, the date the role was held if it's in the past, and the organisations
-  # the person belongs to) and the ID of the role appointment.
-  def taggable_ministerial_role_appointments_container
+  def taggable_ministerial_role_appointments_container(selected_ids = [])
     cached_taggable_ministerial_role_appointments.map do |appointment|
-      [role_appointment_label(appointment), appointment.id]
+      {
+        text: role_appointment_label(appointment),
+        value: appointment.id,
+        selected: selected_ids.include?(appointment.id),
+      }
     end
   end
 
-  def taggable_needs_container
+  def taggable_needs_container(selected_ids)
     Services.publishing_api.get_linkables(document_type: "need").to_a.map do |need|
-      need.values_at("title", "content_id")
+      title, content_id = need.values_at("title", "content_id")
+      {
+        text: title,
+        value: content_id,
+        selected: selected_ids.include?(content_id),
+      }
     end
   rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
     stale_data = Rails.cache.fetch("need.linkables")
@@ -32,66 +37,73 @@ module Admin::TaggableContentHelper
     raise
   end
 
-  # Returns an Array that represents the current set of taggable roles (both
-  # past and present). Each element of the array consists of two values: a
-  # selectable label (consisting of the person, the role, the date the role was
-  # held if it's in the past, and the organisations the person belongs to) and
-  # the ID of the role appointment.
-  def taggable_role_appointments_container
+  def taggable_role_appointments_container(selected_ids = [])
     cached_taggable_role_appointments.map do |appointment|
-      [role_appointment_label(appointment), appointment.id]
+      {
+        text: role_appointment_label(appointment),
+        value: appointment.id,
+        selected: selected_ids.include?(appointment.id),
+      }
     end
   end
 
-  # Returns an Array that represents the current set of taggable detauled
-  # guides. Each element of the array consists of two values: the guide title
-  # and its ID.
-  def taggable_detailed_guides_container
+  def taggable_detailed_guides_container(selected_ids = [])
     cached_taggable_detailed_guides.map do |d|
-      [d.title, d.id]
+      {
+        text: d.title,
+        value: d.id,
+        selected: selected_ids.include?(d.id),
+      }
     end
   end
 
-  # Returns an Array that represents the current set of taggable statistical
-  # data sets. Each elements of the array consists of two values: the data
-  # set title and its ID.
-  def taggable_statistical_data_sets_container
+  def taggable_statistical_data_sets_container(selected_ids = [])
     cached_taggable_statistical_data_sets.map do |data_set|
-      [data_set.title, data_set.document_id]
+      {
+        text: data_set.title,
+        value: data_set.document_id,
+        selected: selected_ids.include?(data_set.document_id),
+      }
     end
   end
 
-  # Returns an Array that represents the taggable world locations. Each element
-  # of the array consists of two values: the location name and its ID
-  def taggable_world_locations_container
+  def taggable_world_locations_container(selected_ids = [])
     cached_taggable_world_locations.map do |w|
-      [w.name, w.id]
+      {
+        text: w.name,
+        value: w.id,
+        selected: selected_ids.include?(w.id),
+      }
     end
   end
 
-  # Returns an Array that represents the taggable roles. Each element of the
-  # array consists of two values: the role name and its ID
-  def taggable_roles_container
+  def taggable_roles_container(selected_ids = [])
     cached_taggable_roles.map do |w|
-      [w.name, w.id]
+      {
+        text: w.name,
+        value: w.id,
+        selected: selected_ids.include?(w.id),
+      }
     end
   end
 
-  # Returns an Array that represents the taggable alternative format providers.
-  # Each element of the array consists of two values: the label (organisation
-  # and the email address if avaiable) and the ID of the organisation.
-  def taggable_alternative_format_providers_container
+  def taggable_alternative_format_providers_container(selected_ids = [])
     cached_taggable_alternative_format_providers.map do |o|
-      ["#{o.name} (#{o.alternative_format_contact_email.presence || '-'})", o.id]
+      {
+        text: "#{o.name} (#{o.alternative_format_contact_email.presence || '-'})",
+        value: o.id,
+        selected: selected_ids.include?(o.id),
+      }
     end
   end
 
-  # Returns an Array that represents the taggable worldwide organisations.
-  # Each element of the array consists of two values: the name of the worldwide
-  # organisation and its ID.
-  def taggable_worldwide_organisations_container
+  def taggable_worldwide_organisations_container(selected_ids = [])
     cached_taggable_worldwide_organisations.map do |wo|
-      [wo.title, wo.document.id]
+      {
+        text: wo.title,
+        value: wo.document.id,
+        selected: selected_ids.include?(wo.document.id),
+      }
     end
   end
 

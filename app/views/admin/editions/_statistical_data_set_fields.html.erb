@@ -5,10 +5,9 @@
     include_blank: true,
     label: "Statistical data sets",
     heading_size: "m",
+    options: taggable_statistical_data_sets_container(edition.statistical_data_set_document_ids),
     select: {
-      options: taggable_statistical_data_sets_container,
       multiple: true,
-      selected: edition.statistical_data_set_document_ids,
     },
   } %>
 <% end %>

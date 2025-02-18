@@ -10,13 +10,11 @@ class AutocompleteComponentTest < ComponentTestCase
       id: "id",
       name: "name",
       label: "text",
-      select: {
-        options: [
-          ["France", "fr"],
-          ["Germany", "de"],
-          ["United Kingdom", "uk"],
-        ],
-      },
+      options: [
+        { text: "France", value: "fr" },
+        { text: "Germany", value: "de" },
+        { text: "United Kingdom", value: "uk" },
+      ],
     }
   end
 
@@ -44,9 +42,9 @@ class AutocompleteComponentTest < ComponentTestCase
 
   test "renders with a selected option" do
     data = component_data
-    data[:select][:selected] = "de"
+    data[:options].first[:selected] = true
     render_component(data)
-    assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']"
+    assert_select ".app-c-autocomplete .govuk-select option[value='fr'][selected='selected']"
   end
 
   test "renders with a blank option" do
@@ -76,13 +74,15 @@ class AutocompleteComponentTest < ComponentTestCase
 
   test "renders in multiple mode" do
     data = component_data
+    data[:select] = {}
     data[:select][:multiple] = true
-    data[:select][:selected] = %w[fr de]
+    data[:options].first[:selected] = true
+    data[:options].last[:selected] = true
     render_component(data)
     assert_select ".app-c-autocomplete .govuk-select[multiple='multiple']"
     assert_select ".app-c-autocomplete .govuk-select option[value='fr'][selected='selected']"
-    assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']"
-    assert_select ".app-c-autocomplete .govuk-select option[value='uk'][selected='selected']", false
+    assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']", false
+    assert_select ".app-c-autocomplete .govuk-select option[value='uk'][selected='selected']"
   end
 
   test "accepts data attribures" do

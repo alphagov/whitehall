@@ -16,13 +16,7 @@
               label: "Lead organisation #{index + 1}",
               heading_size: "s",
               include_blank: true,
-              options: taggable_organisations_container.map do |name, id|
-              {
-                text: name,
-                value: id,
-                selected: id == lead_organisation_id,
-              }
-             end,
+              options: taggable_organisations_container([lead_organisation_id]),
           } %>
         <% end %>
       <% end %>
@@ -35,10 +29,9 @@
         include_blank: true,
         label: "Supporting organisations",
         heading_size: "m",
+        options: taggable_organisations_container(edition.edition_organisations.reject(&:lead?).map(&:organisation_id)),
         select: {
           multiple: true,
-          selected: edition.edition_organisations.reject(&:lead?).map(&:organisation_id),
-          options: taggable_organisations_container,
         },
       } %>
     <% end %>
