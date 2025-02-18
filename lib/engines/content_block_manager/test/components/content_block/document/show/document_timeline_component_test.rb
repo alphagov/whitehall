@@ -4,6 +4,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
   extend Minitest::Spec::DSL
 
   let(:user) { build_stubbed(:user) }
+  let(:schema) { build(:content_block_schema) }
 
   it "renders components for each event" do
     item = build_stubbed(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil)
@@ -54,6 +55,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
 
     component = ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineComponent.new(
       content_block_versions: [version_4, version_3, version_2, version_1, superseded_version],
+      schema:,
     )
 
     version_2_component_stub = stub("timeline_item_component")
@@ -64,6 +66,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       .expects(:new)
       .with(
         version: version_4,
+        schema:,
         is_first_published_version: false,
         is_latest: true,
       ).returns(version_4_component_stub)
@@ -72,6 +75,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       .expects(:new)
       .with(
         version: version_3,
+        schema:,
         is_first_published_version: false,
         is_latest: false,
       ).returns(version_3_component_stub)
@@ -80,6 +84,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
       .expects(:new)
       .with(
         version: version_2,
+        schema:,
         is_first_published_version: true,
         is_latest: false,
       ).returns(version_2_component_stub)

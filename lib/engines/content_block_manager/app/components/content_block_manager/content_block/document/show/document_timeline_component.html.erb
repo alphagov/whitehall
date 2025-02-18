@@ -4,6 +4,7 @@
   <% versions.each_with_index do |version, i| %>
     <%= render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::TimelineItemComponent.new(
       version:,
+      schema:,
       is_first_published_version: version.id == first_published_version.id,
       is_latest: i == 0,
     ) %>

@@ -1,0 +1,21 @@
+<% if rows.present? %>
+  <%= render "govuk_publishing_components/components/table", {
+    caption:,
+    caption_classes: "govuk-heading-m",
+    first_cell_is_header: true,
+    head: [
+      {
+        text: tag.span("Fields", class: "govuk-visually-hidden"),
+      },
+      {
+        text: "Previous version",
+        format: "string",
+      },
+      {
+        text: "This version",
+        format: "string",
+      },
+    ],
+    rows:,
+  } %>
+<% end %>

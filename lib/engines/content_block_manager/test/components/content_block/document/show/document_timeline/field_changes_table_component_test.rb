@@ -4,25 +4,16 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Field
   extend Minitest::Spec::DSL
 
   let(:user) { build_stubbed(:user) }
+  let(:schema) { stub(:schema, fields: %w[email_address]) }
 
   it "renders the edition diff table in correct order" do
-    field_diffs = [
-      {
-        "field_name": "title",
-        "new_value": "new title",
-        "previous_value": "old title",
+    field_diffs = {
+      "title" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old title", new_value: "new title"),
+      "details" => {
+        "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old@email.com", new_value: "new@email.com"),
       },
-      {
-        "field_name": "email_address",
-        "new_value": "new@email.com",
-        "previous_value": "old@email.com",
-      },
-      {
-        "field_name": "instructions_to_publishers",
-        "new_value": "new instructions",
-        "previous_value": "old instructions",
-      },
-    ]
+      "instructions_to_publishers" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old instructions", new_value: "new instructions"),
+    }
     version = build(
       :content_block_version,
       event: "updated",
@@ -34,6 +25,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Field
     render_inline(
       ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
         version:,
+        schema:,
       ),
     )
 
