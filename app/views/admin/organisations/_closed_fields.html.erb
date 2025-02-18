@@ -50,8 +50,8 @@
   include_blank: true,
   label: {
     text: "Superseding organisations",
-    heading_size: "m",
   },
+  heading_size: "m",
   select: {
     options: (Organisation.with_translations(:en) - [organisation]).map do |org|
                [

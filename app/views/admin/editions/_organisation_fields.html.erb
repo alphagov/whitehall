@@ -35,8 +35,8 @@
         include_blank: true,
         label: {
           text: "Supporting organisations",
-          heading_size: "m",
         },
+        heading_size: "m",
         select: {
           multiple: true,
           selected: edition.edition_organisations.reject(&:lead?).map(&:organisation_id),

@@ -49,6 +49,13 @@ class AutocompleteComponentTest < ComponentTestCase
     assert_select ".app-c-autocomplete .govuk-select option[value='']"
   end
 
+  test "passes heading size to label component" do
+    data = component_data
+    data[:heading_size] = "xl"
+    render_component(data)
+    assert_select ".govuk-label.govuk-label--xl"
+  end
+
   test "renders with an error" do
     data = component_data
     data[:error_items] = [

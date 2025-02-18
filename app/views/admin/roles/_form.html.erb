@@ -33,8 +33,8 @@
     id: "role_organisation_ids",
     label: {
       text: "Organisations",
-      heading_size: "l",
     },
+    heading_size: "l",
     name: "role[organisation_ids][]",
     select: {
       options:  options_from_collection_for_select(Organisation.with_translations(:en), "id", "select_name", role.organisation_ids),
