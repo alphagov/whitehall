@@ -53,13 +53,7 @@ module ContentBlockManager
       end
 
       def update_object_with_details(object_type, object_name, body)
-        key = key_for_object(body)
-
-        if key != object_name
-          details[object_type].delete(object_name)
-        end
-
-        add_object_to_details(object_type, body)
+        details[object_type][object_name] = body.to_h
       end
 
       def key_for_object(object)

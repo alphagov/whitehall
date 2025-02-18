@@ -16,6 +16,7 @@ end
 When("I complete the {string} form with the following fields:") do |object_type, table|
   fields = table.hashes.first
   @details = fields
+  @object_name ||= @details["name"].parameterize
   fields.keys.each do |k|
     field = find_field "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}"
     if field.tag_name == "select"
@@ -37,7 +38,7 @@ Then("the {string} should have been created successfully") do |object_type|
 
   assert_not_nil edition
   assert_not_nil edition.document
-  key = @details["name"].parameterize
+  key = @object_name
 
   @details.keys.each do |k|
     assert_equal edition.details[object_type.parameterize.pluralize][key][k], @details[k]
