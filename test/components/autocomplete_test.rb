@@ -9,12 +9,9 @@ class AutocompleteComponentTest < ComponentTestCase
     {
       id: "id",
       name: "name",
-      label: {
-        text: "text",
-      },
+      label: "text",
       select: {
         options: [
-          [""],
           ["France", "fr"],
           ["Germany", "de"],
           ["United Kingdom", "uk"],
@@ -41,6 +38,20 @@ class AutocompleteComponentTest < ComponentTestCase
     data[:select][:selected] = "de"
     render_component(data)
     assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']"
+  end
+
+  test "renders with a blank option" do
+    data = component_data
+    data[:include_blank] = true
+    render_component(data)
+    assert_select ".app-c-autocomplete .govuk-select option[value='']"
+  end
+
+  test "passes heading size to label component" do
+    data = component_data
+    data[:heading_size] = "xl"
+    render_component(data)
+    assert_select ".govuk-label.govuk-label--xl"
   end
 
   test "renders with an error" do

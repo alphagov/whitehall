@@ -53,10 +53,8 @@
 
   <%= render "components/autocomplete", {
     id: "statistics_announcement_organisations",
-    label: {
-      text: "Organisations (required)",
-      heading_size: "l",
-    },
+    label: "Organisations (required)",
+    heading_size: "l",
     name: "statistics_announcement[organisation_ids][]",
     select: {
       options:  options_from_collection_for_select(Organisation.with_translations.order("organisation_translations.name"), "id", "name", statistics_announcement.organisation_ids),

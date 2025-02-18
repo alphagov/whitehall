@@ -12,12 +12,46 @@ examples:
     data:
       id: autocomplete
       name: autocomplete
-      label:
-        text: Select your country
+      label: Select your country
       select:
         options:
           -
-            -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+
+  with_blank_option:
+    data:
+      id: autocomplete
+      name: autocomplete
+      include_blank: true
+      label: Select your country
+      select:
+        options:
+          -
+            - France
+            - fr
+          -
+            - Germany
+            - de
+          -
+            - United Kingdom
+            - uk
+
+  with_custom_heading_size:
+    data:
+      id: autocomplete
+      name: autocomplete
+      include_blank: true
+      label: Select your country
+      heading_size: xl
+      select:
+        options:
           -
             - France
             - fr
@@ -32,9 +66,7 @@ examples:
     data:
       id: autocomplete-selected
       name: autocomplete-selected
-      label:
-        text: Select your country
-        bold: true
+      label: Select your country
       hint: Only a few countries are available
       select:
         options:
@@ -52,8 +84,7 @@ examples:
   with_error:
     data:
       name: autocomplete-with-error
-      label:
-        text: Autocomplete with error
+      label: Autocomplete with error
       select:
         options:
           -
@@ -72,8 +103,7 @@ examples:
     data:
       id: autocomplete-multiselect
       name: autocomplete-multiselect
-      label:
-        text: Select your country
+      label: Select your country
       select:
         multiple: true
         options:
@@ -97,12 +127,9 @@ examples:
       data_attributes:
         module: not-a-module
         loose: moose
-      label:
-        text: Select your country
+      label: Select your country
       select:
         options:
-          -
-            -
           -
             - France
             - fr
@@ -117,8 +144,7 @@ examples:
     data:
       id: autocomplete-configuration-options
       name: autocomplete-configuration-options
-      label:
-        text: Status
+      label: Status
       select:
         multiple: true
         options:
