@@ -20,9 +20,7 @@
         id: "historical_account_political_parties",
         name: "historical_account[political_party_ids][]",
         error_items: errors_for(historical_account.errors, :political_parties),
-        label: {
-          text: "Political parties (required)",
-        },
+        label: "Political parties (required)",
         heading_size: "l",
         select: {
           options: PoliticalParty.all.map do |party|

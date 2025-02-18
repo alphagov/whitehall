@@ -9,9 +9,7 @@ class AutocompleteComponentTest < ComponentTestCase
     {
       id: "id",
       name: "name",
-      label: {
-        text: "text",
-      },
+      label: "text",
       select: {
         options: [
           ["France", "fr"],

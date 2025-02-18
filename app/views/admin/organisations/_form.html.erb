@@ -241,9 +241,7 @@
     <%= render "components/autocomplete", {
       id: "organisation_parent_organisation_ids",
       name: "organisation[parent_organisation_ids][]",
-      label: {
-        text: "Sponsoring organisations",
-      },
+      label: "Sponsoring organisations",
       heading_size: "m",
       select: {
         options: (Organisation.with_translations(:en) - [organisation]).map do |org|

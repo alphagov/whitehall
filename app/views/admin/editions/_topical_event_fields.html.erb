@@ -3,9 +3,7 @@
     id: "edition_topical_event_ids",
     name: "edition[topical_event_ids][]",
     include_blank: true,
-    label: {
-      text: "Topical events",
-    },
+    label: "Topical events",
     heading_size: "m",
     select: {
       options: TopicalEvent.order(:name).map { |topical_event| [topical_event.name, topical_event.id]},

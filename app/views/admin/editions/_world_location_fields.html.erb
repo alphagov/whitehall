@@ -5,9 +5,7 @@
     id: "edition_world_locations",
     name: "edition[world_location_ids][]",
     error_items: errors_for(edition.errors, :world_locations),
-    label: {
-      text: "World locations" + "#{' (required)' if required}",
-    },
+    label: "World locations" + "#{' (required)' if required}",
     heading_size: "m",
     select: {
       options: taggable_world_locations_container,
