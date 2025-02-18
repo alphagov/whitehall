@@ -1,15 +1,15 @@
 class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent < ViewComponent::Base
-  def initialize(content_block_edition:, object_type:, object_name:, show_edit_action: false, redirect_url: nil)
+  def initialize(content_block_edition:, object_type:, object_name:, is_editable: false, redirect_url: nil)
     @content_block_edition = content_block_edition
     @object_type = object_type
     @object_name = object_name
-    @show_edit_action = show_edit_action
+    @is_editable = is_editable
     @redirect_url = redirect_url
   end
 
 private
 
-  attr_reader :content_block_edition, :object_type, :object_name, :show_edit_action, :redirect_url
+  attr_reader :content_block_edition, :object_type, :object_name, :is_editable, :redirect_url
 
   def title
     "#{object_type.titleize.singularize} details"
@@ -20,6 +20,16 @@ private
       {
         key: key.titleize,
         value: object[key],
+        data: copy_embed_code(key),
+      }
+    end
+  end
+
+  def copy_embed_code(key)
+    unless is_editable
+      {
+        module: "copy-embed-code",
+        "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_name}/#{key}"),
       }
     end
   end
@@ -29,7 +39,7 @@ private
   end
 
   def summary_card_actions
-    if show_edit_action
+    if is_editable
       [
         {
           label: "Edit",
