@@ -229,17 +229,10 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "My thing", "something" => "changed" } }
     end
 
-    it "removes the original object if the name changes" do
+    it "keeps the original key name if the name changes" do
       content_block_edition.update_object_with_details("something", "my-thing", { "name" => "Other thing", "something" => "changed" })
 
-      assert_equal content_block_edition.details["something"], { "other-thing" => { "name" => "Other thing", "something" => "changed" } }
-    end
-
-    it "creates a random key if a name is not provided" do
-      SecureRandom.expects(:alphanumeric).at_least_once.returns("RANDOM-STRING")
-      content_block_edition.update_object_with_details("something", "my-thing", { "something" => "changed" })
-
-      assert_equal content_block_edition.details["something"], { "random-string" => { "something" => "changed" } }
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "Other thing", "something" => "changed" } }
     end
   end
 

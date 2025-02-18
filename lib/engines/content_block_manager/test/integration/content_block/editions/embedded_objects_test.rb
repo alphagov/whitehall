@@ -161,7 +161,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       assert_equal "Something edited. You can add another something or continue to create schema block", flash[:notice]
     end
 
-    it "should rename the object if a new name is given" do
+    it "should not rename the object if a new name is given" do
       put content_block_manager.embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
@@ -180,12 +180,12 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       assert_redirected_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "new-name",
+        object_name: "embedded",
       )
 
       updated_edition = edition.reload
 
-      assert_equal updated_edition.details, { "something" => { "new-name" => { "name" => "New Name", "is" => "different" } } }
+      assert_equal updated_edition.details, { "something" => { "embedded" => { "name" => "New Name", "is" => "different" } } }
     end
 
     it "should render errors if a validation error is thrown" do
