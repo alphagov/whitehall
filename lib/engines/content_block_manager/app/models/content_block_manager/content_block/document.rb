@@ -50,6 +50,10 @@ module ContentBlockManager
         editions.where(state: :draft).order(created_at: :asc).last
       end
 
+      def schema
+        @schema ||= ContentBlockManager::ContentBlock::Schema.find_by_block_type(block_type)
+      end
+
     private
 
       def embed_code_prefix
