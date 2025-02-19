@@ -24,7 +24,7 @@ private
           data: copy_embed_code(key),
         },
       ]
-      rows.push(embed_code_row(key))
+      rows.push(embed_code_row(key)) unless is_editable
       rows
     }.flatten
   end
