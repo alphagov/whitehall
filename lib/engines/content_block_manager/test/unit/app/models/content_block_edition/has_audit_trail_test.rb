@@ -36,6 +36,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
         document: create(:content_block_document, :email_address),
       )
       edition.scheduled_publication = Time.zone.now
+      edition.expects(:generate_diff).returns({})
 
       assert_changes -> { edition.versions.count }, from: 1, to: 2 do
         edition.schedule!
@@ -69,7 +70,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
       )
       edition.scheduled_publication = Time.zone.now
 
-      ContentBlockManager::ContentBlock::FieldDiff.expects(:all_for_edition).with(edition:).returns(nil)
+      edition.expects(:generate_diff).returns({})
       edition.schedule!
     end
   end

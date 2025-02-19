@@ -7,6 +7,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   extend Minitest::Spec::DSL
 
   let(:user) { create(:user) }
+  let(:schema) { stub(:schema, subschemas: []) }
 
   let(:content_block_edition) { build(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil) }
   let(:version) do
@@ -28,6 +29,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   let(:component) do
     ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::TimelineItemComponent.new(
       version:,
+      schema:,
       is_first_published_version:,
       is_latest:,
     )
@@ -106,7 +108,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   end
 
   describe "when field diffs are present" do
-    let(:field_diffs) { [{ "something" => "here" }] }
+    let(:field_diffs) { { "foo" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "previous value", new_value: "new value") } }
     let(:version) do
       build(
         :content_block_version,
@@ -122,11 +124,12 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
     it "renders the table component" do
       table_component = ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
         version: build(:content_block_version, field_diffs: []),
+        schema:,
       )
 
       ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent
         .expects(:new)
-        .with(version:)
+        .with(version:, schema:)
         .returns(table_component)
 
       component
@@ -150,6 +153,71 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
         component
           .expects(:render)
           .with("govuk_publishing_components/components/details", { title: "Details of changes", open: true })
+
+        render_inline component
+      end
+    end
+
+    describe "when a field diff is for an embedded object" do
+      let(:subschema) { stub(:subschema, id: "embedded_schema") }
+      let(:schema) { stub(:schema, subschemas: [subschema]) }
+
+      let(:field_diffs) do
+        {
+          "details" => {
+            "embedded_schema" => {
+              "something" => {
+                "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+                "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+              },
+            },
+          },
+        }
+      end
+
+      let(:version) do
+        build(
+          :content_block_version,
+          event: "created",
+          whodunnit: user.id,
+          state: "published",
+          created_at: 4.days.ago,
+          item: content_block_edition,
+          field_diffs:,
+        )
+      end
+
+      it "renders the embedded table component" do
+        table_component = stub("table_component")
+
+        ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent
+          .expects(:new)
+          .with(
+            object_id: "something",
+            field_diff: {
+              "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+              "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+            },
+            subschema_id: "embedded_schema",
+            content_block_edition:,
+          )
+          .returns(table_component)
+
+        component
+          .expects(:render)
+          .with("govuk_publishing_components/components/details", { title: "Details of changes", open: false })
+          .with_block_given
+          .yields
+
+        component
+          .expects(:render)
+          .with(table_component)
+          .once
+
+        component
+          .expects(:render)
+          .with(anything)
+          .once
 
         render_inline component
       end

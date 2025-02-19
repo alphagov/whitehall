@@ -12,13 +12,9 @@ class ContentBlockManager::ContentBlockVersionTest < ActiveSupport::TestCase
   end
   let(:whodunnit) { SecureRandom.uuid }
   let(:field_diffs) do
-    [
-      ContentBlockManager::ContentBlock::FieldDiff.new(
-        field_name: "some_field",
-        new_value: "new value",
-        previous_value: "previous value",
-      ),
-    ].to_json
+    {
+      "some_field" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "previous value", new_value: "new value"),
+    }
   end
 
   let(:content_block_version) do
@@ -55,6 +51,24 @@ class ContentBlockManager::ContentBlockVersionTest < ActiveSupport::TestCase
         :content_block_version,
         event: "invalid",
       )
+    end
+  end
+
+  describe "#field_diffs" do
+    it "returns the field diffs as typed objects" do
+      hash = {
+        "foo" => { "previous_value" => "bar", "new_value" => "baz" },
+      }
+
+      content_block_version.field_diffs = hash
+
+      assert_equal ContentBlockManager::ContentBlock::DiffItem.from_hash(hash), content_block_version.field_diffs
+    end
+
+    it "returns an empty hash when the value is nil" do
+      content_block_version.field_diffs = nil
+
+      assert_equal ({}), content_block_version.field_diffs
     end
   end
 end

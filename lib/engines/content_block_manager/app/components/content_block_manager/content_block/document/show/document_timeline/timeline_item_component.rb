@@ -1,15 +1,16 @@
 class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::TimelineItemComponent < ViewComponent::Base
   include ActionView::Helpers::RecordTagHelper
 
-  def initialize(version:, is_first_published_version:, is_latest:)
+  def initialize(version:, schema:, is_first_published_version:, is_latest:)
     @version = version
+    @schema = schema
     @is_first_published_version = is_first_published_version
     @is_latest = is_latest
   end
 
 private
 
-  attr_reader :version, :is_first_published_version, :is_latest
+  attr_reader :version, :schema, :is_first_published_version, :is_latest
 
   def title
     case version.state
@@ -41,5 +42,13 @@ private
 
   def change_note
     version.item.change_note
+  end
+
+  def embedded_object_diffs
+    schema.subschemas.map { |subschema|
+      version.field_diffs.dig("details", subschema.id).map do |object_id, field_diff|
+        { object_id:, field_diff:, subschema_id: subschema.id }
+      end
+    }.flatten
   end
 end
