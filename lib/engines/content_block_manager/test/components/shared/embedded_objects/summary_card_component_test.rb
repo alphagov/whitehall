@@ -92,6 +92,8 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
         object_name: "my-embedded-object",
       )
 
+      assert_selector ".govuk-summary-list__row", count: 3
+
       assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{expected_edit_path}']", text: "Edit"
 
       assert_selector ".govuk-summary-list__row", text: /Name/ do
@@ -146,6 +148,21 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       assert_no_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/name')}']", text: "Name"
       assert_no_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/field-1')}']", text: "Field 1"
       assert_no_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/field-2')}']", text: "Field 2"
+    end
+
+    it "does not embed code row" do
+      component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+        content_block_edition:,
+        object_type: "embedded-objects",
+        object_name: "my-embedded-object",
+        is_editable: true,
+      )
+
+      render_inline component
+
+      assert_no_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/name")
+      assert_no_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-1")
+      assert_no_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-2")
     end
   end
 end
