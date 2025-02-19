@@ -185,4 +185,20 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
       assert_equal newest_draft, document.latest_draft
     end
   end
+
+  describe "#schema" do
+    let(:document) { build(:content_block_document, :email_address) }
+    let(:schema) { build(:content_block_schema) }
+
+    it "returns a schema object" do
+      document.unstub(:schema)
+
+      ContentBlockManager::ContentBlock::Schema
+        .expects(:find_by_block_type)
+        .with(document.block_type)
+        .returns(schema)
+
+      assert_equal document.schema, schema
+    end
+  end
 end

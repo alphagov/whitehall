@@ -49,7 +49,7 @@ Feature: View a content object
   Scenario: GDS Editor can copy embed code for a specific field
     When I visit the Content Block Manager home page
     When I click to view the document with title "My pension"
-    And I click to copy the embed code for the pension "My pension", rate "My rate" and field "name"
+    And I click to copy the embed code for the pension "My pension", rate "My rate" and field "amount"
     Then the embed code should be copied to my clipboard
 
   Scenario: GDS Editor without javascript can see embed code

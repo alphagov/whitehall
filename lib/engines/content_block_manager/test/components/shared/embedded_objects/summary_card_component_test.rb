@@ -16,7 +16,14 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     }
   end
 
-  let(:content_block_edition) { build_stubbed(:content_block_edition, :email_address, details:) }
+  let(:schema) { stub(:schema) }
+  let(:subschema) { stub(:subschema, embeddable_fields: %w[name field-1 field-2]) }
+  let(:document) { build(:content_block_document, :email_address, schema:) }
+  let(:content_block_edition) { build_stubbed(:content_block_edition, :email_address, details:, document:) }
+
+  before do
+    schema.stubs(:subschema).returns(subschema)
+  end
 
   it "renders a summary list" do
     component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
@@ -71,6 +78,40 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/name")
     assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-1")
     assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-2")
+  end
+
+  describe "when only some fields are embeddable" do
+    let(:subschema) { stub(:subschema, embeddable_fields: %w[field-1]) }
+
+    it "only renders copy code buttons for embeddable fields" do
+      component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+        content_block_edition:,
+        object_type: "embedded-objects",
+        object_name: "my-embedded-object",
+      )
+
+      render_inline component
+
+      assert_no_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/name')}']", text: "Name"
+      assert_no_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/field-2')}']", text: "Field 2"
+
+      assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/field-1')}']", text: "Field 1"
+    end
+
+    it "only renders an embed code row for embeddable fields" do
+      component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+        content_block_edition:,
+        object_type: "embedded-objects",
+        object_name: "my-embedded-object",
+      )
+
+      render_inline component
+
+      assert_no_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/name")
+      assert_no_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-2")
+
+      assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-1")
+    end
   end
 
   describe "when card is editable" do

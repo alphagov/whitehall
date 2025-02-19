@@ -7,10 +7,19 @@ FactoryBot.define do
     latest_edition_id { nil }
     live_edition_id { nil }
 
+    transient do
+      schema { nil }
+    end
+
     ContentBlockManager::ContentBlock::Schema.valid_schemas.each do |type|
       trait type.to_sym do
         block_type { type }
+        schema { build(:content_block_schema, block_type: type) }
       end
+    end
+
+    after(:build) do |content_block_document, evaluator|
+      content_block_document.stubs(:schema).returns(evaluator.schema)
     end
   end
 end

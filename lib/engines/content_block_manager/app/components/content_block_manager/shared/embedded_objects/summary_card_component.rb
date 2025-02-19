@@ -21,10 +21,10 @@ private
         {
           key: key.titleize,
           value: object[key],
-          data: copy_embed_code(key),
+          data: is_embeddable?(key) ? copy_embed_code(key) : nil,
         },
       ]
-      rows.push(embed_code_row(key)) unless is_editable
+      rows.push(embed_code_row(key)) unless is_editable || !is_embeddable?(key)
       rows
     }.flatten
   end
@@ -39,6 +39,14 @@ private
         "embed-code-row": "true",
       },
     }
+  end
+
+  def embeddable_fields
+    @embeddable_fields = content_block_edition.document.schema.subschema(object_type).embeddable_fields
+  end
+
+  def is_embeddable?(key)
+    embeddable_fields.include?(key)
   end
 
   def copy_embed_code(key)

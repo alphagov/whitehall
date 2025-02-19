@@ -265,6 +265,17 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     end
   end
 
+  describe ".schema_settings" do
+    it "should return the schema settings" do
+      stub_schema = stub("schema_settings")
+      YAML.expects(:load_file)
+          .with(ContentBlockManager::ContentBlock::Schema::CONFIG_PATH)
+          .returns(stub_schema)
+
+      assert_equal ContentBlockManager::ContentBlock::Schema.schema_settings, stub_schema
+    end
+  end
+
   describe "when a schema has embedded objects" do
     let(:body) do
       {
@@ -295,6 +306,38 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     describe "#fields" do
       it "removes object fields" do
         assert_equal schema.fields, %w[foo]
+      end
+    end
+  end
+
+  describe "#embeddable_fields" do
+    describe "when config exists for a schema" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {
+                "embeddable_fields" => %w[something else],
+              },
+            },
+          })
+      end
+
+      it "returns the config values" do
+        assert_equal schema.embeddable_fields, %w[something else]
+      end
+    end
+
+    describe "when config does not exist for a schema" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({})
+      end
+
+      it "returns the fields" do
+        assert_equal schema.embeddable_fields, schema.fields
       end
     end
   end
