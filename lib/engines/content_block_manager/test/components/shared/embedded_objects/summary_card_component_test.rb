@@ -59,6 +59,20 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('embedded-objects/my-embedded-object/field-2')}']", text: "Field 2"
   end
 
+  it "renders an embed code row for each field" do
+    component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+      content_block_edition:,
+      object_type: "embedded-objects",
+      object_name: "my-embedded-object",
+    )
+
+    render_inline component
+
+    assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/name")
+    assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-1")
+    assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("embedded-objects/my-embedded-object/field-2")
+  end
+
   describe "when card is editable" do
     it "renders a summary list with edit link" do
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
