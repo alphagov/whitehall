@@ -69,6 +69,10 @@ module ContentBlockManager
         @block_type ||= id.delete_prefix("#{SCHEMA_PREFIX}_")
       end
 
+      def embeddable_fields
+        config["embeddable_fields"] || fields
+      end
+
       class EmbeddedSchema < Schema
         def initialize(id, body, parent_schema_id)
           @parent_schema_id = parent_schema_id

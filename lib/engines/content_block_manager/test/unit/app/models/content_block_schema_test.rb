@@ -309,4 +309,36 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "#embeddable_fields" do
+    describe "when config exists for a schema" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {
+                "embeddable_fields" => %w[something else],
+              },
+            },
+          })
+      end
+
+      it "returns the config values" do
+        assert_equal schema.embeddable_fields, %w[something else]
+      end
+    end
+
+    describe "when config does not exist for a schema" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({})
+      end
+
+      it "returns the fields" do
+        assert_equal schema.embeddable_fields, schema.fields
+      end
+    end
+  end
 end
