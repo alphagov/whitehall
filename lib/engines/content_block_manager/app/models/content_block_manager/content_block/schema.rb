@@ -6,6 +6,8 @@ module ContentBlockManager
       VALID_SCHEMAS = %w[email_address postal_address pension].freeze
       private_constant :VALID_SCHEMAS
 
+      CONFIG_PATH = File.join(ContentBlockManager::Engine.root, "config", "content_block_manager.yml")
+
       class << self
         def valid_schemas
           VALID_SCHEMAS
@@ -25,6 +27,10 @@ module ContentBlockManager
 
         def is_valid_schema?(key)
           key.start_with?(SCHEMA_PREFIX) && key.end_with?(*valid_schemas)
+        end
+
+        def schema_settings
+          @schema_settings ||= YAML.load_file(CONFIG_PATH)
         end
       end
 
@@ -52,7 +58,7 @@ module ContentBlockManager
       end
 
       def subschemas
-        @subschemas ||= embedded_objects.map { |object| EmbeddedSchema.new(*object) }
+        @subschemas ||= embedded_objects.map { |object| EmbeddedSchema.new(*object, @id) }
       end
 
       def permitted_params
@@ -64,7 +70,8 @@ module ContentBlockManager
       end
 
       class EmbeddedSchema < Schema
-        def initialize(id, body)
+        def initialize(id, body, parent_schema_id)
+          @parent_schema_id = parent_schema_id
           body = body["patternProperties"]&.values&.first || raise(ArgumentError, "Subschema `#{id}` is invalid")
           super(id, body)
         end
@@ -76,12 +83,22 @@ module ContentBlockManager
         def block_type
           @id
         end
+
+      private
+
+        def config
+          self.class.schema_settings.dig("schemas", @parent_schema_id, "subschemas", @id) || {}
+        end
       end
 
     private
 
       def embedded_objects
         @body["properties"].select { |_k, v| v["type"] == "object" }
+      end
+
+      def config
+        @config ||= self.class.schema_settings.dig("schemas", @id) || {}
       end
     end
   end

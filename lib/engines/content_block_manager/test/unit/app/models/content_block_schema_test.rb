@@ -265,6 +265,17 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     end
   end
 
+  describe ".schema_settings" do
+    it "should return the schema settings" do
+      stub_schema = stub("schema_settings")
+      YAML.expects(:load_file)
+          .with(ContentBlockManager::ContentBlock::Schema::CONFIG_PATH)
+          .returns(stub_schema)
+
+      assert_equal ContentBlockManager::ContentBlock::Schema.schema_settings, stub_schema
+    end
+  end
+
   describe "when a schema has embedded objects" do
     let(:body) do
       {

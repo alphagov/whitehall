@@ -1,0 +1,6 @@
+schemas:
+  content_block_pension:
+    subschemas:
+      rates:
+        embeddable_fields:
+          - amount
