@@ -7,7 +7,7 @@ module GovukPublishingComponents
     class SelectWithSearchHelper
       include ActionView::Helpers::FormOptionsHelper
 
-      attr_reader :options, :selected_option
+      attr_reader :options, :selected_options
 
       delegate :describedby,
                :error_id,
@@ -23,6 +23,7 @@ module GovukPublishingComponents
         @options = local_assigns[:options]
         @grouped_options = local_assigns[:grouped_options]
         @include_blank = local_assigns[:include_blank]
+        @selected_options = []
         @local_assigns = local_assigns
       end
 
@@ -40,7 +41,7 @@ module GovukPublishingComponents
           blank_option_if_include_blank +
             options_for_select(
               transform_options(@options),
-              selected_option,
+              selected_options,
             )
         end
       end
@@ -67,15 +68,15 @@ module GovukPublishingComponents
         end
         single_options.flatten!
 
-        options_for_select(transform_options(single_options), selected_option) +
-          grouped_options_for_select(transform_grouped_options(grouped_options), selected_option)
+        options_for_select(transform_options(single_options), selected_options) +
+          grouped_options_for_select(transform_grouped_options(grouped_options), selected_options)
       end
 
     private
 
       def transform_options(options)
         options.map do |option|
-          @selected_option = option[:value] if option[:selected]
+          @selected_options << option[:value] if option[:selected]
           [
             option[:text],
             option[:value],
