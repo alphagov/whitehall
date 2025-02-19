@@ -137,16 +137,33 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
               params: {
                 "content_block/edition" => {
                   "title" => "New title",
+                  "organisation_id" => organisation.id,
                   "details" => {
                     "foo" => "bar",
                   },
                 },
               }
 
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
+
           assert_equal edition.reload.title, "New title"
           assert_equal edition.reload.details["foo"], "bar"
+          assert_equal edition.reload.details["bar"], "Bar text"
+        end
 
-          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
+        it "updates the block with an empty string if a details field is blank" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+              params: {
+                "content_block/edition" => {
+                  "title" => "New title",
+                  "organisation_id" => organisation.id,
+                  "details" => {
+                    "foo" => "",
+                  },
+                },
+              }
+
+          assert_equal edition.reload.details["foo"], ""
         end
 
         it "updates the block and redirects to the review page if editing a new block" do
@@ -156,16 +173,18 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
               params: {
                 "content_block/edition" => {
                   "title" => "New title",
+                  "organisation_id" => organisation.id,
                   "details" => {
                     "foo" => "bar",
                   },
                 },
               }
 
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
+
           assert_equal edition.reload.title, "New title"
           assert_equal edition.reload.details["foo"], "bar"
-
-          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
+          assert_equal edition.reload.details["bar"], "Bar text"
         end
 
         it "shows an error if a required field is blank" do

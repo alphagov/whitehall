@@ -12,7 +12,7 @@ module ContentBlockManager
     end
 
     def organisation_id=(organisation_id)
-      if organisation_id.empty?
+      if organisation_id.blank?
         self.edition_organisation = nil
       else
         edition_organisation = build_edition_organisation

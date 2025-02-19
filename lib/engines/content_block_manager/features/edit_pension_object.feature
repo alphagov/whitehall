@@ -76,3 +76,14 @@ Feature: Edit a pension object
     When I click to view the content block
     Then the edition should have been updated successfully
     And I should see details of my "rate"
+
+  Scenario: GDS editor sees notification about an in-progress draft
+    When I visit the Content Block Manager home page
+    And I click to view the document
+    And I click to edit the "pension"
+    And I fill out the form
+    And I click the cancel link
+    And I click to save and come back later
+    When I click on the link to continue editing
+    And I click save
+    Then I should see the rates for that block
