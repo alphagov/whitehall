@@ -29,7 +29,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
       ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
         content_block_edition:,
         field: "something",
-        enum: %w[a week a month],
+        enum: ["a week", "a month"],
         value: "a week",
       ),
     )
@@ -41,7 +41,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
     assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
     assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"\"]"
     assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a week\"][selected]", text: "a week"
-    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a month\"]", text: "a  month"
+    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a month\"]", text: "a month"
   end
 
   it "should show errors when present" do
