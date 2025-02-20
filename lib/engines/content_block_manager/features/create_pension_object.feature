@@ -10,7 +10,7 @@ Feature: Create a content object
       | field     | type   | format | required | enum           | pattern          |
       | name      | string | string | true     |                |                  |
       | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
-      | cadence   | string | string |          | weekly,monthly |                  |
+      | cadence   | string | string |          | a week,a month |                  |
 
   Scenario: GDS editor creates a Pension
     When I visit the Content Block Manager home page

@@ -9,7 +9,7 @@ private
   def options
     ["", @enum].flatten.map do |item|
       {
-        text: item.humanize,
+        text: item,
         value: item,
         selected: item == value,
       }

@@ -10,7 +10,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
       ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
         content_block_edition:,
         field: "something",
-        enum: %w[item_1 item_2],
+        enum: ["a week", "a month"],
       ),
     )
 
@@ -20,8 +20,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
     assert_selector "label", text: "Something"
     assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
     assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"\"]"
-    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"item_1\"]", text: "Item 1"
-    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"item_2\"]", text: "Item 2"
+    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a week\"]", text: "a week"
+    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a month\"]", text: "a month"
   end
 
   it "should show an option as selected when value is given" do
@@ -29,8 +29,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
       ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
         content_block_edition:,
         field: "something",
-        enum: %w[item_1 item_2],
-        value: "item_1",
+        enum: %w[a week a month],
+        value: "a week",
       ),
     )
 
@@ -40,8 +40,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
     assert_selector "label", text: "Something"
     assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
     assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"\"]"
-    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"item_1\"][selected]", text: "Item 1"
-    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"item_2\"]", text: "Item 2"
+    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a week\"][selected]", text: "a week"
+    assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a month\"]", text: "a  month"
   end
 
   it "should show errors when present" do

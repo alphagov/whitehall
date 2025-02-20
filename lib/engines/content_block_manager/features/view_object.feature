@@ -9,11 +9,11 @@ Feature: View a content object
       | field     | type   | format | required | enum           | pattern          |
       | name      | string | string | true     |                |                  |
       | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
-      | cadence   | string | string |          | weekly,monthly |                  |
+      | cadence   | string | string |          | a week,a month |                  |
     And a pension content block has been created
     And that pension has a rate with the following fields:
       | name    | amount  | cadence |
-      | My rate | £123.45 | weekly  |
+      | My rate | £123.45 | a week  |
     And a schema "email_address" exists with the following fields:
       | email_address |
     And an email address content block has been created
