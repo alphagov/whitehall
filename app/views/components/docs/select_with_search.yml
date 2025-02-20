@@ -170,15 +170,3 @@ examples:
         value: option2
       - text: Option three
         value: option3
-  with_page_heading:
-    description: This adds a `h1` element with a label element inside containing the text supplied.
-    data:
-      id: select-with-page-heading
-      label: This is a page heading
-      heading_size: xl
-      is_page_heading: true
-      options:
-      - text: Option one
-        value: option1
-      - text: Option two
-        value: option2
