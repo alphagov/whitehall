@@ -1,5 +1,6 @@
 <%
   id ||= "autocomplete-#{SecureRandom.hex(4)}"
+  name ||= id
   error_id = "error-#{SecureRandom.hex(4)}"
   error_items ||= []
   aria = error_id if error_items.any?

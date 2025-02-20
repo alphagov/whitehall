@@ -43,6 +43,17 @@ examples:
             - United Kingdom
             - uk
 
+  with_missing_name:
+    description: If no name is provided, name defaults to the (required) value of id.
+    data:
+      id: dropdown-with-different-id-and-name
+      label: My Dropdown
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2
+
   with_custom_heading_size:
     data:
       id: autocomplete
