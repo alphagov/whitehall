@@ -26,6 +26,15 @@ class AutocompleteComponentTest < ComponentTestCase
     end
   end
 
+  test "defaults the 'name' to be the same as 'id'" do
+    data_without_name = component_data.dup
+    data_without_name.delete(:name)
+    render_component(data_without_name)
+    assert_select ".app-c-autocomplete"
+    assert_select ".govuk-select[id='id'][name='id']"
+    assert_select ".govuk-label", text: "text"
+  end
+
   test "renders the basic component" do
     render_component(component_data)
     assert_select ".app-c-autocomplete"
