@@ -112,3 +112,10 @@ And(/^I should see the updated rates for that block$/) do
     assert_text @details[k]
   end
 end
+
+Then("the value of the {string} for my {string} should be {string}") do |attribute, object, expected_value|
+  edition = ContentBlockManager::ContentBlock::Edition.all.last
+  key = @object_name
+
+  assert_equal edition.details[object.pluralize][key][attribute], expected_value
+end
