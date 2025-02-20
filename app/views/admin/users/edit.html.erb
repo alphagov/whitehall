@@ -5,7 +5,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @user, as: :user, url: admin_user_path(@user), method: :put do |form| %>
-      <%= render "components/autocomplete", {
+      <%= render "components/select_with_search", {
         id: "user_world_location_ids",
         name: "user[world_location_ids][]",
         include_blank: true,
