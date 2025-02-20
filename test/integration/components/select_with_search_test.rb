@@ -52,4 +52,12 @@ class SelectWithSearchTest < ActionDispatch::IntegrationTest
       assert node[:'data-loose'] == "moose"
     end
   end
+
+  test "it renders error messages" do
+    load_example "with_error"
+    assert_selector ".govuk-form-group--error"
+    assert_selector "select[name='dropdown-with-error']" do |node|
+      assert node[:'aria-describedby'] =~ /error-(.+)/
+    end
+  end
 end

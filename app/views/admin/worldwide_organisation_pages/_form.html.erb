@@ -9,7 +9,7 @@
       name: "worldwide_organisation_page[corporate_information_page_type_id]",
       label: "Type",
       heading_size: "l",
-      error_message: errors_for_input(worldwide_organisation_page.errors, :corporate_information_page_type_id),
+      error_items: errors_for(worldwide_organisation_page.errors, :corporate_information_page_type_id),
       include_blank: true,
       options: corporate_information_page_types(@worldwide_organisation).map do |type, value|
         {

@@ -5,7 +5,7 @@
     label: "Publication type (required)",
     heading_size: "l",
     value: edition.publication_type_id,
-    error_message: errors_for_input(edition.errors, :publication_type_id),
+    error_items: errors_for(edition.errors, :publication_type_id),
     include_blank: true,
     grouped_options: [
       [
