@@ -120,6 +120,20 @@ examples:
         value: option1
       - text: Option two
         value: option2
+  with_data_attributes:
+    data:
+      id: dropdown-with-data-attributes
+      data_attributes:
+        module: not-a-module
+        loose: moose
+      label: Select your country
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
   with_preselect:
     data:
       id: dropdown-with-preselect

@@ -44,4 +44,12 @@ class SelectWithSearchTest < ActionDispatch::IntegrationTest
       assert_equal rendered_options, %w[Cardiff Swansea]
     end
   end
+
+  test "it renders custom data attributes" do
+    load_example "with_data_attributes"
+    assert_selector ".app-c-select-with-search" do |node|
+      assert node[:'data-module'] == "not-a-module select-with-search"
+      assert node[:'data-loose'] == "moose"
+    end
+  end
 end

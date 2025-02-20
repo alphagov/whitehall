@@ -46,9 +46,11 @@ module GovukPublishingComponents
       end
 
       def data_attributes
-        {
-          "module": "select-with-search",
-        }.compact
+        data_attributes = @local_assigns[:data_attributes] || {}
+        data_attributes[:module] ||= ""
+        data_attributes[:module] << " select-with-search"
+        data_attributes[:module].strip!
+        data_attributes
       end
 
       def grouped_and_ungrouped_options_for_select(unsorted_options)
