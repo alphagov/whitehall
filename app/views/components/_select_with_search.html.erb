@@ -2,7 +2,6 @@
   id ||= false
   label ||= false
   name ||= id
-  is_page_heading ||= false
 
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   heading_size = false unless shared_helper.valid_heading_size?(heading_size)
@@ -12,11 +11,7 @@
 %>
 
 <%= content_tag :div, class: select_helper.css_classes, data: select_helper.data_attributes do %>
-  <% if is_page_heading %>
-    <%= tag.h1 label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label"), class: "govuk-heading-xl" %>
-  <% else %>
-    <%= label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label") %>
-  <% end %>
+  <%= label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label") %>
 
   <% if select_helper.hint %>
     <%= render "govuk_publishing_components/components/hint", {
