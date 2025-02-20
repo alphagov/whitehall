@@ -1,9 +1,10 @@
 class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent < ContentBlockManager::ContentBlockEdition::Details::FormComponent
-  def initialize(content_block_edition:, schema:, object_name:, params:)
+  def initialize(content_block_edition:, schema:, object_name:, params:, prefix: nil)
     @content_block_edition = content_block_edition
     @schema = schema
     @object_name = object_name
     @params = params || {}
+    @prefix = prefix
   end
 
 private

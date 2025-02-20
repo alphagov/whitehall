@@ -26,6 +26,10 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
   let(:content_block_edition) { build(:content_block_edition) }
   let(:schema) { build(:content_block_schema, body:) }
 
+  before do
+    schema.stubs(:config_for_field).with(anything).returns({})
+  end
+
   it "renders fields for each property" do
     foo_stub = stub("string_component")
     bar_stub = stub("string_component")
@@ -57,5 +61,43 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
     component.expects(:render).with(baz_stub)
 
     render_inline(component)
+  end
+
+  describe "when a field has a prefix config" do
+    let(:body) do
+      {
+        "type" => "object",
+        "required" => %w[foo bar],
+        "additionalProperties" => false,
+        "properties" => {
+          "foo" => {
+            "type" => "string",
+          },
+        },
+      }
+    end
+
+    before do
+      schema.expects(:config_for_field).with("foo").returns({ "field_args" => { "prefix" => "$" } })
+    end
+
+    it "sends a prefix to the component" do
+      foo_stub = stub("string_component")
+
+      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
+        content_block_edition:,
+        field: "foo",
+        prefix: "$",
+      ).returns(foo_stub)
+
+      component = ContentBlockManager::ContentBlockEdition::Details::FormComponent.new(
+        content_block_edition:,
+        schema:,
+      )
+
+      component.expects(:render).with(foo_stub)
+
+      render_inline(component)
+    end
   end
 end

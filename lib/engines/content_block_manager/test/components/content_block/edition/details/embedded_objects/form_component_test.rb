@@ -32,7 +32,6 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
       label: "Foo",
       field: [object_name, "foo"],
       id_suffix: "#{object_name}_foo",
-      value: nil,
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
@@ -40,7 +39,6 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
       label: "Bar",
       field: [object_name, "bar"],
       id_suffix: "#{object_name}_bar",
-      value: nil,
     ).returns(bar_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
@@ -72,7 +70,6 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
       label: "Bar",
       field: [object_name, "bar"],
       id_suffix: "#{object_name}_bar",
-      value: nil,
     ).returns(bar_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
