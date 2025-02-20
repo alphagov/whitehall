@@ -16,6 +16,9 @@
   data_attributes[:module].strip!
   data_attributes.merge!(autocomplete_configuration_options:)
 
+  select_helper = GovukPublishingComponents::Presenters::SelectWithSearchHelper.new(local_assigns)
+  aria_describedby = { describedby: select_helper.describedby }
+
   root_classes = %w(app-c-autocomplete govuk-form-group)
   root_classes << "govuk-form-group--error" if error_items.any?
 %>
@@ -26,6 +29,13 @@
     text: label,
     heading_size:,
   } %>
+
+  <% if select_helper.hint %>
+    <%= render "govuk_publishing_components/components/hint", {
+      id: select_helper.hint_id,
+      text: hint,
+    } %>
+  <% end %>
 
   <% if error_items.any? %>
     <%= render "govuk_publishing_components/components/error_message", {
@@ -41,10 +51,6 @@
                  class: "govuk-hint app-c-autocomplete__multiselect-instructions" %>
   <% end %>
 
-  <%
-    select_helper = GovukPublishingComponents::Presenters::SelectWithSearchHelper.new(local_assigns)
-    aria_describedby = { describedby: select_helper.describedby }
-  %>
   <%= select_tag(
     name,
     select_helper.options_html,

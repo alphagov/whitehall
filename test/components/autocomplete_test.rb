@@ -85,7 +85,14 @@ class AutocompleteComponentTest < ComponentTestCase
     assert_select ".app-c-autocomplete .govuk-select option[value='uk'][selected='selected']"
   end
 
-  test "accepts data attribures" do
+  test "accepts a hint" do
+    data = component_data
+    data[:hint] = "hint"
+    render_component(data)
+    assert_select ".govuk-hint", text: "hint"
+  end
+
+  test "accepts data attributes" do
     data = component_data
     data[:data_attributes] = {
       module: "not-a-module",

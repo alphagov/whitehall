@@ -76,6 +76,20 @@ examples:
         - text: United Kingdom
           value: uk
 
+  with_hint:
+    description: When a hint is included the `aria-describedby` attribute of the select is included to point to the hint. When an error and a hint are present, that attribute includes the IDs of both the hint and the error.
+    data:
+      id: dropdown-with-hint
+      name: dropdown-with-hint
+      label: Choose your preferred thing
+      hint: You might need some more information here
+      hint_id: optional-hint-id
+      options:
+      - text: Something
+        value: option1
+      - text: Something else
+        value: option2
+
   with_error:
     data:
       name: autocomplete-with-error
