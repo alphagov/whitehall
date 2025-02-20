@@ -30,7 +30,7 @@
     "eslint-plugin-promise": "^6.6.0",
     "jasmine-browser-runner": "^3.0.0",
     "jasmine-core": "^5.6.0",
-    "postcss": "^8.5.2",
+    "postcss": "^8.5.3",
     "prettier": "^3.5.1",
     "standard": "^17.1.2",
     "stylelint": "^16.14.1",
