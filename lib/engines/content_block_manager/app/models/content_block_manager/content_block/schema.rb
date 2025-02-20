@@ -73,6 +73,10 @@ module ContentBlockManager
         config["embeddable_fields"] || fields
       end
 
+      def config_for_field(field)
+        config.dig("fields", field) || {}
+      end
+
       class EmbeddedSchema < Schema
         def initialize(id, body, parent_schema_id)
           @parent_schema_id = parent_schema_id

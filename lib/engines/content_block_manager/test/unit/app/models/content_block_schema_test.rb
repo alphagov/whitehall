@@ -341,4 +341,46 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "#config_for_field" do
+    describe "when config exists for a given field" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {
+                "fields" => {
+                  "my_field" => { "foo" => "bar" },
+                },
+              },
+            },
+          })
+      end
+
+      it "returns that config" do
+        assert_equal schema.config_for_field("my_field"), { "foo" => "bar" }
+      end
+    end
+
+    describe "when config does not exist for a given field" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {
+                "fields" => {
+                  "another_field" => { "foo" => "bar" },
+                },
+              },
+            },
+          })
+      end
+
+      it "returns an empty hash" do
+        assert_equal schema.config_for_field("my_field"), {}
+      end
+    end
+  end
 end
