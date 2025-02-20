@@ -42,7 +42,7 @@
     name: "organisation[organisation_logo_type_id]",
     id: "organisation_organisation_logo_type_id",
     heading_size: "l",
-    error_message: errors_for_input(organisation.errors, :organisation_logo_type_id),
+    error_items: errors_for(organisation.errors, :organisation_logo_type_id),
     include_blank: true,
     options: OrganisationLogoType.all.map do |logo_type|
       {
@@ -77,7 +77,7 @@
     name: "organisation[organisation_brand_colour_id]",
     id: "organisation_organisation_brand_colour_id",
     heading_size: "l",
-    error_message: errors_for_input(organisation.errors, :organisation_brand_colour_id),
+    error_items: errors_for(organisation.errors, :organisation_brand_colour_id),
     include_blank: true,
     options: OrganisationBrandColour.all.map do |brand_colour|
       {
@@ -122,7 +122,7 @@
     name: "organisation[organisation_type_key]",
     id: "organisation_organisation_type_key",
     heading_size: "l",
-    error_message: errors_for_input(organisation.errors, :organisation_type_key),
+    error_items: errors_for(organisation.errors, :organisation_type_key),
     include_blank: true,
     options: OrganisationType.in_listing_order.map do |type|
       {

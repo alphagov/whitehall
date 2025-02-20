@@ -3,7 +3,7 @@
   name: "organisation[govuk_closed_status]",
   id: "organisation_govuk_closed_status",
   heading_size: "m",
-  error_message: errors_for_input(organisation.errors, :govuk_closed_status),
+  error_items: errors_for(organisation.errors, :govuk_closed_status),
   include_blank: true,
   options: [
     {

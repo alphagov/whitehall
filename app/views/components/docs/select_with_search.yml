@@ -159,12 +159,12 @@ examples:
       - text: Something else
         value: option2
   with_error:
-    description: If the user has to select an option, it is recommended that a radio button is used instead of a select, but this is not always possible. Note that `error_id` is optional, if it is not passed one will be generated automatically.
+    description: An arbitrary number of separate error items can be passed to the component.
     data:
       id: dropdown-with-error
       label: How will you be travelling to the conference?
-      error_message: Please choose an option
-      error_id: error_id
+      error_items:
+        - text: Please choose an option
       include_blank: true
       options:
       - text: Public transport

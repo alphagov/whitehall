@@ -7,11 +7,9 @@ module GovukPublishingComponents
     class SelectWithSearchHelper
       include ActionView::Helpers::FormOptionsHelper
 
-      attr_reader :options, :selected_options
+      attr_reader :options, :selected_options, :error_id, :error_items, :aria
 
       delegate :describedby,
-               :error_id,
-               :error_message,
                :hint_id,
                :hint,
                :label_classes,
@@ -20,6 +18,9 @@ module GovukPublishingComponents
 
       def initialize(local_assigns)
         @select_helper = SelectHelper.new(local_assigns.except(:options, :grouped_options))
+        @error_id = "error-#{SecureRandom.hex(4)}"
+        @error_items = local_assigns[:error_items] || []
+        @aria = @error_items.any? ? { describedby: @error_id } : @describedby
         @options = local_assigns[:options]
         @grouped_options = local_assigns[:grouped_options]
         @include_blank = local_assigns[:include_blank]
@@ -29,7 +30,7 @@ module GovukPublishingComponents
 
       def css_classes
         classes = %w[app-c-select-with-search govuk-form-group]
-        classes << "govuk-form-group--error" if error_message
+        classes << "govuk-form-group--error" if error_items.any?
         classes
       end
 

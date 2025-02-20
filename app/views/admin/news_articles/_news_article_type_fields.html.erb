@@ -5,7 +5,7 @@
     label: "News article type (required)",
     heading_size: "l",
     value: edition.news_article_type_id,
-    error_message: errors_for_input(edition.errors, :news_article_type_id),
+    error_items: errors_for(edition.errors, :news_article_type_id),
     include_blank: true,
     options: NewsArticleType.all.map do |type|
       {

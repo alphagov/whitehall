@@ -5,7 +5,7 @@
     label: "Speech type",
     heading_size: "l",
     value: edition.speech_type_id,
-    error_message: errors_for_input(edition.errors, :speech_type_id),
+    error_items: errors_for(edition.errors, :speech_type_id),
     include_blank: true,
     options: SpeechType.primary.map do |type|
       {
