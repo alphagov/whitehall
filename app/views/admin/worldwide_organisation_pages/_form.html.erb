@@ -4,7 +4,7 @@
     admin_worldwide_organisation_pages_path(@worldwide_organisation) do |form| %>
 
   <% unless form.object.persisted? %>
-    <%= render "components/select_with_search", {
+    <%= render "components/autocomplete", {
       id: "worldwide_organisation_page_corporate_information_page_type_id",
       name: "worldwide_organisation_page[corporate_information_page_type_id]",
       label: "Type",

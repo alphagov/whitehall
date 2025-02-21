@@ -24,7 +24,7 @@
     <% end %>
 
     <% if filter_by.include?(:author) %>
-      <%= render "components/select_with_search", {
+      <%= render "components/autocomplete", {
         label: "Author",
         id: "author_filter",
         name: "author",
@@ -50,7 +50,7 @@
     <% end %>
 
     <% if filter_by.include?(:world_location) %>
-      <%= render "components/select_with_search", {
+      <%= render "components/autocomplete", {
         label: "World location",
         id: "world_location_filter",
         name: "world_location",
@@ -77,7 +77,7 @@
     <% end %>
 
     <% if filter_by.include?(:state) %>
-      <%= render "components/select_with_search", {
+      <%= render "components/autocomplete", {
         label: "State",
         id: "state_filter",
         name: "state",
