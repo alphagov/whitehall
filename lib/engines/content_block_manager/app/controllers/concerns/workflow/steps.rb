@@ -12,7 +12,7 @@ module Workflow::Steps
                    Workflow::Step.new(
                      "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
                      "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
-                     :redirect_to_next_subschema_or_continue,
+                     :redirect_to_next_step,
                      true,
                    )
                  end

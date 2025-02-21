@@ -146,8 +146,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
       it "inserts the subschemas into the flow" do
         assert_equal workflow.steps, [
           Workflow::Step::ALL[0],
-          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_subschema_or_continue, true),
-          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_subschema_or_continue, true),
+          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
           Workflow::Step::ALL[1..],
         ].flatten
       end
@@ -202,8 +202,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
       it "removes steps not included in the create journey" do
         assert_equal workflow.steps, [
           Workflow::Step.new(:edit_draft, :edit_draft, :update_draft, true),
-          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_subschema_or_continue, true),
-          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_subschema_or_continue, true),
+          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
           Workflow::Step.new(:review, :review, :validate_review_page, true),
           Workflow::Step.new(:confirmation, :confirmation, nil, true),
         ].flatten

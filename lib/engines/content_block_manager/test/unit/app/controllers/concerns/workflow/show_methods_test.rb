@@ -31,47 +31,19 @@ class Workflow::ShowMethodsTest < ActionDispatch::IntegrationTest
 
   describe "#back_path" do
     let(:content_block_edition) { build_stubbed(:content_block_edition) }
-    let(:stub_document) { stub(:document, is_new_block?: is_new_block) }
 
-    before do
-      content_block_edition.stubs(:document).returns(stub_document)
-    end
+    it "returns the name of the previous step" do
+      expected_step_name = "something"
 
-    describe "#back_path" do
-      describe "when editing an existing block" do
-        let(:is_new_block) { false }
+      current_step = mock("Workflow::Step")
+      previous_step = mock("Workflow::Step", name: expected_step_name)
 
-        it "returns the name of the next step" do
-          current_step_name = "my_step"
-          expected_step_name = "something"
+      test_class = ShowMethodsTestClass.new(current_step:, previous_step:, content_block_edition:)
 
-          current_step = mock("Workflow::Step", name: current_step_name)
-          previous_step = mock("Workflow::Step", name: expected_step_name)
-
-          test_class = ShowMethodsTestClass.new(current_step:, previous_step:, content_block_edition:)
-
-          assert_equal test_class.back_path, content_block_manager.content_block_manager_content_block_workflow_path(
-            content_block_edition,
-            step: expected_step_name,
-          )
-        end
-      end
-    end
-
-    describe "when editing an existing block" do
-      let(:is_new_block) { true }
-
-      it "returns the edit draft step" do
-        current_step = mock("Workflow::Step", name: :review)
-        previous_step = mock("Workflow::Step")
-
-        test_class = ShowMethodsTestClass.new(current_step:, previous_step:, content_block_edition:)
-
-        assert_equal test_class.back_path, content_block_manager.content_block_manager_content_block_workflow_path(
-          content_block_edition,
-          step: :edit_draft,
-        )
-      end
+      assert_equal test_class.back_path, content_block_manager.content_block_manager_content_block_workflow_path(
+        content_block_edition,
+        step: expected_step_name,
+      )
     end
   end
 end

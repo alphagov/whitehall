@@ -14,35 +14,12 @@ module Workflow::UpdateMethods
     )
     @content_block_edition.save!
 
-    if @content_block_edition.document.is_new_block?
-      redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
-        id: @content_block_edition.id,
-        step: :review,
-      )
-    else
-      redirect_to_next_step
-    end
+    redirect_to_next_step
   rescue ActiveRecord::RecordInvalid
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
     @form = ContentBlockManager::ContentBlock::EditionForm::Edit.new(content_block_edition: @content_block_edition, schema: @schema)
 
     render :edit_draft
-  end
-
-  def redirect_to_next_subschema_or_continue
-    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-    if @content_block_edition.document.is_new_block?
-      if next_step.is_subschema?
-        redirect_to_next_step
-      else
-        redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
-          id: @content_block_edition.id,
-          step: :review,
-        )
-      end
-    else
-      redirect_to_next_step
-    end
   end
 
   def validate_schedule
