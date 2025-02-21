@@ -1,5 +1,28 @@
 <div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="<%= PublicationType::FORMAT_ADVICE %>">
-  <%= render "components/select_with_search", {
+  <%
+    primary_publication_types = PublicationType.primary.map do |publication_type|
+      {
+        text: publication_type.singular_name,
+        value: publication_type.id,
+        selected: edition.publication_type_id == publication_type.id,
+      }
+    end
+    less_common_publication_types = PublicationType.less_common.map do |publication_type|
+      {
+        text: "Less common: #{publication_type.singular_name}",
+        value: publication_type.id,
+        selected: edition.publication_type_id == publication_type.id,
+      }
+    end
+    use_discouraged_publication_types = PublicationType.use_discouraged.map do |publication_type|
+      {
+        text: "Deprecated: #{publication_type.singular_name}",
+        value: publication_type.id,
+        selected: edition.publication_type_id == publication_type.id,
+      }
+    end
+  %>
+  <%= render "components/autocomplete", {
     id: "edition_publication_type_id",
     name: "edition[publication_type_id]",
     label: "Publication type (required)",
@@ -7,32 +30,7 @@
     value: edition.publication_type_id,
     error_items: errors_for(edition.errors, :publication_type_id),
     include_blank: true,
-    grouped_options: [
-      [
-        "Common types",
-        PublicationType.primary,
-      ],
-      [
-        "Less common types",
-        PublicationType.less_common,
-      ],
-      [
-        "Use discouraged",
-        PublicationType.use_discouraged,
-      ],
-    ]
-    .map do |group|
-      [
-        group.first,
-        group.second.map do |publication_type|
-          {
-            text: publication_type.singular_name,
-            value: publication_type.id,
-            selected: edition.publication_type_id == publication_type.id,
-          }
-        end,
-      ]
-    end,
+    options: primary_publication_types + less_common_publication_types + use_discouraged_publication_types,
   } %>
 
   <% if edition.publication_type_id.present? %>
