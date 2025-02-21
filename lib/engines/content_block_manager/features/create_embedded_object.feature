@@ -16,7 +16,7 @@ Feature: Create an embedded content object
   Scenario: GDS editor creates a rate
     When I visit the Content Block Manager home page
     And I click to view the document
-    And I click to create a new "rate"
+    And I click to add a new "rate"
     Then I should see a form to create a "rate" for the content block
     When I complete the "rate" form with the following fields:
       | name    | amount  | cadence |

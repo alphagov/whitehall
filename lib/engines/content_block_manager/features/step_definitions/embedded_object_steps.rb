@@ -61,8 +61,8 @@ And("I should see details of my {string}") do |object_type|
   end
 end
 
-And("I click to create a new {string}") do |object_type|
-  click_on "Create #{object_type}"
+And("I click to add a new {string}") do |object_type|
+  click_on "Add a #{object_type}"
 end
 
 And("I review and confirm my {string} is correct") do |_object_type|

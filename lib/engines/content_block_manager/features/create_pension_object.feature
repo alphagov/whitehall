@@ -37,7 +37,7 @@ Feature: Create a content object
     When I complete the form with the following fields:
       | title            | description   | organisation        | instructions_to_publishers |
       | my basic pension | this is basic | Ministry of Example | this is important  |
-    When I click to create a new "rate"
+    When I click to add a new "rate"
     And I complete the "rate" form with the following fields:
       | name     | amount  | cadence  |
       | New rate | £127.91 | a month  |
