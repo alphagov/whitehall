@@ -17,6 +17,7 @@ Then("I should see a back link to the show page") do
 end
 
 Then(/^I should see a back link to the "([^"]*)" step$/) do |step|
+  @content_block ||= ContentBlockManager::ContentBlock::Edition.last
   link = if step == "edit"
            content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
          else

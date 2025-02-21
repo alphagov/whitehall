@@ -61,13 +61,16 @@ class Workflow::ShowMethodsTest < ActionDispatch::IntegrationTest
     describe "when editing an existing block" do
       let(:is_new_block) { true }
 
-      it "returns the homepage link for the review step" do
-        current_step = mock("Workflow::Step", name: "review")
+      it "returns the edit draft step" do
+        current_step = mock("Workflow::Step", name: :review)
         previous_step = mock("Workflow::Step")
 
         test_class = ShowMethodsTestClass.new(current_step:, previous_step:, content_block_edition:)
 
-        assert_equal test_class.back_path, content_block_manager.content_block_manager_content_block_documents_path
+        assert_equal test_class.back_path, content_block_manager.content_block_manager_content_block_workflow_path(
+          content_block_edition,
+          step: :edit_draft,
+        )
       end
     end
   end
