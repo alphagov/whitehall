@@ -38,10 +38,13 @@ module ContentBlockManager
 
       def clone_edition(creator:)
         new_edition = dup
-        new_edition.state = "draft"
-        new_edition.organisation = lead_organisation
-        new_edition.creator = creator
-
+        new_edition.assign_attributes(
+          state: "draft",
+          organisation: lead_organisation,
+          creator: creator,
+          change_note: nil,
+          internal_change_note: nil,
+        )
         new_edition
       end
 
