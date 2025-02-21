@@ -10,7 +10,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
     @content_block_edition.add_object_to_details(@subschema.block_type, @object)
     @content_block_edition.save!
 
-    flash[:notice] = "#{@subschema.name.singularize} created. You can add another #{@subschema.name.singularize.downcase} or continue to create #{@schema.name.singularize.downcase} block"
+    flash[:notice] = "#{@subschema.name.singularize} added. You can add another #{@subschema.name.singularize.downcase} or finish creating the #{@schema.name.singularize.downcase} block"
     step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
   rescue ActiveRecord::RecordInvalid
