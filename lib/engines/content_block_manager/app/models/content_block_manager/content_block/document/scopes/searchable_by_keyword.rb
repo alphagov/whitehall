@@ -3,9 +3,11 @@ module ContentBlockManager
     extend ActiveSupport::Concern
 
     SQL = <<-SQL.freeze
-        content_block_editions.title REGEXP :pattern OR#{' '}
-        content_block_editions.details REGEXP :pattern OR#{' '}
-        content_block_editions.instructions_to_publishers REGEXP :pattern
+        MATCH(
+           content_block_editions.title,#{' '}
+           content_block_editions.details_for_indexing,#{' '}
+           content_block_editions.instructions_to_publishers
+        ) AGAINST (:pattern IN BOOLEAN MODE)
     SQL
 
     included do
@@ -14,8 +16,8 @@ module ContentBlockManager
               split_keywords = keywords.split
               pattern = split_keywords.map { |k|
                 escaped_word = Regexp.escape(k)
-                "(?=.*#{escaped_word})"
-              }.join
+                "+#{escaped_word}"
+              }.join(" ")
               joins(:latest_edition)
                 .where(SQL, pattern:)
             }
