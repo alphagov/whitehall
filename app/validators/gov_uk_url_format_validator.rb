@@ -8,6 +8,7 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
     .nationalhighways.co.uk
     .nhs.uk
     .police.uk
+    .pubscodeadjudicator.org.uk
     .ukri.org
   ].freeze
 
