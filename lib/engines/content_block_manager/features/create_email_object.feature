@@ -24,7 +24,8 @@ Feature: Create a content object
       | title            | email_address   | department | organisation        | instructions_to_publishers |
       | my email address | foo@example.com | Somewhere  | Ministry of Example | this is important  |
     Then I am asked to review my answers
-    And I review and confirm my answers are correct
+    And I should see a back link to the "edit_draft" step
+    When I review and confirm my answers are correct
     Then the edition should have been created successfully
     And I should be taken to the confirmation page for a new block
 
