@@ -67,6 +67,15 @@ namespace :reporting do
       print_result(object)
     end
   end
+
+  desc "report assets belonging to edition attachments that have not been persisted to asset manager correctly"
+  task :broken_assets => :environment do
+    reporter = AttachmentStateReplicationReporter.new(Services.asset_manager)
+    reporter.run
+    if reporter.errors.any?
+      reporter.report
+    end
+  end
 end
 
 def print_result(object)
