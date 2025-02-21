@@ -14,7 +14,7 @@
       form.object.new_record? || option[:selected]
     end,
   include_blank: form.object.new_record?,
-  error_message: errors_for_input(form.object.errors, :person_id),
+  error_items: errors_for(form.object.errors, :person_id),
 } %>
 
 <% if form.object.new_record? %>

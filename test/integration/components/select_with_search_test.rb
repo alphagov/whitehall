@@ -44,4 +44,20 @@ class SelectWithSearchTest < ActionDispatch::IntegrationTest
       assert_equal rendered_options, %w[Cardiff Swansea]
     end
   end
+
+  test "it renders custom data attributes" do
+    load_example "with_data_attributes"
+    assert_selector ".app-c-select-with-search" do |node|
+      assert node[:'data-module'] == "not-a-module select-with-search"
+      assert node[:'data-loose'] == "moose"
+    end
+  end
+
+  test "it renders error messages" do
+    load_example "with_error"
+    assert_selector ".govuk-form-group--error"
+    assert_selector "select[name='dropdown-with-error']" do |node|
+      assert node[:'aria-describedby'] =~ /error-(.+)/
+    end
+  end
 end

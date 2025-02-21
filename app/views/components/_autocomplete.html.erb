@@ -1,16 +1,23 @@
 <%
   id ||= "autocomplete-#{SecureRandom.hex(4)}"
+  name ||= id
   error_id = "error-#{SecureRandom.hex(4)}"
   error_items ||= []
   aria = error_id if error_items.any?
   select ||= {}
-  autocomplete_configuration_options ||= {}
+  heading_size ||= nil
+  autocomplete_configuration_options ||= {
+    showAllValues: true,
+  }
 
   data_attributes ||= {}
   data_attributes[:module] ||= ""
   data_attributes[:module] << " autocomplete"
   data_attributes[:module].strip!
   data_attributes.merge!(autocomplete_configuration_options:)
+
+  select_helper = GovukPublishingComponents::Presenters::SelectWithSearchHelper.new(local_assigns)
+  aria_describedby = { describedby: select_helper.describedby }
 
   root_classes = %w(app-c-autocomplete govuk-form-group)
   root_classes << "govuk-form-group--error" if error_items.any?
@@ -19,7 +26,16 @@
 <%= tag.div class: root_classes, data: data_attributes do %>
   <%= render "govuk_publishing_components/components/label", {
     html_for: id,
-  }.merge(label.symbolize_keys) %>
+    text: label,
+    heading_size:,
+  } %>
+
+  <% if select_helper.hint %>
+    <%= render "govuk_publishing_components/components/hint", {
+      id: select_helper.hint_id,
+      text: hint,
+    } %>
+  <% end %>
 
   <% if error_items.any? %>
     <%= render "govuk_publishing_components/components/error_message", {
@@ -35,10 +51,12 @@
                  class: "govuk-hint app-c-autocomplete__multiselect-instructions" %>
   <% end %>
 
-  <%= select_tag name,
-    options_for_select(select[:options], select[:selected]),
+  <%= select_tag(
+    name,
+    select_helper.options_html,
     id: id,
-    class: "govuk-select",
-    size: select[:size],
-    multiple: select[:multiple] %>
+    class: select_helper.select_classes,
+    aria: aria_describedby,
+    multiple: select[:multiple],
+  ) %>
 <% end %>

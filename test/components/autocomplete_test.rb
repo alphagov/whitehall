@@ -9,17 +9,12 @@ class AutocompleteComponentTest < ComponentTestCase
     {
       id: "id",
       name: "name",
-      label: {
-        text: "text",
-      },
-      select: {
-        options: [
-          [""],
-          ["France", "fr"],
-          ["Germany", "de"],
-          ["United Kingdom", "uk"],
-        ],
-      },
+      label: "text",
+      options: [
+        { text: "France", value: "fr" },
+        { text: "Germany", value: "de" },
+        { text: "United Kingdom", value: "uk" },
+      ],
     }
   end
 
@@ -27,6 +22,15 @@ class AutocompleteComponentTest < ComponentTestCase
     assert_raise do
       render_component({})
     end
+  end
+
+  test "defaults the 'name' to be the same as 'id'" do
+    data_without_name = component_data.dup
+    data_without_name.delete(:name)
+    render_component(data_without_name)
+    assert_select ".app-c-autocomplete"
+    assert_select ".govuk-select[id='id'][name='id']"
+    assert_select ".govuk-label", text: "text"
   end
 
   test "renders the basic component" do
@@ -38,9 +42,23 @@ class AutocompleteComponentTest < ComponentTestCase
 
   test "renders with a selected option" do
     data = component_data
-    data[:select][:selected] = "de"
+    data[:options].first[:selected] = true
     render_component(data)
-    assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']"
+    assert_select ".app-c-autocomplete .govuk-select option[value='fr'][selected='selected']"
+  end
+
+  test "renders with a blank option" do
+    data = component_data
+    data[:include_blank] = true
+    render_component(data)
+    assert_select ".app-c-autocomplete .govuk-select option[value='']"
+  end
+
+  test "passes heading size to label component" do
+    data = component_data
+    data[:heading_size] = "xl"
+    render_component(data)
+    assert_select ".govuk-label.govuk-label--xl"
   end
 
   test "renders with an error" do
@@ -56,16 +74,25 @@ class AutocompleteComponentTest < ComponentTestCase
 
   test "renders in multiple mode" do
     data = component_data
+    data[:select] = {}
     data[:select][:multiple] = true
-    data[:select][:selected] = %w[fr de]
+    data[:options].first[:selected] = true
+    data[:options].last[:selected] = true
     render_component(data)
     assert_select ".app-c-autocomplete .govuk-select[multiple='multiple']"
     assert_select ".app-c-autocomplete .govuk-select option[value='fr'][selected='selected']"
-    assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']"
-    assert_select ".app-c-autocomplete .govuk-select option[value='uk'][selected='selected']", false
+    assert_select ".app-c-autocomplete .govuk-select option[value='de'][selected='selected']", false
+    assert_select ".app-c-autocomplete .govuk-select option[value='uk'][selected='selected']"
   end
 
-  test "accepts data attribures" do
+  test "accepts a hint" do
+    data = component_data
+    data[:hint] = "hint"
+    render_component(data)
+    assert_select ".govuk-hint", text: "hint"
+  end
+
+  test "accepts data attributes" do
     data = component_data
     data[:data_attributes] = {
       module: "not-a-module",

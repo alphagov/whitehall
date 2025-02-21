@@ -53,13 +53,17 @@
 
   <%= render "components/autocomplete", {
     id: "statistics_announcement_organisations",
-    label: {
-      text: "Organisations (required)",
-      heading_size: "l",
-    },
+    label: "Organisations (required)",
+    heading_size: "l",
     name: "statistics_announcement[organisation_ids][]",
+    options: Organisation.with_translations.order("organisation_translations.name").map do |org|
+      {
+        text: org.select_name,
+        value: org.id,
+        selected: statistics_announcement.organisation_ids.include?(org.id),
+      }
+    end,
     select: {
-      options:  options_from_collection_for_select(Organisation.with_translations.order("organisation_translations.name"), "id", "name", statistics_announcement.organisation_ids),
       multiple: true,
     },
     error_items: errors_for(statistics_announcement.errors, :organisations),

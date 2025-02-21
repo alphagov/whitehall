@@ -11,9 +11,10 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
     helper_mock.stubs(:content_block_manager_content_block_documents_path).returns("path")
     helper_mock.stubs(:content_block_manager_root_path).returns("path")
 
-    helper_mock.stubs(:taggable_organisations_container).returns(
-      [["Department of Placeholder", 1], ["Ministry of Example", 2]],
-    )
+    helper_mock.stubs(:taggable_organisations_container).returns([
+      { text: "Department of Placeholder", value: 1 },
+      { text: "Ministry of Example", value: 2 },
+    ])
 
     ContentBlockManager::ContentBlock::Schema.stubs(:valid_schemas).returns(%w[email_address postal_address])
   end
@@ -70,6 +71,10 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
   end
 
   it "selects organisation if selected in filters" do
+    helper_mock.stubs(:taggable_organisations_container).returns([
+      { text: "Department of Placeholder", value: 1 },
+      { text: "Ministry of Example", value: 2, selected: true },
+    ])
     render_inline(
       ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
         filters: { lead_organisation: "2" },

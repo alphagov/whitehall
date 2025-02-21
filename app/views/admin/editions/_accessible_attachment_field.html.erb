@@ -11,7 +11,11 @@
 
       <select name="edition[alternative_format_provider_id]" id="edition_alternative_format_provider_id" class="govuk-select" aria-describedby="alternative-format-provider-hint">
         <option></option>
-        <% taggable_alternative_format_providers_container.each do |name, id| %>
+        <%
+          taggable_alternative_format_providers_container.each do |hash|
+            name = hash[:text]
+            id = hash[:value]
+        %>
           <option
             value="<%= id %>"
             <%= "disabled='disabled'" if name.end_with?("(-)") %>

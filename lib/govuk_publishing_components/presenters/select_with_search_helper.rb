@@ -7,11 +7,9 @@ module GovukPublishingComponents
     class SelectWithSearchHelper
       include ActionView::Helpers::FormOptionsHelper
 
-      attr_reader :options, :selected_option
+      attr_reader :options, :selected_options, :error_id, :error_items, :aria
 
       delegate :describedby,
-               :error_id,
-               :error_message,
                :hint_id,
                :hint,
                :label_classes,
@@ -20,15 +18,19 @@ module GovukPublishingComponents
 
       def initialize(local_assigns)
         @select_helper = SelectHelper.new(local_assigns.except(:options, :grouped_options))
+        @error_id = "error-#{SecureRandom.hex(4)}"
+        @error_items = local_assigns[:error_items] || []
+        @aria = @error_items.any? ? { describedby: @error_id } : @describedby
         @options = local_assigns[:options]
         @grouped_options = local_assigns[:grouped_options]
         @include_blank = local_assigns[:include_blank]
+        @selected_options = []
         @local_assigns = local_assigns
       end
 
       def css_classes
         classes = %w[app-c-select-with-search govuk-form-group]
-        classes << "govuk-form-group--error" if error_message
+        classes << "govuk-form-group--error" if error_items.any?
         classes
       end
 
@@ -40,15 +42,17 @@ module GovukPublishingComponents
           blank_option_if_include_blank +
             options_for_select(
               transform_options(@options),
-              selected_option,
+              selected_options,
             )
         end
       end
 
       def data_attributes
-        {
-          "module": "select-with-search",
-        }.compact
+        data_attributes = @local_assigns[:data_attributes] || {}
+        data_attributes[:module] ||= ""
+        data_attributes[:module] << " select-with-search"
+        data_attributes[:module].strip!
+        data_attributes
       end
 
       def grouped_and_ungrouped_options_for_select(unsorted_options)
@@ -65,15 +69,15 @@ module GovukPublishingComponents
         end
         single_options.flatten!
 
-        options_for_select(transform_options(single_options), selected_option) +
-          grouped_options_for_select(transform_grouped_options(grouped_options), selected_option)
+        options_for_select(transform_options(single_options), selected_options) +
+          grouped_options_for_select(transform_grouped_options(grouped_options), selected_options)
       end
 
     private
 
       def transform_options(options)
         options.map do |option|
-          @selected_option = option[:value] if option[:selected]
+          @selected_options << option[:value] if option[:selected]
           [
             option[:text],
             option[:value],

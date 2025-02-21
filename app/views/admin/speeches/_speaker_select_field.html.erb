@@ -3,14 +3,8 @@
     id: "edition_role_appointment_id",
     name: "edition[role_appointment_id]",
     label: "",
-    error_message: errors_for_input(edition.errors, :role_appointment_id),
+    error_items: errors_for(edition.errors, :role_appointment_id),
     include_blank: true,
-    options: taggable_role_appointments_container.map do |speaker, value|
-      {
-        text: speaker,
-        value: value,
-        selected: value == edition.role_appointment_id,
-      }
-    end,
+    options: taggable_role_appointments_container([edition.role_appointment_id]),
   } %>
 <% end %>

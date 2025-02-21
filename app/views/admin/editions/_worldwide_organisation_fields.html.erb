@@ -5,14 +5,12 @@
     id: "edition_worldwide_organisation_document_ids",
     name: "edition[worldwide_organisation_document_ids][]",
     error_items: errors_for(edition.errors, :worldwide_organisations),
-    label: {
-      text:  "Worldwide organisations" + "#{' (required)' if required}",
-      heading_size: "m",
-    },
+    include_blank: true,
+    label: "Worldwide organisations" + "#{' (required)' if required}",
+    heading_size: "m",
+    options: taggable_worldwide_organisations_container(edition.worldwide_organisation_document_ids),
     select: {
-      options: [""] + taggable_worldwide_organisations_container,
       multiple: true,
-      selected: edition.worldwide_organisation_document_ids,
     },
   } %>
 <% end %>

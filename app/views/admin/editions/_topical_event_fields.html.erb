@@ -2,14 +2,18 @@
   <%= render "components/autocomplete", {
     id: "edition_topical_event_ids",
     name: "edition[topical_event_ids][]",
-    label: {
-      text: "Topical events",
-      heading_size: "m",
-    },
+    include_blank: true,
+    label: "Topical events",
+    heading_size: "m",
+    options: TopicalEvent.order(:name).map do |topical_event|
+      {
+        text: topical_event.name,
+        value: topical_event.id,
+        selected: edition.topical_event_ids.include?(topical_event.id),
+      }
+    end,
     select: {
-      options: [""] + TopicalEvent.order(:name).map { |topical_event| [topical_event.name, topical_event.id]},
       multiple: true,
-      selected: edition.topical_event_ids,
     },
   } %>
 <% end %>

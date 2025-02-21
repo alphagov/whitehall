@@ -2,14 +2,12 @@
   <%= render "components/autocomplete", {
     id: "edition_role_appointment_ids",
     name: "edition[role_appointment_ids][]",
-    label: {
-      text: "Ministers",
-      heading_size: "m",
-    },
+    include_blank: true,
+    label: "Ministers",
+    heading_size: "m",
+    options: taggable_ministerial_role_appointments_container(edition.role_appointment_ids),
     select: {
-      options: [""] + taggable_ministerial_role_appointments_container,
       multiple: true,
-      selected: edition.role_appointment_ids,
     },
   } %>
 <% end %>

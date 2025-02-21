@@ -5,14 +5,11 @@
     id: "edition_roles",
     name: "edition[role_ids][]",
     error_items: errors_for(edition.errors, :roles),
-    label: {
-      text: "Roles" + "#{' (required)' if required}",
-      heading_size: "m",
-    },
+    label: "Roles" + "#{' (required)' if required}",
+    heading_size: "m",
+    options: taggable_roles_container(edition.role_ids),
     select: {
-      options: taggable_roles_container,
       multiple: true,
-      selected: edition.role_ids,
     },
   } %>
 <% end %>

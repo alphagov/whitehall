@@ -3,7 +3,7 @@
   label: "Field of operation (required)",
   name: "edition[operational_field_id]",
   heading_size: "l",
-  error_message: errors_for_input(edition.errors, :operational_field_id),
+  error_items: errors_for(edition.errors, :operational_field_id),
   include_blank: true,
   options: OperationalField.all.map do |operation|
     {

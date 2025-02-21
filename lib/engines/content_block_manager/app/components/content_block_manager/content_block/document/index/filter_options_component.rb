@@ -17,25 +17,19 @@ private
     end
   end
 
-  def all_organisations_option
+  def all_organisations_option(selected_orgs)
     {
       text: "All organisations",
       value: "",
-      selected: @filters.none? || @filters[:lead_organisation]&.empty?,
+      selected: selected_orgs.compact.empty?,
     }
   end
 
-  def taggable_organisations_options
-    helpers.taggable_organisations_container.map do |name, id|
-      {
-        text: name,
-        value: id,
-        selected: @filters.any? && @filters[:lead_organisation] == id.to_s,
-      }
-    end
+  def taggable_organisations_options(selected_orgs)
+    helpers.taggable_organisations_container(selected_orgs)
   end
 
-  def options_for_lead_organisation
-    [all_organisations_option, taggable_organisations_options].flatten
+  def options_for_lead_organisation(selected_orgs = [])
+    [all_organisations_option(selected_orgs), taggable_organisations_options(selected_orgs)].flatten
   end
 end

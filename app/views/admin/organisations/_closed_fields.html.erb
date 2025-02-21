@@ -3,7 +3,7 @@
   name: "organisation[govuk_closed_status]",
   id: "organisation_govuk_closed_status",
   heading_size: "m",
-  error_message: errors_for_input(organisation.errors, :govuk_closed_status),
+  error_items: errors_for(organisation.errors, :govuk_closed_status),
   include_blank: true,
   options: [
     {
@@ -47,20 +47,18 @@
 <%= render "components/autocomplete", {
   id: "organisation_superseding_organisation_ids",
   name: "organisation[superseding_organisation_ids][]",
-  label: {
-    text: "Superseding organisations",
-    heading_size: "m",
-  },
+  include_blank: true,
+  label: "Superseding organisations",
+  heading_size: "m",
+  options: (Organisation.with_translations(:en) - [organisation]).map do |org|
+              {
+                text: org.name,
+                value: org.id,
+                selected: organisation.superseding_organisation_ids.include?(org.id),
+              }
+            end,
   select: {
-    options: [""] +
-      (Organisation.with_translations(:en) - [organisation]).map do |org|
-        [
-          org.name,
-          org.id,
-        ]
-      end,
     multiple: true,
-    selected: organisation.superseding_organisation_ids,
   },
 } %>
 

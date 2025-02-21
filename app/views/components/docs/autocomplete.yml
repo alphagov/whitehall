@@ -12,59 +12,95 @@ examples:
     data:
       id: autocomplete
       name: autocomplete
-      label:
-        text: Select your country
-      select:
-        options:
-          -
-            -
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      label: Select your country
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
+
+  with_blank_option:
+    data:
+      id: autocomplete
+      name: autocomplete
+      include_blank: true
+      label: Select your country
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
+
+  with_missing_name:
+    description: If no name is provided, name defaults to the (required) value of id.
+    data:
+      id: dropdown-with-different-id-and-name
+      label: My Dropdown
+      options:
+      - text: Option one
+        value: option1
+      - text: Option two
+        value: option2
+
+  with_custom_heading_size:
+    data:
+      id: autocomplete
+      name: autocomplete
+      include_blank: true
+      label: Select your country
+      heading_size: xl
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
 
   with_selected_value:
     data:
       id: autocomplete-selected
       name: autocomplete-selected
-      label:
-        text: Select your country
-        bold: true
+      label: Select your country
       hint: Only a few countries are available
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
-        selected: de
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+          selected: true
+        - text: United Kingdom
+          value: uk
+
+  with_hint:
+    description: When a hint is included the `aria-describedby` attribute of the select is included to point to the hint. When an error and a hint are present, that attribute includes the IDs of both the hint and the error.
+    data:
+      id: dropdown-with-hint
+      name: dropdown-with-hint
+      label: Choose your preferred thing
+      hint: You might need some more information here
+      hint_id: optional-hint-id
+      options:
+      - text: Something
+        value: option1
+      - text: Something else
+        value: option2
 
   with_error:
     data:
       name: autocomplete-with-error
-      label:
-        text: Autocomplete with error
-      select:
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      label: Autocomplete with error
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
       error_items:
         - text: There is a problem with this input
 
@@ -72,23 +108,18 @@ examples:
     data:
       id: autocomplete-multiselect
       name: autocomplete-multiselect
-      label:
-        text: Select your country
+      label: Select your country
       select:
         multiple: true
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
-        selected:
-            - fr
-            - de
+      options:
+        - text: France
+          value: fr
+          selected: true
+        - text: Germany
+          value: de
+          selected: true
+        - text: United Kingdom
+          value: uk
 
   with_data_attributes:
     data:
@@ -97,39 +128,28 @@ examples:
       data_attributes:
         module: not-a-module
         loose: moose
-      label:
-        text: Select your country
-      select:
-        options:
-          -
-            -
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      label: Select your country
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
 
   autocomplete_with_configuration_options:
     data:
       id: autocomplete-configuration-options
       name: autocomplete-configuration-options
-      label:
-        text: Status
+      label: Status
       select:
         multiple: true
-        options:
-          -
-            - France
-            - fr
-          -
-            - Germany
-            - de
-          -
-            - United Kingdom
-            - uk
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
       autocomplete_configuration_options:
         showAllValues: false

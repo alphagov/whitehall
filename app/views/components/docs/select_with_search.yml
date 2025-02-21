@@ -120,6 +120,20 @@ examples:
         value: option1
       - text: Option two
         value: option2
+  with_data_attributes:
+    data:
+      id: dropdown-with-data-attributes
+      data_attributes:
+        module: not-a-module
+        loose: moose
+      label: Select your country
+      options:
+        - text: France
+          value: fr
+        - text: Germany
+          value: de
+        - text: United Kingdom
+          value: uk
   with_preselect:
     data:
       id: dropdown-with-preselect
@@ -145,12 +159,12 @@ examples:
       - text: Something else
         value: option2
   with_error:
-    description: If the user has to select an option, it is recommended that a radio button is used instead of a select, but this is not always possible. Note that `error_id` is optional, if it is not passed one will be generated automatically.
+    description: An arbitrary number of separate error items can be passed to the component.
     data:
       id: dropdown-with-error
       label: How will you be travelling to the conference?
-      error_message: Please choose an option
-      error_id: error_id
+      error_items:
+        - text: Please choose an option
       include_blank: true
       options:
       - text: Public transport
@@ -170,15 +184,3 @@ examples:
         value: option2
       - text: Option three
         value: option3
-  with_page_heading:
-    description: This adds a `h1` element with a label element inside containing the text supplied.
-    data:
-      id: select-with-page-heading
-      label: This is a page heading
-      heading_size: xl
-      is_page_heading: true
-      options:
-      - text: Option one
-        value: option1
-      - text: Option two
-        value: option2

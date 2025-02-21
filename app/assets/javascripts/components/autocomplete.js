@@ -14,22 +14,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       selectElement: $select,
       minLength: 3,
       showAllValues: $select.multiple,
-      showNoOptionsFound: true,
-      onConfirm: function (query) {
-        let matchingOption
-        if (query) {
-          matchingOption = [].filter.call($select.options, function (option) {
-            return (option.textContent || option.innerText) === query
-          })[0]
-        } else {
-          matchingOption = [].filter.call($select.options, function (option) {
-            return option.value === ''
-          })[0]
-        }
-        if (matchingOption) {
-          matchingOption.selected = true
-        }
-      }
+      showNoOptionsFound: true
     }
 
     const assignedOptions = JSON.parse(

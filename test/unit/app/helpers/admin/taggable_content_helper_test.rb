@@ -1,28 +1,15 @@
 require "test_helper"
 
 class Admin::TaggableContentHelperTest < ActionView::TestCase
-  test "#taggable_topical_events_container returns an array of name/ID pairs for all TopicalEvents" do
-    event_a = create(:topical_event, name: "Event A")
-    event_c = create(:topical_event, name: "Event C")
-    event_b = create(:topical_event, name: "Event B")
-
-    assert_equal [
-      ["Event A", event_a.id],
-      ["Event B", event_b.id],
-      ["Event C", event_c.id],
-    ],
-                 taggable_topical_events_container
-  end
-
   test "#taggable_organisations_container returns an array of select_name/ID pairs for all Organisations" do
     organisation_c = create(:organisation, name: "Organisation C", acronym: "OC")
     organisation_b = create(:organisation, name: "Organisation B", acronym: "OB")
     organisation_a = create(:organisation, name: "Organisation A", acronym: "OA")
 
     assert_equal [
-      ["Organisation A (OA)", organisation_a.id],
-      ["Organisation B (OB)", organisation_b.id],
-      ["Organisation C (OC)", organisation_c.id],
+      { text: "Organisation A (OA)", value: organisation_a.id, selected: false },
+      { text: "Organisation B (OB)", value: organisation_b.id, selected: false },
+      { text: "Organisation C (OC)", value: organisation_c.id, selected: false },
     ],
                  taggable_organisations_container
   end
@@ -47,9 +34,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     )
 
     assert_equal [
-      ["Fred Flintstone, Leader, Ministry for Rocks and Bones", current_leader_appointment.id],
-      ["Joe Rockhead, Deputy Leader, Ministry for Rocks and Bones", deputy_leader_appointment.id],
-      ["Mr. Slate, Leader (12 May 1960 to 14 May 1972), Ministry for Rocks and Bones", old_leader_appointment.id],
+      { text: "Fred Flintstone, Leader, Ministry for Rocks and Bones", value: current_leader_appointment.id, selected: false },
+      { text: "Joe Rockhead, Deputy Leader, Ministry for Rocks and Bones", value: deputy_leader_appointment.id, selected: false },
+      { text: "Mr. Slate, Leader (12 May 1960 to 14 May 1972), Ministry for Rocks and Bones", value: old_leader_appointment.id, selected: false },
     ],
                  taggable_ministerial_role_appointments_container
   end
@@ -80,9 +67,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     current_leader_appointment = create(:role_appointment, role: leader, person: slate)
 
     assert_equal [
-      ["Mr. Slate, Leader, Ministry for Rocks and Bones", current_leader_appointment.id],
-      ["Joe Rockhead, Leader (12 May 2006 to 11 May 2011), Ministry for Rocks and Bones", old_leader_appointment.id],
-      ["Karen Granite, Leader (12 May 2003 to 11 May 2006), Ministry for Rocks and Bones", older_leader_appointment.id],
+      { text: "Mr. Slate, Leader, Ministry for Rocks and Bones", value: current_leader_appointment.id, selected: false },
+      { text: "Joe Rockhead, Leader (12 May 2006 to 11 May 2011), Ministry for Rocks and Bones", value: old_leader_appointment.id, selected: false },
+      { text: "Karen Granite, Leader (12 May 2003 to 11 May 2006), Ministry for Rocks and Bones", value: older_leader_appointment.id, selected: false },
     ],
                  taggable_ministerial_role_appointments_container
   end
@@ -107,28 +94,11 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     )
 
     assert_equal [
-      ["James Brown, Minister of Funk, Ministry for Funk", minister_appointment.id],
-      ["George Clinton, Board Member, Ministry for Funk", board_member_appointment.id],
-      ["Little Richard, Minister of Funk (05 December 1932 to 14 May 1972), Ministry for Funk", old_minister_appointment.id],
+      { text: "James Brown, Minister of Funk, Ministry for Funk", value: minister_appointment.id, selected: false },
+      { text: "George Clinton, Board Member, Ministry for Funk", value: board_member_appointment.id, selected: false },
+      { text: "Little Richard, Minister of Funk (05 December 1932 to 14 May 1972), Ministry for Funk", value: old_minister_appointment.id, selected: false },
     ],
                  taggable_role_appointments_container
-  end
-
-  test "#taggable_ministerial_roles_container returns an array of label/ID pairs for all the ministerial roles" do
-    create(:board_member_role)
-    minister_b = create(:ministerial_role, name: "Minister B", organisations: [create(:organisation, name: "Jazz Ministry")])
-    minister_a = create(:ministerial_role, name: "Minister A", organisations: minister_b.organisations)
-    minister_c = create(:ministerial_role, name: "Minister C", organisations: [create(:organisation, name: "Ministry of Outer Space")])
-
-    create(:role_appointment, role: minister_a, person: create(:person, forename: "Sun", surname: "Ra"))
-    create(:role_appointment, role: minister_c, person: create(:person, forename: "George", surname: "Clinton"))
-
-    assert_equal [
-      ["Minister B, Jazz Ministry (Minister B)", minister_b.id],
-      ["Minister C, Ministry of Outer Space (George Clinton)", minister_c.id],
-      ["Minister A, Jazz Ministry (Sun Ra)", minister_a.id],
-    ],
-                 taggable_ministerial_roles_container
   end
 
   test "#taggable_detailed_guides_container returns an array of label/ID pairs for all active detailed guides" do
@@ -138,9 +108,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     guide_c = create(:submitted_detailed_guide, title: "Guide C")
 
     assert_equal [
-      [guide_a.title, guide_a.id],
-      [guide_b.title, guide_b.id],
-      [guide_c.title, guide_c.id],
+      { text: guide_a.title, value: guide_a.id, selected: false },
+      { text: guide_b.title, value: guide_b.id, selected: false },
+      { text: guide_c.title, value: guide_c.id, selected: false },
     ],
                  taggable_detailed_guides_container
   end
@@ -151,9 +121,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     data_set3 = create(:submitted_statistical_data_set)
 
     assert_equal [
-      [data_set1.title, data_set1.document_id],
-      [data_set2.title, data_set2.document_id],
-      [data_set3.title, data_set3.document_id],
+      { text: data_set1.title, value: data_set1.document_id, selected: false },
+      { text: data_set2.title, value: data_set2.document_id, selected: false },
+      { text: data_set3.title, value: data_set3.document_id, selected: false },
     ],
                  taggable_statistical_data_sets_container
   end
@@ -165,9 +135,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     create(:world_location, name: "United Kingdom", active: false)
 
     assert_equal [
-      ["Andorra", location_a.id],
-      ["Brazil", location_b.id],
-      ["Croatia", location_c.id],
+      { text: "Andorra", value: location_a.id, selected: false },
+      { text: "Brazil", value: location_b.id, selected: false },
+      { text: "Croatia", value: location_c.id, selected: false },
     ],
                  taggable_world_locations_container
   end
@@ -178,26 +148,11 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     organisation_t = create(:organisation, alternative_format_contact_email: "lee.perry@melodica.uk", name: "Department for the Preseveration of Melodicas")
 
     assert_equal [
-      ["Department for Hair and Makeup (-)", organisation_h.id],
-      ["Department for the Preseveration of Melodicas (lee.perry@melodica.uk)", organisation_t.id],
-      ["Ministry of Strange Fruit (barry@strange-fruit.uk)", organisation_m.id],
+      { text: "Department for Hair and Makeup (-)", value: organisation_h.id, selected: false },
+      { text: "Department for the Preseveration of Melodicas (lee.perry@melodica.uk)", value: organisation_t.id, selected: false },
+      { text: "Ministry of Strange Fruit (barry@strange-fruit.uk)", value: organisation_m.id, selected: false },
     ],
                  taggable_alternative_format_providers_container
-  end
-
-  test "#taggable_document_collection_groups_container returns an array of label/ID pairs for document collection groups" do
-    group1 = create(:document_collection_group, heading: "Group 1")
-    group2 = create(:document_collection_group, heading: "Group 2")
-    group3 = create(:document_collection_group, heading: "Group 3")
-    create(:document_collection, title: "Collection 1", groups: [group1])
-    create(:document_collection, title: "Collection 2", groups: [group2, group3])
-
-    assert_equal [
-      ["Collection 1 (Group 1)", group1.id],
-      ["Collection 2 (Group 2)", group2.id],
-      ["Collection 2 (Group 3)", group3.id],
-    ],
-                 taggable_document_collection_groups_container
   end
 
   test "#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated" do

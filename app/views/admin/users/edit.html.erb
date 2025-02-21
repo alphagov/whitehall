@@ -8,14 +8,18 @@
       <%= render "components/autocomplete", {
         id: "user_world_location_ids",
         name: "user[world_location_ids][]",
-        label: {
-          text: "Locations",
-          heading_size: "l",
-        },
+        include_blank: true,
+        label: "Locations",
+        heading_size: "l",
+        options: WorldLocation.all.map do |l|
+          {
+            text: l.name,
+            value: l.id,
+            selected: form.object.world_location_ids.include?(l.id),
+          }
+        end,
         select: {
           multiple: true,
-          selected: form.object.world_location_ids,
-          options: [""] + WorldLocation.all.map { |l| [l.name, l.id] },
         },
       } %>
       <div class="govuk-button-group">

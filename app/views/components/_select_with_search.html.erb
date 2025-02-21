@@ -2,21 +2,14 @@
   id ||= false
   label ||= false
   name ||= id
-  is_page_heading ||= false
 
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   heading_size = false unless shared_helper.valid_heading_size?(heading_size)
   select_helper = GovukPublishingComponents::Presenters::SelectWithSearchHelper.new(local_assigns)
-
-  aria_describedby = { describedby: select_helper.describedby }
 %>
 
 <%= content_tag :div, class: select_helper.css_classes, data: select_helper.data_attributes do %>
-  <% if is_page_heading %>
-    <%= tag.h1 label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label"), class: "govuk-heading-xl" %>
-  <% else %>
-    <%= label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label") %>
-  <% end %>
+  <%= label_tag(id, label, class: select_helper.label_classes, id: "#{id}_label") %>
 
   <% if select_helper.hint %>
     <%= render "govuk_publishing_components/components/hint", {
@@ -25,12 +18,12 @@
     } %>
   <% end %>
 
-  <% if select_helper.error_message %>
+  <% if select_helper.error_items.any? %>
     <%= render "govuk_publishing_components/components/error_message", {
       id: select_helper.error_id,
-      text: select_helper.error_message,
+      items: select_helper.error_items,
     } %>
   <% end %>
 
-  <%= select_tag name, select_helper.options_html, id: id, class: select_helper.select_classes, aria: aria_describedby %>
+  <%= select_tag name, select_helper.options_html, id: id, class: select_helper.select_classes, aria: select_helper.aria %>
 <% end %>
