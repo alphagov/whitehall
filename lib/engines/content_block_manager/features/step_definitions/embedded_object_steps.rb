@@ -20,7 +20,7 @@ When("I complete the {string} form with the following fields:") do |object_type,
   fields.keys.each do |k|
     field = find_field "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}"
     if field.tag_name == "select"
-      select @details[k].humanize, from: field[:id]
+      select @details[k], from: field[:id]
     else
       fill_in field[:id], with: @details[k]
     end

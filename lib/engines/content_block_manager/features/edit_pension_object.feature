@@ -10,11 +10,11 @@ Feature: Edit a pension object
       | field     | type   | format | required | enum           | pattern          |
       | name      | string | string | true     |                |                  |
       | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
-      | cadence   | string | string |          | weekly,monthly |                  |
+      | cadence   | string | string |          | a week,a month |                  |
     And a pension content block has been created
     And that pension has a rate with the following fields:
       | name    | amount  | cadence |
-      | My rate | £123.45 | weekly  |
+      | My rate | £123.45 | a week  |
 
   Scenario: GDS Editor edits a pension object
     When I visit the Content Block Manager home page
@@ -28,7 +28,7 @@ Feature: Edit a pension object
     When I click to edit the first rate
     When I complete the "rate" form with the following fields:
       | name    | amount  | cadence |
-      | My rate | £122.50 | weekly  |
+      | My rate | £122.50 | a week  |
     Then I should be on the "embedded_rates" step
     And I should see the updated rates for that block
     When I save and continue
@@ -63,7 +63,7 @@ Feature: Edit a pension object
     And I click to create a new "rate"
     And I complete the "rate" form with the following fields:
       | name     | amount  | cadence  |
-      | New rate | £127.91 | monthly  |
+      | New rate | £127.91 | a month  |
     Then I should be on the "embedded_rates" step
     And I should see the updated rates for that block
     When I save and continue

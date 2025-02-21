@@ -25,9 +25,9 @@ class ContentBlockManager::ContentBlockEdition::HostContent::PreviewDetailsCompo
         "description": "Basic state pension",
         "rates": {
           "rate1":
-            { "name": "rate1", "amount": "£100.5", "cadence": "weekly", "description": "" },
+            { "name": "rate1", "amount": "£100.5", "cadence": "a week", "description": "" },
           "rate2":
-              { "name": "rate2", "amount": "£11.1", "cadence": "monthly", "description": "1111" },
+              { "name": "rate2", "amount": "£11.1", "cadence": "a month", "description": "1111" },
         },
       })
     end
