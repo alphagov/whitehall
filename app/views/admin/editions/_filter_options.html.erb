@@ -66,7 +66,7 @@
     <% end %>
 
     <% if filter_by.include?(:type) %>
-      <%= render "components/autocomplete", {
+    <%= render "govuk_publishing_components/components/select", {
         label: "Document type",
         id: "type_filter",
         name: "type",
