@@ -14,44 +14,26 @@ module Admin::EditionsHelper
   end
 
   def admin_organisation_filter_options(selected_organisation)
-    organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
-    closed_organisations = Organisation.with_translations(:en).closed || []
-    if current_user.organisation
-      organisations = [current_user.organisation] + (organisations - [current_user.organisation])
-    end
-
-    [
-      [
-        "",
-        [
-          {
-            text: "All organisations",
-            value: "",
-            selected: selected_organisation.blank?,
-          },
-        ],
-      ],
-      [
-        "Live organisations",
-        organisations.map do |organisation|
-          {
-            text: organisation.select_name,
-            value: organisation.id,
-            selected: selected_organisation.to_s == organisation.id.to_s,
-          }
-        end,
-      ],
-      [
-        "Closed organisations",
-        closed_organisations.map do |organisation|
-          {
-            text: organisation.select_name,
-            value: organisation.id,
-            selected: selected_organisation.to_s == organisation.id.to_s,
-          }
-        end,
-      ],
+    blank_option = [
+      {
+        text: "All organisations",
+        value: "",
+        selected: selected_organisation.blank?,
+      },
     ]
+    open_organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
+    if current_user.organisation
+      open_organisations = [current_user.organisation] + (organisations - [current_user.organisation])
+    end
+    closed_organisations = Organisation.with_translations(:en).closed || []
+
+    blank_option + (open_organisations + closed_organisations).map do |organisation|
+      {
+        text: organisation.select_name,
+        value: organisation.id,
+        selected: selected_organisation.to_s == organisation.id.to_s,
+      }
+    end
   end
 
   def admin_author_filter_options(current_user)

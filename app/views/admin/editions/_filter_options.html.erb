@@ -40,12 +40,12 @@
     <% end %>
 
     <% if filter_by.include?(:organisation) %>
-      <%= render "components/select_with_search", {
+      <%= render "components/autocomplete", {
         label: "Organisation",
         id: "organisation_filter",
         name: "organisation",
         heading_size: "s",
-        grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
+        options: admin_organisation_filter_options(@filter.options[:organisation]),
       } %>
     <% end %>
 

@@ -15,12 +15,12 @@
       value: @filter.options[:title],
     } %>
 
-    <%= render "components/select_with_search", {
+    <%= render "components/autocomplete", {
       label: "Organisation",
       id: "organisation_filter",
       name: "organisation_id",
       heading_size: "s",
-      grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
+      options: admin_organisation_filter_options(@filter.options[:organisation_id]),
     } %>
 
     <%= render "govuk_publishing_components/components/select", {
