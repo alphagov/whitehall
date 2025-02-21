@@ -45,5 +45,5 @@ def should_be_on_change_note_step
 end
 
 def should_be_on_subschema_step(subschema)
-  assert_text subschema.titleize
+  assert_text "Add #{subschema.humanize(capitalize: false)}"
 end
