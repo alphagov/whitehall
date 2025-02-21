@@ -30,6 +30,7 @@ Feature: Search for a content object
     And I click to view results
     Then I should see the details for all documents from my organisation
 
+  @disable_transactions
   Scenario: GDS Editor searches for a content object by keyword in instructions to publishers
     When I visit the Content Block Manager home page
     And I enter the keyword "GDS"
@@ -37,6 +38,7 @@ Feature: Search for a content object
     Then I should see the content block with title "an address" returned
     And "1" content blocks are returned in total
 
+  @disable_transactions
   Scenario: GDS Editor searches for a content object by keyword in title
     When I visit the Content Block Manager home page
     And I enter the keyword "example search"
@@ -44,6 +46,7 @@ Feature: Search for a content object
     Then I should see the content block with title "example search title" returned
     And "1" content blocks are returned in total
 
+  @disable_transactions
   Scenario: GDS Editor searches for a content object by keyword in details
     When I visit the Content Block Manager home page
     And I enter the keyword "ABC123"
