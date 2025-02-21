@@ -48,7 +48,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
 
           assert_text "Create content block"
-          assert_text "By creating this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
+          assert_text "I confirm that the details I’ve put into the content block have been checked and are factually correct."
         end
       end
 
@@ -413,7 +413,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
 
         assert_text "Edit content block"
-        assert_text "By editing this content block you are confirming that, to the best of your knowledge, the details you are providing are correct."
+        assert_text "I confirm that the details I’ve put into the content block have been checked and are factually correct."
       end
     end
   end
