@@ -66,12 +66,13 @@
     <% end %>
 
     <% if filter_by.include?(:type) %>
-      <%= render "components/select_with_search", {
+      <%= render "components/autocomplete", {
         label: "Document type",
         id: "type_filter",
         name: "type",
         heading_size: "s",
-        grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
+        include_blank: true,
+        options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
       } %>
     <% end %>
 

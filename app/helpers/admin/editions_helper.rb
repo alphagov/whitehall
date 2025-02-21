@@ -14,20 +14,20 @@ module Admin::EditionsHelper
   end
 
   def admin_organisation_filter_options(selected_organisation)
-    blank_option = [
-      {
-        text: "All organisations",
-        value: "",
-        selected: selected_organisation.blank?,
-      },
-    ]
+    # blank_option = [
+    #   {
+    #     text: "All organisations",
+    #     value: "",
+    #     selected: selected_organisation.blank?,
+    #   },
+    # ]
     open_organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     if current_user.organisation
-      open_organisations = [current_user.organisation] + (organisations - [current_user.organisation])
+      open_organisations = [current_user.organisation] + (open_organisations - [current_user.organisation])
     end
     closed_organisations = Organisation.with_translations(:en).closed || []
 
-    blank_option + (open_organisations + closed_organisations).map do |organisation|
+    (open_organisations + closed_organisations).map do |organisation|
       {
         text: organisation.select_name,
         value: organisation.id,
