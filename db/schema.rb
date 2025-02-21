@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_29_095918) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_20_131003) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -236,7 +236,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_29_095918) do
     t.text "internal_change_note"
     t.text "change_note"
     t.boolean "major_change"
+    t.virtual "details_for_indexing", type: :text, as: "json_unquote(`details`)", stored: true
     t.index ["document_id"], name: "index_content_block_editions_on_document_id"
+    t.index ["title", "details_for_indexing", "instructions_to_publishers"], name: "title_details_instructions_to_publishers", type: :fulltext
     t.index ["user_id"], name: "index_content_block_editions_on_user_id"
   end
 
