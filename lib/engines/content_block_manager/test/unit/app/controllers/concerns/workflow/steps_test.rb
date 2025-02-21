@@ -85,6 +85,51 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe "when the content block is new" do
+    let(:step) { "something" }
+
+    before do
+      content_block_document.expects(:is_new_block?).returns(true)
+    end
+
+    it "removes steps not included in the create journey" do
+      assert_equal workflow.steps, [
+        Workflow::Step.new(:edit_draft, :edit_draft, :update_draft, true),
+        Workflow::Step.new(:review, :review, :validate_review_page, true),
+        Workflow::Step.new(:confirmation, :confirmation, nil, true),
+      ].flatten
+    end
+
+    describe "#next_step" do
+      [
+        %i[edit_draft review],
+        %i[review confirmation],
+      ].each do |current_step, expected_step|
+        describe "when current_step is #{current_step}" do
+          let(:step) { current_step }
+
+          it "returns #{expected_step} step" do
+            assert_equal workflow.next_step.name, expected_step
+          end
+        end
+      end
+    end
+
+    describe "#previous_step" do
+      [
+        %i[review edit_draft],
+      ].each do |current_step, expected_step|
+        describe "when current_step is #{current_step}" do
+          let(:step) { current_step }
+
+          it "returns #{expected_step} step" do
+            assert_equal workflow.previous_step.name, expected_step
+          end
+        end
+      end
+    end
+  end
+
   describe "when a schema has subschemas" do
     let(:subschemas) do
       [
@@ -101,8 +146,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
       it "inserts the subschemas into the flow" do
         assert_equal workflow.steps, [
           Workflow::Step::ALL[0],
-          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_subschema_or_continue),
-          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_subschema_or_continue),
+          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_subschema_or_continue, true),
+          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_subschema_or_continue, true),
           Workflow::Step::ALL[1..],
         ].flatten
       end
@@ -144,6 +189,55 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
           it "returns #{expected_step} step" do
             assert_equal workflow.previous_step.name, expected_step
+          end
+        end
+      end
+    end
+
+    describe "and the content block is new" do
+      before do
+        content_block_document.expects(:is_new_block?).returns(true)
+      end
+
+      it "removes steps not included in the create journey" do
+        assert_equal workflow.steps, [
+          Workflow::Step.new(:edit_draft, :edit_draft, :update_draft, true),
+          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_subschema_or_continue, true),
+          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_subschema_or_continue, true),
+          Workflow::Step.new(:review, :review, :validate_review_page, true),
+          Workflow::Step.new(:confirmation, :confirmation, nil, true),
+        ].flatten
+      end
+
+      describe "#next_step" do
+        [
+          %i[edit_draft embedded_something],
+          %i[embedded_something embedded_something_else],
+          %i[embedded_something_else review],
+          %i[review confirmation],
+        ].each do |current_step, expected_step|
+          describe "when current_step is #{current_step}" do
+            let(:step) { current_step }
+
+            it "returns #{expected_step} step" do
+              assert_equal workflow.next_step.name, expected_step
+            end
+          end
+        end
+      end
+
+      describe "#previous_step" do
+        [
+          %i[embedded_something edit_draft],
+          %i[embedded_something_else embedded_something],
+          %i[review embedded_something_else],
+        ].each do |current_step, expected_step|
+          describe "when current_step is #{current_step}" do
+            let(:step) { current_step }
+
+            it "returns #{expected_step} step" do
+              assert_equal workflow.previous_step.name, expected_step
+            end
           end
         end
       end

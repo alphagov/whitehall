@@ -7,17 +7,18 @@ module Workflow::Steps
 
   def steps
     @steps ||= if @schema.subschemas.any?
-                 standard_steps = Workflow::Step::ALL.map(&:dup)
+                 standard_steps = all_steps.map(&:dup)
                  extra_steps = @schema.subschemas.map do |subschema|
                    Workflow::Step.new(
                      "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
                      "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
                      :redirect_to_next_subschema_or_continue,
+                     true,
                    )
                  end
                  standard_steps.insert(1, extra_steps).flatten!
                else
-                 Workflow::Step::ALL
+                 all_steps
                end
   end
 
@@ -34,6 +35,14 @@ module Workflow::Steps
   end
 
 private
+
+  def all_steps
+    if @content_block_edition.document.is_new_block?
+      Workflow::Step::ALL.select { |s| s.included_in_create_journey == true }
+    else
+      Workflow::Step::ALL
+    end
+  end
 
   def initialize_edition_and_schema
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
