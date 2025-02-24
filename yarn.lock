@@ -547,10 +547,10 @@ chalk@^4.0.0, chalk@^4.0.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-choices.js@^11.0.3:
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/choices.js/-/choices.js-11.0.3.tgz#a2264a78e34c36016ef7239c3e29ceb14d6aad7d"
-  integrity sha512-sn1oLUEcvjj7vSSIT0QyexmLIeD6PFGSWrUUXKShL2LUtVFXU3OAIY/smNIQg0OKav3yk1rFa+F56hZ/uYC4cg==
+choices.js@^11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/choices.js/-/choices.js-11.0.4.tgz#2e6e26132424b48b7c0595ae3a82f550e7e867c9"
+  integrity sha512-47WKGKJtuWGm5sJEY6mHkD7ypbrR4iWtnyrUonuSdKa3letZ2SAe8SI/6qbH3O1M4Vmx4zpG0HVzujuC+YTqvg==
   dependencies:
     fuse.js "^7.0.0"
 
