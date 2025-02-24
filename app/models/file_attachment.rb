@@ -55,7 +55,7 @@ class FileAttachment < Attachment
       filename:,
       number_of_pages:,
       preview_url:,
-      attachment_data_id:,
+      asset_manager_id:,
     }
   end
 
@@ -67,10 +67,10 @@ private
     nil
   end
 
-  def attachment_data_id
+  def asset_manager_id
     return unless csv? && attachable.is_a?(Edition) && attachment_data.all_asset_variants_uploaded?
 
-    attachment_data.id
+    attachment_data.assets.first.asset_manager_id
   end
 
   def preview_url
