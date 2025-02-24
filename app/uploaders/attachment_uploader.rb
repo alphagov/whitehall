@@ -26,6 +26,10 @@ class AttachmentUploader < WhitehallUploader
     EXTENSION_ALLOW_LIST
   end
 
+  def asset_manager_id
+    file.try(:asset_manager_id)
+  end
+
   class ZipFile
     class NonUTF8ContentsError < RuntimeError; end
 
