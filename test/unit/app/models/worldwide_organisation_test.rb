@@ -199,12 +199,14 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     contact = create(:contact, translated_into: [:es])
     create(:contact_number, translated_into: [:es], contact:)
     published_worldwide_organisation = create(:worldwide_organisation, :published, translated_into: [:es])
-    create(
+    office = create(
       :worldwide_office,
       edition: published_worldwide_organisation,
       contact:,
       services: [create(:worldwide_service)],
     )
+    published_worldwide_organisation.main_office = office
+    published_worldwide_organisation.save!(validate: false)
 
     draft_worldwide_organisation = published_worldwide_organisation.create_draft(create(:writer))
     published_worldwide_organisation.reload
@@ -232,6 +234,10 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_equal published_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id"),
                  draft_worldwide_organisation.offices.first.contact.translations.find_by(locale: :en).attributes.except("id", "contact_id")
+
+    assert published_worldwide_organisation.main_office != draft_worldwide_organisation.main_office
+    assert_equal published_worldwide_organisation.main_office.attributes.except("id", "edition_id"),
+                 draft_worldwide_organisation.main_office.attributes.except("id", "edition_id")
   end
 
   test "should retain home page lists for offices when new draft of published edition is created" do

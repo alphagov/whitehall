@@ -41,6 +41,11 @@ class WorldwideOrganisation < Edition
 
         new_office.save!
 
+        if @edition.main_office == office
+          new_edition.main_office = new_office
+          new_edition.save!(validate: false)
+        end
+
         if @edition.office_shown_on_home_page?(office)
           new_edition.add_office_to_home_page!(new_office)
         end

@@ -251,7 +251,7 @@ module ServiceListeners
         call(worldwide_organisation)
       end
 
-      test "with an office on the old version of an worldwide organisation redirects the office" do
+      test "redirects a destroyed office when a worldwide organisation is published" do
         worldwide_organisation = create(:published_worldwide_organisation, :with_main_office)
 
         new_edition = worldwide_organisation.create_draft(create(:writer))
@@ -260,37 +260,16 @@ module ServiceListeners
         new_edition.submit!
         new_edition.publish!
 
-        old_office = worldwide_organisation.main_office
-
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
-          old_office.content_id,
+          new_edition.main_office.content_id,
           new_edition.search_link,
           "en",
         )
 
-        call(new_edition)
+        call(new_edition.reload)
       end
 
-      test "with an office on the old version that remains on the new version of an worldwide organisation it does not publish a redirect for the office" do
-        worldwide_organisation = create(:published_worldwide_organisation, :with_main_office)
-
-        new_edition = worldwide_organisation.create_draft(create(:writer))
-        new_edition.minor_change = true
-        new_edition.submit!
-        new_edition.publish!
-
-        old_office = worldwide_organisation.main_office
-
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
-          old_office.content_id,
-          new_edition.search_link,
-          "en",
-        ).never
-
-        call(new_edition)
-      end
-
-      test "with a contact on the old version of an worldwide organisation publishes gone for the contact" do
+      test "publishes gone for a contact belonging to a destroyed office when a worldwide organisation is published" do
         worldwide_organisation = create(:published_worldwide_organisation, :with_main_office)
 
         new_edition = worldwide_organisation.create_draft(create(:writer))
@@ -298,17 +277,15 @@ module ServiceListeners
         new_edition.minor_change = true
         new_edition.submit!
         new_edition.publish!
-
-        old_office = worldwide_organisation.main_office
 
         PublishingApiGoneWorker.any_instance.expects(:perform).with(
-          old_office.contact.content_id,
+          new_edition.main_office.contact.content_id,
           nil,
           nil,
           "en",
         )
 
-        call(new_edition)
+        call(new_edition.reload)
       end
 
       test "with a contact on the old version that remains on the new version of an worldwide organisation it does not publish gone for the contact" do
