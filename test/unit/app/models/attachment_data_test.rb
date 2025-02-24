@@ -452,4 +452,10 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     assert_not attachment_data.all_asset_variants_uploaded?
   end
+
+  test "#asset_manager_id returns asset manager id" do
+    attachment_data = create(:attachment_data_for_csv, attachable: create(:draft_edition, id: 1))
+
+    assert_equal "asset_manager_id", attachment_data.asset_manager_id
+  end
 end
