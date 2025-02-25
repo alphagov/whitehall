@@ -57,7 +57,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
           },
         },
       }
-      assert_equal "Something created. You can add another something or continue to create schema block", flash[:notice]
+      assert_equal "Something added. You can add another something or finish creating the schema block", flash[:notice]
     end
   end
 

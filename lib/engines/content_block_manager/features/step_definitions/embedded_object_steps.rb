@@ -6,7 +6,7 @@ When("I visit the page to create a new {string} for the block") do |object_type|
 end
 
 Then("I should see a form to create a {string} for the content block") do |object_type|
-  expect(page).to have_text("Create #{object_type}")
+  expect(page).to have_text("Add a #{object_type}")
 end
 
 Then("I should see confirmation that my {string} has been created") do |object_type|
@@ -61,8 +61,8 @@ And("I should see details of my {string}") do |object_type|
   end
 end
 
-And("I click to create a new {string}") do |object_type|
-  click_on "Create #{object_type}"
+And("I click to add a new {string}") do |object_type|
+  click_on "Add a #{object_type}"
 end
 
 And("I review and confirm my {string} is correct") do |_object_type|

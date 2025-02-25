@@ -60,7 +60,7 @@ Feature: Edit a pension object
     And I click to view the document
     And I click to edit the "pension"
     When I fill out the form
-    And I click to create a new "rate"
+    And I click to add a new "rate"
     And I complete the "rate" form with the following fields:
       | name     | amount  | cadence  |
       | New rate | £127.91 | a month  |
