@@ -40,11 +40,11 @@ class ContentBlockManager::BaseController < Admin::BaseController
   end
 
   def product_name
-    "Content Block Manager"
+    ContentBlockManager.product_name
   end
 
   def support_url
-    "#{Plek.external_url_for('support')}/general_request/new"
+    ContentBlockManager.support_url
   end
   helper_method :support_url
 

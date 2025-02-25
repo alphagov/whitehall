@@ -12,7 +12,7 @@
 <% sanitized_title = sanitize((yield(:page_title).presence || yield(:title))) %>
 
 <%= render "govuk_publishing_components/components/layout_for_admin",
-           product_name:,
+           product_name: yield(:product_name).presence || product_name,
            environment: environment,
            browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitized_title do %>
 
