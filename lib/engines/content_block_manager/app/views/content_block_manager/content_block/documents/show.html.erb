@@ -11,17 +11,10 @@
     <h1 class="govuk-heading-xl"><%= @content_block_document.title %></h1>
   </div>
   <div class="govuk-grid-column-one-half content-block-manager-header--column-right">
-    <div class="govuk-button-group">
       <%= render "govuk_publishing_components/components/button", {
         text: "Edit #{@content_block_document.block_type.humanize.downcase}",
         href: content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block_document),
       } %>
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Raise a support request",
-        href: support_url,
-        secondary_solid: true,
-      } %>
-    </div>
   </div>
 </div>
 
