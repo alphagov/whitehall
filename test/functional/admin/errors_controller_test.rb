@@ -56,7 +56,7 @@ class Admin::ErrorsControllerTest < ActionDispatch::IntegrationTest
         get "/#{error_code}"
 
         assert_select ".govuk-header__product-name", text: ContentBlockManager.product_name
-        assert_select ".govuk-phase-banner__content__tag", text: "Alpha"
+        assert_select ".govuk-phase-banner__content__tag", text: "Beta"
       end
 
       it "should render the product name in the title" do

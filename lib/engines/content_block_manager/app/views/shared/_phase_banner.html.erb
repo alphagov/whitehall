@@ -1,13 +1,13 @@
 <%= render "govuk_publishing_components/components/phase_banner", {
-    phase: "Alpha",
-    message: sanitize("This is a new service - your
+    phase: "Beta",
+    message: sanitize("For support, to delete a content block or to give feedback, email
         #{
       mail_to(
-        "govuk-publishing-content-modelling-team@digital.cabinet-office.gov.uk",
-        "feedback",
+        "feedback-content-modelling@digital.cabinet-office.gov.uk",
+        "feedback-content-modelling@digital.cabinet-office.gov.uk",
         {
           class: "govuk-link",
         },
         )
-    } will help us to improve it.", attributes: %w(class href)),
+    }.", attributes: %w(class href)),
   } %>
