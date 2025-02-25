@@ -182,12 +182,6 @@ accepts@^2.0.0:
     mime-types "^3.0.0"
     negotiator "^1.0.0"
 
-accessible-autocomplete-multiselect@alphagov/accessible-autocomplete-multiselect:
-  version "2.0.4"
-  resolved "https://codeload.github.com/alphagov/accessible-autocomplete-multiselect/tar.gz/066bbfcc03362d4ebb4927bc8ac6f9082cf99e32"
-  dependencies:
-    preact "^8.3.1"
-
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
@@ -3008,11 +3002,6 @@ postcss@^8.5.3:
     nanoid "^3.3.8"
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
-
-preact@^8.3.1:
-  version "8.5.3"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-8.5.3.tgz#78c2a5562fcecb1fed1d0055fa4ac1e27bde17c1"
-  integrity sha512-O3kKP+1YdgqHOFsZF2a9JVdtqD+RPzCQc3rP+Ualf7V6rmRDchZ9MJbiGTT7LuyqFKZqlHSOyO/oMFmI2lVTsw==
 
 prelude-ls@^1.2.1:
   version "1.2.1"

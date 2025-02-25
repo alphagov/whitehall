@@ -14,7 +14,6 @@
 //= require components/govspeak-editor
 //= require components/image-cropper
 //= require components/miller-columns
-//= require components/miller-columns-autocomplete
 //= require components/select-with-search
 
 //= require admin/analytics-modules/ga4-button-setup.js
