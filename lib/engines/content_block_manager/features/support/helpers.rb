@@ -70,13 +70,6 @@ def click_save_and_continue
   click_on "Save and continue"
 end
 
-def has_support_button
-  expect(page).to have_link(
-    "Raise a support request",
-    href: Whitehall.support_url,
-  )
-end
-
 def schedule_change(number_of_days)
   choose "Schedule the edit for the future"
   @future_date = number_of_days.days.since(Time.zone.now)

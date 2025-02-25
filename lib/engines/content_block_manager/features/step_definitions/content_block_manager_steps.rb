@@ -99,8 +99,6 @@ And("I should be taken to the confirmation page for a published block") do
       content_block_edition.document,
     ),
   )
-
-  has_support_button
 end
 
 And("I should be taken to the confirmation page for a new block") do
@@ -115,8 +113,6 @@ And("I should be taken to the confirmation page for a new block") do
       content_block.document,
     ),
   )
-
-  has_support_button
 end
 
 And("I should be taken to the confirmation page for a new {string}") do |block_type|
@@ -131,8 +127,6 @@ And("I should be taken to the confirmation page for a new {string}") do |block_t
       content_block.document,
     ),
   )
-
-  has_support_button
 end
 
 When("I click to view the content block") do
@@ -157,8 +151,6 @@ When("I should be taken to the scheduled confirmation page") do
       content_block_edition.document,
     ),
   )
-
-  has_support_button
 end
 
 Then("I should be taken back to the document page") do
