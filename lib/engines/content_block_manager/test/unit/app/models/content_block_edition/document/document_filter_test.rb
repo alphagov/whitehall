@@ -7,7 +7,11 @@ class ContentBlockManager::DocumentFilterTest < ActiveSupport::TestCase
     let(:document_scope_mock) { mock }
 
     before do
-      ContentBlockManager::ContentBlock::Document.expects(:live).returns(document_scope_mock)
+      ContentBlockManager::ContentBlock::Document
+        .expects(:where)
+        .with(block_type: ContentBlockManager::ContentBlock::Schema.valid_schemas)
+        .returns(document_scope_mock)
+      document_scope_mock.expects(:live).returns(document_scope_mock)
       document_scope_mock.expects(:joins).with(:latest_edition).returns(document_scope_mock)
       document_scope_mock.expects(:distinct).returns(document_scope_mock)
       document_scope_mock.expects(:order).with("content_block_editions.updated_at DESC").returns(document_scope_mock)
