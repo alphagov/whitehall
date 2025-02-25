@@ -27,7 +27,16 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       itemSelectText: '',
       searchResultLimit: 100,
       removeItemButton: this.select.multiple,
+      removeItemIconText: 'remove',
       labelId: this.select.id + '_label',
+      closeDropdownOnSelect: this.select.multiple ? true : 'auto',
+      callbackOnInit: function(){
+        if (this.dropdown.type == "select-multiple") {
+          let outer = this.containerOuter.element
+          let list = this.itemList.element
+          outer.append(list)
+        }
+      },
       // https://fusejs.io/api/options.html
       fuseOptions: {
         ignoreLocation: true, // matches any part of the string
