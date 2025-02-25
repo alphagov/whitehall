@@ -32,7 +32,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           index_section: 2,
-          section: "Author"
+          section: "Author",
         },
         options: admin_author_filter_options(current_user).map do |name, id|
           {
@@ -53,7 +53,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           index_section: 3,
-          section: "Organisation"
+          section: "Organisation",
         },
         grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
       } %>
@@ -68,7 +68,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           index_section: 4,
-          section: "World location"
+          section: "World location",
         },
         options: admin_world_location_filter_options(current_user).map do |name, id|
           {
@@ -89,7 +89,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           index_section: 5,
-          section: "Document type"
+          section: "Document type",
         },
         grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
       } %>
@@ -104,7 +104,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           index_section: 6,
-          section: "State"
+          section: "State",
         },
         options: admin_state_filter_options.map do |text, value|
           {
