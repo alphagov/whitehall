@@ -46,6 +46,19 @@ Feature: Create a content object
     And I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a new "pension"
 
+  Scenario: GDS editor creates a Pension and cancels on the first rate
+    When I visit the Content Block Manager home page
+    And I click to create an object
+    Then I should see all the schemas listed
+    When I click on the "pension" schema
+    Then I should see a form for the schema
+    When I complete the form with the following fields:
+      | title            | description   | organisation        | instructions_to_publishers |
+      | my basic pension | this is basic | Ministry of Example | this is important  |
+    When I click to add a new "rate"
+    And I click the cancel link
+    Then I should be on the "embedded_rates" step
+
   Scenario: GDS editor clicks back and is taken back to rates
     When I visit the Content Block Manager home page
     And I click to create an object
