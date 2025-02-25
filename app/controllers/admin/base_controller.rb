@@ -42,7 +42,7 @@ class Admin::BaseController < ApplicationController
   helper_method :preview_design_system?
 
   def product_name
-    "Whitehall Publisher"
+    Whitehall.product_name
   end
   helper_method :product_name
 

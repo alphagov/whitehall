@@ -28,6 +28,10 @@ module Whitehall
     Plek.external_url_for("support")
   end
 
+  def self.product_name
+    "Whitehall Publisher"
+  end
+
   def self.available_locales
     Locale.all_keys.map(&:to_sym)
   end
