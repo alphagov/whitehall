@@ -69,12 +69,9 @@ module Workflow::ShowMethods
   end
 
   def back_path
-    step = is_reviewing_new_block? ? :edit_draft : previous_step.name
-    return nil unless step
-
     content_block_manager.content_block_manager_content_block_workflow_path(
       @content_block_edition,
-      step:,
+      step: previous_step.name,
     )
   end
   included do
@@ -82,10 +79,6 @@ module Workflow::ShowMethods
   end
 
 private
-
-  def is_reviewing_new_block?
-    current_step.name == :review && @content_block_edition.document.is_new_block?
-  end
 
   def embedded_objects(subschema_name)
     @subschema = @schema.subschema(subschema_name)

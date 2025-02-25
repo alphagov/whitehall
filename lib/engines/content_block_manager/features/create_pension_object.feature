@@ -45,3 +45,15 @@ Feature: Create a content object
     When I save and continue
     And I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a new "pension"
+
+  Scenario: GDS editor clicks back and is taken back to rates
+    When I visit the Content Block Manager home page
+    And I click to create an object
+    And I click on the "pension" schema
+    When I complete the form with the following fields:
+      | title            | description   | organisation        | instructions_to_publishers |
+      | my basic pension | this is basic | Ministry of Example | this is important  |
+    And I click the back link
+    And I click save
+    Then I should be on the "embedded_rates" step
+

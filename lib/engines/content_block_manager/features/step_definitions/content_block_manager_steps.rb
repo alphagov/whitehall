@@ -509,3 +509,7 @@ Then("I should see an error for an invalid {string}") do |attribute|
     I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: attribute.humanize),
   )
 end
+
+And(/^I click the back link$/) do
+  click_on "Back"
+end
