@@ -10,7 +10,7 @@ Feature: Create a content object
       | field     | type   | format | required | enum           | pattern          |
       | name      | string | string | true     |                |                  |
       | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
-      | cadence   | string | string |          | a week,a month |                  |
+      | frequency  | string | string |          | a week,a month |                  |
 
   Scenario: GDS editor creates a Pension without a rate
     When I visit the Content Block Manager home page
@@ -39,7 +39,7 @@ Feature: Create a content object
       | my basic pension | this is basic | Ministry of Example | this is important  |
     When I click to add a new "rate"
     And I complete the "rate" form with the following fields:
-      | name     | amount  | cadence  |
+      | name     | amount  | frequency |
       | New rate | £127.91 | a month  |
     Then I should be on the "embedded_rates" step
     When I save and continue
