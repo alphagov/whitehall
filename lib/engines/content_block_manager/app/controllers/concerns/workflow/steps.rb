@@ -52,7 +52,7 @@ private
   end
 
   def index
-    steps.find_index { |step| step.name == params[:step].to_sym }
+    steps.find_index { |step| step.name == params[:step]&.to_sym } || 0
   end
 
   def skip_subschema?(subschema)

@@ -55,7 +55,16 @@ Feature: Edit a pension object
     And I should see the notes on the timeline
     And I should see the edition diff in a table
     And I should see details of my "rate"
-    
+
+  Scenario: Rate steps are skipped when there has been no rates added
+    Given my pension content block has no rates
+    When I visit the Content Block Manager home page
+    And I click to view the document
+    And I click to edit the "pension"
+    When I fill out the form
+    Then I should be on the "review_links" step
+    And I should see a back link to the "edit_draft" step
+
   Scenario: GDS editor sees notification about an in-progress draft
     When I visit the Content Block Manager home page
     And I click to view the document

@@ -505,3 +505,8 @@ end
 And(/^I click the back link$/) do
   click_on "Back"
 end
+
+Given(/^my pension content block has no rates$/) do
+  @content_block.details["rates"] = {}
+  @content_block.save!
+end
