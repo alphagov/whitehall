@@ -59,7 +59,9 @@ jobs:
         env:
           RAILS_ENV: test
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
-        run: bundle exec rails db:setup
+        run: |
+          bundle exec rails db:setup
+          bundle exec rails db:migrate
 
       - name: Run Minitest
         env:
