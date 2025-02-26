@@ -447,8 +447,8 @@ And(/^I should see the object store's navigation$/) do
 end
 
 And("I should see the object store's phase banner") do
-  expect(page).to have_selector(".govuk-tag", text: "Alpha")
-  expect(page).to have_link("feedback", href: "mailto:govuk-publishing-content-modelling-team@digital.cabinet-office.gov.uk")
+  expect(page).to have_selector(".govuk-tag", text: "Beta")
+  expect(page).to have_link("feedback-content-modelling@digital.cabinet-office.gov.uk", href: "mailto:feedback-content-modelling@digital.cabinet-office.gov.uk")
 end
 
 Then(/^I should still see the live edition on the homepage$/) do
