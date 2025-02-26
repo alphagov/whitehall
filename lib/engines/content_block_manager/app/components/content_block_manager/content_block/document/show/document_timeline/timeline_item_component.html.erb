@@ -12,25 +12,13 @@
     <%= date %>
   </p>
 
-  <% if version.field_diffs.present? %>
+  <% if details_of_changes.present? %>
     <div class="timeline__diff-table">
       <%= render "govuk_publishing_components/components/details", {
         title: "Details of changes",
         open: is_latest,
       } do %>
-        <% capture do %>
-          <%= render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
-            version:,
-            schema:,
-            ) %>
-
-          <% embedded_object_diffs.each do |item| %>
-            <%= render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent.new(
-              **item,
-              content_block_edition: version.item,
-              ) %>
-          <% end %>
-        <% end %>
+        <% details_of_changes %>
       <% end %>
     </div>
   <% end %>

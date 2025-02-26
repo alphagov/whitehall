@@ -110,7 +110,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   describe "when field diffs are present" do
     let(:field_diffs) { { "foo" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "previous value", new_value: "new value") } }
     let(:version) do
-      build(
+      build_stubbed(
         :content_block_version,
         event: "created",
         whodunnit: user.id,
@@ -121,12 +121,14 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
       )
     end
 
-    it "renders the table component" do
-      table_component = ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
-        version: build(:content_block_version, field_diffs: []),
+    let!(:table_component) do
+      ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
+        version:,
         schema:,
       )
+    end
 
+    before do
       ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent
         .expects(:new)
         .with(version:, schema:)
@@ -134,14 +136,17 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
 
       component
         .expects(:render)
+        .with(table_component)
+        .once
+        .returns("TABLE COMPONENT")
+    end
+
+    it "renders the table component unopened" do
+      component
+        .expects(:render)
         .with("govuk_publishing_components/components/details", { title: "Details of changes", open: false })
         .with_block_given
         .yields
-
-      component
-        .expects(:render)
-        .with(table_component)
-        .once
 
       render_inline component
     end
@@ -157,70 +162,72 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
         render_inline component
       end
     end
+  end
 
-    describe "when a field diff is for an embedded object" do
-      let(:subschema) { stub(:subschema, id: "embedded_schema") }
-      let(:schema) { stub(:schema, subschemas: [subschema]) }
+  describe "when a field diff is for an embedded object" do
+    let(:subschema) { stub(:subschema, id: "embedded_schema") }
+    let(:schema) { stub(:schema, subschemas: [subschema]) }
 
-      let(:field_diffs) do
-        {
-          "details" => {
-            "embedded_schema" => {
-              "something" => {
-                "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
-                "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
-              },
-            },
-          },
-        }
-      end
-
-      let(:version) do
-        build(
-          :content_block_version,
-          event: "created",
-          whodunnit: user.id,
-          state: "published",
-          created_at: 4.days.ago,
-          item: content_block_edition,
-          field_diffs:,
-        )
-      end
-
-      it "renders the embedded table component" do
-        table_component = stub("table_component")
-
-        ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent
-          .expects(:new)
-          .with(
-            object_id: "something",
-            field_diff: {
+    let(:field_diffs) do
+      {
+        "details" => {
+          "embedded_schema" => {
+            "something" => {
               "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
               "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
             },
-            subschema_id: "embedded_schema",
-            content_block_edition:,
-          )
-          .returns(table_component)
+          },
+        },
+      }
+    end
 
-        component
-          .expects(:render)
-          .with("govuk_publishing_components/components/details", { title: "Details of changes", open: false })
-          .with_block_given
-          .yields
+    let(:version) do
+      build_stubbed(
+        :content_block_version,
+        event: "created",
+        whodunnit: user.id,
+        state: "published",
+        created_at: 4.days.ago,
+        item: content_block_edition,
+        field_diffs:,
+      )
+    end
 
-        component
-          .expects(:render)
-          .with(table_component)
-          .once
+    it "renders the embedded table component" do
+      table_component = stub("table_component")
 
-        component
-          .expects(:render)
-          .with(anything)
-          .once
+      ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent
+        .expects(:new)
+        .with(
+          object_id: "something",
+          field_diff: {
+            "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+            "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "before", new_value: "after"),
+          },
+          subschema_id: "embedded_schema",
+          content_block_edition:,
+        )
+        .returns(table_component)
 
-        render_inline component
-      end
+      component
+        .expects(:render)
+        .with("govuk_publishing_components/components/details", { title: "Details of changes", open: false })
+        .with_block_given
+        .yields
+
+      component
+        .expects(:render)
+        .with(table_component)
+        .once
+        .returns("TABLE COMPONENT 1")
+
+      component
+        .expects(:render)
+        .with(anything)
+        .once
+        .returns("TABLE COMPONENT 2")
+
+      render_inline component
     end
   end
 end

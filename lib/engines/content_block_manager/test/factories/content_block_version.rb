@@ -2,15 +2,15 @@ FactoryBot.define do
   factory :content_block_version, class: "ContentBlockManager::ContentBlock::Version" do
     event { "created" }
     item do
-      create(
+      build(
         :content_block_edition,
-        document: create(
+        document: build(
           :content_block_document,
           block_type: "email_address",
         ),
       )
     end
-    whodunnit { create(:user).id }
+    whodunnit { build(:user).id }
     state {}
   end
 end
