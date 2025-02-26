@@ -1,9 +1,3 @@
-When("I click to copy the embed code") do
-  find("a", text: "Copy code").click
-  has_text?("Code copied")
-  @embed_code = @content_block.document.embed_code
-end
-
 When("I click to copy the embed code for the content block {string}") do |content_block_name|
   within(".govuk-summary-card", text: content_block_name) do
     find("a", text: "Copy code").click

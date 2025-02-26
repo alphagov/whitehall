@@ -22,7 +22,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
   it "renders a published content block correctly" do
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 7
+    assert_selector ".govuk-summary-list__row", count: 6
 
     assert_selector ".govuk-summary-card__title", text: "Email address details"
 
@@ -43,11 +43,6 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
 
     assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
     assert_selector ".govuk-summary-list__value", text: "None"
-
-    assert_selector ".govuk-summary-list__row[data-module='copy-embed-code']", text: "Embed code"
-    assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_document.embed_code}']", text: "Embed code"
-    assert_selector ".govuk-summary-list__key", text: "Embed code"
-    assert_selector ".govuk-summary-list__value", text: content_block_document.embed_code
   end
 
   it "renders a scheduled content block correctly" do
@@ -55,7 +50,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
 
     render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
 
-    assert_selector ".govuk-summary-list__row", count: 7
+    assert_selector ".govuk-summary-list__row", count: 6
 
     assert_selector ".govuk-summary-list__key", text: "Status"
     assert_selector ".govuk-summary-list__value", text: "Scheduled for publication at #{I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)}"

@@ -80,14 +80,6 @@ Feature: Search for a content object
     And I click to view results
     Then I should see a message that the filter dates are invalid
 
-  @javascript
-  Scenario: GDS Editor can copy embed code
-    When I visit the Content Block Manager home page
-    And I select the lead organisation "Ministry of Example"
-    And I click to view results
-    And I click to copy the embed code for the content block "ministry address"
-    Then the embed code should be copied to my clipboard
-
   Scenario: GDS Editor can view more than one page
     When 1 content blocks of type email_address have been created with the fields:
       | title | page 2 edition |

@@ -14,23 +14,11 @@ private
       organisation_item,
       instructions_item,
       status_item,
-      embed_code_item,
     ].compact
   end
 
   def title
     "#{content_block_document.block_type.humanize} details"
-  end
-
-  def embed_code_item
-    {
-      key: "Embed code",
-      value: content_block_document.embed_code,
-      data: {
-        module: "copy-embed-code",
-        "embed-code": content_block_document.embed_code,
-      },
-    }
   end
 
   def title_item

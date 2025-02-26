@@ -38,14 +38,6 @@ Feature: View a content object
     And I should see the rollup data for the dependent content
 
   @javascript
-  Scenario: GDS Editor can copy embed code for whole block
-    When I visit the Content Block Manager home page
-    Then I should see the details for all documents
-    When I click to view the document
-    And I click to copy the embed code
-    Then the embed code should be copied to my clipboard
-
-  @javascript
   Scenario: GDS Editor can copy embed code for a specific field
     When I visit the Content Block Manager home page
     When I click to view the document with title "My pension"
