@@ -13,7 +13,9 @@ Then(/^I should be on the "([^"]*)" step$/) do |step|
     should_be_on_review_step(object_type: @content_block.document.block_type)
   when "change_note"
     should_be_on_change_note_step
-  when /#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
-    should_be_on_subschema_step(::Regexp.last_match(1))
+  when /add_#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
+    should_be_on_subschema_step(::Regexp.last_match(1), "Add")
+  when /edit_#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
+    should_be_on_subschema_step(::Regexp.last_match(1), "Edit")
   end
 end

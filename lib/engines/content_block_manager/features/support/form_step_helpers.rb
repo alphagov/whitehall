@@ -44,6 +44,6 @@ def should_be_on_change_note_step
   assert_text "Do users have to know the content has changed?"
 end
 
-def should_be_on_subschema_step(subschema)
-  assert_text "Add #{subschema.humanize(capitalize: false)}"
+def should_be_on_subschema_step(subschema, prefix)
+  assert_text "#{prefix} #{subschema.humanize(capitalize: false)}"
 end

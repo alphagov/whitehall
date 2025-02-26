@@ -83,6 +83,7 @@ private
   def embedded_objects(subschema_name)
     @subschema = @schema.subschema(subschema_name)
     @step_name = current_step.name
+    @action = @content_block_edition.document.is_new_block? ? "Add" : "Edit"
 
     if @subschema
       render :embedded_objects

@@ -23,14 +23,14 @@ Feature: Edit a pension object
     Then I should be on the "edit" step
     And I should see a back link to the document page
     When I fill out the form
-    Then I should be on the "embedded_rates" step
+    Then I should be on the "edit_embedded_rates" step
     And I should see the rates for that block
     And I should not see a button to add a new "rate"
     When I click to edit the first rate
     When I complete the "rate" form with the following fields:
       | name    | amount  | frequency |
       | My rate | £122.50 | a week    |
-    Then I should be on the "embedded_rates" step
+    Then I should be on the "edit_embedded_rates" step
     And I should see the updated rates for that block
     When I save and continue
     Then I should be on the "review_links" step
