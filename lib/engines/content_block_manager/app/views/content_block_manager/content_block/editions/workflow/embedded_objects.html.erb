@@ -27,9 +27,11 @@
           </div>
           <% end %>
       <% else %>
-        <%= render "govuk_publishing_components/components/hint", {
-          text: "Create #{@subschema.name.downcase} for this #{@schema.name}. Alternatively, #{@subschema.name.downcase} can be created and edited later too.",
-        } %>
+        <% if I18n.exists?("content_block_edition.create.embedded_objects.#{@subschema.id}") %>
+          <%= render "govuk_publishing_components/components/hint", {
+            text: t("content_block_edition.create.embedded_objects.#{@subschema.id}"),
+          } %>
+        <% end %>
       <% end %>
 
       <%= render "govuk_publishing_components/components/button", {

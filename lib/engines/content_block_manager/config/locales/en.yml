@@ -38,6 +38,8 @@ en:
       title: "Edit %{block_type}"
     create:
       title: "Create %{block_type}"
+      embedded_objects:
+        rates: Enter rate details, including the amount. You can do this now or later.
     confirmation_page:
       scheduled:
         banner: "%{block_type} scheduled to publish on %{date}"
