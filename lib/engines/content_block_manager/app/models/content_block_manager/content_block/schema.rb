@@ -10,7 +10,7 @@ module ContentBlockManager
 
       class << self
         def valid_schemas
-          VALID_SCHEMAS
+          Flipflop.show_all_content_block_types? ? VALID_SCHEMAS : %w[pension]
         end
 
         def all

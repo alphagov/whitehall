@@ -144,12 +144,23 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   end
 
   describe ".valid_schemas" do
-    test "it returns the contents of the VALID_SCHEMA constant" do
+    it "returns the contents of the VALID_SCHEMA constant" do
       assert_equal ContentBlockManager::ContentBlock::Schema.valid_schemas, %w[
         email_address
         postal_address
         pension
       ]
+    end
+
+    describe "when the show_all_content_block_types feature flag is turned off" do
+      before do
+        test_strategy = Flipflop::FeatureSet.current.test!
+        test_strategy.switch!(:show_all_content_block_types, false)
+      end
+
+      it "only returns pensions" do
+        assert_equal ContentBlockManager::ContentBlock::Schema.valid_schemas, %w[pension]
+      end
     end
   end
 

@@ -25,4 +25,7 @@ Flipflop.configure do
   feature :govspeak_visual_editor, description: "Enables a visual editor for Govspeak fields", default: false
   feature :override_government, description: "Enables GDS Editors and Admins to override the government associated with a document", default: false
   feature :show_link_to_content_block_manager, description: "Shows link to Content Block Manager from Whitehall editor", default: Whitehall.integration_or_staging?
+  feature :show_all_content_block_types,
+          description: "Show all applicable content block types in Content Block Manager",
+          default: Whitehall.integration_or_staging? || !Rails.env.production?
 end

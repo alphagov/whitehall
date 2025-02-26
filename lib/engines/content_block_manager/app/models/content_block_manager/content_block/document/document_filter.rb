@@ -76,6 +76,7 @@ module ContentBlockManager
 
     def unpaginated_documents
       documents = ContentBlock::Document
+      documents = documents.where(block_type: ContentBlock::Schema.valid_schemas)
       documents = documents.live
       documents = documents.joins(:latest_edition)
       documents = documents.with_keyword(@filters[:keyword]) if @filters[:keyword].present?
