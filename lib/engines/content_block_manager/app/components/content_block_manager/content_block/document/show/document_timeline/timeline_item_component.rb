@@ -51,4 +51,31 @@ private
       end
     }.flatten
   end
+
+  def details_of_changes
+    @details_of_changes ||= begin
+      return "" if version.field_diffs.blank?
+
+      [
+        main_object_field_changes,
+        embedded_object_field_changes,
+      ].join.html_safe
+    end
+  end
+
+  def main_object_field_changes
+    render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::FieldChangesTableComponent.new(
+      version:,
+      schema:,
+    )
+  end
+
+  def embedded_object_field_changes
+    embedded_object_diffs.map do |item|
+      render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent.new(
+        **item,
+        content_block_edition: version.item,
+      )
+    end
+  end
 end
