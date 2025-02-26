@@ -106,6 +106,59 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
         end
       end
 
+      describe "when an order is given in the config" do
+        let(:body) do
+          {
+            "properties" => {
+              "rate" => {
+                "type" => "object",
+                "patternProperties" => {
+                  "*" => {
+                    "type" => "object",
+                    "properties" => {
+                      "name" => {
+                        "type" => "string",
+                      },
+                      "amount" => {
+                        "type" => "string",
+                      },
+                      "description" => {
+                        "type" => "string",
+                      },
+                      "frequency" => {
+                        "type" => "string",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
+
+        before do
+          ContentBlockManager::ContentBlock::Schema
+            .stubs(:schema_settings)
+            .returns({
+              "schemas" => {
+                schema.id => {
+                  "subschemas" => {
+                    "rate" => {
+                      "field_order" => %w[name amount frequency description],
+                    },
+                  },
+                },
+              },
+            })
+        end
+
+        it "orders fields when an order is given" do
+          subschema = schema.subschema("rate")
+
+          assert_equal subschema.fields, %w[name amount frequency description]
+        end
+      end
+
       describe "when an invalid subschema is given" do
         let(:body) do
           {

@@ -81,7 +81,7 @@ module ContentBlockManager
         end
 
         def fields
-          @body["properties"].keys.sort_by { |field| @body["order"]&.index(field) }
+          @body["properties"].keys.sort_by { |field| @body["order"]&.index(field) }.sort_by { |field| config["field_order"]&.index(field) }
         end
 
         def block_type
