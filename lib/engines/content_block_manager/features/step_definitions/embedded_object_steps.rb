@@ -112,3 +112,7 @@ And(/^I should see the updated rates for that block$/) do
     assert_text @details[k]
   end
 end
+
+And("I should not see a button to add a new {string}") do |object_type|
+  assert_no_text "Add a #{object_type}"
+end
