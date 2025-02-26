@@ -14,7 +14,6 @@ private
       organisation_item,
       status_item,
       (instructions_item if content_block_document.latest_edition.instructions_to_publishers.present?),
-      embed_code_item,
     ].compact
   end
 
@@ -64,17 +63,6 @@ private
     {
       key: "Instructions to publishers",
       value: content_block_edition.instructions_to_publishers.presence || "None",
-    }
-  end
-
-  def embed_code_item
-    {
-      key: "Embed code",
-      value: content_block_document.embed_code,
-      data: {
-        module: "copy-embed-code",
-        "embed-code": content_block_document.embed_code,
-      },
     }
   end
 
