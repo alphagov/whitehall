@@ -10,6 +10,10 @@ module ContentBlockManager
       def field_diffs
         self[:field_diffs] ? ContentBlock::DiffItem.from_hash(self[:field_diffs]) : {}
       end
+
+      def is_embedded_update?
+        updated_embedded_object_type && updated_embedded_object_name
+      end
     end
   end
 end
