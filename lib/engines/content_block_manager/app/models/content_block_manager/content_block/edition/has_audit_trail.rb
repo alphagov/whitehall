@@ -19,6 +19,8 @@ module ContentBlockManager
       after_update :record_update
     end
 
+    attr_accessor :updated_embedded_object_type, :updated_embedded_object_name
+
   private
 
     def record_create
@@ -30,7 +32,13 @@ module ContentBlockManager
       unless draft?
         user = Current.user
         state = try(:state)
-        versions.create!(event: "updated", user:, state:, field_diffs: generate_diff)
+        versions.create!(
+          event: "updated",
+          user:, state:,
+          field_diffs: generate_diff,
+          updated_embedded_object_type:,
+          updated_embedded_object_name:
+        )
       end
     end
   end
