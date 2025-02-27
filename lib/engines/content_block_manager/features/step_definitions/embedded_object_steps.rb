@@ -16,7 +16,7 @@ end
 When("I complete the {string} form with the following fields:") do |object_type, table|
   fields = table.hashes.first
   @details = fields
-  @object_name ||= @details["name"].parameterize
+  @object_title ||= @details["title"].parameterize
   fields.keys.each do |k|
     field = find_field "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}"
     if field.tag_name == "select"
@@ -38,7 +38,7 @@ Then("the {string} should have been created successfully") do |object_type|
 
   assert_not_nil edition
   assert_not_nil edition.document
-  key = @object_name
+  key = @object_title
 
   @details.keys.each do |k|
     assert_equal edition.details[object_type.parameterize.pluralize][key][k], @details[k]
@@ -85,8 +85,8 @@ end
 And(/^that pension has a rate with the following fields:$/) do |table|
   rate = table.hashes.first
   @content_block.details["rates"] = {
-    rate[:name].parameterize.to_s => {
-      "name" => rate[:name],
+    rate[:title].parameterize.to_s => {
+      "title" => rate[:title],
       "amount" => rate[:amount],
       "frequency" => rate[:frequency],
     },

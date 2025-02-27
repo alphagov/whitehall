@@ -5,7 +5,7 @@ schemas:
         embeddable_fields:
           - amount
         field_order:
-          - name
+          - title
           - amount
           - frequency
           - description
