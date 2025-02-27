@@ -1,15 +1,15 @@
 class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent < ViewComponent::Base
-  def initialize(content_block_edition:, object_type:, object_name:, is_editable: false, redirect_url: nil)
+  def initialize(content_block_edition:, object_type:, object_title:, is_editable: false, redirect_url: nil)
     @content_block_edition = content_block_edition
     @object_type = object_type
-    @object_name = object_name
+    @object_title = object_title
     @is_editable = is_editable
     @redirect_url = redirect_url
   end
 
 private
 
-  attr_reader :content_block_edition, :object_type, :object_name, :is_editable, :redirect_url
+  attr_reader :content_block_edition, :object_type, :object_title, :is_editable, :redirect_url
 
   def title
     "#{object_type.titleize.singularize} details"
@@ -34,7 +34,7 @@ private
   def embed_code_row(key)
     {
       key: "Embed code",
-      value: content_block_edition.document.embed_code_for_field("#{object_type}/#{object_name}/#{key}"),
+      value: content_block_edition.document.embed_code_for_field("#{object_type}/#{object_title}/#{key}"),
       data: {
         "embed-code-row": "true",
       },
@@ -53,13 +53,13 @@ private
     unless is_editable
       {
         module: "copy-embed-code",
-        "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_name}/#{key}"),
+        "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_title}/#{key}"),
       }
     end
   end
 
   def object
-    content_block_edition.details.dig(object_type, object_name)
+    content_block_edition.details.dig(object_type, object_title)
   end
 
   def summary_card_actions
@@ -70,7 +70,7 @@ private
           href: helpers.content_block_manager.edit_embedded_object_content_block_manager_content_block_edition_path(
             content_block_edition,
             object_type:,
-            object_name:,
+            object_title:,
             redirect_url:,
           ),
         },

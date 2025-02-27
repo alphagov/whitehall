@@ -16,7 +16,7 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
     redirect_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
       @content_block_edition,
       object_type: @subschema.block_type,
-      object_name: @content_block_edition.key_for_object(@params),
+      object_title: @content_block_edition.key_for_object(@params),
     )
   rescue ActiveRecord::RecordInvalid
     render :new

@@ -1,13 +1,13 @@
 class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardComponent < ViewComponent::Base
-  def initialize(content_block_edition:, object_type:, object_name:)
+  def initialize(content_block_edition:, object_type:, object_title:)
     @content_block_edition = content_block_edition
     @object_type = object_type
-    @object_name = object_name
+    @object_title = object_title
   end
 
 private
 
-  attr_reader :content_block_edition, :object_type, :object_name
+  attr_reader :content_block_edition, :object_type, :object_title
 
   def title
     "#{object_type.titleize.singularize} details"
@@ -23,6 +23,6 @@ private
   end
 
   def object
-    content_block_edition.details.dig(object_type, object_name)
+    content_block_edition.details.dig(object_type, object_title)
   end
 end

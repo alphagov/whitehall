@@ -8,12 +8,12 @@ Feature: Edit a pension object
       | description   | string | string | true     |
     And the schema "pension" has a subschema with the name "rates" and the following fields:
       | field     | type   | format | required | enum           | pattern          |
-      | name      | string | string | true     |                |                  |
+      | title     | string | string | true     |                |                  |
       | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
       | frequency | string | string |          | a week,a month |                  |
     And a pension content block has been created
     And that pension has a rate with the following fields:
-      | name    | amount  | frequency |
+      | title   | amount  | frequency |
       | My rate | £123.45 | a week    |
 
   Scenario: GDS Editor edits a pension object
@@ -28,7 +28,7 @@ Feature: Edit a pension object
     And I should not see a button to add a new "rate"
     When I click to edit the first rate
     When I complete the "rate" form with the following fields:
-      | name    | amount  | frequency |
+      | title   | amount  | frequency |
       | My rate | £122.50 | a week    |
     Then I should be on the "edit_embedded_rates" step
     And I should see the updated rates for that block

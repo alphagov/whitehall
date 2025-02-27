@@ -25,10 +25,10 @@ ContentBlockManager::Engine.routes.draw do
           end
           get "embedded-objects/:object_type/new", to: "editions/embedded_objects#new", as: :new_embedded_object
           post "embedded-objects/:object_type", to: "editions/embedded_objects#create", as: :create_embedded_object
-          get "embedded-objects/:object_type/:object_name/edit", to: "editions/embedded_objects#edit", as: :edit_embedded_object
-          put "embedded-objects/:object_type/:object_name", to: "editions/embedded_objects#update", as: :embedded_object
-          get "embedded-objects/:object_type/:object_name/review", to: "editions/embedded_objects#review", as: :review_embedded_object
-          post "embedded-objects/:object_type/:object_name/publish", to: "editions/embedded_objects#publish", as: :publish_embedded_object
+          get "embedded-objects/:object_type/:object_title/edit", to: "editions/embedded_objects#edit", as: :edit_embedded_object
+          put "embedded-objects/:object_type/:object_title", to: "editions/embedded_objects#update", as: :embedded_object
+          get "embedded-objects/:object_type/:object_title/review", to: "editions/embedded_objects#review", as: :review_embedded_object
+          post "embedded-objects/:object_type/:object_title/publish", to: "editions/embedded_objects#publish", as: :publish_embedded_object
           get :preview, to: "editions/host_content#preview", path: "host-content/:host_content_id/preview", as: :host_content_preview
         end
       end
