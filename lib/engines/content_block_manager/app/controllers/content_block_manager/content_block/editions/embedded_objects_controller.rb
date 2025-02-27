@@ -19,15 +19,15 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
 
   def edit
     @redirect_url = params[:redirect_url]
-    @object_name = params[:object_name]
-    @object = @content_block_edition.details.dig(params[:object_type], params[:object_name])
+    @object_title = params[:object_title]
+    @object = @content_block_edition.details.dig(params[:object_type], params[:object_title])
 
     render "admin/errors/not_found", status: :not_found unless @object
   end
 
   def update
     @object = object_params(@subschema).dig(:details, @subschema.block_type)
-    @content_block_edition.update_object_with_details(params[:object_type], params[:object_name], @object)
+    @content_block_edition.update_object_with_details(params[:object_type], params[:object_title], @object)
     @content_block_edition.save!
 
     if params[:redirect_url].present?
@@ -37,17 +37,17 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
       redirect_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
         @content_block_edition,
         object_type: @subschema.block_type,
-        object_name: params[:object_name],
+        object_title: params[:object_title],
       )
     end
   rescue ActiveRecord::RecordInvalid
     @redirect_url = params[:redirect_url]
-    @object_name = params[:object_name]
+    @object_title = params[:object_title]
     render :edit
   end
 
   def review
-    @object_name = params[:object_name]
+    @object_title = params[:object_title]
   end
 
   def publish
@@ -56,11 +56,11 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
       redirect_path = content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
         @content_block_edition,
         object_type: @subschema.block_type,
-        object_name: params[:object_name],
+        object_title: params[:object_title],
       )
     else
       @content_block_edition.updated_embedded_object_type = @subschema.block_type
-      @content_block_edition.updated_embedded_object_name = params[:object_name]
+      @content_block_edition.updated_embedded_object_name = params[:object_title]
       ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
       flash[:notice] = "#{@subschema.name.singularize} created"
       redirect_path = content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document)

@@ -8,7 +8,7 @@ Feature: Create a content object
       | description   | string | string | true     |
     And the schema "pension" has a subschema with the name "rates" and the following fields:
       | field     | type   | format | required | enum           | pattern          |
-      | name      | string | string | true     |                |                  |
+      | title     | string | string | true     |                |                  |
       | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
       | frequency  | string | string |          | a week,a month |                  |
 
@@ -39,7 +39,7 @@ Feature: Create a content object
       | my basic pension | this is basic | Ministry of Example | this is important  |
     When I click to add a new "rate"
     And I complete the "rate" form with the following fields:
-      | name     | amount  | frequency |
+      | title    | amount  | frequency |
       | New rate | £127.91 | a month  |
     Then I should be on the "add_embedded_rates" step
     When I save and continue

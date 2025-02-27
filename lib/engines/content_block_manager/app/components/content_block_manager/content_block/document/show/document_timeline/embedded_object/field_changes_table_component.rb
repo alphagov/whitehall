@@ -21,6 +21,6 @@ private
   end
 
   def caption
-    content_block_edition.details.dig(subschema_id, object_id, "name") || object_id.underscore.humanize
+    content_block_edition.details.dig(subschema_id, object_id, "title") || object_id.underscore.humanize
   end
 end
