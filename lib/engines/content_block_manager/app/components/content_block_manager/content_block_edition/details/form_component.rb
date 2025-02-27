@@ -18,7 +18,7 @@ private
         )
       else
         ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
-          **component_args(field),
+          **component_args(field).merge(prefix: prefix_for_field(field)).compact,
         )
       end
     end
@@ -29,5 +29,9 @@ private
       content_block_edition:,
       field:,
     }
+  end
+
+  def prefix_for_field(field)
+    @schema.config_for_field(field).dig("field_args", "prefix")
   end
 end

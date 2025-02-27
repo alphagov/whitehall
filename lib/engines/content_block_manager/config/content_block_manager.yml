@@ -2,5 +2,9 @@ schemas:
   content_block_pension:
     subschemas:
       rates:
+        fields:
+          amount:
+            field_args:
+              prefix: £
         embeddable_fields:
           - amount

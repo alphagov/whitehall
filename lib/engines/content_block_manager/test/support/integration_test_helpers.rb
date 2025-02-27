@@ -13,6 +13,7 @@ module ContentBlockManager::IntegrationTestHelpers
       block_type:,
       permitted_params: %i[foo bar],
       subschemas:,
+      config_for_field: {},
     )
     subschemas.each do |subschema|
       schema.stubs(:subschema).with(subschema.id).returns(subschema)

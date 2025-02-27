@@ -60,6 +60,49 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
     assert_selector 'input[value="some custom value"]'
   end
 
+  describe "prefix" do
+    it "should allow a prefix to be set" do
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          field: "email_address",
+          value: "some custom value",
+          prefix: "£",
+        ),
+      )
+
+      assert_selector 'input[data-prefix="£"][data-module="form-prefix"]'
+    end
+
+    it "should add a prefix to the value if the value is not set" do
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          field: "email_address",
+          value: nil,
+          prefix: "£",
+        ),
+      )
+
+      assert_selector 'input[value="£"]'
+    end
+
+    it "should ignore the prefix if the details contain a value" do
+      content_block_edition.details = { "email_address": "example@example.com" }
+
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          field: "email_address",
+          value: nil,
+          prefix: "£",
+        ),
+      )
+
+      assert_selector 'input[value="example@example.com"]'
+    end
+  end
+
   describe "hints" do
     it "should render hint text when a translation exists" do
       I18n.expects(:t).with("content_block_edition.details.hints.email_address", default: nil).returns("Some hint text")
