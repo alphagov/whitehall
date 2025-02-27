@@ -196,9 +196,9 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
   describe "#add_object_to_details" do
     it "adds an object with the correct key to the details hash" do
-      content_block_edition.add_object_to_details("something", { "name" => "My thing", "something" => "else" })
+      content_block_edition.add_object_to_details("something", { "title" => "My thing", "something" => "else" })
 
-      assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "My thing", "something" => "else" } }
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "My thing", "something" => "else" } }
     end
 
     it "appends to the object if it already exists" do
@@ -206,11 +206,11 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
         "another-thing" => {},
       }
 
-      content_block_edition.add_object_to_details("something", { "name" => "My thing", "something" => "else" })
-      assert_equal content_block_edition.details["something"], { "another-thing" => {}, "my-thing" => { "name" => "My thing", "something" => "else" } }
+      content_block_edition.add_object_to_details("something", { "title" => "My thing", "something" => "else" })
+      assert_equal content_block_edition.details["something"], { "another-thing" => {}, "my-thing" => { "title" => "My thing", "something" => "else" } }
     end
 
-    it "creates a random key if a name is not provided" do
+    it "creates a random key if a title is not provided" do
       SecureRandom.expects(:alphanumeric).returns("RANDOM-STRING")
       content_block_edition.add_object_to_details("something", { "something" => "else" })
 
@@ -220,19 +220,19 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
   describe "#update_object_with_details" do
     before do
-      content_block_edition.details["something"] = { "my-thing" => { "name" => "My thing", "something" => "else" } }
+      content_block_edition.details["something"] = { "my-thing" => { "title" => "My thing", "something" => "else" } }
     end
 
     it "updates a given object's details" do
-      content_block_edition.update_object_with_details("something", "my-thing", { "name" => "My thing", "something" => "changed" })
+      content_block_edition.update_object_with_details("something", "my-thing", { "title" => "My thing", "something" => "changed" })
 
-      assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "My thing", "something" => "changed" } }
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "My thing", "something" => "changed" } }
     end
 
-    it "keeps the original key name if the name changes" do
-      content_block_edition.update_object_with_details("something", "my-thing", { "name" => "Other thing", "something" => "changed" })
+    it "keeps the original key if the title changes" do
+      content_block_edition.update_object_with_details("something", "my-thing", { "title" => "Other thing", "something" => "changed" })
 
-      assert_equal content_block_edition.details["something"], { "my-thing" => { "name" => "Other thing", "something" => "changed" } }
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "Other thing", "something" => "changed" } }
     end
   end
 

@@ -66,13 +66,13 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       get content_block_manager.edit_embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
       )
 
       assert_equal assigns(:content_block_edition), edition
       assert_equal assigns(:schema), stub_schema
       assert_equal assigns(:subschema), stub_subschema
-      assert_equal assigns(:object_name), "embedded"
+      assert_equal assigns(:object_title), "embedded"
       assert_equal assigns(:object), { "is" => "here", "name" => "Embedded" }
     end
 
@@ -80,7 +80,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       get content_block_manager.edit_embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
         redirect_url: "https://example.com",
       )
 
@@ -93,7 +93,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       get content_block_manager.edit_embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type: "something_else",
-        object_name: "embedded",
+        object_title: "embedded",
       )
 
       assert_equal response.status, 404
@@ -105,7 +105,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       get content_block_manager.edit_embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "something_else",
+        object_title: "something_else",
       )
 
       assert_equal response.status, 404
@@ -117,7 +117,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       put content_block_manager.embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
       ), params: {
         "content_block/edition" => {
           details: {
@@ -132,7 +132,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       assert_redirected_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
       )
 
       updated_edition = edition.reload
@@ -144,7 +144,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       put content_block_manager.embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
       ), params: {
         redirect_url: content_block_manager.content_block_manager_content_block_documents_path,
         "content_block/edition" => {
@@ -165,7 +165,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       put content_block_manager.embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
       ), params: {
         "content_block/edition" => {
           details: {
@@ -180,7 +180,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       assert_redirected_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
       )
 
       updated_edition = edition.reload
@@ -194,7 +194,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       put content_block_manager.embedded_object_content_block_manager_content_block_edition_path(
         edition,
         object_type:,
-        object_name: "embedded",
+        object_title: "embedded",
       ), params: {
         "content_block/edition" => {
           details: {
@@ -209,7 +209,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       assert_equal assigns(:content_block_edition), edition
       assert_equal assigns(:schema), stub_schema
       assert_equal assigns(:subschema), stub_subschema
-      assert_equal assigns(:object_name), "embedded"
+      assert_equal assigns(:object_title), "embedded"
       assert_equal assigns(:object).to_h, {
         "name" => "New Name",
         "is" => "different",

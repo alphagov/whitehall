@@ -12,7 +12,7 @@ Feature: View a content object
       | frequency | string | string |          | a week,a month |                  |
     And a pension content block has been created
     And that pension has a rate with the following fields:
-      | name    | amount  | frequency |
+      | title   | amount  | frequency |
       | My rate | £123.45 | a week    |
     And a schema "email_address" exists with the following fields:
       | email_address |
