@@ -23,13 +23,14 @@ Feature: Edit a pension object
     Then I should be on the "edit" step
     And I should see a back link to the document page
     When I fill out the form
-    Then I should be on the "embedded_rates" step
+    Then I should be on the "edit_embedded_rates" step
     And I should see the rates for that block
+    And I should not see a button to add a new "rate"
     When I click to edit the first rate
     When I complete the "rate" form with the following fields:
       | name    | amount  | frequency |
       | My rate | £122.50 | a week    |
-    Then I should be on the "embedded_rates" step
+    Then I should be on the "edit_embedded_rates" step
     And I should see the updated rates for that block
     When I save and continue
     Then I should be on the "review_links" step
@@ -55,27 +56,14 @@ Feature: Edit a pension object
     And I should see the edition diff in a table
     And I should see details of my "rate"
 
-  Scenario: GDS Editor edits a pension object and creates a new rate
+  Scenario: Rate steps are skipped when there has been no rates added
+    Given my pension content block has no rates
     When I visit the Content Block Manager home page
     And I click to view the document
     And I click to edit the "pension"
     When I fill out the form
-    And I click to add a new "rate"
-    And I complete the "rate" form with the following fields:
-      | name     | amount  | frequency |
-      | New rate | £127.91 | a month   |
-    Then I should be on the "embedded_rates" step
-    And I should see the updated rates for that block
-    When I save and continue
-    And I continue after reviewing the links
-    And I add an internal note
-    And I add a change note
-    And I choose to publish the change now
-    When I review and confirm my answers are correct
-    Then I should be taken to the confirmation page for a published block
-    When I click to view the content block
-    Then the edition should have been updated successfully
-    And I should see details of my "rate"
+    Then I should be on the "review_links" step
+    And I should see a back link to the "edit_draft" step
 
   Scenario: GDS editor sees notification about an in-progress draft
     When I visit the Content Block Manager home page

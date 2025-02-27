@@ -269,4 +269,18 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal content_block_edition.first_class_details, { "my" => "details" }
     end
   end
+
+  describe "#has_entries_for_subschema_id?" do
+    it "returns false when there are no entries for a subschema ID" do
+      content_block_edition.details["foo"] = {}
+
+      assert_not content_block_edition.has_entries_for_subschema_id?("foo")
+    end
+
+    it "returns true when there entries for a subschema ID" do
+      content_block_edition.details["foo"] = { "something" => { "foo" => "bar" } }
+
+      assert content_block_edition.has_entries_for_subschema_id?("foo")
+    end
+  end
 end

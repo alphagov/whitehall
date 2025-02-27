@@ -89,7 +89,7 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
     let(:step) { "something" }
 
     before do
-      content_block_document.expects(:is_new_block?).returns(true)
+      content_block_document.expects(:is_new_block?).at_least_once.returns(true)
     end
 
     it "removes steps not included in the create journey" do
@@ -142,6 +142,11 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
     let(:step) { "something" }
 
+    before do
+      content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(true)
+      content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(true)
+    end
+
     describe "#steps" do
       it "inserts the subschemas into the flow" do
         assert_equal workflow.steps, [
@@ -150,6 +155,21 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
           Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
           Workflow::Step::ALL[1..],
         ].flatten
+      end
+
+      describe "when there are entries missing for a given subschema" do
+        before do
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(false)
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(true)
+        end
+
+        it "skips the subschemas without data" do
+          assert_equal workflow.steps, [
+            Workflow::Step::ALL[0],
+            Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
+            Workflow::Step::ALL[1..],
+          ].flatten
+        end
       end
     end
 
@@ -196,7 +216,7 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
     describe "and the content block is new" do
       before do
-        content_block_document.expects(:is_new_block?).returns(true)
+        content_block_document.expects(:is_new_block?).at_least_once.returns(true)
       end
 
       it "removes steps not included in the create journey" do

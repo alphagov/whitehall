@@ -1,5 +1,5 @@
 <% content_for :context, context %>
-<% content_for :title, "Add #{@subschema.name.humanize(capitalize: false)}" %>
+<% content_for :title, "#{@action} #{@subschema.name.humanize(capitalize: false)}" %>
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -27,20 +27,24 @@
           </div>
           <% end %>
       <% else %>
-        <%= render "govuk_publishing_components/components/hint", {
-          text: "Create #{@subschema.name.downcase} for this #{@schema.name}. Alternatively, #{@subschema.name.downcase} can be created and edited later too.",
-        } %>
+        <% if I18n.exists?("content_block_edition.create.embedded_objects.#{@subschema.id}") %>
+          <%= render "govuk_publishing_components/components/hint", {
+            text: t("content_block_edition.create.embedded_objects.#{@subschema.id}"),
+          } %>
+        <% end %>
       <% end %>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Add a #{@subschema.name.singularize.downcase}",
-        href: content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
-          @content_block_edition,
-          object_type: @subschema.block_type,
-        ),
-        secondary_solid: true,
-        margin_bottom: 6,
-      } %>
+      <% if @content_block_edition.document.is_new_block? %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Add a #{@subschema.name.singularize.downcase}",
+          href: content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
+            @content_block_edition,
+            object_type: @subschema.block_type,
+          ),
+          secondary_solid: true,
+          margin_bottom: 6,
+        } %>
+      <% end %>
     <% end %>
 
     <%= render ContentBlockManager::Shared::ContinueOrCancelButtonGroup.new(

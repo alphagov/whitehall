@@ -59,6 +59,10 @@ module ContentBlockManager
       def key_for_object(object)
         object["name"]&.parameterize.presence || SecureRandom.alphanumeric.downcase
       end
+
+      def has_entries_for_subschema_id?(subschema_id)
+        details[subschema_id].present?
+      end
     end
   end
 end

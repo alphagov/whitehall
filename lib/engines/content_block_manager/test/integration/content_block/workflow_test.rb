@@ -313,6 +313,10 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
         let!(:schema) { stub_request_for_schema("email_address", subschemas:) }
 
+        before do
+          ContentBlockManager::ContentBlock::Edition.any_instance.stubs(:has_entries_for_subschema_id?).returns(true)
+        end
+
         describe "#show" do
           it "shows the form for the first subschema" do
             get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
