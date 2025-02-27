@@ -84,7 +84,7 @@ And(/^that pension has a rate with the following fields:$/) do |table|
     rate[:name].parameterize.to_s => {
       "name" => rate[:name],
       "amount" => rate[:amount],
-      "cadence" => rate[:cadence],
+      "frequency" => rate[:frequency],
     },
   }
   @content_block.save!

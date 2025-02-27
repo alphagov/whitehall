@@ -4,3 +4,8 @@ schemas:
       rates:
         embeddable_fields:
           - amount
+        field_order:
+          - name
+          - amount
+          - frequency
+          - description
