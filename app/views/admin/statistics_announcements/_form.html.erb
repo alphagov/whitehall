@@ -51,7 +51,7 @@
     error_message: errors_for_input(statistics_announcement.errors, :summary),
   } %>
 
-  <%= render "components/autocomplete", {
+  <%= render "components/select_with_search", {
     id: "statistics_announcement_organisations",
     label: "Organisations (required)",
     heading_size: "l",

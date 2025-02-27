@@ -1,7 +1,7 @@
 <% required = false unless defined?(required) %>
 
 <% cache_if edition.role_ids.empty?, "#{taggable_roles_cache_digest}-design-system" do %>
-  <%= render "components/autocomplete", {
+  <%= render "components/select_with_search", {
     id: "edition_roles",
     name: "edition[role_ids][]",
     error_items: errors_for(edition.errors, :roles),

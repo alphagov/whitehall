@@ -5,7 +5,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_tag admin_update_needs_path(content_id: @document.content_id), method: :patch do %>
-      <%= render "components/autocomplete", {
+      <%= render "components/select_with_search", {
           id: "need_ids",
           name: "need_ids[]",
           include_blank: true,
