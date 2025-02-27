@@ -27,8 +27,8 @@ Feature: Edit a pension object
     And I should see the rates for that block
     When I click to edit the first rate
     When I complete the "rate" form with the following fields:
-      | name    | amount  | cadence |
-      | My rate | £122.50 | a week  |
+      | name    | amount  | frequency |
+      | My rate | £122.50 | a week    |
     Then I should be on the "embedded_rates" step
     And I should see the updated rates for that block
     When I save and continue
