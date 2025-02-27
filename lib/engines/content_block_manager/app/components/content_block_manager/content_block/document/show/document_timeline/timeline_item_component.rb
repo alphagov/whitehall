@@ -13,13 +13,24 @@ private
   attr_reader :version, :schema, :is_first_published_version, :is_latest
 
   def title
-    case version.state
-    when "published"
+    if version.is_embedded_update?
+      "#{updated_subschema_id.humanize.singularize} created"
+    elsif version.state == "published"
       is_first_published_version ? "#{version.item.block_type.humanize} created" : version.state.capitalize
-    when "scheduled"
+    elsif version.state == "scheduled"
       "Scheduled for publishing on #{version.item.scheduled_publication.to_fs(:long_ordinal_with_at)}"
     else
       "#{version.item.block_type.humanize} #{version.state}"
+    end
+  end
+
+  def updated_subschema_id
+    version.updated_embedded_object_type
+  end
+
+  def new_subschema_item_details
+    version.field_diffs.dig("details", updated_subschema_id, version.updated_embedded_object_name).map do |field_name, diff|
+      [field_name.humanize, diff.new_value]
     end
   end
 
