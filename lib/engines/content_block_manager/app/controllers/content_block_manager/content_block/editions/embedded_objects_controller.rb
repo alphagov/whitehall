@@ -59,6 +59,8 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
         object_name: params[:object_name],
       )
     else
+      @content_block_edition.updated_embedded_object_type = @subschema.block_type
+      @content_block_edition.updated_embedded_object_name = params[:object_name]
       ContentBlockManager::PublishEditionService.new.call(@content_block_edition)
       flash[:notice] = "#{@subschema.name.singularize} created"
       redirect_path = content_block_manager.content_block_manager_content_block_document_path(@content_block_edition.document)
