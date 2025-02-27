@@ -49,6 +49,27 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
       assert_equal "scheduled", version.state
     end
 
+    it "adds event details if provided" do
+      Current.user = user
+      edition = create(
+        :content_block_edition,
+        creator: user,
+        document: create(:content_block_document, :email_address),
+      )
+      edition.expects(:generate_diff).returns({})
+      edition.updated_embedded_object_type = "something"
+      edition.updated_embedded_object_name = "here"
+
+      assert_changes -> { edition.versions.count }, from: 1, to: 2 do
+        edition.publish!
+      end
+
+      version = edition.versions.first
+
+      assert_equal edition.updated_embedded_object_type, version.updated_embedded_object_type
+      assert_equal edition.updated_embedded_object_name, version.updated_embedded_object_name
+    end
+
     it "does not record a version when updating an existing draft" do
       edition = create(
         :content_block_edition,

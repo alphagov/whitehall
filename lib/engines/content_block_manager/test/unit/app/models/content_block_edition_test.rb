@@ -242,7 +242,9 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
         :content_block_edition, :email_address,
         title: "Some title",
         details: { "my" => "details" },
-        state: "published"
+        state: "published",
+        change_note: "Something",
+        internal_change_note: "Something else"
       )
       creator = create(:user)
 
@@ -254,6 +256,8 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal new_edition.creator, creator
       assert_equal new_edition.title, content_block_edition.title
       assert_equal new_edition.details, content_block_edition.details
+      assert_equal new_edition.change_note, nil
+      assert_equal new_edition.internal_change_note, nil
     end
   end
 

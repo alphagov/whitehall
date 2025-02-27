@@ -230,4 +230,56 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
       render_inline component
     end
   end
+
+  describe "when the version is an embedded update" do
+    let(:subschema) { stub(:subschema, id: "embedded_schema", name: "Embedded schema") }
+    let(:schema) { stub(:schema, subschemas: [subschema]) }
+
+    let(:field_diffs) do
+      {
+        "details" => {
+          "embedded_schema" => {
+            "something" => {
+              "field1" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: nil, new_value: "Field 1 value"),
+              "field2" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: nil, new_value: "Field 2 value"),
+            },
+          },
+        },
+      }
+    end
+
+    let(:version) do
+      build_stubbed(
+        :content_block_version,
+        event: "created",
+        whodunnit: user.id,
+        state: "published",
+        created_at: 4.days.ago,
+        item: content_block_edition,
+        field_diffs:,
+        updated_embedded_object_type: "embedded_schema",
+        updated_embedded_object_name: "something",
+      )
+    end
+
+    before do
+      schema.stubs(:subschema).with("embedded_schema").returns(subschema)
+    end
+
+    it "renders the correct title" do
+      render_inline component
+
+      assert_selector ".timeline__title", text: "Embedded schema created"
+    end
+
+    it "renders the details of the updated object" do
+      render_inline component
+
+      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__key", text: "Field1:"
+      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__value", text: "Field 1 value"
+
+      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(2) .timeline__embedded-item-list__key", text: "Field2:"
+      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(2) .timeline__embedded-item-list__value", text: "Field 2 value"
+    end
+  end
 end
