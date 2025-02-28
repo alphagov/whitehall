@@ -98,7 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_161012) do
 
   create_table "call_for_evidence_responses", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "edition_id"
-    t.text "summary", size: :medium
+    t.text "summary"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.date "published_on"
@@ -228,10 +228,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_161012) do
     t.bigint "document_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id"
     t.string "state", default: "draft", null: false
     t.datetime "scheduled_publication", precision: nil
-    t.text "instructions_to_publishers", size: :medium
+    t.text "instructions_to_publishers"
     t.string "title", default: "", null: false
     t.text "internal_change_note"
     t.text "change_note"
@@ -239,7 +238,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_161012) do
     t.virtual "details_for_indexing", type: :text, as: "json_unquote(`details`)", stored: true
     t.index ["document_id"], name: "index_content_block_editions_on_document_id"
     t.index ["title", "details_for_indexing", "instructions_to_publishers"], name: "title_details_instructions_to_publishers", type: :fulltext
-    t.index ["user_id"], name: "index_content_block_editions_on_user_id"
   end
 
   create_table "content_block_versions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -248,7 +246,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_161012) do
     t.integer "event", null: false
     t.string "whodunnit"
     t.datetime "created_at", precision: nil, null: false
-    t.text "state", size: :medium
+    t.text "state"
     t.json "field_diffs"
     t.string "updated_embedded_object_type"
     t.string "updated_embedded_object_name"
@@ -459,9 +457,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_161012) do
     t.string "image_display_option"
     t.string "auth_bypass_id", null: false
     t.string "taxonomy_topic_email_override"
-    t.integer "main_office_id"
     t.string "logo_formatted_name"
     t.string "analytics_identifier"
+    t.integer "main_office_id"
     t.boolean "visual_editor"
     t.integer "government_id"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
@@ -915,8 +913,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_161012) do
   end
 
   create_table "republishing_events", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.text "action", size: :medium, null: false
-    t.text "reason", size: :medium, null: false
+    t.text "action", null: false
+    t.text "reason", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1279,8 +1277,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_161012) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
-    t.text "summary", size: :medium
-    t.text "body", size: :medium
+    t.text "summary"
+    t.text "body"
     t.index ["locale"], name: "index_worldwide_organisation_page_translations_on_locale"
     t.index ["worldwide_organisation_page_id"], name: "index_bbd0fc4436b2d97c8b36796e9089468751fc0f2e"
   end
