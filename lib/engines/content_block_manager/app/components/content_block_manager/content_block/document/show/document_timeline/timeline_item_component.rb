@@ -62,6 +62,10 @@ private
     }.flatten
   end
 
+  def show_details_of_changes?
+    !version.is_embedded_update? && details_of_changes.present?
+  end
+
   def details_of_changes
     @details_of_changes ||= begin
       return "" if version.field_diffs.blank?

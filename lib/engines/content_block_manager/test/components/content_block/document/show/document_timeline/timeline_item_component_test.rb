@@ -276,6 +276,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
       render_inline component
 
       assert_selector ".timeline__embedded-item-list__item", count: 1
+      assert_no_selector "summary"
       assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__key", text: "Field1:"
       assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__value", text: "Field 1 value"
     end

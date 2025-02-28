@@ -8,10 +8,6 @@
     <p class="timeline__byline">by <%= byline %></p>
   </div>
 
-  <p class="timeline__date">
-    <%= date %>
-  </p>
-
   <% if version.is_embedded_update? %>
     <ul class="govuk-list timeline__embedded-item-list">
         <li class="timeline__embedded-item-list__item">
@@ -19,7 +15,13 @@
           <span class="timeline__embedded-item-list__value"><%= new_subschema_item_details[:new_value] %></span>
         </li>
     </ul>
-  <% elsif details_of_changes.present? %>
+  <% end %>
+
+  <p class="timeline__date">
+      <%= date %>
+  </p>
+
+  <% if show_details_of_changes? %>
     <div class="timeline__diff-table">
       <%= render "govuk_publishing_components/components/details", {
         title: "Details of changes",
