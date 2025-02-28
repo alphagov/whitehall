@@ -46,7 +46,7 @@ Then("the {string} should have been created successfully") do |object_type|
 
   version = edition.versions.order("created_at asc").first
   assert_equal version.updated_embedded_object_type, object_type.pluralize
-  assert_equal version.updated_embedded_object_name, @object_title
+  assert_equal version.updated_embedded_object_title, @object_title
 end
 
 Then("I should see errors for the required {string} fields") do |object_type|
