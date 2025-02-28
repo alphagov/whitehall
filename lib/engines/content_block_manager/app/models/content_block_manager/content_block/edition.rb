@@ -55,12 +55,12 @@ module ContentBlockManager
         details[object_type][key] = body.to_h
       end
 
-      def update_object_with_details(object_type, object_name, body)
-        details[object_type][object_name] = body.to_h
+      def update_object_with_details(object_type, object_title, body)
+        details[object_type][object_title] = body.to_h
       end
 
       def key_for_object(object)
-        object["name"]&.parameterize.presence || SecureRandom.alphanumeric.downcase
+        object["title"]&.parameterize.presence || SecureRandom.alphanumeric.downcase
       end
 
       def has_entries_for_subschema_id?(subschema_id)

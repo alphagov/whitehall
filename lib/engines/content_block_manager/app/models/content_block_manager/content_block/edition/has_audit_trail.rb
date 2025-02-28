@@ -19,7 +19,7 @@ module ContentBlockManager
       after_update :record_update
     end
 
-    attr_accessor :updated_embedded_object_type, :updated_embedded_object_name
+    attr_accessor :updated_embedded_object_type, :updated_embedded_object_title
 
   private
 
@@ -37,7 +37,7 @@ module ContentBlockManager
           user:, state:,
           field_diffs: generate_diff,
           updated_embedded_object_type:,
-          updated_embedded_object_name:
+          updated_embedded_object_title:
         )
       end
     end

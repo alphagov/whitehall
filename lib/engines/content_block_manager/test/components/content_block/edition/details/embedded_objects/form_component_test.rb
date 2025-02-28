@@ -24,29 +24,29 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
 
   let(:foo_stub) { stub("string_component") }
   let(:bar_stub) { stub("string_component") }
-  let(:object_name) { "some_object" }
+  let(:object_title) { "some_object" }
 
   it "renders fields for each property" do
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       label: "Foo",
-      field: [object_name, "foo"],
-      id_suffix: "#{object_name}_foo",
+      field: [object_title, "foo"],
+      id_suffix: "#{object_title}_foo",
       value: nil,
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       label: "Bar",
-      field: [object_name, "bar"],
-      id_suffix: "#{object_name}_bar",
+      field: [object_title, "bar"],
+      id_suffix: "#{object_title}_bar",
       value: nil,
     ).returns(bar_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
       schema:,
-      object_name:,
+      object_title:,
       params: nil,
     )
 
@@ -62,23 +62,23 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       label: "Foo",
-      field: [object_name, "foo"],
-      id_suffix: "#{object_name}_foo",
+      field: [object_title, "foo"],
+      id_suffix: "#{object_title}_foo",
       value: "something",
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       label: "Bar",
-      field: [object_name, "bar"],
-      id_suffix: "#{object_name}_bar",
+      field: [object_title, "bar"],
+      id_suffix: "#{object_title}_bar",
       value: nil,
     ).returns(bar_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
       schema:,
-      object_name:,
+      object_title:,
       params:,
     )
 
