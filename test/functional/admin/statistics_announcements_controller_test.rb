@@ -236,8 +236,11 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     )
 
     publication_presenter = PublishingApiPresenters.presenter_for(national_statistics)
-    publication_content = publication_presenter.content.merge(
+    publication_content = publication_presenter.content.deep_merge(
       document_type: "official_statistics",
+      details: {
+        document_type_label: "Official Statistics",
+      },
     )
     html_attachment_presenter = PublishingApiPresenters.presenter_for(national_statistics.attachments.first)
 

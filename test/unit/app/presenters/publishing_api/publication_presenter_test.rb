@@ -40,6 +40,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         tags: {
           browse_pages: [],
         },
+        document_type_label: "Policy paper",
         documents: Whitehall::GovspeakRenderer.new.block_attachments(publication.attachments),
         first_public_at: publication.first_public_at,
         change_history: [
