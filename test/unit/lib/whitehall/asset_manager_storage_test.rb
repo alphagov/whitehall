@@ -68,4 +68,16 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
 
     assert_equal model.file.path, model.file.url
   end
+
+  test "returns nil when asset is not available" do
+    model = create(:attachment_data_with_no_assets, attachable: create(:draft_edition, id: 1))
+
+    assert_nil model.file.file.asset_manager_id
+  end
+
+  test "returns asset_manager_id when asset is available" do
+    model = create(:attachment_data_for_csv, attachable: create(:draft_edition, id: 1))
+
+    assert_equal "asset_manager_id", model.file.file.asset_manager_id
+  end
 end

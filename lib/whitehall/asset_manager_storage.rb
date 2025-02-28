@@ -34,6 +34,10 @@ class Whitehall::AssetManagerStorage
       end
     end
 
+    def asset_manager_id
+      get_asset&.asset_manager_id
+    end
+
     def path
       # We keep this because carrierwave needs this in after commit hook
       # to look for previous files to delete

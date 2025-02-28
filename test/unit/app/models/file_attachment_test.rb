@@ -68,4 +68,10 @@ class FileAttachmentTest < ActiveSupport::TestCase
     attachment = create(:csv_attachment, attachable: create(:edition))
     assert_equal Plek.asset_root + "/media/#{attachment.attachment_data.id}/sample.csv/preview", attachment.publishing_api_details_for_format[:preview_url]
   end
+
+  test "#asset_manager_id returns asset manager id if all_asset_variants_uploaded?" do
+    attachment = create(:csv_attachment, attachable: create(:edition))
+    assert_not_nil attachment.attachment_data.asset_manager_id
+    assert_equal attachment.attachment_data.asset_manager_id, attachment.publishing_api_details_for_format[:asset_manager_id]
+  end
 end
