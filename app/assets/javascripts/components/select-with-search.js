@@ -15,7 +15,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
 
     if (placeholderOption && placeholderOption.textContent === '') {
-      placeholderOption.textContent = 'Select one'
+      placeholderOption.textContent = this.select.multiple
+        ? 'Select all that apply'
+        : 'Select one'
     }
 
     this.choices = new window.Choices(this.select, {
@@ -24,7 +26,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       shouldSort: false, // show options and groups in the order they were given
       itemSelectText: '',
       searchResultLimit: 100,
+      removeItemButton: this.select.multiple,
+      removeItemIconText: 'remove',
       labelId: this.select.id + '_label',
+      closeDropdownOnSelect: this.select.multiple ? true : 'auto',
+      callbackOnInit: function(){
+        if (this.dropdown.type == "select-multiple") {
+          let outer = this.containerOuter.element
+          let list = this.itemList.element
+          outer.append(list)
+        }
+      },
       // https://fusejs.io/api/options.html
       fuseOptions: {
         ignoreLocation: true, // matches any part of the string

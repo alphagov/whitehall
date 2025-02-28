@@ -121,8 +121,7 @@
     }
   }
 
-  // Type: Select Multiple / Text
-  .choices[data-type*="select-multiple"],
+  // Type: Text
   .choices[data-type*="text"] {
     .choices__inner {
       cursor: text;
@@ -152,6 +151,52 @@
         opacity: 1;
       }
     }
+  }
+
+  // Type: Select Multiple / Text
+  .choices[data-type*="select-multiple"] {
+    .choices__inner {
+      cursor: text;
+    }
+
+    .choices__list--multiple .choices__item {
+      display: block;
+      margin-block: 10px 0;
+
+      .choices__button {
+        padding-inline-start: 0.5em;
+        color: $govuk-link-colour;
+        text-indent: 0;
+        text-decoration: underline;
+        text-underline-offset: 0.1875em;
+        font-size: 1rem;
+        line-height: 1.25;
+        &::before {
+          display: inline-block;
+          content: url("data:image/svg+xml,%3Csvg viewBox='0 0 21 21' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23" + str-slice("#{$govuk-link-colour}", 2) + "' fill-rule='evenodd'%3E%3Cpath d='M2.592.044l18.364 18.364-2.548 2.548L.044 2.592z'/%3E%3Cpath d='M0 18.364L18.364 0l2.548 2.548L2.548 20.912z'/%3E%3C/g%3E%3C/svg%3E");
+          width: 0.5em;
+          height: 0.5em;
+          padding-inline-end: 0.25em;
+        }
+      }
+
+      &.is-highlighted {
+        background-color: $govuk-focus-colour;
+      }
+
+      .is-disabled & {
+        background-color: #aaaaaa;
+        border: 1px solid #919191;
+      }
+    }
+
+    .choices__list--dropdown  {
+      top: auto;
+      &, .coices__list {
+        pointer-events: visible;
+      }
+    }
+
   }
 
   .choices__inner {
@@ -199,38 +244,7 @@
   }
 
   .choices__list--multiple {
-    display: inline;
-  }
-
-  .choices__list--multiple .choices__item {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 4px 10px;
-    margin-right: 4px;
-    margin-bottom: 4px;
-    background-color: #f3f2f1;
-    box-shadow: 0 2px 0 #929191;
-    line-height: 1;
-    color: #0b0c0c;
-    box-sizing: border-box;
-
-    &[data-deletable] {
-      padding-right: 5px;
-    }
-
-    [dir="rtl"] & {
-      margin-right: 0;
-      margin-left: 3.75px;
-    }
-
-    &.is-highlighted {
-      background-color: $govuk-focus-colour;
-    }
-
-    .is-disabled & {
-      background-color: #aaaaaa;
-      border: 1px solid #919191;
-    }
+    display: block;
   }
 
   // Dropdown
