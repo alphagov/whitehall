@@ -275,11 +275,9 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
     it "renders the details of the updated object" do
       render_inline component
 
+      assert_selector ".timeline__embedded-item-list__item", count: 1
       assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__key", text: "Field1:"
       assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__value", text: "Field 1 value"
-
-      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(2) .timeline__embedded-item-list__key", text: "Field2:"
-      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(2) .timeline__embedded-item-list__value", text: "Field 2 value"
     end
   end
 end

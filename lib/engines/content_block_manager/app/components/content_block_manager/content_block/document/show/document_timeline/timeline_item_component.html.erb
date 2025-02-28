@@ -14,12 +14,10 @@
 
   <% if version.is_embedded_update? %>
     <ul class="govuk-list timeline__embedded-item-list">
-      <% new_subschema_item_details.each do |field_name, value| %>
         <li class="timeline__embedded-item-list__item">
-          <strong class="timeline__embedded-item-list__key"><%= field_name %>:</strong>
-          <span class="timeline__embedded-item-list__value"><%= value %></span>
+          <strong class="timeline__embedded-item-list__key"><%= new_subschema_item_details[:field] %>:</strong>
+          <span class="timeline__embedded-item-list__value"><%= new_subschema_item_details[:new_value] %></span>
         </li>
-      <% end %>
     </ul>
   <% elsif details_of_changes.present? %>
     <div class="timeline__diff-table">
