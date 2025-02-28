@@ -269,7 +269,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
     it "renders the correct title" do
       render_inline component
 
-      assert_selector ".timeline__title", text: "Embedded schema created"
+      assert_selector ".timeline__title", text: "Embedded schema added"
     end
 
     it "renders the details of the updated object" do

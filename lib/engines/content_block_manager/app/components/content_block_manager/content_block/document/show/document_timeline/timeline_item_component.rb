@@ -14,7 +14,7 @@ private
 
   def title
     if version.is_embedded_update?
-      "#{updated_subschema_id.humanize.singularize} created"
+      "#{updated_subschema_id.humanize.singularize} added"
     elsif version.state == "published"
       is_first_published_version ? "#{version.item.block_type.humanize} created" : version.state.capitalize
     elsif version.state == "scheduled"
