@@ -258,7 +258,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
         item: content_block_edition,
         field_diffs:,
         updated_embedded_object_type: "embedded_schema",
-        updated_embedded_object_name: "something",
+        updated_embedded_object_title: "something",
       )
     end
 

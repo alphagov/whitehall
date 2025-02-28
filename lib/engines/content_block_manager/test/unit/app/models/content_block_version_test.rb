@@ -77,9 +77,9 @@ class ContentBlockManager::ContentBlockVersionTest < ActiveSupport::TestCase
       assert_not content_block_version.is_embedded_update?
     end
 
-    it "returns true when updated_embedded_object_type and updated_embedded_object_name are set" do
+    it "returns true when updated_embedded_object_type and updated_embedded_object_title are set" do
       content_block_version.updated_embedded_object_type = "something"
-      content_block_version.updated_embedded_object_name = "something"
+      content_block_version.updated_embedded_object_title = "something"
 
       assert content_block_version.is_embedded_update?
     end

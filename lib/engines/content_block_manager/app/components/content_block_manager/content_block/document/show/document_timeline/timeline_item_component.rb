@@ -29,7 +29,7 @@ private
   end
 
   def new_subschema_item_details
-    version.field_diffs.dig("details", updated_subschema_id, version.updated_embedded_object_name).map do |field_name, diff|
+    version.field_diffs.dig("details", updated_subschema_id, version.updated_embedded_object_title).map do |field_name, diff|
       [field_name.humanize, diff.new_value]
     end
   end
