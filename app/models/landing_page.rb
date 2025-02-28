@@ -41,6 +41,10 @@ class LandingPage < Edition
     end
   end
 
+  def search_index
+    {}
+  end
+
 private
 
   def base_path_must_not_be_taken
