@@ -29,9 +29,8 @@ private
   end
 
   def new_subschema_item_details
-    version.field_diffs.dig("details", updated_subschema_id, version.updated_embedded_object_title).map do |field_name, diff|
-      [field_name.humanize, diff.new_value]
-    end
+    field_diff = version.field_diffs.dig("details", updated_subschema_id, version.updated_embedded_object_title).first
+    { field: field_diff[0].humanize, new_value: field_diff[1].new_value }
   end
 
   def date
