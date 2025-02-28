@@ -1,0 +1,12 @@
+name: Lint GitHub Actions
+on:
+  push:
+    paths: ['.github/**']
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          show-progress: false
+      - uses: alphagov/govuk-infrastructure/.github/actions/actionlint@main
