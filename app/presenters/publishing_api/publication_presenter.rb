@@ -70,6 +70,7 @@ module PublishingApi
       details_hash = {
         body:,
         change_history: item.change_history.as_json,
+        document_type_label: item.display_type,
         documents:,
         featured_attachments:,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
