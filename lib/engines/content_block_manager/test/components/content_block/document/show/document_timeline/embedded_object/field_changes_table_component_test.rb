@@ -10,7 +10,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Embed
   end
 
   let(:content_block_edition) do
-    build(:content_block_edition, details: { "my_subschema" => { "something" => { "name" => "My thing" } } })
+    build(:content_block_edition, details: { "my_subschema" => { "something" => { "title" => "My thing" } } })
   end
 
   it "renders the edition diff table" do
@@ -30,7 +30,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Embed
     assert_selector "tr:nth-child(1) td:nth-child(3)", text: "new@email.com"
   end
 
-  describe "when a name cannot be found for the object" do
+  describe "when a title cannot be found for the object" do
     let(:content_block_edition) do
       build(:content_block_edition, details: {})
     end

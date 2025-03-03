@@ -7,12 +7,12 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Summar
     {
       "embedded-objects" => {
         "my-embedded-object" => {
-          "name" => "My Embedded Object",
+          "title" => "My Embedded Object",
           "field-1" => "Value 1",
           "field-2" => "Value 2",
         },
         "my-other-embedded-object" => {
-          "name" => "My Embedded Object",
+          "title" => "My Embedded Object",
           "field-1" => "Value 1",
           "field-2" => "Value 2",
         },
@@ -34,13 +34,13 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Summar
     ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
       content_block_edition:,
       object_type: "embedded-objects",
-      object_name: "my-embedded-object",
+      object_title: "my-embedded-object",
     ).returns(object1_double)
 
     ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
       content_block_edition:,
       object_type: "embedded-objects",
-      object_name: "my-other-embedded-object",
+      object_title: "my-other-embedded-object",
     ).returns(object2_double)
 
     component = ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardsComponent.new(

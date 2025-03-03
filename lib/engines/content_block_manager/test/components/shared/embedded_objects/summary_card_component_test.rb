@@ -29,7 +29,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
       content_block_edition:,
       object_type: "embedded-objects",
-      object_name: "my-embedded-object",
+      object_title: "my-embedded-object",
     )
 
     render_inline component
@@ -56,7 +56,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
       content_block_edition:,
       object_type: "embedded-objects",
-      object_name: "my-embedded-object",
+      object_title: "my-embedded-object",
     )
 
     render_inline component
@@ -70,7 +70,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
       content_block_edition:,
       object_type: "embedded-objects",
-      object_name: "my-embedded-object",
+      object_title: "my-embedded-object",
     )
 
     render_inline component
@@ -87,7 +87,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
         content_block_edition:,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
       )
 
       render_inline component
@@ -102,7 +102,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
         content_block_edition:,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
       )
 
       render_inline component
@@ -119,7 +119,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
         content_block_edition:,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
         is_editable: true,
       )
 
@@ -130,7 +130,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       expected_edit_path = edit_embedded_object_content_block_manager_content_block_edition_path(
         content_block_edition,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
       )
 
       assert_selector ".govuk-summary-list__row", count: 3
@@ -157,7 +157,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
         content_block_edition:,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
         is_editable: true,
         redirect_url: "https://example.com",
       )
@@ -169,7 +169,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       expected_edit_path = edit_embedded_object_content_block_manager_content_block_edition_path(
         content_block_edition,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
         redirect_url: "https://example.com",
       )
 
@@ -180,7 +180,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
         content_block_edition:,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
         is_editable: true,
       )
 
@@ -195,7 +195,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
         content_block_edition:,
         object_type: "embedded-objects",
-        object_name: "my-embedded-object",
+        object_title: "my-embedded-object",
         is_editable: true,
       )
 

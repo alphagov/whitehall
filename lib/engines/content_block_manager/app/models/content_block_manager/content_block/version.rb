@@ -12,7 +12,7 @@ module ContentBlockManager
       end
 
       def is_embedded_update?
-        updated_embedded_object_type && updated_embedded_object_name
+        updated_embedded_object_type && updated_embedded_object_title
       end
     end
   end
