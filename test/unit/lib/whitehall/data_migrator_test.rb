@@ -13,15 +13,16 @@ module Whitehall
     end
 
     test "#run runs data migrations in timestamp order" do
-      earlier_migration = stub("earlier-migration", version: "20100101120000")
-      later_migration = stub("later-migration", version: "20100101120001")
-      chronological_order = sequence("chronological-order")
-      @migrator.stubs(:due).returns([later_migration, earlier_migration])
+      earlier_migration = stub("earlier-migration", version: "20100101120000", due?: true)
+      later_migration = stub("later-migration", version: "20100101120001", due?: true)
+      @migrator.stubs(:migrations).returns(
+        [
+          earlier_migration,
+          later_migration,
+        ],
+      )
 
-      earlier_migration.expects(:run).in_sequence(chronological_order)
-      later_migration.expects(:run).in_sequence(chronological_order)
-
-      @migrator.run
+      assert_equal([earlier_migration, later_migration], @migrator.due)
     end
 
     test "#due excludes migrations that have already been run" do

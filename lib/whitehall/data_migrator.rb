@@ -19,16 +19,16 @@ module Whitehall
     end
 
     def due
-      migrations.select(&:due?)
+      migrations.select(&:due?).sort_by(&:version)
     end
 
     def run
-      if due.any?
+      while due.any?
         @logger.info "Running #{due.size} data migrations..."
-        due.sort_by(&:version).each(&:run)
-      else
-        @logger.info "No data migrations pending."
+        due.first.run
       end
+
+      @logger.info "No data migrations remaining."
     end
   end
 end
