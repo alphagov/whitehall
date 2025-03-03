@@ -1,4 +1,4 @@
-## How to access the Content Block Manager
+# How to access the Content Block Manager
 
 The Content Block Manager is listed as an app within Signon, separate from Whitehall.
 
