@@ -33,6 +33,7 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
 
     LinkCheckerApiReport.create_noop_report(publication)
 
-    assert publication.link_check_reports.last.completed?
+    assert publication.link_check_reports.last.completed? # TODO: delete this line
+    assert publication.link_check_report.completed?
   end
 end

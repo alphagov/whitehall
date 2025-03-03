@@ -1,4 +1,5 @@
 class LinkCheckerApiReport < ApplicationRecord
+  belongs_to :edition, optional: true # Temporarily optional until we've migrated from `link_reportable`
   belongs_to :link_reportable, polymorphic: true
   has_many :links,
            -> { order(ordering: :asc) },
@@ -16,11 +17,12 @@ NOT EXISTS (
           )
         }
 
-  def self.create_noop_report(link_reportable)
+  def self.create_noop_report(edition)
     create!(
       batch_id: nil,
       completed_at: Time.zone.now,
-      link_reportable:,
+      edition:,
+      link_reportable: edition, # TODO: remove this line
       status: "completed",
     )
   end
