@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_28_111735) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_03_152823) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -711,7 +711,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_111735) do
     t.datetime "completed_at", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "edition_id"
     t.index ["batch_id"], name: "index_link_checker_api_reports_on_batch_id", unique: true
+    t.index ["edition_id"], name: "index_link_checker_api_reports_on_edition_id"
     t.index ["link_reportable_type", "link_reportable_id"], name: "index_link_checker_api_reportable"
   end
 
@@ -1306,6 +1308,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_111735) do
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
+  add_foreign_key "link_checker_api_reports", "editions"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "worldwide_offices", "editions"

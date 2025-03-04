@@ -1,7 +1,7 @@
 class LinkCheckerApiReport::CreateFromBatchReport
-  def initialize(payload, reportable)
+  def initialize(payload, edition)
     @payload = payload
-    @reportable = reportable
+    @edition = edition
   end
 
   def call
@@ -14,7 +14,7 @@ class LinkCheckerApiReport::CreateFromBatchReport
 
 private
 
-  attr_reader :payload, :reportable
+  attr_reader :payload, :edition
 
   def replace_or_create_report
     replace_report
@@ -53,7 +53,8 @@ private
   def link_report_attributes
     {
       completed_at: payload.fetch("completed_at"),
-      link_reportable: reportable,
+      edition:,
+      link_reportable: edition, # TODO: remove this line
       status: payload.fetch("status"),
     }
   end
