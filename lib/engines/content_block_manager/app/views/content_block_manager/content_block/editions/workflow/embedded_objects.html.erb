@@ -36,7 +36,7 @@
 
       <% if @content_block_edition.document.is_new_block? %>
         <%= render "govuk_publishing_components/components/button", {
-          text: "Add a #{@subschema.name.singularize.downcase}",
+          text: @add_button_text,
           href: content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
             @content_block_edition,
             object_type: @subschema.block_type,
