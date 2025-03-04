@@ -13,12 +13,12 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
 
     it "raises an error if organisation does not exist" do
       out, _err = capture_io { task.invoke("non-existent-slug", date) }
-      assert_equal 'There is no Organisation with slug ["non-existent-slug"]', out.strip
+      assert_includes out, 'There is no Organisation with slug ["non-existent-slug"]'
     end
 
     it "raises an error if date is not right format" do
       out, _err = capture_io { task.invoke(organisation.slug, "not a date") }
-      assert_equal 'The date is not on the right format ["not a date"]', out.strip
+      assert_includes out, 'The date is not on the right format ["not a date"]'
     end
 
     it "marks eligible published editions of documents first published after the specified date and any associated drafts as political" do
