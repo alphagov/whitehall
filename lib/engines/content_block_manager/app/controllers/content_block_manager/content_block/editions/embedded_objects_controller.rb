@@ -10,7 +10,12 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
     @content_block_edition.add_object_to_details(@subschema.block_type, @object)
     @content_block_edition.save!
 
-    flash[:notice] = "#{@subschema.name.singularize} added. You can add another #{@subschema.name.singularize.downcase} or finish creating the #{@schema.name.singularize.downcase} block"
+    flash[:notice] = I18n.t(
+      "content_block_edition.create.embedded_objects.added_confirmation",
+      name_capitalized: @subschema.name.singularize,
+      name_downcase: @subschema.name.singularize.downcase,
+      schema_name: @schema.name.singularize.downcase,
+    )
     step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
   rescue ActiveRecord::RecordInvalid
@@ -31,7 +36,12 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
     @content_block_edition.save!
 
     if params[:redirect_url].present?
-      flash[:notice] = "#{@subschema.name.singularize} edited. You can add another #{@subschema.name.singularize.downcase} or continue to create #{@schema.name.singularize.downcase} block"
+      flash[:notice] = I18n.t(
+        "content_block_edition.create.embedded_objects.edited_confirmation",
+        name_capitalized: @subschema.name.singularize,
+        name_downcase: @subschema.name.singularize.downcase,
+        schema_name: @schema.name.singularize.downcase,
+      )
       redirect_to params[:redirect_url], allow_other_host: false
     else
       redirect_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
