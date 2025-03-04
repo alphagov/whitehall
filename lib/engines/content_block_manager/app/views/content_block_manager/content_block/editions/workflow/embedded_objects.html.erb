@@ -29,7 +29,7 @@
       <% else %>
         <% if I18n.exists?("content_block_edition.create.embedded_objects.#{@subschema.id}") %>
           <%= render "govuk_publishing_components/components/hint", {
-            text: t("content_block_edition.create.embedded_objects.#{@subschema.id}"),
+            text: t("content_block_edition.create.embedded_objects.#{@subschema.id}", block_type: @subschema.name.humanize(capitalize: false)),
           } %>
         <% end %>
       <% end %>
