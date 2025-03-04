@@ -345,6 +345,17 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         end
         BulkRepublisher.new.republish_all_by_type("CaseStudy")
       end
+
+      test "only republishes each document once even if the document has multiple editions" do
+        case_study = create(:published_case_study)
+        create(:draft_case_study, document: case_study.document)
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).once.with(
+          "bulk_republishing",
+          case_study.document_id,
+          true,
+        )
+        BulkRepublisher.new.republish_all_by_type("CaseStudy")
+      end
     end
 
     context "for non-editionable content types, like Contact, when publishable to Publishing API" do
