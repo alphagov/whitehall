@@ -1,4 +1,4 @@
-## Whitehall troubleshooting
+# Whitehall troubleshooting
 
 You may run into errors while working locally and trying to render pages.
 
