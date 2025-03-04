@@ -269,17 +269,16 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
     it "renders the correct title" do
       render_inline component
 
-      assert_selector ".timeline__title", text: "Embedded schema created"
+      assert_selector ".timeline__title", text: "Embedded schema added"
     end
 
     it "renders the details of the updated object" do
       render_inline component
 
+      assert_selector ".timeline__embedded-item-list__item", count: 1
+      assert_no_selector "summary"
       assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__key", text: "Field1:"
       assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(1) .timeline__embedded-item-list__value", text: "Field 1 value"
-
-      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(2) .timeline__embedded-item-list__key", text: "Field2:"
-      assert_selector ".timeline__embedded-item-list .timeline__embedded-item-list__item:nth-child(2) .timeline__embedded-item-list__value", text: "Field 2 value"
     end
   end
 end
