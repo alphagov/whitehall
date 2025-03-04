@@ -33,6 +33,19 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
       ContentBlockManager::ContentBlock::Document.any_instance.stubs(:is_new_block?).returns(true)
     end
 
+    describe "when on the edit step" do
+      let(:step) { :edit_draft }
+
+      describe "#show" do
+        it "shows the correct title and back link" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_equal assigns(:title), "Create #{schema.name}"
+          assert_equal assigns(:back_path), content_block_manager.new_content_block_manager_content_block_document_path
+        end
+      end
+    end
+
     describe "when reviewing the changes" do
       let(:step) { :review }
 
@@ -126,6 +139,13 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
 
           assert_template "content_block_manager/content_block/editions/workflow/edit_draft"
+        end
+
+        it "shows the correct title and back link" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+          assert_equal assigns(:title), "Change #{schema.name}"
+          assert_equal assigns(:back_path), content_block_manager.content_block_manager_content_block_document_path(document)
         end
       end
 
