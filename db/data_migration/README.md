@@ -36,9 +36,6 @@ to move the new file to the `db/data_migration` directory.
 scripts, not ActiveRecord migrations. Remove the contents of the generated migration before
 you start writing code.**
 
-Alternatively, you could manually create a new data migration and carefully name the file with
-a correct leading timestamp.
-
 ## How to run them
 
 Data migrations don't run automatically, they have to be run manually in all
