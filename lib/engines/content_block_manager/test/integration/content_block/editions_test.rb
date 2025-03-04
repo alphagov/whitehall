@@ -27,7 +27,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
 
         visit content_block_manager.new_content_block_manager_content_block_document_edition_path(content_block_document)
 
-        assert_text "Edit a content block"
+        assert_text "Edit content block"
       end
     end
 
@@ -44,7 +44,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
 
         visit content_block_manager.new_content_block_manager_content_block_edition_path(block_type: "block-type")
 
-        assert_text "Create a content block"
+        assert_text "Create content block"
       end
     end
   end

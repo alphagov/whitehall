@@ -6,6 +6,9 @@ module Workflow::ShowMethods
     @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_edition.document.block_type)
     @form = ContentBlockManager::ContentBlock::EditionForm::Edit.new(content_block_edition: @content_block_edition, schema: @schema)
 
+    @title = @content_block_edition.document.is_new_block? ? "Create #{@form.schema.name}" : "Change #{@form.schema.name}"
+    @back_path = @content_block_edition.document.is_new_block? ? content_block_manager.new_content_block_manager_content_block_document_path : @form.back_path
+
     render :edit_draft
   end
 

@@ -1,9 +1,9 @@
-<% content_for :context, product_name %>
-<% content_for :title, "Change #{@form.schema.name}" %>
+<% content_for :context, context %>
+<% content_for :title, @title %>
 
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
-    href: @form.back_path,
+    href: @back_path,
   } %>
 <% end %>
 
