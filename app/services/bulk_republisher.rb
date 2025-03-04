@@ -66,7 +66,8 @@ class BulkRepublisher
     if non_editionable_content_types.include?(content_type)
       republish_all_by_non_editionable_type(content_type_klass)
     else
-      republish_all_documents_by_ids(content_type_klass.pluck(:document_id))
+      republishable_document_ids = content_type_klass.joins("INNER JOIN documents ON documents.latest_edition_id = editions.id").pluck(:document_id)
+      republish_all_documents_by_ids(republishable_document_ids)
     end
   end
 
