@@ -39,7 +39,9 @@ en:
     create:
       title: "Create %{block_type}"
       embedded_objects:
-        rates: Enter rate details, including the amount. You can do this now or later.
+        rates: "Enter %{block_type} details. You can do this now or later."
+        added_confirmation: "%{name_capitalized} added. You can add another %{name_downcase} or finish creating the %{schema_name} block."
+        edited_confirmation: "%{name_capitalized} edited. You can add another %{name_downcase} or finish creating the %{schema_name} block."
     confirmation_page:
       scheduled:
         banner: "%{block_type} scheduled to publish on %{date}"

@@ -89,8 +89,8 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
     describe "when subschemas are present" do
       let(:subschemas) do
         [
-          stub("subschema", id: "subschema_1", name: "subschema_1", block_type: "subschema_1"),
-          stub("subschema", id: "subschema_2", name: "subschema_2", block_type: "subschema_1"),
+          stub("subschema_1", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", embeddable_fields: []),
+          stub("subschema_2", id: "subschema_2", name: "subschema_2", block_type: "subschema_1"),
         ]
       end
 
@@ -107,6 +107,18 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
           assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+        end
+
+        describe "when there are existing subschema blocks created already" do
+          let(:details) { { subschema_1: { existing_subschema: { name: "existing subschema" } } } }
+          let(:edition) { create(:content_block_edition, document:, details:, organisation:, instructions_to_publishers: "instructions", title: "Some Edition Title") }
+
+          it "shows the existing block and how to add another embedded block" do
+            visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_text "existing subschema"
+            assert_text "Add another subschema 1"
+          end
         end
       end
 

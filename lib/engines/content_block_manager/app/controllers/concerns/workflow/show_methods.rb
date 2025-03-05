@@ -87,11 +87,16 @@ private
     @subschema = @schema.subschema(subschema_name)
     @step_name = current_step.name
     @action = @content_block_edition.document.is_new_block? ? "Add" : "Edit"
+    @add_button_text = has_embedded_objects ? "Add another #{subschema_name.humanize.singularize.downcase}" : "Add a #{@subschema.name.humanize.singularize.downcase}"
 
     if @subschema
       render :embedded_objects
     else
       raise ActionController::RoutingError, "Subschema #{subschema_name} does not exist"
     end
+  end
+
+  def has_embedded_objects
+    @content_block_edition.details[@subschema.block_type].present?
   end
 end
