@@ -205,4 +205,24 @@ class EditionPublisherTest < ActiveSupport::TestCase
     EditionPublisher.new(edition).perform!
     assert edition.reload.published?
   end
+
+  test "#failure_reason returns failure surfaces fix from link validation error" do
+    edition = create(:submitted_edition)
+    edition.body = "[blah](/government/invalid/link)"
+    publisher = EditionPublisher.new(edition)
+
+    assert_not publisher.perform!
+    assert_not edition.reload.published?
+    assert_equal "This edition contains links which violate linking guidelines. If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.", publisher.failure_reason
+  end
+
+  test "#failure_reason doesn't return duplicate fixes" do
+    edition = create(:submitted_edition)
+    edition.body = "[blah](/government/invalid/link) [blah](/government/another/invalid/link)"
+    publisher = EditionPublisher.new(edition)
+
+    assert_not publisher.perform!
+    assert_not edition.reload.published?
+    assert_equal "This edition contains links which violate linking guidelines. If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.", publisher.failure_reason
+  end
 end
