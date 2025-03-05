@@ -19,7 +19,7 @@ class LinkCheckerApiService
     uris = convert_admin_links(extract_links(edition))
     if uris.empty?
       # We'll create a noop report for the simplicity in there being a report
-      LinkCheckerApiReport.create_noop_report(edition)
+      LinkCheckerApiReport.create_or_update_noop_report(edition)
     else
       batch_report = Whitehall.link_checker_api_client.create_batch(
         uris,
@@ -28,7 +28,7 @@ class LinkCheckerApiService
         webhook_secret_token:,
       )
 
-      LinkCheckerApiReport.create_from_batch_report(batch_report, edition)
+      LinkCheckerApiReport.create_or_update_from_batch_report(batch_report, edition)
     end
   end
 

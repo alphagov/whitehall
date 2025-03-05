@@ -25,7 +25,7 @@ class CheckOrganisationLinksWorker
         if LinkCheckerApiService.has_links?(edition)
           LinkCheckerApiService.check_links(edition, admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")))
         else
-          LinkCheckerApiReport.create_noop_report(edition)
+          LinkCheckerApiReport.create_or_update_noop_report(edition)
           ignored += 1
         end
       end

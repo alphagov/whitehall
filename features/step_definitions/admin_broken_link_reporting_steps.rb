@@ -39,7 +39,7 @@ When(/^I correct the broken links$/) do
   fixed_link = "http://fixed-link.com"
 
   link_checker_api_stub_create_batch(
-    id: 2,
+    id: 1,
     status: "in_progess",
     links: [
       { uri: fixed_link, status: "pending" },
@@ -55,7 +55,7 @@ When(/^I correct the broken links$/) do
   has_text?("Please wait")
 
   link_checker_api_call_webhook(
-    id: 2,
+    id: 1,
     links: [
       { uri: fixed_link, status: "ok" },
       { uri: @working_link, status: "ok" },

@@ -21,44 +21,44 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
   test "when given an organisation it only calls LinkCheckerApiService with editions for that organisation" do
     new_edition = stub_published_publication
 
-    capture_subprocess_io { CheckOrganisationLinksWorker.new.perform(@hmrc.id) }
+    CheckOrganisationLinksWorker.new.perform(@hmrc.id)
 
     assert_equal 1, LinkCheckerApiReport.count
     assert_requested new_edition
   end
 
-  test "when an organisation contains more new editions than the limit" do
+  test "when an organisation contains new and old editions, it creates/updates link check report as appropriate" do
     new_edition = stub_published_publication
-    existing_edition = create_and_stub_an_edition_with_checks(@hmrc)
-    another_existing_edition = create_and_stub_an_edition(@hmrc)
+    existing_edition_with_link_check_report = create_and_stub_an_edition_with_checks(@hmrc)
 
-    assert_report_count_increased
+    assert_report_count_increased(by: 1, org_edition_limit: 2)
 
     assert_requested new_edition
-    assert_requested another_existing_edition
-    assert_not_requested existing_edition
+    assert_requested existing_edition_with_link_check_report
   end
 
-  test "when an organisation contains new and old editions" do
+  test "when an organisation contains more new editions than the limit, it prioritises those with no existing report" do
     new_edition = stub_published_publication
-    existing_edition = create_and_stub_an_edition_with_checks(@hmrc)
+    existing_edition_with_link_check_report = create_and_stub_an_edition_with_checks(@hmrc)
+    existing_edition_without_link_check_report = create_and_stub_an_edition(@hmrc)
 
-    assert_report_count_increased
+    assert_report_count_increased(by: 2, org_edition_limit: 2)
 
     assert_requested new_edition
-    assert_requested existing_edition
+    assert_requested existing_edition_without_link_check_report
+    assert_not_requested existing_edition_with_link_check_report
   end
 
-  test "when an organisation contains new and multiple old editions the one with the oldest check will be sent to be checked" do
+  test "when an organisation contains new and multiple old editions, the one with the oldest check will be sent to be checked" do
     new_edition = stub_published_publication
-    existing_edition = create_and_stub_an_edition_with_checks(@hmrc)
-    another_existing_edition = create_and_stub_edition_with_historic_checks(@hmrc)
+    existing_edition_with_link_check_report = create_and_stub_an_edition_with_checks(@hmrc)
+    existing_edition_with_older_link_check_report = create_and_stub_edition_with_historic_checks(@hmrc)
 
-    assert_report_count_increased
+    assert_report_count_increased(by: 1, org_edition_limit: 2)
 
     assert_requested new_edition
-    assert_requested another_existing_edition
-    assert_not_requested existing_edition
+    assert_requested existing_edition_with_older_link_check_report
+    assert_not_requested existing_edition_with_link_check_report
   end
 
   test "when an edition contains no links, it is given a passing link check report" do
@@ -69,18 +69,19 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
       body: "no links here",
     )
 
-    capture_subprocess_io { CheckOrganisationLinksWorker.new.perform(org.id) }
-    assert_equal(1, publication.link_check_reports.count)
+    CheckOrganisationLinksWorker.new.perform(org.id)
+    assert(publication.link_check_report)
+    assert_equal(1, publication.link_check_reports.count) # # TODO: delete this line
     assert_equal(false, publication.link_check_reports.last.has_problems?) # TODO: delete this line
     assert_equal(false, publication.link_check_report.has_problems?)
   end
 
 private
 
-  def assert_report_count_increased
-    stub_organisation_edition_limit(2) do
-      assert_difference "LinkCheckerApiReport.count", 2 do
-        capture_subprocess_io { CheckOrganisationLinksWorker.new.perform(@hmrc.id) }
+  def assert_report_count_increased(by:, org_edition_limit:)
+    stub_organisation_edition_limit(org_edition_limit) do
+      assert_difference "LinkCheckerApiReport.count", by do
+        CheckOrganisationLinksWorker.new.perform(@hmrc.id)
       end
     end
   end

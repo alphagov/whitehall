@@ -22,7 +22,7 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
       status: "in_progress",
     )
 
-    LinkCheckerApiReport.create_from_batch_report(report_payload, publication)
+    LinkCheckerApiReport.create_or_update_from_batch_report(report_payload, publication)
 
     report = LinkCheckerApiReport.find_by(batch_id:)
     assert_equal "completed", report.status
@@ -31,7 +31,7 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
   test "creates a noop one for when there are no links" do
     publication = create(:publication, body: "no links")
 
-    LinkCheckerApiReport.create_noop_report(publication)
+    LinkCheckerApiReport.create_or_update_noop_report(publication)
 
     assert publication.link_check_reports.last.completed? # TODO: delete this line
     assert publication.link_check_report.completed?
