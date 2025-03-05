@@ -4,17 +4,32 @@
 # defined in .github/workflows/minitest.yml.
 # It splits the MiniTest suite into randomly-allocated groups
 # which are executed across multiple GitHub Actions 'matrix' nodes.
+
 test_files = [
   Dir["test/**/*_test.rb"],
   Dir["lib/engines/**/test/**/*_test.rb"],
 ].flatten
 
-tests = test_files.
-  sort.
-  shuffle(random: Random.new(ENV['GITHUB_SHA'].to_i(16))).
-  select.
-  with_index do |el, i|
-    i % ENV["CI_NODE_TOTAL"].to_i == ENV["CI_NODE_INDEX"].to_i
-  end
+# Detect isolated test files (those with # RUN_IN_ISOLATION in the first 10 lines)
+isolated_tests, regular_tests = test_files.partition do |file|
+  File.foreach(file).first(10).grep(/# RUN_IN_ISOLATION/).any?
+end
 
-exec "bundle exec rails test #{tests.join(" ")}"
+# Determine which CI node is running
+node_index = ENV["CI_NODE_INDEX"].to_i
+total_nodes = ENV["CI_NODE_TOTAL"].to_i
+
+if node_index == 0
+  # First CI node runs all isolated tests sequentially
+  tests = isolated_tests
+  exec({ "RUN_IN_PARALLEL" => "false" }, "bundle exec rails test #{tests.join(' ')}")
+else
+  # Other nodes distribute regular tests
+  tests = regular_tests.
+    sort.
+    shuffle(random: Random.new(ENV['GITHUB_SHA'].to_i(16))).
+    select.
+    with_index { |_, i| i % (total_nodes - 1) == (node_index - 1) }
+
+  exec({ "RUN_IN_PARALLEL" => "true" }, "bundle exec rails test #{tests.join(' ')}")
+end
