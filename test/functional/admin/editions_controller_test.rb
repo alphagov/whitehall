@@ -321,7 +321,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       post :export,
            params: {
              include_last_author: true,
-             include_link_check_reports: true,
+             include_link_check_report: true,
              include_unpublishing: true,
              state: "active",
            }
@@ -334,7 +334,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     post :export,
          params: {
            include_last_author: true,
-           include_link_check_reports: true,
+           include_link_check_report: true,
            include_unpublishing: true,
            state: "active",
          }

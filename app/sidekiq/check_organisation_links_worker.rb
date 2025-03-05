@@ -40,7 +40,7 @@ private
   end
 
   def public_editions(organisation)
-    least_recently_checked = Edition.includes(:link_check_reports).publicly_visible.with_translations.in_organisation(organisation).order("link_checker_api_reports.updated_at").limit(ORGANISATION_EDITION_LIMIT)
+    least_recently_checked = Edition.includes(:link_check_report).publicly_visible.with_translations.in_organisation(organisation).order("link_checker_api_reports.updated_at").limit(ORGANISATION_EDITION_LIMIT)
     Edition.where(id: least_recently_checked.pluck(:id))
   end
 end
