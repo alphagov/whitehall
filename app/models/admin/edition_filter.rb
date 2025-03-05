@@ -269,8 +269,8 @@ module Admin
       options.fetch(:include_unpublishing, false)
     end
 
-    def include_link_check_reports?
-      options.fetch(:include_link_check_reports, false)
+    def include_link_check_report?
+      options.fetch(:include_link_check_report, false)
     end
 
     def include_last_author?
