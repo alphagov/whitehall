@@ -124,7 +124,7 @@ module Admin
       editions = editions.review_overdue if review_overdue
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
-      editions = editions.includes(:link_check_reports) if include_link_check_reports?
+      editions = editions.includes(:link_check_report) if include_link_check_report?
       editions = editions.includes(:last_author) if include_last_author?
 
       @unpaginated_editions = editions
@@ -269,8 +269,8 @@ module Admin
       options.fetch(:include_unpublishing, false)
     end
 
-    def include_link_check_reports?
-      options.fetch(:include_link_check_reports, false)
+    def include_link_check_report?
+      options.fetch(:include_link_check_report, false)
     end
 
     def include_last_author?
