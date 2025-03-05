@@ -70,8 +70,7 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
     )
 
     CheckOrganisationLinksWorker.new.perform(org.id)
-    assert_equal(1, publication.link_check_reports.count)
-    assert_equal(false, publication.link_check_reports.last.has_problems?) # TODO: delete this line
+    assert(publication.link_check_report)
     assert_equal(false, publication.link_check_report.has_problems?)
   end
 

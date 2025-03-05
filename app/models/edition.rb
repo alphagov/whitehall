@@ -44,7 +44,6 @@ class Edition < ApplicationRecord
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
   has_many :topical_event_featurings, inverse_of: :edition
-  has_many :link_check_reports, class_name: "LinkCheckerApiReport"
   has_one :link_check_report, class_name: "LinkCheckerApiReport"
 
   has_many :edition_dependencies, dependent: :destroy
