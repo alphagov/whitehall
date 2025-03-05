@@ -67,7 +67,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "can preload link check report data if asked to" do
     news_article = create(:news_article)
-    create(:link_checker_api_report, link_reportable: news_article)
+    create(:link_checker_api_report, edition: news_article)
 
     editions = Admin::EditionFilter.new(Edition, @current_user, include_link_check_reports: true).editions
     assert_equal news_article, editions.first
@@ -76,7 +76,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "does not preload link check report data unless asked to" do
     news_article = create(:news_article)
-    create(:link_checker_api_report, link_reportable: news_article)
+    create(:link_checker_api_report, edition: news_article)
 
     editions = Admin::EditionFilter.new(Edition, @current_user).editions
     assert_equal news_article, editions.first
@@ -242,10 +242,10 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     caution_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/caution-link", status: "caution")
     ok_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/ok-link", status: "ok")
     pending_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/pending-link", status: "pending")
-    create(:link_checker_api_report, batch_id: 1, link_reportable: edition_with_broken_link, links: [broken_link])
-    create(:link_checker_api_report, batch_id: 2, link_reportable: edition_with_caution_link, links: [caution_link])
-    create(:link_checker_api_report, batch_id: 3, link_reportable: edition_with_ok_link, links: [ok_link])
-    create(:link_checker_api_report, batch_id: 4, link_reportable: edition_with_pending_link, links: [pending_link])
+    create(:link_checker_api_report, batch_id: 1, edition: edition_with_broken_link, links: [broken_link])
+    create(:link_checker_api_report, batch_id: 2, edition: edition_with_caution_link, links: [caution_link])
+    create(:link_checker_api_report, batch_id: 3, edition: edition_with_ok_link, links: [ok_link])
+    create(:link_checker_api_report, batch_id: 4, edition: edition_with_pending_link, links: [pending_link])
 
     assert_equal [edition_with_broken_link, edition_with_caution_link], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
   end
@@ -256,8 +256,8 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     )
     broken_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/broken-link", status: "broken")
     ok_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/ok-link", status: "ok")
-    create(:link_checker_api_report, batch_id: 1, link_reportable: edition, links: [broken_link])
-    create(:link_checker_api_report, batch_id: 2, link_reportable: edition, links: [ok_link])
+    create(:link_checker_api_report, batch_id: 1, edition: edition, links: [broken_link])
+    create(:link_checker_api_report, batch_id: 2, edition: edition, links: [ok_link])
 
     assert_equal [], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
   end
