@@ -18,7 +18,7 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
 
     LinkCheckerApiReport.create!(
       batch_id:,
-      link_reportable: publication,
+      edition: publication,
       status: "in_progress",
     )
 
