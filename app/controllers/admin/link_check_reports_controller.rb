@@ -1,15 +1,15 @@
 class Admin::LinkCheckReportsController < Admin::BaseController
-  before_action :find_reportable
+  before_action :find_edition
 
   def create
     @report = LinkCheckerApiService.check_links(
-      @reportable,
+      @edition,
       admin_link_checker_api_callback_url,
       checked_within: 1.second,
     )
 
     respond_to do |format|
-      format.html { redirect_to [:admin, @reportable] }
+      format.html { redirect_to [:admin, @edition] }
       format.json { render :show }
     end
   end
@@ -19,14 +19,14 @@ class Admin::LinkCheckReportsController < Admin::BaseController
     @allow_new_report = params[:allow_new_report] || false
 
     respond_to do |format|
-      format.html { redirect_to [:admin, @reportable] }
+      format.html { redirect_to [:admin, @edition] }
       format.json
     end
   end
 
 private
 
-  def find_reportable
-    @reportable = Edition.find(params[:edition_id])
+  def find_edition
+    @edition = Edition.find(params[:edition_id])
   end
 end

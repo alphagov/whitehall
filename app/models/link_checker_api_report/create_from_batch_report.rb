@@ -54,7 +54,6 @@ private
     {
       completed_at: payload.fetch("completed_at"),
       edition:,
-      link_reportable: edition, # TODO: remove this line
       status: payload.fetch("status"),
     }
   end
