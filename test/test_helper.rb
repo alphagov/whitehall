@@ -46,7 +46,11 @@ class ActiveSupport::TestCase
   include UrlHelpers
   extend GovspeakValidationTestHelper
 
-  parallelize(workers: :number_of_processors)
+  if ENV["RUN_IN_PARALLEL"] == "false"
+    parallelize(workers: 1) # Run tests sequentially
+  else
+    parallelize(workers: :number_of_processors) # Run tests in parallel
+  end
 
   attr_reader :feature_flags
 
