@@ -2587,10 +2587,10 @@ micromatch@^4.0.8:
     braces "^3.0.3"
     picomatch "^2.3.1"
 
-miller-columns-element@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/miller-columns-element/-/miller-columns-element-2.0.0.tgz#8487ece2adc8914ca969352503aff7aa62e7a524"
-  integrity sha512-PqCgaaA5VeQWLmPDzzPpRiFjxBIxIRqAztO0HtrsNLNppxMHU3l+uun78gQQZzUoP2Jo8Q5rt2yMzDoaF4XuDw==
+miller-columns-element@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/miller-columns-element/-/miller-columns-element-2.0.1.tgz#27f00a3c5437853a66d73a9a4e99859c391c8a7d"
+  integrity sha512-Eznt5eUVtlwhs1J3oTOK794wKwuLLRJXuaBzRBJjd0k5RvRf7wnJcpqcwwsGaRdr5FZTLQjurnu1U5cZoxEtdg==
 
 mime-db@1.52.0:
   version "1.52.0"
