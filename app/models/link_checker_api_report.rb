@@ -1,5 +1,5 @@
 class LinkCheckerApiReport < ApplicationRecord
-  belongs_to :edition, optional: true # Temporarily optional until we've migrated from `link_reportable`
+  belongs_to :edition
   belongs_to :link_reportable, polymorphic: true
   has_many :links,
            -> { order(ordering: :asc) },
