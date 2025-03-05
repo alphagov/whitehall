@@ -1,7 +1,6 @@
 class Speech < Announcement
   include Edition::Appointment
   include Edition::HasDocumentCollections
-  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::LeadImage
 
   validates :speech_type_id, presence: true

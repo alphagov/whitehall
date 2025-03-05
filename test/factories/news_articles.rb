@@ -4,20 +4,6 @@ FactoryBot.define do
     summary { "news-summary" }
     body { "news-body" }
     news_article_type_id { NewsArticleType::PressRelease.id }
-    transient do
-      relevant_to_local_government { false }
-    end
-
-    after(:build) do |news_article, evaluator|
-      if evaluator.relevant_to_local_government
-        document = create(
-          :published_policy,
-          :with_document,
-          relevant_to_local_government: true,
-        ).document
-        news_article.related_documents << document
-      end
-    end
   end
 
   factory :draft_news_article, parent: :news_article, traits: [:draft]

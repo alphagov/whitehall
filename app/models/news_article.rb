@@ -3,7 +3,6 @@ class NewsArticle < Announcement
   include Edition::HasDocumentCollections
   include ::Attachable
   include Edition::AlternativeFormatProvider
-  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::WorldwideOrganisations
   include Edition::FactCheckable
   include Edition::CustomLeadImage

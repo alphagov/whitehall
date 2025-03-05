@@ -56,16 +56,6 @@ FactoryBot.define do
     trait(:with_external_attachment) do
       attachments { [build(:external_attachment)] }
     end
-
-    transient do
-      relevant_to_local_government { false }
-    end
-
-    after(:build) do |object, evaluator|
-      if evaluator.relevant_to_local_government
-        object.policy_content_ids = %w[5d37821b-7631-11e4-a3cb-005056011aef]
-      end
-    end
   end
 
   factory :draft_publication, parent: :publication, traits: [:draft]
