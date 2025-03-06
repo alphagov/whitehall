@@ -106,7 +106,7 @@ class Admin::EditionsController < Admin::BaseController
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
-      if @edition.link_check_reports.last
+      if @edition.link_check_report
         LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
       end
 
@@ -437,7 +437,7 @@ private
       .symbolize_keys
       .merge(
         include_unpublishing: true,
-        include_link_check_reports: true,
+        include_link_check_report: true,
         include_last_author: true,
       )
       .merge(per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)

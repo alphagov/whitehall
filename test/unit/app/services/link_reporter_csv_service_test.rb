@@ -44,7 +44,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     missing_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/missing-link", status: "broken")
     good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/good-link", status: "ok")
     bad_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/bad-link", status: "broken")
-    create(:link_checker_api_report_completed, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link])
+    create(:link_checker_api_report_completed, batch_id: 1, edition: detailed_guide, links: [bad_link, missing_link, good_link])
 
     LinkReporterCsvService.new(reports_dir:, organisation: hmrc).generate
 
@@ -75,8 +75,8 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/good-link", status: "ok")
     another_good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/another-good-link", status: "ok")
 
-    create(:link_checker_api_report_completed, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link])
-    create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, links: [another_good_link, another_bad_link])
+    create(:link_checker_api_report_completed, batch_id: 1, edition: detailed_guide, links: [bad_link, missing_link, good_link])
+    create(:link_checker_api_report_completed, batch_id: 2, edition: publication, links: [another_good_link, another_bad_link])
 
     LinkReporterCsvService.new(reports_dir:, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
@@ -123,9 +123,9 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/good-link", status: "ok")
     another_good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/another-good-link", status: "ok")
 
-    create(:link_checker_api_report, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link], status: "completed")
-    create(:link_checker_api_report, batch_id: 2, link_reportable: publication, links: [another_good_link, another_bad_link], status: "completed")
-    create(:link_checker_api_report, batch_id: 3, link_reportable: news_article, links: [good_link, missing_link], status: "completed")
+    create(:link_checker_api_report, batch_id: 1, edition: detailed_guide, links: [bad_link, missing_link, good_link], status: "completed")
+    create(:link_checker_api_report, batch_id: 2, edition: publication, links: [another_good_link, another_bad_link], status: "completed")
+    create(:link_checker_api_report, batch_id: 3, edition: news_article, links: [good_link, missing_link], status: "completed")
 
     LinkReporterCsvService.new(reports_dir:, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
@@ -150,7 +150,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     missing_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/missing-link", status: "broken")
     good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/good-link", status: "ok")
 
-    create(:link_checker_api_report_completed, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link])
+    create(:link_checker_api_report_completed, batch_id: 1, edition: detailed_guide, links: [bad_link, missing_link, good_link])
 
     LinkReporterCsvService.new(reports_dir:, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
@@ -182,7 +182,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     missing_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/missing-link", status: "broken")
     good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/good-link", status: "ok")
 
-    create(:link_checker_api_report_completed, batch_id: 1, link_reportable: speech, links: [missing_link, good_link])
+    create(:link_checker_api_report_completed, batch_id: 1, edition: speech, links: [missing_link, good_link])
 
     LinkReporterCsvService.new(reports_dir:).generate
 
@@ -222,8 +222,8 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/good-link", status: "ok")
     another_good_link = create(:link_checker_api_report_link, uri: "https://www.test.gov.uk/another-good-link", status: "ok")
 
-    create(:link_checker_api_report, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link], status: "completed")
-    create(:link_checker_api_report, batch_id: 2, link_reportable: publication, links: [another_good_link, another_bad_link], status: "completed")
+    create(:link_checker_api_report, batch_id: 1, edition: detailed_guide, links: [bad_link, missing_link, good_link], status: "completed")
+    create(:link_checker_api_report, batch_id: 2, edition: publication, links: [another_good_link, another_bad_link], status: "completed")
 
     LinkReporterCsvService.new(reports_dir:).generate
 

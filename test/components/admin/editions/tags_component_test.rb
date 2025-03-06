@@ -77,10 +77,10 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
 
   test "adds a broken links tag if the last report has broken links" do
     edition = build(:edition)
-    links_report = build(:link_checker_api_report_completed, link_reportable: edition)
+    links_report = build(:link_checker_api_report_completed, edition: edition)
     broken_link = build(:link_checker_api_report_link, :broken, link_checker_api_report_id: links_report.id)
 
-    edition.stubs(:link_check_reports).returns([links_report])
+    edition.stubs(:link_check_report).returns(links_report)
     links_report.stubs(:broken_links).returns([broken_link])
 
     expected_output = "<span class=\"govuk-tag govuk-tag--s govuk-tag--blue\">Draft</span> " \
@@ -92,10 +92,10 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
 
   test "adds a links warning tag if the last report has caution links" do
     edition = build(:edition)
-    links_report = build(:link_checker_api_report_completed, link_reportable: edition)
+    links_report = build(:link_checker_api_report_completed, edition: edition)
     caution_link = build(:link_checker_api_report_link, status: "caution")
 
-    edition.stubs(:link_check_reports).returns([links_report])
+    edition.stubs(:link_check_report).returns(links_report)
     links_report.stubs(:caution_links).returns([caution_link])
 
     expected_output = "<span class=\"govuk-tag govuk-tag--s govuk-tag--blue\">Draft</span> " \

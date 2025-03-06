@@ -70,8 +70,7 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
     )
 
     capture_subprocess_io { CheckOrganisationLinksWorker.new.perform(org.id) }
-    assert_equal(1, publication.link_check_reports.count)
-    assert_equal(false, publication.link_check_reports.last.has_problems?) # TODO: delete this line
+    assert(publication.link_check_report)
     assert_equal(false, publication.link_check_report.has_problems?)
   end
 
@@ -117,7 +116,7 @@ private
 
     publication = create_published_publication(organisation, links)
 
-    create(:link_checker_api_report_completed, link_reportable: publication)
+    create(:link_checker_api_report_completed, edition: publication)
 
     body = link_checker_api_batch_report_hash(id: 8, links:)
 
@@ -132,7 +131,7 @@ private
 
     publication = create_published_publication(organisation, links)
 
-    create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, updated_at: 2.weeks.ago)
+    create(:link_checker_api_report_completed, batch_id: 2, edition: publication, updated_at: 2.weeks.ago)
 
     body = link_checker_api_batch_report_hash(id: 9, links:)
 
