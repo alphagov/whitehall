@@ -28,6 +28,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       searchResultLimit: 100,
       removeItemButton: this.select.multiple,
       labelId: this.select.id + '_label',
+      callbackOnInit: function () {
+        if (this.dropdown.type === 'select-multiple') {
+          const inner = this.containerInner.element
+          const input = this.input.element
+          inner.prepend(input)
+        }
+      },
       // https://fusejs.io/api/options.html
       fuseOptions: {
         ignoreLocation: true, // matches any part of the string
