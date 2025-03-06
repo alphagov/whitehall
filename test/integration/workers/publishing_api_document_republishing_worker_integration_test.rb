@@ -130,6 +130,18 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
 
       assert_all_requested(requests)
     end
+
+    test "Should not retry if encountering `GdsApi::HTTPPayloadTooLarge` exception" do
+      edition = create(:published_publication)
+      Whitehall::PublishingApi.expects(:publish).raises(GdsApi::HTTPPayloadTooLarge.new("413 Request Entity Too Large"))
+      worker = PublishingApiDocumentRepublishingWorker.new
+
+      assert_equal(worker.sidekiq_options_hash["retry"], true)
+      assert_raises(GdsApi::HTTPPayloadTooLarge) do
+        worker.perform(edition.document.id)
+      end
+      assert_equal(worker.sidekiq_options_hash["retry"], 0)
+    end
   end
 
   context "Unpublished documents" do
