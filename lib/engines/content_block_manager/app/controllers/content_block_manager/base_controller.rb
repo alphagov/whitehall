@@ -39,13 +39,9 @@ class ContentBlockManager::BaseController < Admin::BaseController
     Sentry.set_tags(engine: "content_block_manager")
   end
 
-  def product_name
-    ContentBlockManager.product_name
-  end
+  delegate :product_name, to: :ContentBlockManager
 
-  def support_url
-    ContentBlockManager.support_url
-  end
+  delegate :support_url, to: :ContentBlockManager
   helper_method :support_url
 
   # This ensures we can override views if we need to without altering the Engine's load order, which

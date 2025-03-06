@@ -31,7 +31,7 @@ module DateValidation
         raise TypeError if date[1].zero?
 
         # Rails does not accept negative month values, but the Date constructor does
-        raise TypeError if (date[2]).negative?
+        raise TypeError if date[2].negative?
 
         Date.new(date[1], date[2], date[3])
         @invalid_date_attributes.delete(attribute)

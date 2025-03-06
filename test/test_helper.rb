@@ -159,13 +159,9 @@ class ActiveSupport::TestCase
     name.sub(/Test$/, "").underscore.to_sym
   end
 
-  def class_from_test_name
-    self.class.class_from_test_name
-  end
+  delegate :class_from_test_name, to: :class
 
-  def factory_name_from_test
-    self.class.factory_name_from_test
-  end
+  delegate :factory_name_from_test, to: :class
 
   def file_fixture(filename)
     File.new(Rails.root.join("test/fixtures", filename))
@@ -211,7 +207,7 @@ class ActiveSupport::TestCase
       aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
       aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
     )
-    @directory = connection.directories.create(key: ENV["AWS_S3_BUCKET_NAME"]) # rubocop:disable Rails/SaveBang
+    @directory = connection.directories.create(key: ENV["AWS_S3_BUCKET_NAME"])
   end
 end
 
