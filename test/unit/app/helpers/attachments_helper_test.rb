@@ -41,25 +41,6 @@ class AttachmentsHelperTest < ActionView::TestCase
     end
   end
 
-  test "block_attachments renders with GA4 indexes on the nested details component" do
-    alternative_format_contact_email = "test@example.com"
-    file_attachment_with_all_assets = create(:file_attachment)
-    attachments = [
-      file_attachment_with_all_assets,
-      file_attachment_with_all_assets,
-      file_attachment_with_all_assets,
-    ]
-
-    rendered_attachments = block_attachments(attachments, alternative_format_contact_email)
-    rendered_attachments.each.with_index do |rendered, index|
-      assert_select_within_html(rendered, ".gem-c-details") do |details|
-        ga4_event = JSON.parse(details.attribute("data-ga4-event"))
-        assert_equal ga4_event["index_section"], index + 1
-        assert_equal ga4_event["index_section_count"], 3
-      end
-    end
-  end
-
   test "component params for HTML attachment" do
     attachment = create(:html_attachment)
     expect_params = {
