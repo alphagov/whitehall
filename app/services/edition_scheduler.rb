@@ -10,17 +10,26 @@ class EditionScheduler < EditionService
   end
 
   def failure_reason
-    @failure_reason ||= if !edition.valid?
-                          "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
-                        elsif !can_transition?
-                          "An edition that is #{edition.current_state} cannot be #{past_participle}"
-                        elsif edition.scheduled_publication.blank?
-                          "This edition does not have a scheduled publication date set"
-                        elsif scheduled_publication_is_not_within_cache_limit?
-                          "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
-                        elsif govspeak_link_errors.any?
-                          "This edition contains links which violate linking guidelines. #{govspeak_link_errors.pluck(:fix).uniq.join(' ')}"
-                        end
+    @failure_reason ||= failure_reasons.first
+  end
+
+  def failure_reasons
+    return @failure_reasons if @failure_reasons
+
+    reasons = []
+    if !edition.valid?
+      reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
+    elsif !can_transition?
+      reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}"
+    elsif edition.scheduled_publication.blank?
+      reasons << "This edition does not have a scheduled publication date set"
+    elsif scheduled_publication_is_not_within_cache_limit?
+      reasons << "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
+    elsif govspeak_link_errors.any?
+      reasons << "This edition contains links which violate linking guidelines."
+      reasons.concat govspeak_link_errors.pluck(:fix).uniq
+    end
+    @failure_reasons = reasons
   end
 
 private

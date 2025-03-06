@@ -214,9 +214,9 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_not publisher.perform!
     assert_not edition.reload.published?
     assert_equal [
-                   "This edition contains links which violate linking guidelines.",
-                   "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs."
-                 ], publisher.failure_reasons
+      "This edition contains links which violate linking guidelines.",
+      "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.",
+    ], publisher.failure_reasons
   end
 
   test "#failure_reasons doesn't return duplicate fixes" do
@@ -227,8 +227,8 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_not publisher.perform!
     assert_not edition.reload.published?
     assert_equal [
-                   "This edition contains links which violate linking guidelines.",
-                   "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs."
-                 ], publisher.failure_reasons
+      "This edition contains links which violate linking guidelines.",
+      "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.",
+    ], publisher.failure_reasons
   end
 end
