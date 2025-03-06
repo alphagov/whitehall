@@ -184,3 +184,22 @@ examples:
         value: option2
       - text: Option three
         value: option3
+  with_multiple_select_enabled:
+    description: Allow multiple items to be selected and de-selected.
+    data:
+      id: dropdown-with-multiple
+      label: Select your country
+      include_blank: true
+      select:
+        multiple: true
+      options:
+        - text: France
+          value: fr
+          selected: false
+        - text: Germany
+          value: de
+          selected: false
+        - text: The United Kingdom of Great Britain and Northern Ireland
+          value: uk
+        - text: Democratic Republic of the Congo
+          value: cg
