@@ -28,6 +28,16 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       searchResultLimit: 100,
       removeItemButton: this.select.multiple,
       labelId: this.select.id + '_label',
+      callbackOnInit: function () {
+        // For the multiple select, move the input field to
+        // the top of the feedback area, so that the selected
+        // 'lozenges' appear afterwards in a more natural flow
+        if (this.dropdown.type === 'select-multiple') {
+          const inner = this.containerInner.element
+          const input = this.input.element
+          inner.prepend(input)
+        }
+      },
       // https://fusejs.io/api/options.html
       fuseOptions: {
         ignoreLocation: true, // matches any part of the string
