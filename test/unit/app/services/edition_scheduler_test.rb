@@ -50,21 +50,27 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     end
   end
 
-  test "#failure_reason returns failure surfaces fix from link validation error" do
+  test "#failure_reasons returns failure surfaces fix from link validation error" do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     edition.body = "[blah](/government/invalid/link)"
     scheduler = EditionScheduler.new(edition)
 
     assert_not scheduler.can_perform?
-    assert_equal "This edition contains links which violate linking guidelines. If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.", scheduler.failure_reason
+    assert_equal [
+      "This edition contains links which violate linking guidelines.",
+      "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.",
+    ], scheduler.failure_reasons
   end
 
-  test "#failure_reason doesn't return duplicate fixes" do
+  test "#failure_reasons doesn't return duplicate fixes" do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     edition.body = "[blah](/government/invalid/link) [blah](/government/another/invalid/link)"
     scheduler = EditionScheduler.new(edition)
 
     assert_not scheduler.can_perform?
-    assert_equal "This edition contains links which violate linking guidelines. If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.", scheduler.failure_reason
+    assert_equal [
+      "This edition contains links which violate linking guidelines.",
+      "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.",
+    ], scheduler.failure_reasons
   end
 end
