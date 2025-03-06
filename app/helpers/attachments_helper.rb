@@ -60,15 +60,14 @@ module AttachmentsHelper
   end
 
   def block_attachments(attachments = [], alternative_format_contact_email = nil)
-    filtered_attachments = attachments.select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
-    filtered_attachments_size = filtered_attachments.size
-    filtered_attachments.each_with_index.map do |attachment, index|
+    attachments
+      .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+      .map do |attachment|
       render(
         partial: "govuk_publishing_components/components/attachment",
         locals: {
           attachment: attachment_component_params(attachment, alternative_format_contact_email:),
           margin_bottom: 6,
-          details_ga4_attributes: { index_section: index + 1, index_section_count: filtered_attachments_size },
         },
       )
     end
