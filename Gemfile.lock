@@ -741,7 +741,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    plek (5.2.0)
+    plek (5.2.1)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
