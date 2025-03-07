@@ -29,6 +29,11 @@
         id: "author_filter",
         name: "author",
         heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 2,
+          section: "Author",
+        },
         options: admin_author_filter_options(current_user).map do |name, id|
           {
             text: name,
@@ -45,6 +50,11 @@
         id: "organisation_filter",
         name: "organisation",
         heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 3,
+          section: "Organisation",
+        },
         grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
       } %>
     <% end %>
@@ -55,6 +65,11 @@
         id: "world_location_filter",
         name: "world_location",
         heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 4,
+          section: "World location",
+        },
         options: admin_world_location_filter_options(current_user).map do |name, id|
           {
             text: name,
@@ -71,6 +86,11 @@
         id: "type_filter",
         name: "type",
         heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 5,
+          section: "Document type",
+        },
         grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
       } %>
     <% end %>
@@ -81,6 +101,11 @@
         id: "state_filter",
         name: "state",
         heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 6,
+          section: "State",
+        },
         options: admin_state_filter_options.map do |text, value|
           {
             text: text,

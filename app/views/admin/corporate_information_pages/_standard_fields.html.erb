@@ -10,6 +10,11 @@
       heading_size: "l",
       error_items: errors_for(edition.errors, :corporate_information_page_type_id),
       include_blank: true,
+      ga_data: {
+        document_type: "#{action_name}-#{controller_name}",
+        index_section: 1,
+        section: "Type",
+      },
       options: corporate_information_page_types(@organisation).map do |type, value|
         {
           text: type,

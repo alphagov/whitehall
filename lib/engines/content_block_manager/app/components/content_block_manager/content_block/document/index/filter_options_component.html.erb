@@ -51,6 +51,11 @@
               name: "lead_organisation",
               include_blank: false,
               options: options_for_lead_organisation([@filters[:lead_organisation]]),
+              ga_data: {
+                document_type: "#{action_name}-#{controller_name}",
+                index_section: 3,
+                section: "Lead organisation",
+              },
             }
           ),
         },
