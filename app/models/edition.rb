@@ -267,9 +267,7 @@ class Edition < ApplicationRecord
     end
   end
 
-  def format_name
-    self.class.format_name
-  end
+  delegate :format_name, to: :class
 
   def new_content_warning; end
 

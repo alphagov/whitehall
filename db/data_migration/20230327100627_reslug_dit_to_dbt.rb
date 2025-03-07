@@ -6,8 +6,8 @@ csv = CSV.parse(File.open(csv_file), headers: true)
 csv.each do |row|
   puts "reslugging #{row['old_slug']}"
 
-  old_slug = (row["old_slug"]).split("/").last
-  new_slug = (row["new_slug"]).split("/").last
+  old_slug = row["old_slug"].split("/").last
+  new_slug = row["new_slug"].split("/").last
 
   if old_slug.include?("about") || old_slug.include?(".")
     puts "corporate information pages and translations are reslugged via their parent organisation and default locale"

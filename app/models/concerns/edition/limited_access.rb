@@ -57,9 +57,7 @@ module Edition::LimitedAccess
     self[:access_limited]
   end
 
-  def access_limited_by_default?
-    self.class.access_limited_by_default?
-  end
+  delegate :access_limited_by_default?, to: :class
 
   def set_access_limited
     if new_record? && access_limited.nil?

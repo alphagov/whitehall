@@ -63,9 +63,7 @@ module ActiveRecordLikeInterface
     id && id.to_s
   end
 
-  def model_name
-    self.class.model_name
-  end
+  delegate :model_name, to: :class
 
   def self.included(into)
     into.extend ClassMethods
