@@ -154,6 +154,13 @@
     }
   }
 
+  // Type: Select Multiple ONLY
+  .choices[data-type*="select-multiple"] {
+    .choices__input {
+      display: block;
+    }
+  }
+
   .choices__inner {
     display: inline-block;
     vertical-align: top;
@@ -199,17 +206,21 @@
   }
 
   .choices__list--multiple {
-    display: inline;
+    display: block;
+
+    &:not(:empty) {
+      margin-block-start: 6px;
+      border-block-start: 1px solid $govuk-border-colour;
+      padding-block-end: 4px;
+    }
   }
 
   .choices__list--multiple .choices__item {
     display: inline-block;
-    vertical-align: middle;
     padding: 4px 10px;
-    margin-right: 4px;
-    margin-bottom: 4px;
+    margin: 8px 8px 0 0;
     background-color: #f3f2f1;
-    box-shadow: 0 2px 0 #929191;
+    box-shadow: 1px 1px 0 #929191;
     line-height: 1;
     color: #0b0c0c;
     box-sizing: border-box;
