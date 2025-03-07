@@ -24,6 +24,9 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
       document.lock!
 
       document.republishing_actions.each { |action| send(action) }
+    rescue GdsApi::HTTPPayloadTooLarge => e
+      PublishingApiDocumentRepublishingWorker.sidekiq_options retry: 0
+      raise e
     end
   end
 
