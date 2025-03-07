@@ -21,12 +21,24 @@ private
         {
           key: key.titleize,
           value: object[key],
-          data: is_embeddable?(key) ? copy_embed_code(key) : nil,
+          data: data_attributes_for_row(key),
         },
       ]
-      rows.push(embed_code_row(key)) unless is_editable || !is_embeddable?(key)
+      rows.push(embed_code_row(key)) if should_show_embed_code?(key)
       rows
     }.flatten
+  end
+
+  def data_attributes_for_row(key)
+    attributes = {
+      testid: (object_title.parameterize + "_#{key}").underscore,
+    }
+    attributes.merge!(copy_embed_code(key)) if should_show_embed_code?(key)
+    attributes
+  end
+
+  def should_show_embed_code?(key)
+    !is_editable && is_embeddable?(key)
   end
 
   # This generates a row containing the embed code for the field above it -
@@ -50,12 +62,10 @@ private
   end
 
   def copy_embed_code(key)
-    unless is_editable
-      {
-        module: "copy-embed-code",
-        "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_title}/#{key}"),
-      }
-    end
+    {
+      module: "copy-embed-code",
+      "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_title}/#{key}"),
+    }
   end
 
   def object
