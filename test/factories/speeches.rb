@@ -6,15 +6,6 @@ FactoryBot.define do
     delivered_on { Time.zone.now }
     location { "speech-location" }
     speech_type { SpeechType::Transcript }
-    transient do
-      relevant_to_local_government { false }
-    end
-
-    after(:build) do |object, evaluator|
-      if evaluator.relevant_to_local_government
-        object.related_policy_ids = [FactoryBot.create(:published_policy, relevant_to_local_government: true)].map(&:id)
-      end
-    end
   end
 
   factory :draft_speech, parent: :speech, traits: [:draft]

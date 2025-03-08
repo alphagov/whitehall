@@ -14,7 +14,6 @@ module Edition::BasePermissionMethods
     can_apply_to_subset_of_nations?
     can_be_grouped_in_collections?
     has_operational_field?
-    can_apply_to_local_government?
     national_statistic?
     has_consultation_participation?
     is_associated_with_a_minister?

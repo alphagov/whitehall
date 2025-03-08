@@ -4,7 +4,6 @@ class CallForEvidence < Publicationesque
   include Edition::RoleAppointments
   include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
-  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
   include Edition::HasOpeningAndClosingDates
 

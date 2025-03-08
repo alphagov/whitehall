@@ -36,7 +36,6 @@ module Edition::Searchable
       display_type: :display_type,
       detailed_format: :detailed_format,
       public_timestamp: :public_timestamp,
-      relevant_to_local_government: :relevant_to_local_government?,
       world_locations: nil,
       only: :search_only,
       index_after: [],

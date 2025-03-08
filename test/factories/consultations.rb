@@ -6,9 +6,6 @@ FactoryBot.define do
     closing_at { 6.weeks.from_now }
     read_consultation_principles { true }
     all_nation_applicability { true }
-    transient do
-      relevant_to_local_government { false }
-    end
 
     trait(:with_html_attachment) do
       attachments { [FactoryBot.build(:html_attachment)] }

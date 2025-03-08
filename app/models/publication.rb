@@ -13,7 +13,6 @@ class Publication < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
-  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
 
   before_validation :set_statistics_announcement
