@@ -33,6 +33,6 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
 
     LinkCheckerApiReport.create_or_update_noop_report(publication)
 
-    assert publication.link_check_report.completed?
+    assert publication.reload.link_check_report.completed?
   end
 end
