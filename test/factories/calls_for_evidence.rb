@@ -5,10 +5,6 @@ FactoryBot.define do
     opening_at { 1.day.ago }
     closing_at { 6.weeks.from_now }
     all_nation_applicability { true }
-    transient do
-      relevant_to_local_government { false }
-    end
-
     trait(:with_html_attachment) do
       attachments { [FactoryBot.build(:html_attachment)] }
     end
