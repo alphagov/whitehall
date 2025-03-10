@@ -47,7 +47,7 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     assert_not fatality_notice.can_be_marked_political?
   end
 
-  test "is rendered by government-frontend" do
-    assert FatalityNotice.new.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  test "is rendered by frontend" do
+    assert FatalityNotice.new.rendering_app == Whitehall::RenderingApp::FRONTEND
   end
 end
