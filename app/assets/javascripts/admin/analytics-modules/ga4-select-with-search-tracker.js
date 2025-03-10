@@ -13,15 +13,18 @@ window.GOVUK.analyticsGa4.analyticsModules =
       moduleElements.forEach(function (moduleElement) {
         moduleElement.addEventListener('addItem', function (event) {
           const eventData = {
-            event_name: 'select_component',
-            type: event.target.dataset.ga4DocumentType,
-            index: {
-              index_section_count: `${event.target.selectedIndex}`,
-              index_section: event.target.dataset.ga4IndexSection
-            },
-            text: event.detail.label,
-            section: event.target.dataset.ga4Section,
-            action: 'select'
+            event: 'event_data',
+            event_data: {
+              event_name: 'select_component',
+              type: event.target.dataset.ga4DocumentType,
+              index: {
+                index_section_count: `${event.target.selectedIndex}`,
+                index_section: event.target.dataset.ga4IndexSection
+              },
+              text: event.detail.label,
+              section: event.target.dataset.ga4Section,
+              action: 'select'
+            }
           }
 
           window.GOVUK.analyticsGa4.core.sendData(eventData, 'event_data')
@@ -30,11 +33,14 @@ window.GOVUK.analyticsGa4.analyticsModules =
         if (moduleElement.getAttribute('multiple') !== null) {
           moduleElement.addEventListener('removeItem', function (event) {
             const eventData = {
-              event_name: 'select_component',
-              type: event.target.dataset.ga4DocumentType,
-              text: event.detail.label,
-              section: event.target.dataset.ga4Section,
-              action: 'remove'
+              event: 'event_data',
+              event_data: {
+                event_name: 'select_component',
+                type: event.target.dataset.ga4DocumentType,
+                text: event.detail.label,
+                section: event.target.dataset.ga4Section,
+                action: 'remove'
+              }
             }
 
             window.GOVUK.analyticsGa4.core.sendData(eventData, 'event_data')
