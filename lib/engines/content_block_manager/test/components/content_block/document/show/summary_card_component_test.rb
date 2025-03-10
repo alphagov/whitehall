@@ -2,6 +2,11 @@ require "test_helper"
 
 class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
+
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::SanitizeHelper
+  include ContentBlockManager::ContentBlock::EditionHelper
+
   include ContentBlockManager::Engine.routes.url_helpers
 
   let(:organisation) { create(:organisation, name: "Department for Example") }
@@ -39,7 +44,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
     assert_selector ".govuk-summary-list__value", text: "Department for Example"
 
     assert_selector ".govuk-summary-list__key", text: "Status"
-    assert_selector ".govuk-summary-list__value", text: "Published 1 day ago by #{content_block_edition.creator.name}"
+    assert_selector ".govuk-summary-list__value", text: "Published on #{strip_tags published_date(content_block_edition)} by #{content_block_edition.creator.name}"
 
     assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
     assert_selector ".govuk-summary-list__value", text: "None"
@@ -53,7 +58,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
     assert_selector ".govuk-summary-list__row", count: 6
 
     assert_selector ".govuk-summary-list__key", text: "Status"
-    assert_selector ".govuk-summary-list__value", text: "Scheduled for publication at #{I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)}"
+    assert_selector ".govuk-summary-list__value", text: "Scheduled for publication at #{strip_tags scheduled_date(content_block_edition)}"
     assert_selector ".govuk-summary-list__actions", text: "Edit schedule"
     assert_selector ".govuk-summary-list__actions a[href='#{content_block_manager_content_block_document_schedule_edit_path(content_block_document)}']"
   end
