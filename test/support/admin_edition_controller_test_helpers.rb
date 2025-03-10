@@ -486,7 +486,7 @@ module AdminEditionControllerTestHelpers
             end
           end
           refute_select "#edition_lead_organisation_ids_5"
-          assert_select("#edition_supporting_organisation_ids_")
+          assert_select("#edition_supporting_organisation_ids")
         end
       end
 
@@ -530,7 +530,7 @@ module AdminEditionControllerTestHelpers
             end
           end
           refute_select "#edition_lead_organisation_ids_5"
-          assert_select("#edition_supporting_organisation_ids_")
+          assert_select("#edition_supporting_organisation_ids")
         end
       end
 
@@ -608,7 +608,7 @@ module AdminEditionControllerTestHelpers
             end
           end
           refute_select "#edition_lead_organisation_ids_5"
-          refute_select "#edition_supporting_organisation_ids_"
+          refute_select "#edition_supporting_organisation_ids"
         end
       end
 
@@ -652,7 +652,7 @@ module AdminEditionControllerTestHelpers
             end
           end
           refute_select "#edition_lead_organisation_ids_5"
-          refute_select "#edition_supporting_organisation_ids_"
+          refute_select "#edition_supporting_organisation_ids"
         end
       end
 
