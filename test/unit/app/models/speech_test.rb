@@ -181,7 +181,7 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal current_government, speech.government
   end
 
-  test "Speech is rendered by government-frontend" do
-    assert_equal Speech.new.rendering_app, Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  test "Speech is rendered by frontend" do
+    assert_equal Speech.new.rendering_app, Whitehall::RenderingApp::FRONTEND
   end
 end

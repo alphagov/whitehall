@@ -65,7 +65,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         assert_equal("Speech title", presented.content[:title])
         assert_equal("The description", presented.content[:description])
         assert_equal(Whitehall::PublishingApp::WHITEHALL, presented.content[:publishing_app])
-        assert_equal("government-frontend", presented.content[:rendering_app])
+        assert_equal("frontend", presented.content[:rendering_app])
         assert_equal([speech.auth_bypass_id], presented.content[:auth_bypass_ids])
 
         details = presented.content[:details]
