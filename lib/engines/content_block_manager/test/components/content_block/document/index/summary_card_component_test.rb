@@ -5,6 +5,10 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
 
   include ContentBlockManager::Engine.routes.url_helpers
 
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::SanitizeHelper
+  include ContentBlockManager::ContentBlock::EditionHelper
+
   let(:content_block_edition) do
     create(
       :content_block_edition,
@@ -20,6 +24,10 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
   end
 
   let(:content_block_document) { content_block_edition.document }
+
+  before do
+    content_block_document.expects(:latest_edition).at_least_once.returns(content_block_edition)
+  end
 
   it "renders a published content block as a summary card" do
     render_inline(ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:))
@@ -48,7 +56,7 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
     assert_no_selector ".govuk-summary-list__value", text: "None"
 
     assert_selector ".govuk-summary-list__key", text: "Status"
-    assert_selector ".govuk-summary-list__value", text: "Published 1 day ago by #{content_block_edition.creator.name}"
+    assert_selector ".govuk-summary-list__value", text: "Published on #{strip_tags published_date(content_block_edition)} by #{content_block_edition.creator.name}"
   end
 
   describe "when there are instructions to publishers" do
@@ -61,6 +69,20 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
 
       assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
       assert_selector ".govuk-summary-list__value", text: "instructions"
+    end
+  end
+
+  describe "when the edition is scheduled" do
+    it "returns the scheduled value" do
+      content_block_edition.state = "scheduled"
+      content_block_edition.scheduled_publication = Time.zone.now
+
+      render_inline(ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:))
+
+      assert_selector ".govuk-summary-list__row", count: 5
+
+      assert_selector ".govuk-summary-list__key", text: "Status"
+      assert_selector ".govuk-summary-list__value", text: "Scheduled for publication at #{strip_tags scheduled_date(content_block_edition)}"
     end
   end
 end
