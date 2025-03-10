@@ -31,15 +31,18 @@ describe('GOVUK.analyticsGa4.analyticsModules.GA4SelectWithSearchEventHandlers',
     )
 
     const expectedAttributes = {
-      event_name: 'select_component',
-      type: 'new-consultations',
-      index: {
-        index_section_count: '0',
-        index_section: '20'
-      },
-      text: 'First organisation name',
-      section: 'Lead organisation',
-      action: 'select'
+      event: 'event_data',
+      event_data: {
+        event_name: 'select_component',
+        type: 'new-consultations',
+        index: {
+          index_section_count: '0',
+          index_section: '20'
+        },
+        text: 'First organisation name',
+        section: 'Lead organisation',
+        action: 'select'
+      }
     }
 
     expect(mockGa4SendData).toHaveBeenCalledWith(
@@ -81,11 +84,14 @@ describe('GOVUK.analyticsGa4.analyticsModules.GA4SelectWithSearchEventHandlers',
     )
 
     const expectedAttributes = {
-      event_name: 'select_component',
-      type: 'new-consultations',
-      text: 'First organisation name',
-      section: 'Lead organisation',
-      action: 'remove'
+      event: 'event_data',
+      event_data: {
+        event_name: 'select_component',
+        type: 'new-consultations',
+        text: 'First organisation name',
+        section: 'Lead organisation',
+        action: 'remove'
+      }
     }
 
     expect(mockGa4SendData).toHaveBeenCalledWith(
