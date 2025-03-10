@@ -1,6 +1,5 @@
 class LinkCheckerApiReport < ApplicationRecord
-  belongs_to :edition, optional: true # Temporarily optional until we've migrated from `link_reportable`
-  belongs_to :link_reportable, polymorphic: true
+  belongs_to :edition
   has_many :links,
            -> { order(ordering: :asc) },
            class_name: "LinkCheckerApiReport::Link"
@@ -17,18 +16,29 @@ NOT EXISTS (
           )
         }
 
-  def self.create_noop_report(edition)
-    create!(
-      batch_id: nil,
-      completed_at: Time.zone.now,
-      edition:,
-      link_reportable: edition, # TODO: remove this line
-      status: "completed",
-    )
+  def self.create_or_update_noop_report(edition)
+    if edition.link_check_report
+      edition.link_check_report.update!(
+        batch_id: nil,
+        completed_at: Time.zone.now,
+        status: "completed",
+      )
+    else
+      create!(
+        batch_id: nil,
+        completed_at: Time.zone.now,
+        edition:,
+        status: "completed",
+      )
+    end
   end
 
-  def self.create_from_batch_report(batch_report, link_reportable)
-    CreateFromBatchReport.new(batch_report, link_reportable).call
+  def self.create_or_update_from_batch_report(batch_report, edition)
+    if edition.link_check_report
+      UpdateFromBatchReport.new(edition.link_check_report, batch_report).update # rubocop:disable Rails/SaveBang
+    else
+      CreateFromBatchReport.new(batch_report, edition).call
+    end
   end
 
   def update_from_batch_report(batch_report)

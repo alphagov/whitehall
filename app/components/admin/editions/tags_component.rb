@@ -34,11 +34,11 @@ private
   end
 
   def broken_links_report_tag
-    return unless edition.link_check_reports.any? && edition.link_check_reports.last.completed?
+    return unless edition.link_check_report.present? && edition.link_check_report.completed?
 
-    return create_tag("Broken links") if edition.link_check_reports.last.broken_links.any?
+    return create_tag("Broken links") if edition.link_check_report.broken_links.any?
 
-    create_tag("Link warnings") if edition.link_check_reports.last.caution_links.any?
+    create_tag("Link warnings") if edition.link_check_report.caution_links.any?
   end
 
   def create_tag(label)

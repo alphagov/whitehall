@@ -25,7 +25,7 @@ class CheckOrganisationLinksWorker
         if LinkCheckerApiService.has_links?(edition)
           LinkCheckerApiService.check_links(edition, admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")))
         else
-          LinkCheckerApiReport.create_noop_report(edition)
+          LinkCheckerApiReport.create_or_update_noop_report(edition)
           ignored += 1
         end
       end
@@ -40,7 +40,7 @@ private
   end
 
   def public_editions(organisation)
-    least_recently_checked = Edition.includes(:link_check_reports).publicly_visible.with_translations.in_organisation(organisation).order("link_checker_api_reports.updated_at").limit(ORGANISATION_EDITION_LIMIT)
+    least_recently_checked = Edition.includes(:link_check_report).publicly_visible.with_translations.in_organisation(organisation).order("link_checker_api_reports.updated_at").limit(ORGANISATION_EDITION_LIMIT)
     Edition.where(id: least_recently_checked.pluck(:id))
   end
 end

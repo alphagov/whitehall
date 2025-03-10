@@ -27,25 +27,23 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
   test "POST :create saves a LinkCheckReport and redirects back to the edition" do
     post :create, params: { edition_id: @publication.id }
     assert_redirected_to admin_publication_url(@publication)
-    assert @publication.link_check_reports.last # TODO: delete this line
     assert @publication.link_check_report
   end
 
   test "POST :create JSON format creates and renders json template" do
     post :create, params: { edition_id: @publication.id }, format: :json
     assert_template :show
-    assert @publication.link_check_reports.last # TODO: delete this line
     assert @publication.link_check_report
   end
 
   test "GET :show redirects back to the edition" do
-    link_check_report = create(:link_checker_api_report, link_reportable: @publication)
+    link_check_report = create(:link_checker_api_report, edition: @publication)
     get :show, params: { id: link_check_report, edition_id: @publication }
     assert_redirected_to admin_publication_url(@publication)
   end
 
   test "GET :show JSON format renders JSON template" do
-    link_check_report = create(:link_checker_api_report, link_reportable: @publication)
+    link_check_report = create(:link_checker_api_report, edition: @publication)
     get :show, params: { id: link_check_report, edition_id: @publication }, format: :json
     assert_template :show
   end
