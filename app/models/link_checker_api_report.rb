@@ -30,7 +30,7 @@ NOT EXISTS (
   end
 
   def update_from_batch_report(batch_report)
-    UpdateFromBatchReport.new(self, batch_report).update
+    UpdateFromBatchReport.new(self, batch_report).call
   end
 
   def completed?
