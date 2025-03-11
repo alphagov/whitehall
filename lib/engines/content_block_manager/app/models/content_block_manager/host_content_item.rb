@@ -10,6 +10,7 @@ module ContentBlockManager
     :unique_pageviews,
     :instances,
     :host_content_id,
+    :host_locale,
   )
 
     DEFAULT_ORDER = "-unique_pageviews".freeze
@@ -62,6 +63,7 @@ module ContentBlockManager
           unique_pageviews: record["unique_pageviews"],
           instances: record["instances"],
           host_content_id: record["host_content_id"],
+          host_locale: record["host_locale"],
         )
       end
     end
