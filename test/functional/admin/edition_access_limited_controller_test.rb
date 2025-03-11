@@ -40,7 +40,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
       end
 
       refute_select "#edition_lead_organisation_ids_5"
-      assert_select("#edition_supporting_organisation_ids_")
+      assert_select("#edition_supporting_organisation_ids")
     end
   end
 

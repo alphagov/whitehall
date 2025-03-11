@@ -16,7 +16,7 @@
         maxlength: 160,
       } %>
 
-      <%= render "components/autocomplete", {
+      <%= render "components/select_with_search", {
         id: "historical_account_political_parties",
         name: "historical_account[political_party_ids][]",
         error_items: errors_for(historical_account.errors, :political_parties),

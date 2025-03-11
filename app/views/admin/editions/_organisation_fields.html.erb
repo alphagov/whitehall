@@ -23,7 +23,7 @@
     </div>
 
     <% if edition.can_have_supporting_organisations? %>
-      <%= render "components/autocomplete", {
+      <%= render "components/select_with_search", {
         id: "edition_supporting_organisation_ids",
         name: "edition[supporting_organisation_ids][]",
         include_blank: true,
