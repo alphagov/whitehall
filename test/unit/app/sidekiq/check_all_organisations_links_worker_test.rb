@@ -30,7 +30,7 @@ class CheckAllOrganisationsLinksWorkerTest < ActiveSupport::TestCase
     stub_news_article
 
     Sidekiq::Testing.inline! do
-      capture_subprocess_io { CheckAllOrganisationsLinksWorker.new.perform }
+      CheckAllOrganisationsLinksWorker.new.perform
     end
 
     assert_equal 2, LinkCheckerApiReport.count
