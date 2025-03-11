@@ -11,6 +11,7 @@ class LinkCheckerApiReport::UpdateFromBatchReport
       delete_removed_links(links)
       update_links(links)
     end
+    self
   end
 
 private

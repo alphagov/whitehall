@@ -18,11 +18,12 @@ NOT EXISTS (
 
   def self.create_or_update_noop_report(edition)
     if edition.link_check_report
-      edition.link_check_report.update!(
+      report = edition.link_check_report.update!(
         batch_id: nil,
         completed_at: Time.zone.now,
         status: "completed",
       )
+      report
     else
       create!(
         batch_id: nil,
