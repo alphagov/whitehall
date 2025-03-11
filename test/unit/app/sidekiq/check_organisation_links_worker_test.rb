@@ -117,7 +117,7 @@ private
 
     publication = create_published_publication(organisation, links)
 
-    create(:link_checker_api_report_completed, link_reportable: publication)
+    create(:link_checker_api_report_completed, edition: publication)
 
     body = link_checker_api_batch_report_hash(id: 8, links:)
 
@@ -132,7 +132,7 @@ private
 
     publication = create_published_publication(organisation, links)
 
-    create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, updated_at: 2.weeks.ago)
+    create(:link_checker_api_report_completed, batch_id: 2, edition: publication, updated_at: 2.weeks.ago)
 
     body = link_checker_api_batch_report_hash(id: 9, links:)
 

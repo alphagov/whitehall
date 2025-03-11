@@ -39,13 +39,13 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
   end
 
   test "GET :show redirects back to the edition" do
-    link_check_report = create(:link_checker_api_report, link_reportable: @publication)
+    link_check_report = create(:link_checker_api_report, edition: @publication)
     get :show, params: { id: link_check_report, edition_id: @publication }
     assert_redirected_to admin_publication_url(@publication)
   end
 
   test "GET :show JSON format renders JSON template" do
-    link_check_report = create(:link_checker_api_report, link_reportable: @publication)
+    link_check_report = create(:link_checker_api_report, edition: @publication)
     get :show, params: { id: link_check_report, edition_id: @publication }, format: :json
     assert_template :show
   end

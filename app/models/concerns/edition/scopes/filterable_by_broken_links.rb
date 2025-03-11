@@ -6,14 +6,13 @@ module Edition::Scopes::FilterableByBrokenLinks
       joins(
         "
   LEFT JOIN (
-    SELECT id, link_reportable_type, link_reportable_id
+    SELECT id, edition_id
     FROM link_checker_api_reports
-    GROUP BY link_reportable_type, link_reportable_id
+    GROUP BY edition_id
     ORDER BY id DESC
   ) AS latest_link_checker_api_reports
-    ON latest_link_checker_api_reports.link_reportable_type = 'Edition'
-   AND latest_link_checker_api_reports.link_reportable_id = editions.id
-   AND latest_link_checker_api_reports.id = (SELECT MAX(id) FROM link_checker_api_reports WHERE link_checker_api_reports.link_reportable_type = 'Edition' AND link_checker_api_reports.link_reportable_id = editions.id)",
+    ON latest_link_checker_api_reports.edition_id = editions.id
+   AND latest_link_checker_api_reports.id = (SELECT MAX(id) FROM link_checker_api_reports WHERE link_checker_api_reports.edition_id = editions.id)",
       ).where(
         "
   EXISTS (

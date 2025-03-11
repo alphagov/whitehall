@@ -1,6 +1,5 @@
 class LinkCheckerApiReport < ApplicationRecord
-  belongs_to :edition, optional: true # Temporarily optional until we've migrated from `link_reportable`
-  belongs_to :link_reportable, polymorphic: true
+  belongs_to :edition
   has_many :links,
            -> { order(ordering: :asc) },
            class_name: "LinkCheckerApiReport::Link"
@@ -22,13 +21,12 @@ NOT EXISTS (
       batch_id: nil,
       completed_at: Time.zone.now,
       edition:,
-      link_reportable: edition, # TODO: remove this line
       status: "completed",
     )
   end
 
-  def self.create_from_batch_report(batch_report, link_reportable)
-    CreateFromBatchReport.new(batch_report, link_reportable).call
+  def self.create_from_batch_report(batch_report, edition)
+    CreateFromBatchReport.new(batch_report, edition).call
   end
 
   def update_from_batch_report(batch_report)

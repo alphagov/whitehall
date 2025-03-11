@@ -77,7 +77,7 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
 
   test "adds a broken links tag if the last report has broken links" do
     edition = build(:edition)
-    links_report = build(:link_checker_api_report_completed, link_reportable: edition)
+    links_report = build(:link_checker_api_report_completed, edition: edition)
     broken_link = build(:link_checker_api_report_link, :broken, link_checker_api_report_id: links_report.id)
 
     edition.stubs(:link_check_reports).returns([links_report])
@@ -92,7 +92,7 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
 
   test "adds a links warning tag if the last report has caution links" do
     edition = build(:edition)
-    links_report = build(:link_checker_api_report_completed, link_reportable: edition)
+    links_report = build(:link_checker_api_report_completed, edition: edition)
     caution_link = build(:link_checker_api_report_link, status: "caution")
 
     edition.stubs(:link_check_reports).returns([links_report])
