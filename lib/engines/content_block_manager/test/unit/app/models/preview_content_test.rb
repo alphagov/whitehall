@@ -50,7 +50,7 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
         preview_content = ContentBlockManager::PreviewContent.for_content_id(
           content_id: host_content_id,
           content_block_edition: block_to_preview,
-          )
+        )
 
         assert_equal host_title, preview_content.title
         assert_equal 2, preview_content.instances_count
@@ -71,7 +71,7 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
           content_id: host_content_id,
           content_block_edition: block_to_preview,
           base_path:,
-          )
+        )
       end
     end
 

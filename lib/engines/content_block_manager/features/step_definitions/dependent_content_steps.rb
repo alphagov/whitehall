@@ -27,6 +27,7 @@ When(/^dependent content exists for a content block$/) do
       "last_edited_by_editor_id" => host_editor_id,
       "last_edited_at" => 2.days.ago.to_s,
       "host_content_id" => "abc12345",
+      "host_locale" => "en",
       "instances" => 1,
       "primary_publishing_organisation" => {
         "content_id" => SecureRandom.uuid,

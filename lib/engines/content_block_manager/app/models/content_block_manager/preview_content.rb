@@ -6,7 +6,7 @@ module ContentBlockManager
         metadata = Services.publishing_api.get_host_content_item_for_content_id(
           content_block_edition.document.content_id,
           content_id,
-          { locale: }
+          { locale: },
         ).parsed_content
         html = ContentBlockManager::GeneratePreviewHtml.new(
           content_id:,
