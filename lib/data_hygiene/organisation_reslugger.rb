@@ -22,7 +22,6 @@ module DataHygiene
       if organisation.is_a? Organisation
         update_child_and_parent_organisations_in_search
         update_users
-        update_editions
       end
     end
 
@@ -51,10 +50,6 @@ module DataHygiene
 
     def update_users
       User.where(organisation_slug: old_slug).update_all(organisation_slug: new_slug)
-    end
-
-    def update_editions
-      organisation.editions.published.each(&:update_in_search_index)
     end
   end
 end

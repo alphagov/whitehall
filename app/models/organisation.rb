@@ -3,7 +3,6 @@ class Organisation < ApplicationRecord
   include PublishesToPublishingApi
   include ReshuffleMode
   include Searchable
-  include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
   include UserOrderable
 
