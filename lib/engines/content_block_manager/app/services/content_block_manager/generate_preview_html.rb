@@ -6,10 +6,11 @@ module ContentBlockManager
   class GeneratePreviewHtml
     include ContentBlockManager::Engine.routes.url_helpers
 
-    def initialize(content_id:, content_block_edition:, base_path:)
+    def initialize(content_id:, content_block_edition:, base_path:, locale:)
       @content_id = content_id
       @content_block_edition = content_block_edition
       @base_path = base_path
+      @locale = locale
     end
 
     def call
@@ -25,7 +26,7 @@ module ContentBlockManager
     BLOCK_STYLE = "background-color: yellow;".freeze
     ERROR_HTML = "<html><body><p>Preview not found</p></body></html>".freeze
 
-    attr_reader :content_block_edition, :content_id, :base_path
+    attr_reader :content_block_edition, :content_id, :base_path, :locale
 
     def frontend_path
       frontend_base_path + base_path
@@ -45,11 +46,11 @@ module ContentBlockManager
     end
 
     def update_local_link_paths(nokogiri_html)
-      url = host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: content_id)
+      url = host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: content_id, locale:)
       nokogiri_html.css("a").each do |link|
         next if link[:href].start_with?("//") || link[:href].start_with?("http")
 
-        link[:href] = "#{url}?base_path=#{link[:href]}"
+        link[:href] = "#{url}&base_path=#{link[:href]}"
         link[:target] = "_parent"
       end
 

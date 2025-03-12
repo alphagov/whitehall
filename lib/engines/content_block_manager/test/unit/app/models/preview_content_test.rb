@@ -43,7 +43,8 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
         ContentBlockManager::GeneratePreviewHtml.expects(:new)
                                                 .with(content_id: host_content_id,
                                                       content_block_edition: block_to_preview,
-                                                      base_path: host_base_path)
+                                                      base_path: host_base_path,
+                                                      locale: "en")
                                                 .returns(preview_response)
 
         preview_content = ContentBlockManager::PreviewContent.for_content_id(
@@ -62,7 +63,8 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
         ContentBlockManager::GeneratePreviewHtml.expects(:new)
                                                 .with(content_id: host_content_id,
                                                       content_block_edition: block_to_preview,
-                                                      base_path:)
+                                                      base_path:,
+                                                      locale: "en")
                                                 .returns(preview_response)
 
         ContentBlockManager::PreviewContent.for_content_id(
@@ -85,7 +87,8 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
         ContentBlockManager::GeneratePreviewHtml.expects(:new)
                                                 .with(content_id: host_content_id,
                                                       content_block_edition: block_to_preview,
-                                                      base_path: host_base_path)
+                                                      base_path: host_base_path,
+                                                      locale: "cy")
                                                 .returns(preview_response)
 
         preview_content = ContentBlockManager::PreviewContent.for_content_id(

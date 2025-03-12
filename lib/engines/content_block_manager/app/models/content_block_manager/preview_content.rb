@@ -12,6 +12,7 @@ module ContentBlockManager
           content_id:,
           content_block_edition:,
           base_path: base_path || content_item["base_path"],
+          locale:,
         ).call
 
         ContentBlockManager::PreviewContent.new(
