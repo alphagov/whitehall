@@ -101,31 +101,6 @@ class CallForEvidence < Publicationesque
     end
   end
 
-  def search_format_types
-    call_for_evidence_type =
-      if outcome_published?
-        "call-for-evidence-outcome"
-      elsif closed?
-        "call-for-evidence-closed"
-      elsif open?
-        "call-for-evidence-open"
-      end
-
-    types = super + ["publicationesque-call-for-evidence", CallForEvidence.search_format_type]
-    types << call_for_evidence_type if call_for_evidence_type
-    types
-  end
-
-  def search_index
-    super.merge(
-      end_date: closing_at,
-      start_date: opening_at,
-      has_official_document: has_official_document? || (outcome.present? && outcome.has_official_document?),
-      has_command_paper: has_command_paper? || (outcome.present? && outcome.has_command_paper?),
-      has_act_paper: has_act_paper? || (outcome.present? && outcome.has_act_paper?),
-    )
-  end
-
   def allows_html_attachments?
     true
   end

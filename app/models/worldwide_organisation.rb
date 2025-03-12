@@ -3,8 +3,6 @@ class WorldwideOrganisation < Edition
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
 
-  include Edition::Searchable
-
   include Edition::SocialMediaAccounts
   include Edition::Organisations
   include Edition::Roles

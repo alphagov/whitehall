@@ -21,7 +21,6 @@ module DataHygiene
 
     def delete_from_search_index
       topical_event.remove_from_search_index
-      editions.each(&:remove_from_search_index)
     end
 
     def update_slug
@@ -34,7 +33,6 @@ module DataHygiene
 
     def add_to_search_index
       topical_event.update_in_search_index
-      editions.each(&:update_in_search_index)
     end
 
     def update_atom_feed_url

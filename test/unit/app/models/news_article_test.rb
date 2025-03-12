@@ -38,27 +38,6 @@ class NewsArticleTest < ActiveSupport::TestCase
     end
   end
 
-  test "search_index includes people" do
-    news_article = create(:news_article, role_appointments: [create(:role_appointment), create(:role_appointment)])
-    assert_equal news_article.role_appointments.map(&:slug), news_article.search_index["people"]
-  end
-
-  test "search_format_types tags the news article as a news-article and announcement" do
-    news_article = build(:news_article)
-    assert news_article.search_format_types.include?("news-article")
-    assert news_article.search_format_types.include?("announcement")
-  end
-
-  test "search_format_types includes search_format_types of the speech_type" do
-    news_article_type = mock
-    news_article_type.responds_like(NewsArticleType.new)
-    news_article_type.stubs(:search_format_types).returns(%w[stuff-innit other-thing])
-    news_article = build(:news_article)
-    news_article.stubs(:news_article_type).returns(news_article_type)
-    assert news_article.search_format_types.include?("stuff-innit")
-    assert news_article.search_format_types.include?("other-thing")
-  end
-
   test "is translatable" do
     assert build(:news_article).translatable?
   end

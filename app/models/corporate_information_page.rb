@@ -1,6 +1,5 @@
 class CorporateInformationPage < Edition
   include ::Attachable
-  include Searchable
   include HasCorporateInformationPageType
 
   after_commit :republish_organisation_to_publishing_api
@@ -51,31 +50,6 @@ class CorporateInformationPage < Edition
 
   def body_required?
     !about_page?
-  end
-
-  def search_title
-    title_prefix_organisation_name
-  end
-
-  def search_index
-    super.merge("organisations" => [organisation.slug])
-  end
-
-  def self.search_only
-    live_govuk_status = super.with_organisation_govuk_status("live")
-
-    accessible_other_govuk_status = super
-      .accessible_documents_policy
-      .with_organisation_govuk_status(%w[joining exempt transitioning])
-
-    accessible_devolved_govuk_status = super
-      .accessible_documents_policy
-      .with_organisation_govuk_status("closed")
-      .where(organisations: { govuk_closed_status: "devolved" })
-
-    live_govuk_status
-      .or(accessible_other_govuk_status)
-      .or(accessible_devolved_govuk_status)
   end
 
   def title_required?

@@ -9,11 +9,6 @@ class CaseStudyTest < ActiveSupport::TestCase
   should_have_custom_lead_image
   should_protect_against_xss_and_content_attacks_on :case_study, :body
 
-  test "search_format_types tags the case study as a case-study" do
-    case_study = build(:case_study)
-    assert case_study.search_format_types.include?("case-study")
-  end
-
   test "should be translatable" do
     assert build(:case_study).translatable?
   end

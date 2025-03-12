@@ -77,26 +77,6 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_equal original.groups.map(&:documents), draft.groups.map(&:documents)
   end
 
-  test "only indexes published collections" do
-    assert_not create(:unpublished_document_collection).can_index_in_search?
-    assert create(:published_document_collection).can_index_in_search?
-  end
-
-  test "indexes the title as title" do
-    collection = create(:document_collection, title: "a title")
-    assert_equal "a title", collection.search_index["title"]
-  end
-
-  test "indexes the full URL to the collection show page as link" do
-    collection = create(:document_collection)
-    assert_equal "/government/collections/#{collection.slug}", collection.search_index["link"]
-  end
-
-  test "indexes the slug" do
-    collection = create(:published_document_collection)
-    assert_equal collection.slug, collection.search_index["slug"]
-  end
-
   test "returns the title for slug string regardless of locale" do
     en_collection = create(:document_collection, groups: [])
     cy_collection = create(:document_collection, groups: [], primary_locale: "cy")
@@ -104,32 +84,6 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     [en_collection, cy_collection].each do |collection|
       assert_equal collection.document.slug, collection.title
     end
-  end
-
-  test "indexes the body without markup as indexable_content" do
-    collection = create(
-      :document_collection,
-      title: "A doc collection",
-      body: "This is a *body*",
-    )
-    assert_match %r{^This is a body$}, collection.search_index["indexable_content"]
-  end
-
-  test "indexes the group headings and body copy without markup as indexable_content" do
-    doc = create(:published_news_article).document
-    empty_group = create(:document_collection_group, heading: "Empty Heading", body: "The *Body*")
-    visible_group = create(:document_collection_group, heading: "The Heading", body: "The *Body*", documents: [doc])
-
-    collection = create(:document_collection, groups: [empty_group, visible_group])
-
-    assert_match %r{^The Heading$}, collection.search_index["indexable_content"]
-    assert_no_match %r{^Empty Heading$}, collection.search_index["indexable_content"]
-    assert_match %r{^The Body$}, collection.search_index["indexable_content"]
-  end
-
-  test "indexes the summary as description" do
-    collection = create(:document_collection, summary: "a summary")
-    assert_match "a summary", collection.search_index["description"]
   end
 
   test "specifies the rendering app as government frontend" do

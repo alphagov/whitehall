@@ -18,10 +18,6 @@ class StatisticalDataSet < Publicationesque
     "statistical_data_set"
   end
 
-  def search_format_types
-    super + ["publicationesque-statistics", StatisticalDataSet.search_format_type]
-  end
-
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end

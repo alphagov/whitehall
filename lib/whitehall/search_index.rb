@@ -20,17 +20,12 @@ module Whitehall
     def self.for(type, options = {})
       path = {
         government: government_search_index_path,
-        detailed_guides: detailed_search_index_path,
       }.fetch(type)
       indexer_class.new(search_api_host, path, { logger: Rails.logger }.merge(options))
     end
 
     def self.government_search_index_path
       "/government"
-    end
-
-    def self.detailed_search_index_path
-      "/detailed"
     end
 
     def self.indexer_class

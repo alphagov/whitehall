@@ -17,7 +17,6 @@ module DataHygiene
 
     def run!
       update_slug
-      republish_dependencies
     end
 
   private
@@ -27,11 +26,6 @@ module DataHygiene
     def update_slug
       # NOTE: This will trigger calls to the Publishing API.
       person.update!(slug: new_slug)
-    end
-
-    def republish_dependencies
-      person.published_speeches.each(&:update_in_search_index)
-      person.published_news_articles.each(&:update_in_search_index)
     end
   end
 end

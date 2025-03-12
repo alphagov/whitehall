@@ -1,7 +1,5 @@
 # @abstract
 class Announcement < Edition
-  include Edition::Searchable
-
   include Edition::Images
   include Edition::Organisations
   include Edition::TaggableOrganisations
@@ -10,10 +8,6 @@ class Announcement < Edition
 
   def self.published_with_eager_loading(ids)
     published.with_translations.includes([:document, { organisations: :translations }]).where(id: ids)
-  end
-
-  def search_format_types
-    super + [Announcement.search_format_type]
   end
 
   def presenter

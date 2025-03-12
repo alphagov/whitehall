@@ -15,12 +15,6 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_not_nil @published_edition.unpublishing
   end
 
-  test "When unpublishing an edition, it is removed from the search index" do
-    Whitehall::SearchIndex.expects(:delete).with(@published_edition)
-
-    unpublish(@published_edition, unpublishing_params)
-  end
-
   test "When an edition is unpublished, it is unpublished to the Publishing API" do
     Sidekiq::Testing.inline! do
       unpublish(@published_edition, unpublishing_params)

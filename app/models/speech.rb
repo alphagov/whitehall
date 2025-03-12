@@ -20,16 +20,6 @@ class Speech < Announcement
     where(speech_type_id: subtype_ids)
   end
 
-  def search_format_types
-    super + [Speech.search_format_type] + speech_type.search_format_types
-  end
-
-  def search_index
-    super.merge(
-      "image_url" => lead_image_url,
-    )
-  end
-
   def speech_type
     SpeechType.find_by_id(speech_type_id)
   end

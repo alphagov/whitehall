@@ -14,20 +14,4 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
   test "should list all slugs" do
     assert_equal "news-stories, press-releases, government-responses, and world-news-stories", NewsArticleType.all_slugs
   end
-
-  test "search_format_types tags the type with the key, prefixed with news-article-" do
-    NewsArticleType.all.each do |news_article_type| # rubocop:disable Rails/FindEach
-      assert news_article_type.search_format_types.include?("news-article-#{news_article_type.key.tr('_', ' ').parameterize}")
-    end
-  end
-
-  test "NewsArticleType.search_format_types returns all of the type #search_format_types" do
-    expected = %w[
-      news-article-news-story
-      news-article-press-release
-      news-article-government-response
-      news-article-world-news-story
-    ]
-    assert_equal expected, NewsArticleType.search_format_types
-  end
 end

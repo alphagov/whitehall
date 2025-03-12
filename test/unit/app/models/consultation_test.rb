@@ -346,77 +346,11 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal "Consultation outcome", consultation.display_type
   end
 
-  test "search_format_types tags the consultation as a consultation and publicationesque-consultation" do
-    consultation = build(:consultation)
-    assert consultation.search_format_types.include?("consultation")
-    assert consultation.search_format_types.include?("publicationesque-consultation")
-  end
-
-  test "when the consultation is still open search_format_types tags the consultation as consultation-open" do
-    consultation = build(:consultation, opening_at: 10.minutes.ago, closing_at: 10.minutes.from_now)
-    assert consultation.search_format_types.include?("consultation-open")
-  end
-
-  test "when the consultation is closed search_format_types tags the consultation as consultation-closed" do
-    consultation = build(:consultation, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
-    assert consultation.search_format_types.include?("consultation-closed")
-  end
-
-  test "when the consultation has published the outcome search_format_types tags the consultation as consultation-outcome" do
-    consultation = build(:consultation, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
-    outcome = create(:consultation_outcome, consultation:)
-    outcome.attachments << build(:file_attachment)
-    assert consultation.search_format_types.include?("consultation-outcome")
-  end
-
   test "can associate consultations with topical events" do
     consultation = create(:consultation)
     assert consultation.can_be_associated_with_topical_events?
     assert topical_event = consultation.topical_events.create!(name: "Test", description: "Test", summary: "Test")
     assert_equal [consultation], topical_event.consultations
-  end
-
-  test "#search_index :has_official_document should be true if either the consultation or it's outcome has official document attachments" do
-    Consultation.any_instance.stubs(:search_link)
-
-    assert_not create(:consultation).search_index[:has_official_document]
-
-    command_paper_consultation = create(:consultation)
-    command_paper_consultation.stubs(:has_official_document?).returns(true)
-    assert command_paper_consultation.search_index[:has_official_document]
-
-    consultation_with_command_paper_outcome = create(:consultation, outcome: create(:consultation_outcome))
-    consultation_with_command_paper_outcome.outcome.stubs(:has_official_document?).returns(true)
-    assert consultation_with_command_paper_outcome.search_index[:has_official_document]
-  end
-
-  test "#search_index :has_command_paper should be true if either the consultation or it's outcome has command paper attachments" do
-    Consultation.any_instance.stubs(:search_link)
-
-    assert_not create(:consultation).search_index[:has_command_paper]
-
-    command_paper_consultation = create(:consultation)
-    command_paper_consultation.stubs(:has_command_paper?).returns(true)
-    assert command_paper_consultation.search_index[:has_command_paper]
-
-    consultation_with_command_paper_outcome = create(:consultation, outcome: create(:consultation_outcome))
-    consultation_with_command_paper_outcome.outcome.stubs(:has_command_paper?).returns(true)
-    assert consultation_with_command_paper_outcome.search_index[:has_command_paper]
-  end
-
-  test "#search_index :has_act_paper should be true if either the consultation or it's outcome has act paper attachments" do
-    Consultation.any_instance.stubs(:search_link)
-
-    consultation = create(:consultation)
-    assert_not consultation.search_index[:has_act_paper]
-
-    command_paper_consultation = create(:consultation)
-    command_paper_consultation.stubs(:has_act_paper?).returns(true)
-    assert command_paper_consultation.search_index[:has_act_paper]
-
-    consultation_with_command_paper_outcome = create(:consultation, outcome: create(:consultation_outcome))
-    consultation_with_command_paper_outcome.outcome.stubs(:has_act_paper?).returns(true)
-    assert consultation_with_command_paper_outcome.search_index[:has_act_paper]
   end
 
   test "#government returns the government active on the first_public_at date" do

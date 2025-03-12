@@ -1,6 +1,4 @@
 class DetailedGuide < Edition
-  include Edition::Searchable
-
   include Edition::Images
   include Edition::NationalApplicability
 
@@ -38,10 +36,6 @@ class DetailedGuide < Edition
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
-  def search_api_index
-    :detailed_guides
-  end
-
   def related_detailed_guide_ids
     related_to_editions.where(type: "DetailedGuide").pluck(:id)
   end
@@ -77,14 +71,6 @@ class DetailedGuide < Edition
 
   def display_type_key
     "detailed_guidance"
-  end
-
-  def search_format_types
-    super + [DetailedGuide.search_format_type]
-  end
-
-  def self.search_format_type
-    "detailed-guidance"
   end
 
   def translatable?

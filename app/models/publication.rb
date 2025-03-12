@@ -97,14 +97,6 @@ class Publication < Publicationesque
     publication_type.key
   end
 
-  def detailed_format
-    publication_type.detailed_format || super
-  end
-
-  def search_format_types
-    super + [Publication.search_format_type] + publication_type.search_format_types
-  end
-
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end
@@ -149,14 +141,6 @@ class Publication < Publicationesque
 
   def has_attachments?
     !attachments.empty?
-  end
-
-  def search_index
-    super.merge(
-      has_official_document: has_official_document?,
-      has_command_paper: has_command_paper?,
-      has_act_paper: has_act_paper?,
-    )
   end
 
   def path_name

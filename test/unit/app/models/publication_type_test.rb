@@ -36,19 +36,4 @@ class PublicationTypeTest < ActiveSupport::TestCase
       end
     end
   end
-
-  test "search_format_types tags the type with the singular name, prefixed with publication-" do
-    PublicationType.all.each do |publication_type| # rubocop:disable Rails/FindEach
-      assert publication_type.search_format_types.include?("publication-#{publication_type.singular_name.parameterize}")
-    end
-  end
-
-  test "search_format_types tags the type with the publicationesque-statistics if the type is statistical" do
-    PublicationType.statistical.each do |publication_type|
-      assert publication_type.search_format_types.include?("publicationesque-statistics")
-    end
-    (PublicationType.all - PublicationType.statistical).each do |publication_type|
-      assert_not publication_type.search_format_types.include?("publicationesque-statistics")
-    end
-  end
 end

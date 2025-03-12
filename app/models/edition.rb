@@ -88,16 +88,8 @@ class Edition < ApplicationRecord
     @format_name ||= model_name.human.downcase
   end
 
-  def self.search_format_type
-    name.underscore.tr("_", "-")
-  end
-
   def self.concrete_descendants
     descendants.reject { |model| model.descendants.any? }.sort_by(&:name)
-  end
-
-  def self.concrete_descendant_search_format_types
-    concrete_descendants.map(&:search_format_type)
   end
 
   def self.scheduled_for_publication_as(slug)
@@ -119,10 +111,6 @@ class Edition < ApplicationRecord
 
   def self.publicly_visible_and_available_in_english
     with_translations(:en).publicly_visible
-  end
-
-  def self.search_only
-    publicly_visible_and_available_in_english
   end
 
   def creator
@@ -152,10 +140,6 @@ class Edition < ApplicationRecord
     true
   end
 
-  def can_index_in_search?
-    false
-  end
-
   def path_name
     to_model.class.name.underscore
   end
@@ -166,10 +150,6 @@ class Edition < ApplicationRecord
     return false if api_response["links"].nil? || api_response["links"]["taxons"].nil?
 
     api_response["links"]["taxons"].any?
-  end
-
-  def included_in_statistics_feed?
-    search_format_types.include?("publicationesque-statistics")
   end
 
   def create_draft(user, allow_creating_draft_from_deleted_edition: false)
@@ -228,10 +208,6 @@ class Edition < ApplicationRecord
 
   def title_with_state
     "#{title} (#{state})"
-  end
-
-  def indexable_content
-    body_without_markup
   end
 
   def body_without_markup
@@ -362,10 +338,6 @@ class Edition < ApplicationRecord
     end
   end
 
-  def search_government_name
-    government.name if government
-  end
-
   def historic?
     return false unless government
 
@@ -374,10 +346,6 @@ class Edition < ApplicationRecord
 
   def withdrawn?
     state == "withdrawn"
-  end
-
-  def detailed_format
-    display_type.parameterize
   end
 
   def content_store_document_type

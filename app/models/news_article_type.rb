@@ -26,14 +26,6 @@ class NewsArticleType
     all.map(&:slug).to_sentence
   end
 
-  def self.search_format_types
-    all.map(&:search_format_types).flatten
-  end
-
-  def search_format_types
-    ["news-article-#{key.tr('_', ' ').parameterize}"]
-  end
-
   def genus_key
     "news_article"
   end
