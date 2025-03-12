@@ -28,7 +28,7 @@ class LinkCheckerApiService
         webhook_secret_token:,
       )
 
-      LinkCheckerApiReport.create_from_batch_report(batch_report, edition)
+      LinkCheckerApiReport.create_in_progress_report(batch_report, edition)
     end
   end
 

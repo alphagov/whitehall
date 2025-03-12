@@ -21,11 +21,11 @@ NOT EXISTS (
     CreateNoopBatchReport.new(edition).call
   end
 
-  def self.create_from_batch_report(batch_report, edition)
+  def self.create_in_progress_report(batch_report, edition)
     CreateFromBatchReport.new(batch_report, edition).call
   end
 
-  def update_from_batch_report(batch_report)
+  def mark_report_as_completed(batch_report)
     UpdateFromBatchReport.new(self, batch_report).update
   end
 
