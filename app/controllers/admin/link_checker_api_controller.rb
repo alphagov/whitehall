@@ -3,6 +3,10 @@ class Admin::LinkCheckerApiController < ApplicationController
   before_action :verify_signature
 
   def callback
+    puts "CALLBACK CALLED #{params.inspect}"
+    report = LinkCheckerApiReport.eager_load(:links).lock
+          .find_by(batch_id: params.require(:id))
+    puts report.inspect
     GovukStatsd.time("link-checking-debug.link-checker-callback") do
       logger.info("[link-checking-debug][batch_#{params[:id]}]: Updating link report")
       LinkCheckerApiReport.transaction do

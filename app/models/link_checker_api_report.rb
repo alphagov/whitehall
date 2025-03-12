@@ -35,12 +35,7 @@ NOT EXISTS (
   end
 
   def self.create_or_update_from_batch_report(batch_report, edition)
-    if edition.link_check_report
-      UpdateFromBatchReport.new(edition.link_check_report, batch_report).call
-      edition.reload.link_check_report
-    else
-      CreateFromBatchReport.new(batch_report, edition).call
-    end
+    CreateFromBatchReport.new(batch_report, edition).call
   end
 
   def update_from_batch_report(batch_report)
