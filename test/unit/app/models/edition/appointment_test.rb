@@ -2,12 +2,7 @@ require "test_helper"
 
 class Edition::AppointmentTest < ActiveSupport::TestCase
   class EditionWithAppointment < GenericEdition
-    include ::Edition::Searchable
     include ::Edition::Appointment
-
-    def search_link
-      "link"
-    end
   end
 
   include ActionDispatch::TestProcess
@@ -45,10 +40,5 @@ class Edition::AppointmentTest < ActiveSupport::TestCase
 
   test "editions with role appointment enabled but not set aren't valid" do
     assert_not EditionWithAppointment.new(valid_edition_attributes).valid?
-  end
-
-  test "editions with appointment include them in their search info" do
-    assert_equal [@appointment.person.slug], @edition.search_index["people"]
-    assert_equal [@appointment.role.slug], @edition.search_index["roles"]
   end
 end

@@ -1,6 +1,4 @@
 class DocumentCollection < Edition
-  include Edition::Searchable
-
   include Edition::Organisations
   include Edition::TaggableOrganisations
 
@@ -24,23 +22,6 @@ class DocumentCollection < Edition
   end
 
   add_trait ClonesGroupsTrait
-
-  def search_index
-    super.merge("slug" => slug)
-  end
-
-  def search_link
-    base_path
-  end
-
-  def indexable_content
-    [
-      Govspeak::Document.new(body).to_text,
-      groups.live.map do |group|
-        [group.heading, Govspeak::Document.new(group.body).to_text]
-      end,
-    ].flatten.join("\n")
-  end
 
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND

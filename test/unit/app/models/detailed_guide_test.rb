@@ -10,15 +10,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal "detailed guidance", DetailedGuide.format_name
   end
 
-  test "should use detailed guidance as searchable search index format" do
-    guide = create(:detailed_guide)
-    assert_equal "detailed_guidance", guide.search_index["format"]
-  end
-
-  test "should be added to the detailed guides search_api index" do
-    assert_equal :detailed_guides, build(:detailed_guide).search_api_index
-  end
-
   test "#published_related_detailed_guides returns latest published editions of related documents" do
     published_guide = create(:published_detailed_guide)
     related_guide = create(:published_detailed_guide)
@@ -92,11 +83,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = build(:detailed_guide, body:)
     assert_not detailed_guide.valid?
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], detailed_guide.errors[:body]
-  end
-
-  test "search_format_types tags the detailed guide as detailed-guidance" do
-    detailed_guide = build(:detailed_guide)
-    assert detailed_guide.search_format_types.include?("detailed-guidance")
   end
 
   test "should return base paths for related mainstream content urls" do

@@ -1,13 +1,6 @@
 require "test_helper"
 
 class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
-  test "includes published document collection slugs in the search index data" do
-    edition = create(:published_statistical_data_set)
-    collection = create(:published_document_collection, :with_group)
-    collection.groups.first.documents = [edition.document]
-    assert_equal [collection.slug], edition.search_index["document_collections"]
-  end
-
   test "#part_of_published_collection? returns true when its document is in a published collection" do
     edition = create(:published_publication)
     assert_not edition.part_of_published_collection?

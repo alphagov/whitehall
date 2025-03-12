@@ -38,17 +38,6 @@ class NewsArticle < Announcement
     news_article_type.key
   end
 
-  def search_index
-    super.merge(
-      "news_article_type" => news_article_type.slug,
-      "image_url" => lead_image_url,
-    )
-  end
-
-  def search_format_types
-    super + [NewsArticle.search_format_type] + news_article_type.search_format_types
-  end
-
   def alternative_format_provider_required?
     false
   end

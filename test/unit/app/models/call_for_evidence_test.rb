@@ -306,77 +306,11 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     assert_equal "Call for evidence outcome", call_for_evidence.display_type
   end
 
-  test "search_format_types tags the call for evidence as a call for evidence and publicationesque-call-for-evidence" do
-    call_for_evidence = build(:call_for_evidence)
-    assert call_for_evidence.search_format_types.include?("call-for-evidence")
-    assert call_for_evidence.search_format_types.include?("publicationesque-call-for-evidence")
-  end
-
-  test "when the call for evidence is still open search_format_types tags the call for evidence as call-for-evidence-open" do
-    call_for_evidence = build(:call_for_evidence, opening_at: 10.minutes.ago, closing_at: 10.minutes.from_now)
-    assert call_for_evidence.search_format_types.include?("call-for-evidence-open")
-  end
-
-  test "when the call for evidence is closed search_format_types tags the call for evidence as call-for-evidence-closed" do
-    call_for_evidence = build(:call_for_evidence, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
-    assert call_for_evidence.search_format_types.include?("call-for-evidence-closed")
-  end
-
-  test "when the call for evidence has published the outcome search_format_types tags the call for evidence as call-for-evidence-outcome" do
-    call_for_evidence = build(:call_for_evidence, opening_at: 10.days.ago, closing_at: 10.minutes.ago)
-    outcome = create(:call_for_evidence_outcome, call_for_evidence:)
-    outcome.attachments << build(:file_attachment)
-    assert call_for_evidence.search_format_types.include?("call-for-evidence-outcome")
-  end
-
   test "can associate calls for evidence with topical events" do
     call_for_evidence = create(:call_for_evidence)
     assert call_for_evidence.can_be_associated_with_topical_events?
     assert topical_event = call_for_evidence.topical_events.create!(name: "Test", description: "Test", summary: "Test")
     assert_equal [call_for_evidence], topical_event.calls_for_evidence
-  end
-
-  test "#search_index :has_official_document should be true if the call for evidence has official document attachments" do
-    CallForEvidence.any_instance.stubs(:search_link)
-
-    assert_not create(:call_for_evidence).search_index[:has_official_document]
-
-    command_paper_call_for_evidence = create(:call_for_evidence)
-    command_paper_call_for_evidence.stubs(:has_official_document?).returns(true)
-    assert command_paper_call_for_evidence.search_index[:has_official_document]
-
-    call_for_evidence_with_command_paper_outcome = create(:call_for_evidence, outcome: create(:call_for_evidence_outcome))
-    call_for_evidence_with_command_paper_outcome.outcome.stubs(:has_official_document?).returns(true)
-    assert call_for_evidence_with_command_paper_outcome.search_index[:has_official_document]
-  end
-
-  test "#search_index :has_command_paper should be true if the call for evidence has command paper attachments" do
-    CallForEvidence.any_instance.stubs(:search_link)
-
-    assert_not create(:call_for_evidence).search_index[:has_command_paper]
-
-    command_paper_call_for_evidence = create(:call_for_evidence)
-    command_paper_call_for_evidence.stubs(:has_command_paper?).returns(true)
-    assert command_paper_call_for_evidence.search_index[:has_command_paper]
-
-    call_for_evidence_with_command_paper_outcome = create(:call_for_evidence, outcome: create(:call_for_evidence_outcome))
-    call_for_evidence_with_command_paper_outcome.outcome.stubs(:has_command_paper?).returns(true)
-    assert call_for_evidence_with_command_paper_outcome.search_index[:has_command_paper]
-  end
-
-  test "#search_index :has_act_paper should be true if the call for evidence has act paper attachments" do
-    CallForEvidence.any_instance.stubs(:search_link)
-
-    call_for_evidence = create(:call_for_evidence)
-    assert_not call_for_evidence.search_index[:has_act_paper]
-
-    command_paper_call_for_evidence = create(:call_for_evidence)
-    command_paper_call_for_evidence.stubs(:has_act_paper?).returns(true)
-    assert command_paper_call_for_evidence.search_index[:has_act_paper]
-
-    call_for_evidence_with_command_paper_outcome = create(:call_for_evidence, outcome: create(:call_for_evidence_outcome))
-    call_for_evidence_with_command_paper_outcome.outcome.stubs(:has_act_paper?).returns(true)
-    assert call_for_evidence_with_command_paper_outcome.search_index[:has_act_paper]
   end
 
   test "#government returns the government active on the first_public_at date" do

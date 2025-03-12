@@ -121,38 +121,6 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal 1, speech.topical_events.size
   end
 
-  test "search_index does not contain person when person_override is set" do
-    speech = create(:published_speech, title: "my title", speech_type: SpeechType::Transcript, role_appointment: nil, person_override: "The Queen")
-    assert_not speech.search_index.key?("people")
-  end
-
-  test "search_index includes default image_url if it has no image" do
-    speech = create(:published_speech)
-    assert_equal "https://www.test.gov.uk/assets/whitehall/placeholder.jpg", speech.search_index["image_url"]
-  end
-
-  test "search_index includes default image_url if it has one" do
-    image = build(:image)
-    speech = build(:published_speech, document: build(:document), images: [image], lead_image: image)
-    assert_equal image.url(:s300), speech.search_index["image_url"]
-  end
-
-  test "search_format_types tags the speech as a speech and announcement" do
-    speech = build(:speech)
-    assert speech.search_format_types.include?("speech")
-    assert speech.search_format_types.include?("announcement")
-  end
-
-  test "search_format_types includes search_format_types of the speech_type" do
-    speech_type = mock
-    speech_type.responds_like(SpeechType.new)
-    speech_type.stubs(:search_format_types).returns(%w[stuff-innit other-thing])
-    speech = build(:speech)
-    speech.stubs(:speech_type).returns(speech_type)
-    assert speech.search_format_types.include?("stuff-innit")
-    assert speech.search_format_types.include?("other-thing")
-  end
-
   test "should be translatable" do
     assert build(:speech).translatable?
   end

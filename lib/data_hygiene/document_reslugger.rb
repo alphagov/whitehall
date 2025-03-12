@@ -21,10 +21,8 @@ module DataHygiene
       add_errors_if_invalid
       return false if document.errors.present?
 
-      remove_from_search_index
       save_document
       republish_document
-      add_to_search_index
       create_editorial_remark
       true
     end
@@ -44,20 +42,12 @@ module DataHygiene
       documents.present? && documents != [document]
     end
 
-    def remove_from_search_index
-      Whitehall::SearchIndex.delete(published_edition)
-    end
-
     def save_document
       document.update!(slug: new_slug)
     end
 
     def republish_document
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-    end
-
-    def add_to_search_index
-      Whitehall::SearchIndex.add(published_edition)
     end
 
     def create_editorial_remark

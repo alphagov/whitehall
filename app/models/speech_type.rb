@@ -52,12 +52,6 @@ class SpeechType
     [AuthoredArticle].include? self
   end
 
-  def search_format_types
-    types = ["speech-#{singular_name.parameterize}"]
-    types << "speech-statement-to-parliament" if statement_to_parliament?
-    types
-  end
-
   def genus_key
     "speech"
   end

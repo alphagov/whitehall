@@ -77,14 +77,6 @@ module OrganisationResluggerTest
       assert_equal user.organisation_slug, "corrected-slug"
     end
 
-    test "re-registers editions belonging to the organisation" do
-      edition = create(:published_corporate_information_page, :published, organisation: @organisation)
-
-      Whitehall::SearchIndex.stubs(:add)
-      Whitehall::SearchIndex.expects(:add).with edition
-      @reslugger.run!
-    end
-
     test "when an organisation has child and parent organisations, it also resends these to search api" do
       child_organisation = create(:organisation, name: "child slug")
       parent_organisation = create(:organisation, name: "parent slug")

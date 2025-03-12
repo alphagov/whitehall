@@ -5,7 +5,7 @@ class LandingPageRepatherTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
     @user = create(:user)
     @document = create(:document, slug: "/old/path", document_type: "landing_page")
-    @published_edition = create(:searchable_edition, :published)
+    @published_edition = create(:edition, :published)
   end
 
   test "returns false and the adds an error to the document when new_slug does not start with a slash" do

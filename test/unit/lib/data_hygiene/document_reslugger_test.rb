@@ -5,16 +5,14 @@ class DocumentResluggerTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
     @user = create(:user)
     @document = create(:document, slug: "old-slug", document_type: "news_article")
-    @published_edition = create(:searchable_edition, :published)
+    @published_edition = create(:edition, :published)
   end
 
   test "updates the slug to the new slug, updated the publishing API, reindexes the slug on search index and creates an EditorialRemark" do
     reslugger = DataHygiene::DocumentReslugger.new(@document, @published_edition, @user, "new-slug")
 
-    Whitehall::SearchIndex.expects(:delete).with(@published_edition)
     PublishingApiDocumentRepublishingWorker.expects(:new).returns(worker = mock)
     worker.expects(:perform).with(@document.id)
-    Whitehall::SearchIndex.expects(:add).with(@published_edition)
 
     reslugger.run!
 

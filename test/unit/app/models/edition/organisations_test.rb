@@ -52,14 +52,6 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     assert_equal [organisation2, organisation3, organisation1], edition.sorted_organisations
   end
 
-  test "#search_index should include organisations" do
-    organisation1 = create(:organisation, name: "Ministry of Jazz")
-    organisation2 = create(:organisation, name: "Free Jazz Foundation")
-    edition = create(:published_news_article, organisations: [organisation1, organisation2])
-
-    assert_equal %w[ministry-of-jazz free-jazz-foundation], edition.search_index["organisations"]
-  end
-
   test "#importance_ordered_organisations" do
     first_lead_org = create(:organisation)
     second_lead_org = create(:organisation)

@@ -133,7 +133,7 @@ module ServiceListeners
         old_attachment = publication.html_attachments.first
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           old_attachment.content_id,
-          new_edition.search_link,
+          new_edition.base_path,
           "en",
         )
 
@@ -160,7 +160,7 @@ module ServiceListeners
         old_attachment = publication.html_attachments.first
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           old_attachment.content_id,
-          new_edition.search_link,
+          new_edition.base_path,
           "en",
         )
 
@@ -196,7 +196,7 @@ module ServiceListeners
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           deleted_attachment.content_id,
-          new_edition.search_link,
+          new_edition.base_path,
           "en",
         )
 
@@ -262,7 +262,7 @@ module ServiceListeners
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           new_edition.main_office.content_id,
-          new_edition.search_link,
+          new_edition.base_path,
           "en",
         )
 
@@ -321,7 +321,7 @@ module ServiceListeners
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           old_page.content_id,
-          new_edition.search_link,
+          new_edition.base_path,
           "en",
         )
 
@@ -594,7 +594,7 @@ module ServiceListeners
         attachment = publication.html_attachments.first
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           attachment.content_id,
-          publication.search_link,
+          publication.base_path,
           "en",
           false,
         )
@@ -608,7 +608,7 @@ module ServiceListeners
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           office.content_id,
-          worldwide_organisation.search_link,
+          worldwide_organisation.base_path,
           "en",
           false,
         )
@@ -623,7 +623,7 @@ module ServiceListeners
 
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           page.content_id,
-          worldwide_organisation.search_link,
+          worldwide_organisation.base_path,
           "en",
           false,
         )
@@ -931,7 +931,7 @@ module ServiceListeners
         attachment = publication.html_attachments.first
         PublishingApiRedirectWorker.any_instance.expects(:perform).with(
           attachment.content_id,
-          publication.search_link,
+          publication.base_path,
           "en",
           true,
         )

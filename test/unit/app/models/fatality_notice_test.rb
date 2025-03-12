@@ -30,18 +30,6 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     assert_equal 1, new_notice.fatality_notice_casualties.length
   end
 
-  test "search_format_types tags the fatality notice as a fatality-notice and announcement" do
-    fatality_notice = build(:fatality_notice)
-    assert fatality_notice.search_format_types.include?("fatality-notice")
-    assert fatality_notice.search_format_types.include?("announcement")
-  end
-
-  test "search_index includes slug of operational field" do
-    operational_field = create(:operational_field)
-    fatality_notice = create(:published_fatality_notice, operational_field:)
-    assert_equal operational_field.slug, fatality_notice.search_index["operational_field"]
-  end
-
   test "is not able to be marked political" do
     fatality_notice = build(:fatality_notice)
     assert_not fatality_notice.can_be_marked_political?

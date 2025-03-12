@@ -154,22 +154,6 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal [publication], topical_event.publications
   end
 
-  test "#search_index should include has_command_paper and has_act_paper" do
-    pub = create(:publication)
-    pub.stubs(:has_command_paper?).returns(true)
-    pub.stubs(:has_act_paper?).returns(true)
-
-    assert pub.search_index[:has_command_paper] == true
-    assert pub.search_index[:has_act_paper] == true
-  end
-
-  test "#search_index detailed_format should be hard-coded for stats publication types" do
-    # NationalStatistics and OfficialStatistics were renamed in Oct 2015 but
-    # their detailed_format in SearchApi needs to stay the same
-    assert_equal "statistics-national-statistics", create(:published_national_statistics).search_index["detailed_format"]
-    assert_equal "statistics", create(:published_statistics).search_index["detailed_format"]
-  end
-
   test "#has_changed_publication_type? false if no previous edition" do
     publication = create(:publication)
     assert_not publication.has_changed_publication_type?

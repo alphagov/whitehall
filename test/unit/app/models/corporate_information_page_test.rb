@@ -131,19 +131,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert corporate_information_page2.valid?
   end
 
-  test "should return search index data suitable for Searchable" do
-    organisation = create(:organisation)
-    corporate_information_page = create(
-      :corporate_information_page,
-      corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
-      organisation:,
-    )
-
-    assert_equal corporate_information_page.content_id, corporate_information_page.search_index["content_id"]
-    assert_equal "#{organisation.name} \u2013 #{corporate_information_page.title}", corporate_information_page.search_index["title"]
-    assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index["link"]
-  end
-
   test "with_translations scope loads corporate information pages despite not have titles explicitly saved" do
     cip1 = create(:corporate_information_page, title: nil)
     cip2 = create(:corporate_information_page, title: "Should not be saved")
@@ -268,65 +255,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     by_menu_heading.each_key do |menu_heading|
       assert_same_elements by_menu_heading[menu_heading], organisation.corporate_information_pages.by_menu_heading(menu_heading).map(&:corporate_information_page_type)
     end
-  end
-
-  test "will not be indexed if the org it belongs to is not live on gov.uk" do
-    joining_org = create(:organisation, govuk_status: "joining")
-    exempt_org = create(:organisation, govuk_status: "exempt")
-    transitioning_org = create(:organisation, govuk_status: "transitioning")
-    live_org = create(:organisation, govuk_status: "live")
-
-    corporate_information_page1 = create(:corporate_information_page, :published, organisation: joining_org)
-    corporate_information_page2 = create(:corporate_information_page, :published, organisation: exempt_org)
-    corporate_information_page3 = create(:corporate_information_page, :published, organisation: transitioning_org)
-    corporate_information_page4 = create(:corporate_information_page, :published, organisation: live_org)
-
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page1).never
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page2).never
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page3).never
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page4).once
-    corporate_information_page1.update_in_search_index
-    corporate_information_page2.update_in_search_index
-    corporate_information_page3.update_in_search_index
-    corporate_information_page4.update_in_search_index
-  end
-
-  test "will index accessible policy document even if the org is joining gov.uk" do
-    organisation = create(:organisation, govuk_status: "joining")
-    corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation:
-    )
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
-    corporate_information_page.update_in_search_index
-  end
-
-  test "will index accessible policy document even if the org is exempt on gov.uk" do
-    organisation = create(:organisation, govuk_status: "exempt")
-    corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation:
-    )
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
-    corporate_information_page.update_in_search_index
-  end
-
-  test "will index accessible policy document even if the org is transitioning to gov.uk" do
-    organisation = create(:organisation, govuk_status: "transitioning")
-    corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation:
-    )
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
-    corporate_information_page.update_in_search_index
-  end
-
-  test "will index accessible policy document even if the org is devolved on gov.uk" do
-    organisation = create(
-      :closed_organisation, govuk_closed_status: "devolved", superseding_organisations: [create(:devolved_administration)]
-    )
-    corporate_information_page = create(
-      :accessible_documents_policy_corporate_information_page, organisation:
-    )
-    Whitehall::SearchIndex.expects(:add).with(corporate_information_page).once
-    corporate_information_page.update_in_search_index
   end
 
   test "re-indexes the organisation after the 'About us' CIP is saved" do

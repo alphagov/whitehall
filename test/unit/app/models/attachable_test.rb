@@ -75,35 +75,6 @@ class AttachableTest < ActiveSupport::TestCase
     edition
   end
 
-  test "should include attachment details into the #search_index" do
-    attachment = build(
-      :file_attachment,
-      title: "The title of the attachment",
-      hoc_paper_number: "1234",
-      parliamentary_session: "2013-14",
-      command_paper_number: "Cm. 1234",
-      unique_reference: "w123",
-      isbn: "0140620222",
-    )
-
-    edition = create(
-      :publication,
-      :with_file_attachment,
-      attachments: [attachment],
-    )
-
-    index = edition
-              .attachments
-              .to_a
-              .index { |edition_attachment| edition_attachment.is_a?(FileAttachment) }
-
-    assert_equal "The title of the attachment", edition.search_index["attachments"][index][:title]
-    assert_equal attachment.isbn, edition.search_index["attachments"][index][:isbn]
-    assert_equal attachment.unique_reference, edition.search_index["attachments"][index][:unique_reference]
-    assert_equal attachment.command_paper_number, edition.search_index["attachments"][index][:command_paper_number]
-    assert_equal attachment.hoc_paper_number, edition.search_index["attachments"][index][:hoc_paper_number]
-  end
-
   test "#reorder_attachments should update the ordering of its attachments" do
     attachable = create(:consultation)
     a, b, c = 3.times.map { create(:file_attachment, attachable:) }

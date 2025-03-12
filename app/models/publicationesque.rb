@@ -8,8 +8,6 @@
 #
 # @abstract
 class Publicationesque < Edition
-  include Edition::Searchable
-
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::TaggableOrganisations
@@ -25,10 +23,6 @@ class Publicationesque < Edition
   end
 
 protected
-
-  def search_format_types
-    super + [Publicationesque.search_format_type]
-  end
 
   def hash_with_blank_values?(hash)
     hash.values.reduce(true) do |result, value|

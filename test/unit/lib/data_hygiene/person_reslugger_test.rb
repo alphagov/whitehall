@@ -40,24 +40,4 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
 
     assert_all_requested(expected_publish_requests)
   end
-
-  test "re-indexes all the published dependent documents" do
-    published_news = create(:published_news_article)
-    draft_news = create(:draft_news_article)
-    role_appointment = create(
-      :role_appointment,
-      person: @person,
-      editions: [published_news, draft_news],
-    )
-
-    published_speech = create(:published_speech, role_appointment:)
-    draft_speech = create(:draft_speech, role_appointment:)
-
-    Whitehall::SearchIndex.stubs(:add)
-    Whitehall::SearchIndex.expects(:add).with(published_news)
-    Whitehall::SearchIndex.expects(:add).with(published_speech)
-    Whitehall::SearchIndex.expects(:add).with(draft_news).never
-    Whitehall::SearchIndex.expects(:add).with(draft_speech).never
-    @reslugger.run!
-  end
 end

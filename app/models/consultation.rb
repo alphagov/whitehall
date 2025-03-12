@@ -115,31 +115,6 @@ class Consultation < Publicationesque
     end
   end
 
-  def search_format_types
-    consultation_type =
-      if outcome_published?
-        "consultation-outcome"
-      elsif closed?
-        "consultation-closed"
-      elsif open?
-        "consultation-open"
-      end
-
-    types = super + ["publicationesque-consultation", Consultation.search_format_type]
-    types << consultation_type if consultation_type
-    types
-  end
-
-  def search_index
-    super.merge(
-      end_date: closing_at,
-      start_date: opening_at,
-      has_official_document: has_official_document? || (outcome.present? && outcome.has_official_document?),
-      has_command_paper: has_command_paper? || (outcome.present? && outcome.has_command_paper?),
-      has_act_paper: has_act_paper? || (outcome.present? && outcome.has_act_paper?),
-    )
-  end
-
   def allows_html_attachments?
     true
   end

@@ -14,11 +14,6 @@ Whitehall::Application.config.to_prepare do
       # handling edition's dependency on other content
       edition.edition_dependencies.destroy_all
 
-      # search
-      ServiceListeners::SearchIndexer
-        .new(edition)
-        .remove!
-
       # Update attachment redirect urls
       ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
     end
@@ -43,12 +38,6 @@ Whitehall::Application.config.to_prepare do
 
       # Update attachment redirect urls
       ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
-    end
-
-    coordinator.subscribe(/^(force_publish|publish|withdraw|unwithdraw)$/) do |_event, edition, _options|
-      ServiceListeners::SearchIndexer
-        .new(edition)
-        .index!
     end
 
     coordinator.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) do |_event, edition, options|

@@ -28,8 +28,8 @@ class TopicalEventResluggerTest < ActiveSupport::TestCase
     @reslugger.run!
   end
 
-  test "reindexes the topical_event and all its linked editions" do
-    [@topical_event, @detailed_guide, @news_article].each do |object|
+  test "reindexes the topical_event" do
+    [@topical_event].each do |object|
       object.stubs(:remove_from_search_index)
       object.stubs(:update_in_search_index)
 
