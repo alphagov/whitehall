@@ -6,6 +6,7 @@ class LinkCheckerApiReport::CreateFromBatchReport
 
   def call
     ActiveRecord::Base.transaction do
+      delete_previous_reports
       report = create_report
       create_links(report)
       report
@@ -15,6 +16,12 @@ class LinkCheckerApiReport::CreateFromBatchReport
 private
 
   attr_reader :payload, :edition
+
+  def delete_previous_reports
+    LinkCheckerApiReport
+      .where(edition: edition)
+      .map(&:destroy)
+  end
 
   def create_report
     LinkCheckerApiReport.create!(

@@ -11,4 +11,17 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
 
     assert publication.reload.link_check_report.completed?
   end
+
+  test "deletes any previous ones" do
+    edition = create(:publication, body: "no links")
+    LinkCheckerApiReport.create!(
+      batch_id: 123,
+      edition:,
+      status: "completed",
+    )
+
+    LinkCheckerApiReport.create_noop_report(edition)
+
+    assert LinkCheckerApiReport.where(edition:).count == 1
+  end
 end
