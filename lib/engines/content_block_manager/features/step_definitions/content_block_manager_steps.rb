@@ -423,7 +423,7 @@ end
 
 Then("I should see the scheduled date on the object") do
   expect(page).to have_selector(".govuk-summary-list__key", text: "Status")
-  expect(page).to have_selector(".govuk-summary-list__value", text: I18n.l(@future_date, format: :long_ordinal).squish)
+  expect(page).to have_selector(".govuk-summary-list__value", text: @future_date.to_fs(:long_ordinal_with_at).squish)
 end
 
 When("I continue after reviewing the links") do

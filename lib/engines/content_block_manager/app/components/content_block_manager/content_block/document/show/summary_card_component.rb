@@ -1,4 +1,6 @@
 class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::EditionHelper
+
   def initialize(content_block_document:)
     @content_block_document = content_block_document
   end
@@ -72,11 +74,11 @@ private
   end
 
   def last_updated_value
-    "Published #{time_ago_in_words(content_block_edition.updated_at)} ago by #{content_block_edition.creator.name}"
+    "Published on #{published_date(content_block_edition)} by #{content_block_edition.creator.name}".html_safe
   end
 
   def scheduled_value
-    "Scheduled for publication at #{I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal)}"
+    "Scheduled for publication at #{scheduled_date(content_block_edition)}".html_safe
   end
 
   def content_block_edition
