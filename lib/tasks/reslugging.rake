@@ -63,14 +63,8 @@ namespace :reslug do
     html_attachment.update!(slug: args.new_attachment_slug)
     Whitehall::PublishingApi.republish_async(html_attachment)
 
-    # remove the most recent edition from the search index
-    Whitehall::SearchIndex.delete(edition)
-
     # send edition to publishing api
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-
-    # add edition to search index
-    Whitehall::SearchIndex.add(edition)
   end
 
   desc "Change the slug of a PolicyGroup"
@@ -89,7 +83,6 @@ namespace :reslug do
   task :world_location, %i[old_slug new_slug] => :environment do |_task, args|
     world_location = WorldLocation.find_by!(slug: args.old_slug)
     world_location.update!(slug: args.new_slug)
-    world_location.editions.published.each(&:update_in_search_index)
   end
 
   desc "Change an organisation slug (DANGER!).\n
