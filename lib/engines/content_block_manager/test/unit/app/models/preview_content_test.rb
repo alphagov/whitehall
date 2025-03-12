@@ -31,44 +31,74 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
     let(:preview_response) { stub(:preview_response, call: html) }
     let(:html) { "SOME_HTML" }
 
-    setup do
-      stub_publishing_api_has_item(content_id: host_content_id, title: host_title, base_path: host_base_path)
-      Services.publishing_api.expects(:get_host_content_item_for_content_id)
-              .with(block_to_preview.document.content_id, host_content_id)
-              .returns(metadata_response)
+    describe "when a locale is not provided" do
+      setup do
+        stub_publishing_api_has_item(content_id: host_content_id, title: host_title, base_path: host_base_path)
+        Services.publishing_api.expects(:get_host_content_item_for_content_id)
+                .with(block_to_preview.document.content_id, host_content_id, { locale: "en" })
+                .returns(metadata_response)
+      end
+
+      it "returns the title of host document" do
+        ContentBlockManager::GeneratePreviewHtml.expects(:new)
+                                                .with(content_id: host_content_id,
+                                                      content_block_edition: block_to_preview,
+                                                      base_path: host_base_path)
+                                                .returns(preview_response)
+
+        preview_content = ContentBlockManager::PreviewContent.for_content_id(
+          content_id: host_content_id,
+          content_block_edition: block_to_preview,
+          )
+
+        assert_equal host_title, preview_content.title
+        assert_equal 2, preview_content.instances_count
+        assert_equal html, preview_content.html
+      end
+
+      it "allows a base_path to be provided" do
+        base_path = "/something/different"
+
+        ContentBlockManager::GeneratePreviewHtml.expects(:new)
+                                                .with(content_id: host_content_id,
+                                                      content_block_edition: block_to_preview,
+                                                      base_path:)
+                                                .returns(preview_response)
+
+        ContentBlockManager::PreviewContent.for_content_id(
+          content_id: host_content_id,
+          content_block_edition: block_to_preview,
+          base_path:,
+          )
+      end
     end
 
-    it "returns the title of host document" do
-      ContentBlockManager::GeneratePreviewHtml.expects(:new)
-                                              .with(content_id: host_content_id,
-                                                    content_block_edition: block_to_preview,
-                                                    base_path: host_base_path)
-                                              .returns(preview_response)
+    describe "when a locale is provided" do
+      setup do
+        stub_publishing_api_has_item(content_id: host_content_id, title: host_title, base_path: host_base_path, locale: "cy")
+        Services.publishing_api.expects(:get_host_content_item_for_content_id)
+                .with(block_to_preview.document.content_id, host_content_id, { locale: "cy" })
+                .returns(metadata_response)
+      end
 
-      preview_content = ContentBlockManager::PreviewContent.for_content_id(
-        content_id: host_content_id,
-        content_block_edition: block_to_preview,
-      )
+      it "returns the title of host document" do
+        ContentBlockManager::GeneratePreviewHtml.expects(:new)
+                                                .with(content_id: host_content_id,
+                                                      content_block_edition: block_to_preview,
+                                                      base_path: host_base_path)
+                                                .returns(preview_response)
 
-      assert_equal host_title, preview_content.title
-      assert_equal 2, preview_content.instances_count
-      assert_equal html, preview_content.html
-    end
+        preview_content = ContentBlockManager::PreviewContent.for_content_id(
+          content_id: host_content_id,
+          content_block_edition: block_to_preview,
+          base_path: nil,
+          locale: "cy",
+        )
 
-    it "allows a base_path to be provided" do
-      base_path = "/something/different"
-
-      ContentBlockManager::GeneratePreviewHtml.expects(:new)
-                                              .with(content_id: host_content_id,
-                                                    content_block_edition: block_to_preview,
-                                                    base_path:)
-                                              .returns(preview_response)
-
-      ContentBlockManager::PreviewContent.for_content_id(
-        content_id: host_content_id,
-        content_block_edition: block_to_preview,
-        base_path:,
-      )
+        assert_equal host_title, preview_content.title
+        assert_equal 2, preview_content.instances_count
+        assert_equal html, preview_content.html
+      end
     end
   end
 end
