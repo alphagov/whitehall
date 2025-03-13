@@ -93,7 +93,7 @@ class CorporateInformationPage < Edition
   end
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    Whitehall::RenderingApp::FRONTEND
   end
 
   def previously_published
