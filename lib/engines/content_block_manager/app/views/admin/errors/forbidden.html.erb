@@ -6,14 +6,11 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-0">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">You do not have permission to access this page.</p>
-    <p class="govuk-body">If you need to:</p>
-
-    <%= render "govuk_publishing_components/components/list", {
-      visible_counters: true,
-      items: [
-        "view the page, request the preview link",
-        sanitize("edit the page, raise a #{link_to "support ticket", ContentBlockManager.support_url, class: "govuk-link govuk-link--no-visited-state"}"),
-      ],
-    } %>
+    <p class="govuk-body">If you need to access this page, please email
+      <%= mail_to(
+            ContentBlockManager.support_email_address,
+            { class: "govuk-link" },
+            ) %>
+      to raise a support ticket.</p>
   </div>
 </div>

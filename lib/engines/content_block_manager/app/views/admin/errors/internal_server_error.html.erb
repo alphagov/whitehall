@@ -6,7 +6,11 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-0">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">The error has been logged in our system.</p>
-    <p class="govuk-body">You can also raise a <a href="<%= ContentBlockManager.support_url %>" class="govuk-link">support ticket</a> with the following information:</p>
+    <p class="govuk-body">You can also email us at
+          <%= mail_to(
+                ContentBlockManager.support_email_address,
+                { class: "govuk-link" },
+              ) %> with the following information:</p>
 
     <%= render "govuk_publishing_components/components/list", {
       visible_counters: true,
