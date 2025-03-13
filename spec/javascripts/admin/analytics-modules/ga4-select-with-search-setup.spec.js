@@ -79,7 +79,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.GA4SelectWithSearchEventHandlers',
 
     select.dispatchEvent(
       new CustomEvent('removeItem', {
-        detail: { label: 'First organisation name' }
+        detail: { label: 'First organisation name', value: '1' }
       })
     )
 
@@ -89,6 +89,10 @@ describe('GOVUK.analyticsGa4.analyticsModules.GA4SelectWithSearchEventHandlers',
         event_name: 'select_component',
         type: 'new-consultations',
         text: 'First organisation name',
+        index: {
+          index_section_count: '1',
+          index_section: '20'
+        },
         section: 'Lead organisation',
         action: 'remove'
       }

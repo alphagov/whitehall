@@ -37,6 +37,10 @@ window.GOVUK.analyticsGa4.analyticsModules =
               event_data: {
                 event_name: 'select_component',
                 type: event.target.dataset.ga4DocumentType,
+                index: {
+                  index_section_count: `${event.detail.value}`,
+                  index_section: event.target.dataset.ga4IndexSection
+                },
                 text: event.detail.label,
                 section: event.target.dataset.ga4Section,
                 action: 'remove'
