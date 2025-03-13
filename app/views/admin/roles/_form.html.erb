@@ -34,6 +34,11 @@
     label: "Organisations",
     heading_size: "l",
     name: "role[organisation_ids][]",
+    ga_data: {
+      document_type: "#{action_name}-#{controller_name}",
+      index_section: 3,
+      section: "Organisations",
+    },
     options: Organisation.with_translations(:en).map do |org|
       {
         text: org.select_name,

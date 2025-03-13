@@ -257,6 +257,11 @@
       id: "organisation_parent_organisation_ids",
       name: "organisation[parent_organisation_ids][]",
       label: "Sponsoring organisations",
+      ga_data: {
+        document_type: "#{action_name}-#{controller_name}",
+        index_section: 15,
+        section: "Sponsoring organisations",
+      },
       heading_size: "m",
       options: (Organisation.with_translations(:en) - [organisation]).map do |org|
                   {

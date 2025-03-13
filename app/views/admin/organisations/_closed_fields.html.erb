@@ -55,6 +55,11 @@
   include_blank: true,
   label: "Superseding organisations",
   heading_size: "m",
+  ga_data: {
+    document_type: "#{action_name}-#{controller_name}",
+    index_section: 2,
+    section: "Superseding organisations",
+  },
   options: (Organisation.with_translations(:en) - [organisation]).map do |org|
               {
                 text: org.name,
