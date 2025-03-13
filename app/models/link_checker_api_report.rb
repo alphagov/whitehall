@@ -2,7 +2,8 @@ class LinkCheckerApiReport < ApplicationRecord
   belongs_to :edition
   has_many :links,
            -> { order(ordering: :asc) },
-           class_name: "LinkCheckerApiReport::Link"
+           class_name: "LinkCheckerApiReport::Link",
+           dependent: :destroy
 
   scope :no_links,
         lambda {
