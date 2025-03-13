@@ -18,12 +18,7 @@ NOT EXISTS (
         }
 
   def self.create_noop_report(edition)
-    create!(
-      batch_id: nil,
-      completed_at: Time.zone.now,
-      edition:,
-      status: "completed",
-    )
+    CreateNoopBatchReport.new(edition).call
   end
 
   def self.create_from_batch_report(batch_report, edition)
