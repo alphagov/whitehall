@@ -73,7 +73,7 @@ private
 
   def frontend_path(content_item)
     if @is_preview
-      helpers.content_block_manager.host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: content_item.host_content_id)
+      helpers.content_block_manager.host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: content_item.host_content_id, locale: content_item.host_locale)
     else
       Plek.website_root + content_item.base_path
     end

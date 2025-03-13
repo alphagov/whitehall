@@ -28,6 +28,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
       "publishing_organisation" => publishing_organisation,
       "unique_pageviews" => unique_pageviews,
       "host_content_id" => SecureRandom.uuid,
+      "host_locale" => "en",
       "instances" => 1,
     )
   end
@@ -179,7 +180,7 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
           ),
         )
 
-        assert_selector "a[href='#{host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: host_content_item.host_content_id)}']", text: host_content_item.title
+        assert_selector "a[href='#{host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: host_content_item.host_content_id, locale: host_content_item.host_locale)}']", text: host_content_item.title
       end
     end
 

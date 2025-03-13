@@ -5,7 +5,7 @@ When("I click on the first host document") do
   stub_request(
     :get,
     "#{Plek.find('publishing-api')}/v2/content/#{@current_host_document['host_content_id']}",
-  ).to_return(
+  ).with(query: { locale: "en" }).to_return(
     status: 200,
     body: {
       details: {
@@ -20,7 +20,7 @@ When("I click on the first host document") do
 
   stub_request(
     :get,
-    Plek.website_root + @current_host_document["base_path"],
+    "#{Plek.website_root}#{@current_host_document['base_path']}",
   ).to_return(
     status: 200,
     body: "<body><h1>#{@current_host_document['title']}</h1><p>iframe preview <a href=\"/other-page\">Link to other page</a></p>#{@content_block.render(embed_code)}</body>",

@@ -6,6 +6,7 @@ class ContentBlockManager::ContentBlock::Editions::HostContentController < Conte
       content_id: host_content_id,
       content_block_edition: @content_block_edition,
       base_path: params[:base_path],
+      locale: params[:locale],
     )
   end
 end

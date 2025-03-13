@@ -33,7 +33,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
   end
 
   it "returns the preview html" do
-    Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
+    Net::HTTP.expects(:get).with(URI("#{Plek.website_root}#{host_base_path}")).returns(fake_frontend_response)
 
     expected_content = Nokogiri::HTML.parse(expected_html).to_s
 
@@ -41,6 +41,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
       content_id: host_content_id,
       content_block_edition: block_to_preview,
       base_path: host_base_path,
+      locale: "en",
     ).call
 
     assert_equal expected_content, actual_content
@@ -48,7 +49,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
 
   it "shows an error template when the request to the frontend throws an error" do
     exception = StandardError.new("Something went wrong")
-    Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).raises(exception)
+    Net::HTTP.expects(:get).with(URI("#{Plek.website_root}#{host_base_path}")).raises(exception)
 
     expected_content = Nokogiri::HTML.parse(error_html).to_s
 
@@ -56,6 +57,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
       content_id: host_content_id,
       content_block_edition: block_to_preview,
       base_path: host_base_path,
+      locale: "en",
     ).call
 
     assert_equal expected_content, actual_content
@@ -67,12 +69,13 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
         <a href='https://example.com'>External link</a>
         <a href='//example.com'>Protocol relative link</a>
       "
-    Net::HTTP.expects(:get).with(URI(Plek.website_root + host_base_path)).returns(fake_frontend_response)
+    Net::HTTP.expects(:get).with(URI("#{Plek.website_root}#{host_base_path}")).returns(fake_frontend_response)
 
     actual_content = ContentBlockManager::GeneratePreviewHtml.new(
       content_id: host_content_id,
       content_block_edition: block_to_preview,
       base_path: host_base_path,
+      locale: "en",
     ).call
 
     url = host_content_preview_content_block_manager_content_block_edition_path(id: block_to_preview.id, host_content_id:)
@@ -80,7 +83,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
     expected_content = Nokogiri::HTML.parse("
         <html>
           <body class=' draft'>
-            <a href='#{url}?base_path=/foo' target='_parent'>Internal link</a>
+            <a href='#{url}?locale=en&base_path=/foo' target='_parent'>Internal link</a>
             <a href='https://example.com'>External link</a>
             <a href='//example.com'>Protocol relative link</a>
           </body>
