@@ -75,6 +75,21 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
     assert_equal expected_output, output
   end
 
+  test "adds a dangerous links tag if the last report has dangerous links" do
+    edition = build(:edition)
+    links_report = build(:link_checker_api_report_completed, edition: edition)
+    danger_link = build(:link_checker_api_report_link, :danger, link_checker_api_report_id: links_report.id)
+
+    edition.stubs(:link_check_report).returns(links_report)
+    links_report.stubs(:danger_links).returns([danger_link])
+
+    expected_output = "<span class=\"govuk-tag govuk-tag--s govuk-tag--blue\">Draft</span> " \
+      "<span class=\"govuk-tag govuk-tag--s govuk-tag--red\">Dangerous links</span>"
+    output = render_inline(Admin::Editions::TagsComponent.new(edition)).to_html.strip
+
+    assert_equal expected_output, output
+  end
+
   test "adds a broken links tag if the last report has broken links" do
     edition = build(:edition)
     links_report = build(:link_checker_api_report_completed, edition: edition)

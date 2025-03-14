@@ -66,6 +66,8 @@ en:
     opendocument:
       help_html: This file is in an <a href="https://www.gov.uk/guidance/using-open-document-formats-odf-in-your-organisation">OpenDocument</a> format
   broken_links:
+    danger:
+      subheading: We’ve found links in this document that may be dangerous
     broken:
       subheading: We’ve found links in this document that may be broken
     caution:
