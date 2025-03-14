@@ -38,6 +38,7 @@ Feature: Create a content object
       | title            | description   | organisation        | instructions_to_publishers |
       | my basic pension | this is basic | Ministry of Example | this is important  |
     When I click to add a new "rate"
+    Then I should see a back link to the "embedded_rates" step
     And I complete the "rate" form with the following fields:
       | title    | amount  | frequency |
       | New rate | £127.91 | a month  |
@@ -58,6 +59,18 @@ Feature: Create a content object
     When I click to add a new "rate"
     And I click the cancel link
     Then I should be on the "add_embedded_rates" step
+
+  Scenario: GDS editor creates a Pension and sees validation errors for new rate
+    When I visit the Content Block Manager home page
+    And I click to create an object
+    When I click on the "pension" schema
+    When I complete the form with the following fields:
+      | title            | description   | organisation        | instructions_to_publishers |
+      | my basic pension | this is basic | Ministry of Example | this is important  |
+    When I click to add a new "rate"
+    And I click save
+    Then I should see errors for the required "rate" fields
+    And I should see a back link to the "embedded_rates" step
 
   Scenario: GDS editor clicks back and is taken back to rates
     When I visit the Content Block Manager home page
