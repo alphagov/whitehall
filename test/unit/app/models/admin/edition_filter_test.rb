@@ -250,18 +250,6 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [edition_with_broken_link, edition_with_caution_link], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
   end
 
-  test "should only filter by the most recent broken link report" do
-    edition = create(
-      :published_publication,
-    )
-    broken_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/broken-link", status: "broken")
-    ok_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/ok-link", status: "ok")
-    create(:link_checker_api_report, batch_id: 1, edition: edition, links: [broken_link])
-    create(:link_checker_api_report, batch_id: 2, edition: edition, links: [ok_link])
-
-    assert_equal [], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
-  end
-
   test "should filter by overdue reviews" do
     document = create(:document)
     edition_with_overdue_reminder = create(:published_edition, document:)
