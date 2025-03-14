@@ -4,12 +4,10 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
   before_action :initialize_edition_and_schema
 
   def new
-    step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
-    @back_link = content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
+    @back_link = embedded_objects_path
   end
 
   def create
-    step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
     @object = object_params(@subschema).dig(:details, @subschema.block_type)
     @content_block_edition.add_object_to_details(@subschema.block_type, @object)
     @content_block_edition.save!
@@ -20,9 +18,9 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
       name_downcase: @subschema.name.singularize.downcase,
       schema_name: @schema.name.singularize.downcase,
     )
-    redirect_to content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
+    redirect_to embedded_objects_path
   rescue ActiveRecord::RecordInvalid
-    @back_link = content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
+    @back_link = embedded_objects_path
     render :new
   end
 
@@ -88,5 +86,10 @@ private
   def initialize_edition_and_schema
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
     get_schema_and_subschema(@content_block_edition.document.block_type, params[:object_type])
+  end
+
+  def embedded_objects_path
+    step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
+    content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
   end
 end
