@@ -38,7 +38,7 @@ NOT EXISTS (
   end
 
   def has_problems?
-    links.any? { |l| %w[caution broken].include?(l.status) }
+    links.any? { |l| %w[caution broken danger].include?(l.status) }
   end
 
   def broken_links
@@ -47,5 +47,9 @@ NOT EXISTS (
 
   def caution_links
     links.select { |l| l.status == "caution" }
+  end
+
+  def danger_links
+    links.select { |l| l.status == "danger" }
   end
 end

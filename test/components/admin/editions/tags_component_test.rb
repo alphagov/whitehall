@@ -75,6 +75,8 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
     assert_equal expected_output, output
   end
 
+  # TODO: add a dangerous links tag if the last report has dangerous links
+
   test "adds a broken links tag if the last report has broken links" do
     edition = build(:edition)
     links_report = build(:link_checker_api_report_completed, edition: edition)

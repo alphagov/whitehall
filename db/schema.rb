@@ -685,6 +685,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_094300) do
     t.datetime "checked", precision: nil
     t.text "check_warnings", size: :medium
     t.text "check_errors", size: :medium
+    # t.text "check_dangers", size: :medium # TODO
     t.integer "ordering", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false

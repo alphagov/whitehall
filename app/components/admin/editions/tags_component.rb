@@ -36,6 +36,8 @@ private
   def broken_links_report_tag
     return unless edition.link_check_report.present? && edition.link_check_report.completed?
 
+    return create_tag("Dangerous links") if edition.link_check_report.danger_links.any?
+
     return create_tag("Broken links") if edition.link_check_report.broken_links.any?
 
     create_tag("Link warnings") if edition.link_check_report.caution_links.any?
@@ -67,7 +69,7 @@ private
       "govuk-tag--green"
     when "Scheduled"
       "govuk-tag--turquoise"
-    when "Rejected", "Broken links", "Limited access"
+    when "Rejected", "Dangerous links", "Broken links", "Limited access"
       "govuk-tag--red"
     when "Withdrawn", "Unpublished"
       "govuk-tag--grey"

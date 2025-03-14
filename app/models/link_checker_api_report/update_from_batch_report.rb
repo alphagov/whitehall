@@ -10,6 +10,10 @@ class LinkCheckerApiReport::UpdateFromBatchReport
       links = payload.fetch("links", [])
       delete_removed_links(links)
       update_links(links)
+      # TODO: automatically remove bad link and republish edition if it is live
+      # (probably best to do this here?)
+      # UpdateFromBatchReport is called via `mark_report_as_completed`
+      # which is called via the `LinkCheckerApiController` callback
     end
   end
 
