@@ -44,6 +44,11 @@
     heading_size: "l",
     error_items: errors_for(organisation.errors, :organisation_logo_type_id),
     include_blank: true,
+    ga_data: {
+      document_type: "#{action_name}-#{controller_name}",
+      index_section: 4,
+      section: "Logo crest (required)",
+    },
     options: OrganisationLogoType.all.map do |logo_type|
       {
         text: logo_type.title,
@@ -79,6 +84,11 @@
     heading_size: "l",
     error_items: errors_for(organisation.errors, :organisation_brand_colour_id),
     include_blank: true,
+    ga_data: {
+      document_type: "#{action_name}-#{controller_name}",
+      index_section: 6,
+      section: "Brand colour",
+    },
     options: OrganisationBrandColour.all.map do |brand_colour|
       {
         text: brand_colour.title,
@@ -124,6 +134,11 @@
     heading_size: "l",
     error_items: errors_for(organisation.errors, :organisation_type_key),
     include_blank: true,
+    ga_data: {
+      document_type: "#{action_name}-#{controller_name}",
+      index_section: 7,
+      section: "Organisation type (required)",
+    },
     options: OrganisationType.in_listing_order.map do |type|
       {
         text: type.name,
@@ -242,6 +257,11 @@
       id: "organisation_parent_organisation_ids",
       name: "organisation[parent_organisation_ids][]",
       label: "Sponsoring organisations",
+      ga_data: {
+        document_type: "#{action_name}-#{controller_name}",
+        index_section: 15,
+        section: "Sponsoring organisations",
+      },
       heading_size: "m",
       options: (Organisation.with_translations(:en) - [organisation]).map do |org|
                   {
@@ -271,6 +291,11 @@
         id: "organisation_topical_event_ids_#{topical_event_organisation.ordering}",
         heading_size: "s",
         include_blank: true,
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 1,
+          section: "Topical Event #{topical_event_organisation.ordering + 1}",
+        },
         options: TopicalEvent.all.map do |topical_event|
           {
             text: topical_event.name,

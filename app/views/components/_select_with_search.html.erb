@@ -2,6 +2,7 @@
   id ||= false
   label ||= false
   name ||= id
+  ga_data ||= {}
 
   shared_helper = GovukPublishingComponents::Presenters::SharedHelper.new(local_assigns)
   heading_size = false unless shared_helper.valid_heading_size?(heading_size)
@@ -26,5 +27,6 @@
     } %>
   <% end %>
 
-  <%= select_tag name, select_helper.options_html, id: id, class: select_helper.select_classes, multiple:, aria: select_helper.aria %>
+  <%= select_tag name, select_helper.options_html, id: id, class: select_helper.select_classes, multiple:, aria: select_helper.aria, "data-ga4-document-type": ga_data[:document_type], "data-ga4-index-section": ga_data[:index_section], "data-ga4-section": ga_data[:section] %>
+
 <% end %>

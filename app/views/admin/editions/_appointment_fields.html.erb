@@ -6,6 +6,11 @@
     label: "Ministers",
     heading_size: "m",
     options: taggable_ministerial_role_appointments_container(edition.role_appointment_ids),
+    ga_data: {
+      document_type: "#{action_name}-#{controller_name}",
+      index_section: 14,
+      section: "Ministers",
+    },
     select: {
       multiple: true,
     },

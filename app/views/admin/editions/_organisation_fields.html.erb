@@ -16,6 +16,11 @@
               label: "Lead organisation #{index + 1}",
               heading_size: "s",
               include_blank: true,
+              ga_data: {
+                document_type: "#{action_name}-#{controller_name}",
+                index_section: "#{index + 17}",
+                section: "Lead organisation #{index + 1}",
+              },
               options: taggable_organisations_container([lead_organisation_id]),
           } %>
         <% end %>
@@ -27,6 +32,11 @@
         id: "edition_supporting_organisation_ids",
         name: "edition[supporting_organisation_ids][]",
         include_blank: true,
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 21,
+          section: "Supporting organisations",
+        },
         label: "Supporting organisations",
         heading_size: "m",
         options: taggable_organisations_container(edition.edition_organisations.reject(&:lead?).map(&:organisation_id)),
