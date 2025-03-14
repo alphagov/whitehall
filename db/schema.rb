@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_141844) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_14_094300) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -340,15 +340,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_141844) do
     t.index ["organisation_id"], name: "index_edition_organisations_on_organisation_id"
   end
 
-  create_table "edition_policies", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "edition_id"
-    t.string "policy_content_id"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.index ["edition_id"], name: "index_edition_policies_on_edition_id"
-    t.index ["policy_content_id"], name: "index_edition_policies_on_policy_content_id"
-  end
-
   create_table "edition_relations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "edition_id", null: false
     t.datetime "created_at", precision: nil
@@ -442,7 +433,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_141844) do
     t.integer "operational_field_id"
     t.text "roll_call_introduction", size: :medium
     t.integer "news_article_type_id"
-    t.boolean "relevant_to_local_government", default: false
     t.string "person_override"
     t.boolean "external", default: false
     t.string "external_url"
