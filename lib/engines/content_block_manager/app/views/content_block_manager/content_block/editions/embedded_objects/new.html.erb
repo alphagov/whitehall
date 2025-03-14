@@ -1,6 +1,10 @@
 <% content_for :context, @content_block_edition.title %>
-<% content_for :title, "Add a #{@subschema.name.singularize.downcase}" %>
-
+<% content_for :title, "Add here here a #{@subschema.name.singularize.downcase}" %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: @back_link,
+  } %>
+<% end %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @content_block_edition, parent_class: "content_block_manager_content_block_edition")) %>
 
 <%= form_with(
