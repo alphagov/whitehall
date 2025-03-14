@@ -2,7 +2,8 @@ class LinkCheckerApiReport < ApplicationRecord
   belongs_to :edition
   has_many :links,
            -> { order(ordering: :asc) },
-           class_name: "LinkCheckerApiReport::Link"
+           class_name: "LinkCheckerApiReport::Link",
+           dependent: :destroy
 
   scope :no_links,
         lambda {
@@ -17,19 +18,14 @@ NOT EXISTS (
         }
 
   def self.create_noop_report(edition)
-    create!(
-      batch_id: nil,
-      completed_at: Time.zone.now,
-      edition:,
-      status: "completed",
-    )
+    CreateNoopBatchReport.new(edition).call
   end
 
-  def self.create_from_batch_report(batch_report, edition)
+  def self.create_in_progress_report(batch_report, edition)
     CreateFromBatchReport.new(batch_report, edition).call
   end
 
-  def update_from_batch_report(batch_report)
+  def mark_report_as_completed(batch_report)
     UpdateFromBatchReport.new(self, batch_report).update
   end
 

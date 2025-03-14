@@ -17,7 +17,7 @@ class Admin::LinkCheckerApiControllerTest < ActionController::TestCase
       links: [{ uri: @link }],
     ).with_indifferent_access
 
-    LinkCheckerApiReport.create_from_batch_report(report, publication)
+    LinkCheckerApiReport.create_in_progress_report(report, publication)
   end
 
   test "POST :callback updates LinkCheckerApiReport" do

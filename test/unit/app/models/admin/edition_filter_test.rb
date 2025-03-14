@@ -69,9 +69,9 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     news_article = create(:news_article)
     create(:link_checker_api_report, edition: news_article)
 
-    editions = Admin::EditionFilter.new(Edition, @current_user, include_link_check_reports: true).editions
+    editions = Admin::EditionFilter.new(Edition, @current_user, include_link_check_report: true).editions
     assert_equal news_article, editions.first
-    assert editions.first.association(:link_check_reports).loaded?
+    assert editions.first.association(:link_check_report).loaded?
   end
 
   test "does not preload link check report data unless asked to" do

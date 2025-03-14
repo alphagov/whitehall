@@ -8,7 +8,7 @@ class Admin::LinkCheckerApiController < ApplicationController
       LinkCheckerApiReport.transaction do
         report = LinkCheckerApiReport.eager_load(:links).lock
           .find_by(batch_id: params.require(:id))
-        report.update_from_batch_report(params) if report
+        report.mark_report_as_completed(params) if report
       end
       logger.info("[link-checking-debug][batch_#{params[:id]}]: Done updating link report")
     end
