@@ -1,4 +1,5 @@
 <% required = false unless defined?(required) %>
+<% index = "1" unless defined?(index) %>
 
 <% cache_if edition.worldwide_organisation_document_ids.empty?, "#{taggable_worldwide_organisations_cache_digest}-design-system" do %>
   <%= render "components/select_with_search", {
@@ -6,6 +7,11 @@
     name: "edition[worldwide_organisation_document_ids][]",
     error_items: errors_for(edition.errors, :worldwide_organisations),
     include_blank: true,
+    ga_data: {
+      document_type: "#{action_name}-#{controller_name}",
+      index_section: index,
+      section: "Worldwide organisations" + "#{' (required)' if required}",
+    },
     label: "Worldwide organisations" + "#{' (required)' if required}",
     heading_size: "m",
     options: taggable_worldwide_organisations_container(edition.worldwide_organisation_document_ids),

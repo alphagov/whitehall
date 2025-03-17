@@ -22,6 +22,11 @@
         error_items: errors_for(historical_account.errors, :political_parties),
         label: "Political parties (required)",
         heading_size: "l",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          index_section: 2,
+          section: "Political parties (required)",
+        },
         options: PoliticalParty.all.map do |party|
           {
             text: party.name,
