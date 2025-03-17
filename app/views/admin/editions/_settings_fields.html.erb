@@ -5,7 +5,14 @@
         margin_bottom: 6,
     } %>
 
-    <%= render "accessible_attachment_field", form: form, edition: edition %>
+    <%= render "accessible_attachment_field",
+               form: form,
+               edition: edition,
+               ga_data: {
+                 document_type: "#{action_name}-#{controller_name}",
+                 index_section: 24,
+                 section: "Email address for ordering attachment files in an alternative format",
+               } %>
     <%= render "access_limiting_fields", form: form, edition: edition %>
     <%= render "scheduled_publication_fields", form: form, edition: edition %>
     <%= render "review_reminder_fields", form: form, review_reminder: edition.document.review_reminder %>

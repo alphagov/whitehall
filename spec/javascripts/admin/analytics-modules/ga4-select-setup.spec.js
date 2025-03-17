@@ -78,21 +78,6 @@ describe('GOVUK.analyticsGa4.analyticsModules.GA4SelectEventHandlers', function 
 
     select.dispatchEvent(new Event('change'))
 
-    const expectedAttributes = {
-      event: 'event_data',
-      event_data: {
-        event_name: 'select_component',
-        type: 'new-consultations',
-        index: {
-          index_section_count: '0',
-          index_section: '20'
-        },
-        text: 'Email address for ordering attachment files',
-        section: 'Settings',
-        action: 'select'
-      }
-    }
-
     expect(mockGa4SendData).not.toHaveBeenCalled()
   })
 })
