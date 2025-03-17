@@ -5,6 +5,11 @@
     include_blank: true,
     label: "Topical events",
     heading_size: "m",
+    ga_data: {
+      document_type: "#{action_name}-#{controller_name}",
+      index_section: 15,
+      section: "Topical events",
+    },
     options: TopicalEvent.order(:name).map do |topical_event|
       {
         text: topical_event.name,
