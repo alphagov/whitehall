@@ -1,5 +1,5 @@
 <%
-  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links, :review_overdue]
+  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links, :only_danger_links, :review_overdue]
   anchor ||= anchor || ""
   raise "filter action required" unless defined?(filter_action)
 %>
@@ -156,6 +156,21 @@
             value: "1",
             bold: true,
             checked: params["only_broken_links"],
+          },
+        ],
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:only_danger_links) %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "only_danger_links",
+        small: true,
+        items: [
+          {
+            label: "Only dangerous links",
+            value: "1",
+            bold: true,
+            checked: params["only_danger_links"],
           },
         ],
       } %>
