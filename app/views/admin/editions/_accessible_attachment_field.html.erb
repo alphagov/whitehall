@@ -9,7 +9,7 @@
         If the email address you need isn’t here, it should be added to the relevant Department or Agency
       </div>
 
-      <select name="edition[alternative_format_provider_id]" id="edition_alternative_format_provider_id" class="govuk-select" aria-describedby="alternative-format-provider-hint">
+      <select name="edition[alternative_format_provider_id]" id="edition_alternative_format_provider_id" class="govuk-select" aria-describedby="alternative-format-provider-hint" data-ga4-document-type="<%= ga_data[:document_type] %>" data-ga4-index-section="<%= ga_data[:index_section] %>" data-ga4-section="<%= ga_data[:section] %>">
         <option></option>
         <%
           taggable_alternative_format_providers_container.each do |hash|
