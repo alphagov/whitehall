@@ -19,12 +19,15 @@
         </p>
       <% end
     } %>
-  <% elsif report.broken_links.any? || report.caution_links.any? %>
+  <% elsif report.danger_links.any? || report.broken_links.any? || report.caution_links.any? %>
     <%= render "components/inset_prompt", {
       title: t("broken_links.title"),
       description: capture do %>
-        <% report.links.sort_by(&:status).group_by(&:status).each do |status, links| %>
-          <% next unless %w(broken caution).include? status %>
+        <%
+          status_order = { "danger" => 1, "broken" => 2, "caution" => 3 }
+          report.links.sort_by { |link| status_order[link.status] || 9999 }.group_by(&:status).each do |status, links|
+        %>
+          <% next unless %w(danger broken caution).include? status %>
 
           <p class="govuk-body"><%= t "broken_links.#{status}.subheading" %></p>
 

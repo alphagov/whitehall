@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_14_094940) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_17_152446) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -690,6 +690,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_094940) do
     t.datetime "updated_at", precision: nil, null: false
     t.text "problem_summary", size: :medium
     t.text "suggested_fix", size: :medium
+    t.text "check_dangers", size: :medium
     t.index ["link_checker_api_report_id"], name: "index_link_checker_api_report_id"
   end
 

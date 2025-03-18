@@ -7,5 +7,9 @@ FactoryBot.define do
     trait :broken do
       status { "broken" }
     end
+
+    trait :danger do
+      status { "danger" }
+    end
   end
 end

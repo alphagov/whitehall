@@ -238,16 +238,21 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     edition_with_pending_link = create(
       :published_publication,
     )
+    edition_with_danger_link = create(
+      :published_publication,
+    )
     broken_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/broken-link", status: "broken")
     caution_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/caution-link", status: "caution")
     ok_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/ok-link", status: "ok")
     pending_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/pending-link", status: "pending")
+    danger_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/danger-link", status: "danger")
     create(:link_checker_api_report, batch_id: 1, edition: edition_with_broken_link, links: [broken_link])
     create(:link_checker_api_report, batch_id: 2, edition: edition_with_caution_link, links: [caution_link])
     create(:link_checker_api_report, batch_id: 3, edition: edition_with_ok_link, links: [ok_link])
     create(:link_checker_api_report, batch_id: 4, edition: edition_with_pending_link, links: [pending_link])
+    create(:link_checker_api_report, batch_id: 5, edition: edition_with_danger_link, links: [danger_link])
 
-    assert_equal [edition_with_broken_link, edition_with_caution_link], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
+    assert_equal [edition_with_broken_link, edition_with_caution_link, edition_with_danger_link], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions.sort_by(&:id)
   end
 
   test "should filter by overdue reviews" do
