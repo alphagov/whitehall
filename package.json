@@ -15,7 +15,7 @@
     "jasmine:browser": "yarn run jasmine:prepare && yarn run jasmine-browser-runner"
   },
   "dependencies": {
-    "choices.js": "^11.0.6",
+    "choices.js": "^11.1.0",
     "cropperjs": "^1.6.2",
     "govspeak-visual-editor": "^3.0.0",
     "miller-columns-element": "^2.0.1",
