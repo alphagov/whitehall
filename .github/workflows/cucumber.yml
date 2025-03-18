@@ -10,6 +10,16 @@ jobs:
       matrix:
         node_rake_task: ["cucumber:ok"]
     steps:
+      - name: Remove image-bundled Chrome
+        run: sudo apt-get purge google-chrome-stable
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 128
+          install-chromedriver: true
+          install-dependencies: true
+
       - name: Setup MySQL
         id: setup-mysql
         uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@main
