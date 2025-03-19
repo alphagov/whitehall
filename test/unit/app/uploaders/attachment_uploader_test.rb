@@ -138,6 +138,13 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     end
   end
 
+  test "#asset_manager_id should return asset manager id" do
+    uploader = AttachmentUploader.new(@attachment_data, "mounted-as")
+    uploader.store!(file_fixture("sample_attachment.zip"))
+
+    assert_equal "asset_manager_id", uploader.asset_manager_id
+  end
+
   def required_arcgis_file_list
     %w[london.shp london.shx london.dbf]
   end
