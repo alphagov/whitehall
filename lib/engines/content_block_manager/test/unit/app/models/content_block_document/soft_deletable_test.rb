@@ -28,4 +28,14 @@ class ContentBlockManager::ContentBlock::Document::SoftDeletableTest < ActiveSup
       assert_not document.soft_deleted?
     end
   end
+
+  it "ensures soft-deleted records do not appear in the default scope" do
+    document.soft_delete
+
+    assert_equal [], ContentBlockManager::ContentBlock::Document.all
+
+    assert_raises ActiveRecord::RecordNotFound do
+      ContentBlockManager::ContentBlock::Document.find(document.id)
+    end
+  end
 end
