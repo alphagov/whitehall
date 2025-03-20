@@ -119,15 +119,23 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal news_articles[0..0], person.published_news_articles
   end
 
-  test "should not be destroyable when it has appointments" do
+  test "should not be destroyable when it has current appointments" do
     person = create(:person)
     _ = create(:role_appointment, person:)
     assert_not person.destroyable?
     assert_equal false, person.destroy
   end
 
-  test "should be destroyable when it has no appointments" do
-    person = create(:person, role_appointments: [])
+  test "should not be destroyable when it has previous ministerial appointments" do
+    person = create(:person)
+    _ = create(:ministerial_role_appointment, :ended, person:)
+    assert_not person.destroyable?
+    assert_equal false, person.destroy
+  end
+
+  test "should be destroyable when it has no current appointments or ministerial appointments" do
+    person = create(:person)
+    _ = create(:board_member_role_appointment, :ended, person:)
     assert person.destroyable?
     assert person.destroy
   end

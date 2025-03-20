@@ -62,7 +62,7 @@ class Person < ApplicationRecord
   end
 
   def destroyable?
-    role_appointments.empty?
+    current_role_appointments.empty? && ministerial_roles.empty?
   end
 
   def name
