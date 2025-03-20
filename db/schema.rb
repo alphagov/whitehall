@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_152446) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_19_130617) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -200,6 +200,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_152446) do
     t.integer "latest_edition_id"
     t.integer "live_edition_id"
     t.string "content_id_alias"
+    t.datetime "deleted_at"
     t.index ["content_id_alias"], name: "index_content_block_documents_on_content_id_alias", unique: true
     t.index ["latest_edition_id"], name: "index_content_block_documents_on_latest_edition_id"
     t.index ["live_edition_id"], name: "index_content_block_documents_on_live_edition_id"
