@@ -60,4 +60,12 @@ class SelectWithSearchTest < ActionDispatch::IntegrationTest
       assert node[:'aria-describedby'] =~ /error-(.+)/
     end
   end
+
+  test "it renders a hidden null input so that the value is still included in form submission when multiple selection is enabled" do
+    load_example "with_multiple_select_enabled"
+    assert_selector "input[name='dropdown-with-multiple']", visible: :hidden do |node|
+      assert node[:type] == "hidden"
+      assert node[:value].nil?
+    end
+  end
 end
