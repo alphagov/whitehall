@@ -18,18 +18,10 @@ class RevalidateOldLinkCheckReportsWorker
       editions = least_recently_checked_editions
       logger.info("[link-checking-debug][job_#{jid}]: Requesting link checks for #{editions.count} out of #{public_editions.count} editions")
 
-      rechecked = 0 # editions that have links and are being rechecked
-      touched = 0 # editions that have no links and are just having their 'updated_at' updated
       editions.find_each(batch_size: FIND_EACH_BATCH_SIZE) do |edition|
-        if LinkCheckerApiService.has_links?(edition)
-          LinkCheckerApiService.check_links(edition, admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")))
-          rechecked += 1
-        else
-          LinkCheckerApiReport.create_noop_report(edition)
-          touched += 1
-        end
+        RevalidateLinkCheckReportWorker.perform_async(edition.id)
       end
-      logger.info("[link-checking-debug][job_#{jid}]: Done requesting link checks for #{editions.count}. #{touched} of them were noops, whereas #{rechecked} were rechecked using Link Checker API.")
+      logger.info("[link-checking-debug][job_#{jid}]: Done requesting link checks for #{editions.count}")
     end
   end
 

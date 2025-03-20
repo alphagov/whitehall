@@ -23,7 +23,9 @@ class RevalidateOldLinkCheckReportsWorkerTest < ActiveSupport::TestCase
     update_publication_with_oldest_report = stub_post_request(links, link_checker_api_batch_report_hash(id: 1, links:))
 
     RevalidateOldLinkCheckReportsWorker.stub_const(:MAX_REPORTS_TO_CHECK, 2) do
-      RevalidateOldLinkCheckReportsWorker.new.perform
+      Sidekiq::Testing.inline! do
+        RevalidateOldLinkCheckReportsWorker.new.perform
+      end
 
       assert_requested update_publication_with_oldest_report
       assert_requested update_publication_with_old_report
