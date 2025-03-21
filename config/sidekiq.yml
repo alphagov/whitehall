@@ -15,5 +15,3 @@
     revalidate_old_link_check_reports:
       cron: '0 4 * * *' # Runs at 4 a.m every day
       class: RevalidateOldLinkCheckReportsWorker
-    LinkCheckerDeleteOldDataWorker:
-      cron: '30 3 * * *' # Runs at 3:30 a.m every day
