@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+# This script is used during the GitHub Actions workflow
+# defined in .github/workflows/cucumber.yml.
+# It splits the cucumber suite into randomly-allocated groups
+# which are executed across multiple GitHub Actions 'matrix' nodes.
+
+test_files = [
+  Dir["features/*.feature"],
+  Dir["lib/engines/**/*.feature"],
+].flatten
+
+# Determine which CI node is running
+node_index = ENV["CI_NODE_INDEX"].to_i
+total_nodes = ENV["CI_NODE_TOTAL"].to_i
+
+tests = test_files.
+  sort.
+  shuffle(random: Random.new(ENV['GITHUB_SHA'].to_i(16))).
+  each_slice((test_files.length / total_nodes.to_f).ceil).
+  to_a[node_index]
+
+exec("bundle exec cucumber #{tests.join(' ')}")
