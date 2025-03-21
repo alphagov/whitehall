@@ -10,7 +10,7 @@ class LinkCheckerApiReport::Link < ApplicationRecord
       uri: payload.fetch("uri"),
       status: payload.fetch("status"),
       checked: payload.fetch("checked"),
-      check_dangers: payload.fetch("dangers", []),
+      check_dangers: payload.fetch("danger", []),
       check_errors: payload.fetch("errors", []),
       check_warnings: payload.fetch("warnings", []),
       problem_summary: payload.fetch("problem_summary"),

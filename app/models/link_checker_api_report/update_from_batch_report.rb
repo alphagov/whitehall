@@ -4,7 +4,7 @@ class LinkCheckerApiReport::UpdateFromBatchReport
     @payload = payload
   end
 
-  def update
+  def call
     ActiveRecord::Base.transaction do
       update_report
       links = payload.fetch("links", [])
