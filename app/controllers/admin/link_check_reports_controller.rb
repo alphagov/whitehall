@@ -16,7 +16,6 @@ class Admin::LinkCheckReportsController < Admin::BaseController
 
   def show
     @report = LinkCheckerApiReport.find(params[:id])
-    @allow_new_report = params[:allow_new_report] || false
 
     respond_to do |format|
       format.html { redirect_to [:admin, @edition] }
