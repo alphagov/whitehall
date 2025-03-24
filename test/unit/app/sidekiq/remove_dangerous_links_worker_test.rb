@@ -15,6 +15,7 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
         RemoveDangerousLinksWorker.new.perform(published_edition.id)
 
         assert_not_equal(published_edition.id, published_edition.document.live_edition.id)
+        assert_equal(User.find_by(name: "Scheduled Publishing Robot").id, published_edition.versions.last.whodunnit.to_i)
       end
 
       it "removes dangerous links from the body of the new edition" do

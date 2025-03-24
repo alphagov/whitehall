@@ -7,18 +7,20 @@ class RemoveDangerousLinksWorker < WorkerBase
     dangerous_links = edition.link_check_report.danger_links.map(&:uri)
     return unless dangerous_links.any?
 
-    # Set up the new draft edition and remove the dangerous links
-    draft_edition = edition.create_draft(robot_user)
-    draft_edition.update!(minor_change: true)
-    remove_danger_links!(draft_edition.id, dangerous_links)
+    AuditTrail.acting_as(robot_user) do
+      # Set up the new draft edition and remove the dangerous links
+      draft_edition = edition.create_draft(robot_user)
+      draft_edition.update!(minor_change: true)
+      remove_danger_links!(draft_edition.id, dangerous_links)
 
-    #  Publish the new edition
-    edition_publisher = Whitehall.edition_services.force_publisher(
-      draft_edition,
-      user: robot_user,
-      remark: "Dangerous links automatically removed: #{dangerous_links.join(', ')}",
-    )
-    edition_publisher.perform!
+      #  Publish the new edition
+      edition_publisher = Whitehall.edition_services.force_publisher(
+        draft_edition,
+        user: robot_user,
+        remark: "Dangerous links automatically removed: #{dangerous_links.join(', ')}",
+      )
+      edition_publisher.perform!
+    end
   end
 
 private
