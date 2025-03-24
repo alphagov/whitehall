@@ -3,6 +3,16 @@ require "test_helper"
 class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
+  before do
+    @dangerous_body = <<~GOVSPEAK
+      [dangerous link](http://www.example.com)
+      <a href="http://www.example.com">dangerous link again</a>
+      [another way of linking to dangerous link][danger]
+
+      [danger]: http://www.example.com
+    GOVSPEAK
+  end
+
   describe "#perform" do
     before do
       User.create!(name: "Scheduled Publishing Robot") unless User.find_by(name: "Scheduled Publishing Robot")
@@ -10,7 +20,7 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
 
     describe "the happy path" do
       it "creates and publishes a new edition" do
-        published_edition = create(:publication, :published)
+        published_edition = create(:publication, :published, body: @dangerous_body)
         create_danger_link_check_report(published_edition)
         RemoveDangerousLinksWorker.new.perform(published_edition.id)
 
@@ -19,14 +29,6 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
       end
 
       it "removes dangerous links from the body of the new edition" do
-        dangerous_body = <<~GOVSPEAK
-          [dangerous link](http://www.example.com)
-          <a href="http://www.example.com">dangerous link again</a>
-          [another way of linking to dangerous link][danger]
-
-          [danger]: http://www.example.com
-        GOVSPEAK
-
         sterilised_body = <<~GOVSPEAK
           [dangerous link](#link-removed)
           <a href="#link-removed">dangerous link again</a>
@@ -35,11 +37,7 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
           [danger]: #link-removed
         GOVSPEAK
 
-        published_edition = create(
-          :publication,
-          :published,
-          body: dangerous_body,
-        )
+        published_edition = create(:publication, :published, body: @dangerous_body)
         create_danger_link_check_report(published_edition)
         RemoveDangerousLinksWorker.new.perform(published_edition.id)
 
@@ -47,7 +45,7 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
       end
 
       it "saves an internal changenote against the new edition" do
-        published_edition = create(:publication, :published)
+        published_edition = create(:publication, :published, body: @dangerous_body)
         create_danger_link_check_report(published_edition)
         RemoveDangerousLinksWorker.new.perform(published_edition.id)
 
@@ -55,6 +53,18 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
           "Dangerous links automatically removed: http://www.example.com",
           published_edition.document.latest_edition.editorial_remarks.last.body,
         )
+      end
+    end
+
+    describe "content body is already free of dangerous links (which can happen in a race condition of link check report calls)" do
+      it "doesn't create a new draft edition, and just silently succeeds" do
+        published_edition = create(:publication, :published, body: "harmless body")
+        create_danger_link_check_report(published_edition)
+
+        worker = RemoveDangerousLinksWorker.new
+        worker.expects(:create_sanitized_edition_and_publish_it!).never
+
+        worker.perform(published_edition.id)
       end
     end
 
@@ -85,7 +95,7 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
         create_happy_link_check_report(published_edition)
 
         worker = RemoveDangerousLinksWorker.new
-        worker.expects(:remove_danger_links!).never
+        worker.expects(:remove_danger_links).never
 
         worker.perform(published_edition.id)
       end

@@ -7,20 +7,8 @@ class RemoveDangerousLinksWorker < WorkerBase
     dangerous_links = edition.link_check_report.danger_links.map(&:uri)
     return unless dangerous_links.any?
 
-    AuditTrail.acting_as(robot_user) do
-      # Set up the new draft edition and remove the dangerous links
-      draft_edition = edition.create_draft(robot_user)
-      draft_edition.update!(minor_change: true)
-      remove_danger_links!(draft_edition.id, dangerous_links)
-
-      #  Publish the new edition
-      edition_publisher = Whitehall.edition_services.force_publisher(
-        draft_edition,
-        user: robot_user,
-        remark: "Dangerous links automatically removed: #{dangerous_links.join(', ')}",
-      )
-      edition_publisher.perform!
-    end
+    sanitized_body = remove_danger_links(edition, dangerous_links)
+    create_sanitized_edition_and_publish_it!(edition, dangerous_links, sanitized_body) unless sanitized_body == edition.body
   end
 
 private
@@ -36,16 +24,31 @@ private
     edition
   end
 
+  def create_sanitized_edition_and_publish_it!(edition, dangerous_links, sanitized_body)
+    AuditTrail.acting_as(robot_user) do
+      # Set up the new draft edition and remove the dangerous links
+      draft_edition = edition.create_draft(robot_user)
+      draft_edition.update!(minor_change: true, body: sanitized_body)
+
+      #  Publish the new edition
+      edition_publisher = Whitehall.edition_services.force_publisher(
+        draft_edition,
+        user: robot_user,
+        remark: "Dangerous links automatically removed: #{dangerous_links.join(', ')}",
+      )
+      edition_publisher.perform!
+    end
+  end
+
   def robot_user
     User.find_by(name: "Scheduled Publishing Robot", uid: nil)
   end
 
-  def remove_danger_links!(edition_id, dangerous_links)
-    edition = Edition.find(edition_id)
+  def remove_danger_links(edition, dangerous_links)
     sanitized_body = edition.body.dup
     dangerous_links.each do |uri|
       sanitized_body.gsub!(uri, "#link-removed")
     end
-    edition.update!(body: sanitized_body)
+    sanitized_body
   end
 end
