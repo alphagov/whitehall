@@ -63,6 +63,7 @@
             button_text: "Check again",
           } %>
         <% end %>
+        <p class="govuk-body govuk-!-font-size-16">Last checked: <%= l(report.updated_at, format: :long_ordinal) %></p>
       <% end,
       error: true
     } %>
