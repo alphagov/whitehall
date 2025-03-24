@@ -17,4 +17,8 @@ class LinkCheckerApiReport::Link < ApplicationRecord
       suggested_fix: payload.fetch("suggested_fix"),
     }
   end
+
+  def check_details
+    check_dangers.join(" and ") + check_errors.join(" and ") + check_warnings.join(" and ")
+  end
 end
