@@ -22,6 +22,11 @@
             name: "world_location_news[world_location_attributes][world_location_type]",
             label: "Type (required)",
             heading_size: "l",
+            data_attributes: {
+              ga4_document_type: "#{action_name}-#{controller_name}",
+              ga4_index_section: 1,
+              ga4_section: "Type (required)",
+            },
             options: WorldLocation.world_location_types.keys.map do |location_type|
               {
                 text: I18n.t("world_location.type.#{location_type}", count: 1),

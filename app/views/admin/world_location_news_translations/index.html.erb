@@ -66,6 +66,11 @@
             name: "translation_locale",
             label: "Select Language",
             heading_size: "m",
+            data_attributes: {
+              ga4_document_type: "#{action_name}-#{controller_name}",
+              ga4_index_section: 1,
+              ga4_section: "Role type (required)",
+            },
             options: @world_location_news.missing_translations.map do |missing_trans|
               {
                 text: missing_trans.native_and_english_language_name,

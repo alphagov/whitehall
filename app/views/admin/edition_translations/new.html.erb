@@ -21,6 +21,11 @@
         id: "translation_locale",
         label: "Choose language",
         full_width: true,
+        data_attributes: {
+          ga4_document_type: "#{action_name}-#{controller_name}",
+          ga4_index_section: 1,
+          ga4_section: "Choose language",
+        },
         options: options_for_locales(@edition.missing_translations).map do |language, value|
           {
             text: language,

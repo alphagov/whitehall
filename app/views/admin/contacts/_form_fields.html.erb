@@ -88,6 +88,11 @@
         label: "Country",
         full_width: true,
         heading_size: "m",
+        data_attributes: {
+          ga4_document_type: "#{action_name}-#{controller_name}",
+          ga4_index_section: 6,
+          ga4_section: "Country",
+        },
         error_message: errors_for_input(contact_form.object.errors, :country_id),
         options: options,
       } %>
