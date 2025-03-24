@@ -42,7 +42,9 @@
                     </span>
                   </summary>
                   <div class="govuk-details__text">
-                    <p class="govuk-body"><%= link.problem_summary %></p>
+                    <p class="govuk-body">
+                      <%= link.problem_summary %>: <%= link.check_details %>
+                    </p>
                     <% if link.suggested_fix %>
                       <p class="govuk-body">Suggested fix: <%= link.suggested_fix %></p>
                     <% end %>
