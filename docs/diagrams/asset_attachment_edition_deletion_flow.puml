@@ -1,0 +1,49 @@
+@startuml asset_attachment_edition_deletion_flow
+
+title The sequence of deleting an edition with a file attachment in Whitehall
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
+box "Whitehall" #f2fef8
+actor publisher
+participant EditionsController
+participant EditionServices
+participant EditionDeleter
+participant Edition
+participant Attachment
+participant AttachmentAssetDeleter
+end box
+
+box Whitehall worker (Sidekiq)
+participant DeleteAttachmentAssetJob
+participant AssetDeleter
+end box
+
+box "Asset Manager" #f2f8fe
+participant AssetManager
+end box
+
+box "Publishing API" #f2f8fe
+participant PublishingApi
+end box
+
+publisher -> EditionsController : destroy
+EditionsController -> EditionDeleter++ : perform delete
+EditionDeleter -> Edition : delete, clear slug, clear role
+EditionDeleter -> Edition : destroy attachments for edition
+Edition -> Attachment : destroy attachments, set deleted to true
+EditionDeleter --> PublishingApi-- : Enqueue discard_draft
+
+EditionDeleter --> EditionServices++ : trigger subscribers
+EditionServices -> AttachmentAssetDeleter-- : delete attachment asset for edition
+
+AttachmentAssetDeleter --> DeleteAttachmentAssetJob : Enqueue
+DeleteAttachmentAssetJob -> AssetDeleter : delete assets for attachment data
+rnote over DeleteAttachmentAssetJob
+  delete asset for edition if
+  there is no visible attachment
+  for attachment data
+endrnote
+AssetDeleter -> AssetManager : delete_asset by asset_manager_id
+
+@enduml

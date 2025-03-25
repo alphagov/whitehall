@@ -1,0 +1,67 @@
+@startuml asset_attachment_edition_unpublishing_flow
+
+title The sequence of unpublishing an edition with a file attachment in Whitehall
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
+box "Whitehall" #f2fef8
+actor publisher
+participant EditionWorkflowController
+participant EditionUnpublisher
+participant EditionServices
+participant PublishingApiPusher
+participant "ServiceListeners::\nAttachmentUpdater" as slAttachmentUpdater
+participant AttachmentRedirectUrlUpdater
+end box
+
+box Whitehall worker (Sidekiq)
+participant AssetManagerAttachmentMetadataWorker
+participant "AssetManager::\nAttachmentUpdater" as amAttachmentUpdater
+participant AssetManagerAttachmentRedirectUrlUpdateWorker
+participant AssetUpdater
+end box
+
+box "Asset Manager" #f2f8fe
+participant AssetManager
+end box
+
+box "Publishing API" #f2f8fe
+participant PublishingApi
+end box
+
+publisher -> EditionWorkflowController : unpublish
+EditionWorkflowController -> EditionUnpublisher : unpublish
+activate EditionUnpublisher
+EditionUnpublisher -> PublishingApiPusher : push(unpublish)
+activate PublishingApiPusher
+PublishingApiPusher --> PublishingApi : unpublish (redirect, gone etc.)
+deactivate PublishingApiPusher
+EditionUnpublisher -> EditionServices : unpublish
+deactivate EditionUnpublisher
+EditionServices -> slAttachmentUpdater : call
+
+activate slAttachmentUpdater
+slAttachmentUpdater --> AssetManagerAttachmentMetadataWorker : Enqueue
+deactivate
+
+group Happens once per attachment
+  AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker++
+  AssetManagerAttachmentMetadataWorker -> amAttachmentUpdater++ : call
+  amAttachmentUpdater -> AssetUpdater-- : call
+  AssetUpdater -> AssetManager : update asset
+  AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker--
+end group
+
+EditionServices -> AttachmentRedirectUrlUpdater : call
+
+activate AttachmentRedirectUrlUpdater
+AttachmentRedirectUrlUpdater --> AssetManagerAttachmentRedirectUrlUpdateWorker : Enqueue
+deactivate
+
+group Happens once per attachment
+  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker++
+  AssetManagerAttachmentRedirectUrlUpdateWorker -> AssetUpdater++
+  AssetUpdater -> AssetManager-- : update redirect URL
+  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker--
+end group
+@enduml

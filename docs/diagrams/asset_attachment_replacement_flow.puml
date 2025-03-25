@@ -1,6 +1,6 @@
-@startuml asset_attachment_upload_flow
+@startuml asset_attachment_replacement_flow
 
-title The sequence of uploading a file attachment in Whitehall (AttachmentData)
+title The sequence of replacing a file attachment in Whitehall (AttachmentData)
 skinparam BoxPadding 20
 skinparam ParticipantPadding 15
 
@@ -30,8 +30,8 @@ box "Publishing API" #f2f8fe
 participant PublishingApi
 end box
 
-publisher -> Controller++ : upload an attachment (#create)
-Controller -> AttachmentData : Save attachment
+publisher -> Controller++ : replace an attachment (#update)
+Controller -> AttachmentData : Save attachment (#handle_to_replace_id)
 AttachmentData -> AssetManagerStorage : Carrierwave invokes store!
 AssetManagerStorage --> AssetManagerCreateAssetWorker : Enqueue
 Controller -> DraftEditionUpdater : perform update_draft
@@ -56,6 +56,8 @@ group Happens 2 times because of DraftEditionUpdater
   AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker++
   AssetManagerAttachmentMetadataWorker -> amAttachmentUpdater : update
   amAttachmentUpdater -> AssetManager: Update metadata of the Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url
+  AssetManagerAttachmentMetadataWorker -> amAttachmentUpdater : replace
+  amAttachmentUpdater -> AssetManager: Update replacement ID
   AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker--
 end group
 

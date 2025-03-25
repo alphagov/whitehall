@@ -1,0 +1,32 @@
+@startuml asset_attachment_deletion_flow
+
+title The sequence of deleting a file attachment in Whitehall (AttachmentData)
+skinparam BoxPadding 20
+skinparam ParticipantPadding 30
+
+box "Whitehall" #f2fef8
+actor publisher
+participant "Attachments\nController" as Controller
+participant Attachment
+participant AttachmentData
+end box
+
+publisher -> Controller++ : delete an attachment (#destroy)
+Controller -> Attachment : destroy
+Attachment -> AttachmentData : destroy
+rnote over AttachmentData
+ Attachment Data .deleted? evaluates
+ from .deleted attribute of last attachment
+ which has a visible attachable. If none
+ exists, fetch .deleted attribute from
+ latest attachment.
+endrnote
+AttachmentData -> Attachment
+rnote over Attachment
+ transaction complete:
+ attachment.deleted set to true
+endrnote
+Attachment -> Controller
+Controller -> publisher-- : Redirect to attachment page
+
+@enduml
