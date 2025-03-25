@@ -2,14 +2,15 @@
 
 title The sequence of uploading a file attachment in Whitehall (AttachmentData)
 skinparam BoxPadding 20
-skinparam ParticipantPadding 10
+skinparam ParticipantPadding 15
 
 box "Whitehall" #f2fef8
 actor publisher
-participant Controller
+participant "Attachments\nController" as Controller
 participant AttachmentData
 participant "AssetManager\nStorage" as AssetManagerStorage
 participant "DraftEdition\nUpdater" as DraftEditionUpdater
+participant "ServiceListeners::\nAttachmentUpdater" as slAttachmentUpdater
 end box
 
 box Whitehall worker (Sidekiq)
@@ -18,6 +19,7 @@ participant Asset
 participant "PublishingApi\nDraftUpdateWorker" as PublishingApiDraftUpdateWorker
 participant "DraftEdition\nUpdater" as bgDraftEditionUpdater
 participant "AssetManager\nAttachmentMetadataWorker" as AssetManagerAttachmentMetadataWorker
+participant "AssetManager::\nAttachmentUpdater" as amAttachmentUpdater
 end box
 
 box "Asset Manager" #f2f8fe
@@ -28,31 +30,33 @@ box "Publishing API" #f2f8fe
 participant PublishingApi
 end box
 
-publisher -> Controller++ : upload an attachment
-Controller -> AttachmentData : Save
+publisher -> Controller++ : upload an attachment (#create)
+Controller -> AttachmentData : Save attachment
 AttachmentData -> AssetManagerStorage : Carrierwave invokes store!
 AssetManagerStorage --> AssetManagerCreateAssetWorker : Enqueue
-Controller -> DraftEditionUpdater : perform
+Controller -> DraftEditionUpdater : perform update_draft
 DraftEditionUpdater -> PublishingApi : Update links, content and republish if necessary
-DraftEditionUpdater --> AssetManagerAttachmentMetadataWorker: Enqueue
+Controller -> slAttachmentUpdater : update_attachment_data!
+slAttachmentUpdater --> AssetManagerAttachmentMetadataWorker: Enqueue
 Controller -> publisher-- : Show attachments
 
-activate AssetManagerCreateAssetWorker
+AssetManagerCreateAssetWorker -[hidden]> AssetManagerCreateAssetWorker++
 AssetManagerCreateAssetWorker -> AssetManager : Upload the file to Asset Manager
 AssetManagerCreateAssetWorker -> Asset: Save
 AssetManagerCreateAssetWorker --> PublishingApiDraftUpdateWorker : Enqueue
-deactivate AssetManagerCreateAssetWorker
+AssetManagerCreateAssetWorker --> AssetManagerAttachmentMetadataWorker : Enqueue
+AssetManagerCreateAssetWorker -[hidden]> AssetManagerCreateAssetWorker--
 
-activate PublishingApiDraftUpdateWorker
+PublishingApiDraftUpdateWorker -[hidden]> PublishingApiDraftUpdateWorker++
 PublishingApiDraftUpdateWorker -> bgDraftEditionUpdater
 bgDraftEditionUpdater -> PublishingApi : Update links, content and republish if necessary
-bgDraftEditionUpdater --> AssetManagerAttachmentMetadataWorker: Enqueue
-deactivate PublishingApiDraftUpdateWorker
+PublishingApiDraftUpdateWorker -[hidden]> PublishingApiDraftUpdateWorker--
 
 group Happens 2 times because of DraftEditionUpdater
-  activate AssetManagerAttachmentMetadataWorker
-  AssetManagerAttachmentMetadataWorker -> AssetManager: Update metadata of the Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url
-  deactivate AssetManagerAttachmentMetadataWorker
+  AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker++
+  AssetManagerAttachmentMetadataWorker -> amAttachmentUpdater : update
+  amAttachmentUpdater -> AssetManager: Update metadata of the Asset\n:access_limited\n:draft\n:parent_document_url\n:redirect_url
+  AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker--
 end group
 
 @enduml
