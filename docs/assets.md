@@ -45,24 +45,63 @@ a new Asset model was proposed. Find the related ADR for the asset model [here](
 ![Asset Usage](diagrams/asset_usage.png)
 
 
-### File attachments upload flow
+### File attachments change flows
+
+#### File attachment uploads
 *Editionable Content* types such as **News Articles** and **Consultations**, as well as **Policy Groups**, can have attachments.
 Uploads and republishing actions are managed asynchronously in the background by a Sidekiq job. Note that the diagram below will look slightly different for non-editionable attachables (Worldwide Organisation Pages, Consultation and Call for Evidence Responses, and Policy Groups) depending on their publishing mechanism.
 
 ![Attachment Upload Flow](diagrams/asset_attachment_upload_flow.png)
 
+---
+
 #### File attachment replacements
 
 Asset Manager supports "replacing" existing assets with a new one. Replacement is essentially a special type of redirect for asset-to-asset redirects (as opposed to the general redirect URL attribute supported by Asset Manager, which redirects assets to non-asset URLs). Replacement is necessary to ensure that bookmarks and links to existing attachment assets still work even if the binary asset file has changed.
 
-When a new asset is uploaded as a replacement for the previous one, the flow is identical to the upload flow, but the `AssetManagerAttachmentMetadataWorker` also sends a request to Asset Manager to mark the previous asset as replaced. Note that the replacement does not take effect until the new asset is no longer flagged as a draft. This occurs when the edition is published.
+When a new asset is uploaded as a replacement for the previous one, the flow is identical to the upload flow, but the `AssetManagerAttachmentMetadataWorker` also sends a request to Asset Manager to mark the previous asset as replaced based off the handling of replaced_by id when saving `AttachmentData`. Note that the replacement does not take effect until the new asset is no longer flagged as a draft. This occurs when the edition is published.
 
-### File attachments publishing flow
+![Attachment Replacement Flow](diagrams/asset_attachment_replacement_flow.png)
+
+--- 
+
+#### File attachment deletions
+
+Attachment deletions set `deleted` on the database column for `Attachment`. `AttachmentData` derives its deletion state from its attachments as annotated in the diagram.
+Note that the deletion does not take effect or go to AssetManager until the edition is published (See edition publishing flow below)
+
+![Attachment Deletion Flow](diagrams/asset_attachment_deletion_flow.png)
+
+---
+
+### Edition with file attachment change flows
+
+#### File attachments edition publishing flow
 Changes to assets are not applied to Asset Manager until an edition is published, because the previous edition may have attachments that still refer to those assets. Consequently, and somewhat surprisingly, we delete assets associated with deleted attachments at the time of publishing. We also set the draft flag to `false` for all assets associated with the attachment. That includes setting the draft flag to `false` for deleted assets because, if the deleted draft asset was a replacement for a previous attachment asset, the replacement will not be applied until the draft flag is set to `false`.
+
+During publishing, we only publish the asset in AssetManager (updating draft flag) if the attachment has just been created in the edition to be published. No further updates needs to be made to the asset on subsequent publishings.  
 
 These actions are performed asynchronously as a Sidekiq job, because some editions have large numbers of attachments which would make sending these requests synchronously unacceptably slow for publishers. Sidekiq also supports automatically retrying any requests that fail, which helps the system to be more robust.
 
-![Attachment Publishing Flow for Editionable Attachables](diagrams/asset_attachment_edition_publishing_flow.png)
+![Attachment Edition Publishing Flow for Editionable Attachables](diagrams/asset_attachment_edition_publishing_flow.png)
+
+---
+
+#### File attachments edition unpublishing flow
+
+Attachments are updated and redirected via EditionServices subscribers on the `unpublish` event. AttachmentData is updated in AssetManager and RedirectURL is set.  
+
+![Attachment Edition Unpublishing Flow for Editionable Attachables](diagrams/asset_attachment_edition_unpublishing_flow.png)
+
+---
+
+#### File attachments edition deletion flow
+
+Asset is deleted when an Edition is being deleted which results in the AttachmentData no longer being associated with any publicly visible attachables. 
+
+![Attachment Edition Deletion Flow for Editionable Attachables](diagrams/asset_attachment_edition_deletion_flow.png)
+
+---
 
 ### Images upload flow
 *Editionable Content* types such as **News Articles** and **Consultations** can have images that are used within the document.
