@@ -4,9 +4,11 @@
   items ||= []
   id ||= nil
   error = false if error.nil?
+  warning = false if warning.nil?
   data_attributes ||= {}
   root_classes = %w[app-c-inset-prompt]
   root_classes << "app-c-inset-prompt--error" if error
+  root_classes << "app-c-inset-prompt--warning" if warning
 %>
 <% if title || description %>
   <%= tag.div class: root_classes, id: id, data: data_attributes do %>

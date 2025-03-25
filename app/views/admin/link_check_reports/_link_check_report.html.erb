@@ -25,7 +25,7 @@
     } %>
   <% elsif report.danger_links.any? || report.broken_links.any? || report.caution_links.any? %>
     <%= render "components/inset_prompt", {
-      title: t("broken_links.title"),
+      title: report.caution_links.any? ? t("broken_links.title_warning") : t("broken_links.title_error"),
       description: capture do %>
         <%
           status_order = { "danger" => 1, "broken" => 2, "caution" => 3 }
@@ -69,7 +69,8 @@
         <% end %>
         <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-top-5">Last checked: <%= l(report.updated_at, format: :long_ordinal) %></p>
       <% end,
-      error: true
+      error: report.danger_links.any? || report.broken_links.any?,
+      warning: !(report.danger_links.any? || report.broken_links.any?) && report.caution_links.any?,
     } %>
   <% else %>
     <%= render "components/inset_prompt", {

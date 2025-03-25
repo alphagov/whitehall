@@ -72,7 +72,8 @@ en:
       subheading: We’ve found links in this document that may be broken
     caution:
       subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
-    title: Broken links
+    title_error: Broken links
+    title_warning: Potential link issues
   contact:
     access_and_opening_times: Access and opening times
     contact_form: Contact form
