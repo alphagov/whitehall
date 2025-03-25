@@ -27,7 +27,7 @@ NOT EXISTS (
 
   def mark_report_as_completed(batch_report)
     UpdateFromBatchReport.new(self, batch_report).call
-    # RemoveDangerousLinksWorker.perform_async(edition.id) if danger_links.any?
+    RemoveDangerousLinksWorker.perform_async(edition.id) if danger_links.any?
   end
 
   def completed?
