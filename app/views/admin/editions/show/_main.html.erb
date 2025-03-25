@@ -224,7 +224,7 @@
               { text: translation.title },
               (@edition.editable? || @edition.can_delete?) ? {
                 text: raw([
-                  *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link app-view-edition-summary__table-link") if @edition.editable?),
+                  *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link app-view-summary__table-link") if @edition.editable?),
                   *(link_to("Delete", confirm_destroy_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link gem-link--destructive") if @edition.can_delete?),
                 ].compact().join(" ")),
               } : nil,
