@@ -1,3 +1,7 @@
+<%
+  hide_button_to_create_new_report ||= false
+%>
+
 <div data-module="broken-links-report">
   <% if report.new_record? %>
     <%= render "components/inset_prompt", {
@@ -57,10 +61,12 @@
         <% if LinkCheckerApiService.has_admin_draft_links?(report.edition) %>
           <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
         <% end %>
-        <%= render partial: "admin/link_check_reports/form", locals: {
-          edition: report.edition,
-          button_text: "Check again",
-        } %>
+        <% unless hide_button_to_create_new_report %>
+          <%= render partial: "admin/link_check_reports/form", locals: {
+            edition: report.edition,
+            button_text: "Check again",
+          } %>
+        <% end %>
         <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-top-5">Last checked: <%= l(report.updated_at, format: :long_ordinal) %></p>
       <% end,
       error: true
@@ -76,11 +82,13 @@
             It contains links to draft documents that weren't checked.
           </p>
         <% end %>
-        <%= render partial: "admin/link_check_reports/form", locals: {
-          edition: report.edition,
-          button_text: "Check again",
-          secondary_quiet: true,
-        } %>
+        <% unless hide_button_to_create_new_report %>
+          <%= render partial: "admin/link_check_reports/form", locals: {
+            edition: report.edition,
+            button_text: "Check again",
+            secondary_quiet: true,
+          } %>
+        <% end %>
       <% end
     } %>
   <% end %>
