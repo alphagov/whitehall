@@ -31,7 +31,7 @@
 
           <p class="govuk-body"><%= t "broken_links.#{status}.subheading" %></p>
 
-          <ul class="govuk-list app-view-edition-summary__broken-links-report">
+          <ul class="govuk-list app-view-summary__broken-links-report">
             <% links.each do |link| %>
               <li>
                 <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: "govuk-link" %>
