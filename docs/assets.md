@@ -62,7 +62,7 @@ Changes to assets are not applied to Asset Manager until an edition is published
 
 These actions are performed asynchronously as a Sidekiq job, because some editions have large numbers of attachments which would make sending these requests synchronously unacceptably slow for publishers. Sidekiq also supports automatically retrying any requests that fail, which helps the system to be more robust.
 
-![Attachment Publishing Flow for Editionable Attachables](diagrams/attachment_asset_publishing_flow.png)
+![Attachment Publishing Flow for Editionable Attachables](diagrams/asset_attachment_edition_publishing_flow.png)
 
 ### Images upload flow
 *Editionable Content* types such as **News Articles** and **Consultations** can have images that are used within the document.

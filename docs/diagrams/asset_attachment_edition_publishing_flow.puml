@@ -1,0 +1,73 @@
+@startuml asset_attachment_edition_publishing_flow
+
+title The sequence of publishing an edition with a file attachment in Whitehall
+skinparam BoxPadding 20
+skinparam ParticipantPadding 10
+
+box "Whitehall" #f2fef8
+actor publisher
+participant EditionWorkflowController
+participant EditionPublisher
+participant EditionServices
+participant PublishingApiPusher
+participant AttachmentAssetPublisher
+participant Attachment
+participant AttachmentRedirectUrlUpdater
+end box
+
+box Whitehall worker (Sidekiq)
+participant PublishAttachmentAssetJob
+participant AssetManagerAttachmentRedirectUrlUpdateWorker
+participant AssetDeleter
+participant AssetUpdater
+end box
+
+box "Asset Manager" #f2f8fe
+participant AssetManager
+end box
+
+box "Publishing API" #f2f8fe
+participant PublishingApi
+end box
+
+publisher -> EditionWorkflowController : publish
+EditionWorkflowController -> EditionPublisher : publish
+activate EditionPublisher
+EditionPublisher -> PublishingApiPusher : push(publish)
+activate PublishingApiPusher
+PublishingApiPusher --> PublishingApi : update_draft
+PublishingApiPusher --> PublishingApi : publish
+deactivate PublishingApiPusher
+EditionPublisher -> EditionServices : publish
+deactivate EditionPublisher
+EditionServices -> AttachmentAssetPublisher : call
+
+activate AttachmentAssetPublisher
+AttachmentAssetPublisher -> Attachment : "Load edition attachments"
+Attachment -> AttachmentAssetPublisher
+AttachmentAssetPublisher --> PublishAttachmentAssetJob : Enqueue
+deactivate
+
+group Happens once per attachment
+  PublishAttachmentAssetJob -[hidden]> PublishAttachmentAssetJob++
+  PublishAttachmentAssetJob -> AssetDeleter++ : if Attachment Data does not have a publicly visible attachment
+  AssetDeleter -> AssetManager-- : Delete deleted attachment assets
+  PublishAttachmentAssetJob -> AssetUpdater++ : Attachment Data has only one attachment that is publicly visible
+  AssetUpdater -> AssetManager-- : Set `draft` to false
+  PublishAttachmentAssetJob -[hidden]> PublishAttachmentAssetJob--
+end group
+
+EditionServices -> AttachmentRedirectUrlUpdater : call
+
+activate AttachmentRedirectUrlUpdater
+AttachmentRedirectUrlUpdater --> AssetManagerAttachmentRedirectUrlUpdateWorker : Enqueue
+deactivate
+
+group Happens once per attachment
+  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker++
+  AssetManagerAttachmentRedirectUrlUpdateWorker -> AssetUpdater++
+  AssetUpdater -> AssetManager-- : update redirect URL
+  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker--
+end group
+
+@enduml
