@@ -136,11 +136,9 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       Whitehall::PublishingApi.expects(:publish).raises(GdsApi::HTTPPayloadTooLarge.new("413 Request Entity Too Large"))
       worker = PublishingApiDocumentRepublishingWorker.new
 
-      assert_equal(worker.sidekiq_options_hash["retry"], true)
-      assert_raises(GdsApi::HTTPPayloadTooLarge) do
+      assert_raises(Sidekiq::JobRetry::Skip) do
         worker.perform(edition.document.id)
       end
-      assert_equal(worker.sidekiq_options_hash["retry"], 0)
     end
   end
 

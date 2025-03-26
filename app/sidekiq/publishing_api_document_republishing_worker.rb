@@ -1,3 +1,5 @@
+require "sidekiq/job_retry"
+
 # This worker synchronises the state of the editions for a document with the
 # publishing-api. It sends the current live Edition and the draft Edition.
 #
@@ -24,9 +26,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
       document.lock!
 
       document.republishing_actions.each { |action| send(action) }
-    rescue GdsApi::HTTPPayloadTooLarge => e
-      PublishingApiDocumentRepublishingWorker.sidekiq_options retry: 0
-      raise e
+    rescue GdsApi::HTTPPayloadTooLarge
+      raise Sidekiq::JobRetry::Skip # ...to prevent retries
     end
   end
 
