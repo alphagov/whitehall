@@ -121,6 +121,7 @@ module Admin
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
       editions = editions.only_broken_links if only_broken_links
+      editions = editions.only_danger_links if only_danger_links
       editions = editions.review_overdue if review_overdue
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
@@ -259,6 +260,10 @@ module Admin
 
     def only_broken_links
       options[:only_broken_links].present?
+    end
+
+    def only_danger_links
+      options[:only_danger_links].present?
     end
 
     def review_overdue

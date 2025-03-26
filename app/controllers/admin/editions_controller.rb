@@ -417,7 +417,7 @@ private
   end
 
   def params_filters
-    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date, :only_broken_links, :review_overdue)
+    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date, :only_broken_links, :only_danger_links, :review_overdue)
           .permit!
           .to_h
   end
