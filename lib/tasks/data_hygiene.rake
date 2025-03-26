@@ -39,4 +39,62 @@ namespace :data_hygiene do
       puts e.message
     end
   end
+
+  desc "Merge people records"
+  task :merge_people, %i[person_to_merge person_to_keep] => :environment do |_task, args|
+    begin
+      person_to_merge = Person.find(args[:person_to_merge])
+      person_to_keep = Person.find(args[:person_to_keep])
+    rescue ActiveRecord::RecordNotFound
+      puts "Please provide valid person IDs to merge."
+      next
+    end
+
+    person_to_merge_content_id = person_to_merge.content_id
+
+    if person_to_merge == person_to_keep
+      puts "The person IDs provided are the same. Please provide valid person IDs to merge."
+      next
+    end
+
+    if person_to_merge.historical_account
+      puts "Please remove the historical account from the person you want to merge, and retry."
+      next
+    end
+
+    if person_to_merge.translations.count > 1
+      puts "Please manually migrate non-English translations from the person you want to merge to the person you want to keep, and retry."
+      next
+    end
+
+    ActiveRecord::Base.transaction do
+      person_to_merge.role_appointments.each do |ra|
+        puts "\nLinking role appointment #{ra.id}: '#{ra.role.name}' from person #{person_to_merge.id} (#{person_to_merge.full_name}), to person #{person_to_keep.id} (#{person_to_keep.full_name})"
+        ra.update!(person: person_to_keep)
+      end
+
+      puts "\nDestroying Person ID: #{person_to_merge.id} (#{person_to_merge.full_name})"
+      puts "Person will be permanently deleted, non-retrievable. Please note the following details in Trello tickets for the record"
+      puts "==== BEGIN ===="
+      puts person_to_merge.attributes
+      person_to_merge.reload.destroy!
+      puts "==== END ===="
+    end
+
+    puts "\nWaiting 10s for changes to propagate through Publishing API, triggering callbacks from Search API, chat, email alerts, etc. before sending a redirect, otherwise the redirect gets overridden...\n"
+    10.times do
+      sleep(1)
+      print "."
+    end
+    puts "\n"
+
+    puts "\nRedirecting the deleted person of content ID: '#{person_to_merge_content_id}' to the person to keep, at path: '/government/people/#{person_to_keep.slug}'"
+    response = PublishingApiRedirectWorker.new.perform(
+      person_to_merge_content_id,
+      "/government/people/#{person_to_keep.slug}",
+      I18n.default_locale.to_s,
+    )
+    puts response.code
+    puts response.raw_response_body
+  end
 end
