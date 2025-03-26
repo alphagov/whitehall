@@ -5,7 +5,6 @@
         partial: "admin/link_check_reports/link_check_report",
         locals: {
           report: @edition.link_check_report || LinkCheckerApiReport.new(edition: @edition),
-          allow_new_report: true,
         },
       ) if show_link_check_report?(@edition) %>
   <%= render partial: "admin/editions/show/sidebar_history_state", locals: { edition: @edition } %>
