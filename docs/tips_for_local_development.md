@@ -1,4 +1,9 @@
-# Tips for working on whitehall locally
+# Tips for working on Whitehall locally
+
+See also:
+
+- [govuk-docker: Publishing Content from Whitehall for Developing Government Frontend](https://docs.publishing.service.gov.uk/repos/govuk-docker/how-tos/publishing-content-on-whitehall.html)
+- [Unofficial notes doc](https://docs.google.com/document/d/1PnZwCGjtgsvArzGGcLM102F2jctFi1J0NwI6WdBLem8/edit)
 
 ## Installing Whitehall gems locally
 
