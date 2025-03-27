@@ -40,6 +40,37 @@ namespace :data_hygiene do
     end
   end
 
+  desc "Merge people records - Dry run"
+  task :merge_people_dry_run, %i[person_to_merge person_to_keep] => :environment do |_task, args|
+    begin
+      person_to_merge = Person.find(args[:person_to_merge])
+      person_to_keep = Person.find(args[:person_to_keep])
+    rescue ActiveRecord::RecordNotFound
+      puts "Please provide valid person IDs to merge."
+      next
+    end
+
+    if person_to_merge == person_to_keep
+      puts "The person IDs provided are the same. Please provide valid person IDs to merge."
+      next
+    end
+
+    puts "The Person ID #{person_to_merge.id} (#{person_to_merge.full_name}) has:\n" \
+           "\t#{person_to_merge.role_appointments.count} role appointments #{person_to_merge.role_appointments.map { |ra| ra.role&.name }.to_sentence}\n" \
+           "\t#{person_to_merge.historical_account ? '1' : '0'} historical accounts\n" \
+           "\t#{person_to_merge.translations.count} translations #{person_to_merge.translations.pluck(:locale).to_sentence}"
+
+    puts "The Person ID #{person_to_keep.id} (#{person_to_keep.full_name}) has:\n" \
+           "\t#{person_to_keep.role_appointments.count} role appointments #{person_to_keep.role_appointments.map { |ra| ra.role&.name }.to_sentence}\n" \
+           "\t#{person_to_keep.historical_account ? '1' : '0'} historical accounts\n" \
+           "\t#{person_to_keep.translations.count} translations #{person_to_keep.translations.pluck(:locale).to_sentence}"
+
+    if person_to_merge.translations.find_by(locale: "en")&.biography != person_to_keep.translations.find_by(locale: "en")&.biography
+      puts "The English biographies of the people to merge are different. If the people get merged, you might lose data. Please manually migrate the data and retry."
+      next
+    end
+  end
+
   desc "Merge people records"
   task :merge_people, %i[person_to_merge person_to_keep] => :environment do |_task, args|
     begin
