@@ -90,3 +90,61 @@ class MergePeopleTest < ActiveSupport::TestCase
     assert_includes out, "Redirecting the deleted person of content ID: '#{person_to_merge.content_id}' to the person to keep, at path: '/government/people/#{person_to_keep.slug}'"
   end
 end
+
+class MergePeopleDryRunTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
+  teardown do
+    task.reenable
+  end
+
+  let(:task) { Rake::Task["data_hygiene:merge_people_dry_run"] }
+
+  it "returns if people cannot be found" do
+    person_to_keep = create(:person)
+    person_to_merge = create(:person)
+    person_to_merge.destroy!
+    person_to_keep.destroy!
+
+    out, _err = capture_io { task.invoke(person_to_keep.id, person_to_merge.id) }
+    assert_includes out, "Please provide valid person IDs to merge."
+  end
+
+  it "returns if people are not distinct" do
+    person = create(:person)
+
+    out, _err = capture_io { task.invoke(person.id, person.id) }
+    assert_includes out, "The person IDs provided are the same. Please provide valid person IDs to merge."
+  end
+
+  it "outputs a summary of the people's relationships" do
+    person_to_merge = create(:person,
+                             translated_into: {
+                               fr: { biography: "french-biography" },
+                             })
+    create(:role_appointment, person: person_to_merge)
+    create(:historical_account, person: person_to_merge)
+    person_to_keep = create(:person)
+
+    out, _err = capture_io { task.invoke(person_to_merge.id, person_to_keep.id) }
+
+    assert_includes out, "The Person ID #{person_to_merge.id} (#{person_to_merge.full_name}) has:\n\t1 role appointments " \
+      "#{person_to_merge.role_appointments.map { |ra| ra.role&.name }.to_sentence}\n\t1 historical accounts\n\t1 translations fr\n"
+    assert_includes out, "The Person ID #{person_to_keep.id} (#{person_to_keep.full_name}) has:\n\t0 role appointments \n\t0 historical accounts\n\t0 translations \n"
+  end
+
+  it "checks discrepancies between the people's English biographies" do
+    person_to_merge = create(:person,
+                             translated_into: {
+                               en: { biography: "english-biography 1" },
+                             })
+    person_to_keep = create(:person,
+                            translated_into: {
+                              en: { biography: "english-biography 2" },
+                            })
+
+    out, _err = capture_io { task.invoke(person_to_merge.id, person_to_keep.id) }
+
+    assert_includes out, "The English biographies of the people to merge are different. If the people get merged, you might lose data. Please manually migrate the data and retry."
+  end
+end
