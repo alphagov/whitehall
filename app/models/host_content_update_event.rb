@@ -22,7 +22,7 @@ class HostContentUpdateEvent < Data.define(:author, :created_at, :content_id, :c
   end
 
   def is_for_current_edition?(edition)
-    edition.published_at && created_at.after?(edition.published_at) && !is_for_newer_edition?(edition)
+    !edition.unpublished? && created_at.after?(edition.created_at) && !is_for_newer_edition?(edition)
   end
 
   def is_for_older_edition?(edition)

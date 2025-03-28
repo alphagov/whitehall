@@ -83,12 +83,17 @@ class HostContentUpdateEventTest < ActiveSupport::TestCase
     let(:created_at) { Time.zone.now - 1.month }
     let(:host_content_update_event) { build(:host_content_update_event, created_at:) }
 
+    before do
+      edition.stubs(:created_at).returns(created_at - 12.months)
+    end
+
     describe "when the edition is published" do
       let(:edition) { build(:edition) }
 
-      before do
-        edition.stubs(:published_at).returns(created_at - 12.months)
-      end
+      # before do
+      #   edition.stubs(:created_at).returns(created_at - 12.months)
+      #   edition.stubs(:published_at).returns(created_at - 12.months)
+      # end
 
       describe "when the event occurred after the edition was superseded" do
         before do
@@ -143,6 +148,28 @@ class HostContentUpdateEventTest < ActiveSupport::TestCase
 
     describe "when the edition is draft" do
       let(:edition) { build(:edition, :draft) }
+
+      describe "#is_for_newer_edition?" do
+        it "returns false" do
+          assert_not host_content_update_event.is_for_newer_edition?(edition)
+        end
+      end
+
+      describe "#is_for_current_edition?" do
+        it "returns true" do
+          assert host_content_update_event.is_for_current_edition?(edition)
+        end
+      end
+
+      describe "#is_for_older_edition?" do
+        it "returns false" do
+          assert_not host_content_update_event.is_for_older_edition?(edition)
+        end
+      end
+    end
+
+    describe "when the edition is unpublished" do
+      let(:edition) { build(:edition, :unpublished) }
 
       describe "#is_for_newer_edition?" do
         it "returns false" do
