@@ -353,6 +353,11 @@
         heading_size: "m",
         full_width: true,
         error_message: errors_for_input(@organisation.errors, :ocpa_regulated),
+        data_attributes: {
+          ga4_document_type: "#{action_name}-#{controller_name}",
+          ga4_index_section: 3,
+          ga4_section: "OCPA Regulated",
+        },
         options: [
           {
             text: "",
@@ -378,6 +383,11 @@
         heading_size: "m",
         full_width: true,
         error_message: errors_for_input(@organisation.errors, :public_meetings),
+        data_attributes: {
+          ga4_document_type: "#{action_name}-#{controller_name}",
+          ga4_index_section: 4,
+          ga4_section: "Public Meetings",
+        },
         options: [
           {
             text: "",
@@ -403,6 +413,11 @@
         heading_size: "m",
         full_width: true,
         error_message: errors_for_input(@organisation.errors, :public_minutes),
+        data_attributes: {
+          ga4_document_type: "#{action_name}-#{controller_name}",
+          ga4_index_section: 5,
+          ga4_section: "Public Minutes",
+        },
         options: [
           {
             text: "",
@@ -428,6 +443,11 @@
         heading_size: "m",
         full_width: true,
         error_message: errors_for_input(@organisation.errors, :regulatory_function),
+        data_attributes: {
+          ga4_document_type: "#{action_name}-#{controller_name}",
+          ga4_index_section: 6,
+          ga4_section: "Regulatory Function",
+        },
         options: [
           {
             text: "",

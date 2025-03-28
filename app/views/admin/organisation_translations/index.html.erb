@@ -65,6 +65,11 @@
           name: "translation_locale",
           label: "Select Language",
           heading_size: "l",
+          data_attributes: {
+            ga4_document_type: "#{action_name}-#{controller_name}",
+            ga4_index_section: 1,
+            ga4_section: "Select Language",
+          },
           options: @organisation.missing_translations.map do |locale|
             {
               value: locale.code,

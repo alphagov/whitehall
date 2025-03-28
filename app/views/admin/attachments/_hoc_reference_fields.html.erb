@@ -45,6 +45,11 @@
     heading_size: heading_size,
     options: options,
     hint: "Choose the right Parliamentary session",
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_index_section: 3,
+      ga4_section: "Choose the right Parliamentary session",
+    },
     error_message: errors_for_input(attachment.errors, :parliamentary_session),
   } %>
 </div>

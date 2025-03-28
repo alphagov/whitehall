@@ -16,6 +16,11 @@
       name: "attachment[locale]",
       heading_level: 2,
       heading_size: heading_size,
+      data_attributes: {
+        ga4_document_type: "#{action_name}-#{controller_name}",
+        ga4_index_section: 2,
+        ga4_section: "Display language",
+      },
       options: locale_options,
       hint: "This determines the translations of the publication that the attachment will appear in.",
     } %>

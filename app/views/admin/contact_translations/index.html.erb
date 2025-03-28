@@ -18,6 +18,11 @@
         hint: "This is the first step before creating a translated version of this content",
         heading_size: "l",
         full_width: true,
+        data_attributes: {
+          ga4_document_type: "#{action_name}-#{controller_name}",
+          ga4_index_section: 1,
+          ga4_section: "Select language",
+        },
         options: options_for_locales(@contact.missing_translations).map do |language, value|
           {
             text: language,

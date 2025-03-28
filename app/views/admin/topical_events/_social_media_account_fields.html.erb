@@ -4,6 +4,11 @@
     label: "Service (required)",
     name: "topical_event[social_media_accounts_attributes][#{index}][social_media_service_id]",
     heading_size: "s",
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_index_section: "#{index}",
+      ga4_section: "Service (required)",
+    },
     options: [{ text: "", value: "" }] +
       SocialMediaService.all.map do |social_media|
         {
