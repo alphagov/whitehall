@@ -429,8 +429,8 @@ GEM
       rack (>= 2.1.4.1)
     marcel (1.0.4)
     matrix (0.4.2)
-    maxitest (5.8.0)
-      minitest (>= 5.14.0, < 5.26.0)
+    maxitest (6.0.0)
+      minitest (>= 5.20.0, < 5.26.0)
     method_source (1.1.0)
     mime-types (3.6.2)
       logger
