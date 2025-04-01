@@ -46,4 +46,9 @@ The rationale for packaging the code in this way can be found in the Whitehall A
 
 ### Further documentation
 
-See the [`docs/content_block_manager`](https://github.com/alphagov/whitehall/blob/main/docs/content_block_manager) directory.
+See the [`docs/content_block_manager`](https://github.com/alphagov/whitehall/blob/main/docs/content_block_manager) 
+directory, and the [GOV.UK Developer Docs](https://docs.publishing.service.gov.uk/content-modelling/)
+
+## Contact
+
+The Content Modelling Team are available via Slack at [#govuk-publishing-content-modelling-dev](https://gds.slack.com/archives/C0776B04EJU)
