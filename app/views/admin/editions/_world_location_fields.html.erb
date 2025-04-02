@@ -1,5 +1,4 @@
 <% required = false unless defined?(required) %>
-<% index = "1" unless defined?(index) %>
 
 <% cache_if edition.world_location_ids.empty?, "#{taggable_world_locations_cache_digest}-design-system" do %>
   <%= render "components/select_with_search", {
@@ -9,7 +8,6 @@
     label: "World locations" + "#{' (required)' if required}",
     ga_data: {
       document_type: "#{action_name}-#{controller_name}",
-      index_section: index,
       section: "World locations" + "#{' (required)' if required}",
     },
     heading_size: "m",

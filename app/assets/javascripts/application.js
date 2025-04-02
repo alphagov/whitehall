@@ -16,6 +16,7 @@
 //= require components/miller-columns
 //= require components/select-with-search
 
+//= require admin/analytics-modules/ga4-index-section-setup.js
 //= require admin/analytics-modules/ga4-button-setup.js
 //= require admin/analytics-modules/ga4-link-setup.js
 //= require admin/analytics-modules/ga4-visual-editor-event-handlers.js
