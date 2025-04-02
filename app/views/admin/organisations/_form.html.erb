@@ -46,7 +46,6 @@
     include_blank: true,
     ga_data: {
       document_type: "#{action_name}-#{controller_name}",
-      index_section: 4,
       section: "Logo crest (required)",
     },
     options: OrganisationLogoType.all.map do |logo_type|
@@ -86,7 +85,6 @@
     include_blank: true,
     ga_data: {
       document_type: "#{action_name}-#{controller_name}",
-      index_section: 6,
       section: "Brand colour",
     },
     options: OrganisationBrandColour.all.map do |brand_colour|
@@ -136,7 +134,6 @@
     include_blank: true,
     ga_data: {
       document_type: "#{action_name}-#{controller_name}",
-      index_section: 7,
       section: "Organisation type (required)",
     },
     options: OrganisationType.in_listing_order.map do |type|
@@ -259,7 +256,6 @@
       label: "Sponsoring organisations",
       ga_data: {
         document_type: "#{action_name}-#{controller_name}",
-        index_section: 15,
         section: "Sponsoring organisations",
       },
       heading_size: "m",
@@ -293,7 +289,6 @@
         include_blank: true,
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
-          index_section: 1,
           section: "Topical Event #{topical_event_organisation.ordering + 1}",
         },
         options: TopicalEvent.all.map do |topical_event|

@@ -58,7 +58,6 @@
     name: "statistics_announcement[organisation_ids][]",
     ga_data: {
       document_type: "#{action_name}-#{controller_name}",
-      index_section: 4,
       section: "Organisations (required)",
     },
     options: Organisation.with_translations.order("organisation_translations.name").map do |org|
