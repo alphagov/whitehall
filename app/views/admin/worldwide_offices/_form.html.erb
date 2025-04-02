@@ -34,6 +34,10 @@
     full_width: true,
     heading_size: "l",
     options: options,
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_section: "Office type (required)",
+    },
     error_message: errors_for_input(office_form.object.errors, :worldwide_office_type_id),
   } %>
 

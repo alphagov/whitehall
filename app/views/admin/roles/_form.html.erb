@@ -16,6 +16,10 @@
     heading_size: "l",
     name: "role[role_type]",
     full_width: true,
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_section: "Role type (required)",
+    },
     options:
       [{ value: nil, text: nil }] + role_type_options.map { |group, name_vs_type|
         name_vs_type.map do |name, type|
@@ -56,6 +60,10 @@
     heading_size: "l",
     name: "role[whip_organisation_id]",
     full_width: true,
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_section: "Whip Organisation",
+    },
     options: ([nil] + Whitehall::WhipOrganisation.all).map do |whip_organisation|
         {
           text: whip_organisation&.label,
@@ -71,6 +79,10 @@
     heading_size: "l",
     name: "role[role_payment_type_id]",
     full_width: true,
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_section: "Payment options",
+    },
     options: ([nil] + RolePaymentType.all).map do |role_payment_type|
       {
         text: role_payment_type&.name,
@@ -86,6 +98,10 @@
     heading_size: "l",
     name: "role[attends_cabinet_type_id]",
     full_width: true,
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_section: "Attends cabinet options",
+    },
     options: ([nil] + RoleAttendsCabinetType.all).map do |role_attends_cabinet_type|
       {
         text: role_attends_cabinet_type&.name,
