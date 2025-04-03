@@ -205,3 +205,68 @@ that manage the successes and failures of the file uploads.
 > Whitehall will republish content and any dependent content when file processing finishes in the background.
 > For example, when changing a **DefaultNewsImage** for an **Organisation**, once all image variants have finished uploading, the **Organisation** is
 > republished and any **News Articles** that would use the organisation's image as a lead image are republished as well.
+
+### Current known bugs
+Last updated: 3rd April 2025
+
+#### Unable to preview attachments on new draft from Unpublishing
+
+**How to reproduce:** 
+
+1. Unpublish an edition that has an attachment
+2. Create a new draft
+3. Preview the attachment
+
+**What happens:** 
+
+1. Attachment preview is redirected
+
+**Expected:** 
+
+1. Draft Attachment should be previewable
+2. Live attachment should still be redirected
+
+**Suggested Support Fix:** 
+
+* There is currently no fix. If we make the asset state `draft` in asset-manager, then any previous asset in the replacement chain (if it exists) will become live, which might not be what the user wants.
+* One thing we can do is to check whether or not the attachment users want to preview is not a replacement of any prior assets. We can do this by double checking in both Asset in Asset Manager and AttachmentData in Whitehall that no other assets are replaced by this  target attachment. If that is the case, we should be able to set the state of the asset to `draft` in Asset Manager which should enable preview for the user.
+
+**Suggested Permanent Fix:**
+Having a draft stack for attachments will help. If we duplicate assets for draft, then it won't affect anything live. 
+
+---
+
+#### Missing live attachment if document is Unpublished, new draft discarded, and further draft published
+
+**How to reproduce:**
+
+1. Unpublish an edition with attachment
+2. Create new draft
+4. Discard the draft
+5. Create new draft
+6. Publish the draft
+
+**What happens:**
+
+1. Attachment returns not found
+
+**Expected:**
+
+1. Attachment should be made live again upon publish
+
+**Suggested Fix:**
+
+1. Reset redirect url and / or deleted_at in Asset Manager for the appropriate asset to bring it back
+
+--
+
+### Current unsupported workflows
+Last updated: 3rd April 2025
+
+We currently don't support official UI workflow for doing the following.
+
+- Redirect individual attachments
+  - For HTML attachments, rake task `publishing_api:redirect_html_attachments:by_content_id`
+  - For file attachments, manage in asset manager
+- Withdraw individual HTML attachments
+- Unpublish individual HTML attachments
