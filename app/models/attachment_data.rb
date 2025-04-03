@@ -9,7 +9,7 @@ class AttachmentData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  delegate :url, :path, to: :file, allow_nil: true
+  delegate :url, :path, :asset_manager_id, to: :file, allow_nil: true
 
   before_save :update_file_attributes
 
