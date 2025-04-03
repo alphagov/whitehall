@@ -1,4 +1,4 @@
-<h2 class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></h2>
+<h2 id="js-result-count" class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></h2>
 
 <% if paginator.blank? %>
   <p class="govuk-body app-view-edition-search-results__no_documents">No <%= filter.options[:dates] %> statistics announcements found</p>
