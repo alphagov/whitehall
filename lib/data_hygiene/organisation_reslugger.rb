@@ -20,7 +20,6 @@ module DataHygiene
       remove_from_search_index
       update_slug
       if organisation.is_a? Organisation
-        update_child_and_parent_organisations_in_search
         update_users
       end
     end
@@ -37,15 +36,6 @@ module DataHygiene
       # NOTE: This will trigger calls to both search_api and the Publishing API,
       # meaning that entries in both places will exist with the correct slug
       organisation.update!(slug: new_slug)
-    end
-
-    def update_child_and_parent_organisations_in_search
-      organisation.child_organisations.each do |child_org|
-        Whitehall::SearchIndex.add(child_org)
-      end
-      organisation.parent_organisations.each do |parent_org|
-        Whitehall::SearchIndex.add(parent_org)
-      end
     end
 
     def update_users
