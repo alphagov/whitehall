@@ -30,6 +30,10 @@
             full_width: true,
             heading_size: "xl",
             is_page_heading: true,
+            data_attributes: {
+              ga4_document_type: "#{action_name}-#{controller_name}",
+              ga4_section: "Set main office",
+            },
             options: @worldwide_organisation.offices.sort_by(&:title).map do |office|
               {
                 value: office.id,
