@@ -4,7 +4,7 @@
   raise "filter action required" unless defined?(filter_action)
 %>
 
-<div class="app-view-filter govuk-!-margin-right-5 govuk-!-padding-5">
+<div class="app-view-filter govuk-!-padding-5">
   <%= form_with url: filter_action + anchor, method: :get do |form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
@@ -41,6 +41,20 @@
           }
         end,
       } %>
+    <% end %>
+
+    <% if filter_by.include?(:organisation_id) %>
+      <%= render "components/select_with_search", {
+        label: "Organisation",
+        id: "organisation_filter",
+        name: "organisation_id",
+        heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          section: "Organisation",
+        },
+        grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
+    } %>
     <% end %>
 
     <% if filter_by.include?(:organisation) %>
@@ -166,6 +180,54 @@
             value: "1",
             bold: true,
             checked: params["review_overdue"],
+          },
+        ],
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:release_date) %>
+      <%= render "govuk_publishing_components/components/select", {
+        id: "release_date_filter",
+        label: "Release date",
+        name: "dates",
+        heading_size: "s",
+        full_width: true,
+        options: [
+          {
+            text: "All announcements",
+            value: nil,
+            selected: @filter.options[:dates] == nil,
+          },
+          {
+            text: "Future releases",
+            value: "future",
+            selected: @filter.options[:dates] == "future",
+          },
+          {
+            text: "Next 2 weeks",
+            value: "imminent",
+            selected: @filter.options[:dates] == "imminent",
+          },
+          {
+            text: "Past announcements",
+            value: "past",
+            selected: @filter.options[:dates] == "past",
+          },
+        ],
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:unlinked_only) %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "unlinked_only",
+        heading: "Announcements",
+        no_hint_text: true,
+        heading_size: "s",
+        items: [
+          {
+            label: "Without a linked publication",
+            value: 1,
+            checked: @filter.options[:unlinked_only],
           },
         ],
       } %>
