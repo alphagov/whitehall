@@ -198,7 +198,7 @@ class OrganisationTest < ActiveSupport::TestCase
     parent_org2 = create(:organisation, child_organisations: [child_org1])
     _parent_org3 = create(:organisation, child_organisations: [child_org2])
 
-    assert_equal [parent_org1, parent_org2], child_org1.parent_organisations
+    assert_equal [parent_org1, parent_org2], child_org1.reload.parent_organisations
   end
 
   test "can list all parent organisations" do
@@ -438,7 +438,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation, name: "A Child Org")
     create(:organisation, name: "A Parent Org", child_organisations: [organisation])
 
-    assert_equal %w[a-parent-org], organisation.search_index["organisations"]
+    assert_equal %w[a-parent-org], organisation.reload.search_index["organisations"]
   end
 
   test "should add organisation to search index on creating" do
@@ -449,10 +449,20 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.save!
   end
 
+  test "should reindex parent organisation in search index on creating" do
+    parent_org = create(:organisation)
+    child_org = build(:organisation, parent_organisations: [parent_org])
+
+    Whitehall::SearchIndex.expects(:add).once.with(child_org)
+    Whitehall::SearchIndex.expects(:add).once.with(parent_org)
+    child_org.save!
+  end
+
   test "should add courts to index on creating" do
     hmcts = create(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")
 
     court = build(:court, parent_organisations: [hmcts])
+    Whitehall::SearchIndex.stubs(:add)
     Whitehall::SearchIndex.expects(:add).once.with(court)
     court.save!
   end
@@ -461,6 +471,7 @@ class OrganisationTest < ActiveSupport::TestCase
     hmcts = create(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")
 
     hmcts_tribunal = build(:hmcts_tribunal, parent_organisations: [hmcts])
+    Whitehall::SearchIndex.stubs(:add)
     Whitehall::SearchIndex.expects(:add).once.with(hmcts_tribunal)
     hmcts_tribunal.save!
   end
@@ -476,6 +487,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "should add courts to index on updating" do
     court = create(:court)
+    Whitehall::SearchIndex.stubs(:add)
     Whitehall::SearchIndex.expects(:add).with(court)
     court.name = "Junk Appeals Court"
     court.save!
@@ -485,6 +497,14 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     Whitehall::SearchIndex.expects(:delete).with(organisation)
     organisation.destroy!
+  end
+
+  test "should update parent organisation in search index on destroying" do
+    parent_org = create(:organisation)
+    child_org = create(:organisation, parent_organisations: [parent_org])
+
+    Whitehall::SearchIndex.expects(:add).once.with(parent_org)
+    child_org.destroy!
   end
 
   test "should remove courts from index on destroying" do
