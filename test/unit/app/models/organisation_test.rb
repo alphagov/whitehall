@@ -188,7 +188,7 @@ class OrganisationTest < ActiveSupport::TestCase
     child_org2 = create(:organisation, parent_organisations: [parent_org1])
     _child_org3 = create(:organisation, parent_organisations: [parent_org2])
 
-    assert_equal [child_org1, child_org2], parent_org1.child_organisations
+    assert_equal [child_org1, child_org2], parent_org1.reload.child_organisations
   end
 
   test "#parent_organisations should return the child's parent organisations" do
@@ -456,6 +456,15 @@ class OrganisationTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).once.with(child_org)
     Whitehall::SearchIndex.expects(:add).once.with(parent_org)
     child_org.save!
+  end
+
+  test "should reindex child organisation in search index on creating" do
+    child_org = create(:organisation)
+    parent_org = build(:organisation, child_organisations: [child_org])
+
+    Whitehall::SearchIndex.expects(:add).once.with(child_org)
+    Whitehall::SearchIndex.expects(:add).once.with(parent_org)
+    parent_org.save!
   end
 
   test "should add courts to index on creating" do

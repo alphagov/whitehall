@@ -209,10 +209,10 @@ class Organisation < ApplicationRecord
 
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
-  after_save :reindex_parent_organisations
+  after_save :reindex_associated_organisations
   after_save :republish_how_government_works_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
   after_save :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
-  after_destroy :reindex_parent_organisations
+  after_destroy :reindex_associated_organisations
   after_destroy :republish_organisations_index_page_to_publishing_api
   after_destroy :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
 
@@ -232,8 +232,8 @@ class Organisation < ApplicationRecord
     end
   end
 
-  def reindex_parent_organisations
-    parent_organisations.each(&:update_in_search_index)
+  def reindex_associated_organisations
+    (parent_organisations + child_organisations).each(&:update_in_search_index)
   end
 
   def republish_organisations_index_page_to_publishing_api
