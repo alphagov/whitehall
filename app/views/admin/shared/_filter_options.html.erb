@@ -1,0 +1,246 @@
+<%
+  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links, :review_overdue]
+  anchor ||= anchor || ""
+  raise "filter action required" unless defined?(filter_action)
+  margin_right ||= 0
+%>
+
+<div class="app-view-filter govuk-!-margin-right-<%= margin_right %> govuk-!-padding-5">
+  <%= form_with url: filter_action + anchor, method: :get do |form| %>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Filter by",
+      margin_bottom: 4,
+    } %>
+
+    <% if filter_by.include?(:title) %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Title",
+          bold: true,
+        },
+        name: "title",
+        id: "title_filter",
+        value: @filter.options[:title],
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:author) %>
+      <%= render "components/select_with_search", {
+        label: "Author",
+        id: "author_filter",
+        name: "author",
+        heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          section: "Author",
+        },
+        options: admin_author_filter_options(current_user).map do |name, id|
+          {
+            text: name,
+            value: id,
+            selected: @filter.options[:author] == id.to_s || (@filter.options[:author].blank? && name == "All authors"),
+          }
+        end,
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:organisation_id) %>
+      <%= render "components/select_with_search", {
+        label: "Organisation",
+        id: "organisation_filter",
+        name: "organisation_id",
+        heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          section: "Organisation",
+        },
+        grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
+    } %>
+    <% end %>
+
+
+    <% if filter_by.include?(:organisation) %>
+      <%= render "components/select_with_search", {
+        label: "Organisation",
+        id: "organisation_filter",
+        name: "organisation",
+        heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          section: "Organisation",
+        },
+        grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:world_location) %>
+      <%= render "components/select_with_search", {
+        label: "World location",
+        id: "world_location_filter",
+        name: "world_location",
+        heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          section: "World location",
+        },
+        options: admin_world_location_filter_options(current_user).map do |name, id|
+          {
+            text: name,
+            value: id,
+            selected: @filter.options[:world_location].to_s == id.to_s,
+          }
+        end,
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:type) %>
+      <%= render "components/select_with_search", {
+        label: "Document type",
+        id: "type_filter",
+        name: "type",
+        heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          section: "Document type",
+        },
+        grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:state) %>
+      <%= render "components/select_with_search", {
+        label: "State",
+        id: "state_filter",
+        name: "state",
+        heading_size: "s",
+        ga_data: {
+          document_type: "#{action_name}-#{controller_name}",
+          section: "State",
+        },
+        options: admin_state_filter_options.map do |text, value|
+          {
+            text: text,
+            value: value,
+            selected: @filter.options[:state] == value,
+          }
+        end,
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:date) %>
+      <%= render "govuk_publishing_components/components/fieldset", {
+        legend_text: "Last updated date",
+        heading_level: 3,
+        heading_size: "s",
+      } do %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "From",
+            bold: true,
+          },
+          name: "from_date",
+          id: "from_date",
+          value: params["from_date"],
+          hint: "For example, 23/07/2013",
+        } %>
+
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "To",
+            bold: true,
+          },
+          name: "to_date",
+          id: "to_date",
+          value: params["to_date"],
+          hint: "For example, 23/08/2013",
+        } %>
+      <% end %>
+    <% end %>
+
+    <% if filter_by.include?(:only_broken_links) %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "only_broken_links",
+        small: true,
+        items: [
+          {
+            label: "Only broken links",
+            value: "1",
+            bold: true,
+            checked: params["only_broken_links"],
+          },
+        ],
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:review_overdue) %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "review_overdue",
+        small: true,
+        items: [
+          {
+            label: "Review overdue",
+            value: "1",
+            bold: true,
+            checked: params["review_overdue"],
+          },
+        ],
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:release_date) %>
+      <%= render "govuk_publishing_components/components/select", {
+        id: "release_date_filter",
+        label: "Release date",
+        name: "dates",
+        heading_size: "s",
+        full_width: true,
+        options: [
+          {
+            text: "All announcements",
+            value: nil,
+            selected: @filter.options[:dates] == nil,
+          },
+          {
+            text: "Future releases",
+            value: "future",
+            selected: @filter.options[:dates] == "future",
+          },
+          {
+            text: "Next 2 weeks",
+            value: "imminent",
+            selected: @filter.options[:dates] == "imminent",
+          },
+          {
+            text: "Past announcements",
+            value: "past",
+            selected: @filter.options[:dates] == "past",
+          },
+        ],
+      } %>
+    <% end %>
+
+    <% if filter_by.include?(:unlinked_only) %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "unlinked_only",
+        heading: "Announcements",
+        no_hint_text: true,
+        heading_size: "s",
+        items: [
+          {
+            label: "Without a linked publication",
+            value: 1,
+            checked: @filter.options[:unlinked_only],
+          },
+        ],
+      } %>
+    <% end %>
+
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Search",
+      margin_bottom: 4,
+    } %>
+
+    <p class="govuk-body">
+    <%= link_to "Reset all fields", reset_search_fields_query_string_params(current_user, filter_action, anchor), class: "govuk-link" %></p>
+  <% end %>
+</div>
