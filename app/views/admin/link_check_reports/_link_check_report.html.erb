@@ -38,7 +38,11 @@
           <ul class="govuk-list app-view-summary__broken-links-report">
             <% links.each do |link| %>
               <li>
-                <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: "govuk-link" %>
+                <% if link.status == "danger" %>
+                  <%= link.uri %>
+                <% else %>
+                  <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: "govuk-link" %>
+                <% end %>
                 <details class="govuk-details" data-module="govuk-details">
                   <summary class="govuk-details__summary">
                     <span class="govuk-details__summary-text">
