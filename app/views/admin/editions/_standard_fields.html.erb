@@ -100,6 +100,7 @@
           image_ids: edition.images.map { |img| img[:id] }.to_json,
           attachment_ids: edition.allows_inline_attachments? ? edition.attachments.map(&:id) : [],
           alternative_format_provider_id: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+          module: "content-block-editor"
         },
       } %>
       <%= hidden_field_tag "edition[visual_editor]", false %>
@@ -134,3 +135,7 @@
   month: @edition_params.try(:dig, "first_published_at(2i)") || edition.first_published_at&.month,
   day: @edition_params.try(:dig, "first_published_at(3i)") || edition.first_published_at&.day,
 ) %>
+
+<%= javascript_include_tag "components/content-block-editor.js", type: "module" %>
+<%= content_block_json_tag %>
+
