@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "choices.js": "^11.1.0",
+    "content-block-editor": "^0.6.2",
     "cropperjs": "^1.6.2",
     "govspeak-visual-editor": "^3.0.0",
     "miller-columns-element": "^2.0.1",
