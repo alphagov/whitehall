@@ -71,10 +71,10 @@ class OffsiteLink < ApplicationRecord
     end
 
     unless government_or_permitted_url?(host)
-      errors.add(:url, "Please enter a valid government URL, such as https://www.gov.uk/jobsearch")
+      errors.add(:url, "Please enter a valid URL")
     end
   rescue URI::InvalidURIError
-    errors.add(:url, "Please enter a valid URL, such as https://www.gov.uk/jobsearch")
+    errors.add(:url, "Please enter a valid URL")
   end
 
   def humanized_link_type
