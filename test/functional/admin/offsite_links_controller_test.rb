@@ -18,6 +18,8 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     assert_offsite_links_form(
       admin_world_location_news_offsite_links_path,
     )
+
+    assert_select "label[for='offsite_link_url'] + .govuk-hint", text: "Must be a GOV.UK URL or a link ending in: - flu-lab-net.eu- tse-lab-net.eu- beisgovuk.citizenspace.com- nhs.uk- royal.uk- victimandwitnessinformation.org.uk"
   end
 
   view_test "GET :edit should render existing offside links form" do

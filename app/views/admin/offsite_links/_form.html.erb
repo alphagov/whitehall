@@ -68,10 +68,12 @@
     },
   } %>
 
+  <% permitted_hosts_snippet = OffsiteLink::PERMITTED_HOSTS.map { |host| "<br>- #{host}" }.join %>
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "URL (required)",
     },
+    hint: sanitize("Must be a GOV.UK URL or a link ending in: #{permitted_hosts_snippet}"),
     heading_size: "l",
     id: "offsite_link_url",
     name: "offsite_link[url]",
