@@ -23,6 +23,7 @@
 //= require admin/analytics-modules/ga4-page-view-tracking.js
 //= require admin/analytics-modules/ga4-paste-tracker.js
 //= require admin/analytics-modules/ga4-select-with-search-tracker.js
+//= require admin/analytics-modules/ga4-select-tracker.js
 
 //= require admin/modules/document-history-paginator
 //= require admin/modules/locale-switcher
