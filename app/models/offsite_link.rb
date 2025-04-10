@@ -1,6 +1,15 @@
 class OffsiteLink < ApplicationRecord
   include DateValidation
 
+  PERMITTED_HOSTS = [
+    "flu-lab-net.eu",
+    "tse-lab-net.eu",
+    "beisgovuk.citizenspace.com",
+    "nhs.uk",
+    "royal.uk",
+    "victimandwitnessinformation.org.uk",
+  ].freeze
+
   module LinkTypes
     def self.all
       @all ||= %w[
@@ -62,10 +71,10 @@ class OffsiteLink < ApplicationRecord
     end
 
     unless government_or_permitted_url?(host)
-      errors.add(:url, "Please enter a valid government URL, such as https://www.gov.uk/jobsearch")
+      errors.add(:url, "Please enter a valid URL")
     end
   rescue URI::InvalidURIError
-    errors.add(:url, "Please enter a valid URL, such as https://www.gov.uk/jobsearch")
+    errors.add(:url, "Please enter a valid URL")
   end
 
   def humanized_link_type
@@ -99,16 +108,7 @@ private
   end
 
   def url_is_permitted?(host)
-    permitted_hosts = [
-      "flu-lab-net.eu",
-      "tse-lab-net.eu",
-      "beisgovuk.citizenspace.com",
-      "nhs.uk",
-      "royal.uk",
-      "victimandwitnessinformation.org.uk",
-    ]
-
-    permitted_hosts.any? { |permitted_host| host =~ /(?:^|\.)#{permitted_host}$/ }
+    PERMITTED_HOSTS.any? { |permitted_host| host =~ /(?:^|\.)#{permitted_host}$/ }
   end
 
   def republish_parent_to_publishing_api

@@ -1,0 +1,8 @@
+<div>
+  <p class="govuk-body">Must be a GOV.UK URL or a link ending in:</p>
+
+  <%= render "govuk_publishing_components/components/list", {
+    visible_counters: true,
+    items: GovUkUrlFormatValidator::EXTERNAL_HOST_ALLOW_LIST,
+  } %>
+</div>

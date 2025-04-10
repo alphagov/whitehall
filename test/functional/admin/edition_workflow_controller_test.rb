@@ -239,6 +239,36 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal publication, assigns(:edition)
   end
 
+  view_test "confirm_unpublish describes the constraints of the alternative URL" do
+    login_as(create(:managing_editor))
+    publication = create(:published_publication)
+    get :confirm_unpublish, params: { id: publication, lock_version: publication.lock_version }
+
+    alternative_uris_constraints = <<~CONSTRAINTS
+      Must be a GOV.UK URL or a link ending in:
+
+        .caa.co.uk
+        .gov.uk
+        .independent-inquiry.uk
+        .judiciary.uk
+        .nationalhighways.co.uk
+        .nhs.uk
+        .police.uk
+        .pubscodeadjudicator.org.uk
+        .ukri.org
+    CONSTRAINTS
+    alternative_uris_constraints = alternative_uris_constraints.strip.gsub(/\s+/, " ")
+
+    assert_includes(
+      css_select("div:has(> label[for='published_in_error_alternative_url']) + div").text.strip.gsub(/\s+/, " "),
+      alternative_uris_constraints,
+    )
+    assert_includes(
+      css_select("div:has(> label[for='consolidated_alternative_url']) + div").text.strip.gsub(/\s+/, " "),
+      alternative_uris_constraints,
+    )
+  end
+
   test "confirm_unpublish loads up to the last 50 previous withdrawals" do
     # arbitrary limit to protect against unexpectedly large result sets that could cause performance issues
     login_as(create(:managing_editor))

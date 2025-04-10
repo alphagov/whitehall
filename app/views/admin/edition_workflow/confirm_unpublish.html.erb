@@ -132,6 +132,7 @@
           value: @unpublishing.alternative_url,
           error_items: errors_for(@unpublishing.errors, :alternative_url),
         } %>
+        <%= render "alternative_url_constraints" %>
         <%= render "govuk_publishing_components/components/checkboxes", {
           name: "unpublishing[redirect]",
           items: [
@@ -186,6 +187,7 @@
           value: @unpublishing.alternative_url,
           error_items: errors_for(@unpublishing.errors, :alternative_url),
         } %>
+        <%= render "alternative_url_constraints" %>
 
         <div class="govuk-button-group govuk-!-margin-bottom-6">
           <%= render "govuk_publishing_components/components/button", {
