@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :corporate_information_page, class: CorporateInformationPage, parent: :edition, traits: [:translated] do
     corporate_information_page_type_id { CorporateInformationPageType::PublicationScheme.id }
-    body { "Some stuff" }
+    body { "## Who we are \n\nSome stuff" }
     association :organisation, factory: :organisation
 
     after(:create) do |corporate_information_page, _evaluator|
