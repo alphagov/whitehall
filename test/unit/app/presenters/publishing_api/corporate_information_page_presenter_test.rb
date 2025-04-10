@@ -188,6 +188,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_details_payload "PublishingApi::PayloadBuilder::TagDetails"
     end
 
+    test "headers" do
+      assert_details_payload "PublishingApi::PayloadBuilder::Headers"
+    end
+
     test "validity" do
       assert_valid_against_publisher_schema presented_content, "corporate_information_page"
       assert_valid_against_links_schema({ links: presented_links }, "corporate_information_page")
