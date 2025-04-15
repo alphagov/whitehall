@@ -28,4 +28,7 @@ Flipflop.configure do
   feature :show_all_content_block_types,
           description: "Show all applicable content block types in Content Block Manager",
           default: Whitehall.integration_or_staging? || !Rails.env.production?
+  feature :use_friendly_embed_codes,
+          description: "Use embed codes with friendly IDs in Content Block Manager",
+          default: Whitehall.integration_or_staging? || !Rails.env.production?
 end
