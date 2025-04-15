@@ -2,13 +2,16 @@
 <% content_for :title, @filter.page_title %>
 <% content_for :page_full_width, true %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-third">
-    <%= render "admin/shared/filter_options", filter_action: admin_editions_path %>
-  </div>
-  <div class="govuk-grid-column-two-thirds">
-    <div class="app-view-edition-index__table" aria-label="Search results">
-      <%= render "search_results", filter: @filter, paginator: @filter.editions, show_export: true %>
-    </div>
-  </div>
-</div>
+<% content_for :count_display do %>
+  <% if @filter.show_stats %>
+    <p class="govuk-heading-s govuk-!-margin-bottom-1 "><%= pluralize(number_with_delimiter(@filter.published_count), "published document") %></p>
+    <p class="govuk-heading-s govuk-!-margin-bottom-1"><%= number_with_delimiter(@filter.force_published_count) %> force published</p>
+    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= @filter.force_published_percentage %>% force published</p>
+  <% else %>
+    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
+  <% end %>
+<% end %>
+
+<%= render "admin/shared/filtered_view", show_export: can?(:export, Edition), filter_action: admin_editions_path, filter_by: [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links, :review_overdue], paginator: @filter.editions do %>
+  <%= render "search_results", filter: @filter %>
+<% end %>
