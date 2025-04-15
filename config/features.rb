@@ -28,4 +28,5 @@ Flipflop.configure do
   feature :show_all_content_block_types,
           description: "Show all applicable content block types in Content Block Manager",
           default: Whitehall.integration_or_staging? || !Rails.env.production?
+  feature :sidebar_scheduling, description: "Emable the new scheduling UX, which add scheduling behaviour to the document summary sidebar", default: false
 end
