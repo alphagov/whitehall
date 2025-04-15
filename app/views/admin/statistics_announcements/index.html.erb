@@ -17,13 +17,6 @@
   </div>
 </div>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-third">
-    <%= render "admin/shared/filter_options", filter_action: admin_statistics_announcements_path, filter_by: [ :title, :organisation_id, :release_date, :unlinked_only ] %>
-  </div>
-  <div class="govuk-grid-column-two-thirds">
-    <div class="app-view-edition-index__table" aria-label="Search results">
-      <%= render "search_results", filter: @filter, paginator: @statistics_announcements, show_export: true %>
-    </div>
-  </div>
-</div>
+<%= render "admin/shared/filtered_view", filter_action: admin_statistics_announcements_path, filter_by: [ :title, :organisation_id, :release_date, :unlinked_only ], paginator: @statistics_announcements, show_export: true, heading_level: 2 do %>
+    <%= render "search_results", filter: @filter, paginator: @statistics_announcements %>
+<% end %>

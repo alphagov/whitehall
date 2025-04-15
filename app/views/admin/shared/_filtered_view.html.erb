@@ -1,0 +1,36 @@
+<%
+  show_export ||= false
+  filter_by ||= nil
+  anchor ||= anchor || ""
+  raise "filter action required" unless defined?(filter_action)
+  heading_level ||= 0
+%>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <%= render "admin/shared/filter_options", filter_action:, filter_by:, anchor: %>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <div class="app-view-edition-index__table" aria-label="Search results">
+
+      <% unless content_for?(:count_display) %>
+        <%= render "govuk_publishing_components/components/heading", {
+            text: pluralize(number_with_delimiter(paginator.total_count), "document"),
+            font_size: "s",
+            heading_level: heading_level,
+            margin_bottom: 3,
+          } %>
+      <% else %>
+        <%= yield(:count_display) %>
+      <% end %>
+
+      <%= yield %>
+
+      <%= paginate(paginator, theme: "govuk_paginator") %>
+
+      <% if show_export %>
+        <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
