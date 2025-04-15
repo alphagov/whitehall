@@ -3,7 +3,27 @@
 require "test_helper"
 
 class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCase
+  include Rails.application.routes.url_helpers
+
+  setup do
+    @test_strategy = Flipflop::FeatureSet.current.test!
+    @test_strategy.switch!(:sidebar_scheduling, true)
+  end
+
   test "actions for draft edition" do
+    current_user = build_stubbed(:user)
+    edition = create(:draft_edition)
+    render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
+
+    assert_selector "li", count: 4
+    assert_selector "button", text: "Submit for 2nd eyes"
+    assert_selector "a", text: "Edit draft"
+    assert_selector "a", text: "Delete draft"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
+  end
+
+  test "actions for draft edition with sidebar scheduling disabled" do   
+    @test_strategy.switch!(:sidebar_scheduling, false)
     current_user = build_stubbed(:user)
     edition = create(:draft_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
@@ -57,9 +77,10 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:submitted_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 2
+    assert_selector "li", count: 3
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
   end
 
   test "actions for rejected edition" do
@@ -67,10 +88,11 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:rejected_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 3
+    assert_selector "li", count: 4
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
     assert_selector "button", text: "Submit for 2nd eyes"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
   end
 
   test "actions for superseded edition" do
@@ -115,11 +137,12 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:draft_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 4
+    assert_selector "li", count: 5
     assert_selector "button", text: "Submit for 2nd eyes"
     assert_selector "a", text: "Force publish"
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
   end
 
   test "actions for draft edition with a scheduled date as managing editor" do
@@ -127,11 +150,12 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:draft_edition, scheduled_publication: 1.day.from_now)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 4
+    assert_selector "li", count: 5
     assert_selector "button", text: "Submit for 2nd eyes"
     assert_selector "a", text: "Force schedule"
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
   end
 
   test "actions for published edition as managing editor" do
@@ -152,11 +176,12 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:submitted_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 4
+    assert_selector "li", count: 5
     assert_selector "a", text: "Publish"
     assert_selector "button", text: "Reject"
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
   end
 
   test "actions for submitted edition with a scheduled date as managing editor" do
@@ -164,11 +189,12 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 4
+    assert_selector "li", count: 5
     assert_selector "button", text: "Schedule"
     assert_selector "button", text: "Reject"
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
   end
 
   test "actions for rejected edition as managing editor" do
@@ -176,10 +202,11 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:rejected_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 3
+    assert_selector "li", count: 4
     assert_selector "a", text: "Edit draft"
     assert_selector "a", text: "Delete draft"
     assert_selector "button", text: "Submit for 2nd eyes"
+    assert_selector "a[href='#{propose_scheduling_admin_edition_path(edition)}']", text: "Schedule"
   end
 
   test "actions for superseded edition as managing editor" do

@@ -206,6 +206,7 @@ Whitehall::Application.routes.draw do
           post :submit, to: "edition_workflow#submit"
           post :revise
           get  :diff
+          get  :propose_scheduling
           get  :confirm_approve_retrospectively, to: "edition_workflow#confirm_approve_retrospectively"
           post :approve_retrospectively, to: "edition_workflow#approve_retrospectively"
           post :reject, to: "edition_workflow#reject"

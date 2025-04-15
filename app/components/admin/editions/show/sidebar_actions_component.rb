@@ -25,6 +25,7 @@ class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
       add_submit_action
       add_unschedule_action
       add_schedule_action
+      add_propose_scheduling_action
       add_publish_action
       add_reject_action
       add_destroy_action
@@ -102,6 +103,16 @@ private
         secondary_quiet: true,
       })
     end
+  end
+
+  def add_propose_scheduling_action
+    if @edition.editable? && Flipflop.sidebar_scheduling?
+      actions << link_to(
+        "Schedule",
+        propose_scheduling_admin_edition_path(@edition),
+        class: "govuk-link gem-link",
+      )
+      end
   end
 
   def add_publish_action

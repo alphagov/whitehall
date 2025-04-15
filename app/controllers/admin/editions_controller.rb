@@ -167,6 +167,8 @@ class Admin::EditionsController < Admin::BaseController
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
   end
 
+  def propose_scheduling; end
+
   def confirm_destroy; end
 
   def destroy
