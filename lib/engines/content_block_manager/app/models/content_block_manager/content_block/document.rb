@@ -28,12 +28,12 @@ module ContentBlockManager
 
       scope :live, -> { where.not(latest_edition_id: nil) }
 
-      def embed_code
-        "#{embed_code_prefix}}}"
+      def embed_code(use_friendly_id: Flipflop.use_friendly_embed_codes?)
+        "#{embed_code_prefix(use_friendly_id)}}}"
       end
 
-      def embed_code_for_field(field_path)
-        "#{embed_code_prefix}/#{field_path}}}"
+      def embed_code_for_field(field_path, use_friendly_id: Flipflop.use_friendly_embed_codes?)
+        "#{embed_code_prefix(use_friendly_id)}/#{field_path}}}"
       end
 
       def title
@@ -58,8 +58,8 @@ module ContentBlockManager
 
     private
 
-      def embed_code_prefix
-        "{{embed:content_block_#{block_type}:#{content_id}"
+      def embed_code_prefix(use_friendly_id)
+        "{{embed:content_block_#{block_type}:#{use_friendly_id ? content_id_alias : content_id}"
       end
     end
   end

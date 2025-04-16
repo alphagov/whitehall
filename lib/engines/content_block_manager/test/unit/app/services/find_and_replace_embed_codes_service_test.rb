@@ -4,28 +4,28 @@ class ContentBlockManager::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::
   extend Minitest::Spec::DSL
 
   it "finds and replaces embed codes" do
-    document_1 = create(:content_block_document, :email_address)
+    document_1 = create(:content_block_document, :email_address, content_id_alias: "something")
     edition_1 = create(:content_block_edition, :email_address, state: "published", document: document_1)
     document_1.latest_edition = edition_1
     document_1.save!
 
-    document_2 = create(:content_block_document, :email_address)
+    document_2 = create(:content_block_document, :email_address, content_id_alias: "something-else")
     edition_2 = create(:content_block_edition, :email_address, state: "published", document: document_2)
     document_2.latest_edition = edition_2
     document_2.save!
 
     html = "
       <p>Hello there</p>
-      <p>#{edition_2.document.embed_code}</p>
-      <p>#{edition_1.document.embed_code}</p>
-      <p>#{edition_2.document.embed_code}</p>
+      <p>#{edition_2.document.embed_code(use_friendly_id: false)}</p>
+      <p>#{edition_1.document.embed_code(use_friendly_id: true)}</p>
+      <p>#{edition_2.document.embed_code(use_friendly_id: false)}</p>
     "
 
     expected = "
       <p>Hello there</p>
-      <p>#{edition_2.render(edition_2.document.embed_code)}</p>
-      <p>#{edition_1.render(edition_1.document.embed_code)}</p>
-      <p>#{edition_2.render(edition_2.document.embed_code)}</p>
+      <p>#{edition_2.render(edition_2.document.embed_code(use_friendly_id: false))}</p>
+      <p>#{edition_1.render(edition_1.document.embed_code(use_friendly_id: true))}</p>
+      <p>#{edition_2.render(edition_2.document.embed_code(use_friendly_id: false))}</p>
     "
 
     result = ContentBlockManager::FindAndReplaceEmbedCodesService.call(html)
