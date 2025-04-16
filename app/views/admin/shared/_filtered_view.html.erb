@@ -6,7 +6,7 @@
   heading_level ||= 0
 %>
 
-<div class="govuk-grid-row">
+<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query>
   <div class="govuk-grid-column-one-third">
     <%= render "admin/shared/filter_options", filter_action:, filter_by:, anchor: %>
   </div>
@@ -15,6 +15,7 @@
 
       <% unless content_for?(:count_display) %>
         <%= render "govuk_publishing_components/components/heading", {
+            id: "js-result-count",
             text: pluralize(number_with_delimiter(paginator.total_count), "document"),
             font_size: "s",
             heading_level: heading_level,

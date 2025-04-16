@@ -4,11 +4,11 @@
 
 <% content_for :count_display do %>
   <% if @filter.show_stats %>
-    <p class="govuk-heading-s govuk-!-margin-bottom-1 "><%= pluralize(number_with_delimiter(@filter.published_count), "published document") %></p>
+    <p id="js-result-count" class="govuk-heading-s govuk-!-margin-bottom-1 "><%= pluralize(number_with_delimiter(@filter.published_count), "published document") %></p>
     <p class="govuk-heading-s govuk-!-margin-bottom-1"><%= number_with_delimiter(@filter.force_published_count) %> force published</p>
     <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= @filter.force_published_percentage %>% force published</p>
   <% else %>
-    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
+    <p id="js-result-count" class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %></p>
   <% end %>
 <% end %>
 

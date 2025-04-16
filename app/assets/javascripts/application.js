@@ -40,3 +40,7 @@
 'use strict'
 window.GOVUK.approveAllCookieTypes()
 window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })
+
+window.addEventListener('DOMContentLoaded', function () {
+  window.GOVUK.analyticsGa4.Ga4EcommerceTracker.init()
+})
