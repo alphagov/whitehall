@@ -1,4 +1,6 @@
 class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::EditionHelper
+
   def initialize(content_block_edition:)
     @content_block_edition = content_block_edition
   end
@@ -46,7 +48,7 @@ private
   def instructions_item
     {
       key: "Instructions to publishers",
-      value: content_block_edition.instructions_to_publishers.presence || "None",
+      value: formatted_instructions_to_publishers(content_block_edition),
     }
   end
 
