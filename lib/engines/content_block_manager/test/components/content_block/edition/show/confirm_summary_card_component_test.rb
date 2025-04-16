@@ -16,7 +16,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponen
                   ))
 
     assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
-    assert_selector ".govuk-summary-list__value", text: "some instructions"
+    assert_selector ".govuk-summary-list__value p", text: "some instructions"
   end
 
   it "renders a summary card component with the edition details to confirm" do
