@@ -29,6 +29,10 @@
     error_message: errors_for_input(offsite_link.errors, :link_type),
     heading_size: "l",
     full_width: true,
+    data_attributes: {
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_section: "Type (required)",
+    },
     options: [{ text: "", value:"" }] + OffsiteLink::LinkTypes.all.map do |type|
       {
         text: type.humanize,
