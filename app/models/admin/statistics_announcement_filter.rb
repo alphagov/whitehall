@@ -12,7 +12,7 @@ module Admin
     def statistics_announcements
       scope = unfiltered_scope
       scope = scope.with_title_containing(options[:title]) if options[:title].present?
-      scope = scope.in_organisations([options[:organisation_id]]) if options[:organisation_id].present?
+      scope = scope.in_organisations([options[:organisation]]) if options[:organisation].present?
       scope = scope.merge(unlinked_scope) if unlinked_only?
       scope.merge(date_and_order_scope)
     end
@@ -34,7 +34,7 @@ module Admin
     end
 
     def organisation
-      @organisation ||= Organisation.find_by(id: options[:organisation_id])
+      @organisation ||= Organisation.find_by(id: options[:organisation])
     end
 
     def user

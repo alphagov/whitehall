@@ -43,20 +43,6 @@
       } %>
     <% end %>
 
-    <% if filter_by.include?(:organisation_id) %>
-      <%= render "components/select_with_search", {
-        label: "Organisation",
-        id: "organisation_filter",
-        name: "organisation_id",
-        heading_size: "s",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Organisation",
-        },
-        grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
-    } %>
-    <% end %>
-
     <% if filter_by.include?(:organisation) %>
       <%= render "components/select_with_search", {
         label: "Organisation",

@@ -80,7 +80,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     _no_match    = create(:statistics_announcement)
 
     assert_equal [match],
-                 filter(organisation_id: organisation.id).statistics_announcements
+                 filter(organisation: organisation.id).statistics_announcements
   end
 
   test "filter eager loads the correct date for an announcement when ordered ascending" do
@@ -117,7 +117,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     assert_equal "Everyone’s statistics announcements", filter.title
 
     assert_equal "Department of stuff’s statistics announcements",
-                 filter(organisation_id: organisation.id).title
+                 filter(organisation: organisation.id).title
   end
 
   test "#title reflects when the provided user belongs to the filtered organisation" do
@@ -125,14 +125,14 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     user         = create(:writer, organisation:)
 
     assert_equal "My organisation’s statistics announcements",
-                 filter(organisation_id: organisation.id, user_id: user.id).title
+                 filter(organisation: organisation.id, user_id: user.id).title
   end
 
   test "#title handles possessive apostrophe correctly" do
     organisation = create(:organisation, name: "Department of things")
 
     assert_equal "Department of things’ statistics announcements",
-                 filter(organisation_id: organisation.id).title
+                 filter(organisation: organisation.id).title
   end
 
   test "#description describes future statistics announcements" do
