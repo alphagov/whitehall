@@ -21,6 +21,7 @@
 //= require admin/analytics-modules/ga4-link-setup.js
 //= require admin/analytics-modules/ga4-visual-editor-event-handlers.js
 //= require admin/analytics-modules/ga4-page-view-tracking.js
+//= require admin/analytics-modules/ga4-finder-tracker.js
 //= require admin/analytics-modules/ga4-paste-tracker.js
 //= require admin/analytics-modules/ga4-select-with-search-tracker.js
 
@@ -40,3 +41,38 @@
 'use strict'
 window.GOVUK.approveAllCookieTypes()
 window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })
+
+document.addEventListener("DOMContentLoaded", (event) => {
+	const finder = document.querySelector('[data-ga4-finder-tracker]');
+
+	if (finder) {
+		Array.from(document.querySelectorAll('input:not([type="search"]), select')).forEach((el) => {
+			el.setAttribute('data-ga4-filter-parent', 'true');
+			el.setAttribute('data-ga4-change-category', `update-filter ${el.tagName === 'INPUT' ? el.type : 'select'}`)
+			
+			if (el.id.length) {
+				el.setAttribute('data-ga4-section', document.querySelector(`label[for="${el.id}"]`).innerText)	
+			} else {
+				el.setAttribute('data-ga4-section', document.querySelector(`label[for="${el.name}"]`).innerText)	
+			}
+		})
+	}
+
+	window.GOVUK.analyticsGa4.Ga4FinderTracker.getSectionIndex = function(input) {
+		const inputs = Array.from(input.form.querySelectorAll('input:not([type="search"]), select'));
+		
+		return {
+			index_section: inputs.indexOf(input),
+			index_section_count: inputs.length
+		}
+	}
+
+	if (finder) {
+		finder.addEventListener('change', (event) => {
+		  var ga4ChangeCategory = event.target.closest('[data-ga4-change-category]')
+		  ga4ChangeCategory = ga4ChangeCategory.getAttribute('data-ga4-change-category')
+			window.GOVUK.analyticsGa4.Ga4FinderTracker.trackChangeEvent(event.target, ga4ChangeCategory)
+		})
+	}
+
+});
