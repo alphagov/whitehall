@@ -1,4 +1,4 @@
-<p class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></p>
+<p id="js-result-count" class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></p>
 
 <% if paginator.blank? %>
   <div class="govuk-body app-view-features-search-results__no_documents">
