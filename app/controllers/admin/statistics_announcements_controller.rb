@@ -121,7 +121,7 @@ private
   end
 
   def filter_params
-    params.slice(:title, :page, :per_page, :organisation_id, :dates, :unlinked_only)
+    params.slice(:title, :page, :per_page, :organisation, :dates, :unlinked_only)
           .permit!
           .to_h
           .reverse_merge(filter_defaults)
@@ -129,7 +129,7 @@ private
 
   def filter_defaults
     {
-      organisation_id: current_user.organisation.try(:id),
+      organisation: current_user.organisation.try(:id),
       dates: "future",
       user_id: current_user.id,
       per_page: 15,
@@ -149,6 +149,6 @@ private
   end
 
   def unlinked_announcements_filter
-    @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: "imminent", unlinked_only: "1", organisation_id: filter_params[:organisation_id])
+    @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: "imminent", unlinked_only: "1", organisation: filter_params[:organisation])
   end
 end
