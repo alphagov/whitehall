@@ -2,12 +2,12 @@ class OffsiteLink < ApplicationRecord
   include DateValidation
 
   PERMITTED_HOSTS = [
-    "flu-lab-net.eu",
-    "tse-lab-net.eu",
-    "beisgovuk.citizenspace.com",
     "nhs.uk",
     "royal.uk",
     "victimandwitnessinformation.org.uk",
+    "beisgovuk.citizenspace.com",
+    "flu-lab-net.eu",
+    "tse-lab-net.eu",
   ].freeze
 
   module LinkTypes
@@ -71,10 +71,10 @@ class OffsiteLink < ApplicationRecord
     end
 
     unless government_or_permitted_url?(host)
-      errors.add(:url, "Please enter a valid URL")
+      errors.add(:base, "Please enter a valid alternative URL, such as https://www.nhs.uk/")
     end
   rescue URI::InvalidURIError
-    errors.add(:url, "Please enter a valid URL")
+    errors.add(:base, "Please enter a valid alternative URL, such as https://www.nhs.uk/")
   end
 
   def humanized_link_type

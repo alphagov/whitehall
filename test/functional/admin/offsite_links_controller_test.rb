@@ -19,7 +19,21 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
       admin_world_location_news_offsite_links_path,
     )
 
-    assert_select "label[for='offsite_link_url'] + .govuk-hint", text: "Must be a GOV.UK URL or a link ending in: - flu-lab-net.eu- tse-lab-net.eu- beisgovuk.citizenspace.com- nhs.uk- royal.uk- victimandwitnessinformation.org.uk"
+    assert_select "label[for='offsite_link_url'] + .govuk-hint", text: "Must be a GOV.UK URL or a link ending in: - nhs.uk- royal.uk- victimandwitnessinformation.org.uk- beisgovuk.citizenspace.com- flu-lab-net.eu- tse-lab-net.eu"
+  end
+
+  view_test "POST :create with bad data should show flash message" do
+    post :create, params: {
+      world_location_news_id: @world_location_news.slug,
+      offsite_link: {
+        title: "foo",
+        summary: "barb",
+        link_type: "blog_post",
+        url: "bax",
+      },
+    }
+
+    assert_select ".govuk-error-summary__body", text: "Please enter a valid alternative URL, such as https://www.nhs.uk/"
   end
 
   view_test "GET :edit should render existing offside links form" do
