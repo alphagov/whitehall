@@ -2,12 +2,12 @@ class OffsiteLink < ApplicationRecord
   include DateValidation
 
   PERMITTED_HOSTS = [
-    "flu-lab-net.eu",
-    "tse-lab-net.eu",
-    "beisgovuk.citizenspace.com",
     "nhs.uk",
     "royal.uk",
     "victimandwitnessinformation.org.uk",
+    "beisgovuk.citizenspace.com",
+    "flu-lab-net.eu",
+    "tse-lab-net.eu",
   ].freeze
 
   module LinkTypes
