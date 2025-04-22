@@ -16,4 +16,16 @@ module ContentBlockManager::ContentBlock::EditionHelper
       lang: "en",
     )
   end
+
+  def formatted_instructions_to_publishers(content_block_edition)
+    if content_block_edition.instructions_to_publishers.present?
+      simple_format(
+        auto_link(content_block_edition.instructions_to_publishers, html: { class: "govuk-link", target: "_blank", rel: "noopener" }),
+        { class: "govuk-!-margin-top-0" },
+        { sanitize_options: { attributes: %w[href class target rel] } },
+      )
+    else
+      "None"
+    end
+  end
 end

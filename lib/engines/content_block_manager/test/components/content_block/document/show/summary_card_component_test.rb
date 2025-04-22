@@ -70,7 +70,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
       render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
 
       assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
-      assert_selector ".govuk-summary-list__value", text: "instructions"
+      assert_selector ".govuk-summary-list__value p", text: "instructions"
     end
   end
 end
