@@ -22,6 +22,10 @@
   </div>
 <% end %>
 
+<% if attachable.respond_to?(:primary_locale) && attachable.primary_locale != :en %>
+  <%= form.hidden_field :locale, value: attachable.primary_locale %>
+<% end %>
+
 <div class="govuk-!-margin-bottom-8">
   <%= render "govuk_publishing_components/components/input", {
     label: {
