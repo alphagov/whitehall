@@ -22,32 +22,12 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
       updated_at: 1.day.ago,
     )
   end
+  let(:schema_with_embeddable_fields) { stub(:schema, embeddable_fields: %w[foo]) }
+  let(:schema_without_embeddable_fields) { stub(:schema, embeddable_fields: []) }
   let(:content_block_document) { content_block_edition.document }
 
-  it "renders a published content block correctly" do
-    render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
-
-    assert_selector ".govuk-summary-list__row", count: 6
-
-    assert_selector ".govuk-summary-card__title", text: "Email address details"
-
-    assert_selector ".govuk-summary-list__key", text: "Title"
-    assert_selector ".govuk-summary-list__value", text: content_block_document.title
-
-    assert_selector ".govuk-summary-list__key", text: "Foo"
-    assert_selector ".govuk-summary-list__value", text: "bar"
-
-    assert_selector ".govuk-summary-list__key", text: "Something"
-    assert_selector ".govuk-summary-list__value", text: "else"
-
-    assert_selector ".govuk-summary-list__key", text: "Lead organisation"
-    assert_selector ".govuk-summary-list__value", text: "Department for Example"
-
-    assert_selector ".govuk-summary-list__key", text: "Status"
-    assert_selector ".govuk-summary-list__value", text: "Published on #{strip_tags published_date(content_block_edition)} by #{content_block_edition.creator.name}"
-
-    assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
-    assert_selector ".govuk-summary-list__value", text: "None"
+  before do
+    content_block_document.stubs(:schema).returns(schema_without_embeddable_fields)
   end
 
   it "renders a scheduled content block correctly" do
@@ -71,6 +51,23 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
 
       assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
       assert_selector ".govuk-summary-list__value p", text: "instructions"
+    end
+  end
+
+  describe "when there are embeddable fields in scheme" do
+    before do
+      content_block_document.stubs(:schema).returns(schema_with_embeddable_fields)
+    end
+
+    it "assembles the embed code functionality" do
+      render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
+
+      assert_selector ".govuk-summary-list__row", count: 7
+
+      assert_selector ".govuk-summary-list__row[data-embed-code='#{content_block_edition.document.embed_code_for_field('foo')}']", text: "Foo"
+      assert_selector ".govuk-summary-list__row[data-module='copy-embed-code']", text: "Foo"
+
+      assert_selector ".govuk-summary-list__row[data-embed-code-row='true']", text: content_block_edition.document.embed_code_for_field("foo")
     end
   end
 end

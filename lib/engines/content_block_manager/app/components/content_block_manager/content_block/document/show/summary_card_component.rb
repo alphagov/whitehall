@@ -45,12 +45,46 @@ private
   end
 
   def details_items
-    content_block_edition.first_class_details.map do |key, value|
-      {
+    content_block_edition.first_class_details.map { |key, value|
+      rows = [{
         key: key.humanize,
         value:,
-      }
-    end
+        data: data_attributes_for_row(key),
+      }]
+      rows.push(embed_code_row(key)) if should_show_embed_code?(key)
+      rows
+    }.flatten
+  end
+
+  def data_attributes_for_row(key)
+    copy_embed_code(key) if should_show_embed_code?(key)
+  end
+
+  def copy_embed_code(key)
+    {
+      module: "copy-embed-code",
+      "embed-code": content_block_document.embed_code_for_field(key),
+    }
+  end
+
+  # This generates a row containing the embed code for the field above it -
+  # it will be deleted if javascript is enabled by copy-embed-code.js.
+  def embed_code_row(key)
+    {
+      key: "Embed code",
+      value: content_block_document.embed_code_for_field(key),
+      data: {
+        "embed-code-row": "true",
+      },
+    }
+  end
+
+  def should_show_embed_code?(key)
+    embeddable_fields.include?(key)
+  end
+
+  def embeddable_fields
+    @embeddable_fields = content_block_document.schema.embeddable_fields
   end
 
   def status_item
