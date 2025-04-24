@@ -70,7 +70,7 @@ module ContentBlockManager
       end
 
       def embeddable_fields
-        config["embeddable_fields"] || fields
+        config["embeddable_fields"] || []
       end
 
       class EmbeddedSchema < Schema
