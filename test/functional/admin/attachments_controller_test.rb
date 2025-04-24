@@ -292,6 +292,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select ".govspeak-help", visible: false, count: 1
   end
 
+  view_test "GET :new for a consultation includes hidden locale field with value set to consultation primary locale" do
+    consultation = create(:consultation, primary_locale: "cy")
+    get :new, params: { edition_id: consultation, type: "file" }
+
+    assert_select "input[type='hidden'][name='attachment[locale]'][value='#{consultation.primary_locale}']"
+  end
+
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
     post :create, params: { edition_id: @edition, attachment: { attachment_data_attributes: {} } }
     assert_template :new
