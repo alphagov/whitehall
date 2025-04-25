@@ -1,4 +1,5 @@
 class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::EmbedCodeHelper
   def initialize(content_block_edition:, object_type:, object_title:, is_editable: false, redirect_url: nil)
     @content_block_edition = content_block_edition
     @object_type = object_type
@@ -24,7 +25,7 @@ private
           data: data_attributes_for_row(key),
         },
       ]
-      rows.push(embed_code_row(key)) if should_show_embed_code?(key)
+      rows.push(embed_code_row("#{object_type}/#{object_title}/#{key}", content_block_edition.document)) if should_show_embed_code?(key)
       rows
     }.flatten
   end
@@ -33,24 +34,12 @@ private
     attributes = {
       testid: (object_title.parameterize + "_#{key}").underscore,
     }
-    attributes.merge!(copy_embed_code(key)) if should_show_embed_code?(key)
+    attributes.merge!(copy_embed_code_data_attributes("#{object_type}/#{object_title}/#{key}", content_block_edition.document)) if should_show_embed_code?(key)
     attributes
   end
 
   def should_show_embed_code?(key)
     !is_editable && is_embeddable?(key)
-  end
-
-  # This generates a row containing the embed code for the field above it -
-  # it will be deleted if javascript is enabled by copy-embed-code.js.
-  def embed_code_row(key)
-    {
-      key: "Embed code",
-      value: content_block_edition.document.embed_code_for_field("#{object_type}/#{object_title}/#{key}"),
-      data: {
-        "embed-code-row": "true",
-      },
-    }
   end
 
   def embeddable_fields
@@ -59,13 +48,6 @@ private
 
   def is_embeddable?(key)
     embeddable_fields.include?(key)
-  end
-
-  def copy_embed_code(key)
-    {
-      module: "copy-embed-code",
-      "embed-code": content_block_edition.document.embed_code_for_field("#{object_type}/#{object_title}/#{key}"),
-    }
   end
 
   def object

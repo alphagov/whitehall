@@ -1,5 +1,6 @@
 class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent < ViewComponent::Base
   include ContentBlockManager::ContentBlock::EditionHelper
+  include ContentBlockManager::ContentBlock::EmbedCodeHelper
 
   def initialize(content_block_document:)
     @content_block_document = content_block_document
@@ -51,32 +52,13 @@ private
         value:,
         data: data_attributes_for_row(key),
       }]
-      rows.push(embed_code_row(key)) if should_show_embed_code?(key)
+      rows.push(embed_code_row(key, content_block_document)) if should_show_embed_code?(key)
       rows
     }.flatten
   end
 
   def data_attributes_for_row(key)
-    copy_embed_code(key) if should_show_embed_code?(key)
-  end
-
-  def copy_embed_code(key)
-    {
-      module: "copy-embed-code",
-      "embed-code": content_block_document.embed_code_for_field(key),
-    }
-  end
-
-  # This generates a row containing the embed code for the field above it -
-  # it will be deleted if javascript is enabled by copy-embed-code.js.
-  def embed_code_row(key)
-    {
-      key: "Embed code",
-      value: content_block_document.embed_code_for_field(key),
-      data: {
-        "embed-code-row": "true",
-      },
-    }
+    copy_embed_code_data_attributes(key, content_block_document) if should_show_embed_code?(key)
   end
 
   def should_show_embed_code?(key)
