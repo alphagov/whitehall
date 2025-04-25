@@ -202,6 +202,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
         email_address
         postal_address
         pension
+        contact
       ]
     end
 

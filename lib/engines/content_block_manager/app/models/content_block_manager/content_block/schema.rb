@@ -3,7 +3,7 @@ module ContentBlockManager
     class Schema
       SCHEMA_PREFIX = "content_block".freeze
 
-      VALID_SCHEMAS = %w[email_address postal_address pension].freeze
+      VALID_SCHEMAS = %w[email_address postal_address pension contact].freeze
       private_constant :VALID_SCHEMAS
 
       CONFIG_PATH = File.join(ContentBlockManager::Engine.root, "config", "content_block_manager.yml")
