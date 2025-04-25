@@ -66,7 +66,8 @@ class Person < ApplicationRecord
   end
 
   def name
-    name_as_words(("The Rt Hon" if privy_counsellor?), title, forename, surname, letters)
+    privy_counsellor_prefix = "The Rt Hon" if privy_counsellor?
+    name_as_words(privy_counsellor_prefix, title, forename, surname, letters)
   end
 
   def full_name
