@@ -22,7 +22,7 @@
   </div>
 <% end %>
 
-<% if attachable.respond_to?(:primary_locale) && attachable.primary_locale != :en %>
+<% if attachable.respond_to?(:primary_locale) && attachable.primary_locale != "en" %>
   <%= form.hidden_field :locale, value: attachable.primary_locale %>
 <% end %>
 
