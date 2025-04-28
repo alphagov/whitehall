@@ -400,8 +400,8 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
           .returns({})
       end
 
-      it "returns the fields" do
-        assert_equal schema.embeddable_fields, schema.fields
+      it "returns an empty array" do
+        assert_equal schema.embeddable_fields, []
       end
     end
   end

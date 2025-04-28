@@ -1,5 +1,6 @@
 class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent < ViewComponent::Base
   include ContentBlockManager::ContentBlock::EditionHelper
+  include ContentBlockManager::ContentBlock::EmbedCodeHelper
 
   def initialize(content_block_document:)
     @content_block_document = content_block_document
@@ -45,12 +46,27 @@ private
   end
 
   def details_items
-    content_block_edition.first_class_details.map do |key, value|
-      {
+    content_block_edition.first_class_details.map { |key, value|
+      rows = [{
         key: key.humanize,
         value:,
-      }
-    end
+        data: data_attributes_for_row(key),
+      }]
+      rows.push(embed_code_row(key, content_block_document)) if should_show_embed_code?(key)
+      rows
+    }.flatten
+  end
+
+  def data_attributes_for_row(key)
+    copy_embed_code_data_attributes(key, content_block_document) if should_show_embed_code?(key)
+  end
+
+  def should_show_embed_code?(key)
+    embeddable_fields.include?(key)
+  end
+
+  def embeddable_fields
+    @embeddable_fields = content_block_document.schema.embeddable_fields
   end
 
   def status_item

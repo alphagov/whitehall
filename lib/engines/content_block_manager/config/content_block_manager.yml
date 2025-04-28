@@ -9,3 +9,6 @@ schemas:
           - amount
           - frequency
           - description
+  content_block_email_address:
+    embeddable_fields:
+      - email_address
