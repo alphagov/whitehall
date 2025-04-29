@@ -180,6 +180,19 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     refute_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "dk" })
   end
 
+  view_test "GET on :index includes create button for users with sufficient permission to create social media accounts" do
+    organisation = create(:organisation)
+    get :index, params: { organisation_id: organisation.id }
+    assert_select "a", text: "Create new account"
+  end
+
+  view_test "GET on :index omits create button for users without sufficient permission to create social media accounts" do
+    login_as(:writer)
+    organisation = create(:organisation)
+    get :index, params: { organisation_id: organisation.id }
+    assert_select "a", text: "Create new account", count: 0
+  end
+
   test "PUT on :update with a locale updates only the translation of the social media account" do
     organisation = create(:organisation, translated_into: [:cy])
     social_media_account = organisation.social_media_accounts.create!(social_media_service_id: @social_media_service.id, url: "http://english-url.com", title: "Title in English")
