@@ -6,6 +6,7 @@ require "whitehall/authority/rules/ministerial_role_rules"
 require "whitehall/authority/rules/person_rules"
 require "whitehall/authority/rules/policy_group_rules"
 require "whitehall/authority/rules/miscellaneous_rules"
+require "whitehall/authority/rules/social_media_account_rules"
 
 module Whitehall::Authority
   class Enforcer
@@ -48,5 +49,6 @@ module Whitehall::Authority
     "Organisation" => Rules::OrganisationRules,
     "Government" => Rules::GovernmentRules,
     "StatisticsAnnouncement" => Rules::StatisticsAnnouncementRules,
+    "SocialMediaAccount" => Rules::SocialMediaAccountRules,
   }.freeze
 end

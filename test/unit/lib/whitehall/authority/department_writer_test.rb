@@ -154,4 +154,16 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   test "cannot modify historic editions" do
     assert_not enforcer_for(department_writer, historic_edition).can?(:modify)
   end
+
+  test "cannot create social media accounts" do
+    assert_not enforcer_for(department_writer, build(:social_media_account)).can?(:create)
+  end
+
+  test "cannot update social media accounts" do
+    assert_not enforcer_for(department_writer, build(:social_media_account)).can?(:update)
+  end
+
+  test "cannot delete social media accounts" do
+    assert_not enforcer_for(department_writer, build(:social_media_account)).can?(:delete)
+  end
 end

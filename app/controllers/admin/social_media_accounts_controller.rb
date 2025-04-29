@@ -1,6 +1,7 @@
 class Admin::SocialMediaAccountsController < Admin::BaseController
   before_action :find_socialable
   before_action :find_social_media_account, only: %i[edit update confirm_destroy destroy]
+  before_action :enforce_permissions!
   before_action :strip_whitespace_from_url
 
   def index
@@ -62,6 +63,17 @@ private
 
   def find_social_media_account
     @social_media_account = @socialable.social_media_accounts.find(params[:id])
+  end
+
+  def enforce_permissions!
+    case action_name
+    when "new", "create"
+      enforce_permission!(:create, SocialMediaAccount)
+    when "edit", "update"
+      enforce_permission!(:update, @social_media_account)
+    when "confirm_destroy", "destroy"
+      enforce_permission!(:delete, @social_media_account)
+    end
   end
 
   def strip_whitespace_from_url
