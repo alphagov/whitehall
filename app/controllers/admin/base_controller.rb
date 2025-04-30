@@ -31,8 +31,8 @@ class Admin::BaseController < ApplicationController
 
   def prevent_modification_of_unmodifiable_edition
     if @edition.unmodifiable?
-      notice = "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
-      redirect_to admin_edition_path(@edition), notice:
+      alert = "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
+      redirect_to admin_edition_path(@edition), alert:
     end
   end
 

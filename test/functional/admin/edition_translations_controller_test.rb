@@ -231,7 +231,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     get :confirm_destroy, params: { edition_id: edition, id: "fr" }
 
     assert_redirected_to @controller.admin_edition_path(edition)
-    assert_equal "You cannot modify a #{edition.state} #{edition.type.titleize}", flash[:notice]
+    assert_equal "You cannot modify a #{edition.state} #{edition.type.titleize}", flash[:alert]
   end
 
   test "destroy removes translation and redirects to admin edition page" do
@@ -263,6 +263,6 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     delete :destroy, params: { edition_id: edition, id: "fr" }
 
     assert_redirected_to @controller.admin_edition_path(edition)
-    assert_equal "You cannot modify a #{edition.state} #{edition.type.titleize}", flash[:notice]
+    assert_equal "You cannot modify a #{edition.state} #{edition.type.titleize}", flash[:alert]
   end
 end
