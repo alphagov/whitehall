@@ -15,7 +15,6 @@ private
       *details_items,
       organisation_item,
       status_item,
-      (instructions_item if content_block_document.latest_edition.instructions_to_publishers.present?),
     ].compact
   end
 
@@ -59,13 +58,6 @@ private
         value: last_updated_value,
       }
     end
-  end
-
-  def instructions_item
-    {
-      key: "Instructions to publishers",
-      value: content_block_edition.instructions_to_publishers.presence || "None",
-    }
   end
 
   def title

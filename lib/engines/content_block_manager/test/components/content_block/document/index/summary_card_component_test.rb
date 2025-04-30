@@ -52,24 +52,8 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
     assert_selector ".govuk-summary-list__key", text: "Lead organisation"
     assert_selector ".govuk-summary-list__value", text: content_block_edition.lead_organisation.name
 
-    assert_no_selector ".govuk-summary-list__key", text: "Instructions to publishers"
-    assert_no_selector ".govuk-summary-list__value", text: "None"
-
     assert_selector ".govuk-summary-list__key", text: "Status"
     assert_selector ".govuk-summary-list__value", text: "Published on #{strip_tags published_date(content_block_edition)} by #{content_block_edition.creator.name}"
-  end
-
-  describe "when there are instructions to publishers" do
-    it "renders them" do
-      content_block_document.latest_edition.instructions_to_publishers = "instructions"
-
-      render_inline(ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponent.new(content_block_document:))
-
-      assert_selector ".govuk-summary-list__row", count: 6
-
-      assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
-      assert_selector ".govuk-summary-list__value", text: "instructions"
-    end
   end
 
   describe "when the edition is scheduled" do
