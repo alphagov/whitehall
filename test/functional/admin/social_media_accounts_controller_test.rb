@@ -8,6 +8,17 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  test "GET on :new returns forbidden response when user does not have correct permissions" do
+    login_as :writer
+    organisation = create(:organisation)
+    get :new,
+        params: {
+          organisation_id: organisation,
+        }
+
+    assert_response :forbidden
+  end
+
   test "POST on :create creates social media account" do
     organisation = create(:organisation)
     post :create,
@@ -25,6 +36,34 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     assert_equal "#{@social_media_service.name} account created successfully", flash[:notice]
     assert_equal 1, organisation.social_media_accounts.count
     assert_equal @social_media_service, organisation.social_media_accounts.first.social_media_service
+  end
+
+  test "POST on :create returns forbidden response when user does not have correct permissions" do
+    login_as :writer
+    organisation = create(:organisation)
+    post :create,
+         params: {
+           social_media_account: {
+             social_media_service_id: @social_media_service.id,
+             url: "http://foo",
+           },
+           organisation_id: organisation,
+         }
+
+    assert_response :forbidden
+  end
+
+  test "GET on :edit returns forbidden response when user does not have correct permissions" do
+    login_as :writer
+    organisation = create(:organisation)
+    social_media_account = organisation.social_media_accounts.create!(social_media_service_id: @social_media_service.id, url: "http://foo")
+    get :edit,
+        params: {
+          id: social_media_account,
+          organisation_id: organisation,
+        }
+
+    assert_response :forbidden
   end
 
   test "PUT on :update updates a social media account" do
@@ -46,6 +85,23 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
 
     organisation.reload
     assert_equal ["http://bar"], organisation.social_media_accounts.map(&:url)
+  end
+
+  test "PUT on :update returns forbidden response when user does not have correct permissions" do
+    login_as :writer
+    organisation = create(:organisation)
+    social_media_account = organisation.social_media_accounts.create!(social_media_service_id: @social_media_service.id, url: "http://foo")
+    post :update,
+         params: {
+           id: social_media_account,
+           social_media_account: {
+             social_media_service_id: @social_media_service.id,
+             url: "http://bar",
+           },
+           organisation_id: organisation,
+         }
+
+    assert_response :forbidden
   end
 
   test ":create and :update strip whitespace from urls" do
@@ -72,6 +128,16 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     assert_equal "http://bar", social_media_account.reload.url
   end
 
+  test "GET on :confirm_destroy returns forbidden if user has insufficient permissions" do
+    login_as :writer
+    organisation = create(:organisation)
+    social_media_account = create(:social_media_account, socialable: organisation)
+
+    get :confirm_destroy, params: { organisation_id: organisation, id: social_media_account }
+
+    assert_response :forbidden
+  end
+
   view_test "GET on :confirm_destroy has the correct action and cancel links when socialable is an organisation" do
     organisation = create(:organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
@@ -94,6 +160,16 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     assert_not SocialMediaAccount.exists?(social_media_account.id)
   end
 
+  test "DELETE on :destroy returns forbidden when user has insufficient permissions" do
+    login_as :writer
+    organisation = create(:organisation)
+    social_media_account = create(:social_media_account, socialable: organisation)
+
+    delete :destroy, params: { organisation_id: organisation, id: social_media_account }
+
+    assert_response :forbidden
+  end
+
   view_test "GET on :index displays edit button only for languages the organisation is translated in" do
     organisation = create(:organisation, translated_into: %i[fr cy])
     social_media_account = create(:social_media_account, socialable_id: organisation.id, socialable_type: "Organisation")
@@ -102,6 +178,19 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "fr" })
     assert_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "cy" })
     refute_select "a[href=?]", edit_admin_organisation_social_media_account_path(organisation_id: organisation.slug, id: social_media_account.id, params: { locale: "dk" })
+  end
+
+  view_test "GET on :index includes create button for users with sufficient permission to create social media accounts" do
+    organisation = create(:organisation)
+    get :index, params: { organisation_id: organisation.id }
+    assert_select "a", text: "Create new account"
+  end
+
+  view_test "GET on :index omits create button for users without sufficient permission to create social media accounts" do
+    login_as(:writer)
+    organisation = create(:organisation)
+    get :index, params: { organisation_id: organisation.id }
+    assert_select "a", text: "Create new account", count: 0
   end
 
   test "PUT on :update with a locale updates only the translation of the social media account" do

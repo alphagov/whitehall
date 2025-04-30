@@ -189,4 +189,16 @@ class ManagingEditorTest < ActiveSupport::TestCase
   test "cannot publish historic editions" do
     assert_not enforcer_for(managing_editor, historic_edition).can?(:publish)
   end
+
+  test "can create social media accounts" do
+    assert enforcer_for(managing_editor, build(:social_media_account)).can?(:create)
+  end
+
+  test "can update social media accounts" do
+    assert enforcer_for(managing_editor, build(:social_media_account)).can?(:update)
+  end
+
+  test "can delete social media accounts" do
+    assert enforcer_for(managing_editor, build(:social_media_account)).can?(:delete)
+  end
 end

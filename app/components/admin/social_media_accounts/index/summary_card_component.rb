@@ -3,9 +3,10 @@
 class Admin::SocialMediaAccounts::Index::SummaryCardComponent < ViewComponent::Base
   attr_reader :socialable, :social_media_account
 
-  def initialize(socialable:, social_media_account:)
+  def initialize(socialable:, social_media_account:, user:)
     @socialable = socialable
     @social_media_account = social_media_account
+    @enforcer = Whitehall::Authority::Enforcer.new(user, @social_media_account)
   end
 
 private
@@ -73,8 +74,8 @@ private
   def summary_card_actions(translation = nil)
     actions = []
     actions << view_summary_card_action(translation)
-    actions << edit_summary_card_action
-    actions << confirm_destroy_summary_card_action
+    actions << edit_summary_card_action if @enforcer.can?(:update)
+    actions << confirm_destroy_summary_card_action if @enforcer.can?(:delete)
     actions.compact
   end
 

@@ -14,6 +14,7 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
     render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(
                     socialable: @socialable,
                     social_media_account: @social_media_account,
+                    user: build(:departmental_editor),
                   ))
 
     social_media_service_name = @social_media_account.social_media_service.name
@@ -32,6 +33,7 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
     render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(
                     socialable: @socialable,
                     social_media_account:,
+                    user: build(:departmental_editor),
                   ))
 
     assert_selector ".govuk-summary-list__key", text: "Account"
@@ -47,6 +49,7 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
     render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(
                     socialable:,
                     social_media_account: english_social_media_account,
+                    user: build(:departmental_editor),
                   ))
 
     social_media_service_name = english_social_media_account.social_media_service.name
@@ -66,5 +69,27 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
     assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: french_social_media_account_translation.title
     assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{french_social_media_account_translation.url}']", text: "View French"
     assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{edit_polymorphic_path([:admin, socialable, english_social_media_account], locale: :fr)}']", text: "Edit French account"
+  end
+
+  test "omits the edit link if the user does not have permission to edit the social media account" do
+    render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(
+                    socialable: @socialable,
+                    social_media_account: @social_media_account,
+                    user: build(:writer),
+                  ))
+
+    social_media_service_name = @social_media_account.social_media_service.name
+    assert page.has_no_link?("Edit #{social_media_service_name}")
+  end
+
+  test "omits the delete link if the user does not have permission to delete the social media account" do
+    render_inline(Admin::SocialMediaAccounts::Index::SummaryCardComponent.new(
+                    socialable: @socialable,
+                    social_media_account: @social_media_account,
+                    user: build(:writer),
+                  ))
+
+    social_media_service_name = @social_media_account.social_media_service.name
+    assert page.has_no_link?("Delete #{social_media_service_name}")
   end
 end
