@@ -213,22 +213,24 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
     assert_not publisher.perform!
     assert_not edition.reload.published?
+    # rubocop:disable Style/TrailingCommaInArrayLiteral
     assert_equal [
-      "This edition contains links which violate linking guidelines.",
-      "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.",
+      <<~HTML
+        This edition contains links which violate linking guidelines: /government/invalid/link
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              See more details about this link
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <p class="govuk-body">
+            If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.
+            </p>
+          </div>
+        </details>
+      HTML
     ], publisher.failure_reasons
-  end
-
-  test "#failure_reasons doesn't return duplicate fixes" do
-    edition = create(:submitted_edition)
-    edition.body = "[blah](/government/invalid/link) [blah](/government/another/invalid/link)"
-    publisher = EditionPublisher.new(edition)
-
-    assert_not publisher.perform!
-    assert_not edition.reload.published?
-    assert_equal [
-      "This edition contains links which violate linking guidelines.",
-      "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.",
-    ], publisher.failure_reasons
+    # rubocop:enable Style/TrailingCommaInArrayLiteral
   end
 end

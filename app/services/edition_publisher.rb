@@ -10,9 +10,8 @@ class EditionPublisher < EditionService
 
     reasons = []
     reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
-    if govspeak_link_errors.any?
-      reasons << "This edition contains links which violate linking guidelines."
-      reasons.concat govspeak_link_errors.pluck(:fix).uniq
+    if govspeak_link_validator.errors.any?
+      reasons << "This edition contains links which violate linking guidelines: #{govspeak_link_validator.errors_to_html}"
     end
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
     reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}" if scheduled_for_publication?
@@ -20,8 +19,8 @@ class EditionPublisher < EditionService
     @failure_reasons = reasons
   end
 
-  def govspeak_link_errors
-    @govspeak_link_errors ||= DataHygiene::GovspeakLinkValidator.new(edition.body).errors
+  def govspeak_link_validator
+    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
   end
 
   def verb

@@ -26,6 +26,27 @@ module DataHygiene
       end
     end
 
+    def errors_to_html
+      link_violations = errors.map do |err|
+        <<~HTML
+          #{err[:link]}
+          <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                See more details about this link
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="govuk-body">
+              #{err[:fix]}
+              </p>
+            </div>
+          </details>
+        HTML
+      end
+      link_violations.join("")
+    end
+
     def self.is_internal_admin_link?(href)
       return false unless href.is_a? String
 

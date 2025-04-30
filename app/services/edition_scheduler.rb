@@ -25,17 +25,16 @@ class EditionScheduler < EditionService
       reasons << "This edition does not have a scheduled publication date set"
     elsif scheduled_publication_is_not_within_cache_limit?
       reasons << "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
-    elsif govspeak_link_errors.any?
-      reasons << "This edition contains links which violate linking guidelines."
-      reasons.concat govspeak_link_errors.pluck(:fix).uniq
+    elsif govspeak_link_validator.errors.any?
+      reasons << "This edition contains links which violate linking guidelines: #{govspeak_link_validator.errors_to_html}"
     end
     @failure_reasons = reasons
   end
 
 private
 
-  def govspeak_link_errors
-    @govspeak_link_errors ||= DataHygiene::GovspeakLinkValidator.new(edition.body).errors
+  def govspeak_link_validator
+    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
   end
 
   def fire_transition!
