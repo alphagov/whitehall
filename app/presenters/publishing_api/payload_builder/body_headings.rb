@@ -12,7 +12,11 @@ module PublishingApi
       end
 
       def call
-        { headers: body_headings }
+        headers = body_headings
+
+        return {} if headers.empty?
+
+        { headers: }
       end
 
     private
