@@ -224,6 +224,16 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test "#confirm_destroy returns a redirect with a flash message for a translation associated with a published edition" do
+    edition = build(:published_edition)
+    with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", body: "french-body") }
+
+    get :confirm_destroy, params: { edition_id: edition, id: "fr" }
+
+    assert_redirected_to @controller.admin_edition_path(edition)
+    assert_equal "You cannot modify a #{edition.state} #{edition.type.titleize}", flash[:alert]
+  end
+
   test "destroy removes translation and redirects to admin edition page" do
     edition = create(:edition)
     with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", body: "french-body") }
@@ -244,5 +254,15 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
       assert_publishing_api_discard_draft(edition.content_id, locale: "fr")
     end
+  end
+
+  test "#destroy returns a redirect with a flash message for a translation associated with a published edition" do
+    edition = build(:published_edition)
+    with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", body: "french-body") }
+
+    delete :destroy, params: { edition_id: edition, id: "fr" }
+
+    assert_redirected_to @controller.admin_edition_path(edition)
+    assert_equal "You cannot modify a #{edition.state} #{edition.type.titleize}", flash[:alert]
   end
 end

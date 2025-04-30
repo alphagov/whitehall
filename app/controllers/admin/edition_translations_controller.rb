@@ -1,6 +1,8 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include TranslationControllerConcern
 
+  before_action :prevent_modification_of_unmodifiable_edition
+
   def new; end
 
   def edit
