@@ -36,10 +36,10 @@ module PublishingApi
         assert_equal BodyHeadings.for(item), expected_headers
       end
 
-      test "returns an empty array of headers if none are found in the body" do
+      test "returns empty map if there are no headers in the body" do
         item = stub(body: "Some stuff")
 
-        assert_equal 0, BodyHeadings.for(item)[:headers].count
+        assert_equal BodyHeadings.for(item), {}
       end
     end
   end
