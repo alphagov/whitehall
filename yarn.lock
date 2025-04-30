@@ -2357,10 +2357,10 @@ jasmine-browser-runner@^3.0.0:
     glob "^10.0.0"
     selenium-webdriver "^4.12.0"
 
-jasmine-core@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-5.6.0.tgz#4b979c254e7d9b1fe8e767ab00c5d2901c00bd4f"
-  integrity sha512-niVlkeYVRwKFpmfWg6suo6H9CrNnydfBLEqefM5UjibYS+UoTjZdmvPJSiuyrRLGnFj1eYRhFd/ch+5hSlsFVA==
+jasmine-core@^5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-5.7.0.tgz#23476f408056a33674469005d87d57d873b4c525"
+  integrity sha512-EnUzZBHxS1Ofq+FPWs16rs2YC9o6Hb3buKJQDlkhJBDx+Bm5wNF+J1gUS06dWuW2ozaQ3oNIA1SESX9M5LopOQ==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
