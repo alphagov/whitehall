@@ -12,3 +12,11 @@ schemas:
   content_block_email_address:
     embeddable_fields:
       - email_address
+  content_block_contact:
+    subschemas:
+      email_addresses:
+        embeddable_fields:
+          - email_address
+      telephones:
+        embeddable_fields:
+          - telephone
