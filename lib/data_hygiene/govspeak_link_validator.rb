@@ -12,7 +12,7 @@ module DataHygiene
 
         fix = if link.first == "/"
                 unless self.class.is_internal_admin_link?(link)
-                  "Please use either absolute paths for documents created in publisher, e.g. /government/admin/publications/3373, or full URLs for other GOV.UK links"
+                  "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs."
                 end
               elsif self.class.is_internal_admin_link?("/#{link}")
                 "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"
@@ -24,6 +24,27 @@ module DataHygiene
 
         { link:, start: match.begin(0), end: match.end(0), fix: } if fix
       end
+    end
+
+    def errors_to_html
+      link_violations = errors.map do |err|
+        <<~HTML
+          #{err[:link]}
+          <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                See more details about this link
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="govuk-body">
+              #{err[:fix]}
+              </p>
+            </div>
+          </details>
+        HTML
+      end
+      link_violations.join("")
     end
 
     def self.is_internal_admin_link?(href)

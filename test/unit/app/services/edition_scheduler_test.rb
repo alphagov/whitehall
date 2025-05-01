@@ -50,11 +50,30 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     end
   end
 
-  test "an edition cannot be scheduled with bad links" do
-    edition = create(:submitted_edition, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
+  test "#failure_reasons returns failure surfaces fix from link validation error" do
+    edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
+    edition.body = "[blah](/government/invalid/link)"
     scheduler = EditionScheduler.new(edition)
 
     assert_not scheduler.can_perform?
-    assert_equal "This edition contains links which violate linking guidelines", scheduler.failure_reason
+    # rubocop:disable Style/TrailingCommaInArrayLiteral
+    assert_equal [
+      <<~HTML
+        This edition contains links which violate linking guidelines: /government/invalid/link
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              See more details about this link
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <p class="govuk-body">
+            If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs.
+            </p>
+          </div>
+        </details>
+      HTML
+    ], scheduler.failure_reasons
+    # rubocop:enable Style/TrailingCommaInArrayLiteral
   end
 end

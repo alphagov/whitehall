@@ -18,6 +18,8 @@
 .app-c-inset-prompt--error {
   border-color: $govuk-error-colour;
   background-color: govuk-tint($govuk-error-colour, 90%);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .app-c-inset-prompt__title {
