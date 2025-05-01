@@ -56,7 +56,7 @@ private
 
   def embedded_object_diffs
     schema.subschemas.map { |subschema|
-      version.field_diffs.dig("details", subschema.id).map do |object_id, field_diff|
+      version.field_diffs.dig("details", subschema.id)&.map do |object_id, field_diff|
         { object_id:, field_diff:, subschema_id: subschema.id }
       end
     }.flatten
@@ -85,11 +85,13 @@ private
   end
 
   def embedded_object_field_changes
-    embedded_object_diffs.map do |item|
-      render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent.new(
-        **item,
-        content_block_edition: version.item,
-      )
+    if embedded_object_diffs.any?
+      embedded_object_diffs.map do |item|
+        render ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::EmbeddedObject::FieldChangesTableComponent.new(
+          **item,
+          content_block_edition: version.item,
+        )
+      end
     end
   end
 end
