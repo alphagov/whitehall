@@ -32,7 +32,7 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
       base_path: "/government/fields-of-operation/operational-field-name",
       details: {},
       document_type: "field_of_operation",
-      rendering_app: "government-frontend",
+      rendering_app: "frontend",
       schema_name: "field_of_operation",
       description: Whitehall::GovspeakRenderer.new.govspeak_to_html(@operational_field.description),
       routes: [
