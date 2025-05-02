@@ -14,10 +14,10 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
     "<body class=\"govuk-body\"><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
   end
   let(:block_render) do
-    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">new@new.com</span>"
+    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\"><a class=\"govuk-link\" href=\"mailto:new@new.com\">new@new.com</a></span>"
   end
   let(:block_render_with_style) do
-    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\" data-embed-code=\"embed-code\" style=\"background-color: yellow;\">new@new.com</span>"
+    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-content-id=\"#{preview_content_id}\" data-embed-code=\"embed-code\" style=\"background-color: yellow;\"><a class=\"govuk-link\" href=\"mailto:new@new.com\">new@new.com</a></span>"
   end
   let(:expected_html) do
     "<body class=\"govuk-body draft\"><p>test</p>#{block_render_with_style}</body>"
