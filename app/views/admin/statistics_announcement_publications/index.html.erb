@@ -4,7 +4,7 @@
 <% content_for :title_margin_bottom, 6 %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @statistics_announcement)) %>
 
-<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>">
+<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>" data-ga4-list-title="<%= yield(:page_title) %>">
   <div class="govuk-grid-column-two-thirds" data-ga4-search-section="Search by title or slug">
     <%= render "govuk_publishing_components/components/inset_text", {
       text: "The type of the document you are trying to connect must match the type of the statistics announcement. Only #{@statistics_announcement.publication_type.plural_name} documents will be shown.",

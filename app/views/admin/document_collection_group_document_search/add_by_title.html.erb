@@ -8,7 +8,7 @@
 <% content_for :context, @group.heading %>
 <% content_for :title_margin_bottom, 6 %>
 
-<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>">
+<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>" data-ga4-list-title="<%= yield(:page_title) %>">
   <div class="govuk-grid-column-two-thirds app-view-document-collection-document-search-bar" data-ga4-search-section="Search by title">
     <%= form_with method: :get do |_form| %>
       <%= render "govuk_publishing_components/components/search", {
