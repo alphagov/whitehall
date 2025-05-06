@@ -72,20 +72,20 @@ module ContentBlockManager
     end
 
     def replace_blocks(nokogiri_html)
-      content_block_spans(nokogiri_html).each do |span|
-        embed_code = span["data-embed-code"]
-        span.replace content_block_edition.render(embed_code)
+      content_block_wrappers(nokogiri_html).each do |wrapper|
+        embed_code = wrapper["data-embed-code"]
+        wrapper.replace content_block_edition.render(embed_code)
       end
     end
 
     def style_blocks(nokogiri_html)
-      content_block_spans(nokogiri_html).each do |span|
-        span["style"] = BLOCK_STYLE
+      content_block_wrappers(nokogiri_html).each do |wrapper|
+        wrapper["style"] = BLOCK_STYLE
       end
     end
 
-    def content_block_spans(nokogiri_html)
-      nokogiri_html.css("span[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
+    def content_block_wrappers(nokogiri_html)
+      nokogiri_html.css("[data-content-id=\"#{@content_block_edition.document.content_id}\"]")
     end
   end
 end
