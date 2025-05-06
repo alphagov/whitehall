@@ -13,14 +13,15 @@ window.GOVUK.analyticsGa4.analyticsModules =
       // if we have multiple tabs with search results
       // then remove the attributes so that we only capture
       // the search results in the visible tab
-      Array.from(
-        document.querySelectorAll(
-          '[data-module~="govuk-tabs"] [data-ga4-ecommerce]'
-        )
-      ).forEach((search) => {
-        search.removeAttribute('data-ga4-ecommerce')
-        search.setAttribute('data-search-track', true)
-      })
+      Array.from(document.querySelectorAll('[data-ga4-ecommerce]')).forEach(
+        (search) => {
+          if (search.closest('[data-module~="govuk-tabs"]')) {
+            search.removeAttribute('data-ga4-ecommerce')
+          }
+
+          search.setAttribute('data-search-track', true)
+        }
+      )
 
       this.trackEcommerce()
 
@@ -28,24 +29,6 @@ window.GOVUK.analyticsGa4.analyticsModules =
         this.eventListener = this.trackEcommerce.bind(this)
 
         window.addEventListener('hashchange', this.eventListener)
-
-        this.clearHashChange()
-      }
-    },
-
-    clearHashChange: function () {
-      // remove hashchange listener
-      // if no more search to track
-      if (
-        !document.querySelectorAll(
-          '[data-module~="govuk-tabs"] [data-search-track]'
-        ).length
-      ) {
-        window.removeEventListener('hashchange', this.eventListener)
-      } else {
-        window.addEventListener('hashchange', this.clearHashChange.bind(this), {
-          once: true
-        })
       }
     },
 
@@ -92,12 +75,13 @@ window.GOVUK.analyticsGa4.analyticsModules =
       }
 
       if (searchTarget) {
-        searchTarget.removeAttribute('data-search-track')
         searchTarget.setAttribute('data-ga4-ecommerce', true)
 
-        window.GOVUK.analyticsGa4.Ga4EcommerceTracker.init()
+        if (!searchTarget.hasAttribute('data-ga4-ecommerce-started')) {
+          window.GOVUK.analyticsGa4.Ga4EcommerceTracker.init()
+        }
 
-        searchTarget.removeAttribute('data-ga4-ecommerce')
+        searchTarget.setAttribute('data-ga4-ecommerce-started', true)
       }
     }
   }
