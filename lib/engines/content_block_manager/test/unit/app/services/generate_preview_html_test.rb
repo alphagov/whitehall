@@ -99,19 +99,26 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
     end
   end
 
+  describe "when the wrapper is a div" do
+    let(:fake_frontend_response) do
+      "<body class=\"govuk-body\"><p>test</p><div class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">example@example.com</div></body>"
+    end
+    let(:block_render) do
+      "<div class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\"><a class=\"govuk-link\" href=\"mailto:new@new.com\">new@new.com</a></div>"
+    end
 
-    url = host_content_preview_content_block_manager_content_block_edition_path(id: block_to_preview.id, host_content_id:)
+    it "returns the preview html" do
+      actual_content = ContentBlockManager::GeneratePreviewHtml.new(
+        content_id: host_content_id,
+        content_block_edition: block_to_preview,
+        base_path: host_base_path,
+        locale: "en",
+      ).call
 
-    expected_content = Nokogiri::HTML.parse("
-        <html>
-          <body class=' draft'>
-            <a href='#{url}?locale=en&base_path=/foo' target='_parent'>Internal link</a>
-            <a href='https://example.com'>External link</a>
-            <a href='//example.com'>Protocol relative link</a>
-          </body>
-        </html>
-      ").to_s
+      parsed_content = Nokogiri::HTML.parse(actual_content)
 
-    assert_equal_ignoring_whitespace actual_content.to_s, expected_content
+      assert_dom parsed_content, "body.draft"
+      assert_dom parsed_content, 'div.content-embed__content_block_email_address[style="background-color: yellow;"]'
+    end
   end
 end
