@@ -46,7 +46,7 @@ Then(/^I should see the govspeak editor on subsequent edits of the publication$/
   # When the document is marked as exited the visual editor is not rendered at all
   expect(page).not_to have_selector(".app-c-visual-editor__visual-editor-wrapper")
   expect(page).not_to have_selector(".app-c-visual-editor__govspeak-editor-wrapper")
-  expect(page).to have_content("Any old iron")
+  expect(find("textarea#edition_body").value).to include("Any old iron")
 end
 
 Then(/^I should see the govspeak editor on subsequent edits of the HTML attachment$/) do
@@ -55,7 +55,7 @@ Then(/^I should see the govspeak editor on subsequent edits of the HTML attachme
   # When the document is marked as exited the visual editor is not rendered at all
   expect(page).not_to have_selector(".app-c-visual-editor__visual-editor-wrapper")
   expect(page).not_to have_selector(".app-c-visual-editor__govspeak-editor-wrapper")
-  expect(page).to have_content("Any old iron")
+  expect(find("textarea#attachment_govspeak_content_body").value).to include("Any old iron")
 end
 
 When(/^I fill in the required fields for publication "(.*?)" in organisation "(.*?)"$/) do |title, organisation_name|
