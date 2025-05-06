@@ -10,6 +10,8 @@ window.GOVUK.analyticsGa4.analyticsModules =
         return
       }
 
+      this.addSearchResultLinkTracking()
+
       // if we have multiple tabs with search results
       // then remove the attributes so that we only capture
       // the search results in the visible tab
@@ -30,6 +32,30 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
         window.addEventListener('hashchange', this.eventListener)
       }
+    },
+
+    addSearchResultLinkTracking: function () {
+      document.querySelectorAll('[data-ga4-ecommerce]').forEach((container) => {
+        const table = container.querySelector('table')
+
+        // all search results are displayed in
+        // tables so if there's no table then
+        // there's no results to track clicks on
+        if (!table) return
+
+        table.querySelectorAll('tbody tr').forEach((row, rowIndex) => {
+          // the last cell in the search results has action links
+          // these are the links that we want to track
+          row
+            .querySelectorAll('td a[data-ga4-ecommerce-content-id]')
+            .forEach((link) => {
+              link.setAttribute('data-ga4-ecommerce-path', link.href)
+              // there are multiple links per row, use the index of the
+              // row as the index not the index of the link within table
+              link.setAttribute('data-ga4-ecommerce-index', rowIndex + 1)
+            })
+        })
+      })
     },
 
     trackEcommerce: function () {

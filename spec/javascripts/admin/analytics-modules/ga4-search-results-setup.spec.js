@@ -3,6 +3,105 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4SearchResultsSetup', function (
   container.id = 'container'
   document.body.appendChild(container)
 
+  describe('correctly changes the dataset of links in search results', function () {
+    it('for a single link that has content id set', function () {
+      container.innerHTML = `
+        <div data-ga4-ecommerce>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <a data-ga4-ecommerce-content-id="1" href="https://www.example.com" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `
+
+      window.GOVUK.analyticsGa4.analyticsModules.Ga4SearchResultsSetup.init(
+        true
+      )
+
+      const link = container.querySelector('a')
+
+      const expectedDataset = {
+        ga4EcommercePath: `https://www.example.com/`,
+        ga4EcommerceIndex: '1',
+        ga4EcommerceContentId: '1'
+      }
+
+      expect({ ...link.dataset }).toEqual(expectedDataset)
+    })
+
+    it('for links in the same row that have content id set', function () {
+      container.innerHTML = `
+        <div data-ga4-ecommerce>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <a data-ga4-ecommerce-content-id="1" href="https://www.example.com" />
+                  <a data-ga4-ecommerce-content-id="2" href="https://www.example2.com" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `
+
+      window.GOVUK.analyticsGa4.analyticsModules.Ga4SearchResultsSetup.init(
+        true
+      )
+
+      const links = container.querySelectorAll('a')
+
+      links.forEach(function (link, index) {
+        const expectedDataset = {
+          ga4EcommercePath: `${link.href}`,
+          ga4EcommerceIndex: '1',
+          ga4EcommerceContentId: `${index + 1}`
+        }
+
+        expect({ ...link.dataset }).toEqual(expectedDataset)
+      })
+    })
+
+    it('for links that have content id set and links that do not have content id set in same row', function () {
+      container.innerHTML = `
+        <div data-ga4-ecommerce>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <a data-ga4-ecommerce-content-id="1" href="https://www.example.com" />
+                  <a href="https://www.example.com" />
+                </td>
+                <td>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `
+
+      window.GOVUK.analyticsGa4.analyticsModules.Ga4SearchResultsSetup.init(
+        true
+      )
+
+      const links = container.querySelectorAll('a')
+
+      const changedDataset = {
+        ga4EcommercePath: `${links[0].href}`,
+        ga4EcommerceIndex: '1',
+        ga4EcommerceContentId: '1'
+      }
+
+      expect({ ...links[0].dataset }).toEqual(changedDataset)
+      expect({ ...links[1].dataset }).not.toEqual(changedDataset)
+    })
+  })
+
   describe('if search outside tabs component', function () {
     it('start Ga4EcommerceTracker', function () {
       container.innerHTML = `
