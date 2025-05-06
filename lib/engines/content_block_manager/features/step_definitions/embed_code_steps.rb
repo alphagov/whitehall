@@ -17,7 +17,9 @@ When("I click to copy the embed code for the pension {string}, rate {string} and
 end
 
 Then("the embed code should be copied to my clipboard") do
-  page.driver.browser.execute_cdp("Browser.grantPermissions", origin: page.server_url, permissions: %w[clipboardReadWrite])
+  Capybara.current_session.driver.with_playwright_page do |page|
+    page.context.grant_permissions(%w[clipboard-read])
+  end
   clip_text = page.evaluate_async_script("navigator.clipboard.readText().then(arguments[0])")
   expect(clip_text).to eq(@embed_code)
 end
