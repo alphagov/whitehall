@@ -146,10 +146,6 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
   end
 
-  test "cannot administer the get_involved_section" do
-    assert_not enforcer_for(department_editor, :get_involved_section).can?(:administer)
-  end
-
   test "cannot administer the sitewide_settings section" do
     assert_not enforcer_for(department_editor, :sitewide_settings_section).can?(:administer)
   end

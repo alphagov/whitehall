@@ -16,7 +16,6 @@ module SearchApiPresenters
       TopicalEvent,
       OperationalField,
       PolicyGroup,
-      TakePartPage,
       StatisticsAnnouncement,
       WorldLocationNews,
     ]
