@@ -31,10 +31,10 @@
                text: edition.title,
              },
              {
-               text: link_to("View", admin_edition_path(edition), class: "govuk-link"),
+               text: link_to(sanitize("View #{tag.span(edition.title, class: "govuk-visually-hidden")}"), admin_edition_path(edition), class: "govuk-link", data: { ga4_ecommerce_path: admin_edition_path(edition), ga4_ecommerce_content_id: edition.document.content_id }),
              },
              {
-               text: link_to("Connect", admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, title: params[:title]) , class: "govuk-link"),
+               text: link_to(sanitize("Connect #{tag.span(edition.title, class: "govuk-visually-hidden")}"), admin_statistics_announcement_publication_connect_path(@statistics_announcement, edition, title: params[:title]), class: "govuk-link"),
              }]
           end,
       } %>

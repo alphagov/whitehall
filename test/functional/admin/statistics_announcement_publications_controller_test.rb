@@ -87,8 +87,8 @@ private
     assert_select ".govuk-table" do
       assert_select "tr", count: 1
       assert_select "td", @official_statistics_publication.title
-      assert_select "a[href=?]", admin_publication_path(@official_statistics_publication), text: "View"
-      assert_select "a[href=?]", admin_statistics_announcement_publication_connect_path(@official_statistics_announcement, @official_statistics_publication, title: @title), text: "Connect"
+      assert_select "a[href=?]", admin_publication_path(@official_statistics_publication), text: "View #{@official_statistics_publication.title}"
+      assert_select "a[href=?]", admin_statistics_announcement_publication_connect_path(@official_statistics_announcement, @official_statistics_publication, title: @title), text: "Connect #{@official_statistics_publication.title}"
     end
   end
 
