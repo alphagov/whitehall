@@ -85,8 +85,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".republish_async publishes to the Publishing API as a 'republish' update_type" do
-    take_part_page = create(:take_part_page)
-    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: "republish")
+    non_translatable_non_editionable_model = create(:policy_group)
+    presenter = PublishingApiPresenters.presenter_for(non_translatable_non_editionable_model, update_type: "republish")
     WebMock.reset!
 
     requests = [
@@ -96,7 +96,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     ]
 
     Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.republish_async(take_part_page)
+      Whitehall::PublishingApi.republish_async(non_translatable_non_editionable_model)
     end
 
     assert_all_requested(requests)
@@ -141,8 +141,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
-    take_part_page = create(:take_part_page)
-    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: "republish")
+    non_translatable_non_editionable_model = create(:policy_group)
+    presenter = PublishingApiPresenters.presenter_for(non_translatable_non_editionable_model, update_type: "republish")
     WebMock.reset!
 
     requests = [
@@ -152,23 +152,23 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     ]
 
     Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.bulk_republish_async(take_part_page)
+      Whitehall::PublishingApi.bulk_republish_async(non_translatable_non_editionable_model)
     end
 
     assert_all_requested(requests)
   end
 
   test ".bulk_republish_async queues the job on the bulk_republishing queue" do
-    take_part_page = create(:take_part_page)
+    non_translatable_non_editionable_model = create(:policy_group)
     PublishingApiWorker.expects(:perform_async_in_queue)
       .with(
         "bulk_republishing",
-        "TakePartPage",
-        take_part_page.id,
+        "PolicyGroup",
+        non_translatable_non_editionable_model.id,
         "republish",
         "en",
       )
-    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
+    Whitehall::PublishingApi.bulk_republish_async(non_translatable_non_editionable_model)
   end
 
   test ".republish_document_async publishes to the publishing API as a 'republish' update_type" do

@@ -139,10 +139,6 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_writer, normal_edition).can?(:unwithdraw)
   end
 
-  test "cannot administer the get_involved_section" do
-    assert_not enforcer_for(department_writer, :get_involved_section).can?(:administer)
-  end
-
   test "cannot administer the sitewide_settings section" do
     assert_not enforcer_for(department_writer, :sitewide_settings_section).can?(:administer)
   end
