@@ -38,7 +38,7 @@ When("I click on the first host document") do
 end
 
 Then("the preview page opens in a new tab") do
-  page.switch_to_window(page.windows.last)
+  page.switch_to_window { title.start_with? "Preview content block" }
   assert_text "Preview email address"
   assert_text "Instances: 1"
   assert_text "Email address: #{@email_address}"
