@@ -66,7 +66,7 @@ And("I should see details of my {string}") do |object_type|
 end
 
 And("I click to add a new {string}") do |object_type|
-  click_on "Add a #{object_type}"
+  click_on "Add #{add_indefinite_article object_type.humanize.downcase}"
 end
 
 And("I review and confirm my {string} is correct") do |_object_type|

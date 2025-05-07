@@ -34,7 +34,7 @@ Feature: Edit a pension object
     And I should see the updated rates for that block
     When I save and continue
     Then I should be on the "review_links" step
-    And I should see a back link to the "embedded_rates" step
+    And I should see a back link to the "embedded_objects" step
     When I continue after reviewing the links
     Then I should be on the "internal_note" step
     And I should see a back link to the "review_links" step
