@@ -183,7 +183,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             }
           },
           hero_content: {
-            blocks: [ { type: "govspeak", content: String } ]
+            blocks: [{ type: "govspeak", content: String }]
           }
         },
         {
@@ -217,7 +217,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
             }
           }],
         },
-      ]}
+      ] }
     end
   end
 
