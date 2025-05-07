@@ -308,7 +308,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (56.2.2)
+    govuk_publishing_components (56.3.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -786,7 +786,7 @@ GEM
       rack (>= 3.0.0, < 4)
     rack-proxy (0.7.7)
       rack
-    rack-session (2.1.0)
+    rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
