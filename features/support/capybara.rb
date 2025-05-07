@@ -18,7 +18,14 @@ Capybara.javascript_driver = :playwright
 
 module ScreenshotHelper
   def screenshot(name = "capybara")
-    page.driver.render(Rails.root.join("tmp/#{name}.png"), full: true)
+    path = Rails.root.join("tmp/#{name}.png")
+    if Capybara.current_session.driver.is_a?(Capybara::Playwright::Driver)
+      Capybara.current_session.driver.with_playwright_page do |page|
+        page.screenshot(path:, fullPage: true)
+      end
+    else
+      page.driver.render(path, full: true)
+    end
   end
 end
 
