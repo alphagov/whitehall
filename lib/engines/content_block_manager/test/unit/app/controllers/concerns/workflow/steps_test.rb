@@ -151,6 +151,17 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
       it "returns all the steps" do
         assert_equal workflow.steps, Workflow::Step::ALL
       end
+
+      describe "when no subschemas are present" do
+        before do
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(false)
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(false)
+        end
+
+        it "removes the embedded_objects step" do
+          assert_equal(workflow.steps, Workflow::Step::ALL.reject { |step| step.name == :embedded_objects })
+        end
+      end
     end
 
     describe "#next_step" do

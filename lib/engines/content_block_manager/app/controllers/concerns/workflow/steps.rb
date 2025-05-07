@@ -6,7 +6,7 @@ module Workflow::Steps
   end
 
   def steps
-    @steps ||= @schema.subschemas.any? ? all_steps : all_steps.reject { |s| s.name == :embedded_objects }
+    @steps ||= should_show_subschema_steps? ? all_steps : all_steps.reject { |s| s.name == :embedded_objects }
   end
 
   def current_step
@@ -28,6 +28,14 @@ private
       Workflow::Step::ALL.select { |s| s.included_in_create_journey == true }
     else
       Workflow::Step::ALL
+    end
+  end
+
+  def should_show_subschema_steps?
+    if @content_block_edition.document.is_new_block?
+      @schema.subschemas.any?
+    else
+      @schema.subschemas.any? && @schema.subschemas.any? { |subschema| @content_block_edition.has_entries_for_subschema_id?(subschema.id) }
     end
   end
 
