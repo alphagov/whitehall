@@ -42,7 +42,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       }
 
       assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(
-        edition, step: "#{Workflow::Step::SUBSCHEMA_PREFIX}#{object_type}"
+        edition, step: :embedded_objects
       )
 
       updated_edition = edition.reload
