@@ -55,6 +55,7 @@ class FileAttachment < Attachment
       filename:,
       number_of_pages:,
       preview_url:,
+      assets:,
     }
   end
 
@@ -64,6 +65,17 @@ private
     attachable.alternative_format_contact_email
   rescue NoMethodError
     nil
+  end
+
+  def assets
+    return unless attachable.is_a?(Edition) && attachment_data.all_asset_variants_uploaded?
+
+    attachment_data.assets.map do |asset|
+      {
+        asset_manager_id: asset.asset_manager_id,
+        filename: asset.filename,
+      }
+    end
   end
 
   def preview_url
