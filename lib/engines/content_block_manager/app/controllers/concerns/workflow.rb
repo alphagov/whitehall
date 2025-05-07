@@ -4,6 +4,7 @@ module Workflow
 
     ALL = [
       Step.new(:edit_draft, :edit_draft, :update_draft, true),
+      Step.new(:embedded_objects, :embedded_objects, :redirect_to_next_step, true),
       Step.new(:review_links, :review_links, :redirect_to_next_step, false),
       Step.new(:internal_note, :internal_note, :update_internal_note, false),
       Step.new(:change_note, :change_note, :update_change_note, false),

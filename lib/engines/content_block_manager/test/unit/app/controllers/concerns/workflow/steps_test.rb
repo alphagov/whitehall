@@ -148,36 +148,15 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
     end
 
     describe "#steps" do
-      it "inserts the subschemas into the flow" do
-        assert_equal workflow.steps, [
-          Workflow::Step::ALL[0],
-          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_step, true),
-          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
-          Workflow::Step::ALL[1..],
-        ].flatten
-      end
-
-      describe "when there are entries missing for a given subschema" do
-        before do
-          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(false)
-          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(true)
-        end
-
-        it "skips the subschemas without data" do
-          assert_equal workflow.steps, [
-            Workflow::Step::ALL[0],
-            Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
-            Workflow::Step::ALL[1..],
-          ].flatten
-        end
+      it "returns all the steps" do
+        assert_equal workflow.steps, Workflow::Step::ALL
       end
     end
 
     describe "#next_step" do
       [
-        %i[edit_draft embedded_something],
-        %i[embedded_something embedded_something_else],
-        %i[embedded_something_else review_links],
+        %i[edit_draft embedded_objects],
+        %i[embedded_objects review_links],
         %i[review_links internal_note],
         %i[internal_note change_note],
         %i[change_note schedule_publishing],
@@ -196,9 +175,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
     describe "#previous_step" do
       [
-        %i[embedded_something edit_draft],
-        %i[embedded_something_else embedded_something],
-        %i[review_links embedded_something_else],
+        %i[embedded_objects edit_draft],
+        %i[review_links embedded_objects],
         %i[internal_note review_links],
         %i[change_note internal_note],
         %i[schedule_publishing change_note],
@@ -222,18 +200,16 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
       it "removes steps not included in the create journey" do
         assert_equal workflow.steps, [
           Workflow::Step.new(:edit_draft, :edit_draft, :update_draft, true),
-          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_step, true),
-          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_objects, :embedded_objects, :redirect_to_next_step, true),
           Workflow::Step.new(:review, :review, :validate_review_page, true),
           Workflow::Step.new(:confirmation, :confirmation, nil, true),
-        ].flatten
+        ]
       end
 
       describe "#next_step" do
         [
-          %i[edit_draft embedded_something],
-          %i[embedded_something embedded_something_else],
-          %i[embedded_something_else review],
+          %i[edit_draft embedded_objects],
+          %i[embedded_objects review],
           %i[review confirmation],
         ].each do |current_step, expected_step|
           describe "when current_step is #{current_step}" do
@@ -248,9 +224,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
       describe "#previous_step" do
         [
-          %i[embedded_something edit_draft],
-          %i[embedded_something_else embedded_something],
-          %i[review embedded_something_else],
+          %i[embedded_objects edit_draft],
+          %i[review embedded_objects],
         ].each do |current_step, expected_step|
           describe "when current_step is #{current_step}" do
             let(:step) { current_step }
