@@ -21,6 +21,14 @@ private
     content_block_edition.document.is_new_block?
   end
 
+  def show_title?
+    if !content_block_edition.document.is_new_block?
+      has_embedded_objects?
+    else
+      true
+    end
+  end
+
   def add_button_text
     has_embedded_objects? ? "Add another #{subschema_name}" : "Add #{helpers.add_indefinite_article subschema_name}"
   end

@@ -96,17 +96,39 @@ class ContentBlockManager::Shared::EmbeddedObjectsTest < ViewComponent::TestCase
       {}
     end
 
-    it "renders the correct button text if the document is a new block" do
-      document.expects(:is_new_block?).at_least_once.returns(true)
+    describe "when the document is a new block" do
+      before do
+        document.expects(:is_new_block?).at_least_once.returns(true)
+      end
 
-      render_inline(component)
+      it "renders the correct button text" do
+        render_inline(component)
 
-      new_path = new_embedded_object_content_block_manager_content_block_edition_path(
-        content_block_edition,
-        object_type: subschema.block_type,
-      )
+        new_path = new_embedded_object_content_block_manager_content_block_edition_path(
+          content_block_edition,
+          object_type: subschema.block_type,
+        )
 
-      assert_selector "a.govuk-button[href='#{new_path}']", text: "Add an embedded object"
+        assert_selector "a.govuk-button[href='#{new_path}']", text: "Add an embedded object"
+      end
+
+      it "shows the title" do
+        render_inline(component)
+
+        assert_selector "h2.govuk-heading-m", text: "Embedded Objects"
+      end
+    end
+
+    describe "when the document is not a new block" do
+      before do
+        document.expects(:is_new_block?).at_least_once.returns(false)
+      end
+
+      it "does not show the title" do
+        render_inline(component)
+
+        refute_selector "h2.govuk-heading-m", text: "Embedded Objects"
+      end
     end
   end
 end

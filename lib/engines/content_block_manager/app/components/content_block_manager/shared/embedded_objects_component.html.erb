@@ -1,28 +1,31 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h2 class="govuk-heading-m"><%= subschema_name.pluralize.titleize %></h2>
-      <% subschema_keys.each do |k| %>
-        <div data-test-id="embedded_<%= k %>">
-          <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
-            content_block_edition: content_block_edition,
-            object_type: subschema.block_type,
-            object_title: k,
-            is_editable: true,
-            redirect_url:,
-          ) %>
-        </div>
-      <% end %>
+    <% if show_title? %>
+      <h2 class="govuk-heading-m"><%= subschema_name.pluralize.titleize %></h2>
+    <% end %>
 
-      <% if show_add_button? %>
-        <%= render "govuk_publishing_components/components/button", {
-          text: add_button_text,
-          href: helpers.content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
-            content_block_edition,
-            object_type: subschema.block_type,
-          ),
-          secondary_solid: true,
-          margin_bottom: 6,
-        } %>
-      <% end %>
+    <% subschema_keys.each do |k| %>
+      <div data-test-id="embedded_<%= k %>">
+        <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+          content_block_edition: content_block_edition,
+          object_type: subschema.block_type,
+          object_title: k,
+          is_editable: true,
+          redirect_url:,
+        ) %>
+      </div>
+    <% end %>
+
+    <% if show_add_button? %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: add_button_text,
+        href: helpers.content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
+          content_block_edition,
+          object_type: subschema.block_type,
+        ),
+        secondary_solid: true,
+        margin_bottom: 6,
+      } %>
+    <% end %>
   </div>
 </div>
