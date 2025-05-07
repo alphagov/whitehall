@@ -433,10 +433,10 @@ GEM
     maxitest (6.0.0)
       minitest (>= 5.20.0, < 5.26.0)
     method_source (1.1.0)
-    mime-types (3.6.2)
+    mime-types (3.7.0)
       logger
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2025.0415)
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2025.0507)
     mini_magick (5.2.0)
       benchmark
       logger
