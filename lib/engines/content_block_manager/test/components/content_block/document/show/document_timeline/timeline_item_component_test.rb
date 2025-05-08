@@ -165,8 +165,9 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   end
 
   describe "when there are embedded objects" do
-    let(:subschema) { stub(:subschema, id: "embedded_schema") }
-    let(:schema) { stub(:schema, subschemas: [subschema]) }
+    let(:subschema1) { stub(:subschema, id: "embedded_schema") }
+    let(:subschema2) { stub(:subschema, id: "other_embedded_schema") }
+    let(:schema) { stub(:schema, subschemas: [subschema1, subschema2]) }
 
     describe "when there are field diffs" do
       let(:field_diffs) do

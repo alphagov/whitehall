@@ -59,7 +59,7 @@ private
       version.field_diffs.dig("details", subschema.id)&.map do |object_id, field_diff|
         { object_id:, field_diff:, subschema_id: subschema.id }
       end
-    }.flatten
+    }.flatten.compact
   end
 
   def show_details_of_changes?
