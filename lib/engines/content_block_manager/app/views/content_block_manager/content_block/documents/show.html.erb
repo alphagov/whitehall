@@ -54,7 +54,7 @@
       </div>
       <div class="govuk-grid-column-one-half subschema-listing__create-button-wrapper">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Add a #{subschema.name.singularize.downcase}",
+          text: "Add #{add_indefinite_article subschema.name.singularize.downcase}",
           href: content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
             @content_block_document,
             object_type: subschema.id,
