@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_19_130617) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_08_154529) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -1069,20 +1069,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_19_130617) do
     t.index ["slug"], name: "index_statistics_announcements_on_slug"
     t.index ["title"], name: "index_statistics_announcements_on_title"
     t.index ["topic_id"], name: "index_statistics_announcements_on_topic_id"
-  end
-
-  create_table "take_part_pages", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "slug", null: false
-    t.string "summary", null: false
-    t.text "body", size: :long, null: false
-    t.string "image_alt_text"
-    t.integer "ordering", null: false
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.string "content_id"
-    t.index ["ordering"], name: "index_take_part_pages_on_ordering"
-    t.index ["slug"], name: "index_take_part_pages_on_slug", unique: true
   end
 
   create_table "topical_event_about_pages", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
