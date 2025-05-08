@@ -1,9 +1,23 @@
-After("@javascript") do
-  errors = page.driver.browser.logs.get(:browser)
-  if errors.present?
-    errors.each do |error|
-      warn "javascript: #{error.level}:"
-      warn error.message
+Before("@javascript") do |_example|
+  @js_console_messages ||= []
+  Capybara.current_session.driver.with_playwright_page do |page|
+    page.on("console", lambda { |msg|
+      @js_console_messages << {
+        type: msg.type,
+        text: msg.text,
+        location: msg.location,
+      }
+    })
+  end
+end
+
+After("@javascript") do |_example|
+  if @js_console_messages.present?
+    aggregate_failures "javascript console messages" do
+      @js_console_messages.each do |msg|
+        warn "javascript: #{msg[:type]}:"
+        warn "at #{msg[:location]}:\n#{msg[:text]}"
+      end
     end
   end
 end

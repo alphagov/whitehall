@@ -11,16 +11,6 @@ jobs:
         ci_node_total: [4]
         ci_node_index: [0, 1, 2, 3]
     steps:
-      - name: Remove image-bundled Chrome
-        run: sudo apt-get purge google-chrome-stable
-
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 128
-          install-chromedriver: true
-          install-dependencies: true
-
       - name: Setup MySQL
         id: setup-mysql
         uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@main
@@ -40,6 +30,21 @@ jobs:
 
       - name: Setup Node
         uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
+
+      - name: Cache Playwright Chromium browser
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+
+      - name: Install Playwright Chromium browser (with deps)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: yarn run playwright install --with-deps chromium
+
+      - name: Install Playwright Chromium browser deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: yarn run playwright install-deps chromium
 
       - name: Precompile assets
         uses: alphagov/govuk-infrastructure/.github/actions/precompile-rails-assets@main
