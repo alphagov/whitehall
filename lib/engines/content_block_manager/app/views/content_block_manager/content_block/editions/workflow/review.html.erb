@@ -30,7 +30,7 @@
             object_type: subschema.id,
             object_title: k,
             is_editable: true,
-            redirect_url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}"),
+            redirect_url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :embedded_objects),
             ) %>
         </div>
       <% end %>

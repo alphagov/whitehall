@@ -137,7 +137,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
         end
 
         it "redirects to the first subschema step when successful" do
-          redirects_to_step(:embedded_my_subschema_name) do
+          redirects_to_step(:embedded_objects) do
             post content_block_manager.content_block_manager_content_block_document_editions_path(content_block_document), params: {
               "content_block/edition": {
                 document_attributes: {
@@ -215,8 +215,8 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
         let(:subschemas) { [stub("subschema", id: "my_subschema_name")] }
         let!(:schema) { stub_request_for_schema("email_address", subschemas:) }
 
-        it "redirects to the first subschema step when successful" do
-          redirects_to_step(:embedded_my_subschema_name) do
+        it "redirects to the first embedded objects step when successful" do
+          redirects_to_step(:embedded_objects) do
             post content_block_manager.content_block_manager_content_block_editions_path, params: {
               something: "else",
               "content_block/edition": {

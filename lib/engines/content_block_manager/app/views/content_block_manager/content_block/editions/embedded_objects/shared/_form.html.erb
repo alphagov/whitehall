@@ -18,7 +18,7 @@
   } %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Cancel",
-    href: @redirect_url.presence || content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: "embedded_#{@subschema.block_type}"),
+    href: @redirect_url.presence || content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: "embedded_objects"),
     secondary_solid: true,
   } %>
 </div>
