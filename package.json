@@ -27,7 +27,7 @@
     "eslint-config-prettier": "^10.1.3",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-n": "^17.17.0",
+    "eslint-plugin-n": "^17.18.0",
     "eslint-plugin-promise": "^6.6.0",
     "jasmine-browser-runner": "^3.0.0",
     "jasmine-core": "^5.7.1",
