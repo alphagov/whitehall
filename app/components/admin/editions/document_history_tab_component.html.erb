@@ -10,7 +10,7 @@
     class: "govuk-body govuk-link govuk-link--no-visited-state") %>
   </p>
 
-<%= form_with url: false, method: :get, class: "js-filter-form", data: {"remote-pagination" => document_history_admin_edition_path(edition)} do |form| %>
+<%= form_with url: false, method: :get, class: "js-filter-form", data: {"remote-pagination" => document_history_admin_edition_path(edition), "ga4-section" => "History" } do |form| %>
   <%= form.hidden_field :editing, value: editing %>
   <%= render "govuk_publishing_components/components/select", {
     id: "document_history_filter",
