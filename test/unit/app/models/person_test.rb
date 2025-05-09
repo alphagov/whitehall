@@ -28,11 +28,6 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal "https://www.test.gov.uk/government/people/forename-surname", person.public_url
   end
 
-  test "public_url returns the correct path for a TakePart object with options" do
-    person = create(:person, forename: " forename ", surname: " surname ")
-    assert_equal "https://www.test.gov.uk/government/people/forename-surname?cachebust=123", person.public_url(cachebust: "123")
-  end
-
   test "should be valid if legacy image isn't 960x640px" do
     person = build(
       :person,

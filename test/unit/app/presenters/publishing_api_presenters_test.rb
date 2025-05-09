@@ -15,13 +15,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::DetailedGuidePresenter, presenter.class
   end
 
-  test ".presenter_for returns a presenter for a Take Part page" do
-    take_part_page = TakePartPage.new
-    presenter = PublishingApiPresenters.presenter_for(take_part_page)
-
-    assert_equal PublishingApi::TakePartPresenter, presenter.class
-  end
-
   test ".presenter_for returns a presenter for a Statistics Announcement" do
     statistics_announcement = StatisticsAnnouncement.new
     presenter = PublishingApiPresenters.presenter_for(statistics_announcement)

@@ -1,6 +1,0 @@
-<% content_for :page_title, "Edit take part page" %>
-<% content_for :title, "Edit take part page \"#{@take_part_page.title}\"" %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @take_part_page)) %>
-<% content_for :title_margin_bottom, 8 %>
-
-<%= render "form", take_part_page: @take_part_page %>
