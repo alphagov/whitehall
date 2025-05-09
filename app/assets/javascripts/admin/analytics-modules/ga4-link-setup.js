@@ -12,6 +12,8 @@ window.GOVUK.analyticsGa4.analyticsModules =
       moduleElements.forEach(function (moduleElement) {
         const links = moduleElement.querySelectorAll('a')
         links.forEach((link) => {
+          // Exclude links that are tracked by ga4EcommerceTracker
+          if (link.dataset.ga4EcommercePath) return
           // Exclude links that serve as tab controls as they have their own event tracking
           // It would be preferable to use the role ARIA attribute to do this, but it's not present yet
           // when this module is initialised because the tabs component adds the role.
