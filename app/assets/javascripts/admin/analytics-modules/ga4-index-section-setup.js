@@ -12,10 +12,20 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
       moduleElements.forEach(function (moduleElement) {
         const indexedElements = moduleElement.querySelectorAll(
-          'select, input:not([data-module~="select-with-search"] input)'
+          'select, input:not([data-module~="select-with-search"] input):not([type="radio"]):not([type="hidden"]), fieldset'
         )
+
         indexedElements.forEach((element, index) => {
-          element.dataset.ga4IndexSection = index
+          if (element.tagName === 'FIELDSET' || !element.closest('fieldset')) {
+            const indexData = {
+              // cast to string otherwise treated as false by
+              // `analyticsGa4.core.applySchemaAndSendData`
+              index_section: String(index),
+              index_section_count: String(indexedElements.length)
+            }
+            element.dataset.ga4Index = JSON.stringify(indexData)
+            element.dataset.ga4FilterParent = true
+          }
         })
       })
     }
