@@ -249,7 +249,7 @@ GEM
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (99.0.0)
+    gds-api-adapters (99.2.0)
       addressable
       link_header
       null_logger
@@ -781,7 +781,7 @@ GEM
       date
       stringio
     ptools (1.5.0)
-    public_suffix (6.0.1)
+    public_suffix (6.0.2)
     puma (6.6.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
