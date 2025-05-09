@@ -1,5 +1,5 @@
 <div class="app-view-filter govuk-!-padding-5">
-  <%= form_with url: admin_statistics_announcements_path, method: :get do |_form| %>
+  <%= form_with url: admin_statistics_announcements_path, data: { module: "ga4-finder-tracker", ga4_section: "Filter by", }, method: :get do |_form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,
@@ -61,6 +61,9 @@
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "unlinked_only",
       heading: "Announcements",
+      data: {
+        ga4_section: "Announcements",
+      },
       no_hint_text: true,
       heading_size: "s",
       items: [
@@ -77,6 +80,6 @@
       margin_bottom: 4,
     } %>
 
-    <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link" %></p>
+    <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link", data: { "ga4-change-category": "clear-all-filters" } %></p>
   <% end %>
 </div>
