@@ -28,7 +28,7 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
 
   let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil) }
   let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil) }
-  let(:baz_field) { stub("field", name: "baz", component_name: "string", enum_values: nil) }
+  let(:baz_field) { stub("field", name: "baz", component_name: "enum", enum_values: %w[some enum]) }
 
   before do
     schema.stubs(:fields).returns([foo_field, bar_field, baz_field])
@@ -37,7 +37,7 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
   it "renders fields for each property" do
     foo_stub = stub("string_component")
     bar_stub = stub("string_component")
-    baz_stub = stub("string_component")
+    baz_stub = stub("enum_component")
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
