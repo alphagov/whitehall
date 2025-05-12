@@ -3,44 +3,32 @@ require "test_helper"
 class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
 
-  let(:body) do
-    {
-      "type" => "object",
-      "required" => %w[foo bar],
-      "additionalProperties" => false,
-      "properties" => {
-        "foo" => {
-          "type" => "string",
-        },
-        "bar" => {
-          "type" => "string",
-        },
-      },
-    }
-  end
-
   let(:content_block_edition) { build(:content_block_edition) }
-  let(:schema) { build(:content_block_schema, body:) }
+  let(:schema) { build(:content_block_schema) }
+
+  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil) }
+  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil) }
 
   let(:foo_stub) { stub("string_component") }
   let(:bar_stub) { stub("string_component") }
+
   let(:object_title) { "some_object" }
+
+  before do
+    schema.stubs(:fields).returns([foo_field, bar_field])
+  end
 
   it "renders fields for each property" do
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
-      label: "Foo",
-      field: [object_title, "foo"],
-      id_suffix: "#{object_title}_foo",
-      value: nil,
+      field: foo_field,
+      object_id: object_title,
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
-      label: "Bar",
-      field: [object_title, "bar"],
-      id_suffix: "#{object_title}_bar",
-      value: nil,
+      field: bar_field,
+      object_id: object_title,
     ).returns(bar_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
@@ -61,18 +49,15 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
-      label: "Foo",
-      field: [object_title, "foo"],
-      id_suffix: "#{object_title}_foo",
+      field: foo_field,
+      object_id: object_title,
       value: "something",
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
-      label: "Bar",
-      field: [object_title, "bar"],
-      id_suffix: "#{object_title}_bar",
-      value: nil,
+      field: bar_field,
+      object_id: object_title,
     ).returns(bar_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(

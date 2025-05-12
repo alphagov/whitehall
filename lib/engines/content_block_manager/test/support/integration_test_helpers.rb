@@ -2,7 +2,10 @@ module ContentBlockManager::IntegrationTestHelpers
   def stub_request_for_schema(block_type, subschemas: [])
     schema = stub(
       id: "content_block_type",
-      fields: %w[foo bar],
+      fields: [
+        stub(:field, name: "foo", component_name: "string", enum_values: nil),
+        stub(:field, name: "bar", component_name: "string", enum_values: nil),
+      ],
       name: "schema",
       body: {
         "properties" => {

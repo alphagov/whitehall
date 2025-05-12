@@ -9,9 +9,9 @@ private
   attr_reader :content_block_edition, :schema
 
   def component_for_field(field)
-    format = @schema.body.dig("properties", field, "type")
+    format = @schema.body.dig("properties", field.name, "type")
     if format == "string"
-      enum = @schema.body.dig("properties", field, "enum")
+      enum = @schema.body.dig("properties", field.name, "enum")
       if enum
         ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
           **component_args(field).merge(enum:),

@@ -36,7 +36,7 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
   end
 
   it "returns the fields" do
-    assert_equal schema.fields, %w[name amount description frequency]
+    assert_equal schema.fields.map(&:name), %w[name amount description frequency]
   end
 
   describe "when an order is given in the subschema" do
@@ -48,7 +48,7 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
     let(:schema) { ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new("bar", body_with_order, parent_schema_id) }
 
     it "orders fields" do
-      assert_equal schema.fields, %w[amount frequency name description]
+      assert_equal schema.fields.map(&:name), %w[amount frequency name description]
     end
   end
 
@@ -70,7 +70,7 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
     end
 
     it "orders fields" do
-      assert_equal schema.fields, %w[name frequency amount description]
+      assert_equal schema.fields.map(&:name), %w[name frequency amount description]
     end
   end
 

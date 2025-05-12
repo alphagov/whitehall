@@ -20,7 +20,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
   describe "#fields" do
     it "returns all fields" do
-      assert_equal schema.fields, %w[foo bar]
+      assert_equal schema.fields.map(&:name), %w[foo bar]
     end
 
     describe "when an order is given in the subschema" do
@@ -31,7 +31,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       let(:schema) { build(:content_block_schema, :email_address, body: body_with_order) }
 
       it "orders fields" do
-        assert_equal schema.fields, %w[bar foo]
+        assert_equal schema.fields.map(&:name), %w[bar foo]
       end
     end
 
@@ -49,7 +49,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       end
 
       it "orders fields" do
-        assert_equal schema.fields, %w[bar foo]
+        assert_equal schema.fields.map(&:name), %w[bar foo]
       end
     end
   end
@@ -83,7 +83,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
     describe "#fields" do
       it "removes object fields" do
-        assert_equal schema.fields, %w[foo]
+        assert_equal schema.fields.map(&:name), %w[foo]
       end
     end
 
@@ -167,7 +167,9 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     it "returns a list of schemas with the content block prefix" do
       schemas = ContentBlockManager::ContentBlock::Schema.all
       assert_equal schemas.map(&:id), %w[content_block_foo content_block_bar]
-      assert_equal schemas.map(&:fields), [%w[foo_field], %w[bar_field bar_field2]]
+      fields = schemas.map(&:fields)
+      assert_equal fields[0].map(&:name), %w[foo_field]
+      assert_equal fields[1].map(&:name), %w[bar_field bar_field2]
     end
 
     it "memoizes the result" do
@@ -205,7 +207,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
       assert_equal schema.id, "content_block_#{block_type}"
       assert_equal schema.block_type, block_type
-      assert_equal schema.fields, %w[email_address]
+      assert_equal schema.fields.map(&:name), %w[email_address]
     end
 
     test "it throws an error when the schema  cannot be found for the block type" do
@@ -287,7 +289,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
     describe "#fields" do
       it "removes object fields" do
-        assert_equal schema.fields, %w[foo]
+        assert_equal schema.fields.map(&:name), %w[foo]
       end
     end
   end

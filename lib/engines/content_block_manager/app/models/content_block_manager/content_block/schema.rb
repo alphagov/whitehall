@@ -50,7 +50,7 @@ module ContentBlockManager
       end
 
       def fields
-        sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+        field_names.map { |field_name| Field.new(field_name, self) }
       end
 
       def subschema(name)
@@ -62,7 +62,7 @@ module ContentBlockManager
       end
 
       def permitted_params
-        fields
+        field_names
       end
 
       def block_type
@@ -73,7 +73,15 @@ module ContentBlockManager
         config["embeddable_fields"] || []
       end
 
+      def config
+        @config ||= self.class.schema_settings.dig("schemas", @id) || {}
+      end
+
     private
+
+      def field_names
+        sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+      end
 
       def sort_fields(fields)
         fields.sort_by { |field| @body["order"]&.index(field) || config["field_order"]&.index(field) }
@@ -81,10 +89,6 @@ module ContentBlockManager
 
       def embedded_objects
         @body["properties"].select { |_k, v| v["type"] == "object" }
-      end
-
-      def config
-        @config ||= self.class.schema_settings.dig("schemas", @id) || {}
       end
     end
   end

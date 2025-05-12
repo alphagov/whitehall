@@ -8,18 +8,18 @@ module ContentBlockManager
           super(id, body)
         end
 
-        def fields
-          sort_fields @body["properties"].keys
-        end
-
         def block_type
           @id
         end
 
-        private
-
         def config
           self.class.schema_settings.dig("schemas", @parent_schema_id, "subschemas", @id) || {}
+        end
+
+      private
+
+        def field_names
+          sort_fields @body["properties"].keys
         end
       end
     end

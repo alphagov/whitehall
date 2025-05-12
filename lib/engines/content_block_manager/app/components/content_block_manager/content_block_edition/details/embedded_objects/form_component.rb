@@ -13,10 +13,9 @@ private
   def component_args(field)
     {
       content_block_edition:,
-      label: field.humanize,
-      field: [object_title, field],
-      id_suffix: "#{object_title}_#{field}",
-      value: params[field],
-    }
+      field: field,
+      object_id: object_title,
+      value: params[field.name],
+    }.compact
   end
 end
