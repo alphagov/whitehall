@@ -116,6 +116,26 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4SelectSetup', function () {
     )
   })
 
+  it(`does not fire event if select within form tracked by FinderTracker`, function () {
+    container.setAttribute('data-module', 'ga4-select-setup ga4-finder-tracker')
+
+    const ga4SelectEventHandlers =
+      GOVUK.analyticsGa4.analyticsModules.Ga4SelectSetup
+
+    ga4SelectEventHandlers.init()
+
+    const mockGa4SendData = spyOn(window.GOVUK.analyticsGa4.core, 'sendData')
+
+    select.dispatchEvent(new Event('change', { bubbles: true }))
+
+    expectedAttributes.event_data.section = labelContent
+
+    expect(mockGa4SendData).not.toHaveBeenCalledWith(
+      expectedAttributes,
+      'event_data'
+    )
+  })
+
   afterEach(function () {
     document.body.removeChild(container)
   })

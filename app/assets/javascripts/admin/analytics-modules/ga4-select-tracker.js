@@ -16,7 +16,8 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
           if (
             event.target.tagName.toLowerCase() === 'select' &&
-            !event.target.getAttribute('hidden')
+            !event.target.getAttribute('hidden') &&
+            !event.target.closest("[data-module~='ga4-finder-tracker']")
           ) {
             const eventData = {
               event: 'event_data',
