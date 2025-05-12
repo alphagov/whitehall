@@ -50,7 +50,7 @@ module ContentBlockManager
       end
 
       def fields
-        (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+        sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
       end
 
       def subschema(name)
@@ -74,6 +74,10 @@ module ContentBlockManager
       end
 
     private
+
+      def sort_fields(fields)
+        fields.sort_by { |field| @body["order"]&.index(field) || config["field_order"]&.index(field) }
+      end
 
       def embedded_objects
         @body["properties"].select { |_k, v| v["type"] == "object" }

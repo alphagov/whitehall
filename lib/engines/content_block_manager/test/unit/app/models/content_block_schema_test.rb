@@ -6,20 +6,52 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   let(:body) { { "properties" => { "foo" => {}, "bar" => {} } } }
   let(:schema) { build(:content_block_schema, :email_address, body:) }
 
-  test "it generates a human-readable name" do
+  it "generates a human-readable name" do
     assert_equal schema.name, "Email address"
   end
 
-  test "it generates a parameterized name for use in URLs" do
+  it "generates a parameterized name for use in URLs" do
     assert_equal schema.parameter, "email-address"
   end
 
-  test "it returns all fields" do
-    assert_equal schema.fields, %w[foo bar]
+  it "returns a block type" do
+    assert_equal schema.block_type, "email_address"
   end
 
-  test "it returns a block type" do
-    assert_equal schema.block_type, "email_address"
+  describe "#fields" do
+    it "returns all fields" do
+      assert_equal schema.fields, %w[foo bar]
+    end
+
+    describe "when an order is given in the subschema" do
+      let(:body_with_order) do
+        body.merge("order" => %w[bar foo])
+      end
+
+      let(:schema) { build(:content_block_schema, :email_address, body: body_with_order) }
+
+      it "orders fields" do
+        assert_equal schema.fields, %w[bar foo]
+      end
+    end
+
+    describe "when an order is given in the config" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              "content_block_email_address" => {
+                "field_order" => %w[bar foo],
+              },
+            },
+          })
+      end
+
+      it "orders fields" do
+        assert_equal schema.fields, %w[bar foo]
+      end
+    end
   end
 
   describe "when a schema has embedded objects" do
@@ -186,31 +218,42 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   end
 
   describe ".is_valid_schema?" do
-    test "returns true when the schema has correct prefix/suffix" do
+    it "returns true when the schema has correct prefix/suffix" do
       ContentBlockManager::ContentBlock::Schema.valid_schemas.each do |schema|
         schema_name = "#{ContentBlockManager::ContentBlock::Schema::SCHEMA_PREFIX}_#{schema}"
         assert ContentBlockManager::ContentBlock::Schema.is_valid_schema?(schema_name)
       end
     end
 
-    test "returns false when given an invalid schema" do
+    it "returns false when given an invalid schema" do
       schema_name = "something_else"
       assert_equal ContentBlockManager::ContentBlock::Schema.is_valid_schema?(schema_name), false
     end
 
-    test "returns false when the schema has correct prefix but a suffix that is not valid" do
+    it "returns false when the schema has correct prefix but a suffix that is not valid" do
       schema_name = "#{ContentBlockManager::ContentBlock::Schema::SCHEMA_PREFIX}_something"
       assert_equal ContentBlockManager::ContentBlock::Schema.is_valid_schema?(schema_name), false
     end
   end
 
   describe ".schema_settings" do
-    it "should return the schema settings" do
-      stub_schema = stub("schema_settings")
+    let(:stub_schema) { stub("schema_settings") }
+
+    before do
       YAML.expects(:load_file)
           .with(ContentBlockManager::ContentBlock::Schema::CONFIG_PATH)
           .returns(stub_schema)
 
+      # This removes any memoized schema_settings, so we can be sure the stub gets returned
+      ContentBlockManager::ContentBlock::Schema.instance_variable_set("@schema_settings", nil)
+    end
+
+    after do
+      # Make sure we remove the stubbed schema_settings response after the tests in this block run
+      ContentBlockManager::ContentBlock::Schema.instance_variable_set("@schema_settings", nil)
+    end
+
+    it "should return the schema settings" do
       assert_equal ContentBlockManager::ContentBlock::Schema.schema_settings, stub_schema
     end
   end
