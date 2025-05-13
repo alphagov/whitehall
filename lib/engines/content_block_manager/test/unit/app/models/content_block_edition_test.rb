@@ -261,19 +261,6 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
     end
   end
 
-  describe "#first_class_details" do
-    it "removed embedded objects" do
-      content_block_edition = create(
-        :content_block_edition, :email_address,
-        title: "Some title",
-        details: { "my" => "details", "embedded" => { "something" => { "is" => "here" } } },
-        state: "published"
-      )
-
-      assert_equal content_block_edition.first_class_details, { "my" => "details" }
-    end
-  end
-
   describe "#has_entries_for_subschema_id?" do
     it "returns false when there are no entries for a subschema ID" do
       content_block_edition.details["foo"] = {}
