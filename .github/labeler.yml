@@ -1,0 +1,4 @@
+# Add 'Content Modelling' label to any changes within the content_block_manager engine
+Content Modelling:
+- changed-files:
+    - any-glob-to-any-file: lib/engines/content_block_manager/**
