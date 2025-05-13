@@ -15,6 +15,7 @@ Feature: Edit a pension object
     And that pension has a rate with the following fields:
       | title   | amount  | frequency |
       | My rate | £123.45 | a week    |
+    And dependent content exists for a content block
 
   Scenario: GDS Editor edits a pension object
     When I visit the Content Block Manager home page

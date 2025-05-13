@@ -89,8 +89,8 @@ def update_content_block
   visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
   #  fill in the new data
   change_details
-  # accept changes
-  click_save_and_continue
+  # accept changes if there is any dependent content
+  click_save_and_continue if @dependent_content.present?
 end
 
 def add_internal_note

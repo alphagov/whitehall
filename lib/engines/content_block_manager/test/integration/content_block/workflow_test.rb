@@ -232,6 +232,31 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         it_returns_embedded_content do
           visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
         end
+
+        describe "when there is no embedded content" do
+          before do
+            stub_publishing_api_has_embedded_content_for_any_content_id(
+              results: [],
+              total: 0,
+              order: ContentBlockManager::HostContentItem::DEFAULT_ORDER,
+            )
+          end
+
+          it "redirects to the next step" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :internal_note)
+          end
+
+          describe "when the request comes from the next step" do
+            it "redirects to the previous step" do
+              get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
+                  headers: { "HTTP_REFERER" => "http://example.com#{content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: :internal_note)}" }
+
+              assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :edit_draft)
+            end
+          end
+        end
       end
 
       describe "#update" do
