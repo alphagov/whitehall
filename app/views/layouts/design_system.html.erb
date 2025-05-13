@@ -3,6 +3,10 @@
 <% if user_signed_in? %>
   <% content_for :head do %>
     <meta name="govuk:components_gem_version" content="<%= GovukPublishingComponents::VERSION %>">
+    <meta name="govuk:user-created-at" content="<%= current_user&.created_at&.to_date %>">
+    <meta name="govuk:user-organisation-name" content="<%= current_user&.organisation_name %>">
+    <meta name="govuk:user-role" content="<%= current_user&.role %>">
+    <meta name="govuk:format" content="<%= "#{action_name}-#{controller_name}" %>">
     <%= javascript_include_tag "admin/domain-config" %>
     <%= javascript_include_tag "govuk_publishing_components/load-analytics" %>
   <% end %>
