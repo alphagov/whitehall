@@ -9,8 +9,9 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
   include ActionView::Helpers::SanitizeHelper
   include ContentBlockManager::ContentBlock::EditionHelper
 
+  let(:content_block_document) { build_stubbed(:content_block_document, :email_address) }
   let(:content_block_edition) do
-    create(
+    build_stubbed(
       :content_block_edition,
       :email_address,
       id: 123,
@@ -20,13 +21,20 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
       scheduled_publication: Time.zone.now,
       state: "published",
       updated_at: 1.day.ago,
+      document: content_block_document,
     )
   end
-
-  let(:content_block_document) { content_block_edition.document }
+  let(:fields) do
+    [
+      stub(:field, name: "foo"),
+      stub(:field, name: "something"),
+    ]
+  end
+  let(:schema) { stub(:schema, fields:) }
 
   before do
-    content_block_document.expects(:latest_edition).at_least_once.returns(content_block_edition)
+    content_block_document.stubs(:latest_edition).at_least_once.returns(content_block_edition)
+    content_block_edition.stubs(:schema).returns(schema)
   end
 
   it "renders a published content block as a summary card" do

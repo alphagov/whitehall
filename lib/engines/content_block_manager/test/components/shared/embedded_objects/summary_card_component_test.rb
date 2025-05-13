@@ -9,15 +9,22 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       "embedded-objects" => {
         "my-embedded-object" => {
           "name" => "My Embedded Object",
-          "field-1" => "Value 1",
           "field-2" => "Value 2",
+          "field-1" => "Value 1",
         },
       },
     }
   end
 
   let(:schema) { stub(:schema) }
-  let(:subschema) { stub(:subschema, embeddable_fields: %w[name field-1 field-2]) }
+  let(:fields) do
+    [
+      stub("field", name: "name"),
+      stub("field", name: "field-1"),
+      stub("field", name: "field-2"),
+    ]
+  end
+  let(:subschema) { stub(:subschema, embeddable_fields: %w[name field-1 field-2], fields:) }
   let(:document) { build(:content_block_document, :email_address, schema:) }
   let(:content_block_edition) { build_stubbed(:content_block_edition, :email_address, details:, document:) }
 
@@ -81,7 +88,7 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
   end
 
   describe "when only some fields are embeddable" do
-    let(:subschema) { stub(:subschema, embeddable_fields: %w[field-1]) }
+    let(:subschema) { stub(:subschema, embeddable_fields: %w[field-1], fields:) }
 
     it "only renders copy code buttons for embeddable fields" do
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(

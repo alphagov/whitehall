@@ -17,7 +17,8 @@ private
   end
 
   def rows
-    object.keys.map { |key|
+    schema.fields.map { |field|
+      key = field.name
       rows = [
         {
           key: key.titleize,
@@ -43,7 +44,7 @@ private
   end
 
   def embeddable_fields
-    @embeddable_fields = content_block_edition.document.schema.subschema(object_type).embeddable_fields
+    @embeddable_fields = schema.embeddable_fields
   end
 
   def is_embeddable?(key)
@@ -52,6 +53,10 @@ private
 
   def object
     content_block_edition.details.dig(object_type, object_title)
+  end
+
+  def schema
+    @schema ||= content_block_edition.document.schema.subschema(object_type)
   end
 
   def summary_card_actions
