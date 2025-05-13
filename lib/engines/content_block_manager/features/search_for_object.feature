@@ -5,9 +5,11 @@ Feature: Search for a content object
     And the organisation "Ministry of Example" exists
     And I am an admin in the organisation "Department of Placeholder"
     And a schema "email_address" exists with the following fields:
-      | email_address |
+      | field         | type   | format | required |
+      | email_address | string | string | true     |
     And a schema "postal_address" exists with the following fields:
-      | an_address |
+      | field         | type   | format | required |
+      | an_address    | string | string | true     |
     And 1 content blocks of type postal_address have been created with the fields:
       | title |  "an address" |
       | an_address  | ABC123 |
