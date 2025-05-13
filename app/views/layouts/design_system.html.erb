@@ -21,7 +21,7 @@
 
   <%= render partial: "shared/header" %>
 
-  <div class="govuk-width-container" data-module="ga4-event-tracker ga4-paste-tracker ga4-link-tracker ga4-button-setup ga4-select-with-search-setup ga4-index-section-setup ga4-select-setup" data-ga4-search-section-type="Filter by" data-ga4-document-type="<%= action_name %>-<%= controller_name %>">
+  <div class="govuk-width-container" data-module="ga4-event-tracker ga4-paste-tracker ga4-button-setup ga4-select-with-search-setup ga4-index-section-setup ga4-select-setup" data-ga4-search-section-type="Filter by" data-ga4-document-type="<%= action_name %>-<%= controller_name %>">
 
     <%= render "shared/phase_banner", {
       show_feedback_banner: t("admin.feedback.show_banner"),
@@ -30,7 +30,7 @@
     <%= yield(:back_link) %>
     <%= yield(:breadcrumbs) %>
 
-    <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank? && yield(:breadcrumbs).blank? %>" id="main-content" role="main">
+    <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank? && yield(:breadcrumbs).blank? %>" id="main-content" data-module="ga4-link-tracker" role="main" data-ga4-link='{ "event_name": "navigation", "type": "generic_link" }'>
 
       <%= render Admin::FlashNoticeComponent.new(message: flash[:notice], html_safe: flash["html_safe"]) if flash[:notice] %>
       <%= render Admin::FlashAlertComponent.new(message: flash[:alert], html_safe: flash["html_safe"]) if flash[:alert] && yield(:error_summary).blank? %>
