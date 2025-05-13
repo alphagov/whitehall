@@ -39,12 +39,6 @@ module Admin::UrlHelper
     admin_link "Cabinet ministers order", admin_cabinet_ministers_path
   end
 
-  def admin_get_involved_link
-    if can?(:administer, :get_involved_section)
-      admin_link "Get involved", admin_get_involved_path
-    end
-  end
-
   def admin_emergency_banner_link
     if can?(:administer, :emergency_banner)
       admin_link "Emergency banner", admin_emergency_banner_path

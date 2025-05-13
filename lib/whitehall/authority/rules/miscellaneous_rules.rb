@@ -20,10 +20,6 @@ module Whitehall::Authority::Rules
       actor.gds_admin?
     end
 
-    def can_for_get_involved_section?(_action)
-      actor.gds_editor?
-    end
-
     def can_for_sitewide_settings_section?(_action)
       actor.gds_editor?
     end

@@ -159,7 +159,6 @@ module Admin::RepublishingHelper
       Role
       RoleAppointment
       StatisticsAnnouncement
-      TakePartPage
       TopicalEvent
       TopicalEventAboutPage
       WorldLocation

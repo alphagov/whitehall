@@ -151,14 +151,6 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     person.image.republish_on_assets_ready
   end
 
-  test "#republish_on_assets_ready should republish take part page if assets are ready" do
-    take_part_page = create(:take_part_page)
-
-    Whitehall::PublishingApi.expects(:republish_async).with(take_part_page).once
-
-    take_part_page.image.republish_on_assets_ready
-  end
-
   test "#republish_on_assets_ready should republish feature via organisation if assets are ready" do
     speech1 = create(:speech)
     speech2 = create(:speech)
