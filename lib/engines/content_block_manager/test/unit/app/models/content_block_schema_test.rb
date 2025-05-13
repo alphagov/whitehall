@@ -52,6 +52,42 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
         assert_equal schema.fields.map(&:name), %w[bar foo]
       end
     end
+
+    describe "when an order is given in the config and the subschema" do
+      let(:body_with_order) do
+        body.merge("order" => %w[foo bar])
+      end
+
+      let(:schema) { build(:content_block_schema, :email_address, body: body_with_order) }
+
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              "content_block_email_address" => {
+                "field_order" => %w[bar foo],
+              },
+            },
+          })
+      end
+
+      it "prioritises the config order" do
+        assert_equal schema.fields.map(&:name), %w[bar foo]
+      end
+    end
+  end
+
+  describe "when no order is given" do
+    before do
+      ContentBlockManager::ContentBlock::Schema
+        .stubs(:schema_settings)
+        .returns({})
+    end
+
+    it "maintains the default order" do
+      assert_equal schema.fields.map(&:name), %w[foo bar]
+    end
   end
 
   describe "when a schema has embedded objects" do

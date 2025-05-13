@@ -74,6 +74,47 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
     end
   end
 
+  describe "when an order is given in the config and the schema" do
+    let(:body_with_order) do
+      body["patternProperties"]["*"] = body["patternProperties"]["*"].merge("order" => %w[amount frequency name description])
+      body
+    end
+
+    let(:schema) { ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new("bar", body_with_order, parent_schema_id) }
+
+    before do
+      ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
+        .stubs(:schema_settings)
+        .returns({
+          "schemas" => {
+            parent_schema_id => {
+              "subschemas" => {
+                schema_id => {
+                  "field_order" => %w[name frequency amount description],
+                },
+              },
+            },
+          },
+        })
+    end
+
+    it "prioritises the config order" do
+      assert_equal schema.fields.map(&:name), %w[name frequency amount description]
+    end
+  end
+
+  describe "when no order is given" do
+    before do
+      ContentBlockManager::ContentBlock::Schema
+        .stubs(:schema_settings)
+        .returns({})
+    end
+
+    it "maintains the default order" do
+      assert_equal schema.fields.map(&:name), %w[name amount description frequency]
+    end
+  end
+
   describe "when an invalid subschema is given" do
     let(:body) do
       {

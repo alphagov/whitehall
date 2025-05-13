@@ -84,7 +84,7 @@ module ContentBlockManager
       end
 
       def sort_fields(fields)
-        fields.sort_by { |field| @body["order"]&.index(field) || config["field_order"]&.index(field) }
+        fields.sort_by { |field| config["field_order"]&.index(field) || @body["order"]&.index(field) || 0 }
       end
 
       def embedded_objects
