@@ -78,6 +78,10 @@
   </div>
 
   <%= render "govuk_publishing_components/components/layout_footer", {
+    data_attributes: {
+      ga4_link: '{ "event_name": "navigation", "type": "generic_link" }',
+      module: "ga4-link-tracker",
+    },
     hide_licence: true,
     navigation: [
       {
