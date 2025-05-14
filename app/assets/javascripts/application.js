@@ -23,8 +23,6 @@
 //= require admin/analytics-modules/ga4-visual-editor-event-handlers.js
 //= require admin/analytics-modules/ga4-page-view-tracking.js
 //= require admin/analytics-modules/ga4-paste-tracker.js
-//= require admin/analytics-modules/ga4-select-with-search-tracker.js
-//= require admin/analytics-modules/ga4-select-tracker.js
 //= require admin/analytics-modules/ga4-search-setup.js
 //= require admin/analytics-modules/ga4-form-tracker.js
 //= require admin/analytics-modules/ga4-form-setup.js
