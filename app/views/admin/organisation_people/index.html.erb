@@ -34,6 +34,7 @@
       @military_organisation_roles,
     ].select(&:any?).any? %>
       <%= render "govuk_publishing_components/components/tabs", {
+        disable_ga4: true,
         tabs: [
           *(people_tab(@ministerial_organisation_roles, "Ministers", "ministerial") if @ministerial_organisation_roles.any?),
           *(people_tab(@special_representative_organisation_roles, "Special representatives", "special_representative") if @special_representative_organisation_roles.any?),

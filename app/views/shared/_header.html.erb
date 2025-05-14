@@ -3,6 +3,10 @@
 <% user = current_user %>
 
 <%= render "govuk_publishing_components/components/layout_header", {
+  data_attributes: {
+    ga4_link: '{ "event_name": "navigation", "type": "generic_link" }',
+    module: "ga4-link-tracker",
+  },
   product_name:,
   environment: environment,
   navigation_items: [
@@ -28,7 +32,7 @@
   ],
 } %>
 
-<div class="govuk-width-container" data-module="ga4-link-setup ga4-link-tracker">
+<div class="govuk-width-container" data-module="ga4-link-tracker" data-ga4-link='{ "event_name": "navigation", "type": "generic_link" }'>
   <%= render "components/sub_navigation", {
     items: [
       sub_nav_item("New document", admin_new_document_path),
