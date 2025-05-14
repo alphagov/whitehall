@@ -12,7 +12,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
       moduleElements.forEach(function (moduleElement) {
         const indexedElements = moduleElement.querySelectorAll(
-          'select, input:not([data-module~="select-with-search"] input):not([type="radio"]):not([type="hidden"]), fieldset'
+          'select, textarea, input:not([data-module~="select-with-search"] input):not([type="radio"]):not([type="hidden"]), fieldset'
         )
 
         indexedElements.forEach((element, index) => {
