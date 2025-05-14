@@ -10,6 +10,7 @@
   <%= render partial: "admin/editions/show/sidebar_history_state", locals: { edition: @edition } %>
 
   <%= render "govuk_publishing_components/components/tabs", {
+   disable_ga4: true,
    tabs: [
      {
        id: "history_tab",

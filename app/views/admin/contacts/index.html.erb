@@ -33,6 +33,7 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @contactable.contacts.present? %>
       <%= render "govuk_publishing_components/components/tabs", {
+        disable_ga4: true,
         tabs: contact_tabs(@contactable.contacts, @contactable),
       } %>
     <% else %>
