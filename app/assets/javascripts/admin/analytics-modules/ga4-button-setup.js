@@ -12,9 +12,10 @@ window.GOVUK.analyticsGa4.analyticsModules =
       moduleElements.forEach(function (moduleElement) {
         const buttons = moduleElement.querySelectorAll('button')
         buttons.forEach((button) => {
+          if (button.type === 'submit') return
+
           const event = {
-            event_name:
-              button.type === 'submit' ? 'navigation' : 'select_content',
+            event_name: 'select_content',
             type: 'button',
             text: button.textContent
           }

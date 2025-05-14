@@ -22,14 +22,14 @@ describe('GOVUK.analyticsGa4.analyticsModules', function () {
     )
   })
 
-  it('uses navigation as the event name from "submit" buttons', function () {
+  it('does not add ga4 event data to "submit" buttons', function () {
     button.type = 'submit'
 
     const ga4ButtonSetup = GOVUK.analyticsGa4.analyticsModules.Ga4ButtonSetup
     ga4ButtonSetup.init()
 
-    expect(button.dataset.ga4Event).toEqual(
-      '{"event_name":"navigation","type":"button","text":"Button"}'
+    expect(button.dataset.ga4Event).not.toEqual(
+      '{"event_name":"select_content","type":"button","text":"Button"}'
     )
   })
 
