@@ -1,9 +1,6 @@
 {
   "srcDir": "public/assets/whitehall",
-  "srcFiles": [
-    "application-*.js",
-    "all-*.js"
-  ],
+  "srcFiles": ["application-*.js", "all-*.js"],
   "specDir": ".",
   "specFiles": [
     "spec/javascripts/**/*[sS]pec.js",
