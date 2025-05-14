@@ -59,6 +59,7 @@ gem "transitions", require: ["transitions", "active_record/transitions"]
 gem "validates_email_format_of"
 gem "view_component"
 gem "whenever", require: false
+gem "select_with_search_component", path: "../select-with-search-component"
 
 group :development, :test do
   gem "erb_lint", require: false

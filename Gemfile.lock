@@ -1,3 +1,10 @@
+PATH
+  remote: ../select-with-search-component
+  specs:
+    select_with_search_component (0.1.0)
+      govuk_publishing_components
+      rails (>= 8.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -1125,6 +1132,7 @@ DEPENDENCIES
   rinku
   rubocop-govuk
   rubyzip
+  select_with_search_component!
   sentry-sidekiq
   sidekiq-scheduler
   simplecov
