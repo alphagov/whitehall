@@ -30,8 +30,7 @@
         method: :put,
         ) do %>
           <%= render(
-                ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent.new(
-                  is_preview: true,
+                ContentBlockManager::ContentBlockEdition::HostContent::TableComponent.new(
                   caption: "List of locations",
                   host_content_items: @host_content_items,
                   current_page: @page,

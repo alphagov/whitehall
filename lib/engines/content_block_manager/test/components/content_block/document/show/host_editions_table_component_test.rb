@@ -77,6 +77,14 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
 
       assert_selector ".govuk-table__caption", text: caption
 
+      assert_selector ".govuk-table__header", text: "Title"
+      assert_selector ".govuk-table__header", text: "Title"
+      assert_selector ".govuk-table__header", text: "Type"
+      assert_selector ".govuk-table__header", text: "Views (30 days)"
+      assert_selector ".govuk-table__header", text: "Instances"
+      assert_selector ".govuk-table__header", text: "Lead organisation"
+      assert_no_selector ".govuk-table__header", text: "Preview (Opens in new tab)"
+
       assert_selector "tbody .govuk-table__row", count: 1
 
       assert_selector ".govuk-link" do |link|
@@ -166,21 +174,6 @@ class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableCompon
         )
 
         assert_selector "tbody .govuk-table__cell", text: "0"
-      end
-    end
-
-    context "when previewing" do
-      it "returns the draft content store link" do
-        render_inline(
-          described_class.new(
-            is_preview: true,
-            caption:,
-            host_content_items:,
-            content_block_edition:,
-          ),
-        )
-
-        assert_selector "a[href='#{host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: host_content_item.host_content_id, locale: host_content_item.host_locale)}']", text: host_content_item.title
       end
     end
 
