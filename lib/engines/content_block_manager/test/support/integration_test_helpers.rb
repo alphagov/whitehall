@@ -1,8 +1,11 @@
 module ContentBlockManager::IntegrationTestHelpers
-  def stub_request_for_schema(block_type, subschemas: [])
+  def stub_request_for_schema(block_type, subschemas: [], fields: nil)
     schema = stub(
       id: "content_block_type",
-      fields: %w[foo bar],
+      fields: fields || [
+        stub(:field, name: "foo", component_name: "string", enum_values: nil),
+        stub(:field, name: "bar", component_name: "string", enum_values: nil),
+      ],
       name: "schema",
       body: {
         "properties" => {
@@ -13,6 +16,7 @@ module ContentBlockManager::IntegrationTestHelpers
       block_type:,
       permitted_params: %i[foo bar],
       subschemas:,
+      embeddable_fields: [],
     )
     subschemas.each do |subschema|
       schema.stubs(:subschema).with(subschema.id).returns(subschema)

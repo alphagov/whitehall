@@ -4,12 +4,28 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponen
   extend Minitest::Spec::DSL
   include ContentBlockManager::Engine.routes.url_helpers
 
+  let(:organisation) { build(:organisation, name: "Department for Example") }
+  let(:content_block_document) { create(:content_block_document, :email_address) }
+  let(:content_block_edition) do
+    build_stubbed(:content_block_edition, :email_address,
+                  title: "Some edition title",
+                  details: { "interesting_fact" => "value of fact", "something" => { "else" => "value" } },
+                  organisation:,
+                  document: content_block_document)
+  end
+  let(:fields) do
+    [
+      stub("field", name: "interesting_fact"),
+    ]
+  end
+  let(:schema) { stub(:schema, fields:) }
+
+  before do
+    content_block_edition.document.expects(:schema).returns(schema)
+  end
+
   it "it renders instructions to publishers" do
-    content_block_edition = create(
-      :content_block_edition,
-      :email_address,
-      instructions_to_publishers: "some instructions",
-    )
+    content_block_edition.instructions_to_publishers = "some instructions"
 
     render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponent.new(
                     content_block_edition:,
@@ -20,19 +36,7 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponen
   end
 
   it "renders a summary card component with the edition details to confirm" do
-    organisation = create(:organisation, name: "Department for Example")
-
-    content_block_document = create(:content_block_document, :email_address)
     content_block_document.stubs(:is_new_block?).returns(false)
-
-    content_block_edition = create(
-      :content_block_edition,
-      :email_address,
-      title: "Some edition title",
-      details: { "interesting_fact" => "value of fact", "something" => { "else" => "value" } },
-      organisation:,
-      document: content_block_document,
-    )
 
     render_inline(ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponent.new(
                     content_block_edition:,

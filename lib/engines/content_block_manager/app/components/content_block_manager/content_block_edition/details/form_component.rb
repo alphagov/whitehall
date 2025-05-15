@@ -9,19 +9,11 @@ private
   attr_reader :content_block_edition, :schema
 
   def component_for_field(field)
-    format = @schema.body.dig("properties", field, "type")
-    if format == "string"
-      enum = @schema.body.dig("properties", field, "enum")
-      if enum
-        ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
-          **component_args(field).merge(enum:),
-        )
-      else
-        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
-          **component_args(field),
-        )
-      end
-    end
+    component_name = field.component_name
+    component_class = "ContentBlockManager::ContentBlockEdition::Details::Fields::#{component_name.camelize}Component".constantize
+    args = component_args(field).merge(enum: field.enum_values)
+
+    component_class.new(**args.compact)
   end
 
   def component_args(field)

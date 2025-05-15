@@ -26,12 +26,16 @@ private
   end
 
   def details_items
-    content_block_edition.first_class_details.map do |key, value|
+    schema.fields.map do |field|
       {
-        key: key.humanize,
-        value:,
+        key: field.name.humanize,
+        value: content_block_edition.details[field.name],
       }
     end
+  end
+
+  def schema
+    @schema ||= content_block_edition.schema
   end
 
   def organisation_item

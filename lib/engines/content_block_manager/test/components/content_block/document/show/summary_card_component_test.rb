@@ -9,9 +9,10 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
 
   include ContentBlockManager::Engine.routes.url_helpers
 
-  let(:organisation) { create(:organisation, name: "Department for Example") }
+  let(:organisation) { build(:organisation, name: "Department for Example") }
+  let(:content_block_document) { build_stubbed(:content_block_document, :email_address) }
   let!(:content_block_edition) do
-    create(
+    build_stubbed(
       :content_block_edition,
       :email_address,
       details: { foo: "bar", something: "else", "embedded" => { "something" => { "is" => "here" } } },
@@ -20,14 +21,21 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
       scheduled_publication: Time.zone.now,
       state: "published",
       updated_at: 1.day.ago,
+      document: content_block_document,
     )
   end
-  let(:schema_with_embeddable_fields) { stub(:schema, embeddable_fields: %w[foo]) }
-  let(:schema_without_embeddable_fields) { stub(:schema, embeddable_fields: []) }
-  let(:content_block_document) { content_block_edition.document }
+  let(:fields) do
+    [
+      stub("field", name: "foo"),
+      stub("field", name: "something"),
+    ]
+  end
+  let(:schema_with_embeddable_fields) { stub(:schema, embeddable_fields: %w[foo], fields:) }
+  let(:schema_without_embeddable_fields) { stub(:schema, embeddable_fields: [], fields:) }
 
   before do
     content_block_document.stubs(:schema).returns(schema_without_embeddable_fields)
+    content_block_document.stubs(:latest_edition).returns(content_block_edition)
   end
 
   it "renders a scheduled content block correctly" do

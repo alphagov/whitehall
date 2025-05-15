@@ -6,7 +6,7 @@ When("I visit the page to create a new {string} for the block") do |object_type|
 end
 
 Then("I should see a form to create a {string} for the content block") do |object_type|
-  expect(page).to have_text("Add a #{object_type}")
+  expect(page).to have_text("Add #{add_indefinite_article object_type}")
 end
 
 Then("I should see confirmation that my {string} has been created") do |object_type|
@@ -118,5 +118,5 @@ And(/^I should see the updated rates for that block$/) do
 end
 
 And("I should not see a button to add a new {string}") do |object_type|
-  assert_no_text "Add a #{object_type}"
+  assert_no_text "Add #{add_indefinite_article object_type}"
 end

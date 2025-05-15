@@ -22,7 +22,7 @@ class ContentBlockManager::ContentBlock::EditionForm
 
   def attributes
     @schema.fields.each_with_object({}) do |field, hash|
-      hash[field] = nil
+      hash[field.name] = nil
       hash
     end
   end

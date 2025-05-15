@@ -15,8 +15,13 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
   end
 
   describe "#index" do
+    let(:content_block_document) { create(:content_block_document, :email_address) }
+
+    before do
+      stub_request_for_schema(content_block_document.block_type, fields: [stub(:field, name: "email_address")])
+    end
+
     it "only returns the latest edition when multiple editions exist for a document" do
-      content_block_document = create(:content_block_document, :email_address)
       first_edition = create(
         :content_block_edition,
         :email_address,
@@ -39,18 +44,17 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
     end
 
     it "only returns documents with a latest edition" do
-      document_with_latest_edition = create(:content_block_document, :email_address)
-      document_with_latest_edition.latest_edition = create(
+      content_block_document.latest_edition = create(
         :content_block_edition,
         :email_address,
         details: { "email_address" => "live_edition@example.com" },
-        document_id: document_with_latest_edition.id,
+        document_id: content_block_document.id,
       )
       _document_without_latest_edition = create(:content_block_document, :email_address, sluggable_string: "no latest edition")
 
       visit content_block_manager.content_block_manager_content_block_documents_path({ lead_organisation: "" })
 
-      assert_text document_with_latest_edition.latest_edition.details["email_address"]
+      assert_text content_block_document.latest_edition.details["email_address"]
       assert_text "1 result"
     end
 

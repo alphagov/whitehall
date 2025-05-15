@@ -3,23 +3,63 @@ require "test_helper"
 class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:body) { { "properties" => { "foo" => {}, "bar" => {} } } }
+  let(:body) { { "properties" => { "foo" => {}, "bar" => {}, "title" => {} } } }
   let(:schema) { build(:content_block_schema, :email_address, body:) }
 
-  test "it generates a human-readable name" do
+  it "generates a human-readable name" do
     assert_equal schema.name, "Email address"
   end
 
-  test "it generates a parameterized name for use in URLs" do
+  it "generates a parameterized name for use in URLs" do
     assert_equal schema.parameter, "email-address"
   end
 
-  test "it returns all fields" do
-    assert_equal schema.fields, %w[foo bar]
+  it "returns a block type" do
+    assert_equal schema.block_type, "email_address"
   end
 
-  test "it returns a block type" do
-    assert_equal schema.block_type, "email_address"
+  describe "#fields" do
+    describe "when an order is not given in the config" do
+      it "prioritises the title" do
+        assert_equal schema.fields.map(&:name), %w[title foo bar]
+      end
+    end
+
+    describe "when an order is given in the config" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              "content_block_email_address" => {
+                "field_order" => %w[bar title foo],
+              },
+            },
+          })
+      end
+
+      it "orders fields" do
+        assert_equal schema.fields.map(&:name), %w[bar title foo]
+      end
+
+      describe "when a field is missing from the order" do
+        before do
+          ContentBlockManager::ContentBlock::Schema
+            .stubs(:schema_settings)
+            .returns({
+              "schemas" => {
+                "content_block_email_address" => {
+                  "field_order" => %w[bar foo],
+                },
+              },
+            })
+        end
+
+        it "puts the missing field at the end" do
+          assert_equal schema.fields.map(&:name), %w[bar foo title]
+        end
+      end
+    end
   end
 
   describe "when a schema has embedded objects" do
@@ -51,7 +91,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
     describe "#fields" do
       it "removes object fields" do
-        assert_equal schema.fields, %w[foo]
+        assert_equal schema.fields.map(&:name), %w[foo]
       end
     end
 
@@ -62,137 +102,11 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
         assert_equal subschemas.map(&:id), %w[bar]
       end
     end
-
-    describe "#subschema" do
-      it "returns a given subschema" do
-        subschema = schema.subschema("bar")
-
-        assert_equal subschema.id, "bar"
-        assert_equal subschema.fields, %w[my_string something_else]
-      end
-
-      describe "when an order is given in the subschema" do
-        let(:body) do
-          {
-            "properties" => {
-              "foo" => {
-                "type" => "string",
-              },
-              "bar" => {
-                "type" => "object",
-                "patternProperties" => {
-                  "*" => {
-                    "type" => "object",
-                    "order" => %w[something_else my_string],
-                    "properties" => {
-                      "my_string" => {
-                        "type" => "string",
-                      },
-                      "something_else" => {
-                        "type" => "string",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          }
-        end
-
-        it "orders fields when an order is given" do
-          subschema = schema.subschema("bar")
-
-          assert_equal subschema.fields, %w[something_else my_string]
-        end
-      end
-
-      describe "when an order is given in the config" do
-        let(:body) do
-          {
-            "properties" => {
-              "rate" => {
-                "type" => "object",
-                "patternProperties" => {
-                  "*" => {
-                    "type" => "object",
-                    "properties" => {
-                      "name" => {
-                        "type" => "string",
-                      },
-                      "amount" => {
-                        "type" => "string",
-                      },
-                      "description" => {
-                        "type" => "string",
-                      },
-                      "frequency" => {
-                        "type" => "string",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          }
-        end
-
-        before do
-          ContentBlockManager::ContentBlock::Schema
-            .stubs(:schema_settings)
-            .returns({
-              "schemas" => {
-                schema.id => {
-                  "subschemas" => {
-                    "rate" => {
-                      "field_order" => %w[name amount frequency description],
-                    },
-                  },
-                },
-              },
-            })
-        end
-
-        it "orders fields when an order is given" do
-          subschema = schema.subschema("rate")
-
-          assert_equal subschema.fields, %w[name amount frequency description]
-        end
-      end
-
-      describe "when an invalid subschema is given" do
-        let(:body) do
-          {
-            "properties" => {
-              "foo" => {
-                "type" => "string",
-              },
-              "bar" => {
-                "type" => "object",
-                "properties" => {
-                  "my_string" => {
-                    "type" => "string",
-                  },
-                  "something_else" => {
-                    "type" => "string",
-                  },
-                },
-              },
-            },
-          }
-        end
-
-        it "raises an error" do
-          assert_raises ArgumentError, "Subschema `bar` is invalid" do
-            schema.subschema("bar")
-          end
-        end
-      end
-    end
   end
 
   describe ".permitted_params" do
     it "returns permitted params" do
-      assert_equal schema.permitted_params, %w[foo bar]
+      assert_equal schema.permitted_params, %w[title foo bar]
     end
   end
 
@@ -261,7 +175,9 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     it "returns a list of schemas with the content block prefix" do
       schemas = ContentBlockManager::ContentBlock::Schema.all
       assert_equal schemas.map(&:id), %w[content_block_foo content_block_bar]
-      assert_equal schemas.map(&:fields), [%w[foo_field], %w[bar_field bar_field2]]
+      fields = schemas.map(&:fields)
+      assert_equal fields[0].map(&:name), %w[foo_field]
+      assert_equal fields[1].map(&:name), %w[bar_field bar_field2]
     end
 
     it "memoizes the result" do
@@ -299,7 +215,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
       assert_equal schema.id, "content_block_#{block_type}"
       assert_equal schema.block_type, block_type
-      assert_equal schema.fields, %w[email_address]
+      assert_equal schema.fields.map(&:name), %w[email_address]
     end
 
     test "it throws an error when the schema  cannot be found for the block type" do
@@ -312,31 +228,42 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   end
 
   describe ".is_valid_schema?" do
-    test "returns true when the schema has correct prefix/suffix" do
+    it "returns true when the schema has correct prefix/suffix" do
       ContentBlockManager::ContentBlock::Schema.valid_schemas.each do |schema|
         schema_name = "#{ContentBlockManager::ContentBlock::Schema::SCHEMA_PREFIX}_#{schema}"
         assert ContentBlockManager::ContentBlock::Schema.is_valid_schema?(schema_name)
       end
     end
 
-    test "returns false when given an invalid schema" do
+    it "returns false when given an invalid schema" do
       schema_name = "something_else"
       assert_equal ContentBlockManager::ContentBlock::Schema.is_valid_schema?(schema_name), false
     end
 
-    test "returns false when the schema has correct prefix but a suffix that is not valid" do
+    it "returns false when the schema has correct prefix but a suffix that is not valid" do
       schema_name = "#{ContentBlockManager::ContentBlock::Schema::SCHEMA_PREFIX}_something"
       assert_equal ContentBlockManager::ContentBlock::Schema.is_valid_schema?(schema_name), false
     end
   end
 
   describe ".schema_settings" do
-    it "should return the schema settings" do
-      stub_schema = stub("schema_settings")
+    let(:stub_schema) { stub("schema_settings") }
+
+    before do
       YAML.expects(:load_file)
           .with(ContentBlockManager::ContentBlock::Schema::CONFIG_PATH)
           .returns(stub_schema)
 
+      # This removes any memoized schema_settings, so we can be sure the stub gets returned
+      ContentBlockManager::ContentBlock::Schema.instance_variable_set("@schema_settings", nil)
+    end
+
+    after do
+      # Make sure we remove the stubbed schema_settings response after the tests in this block run
+      ContentBlockManager::ContentBlock::Schema.instance_variable_set("@schema_settings", nil)
+    end
+
+    it "should return the schema settings" do
       assert_equal ContentBlockManager::ContentBlock::Schema.schema_settings, stub_schema
     end
   end
@@ -370,7 +297,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
     describe "#fields" do
       it "removes object fields" do
-        assert_equal schema.fields, %w[foo]
+        assert_equal schema.fields.map(&:name), %w[foo]
       end
     end
   end

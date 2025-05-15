@@ -50,7 +50,7 @@ module ContentBlockManager
       end
 
       def fields
-        (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+        field_names.map { |field_name| Field.new(field_name, self) }
       end
 
       def subschema(name)
@@ -62,7 +62,7 @@ module ContentBlockManager
       end
 
       def permitted_params
-        fields
+        field_names
       end
 
       def block_type
@@ -73,36 +73,36 @@ module ContentBlockManager
         config["embeddable_fields"] || []
       end
 
-      class EmbeddedSchema < Schema
-        def initialize(id, body, parent_schema_id)
-          @parent_schema_id = parent_schema_id
-          body = body["patternProperties"]&.values&.first || raise(ArgumentError, "Subschema `#{id}` is invalid")
-          super(id, body)
-        end
-
-        def fields
-          @body["properties"].keys.sort_by { |field| @body["order"]&.index(field) }.sort_by { |field| config["field_order"]&.index(field) }
-        end
-
-        def block_type
-          @id
-        end
-
-      private
-
-        def config
-          self.class.schema_settings.dig("schemas", @parent_schema_id, "subschemas", @id) || {}
-        end
+      def config
+        @config ||= self.class.schema_settings.dig("schemas", @id) || {}
       end
 
     private
 
-      def embedded_objects
-        @body["properties"].select { |_k, v| v["type"] == "object" }
+      def field_names
+        sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
       end
 
-      def config
-        @config ||= self.class.schema_settings.dig("schemas", @id) || {}
+      def sort_fields(fields)
+        fields.sort_by { |field| field_ordering_rule(field) }
+      end
+
+      def field_ordering_rule(field)
+        if field_order
+          # If a field order is found in the config, order by the index. If a field is not found, put it to the end
+          field_order.index(field) || 99
+        else
+          # By default, order with title first
+          field == "title" ? 0 : 1
+        end
+      end
+
+      def field_order
+        @field_order ||= config["field_order"]
+      end
+
+      def embedded_objects
+        @body["properties"].select { |_k, v| v["type"] == "object" }
       end
     end
   end

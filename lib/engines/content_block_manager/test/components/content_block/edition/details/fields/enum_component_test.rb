@@ -4,12 +4,13 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :email_address) }
+  let(:field) { stub("field", name: "something") }
 
   it "should render an select field with default parameters" do
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
         content_block_edition:,
-        field: "something",
+        field:,
         enum: ["a week", "a month"],
       ),
     )
@@ -28,7 +29,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
         content_block_edition:,
-        field: "something",
+        field:,
         enum: ["a week", "a month"],
         value: "a week",
       ),
@@ -50,7 +51,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
         content_block_edition:,
-        field: "something",
+        field:,
         enum: [],
       ),
     )

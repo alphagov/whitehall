@@ -46,10 +46,11 @@ private
   end
 
   def details_items
-    content_block_edition.first_class_details.map { |key, value|
+    schema.fields.map { |field|
+      key = field.name
       rows = [{
         key: key.humanize,
-        value:,
+        value: content_block_edition.details[key],
         data: data_attributes_for_row(key),
       }]
       rows.push(embed_code_row(key, content_block_document)) if should_show_embed_code?(key)
@@ -65,8 +66,12 @@ private
     embeddable_fields.include?(key)
   end
 
+  def schema
+    @schema ||= content_block_document.schema
+  end
+
   def embeddable_fields
-    @embeddable_fields = content_block_document.schema.embeddable_fields
+    @embeddable_fields = schema.embeddable_fields
   end
 
   def status_item

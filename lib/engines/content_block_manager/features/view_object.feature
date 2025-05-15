@@ -15,7 +15,8 @@ Feature: View a content object
       | title   | amount  | frequency |
       | My rate | £123.45 | a week    |
     And a schema "email_address" exists with the following fields:
-      | email_address |
+      | field         | type   | format | required |
+      | email_address | string | string | true     |
     And an email address content block has been created
 
   Scenario: GDS Editor views a content object
