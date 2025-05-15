@@ -88,6 +88,42 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal detailed_guide.document.content_id, presented_item.content_id
   end
 
+  test "DetailedGuide includes headers when headers are present in body" do
+    detailed_guide = create(
+      :detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "##Some header\n\nSome content",
+    )
+
+    presented_item = present(detailed_guide)
+    details = presented_item.content[:details]
+
+    expected_headers = [
+      {
+        text: "Some header",
+        level: 2,
+        id: "some-header",
+      },
+    ]
+
+    assert_equal expected_headers, details[:headers]
+  end
+
+  test "DetailedGuide does not include headers when headers are not present in body" do
+    detailed_guide = create(
+      :published_detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+    )
+
+    presented_item = present(detailed_guide)
+    details = presented_item.content[:details]
+
+    assert_nil details[:headers]
+  end
+
   test "DetailedGuide presents related mainstream in links and details" do
     lookup_hash = {
       "/mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
