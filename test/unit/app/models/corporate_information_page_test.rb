@@ -305,4 +305,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).never
     about_us.touch
   end
+
+  test "is rendered by frontend" do
+    assert CorporateInformationPage.new.rendering_app == Whitehall::RenderingApp::FRONTEND
+  end
 end
