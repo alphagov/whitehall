@@ -10,9 +10,6 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
         "*" => {
           "type" => "object",
           "properties" => {
-            "name" => {
-              "type" => "string",
-            },
             "amount" => {
               "type" => "string",
             },
@@ -20,6 +17,9 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
               "type" => "string",
             },
             "frequency" => {
+              "type" => "string",
+            },
+            "title" => {
               "type" => "string",
             },
           },
@@ -36,20 +36,7 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
   end
 
   it "returns the fields" do
-    assert_equal schema.fields.map(&:name), %w[name amount description frequency]
-  end
-
-  describe "when an order is given in the subschema" do
-    let(:body_with_order) do
-      body["patternProperties"]["*"] = body["patternProperties"]["*"].merge("order" => %w[amount frequency name description])
-      body
-    end
-
-    let(:schema) { ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new("bar", body_with_order, parent_schema_id) }
-
-    it "orders fields" do
-      assert_equal schema.fields.map(&:name), %w[amount frequency name description]
-    end
+    assert_equal schema.fields.map(&:name), %w[title amount description frequency]
   end
 
   describe "when an order is given in the config" do
@@ -61,7 +48,7 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
             parent_schema_id => {
               "subschemas" => {
                 schema_id => {
-                  "field_order" => %w[name frequency amount description],
+                  "field_order" => %w[frequency amount description title],
                 },
               },
             },
@@ -70,36 +57,7 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
     end
 
     it "orders fields" do
-      assert_equal schema.fields.map(&:name), %w[name frequency amount description]
-    end
-  end
-
-  describe "when an order is given in the config and the schema" do
-    let(:body_with_order) do
-      body["patternProperties"]["*"] = body["patternProperties"]["*"].merge("order" => %w[amount frequency name description])
-      body
-    end
-
-    let(:schema) { ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new("bar", body_with_order, parent_schema_id) }
-
-    before do
-      ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
-        .stubs(:schema_settings)
-        .returns({
-          "schemas" => {
-            parent_schema_id => {
-              "subschemas" => {
-                schema_id => {
-                  "field_order" => %w[name frequency amount description],
-                },
-              },
-            },
-          },
-        })
-    end
-
-    it "prioritises the config order" do
-      assert_equal schema.fields.map(&:name), %w[name frequency amount description]
+      assert_equal schema.fields.map(&:name), %w[frequency amount description title]
     end
   end
 
@@ -110,8 +68,8 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
         .returns({})
     end
 
-    it "maintains the default order" do
-      assert_equal schema.fields.map(&:name), %w[name amount description frequency]
+    it "prioritises the title" do
+      assert_equal schema.fields.map(&:name), %w[title amount description frequency]
     end
   end
 

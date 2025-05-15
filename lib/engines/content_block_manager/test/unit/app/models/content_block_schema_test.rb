@@ -3,7 +3,7 @@ require "test_helper"
 class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:body) { { "properties" => { "foo" => {}, "bar" => {} } } }
+  let(:body) { { "properties" => { "foo" => {}, "bar" => {}, "title" => {} } } }
   let(:schema) { build(:content_block_schema, :email_address, body:) }
 
   it "generates a human-readable name" do
@@ -19,19 +19,9 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   end
 
   describe "#fields" do
-    it "returns all fields" do
-      assert_equal schema.fields.map(&:name), %w[foo bar]
-    end
-
-    describe "when an order is given in the subschema" do
-      let(:body_with_order) do
-        body.merge("order" => %w[bar foo])
-      end
-
-      let(:schema) { build(:content_block_schema, :email_address, body: body_with_order) }
-
-      it "orders fields" do
-        assert_equal schema.fields.map(&:name), %w[bar foo]
+    describe "when an order is not given in the config" do
+      it "prioritises the title" do
+        assert_equal schema.fields.map(&:name), %w[title foo bar]
       end
     end
 
@@ -42,51 +32,33 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
           .returns({
             "schemas" => {
               "content_block_email_address" => {
-                "field_order" => %w[bar foo],
+                "field_order" => %w[bar title foo],
               },
             },
           })
       end
 
       it "orders fields" do
-        assert_equal schema.fields.map(&:name), %w[bar foo]
-      end
-    end
-
-    describe "when an order is given in the config and the subschema" do
-      let(:body_with_order) do
-        body.merge("order" => %w[foo bar])
+        assert_equal schema.fields.map(&:name), %w[bar title foo]
       end
 
-      let(:schema) { build(:content_block_schema, :email_address, body: body_with_order) }
-
-      before do
-        ContentBlockManager::ContentBlock::Schema
-          .stubs(:schema_settings)
-          .returns({
-            "schemas" => {
-              "content_block_email_address" => {
-                "field_order" => %w[bar foo],
+      describe "when a field is missing from the order" do
+        before do
+          ContentBlockManager::ContentBlock::Schema
+            .stubs(:schema_settings)
+            .returns({
+              "schemas" => {
+                "content_block_email_address" => {
+                  "field_order" => %w[bar foo],
+                },
               },
-            },
-          })
+            })
+        end
+
+        it "puts the missing field at the end" do
+          assert_equal schema.fields.map(&:name), %w[bar foo title]
+        end
       end
-
-      it "prioritises the config order" do
-        assert_equal schema.fields.map(&:name), %w[bar foo]
-      end
-    end
-  end
-
-  describe "when no order is given" do
-    before do
-      ContentBlockManager::ContentBlock::Schema
-        .stubs(:schema_settings)
-        .returns({})
-    end
-
-    it "maintains the default order" do
-      assert_equal schema.fields.map(&:name), %w[foo bar]
     end
   end
 
@@ -134,7 +106,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
 
   describe ".permitted_params" do
     it "returns permitted params" do
-      assert_equal schema.permitted_params, %w[foo bar]
+      assert_equal schema.permitted_params, %w[title foo bar]
     end
   end
 
