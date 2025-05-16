@@ -3,10 +3,9 @@
 class ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent < ViewComponent::Base
   TABLE_ID = "host_editions"
 
-  def initialize(caption:, host_content_items:, content_block_edition:, is_preview: false, current_page: nil, order: nil)
+  def initialize(caption:, host_content_items:, content_block_edition:, current_page: nil, order: nil)
     @caption = caption
     @host_content_items = host_content_items
-    @is_preview = is_preview
     @current_page = current_page.presence || 1
     @order = order.presence || ContentBlockManager::HostContentItem::DEFAULT_ORDER
     @content_block_edition = content_block_edition
@@ -28,31 +27,68 @@ private
 
   attr_reader :caption, :host_content_items, :order, :content_block_edition
 
+  def head
+    [
+      {
+        text: "Title",
+        href: sort_link("title"),
+        sort_direction: sort_direction("title"),
+      },
+      {
+        text: "Type",
+        href: sort_link("document_type"),
+        sort_direction: sort_direction("document_type"),
+      },
+      {
+        text: "Views (30 days)",
+        href: sort_link("unique_pageviews"),
+        sort_direction: sort_direction("unique_pageviews"),
+      },
+      {
+        text: "Instances",
+        href: sort_link("instances"),
+        sort_direction: sort_direction("instances"),
+      },
+      {
+        text: "Lead organisation",
+        href: sort_link("primary_publishing_organisation_title"),
+        sort_direction: sort_direction("primary_publishing_organisation_title"),
+      },
+      {
+        text: "Last updated",
+        href: sort_link("last_edited_at"),
+        sort_direction: sort_direction("last_edited_at"),
+      },
+    ].compact
+  end
+
   def rows
     return [] unless host_content_items
 
     host_content_items.map do |content_item|
-      [
-        {
-          text: content_link(content_item),
-        },
-        {
-          text: content_item.document_type.humanize,
-        },
-        {
-          text: content_item.unique_pageviews ? number_to_human(content_item.unique_pageviews, format: "%n%u", precision: 3, significant: true, units: { thousand: "k", million: "m", billion: "b" }) : 0,
-        },
-        {
-          text: content_item.instances,
-        },
-        {
-          text: organisation_link(content_item),
-        },
-        {
-          text: updated_field_for(content_item),
-        },
-      ]
+      row_for_content_item(content_item)
     end
+  end
+
+  def row_for_content_item(content_item)
+    [
+      title_row(content_item),
+      {
+        text: content_item.document_type.humanize,
+      },
+      {
+        text: content_item.unique_pageviews ? number_to_human(content_item.unique_pageviews, format: "%n%u", precision: 3, significant: true, units: { thousand: "k", million: "m", billion: "b" }) : 0,
+      },
+      {
+        text: content_item.instances,
+      },
+      {
+        text: organisation_link(content_item),
+      },
+      {
+        text: updated_field_for(content_item),
+      },
+    ].compact
   end
 
   def sort_direction(param)
@@ -72,11 +108,13 @@ private
   end
 
   def frontend_path(content_item)
-    if @is_preview
-      helpers.content_block_manager.host_content_preview_content_block_manager_content_block_edition_path(id: content_block_edition.id, host_content_id: content_item.host_content_id, locale: content_item.host_locale)
-    else
-      Plek.website_root + content_item.base_path
-    end
+    Plek.website_root + content_item.base_path
+  end
+
+  def title_row(content_item)
+    {
+      text: content_link(content_item),
+    }
   end
 
   def content_link_text(content_item)

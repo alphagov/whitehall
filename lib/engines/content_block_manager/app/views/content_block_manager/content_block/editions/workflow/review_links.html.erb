@@ -11,14 +11,6 @@
   This list shows the places where the change will be made. It does not include content in PDFs or beyond <a href="https://gov.uk" class="govuk-link">GOV.UK</a>.
 </p>
 
-<%=
-  render(
-    ContentBlockManager::ContentBlock::Document::Show::HostEditionsRollupComponent.new(
-      rollup: @host_content_items.rollup,
-      ),
-  )
-%>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= form_with(
@@ -30,8 +22,7 @@
         method: :put,
         ) do %>
           <%= render(
-                ContentBlockManager::ContentBlock::Document::Show::HostEditionsTableComponent.new(
-                  is_preview: true,
+                ContentBlockManager::ContentBlockEdition::HostContent::TableComponent.new(
                   caption: "List of locations",
                   host_content_items: @host_content_items,
                   current_page: @page,

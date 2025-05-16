@@ -31,7 +31,16 @@ module Workflow::ShowMethods
       page: @page,
     )
 
-    render :review_links
+    if @host_content_items.empty?
+      referred_from_next_step = request.referer && URI.parse(request.referer).path&.end_with?(next_step.name.to_s)
+
+      redirect_to content_block_manager.content_block_manager_content_block_workflow_path(
+        id: @content_block_edition.id,
+        step: referred_from_next_step ? previous_step.name : next_step.name,
+      )
+    else
+      render :review_links
+    end
   end
 
   def schedule_publishing
