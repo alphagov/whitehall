@@ -20,7 +20,6 @@
 //= require admin/analytics-modules/ga4-button-setup.js
 //= require admin/analytics-modules/ga4-search-results-setup.js
 //= require admin/analytics-modules/ga4-visual-editor-event-handlers.js
-//= require admin/analytics-modules/ga4-page-view-tracking.js
 //= require admin/analytics-modules/ga4-paste-tracker.js
 //= require admin/analytics-modules/ga4-select-with-search-tracker.js
 //= require admin/analytics-modules/ga4-select-tracker.js
