@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/alphagov/select-with-search-component.git
+  revision: 3a8d7ac4afee8efaa4685ab5661ae638626aea6d
+  specs:
+    select_with_search_component (0.1.0)
+      govuk_publishing_components
+      rails (>= 8.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -1125,6 +1133,7 @@ DEPENDENCIES
   rinku
   rubocop-govuk
   rubyzip
+  select_with_search_component!
   sentry-sidekiq
   sidekiq-scheduler
   simplecov

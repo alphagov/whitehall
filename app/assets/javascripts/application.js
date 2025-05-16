@@ -14,7 +14,7 @@
 //= require components/govspeak-editor
 //= require components/image-cropper
 //= require components/miller-columns
-//= require components/select-with-search
+//= require select_with_search_component/application
 
 //= require admin/analytics-modules/ga4-index-section-setup.js
 //= require admin/analytics-modules/ga4-button-setup.js
@@ -22,7 +22,6 @@
 //= require admin/analytics-modules/ga4-visual-editor-event-handlers.js
 //= require admin/analytics-modules/ga4-page-view-tracking.js
 //= require admin/analytics-modules/ga4-paste-tracker.js
-//= require admin/analytics-modules/ga4-select-with-search-tracker.js
 //= require admin/analytics-modules/ga4-select-tracker.js
 //= require admin/analytics-modules/ga4-search-setup.js
 

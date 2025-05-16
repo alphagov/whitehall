@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "rails", "~> 8.0.2"
 
@@ -51,6 +52,7 @@ gem "redis"
 gem "responders"
 gem "rinku", require: "rails_rinku"
 gem "rubyzip"
+gem "select_with_search_component", github: "alphagov/select-with-search-component"
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
 gem "sprockets-rails"
