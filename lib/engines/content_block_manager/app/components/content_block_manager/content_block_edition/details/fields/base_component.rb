@@ -6,7 +6,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent <
   def initialize(content_block_edition:, field:, value: nil, object_id: nil)
     @content_block_edition = content_block_edition
     @field = field
-    @value = value || content_block_edition.details&.fetch(field.name, nil)
+    @value = value
     @object_id = object_id
   end
 
