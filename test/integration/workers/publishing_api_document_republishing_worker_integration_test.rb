@@ -107,7 +107,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
     end
 
     test "Should only publish live edition when document is published with invalid draft" do
-      edition = build(:published_publication)
+      edition = create(:published_publication)
       draft_edition = edition.create_draft(build(:user))
       draft_edition.title = nil
       draft_edition.save!(validate: false)
@@ -181,7 +181,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
     end
 
     test "Should unpublish live edition and update draft when document is unpublished with new draft" do
-      unpublishing = build(:unpublishing, redirect: false)
+      unpublishing = create(:unpublishing, redirect: false)
       edition = build(:unpublished_publication, unpublishing:)
       with_locale(:es) { edition.title = "spanish-title" }
       edition.save!
@@ -226,8 +226,8 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
     end
 
     test "Should only unpublish live edition when document is unpublished with invalid draft" do
-      unpublishing = build(:unpublishing, redirect: false)
-      edition = build(:unpublished_publication, unpublishing:)
+      unpublishing = create(:unpublishing, redirect: false)
+      edition = create(:unpublished_publication, unpublishing:)
       draft_edition = edition.create_draft(build(:user))
       draft_edition.title = nil
       draft_edition.save!(validate: false)
