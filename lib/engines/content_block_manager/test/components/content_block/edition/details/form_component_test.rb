@@ -30,15 +30,25 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
   let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil) }
   let(:baz_field) { stub("field", name: "baz", component_name: "enum", enum_values: %w[some enum]) }
 
+  let(:foo_stub) { stub("string_component") }
+  let(:bar_stub) { stub("string_component") }
+  let(:baz_stub) { stub("enum_component") }
+
+  let(:component) do
+    ContentBlockManager::ContentBlockEdition::Details::FormComponent.new(
+      content_block_edition:,
+      schema:,
+    )
+  end
+
   before do
     schema.stubs(:fields).returns([foo_field, bar_field, baz_field])
+    component.expects(:render).with(foo_stub)
+    component.expects(:render).with(bar_stub)
+    component.expects(:render).with(baz_stub)
   end
 
   it "renders fields for each property" do
-    foo_stub = stub("string_component")
-    bar_stub = stub("string_component")
-    baz_stub = stub("enum_component")
-
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: foo_field,
@@ -55,15 +65,35 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
       enum: %w[some enum],
     ).returns(baz_stub)
 
-    component = ContentBlockManager::ContentBlockEdition::Details::FormComponent.new(
+    assert render_inline(component)
+  end
+
+  it "sends values to the field components when the block has them" do
+    content_block_edition.details = {
+      "foo" => "foo value",
+      "bar" => "bar value",
+      "baz" => "baz value",
+    }
+
+    ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
-      schema:,
-    )
+      field: foo_field,
+      value: "foo value",
+    ).returns(foo_stub)
 
-    component.expects(:render).with(foo_stub)
-    component.expects(:render).with(bar_stub)
-    component.expects(:render).with(baz_stub)
+    ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
+      content_block_edition:,
+      field: bar_field,
+      value: "bar value",
+    ).returns(bar_stub)
 
-    render_inline(component)
+    ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
+      content_block_edition:,
+      field: baz_field,
+      value: "baz value",
+      enum: %w[some enum],
+    ).returns(baz_stub)
+
+    assert render_inline(component)
   end
 end

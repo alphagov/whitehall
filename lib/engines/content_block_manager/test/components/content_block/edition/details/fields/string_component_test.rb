@@ -21,17 +21,20 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
     assert_selector "input[type=\"text\"][name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
   end
 
-  it "should show the value when present" do
-    content_block_edition.details = { "email_address": "example@example.com" }
-
+  it "should show the value when provided" do
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
         content_block_edition:,
         field:,
+        value: "example@example.com",
       ),
     )
 
     assert_selector 'input[value="example@example.com"]'
+  end
+
+  it "should show the value from an embedded object" do
+    content_block_edition.details = { "description": "example@example.com" }
   end
 
   it "should show errors when present" do
