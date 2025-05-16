@@ -7,29 +7,6 @@ class PublishingApiRake < ActiveSupport::TestCase
     task.reenable # without this, calling `invoke` does nothing after first test
   end
 
-  describe "#publish_special_routes" do
-    let(:task) { Rake::Task["publishing_api:publish_special_routes"] }
-
-    test "publishes each special route" do
-      Timecop.freeze do
-        params = {
-          format: "special_route",
-          publishing_app: Whitehall::PublishingApp::WHITEHALL,
-          update_type: "major",
-          type: "exact",
-          public_updated_at: Time.zone.now.iso8601,
-        }
-
-        SpecialRoute.all.each do |route| # rubocop:disable Rails/FindEach
-          GdsApi::PublishingApi::SpecialRoutePublisher
-            .any_instance.expects(:publish).with(params.merge(route))
-        end
-
-        capture_io { task.invoke }
-      end
-    end
-  end
-
   describe "#publish_redirect_routes" do
     let(:task) { Rake::Task["publishing_api:publish_redirect_routes"] }
 
