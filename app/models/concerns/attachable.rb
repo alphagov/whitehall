@@ -35,8 +35,9 @@ module Attachable
       add_trait do
         def process_associations_after_save(edition)
           @edition.attachments.each do |attachment|
-            edition.attachments << attachment.deep_clone
-            raise "Your edition failed to create successfully. Please contact GOV.UK support." unless attachment.save!
+            draft_attachment = attachment.deep_clone
+            edition.attachments << draft_attachment
+            raise "Your edition failed to create successfully. Please contact GOV.UK support." unless draft_attachment.save!
           end
         end
       end
