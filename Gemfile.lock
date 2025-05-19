@@ -271,16 +271,16 @@ GEM
       activerecord (>= 7.0, < 8.1)
       activesupport (>= 7.0, < 8.1)
       request_store (~> 1.0)
-    google-protobuf (4.30.2)
+    google-protobuf (4.31.0)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-aarch64-linux)
+    google-protobuf (4.31.0-aarch64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-arm64-darwin)
+    google-protobuf (4.31.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-x86_64-linux)
+    google-protobuf (4.31.0-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.20.0)
@@ -312,7 +312,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (56.3.1)
+    govuk_publishing_components (56.3.2)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -582,7 +582,7 @@ GEM
     opentelemetry-instrumentation-aws_lambda (0.3.0)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.23.0)
-    opentelemetry-instrumentation-aws_sdk (0.8.0)
+    opentelemetry-instrumentation-aws_sdk (0.8.1)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.23.0)
     opentelemetry-instrumentation-base (0.23.0)
