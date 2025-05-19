@@ -11,7 +11,7 @@
       margin_bottom: 8,
     } %>
 
-    <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get do |_form| %>
+    <%= form_with url: admin_statistics_announcement_publication_index_path(@statistics_announcement), method: :get, data: { module: "ga4-finder-tracker" } do |_form| %>
       <%= render "govuk_publishing_components/components/search", {
         name: "title",
         value: params[:title],

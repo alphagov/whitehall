@@ -5,7 +5,7 @@
 %>
 
 <div class="app-view-filter govuk-!-margin-right-5 govuk-!-padding-5">
-  <%= form_with url: filter_action + anchor, method: :get do |form| %>
+  <%= form_with url: filter_action + anchor, method: :get, data: { module: "ga4-finder-tracker" } do |form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,

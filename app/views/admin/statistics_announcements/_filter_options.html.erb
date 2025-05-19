@@ -1,5 +1,5 @@
 <div class="app-view-filter govuk-!-padding-5">
-  <%= form_with url: admin_statistics_announcements_path, method: :get do |_form| %>
+  <%= form_with url: admin_statistics_announcements_path, method: :get, data: { module: "ga4-finder-tracker" } do |_form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,

@@ -10,7 +10,7 @@
 
 <div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>" data-ga4-list-title="<%= yield(:page_title) %>" data-ga4-ecommerce-start-index="<%= page_start_index(params[:page]) %>">
   <div class="govuk-grid-column-two-thirds app-view-document-collection-document-search-bar" data-ga4-search-section="Search by title">
-    <%= form_with method: :get do |_form| %>
+    <%= form_with method: :get, data: { module: "ga4-finder-tracker" } do |_form| %>
       <%= render "govuk_publishing_components/components/search", {
         name: "title",
         value: params[:title],
