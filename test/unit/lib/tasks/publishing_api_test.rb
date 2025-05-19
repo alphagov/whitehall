@@ -7,37 +7,6 @@ class PublishingApiRake < ActiveSupport::TestCase
     task.reenable # without this, calling `invoke` does nothing after first test
   end
 
-  describe "#publish_redirect_routes" do
-    let(:task) { Rake::Task["publishing_api:publish_redirect_routes"] }
-
-    test "publishes each redirect route" do
-      Timecop.freeze do
-        RedirectRoute.all.each do |route| # rubocop:disable Rails/FindEach
-          params = {
-            base_path: route[:base_path],
-            document_type: "redirect",
-            schema_name: "redirect",
-            locale: "en",
-            details: {},
-            redirects: [
-              {
-                path: route[:base_path],
-                type: route.fetch(:type, "prefix"),
-                destination: route[:destination],
-              },
-            ],
-            publishing_app: Whitehall::PublishingApp::WHITEHALL,
-            public_updated_at: Time.zone.now.iso8601,
-            update_type: "major",
-          }
-          capture_io { task.invoke }
-          assert_publishing_api_put_content(route[:content_id], params)
-          assert_publishing_api_publish(route[:content_id])
-        end
-      end
-    end
-  end
-
   describe "patch_links" do
     describe "#organisations" do
       let(:task) { Rake::Task["publishing_api:patch_links:organisations"] }

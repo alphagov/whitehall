@@ -1,31 +1,6 @@
 require "gds_api/publishing_api/special_route_publisher"
 
 namespace :publishing_api do
-  desc "Publish redirect routes (eg /government/world)"
-  task publish_redirect_routes: :environment do
-    RedirectRoute.all.each do |route| # rubocop:disable Rails/FindEach
-      Services.publishing_api.put_content(
-        route[:content_id],
-        base_path: route[:base_path],
-        document_type: "redirect",
-        schema_name: "redirect",
-        locale: "en",
-        details: {},
-        redirects: [
-          {
-            path: route[:base_path],
-            type: route.fetch(:type, "prefix"),
-            destination: route[:destination],
-          },
-        ],
-        publishing_app: Whitehall::PublishingApp::WHITEHALL,
-        public_updated_at: Time.zone.now.iso8601,
-        update_type: "major",
-      )
-      Services.publishing_api.publish(route[:content_id])
-    end
-  end
-
   namespace :patch_links do
     desc "Send links for all organisations to Publishing API."
     task organisations: :environment do
