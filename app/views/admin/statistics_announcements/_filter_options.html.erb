@@ -1,5 +1,5 @@
 <div class="app-view-filter govuk-!-padding-5">
-  <%= form_with url: admin_statistics_announcements_path, method: :get, data: { module: "ga4-finder-tracker" } do |_form| %>
+  <%= form_with url: admin_statistics_announcements_path, method: :get, data: { module: "ga4-finder-tracker", ga4_section: "Filter by" } do |_form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,
@@ -63,6 +63,9 @@
       heading: "Announcements",
       no_hint_text: true,
       heading_size: "s",
+      data_attributes: {
+        ga4_section: "Announcements",
+      },
       items: [
         {
           label: "Without a linked publication",

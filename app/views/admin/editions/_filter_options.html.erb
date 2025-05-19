@@ -5,7 +5,7 @@
 %>
 
 <div class="app-view-filter govuk-!-margin-right-5 govuk-!-padding-5">
-  <%= form_with url: filter_action + anchor, method: :get, data: { module: "ga4-finder-tracker" } do |form| %>
+  <%= form_with url: filter_action + anchor, method: :get, data: { module: "ga4-finder-tracker", ga4_section: "Filter by" } do |form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,
@@ -127,6 +127,9 @@
           id: "from_date",
           value: params["from_date"],
           hint: "For example, 23/07/2013",
+          data: {
+            ga4_section: "Last updated date from",
+          },
         } %>
 
         <%= render "govuk_publishing_components/components/input", {
@@ -138,6 +141,9 @@
           id: "to_date",
           value: params["to_date"],
           hint: "For example, 23/08/2013",
+          data: {
+            ga4_section: "Last updated date to",
+          },
         } %>
       <% end %>
     <% end %>
