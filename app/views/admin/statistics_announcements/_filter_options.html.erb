@@ -24,6 +24,7 @@
       ga_data: {
         document_type: "#{action_name}-#{controller_name}",
         section: "Organisation",
+        change_category: "update-filter select",
       },
       grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
     } %>
@@ -34,6 +35,9 @@
       name: "dates",
       heading_size: "s",
       full_width: true,
+      data_attributes: {
+        ga4_change_category: "update-filter select",
+      },
       options: [
         {
           text: "All announcements",
@@ -65,6 +69,8 @@
       heading_size: "s",
       data_attributes: {
         ga4_section: "Announcements",
+        ga4_change_category: "update-filter checkbox",
+        ga4_filter_parent: true,
       },
       items: [
         {

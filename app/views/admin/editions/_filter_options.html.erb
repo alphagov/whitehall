@@ -33,6 +33,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           section: "Author",
+          change_category: "update-filter select",
         },
         options: admin_author_filter_options(current_user).map do |name, id|
           {
@@ -53,6 +54,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           section: "Organisation",
+          change_category: "update-filter select",
         },
         grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
       } %>
@@ -67,6 +69,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           section: "World location",
+          change_category: "update-filter select",
         },
         options: admin_world_location_filter_options(current_user).map do |name, id|
           {
@@ -87,6 +90,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           section: "Document type",
+          change_category: "update-filter select",
         },
         grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
       } %>
@@ -101,6 +105,7 @@
         ga_data: {
           document_type: "#{action_name}-#{controller_name}",
           section: "State",
+          change_category: "update-filter select",
         },
         options: admin_state_filter_options.map do |text, value|
           {
@@ -129,6 +134,7 @@
           hint: "For example, 23/07/2013",
           data: {
             ga4_section: "Last updated date from",
+            ga4_change_category: "update-filter text",
           },
         } %>
 
@@ -143,6 +149,7 @@
           hint: "For example, 23/08/2013",
           data: {
             ga4_section: "Last updated date to",
+            ga4_change_category: "update-filter text",
           },
         } %>
       <% end %>
@@ -152,6 +159,9 @@
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "only_broken_links",
         small: true,
+        data_attributes: {
+          ga4_change_category: "update-filter checkbox",
+        },
         items: [
           {
             label: "Only broken links",
@@ -167,6 +177,9 @@
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "review_overdue",
         small: true,
+        data_attributes: {
+          ga4_change_category: "update-filter checkbox",
+        },
         items: [
           {
             label: "Review overdue",
