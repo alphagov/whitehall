@@ -1,26 +1,6 @@
 require "gds_api/publishing_api/special_route_publisher"
 
 namespace :publishing_api do
-  desc "Publish special routes (eg /government)"
-  task publish_special_routes: :environment do
-    publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
-      logger: Logger.new($stdout),
-      publishing_api: Services.publishing_api,
-    )
-
-    SpecialRoute.all.each do |route| # rubocop:disable Rails/FindEach
-      publisher.publish(
-        {
-          format: "special_route",
-          publishing_app: Whitehall::PublishingApp::WHITEHALL,
-          update_type: "major",
-          public_updated_at: Time.zone.now.iso8601,
-          type: "exact",
-        }.merge(route),
-      )
-    end
-  end
-
   desc "Publish redirect routes (eg /government/world)"
   task publish_redirect_routes: :environment do
     RedirectRoute.all.each do |route| # rubocop:disable Rails/FindEach
