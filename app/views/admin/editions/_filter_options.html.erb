@@ -197,6 +197,6 @@
     } %>
 
     <p class="govuk-body">
-    <%= link_to "Reset all fields", reset_search_fields_query_string_params(current_user, filter_action, anchor), class: "govuk-link" %></p>
+    <%= link_to "Reset all fields", reset_search_fields_query_string_params(current_user, filter_action, anchor), class: "govuk-link", data: { ga4_link: { action: "remove", event_name: "select_content", type: controller_name }.to_json } %></p>
   <% end %>
 </div>
