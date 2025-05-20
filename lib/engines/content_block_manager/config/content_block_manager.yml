@@ -13,6 +13,7 @@ schemas:
     embeddable_fields:
       - email_address
   content_block_contact:
+    supports_blocks: true
     subschemas:
       email_addresses:
         embeddable_fields:
