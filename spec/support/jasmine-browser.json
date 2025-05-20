@@ -1,6 +1,7 @@
 {
   "srcDir": "public/assets/whitehall",
   "srcFiles": [
+    "test-dependencies-*.js",
     "application-*.js",
     "all-*.js"
   ],
