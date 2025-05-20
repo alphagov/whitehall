@@ -762,7 +762,7 @@ GEM
     playwright-ruby-client (1.51.0)
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
-    plek (5.2.1)
+    plek (5.2.2)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
