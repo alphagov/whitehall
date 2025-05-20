@@ -5,7 +5,7 @@ class ContentBlockManager::WorkflowTest < ActiveSupport::TestCase
 
   describe "transitions" do
     it "sets draft as the default state" do
-      edition = create(:content_block_edition, document: create(:content_block_document, block_type: "email_address"))
+      edition = create(:content_block_edition, document: create(:content_block_document, block_type: "pension"))
       assert edition.draft?
     end
 
@@ -13,7 +13,7 @@ class ContentBlockManager::WorkflowTest < ActiveSupport::TestCase
       edition = create(:content_block_edition,
                        document: create(
                          :content_block_document,
-                         block_type: "email_address",
+                         block_type: "pension",
                        ),
                        scheduled_publication: 7.days.since(Time.zone.now).to_date,
                        state: "scheduled")
@@ -26,14 +26,14 @@ class ContentBlockManager::WorkflowTest < ActiveSupport::TestCase
                        scheduled_publication: 7.days.since(Time.zone.now).to_date,
                        document: create(
                          :content_block_document,
-                         block_type: "email_address",
+                         block_type: "pension",
                        ))
       edition.schedule!
       assert edition.scheduled?
     end
 
     it "transitions into the superseded state when superseding" do
-      edition = create(:content_block_edition, :email_address, scheduled_publication: 7.days.since(Time.zone.now).to_date, state: "scheduled")
+      edition = create(:content_block_edition, :pension, scheduled_publication: 7.days.since(Time.zone.now).to_date, state: "scheduled")
       edition.supersede!
       assert edition.superseded?
     end

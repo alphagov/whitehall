@@ -16,10 +16,10 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
   end
 
   let(:organisation) { create(:organisation) }
-  let(:document) { create(:content_block_document, :email_address, content_id: @content_id, sluggable_string: "some-slug") }
+  let(:document) { create(:content_block_document, :pension, content_id: @content_id, sluggable_string: "some-slug") }
   let(:edition) { create(:content_block_edition, document:, details:, organisation:, instructions_to_publishers: "instructions", title: "Some Edition Title") }
 
-  let!(:schema) { stub_request_for_schema("email_address") }
+  let!(:schema) { stub_request_for_schema("pension") }
 
   setup do
     login_as_admin
@@ -94,7 +94,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         ]
       end
 
-      let!(:schema) { stub_request_for_schema("email_address", subschemas:) }
+      let!(:schema) { stub_request_for_schema("pension", subschemas:) }
 
       describe "#show" do
         it "shows the embedded_objects step" do
@@ -357,7 +357,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           ]
         end
 
-        let!(:schema) { stub_request_for_schema("email_address", subschemas:) }
+        let!(:schema) { stub_request_for_schema("pension", subschemas:) }
 
         before do
           ContentBlockManager::ContentBlock::Edition.any_instance.stubs(:has_entries_for_subschema_id?).returns(true)
@@ -544,7 +544,7 @@ def update_params(edition_id:, organisation_id:)
     "content_block/edition": {
       creator: "1",
       details: { foo: "newnew@example.com", bar: "edited" },
-      document_attributes: { block_type: "email_address", title: "Another email" },
+      document_attributes: { block_type: "pension", title: "Another email" },
       organisation_id:,
     },
   }

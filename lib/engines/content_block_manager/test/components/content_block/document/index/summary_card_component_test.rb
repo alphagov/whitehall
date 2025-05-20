@@ -9,11 +9,11 @@ class ContentBlockManager::ContentBlock::Document::Index::SummaryCardComponentTe
   include ActionView::Helpers::SanitizeHelper
   include ContentBlockManager::ContentBlock::EditionHelper
 
-  let(:content_block_document) { build_stubbed(:content_block_document, :email_address) }
+  let(:content_block_document) { build_stubbed(:content_block_document, :pension) }
   let(:content_block_edition) do
     build_stubbed(
       :content_block_edition,
-      :email_address,
+      :pension,
       id: 123,
       details: { foo: "bar", something: "else" },
       creator: build(:user),

@@ -7,7 +7,7 @@ class ContentBlockManager::ContentBlockVersionTest < ActiveSupport::TestCase
   let(:item) do
     create(
       :content_block_edition,
-      document: create(:content_block_document, :email_address),
+      document: create(:content_block_document, :pension),
     )
   end
   let(:whodunnit) { SecureRandom.uuid }

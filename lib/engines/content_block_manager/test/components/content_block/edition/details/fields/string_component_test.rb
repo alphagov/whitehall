@@ -3,7 +3,7 @@ require "test_helper"
 class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
 
-  let(:content_block_edition) { build(:content_block_edition, :email_address) }
+  let(:content_block_edition) { build(:content_block_edition, :pension) }
   let(:field) { stub("field", name: "email_address") }
 
   it "should render an input field with default parameters" do

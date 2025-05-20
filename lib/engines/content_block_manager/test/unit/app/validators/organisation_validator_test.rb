@@ -4,7 +4,7 @@ class ContentBlockManager::OrganisationValidatorTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   test "it validates presence of a lead organisation" do
-    content_block_edition = build(:content_block_edition, organisation: nil, document: build(:content_block_document, :email_address))
+    content_block_edition = build(:content_block_edition, organisation: nil, document: build(:content_block_document, :pension))
 
     assert_equal false, content_block_edition.valid?
 

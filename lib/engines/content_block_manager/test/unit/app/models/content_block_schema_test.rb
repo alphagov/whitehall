@@ -4,18 +4,18 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:body) { { "properties" => { "foo" => {}, "bar" => {}, "title" => {} } } }
-  let(:schema) { build(:content_block_schema, :email_address, body:) }
+  let(:schema) { build(:content_block_schema, :pension, body:) }
 
   it "generates a human-readable name" do
-    assert_equal schema.name, "Email address"
+    assert_equal schema.name, "Pension"
   end
 
   it "generates a parameterized name for use in URLs" do
-    assert_equal schema.parameter, "email-address"
+    assert_equal schema.parameter, "pension"
   end
 
   it "returns a block type" do
-    assert_equal schema.block_type, "email_address"
+    assert_equal schema.block_type, "pension"
   end
 
   describe "#fields" do
@@ -31,7 +31,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
           .stubs(:schema_settings)
           .returns({
             "schemas" => {
-              "content_block_email_address" => {
+              "content_block_pension" => {
                 "field_order" => %w[bar title foo],
               },
             },
@@ -48,7 +48,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
             .stubs(:schema_settings)
             .returns({
               "schemas" => {
-                "content_block_email_address" => {
+                "content_block_pension" => {
                   "field_order" => %w[bar foo],
                 },
               },
@@ -113,7 +113,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   describe ".valid_schemas" do
     it "returns the contents of the VALID_SCHEMA constant" do
       assert_equal ContentBlockManager::ContentBlock::Schema.valid_schemas, %w[
-        email_address
+        pension
         contact
       ]
     end
@@ -189,7 +189,7 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
   end
 
   describe ".find_by_block_type" do
-    let(:block_type) { "email_address" }
+    let(:block_type) { "pension" }
     let(:body) do
       {
         "properties" => {

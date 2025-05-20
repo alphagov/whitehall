@@ -2,10 +2,10 @@ Feature: Schedule a content object
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
-    And a schema "email_address" exists with the following fields:
+    And a schema "pension" exists with the following fields:
       | field         | type   | format | required |
-      | email_address | string | email  | true     |
-    And an email address content block has been created
+      | description   | string | string | true     |
+    And a pension content block has been created
 
   @disable-sidekiq-test-mode
   Scenario: GDS Editor immediately publishes a scheduled content object

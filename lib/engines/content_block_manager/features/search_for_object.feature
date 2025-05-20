@@ -4,24 +4,24 @@ Feature: Search for a content object
     And the organisation "Department of Placeholder" exists
     And the organisation "Ministry of Example" exists
     And I am an admin in the organisation "Department of Placeholder"
-    And a schema "email_address" exists with the following fields:
+    And a schema "pension" exists with the following fields:
       | field         | type   | format | required |
-      | email_address | string | string | true     |
-    And a schema "postal_address" exists with the following fields:
-      | field         | type   | format | required |
-      | an_address    | string | string | true     |
-    And 1 content blocks of type postal_address have been created with the fields:
-      | title |  "an address" |
-      | an_address  | ABC123 |
+      | description   | string | string | true     |
+    And 1 content blocks of type pension have been created with the fields:
+      | title |  "a pension" |
+      | description  | ABC123 |
       | organisation | Department of Placeholder |
       | instructions_to_publishers | for GDS use only |
-    And 1 content blocks of type email_address have been created with the fields:
+    And a schema "contact" exists with the following fields:
+      | field         | type   | format | required |
+      | description    | string | string | true     |
+    And 1 content blocks of type contact have been created with the fields:
       | title | example search title |
-      | email_address  | hello@example.com |
+      | description  | hello example |
       | organisation | Department of Placeholder |
-    And 1 content blocks of type email_address have been created with the fields:
+    And 1 content blocks of type contact have been created with the fields:
       | title | ministry address |
-      | email_address  | ministry@example.com |
+      | description  | ministry example |
       | organisation | Ministry of Example |
 
   Scenario: GDS Editor can filter by organisation
@@ -37,7 +37,7 @@ Feature: Search for a content object
     When I visit the Content Block Manager home page
     And I enter the keyword "GDS"
     And I click to view results
-    Then I should see the content block with title "an address" returned
+    Then I should see the content block with title "a pension" returned
     And "1" content blocks are returned in total
 
   @disable_transactions
@@ -53,13 +53,13 @@ Feature: Search for a content object
     When I visit the Content Block Manager home page
     And I enter the keyword "ABC123"
     And I click to view results
-    Then I should see the content block with title "an address" returned
+    Then I should see the content block with title "a pension" returned
     And "1" content blocks are returned in total
 
   Scenario: GDS Editor searches for a content object by block type
     When I visit the Content Block Manager home page
     And I select the lead organisation "All organisations"
-    And I check the block type "Email address"
+    And I check the block type "Contact"
     And I click to view results
     And "2" content blocks are returned in total
 
@@ -83,13 +83,11 @@ Feature: Search for a content object
     Then I should see a message that the filter dates are invalid
 
   Scenario: GDS Editor can view more than one page
-    When 1 content blocks of type email_address have been created with the fields:
+    When 1 content blocks of type contact have been created with the fields:
       | title | page 2 edition |
-      | email_address  | ministry@example.com |
       | organisation | Ministry of Example |
-    When 15 content blocks of type email_address have been created with the fields:
+    When 15 content blocks of type contact have been created with the fields:
       | title | page 1 edition |
-      | email_address  | ministry@example.com |
       | organisation | Ministry of Example |
     When I visit the Content Block Manager home page
     And I select the lead organisation "Ministry of Example"

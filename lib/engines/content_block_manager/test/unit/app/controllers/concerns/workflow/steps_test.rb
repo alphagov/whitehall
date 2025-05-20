@@ -25,8 +25,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
   include ContentBlockManager::IntegrationTestHelpers
 
-  let(:content_block_document) { build(:content_block_document, :email_address) }
-  let(:content_block_edition) { build(:content_block_edition, :email_address, document: content_block_document) }
+  let(:content_block_document) { build(:content_block_document, :pension) }
+  let(:content_block_edition) { build(:content_block_edition, :pension, document: content_block_document) }
 
   let!(:schema) { stub_request_for_schema(content_block_document.block_type) }
 

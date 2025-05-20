@@ -6,7 +6,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
   it "exists with required data" do
     content_block_document = create(
       :content_block_document,
-      :email_address,
+      :pension,
       content_id: "52084b2d-4a52-4e69-ba91-3052b07c7eb6",
       sluggable_string: "Title",
       created_at: Time.zone.local(2000, 12, 31, 23, 59, 59).utc,
@@ -15,14 +15,14 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
 
     assert_equal "52084b2d-4a52-4e69-ba91-3052b07c7eb6", content_block_document.content_id
     assert_equal "Title", content_block_document.sluggable_string
-    assert_equal "email_address", content_block_document.block_type
+    assert_equal "pension", content_block_document.block_type
     assert_equal Time.zone.local(2000, 12, 31, 23, 59, 59).utc, content_block_document.created_at
     assert_equal Time.zone.local(2000, 12, 31, 23, 59, 59).utc, content_block_document.updated_at
     assert_equal "title", content_block_document.content_id_alias
   end
 
   it "does not allow the block type to be changed" do
-    content_block_document = create(:content_block_document, :email_address)
+    content_block_document = create(:content_block_document, :pension)
 
     assert_raise ActiveRecord::ReadonlyAttributeError do
       content_block_document.update(block_type: "something_else")
@@ -30,19 +30,19 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
   end
 
   it "can store the id of the latest edition" do
-    content_block_document = create(:content_block_document, :email_address)
+    content_block_document = create(:content_block_document, :pension)
     content_block_document.update!(latest_edition_id: 1)
     assert content_block_document.reload.latest_edition_id, 1
   end
 
   it "can store the id of the live edition" do
-    content_block_document = create(:content_block_document, :email_address)
+    content_block_document = create(:content_block_document, :pension)
     content_block_document.update!(live_edition_id: 1)
     assert content_block_document.reload.live_edition_id, 1
   end
 
   it "gets its version history from its editions" do
-    document = create(:content_block_document, :email_address)
+    document = create(:content_block_document, :pension)
     edition = create(
       :content_block_edition,
       document:,
@@ -104,7 +104,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
 
   describe "latest_edition" do
     it "returns the latest edition" do
-      document = create(:content_block_document, :email_address)
+      document = create(:content_block_document, :pension)
       _first_edition = create(:content_block_edition, document:)
       second_edition = create(:content_block_edition, document:)
 
@@ -114,12 +114,12 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
 
   describe ".live" do
     it "only returns documents with a latest edition" do
-      document_with_latest_edition = create(:content_block_document, :email_address)
+      document_with_latest_edition = create(:content_block_document, :pension)
       latest_edition = create(:content_block_edition, document: document_with_latest_edition)
       document_with_latest_edition.latest_edition_id = latest_edition.id
       document_with_latest_edition.save!
 
-      create(:content_block_document, :email_address, latest_edition_id: nil)
+      create(:content_block_document, :pension, latest_edition_id: nil)
 
       assert_equal [document_with_latest_edition], ContentBlockManager::ContentBlock::Document.live
     end
@@ -129,7 +129,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
     it "generates a content_id_alias" do
       content_block_document = create(
         :content_block_document,
-        :email_address,
+        :pension,
         sluggable_string: "This is a title",
       )
 
@@ -140,7 +140,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
       content_block_documents = create_list(
         :content_block_document,
         2,
-        :email_address,
+        :pension,
         sluggable_string: "This is a title",
       )
 
@@ -151,7 +151,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
     it "does not change the alias if the sluggable string changes" do
       content_block_document = create(
         :content_block_document,
-        :email_address,
+        :pension,
         sluggable_string: "This is a title",
       )
 
@@ -164,7 +164,7 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
 
   describe "title" do
     it "returns the latest edition's title" do
-      document = create(:content_block_document, :email_address)
+      document = create(:content_block_document, :pension)
       _oldest_edition = create(:content_block_edition, document:)
       latest_edition = create(:content_block_edition, document:, title: "I am the latest edition")
 
@@ -174,24 +174,24 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
 
   describe "#is_new_block?" do
     it "returns true when there is one associated edition" do
-      document = create(:content_block_document, :email_address, editions: create_list(:content_block_edition, 1, :email_address))
+      document = create(:content_block_document, :pension, editions: create_list(:content_block_edition, 1, :pension))
 
       assert document.is_new_block?
     end
 
     it "returns false when there is more than one associated edition" do
-      document = create(:content_block_document, :email_address, editions: create_list(:content_block_edition, 2, :email_address))
+      document = create(:content_block_document, :pension, editions: create_list(:content_block_edition, 2, :pension))
 
       assert_not document.is_new_block?
     end
   end
 
   describe "#has_newer_draft?" do
-    let(:document) { create(:content_block_document, :email_address) }
+    let(:document) { create(:content_block_document, :pension) }
 
     it "returns false when the newest edition is the same as the latest edition" do
-      _older_edition = create(:content_block_edition, :email_address, created_at: Time.zone.now - 2.days, document:)
-      edition = create(:content_block_edition, :email_address, created_at: Time.zone.now, document:)
+      _older_edition = create(:content_block_edition, :pension, created_at: Time.zone.now - 2.days, document:)
+      edition = create(:content_block_edition, :pension, created_at: Time.zone.now, document:)
       document.latest_edition_id = edition.id
       document.save!
 
@@ -199,8 +199,8 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
     end
 
     it "returns true when the newest edition is not the same as the latest edition" do
-      edition = create(:content_block_edition, :email_address, created_at: Time.zone.now - 2.days, document:)
-      _newer_edition = create(:content_block_edition, :email_address, created_at: Time.zone.now, document:)
+      edition = create(:content_block_edition, :pension, created_at: Time.zone.now - 2.days, document:)
+      _newer_edition = create(:content_block_edition, :pension, created_at: Time.zone.now, document:)
       document.latest_edition_id = edition.id
       document.save!
 
@@ -209,19 +209,19 @@ class ContentBlockManager::ContentBlockDocumentTest < ActiveSupport::TestCase
   end
 
   describe "#latest_draft" do
-    let(:document) { create(:content_block_document, :email_address) }
+    let(:document) { create(:content_block_document, :pension) }
 
     it "returns the latest draft edition" do
-      _older_draft = create(:content_block_edition, :email_address, created_at: Time.zone.now - 2.days, document:, state: "draft")
-      newest_draft = create(:content_block_edition, :email_address, created_at: Time.zone.now - 1.day, document:, state: "draft")
-      _newest_edition = create(:content_block_edition, :email_address, created_at: Time.zone.now, document:, state: "published")
+      _older_draft = create(:content_block_edition, :pension, created_at: Time.zone.now - 2.days, document:, state: "draft")
+      newest_draft = create(:content_block_edition, :pension, created_at: Time.zone.now - 1.day, document:, state: "draft")
+      _newest_edition = create(:content_block_edition, :pension, created_at: Time.zone.now, document:, state: "published")
 
       assert_equal newest_draft, document.latest_draft
     end
   end
 
   describe "#schema" do
-    let(:document) { build(:content_block_document, :email_address) }
+    let(:document) { build(:content_block_document, :pension) }
     let(:schema) { build(:content_block_schema) }
 
     it "returns a schema object" do

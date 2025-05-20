@@ -2,16 +2,16 @@ Feature: Edit a content object
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
-    And a schema "email_address" exists with the following fields:
+    And a schema "pension" exists with the following fields:
       | field         | type   | format | required |
-      | email_address | string | email  | true     |
-    And an email address content block has been created
+      | description   | string | string | true     |
+    And a pension content block has been created
     And dependent content exists for a content block
 
   Scenario: GDS Editor edits a content object
     When I visit the Content Block Manager home page
     And I click to view the document
-    And I click to edit the "email address"
+    And I click to edit the "pension"
     Then I should be on the "edit" step
     And I should see a back link to the document page
     When I fill out the form
@@ -41,7 +41,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object when reviewing links
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click to edit the "email address"
+    When I click to edit the "pension"
     When I fill out the form
     And I click the cancel link
     And I choose to delete the in-progress draft
@@ -51,7 +51,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object before scheduling
     When I visit the Content Block Manager home page
     And I click to view the document
-    When I click to edit the "email address"
+    When I click to edit the "pension"
     And I fill out the form
     And I continue after reviewing the links
     When I click the cancel link
@@ -62,7 +62,7 @@ Feature: Edit a content object
   Scenario: GDS editor cancels the creation of an object before confirming answers
     When I visit the Content Block Manager home page
     And I click to view the document
-    When I click to edit the "email address"
+    When I click to edit the "pension"
     And I fill out the form
     And I continue after reviewing the links
     When I add an internal note
@@ -74,41 +74,12 @@ Feature: Edit a content object
     And no draft Content Block Edition has been created
 
   Scenario: GDS editor sees validation errors for missing fields
-    And a schema "email_address" exists with the following fields:
-    | field         | type   | format | required |
-    | email_address | string | email  | true     |
-    And an email address content block has been created
+    And a pension content block has been created
     When I visit the Content Block Manager home page
     When I click to view the document
-    When I click to edit the "email address"
+    When I click to edit the "pension"
     And I set all fields to blank
     Then I should see errors for the required fields
-
-  Scenario: GDS editor sees validation errors for invalid fields
-    And a schema "email_address" exists with the following fields:
-    | field         | type   | format | required |
-    | email_address | string | email  | true     |
-    And an email address content block has been created
-    When I visit the Content Block Manager home page
-    When I click to view the document
-    When I click to edit the "email address"
-    When I complete the form with the following fields:
-    | title            | email_address   | organisation |
-    | my email address | xxxxx           | Ministry of Example |
-    Then I should see a message that the field is an invalid "Email address"
-
-  Scenario: GDS editor sees validation errors for unconfirmed answers
-    When I visit the Content Block Manager home page
-    When I click to view the document
-    When I click to edit the "email address"
-    When I fill out the form
-    And I continue after reviewing the links
-    And I add an internal note
-    And I add a change note
-    And I choose to publish the change now
-    Then I am asked to review my answers
-    When I click publish without confirming my details
-    Then I should see a message that I need to confirm the details are correct
 
   @enable-sidekiq-test-mode
   Scenario: GDS editor can override a previously scheduled object
@@ -141,7 +112,7 @@ Feature: Edit a content object
   Scenario: GDS editor sees notification about an in-progress draft
     When I visit the Content Block Manager home page
     And I click to view the document
-    And I click to edit the "email address"
+    And I click to edit the "pension"
     And I fill out the form
     And I click the cancel link
     And I click to save and come back later

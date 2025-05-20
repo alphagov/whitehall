@@ -3,7 +3,7 @@ require "test_helper"
 class ContentBlockManager::DiffableTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:document) { create(:content_block_document, :email_address) }
+  let(:document) { create(:content_block_document, :pension) }
 
   let(:organisation) { create(:organisation) }
   let(:previous_edition) do

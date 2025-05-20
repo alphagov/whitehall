@@ -20,7 +20,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Summar
     }
   end
 
-  let(:content_block_edition) { build(:content_block_edition, :email_address, details:) }
+  let(:content_block_edition) { build(:content_block_edition, :pension, details:) }
   let(:content_block_document) { build(:content_block_document) }
 
   before do

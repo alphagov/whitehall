@@ -5,7 +5,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
 
   include ContentBlockManager::Engine.routes.url_helpers
 
-  let(:schema) { build(:content_block_schema, :email_address, body: { "properties" => { "foo" => "", "bar" => "" } }) }
+  let(:schema) { build(:content_block_schema, :pension, body: { "properties" => { "foo" => "", "bar" => "" } }) }
   let(:result) do
     ContentBlockManager::ContentBlock::EditionForm.for(
       content_block_edition:,
@@ -14,8 +14,8 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
   end
 
   describe "when initialized for an edition with an existing document and live edition" do
-    let(:content_block_document) { build(:content_block_document, :email_address, id: 123, latest_edition_id: "5b271577-3d3d-475d-986a-246d8c4063a3") }
-    let(:content_block_edition) { build(:content_block_edition, :email_address, document: content_block_document) }
+    let(:content_block_document) { build(:content_block_document, :pension, id: 123, latest_edition_id: "5b271577-3d3d-475d-986a-246d8c4063a3") }
+    let(:content_block_edition) { build(:content_block_edition, :pension, document: content_block_document) }
 
     let(:result) do
       ContentBlockManager::ContentBlock::EditionForm.for(
@@ -33,7 +33,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     end
 
     it "sets the correct title" do
-      assert_equal I18n.t("content_block_edition.update.title", block_type: "email address"), result.title
+      assert_equal I18n.t("content_block_edition.update.title", block_type: "pension"), result.title
     end
 
     it "sets the correct urls" do
@@ -60,7 +60,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
   end
 
   describe "when initialized for an edition without an existing document" do
-    let(:content_block_edition) { build(:content_block_edition, :email_address, document: nil) }
+    let(:content_block_edition) { build(:content_block_edition, :pension, document: nil) }
 
     let(:result) do
       ContentBlockManager::ContentBlock::EditionForm.for(
@@ -78,7 +78,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     end
 
     it "sets the correct title" do
-      assert_equal I18n.t("content_block_edition.create.title", block_type: "email address"), result.title
+      assert_equal I18n.t("content_block_edition.create.title", block_type: "pension"), result.title
     end
 
     it "sets the correct urls" do
@@ -93,7 +93,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     describe "when the errors include a sluggable_string error" do
       before do
         content_block_edition.title = nil
-        content_block_edition.document = build(:content_block_document, :email_address, sluggable_string: nil)
+        content_block_edition.document = build(:content_block_document, :pension, sluggable_string: nil)
         content_block_edition.valid?
       end
 
@@ -105,8 +105,8 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
   end
 
   describe "edit form" do
-    let(:content_block_document) { build_stubbed(:content_block_document, :email_address) }
-    let(:content_block_edition) { build_stubbed(:content_block_edition, :email_address, document: content_block_document) }
+    let(:content_block_document) { build_stubbed(:content_block_document, :pension) }
+    let(:content_block_edition) { build_stubbed(:content_block_edition, :pension, document: content_block_document) }
 
     let(:result) do
       ContentBlockManager::ContentBlock::EditionForm::Edit.new(
@@ -124,7 +124,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     end
 
     it "sets the correct title" do
-      assert_equal I18n.t("content_block_edition.update.title", block_type: "email address"), result.title
+      assert_equal I18n.t("content_block_edition.update.title", block_type: "pension"), result.title
     end
 
     it "sets the correct urls" do
@@ -139,7 +139,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
     describe "when the errors include a sluggable_string error" do
       before do
         content_block_edition.title = nil
-        content_block_edition.document = build(:content_block_document, :email_address, sluggable_string: nil)
+        content_block_edition.document = build(:content_block_document, :pension, sluggable_string: nil)
         content_block_edition.valid?
       end
 

@@ -1,5 +1,5 @@
-Then("I should see the created event on the timeline") do
-  expect(page).to have_selector(".timeline__title", text: "Email address created")
+Then("I should see the contact created event on the timeline") do
+  expect(page).to have_selector(".timeline__title", text: "Contact created")
   expect(page).to have_selector(".timeline__byline", text: "by #{@user.name}")
 end
 

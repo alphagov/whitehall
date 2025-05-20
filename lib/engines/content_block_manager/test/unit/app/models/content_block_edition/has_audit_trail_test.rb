@@ -5,7 +5,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
 
   let(:user) { create("user") }
   let(:organisation) { build(:organisation) }
-  let(:document) { build(:content_block_document, :email_address) }
+  let(:document) { build(:content_block_document, :pension) }
 
   describe "record_create" do
     it "creates a 'created' version with the current user" do
@@ -13,7 +13,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
       edition = build(
         :content_block_edition,
         creator: user,
-        document: create(:content_block_document, :email_address),
+        document: create(:content_block_document, :pension),
       )
 
       assert_changes -> { edition.versions.count }, from: 0, to: 1 do
@@ -33,7 +33,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
       edition = create(
         :content_block_edition,
         creator: user,
-        document: create(:content_block_document, :email_address),
+        document: create(:content_block_document, :pension),
       )
       edition.scheduled_publication = Time.zone.now
       edition.expects(:generate_diff).returns({})
@@ -54,7 +54,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
       edition = create(
         :content_block_edition,
         creator: user,
-        document: create(:content_block_document, :email_address),
+        document: create(:content_block_document, :pension),
       )
       edition.expects(:generate_diff).returns({})
       edition.updated_embedded_object_type = "something"
@@ -73,7 +73,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
     it "does not record a version when updating an existing draft" do
       edition = create(
         :content_block_edition,
-        document: create(:content_block_document, :email_address),
+        document: create(:content_block_document, :pension),
         state: "draft",
       )
 
@@ -87,7 +87,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
       edition = create(
         :content_block_edition,
         creator: user,
-        document: create(:content_block_document, :email_address),
+        document: create(:content_block_document, :pension),
       )
       edition.scheduled_publication = Time.zone.now
 
@@ -127,7 +127,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
     it "returns versions in descending order based on datetime" do
       edition = create(
         :content_block_edition,
-        document: create(:content_block_document, :email_address),
+        document: create(:content_block_document, :pension),
       )
       newer_version = edition.versions.first
       oldest_version = create(
@@ -148,7 +148,7 @@ class ContentBlockManager::HasAuditTrailTest < ActiveSupport::TestCase
     it "returns versions in descending order based on id" do
       edition = create(
         :content_block_edition,
-        document: create(:content_block_document, :email_address),
+        document: create(:content_block_document, :pension),
       )
       first_version = edition.versions.first
       second_version = create(

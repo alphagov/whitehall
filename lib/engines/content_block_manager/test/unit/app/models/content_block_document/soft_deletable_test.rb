@@ -3,7 +3,7 @@ require "test_helper"
 class ContentBlockManager::ContentBlock::Document::SoftDeletableTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:document) { create(:content_block_document, :email_address) }
+  let(:document) { create(:content_block_document, :pension) }
 
   describe "#soft_delete" do
     it "sets the deleted_at column" do

@@ -16,7 +16,7 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
       { text: "Ministry of Example", value: 2 },
     ])
 
-    ContentBlockManager::ContentBlock::Schema.stubs(:valid_schemas).returns(%w[email_address contact])
+    ContentBlockManager::ContentBlock::Schema.stubs(:valid_schemas).returns(%w[pension contact])
   end
 
   it "expands all sections by default" do
@@ -46,20 +46,20 @@ class ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent
       ),
     )
 
-    assert_selector "input[type='checkbox'][name='block_type[]'][value='email_address']"
+    assert_selector "input[type='checkbox'][name='block_type[]'][value='pension']"
     assert_selector "input[type='checkbox'][name='block_type[]'][value='contact']"
   end
 
   it "checks checkbox items if checked in filters" do
     render_inline(
       ContentBlockManager::ContentBlock::Document::Index::FilterOptionsComponent.new(
-        filters: { block_type: %w[email_address] },
+        filters: { block_type: %w[pension] },
       ),
     )
 
     assert_selector ".govuk-accordion__section--expanded", text: "Content block type"
 
-    assert_selector "input[type='checkbox'][name='block_type[]'][value='email_address'][checked]"
+    assert_selector "input[type='checkbox'][name='block_type[]'][value='pension'][checked]"
     assert_selector "input[type='checkbox'][name='block_type[]'][value='contact']"
   end
 

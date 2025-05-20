@@ -5,9 +5,9 @@ class ContentBlockManager::ContentBlockEdition::Show::ConfirmSummaryCardComponen
   include ContentBlockManager::Engine.routes.url_helpers
 
   let(:organisation) { build(:organisation, name: "Department for Example") }
-  let(:content_block_document) { create(:content_block_document, :email_address) }
+  let(:content_block_document) { create(:content_block_document, :pension) }
   let(:content_block_edition) do
-    build_stubbed(:content_block_edition, :email_address,
+    build_stubbed(:content_block_edition, :pension,
                   title: "Some edition title",
                   details: { "interesting_fact" => "value of fact", "something" => { "else" => "value" } },
                   organisation:,

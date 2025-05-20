@@ -13,7 +13,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
     login_as(user)
   end
 
-  let(:edition) { create(:content_block_edition, :email_address, details: { "something" => { "embedded" => { "title" => "Embedded", "is" => "here" } } }) }
+  let(:edition) { create(:content_block_edition, :pension, details: { "something" => { "embedded" => { "title" => "Embedded", "is" => "here" } } }) }
 
   let(:stub_schema) { stub("schema", body: [], name: "Schema") }
   let(:stub_subschema) { stub("subschema", name: "Something", block_type: object_type, fields: [], permitted_params: %w[title is], id: "something") }
