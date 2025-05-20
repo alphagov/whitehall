@@ -1,0 +1,20 @@
+.app-c-content-block-manager-default-block {
+  .govuk-summary-list__row {
+    border: none;
+
+    .govuk-summary-list__key {
+      // Hide the key in the summary list, while keeping it readable for screen reader users
+      @include govuk-visually-hidden;
+      width: 0;
+      position: relative !important;
+    }
+
+    .govuk-summary-list__value {
+      padding: 0;
+    }
+  }
+
+  &__embed_code {
+    color: $govuk-secondary-text-colour;
+  }
+}
