@@ -114,8 +114,6 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     it "returns the contents of the VALID_SCHEMA constant" do
       assert_equal ContentBlockManager::ContentBlock::Schema.valid_schemas, %w[
         email_address
-        postal_address
-        pension
         contact
       ]
     end
