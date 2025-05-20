@@ -20,3 +20,14 @@ schemas:
       telephones:
         embeddable_fields:
           - telephone
+      addresses:
+        field_order:
+          - title
+          - street_address
+          - locality
+          - region
+          - postal_code
+          - country
+      contact_forms:
+        embeddable_fields:
+          - url
