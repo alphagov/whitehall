@@ -18,6 +18,13 @@ module ApplicationHelper
     # rubocop:enable Rails/HelperInstanceVariable
   end
 
+  def page_start_index(page, options = {})
+    return 0 unless page
+
+    per_page = options[:per_page] || Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE
+    (page.to_i - 1) * per_page
+  end
+
   def page_class(css_class)
     content_for(:page_class, css_class)
   end
