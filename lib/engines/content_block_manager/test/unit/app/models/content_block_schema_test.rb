@@ -333,4 +333,40 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "#supports_blocks?" do
+    describe "when the supports_blocks config value is set" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {
+                "supports_blocks" => true,
+              },
+            },
+          })
+      end
+
+      it "returns true" do
+        assert schema.supports_blocks?
+      end
+    end
+
+    describe "when the supports_blocks config value is not set" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {},
+            },
+          })
+      end
+
+      it "returns false" do
+        assert_not schema.supports_blocks?
+      end
+    end
+  end
 end
