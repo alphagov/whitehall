@@ -188,7 +188,7 @@ GEM
     dig_rb (1.0.1)
     docile (1.4.0)
     domain_name (0.6.20240107)
-    drb (2.2.1)
+    drb (2.2.3)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erb (5.0.1)
@@ -819,7 +819,7 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.2.0)
+    rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
