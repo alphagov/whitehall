@@ -3,6 +3,10 @@
 <% if user_signed_in? %>
   <% content_for :head do %>
     <meta name="govuk:components_gem_version" content="<%= GovukPublishingComponents::VERSION %>">
+    <meta name="govuk:user-created-at" content="<%= current_user&.created_at&.to_date %>">
+    <meta name="govuk:user-organisation-name" content="<%= current_user&.organisation_name %>">
+    <meta name="govuk:user-role" content="<%= current_user&.role %>">
+    <meta name="govuk:format" content="<%= "#{action_name}-#{controller_name}" %>">
     <%= javascript_include_tag "admin/domain-config" %>
     <%= javascript_include_tag "govuk_publishing_components/load-analytics" %>
   <% end %>
@@ -14,8 +18,6 @@
            product_name: yield(:product_name).presence || product_name,
            environment: environment,
            browser_title: ("Error: " if yield(:error_summary).present?).to_s + sanitized_title do %>
-
-  <div data-module="ga4-page-view-tracking" data-attributes='<%= track_analytics_data_on_load(controller_name, action_name) %>'></div>
 
   <%= render "govuk_publishing_components/components/skip_link" %>
 
