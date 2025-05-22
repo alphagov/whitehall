@@ -24,56 +24,68 @@
       <% end
     } %>
   <% elsif report.danger_links.any? || report.broken_links.any? || report.caution_links.any? %>
+
+    <% description = capture do %>
+      <%
+        status_order = { "danger" => 1, "broken" => 2, "caution" => 3 }
+        report.links.sort_by { |link| status_order[link.status] || 9999 }.group_by(&:status).each do |status, links|
+      %>
+        <% next unless %w(danger broken caution).include? status %>
+
+        <p class="govuk-body"><%= t "broken_links.#{status}.subheading" %></p>
+
+        <ul class="govuk-list app-view-summary__broken-links-report">
+          <% links.each do |link| %>
+            <li>
+              <% if link.status == "danger" %>
+                <%= link.uri %>
+              <% else %>
+                <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: "govuk-link" %>
+              <% end %>
+              <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">
+                    See more details about this link
+                  </span>
+                </summary>
+                <div class="govuk-details__text">
+                  <p class="govuk-body">
+                    <%= link.problem_summary %>: <%= link.check_details %>
+                  </p>
+                  <% if link.suggested_fix %>
+                    <p class="govuk-body">Suggested fix: <%= link.suggested_fix %></p>
+                  <% end %>
+                </div>
+              </details>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if LinkCheckerApiService.has_admin_draft_links?(report.edition) %>
+        <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
+      <% end %>
+      <% unless hide_button_to_create_new_report %>
+        <%= render partial: "admin/link_check_reports/form", locals: {
+          edition: report.edition,
+          button_text: "Check again",
+        } %>
+      <% end %>
+      <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-top-5">Last checked: <%= l(report.updated_at, format: :long_ordinal) %></p>
+    <% end %>
+
     <%= render "components/inset_prompt", {
       title: t("broken_links.title"),
-      description: capture do %>
-        <%
-          status_order = { "danger" => 1, "broken" => 2, "caution" => 3 }
-          report.links.sort_by { |link| status_order[link.status] || 9999 }.group_by(&:status).each do |status, links|
-        %>
-          <% next unless %w(danger broken caution).include? status %>
-
-          <p class="govuk-body"><%= t "broken_links.#{status}.subheading" %></p>
-
-          <ul class="govuk-list app-view-summary__broken-links-report">
-            <% links.each do |link| %>
-              <li>
-                <% if link.status == "danger" %>
-                  <%= link.uri %>
-                <% else %>
-                  <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: "govuk-link" %>
-                <% end %>
-                <details class="govuk-details" data-module="govuk-details">
-                  <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                      See more details about this link
-                    </span>
-                  </summary>
-                  <div class="govuk-details__text">
-                    <p class="govuk-body">
-                      <%= link.problem_summary %>: <%= link.check_details %>
-                    </p>
-                    <% if link.suggested_fix %>
-                      <p class="govuk-body">Suggested fix: <%= link.suggested_fix %></p>
-                    <% end %>
-                  </div>
-                </details>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-        <% if LinkCheckerApiService.has_admin_draft_links?(report.edition) %>
-          <p class="govuk-body">It also contains links to draft documents that weren't checked.</p>
-        <% end %>
-        <% unless hide_button_to_create_new_report %>
-          <%= render partial: "admin/link_check_reports/form", locals: {
-            edition: report.edition,
-            button_text: "Check again",
-          } %>
-        <% end %>
-        <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-top-5">Last checked: <%= l(report.updated_at, format: :long_ordinal) %></p>
-      <% end,
-      error: true
+      data_attributes: {
+        module: "ga4-auto-tracker",
+        ga4_auto: {
+          type: "broken links",
+          text: strip_tags(description).gsub(/\s+/, " "),
+          event_name: "side_bar_error",
+          action: "error",
+        }.as_json,
+      },
+      description:,
+      error: true,
     } %>
   <% else %>
     <%= render "components/inset_prompt", {
