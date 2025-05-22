@@ -31,6 +31,10 @@ class EditionScheduler < EditionService
     @failure_reasons = reasons
   end
 
+  def failure_reasons_plaintext
+    failure_reasons.map { |reason| ActionController::Base.helpers.strip_tags(reason).gsub(/\s+/, " ") }.join(", ")
+  end
+
 private
 
   def govspeak_link_validator
