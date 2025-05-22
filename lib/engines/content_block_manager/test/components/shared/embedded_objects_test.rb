@@ -29,8 +29,8 @@ class ContentBlockManager::Shared::EmbeddedObjectsTest < ViewComponent::TestCase
     ]
   end
   let(:subschema) { stub(:subschema, block_type: "embedded-objects", name: "Embedded objects", fields:) }
-  let(:document) { build(:content_block_document, :email_address, schema:) }
-  let(:content_block_edition) { build_stubbed(:content_block_edition, :email_address, details:, document:) }
+  let(:document) { build(:content_block_document, :pension, schema:) }
+  let(:content_block_edition) { build_stubbed(:content_block_edition, :pension, details:, document:) }
   let(:redirect_url) { "https://example.com" }
 
   let(:component) do

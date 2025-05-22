@@ -8,7 +8,7 @@ class ContentBlockManager::HasLeadOrganisationTest < ActiveSupport::TestCase
     @edition = create(
       :content_block_edition,
       organisation: @organisation,
-      document: create(:content_block_document, :email_address),
+      document: create(:content_block_document, :pension),
     )
   end
 

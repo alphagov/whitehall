@@ -41,7 +41,7 @@ class ContentBlockManager::ContentBlockEdition::HostContent::TableComponentTest 
   end
 
   let(:content_block_edition) do
-    build(:content_block_edition, :email_address, id: SecureRandom.uuid)
+    build(:content_block_edition, :pension, id: SecureRandom.uuid)
   end
 
   around do |test|

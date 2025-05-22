@@ -12,18 +12,18 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
   let(:uri_mock) { mock }
 
   let(:fake_frontend_response) do
-    "<body class=\"govuk-body\"><p>test</p><span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
+    "<body class=\"govuk-body\"><p>test</p><span class=\"content-embed content-embed__content_block_contact\" data-content-block=\"\" data-document-type=\"content_block_contact\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">example@example.com</span></body>"
   end
   let(:block_render) do
-    "<span class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\"><a class=\"govuk-link\" href=\"mailto:new@new.com\">new@new.com</a></span>"
+    "<span class=\"content-embed content-embed__content_block_contact\" data-content-block=\"\" data-document-type=\"content_block_contact\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\"><a class=\"govuk-link\" href=\"mailto:new@new.com\">new@new.com</a></span>"
   end
 
   let(:document) do
-    build(:content_block_document, :email_address, content_id: preview_content_id)
+    build(:content_block_document, :contact, content_id: preview_content_id)
   end
 
   let(:block_to_preview) do
-    build(:content_block_edition, :email_address, document:, details: { "email_address" => "new@new.com" }, id: 1)
+    build(:content_block_edition, :contact, document:, details: { "email_address" => "new@new.com" }, id: 1)
   end
 
   before do
@@ -42,7 +42,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
     parsed_content = Nokogiri::HTML.parse(actual_content)
 
     assert_dom parsed_content, "body.draft"
-    assert_dom parsed_content, 'span.content-embed__content_block_email_address[style="background-color: yellow;"]'
+    assert_dom parsed_content, 'span.content-embed__content_block_contact[style="background-color: yellow;"]'
   end
 
   describe "when the frontend throws an error" do
@@ -101,10 +101,10 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
 
   describe "when the wrapper is a div" do
     let(:fake_frontend_response) do
-      "<body class=\"govuk-body\"><p>test</p><div class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">example@example.com</div></body>"
+      "<body class=\"govuk-body\"><p>test</p><div class=\"content-embed content-embed__content_block_contact\" data-content-block=\"\" data-document-type=\"content_block_contact\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\">example@example.com</div></body>"
     end
     let(:block_render) do
-      "<div class=\"content-embed content-embed__content_block_email_address\" data-content-block=\"\" data-document-type=\"content_block_email_address\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\"><a class=\"govuk-link\" href=\"mailto:new@new.com\">new@new.com</a></div>"
+      "<div class=\"content-embed content-embed__content_block_contact\" data-content-block=\"\" data-document-type=\"content_block_contact\" data-embed-code=\"embed-code\" data-content-id=\"#{preview_content_id}\"><a class=\"govuk-link\" href=\"mailto:new@new.com\">new@new.com</a></div>"
     end
 
     it "returns the preview html" do
@@ -118,7 +118,7 @@ class ContentBlockManager::GeneratePreviewHtmlTest < ActiveSupport::TestCase
       parsed_content = Nokogiri::HTML.parse(actual_content)
 
       assert_dom parsed_content, "body.draft"
-      assert_dom parsed_content, 'div.content-embed__content_block_email_address[style="background-color: yellow;"]'
+      assert_dom parsed_content, 'div.content-embed__content_block_contact[style="background-color: yellow;"]'
     end
   end
 end

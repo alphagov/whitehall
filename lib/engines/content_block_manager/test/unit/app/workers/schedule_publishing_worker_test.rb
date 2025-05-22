@@ -13,7 +13,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
 
   describe "#perform" do
     it "publishes a scheduled edition" do
-      document = create(:content_block_document, :email_address)
+      document = create(:content_block_document, :pension)
       edition = create(:content_block_edition, document:, state: "scheduled", scheduled_publication: Time.zone.now)
 
       publish_service_mock = Minitest::Mock.new
@@ -26,7 +26,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
     end
 
     it "raises an error if the edition cannot be published" do
-      document = create(:content_block_document, :email_address)
+      document = create(:content_block_document, :pension)
       edition = create(:content_block_edition, document:, state: "scheduled", scheduled_publication: 7.days.since(Time.zone.now).to_date)
 
       publish_service_mock = Minitest::Mock.new
@@ -44,7 +44,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
     end
 
     it "returns without consequence if the edition is already published" do
-      document = create(:content_block_document, :email_address)
+      document = create(:content_block_document, :pension)
       edition = create(:content_block_edition, document:, state: "published")
 
       ContentBlockManager::PublishEditionService.expects(:new).never
@@ -56,7 +56,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
 
   describe ".queue" do
     it "queues a job for a scheduled edition" do
-      document = create(:content_block_document, :email_address)
+      document = create(:content_block_document, :pension)
       edition = create(
         :content_block_edition,
         document:, state: "scheduled",
@@ -73,7 +73,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
 
   describe ".dequeue" do
     it "removes a job for a scheduled edition" do
-      document = create(:content_block_document, :email_address)
+      document = create(:content_block_document, :pension)
       edition = create(
         :content_block_edition,
         document:,
@@ -81,7 +81,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
         scheduled_publication: 1.day.from_now,
       )
 
-      control_document = create(:content_block_document, :email_address)
+      control_document = create(:content_block_document, :pension)
       control_edition = create(
         :content_block_edition,
         document: control_document,
@@ -109,7 +109,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
 
   describe ".dequeue_all" do
     it "removes all content block publishing jobs" do
-      document_1 = create(:content_block_document, :email_address)
+      document_1 = create(:content_block_document, :pension)
       edition_1 = create(
         :content_block_edition,
         document: document_1,
@@ -117,7 +117,7 @@ class ContentBlockManager::SchedulePublishingWorkerTest < ActiveSupport::TestCas
         scheduled_publication: 1.day.from_now,
       )
 
-      document_2 = create(:content_block_document, :email_address)
+      document_2 = create(:content_block_document, :pension)
       edition_2 = create(
         :content_block_edition,
         document: document_2,

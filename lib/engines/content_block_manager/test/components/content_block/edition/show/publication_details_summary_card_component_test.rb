@@ -7,7 +7,7 @@ class ContentBlockManager::ContentBlockEdition::Show::PublicationDetailsSummaryC
   let(:content_block_edition) do
     create(
       :content_block_edition,
-      :email_address,
+      :pension,
       scheduled_publication:,
     )
   end

@@ -44,7 +44,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
   test "it validates the presence of fields" do
     content_block_edition = build(
       :content_block_edition,
-      :email_address,
+      :pension,
       details: {
         foo: "",
         bar: "",
@@ -62,7 +62,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
   test "it validates the format of fields" do
     content_block_edition = build(
       :content_block_edition,
-      :email_address,
+      :pension,
       details: {
         foo: "dddd",
         bar: "ffff",
@@ -81,7 +81,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
   it "validates the presence of nested fields in nested objects" do
     content_block_edition = build(
       :content_block_edition,
-      :email_address,
+      :pension,
       details: {
         foo: "foo@example.com",
         bar: "2022-01-01",
@@ -106,7 +106,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
   it "validates the format of nested fields in nested objects" do
     content_block_edition = build(
       :content_block_edition,
-      :email_address,
+      :pension,
       details: {
         foo: "foo@example.com",
         bar: "2022-01-01",
@@ -145,7 +145,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
     it "returns an error if the pattern is incorrect" do
       content_block_edition = build(
         :content_block_edition,
-        :email_address,
+        :pension,
         details: {
           foo: "1234",
         },

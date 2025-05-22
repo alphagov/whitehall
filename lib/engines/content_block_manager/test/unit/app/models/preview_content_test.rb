@@ -20,10 +20,10 @@ class ContentBlockManager::PreviewContentTest < ActiveSupport::TestCase
     let(:host_title) { "Test" }
     let(:host_base_path) { "/test" }
     let(:document) do
-      build(:content_block_document, :email_address, content_id: preview_content_id)
+      build(:content_block_document, :pension, content_id: preview_content_id)
     end
     let(:block_to_preview) do
-      build(:content_block_edition, :email_address, document:, details: { "email_address" => "new@new.com" }, id: 1)
+      build(:content_block_edition, :pension, document:, details: { "email_address" => "new@new.com" }, id: 1)
     end
     let(:metadata_response) do
       stub(:response, parsed_content: { "instances" => 2 })

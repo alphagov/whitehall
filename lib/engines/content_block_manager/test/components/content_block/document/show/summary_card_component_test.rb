@@ -10,11 +10,11 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
   include ContentBlockManager::Engine.routes.url_helpers
 
   let(:organisation) { build(:organisation, name: "Department for Example") }
-  let(:content_block_document) { build_stubbed(:content_block_document, :email_address) }
+  let(:content_block_document) { build_stubbed(:content_block_document, :pension) }
   let!(:content_block_edition) do
     build_stubbed(
       :content_block_edition,
-      :email_address,
+      :pension,
       details: { foo: "bar", something: "else", "embedded" => { "something" => { "is" => "here" } } },
       creator: build(:user),
       organisation:,

@@ -4,8 +4,8 @@ class ContentBlockManager::DeleteEditionServiceTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe "#call" do
-    let(:document) { create(:content_block_document, :email_address) }
-    let!(:draft_edition) { create(:content_block_edition, :email_address, document:, state: :draft) }
+    let(:document) { create(:content_block_document, :pension) }
+    let!(:draft_edition) { create(:content_block_edition, :pension, document:, state: :draft) }
 
     describe "when there is only one draft edition on a document" do
       it "deletes the draft edition and its document" do
@@ -18,7 +18,7 @@ class ContentBlockManager::DeleteEditionServiceTest < ActiveSupport::TestCase
     end
 
     describe "when the edition is not a draft" do
-      let!(:scheduled_edition) { create(:content_block_edition, :email_address, document:, state: :published) }
+      let!(:scheduled_edition) { create(:content_block_edition, :pension, document:, state: :published) }
 
       it "does not delete the edition or document" do
         assert_no_changes -> { ContentBlockManager::ContentBlock::Document.count } do
@@ -32,7 +32,7 @@ class ContentBlockManager::DeleteEditionServiceTest < ActiveSupport::TestCase
     end
 
     describe "when there is more than one draft edition on a document" do
-      let!(:other_edition) { create(:content_block_edition, :email_address, document:, state: :draft) }
+      let!(:other_edition) { create(:content_block_edition, :pension, document:, state: :draft) }
 
       it "only deletes the given edition" do
         assert_no_changes -> { ContentBlockManager::ContentBlock::Document.count } do

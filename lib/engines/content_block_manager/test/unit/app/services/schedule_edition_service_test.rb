@@ -9,7 +9,7 @@ class ContentBlockManager::ScheduleEditionServiceTest < ActiveSupport::TestCase
 
   let(:edition) do
     create(:content_block_edition,
-           document: create(:content_block_document, :email_address, content_id:),
+           document: create(:content_block_document, :pension, content_id:),
            details: { "foo" => "Foo text", "bar" => "Bar text" },
            scheduled_publication: Time.zone.parse("2034-09-02T10:05:00"),
            organisation:)

@@ -6,7 +6,7 @@ FactoryBot.define do
         :content_block_edition,
         document: build(
           :content_block_document,
-          block_type: "email_address",
+          block_type: "pension",
         ),
       )
     end

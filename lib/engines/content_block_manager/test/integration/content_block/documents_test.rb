@@ -15,7 +15,7 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
   end
 
   describe "#index" do
-    let(:content_block_document) { create(:content_block_document, :email_address) }
+    let(:content_block_document) { create(:content_block_document, :contact) }
 
     before do
       stub_request_for_schema(content_block_document.block_type, fields: [stub(:field, name: "email_address")])
@@ -24,14 +24,14 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
     it "only returns the latest edition when multiple editions exist for a document" do
       first_edition = create(
         :content_block_edition,
-        :email_address,
+        :contact,
         details: { "email_address" => "first_edition@example.com" },
         document_id: content_block_document.id,
         organisation: @organisation,
       )
       second_edition = create(
         :content_block_edition,
-        :email_address,
+        :contact,
         details: { "email_address" => "second_edition@example.com" },
         document_id: content_block_document.id,
         organisation: @organisation,
@@ -46,11 +46,11 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
     it "only returns documents with a latest edition" do
       content_block_document.latest_edition = create(
         :content_block_edition,
-        :email_address,
+        :contact,
         details: { "email_address" => "live_edition@example.com" },
         document_id: content_block_document.id,
       )
-      _document_without_latest_edition = create(:content_block_document, :email_address, sluggable_string: "no latest edition")
+      _document_without_latest_edition = create(:content_block_document, :contact, sluggable_string: "no latest edition")
 
       visit content_block_manager.content_block_manager_content_block_documents_path({ lead_organisation: "" })
 
@@ -114,7 +114,7 @@ class ContentBlockManager::ContentBlock::DocumentsTest < ActionDispatch::Integra
   end
 
   describe "#show" do
-    let(:edition) { create(:content_block_edition, :email_address) }
+    let(:edition) { create(:content_block_edition, :contact) }
     let(:document) { edition.document }
 
     before do

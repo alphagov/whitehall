@@ -3,7 +3,7 @@ require "test_helper"
 class ContentBlockManager::ContentBlockEdition::HostContent::PreviewDetailsComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
 
-  let(:content_block_edition) { build(:content_block_edition, :email_address, details: { "email_address": "example@example.com" }) }
+  let(:content_block_edition) { build(:content_block_edition, :pension, details: { "email_address": "example@example.com" }) }
   let(:preview_content) { build(:preview_content, instances_count: 2) }
 
   it "returns a list of details for preview content" do

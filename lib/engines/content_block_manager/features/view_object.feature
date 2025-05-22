@@ -14,22 +14,22 @@ Feature: View a content object
     And that pension has a rate with the following fields:
       | title   | amount  | frequency |
       | My rate | £123.45 | a week    |
-    And a schema "email_address" exists with the following fields:
+    And a schema "contact" exists with the following fields:
       | field         | type   | format | required |
-      | email_address | string | string | true     |
-    And an email address content block has been created
+      | description   | string | string | true     |
+    And a contact content block has been created
 
   Scenario: GDS Editor views a content object
     When I visit the Content Block Manager home page
     Then I should see the details for all documents
     When I click to view the document
     Then I should be taken back to the document page
-    And I should see the details for the email address content block
-    And I should see the created event on the timeline
+    And I should see the details for the contact content block
+    And I should see the contact created event on the timeline
 
   Scenario: GDS Editor views a content object using the content ID
     When I visit a block's content ID endpoint
-    And I should see the details for the email address content block
+    And I should see the details for the contact content block
 
   Scenario: GDS Editor views dependent Content
     Given dependent content exists for a content block

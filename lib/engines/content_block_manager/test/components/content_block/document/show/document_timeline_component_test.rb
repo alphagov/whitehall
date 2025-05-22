@@ -7,10 +7,10 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimelineCompone
   let(:schema) { build(:content_block_schema) }
 
   it "renders components for each event" do
-    item = build_stubbed(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil)
+    item = build_stubbed(:content_block_edition, :pension, change_note: nil, internal_change_note: nil)
     scheduled_item = build_stubbed(
       :content_block_edition,
-      :email_address,
+      :pension,
       change_note: nil,
       internal_change_note: nil,
       scheduled_publication: 2.days.from_now,

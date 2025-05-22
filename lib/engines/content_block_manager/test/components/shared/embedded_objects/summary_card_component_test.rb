@@ -25,8 +25,8 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     ]
   end
   let(:subschema) { stub(:subschema, embeddable_fields: %w[name field-1 field-2], fields:) }
-  let(:document) { build(:content_block_document, :email_address, schema:) }
-  let(:content_block_edition) { build_stubbed(:content_block_edition, :email_address, details:, document:) }
+  let(:document) { build(:content_block_document, :pension, schema:) }
+  let(:content_block_edition) { build_stubbed(:content_block_edition, :pension, details:, document:) }
 
   before do
     schema.stubs(:subschema).returns(subschema)

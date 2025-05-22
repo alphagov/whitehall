@@ -3,13 +3,13 @@ require "test_helper"
 class ContentBlockManager::ConfirmationCopyPresenterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:content_block_edition) { build(:content_block_edition, :email_address) }
+  let(:content_block_edition) { build(:content_block_edition, :pension) }
   let(:block_type) { content_block_edition.block_type.humanize }
 
   let(:presenter) { ContentBlockManager::ConfirmationCopyPresenter.new(content_block_edition) }
 
   context "when the content block is scheduled" do
-    let(:content_block_edition) { build(:content_block_edition, :email_address, scheduled_publication: Time.zone.now, state: :scheduled) }
+    let(:content_block_edition) { build(:content_block_edition, :pension, scheduled_publication: Time.zone.now, state: :scheduled) }
 
     describe "#for_panel" do
       it "should return the scheduled text" do
@@ -29,7 +29,7 @@ class ContentBlockManager::ConfirmationCopyPresenterTest < ActiveSupport::TestCa
 
     before do
       document.expects(:editions).returns(
-        build_list(:content_block_edition, 3, :email_address),
+        build_list(:content_block_edition, 3, :pension),
       )
     end
 

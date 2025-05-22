@@ -9,7 +9,7 @@ class DeleteContentBlockTest < ActiveSupport::TestCase
   end
 
   describe "when a content block exists" do
-    let!(:content_block_document) { create(:content_block_document, :email_address) }
+    let!(:content_block_document) { create(:content_block_document, :pension) }
     let!(:content_block_editions) { create_list(:content_block_edition, 5, document: content_block_document) }
 
     let(:content_id) { content_block_document.content_id }

@@ -22,7 +22,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       details:,
       document_attributes: {
         sluggable_string: "Something",
-        block_type: "email_address",
+        block_type: "pension",
       },
       creator:,
       organisation_id: organisation.id.to_s,
@@ -68,7 +68,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
   end
 
   it "adds a content id if a document is provided" do
-    content_block_edition.document = build(:content_block_document, :email_address, content_id: nil)
+    content_block_edition.document = build(:content_block_document, :pension, content_id: nil)
     content_block_edition.save!
     content_block_edition.reload
 
@@ -164,9 +164,9 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
   describe ".current_versions" do
     it "returns current published versions" do
-      document = create(:content_block_document, :email_address)
-      edition = create(:content_block_edition, :email_address, state: "published", document:)
-      draft_edition = create(:content_block_edition, :email_address, state: "draft", document:)
+      document = create(:content_block_document, :pension)
+      edition = create(:content_block_edition, :pension, state: "published", document:)
+      draft_edition = create(:content_block_edition, :pension, state: "draft", document:)
       document.latest_edition = draft_edition
       document.save!
 
@@ -239,7 +239,7 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
   describe "#clone_edition" do
     it "clones an edition in draft with the specified creator" do
       content_block_edition = create(
-        :content_block_edition, :email_address,
+        :content_block_edition, :pension,
         title: "Some title",
         details: { "my" => "details" },
         state: "published",

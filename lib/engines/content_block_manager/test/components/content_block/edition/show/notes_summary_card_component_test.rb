@@ -7,7 +7,7 @@ class ContentBlockManager::ContentBlockEdition::Show::NotesSummaryCardComponentT
   let(:content_block_edition) do
     create(
       :content_block_edition,
-      :email_address,
+      :pension,
       instructions_to_publishers: "some instructions",
       major_change:,
       change_note: "Some change note",

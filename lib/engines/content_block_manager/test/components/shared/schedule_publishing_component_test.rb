@@ -4,8 +4,8 @@ class ContentBlockManager::Shared::SchedulePublishingComponentTest < ViewCompone
   extend Minitest::Spec::DSL
   include ContentBlockManager::Engine.routes.url_helpers
 
-  let(:content_block_document) { create(:content_block_document, :email_address) }
-  let(:content_block_edition) { create(:content_block_edition, :email_address, document: content_block_document) }
+  let(:content_block_document) { create(:content_block_document, :pension) }
+  let(:content_block_edition) { create(:content_block_edition, :pension, document: content_block_document) }
   let(:params) { {} }
   let(:context) { "Some context" }
   let(:back_link) { "/back-link" }
@@ -80,7 +80,7 @@ class ContentBlockManager::Shared::SchedulePublishingComponentTest < ViewCompone
 
   describe "when the params have date attributes set" do
     let(:scheduled_publication) { Time.zone.now + 1.month }
-    let(:content_block_edition) { create(:content_block_edition, :email_address, document: content_block_document, scheduled_publication:) }
+    let(:content_block_edition) { create(:content_block_edition, :pension, document: content_block_document, scheduled_publication:) }
 
     it "prepopulates the date fields" do
       render_inline(component)

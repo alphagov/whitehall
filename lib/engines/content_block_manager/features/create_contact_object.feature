@@ -41,3 +41,19 @@ Feature: Create a contact object
     When I save and continue
     And I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a new "contact"
+
+  Scenario: GDS editor edits answers during creation of an object
+    When I click to add a new "email_address"
+    And I complete the "email_address" form with the following fields:
+      | title     | email_address          |
+      | New email | foo@example.com        |
+    And I save and continue
+    When I click the first edit link
+    And I complete the form with the following fields:
+      | title            |
+      | New email 2 |
+    And I save and continue
+    Then I am asked to review my answers
+    And I confirm my answers are correct
+    And I review and confirm my answers are correct
+    And I should be taken to the confirmation page for a new "contact"

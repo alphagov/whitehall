@@ -101,10 +101,10 @@ And("I should be taken to the confirmation page for a published block") do
   )
 end
 
-And("I should be taken to the confirmation page for a new block") do
+And("I should be taken to the confirmation page for a new contact block") do
   content_block = ContentBlockManager::ContentBlock::Edition.last
 
-  assert_text I18n.t("content_block_edition.confirmation_page.created.banner", block_type: "Email address")
+  assert_text I18n.t("content_block_edition.confirmation_page.created.banner", block_type: "Contact")
   assert_text I18n.t("content_block_edition.confirmation_page.created.detail")
 
   expect(page).to have_link(
@@ -140,7 +140,7 @@ When("I should be taken to the scheduled confirmation page") do
 
   assert_text I18n.t(
     "content_block_edition.confirmation_page.scheduled.banner",
-    block_type: "Email address",
+    block_type: "Pension",
     date: I18n.l(content_block_edition.scheduled_publication, format: :long_ordinal),
   ).squish
   assert_text I18n.t("content_block_edition.confirmation_page.scheduled.detail")
@@ -159,24 +159,6 @@ Then("I should be taken back to the document page") do
                                     ))
 end
 
-Given("an email address content block has been created") do
-  @content_blocks ||= []
-  @email_address = "foo@example.com"
-  organisation = create(:organisation)
-  @content_block = create(
-    :content_block_edition,
-    :email_address,
-    details: { email_address: @email_address },
-    creator: @user,
-    organisation:,
-    title: "previously created title",
-  )
-  ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
-    @content_block.publish!
-  end
-  @content_blocks.push(@content_block)
-end
-
 Given("a pension content block has been created") do
   @content_blocks ||= []
   organisation = create(:organisation)
@@ -187,6 +169,23 @@ Given("a pension content block has been created") do
     creator: @user,
     organisation:,
     title: "My pension",
+  )
+  ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
+    @content_block.publish!
+  end
+  @content_blocks.push(@content_block)
+end
+
+Given("a contact content block has been created") do
+  @content_blocks ||= []
+  organisation = create(:organisation)
+  @content_block = create(
+    :content_block_edition,
+    :contact,
+    details: { description: "Some text" },
+    creator: @user,
+    organisation:,
+    title: "My contact",
   )
   ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
     @content_block.publish!
@@ -221,28 +220,6 @@ Given(/^([^"]*) content blocks of type ([^"]*) have been created with the fields
   end
 end
 
-Given("an email address content block has been created with the following email address and title:") do |table|
-  fields = table.rows_hash
-  @content_blocks ||= []
-  @email_address = "foo@example.com"
-  organisation = create(:organisation)
-  title = fields.delete("title") || "title"
-  document = create(:content_block_document, :email_address, sluggable_string: title.parameterize(separator: "_"))
-  @content_block = create(
-    :content_block_edition,
-    :email_address,
-    document:,
-    details: { email_address: fields[:email_address] },
-    creator: @user,
-    organisation:,
-    title:,
-  )
-  ContentBlockManager::ContentBlock::Edition::HasAuditTrail.acting_as(@user) do
-    @content_block.publish!
-  end
-  @content_blocks.push(@content_block)
-end
-
 Then("I am taken back to Content Block Manager home page") do
   assert_equal current_path, content_block_manager.content_block_manager_root_path
 end
@@ -263,18 +240,16 @@ Then("I should see the details for all documents") do
   assert_text "Content Block Manager"
 
   ContentBlockManager::ContentBlock::Document.find_each do |document|
-    should_show_summary_title_for_email_address_content_block(
+    should_show_summary_title_for_generic_content_block(
       document.title,
-      document.latest_edition.details[:email_address],
     )
   end
 end
 
 Then("I should see the details for all documents from my organisation") do
   ContentBlockManager::ContentBlock::Document.with_lead_organisation(@user.organisation.id).each do |document|
-    should_show_summary_title_for_email_address_content_block(
+    should_show_summary_title_for_generic_content_block(
       document.title,
-      document.latest_edition.details[:email_address],
     )
   end
 end
@@ -303,14 +278,9 @@ When("I click to view the edition") do
   click_link href: content_block_manager.content_block_manager_content_block_edition_path(@content_block)
 end
 
-Then("I should see the details for the email address content block") do
+Then("I should see the details for the contact content block") do
   expect(page).to have_selector("h1", text: @content_block.document.title)
-
-  should_show_summary_card_for_email_address_content_block(
-    @content_block.document.title,
-    @email_address,
-    @organisation,
-  )
+  should_show_generic_content_block_details("contact", @content_block.document.title, @organisation)
 end
 
 When("I click the first edit link") do
@@ -327,7 +297,7 @@ end
 
 When("I set all fields to blank") do
   fill_in "Title", with: ""
-  fill_in "Email address", with: ""
+  fill_in "Description", with: ""
   select "", from: "content_block/edition[organisation_id]"
   click_save_and_continue
 end
@@ -344,7 +314,7 @@ Then("the edition should have been updated successfully") do
       "new context information",
     )
   else
-    should_show_summary_card_for_email_address_content_block(
+    should_show_summary_card_for_contact_content_block(
       "Changed title",
       "changed@example.com",
       "Ministry of Example",
@@ -358,7 +328,7 @@ Then("the edition should have been updated successfully") do
 end
 
 Then("I am asked to review my answers") do
-  assert_text "Review email address"
+  assert_text "Review contact"
 end
 
 Then("I am asked to review my answers for a {string}") do |block_type|

@@ -5,9 +5,8 @@ def should_show_edit_form(object_type: "email_address")
       @content_block,
     )
   else
-    should_show_edit_form_for_email_address_content_block(
-      @content_block.document.title,
-      @email_address,
+    should_show_edit_form_for_contact_content_block(
+      @content_block,
     )
   end
 end

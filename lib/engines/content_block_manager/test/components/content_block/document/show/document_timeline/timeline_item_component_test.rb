@@ -9,7 +9,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   let(:user) { create(:user) }
   let(:schema) { stub(:schema, subschemas: []) }
 
-  let(:content_block_edition) { build(:content_block_edition, :email_address, change_note: nil, internal_change_note: nil) }
+  let(:content_block_edition) { build(:content_block_edition, :pension, change_note: nil, internal_change_note: nil) }
   let(:version) do
     build(
       :content_block_version,
@@ -66,7 +66,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
     end
 
     it "returns a created title" do
-      assert_selector ".timeline__title", text: "Email address created"
+      assert_selector ".timeline__title", text: "Pension created"
     end
   end
 
@@ -84,7 +84,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   end
 
   describe "when external changenotes are present" do
-    let(:content_block_edition) { build(:content_block_edition, :email_address, change_note: "changed a to b", internal_change_note: nil) }
+    let(:content_block_edition) { build(:content_block_edition, :pension, change_note: "changed a to b", internal_change_note: nil) }
 
     before do
       render_inline component
@@ -96,7 +96,7 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Timel
   end
 
   describe "when internal changenotes are present" do
-    let(:content_block_edition) { build(:content_block_edition, :email_address, change_note: nil, internal_change_note: "changed x to y") }
+    let(:content_block_edition) { build(:content_block_edition, :pension, change_note: nil, internal_change_note: "changed x to y") }
 
     before do
       render_inline component

@@ -12,7 +12,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
     let(:edition_params) do
       {
         document_attributes: {
-          block_type: "email_address",
+          block_type: "pension",
         }.with_indifferent_access,
         details: {
           "foo" => "Foo text",
@@ -57,8 +57,8 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
     end
 
     describe "when a document id is provided" do
-      let(:document) { create(:content_block_document, :email_address) }
-      let!(:previous_edition) { create(:content_block_edition, :email_address, document:) }
+      let(:document) { create(:content_block_document, :pension) }
+      let!(:previous_edition) { create(:content_block_edition, :pension, document:) }
 
       it "creates a new edition for that document" do
         assert_no_changes -> { ContentBlockManager::ContentBlock::Document.count } do
@@ -78,7 +78,7 @@ class ContentBlockManager::CreateEditionServiceTest < ActiveSupport::TestCase
       describe "when a previous edition has details that are not provided in the params" do
         let!(:previous_edition) do
           create(
-            :content_block_edition, :email_address,
+            :content_block_edition, :pension,
             document:,
             details: { "foo" => "Old text", "bar" => "Old text", "something" => { "else" => { "is" => "here" } } }
           )

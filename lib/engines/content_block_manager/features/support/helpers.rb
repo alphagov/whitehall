@@ -1,12 +1,10 @@
-def should_show_summary_title_for_email_address_content_block(document_title, email_address)
+def should_show_summary_title_for_generic_content_block(document_title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
-  expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
-  expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
-def should_show_summary_card_for_email_address_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
-  should_show_generic_content_block_details("email_address", document_title, organisation, instructions_to_publishers)
+def should_show_summary_card_for_contact_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
+  should_show_generic_content_block_details("contact", document_title, organisation, instructions_to_publishers)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
@@ -39,10 +37,10 @@ def should_show_edit_form_for_pension_content_block(content_block)
   expect(page).to have_content("Cancel")
 end
 
-def should_show_edit_form_for_email_address_content_block(document_title, email_address)
-  expect(page).to have_content(I18n.t("content_block_edition.update.title", block_type: "email address"))
-  expect(page).to have_field("Title", with: document_title)
-  expect(page).to have_field("Email address", with: email_address)
+def should_show_edit_form_for_contact_content_block(content_block)
+  expect(page).to have_content(I18n.t("content_block_edition.update.title", block_type: "contact"))
+  expect(page).to have_field("Title", with: content_block.title)
+  expect(page).to have_field("Description", with: content_block.details["description"])
   expect(page).to have_content("Save and continue")
   expect(page).to have_content("Cancel")
 end
@@ -51,7 +49,7 @@ def visit_edit_page
   visit content_block_manager.new_content_block_manager_content_block_document_edition_path(@content_block.document)
 end
 
-def change_details(object_type: "email_address")
+def change_details(object_type: "pension")
   fill_in "Title", with: "Changed title"
 
   case object_type

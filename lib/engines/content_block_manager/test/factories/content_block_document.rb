@@ -6,6 +6,7 @@ FactoryBot.define do
     updated_at { Time.zone.now.utc }
     latest_edition_id { nil }
     live_edition_id { nil }
+    block_type { "pension" }
 
     transient do
       schema { nil }

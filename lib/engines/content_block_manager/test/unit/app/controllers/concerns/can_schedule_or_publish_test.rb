@@ -46,7 +46,7 @@ class ContentBlockManager::ContentBlock::EditionFormTest < ActiveSupport::TestCa
       Timecop.freeze "2018-06-07"
     end
 
-    let(:content_block_edition) { build(:content_block_edition, :email_address) }
+    let(:content_block_edition) { build(:content_block_edition, :pension) }
     let(:object) { EditionFormTestClass.new(content_block_edition, params) }
 
     context "when date params are valid" do
