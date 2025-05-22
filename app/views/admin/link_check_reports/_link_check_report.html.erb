@@ -26,6 +26,15 @@
   <% elsif report.danger_links.any? || report.broken_links.any? || report.caution_links.any? %>
     <%= render "components/inset_prompt", {
       title: t("broken_links.title"),
+      data_attributes: {
+        module: 'ga4-auto-tracker',
+        ga4_auto: {
+          type: "broken_links",
+          text: t("broken_links.title"),
+          event_name: "side_bar_error",
+          action: "error",
+        }.as_json,
+      },
       description: capture do %>
         <%
           status_order = { "danger" => 1, "broken" => 2, "caution" => 3 }
