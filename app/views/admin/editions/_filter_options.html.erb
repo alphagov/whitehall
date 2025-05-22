@@ -34,6 +34,7 @@
           document_type: "#{action_name}-#{controller_name}",
           section: "Author",
           change_category: "update-filter select",
+          filter_parent: true,
         },
         options: admin_author_filter_options(current_user).map do |name, id|
           {
@@ -55,6 +56,7 @@
           document_type: "#{action_name}-#{controller_name}",
           section: "Organisation",
           change_category: "update-filter select",
+          filter_parent: true,
         },
         grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
       } %>
@@ -70,6 +72,7 @@
           document_type: "#{action_name}-#{controller_name}",
           section: "World location",
           change_category: "update-filter select",
+          filter_parent: true,
         },
         options: admin_world_location_filter_options(current_user).map do |name, id|
           {
@@ -91,6 +94,7 @@
           document_type: "#{action_name}-#{controller_name}",
           section: "Document type",
           change_category: "update-filter select",
+          filter_parent: true,
         },
         grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
       } %>
@@ -106,6 +110,7 @@
           document_type: "#{action_name}-#{controller_name}",
           section: "State",
           change_category: "update-filter select",
+          filter_parent: true,
         },
         options: admin_state_filter_options.map do |text, value|
           {
@@ -161,6 +166,7 @@
         small: true,
         data_attributes: {
           ga4_change_category: "update-filter checkbox",
+          ga4_filter_parent: true,
         },
         items: [
           {
@@ -179,6 +185,7 @@
         small: true,
         data_attributes: {
           ga4_change_category: "update-filter checkbox",
+          ga4_filer_parent: true,
         },
         items: [
           {

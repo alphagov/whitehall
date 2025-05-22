@@ -25,6 +25,7 @@
         document_type: "#{action_name}-#{controller_name}",
         section: "Organisation",
         change_category: "update-filter select",
+        filter_parent: true,
       },
       grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
     } %>
@@ -37,6 +38,7 @@
       full_width: true,
       data_attributes: {
         ga4_change_category: "update-filter select",
+        ga4_filter_parent: true,
       },
       options: [
         {
