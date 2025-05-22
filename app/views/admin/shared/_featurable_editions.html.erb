@@ -3,7 +3,7 @@
   margin_bottom: 8,
 } %>
 
-<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>">
+<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>" data-ga4-list-title="<%= filter.page_title %>" data-ga4-ecommerce-start-index="<%= page_start_index(params[:page], filter.options) %>">
   <div class="govuk-grid-column-one-third">
     <%= render "admin/editions/filter_options", filter_by:, filter_action:, anchor: %>
   </div>

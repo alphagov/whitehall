@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>">
+<div class="govuk-grid-row" data-ga4-ecommerce data-ga4-search-query="<%= params[:title] %>" data-ga4-list-title="<%= yield(:page_title) %>" data-ga4-ecommerce-start-index="<%= page_start_index(params[:page], @filter.options) %>">
   <div class="govuk-grid-column-one-third">
     <%= render "filter_options" %>
   </div>

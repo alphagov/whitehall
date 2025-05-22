@@ -193,12 +193,16 @@ module Admin::EditionsHelper
   end
 
   def search_results_table_actions(edition)
+    content_id = edition.document.content_id
     actions = ""
     if can?(:see, edition)
       actions << link_to(
         sanitize("View #{tag.span(edition.title, class: 'govuk-visually-hidden')}"),
         admin_edition_path(edition),
         class: "govuk-link",
+        data: {
+          "ga4-ecommerce-content-id": content_id,
+        },
       )
     end
 
@@ -207,10 +211,37 @@ module Admin::EditionsHelper
         sanitize("Edit access #{tag.span("for #{edition.title}", class: 'govuk-visually-hidden')}"),
         edit_access_limited_admin_edition_path(edition),
         class: "govuk-link",
+        data: {
+          "ga4-ecommerce-content-id": content_id,
+        },
       )
     end
 
-    sanitize(actions)
+    sanitize(actions, attributes: %w[href class data-ga4-ecommerce-content-id])
+  end
+
+  def featurable_search_results_table_actions(edition, feature_path)
+    content_id = edition.document.content_id
+    actions = ""
+    actions << link_to(
+      sanitize("View #{tag.span(edition.title, class: 'govuk-visually-hidden')}"),
+      admin_edition_path(edition),
+      class: "govuk-link",
+      data: {
+        "ga4-ecommerce-content-id": content_id,
+      },
+    )
+
+    actions << link_to(
+      sanitize("Feature #{tag.span(edition.title, class: 'govuk-visually-hidden')}"),
+      polymorphic_url(feature_path, edition_id: edition),
+      class: "govuk-link govuk-!-margin-left-2",
+      data: {
+        "ga4-ecommerce-content-id": content_id,
+      },
+    )
+
+    sanitize(actions, attributes: %w[href class data-ga4-ecommerce-content-id])
   end
 
   def edition_title_link_or_edition_title(edition)

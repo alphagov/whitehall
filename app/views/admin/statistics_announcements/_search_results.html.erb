@@ -45,7 +45,7 @@
                     end,
             },
             {
-              text: link_to(sanitize("View #{tag.span(statistics_announcement.title, class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link"),
+              text: link_to(sanitize("View #{tag.span(statistics_announcement.title, class: 'govuk-visually-hidden')}"), [:admin, statistics_announcement], class: "govuk-link", data: { "ga4-ecommerce-content-id": statistics_announcement.content_id }),
             },
           ]
         end,
