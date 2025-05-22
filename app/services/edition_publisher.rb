@@ -19,6 +19,10 @@ class EditionPublisher < EditionService
     @failure_reasons = reasons
   end
 
+  def failure_reasons_plaintext
+    failure_reasons.map { |reason| ActionController::Base.helpers.strip_tags(reason).gsub(/\s+/, " ") }.join(", ")
+  end
+
   def govspeak_link_validator
     @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
   end
