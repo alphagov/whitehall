@@ -11,6 +11,8 @@ window.GOVUK.analyticsGa4.analyticsModules =
       )
 
       moduleElements.forEach(function (moduleElement) {
+        if (moduleElement.dataset.ga4ChangeCategory) return
+
         moduleElement.addEventListener('addItem', function (event) {
           const eventData = {
             event: 'event_data',

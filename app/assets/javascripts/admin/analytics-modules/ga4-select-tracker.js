@@ -12,6 +12,8 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
       moduleElements.forEach(function (moduleElement) {
         moduleElement.addEventListener('change', function (event) {
+          if (event.target.dataset.ga4ChangeCategory) return
+
           const ga4DocumentType = moduleElement.dataset.ga4DocumentType
 
           if (
