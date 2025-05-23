@@ -1,5 +1,5 @@
 <div class="app-view-filter govuk-!-padding-5">
-  <%= form_with url: admin_statistics_announcements_path, method: :get do |_form| %>
+  <%= form_with url: admin_statistics_announcements_path, method: :get, data: { module: "ga4-finder-tracker", ga4_section: "Filter by" } do |_form| %>
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,
@@ -24,6 +24,8 @@
       ga_data: {
         document_type: "#{action_name}-#{controller_name}",
         section: "Organisation",
+        change_category: "update-filter select",
+        filter_parent: true,
       },
       grouped_options: admin_organisation_filter_options(@filter.options[:organisation_id]),
     } %>
@@ -34,6 +36,10 @@
       name: "dates",
       heading_size: "s",
       full_width: true,
+      data_attributes: {
+        ga4_change_category: "update-filter select",
+        ga4_filter_parent: true,
+      },
       options: [
         {
           text: "All announcements",
@@ -63,6 +69,11 @@
       heading: "Announcements",
       no_hint_text: true,
       heading_size: "s",
+      data_attributes: {
+        ga4_section: "Announcements",
+        ga4_change_category: "update-filter checkbox",
+        ga4_filter_parent: true,
+      },
       items: [
         {
           label: "Without a linked publication",
@@ -77,6 +88,6 @@
       margin_bottom: 4,
     } %>
 
-    <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link" %></p>
+    <p class="govuk-body"><%= link_to "Reset all fields", admin_statistics_announcements_path + "?state=active", class: "govuk-link", data: { ga4_link: { action: "remove", event_name: "select_content", type: controller_name }.to_json } %></p>
   <% end %>
 </div>

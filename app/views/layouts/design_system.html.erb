@@ -23,7 +23,7 @@
 
   <%= render partial: "shared/header" %>
 
-  <div class="govuk-width-container" data-module="ga4-event-tracker ga4-paste-tracker ga4-button-setup ga4-select-with-search-setup ga4-index-section-setup ga4-select-setup" data-ga4-search-section-type="Filter by" data-ga4-document-type="<%= action_name %>-<%= controller_name %>">
+  <div class="govuk-width-container" data-module="ga4-event-tracker ga4-paste-tracker ga4-button-setup ga4-select-with-search-setup ga4-index-section-setup ga4-select-setup" data-ga4-search-section-type="Filter by" data-ga4-section="<%= yield(:page_title).presence || yield(:title) %>" data-ga4-filter-type="<%= controller_name %>" data-ga4-document-type="<%= action_name %>-<%= controller_name %>">
 
     <%= render "shared/phase_banner", {
       show_feedback_banner: t("admin.feedback.show_banner"),
