@@ -25,7 +25,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
         //   change the value of the form
         // - a hidden input because the user can't interact with it
         const indexedElements = moduleElement.querySelectorAll(
-          'select, input:not([data-module~="select-with-search"] input):not([type="radio"]):not([type="hidden"]), fieldset'
+          'select, textarea, input:not([data-module~="select-with-search"] input):not([type="radio"]):not([type="hidden"]), fieldset'
         )
 
         indexedElements.forEach((element, index) => {
