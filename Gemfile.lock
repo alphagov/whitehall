@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/alphagov/select-with-search-component.git
-  revision: 3a8d7ac4afee8efaa4685ab5661ae638626aea6d
+  revision: 0bc3e506926b6fe06a25b73bde6fb3b0d5b94082
   specs:
     select_with_search_component (0.1.0)
       govuk_publishing_components
