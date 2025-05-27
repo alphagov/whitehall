@@ -84,6 +84,10 @@ class Edition < ApplicationRecord
 
   validates_with UnmodifiableValidator, if: :unmodifiable?
 
+  def self.enforcer(user)
+    Whitehall::Authority::Enforcer.new(user, self)
+  end
+
   def self.format_name
     @format_name ||= model_name.human.downcase
   end
@@ -434,10 +438,6 @@ private
     published_edition_date = first_public_at.try(:to_date)
     draft_edition_date = updated_at.try(:to_date)
     published_edition_date || draft_edition_date
-  end
-
-  def enforcer(user)
-    Whitehall::Authority::Enforcer.new(user, self)
   end
 
   def summary_required?

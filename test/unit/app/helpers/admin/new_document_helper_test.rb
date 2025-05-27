@@ -1,39 +1,48 @@
-module Admin::NewDocumentHelper
-  NEW_DOCUMENT_LIST = [
-    Consultation,
-    Publication,
-    NewsArticle,
-    Speech,
-    DetailedGuide,
-    DocumentCollection,
-    FatalityNotice,
-    CaseStudy,
-    StatisticalDataSet,
-    CallForEvidence,
-    WorldwideOrganisation,
-    LandingPage,
-  ].freeze
+require "test_helper"
 
-  def new_document_type_list(user)
-    document_list = NEW_DOCUMENT_LIST.dup
-    if Flipflop.enabled?(:flexible_pages)
-      document_list << FlexiblePage
+class Admin::NewDocumentHelperTest < ActionView::TestCase
+  test "new_document_type_list returns a list of document type list items" do
+    enforcer = Minitest::Mock.new
+    NEW_DOCUMENT_LIST.each do |edition_type|
+      enforcer.expect :can?, true, [:create]
+      edition_type.stubs(:enforcer).returns(enforcer)
     end
-    document_list
-      .select { |edition_type| edition_type.enforcer(user).can?(:create) }
-      .map do |edition_type|
-      title_value = edition_type.name.underscore
-      title_label = title_value.humanize
-      {
-        value: title_value,
-        text: title_label,
+
+    result = new_document_type_list(User.new)
+
+    assert result.is_a?(Array)
+    assert result.size == NEW_DOCUMENT_LIST.size
+    NEW_DOCUMENT_LIST.each do |edition_type|
+      assert_includes result, {
+        value: edition_type.name.underscore,
+        text: edition_type.name.underscore.humanize,
         bold: true,
-        hint_text: hint_text(title_value.to_sym),
+        hint_text: hint_text(edition_type.name.underscore.to_sym),
       }
     end
   end
 
-private
+  test "new_document_type_list includes flexible page if flip flop is enabled" do
+    enforcer = Minitest::Mock.new
+    NEW_DOCUMENT_LIST.each do |edition_type|
+      enforcer.expect :can?, true, [:create]
+      edition_type.stubs(:enforcer).returns(enforcer)
+    end
+
+    test_strategy = Flipflop::FeatureSet.current.test!
+    test_strategy.switch!(:flexible_pages, true)
+    enforcer.expect :can?, true, [:create]
+    FlexiblePage.stubs(:enforcer).returns(enforcer)
+
+    result = new_document_type_list(User.new)
+
+    assert_includes result, {
+      value: "flexible_page",
+      text: "Flexible page",
+      bold: true,
+      hint_text: nil,
+    }
+  end
 
   def hint_text(new_document_type)
     hint_text = {

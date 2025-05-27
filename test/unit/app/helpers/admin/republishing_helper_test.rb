@@ -5,7 +5,7 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     Rails.application.eager_load!
 
     # Ignore "abstract" Edition descendants
-    unexpected_content_types = %w[Announcement GenericEdition Publicationesque SearchableEdition]
+    unexpected_content_types = %w[Announcement FlexiblePage GenericEdition Publicationesque SearchableEdition]
 
     expected_content_types = (
       Edition.descendants.map(&:to_s) + non_editionable_content_types - unexpected_content_types
