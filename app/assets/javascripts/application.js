@@ -22,6 +22,7 @@
 //= require admin/analytics-modules/ga4-paste-tracker.js
 //= require admin/analytics-modules/ga4-search-setup.js
 //= require admin/analytics-modules/ga4-finder-setup.js
+//= require admin/analytics-modules/ga4-form-setup.js
 
 //= require admin/modules/document-history-paginator
 //= require admin/modules/locale-switcher
