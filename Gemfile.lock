@@ -210,7 +210,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
-    excon (1.2.5)
+    excon (1.2.7)
       logger
     execjs (2.10.0)
     expgen (0.1.1)
@@ -235,7 +235,7 @@ GEM
     flipflop (2.8.0)
       activesupport (>= 4.0)
       terminal-table (>= 1.8)
-    fog-aws (3.31.0)
+    fog-aws (3.32.0)
       base64 (~> 0.2.0)
       fog-core (~> 2.6)
       fog-json (~> 1.1)
@@ -449,7 +449,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0507)
+    mime-types-data (3.2025.0527)
     mini_magick (5.2.0)
       benchmark
       logger
