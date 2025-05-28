@@ -132,8 +132,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       ;(inputs.length ? inputs : Object.keys(formInputs)).forEach((input) => {
         const newInput = document.createElement('div')
 
-        console.log(formInputs, input)
-
         newInput.innerHTML = formInputs[input](this.options).innerHTML
         form.appendChild(newInput)
       })
