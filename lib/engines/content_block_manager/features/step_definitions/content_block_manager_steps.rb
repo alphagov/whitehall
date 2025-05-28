@@ -56,7 +56,7 @@ When("I complete the form with the following fields:") do |table|
   fill_in "Instructions to publishers", with: @instructions_to_publishers if @instructions_to_publishers.present?
 
   fields.keys.each do |k|
-    fill_in "content_block_manager_content_block_edition_details_#{k}", with: @details[k]
+    fill_in "content_block_manager_content_block_edition_details_block_attributes_#{k}", with: @details[k]
   end
 
   click_save_and_continue
@@ -83,7 +83,7 @@ Then("the edition should have been created successfully") do
   assert_equal @instructions_to_publishers, edition.instructions_to_publishers if @instructions_to_publishers.present?
 
   @details.keys.each do |k|
-    assert_equal edition.details[k], @details[k]
+    assert_equal edition.block_attributes[k], @details[k]
   end
 end
 
@@ -165,7 +165,7 @@ Given("a pension content block has been created") do
   @content_block = create(
     :content_block_edition,
     :pension,
-    details: { description: "Some text" },
+    details: { "block_attributes" => { description: "Some text" } },
     creator: @user,
     organisation:,
     title: "My pension",
@@ -423,8 +423,8 @@ end
 
 Then(/^I should still see the live edition on the homepage$/) do
   within(".govuk-summary-card", text: @content_block.document.title) do
-    @content_block.details.keys.each do |key|
-      expect(page).to have_content(@content_block.details[key])
+    @content_block.block_attributes.keys.each do |key|
+      expect(page).to have_content(@content_block.block_attributes[key])
     end
   end
 end

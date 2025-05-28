@@ -9,7 +9,7 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
 
   def create
     @content_block_edition = @content_block_document.latest_edition.clone_edition(creator: current_user)
-    @params = object_params(@subschema).dig(:details, @subschema.block_type)
+    @params = object_params(@subschema).dig(:details, :block_attributes, @subschema.block_type)
     @content_block_edition.add_object_to_details(@subschema.block_type, @params)
     @content_block_edition.save!
 

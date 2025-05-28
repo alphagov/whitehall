@@ -30,7 +30,7 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
     attribute = field_items.last
     key = field_items.count > 1 ? "#{field_items.first}_#{attribute}" : attribute
     edition.errors.add(
-      "details_#{key}",
+      "details_block_attributes_#{key}",
       I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: attribute.humanize),
     )
   end
@@ -46,10 +46,25 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
 private
 
   def compact_nested(details)
-    details.compact_blank.map { |k, v| v.is_a?(Hash) ? [k, compact_nested(v)] : [k, v] }.to_h
+    if details.present?
+      details.compact_blank.map { |k, v| v.is_a?(Hash) ? [k, compact_nested(v)] : [k, v] }.to_h
+    end
   end
 
   def key_with_optional_prefix(error, key)
-    error["data_pointer"].present? ? "#{error['data_pointer'].split('/')[1]}_#{key}" : key
+    # TODO: tidy this!
+    if error["data_pointer"].present?
+      if error["data_pointer"].split("/").include?("block_attributes")
+        if error["data_pointer"].split("/")[2].present?
+          "block_attributes_#{error['data_pointer'].split('/')[2]}_#{key}"
+        else
+          "block_attributes_#{key}"
+        end
+      else
+        "#{error['data_pointer'].split('/')[1]}_#{key}"
+      end
+    else
+      key
+    end
   end
 end

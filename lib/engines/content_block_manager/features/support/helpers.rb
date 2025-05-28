@@ -32,7 +32,7 @@ end
 def should_show_edit_form_for_pension_content_block(content_block)
   expect(page).to have_content(I18n.t("content_block_edition.update.title", block_type: "pension"))
   expect(page).to have_field("Title", with: content_block.title)
-  expect(page).to have_field("Description", with: content_block.details["description"])
+  expect(page).to have_field("Description", with: content_block.details["block_attributes"]["description"])
   expect(page).to have_content("Save and continue")
   expect(page).to have_content("Cancel")
 end

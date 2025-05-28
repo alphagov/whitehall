@@ -47,12 +47,14 @@ module ContentBlockManager
       def add_object_to_details(object_type, body)
         key = key_for_object(body)
 
-        details[object_type] ||= {}
-        details[object_type][key] = body.to_h
+        details["block_attributes"] ||= {}
+
+        details["block_attributes"][object_type] ||= {}
+        details["block_attributes"][object_type][key] = body.to_h
       end
 
       def update_object_with_details(object_type, object_title, body)
-        details[object_type][object_title] = body.to_h
+        details["block_attributes"][object_type][object_title] = body.to_h
       end
 
       def key_for_object(object)
@@ -60,7 +62,11 @@ module ContentBlockManager
       end
 
       def has_entries_for_subschema_id?(subschema_id)
-        details[subschema_id].present?
+        block_attributes[subschema_id].present?
+      end
+
+      def block_attributes
+        details.key?("block_attributes") ? details["block_attributes"] : details
       end
     end
   end

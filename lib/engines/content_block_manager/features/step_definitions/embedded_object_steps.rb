@@ -18,7 +18,7 @@ When("I complete the {string} form with the following fields:") do |object_type,
   @details = fields
   @object_title ||= @details["title"].parameterize
   fields.keys.each do |k|
-    field = find_field "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}"
+    field = find_field "content_block_manager_content_block_edition_details_block_attributes_#{object_type.pluralize}_#{k}"
     if field.tag_name == "select"
       select @details[k], from: field[:id]
     else
@@ -41,7 +41,11 @@ Then("the {string} should have been created successfully") do |object_type|
   key = @object_title
 
   @details.keys.each do |k|
-    assert_equal edition.details[object_type.parameterize.pluralize][key][k], @details[k]
+    if edition.details.key?("block_attributes")
+      assert_equal edition.details["block_attributes"][object_type.parameterize.pluralize][key][k], @details[k]
+    else
+      assert_equal edition.details[object_type.parameterize.pluralize][key][k], @details[k]
+    end
   end
 
   version = edition.versions.order("created_at asc").first
@@ -84,7 +88,7 @@ end
 
 And(/^that pension has a rate with the following fields:$/) do |table|
   rate = table.hashes.first
-  @content_block.details["rates"] = {
+  @content_block.block_attributes["rates"] = {
     rate[:title].parameterize.to_s => {
       "title" => rate[:title],
       "amount" => rate[:amount],
@@ -95,9 +99,9 @@ And(/^that pension has a rate with the following fields:$/) do |table|
 end
 
 And(/^I should see the rates for that block$/) do
-  @content_block.details["rates"].keys.each do |k|
+  @content_block.block_attributes["rates"].keys.each do |k|
     within "div[data-test-id=embedded_#{k}]" do
-      @content_block.details["rates"][k].each do |_k, value|
+      @content_block.block_attributes["rates"][k].each do |_k, value|
         assert_text value
       end
     end
@@ -105,7 +109,7 @@ And(/^I should see the rates for that block$/) do
 end
 
 When(/^I click to edit the first rate$/) do
-  key = @content_block.details["rates"].keys.first
+  key = @content_block.block_attributes["rates"].keys.first
   within "div[data-test-id=embedded_#{key}]" do
     click_on "Edit"
   end

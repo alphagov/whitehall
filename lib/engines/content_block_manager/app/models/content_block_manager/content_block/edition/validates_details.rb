@@ -32,7 +32,11 @@ module ContentBlockManager
     def read_attribute_for_validation(attr)
       if attr.starts_with?(DETAILS_PREFIX)
         key = attr.to_s.delete_prefix(DETAILS_PREFIX)
-        details&.fetch(key, nil)
+        if details&.has_key?("block_attributes")
+          details["block_attributes"].fetch(key, nil)
+        else
+          details&.fetch(key, nil)
+        end
       else
         super(attr)
       end

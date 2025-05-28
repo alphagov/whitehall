@@ -50,7 +50,7 @@ private
       key = field.name
       rows = [{
         key: key.humanize,
-        value: content_block_edition.details[key],
+        value: content_block_edition.block_attributes[key],
         data: data_attributes_for_row(key),
       }]
       rows.push(embed_code_row(key, content_block_document)) if should_show_embed_code?(key)

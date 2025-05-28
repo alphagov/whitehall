@@ -20,7 +20,7 @@ private
     {
       content_block_edition:,
       field:,
-      value: content_block_edition.details&.fetch(field.name, nil),
+      value: content_block_edition.block_attributes&.fetch(field.name, nil),
     }
   end
 end

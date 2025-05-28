@@ -17,6 +17,7 @@ module ContentBlockManager
           @all ||= Services.publishing_api.get_schemas.select { |k, _v|
             is_valid_schema?(k)
           }.map { |id, full_schema|
+            # full_schema.dig("definitions", "details", "properties", "block_attributes")&.yield_self { |schema| new(id, schema) }
             full_schema.dig("definitions", "details")&.yield_self { |schema| new(id, schema) }
           }.compact
         end
@@ -80,7 +81,11 @@ module ContentBlockManager
     private
 
       def field_names
-        sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+        if @body["properties"]["block_attributes"].present?
+          sort_fields (@body["properties"]["block_attributes"]["properties"].to_a - embedded_objects.to_a).to_h.keys
+        else
+          sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+        end
       end
 
       def sort_fields(fields)
@@ -102,7 +107,11 @@ module ContentBlockManager
       end
 
       def embedded_objects
-        @body["properties"].select { |_k, v| v["type"] == "object" }
+        if @body["properties"]["block_attributes"].present?
+          @body["properties"]["block_attributes"]["properties"].select { |_k, v| v["type"] == "object" }
+        else
+          @body["properties"].select { |_k, v| v["type"] == "object" }
+        end
       end
     end
   end

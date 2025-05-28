@@ -33,7 +33,7 @@ private
     schema.fields.map do |field|
       {
         key: field.name.humanize,
-        value: content_block_edition.details[field.name],
+        value: content_block_edition.details["block_attributes"].present? ? content_block_edition.details["block_attributes"][field.name] : content_block_edition.details[field.name],
       }
     end
   end

@@ -8,7 +8,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
   end
 
   def create
-    @object = object_params(@subschema).dig(:details, @subschema.block_type)
+    @object = object_params(@subschema).dig(:details, :block_attributes, @subschema.block_type)
     @content_block_edition.add_object_to_details(@subschema.block_type, @object)
     @content_block_edition.save!
 
@@ -27,13 +27,13 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
   def edit
     @redirect_url = params[:redirect_url]
     @object_title = params[:object_title]
-    @object = @content_block_edition.details.dig(params[:object_type], params[:object_title])
+    @object = @content_block_edition.details.key?("block_attributes") ? @content_block_edition.details.dig("block_attributes", params[:object_type], params[:object_title]) : @content_block_edition.details.dig(params[:object_type], params[:object_title])
 
     render "admin/errors/not_found", status: :not_found unless @object
   end
 
   def update
-    @object = object_params(@subschema).dig(:details, @subschema.block_type)
+    @object = object_params(@subschema).dig(:details, :block_attributes, @subschema.block_type)
     @content_block_edition.update_object_with_details(params[:object_type], params[:object_title], @object)
     @content_block_edition.save!
 

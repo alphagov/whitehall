@@ -22,11 +22,13 @@ module ContentBlockManager
         end
 
         def format
-          @format ||= schema.body.dig("properties", name, "type")
+          puts "here in format"
+          puts schema.body
+          @format ||= schema.body["properties"]&.key?("block_attributes") ? schema.body.dig("properties", "block_attributes", "properties", name, "type") : schema.body.dig("properties", name, "type")
         end
 
         def enum_values
-          @enum_values ||= schema.body.dig("properties", name, "enum")
+          @enum_values ||= schema.body["properties"]&.key?("block_attributes") ? schema.body.dig("properties", "block_attributes", "properties", name, "enum") : schema.body.dig("properties", name, "enum")
         end
 
       private

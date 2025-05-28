@@ -29,7 +29,7 @@ private
     schema.fields.map do |field|
       {
         key: field.name.humanize,
-        value: content_block_edition.details[field.name],
+        value: content_block_edition.block_attributes[field.name],
       }
     end
   end

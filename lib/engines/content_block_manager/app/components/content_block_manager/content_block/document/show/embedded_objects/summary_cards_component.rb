@@ -9,6 +9,6 @@ private
   attr_reader :content_block_edition, :object_type
 
   def embedded_objects
-    content_block_edition.details.fetch(object_type, {})
+    content_block_edition.block_attributes.fetch(object_type.to_s, {})
   end
 end

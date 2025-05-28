@@ -29,7 +29,7 @@ private
   end
 
   def new_subschema_item_details
-    field_diff = version.field_diffs.dig("details", updated_subschema_id, version.updated_embedded_object_title).first
+    field_diff = version.field_diffs.dig("details", "block_attributes", updated_subschema_id, version.updated_embedded_object_title)&.first
     { field: field_diff[0].humanize, new_value: field_diff[1].new_value }
   end
 

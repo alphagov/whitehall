@@ -30,7 +30,9 @@ class ContentBlockManager::BaseController < Admin::BaseController
             :change_note,
             :major_change,
             document_attributes: %w[block_type],
-            details: @schema.permitted_params,
+            details: {
+              block_attributes: @schema.permitted_params,
+            },
           )
           .merge!(creator: current_user)
   end

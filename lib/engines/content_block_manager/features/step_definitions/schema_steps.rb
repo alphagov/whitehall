@@ -3,7 +3,7 @@ require_relative "../support/schema_helpers"
 Given("a schema {string} exists with the following fields:") do |block_type, table|
   fields = table.hashes
   @schemas ||= {}
-  body = create_schema(fields)
+  body = create_schema_with_block_attributes(fields)
   @schemas[block_type] = build(:content_block_schema, block_type:, body:)
   ContentBlockManager::ContentBlock::Schema.stubs(:all).returns(@schemas.values)
 end
@@ -11,17 +11,15 @@ end
 And("the schema {string} has a subschema with the name {string} and the following fields:") do |block_type, subschema_name, table|
   fields = table.hashes
   schema = @schemas[block_type]
-  body = schema.body.deep_merge({
-    "properties" => {
-      subschema_name => {
-        "type" => "object",
-        "patternProperties" => {
-          "^[a-z0-9]+(?:-[a-z0-9]+)*$" => create_schema(fields),
-        },
+  schema.body["properties"]["block_attributes"]["properties"].merge!({
+    subschema_name => {
+      "type" => "object",
+      "patternProperties" => {
+        "^[a-z0-9]+(?:-[a-z0-9]+)*$" => create_schema(fields),
       },
     },
   })
-  @schemas[block_type] = build(:content_block_schema, block_type:, body:)
+  @schemas[block_type] = build(:content_block_schema, block_type:, body: schema.body)
   ContentBlockManager::ContentBlock::Schema.stubs(:all).returns(@schemas.values)
 end
 

@@ -20,18 +20,18 @@ private
 
   def name
     if object_id
-      "content_block/edition[details][#{object_id}][#{field.name}]"
+      "content_block/edition[details][block_attributes][#{object_id}][#{field.name}]"
     else
-      "content_block/edition[details][#{field.name}]"
+      "content_block/edition[details][block_attributes][#{field.name}]"
     end
   end
 
   def id
-    "#{PARENT_CLASS}_details_#{id_suffix}"
+    "#{PARENT_CLASS}_details_block_attributes_#{id_suffix}"
   end
 
   def error_items
-    errors_for(content_block_edition.errors, "details_#{id_suffix}".to_sym)
+    errors_for(content_block_edition.errors, "details_block_attributes_#{id_suffix}".to_sym)
   end
 
   def hint

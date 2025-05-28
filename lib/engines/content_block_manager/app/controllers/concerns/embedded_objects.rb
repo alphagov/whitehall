@@ -11,7 +11,9 @@ module EmbeddedObjects
   def object_params(subschema)
     params.require("content_block/edition").permit(
       details: {
-        subschema.block_type.to_s => subschema.permitted_params,
+        block_attributes: {
+          subschema.block_type.to_s => subschema.permitted_params,
+        },
       },
     )
   end

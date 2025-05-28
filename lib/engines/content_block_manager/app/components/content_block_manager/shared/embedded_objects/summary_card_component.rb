@@ -52,7 +52,7 @@ private
   end
 
   def object
-    content_block_edition.details.dig(object_type, object_title)
+    content_block_edition.block_attributes.dig(object_type, object_title)
   end
 
   def schema
