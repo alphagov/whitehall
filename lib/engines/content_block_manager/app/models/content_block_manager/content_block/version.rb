@@ -1,7 +1,7 @@
 module ContentBlockManager
   module ContentBlock
     class Version < ApplicationRecord
-      enum :event, %i[created updated]
+      enum :event, { created: 0, updated: 1 }
 
       belongs_to :item, polymorphic: true
       validates :event, presence: true

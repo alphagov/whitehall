@@ -107,7 +107,6 @@ module PublishingApi
 
       delegate :helpers, to: :context
       delegate :organisation, to: :corporate_information_page
-      alias_method :organisation, :organisation
 
       def corporate_information_groups
         [].tap do |groups|
@@ -195,7 +194,6 @@ module PublishingApi
       attr_accessor :corporate_information_page
 
       delegate :organisation, to: :corporate_information_page
-      alias_method :organisation, :organisation
 
       def pages
         @pages ||= [].tap { |pages|
@@ -248,7 +246,6 @@ module PublishingApi
       attr_accessor :corporate_information_page
 
       delegate :organisation, to: :corporate_information_page
-      alias_method :organisation, :organisation
     end
   end
 end
