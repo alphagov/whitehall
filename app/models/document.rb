@@ -219,6 +219,39 @@ class Document < ApplicationRecord
     live_edition if live_edition&.state == "withdrawn"
   end
 
+  class View
+    class New
+      def self.all_types
+        document_types = [
+          Consultation,
+          Publication,
+          NewsArticle,
+          Speech,
+          DetailedGuide,
+          DocumentCollection,
+          FatalityNotice,
+          CaseStudy,
+          StatisticalDataSet,
+          CallForEvidence,
+          WorldwideOrganisation,
+          LandingPage,
+        ]
+
+        document_types << FlexiblePage if Flipflop.enabled?(:flexible_pages)
+        document_types
+      end
+
+      def self.types_for(user)
+        all_types.select { |type| type.enforcer(user).can?(:create) }
+      end
+
+      def self.redirect_path_helper(new_document_type)
+        redirects = all_types.each_with_object({}) { |type, hash| hash[type.name.underscore.to_sym] = "new_admin_#{type.name.underscore}_path" }
+        redirects[new_document_type.to_sym]
+      end
+    end
+  end
+
 private
 
   def destroy_all_editions

@@ -705,4 +705,33 @@ class DocumentTest < ActiveSupport::TestCase
       assert_same_elements expected_versions, actual_versions
     end
   end
+
+  describe "The new document view model" do
+    it "should include flexible page type in all types when feature flag enabled" do
+      test_strategy = Flipflop::FeatureSet.current.test!
+
+      assert_not Document::View::New.all_types.include?(FlexiblePage)
+      test_strategy.switch!(:flexible_pages, true)
+
+      assert Document::View::New.all_types.include?(FlexiblePage)
+      test_strategy.switch!(:flexible_pages, false)
+    end
+
+    it "should scope document types to those that user can create" do
+      enforcer = Minitest::Mock.new
+      types = Document::View::New.all_types
+      last_type = types.pop
+      types.each do |type|
+        enforcer.expect(:can?, false, [:create])
+        type.stubs(:enforcer).returns(enforcer)
+      end
+      enforcer.expect(:can?, true, [:create])
+      last_type.stubs(:enforcer).returns(enforcer)
+      assert_equal [last_type], Document::View::New.types_for(enforcer)
+    end
+
+    it "should provide a redirect path helper method for a valid document type" do
+      assert_equal "new_admin_call_for_evidence_path", Document::View::New.redirect_path_helper("call_for_evidence")
+    end
+  end
 end

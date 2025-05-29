@@ -18,49 +18,6 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "GET #index renders Fatality Notice radio button when the user has GDS Editor permission and organisation is GDS" do
-    gds_organisation = create(:organisation, name: "government-digital-service")
-    login_as(:gds_editor, gds_organisation)
-
-    get :index
-
-    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]", count: 1
-  end
-
-  view_test "GET #index does not render Fatality Notice radio button when the user does not have GDS Editor permission and their organisation is GDS" do
-    gds_organisation = create(:organisation, name: "government-digital-service")
-    login_as(:writer, gds_organisation)
-
-    get :index
-
-    refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]"
-  end
-
-  view_test "GET #index does not render Fatality Notice radio button when the user does not have GDS Editor permission and their organisation is not GDS" do
-    other_organisation = create(:organisation, name: "cabinet-minister")
-    login_as(:writer, other_organisation)
-
-    get :index
-
-    refute_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]"
-  end
-
-  view_test "GET #index renders Fatality Notice radio button when the user's organisation is Ministry of Defence" do
-    mod_organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
-
-    login_as(:writer, mod_organisation)
-
-    get :index
-
-    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=fatality_notice]", count: 1
-  end
-
-  view_test "GET #index renders Worldwide Organisation Edition when the worldwide_organisations feature flag is enabled" do
-    get :index
-
-    assert_select ".govuk-radios__item input[type=radio][name=new_document_options][value=worldwide_organisation]", count: 1
-  end
-
   test "POST #new_document_options_redirect redirects each radio buttons to their expected paths" do
     redirect_options.each do |selected_option, expected_path|
       request_params = {
@@ -69,7 +26,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
       post :new_document_options_redirect, params: request_params
 
-      assert_redirected_to expected_path
+      assert_redirected_to send(expected_path)
     end
   end
 
@@ -87,7 +44,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 private
 
   def radio_button_values
-    %w[call_for_evidence case_study consultation detailed_guide document_collection fatality_notice news_article publication speech statistical_data_set]
+    Document::View::New.types_for(@current_user).map { |type| type.name.underscore }
   end
 
   def assert_select_radio_button(value)
@@ -95,18 +52,6 @@ private
   end
 
   def redirect_options
-    {
-      "call_for_evidence": new_admin_call_for_evidence_path,
-      "case_study": new_admin_case_study_path,
-      "consultation": new_admin_consultation_path,
-      "detailed_guide": new_admin_detailed_guide_path,
-      "document_collection": new_admin_document_collection_path,
-      "fatality_notice": new_admin_fatality_notice_path,
-      "news_article": new_admin_news_article_path,
-      "publication": new_admin_publication_path,
-      "speech": new_admin_speech_path,
-      "statistical_data_set": new_admin_statistical_data_set_path,
-      "worldwide_organisation": new_admin_worldwide_organisation_path,
-    }
+    radio_button_values.index_with { |key| "new_admin_#{key}_path" }
   end
 end

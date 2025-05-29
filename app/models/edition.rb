@@ -84,16 +84,16 @@ class Edition < ApplicationRecord
 
   validates_with UnmodifiableValidator, if: :unmodifiable?
 
-  def self.enforcer(user)
-    Whitehall::Authority::Enforcer.new(user, self)
-  end
-
   def self.format_name
     @format_name ||= model_name.human.downcase
   end
 
   def self.concrete_descendants
     descendants.reject { |model| model.descendants.any? }.sort_by(&:name)
+  end
+
+  def self.enforcer(user)
+    Whitehall::Authority::Enforcer.new(user, self)
   end
 
   def self.scheduled_for_publication_as(slug)
