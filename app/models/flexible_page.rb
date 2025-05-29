@@ -1,0 +1,2 @@
+class FlexiblePage < Edition
+end

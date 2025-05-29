@@ -1,32 +1,12 @@
 module Admin::NewDocumentHelper
-  NEW_DOCUMENT_LIST = [
-    Consultation,
-    Publication,
-    NewsArticle,
-    Speech,
-    DetailedGuide,
-    DocumentCollection,
-    FatalityNotice,
-    CaseStudy,
-    StatisticalDataSet,
-    CallForEvidence,
-    WorldwideOrganisation,
-    LandingPage,
-  ].freeze
-
-  def new_document_type_list
-    NEW_DOCUMENT_LIST
-      .select { |edition_type| can?(:create, edition_type) }
-      .map do |edition_type|
-      title_value = edition_type.name.underscore
-      title_label = title_value.humanize
-      {
-        value: title_value,
-        text: title_label,
-        bold: true,
-        hint_text: hint_text(title_value.to_sym),
-      }
-    end
+  def new_document_radio_item(document_type)
+    document_type_key = document_type.name.underscore
+    {
+      value: document_type_key,
+      text: document_type_key.humanize,
+      bold: true,
+      hint_text: hint_text(document_type_key.to_sym),
+    }
   end
 
 private

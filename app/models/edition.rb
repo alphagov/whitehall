@@ -92,6 +92,10 @@ class Edition < ApplicationRecord
     descendants.reject { |model| model.descendants.any? }.sort_by(&:name)
   end
 
+  def self.enforcer(user)
+    Whitehall::Authority::Enforcer.new(user, self)
+  end
+
   def self.scheduled_for_publication_as(slug)
     document = Document.at_slug(document_type, slug)
     document&.scheduled_edition
@@ -434,10 +438,6 @@ private
     published_edition_date = first_public_at.try(:to_date)
     draft_edition_date = updated_at.try(:to_date)
     published_edition_date || draft_edition_date
-  end
-
-  def enforcer(user)
-    Whitehall::Authority::Enforcer.new(user, self)
   end
 
   def summary_required?
