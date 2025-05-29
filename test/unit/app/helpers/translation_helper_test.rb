@@ -3,12 +3,6 @@ require "test_helper"
 class TranslationHelperTest < ActionView::TestCase
   include TranslatableModel
 
-  setup do
-    @document = stub("document", display_type_key: "stub")
-    @model = stub("model")
-    @model.extend(TranslatableModel)
-  end
-
   teardown do
     I18n.backend.reload!
   end
