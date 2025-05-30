@@ -20,6 +20,15 @@
   <% else %>
     <%= render "components/inset_prompt", {
       title: "This edition has been superseded",
+      data_attributes: {
+        module: "ga4-auto-tracker",
+        ga4_auto: {
+          type: "edition superseded",
+          text: "This edition has been superseded",
+          event_name: "side_bar_error",
+          action: "error",
+        }
+      },
       description: capture do %>
         <%= render "govuk_publishing_components/components/button", {
           text: "Go to most recent edition",
