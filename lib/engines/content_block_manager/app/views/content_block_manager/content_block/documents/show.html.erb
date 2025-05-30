@@ -46,31 +46,42 @@
   </div>
 </div>
 
-<% @schema.subschemas.each do |subschema| %>
-  <div class="subschema-listing" data-testid="<%= subschema.id %>_listing">
-    <div class="govuk-grid-row subschema-listing__heading">
-      <div class="govuk-grid-column-one-half">
-        <h2 class="govuk-heading-l"><%= h subschema.name %></h2>
-      </div>
-      <div class="govuk-grid-column-one-half subschema-listing__create-button-wrapper">
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Add #{add_indefinite_article subschema.name.singularize.downcase}",
-          href: content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
-            @content_block_document,
-            object_type: subschema.id,
-            ),
-        } %>
-      </div>
-    </div>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardsComponent.new(
-          content_block_document: @content_block_document,
-          object_type: subschema.id,
-          ) %>
-      </div>
+<% if @schema.subschemas.count > 1 %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabGroupComponent.new(
+        content_block_document: @content_block_document,
+        subschemas: @schema.subschemas,
+        ) %>
     </div>
   </div>
+<% else %>
+  <% @schema.subschemas.each do |subschema| %>
+    <div class="subschema-listing" data-testid="<%= subschema.id %>_listing">
+      <div class="govuk-grid-row subschema-listing__heading">
+        <div class="govuk-grid-column-one-half">
+          <h2 class="govuk-heading-l"><%= h subschema.name %></h2>
+        </div>
+        <div class="govuk-grid-column-one-half subschema-listing__create-button-wrapper">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Add #{add_indefinite_article subschema.name.singularize.downcase}",
+            href: content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
+              @content_block_document,
+              object_type: subschema.id,
+              ),
+          } %>
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryCardsComponent.new(
+            content_block_document: @content_block_document,
+            object_type: subschema.id,
+            ) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <div class="govuk-grid-row govuk-!-padding-top-8">
