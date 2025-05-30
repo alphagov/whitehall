@@ -120,3 +120,7 @@ end
 And("I should not see a button to add a new {string}") do |object_type|
   assert_no_text "Add #{add_indefinite_article object_type}"
 end
+
+Then("I should see the created embedded object of type {string}") do |object_type|
+  assert_text "#{object_type.humanize.pluralize} (1)"
+end
