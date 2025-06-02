@@ -61,13 +61,13 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Subsch
       summary_list_stub_1 = "my-embedded-object"
       summary_list_stub_2 = "my-other-embedded-object"
 
-      ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryListComponent.expects(:new).with(
+      ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemComponent.expects(:new).with(
         content_block_edition:,
         object_type: subschema.id,
         object_title: "my-embedded-object",
       ).returns(summary_list_stub_1)
 
-      ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SummaryListComponent.expects(:new).with(
+      ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemComponent.expects(:new).with(
         content_block_edition:,
         object_type: subschema.id,
         object_title: "my-other-embedded-object",
