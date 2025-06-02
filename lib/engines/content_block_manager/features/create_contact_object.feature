@@ -41,6 +41,9 @@ Feature: Create a contact object
     When I save and continue
     And I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a new "contact"
+    When I click to view the content block
+    And I should see the created embedded object of type "email_address"
+    And I should see the created embedded object of type "telephone"
 
   Scenario: GDS editor edits answers during creation of an object
     When I click to add a new "email_address"
