@@ -9,12 +9,10 @@
 
 .subschema-listing {
   &__heading {
-    display: flex;
+    float: left;
   }
 
-  &__create-button-wrapper {
-    display: flex;
-    align-self: start;
-    justify-content: flex-end;
+  .govuk-button {
+    float: right;
   }
 }
