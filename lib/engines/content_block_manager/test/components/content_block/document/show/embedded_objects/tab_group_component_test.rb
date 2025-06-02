@@ -31,12 +31,12 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabGro
     tab_component_1_double = stub("TabComponent", id: subschema_1.id, label: "Tab 1", content: "<p>content_1</p>")
     tab_component_2_double = stub("TabComponent", id: subschema_2.id, label: "Tab 2", content: "<p>content_2</p>")
 
-    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabComponent.expects(:new).with(
+    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.expects(:new).with(
       content_block_edition:,
       subschema: subschema_1,
     ).returns(tab_component_1_double)
 
-    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabComponent.expects(:new).with(
+    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.expects(:new).with(
       content_block_edition:,
       subschema: subschema_2,
     ).returns(tab_component_2_double)

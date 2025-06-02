@@ -24,7 +24,7 @@ private
   end
 
   def component_for_subschema(subschema)
-    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabComponent.new(
+    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.new(
       content_block_edition:,
       subschema:,
     )

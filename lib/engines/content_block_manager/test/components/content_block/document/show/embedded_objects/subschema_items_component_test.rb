@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabComponentTest < ViewComponent::TestCase
+class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
   include ContentBlockManager::Engine.routes.url_helpers
 
@@ -27,7 +27,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabCom
   let(:content_block_edition) { build(:content_block_edition, :pension, details:, document: content_block_document) }
 
   let(:component) do
-    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabComponent.new(
+    ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.new(
       content_block_edition:,
       subschema:,
     )
