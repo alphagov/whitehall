@@ -95,7 +95,7 @@ GEM
     awesome_print (1.9.2)
     babosa (2.0.0)
     base64 (0.2.0)
-    benchmark (0.4.0)
+    benchmark (0.4.1)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -107,7 +107,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.2.0)
+    bigdecimal (3.2.1)
     binding_of_caller (1.0.1)
       debug_inspector (>= 1.2.0)
     bootsnap (1.18.6)
@@ -215,7 +215,7 @@ GEM
     execjs (2.10.0)
     expgen (0.1.1)
       parslet
-    factory_bot (6.5.1)
+    factory_bot (6.5.2)
       activesupport (>= 6.1.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
