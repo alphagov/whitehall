@@ -13,6 +13,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Subsch
           "title": "Some title",
           "embeddable_item_1": "Foo",
           "embeddable_item_2": "Bar",
+          "something_else": "",
         },
       },
     }
@@ -33,7 +34,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Subsch
   before do
     content_block_edition.document.stubs(:schema).returns(schema)
     schema.stubs(:subschema).with(object_type).returns(subschema)
-    subschema.stubs(:embeddable_fields).returns(%w[embeddable_item_1 embeddable_item_2])
+    subschema.stubs(:embeddable_fields).returns(%w[embeddable_item_1 embeddable_item_2 something_else])
     subschema.stubs(:field_ordering_rule).with("embeddable_item_1").returns(2)
     subschema.stubs(:field_ordering_rule).with("embeddable_item_2").returns(1)
   end
