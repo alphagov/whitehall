@@ -77,16 +77,6 @@ module ContentBlockManager
         @config ||= self.class.schema_settings.dig("schemas", @id) || {}
       end
 
-    private
-
-      def field_names
-        sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
-      end
-
-      def sort_fields(fields)
-        fields.sort_by { |field| field_ordering_rule(field) }
-      end
-
       def field_ordering_rule(field)
         if field_order
           # If a field order is found in the config, order by the index. If a field is not found, put it to the end
@@ -95,6 +85,16 @@ module ContentBlockManager
           # By default, order with title first
           field == "title" ? 0 : 1
         end
+      end
+
+    private
+
+      def field_names
+        sort_fields (@body["properties"].to_a - embedded_objects.to_a).to_h.keys
+      end
+
+      def sort_fields(fields)
+        fields.sort_by { |field| field_ordering_rule(field) }
       end
 
       def field_order
