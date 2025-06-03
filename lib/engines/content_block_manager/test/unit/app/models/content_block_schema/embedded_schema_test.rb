@@ -101,4 +101,48 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
       end
     end
   end
+
+  describe "#embeddable_as_block?" do
+    describe "when set in the config" do
+      before do
+        ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              parent_schema_id => {
+                "subschemas" => {
+                  schema_id => {
+                    "embeddable_as_block" => true,
+                  },
+                },
+              },
+            },
+          })
+      end
+
+      it "returns true" do
+        assert schema.embeddable_as_block?
+      end
+    end
+
+    describe "when not set in the config" do
+      before do
+        ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              parent_schema_id => {
+                "subschemas" => {
+                  schema_id => {},
+                },
+              },
+            },
+          })
+      end
+
+      it "returns false" do
+        assert_not schema.embeddable_as_block?
+      end
+    end
+  end
 end

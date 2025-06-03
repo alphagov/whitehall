@@ -1,0 +1,11 @@
+.app-c-embedded-objects-metadata-component {
+  .gem-c-summary-list {
+    border-bottom: none;
+  }
+
+  .govuk-summary-list__row {
+    &:last-child {
+      border: none;
+    }
+  }
+}
