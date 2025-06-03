@@ -25,6 +25,12 @@ schemas:
           - region
           - postal_code
           - country
+        embeddable_fields:
+          - street_address
+          - locality
+          - region
+          - postal_code
+          - country
       contact_forms:
         embeddable_fields:
           - url
