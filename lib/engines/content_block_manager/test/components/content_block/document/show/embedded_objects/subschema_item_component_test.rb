@@ -34,6 +34,8 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Subsch
     content_block_edition.document.stubs(:schema).returns(schema)
     schema.stubs(:subschema).with(object_type).returns(subschema)
     subschema.stubs(:embeddable_fields).returns(%w[embeddable_item_1 embeddable_item_2])
+    subschema.stubs(:field_ordering_rule).with("embeddable_item_1").returns(2)
+    subschema.stubs(:field_ordering_rule).with("embeddable_item_2").returns(1)
   end
 
   it "renders the metadata and block components" do
@@ -45,7 +47,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Subsch
     ).returns(metadata_response)
 
     ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::BlocksComponent.expects(:new).with(
-      items: { "embeddable_item_1" => "Foo", "embeddable_item_2" => "Bar" },
+      items: { "embeddable_item_2" => "Bar", "embeddable_item_1" => "Foo" },
       object_type:,
       object_title:,
       content_block_document: content_block_edition.document,

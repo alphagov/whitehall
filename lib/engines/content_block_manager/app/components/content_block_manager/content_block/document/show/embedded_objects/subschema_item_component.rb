@@ -14,7 +14,7 @@ private
   end
 
   def block_items
-    object.select { |k, _v| embeddable_fields.include?(k) }
+    object.select { |k, _v| embeddable_fields.include?(k) }.sort_by { |k, _v| schema.field_ordering_rule(k) }.to_h
   end
 
   def embeddable_fields
