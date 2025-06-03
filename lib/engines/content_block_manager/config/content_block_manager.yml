@@ -25,6 +25,7 @@ schemas:
           - region
           - postal_code
           - country
+        embeddable_as_block: true
         embeddable_fields:
           - street_address
           - locality

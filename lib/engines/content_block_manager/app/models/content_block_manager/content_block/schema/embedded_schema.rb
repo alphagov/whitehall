@@ -12,6 +12,10 @@ module ContentBlockManager
           @id
         end
 
+        def embeddable_as_block?
+          config["embeddable_as_block"].present?
+        end
+
         def config
           self.class.schema_settings.dig("schemas", @parent_schema_id, "subschemas", @id) || {}
         end
