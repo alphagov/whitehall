@@ -46,29 +46,32 @@
   </div>
 </div>
 
-<% if @schema.subschemas.count == 1 %>
-  <div class="subschema-listing" data-testid="<%= @schema.subschemas.first.id %>_listing">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        <h2 class="govuk-heading-l subschema-listing__heading"><%= h @schema.subschemas.first.name %></h2>
-
-        <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.new(
-          content_block_edition: @content_block_document.latest_edition,
-          subschema: @schema.subschemas.first,
-          ) %>
-      </div>
-    </div>
-  </div>
-<% else %>
+<% grouped_subschemas(@schema).each do |_group, subschemas| %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabGroupComponent.new(
         content_block_document: @content_block_document,
-        subschemas: @schema.subschemas,
+        subschemas: subschemas,
         ) %>
     </div>
   </div>
 <% end %>
+
+<% ungrouped_subschemas(@schema).each do |subschema| %>
+  <div class="subschema-listing" data-testid="<%= subschema.id %>_listing">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l subschema-listing__heading"><%= h subschema.name %></h2>
+
+        <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.new(
+          content_block_edition: @content_block_document.latest_edition,
+          subschema: subschema,
+          ) %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="govuk-grid-row govuk-!-padding-top-8">
   <div class="govuk-grid-column-full">
     <%= render(
