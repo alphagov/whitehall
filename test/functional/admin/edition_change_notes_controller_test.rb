@@ -28,7 +28,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     assert_select "td", text: "1 December 2022 10:00am"
     assert_select "td", text: "First change note"
 
-    assert_select "td", text: "2 December 2022  3:00pm"
+    assert_select "td", text: "2 December 2022 3:00pm"
     assert_select "td", text: "Second change note"
 
     assert_select "td", text: "3 December 2022 12:02pm"
@@ -43,7 +43,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
 
     get :index, params: { edition_id: @current_edition.id }
 
-    refute_select "td", text: "2 December 2022  4:00pm"
+    refute_select "td", text: "2 December 2022 4:00pm"
   end
 
   view_test "index does not list the unpublished changes" do
@@ -70,7 +70,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @current_edition.id, id: @second_edition.id }
 
-    assert_select "p", text: "Change published at:  2 December 2022  3:00pm"
+    assert_select "p", text: "Change published at: 2 December 2022 3:00pm"
     assert_select "p", text: "Current change note: Second change note"
   end
 
@@ -113,7 +113,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
 
     get :confirm_destroy, params: { edition_id: @current_edition.id, id: @second_edition.id }
 
-    assert_select "p", text: "Change published at:  2 December 2022  3:00pm"
+    assert_select "p", text: "Change published at: 2 December 2022 3:00pm"
     assert_select "p", text: "Current change note: Second change note"
   end
 

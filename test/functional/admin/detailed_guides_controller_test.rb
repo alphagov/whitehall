@@ -72,12 +72,12 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     assert_select ".app-view-summary__section-user-needs" do |_section|
       assert_select ".govuk-table__row" do
-        assert_select ".govuk-table__cell", text: "As a x,\n I need to y,\n So that z"
+        assert_select ".govuk-table__cell", html: "As a x,\n I need to y,\n So that z"
         assert_select ".govuk-link[href*='#{content_id_a}']"
       end
 
       assert_select ".govuk-table__row" do
-        assert_select ".govuk-table__cell", text: "As a c,\n I need to d,\n So that e"
+        assert_select ".govuk-table__cell", html: "As a c,\n I need to d,\n So that e"
         assert_select ".govuk-link[href*='#{content_id_b}']"
       end
     end
