@@ -48,7 +48,7 @@ private
   end
 
   def content_for_block_row
-    content = content_tag(:p,
+    content = content_tag(:div,
                           content_block_edition.render(content_block_document.embed_code_for_field("#{object_type}/#{object_title}")),
                           class: "app-c-embedded-objects-blocks-component__content")
     content << content_tag(:p, content_block_document.embed_code_for_field("#{object_type}/#{object_title}"), class: "app-c-embedded-objects-blocks-component__embed-code")
