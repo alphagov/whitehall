@@ -1,6 +1,25 @@
-<div class="app-c-embedded-objects-blocks-component">
+<%= tag.div(class: component_classes) do %>
   <%= render "govuk_publishing_components/components/summary_card", {
     title: "Content blocks",
-    rows:,
+    rows: summary_card_rows,
   } %>
-</div>
+
+  <% if schema.embeddable_as_block? %>
+    <div class="app-c-embedded-objects-blocks-component__details-wrapper">
+      <%= render "govuk_publishing_components/components/details", {
+        title: "All #{object_name} attributes",
+      } do %>
+        <% capture do %>
+          <div class="app-c-embedded-objects-blocks-component__details-text">
+            These are all the <%= object_name %> attributes that make up the <%= object_name %>. You can use the embed code for each attribute separately in your content if required.
+          </div>
+          <div class="app-c-embedded-objects-blocks-component__details-summary-list">
+            <%= render "govuk_publishing_components/components/summary_list", {
+              items: attribute_rows(:field),
+            } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

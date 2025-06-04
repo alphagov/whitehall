@@ -6,4 +6,32 @@
   &__embed-code {
     color: govuk-colour("dark-grey");
   }
+
+  &--with-block {
+    .govuk-summary-card {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+  }
+
+  &__details-text {
+    border-left: $govuk-border-width solid $govuk-border-colour;
+    padding-top: govuk-spacing(3);
+    padding-bottom: govuk-spacing(3);
+    padding-left: govuk-spacing(4);
+  }
+
+  &__details-wrapper {
+    @extend .govuk-summary-card__content;
+    border-left: 1px solid $govuk-border-colour;
+    border-right: 1px solid $govuk-border-colour;
+    border-bottom: 1px solid $govuk-border-colour;
+    margin-bottom: govuk-spacing(6);
+    padding-bottom: govuk-spacing(1);
+
+    .govuk-details__text {
+      border: none;
+      padding: 0;
+    }
+  }
 }
