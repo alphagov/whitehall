@@ -12,18 +12,33 @@ private
 
   attr_reader :items, :object_type, :object_title, :content_block_document
 
-  def rows
-    rows = schema.embeddable_as_block? ? [block_row] : []
+  def component_classes
+    [
+      "app-c-embedded-objects-blocks-component",
+      ("app-c-embedded-objects-blocks-component--with-block" if schema.embeddable_as_block?),
+    ].compact.join(" ")
+  end
 
-    items.each do |key, value|
-      rows << {
-        key: key.titleize,
+  def summary_card_rows
+    if schema.embeddable_as_block?
+      [block_row]
+    else
+      attribute_rows
+    end
+  end
+
+  def attribute_rows(key_name = :key)
+    items.map do |key, value|
+      {
+        "#{key_name}": key.titleize,
         value: content_for_row(key, value),
         data: data_attributes_for_row(key),
       }
     end
+  end
 
-    rows
+  def object_name
+    object_type.singularize.humanize.downcase
   end
 
   def block_row
@@ -48,7 +63,7 @@ private
   end
 
   def content_for_block_row
-    content = content_tag(:p,
+    content = content_tag(:div,
                           content_block_edition.render(content_block_document.embed_code_for_field("#{object_type}/#{object_title}")),
                           class: "app-c-embedded-objects-blocks-component__content")
     content << content_tag(:p, content_block_document.embed_code_for_field("#{object_type}/#{object_title}"), class: "app-c-embedded-objects-blocks-component__embed-code")
