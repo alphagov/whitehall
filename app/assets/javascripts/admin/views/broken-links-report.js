@@ -94,6 +94,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
   BrokenLinksReport.prototype.replaceContents = function (html) {
     this.module.innerHTML = html
     this.module.firstChild.outerHTML = this.module.firstChild.innerHTML
+
+    // auto tracker will not track if page is already loaded
+    // but `data-ga4-auto` will have the attributes to use
+    // for the event (if it exists)
+    const autoTracker = this.module.querySelector('[data-ga4-auto]')
+
+    if (autoTracker) {
+      const autoTrackerData = autoTracker.dataset.ga4Auto
+      window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
+        JSON.parse(autoTrackerData),
+        'event_data'
+      )
+    }
   }
 
   Modules.BrokenLinksReport = BrokenLinksReport

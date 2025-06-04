@@ -1,8 +1,22 @@
+<%
+  ga4_auto_attributes = {
+    event_name: "side_bar_error",
+    action: "error",
+  }
+%>
+
 <div class="app-view-summary__sidebar-notices">
   <% if @edition.scheduled_publication %>
     <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
       <%= render "components/inset_prompt", {
         title: "This edition cannot be scheduled",
+        data_attributes: {
+          module: "ga4-auto-tracker",
+          ga4_auto: {
+            type: "scheduled",
+            text: force_scheduler.failure_reasons_plaintext,
+          }.merge(ga4_auto_attributes).as_json,
+        },
         description: render("govuk_publishing_components/components/list", {
           visible_counters: true,
           items: force_scheduler.failure_reasons,
@@ -14,6 +28,14 @@
     <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
       <%= render "components/inset_prompt", {
         title: "This edition cannot be force-published",
+        module: "ga4-auto-tracker",
+        data_attributes: {
+          module: "ga4-auto-tracker",
+          ga4_auto: {
+            type: "force published",
+            text: force_scheduler.failure_reasons_plaintext,
+          }.merge(ga4_auto_attributes).as_json,
+        },
         description: render("govuk_publishing_components/components/list", {
           visible_counters: true,
           items: force_publisher.failure_reasons,
@@ -24,6 +46,13 @@
   <% end %>
   <% if show_similar_slugs_warning?(@edition) %>
     <%= render "components/inset_prompt", {
+      data_attributes: {
+        module: "ga4-auto-tracker",
+        ga4_auto: {
+          type: "show similar slugs warning",
+          text: "This title has been used before on GOV.UK, although the page may no longer exist. Please use another title.",
+        }.merge(ga4_auto_attributes).as_json,
+      },
       description: "This title has been used before on GOV.UK, although the page may no longer exist. Please use another title.",
       error: true,
     } %>
