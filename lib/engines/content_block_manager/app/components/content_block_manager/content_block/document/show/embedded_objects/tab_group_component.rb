@@ -27,6 +27,7 @@ private
     ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.new(
       content_block_edition:,
       subschema:,
+      show_button: false,
     )
   end
 end
