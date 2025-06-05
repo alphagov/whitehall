@@ -5,6 +5,19 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
 
   def new
     @content_block_edition = @content_block_document.latest_edition
+    if @subschema
+      render :new
+    else
+      @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_document.block_type)
+      @group = params[:group]
+      @subschemas = @schema.subschemas_for_group(@group)
+
+      if @subschemas.blank?
+        render "admin/errors/not_found", status: :not_found
+      else
+        render :select_subschema
+      end
+    end
   end
 
   def create
@@ -26,8 +39,9 @@ private
 
   def initialize_document_and_schema
     @content_block_document = ContentBlockManager::ContentBlock::Document.find(params[:document_id])
-    get_schema_and_subschema(@content_block_document.block_type, params[:object_type])
-
-    render "admin/errors/not_found", status: :not_found unless @subschema
+    if params[:object_type]
+      get_schema_and_subschema(@content_block_document.block_type, params[:object_type])
+      render "admin/errors/not_found", status: :not_found unless @subschema
+    end
   end
 end

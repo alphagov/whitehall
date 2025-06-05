@@ -1,0 +1,37 @@
+<% content_for :context, @content_block_document.title %>
+<% content_for :title, "Add a #{@group.singularize}" %>
+
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: content_block_manager.content_block_manager_content_block_document_path(@content_block_document),
+  } %>
+<% end %>
+
+<% if flash[:error] %>
+  <%= render ContentBlockManager::ContentBlockEdition::New::ErrorSummaryComponent.new(
+    error_message: flash[:error],
+    ) %>
+<% end %>
+
+  <%= render ContentBlockManager::ContentBlock::Document::EmbeddedObjects::New::SelectSubschemaComponent.new(
+    heading: content_for(:page_title),
+    heading_caption: content_for(:context),
+    error_message: flash[:error],
+    schemas: @subschemas,
+    ) %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save and continue",
+      name: "save_and_continue",
+      value: "Save and continue",
+      type: "submit",
+    } %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Cancel",
+      name: "cancel",
+      value: "cancel",
+      href: content_block_manager.content_block_manager_content_block_documents_path,
+      secondary_solid: true,
+    } %>
+  </div>
