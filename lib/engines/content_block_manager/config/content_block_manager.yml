@@ -12,12 +12,15 @@ schemas:
   content_block_contact:
     subschemas:
       email_addresses:
+        group: modes
         embeddable_fields:
           - email_address
       telephones:
+        group: modes
         embeddable_fields:
           - telephone
       addresses:
+        group: modes
         field_order:
           - title
           - street_address
@@ -33,5 +36,6 @@ schemas:
           - postal_code
           - country
       contact_forms:
+        group: modes
         embeddable_fields:
           - url

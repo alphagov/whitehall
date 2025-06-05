@@ -39,6 +39,34 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
     assert_equal schema.fields.map(&:name), %w[title amount description frequency]
   end
 
+  describe "#group" do
+    describe "when a group is given in config" do
+      it "returns the subschemas default name" do
+        ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              parent_schema_id => {
+                "subschemas" => {
+                  "bar" => {
+                    "group" => "a_group",
+                  },
+                },
+              },
+            },
+          })
+
+        assert_equal "a_group", schema.group
+      end
+    end
+
+    describe "when a group is not given in config" do
+      it "returns nil" do
+        assert_equal nil, schema.group
+      end
+    end
+  end
+
   describe "when an order is given in the config" do
     before do
       ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
