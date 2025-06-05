@@ -20,6 +20,10 @@ module ContentBlockManager
           self.class.schema_settings.dig("schemas", @parent_schema_id, "subschemas", @id) || {}
         end
 
+        def group
+          config["group"]
+        end
+
       private
 
         def field_names
