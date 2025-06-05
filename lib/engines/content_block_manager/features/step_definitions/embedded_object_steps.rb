@@ -10,7 +10,7 @@ Then("I should see a form to create a {string} for the content block") do |objec
 end
 
 Then("I should see confirmation that my {string} has been created") do |object_type|
-  expect(page).to have_text("#{object_type.titleize} created")
+  expect(page).to have_text("#{object_type.capitalize} created")
 end
 
 When("I complete the {string} form with the following fields:") do |object_type, table|
