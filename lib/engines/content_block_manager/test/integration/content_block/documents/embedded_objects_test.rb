@@ -78,4 +78,33 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       end
     end
   end
+
+  describe "#new_embedded_objects_options_redirect" do
+    describe "when the object_type param is provided" do
+      it "redirects to the path for that object" do
+        post content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_document_embedded_objects_path(
+          document,
+          object_type: "something"
+        )
+
+        assert_redirected_to content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(document, object_type: "something")
+      end
+    end
+
+    describe "when the object_type param is not provided" do
+      it "redirects back to the schema select page with an error" do
+        post content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_document_embedded_objects_path(
+          document,
+          object_type: nil,
+          group: "something",
+        )
+
+        assert_redirected_to content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
+          document,
+          group: "something",
+        )
+        assert_equal I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank"), flash[:error]
+      end
+    end
+  end
 end
