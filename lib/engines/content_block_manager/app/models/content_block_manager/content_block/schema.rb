@@ -61,6 +61,10 @@ module ContentBlockManager
         @subschemas ||= embedded_objects.map { |object| EmbeddedSchema.new(*object, @id) }
       end
 
+      def subschemas_for_group(group)
+        subschemas.select { |s| s.group == group }
+      end
+
       def permitted_params
         field_names
       end
