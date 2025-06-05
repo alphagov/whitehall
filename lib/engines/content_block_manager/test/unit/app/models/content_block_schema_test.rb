@@ -331,4 +331,33 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "#subschemas_for_group" do
+    let(:group_1_subschemas) do
+      [
+        stub(:subschema, group: "group_1"),
+        stub(:subschema, group: "group_1"),
+      ]
+    end
+
+    let(:subschemas) do
+      [
+        *group_1_subschemas,
+        stub(:subschema, group: nil),
+        stub(:subschema, group: nil),
+      ]
+    end
+
+    before do
+      schema.stubs(:subschemas).returns(subschemas)
+    end
+
+    it "returns subschemas for a group" do
+      assert_equal schema.subschemas_for_group("group_1"), group_1_subschemas
+    end
+
+    it "returns an empty array when no subschemas can be found" do
+      assert_equal schema.subschemas_for_group("group_2"), []
+    end
+  end
 end
