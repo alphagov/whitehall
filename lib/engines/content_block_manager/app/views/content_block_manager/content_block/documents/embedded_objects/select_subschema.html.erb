@@ -13,6 +13,10 @@
     ) %>
 <% end %>
 
+<%= form_with url: content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_document_embedded_objects_path(@content_block_document), method: :post do %>
+  <%= hidden_field_tag :object_type, "" %>
+  <%= hidden_field_tag :group, @group %>
+
   <%= render ContentBlockManager::ContentBlock::Document::EmbeddedObjects::New::SelectSubschemaComponent.new(
     heading: content_for(:page_title),
     heading_caption: content_for(:context),
@@ -35,3 +39,4 @@
       secondary_solid: true,
     } %>
   </div>
+<% end %>
