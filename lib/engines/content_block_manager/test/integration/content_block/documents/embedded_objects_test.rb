@@ -26,6 +26,45 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       ContentBlockManager::ContentBlock::Schema.stubs(:find_by_block_type).with(document.block_type).returns(schema)
     end
 
+    describe "when an object_type is given" do
+      let(:subschema) { ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new("schema_1", { "patternProperties" => { "foo" => "bar" } }, "schema") }
+
+      before do
+        schema.stubs(:subschema).with(anything).returns(subschema)
+        subschema.stubs(:field_names).returns([])
+        ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController
+          .any_instance
+          .stubs(:flash)
+          .returns({ back_link: })
+      end
+
+      describe "when a back link is not present in the flash" do
+        let(:back_link) { nil }
+
+        it "sets a default back link" do
+          get content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
+            document,
+            object_type: "something",
+          )
+
+          assert_equal assigns(:back_link), content_block_manager.content_block_manager_content_block_document_path(document)
+        end
+      end
+
+      describe "when a back link is present in the flash" do
+        let(:back_link) { "somewhere/else" }
+
+        it "sets the back link from the flash" do
+          get content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
+            document,
+            object_type: "something",
+          )
+
+          assert_equal assigns(:back_link), "somewhere/else"
+        end
+      end
+    end
+
     describe "when object_type is not given" do
       describe "and a group param is provided" do
         let(:subschemas_for_group) do
@@ -81,13 +120,23 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
 
   describe "#new_embedded_objects_options_redirect" do
     describe "when the object_type param is provided" do
-      it "redirects to the path for that object" do
+      before do
         post content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_document_embedded_objects_path(
           document,
-          object_type: "something"
+          object_type: "something",
+          group: "something",
         )
+      end
 
+      it "redirects to the path for that object" do
         assert_redirected_to content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(document, object_type: "something")
+      end
+
+      it "sets the back link as a flash" do
+        assert_equal content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
+          document,
+          group: "something",
+        ), flash[:back_link]
       end
     end
 
