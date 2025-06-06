@@ -12,7 +12,7 @@
   ],
   "helpers": [
     "https://unpkg.com/jasmine-ajax@4.0.0/lib/mock-ajax.js",
-    "helpers/*.js"
+    "spec/javascripts/helpers/helpers.js"
   ],
   "browser": "headlessChrome"
 }
