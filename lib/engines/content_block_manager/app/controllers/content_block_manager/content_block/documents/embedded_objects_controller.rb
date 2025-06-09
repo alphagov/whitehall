@@ -5,16 +5,16 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
 
   def new
     @content_block_edition = @content_block_document.latest_edition
+    @schema = get_schema(@content_block_document.block_type)
 
     if params[:object_type]
-      initialize_schemas
+      @subschema = get_subschema(@schema, params[:object_type])
       @back_link = flash[:back_link] || content_block_manager.content_block_manager_content_block_document_path(@content_block_document)
       render :new
     else
-      @back_link = content_block_manager.content_block_manager_content_block_document_path(@content_block_document)
-      @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_document.block_type)
       @group = params[:group]
       @subschemas = @schema.subschemas_for_group(@group)
+      @back_link = content_block_manager.content_block_manager_content_block_document_path(@content_block_document)
 
       if @subschemas.blank?
         render "admin/errors/not_found", status: :not_found
@@ -25,8 +25,9 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
   end
 
   def create
-    initialize_schemas
+    @schema, @subschema = get_schema_and_subschema(@content_block_document.block_type, params[:object_type])
     @content_block_edition = @content_block_document.latest_edition.clone_edition(creator: current_user)
+
     @params = object_params(@subschema).dig(:details, @subschema.block_type)
     @content_block_edition.add_object_to_details(@subschema.block_type, @params)
     @content_block_edition.save!
@@ -58,12 +59,5 @@ private
 
   def initialize_document
     @content_block_document = ContentBlockManager::ContentBlock::Document.find(params[:document_id])
-  end
-
-  def initialize_schemas
-    get_schema_and_subschema(@content_block_document.block_type, params[:object_type])
-    unless @subschema
-      render "admin/errors/not_found", status: :not_found and return
-    end
   end
 end

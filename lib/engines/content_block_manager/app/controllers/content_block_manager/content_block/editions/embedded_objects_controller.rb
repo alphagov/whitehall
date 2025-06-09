@@ -85,7 +85,7 @@ private
 
   def initialize_edition_and_schema
     @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-    get_schema_and_subschema(@content_block_edition.document.block_type, params[:object_type])
+    @schema, @subschema = get_schema_and_subschema(@content_block_edition.document.block_type, params[:object_type])
   end
 
   def embedded_objects_path
