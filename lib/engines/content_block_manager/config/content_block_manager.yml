@@ -10,6 +10,7 @@ schemas:
           - frequency
           - description
   content_block_contact:
+    embeddable_as_block: true
     subschemas:
       email_addresses:
         group: modes

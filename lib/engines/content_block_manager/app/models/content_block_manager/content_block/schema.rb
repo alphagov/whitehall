@@ -77,6 +77,10 @@ module ContentBlockManager
         config["embeddable_fields"] || []
       end
 
+      def embeddable_as_block?
+        config["embeddable_as_block"].present?
+      end
+
       def config
         @config ||= self.class.schema_settings.dig("schemas", @id) || {}
       end

@@ -360,4 +360,40 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
       assert_equal schema.subschemas_for_group("group_2"), []
     end
   end
+
+  describe "#embeddable_as_block?" do
+    describe "when the embeddable_as_block config value is set" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {
+                "embeddable_as_block" => true,
+              },
+            },
+          })
+      end
+
+      it "returns true" do
+        assert schema.embeddable_as_block?
+      end
+    end
+
+    describe "when the embeddable_as_block config value is not set" do
+      before do
+        ContentBlockManager::ContentBlock::Schema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              schema.id => {},
+            },
+          })
+      end
+
+      it "returns false" do
+        assert_not schema.embeddable_as_block?
+      end
+    end
+  end
 end
