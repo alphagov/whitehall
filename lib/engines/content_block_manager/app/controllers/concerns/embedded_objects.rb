@@ -2,10 +2,18 @@ module EmbeddedObjects
   extend ActiveSupport::Concern
 
   def get_schema_and_subschema(block_type, object_type)
-    @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(block_type)
-    @subschema = @schema.subschema(object_type)
+    schema = get_schema(block_type)
+    subschema = get_subschema(schema, object_type)
 
-    render "admin/errors/not_found", status: :not_found unless @subschema
+    [schema, subschema]
+  end
+
+  def get_schema(block_type)
+    ContentBlockManager::ContentBlock::Schema.find_by_block_type(block_type)
+  end
+
+  def get_subschema(schema, object_type)
+    schema.subschema(object_type) or raise(ActionController::RoutingError, "Subschema for #{object_type} not found")
   end
 
   def object_params(subschema)

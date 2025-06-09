@@ -1,7 +1,8 @@
 class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent < ViewComponent::Base
-  def initialize(content_block_edition:, subschema:)
+  def initialize(content_block_edition:, subschema:, show_button: true)
     @content_block_edition = content_block_edition
     @subschema = subschema
+    @show_button = show_button
   end
 
   def id
@@ -14,7 +15,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Subsch
 
 private
 
-  attr_reader :content_block_edition, :subschema
+  attr_reader :show_button, :content_block_edition, :subschema
 
   def embedded_objects
     @embedded_objects ||= content_block_edition.details.fetch(object_type, {})
