@@ -24,6 +24,10 @@ module ContentBlockManager
           @group ||= config["group"]
         end
 
+        def group_order
+          @group_order ||= config["group_order"]&.to_i || Float::INFINITY
+        end
+
       private
 
         def field_names

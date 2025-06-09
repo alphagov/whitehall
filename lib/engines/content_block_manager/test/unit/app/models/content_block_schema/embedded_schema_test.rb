@@ -173,4 +173,48 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
       end
     end
   end
+
+  describe "#group_order" do
+    describe "when set in the config" do
+      before do
+        ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              parent_schema_id => {
+                "subschemas" => {
+                  schema_id => {
+                    "group_order" => "12",
+                  },
+                },
+              },
+            },
+          })
+      end
+
+      it "returns the group order as an integer" do
+        assert_equal schema.group_order, 12
+      end
+    end
+
+    describe "when not set in the config" do
+      before do
+        ContentBlockManager::ContentBlock::Schema::EmbeddedSchema
+          .stubs(:schema_settings)
+          .returns({
+            "schemas" => {
+              parent_schema_id => {
+                "subschemas" => {
+                  schema_id => {},
+                },
+              },
+            },
+          })
+      end
+
+      it "returns infinity to put the item at the end of the group" do
+        assert_equal schema.group_order, Float::INFINITY
+      end
+    end
+  end
 end
