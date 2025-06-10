@@ -73,4 +73,26 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
       end
     end
   end
+
+  describe "#default_value" do
+    describe "when the field has a default value" do
+      let(:body) do
+        { "properties" => { "something" => { "type" => "string", "default" => "bar" } } }
+      end
+
+      it "returns enum" do
+        assert_equal "bar", field.default_value
+      end
+    end
+
+    describe "when the field has no defaut value" do
+      let(:body) do
+        { "properties" => { "something" => { "type" => "string" } } }
+      end
+
+      it "returns enum" do
+        assert_nil field.default_value
+      end
+    end
+  end
 end

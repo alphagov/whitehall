@@ -26,9 +26,9 @@ class ContentBlockManager::ContentBlockEdition::Details::FormComponentTest < Vie
   let(:content_block_edition) { build(:content_block_edition) }
   let(:schema) { build(:content_block_schema, body:) }
 
-  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil) }
-  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil) }
-  let(:baz_field) { stub("field", name: "baz", component_name: "enum", enum_values: %w[some enum]) }
+  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil, default_value: nil) }
+  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil) }
+  let(:baz_field) { stub("field", name: "baz", component_name: "enum", enum_values: %w[some enum], default_value: nil) }
 
   let(:foo_stub) { stub("string_component") }
   let(:bar_stub) { stub("string_component") }

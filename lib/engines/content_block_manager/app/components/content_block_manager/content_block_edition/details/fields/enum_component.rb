@@ -1,6 +1,7 @@
 class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent < ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent
-  def initialize(enum:, **args)
+  def initialize(enum:, default: "", **args)
     @enum = enum
+    @default = default
     super(**args)
   end
 
@@ -11,12 +12,16 @@ private
       {
         text: item,
         value: item,
-        selected: item == value,
+        selected: selected?(item),
       }
     end
   end
 
   def error_message
     error_items&.first&.fetch(:text)
+  end
+
+  def selected?(item)
+    item == (value.presence || @default)
   end
 end

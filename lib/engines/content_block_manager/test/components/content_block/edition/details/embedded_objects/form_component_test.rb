@@ -6,16 +6,18 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
   let(:content_block_edition) { build(:content_block_edition) }
   let(:schema) { build(:content_block_schema) }
 
-  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil) }
-  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil) }
+  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil, default_value: nil) }
+  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil) }
+  let(:enum_field) { stub("field", name: "enum", component_name: "enum", enum_values: ["some value", "another value"], default_value: "some value") }
 
   let(:foo_stub) { stub("string_component") }
   let(:bar_stub) { stub("string_component") }
+  let(:enum_stub) { stub("enum_component") }
 
   let(:object_title) { "some_object" }
 
   before do
-    schema.stubs(:fields).returns([foo_field, bar_field])
+    schema.stubs(:fields).returns([foo_field, bar_field, enum_field])
   end
 
   it "renders fields for each property" do
@@ -31,6 +33,14 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
       object_id: object_title,
     ).returns(bar_stub)
 
+    ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
+      content_block_edition:,
+      field: enum_field,
+      object_id: object_title,
+      enum: ["some value", "another value"],
+      default: "some value",
+    ).returns(enum_stub)
+
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
       schema:,
@@ -40,6 +50,7 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
 
     component.expects(:render).with(foo_stub)
     component.expects(:render).with(bar_stub)
+    component.expects(:render).with(enum_stub)
 
     render_inline(component)
   end
@@ -60,6 +71,14 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
       object_id: object_title,
     ).returns(bar_stub)
 
+    ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
+      content_block_edition:,
+      field: enum_field,
+      object_id: object_title,
+      enum: ["some value", "another value"],
+      default: "some value",
+    ).returns(enum_stub)
+
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
       schema:,
@@ -69,6 +88,7 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
 
     component.expects(:render).with(foo_stub)
     component.expects(:render).with(bar_stub)
+    component.expects(:render).with(enum_stub)
 
     render_inline(component)
   end
