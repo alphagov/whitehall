@@ -17,6 +17,7 @@ module ContentBlockManager::IntegrationTestHelpers
       permitted_params: %i[foo bar],
       subschemas:,
       embeddable_fields: [],
+      embeddable_as_block?: false,
     )
     subschemas.each do |subschema|
       schema.stubs(:subschema).with(subschema.id).returns(subschema)

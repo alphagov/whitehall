@@ -46,6 +46,18 @@
   </div>
 </div>
 
+<% if @schema.embeddable_as_block? %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <%= render(
+            ContentBlockManager::ContentBlock::Document::Show::DefaultBlockComponent.new(
+              content_block_document: @content_block_document,
+              ),
+            ) %>
+    </div>
+  </div>
+<% end %>
+
 <% grouped_subschemas(@schema).each do |group, subschemas| %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
