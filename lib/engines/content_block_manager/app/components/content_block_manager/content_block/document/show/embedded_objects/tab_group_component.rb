@@ -9,7 +9,7 @@ private
   attr_reader :content_block_edition, :subschemas
 
   def tabs
-    subschemas.map do |subschema|
+    subschemas.sort_by(&:group_order).map do |subschema|
       tab_for_subschema(subschema)
     end
   end

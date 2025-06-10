@@ -13,15 +13,19 @@ module ContentBlockManager
         end
 
         def embeddable_as_block?
-          config["embeddable_as_block"].present?
+          @embeddable_as_block ||= config["embeddable_as_block"].present?
         end
 
         def config
-          self.class.schema_settings.dig("schemas", @parent_schema_id, "subschemas", @id) || {}
+          @config ||= self.class.schema_settings.dig("schemas", @parent_schema_id, "subschemas", @id) || {}
         end
 
         def group
-          config["group"]
+          @group ||= config["group"]
+        end
+
+        def group_order
+          @group_order ||= config["group_order"]&.to_i || Float::INFINITY
         end
 
       private

@@ -3,8 +3,8 @@ require "test_helper"
 class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabGroupComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
 
-  let(:subschema_1) { stub("subschema_1", id: "embedded-type-1", name: "embedded type 1") }
-  let(:subschema_2) { stub("subschema_2", id: "embedded-type-2", name: "embedded type 2") }
+  let(:subschema_1) { stub("subschema_1", id: "embedded-type-1", name: "embedded type 1", group_order: 1) }
+  let(:subschema_2) { stub("subschema_2", id: "embedded-type-2", name: "embedded type 2", group_order: 0) }
 
   let(:subschemas) do
     [
@@ -48,14 +48,14 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabGro
 
     expected_tabs = [
       {
-        id: tab_component_1_double.id,
-        label: tab_component_1_double.label,
-        content: tab_component_1_double.content,
-      },
-      {
         id: tab_component_2_double.id,
         label: tab_component_2_double.label,
         content: tab_component_2_double.content,
+      },
+      {
+        id: tab_component_1_double.id,
+        label: tab_component_1_double.label,
+        content: tab_component_1_double.content,
       },
     ]
 

@@ -13,14 +13,17 @@ schemas:
     subschemas:
       email_addresses:
         group: modes
+        group_order: 1
         embeddable_fields:
           - email_address
       telephones:
         group: modes
+        group_order: 2
         embeddable_fields:
           - telephone
       addresses:
         group: modes
+        group_order: 3
         field_order:
           - title
           - street_address
@@ -37,5 +40,6 @@ schemas:
           - country
       contact_forms:
         group: modes
+        group_order: 4
         embeddable_fields:
           - url
