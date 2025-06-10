@@ -304,6 +304,7 @@ private
             ],
           },
         ],
+        flexible_page_content: {},
       },
       :auth_bypass_id,
     ]
