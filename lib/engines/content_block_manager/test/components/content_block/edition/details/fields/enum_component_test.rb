@@ -63,7 +63,6 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
 
       assert_selector "label", text: "Something"
       assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
-      assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"\"]"
       assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a week\"]", text: "a week"
       assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a month\"][selected]", text: "a month"
     end
@@ -84,7 +83,6 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
 
       assert_selector "label", text: "Something"
       assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
-      assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"\"]"
       assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a week\"][selected]", text: "a week"
       assert_selector "select[name=\"#{expected_name}\"][id=\"#{expected_id}\"] option[value=\"a month\"]", text: "a month"
     end

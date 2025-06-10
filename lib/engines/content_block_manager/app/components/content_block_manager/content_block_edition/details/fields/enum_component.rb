@@ -8,7 +8,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent <
 private
 
   def options
-    ["", @enum].flatten.map do |item|
+    [blank_option, @enum].flatten.compact.map do |item|
       {
         text: item,
         value: item,
@@ -23,5 +23,9 @@ private
 
   def selected?(item)
     item == (value.presence || @default)
+  end
+
+  def blank_option
+    @default.empty? ? "" : nil
   end
 end
