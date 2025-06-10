@@ -11,6 +11,15 @@ Made up of one or more schemas, as defined by [`schemas.<schema_name>`](#schemas
 
 An object that defines a schema
 
+## Properties
+
+- [embeddable_as_block](#schemasschema_nameembeddable_as_block)
+- [subschemas](#schemasschema_namesubschemas)
+
+## `schemas.<schema_name>.embeddable_as_block`
+
+This defines if a subschema is embeddable as an entire block.
+
 ## `schemas.<schema_name>.subschemas`
 
 A list of [subschemas](#schemasschema_namesubschemassubschema_name) for a specific object
