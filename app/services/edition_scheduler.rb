@@ -1,5 +1,7 @@
 require "data_hygiene/govspeak_link_validator"
 
+# TODO: is this actually surfaced? If EditionPublisher fails validation, it's not possible to schedule.
+# EditionPublisher has many of the same checks as EditionScheduler.
 class EditionScheduler < EditionService
   def verb
     "schedule"

@@ -16,15 +16,15 @@ class EditionPublisher < EditionService
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
     reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}" if scheduled_for_publication?
 
+    if edition_contact_validator.errors.any?
+      reasons << "This edition references contacts that don't exist: #{bad_contact_embed_codes(edition_contact_validator).join(', ')}"
+    end
+
     @failure_reasons = reasons
   end
 
   def failure_reasons_plaintext
     failure_reasons.map { |reason| ActionController::Base.helpers.strip_tags(reason).gsub(/\s+/, " ") }.join(", ")
-  end
-
-  def govspeak_link_validator
-    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
   end
 
   def verb
@@ -73,5 +73,19 @@ private
     return if edition.document.live?
 
     edition.political = PoliticalContentIdentifier.political?(edition)
+  end
+
+  def govspeak_link_validator
+    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
+  end
+
+  def edition_contact_validator
+    @edition_contact_validator ||= DataHygiene::GovspeakContactEmbedValidator.new(edition.body)
+  end
+
+  def bad_contact_embed_codes(contact_validator)
+    contact_validator.errors.map do |err|
+      "[Contact:#{err[:contact_id]}]"
+    end
   end
 end

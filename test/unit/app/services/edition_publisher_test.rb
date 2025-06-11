@@ -233,4 +233,14 @@ class EditionPublisherTest < ActiveSupport::TestCase
     ], publisher.failure_reasons
     # rubocop:enable Style/TrailingCommaInArrayLiteral
   end
+
+  test "#failure_reasons returns issues discovered via GovspeakContactEmbedValidator" do
+    edition = create(:submitted_edition)
+    edition.body = "[Contact:12345] [Contact:9999999]"
+    publisher = EditionPublisher.new(edition)
+
+    assert_not publisher.perform!
+    assert_not edition.reload.published?
+    assert_equal ["This edition references contacts that don't exist: [Contact:12345], [Contact:9999999]"], publisher.failure_reasons
+  end
 end
