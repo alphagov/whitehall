@@ -9,7 +9,7 @@ class ContactsExtractorTest < ActiveSupport::TestCase
 
     input = "We have an office at [Contact:2] but deliveries go to [Contact:1]"
 
-    embedded_contacts = Govspeak::ContactsExtractor.new(input).contacts
+    embedded_contacts = Govspeak::ContactsExtractor.new(input).valid_contacts
     assert_equal [contact2, contact1], embedded_contacts
   end
 
@@ -19,7 +19,7 @@ class ContactsExtractorTest < ActiveSupport::TestCase
 
     input = "Our office at [Contact:1] is brilliant, you should come for a cup of tea. Remeber the address is [Contact:1]"
 
-    embedded_contacts = Govspeak::ContactsExtractor.new(input).contacts
+    embedded_contacts = Govspeak::ContactsExtractor.new(input).valid_contacts
     assert_equal [contact1], embedded_contacts
   end
 
@@ -28,7 +28,7 @@ class ContactsExtractorTest < ActiveSupport::TestCase
 
     input = "Our office used to be at [Contact:1] but we moved"
 
-    embedded_contacts = Govspeak::ContactsExtractor.new(input).contacts
+    embedded_contacts = Govspeak::ContactsExtractor.new(input).valid_contacts
     assert_equal [], embedded_contacts
   end
 end
