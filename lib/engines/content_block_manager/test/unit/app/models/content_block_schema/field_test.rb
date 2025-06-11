@@ -85,13 +85,73 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
       end
     end
 
-    describe "when the field has no defaut value" do
+    describe "when the field has no default value" do
       let(:body) do
         { "properties" => { "something" => { "type" => "string" } } }
       end
 
       it "returns enum" do
         assert_nil field.default_value
+      end
+    end
+  end
+
+  describe "#nested fields" do
+    describe "when there are no nested fields present" do
+      it "returns an empty array" do
+        assert_equal [], field.nested_fields
+      end
+    end
+
+    describe "when there are nested fields present" do
+      let(:body) do
+        {
+          "properties" => {
+            "something" => {
+              "type" => "object",
+              "properties" => {
+                "foo" => { "type" => "string" },
+                "bar" => { "type" => "string", "enum" => %w[foo bar] }
+              }
+            }
+          }
+        }
+      end
+      let(:config) do
+        {
+          "fields" => {
+            "something" => {
+              "fields" => {
+                "foo" => { "config" => "foo" },
+                "bar" => { "config" => "bar" },
+              }
+            }
+          }
+        }
+      end
+
+      it "returns nested fields" do
+        foo_nested_field = stub("nested_field")
+        bar_nested_field = stub("nested_field")
+
+        ContentBlockManager::ContentBlock::Schema::Field::NestedField.expects(:new).with(
+          name: "foo",
+          parent_name: "something",
+          schema:,
+          properties: { "type" => "string" },
+          config: { "config" => "foo" },
+        ).returns(foo_nested_field)
+
+        ContentBlockManager::ContentBlock::Schema::Field::NestedField.expects(:new).with(
+          name: "bar",
+          parent_name: "something",
+          schema:,
+          properties: { "type" => "string", "enum" => %w[foo bar] },
+          config: { "config" => "bar" },
+        ).returns(bar_nested_field)
+
+
+        assert_equal [foo_nested_field, bar_nested_field], field.nested_fields
       end
     end
   end

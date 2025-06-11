@@ -29,6 +29,16 @@ module ContentBlockManager
           @enum_values ||= properties["enum"]
         end
 
+        def nested_fields
+          nested_field_properties.keys.map do |nested_field|
+            ContentBlockManager::ContentBlock::Schema::Field::NestedField.new(
+              name: nested_field,
+              parent_name: name,
+              schema:,
+              properties: properties.dig( "properties", nested_field),
+              config: config.dig( "fields", nested_field),
+            )
+          end
         end
 
         def default_value
@@ -49,6 +59,8 @@ module ContentBlockManager
           @config ||= schema.config.dig("fields", name) || {}
         end
 
+        def nested_field_properties
+          @nested_field_properties ||= properties["properties"] || {}
         end
       end
     end
