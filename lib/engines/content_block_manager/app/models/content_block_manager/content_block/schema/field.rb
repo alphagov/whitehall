@@ -22,21 +22,29 @@ module ContentBlockManager
         end
 
         def format
-          @format ||= schema.body.dig("properties", name, "type")
+          @format ||= properties["type"]
         end
 
         def enum_values
-          @enum_values ||= schema.body.dig("properties", name, "enum")
+          @enum_values ||= properties["enum"]
         end
 
         def default_value
-          @default_value ||= schema.body.dig("properties", name, "default")
+          @default_value ||= properties["default"]
         end
 
       private
 
         def custom_component
-          @custom_component ||= schema.config.dig("fields", name, "component")
+          @custom_component ||= config["component"]
+        end
+
+        def properties
+          @properties ||= schema.body.dig("properties", name) || {}
+        end
+
+        def config
+          @config ||= schema.config.dig("fields", name) || {}
         end
       end
     end
