@@ -24,19 +24,19 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: foo_field,
-      object_id: object_title,
+      parent_objects: [object_title],
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: bar_field,
-      object_id: object_title,
+      parent_objects: [object_title],
     ).returns(bar_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
       content_block_edition:,
       field: enum_field,
-      object_id: object_title,
+      parent_objects: [object_title],
       enum: ["some value", "another value"],
       default: "some value",
     ).returns(enum_stub)
@@ -61,20 +61,20 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: foo_field,
-      object_id: object_title,
+      parent_objects: [object_title],
       value: "something",
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: bar_field,
-      object_id: object_title,
+      parent_objects: [object_title],
     ).returns(bar_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
       content_block_edition:,
       field: enum_field,
-      object_id: object_title,
+      parent_objects: [object_title],
       enum: ["some value", "another value"],
       default: "some value",
     ).returns(enum_stub)

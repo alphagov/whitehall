@@ -14,7 +14,7 @@ private
     {
       content_block_edition:,
       field: field,
-      object_id: object_title,
+      parent_objects: [object_title],
       value: params[field.name],
     }.compact
   end

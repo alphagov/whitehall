@@ -21,6 +21,38 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
     assert_selector "input[type=\"text\"][name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
   end
 
+  it "should render an input field with default parameters when a parent object is provided" do
+    render_inline(
+      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+        content_block_edition:,
+        field:,
+        parent_objects: ["something"]
+      ),
+    )
+
+    expected_name = "content_block/edition[details][something][email_address]"
+    expected_id = "#{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_something_email_address"
+
+    assert_selector "label", text: "Email address"
+    assert_selector "input[type=\"text\"][name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
+  end
+
+  it "should render an input field with default parameters when multiple parent objects are provided" do
+    render_inline(
+      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+        content_block_edition:,
+        field:,
+        parent_objects: %w[something else]
+      ),
+    )
+
+    expected_name = "content_block/edition[details][something][else][email_address]"
+    expected_id = "#{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_something_else_email_address"
+
+    assert_selector "label", text: "Email address"
+    assert_selector "input[type=\"text\"][name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
+  end
+
   it "should show the value when provided" do
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
@@ -31,10 +63,6 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
     )
 
     assert_selector 'input[value="example@example.com"]'
-  end
-
-  it "should show the value from an embedded object" do
-    content_block_edition.details = { "description": "example@example.com" }
   end
 
   it "should show errors when present" do
@@ -79,7 +107,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
       assert_selector ".govuk-hint", text: "Some hint text"
     end
 
-    it "should use the object_id for the hint text when provided" do
+    it "should use the parent_objects for the hint text when provided" do
       I18n.expects(:t).with("content_block_edition.details.hints.my_suffix.email_address", default: nil).returns("Some hint text")
 
       render_inline(
@@ -87,9 +115,24 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
           content_block_edition:,
           field:,
           value: "some custom value",
-          object_id: "my_suffix",
+          parent_objects: ["my_suffix"],
         ),
       )
+
+      assert_selector ".govuk-hint", text: "Some hint text"
+    end
+
+    it "should use the parent_objects for the hint text when multiple objects are provided" do
+      I18n.expects(:t).with("content_block_edition.details.hints.my_suffix.something_else.email_address", default: nil).returns("Some hint text")
+
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          field:,
+          value: "some custom value",
+          parent_objects: %w[my_suffix something_else],
+          ),
+        )
 
       assert_selector ".govuk-hint", text: "Some hint text"
     end

@@ -3,27 +3,23 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent <
 
   PARENT_CLASS = "content_block_manager_content_block_edition".freeze
 
-  def initialize(content_block_edition:, field:, value: nil, object_id: nil)
+  def initialize(content_block_edition:, field:, value: nil, parent_objects: [])
     @content_block_edition = content_block_edition
     @field = field
     @value = value
-    @object_id = object_id
+    @parent_objects = parent_objects
   end
 
 private
 
-  attr_reader :content_block_edition, :field, :object_id, :value
+  attr_reader :content_block_edition, :field, :parent_objects, :value
 
   def label
     field.name.humanize
   end
 
   def name
-    if object_id
-      "content_block/edition[details][#{object_id}][#{field.name}]"
-    else
-      "content_block/edition[details][#{field.name}]"
-    end
+    "content_block/edition[details]#{field_suffix}"
   end
 
   def id
@@ -39,10 +35,25 @@ private
   end
 
   def translation_lookup
-    @translation_lookup ||= object_id ? "#{object_id}.#{field.name}" : field.name
+    @translation_lookup ||= [
+      *parent_objects,
+      field.name,
+    ].compact.join(".")
   end
 
   def id_suffix
-    object_id ? "#{object_id}_#{field.name}" : field.name
+    [
+      *parent_objects,
+      field.name,
+    ].compact.join("_")
+  end
+
+  def field_suffix
+    [
+      *parent_objects,
+      field.name,
+    ].compact.map { |name|
+      "[#{name}]"
+    }.join
   end
 end
