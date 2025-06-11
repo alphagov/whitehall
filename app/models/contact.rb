@@ -20,6 +20,8 @@ class Contact < ApplicationRecord
   after_update :republish_dependent_policy_groups
   after_update :republish_organisation_to_publishing_api
 
+  # before_destroy :ensure_no_editions_are_embedding_the_contact
+
   after_create :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
 
@@ -106,4 +108,10 @@ class Contact < ApplicationRecord
       errors.add(:base, "Translations '#{non_existent_translations.map(&:code).join(', ')}' do not exist for this worldwide organisation")
     end
   end
+
+  # This doesn't work - the EditionDependency gets deleted before we reach this bit of code
+  # def ensure_no_editions_are_embedding_the_contact
+  #   editions_embedding_this_contact = EditionDependency.where(dependable_type: "Contact", dependable_id: id)
+  #   raise "Cannot delete: contact is embedded in #{editions_embedding_this_contact.join(',')}" if editions_embedding_this_contact.count > 0
+  # end
 end

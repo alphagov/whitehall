@@ -84,7 +84,13 @@ Feature: Worldwide organisations
     Given an worldwide organisation "Test Worldwide Organisation"
     When I delete the "Main office for Test Worldwide Organisation" office for the worldwide organisation
     Then I should see that the list of offices for the worldwide organisation is empty
-    And The "Test Worldwide Organisation" worldwide organisation should have no offices
+    And The "Test Worldwide Organisation" worldwide organisation should have no officestion
+
+  Scenario: Deleting an office for a worldwide organisation, where that contact is embedded in other pages
+    Given an worldwide organisation "Test Worldwide Organisation"
+    And it has an office contact that is embedded on other (published) pages
+    When I delete the "Main office for Test Worldwide Organisation" office for the worldwide organisation
+    Then I should see "Unable to delete office" and the office contact should not be deleted
 
   Scenario: Adding a page to a worldwide organisation
     Given an worldwide organisation "Test Worldwide Organisation"

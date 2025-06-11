@@ -116,6 +116,19 @@ When(/^I add an worldwide organisation "([^"]*)" office for the home page with a
   click_on "Save"
 end
 
+Given(/^it has an office contact that is embedded on other \(published\) pages$/) do
+  worldwide_organisation = WorldwideOrganisation.last
+  worldwide_office = WorldwideOffice.last
+
+  publication = create(:publication, attachments: [])
+  create(:html_attachment, attachable: publication, body: "[Contact:#{worldwide_office.contact.id}]")
+  EditionDependency.create!(
+    edition_id: publication.id,
+    dependable_id: worldwide_office.contact.id,
+    dependable_type: "Contact"
+  )
+end
+
 When(/^I delete the "([^"]*)" office for the worldwide organisation$/) do |_office|
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Edit draft"
@@ -125,6 +138,10 @@ When(/^I delete the "([^"]*)" office for the worldwide organisation$/) do |_offi
   expect(page).to have_text("Are you sure you want to delete \"Main office for Test Worldwide Organisation\"")
 
   click_button "Delete"
+end
+
+Then(/^I should see (.+) and the office contact should not be deleted$/) do |string|
+  expect(page).to have_text("Unable to delete office as it is embedded on other pages.")
 end
 
 When(/^I visit the pages tab for the worldwide organisation$/) do

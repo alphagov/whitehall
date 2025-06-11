@@ -54,6 +54,15 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   def confirm_destroy; end
 
   def destroy
+    editions_embedding_this_contact = EditionDependency
+      .where(dependable_type: "Contact", dependable_id: @worldwide_office.contact.id)
+      .map { |edition_dependency| Edition.find(edition_dependency.edition_id) }
+
+    if editions_embedding_this_contact.count > 0
+      edition_summaries = editions_embedding_this_contact.map { |ed| "Edition ID #{ed.id} (#{ed.document.slug})" }
+      raise "Cannot delete: contact is embedded in #{edition_summaries.join(',')}" 
+    end
+
     title = @worldwide_office.title
 
     if @worldwide_office.destroy
