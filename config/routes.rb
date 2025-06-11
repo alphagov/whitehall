@@ -290,7 +290,9 @@ Whitehall::Application.routes.draw do
 
       resources :publications, except: [:index]
 
-      resources :flexible_pages, path: "flexible-pages", except: [:index]
+      resources :flexible_pages, path: "flexible-pages", except: [:index] do
+        get :choose_type, on: :collection, as: :choose_type
+      end
       resources :landing_pages, path: "landing-pages", except: [:index]
 
       resources :news_articles, path: "news", except: [:index]

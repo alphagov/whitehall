@@ -3,6 +3,11 @@ Given(/^the flexible pages feature flag is (enabled|disabled)$/) do |enabled|
   @test_strategy.switch!(:flexible_pages, enabled == "enabled")
 end
 
+Given(/^the test flexible page type is defined$/) do
+  type_definition = JSON.parse(File.read(Rails.root.join("features/fixtures/test_flexible_page_type.json")))
+  FlexiblePageType.setup_test_types({ "test" => type_definition })
+end
+
 When(/^I draft a new "([^"]*)" flexible page titled "([^"]*)"$/) do |flexible_page_type, title|
   create(:organisation) if Organisation.count.zero?
   visit admin_root_path
@@ -13,7 +18,13 @@ When(/^I draft a new "([^"]*)" flexible page titled "([^"]*)"$/) do |flexible_pa
   click_button("Next")
   within "form" do
     fill_in "edition_title", with: title
-    fill_in "edition_flexible_page_content_title_heading_text", with: title
+    fill_in "edition_flexible_page_content_page_title_heading_text", with: title
   end
   click_button "Save and go to document summary"
+end
+
+# TODO
+Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
+  expect(page.find("h1")).to have_content(title)
+  expect(page).to have_content("Your document has been saved.")
 end

@@ -42,13 +42,8 @@
       margin_bottom: 6,
     } %>
 
-    <%= render "govuk_publishing_components/components/input", {
-        label: {
-        text: "Heading Text",
-      },
-      name: "edition[flexible_page_content][title][heading_text]",
-      id: "edition_flexible_page_content_title_heading_text",
-    } %>
+    <%= form.hidden_field :flexible_page_type, value: @edition.flexible_page_type %>
+    <%= render inline: render_flexible_page_content_fields(FlexiblePageType.find(@edition.flexible_page_type).properties, @edition) %>
     <%= render("settings_fields", form:, edition:) %>
     <%= standard_edition_publishing_controls(form, edition) %>
   </div>

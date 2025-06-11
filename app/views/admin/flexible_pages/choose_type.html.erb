@@ -8,10 +8,7 @@
         heading_level: 1,
         name: "flexible_page_type",
         id: "flexible_page_type",
-        items: [
-          "text": "History page",
-          "value": "history_page",
-        ],
+        items: FlexiblePageType.all.map { |type| { text: type.label, value: type.key }},
       } %>
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", { text: "Next" } %>
