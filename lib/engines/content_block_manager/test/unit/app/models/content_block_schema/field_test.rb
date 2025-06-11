@@ -52,6 +52,41 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
     end
   end
 
+  describe "#component_class" do
+    describe "when there is no custom component set" do
+      describe "when the field is a string" do
+        let(:body) do
+          { "properties" => { "something" => { "type" => "string" } } }
+        end
+
+        it "returns string" do
+          assert_equal ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent, field.component_class
+        end
+      end
+
+      describe "when the field has enum values" do
+        let(:body) do
+          { "properties" => { "something" => { "type" => "string", "enum" => %w[foo bar] } } }
+        end
+
+        it "returns enum" do
+          assert_equal ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent, field.component_class
+        end
+      end
+    end
+
+    describe "when there is a custom component set" do
+      let(:config) do
+        { "fields" => { "something" => { "component" => "country" } } }
+      end
+
+      it "returns the custom component name" do
+        assert_equal ContentBlockManager::ContentBlockEdition::Details::Fields::CountryComponent, field.component_class
+      end
+    end
+  end
+
+
   describe "#enum_values" do
     describe "when the field has enum values" do
       let(:body) do

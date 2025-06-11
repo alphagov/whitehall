@@ -13,6 +13,10 @@ module ContentBlockManager
           name
         end
 
+        def component_class
+          "ContentBlockManager::ContentBlockEdition::Details::Fields::#{component_name.camelize}Component".constantize
+        end
+
         def component_name
           if custom_component
             custom_component

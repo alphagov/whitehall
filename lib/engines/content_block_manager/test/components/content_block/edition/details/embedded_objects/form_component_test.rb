@@ -6,9 +6,9 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
   let(:content_block_edition) { build(:content_block_edition) }
   let(:schema) { build(:content_block_schema) }
 
-  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil, default_value: nil) }
-  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil) }
-  let(:enum_field) { stub("field", name: "enum", component_name: "enum", enum_values: ["some value", "another value"], default_value: "some value") }
+  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil, default_value: nil, component_class: ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent) }
+  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil, component_class: ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent) }
+  let(:enum_field) { stub("field", name: "enum", component_name: "enum", enum_values: ["some value", "another value"], default_value: "some value", component_class: ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent) }
 
   let(:foo_stub) { stub("string_component") }
   let(:bar_stub) { stub("string_component") }

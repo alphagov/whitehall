@@ -9,11 +9,12 @@ private
   attr_reader :content_block_edition, :schema
 
   def component_for_field(field)
-    component_name = field.component_name
-    component_class = "ContentBlockManager::ContentBlockEdition::Details::Fields::#{component_name.camelize}Component".constantize
-    args = component_args(field).merge(enum: field.enum_values, default: field.default_value)
+    args = component_args(field).merge(
+      enum: field.enum_values,
+      default: field.default_value
+    )
 
-    component_class.new(**args.compact)
+    field.component_class.new(**args.compact)
   end
 
   def component_args(field)
