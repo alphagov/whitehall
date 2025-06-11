@@ -243,4 +243,14 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_not edition.reload.published?
     assert_equal ["This edition references contacts that don't exist: [Contact:12345], [Contact:9999999]"], publisher.failure_reasons
   end
+
+  test "#failure_reasons returns issues with HTML attachments discovered via GovspeakContactEmbedValidator" do
+    edition = create(:submitted_edition)
+    create(:html_attachment, attachable: edition, body: "[Contact:12345] [Contact:9999999]")
+    publisher = EditionPublisher.new(edition)
+
+    assert_not publisher.perform!
+    assert_not edition.reload.published?
+    assert_equal ["This edition has a HTML attachment that references contacts that don't exist: [Contact:12345], [Contact:9999999]"], publisher.failure_reasons
+  end
 end

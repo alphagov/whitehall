@@ -19,6 +19,9 @@ class EditionPublisher < EditionService
     if edition_contact_validator.errors.any?
       reasons << "This edition references contacts that don't exist: #{bad_contact_embed_codes(edition_contact_validator).join(', ')}"
     end
+    if html_attachments_contact_validator.errors.any?
+      reasons << "This edition has a HTML attachment that references contacts that don't exist: #{bad_contact_embed_codes(html_attachments_contact_validator).join(', ')}"
+    end
 
     @failure_reasons = reasons
   end
@@ -81,6 +84,12 @@ private
 
   def edition_contact_validator
     @edition_contact_validator ||= DataHygiene::GovspeakContactEmbedValidator.new(edition.body)
+  end
+
+  def html_attachments_contact_validator
+    @html_attachments_contact_validator ||= DataHygiene::GovspeakContactEmbedValidator.new(
+      edition.respond_to?(:html_attachments) ? edition.html_attachments.map(&:body).join("") : "",
+    )
   end
 
   def bad_contact_embed_codes(contact_validator)
