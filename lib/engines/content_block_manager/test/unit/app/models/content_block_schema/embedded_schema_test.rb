@@ -9,21 +9,24 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
       "patternProperties" => {
         "*" => {
           "type" => "object",
-          "properties" => {
-            "amount" => {
-              "type" => "string",
-            },
-            "description" => {
-              "type" => "string",
-            },
-            "frequency" => {
-              "type" => "string",
-            },
-            "title" => {
-              "type" => "string",
-            },
-          },
+          "properties" => properties,
         },
+      },
+    }
+  end
+  let(:properties) do
+    {
+      "amount" => {
+        "type" => "string",
+      },
+      "description" => {
+        "type" => "string",
+      },
+      "frequency" => {
+        "type" => "string",
+      },
+      "title" => {
+        "type" => "string",
       },
     }
   end
@@ -214,6 +217,35 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
 
       it "returns infinity to put the item at the end of the group" do
         assert_equal schema.group_order, Float::INFINITY
+      end
+    end
+  end
+
+  describe "#permitted_params" do
+    it "returns permitted params" do
+      assert_equal schema.permitted_params, %w[title amount description frequency]
+    end
+
+    describe "when some fields have nested fields" do
+      let(:properties) do
+        {
+          "title" => {
+            "type" => "string",
+          },
+          "foo" => {
+            "type" => "object",
+            "properties" => {
+              "my_string" => {},
+            },
+          },
+          "bar" => {
+            "type" => "string",
+          },
+        }
+      end
+
+      it "returns permitted params" do
+        assert_equal schema.permitted_params, ["title", { "foo" => %w[my_string] }, "bar"]
       end
     end
   end

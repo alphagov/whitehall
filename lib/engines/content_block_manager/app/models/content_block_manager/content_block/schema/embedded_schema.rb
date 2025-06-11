@@ -28,6 +28,12 @@ module ContentBlockManager
           @group_order ||= config["group_order"]&.to_i || Float::INFINITY
         end
 
+        def permitted_params
+          fields.map do |field|
+            field.nested_fields.present? ? { field.name => field.nested_fields.map(&:name) } : field.name
+          end
+        end
+
       private
 
         def field_names
