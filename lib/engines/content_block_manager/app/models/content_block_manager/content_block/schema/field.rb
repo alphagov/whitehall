@@ -29,6 +29,10 @@ module ContentBlockManager
           @enum_values ||= schema.body.dig("properties", name, "enum")
         end
 
+        def default_value
+          @default_value ||= schema.body.dig("properties", name, "default")
+        end
+
       private
 
         def custom_component

@@ -11,7 +11,7 @@ private
   def component_for_field(field)
     component_name = field.component_name
     component_class = "ContentBlockManager::ContentBlockEdition::Details::Fields::#{component_name.camelize}Component".constantize
-    args = component_args(field).merge(enum: field.enum_values)
+    args = component_args(field).merge(enum: field.enum_values, default: field.default_value)
 
     component_class.new(**args.compact)
   end
