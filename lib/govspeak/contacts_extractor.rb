@@ -4,7 +4,7 @@ module Govspeak
       @govspeak = govspeak
     end
 
-    def contacts
+    def valid_contacts
       return [] if @govspeak.blank?
 
       # scan yields an array of capture groups for each match
