@@ -95,4 +95,43 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
       end
     end
   end
+
+  describe "#nested fields" do
+    describe "when there are no nested fields present" do
+      it "returns nil" do
+        assert_equal nil, field.nested_fields
+      end
+    end
+
+    describe "when there are nested fields present" do
+      let(:body) do
+        {
+          "properties" => {
+            "something" => {
+              "type" => "object",
+              "properties" => {
+                "foo" => { "type" => "string" },
+                "bar" => { "type" => "string", "enum" => %w[foo bar] },
+              },
+            },
+          },
+        }
+      end
+
+      it "returns nested fields" do
+        nested_fields = field.nested_fields
+
+        assert_equal nested_fields.count, 2
+
+        assert_equal nested_fields[0].name, "foo"
+        assert_equal nested_fields[1].name, "bar"
+
+        assert_equal nested_fields[0].format, "string"
+        assert_equal nested_fields[1].format, "string"
+
+        assert_equal nested_fields[0].enum_values, nil
+        assert_equal nested_fields[1].enum_values, %w[foo bar]
+      end
+    end
+  end
 end

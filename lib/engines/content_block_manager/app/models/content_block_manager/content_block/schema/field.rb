@@ -4,6 +4,8 @@ module ContentBlockManager
       class Field
         attr_reader :name, :schema
 
+        NestedField = Data.define(:name, :format, :enum_values)
+
         def initialize(name, schema)
           @name = name
           @schema = schema
@@ -31,6 +33,14 @@ module ContentBlockManager
 
         def default_value
           @default_value ||= properties["default"]
+        end
+
+        def nested_fields
+          if format == "object"
+            properties.fetch("properties", {}).map do |key, value|
+              NestedField.new(name: key, format: value["type"], enum_values: value["enum"])
+            end
+          end
         end
 
       private
