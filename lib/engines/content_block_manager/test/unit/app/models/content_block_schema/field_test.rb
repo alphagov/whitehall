@@ -50,6 +50,16 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
         assert_equal "custom", field.component_name
       end
     end
+
+    describe "when the field is an object" do
+      let(:body) do
+        { "properties" => { "something" => { "type" => "object" } } }
+      end
+
+      it "returns object" do
+        assert_equal "object", field.component_name
+      end
+    end
   end
 
   describe "#component_class" do
@@ -82,6 +92,26 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
 
       it "returns the custom component name" do
         assert_equal ContentBlockManager::ContentBlockEdition::Details::Fields::CountryComponent, field.component_class
+      end
+    end
+
+    describe "when the field is an object" do
+      let(:body) do
+        { "properties" => { "something" => { "type" => "object" } } }
+      end
+
+      it "returns the object component" do
+        assert_equal ContentBlockManager::ContentBlockEdition::Details::Fields::ObjectComponent, field.component_class
+      end
+    end
+
+    describe "when a component doesn't exist for a type" do
+      let(:body) do
+        { "properties" => { "something" => { "type" => "something_else" } } }
+      end
+
+      it "returns the string component" do
+        assert_equal ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent, field.component_class
       end
     end
   end
