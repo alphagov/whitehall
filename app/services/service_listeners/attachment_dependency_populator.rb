@@ -11,7 +11,7 @@ module ServiceListeners
 
       edition.html_attachments.each do |attachment|
         extractor = Govspeak::ContactsExtractor.new(attachment.body)
-        extractor.contacts.each do |contact|
+        extractor.valid_contacts.each do |contact|
           unless edition.depended_upon_contacts.exists?(contact.id)
             edition.depended_upon_contacts << contact
           end

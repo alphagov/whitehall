@@ -41,9 +41,9 @@ module ServiceListeners
       edition.stubs(:depended_upon_contacts).returns(edition_contacts = TestAssociation.new)
       edition_contacts.stubs(:exists?).returns(false)
 
-      Govspeak::ContactsExtractor.expects(:new).with("booyah").returns(stub(contacts: []))
+      Govspeak::ContactsExtractor.expects(:new).with("booyah").returns(stub(valid_contacts: []))
       Govspeak::ContactsExtractor.expects(:new).with("[Contact:1]")
-        .returns(stub(contacts: [contact = stub(id: 1)]))
+        .returns(stub(valid_contacts: [contact = stub(id: 1)]))
       subject(edition).populate!
 
       assert_equal [contact], edition_contacts.to_a
@@ -59,9 +59,9 @@ module ServiceListeners
       edition_contacts.stubs(:exists?).returns(false)
 
       Govspeak::ContactsExtractor.expects(:new).with("[Contact:1]")
-        .returns(stub(contacts: [contact_one = stub(id: 1)]))
+        .returns(stub(valid_contacts: [contact_one = stub(id: 1)]))
       Govspeak::ContactsExtractor.expects(:new).with("[Contact:2]")
-        .returns(stub(contacts: [contact_two = stub(id: 2)]))
+        .returns(stub(valid_contacts: [contact_two = stub(id: 2)]))
 
       subject(edition).populate!
 
@@ -77,7 +77,7 @@ module ServiceListeners
       edition_contacts.stubs(:exists?).with(1).returns(true)
 
       Govspeak::ContactsExtractor.expects(:new).with("[Contact:1]")
-        .returns(stub(contacts: [stub(id: 1)]))
+        .returns(stub(valid_contacts: [stub(id: 1)]))
 
       subject(edition).populate!
 
