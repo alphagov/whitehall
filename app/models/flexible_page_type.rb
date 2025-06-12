@@ -33,6 +33,7 @@ class FlexiblePageType
   def initialize(type)
     @key = type["key"]
     @schema = type["schema"]
+    @layout = type["layout"]
   end
 
   def label
@@ -47,5 +48,5 @@ class FlexiblePageType
     JSONSchemer.schema(@schema)
   end
 
-  attr_reader :key
+  attr_reader :key, :layout
 end

@@ -9,7 +9,7 @@ module PublishingApi
       self.update_type = update_type || default_update_type(item)
     end
 
-    delegate :content_id, :flexible_page_content, to: :item
+    delegate :content_id, to: :item
 
     def content
       content = BaseItemPresenter.new(item, update_type:).base_attributes
@@ -36,7 +36,7 @@ module PublishingApi
     end
 
     def document_type
-      "history_page"
+      item.flexible_page_type
     end
 
   private
@@ -44,6 +44,27 @@ module PublishingApi
     def details
       {
         flexible_page_content:,
+      }
+    end
+
+    def flexible_page_content
+      flexible_page_type = FlexiblePageType.find(item.flexible_page_type)
+      {
+        rows: flexible_page_type.layout["rows"].map do |row|
+          {
+            columns: row["columns"].map do |column|
+              {
+                width: column["width"],
+                blocks: column["blocks"].map do |block|
+                  {
+                    type: flexible_page_type.properties[block["schema_property_key"]]["type"],
+                    value: item.flexible_page_content[block["schema_property_key"]]
+                  }
+                end
+              }
+            end
+          }
+        end
       }
     end
   end
