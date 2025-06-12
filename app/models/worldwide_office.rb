@@ -5,6 +5,8 @@ class WorldwideOffice < ApplicationRecord
   has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
   validates :contact, :edition, :worldwide_office_type_id, presence: true
 
+  # before_destroy :ensure_no_editions_are_embedding_the_contact
+
   accepts_nested_attributes_for :contact
 
   extend FriendlyId
@@ -73,4 +75,16 @@ class WorldwideOffice < ApplicationRecord
   def publishing_api_presenter
     PublishingApi::WorldwideOfficePresenter
   end
+
+  # EditionDependency already deleted by this point - too late
+  # def ensure_no_editions_are_embedding_the_contact
+  #   editions_embedding_this_contact = EditionDependency
+  #     .where(dependable_type: "Contact", dependable_id: contact.id)
+  #     .map { |edition_dependency| Edition.find(edition_dependency.edition_id) }
+
+  #   if editions_embedding_this_contact.count > 0
+  #     edition_summaries = editions_embedding_this_contact.map { |ed| "Edition ID #{ed.id} (#{ed.document.slug})" }
+  #     raise "Cannot delete: contact is embedded in #{edition_summaries.join(',')}" 
+  #   end
+  # end
 end
