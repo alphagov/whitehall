@@ -50,6 +50,16 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
         assert_equal "custom", field.component_name
       end
     end
+
+    describe "when the field is an object" do
+      let(:body) do
+        { "properties" => { "something" => { "type" => "object" } } }
+      end
+
+      it "returns object" do
+        assert_equal "object", field.component_name
+      end
+    end
   end
 
   describe "#enum_values" do

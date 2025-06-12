@@ -18,8 +18,10 @@ module ContentBlockManager
         def component_name
           if custom_component
             custom_component
-          elsif format == "string"
-            enum_values ? "enum" : "string"
+          elsif enum_values
+            "enum"
+          else
+            format
           end
         end
 
