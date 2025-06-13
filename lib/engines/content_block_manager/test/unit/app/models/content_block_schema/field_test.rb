@@ -50,6 +50,16 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
         assert_equal "custom", field.component_name
       end
     end
+
+    describe "when the field is an object" do
+      let(:body) do
+        { "properties" => { "something" => { "type" => "object" } } }
+      end
+
+      it "returns object" do
+        assert_equal "object", field.component_name
+      end
+    end
   end
 
   describe "#enum_values" do
@@ -92,6 +102,74 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
 
       it "returns enum" do
         assert_nil field.default_value
+      end
+    end
+  end
+
+  describe "#nested fields" do
+    describe "when there are no nested fields present" do
+      it "returns nil" do
+        assert_equal nil, field.nested_fields
+      end
+    end
+
+    describe "when there are nested fields present" do
+      let(:body) do
+        {
+          "properties" => {
+            "something" => {
+              "type" => "object",
+              "properties" => {
+                "foo" => { "type" => "string" },
+                "bar" => { "type" => "string", "enum" => %w[foo bar] },
+              },
+            },
+          },
+        }
+      end
+
+      it "returns nested fields" do
+        nested_fields = field.nested_fields
+
+        assert_equal nested_fields.count, 2
+
+        assert_equal nested_fields[0].name, "foo"
+        assert_equal nested_fields[1].name, "bar"
+
+        assert_equal nested_fields[0].format, "string"
+        assert_equal nested_fields[1].format, "string"
+
+        assert_equal nested_fields[0].enum_values, nil
+        assert_equal nested_fields[1].enum_values, %w[foo bar]
+      end
+    end
+  end
+
+  describe "#array_items" do
+    describe "when there are no properties present" do
+      it "returns nil" do
+        assert_nil field.array_items
+      end
+    end
+
+    describe "when there are properties present" do
+      let(:body) do
+        {
+          "properties" => {
+            "something" => {
+              "type" => "array",
+              "items" => {
+                "type" => "string",
+              },
+            },
+          },
+        }
+      end
+
+      it "returns nil" do
+        assert_equal field.array_items, {
+          "type" => "string",
+        }
       end
     end
   end

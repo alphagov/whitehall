@@ -4,6 +4,8 @@ module ContentBlockManager
       class Field
         attr_reader :name, :schema
 
+        NestedField = Data.define(:name, :format, :enum_values)
+
         def initialize(name, schema)
           @name = name
           @schema = schema
@@ -16,27 +18,49 @@ module ContentBlockManager
         def component_name
           if custom_component
             custom_component
-          elsif format == "string"
-            enum_values ? "enum" : "string"
+          elsif enum_values
+            "enum"
+          else
+            format
           end
         end
 
         def format
-          @format ||= schema.body.dig("properties", name, "type")
+          @format ||= properties["type"]
         end
 
         def enum_values
-          @enum_values ||= schema.body.dig("properties", name, "enum")
+          @enum_values ||= properties["enum"]
         end
 
         def default_value
-          @default_value ||= schema.body.dig("properties", name, "default")
+          @default_value ||= properties["default"]
+        end
+
+        def nested_fields
+          if format == "object"
+            properties.fetch("properties", {}).map do |key, value|
+              NestedField.new(name: key, format: value["type"], enum_values: value["enum"])
+            end
+          end
+        end
+
+        def array_items
+          properties.fetch("items", nil)
         end
 
       private
 
         def custom_component
-          @custom_component ||= schema.config.dig("fields", name, "component")
+          @custom_component ||= config["component"]
+        end
+
+        def properties
+          @properties ||= schema.body.dig("properties", name) || {}
+        end
+
+        def config
+          @config ||= schema.config.dig("fields", name) || {}
         end
       end
     end

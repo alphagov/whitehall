@@ -1,0 +1,16 @@
+.app-c-content-block-manager-array-component {
+  margin-bottom: govuk-spacing(6);
+
+  .gem-c-fieldset {
+    background-color: govuk-colour("light-grey");
+    padding-left: govuk-spacing(3);
+    padding-right: govuk-spacing(3);
+
+    padding-top: govuk-spacing(6);
+    padding-bottom: govuk-spacing(6);
+
+    .govuk-fieldset__legend {
+      margin-bottom: govuk-spacing(6);
+    }
+  }
+}
