@@ -1,0 +1,49 @@
+<%= form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form| %>
+  <div class="<%= "right-to-left" if edition.rtl? %>">
+    <%= form.hidden_field :lock_version %>
+
+    <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
+      <%= render "govuk_publishing_components/components/character_count", {
+        textarea: {
+          label: {
+            text: "Admin Title (required)",
+            heading_size: "m",
+          },
+          name: "edition[title]",
+          value: edition.title,
+          error_items: errors_for(edition.errors, :title),
+          right_to_left: form.object.translation_rtl?,
+          right_to_left_help: false,
+          rows: 1,
+        },
+        id: "edition_title",
+        maxlength: 65,
+      } %>
+    </div>
+
+    <% if edition.document&.slug.present? %>
+      <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Page address",
+          heading_level: 3,
+          font_size: "m",
+          margin_bottom: 2,
+        } %>
+
+        <%= render "govuk_publishing_components/components/hint", {
+          text: edition.public_url,
+        } %>
+      </div>
+    <% end %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Content",
+      font_size: "l",
+      margin_bottom: 6,
+    } %>
+
+    <%= form.hidden_field :flexible_page_type, value: @edition.flexible_page_type %>
+    <%= render("settings_fields", form:, edition:) %>
+    <%= standard_edition_publishing_controls(form, edition) %>
+  </div>
+<% end %>
