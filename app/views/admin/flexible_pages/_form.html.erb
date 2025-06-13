@@ -43,6 +43,7 @@
     } %>
 
     <%= form.hidden_field :flexible_page_type, value: @edition.flexible_page_type %>
+    <%= render inline: render_flexible_page_content_fields(FlexiblePageType.find(@edition.flexible_page_type).schema, @edition) %>
     <%= render("settings_fields", form:, edition:) %>
     <%= standard_edition_publishing_controls(form, edition) %>
   </div>

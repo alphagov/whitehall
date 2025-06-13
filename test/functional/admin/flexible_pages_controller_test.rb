@@ -19,4 +19,14 @@ class Admin::FlexiblePagesControllerTest < ActionController::TestCase
     get :new
     assert_response :not_found
   end
+
+  test "POST create re-renders the new edition template with the submitted flexible page content if the form is invalid" do
+    flexible_page_content = {
+      "page_title" => {
+        "heading_text" => "foo",
+      },
+    }
+    post :create, params: { edition: { flexible_page_type: "history_page", flexible_page_content: } }
+    assert_template "admin/editions/new"
+  end
 end

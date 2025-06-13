@@ -1,3 +1,31 @@
 {
-  "key": "history_page"
+  "key": "history_page",
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.gov.uk/schemas/history_page/v1",
+    "title": "History page",
+    "description": "A history page on GOV.UK",
+    "type": "object",
+    "properties": {
+      "page_title": {
+        "title": "Page title",
+        "description": "The title of the history page",
+        "type": "object",
+        "properties": {
+          "heading_text": {
+            "title": "Heading text",
+            "description": "The main heading text for the page title",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "description": "Some additional context for the page title",
+            "type": "string"
+          }
+        },
+        "required": ["heading_text"]
+      }
+    },
+    "required": ["page_title"]
+  }
 }

@@ -18,6 +18,7 @@ When(/^I draft a new "([^"]*)" flexible page titled "([^"]*)"$/) do |flexible_pa
   click_button("Next")
   within "form" do
     fill_in "edition_title", with: title
+    fill_in "edition_flexible_page_content_page_title_heading_text", with: title
   end
   click_button "Save and go to document summary"
 end
