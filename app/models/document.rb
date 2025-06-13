@@ -222,23 +222,7 @@ class Document < ApplicationRecord
   class View
     class New
       def self.all_types
-        document_types = [
-          Consultation,
-          Publication,
-          NewsArticle,
-          Speech,
-          DetailedGuide,
-          DocumentCollection,
-          FatalityNotice,
-          CaseStudy,
-          StatisticalDataSet,
-          CallForEvidence,
-          WorldwideOrganisation,
-          LandingPage,
-        ]
-
-        document_types << FlexiblePage if Flipflop.enabled?(:flexible_pages)
-        document_types
+        types_hash.values
       end
 
       def self.types_for(user)
@@ -246,8 +230,26 @@ class Document < ApplicationRecord
       end
 
       def self.redirect_path_helper(new_document_type)
-        redirects = all_types.each_with_object({}) { |type, hash| hash[type.name.underscore.to_sym] = "new_admin_#{type.name.underscore}_path" }
-        redirects[new_document_type.to_sym]
+        types_hash[new_document_type].choose_document_type_form_action
+      end
+
+      def self.types_hash
+        types = {
+          "consultation" => Consultation,
+          "publication" => Publication,
+          "news_article" => NewsArticle,
+          "speech" => Speech,
+          "detailed_guide" => DetailedGuide,
+          "document_collection" => DocumentCollection,
+          "fatality_notice" => FatalityNotice,
+          "case_study" => CaseStudy,
+          "statistical_data_set" => StatisticalDataSet,
+          "call_for_evidence" => CallForEvidence,
+          "worldwide_organisation" => WorldwideOrganisation,
+          "landing_page" => LandingPage,
+        }
+        types["flexible_page"] = FlexiblePage if Flipflop.enabled?(:flexible_pages)
+        types
       end
     end
   end
