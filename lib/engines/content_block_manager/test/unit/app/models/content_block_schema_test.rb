@@ -62,6 +62,21 @@ class ContentBlockManager::SchemaTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#required_fields" do
+    describe "when there are no required fields" do
+      it "returns an empty array" do
+        assert_equal [], schema.required_fields
+      end
+    end
+
+    describe "when there are required fields" do
+      it "returns them as an array" do
+        body["required"] = %w[foo]
+        assert_equal %w[foo], schema.required_fields
+      end
+    end
+  end
+
   describe "when a schema has embedded objects" do
     let(:body) do
       {
