@@ -1,5 +1,3 @@
-require "data_hygiene/govspeak_link_validator"
-
 class EditionScheduler < EditionService
   def verb
     "schedule"
@@ -25,8 +23,6 @@ class EditionScheduler < EditionService
       reasons << "This edition does not have a scheduled publication date set"
     elsif scheduled_publication_is_not_within_cache_limit?
       reasons << "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
-    elsif govspeak_link_validator.errors.any?
-      reasons << "This edition contains links which violate linking guidelines: #{govspeak_link_validator.errors_to_html}"
     end
     @failure_reasons = reasons
   end

@@ -1,5 +1,3 @@
-require "data_hygiene/govspeak_link_validator"
-
 module Govspeak
   class AdminLinkReplacer
     include EmbeddedContentPatterns
@@ -10,7 +8,7 @@ module Govspeak
 
     def replace!(&block)
       @nokogiri_fragment.search("a").each do |anchor|
-        next unless DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(anchor["href"])
+        next unless GovspeakLinkValidator.is_internal_admin_link?(anchor["href"])
 
         replacement_html = replacement_html_for_admin_link(anchor, &block)
         anchor.replace Nokogiri::HTML.fragment(replacement_html)
