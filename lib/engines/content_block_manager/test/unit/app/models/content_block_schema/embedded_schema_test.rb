@@ -248,5 +248,34 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
         assert_equal schema.permitted_params, ["title", { "foo" => %w[my_string] }, "bar"]
       end
     end
+
+    describe "when some fields have an array type" do
+      let(:properties) do
+        {
+          "title" => {
+            "type" => "string",
+          },
+          "foo" => {
+            "type" => "array",
+            "items" => {
+              "type" => "string",
+            },
+          },
+          "bar" => {
+            "type" => "array",
+            "items" => {
+              "type" => "object",
+              "properties" => {
+                "my_string" => {},
+              },
+            },
+          },
+        }
+      end
+
+      it "returns permitted params" do
+        assert_equal schema.permitted_params, ["title", { "foo" => [] }, { "bar" => %w[my_string] }]
+      end
+    end
   end
 end

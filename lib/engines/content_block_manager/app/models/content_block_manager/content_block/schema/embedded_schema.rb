@@ -30,7 +30,13 @@ module ContentBlockManager
 
         def permitted_params
           fields.map do |field|
-            field.nested_fields.present? ? { field.name => field.nested_fields.map(&:name) } : field.name
+            if field.nested_fields.present?
+              { field.name => field.nested_fields.map(&:name) }
+            elsif field.format == "array"
+              { field.name => field.array_items["properties"]&.keys || [] }
+            else
+              field.name
+            end
           end
         end
 
