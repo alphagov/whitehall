@@ -156,7 +156,7 @@ module Admin::EditionsHelper
   end
 
   def edition_is_a_novel?(edition)
-    edition.body.split.size > 99_999
+    edition.body.present? && edition.body.split.size > 99_999
   end
 
   def edition_has_links?(edition)
