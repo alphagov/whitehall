@@ -15,7 +15,11 @@ private
   attr_reader :content_block_edition, :field, :object_id, :value
 
   def label
-    field.name.humanize
+    "#{field.name.humanize}#{field.is_required? ? nil : optional_label}"
+  end
+
+  def optional_label
+    " (optional)"
   end
 
   def name

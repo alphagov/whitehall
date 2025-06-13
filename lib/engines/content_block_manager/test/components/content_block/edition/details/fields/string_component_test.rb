@@ -4,7 +4,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :pension) }
-  let(:field) { stub("field", name: "email_address") }
+  let(:field) { stub("field", name: "email_address", is_required?: true) }
 
   it "should render an input field with default parameters" do
     render_inline(
@@ -19,6 +19,19 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
 
     assert_selector "label", text: "Email address"
     assert_selector "input[type=\"text\"][name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
+  end
+
+  it "should show optional label when field is optional" do
+    optional_field = stub("field", name: "email_address", is_required?: false)
+
+    render_inline(
+      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+        content_block_edition:,
+        field: optional_field,
+      ),
+    )
+
+    assert_selector "label", text: "Email address (optional)"
   end
 
   it "should show the value when provided" do
