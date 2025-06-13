@@ -2,6 +2,8 @@
 class FlexiblePageType
   @types = {}
 
+  attr_reader :key, :schema
+
   class << self
     attr_accessor :types
   end
@@ -46,6 +48,4 @@ class FlexiblePageType
   def validator
     JSONSchemer.schema(@schema)
   end
-
-  attr_reader :key
 end
