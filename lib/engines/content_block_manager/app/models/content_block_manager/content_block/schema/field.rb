@@ -45,6 +45,10 @@ module ContentBlockManager
           end
         end
 
+        def array_items
+          properties.fetch("items", nil)
+        end
+
       private
 
         def custom_component

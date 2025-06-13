@@ -144,4 +144,33 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
       end
     end
   end
+
+  describe "#array_items" do
+    describe "when there are no properties present" do
+      it "returns nil" do
+        assert_nil field.array_items
+      end
+    end
+
+    describe "when there are properties present" do
+      let(:body) do
+        {
+          "properties" => {
+            "something" => {
+              "type" => "array",
+              "items" => {
+                "type" => "string",
+              },
+            },
+          },
+        }
+      end
+
+      it "returns nil" do
+        assert_equal field.array_items, {
+          "type" => "string",
+        }
+      end
+    end
+  end
 end
