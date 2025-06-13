@@ -47,8 +47,9 @@ namespace :reslug do
   - changes a html attachment slug
   - reindexes the document
   - republishes the document and attachment to Publishing API (automatically handles the redirect)"
-  task :html_attachment, %i[publication_slug old_attachment_slug new_attachment_slug] => :environment do |_task, args|
+  task :html_attachment, %i[publication_slug old_attachment_slug] => :environment do |_task, args|
     documents = Document.where(slug: args.publication_slug)
+
     if documents.count > 1
       raise "There are multiple documents with the slug '#{args.publication_slug}'. Consider writing a migration and fetching the document with a content_id or document_type to uniquely identify it."
     end
@@ -59,8 +60,19 @@ namespace :reslug do
 
     raise "Could not find existing attachment with slug /#{args.old_attachment_slug}" unless html_attachment
 
-    # update slug of html attachement and add redirect
-    html_attachment.update!(slug: args.new_attachment_slug)
+    new_attachment_slug = html_attachment.title.to_slug.normalize.to_s
+
+    existing_attachment_with_slug = edition.attachments.find_by(slug: new_attachment_slug)
+
+    raise "Attachment with slug '#{new_attachment_slug}' exists that has been not deleted. Delete the existing attachment first." if existing_attachment_with_slug
+
+    edition.attachments.unscoped.delete_by(slug: new_attachment_slug)
+
+    html_attachment.safely_resluggable
+
+    html_attachment.update!(safely_resluggable: true)
+    html_attachment.update!(safely_resluggable: false)
+
     Whitehall::PublishingApi.republish_async(html_attachment)
 
     # send edition to publishing api
