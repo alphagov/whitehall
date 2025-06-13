@@ -4,7 +4,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :pension) }
-  let(:field) { stub("field", name: "items", array_items:) }
+  let(:field) { stub("field", name: "items", array_items:, is_required?: true) }
   let(:array_items) { { "type" => "string" } }
   let(:field_value) { nil }
 

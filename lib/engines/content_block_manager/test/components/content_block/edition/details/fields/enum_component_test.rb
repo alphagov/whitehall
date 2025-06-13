@@ -4,7 +4,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :pension) }
-  let(:field) { stub("field", name: "something") }
+  let(:field) { stub("field", name: "something", is_required?: true) }
 
   describe "when there is no default value" do
     it "should render a select field with given parameters" do
