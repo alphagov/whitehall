@@ -101,6 +101,10 @@ class Edition < ApplicationRecord
     document&.scheduled_edition
   end
 
+  def self.choose_document_type_form_action
+    "new_admin_#{name.underscore}_path"
+  end
+
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end
@@ -299,6 +303,10 @@ class Edition < ApplicationRecord
     true
   end
 
+  def summary_required?
+    true
+  end
+
   def body_required?
     true
   end
@@ -438,10 +446,6 @@ private
     published_edition_date = first_public_at.try(:to_date)
     draft_edition_date = updated_at.try(:to_date)
     published_edition_date || draft_edition_date
-  end
-
-  def summary_required?
-    true
   end
 
   def republish_topical_event_to_publishing_api
