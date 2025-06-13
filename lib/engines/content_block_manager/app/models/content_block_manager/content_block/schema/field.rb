@@ -49,6 +49,10 @@ module ContentBlockManager
           properties.fetch("items", nil)
         end
 
+        def is_required?
+          schema.required_fields.include?(name)
+        end
+
       private
 
         def custom_component

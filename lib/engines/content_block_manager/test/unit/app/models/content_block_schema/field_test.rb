@@ -173,4 +173,18 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
       end
     end
   end
+
+  describe "#is_required?" do
+    it "returns true when in the schema's required fields" do
+      schema.stubs(:required_fields).returns(%w[something])
+
+      assert_equal true, field.is_required?
+    end
+
+    it "returns false when note in the schema's required fields" do
+      schema.stubs(:required_fields).returns(%w[else])
+
+      assert_equal false, field.is_required?
+    end
+  end
 end
