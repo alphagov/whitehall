@@ -163,6 +163,47 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormTracker', function () {
     })
   })
 
+  describe('if form has no `data-ga4-form-change-tracking`', () => {
+    beforeEach(() => {
+      mockGa4SendData = spyOn(
+        window.GOVUK.analyticsGa4.core,
+        'applySchemaAndSendData'
+      )
+    })
+
+    it('does not track changes', () => {
+      form = new Form(['text'])
+
+      form.appendToParent(container)
+
+      const trackedComponent =
+        GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.trackedComponents[0]
+      form.querySelector('input').dataset.module = `${trackedComponent}`
+
+      GOVUK.analyticsGa4.analyticsModules.Ga4IndexSectionSetup.init()
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      const index = form
+        .querySelector(`input[type="text"]`)
+        .closest('[data-ga4-index]')
+
+      form.triggerChange(`input[type="text"]`)
+
+      expect(mockGa4SendData).not.toHaveBeenCalledWith(
+        {
+          ...expectedAttributes,
+          ...JSON.parse(index.dataset.ga4Index),
+          action: 'select'
+        },
+        'event_data'
+      )
+    })
+
+    afterEach(() => {
+      container.innerHTML = ''
+    })
+  })
+
   afterAll(() => {
     container.remove()
   })

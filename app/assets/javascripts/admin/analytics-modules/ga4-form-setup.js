@@ -5,10 +5,16 @@ window.GOVUK.analyticsGa4.analyticsModules =
   window.GOVUK.analyticsGa4.analyticsModules || {}
 ;(function (Modules) {
   Modules.Ga4FormSetup = {
+    trackedComponents: ['reorderable-list'],
+
     init: function () {
       const $modules = document.querySelectorAll(
         "[data-module~='ga4-form-setup']"
       )
+
+      const trackedComponentsSelector = Modules.Ga4FormSetup.trackedComponents
+        .map((trackedComponent) => `[data-module~="${trackedComponent}"]`)
+        .join(',')
 
       $modules.forEach(($module) => {
         const forms = $module.querySelectorAll(
@@ -16,6 +22,10 @@ window.GOVUK.analyticsGa4.analyticsModules =
         )
 
         forms.forEach(function (form) {
+          if (!form.querySelector(trackedComponentsSelector)) {
+            form.setAttribute('data-ga4-form-change-tracking', '')
+          }
+
           const sectionContainer = form.closest('[data-ga4-section]')
           const documentTypeContainer = form.closest('[data-ga4-document-type]')
 
