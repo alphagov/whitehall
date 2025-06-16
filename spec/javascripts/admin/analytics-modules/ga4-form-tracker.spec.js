@@ -63,6 +63,27 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormTracker', function () {
       })
     })
 
+    it('when a labelled field within a fieldset is changed', () => {
+      createFormAndSetup(container, 'addAnotherFieldSet')
+
+      mockGa4SendData.calls.reset()
+
+      const text = container.querySelector('input[type="text"]')
+      const index = text.closest('[data-ga4-index]')
+
+      form.triggerChange(`input`)
+
+      expect(mockGa4SendData).toHaveBeenCalledWith(
+        {
+          ...expectedAttributes,
+          section: `${Form.formDefaultOptions.legend} - ${Form.formDefaultOptions.label}`,
+          ...JSON.parse(index.dataset.ga4Index),
+          action: 'select'
+        },
+        'event_data'
+      )
+    })
+
     it('when a checkbox is deselected', () => {
       createFormAndSetup(container, 'checkbox')
 

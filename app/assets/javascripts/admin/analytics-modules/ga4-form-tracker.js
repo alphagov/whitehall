@@ -22,7 +22,11 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     }
   }
 
-  Ga4FormTracker.prototype.getSection = function (target) {
+  Ga4FormTracker.prototype.parentDateComponent = function (target) {
+    return target.closest('.govuk-date-input')
+  }
+
+  Ga4FormTracker.prototype.getSection = function (target, checkableValue) {
     const { id } = target
     const form =
       window.GOVUK.analyticsGa4.core.trackFunctions.findTrackingAttributes(
@@ -31,14 +35,24 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
       )
     const fieldset = target.closest('fieldset')
     const sectionContainer = form.closest('[data-ga4-section]')
+    const label = form.querySelector(`label[for='${id}']`)
+    const parentDateComponent = this.parentDateComponent(target)
 
     let section = sectionContainer && sectionContainer.dataset.ga4Section
 
     if (fieldset) {
       const legend = fieldset.querySelector('legend')
-      section = legend ? legend.innerText : section
+
+      // the date component submits several inputs as one
+      // event, so we don't want to include the label of
+      // the last interacted with input in the section
+      if (checkableValue || parentDateComponent) {
+        section = legend ? legend.innerText : section
+      } else {
+        section =
+          legend && label ? `${legend.innerText} - ${label.innerText}` : section
+      }
     } else {
-      const label = form.querySelector(`label[for='${id}']`)
       section = label ? label.innerText : section
     }
 
@@ -113,7 +127,7 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
       {
         ...index,
-        section: this.getSection(target),
+        section: this.getSection(target, checkableValue),
         event_name: 'select_content',
         action,
         text
