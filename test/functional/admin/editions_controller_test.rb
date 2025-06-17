@@ -30,6 +30,15 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { type: :publication }
   end
 
+  test "viewing a readonly representation of this edition" do
+    publication = create(:published_publication)
+    get :view, params: { id: publication }
+
+    assert_response :success
+    assert_template :view
+    assert_equal true, assigns(:read_only_form)
+  end
+
   test "diffing against a previous version" do
     publication = create(:draft_publication)
     editor = create(:departmental_editor)

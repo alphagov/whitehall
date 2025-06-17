@@ -205,6 +205,7 @@ Whitehall::Application.routes.draw do
         member do
           post :submit, to: "edition_workflow#submit"
           post :revise
+          get  :view
           get  :diff
           get  :confirm_approve_retrospectively, to: "edition_workflow#confirm_approve_retrospectively"
           post :approve_retrospectively, to: "edition_workflow#approve_retrospectively"

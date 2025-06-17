@@ -6,7 +6,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
   before_action :clear_response_form_file_cache, only: %i[create update]
-  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
+  before_action :find_edition, only: %i[show view edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
@@ -17,7 +17,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :build_edition_dependencies, only: %i[new edit]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
   before_action :enforce_permissions!
-  before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
+  before_action :limit_edition_access!, only: %i[show view edit update revise diff destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
 
@@ -25,7 +25,7 @@ class Admin::EditionsController < Admin::BaseController
     case action_name
     when "index", "topics"
       enforce_permission!(:see, edition_class || Edition)
-    when "show"
+    when "show", "view"
       enforce_permission!(:see, @edition)
     when "new", "choose_type"
       enforce_permission!(:create, edition_class || Edition)
@@ -98,6 +98,11 @@ class Admin::EditionsController < Admin::BaseController
   def edit
     @edition.open_for_editing_as(current_user)
     fetch_version_and_remark_trails
+  end
+
+  def view
+    @edition.open_for_editing_as(current_user)
+    @read_only_form = true
   end
 
   def update

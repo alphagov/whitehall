@@ -32,6 +32,7 @@ class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
       add_unpublish_action
       add_review_reminder_action
       add_view_action
+      add_view_on_website_action
       add_data_action
     end
     @actions
@@ -172,6 +173,16 @@ private
     end
   end
 
+  def add_view_action
+    if @enforcer.can?(:see) && %w[draft submitted rejected].exclude?(@edition.state)
+      actions << render("govuk_publishing_components/components/button", {
+        text: "View #{@edition.state} edition",
+        href: helpers.view_path_for_edition(@edition),
+        secondary_quiet: true,
+      })
+    end
+  end
+
   def add_review_reminder_action
     if @edition.publicly_visible? && @edition.document.latest_edition == @edition
       review_reminder = @edition.document.review_reminder
@@ -188,7 +199,7 @@ private
     end
   end
 
-  def add_view_action
+  def add_view_on_website_action
     if @edition.publicly_visible?
       actions << link_to("View on website (opens in new tab)",
                          @edition.public_url,
