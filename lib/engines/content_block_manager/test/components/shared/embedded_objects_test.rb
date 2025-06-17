@@ -52,7 +52,6 @@ class ContentBlockManager::Shared::EmbeddedObjectsTest < ViewComponent::TestCase
     default_args = {
       content_block_edition: content_block_edition,
       object_type: subschema.block_type,
-      is_editable: true,
       redirect_url:,
     }
 
