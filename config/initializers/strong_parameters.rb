@@ -1,1 +1,0 @@
-ActiveRecord::Base.include ActiveModel::ForbiddenAttributesProtection

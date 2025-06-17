@@ -7,7 +7,6 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
   setup do
     login_as :writer
     @publication = create(:publication, body: "[link](http://www.example.com)")
-    Rails.backtrace_cleaner.remove_silencers!
 
     link_checker_endpoint = "#{Plek.find('link-checker-api')}/batch"
     body = link_checker_api_batch_report_hash(
