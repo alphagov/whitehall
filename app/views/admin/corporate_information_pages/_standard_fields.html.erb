@@ -35,7 +35,7 @@
       error_items: errors_for(form.object.errors, :summary),
     },
     id: "edition_summary",
-    maxlength: 160,
+    maxlength: MaxLengths::SUMMARY,
   } %>
 
   <%= render "components/govspeak_editor", {
