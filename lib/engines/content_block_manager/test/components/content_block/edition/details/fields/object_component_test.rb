@@ -12,7 +12,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ObjectComponent
     ]
   end
   let(:schema) { stub("schema", id: "root") }
-  let(:field) { stub("field", name: "nested", nested_fields:, schema:) }
+  let(:field) { stub("field", name: "nested", nested_fields:, schema:, is_required?: true) }
 
   let(:label_stub) { stub("string_component") }
   let(:type_stub) { stub("enum_component") }

@@ -3,8 +3,8 @@ module ContentBlockManager::IntegrationTestHelpers
     schema = stub(
       id: "content_block_type",
       fields: fields || [
-        stub(:field, name: "foo", component_name: "string", enum_values: nil, default_value: nil),
-        stub(:field, name: "bar", component_name: "string", enum_values: nil, default_value: nil),
+        stub(:field, name: "foo", component_name: "string", enum_values: nil, default_value: nil, is_required?: false),
+        stub(:field, name: "bar", component_name: "string", enum_values: nil, default_value: nil, is_required?: false),
       ],
       name: "schema",
       body: {

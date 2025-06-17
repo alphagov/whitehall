@@ -95,6 +95,10 @@ module ContentBlockManager
         end
       end
 
+      def required_fields
+        @body["required"] || []
+      end
+
     private
 
       def field_names
