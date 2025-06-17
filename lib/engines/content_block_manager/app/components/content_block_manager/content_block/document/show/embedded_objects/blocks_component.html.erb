@@ -4,7 +4,11 @@
     rows: summary_card_rows,
   } %>
 
-  <% if schema.embeddable_as_block? %>
+  <% if !schema.embeddable_as_block? %>
+    <% nested_blocks.each do |args| %>
+      <%= render "govuk_publishing_components/components/summary_card", **args %>
+    <% end %>
+  <% else %>
     <div class="app-c-embedded-objects-blocks-component__details-wrapper">
       <%= render "govuk_publishing_components/components/details", {
         title: "All #{object_name} attributes",
@@ -17,6 +21,10 @@
             <%= render "govuk_publishing_components/components/summary_list", {
               items: attribute_rows(:field),
             } %>
+
+            <% nested_blocks.each do |args| %>
+              <%= render "govuk_publishing_components/components/summary_card", **args %>
+            <% end %>
           </div>
         <% end %>
       <% end %>

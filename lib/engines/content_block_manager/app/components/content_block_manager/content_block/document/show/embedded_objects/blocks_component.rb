@@ -1,5 +1,6 @@
 class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::BlocksComponent < ViewComponent::Base
   include ContentBlockManager::ContentBlock::EmbedCodeHelper
+  include ContentBlockManager::ContentBlock::SummaryListHelper
 
   def initialize(items:, object_type:, object_title:, content_block_document:)
     @items = items
@@ -28,11 +29,43 @@ private
   end
 
   def attribute_rows(key_name = :key)
-    items.map do |key, value|
+    first_class_items(items).map do |key, value|
       {
-        "#{key_name}": key.titleize,
+        "#{key_name}": key_to_title(key),
         value: content_for_row(key, value),
         data: data_attributes_for_row(key),
+      }
+    end
+  end
+
+  def nested_blocks
+    blocks = []
+
+    nested_items(items).each do |key, items|
+      if items.is_a?(Array)
+        items.each_with_index do |nested_items, index|
+          blocks << {
+            title: "#{key.singularize.titleize} #{index + 1}",
+            rows: rows_for_nested_items(nested_items, key, index),
+          }
+        end
+      else
+        blocks << {
+          title: key.titleize,
+          rows: rows_for_nested_items(items, key, nil),
+        }
+      end
+    end
+
+    blocks
+  end
+
+  def rows_for_nested_items(items, nested_name, index)
+    items.map do |key, value|
+      {
+        key: key_to_title(key),
+        value: content_for_row(embed_code_identifier(nested_name, index, key), value),
+        data: data_attributes_for_row(embed_code_identifier(nested_name, index, key)),
       }
     end
   end
@@ -83,5 +116,9 @@ private
 
   def content_block_edition
     @content_block_edition ||= content_block_document.latest_edition
+  end
+
+  def embed_code_identifier(*arr)
+    arr.compact.join("/")
   end
 end
