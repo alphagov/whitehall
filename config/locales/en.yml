@@ -207,6 +207,9 @@ en:
       fatality_notice:
         one: Fatality notice
         other: Fatality notices
+      flexible_page:
+        one: Flexible page
+        other: Flexible Pages
       foi_release:
         one: FOI release
         other: FOI releases
