@@ -14,11 +14,13 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(item, update_type:).base_attributes
       content.merge!(
-        details: {},
-        document_type:,
+        details: {
+          body: "",
+        },
+        document_type: type.settings["publishing_api_document_type"],
         public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: item.rendering_app,
-        schema_name: "flexible_page",
+        rendering_app: type.settings["rendering_app"],
+        schema_name: type.settings["publishing_api_schema_name"],
         links: edition_links,
         auth_bypass_ids: [item.auth_bypass_id],
       )
@@ -28,15 +30,17 @@ module PublishingApi
     end
 
     def links
-      edition_links
+      {}
     end
 
     def edition_links
-      []
+      {}
     end
 
-    def document_type
-      "history_page"
+  private
+
+    def type
+      FlexiblePageType.find(item.flexible_page_type)
     end
   end
 end

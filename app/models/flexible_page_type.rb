@@ -1,5 +1,5 @@
 class FlexiblePageType
-  attr_reader :key, :schema
+  attr_reader :key, :schema, :settings
 
   def self.types
     @types ||= Dir.glob("app/models/flexible_page_types/*.json").each_with_object({}) do |filename, hash|
@@ -27,6 +27,7 @@ class FlexiblePageType
   def initialize(type)
     @key = type["key"]
     @schema = type["schema"]
+    @settings = type["settings"]
   end
 
   def label

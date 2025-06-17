@@ -1,4 +1,5 @@
 class FlexiblePage < Edition
+  include Edition::Identifiable
   validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
   validate :content_conforms_to_schema
 
@@ -26,12 +27,15 @@ class FlexiblePage < Edition
     false
   end
 
-  def rendering_app
-    Whitehall::RenderingApp::FRONTEND
+  def base_path
+    "#{type_instance.settings['base_path_prefix']}/#{slug}"
+  end
+
+  def type_instance
+    FlexiblePageType.find(flexible_page_type)
   end
 
   def content_conforms_to_schema
-    type_instance = FlexiblePageType.find(flexible_page_type)
     unless type_instance.validator.valid?(flexible_page_content)
       errors.add(:flexible_page_content, "does not conform to schema for the #{type_instance.label}.")
     end

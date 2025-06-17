@@ -27,5 +27,11 @@
       }
     },
     "required": ["page_title"]
+  },
+  "settings": {
+    "base_path_prefix": "/government/history",
+    "publishing_api_schema_name": "history",
+    "publishing_api_document_type": "history",
+    "rendering_app": "government-frontend"
   }
 }
