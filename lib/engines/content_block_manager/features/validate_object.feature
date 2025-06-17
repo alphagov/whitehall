@@ -3,9 +3,21 @@ Feature: Validating a content block
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
-    And a schema "pension" exists with the following fields:
-      | field         | type    | format | required |
-      | description   | string  |        | true     |
+    And a schema "pension" exists:
+    """
+    {
+       "type":"object",
+       "required":[
+          "description"
+       ],
+       "additionalProperties":false,
+       "properties":{
+          "description": {
+            "type": "string"
+          }
+       }
+    }
+    """
 
   Scenario: GDS editor sees validation errors when not selecting an object type
     When I visit the Content Block Manager home page
