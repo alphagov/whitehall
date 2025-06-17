@@ -20,7 +20,7 @@ class PolicyGroup < ApplicationRecord
   def extract_dependencies
     remove_all_dependencies
 
-    Govspeak::ContactsExtractor.new(description).contacts.uniq.each do |contact|
+    Govspeak::ContactsExtractor.new(description).valid_contacts.each do |contact|
       PolicyGroupDependency.create(
         policy_group_id: id,
         dependable_type: "Contact",
