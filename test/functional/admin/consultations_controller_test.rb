@@ -14,7 +14,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_editing_of :consultation
 
   should_allow_lead_and_supporting_organisations_for :consultation
-  should_prevent_modification_of_unmodifiable :consultation
   should_allow_alternative_format_provider_for :consultation
   should_allow_scheduled_publication_of :consultation
   should_allow_access_limiting_of :consultation

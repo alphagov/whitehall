@@ -40,7 +40,7 @@ end
 
 When(/^I replace the data file of the attachment in a new draft of the publication$/) do
   @old_edition = Publication.last
-  visit edit_admin_publication_path(@old_edition)
+  visit admin_publication_path(@old_edition)
   click_button "Create new edition"
   @new_edition = Publication.last
   click_on "Attachments"

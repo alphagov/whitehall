@@ -25,7 +25,7 @@ When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
 end
 
 When(/^I add an outcome to the consultation$/) do
-  visit edit_admin_consultation_path(Consultation.last)
+  visit admin_consultation_path(Consultation.last)
   click_button "Create new edition"
   click_link "Final outcome"
 
@@ -36,7 +36,7 @@ When(/^I add an outcome to the consultation$/) do
 end
 
 When(/^I add public feedback to the consultation$/) do
-  visit edit_admin_consultation_path(Consultation.last)
+  visit admin_consultation_path(Consultation.last)
   click_button "Create new edition"
   click_link "Public feedback"
 

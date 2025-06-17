@@ -753,32 +753,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_prevent_modification_of_unmodifiable(edition_type)
-      (Edition::UNMODIFIABLE_STATES - %w[deleted]).each do |state|
-        test "edit not allowed for #{state} #{edition_type}" do
-          edition = create(edition_type.to_s, state.to_s)
-
-          get :edit, params: { id: edition }
-
-          assert_redirected_to send("admin_#{edition_type}_path", edition)
-        end
-
-        test "update not allowed for #{state} #{edition_type}" do
-          edition = create(edition_type.to_s, state.to_s)
-
-          put :update,
-              params: {
-                id: edition,
-                edition: {
-                  title: "new-title",
-                },
-              }
-
-          assert_redirected_to send("admin_#{edition_type}_path", edition)
-        end
-      end
-    end
-
     def should_allow_overriding_of_first_published_at_for(edition_type)
       edition_class = class_for(edition_type)
 
@@ -831,6 +805,14 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_equal [current_user], edition.reload.recent_edition_openings.map(&:editor)
+      end
+
+      test "viewing a read-only edit form for an existing #{edition_type} should not record a RecentEditionOpening" do
+        published_edition = create("published_#{edition_type}")
+
+        get :edit, params: { id: published_edition }
+
+        assert_equal [], published_edition.reload.recent_edition_openings.map(&:editor)
       end
 
       view_test "should not see a warning when editing an edition that nobody has recently edited" do
