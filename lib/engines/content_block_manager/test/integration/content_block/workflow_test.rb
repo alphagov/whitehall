@@ -172,7 +172,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           assert_equal edition.reload.details["bar"], "Bar text"
         end
 
-        it "updates the block with an empty string if a details field is blank" do
+        it "updates the block with nil if a details field is blank" do
           put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:),
               params: {
                 "content_block/edition" => {
@@ -184,7 +184,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
                 },
               }
 
-          assert_equal edition.reload.details["foo"], ""
+          assert_nil edition.reload.details["foo"]
         end
 
         it "updates the block and redirects to the review page if editing a new block" do

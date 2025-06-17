@@ -43,13 +43,26 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
     schemer.validate(details)
   end
 
-private
-
-  def compact_nested(details)
-    details.compact_blank.map { |k, v| v.is_a?(Hash) ? [k, compact_nested(v)] : [k, v] }.to_h
+  def key_with_optional_prefix(error, key)
+    if error["data_pointer"].present?
+      keys = error["data_pointer"].split("/")
+      [
+        keys[1],
+        *keys[3..],
+        key,
+      ].compact.join("_")
+    else
+      key
+    end
   end
 
-  def key_with_optional_prefix(error, key)
-    error["data_pointer"].present? ? "#{error['data_pointer'].split('/')[1]}_#{key}" : key
+private
+
+  def compact_nested(object)
+    return object unless object.respond_to?(:compact_blank!)
+
+    object.compact_blank!
+    object.each { |o| compact_nested(o) }
+    object
   end
 end
