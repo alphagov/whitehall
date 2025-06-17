@@ -35,4 +35,14 @@ private
   def object_field_value(field)
     value ? field_value&.fetch(field) : nil
   end
+
+  def select_options(enum, value)
+    enum.map do |item|
+      {
+        text: item.humanize,
+        value: item,
+        selected: item == value,
+      }
+    end
+  end
 end
