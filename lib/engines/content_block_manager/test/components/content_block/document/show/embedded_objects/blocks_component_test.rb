@@ -41,21 +41,8 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
 
       assert_selector ".app-c-embedded-objects-blocks-component .govuk-summary-list__row", count: 2
 
-      assert_selector ".app-c-embedded-objects-blocks-component [data-testid='else_foo']" do |row|
-        row.assert_selector ".govuk-summary-list__key", text: "Foo"
-        row.assert_selector ".govuk-summary-list__value" do |col|
-          col.assert_selector ".app-c-embedded-objects-blocks-component__content", text: "bar"
-          col.assert_selector ".app-c-embedded-objects-blocks-component__embed-code", text: content_block_document.embed_code_for_field("#{object_type}/#{object_title}/foo")
-        end
-      end
-
-      assert_selector ".app-c-embedded-objects-blocks-component [data-testid='else_fizz']" do |row|
-        row.assert_selector ".govuk-summary-list__key", text: "Fizz"
-        row.assert_selector ".govuk-summary-list__value" do |col|
-          col.assert_selector ".app-c-embedded-objects-blocks-component__content", text: "buzz"
-          col.assert_selector ".app-c-embedded-objects-blocks-component__embed-code", text: content_block_document.embed_code_for_field("#{object_type}/#{object_title}/fizz")
-        end
-      end
+      expect_summary_list_row(test_id: "else_foo", key: "Foo", value: "bar", embed_code_suffix: "foo")
+      expect_summary_list_row(test_id: "else_fizz", key: "Fizz", value: "buzz", embed_code_suffix: "fizz")
     end
 
     it "adds the correct class to the wrapper" do
@@ -69,6 +56,56 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
       render_inline component
 
       refute_selector ".app-c-embedded-objects-blocks-component__details-wrapper"
+    end
+
+    describe "when items contain an array" do
+      let(:items) do
+        {
+          "things" => %w[foo bar],
+        }
+      end
+
+      it "renders a summary card" do
+        render_inline component
+
+        assert_selector ".app-c-embedded-objects-blocks-component .govuk-summary-list__row", count: 2
+
+        expect_summary_list_row(test_id: "else_things/0", key: "Thing 1", value: "foo", embed_code_suffix: "things/0")
+        expect_summary_list_row(test_id: "else_things/1", key: "Thing 2", value: "bar", embed_code_suffix: "things/1")
+      end
+    end
+
+    describe "when items contain an array of objects" do
+      let(:items) do
+        {
+          "things" => [
+            {
+              "title" => "Title 1",
+              "value" => "Value 1",
+            },
+            {
+              "title" => "Title 2",
+              "value" => "Value 2",
+            },
+          ],
+        }
+      end
+
+      it "renders a summary card" do
+        render_inline component
+
+        assert_selector ".app-c-embedded-objects-blocks-component .govuk-summary-list__row", count: 4
+
+        assert_selector ".gem-c-summary-card[title='Thing 1']" do |summary_card|
+          expect_summary_list_row(test_id: "else_things/0/title", key: "Title", value: "Title 1", embed_code_suffix: "things/0/title", parent_container: summary_card)
+          expect_summary_list_row(test_id: "else_things/0/value", key: "Value", value: "Value 1", embed_code_suffix: "things/0/value", parent_container: summary_card)
+        end
+
+        assert_selector ".gem-c-summary-card[title='Thing 2']" do |summary_card|
+          expect_summary_list_row(test_id: "else_things/1/title", key: "Title", value: "Title 2", embed_code_suffix: "things/1/title", parent_container: summary_card)
+          expect_summary_list_row(test_id: "else_things/1/value", key: "Value", value: "Value 2", embed_code_suffix: "things/1/value", parent_container: summary_card)
+        end
+      end
     end
   end
 
@@ -86,13 +123,8 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
 
       assert_selector ".app-c-embedded-objects-blocks-component .govuk-summary-card" do |wrapper|
         wrapper.assert_selector ".govuk-summary-list__row", count: 1
-        wrapper.assert_selector ".govuk-summary-list__row[data-testid='else']" do |row|
-          row.assert_selector ".govuk-summary-list__key", text: "Something"
-          row.assert_selector ".govuk-summary-list__value" do |col|
-            col.assert_selector ".app-c-embedded-objects-blocks-component__content", text: "BLOCK_RESPONSE"
-            col.assert_selector ".app-c-embedded-objects-blocks-component__embed-code", text: content_block_document.embed_code_for_field("#{object_type}/#{object_title}")
-          end
-        end
+
+        expect_summary_list_row(test_id: "else", key: "Something", value: "BLOCK_RESPONSE")
       end
     end
 
@@ -109,23 +141,23 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
           details.assert_selector ".app-c-embedded-objects-blocks-component__details-summary-list", visible: false do |summary_list|
             summary_list.assert_selector ".govuk-summary-list__row", count: 2, visible: false
 
-            summary_list.assert_selector ".govuk-summary-list__row[data-testid='else_foo']", visible: false do |row|
-              row.assert_selector ".govuk-summary-list__key", text: "Foo", visible: false
+            expect_summary_list_row(
+              test_id: "else_foo",
+              key: "Foo",
+              value: "bar",
+              embed_code_suffix: "foo",
+              visible: false,
+              parent_container: summary_list,
+            )
 
-              row.assert_selector ".govuk-summary-list__value", visible: false do |col|
-                col.assert_selector ".app-c-embedded-objects-blocks-component__content", text: "bar", visible: false
-                col.assert_selector ".app-c-embedded-objects-blocks-component__embed-code", text: content_block_document.embed_code_for_field("#{object_type}/#{object_title}/foo"), visible: false
-              end
-            end
-
-            summary_list.assert_selector ".govuk-summary-list__row[data-testid='else_fizz']", visible: false do |row|
-              row.assert_selector ".govuk-summary-list__key", text: "Fizz", visible: false
-
-              row.assert_selector ".govuk-summary-list__value", visible: false do |col|
-                col.assert_selector ".app-c-embedded-objects-blocks-component__content", text: "buzz", visible: false
-                col.assert_selector ".app-c-embedded-objects-blocks-component__embed-code", text: content_block_document.embed_code_for_field("#{object_type}/#{object_title}/fizz"), visible: false
-              end
-            end
+            expect_summary_list_row(
+              test_id: "else_fizz",
+              key: "Fizz",
+              value: "buzz",
+              embed_code_suffix: "fizz",
+              visible: false,
+              parent_container: summary_list,
+            )
           end
         end
       end
@@ -135,6 +167,120 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
       render_inline component
 
       assert_selector ".app-c-embedded-objects-blocks-component.app-c-embedded-objects-blocks-component--with-block"
+    end
+
+    describe "when items contain an array" do
+      let(:items) do
+        {
+          "things" => %w[foo bar],
+        }
+      end
+
+      it "renders a summary card" do
+        render_inline component
+
+        assert_selector ".app-c-embedded-objects-blocks-component__details-summary-list", visible: false do |summary_list|
+          summary_list.assert_selector ".govuk-summary-list__row", count: 2, visible: false
+
+          expect_summary_list_row(
+            test_id: "else_things/0",
+            key: "Thing 1",
+            value: "foo",
+            embed_code_suffix: "things/0",
+            visible: false,
+            parent_container: summary_list,
+          )
+
+          expect_summary_list_row(
+            test_id: "else_things/1",
+            key: "Thing 2",
+            value: "bar",
+            embed_code_suffix: "things/1",
+            visible: false,
+            parent_container: summary_list,
+          )
+        end
+      end
+    end
+
+    describe "when items contain an array of objects" do
+      let(:items) do
+        {
+          "things" => [
+            {
+              "title" => "Title 1",
+              "value" => "Value 1",
+            },
+            {
+              "title" => "Title 2",
+              "value" => "Value 2",
+            },
+          ],
+        }
+      end
+
+      it "renders a summary card" do
+        render_inline component
+
+        assert_selector ".app-c-embedded-objects-blocks-component__details-summary-list", visible: false do |summary_list|
+          summary_list.assert_selector ".gem-c-summary-card[title='Thing 1']", visible: false do |summary_card|
+            expect_summary_list_row(
+              test_id: "else_things/0/title",
+              key: "Title",
+              value: "Title 1",
+              embed_code_suffix: "things/0/title",
+              visible: false,
+              parent_container: summary_card,
+            )
+
+            expect_summary_list_row(
+              test_id: "else_things/0/value",
+              key: "Value",
+              value: "Value 1",
+              embed_code_suffix: "things/0/value",
+              visible: false,
+              parent_container: summary_card,
+            )
+          end
+
+          summary_list.assert_selector ".gem-c-summary-card[title='Thing 2']", visible: false do |summary_card|
+            expect_summary_list_row(
+              test_id: "else_things/1/title",
+              key: "Title",
+              value: "Title 2",
+              embed_code_suffix: "things/1/title",
+              visible: false,
+              parent_container: summary_card,
+            )
+
+            expect_summary_list_row(
+              test_id: "else_things/1/value",
+              key: "Value",
+              value: "Value 2",
+              embed_code_suffix: "things/1/value",
+              visible: false,
+              parent_container: summary_card,
+            )
+          end
+        end
+      end
+    end
+  end
+
+  def expect_summary_list_row(
+    test_id:,
+    key:,
+    value:,
+    embed_code_suffix: nil,
+    visible: true,
+    parent_container: page
+  )
+    parent_container.assert_selector "[data-testid='#{test_id}']", visible: visible do |row|
+      row.assert_selector ".govuk-summary-list__key", text: key, visible: visible
+      row.assert_selector ".govuk-summary-list__value", visible: visible do |col|
+        col.assert_selector ".app-c-embedded-objects-blocks-component__content", text: value, visible: visible
+        col.assert_selector ".app-c-embedded-objects-blocks-component__embed-code", text: content_block_document.embed_code_for_field([object_type, object_title, embed_code_suffix].compact.join("/")), visible: visible
+      end
     end
   end
 end

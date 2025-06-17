@@ -20,8 +20,9 @@ schemas:
       telephones:
         group: modes
         group_order: 2
+        embeddable_as_block: true
         embeddable_fields:
-          - telephone
+          - telephone_numbers
       addresses:
         group: modes
         group_order: 3

@@ -8,9 +8,11 @@
   }
 
   &--with-block {
-    .govuk-summary-card {
-      border-bottom: none;
-      margin-bottom: 0;
+    .app-c-embedded-objects-blocks-component__main-summary-card-wrapper {
+      .govuk-summary-card {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
     }
   }
 

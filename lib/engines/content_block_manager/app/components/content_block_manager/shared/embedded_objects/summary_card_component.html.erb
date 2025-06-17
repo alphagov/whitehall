@@ -1,5 +1,33 @@
-<%= render "govuk_publishing_components/components/summary_card", {
-  title:,
-  rows:,
-  summary_card_actions:,
-} %>
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      <%= title %>
+    </h2>
+    <ul class="govuk-summary-card__actions">
+      <% summary_card_actions.each do |action| %>
+        <li class="govuk-summary-card__action">
+          <a class="govuk-link" href="<%= action[:href] %>"><%= action[:label] %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="govuk-summary-card__content">
+    <%= render "govuk_publishing_components/components/summary_list", {
+      items: rows,
+    } %>
+
+    <% nested_items(items).each do |key, items| %>
+      <% if items.is_a?(Array) %>
+        <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent.with_collection(
+          items,
+          title: key.singularize.titleize,
+        ) %>
+      <% else %>
+        <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent.new(
+          nested_items: items,
+          title: key.singularize.titleize,
+        ) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
