@@ -1,10 +1,6 @@
 require "test_helper"
 
 class Admin::EditionsHelperTest < ActionView::TestCase
-  def govspeak_embedded_contacts(*_args)
-    []
-  end
-
   def current_user
     @user
   end
@@ -26,12 +22,16 @@ class Admin::EditionsHelperTest < ActionView::TestCase
   end
 
   test "warn_about_lack_of_contacts_in_body? says no if the edition is a press release and it has at least one contact embedded in the body" do
-    stubs(:govspeak_embedded_contacts).returns([build(:contact)])
-    assert_not warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: NewsArticleType::PressRelease))
+    contact = create(:contact)
+    assert_not warn_about_lack_of_contacts_in_body?(
+      NewsArticle.new(
+        news_article_type: NewsArticleType::PressRelease,
+        body: "[Contact:#{contact.id}]",
+      ),
+    )
   end
 
   test "warn_about_lack_of_contacts_in_body? says yes if the edition is a press release and it has at no contacts embedded in the body" do
-    stubs(:govspeak_embedded_contacts).returns([])
     assert warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: NewsArticleType::PressRelease))
   end
 

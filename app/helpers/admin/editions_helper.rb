@@ -141,7 +141,7 @@ module Admin::EditionsHelper
 
   def warn_about_lack_of_contacts_in_body?(edition)
     if edition.is_a?(NewsArticle) && edition.news_article_type == NewsArticleType::PressRelease
-      govspeak_embedded_contacts(edition.body).empty?
+      Govspeak::ContactsExtractor.new(edition.body).valid_contacts.empty?
     else
       false
     end
