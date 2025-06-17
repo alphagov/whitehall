@@ -38,9 +38,10 @@ module GovspeakHelper
   def govspeak_html_attachment_to_html(html_attachment)
     # HTML attachments can embed images - but not attachments - from their parent Edition
     images = prepare_images(html_attachment.attachable.try(:images) || [])
+    locale = html_attachment.translated_locales.first
 
     heading_numbering = html_attachment.manually_numbered_headings? ? :manual : :auto
-    options = { heading_numbering:, contact_heading_tag: "h4" }
+    options = { heading_numbering:, locale:, contact_heading_tag: "h4" }
 
     wrapped_in_govspeak_div(bare_govspeak_to_html(html_attachment.body, images, [], options))
   end
@@ -113,7 +114,9 @@ module GovspeakHelper
     govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
 
-    markup_to_nokogiri_doc(govspeak, images, attachments)
+    locale = options[:locale]
+
+    markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
@@ -240,8 +243,8 @@ private
     nokogiri_el.inner_text[/^\d+.?[^\s]*/]
   end
 
-  def markup_to_nokogiri_doc(govspeak, images = [], attachments = [])
-    govspeak = build_govspeak_document(govspeak, images, attachments)
+  def markup_to_nokogiri_doc(govspeak, images = [], attachments = [], options = {})
+    govspeak = build_govspeak_document(govspeak, images, attachments, options)
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(govspeak.to_html)
@@ -268,12 +271,15 @@ private
     end
   end
 
-  def build_govspeak_document(govspeak, images = [], attachments = [])
+  def build_govspeak_document(govspeak, images = [], attachments = [], options = {})
+    locale = options[:locale]
+
     Govspeak::Document.new(
       govspeak,
       images:,
       attachments:,
       document_domains: [Whitehall.admin_host, Whitehall.public_host],
+      locale:,
     )
   end
 end
