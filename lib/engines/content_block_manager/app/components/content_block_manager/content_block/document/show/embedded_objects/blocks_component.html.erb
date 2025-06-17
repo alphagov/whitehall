@@ -1,8 +1,10 @@
 <%= tag.div(class: component_classes) do %>
-  <%= render "govuk_publishing_components/components/summary_card", {
-    title: "Content blocks",
-    rows: summary_card_rows,
-  } %>
+  <div class="app-c-embedded-objects-blocks-component__main-summary-card-wrapper">
+    <%= render "govuk_publishing_components/components/summary_card", {
+      title: "Content blocks",
+      rows: summary_card_rows,
+    } %>
+  </div>
 
   <% if !schema.embeddable_as_block? %>
     <% nested_blocks.each do |args| %>
