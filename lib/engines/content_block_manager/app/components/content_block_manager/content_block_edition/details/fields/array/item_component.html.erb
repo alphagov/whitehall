@@ -1,21 +1,41 @@
 <% if array_items["type"] == "string" %>
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: field_name.humanize,
-    },
-    name:,
-    id:,
-    value: field_value,
-  } %>
-<% elsif array_items["type"] == "object" %>
-  <% array_items["properties"].keys.each do |field| %>
+  <% if array_items["enum"] %>
+    <%= render "govuk_publishing_components/components/select", {
+      label: field_name.humanize,
+      name:,
+      id:,
+      options: select_options(array_items["enum"], value),
+    } %>
+  <% else %>
     <%= render "govuk_publishing_components/components/input", {
       label: {
-        text: field.humanize,
+        text: field_name.humanize,
       },
-      name: object_field_name(field),
-      id: object_field_id(field),
-      value: object_field_value(field),
+      name:,
+      id:,
+      value: field_value,
     } %>
+  <% end %>
+<% elsif array_items["type"] == "object" %>
+  <% array_items["properties"].keys.each do |field| %>
+    <% properties = array_items["properties"][field] %>
+    <% if properties["enum"] %>
+      <%= render "govuk_publishing_components/components/select", {
+        label: field.humanize,
+        name: object_field_name(field),
+        id: object_field_id(field),
+        options: select_options(properties["enum"], object_field_value(field)),
+        full_width: true,
+      } %>
+    <% else %>
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: field.humanize,
+        },
+        name: object_field_name(field),
+        id: object_field_id(field),
+        value: object_field_value(field),
+      } %>
+    <% end %>
   <% end %>
 <% end %>
