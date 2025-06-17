@@ -1,4 +1,8 @@
 class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::SummaryListHelper
+
+  delegate :document, to: :content_block_edition
+
   def initialize(content_block_edition:, object_type:, object_title:, redirect_url: nil)
     @content_block_edition = content_block_edition
     @object_type = object_type
@@ -14,26 +18,22 @@ private
     "#{object_type.titleize.singularize} details"
   end
 
-  def rows
+  def items
     schema.fields.map { |field|
-      key = field.name
-      rows = [
-        {
-          key: key.titleize,
-          value: object[key],
-          data: data_attributes_for_row(key),
-        },
-      ]
-      rows
-    }.flatten
+      [field.name, object[field.name]]
+    }.to_h
   end
 
-  def data_attributes_for_row(key)
-    attributes = {
-      testid: (object_title.parameterize + "_#{key}").underscore,
-    }
-    attributes
-  end
+  def rows
+    first_class_items(items).map do |key, value|
+      {
+        field: key_to_title(key),
+        value:,
+        data: {
+          testid: [object_title.parameterize, key].compact.join("_").underscore,
+        },
+      }
+    end
   end
 
   def embeddable_fields
@@ -41,7 +41,7 @@ private
   end
 
   def object
-    content_block_edition.details.dig(object_type, object_title)
+    @object ||= content_block_edition.details.dig(object_type, object_title)
   end
 
   def schema
