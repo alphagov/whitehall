@@ -995,6 +995,8 @@ GEM
     string_pattern (2.3.0)
       regexp_parser (~> 2.5, >= 2.5.0)
     stringio (3.1.7)
+    strong_migrations (2.3.0)
+      activerecord (>= 7)
     sync (0.5.0)
     sys-uname (1.3.1)
       ffi (~> 1.1)
@@ -1138,6 +1140,7 @@ DEPENDENCIES
   sidekiq-scheduler
   simplecov
   sprockets-rails
+  strong_migrations
   terser
   timecop
   transitions
