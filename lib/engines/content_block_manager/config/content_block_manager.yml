@@ -11,6 +11,10 @@ schemas:
           - description
   content_block_contact:
     embeddable_as_block: true
+    field_order:
+      - title
+      - description
+      - contact_type
     subschemas:
       email_addresses:
         group: modes
