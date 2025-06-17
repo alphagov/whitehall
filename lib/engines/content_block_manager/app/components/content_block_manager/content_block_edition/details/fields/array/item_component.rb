@@ -1,16 +1,20 @@
 class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComponent < ViewComponent::Base
-  def initialize(field_name:, array_items:, name_prefix:, id_prefix:, value:, index:)
+  include ErrorsHelper
+
+  def initialize(field_name:, array_items:, name_prefix:, id_prefix:, value:, index:, errors:, error_lookup_prefix:)
     @field_name = field_name
     @array_items = array_items
     @name_prefix = name_prefix
     @id_prefix = id_prefix
     @value = value
     @index = index
+    @errors = errors
+    @error_lookup_prefix = error_lookup_prefix
   end
 
 private
 
-  attr_reader :field_name, :array_items, :name_prefix, :id_prefix, :value, :index
+  attr_reader :field_name, :array_items, :name_prefix, :id_prefix, :value, :index, :errors, :error_lookup_prefix
 
   def name
     "#{name_prefix}[]"
@@ -22,6 +26,14 @@ private
 
   def field_value
     value[index]
+  end
+
+  def error_items(field = nil)
+    errors_for(errors, [error_lookup_prefix, index, field].compact.join("_").to_sym)
+  end
+
+  def select_error_message(field = nil)
+    error_items(field)&.first&.fetch(:text)
   end
 
   def object_field_name(field)

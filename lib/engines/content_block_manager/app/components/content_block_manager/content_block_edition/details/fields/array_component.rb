@@ -31,6 +31,12 @@ private
       id_prefix: id,
       value: value,
       index: index,
+      errors:,
+      error_lookup_prefix: "details_#{id_suffix}",
     )
+  end
+
+  def errors
+    content_block_edition.errors
   end
 end

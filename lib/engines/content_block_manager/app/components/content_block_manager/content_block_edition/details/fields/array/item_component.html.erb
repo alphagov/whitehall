@@ -5,6 +5,7 @@
       name:,
       id:,
       options: select_options(array_items["enum"], value),
+      error_message: select_error_message,
     } %>
   <% else %>
     <%= render "govuk_publishing_components/components/input", {
@@ -14,6 +15,7 @@
       name:,
       id:,
       value: field_value,
+      error_items:,
     } %>
   <% end %>
 <% elsif array_items["type"] == "object" %>
@@ -26,6 +28,7 @@
         id: object_field_id(field),
         options: select_options(properties["enum"], object_field_value(field)),
         full_width: true,
+        error_message: select_error_message(field),
       } %>
     <% else %>
       <%= render "govuk_publishing_components/components/input", {
@@ -35,6 +38,7 @@
         name: object_field_name(field),
         id: object_field_id(field),
         value: object_field_value(field),
+        error_items: error_items(field),
       } %>
     <% end %>
   <% end %>
