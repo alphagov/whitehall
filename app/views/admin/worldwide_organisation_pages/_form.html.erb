@@ -37,7 +37,7 @@
       error_items: errors_for(form.object.errors, :summary),
     },
     id: "worldwide_organisation_page_summary",
-    maxlength: 160,
+    maxlength: MaxLengths::SUMMARY,
   } %>
 
   <%= render "components/govspeak_editor", {

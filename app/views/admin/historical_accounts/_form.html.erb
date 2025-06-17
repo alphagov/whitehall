@@ -13,7 +13,7 @@
           error_items: errors_for(historical_account.errors, :summary),
         },
         id: "historical_account_summary",
-        maxlength: 160,
+        maxlength: MaxLengths::SUMMARY,
       } %>
 
       <%= render "components/select_with_search", {
