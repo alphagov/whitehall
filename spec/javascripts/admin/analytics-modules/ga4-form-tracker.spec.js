@@ -84,6 +84,31 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormTracker', function () {
       )
     })
 
+    it('should track input with a value containing newlines', () => {
+      createFormAndSetup(container, 'text')
+
+      mockGa4SendData.calls.reset()
+
+      const text = container.querySelector('input[type="text"]')
+      const index = text.closest('[data-ga4-index]')
+
+      text.value = `this is a value
+
+        with a new line
+      `
+      text.dispatchEvent(new Event('change', { bubbles: true }))
+
+      expect(mockGa4SendData).toHaveBeenCalledWith(
+        {
+          ...expectedAttributes,
+          text: 'this is a value        with a new line      ',
+          ...JSON.parse(index.dataset.ga4Index),
+          action: 'select'
+        },
+        'event_data'
+      )
+    })
+
     it('when a checkbox is deselected', () => {
       createFormAndSetup(container, 'checkbox')
 

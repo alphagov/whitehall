@@ -94,7 +94,12 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     if (type === 'search') return
 
     const index = this.getJson(target, 'data-ga4-index')
-    const value = (event.detail && event.detail.value) || target.value
+    let value = (event.detail && event.detail.value) || target.value
+
+    if (typeof value === 'string') {
+      // remove newlines
+      value = value.replace(/[\n\r]/g, ' ')
+    }
 
     // a radio or check input with a `name` and `value`
     // or an option of `value` within a `select` with `name`
