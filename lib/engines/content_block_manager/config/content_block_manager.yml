@@ -1,5 +1,9 @@
 schemas:
   content_block_pension:
+    fields:
+      description:
+        component:
+          textarea
     subschemas:
       rates:
         embeddable_fields:
@@ -11,6 +15,14 @@ schemas:
           - description
   content_block_contact:
     embeddable_as_block: true
+    field_order:
+      - title
+      - description
+      - contact_type
+    fields:
+      description:
+        component:
+          textarea
     subschemas:
       email_addresses:
         group: modes
