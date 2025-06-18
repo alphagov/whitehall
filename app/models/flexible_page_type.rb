@@ -41,4 +41,8 @@ class FlexiblePageType
   def validator
     JSONSchemer.schema(@schema)
   end
+
+  def publishing_api_payload_builder(page_content)
+    PublishingApi::PayloadBuilder::FlexiblePageContent.new(@schema, page_content)
+  end
 end
