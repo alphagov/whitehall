@@ -14,9 +14,10 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
   end
 
   let(:edition) { create(:content_block_edition, :pension, details: { "something" => { "embedded" => { "title" => "Embedded", "is" => "here" } } }) }
+  let(:group) { nil }
 
   let(:stub_schema) { stub("schema", body: [], name: "Schema") }
-  let(:stub_subschema) { stub("subschema", name: "Something", block_type: object_type, fields: [], permitted_params: %w[title is], id: "something") }
+  let(:stub_subschema) { stub("subschema", name: "Something", block_type: object_type, fields: [], permitted_params: %w[title is], id: "something", group:) }
 
   let(:object_type) { "something" }
 
@@ -58,6 +59,30 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
         },
       }
       assert_equal "Something added. You can add another something or finish creating the schema block.", flash[:notice]
+    end
+
+    describe "when the subschema belongs to a group" do
+      let(:group) { "some_group" }
+
+      it "should redirect to the group step" do
+        post content_block_manager.create_embedded_object_content_block_manager_content_block_edition_path(
+          edition,
+          object_type:,
+        ), params: {
+          "content_block/edition" => {
+            details: {
+              object_type => {
+                "title" => "New Thing",
+                "is" => "something",
+              },
+            },
+          },
+        }
+
+        assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(
+          edition, step: "#{Workflow::Step::GROUP_PREFIX}#{group}"
+        )
+      end
     end
   end
 

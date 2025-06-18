@@ -89,7 +89,7 @@ private
   end
 
   def embedded_objects_path
-    step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
+    step = @subschema.group ? "#{Workflow::Step::GROUP_PREFIX}#{@subschema.group}" : "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
     content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
   end
 end
