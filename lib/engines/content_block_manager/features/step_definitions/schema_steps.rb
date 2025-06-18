@@ -48,11 +48,13 @@ And("a schema {string} exists:") do |block_type, json|
 end
 
 And("the schema has a subschema {string}:") do |subschema_name, json|
+  @subschemas ||= {}
+  @subschemas[subschema_name] = JSON.parse(json)
   @schema.body["properties"][subschema_name] = {
     "type" => "object",
     "patternProperties" => {
-      "^[a-z0-9]+(?:-[a-z0-9]+)*$" => JSON.parse(json)
-    }
+      "^[a-z0-9]+(?:-[a-z0-9]+)*$" => @subschemas[subschema_name],
+    },
   }
   @schema = build(:content_block_schema, block_type: @schema.block_type, body: @schema.body)
   @schemas[@schema.block_type] = @schema
