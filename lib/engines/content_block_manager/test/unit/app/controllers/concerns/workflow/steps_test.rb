@@ -133,8 +133,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
   describe "when a schema has subschemas" do
     let(:subschemas) do
       [
-        stub("subschema", id: "something"),
-        stub("subschema", id: "something_else"),
+        stub("subschema", id: "something", group: nil),
+        stub("subschema", id: "something_else", group: nil),
       ]
     end
 
