@@ -286,8 +286,6 @@ Whitehall::Application.routes.draw do
         end
       end
 
-      resources :suggestions, only: [:index]
-
       resources :publications, except: [:index]
 
       resources :flexible_pages, path: "flexible-pages", except: [:index] do
