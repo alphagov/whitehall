@@ -12,10 +12,13 @@ module Workflow::ShowMethods
     render :edit_draft
   end
 
-  # This handles the optional embedded objects in the flow, delegating to `embedded_objects`
+  # This handles the optional embedded objects and groups in the flow, delegating to `embedded_objects`
+  # or `embedded_group_objects` as appropriate
   def method_missing(method_name, *arguments, &block)
     if method_name.to_s =~ /#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
       embedded_objects(::Regexp.last_match(1))
+    elsif method_name.to_s =~ /#{Workflow::Step::GROUP_PREFIX}(.*)/
+      group_objects(::Regexp.last_match(1))
     else
       super
     end
@@ -102,6 +105,19 @@ private
       render :embedded_objects
     else
       raise ActionController::RoutingError, "Subschema #{subschema_name} does not exist"
+    end
+  end
+
+  def group_objects(group_name)
+    @group_name = group_name
+    @subschemas = @schema.subschemas_for_group(group_name)
+    @step_name = current_step.name
+    @action = @content_block_edition.document.is_new_block? ? "Add" : "Edit"
+
+    if @subschemas.any?
+      render :group_objects
+    else
+      raise ActionController::RoutingError, "Subschema group #{group_name} does not exist"
     end
   end
 
