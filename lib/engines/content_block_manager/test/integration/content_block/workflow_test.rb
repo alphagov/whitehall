@@ -97,8 +97,14 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
       let!(:schema) { stub_request_for_schema("pension", subschemas:) }
 
       describe "#show" do
-        it "shows the embedded_objects step" do
-          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+        it "shows the form for the first subschema" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+          assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+        end
+
+        it "shows the form for the second subschema" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
           assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
         end
@@ -107,19 +113,24 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           let(:details) { { subschema_1: { existing_subschema: { name: "existing subschema" } } } }
           let(:edition) { create(:content_block_edition, document:, details:, organisation:, instructions_to_publishers: "instructions", title: "Some Edition Title") }
 
-          it "shows the existing block and how to add other embedded blocks" do
-            visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+          it "shows the existing block and how to add another embedded block" do
+            visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
 
             assert_text "existing subschema"
             assert_text "Add another subschema 1"
-            assert_text "Add another subschema 2"
           end
         end
       end
 
       describe "#update" do
+        it "redirects to the second subschema" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :embedded_subschema_2)
+        end
+
         it "redirects to the review page" do
-          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
           assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
         end
@@ -364,16 +375,28 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         end
 
         describe "#show" do
-          it "renders the embedded objects template" do
-            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+          it "shows the form for the first subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+          end
+
+          it "shows the form for the second subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
             assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
           end
         end
 
         describe "#update" do
+          it "redirects to the second subschema" do
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :embedded_subschema_2)
+          end
+
           it "redirects to review links" do
-            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
             assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
           end

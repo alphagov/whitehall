@@ -42,7 +42,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       }
 
       assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(
-        edition, step: :embedded_objects
+        edition, step: "#{Workflow::Step::SUBSCHEMA_PREFIX}#{object_type}"
       )
 
       updated_edition = edition.reload
@@ -57,7 +57,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
           },
         },
       }
-      assert_equal "Something added. You can add more items or finish creating the schema block.", flash[:notice]
+      assert_equal "Something added. You can add another something or finish creating the schema block.", flash[:notice]
     end
   end
 
@@ -158,7 +158,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
       }
 
       assert_redirected_to content_block_manager.content_block_manager_content_block_documents_path
-      assert_equal "Something edited. You can edit more items or finish creating the schema block.", flash[:notice]
+      assert_equal "Something edited. You can add another something or finish creating the schema block.", flash[:notice]
     end
 
     it "should not rename the object if a new title is given" do

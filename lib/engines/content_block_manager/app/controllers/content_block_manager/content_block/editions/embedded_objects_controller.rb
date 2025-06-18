@@ -89,6 +89,7 @@ private
   end
 
   def embedded_objects_path
-    content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: :embedded_objects)
+    step = "#{Workflow::Step::SUBSCHEMA_PREFIX}#{@subschema.id}"
+    content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step:)
   end
 end

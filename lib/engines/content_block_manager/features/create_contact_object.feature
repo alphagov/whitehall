@@ -81,6 +81,7 @@ Feature: Create a contact object
 
   Scenario: GDS editor creates a Contact without any embedded objects
     When I save and continue
+    And I save and continue
     Then I am asked to review my answers for a "contact"
     And I review and confirm my answers are correct
     Then the edition should have been created successfully
@@ -92,6 +93,7 @@ Feature: Create a contact object
     And I complete the "email_address" form with the following fields:
       | title     | email_address          |
       | New email | foo@example.com        |
+    And I save and continue
     When I click to add a new "telephone"
     And I fill in the "telephone" form with the following fields:
       | title            |
@@ -111,8 +113,9 @@ Feature: Create a contact object
 
   @javascript
   Scenario: GDS editor sees errors for invalid telephone objects
-    When I click to add a new "telephone"
-    And I save and continue
+    When I save and continue
+    And I click to add a new "telephone"
+    When I save and continue
     Then I should see errors for the required nested "telephone_number" fields
 
   Scenario: GDS editor edits answers during creation of an object
@@ -121,10 +124,12 @@ Feature: Create a contact object
       | title     | email_address          |
       | New email | foo@example.com        |
     And I save and continue
+    And I save and continue
     When I click the first edit link
     And I complete the form with the following fields:
       | title            |
       | New email 2 |
+    And I save and continue
     And I save and continue
     Then I am asked to review my answers
     And I confirm my answers are correct
