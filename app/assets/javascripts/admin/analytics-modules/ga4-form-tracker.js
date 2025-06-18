@@ -22,7 +22,11 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     }
   }
 
-  Ga4FormTracker.prototype.getSection = function (target) {
+  Ga4FormTracker.prototype.parentDateComponent = function (target) {
+    return target.closest('.govuk-date-input')
+  }
+
+  Ga4FormTracker.prototype.getSection = function (target, checkableValue) {
     const { id } = target
     const form =
       window.GOVUK.analyticsGa4.core.trackFunctions.findTrackingAttributes(
@@ -31,14 +35,24 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
       )
     const fieldset = target.closest('fieldset')
     const sectionContainer = form.closest('[data-ga4-section]')
+    const label = form.querySelector(`label[for='${id}']`)
+    const parentDateComponent = this.parentDateComponent(target)
 
     let section = sectionContainer && sectionContainer.dataset.ga4Section
 
     if (fieldset) {
       const legend = fieldset.querySelector('legend')
-      section = legend ? legend.innerText : section
+
+      // the date component submits several inputs as one
+      // event, so we don't want to include the label of
+      // the last interacted with input in the section
+      if (checkableValue || parentDateComponent) {
+        section = legend ? legend.innerText : section
+      } else {
+        section =
+          legend && label ? `${legend.innerText} - ${label.innerText}` : section
+      }
     } else {
-      const label = form.querySelector(`label[for='${id}']`)
       section = label ? label.innerText : section
     }
 
@@ -72,13 +86,20 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
 
     if (!form) return
 
+    if (!form.hasAttribute('data-ga4-form-change-tracking')) return
+
     const target = event.target
     const { type, name, id } = target
 
     if (type === 'search') return
 
     const index = this.getJson(target, 'data-ga4-index')
-    const value = (event.detail && event.detail.value) || target.value
+    let value = (event.detail && event.detail.value) || target.value
+
+    if (typeof value === 'string') {
+      // remove newlines
+      value = value.replace(/[\n\r]/g, ' ')
+    }
 
     // a radio or check input with a `name` and `value`
     // or an option of `value` within a `select` with `name`
@@ -111,7 +132,7 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
       {
         ...index,
-        section: this.getSection(target),
+        section: this.getSection(target, checkableValue),
         event_name: 'select_content',
         action,
         text
@@ -123,7 +144,8 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
   // we need to override the default `startModule`
   // to add a listener to track changes to the form
   Ga4FormTracker.prototype.startModule = function () {
-    this.module.addEventListener('submit', this.trackFormSubmit.bind(this))
     this.module.addEventListener('change', this.trackFormChange.bind(this))
+
+    this.module.addEventListener('submit', this.trackFormSubmit.bind(this))
   }
 })(window.GOVUK.Modules.Ga4FormTracker)

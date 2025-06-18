@@ -44,6 +44,27 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
       expect(JSON.parse(ga4Form)).toEqual(expectedDefaults)
     })
 
+    it('adds the `data-ga4-form-change-tracking` attribute if no tracked components', () => {
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      const ga4FormChangeTracking = form.dataset.ga4FormChangeTracking
+
+      expect(ga4FormChangeTracking).toBeDefined()
+    })
+
+    it('does not add the `data-ga4-form-change-tracking` attribute if tracked components', () => {
+      const trackedComponent =
+        GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.trackedComponents[0]
+
+      form.querySelector('input').dataset.module = `${trackedComponent}`
+
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      const ga4FormChangeTracking = form.dataset.ga4FormChangeTracking
+
+      expect(ga4FormChangeTracking).not.toBeDefined()
+    })
+
     it('updates the `data-ga4-form` attribute on submit', () => {
       const secondSubmitButton = submitButton.cloneNode()
       secondSubmitButton.innerHTML = 'Save and continue'

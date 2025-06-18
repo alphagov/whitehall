@@ -63,6 +63,52 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormTracker', function () {
       })
     })
 
+    it('when a labelled field within a fieldset is changed', () => {
+      createFormAndSetup(container, 'addAnotherFieldSet')
+
+      mockGa4SendData.calls.reset()
+
+      const text = container.querySelector('input[type="text"]')
+      const index = text.closest('[data-ga4-index]')
+
+      form.triggerChange(`input`)
+
+      expect(mockGa4SendData).toHaveBeenCalledWith(
+        {
+          ...expectedAttributes,
+          section: `${Form.formDefaultOptions.legend} - ${Form.formDefaultOptions.label}`,
+          ...JSON.parse(index.dataset.ga4Index),
+          action: 'select'
+        },
+        'event_data'
+      )
+    })
+
+    it('should track input with a value containing newlines', () => {
+      createFormAndSetup(container, 'text')
+
+      mockGa4SendData.calls.reset()
+
+      const text = container.querySelector('input[type="text"]')
+      const index = text.closest('[data-ga4-index]')
+
+      text.value = `this is a value
+
+        with a new line
+      `
+      text.dispatchEvent(new Event('change', { bubbles: true }))
+
+      expect(mockGa4SendData).toHaveBeenCalledWith(
+        {
+          ...expectedAttributes,
+          text: 'this is a value        with a new line      ',
+          ...JSON.parse(index.dataset.ga4Index),
+          action: 'select'
+        },
+        'event_data'
+      )
+    })
+
     it('when a checkbox is deselected', () => {
       createFormAndSetup(container, 'checkbox')
 
@@ -156,6 +202,47 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormTracker', function () {
           'event_data'
         )
       })
+    })
+
+    afterEach(() => {
+      container.innerHTML = ''
+    })
+  })
+
+  describe('if form has no `data-ga4-form-change-tracking`', () => {
+    beforeEach(() => {
+      mockGa4SendData = spyOn(
+        window.GOVUK.analyticsGa4.core,
+        'applySchemaAndSendData'
+      )
+    })
+
+    it('does not track changes', () => {
+      form = new Form(['text'])
+
+      form.appendToParent(container)
+
+      const trackedComponent =
+        GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.trackedComponents[0]
+      form.querySelector('input').dataset.module = `${trackedComponent}`
+
+      GOVUK.analyticsGa4.analyticsModules.Ga4IndexSectionSetup.init()
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      const index = form
+        .querySelector(`input[type="text"]`)
+        .closest('[data-ga4-index]')
+
+      form.triggerChange(`input[type="text"]`)
+
+      expect(mockGa4SendData).not.toHaveBeenCalledWith(
+        {
+          ...expectedAttributes,
+          ...JSON.parse(index.dataset.ga4Index),
+          action: 'select'
+        },
+        'event_data'
+      )
     })
 
     afterEach(() => {

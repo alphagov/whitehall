@@ -2,6 +2,19 @@
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
+  const addAnotherFieldSet = (options) => {
+    const { legend, label } = options
+    const el = document.createElement('div')
+    el.innerHTML = `
+      <fieldset>
+      <legend>${legend}</legend>
+      <label for="text-input">${label}</label>
+      <input id="text-input" name="text-input" type="text">
+      </fieldset>
+    `
+    return el
+  }
+
   const date = (options) => {
     const { legend } = options
     const el = document.createElement('div')
@@ -10,17 +23,20 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       <legend>${legend}</legend>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
-          <input class="gem-c-input govuk-input govuk-input--width-4" name="day" type="text">
+          <label for="day" class="gem-c-label govuk-label">Day</label>
+          <input class="gem-c-input govuk-input govuk-input--width-4" id="day" name="day" type="text">
         </div>
       </div>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
-          <input class="gem-c-input govuk-input govuk-input--width-4" name="month" type="text">
+          <label for="month" class="gem-c-label govuk-label">Month</label>
+          <input class="gem-c-input govuk-input govuk-input--width-4" name="month" id="month" type="text">
         </div>
       </div>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
-          <input class="gem-c-input govuk-input govuk-input--width-4" name="year" type="text">
+          <label for="year" class="gem-c-label govuk-label">Year</label>
+          <input class="gem-c-input govuk-input govuk-input--width-4" name="year" id="year" type="text">
         </div>
       </div>
       </fieldset>
@@ -106,7 +122,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     textarea,
     radio,
     select,
-    'select-multiple': selectMultiple
+    'select-multiple': selectMultiple,
+    addAnotherFieldSet
   }
 
   class Form {
