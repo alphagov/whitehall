@@ -3,14 +3,44 @@ Feature: Create an embedded content object
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
-    And a schema "pension" exists with the following fields:
-      | field         | type   | format | required |
-      | description   | string | string | true     |
-    And the schema "pension" has a subschema with the name "rates" and the following fields:
-      | field     | type   | format | required | enum           | pattern          |
-      | title     | string | string | true     |                |                  |
-      | amount    | string | string | true     |                | £[0-9]+\\.[0-9]+ |
-      | frequency | string | string |          | a week,a month |                  |
+    And a schema "pension" exists:
+    """
+    {
+       "type":"object",
+       "required":[
+          "description"
+       ],
+       "additionalProperties":false,
+       "properties":{
+          "description": {
+            "type": "string"
+          }
+       }
+    }
+    """
+    And the schema has a subschema "rates":
+    """
+    {
+      "type":"object",
+      "required": ["title", "amount"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string",
+          "pattern": "£[0-9]+\\.[0-9]+"
+        },
+        "frequency": {
+          "type": "string",
+          "enum": [
+            "a week",
+            "a month"
+          ]
+        }
+      }
+    }
+    """
     And a pension content block has been created
 
   Scenario: GDS editor creates a rate

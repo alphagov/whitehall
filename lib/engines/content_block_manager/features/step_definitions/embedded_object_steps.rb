@@ -1,3 +1,5 @@
+require_relative "../support/form_step_helpers"
+
 When("I visit the page to create a new {string} for the block") do |object_type|
   visit content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
     document_id: @content_block.document.id,
@@ -14,19 +16,34 @@ Then("I should see confirmation that my {string} has been created") do |object_t
 end
 
 When("I complete the {string} form with the following fields:") do |object_type, table|
-  fields = table.hashes.first
-  @details = fields
-  @object_title ||= @details["title"].parameterize
-  fields.keys.each do |k|
-    field = find_field "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}"
-    if field.tag_name == "select"
-      select @details[k], from: field[:id]
-    else
-      fill_in field[:id], with: @details[k]
-    end
-  end
+  fill_in_embedded_object_form(object_type, table)
 
   click_save_and_continue
+end
+
+And("I fill in the {string} form with the following fields:") do |object_type, table|
+  @object_type = object_type
+  fill_in_embedded_object_form(object_type, table)
+end
+
+And("I add the following {string} to the form:") do |item_type, table|
+  fields = table.hashes
+  fields.each do |row|
+    field_prefix = "content_block/edition[details][#{@object_type.pluralize}][#{item_type}][]"
+
+    row.each do |key, value|
+      within all(".js-add-another__fieldset").last do
+        field = page.all(:css, "[name='#{field_prefix}[#{key}]']").last
+        if field.tag_name == "select"
+          select value, from: field[:id]
+        else
+          fill_in field[:id], with: value
+        end
+      end
+    end
+
+    click_on "Add a #{item_type.humanize.singularize}" unless row == fields.last
+  end
 end
 
 Then("I should be asked to review my {string}") do |object_type|
@@ -57,6 +74,14 @@ Then("I should see errors for the required {string} fields") do |object_type|
   end
 end
 
+Then("I should see errors for the required nested {string} fields") do |nested_object_name|
+  subschema = @subschemas[@object_type.pluralize]
+  required_fields = subschema.dig("properties", nested_object_name.pluralize, "items", "required")
+  required_fields.each do |required_field|
+    assert_text "#{ContentBlockManager::ContentBlock::Edition.human_attribute_name("details_#{required_field}")} cannot be blank", minimum: 2
+  end
+end
+
 And("I should see details of my {string}") do |object_type|
   within "div[data-testid='#{object_type.pluralize}_listing']" do
     @details.keys.each do |k|
@@ -66,6 +91,7 @@ And("I should see details of my {string}") do |object_type|
 end
 
 And("I click to add a new {string}") do |object_type|
+  @object_type = object_type
   click_on "Add #{add_indefinite_article object_type.humanize.downcase}"
 end
 

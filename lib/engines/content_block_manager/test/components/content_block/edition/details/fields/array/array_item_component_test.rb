@@ -11,7 +11,17 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
       id_prefix:,
       value: field_value,
       index:,
+      errors:,
+      error_lookup_prefix:,
     )
+  end
+
+  let(:errors) { stub(:errors) }
+  let(:error_lookup_prefix) { "foo_bar" }
+  let(:errors_for_field) { [] }
+
+  before do
+    component.stubs(:errors_for).returns(errors_for_field)
   end
 
   describe "if the array item is a string" do
@@ -27,6 +37,24 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
 
       assert_selector "label", text: "Bar"
       assert_selector "input[type='text'][value='Some text'][name='foo[bar][]'][id='foo_bar_1']"
+    end
+
+    describe "when error messages are present" do
+      let(:errors_for_field) do
+        [{ text: "Bar cannot be blank" }]
+      end
+
+      before do
+        component.expects(:errors_for).with(errors, "#{error_lookup_prefix}_#{index}".to_sym).returns(errors_for_field)
+      end
+
+      it "renders an error" do
+        render_inline(component)
+
+        assert_selector ".govuk-form-group--error" do |form_group|
+          form_group.assert_selector ".govuk-error-message", text: "Bar cannot be blank"
+        end
+      end
     end
   end
 
@@ -63,6 +91,24 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
         end
       end
     end
+
+    describe "when error messages are present" do
+      let(:errors_for_field) do
+        [{ text: "Bar cannot be blank" }]
+      end
+
+      before do
+        component.expects(:errors_for).with(errors, "#{error_lookup_prefix}_#{index}".to_sym).returns(errors_for_field)
+      end
+
+      it "renders an error" do
+        render_inline(component)
+
+        assert_selector ".govuk-form-group--error" do |form_group|
+          form_group.assert_selector ".govuk-error-message", text: "Bar cannot be blank"
+        end
+      end
+    end
   end
 
   describe "if the array item is an object" do
@@ -92,6 +138,33 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
       assert_selector ".govuk-form-group", text: /Buzz/ do |form_group|
         form_group.assert_selector "label", text: "Buzz"
         form_group.assert_selector "input[type='text'][value='Else'][name='foo[bar][][buzz]'][id='foo_bar_1_buzz']"
+      end
+    end
+
+    describe "when error messages are present" do
+      let(:fizz_errors) do
+        [{ text: "Fizz cannot be blank" }]
+      end
+
+      let(:buzz_errors) do
+        [{ text: "Buzz cannot be blank" }]
+      end
+
+      before do
+        component.expects(:errors_for).with(errors, "#{error_lookup_prefix}_#{index}_fizz".to_sym).returns(fizz_errors)
+        component.expects(:errors_for).with(errors, "#{error_lookup_prefix}_#{index}_buzz".to_sym).returns(buzz_errors)
+      end
+
+      it "renders errors" do
+        render_inline(component)
+
+        assert_selector ".govuk-form-group--error", text: /Fizz/ do |form_group|
+          form_group.assert_selector ".govuk-error-message", text: "Fizz cannot be blank"
+        end
+
+        assert_selector ".govuk-form-group--error", text: /Buzz/ do |form_group|
+          form_group.assert_selector ".govuk-error-message", text: "Buzz cannot be blank"
+        end
       end
     end
 
@@ -127,6 +200,24 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
             select.assert_selector "option[value='foo']", text: "Foo"
             select.assert_selector "option[value='bar']", text: "Bar"
             select.assert_selector "option[value='baz'][selected]", text: "Baz"
+          end
+        end
+      end
+
+      describe "when error messages are present" do
+        let(:errors_for_field) do
+          [{ text: "Fizz cannot be blank" }]
+        end
+
+        before do
+          component.expects(:errors_for).with(errors, "#{error_lookup_prefix}_#{index}_fizz".to_sym).returns(errors_for_field)
+        end
+
+        it "renders an error" do
+          render_inline(component)
+
+          assert_selector ".govuk-form-group--error" do |form_group|
+            form_group.assert_selector ".govuk-error-message", text: "Fizz cannot be blank"
           end
         end
       end

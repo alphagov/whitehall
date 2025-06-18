@@ -2,9 +2,21 @@ Feature: Schedule a content object
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
-    And a schema "pension" exists with the following fields:
-      | field         | type   | format | required |
-      | description   | string | string | true     |
+    And a schema "pension" exists:
+    """
+    {
+       "type":"object",
+       "required":[
+          "description"
+       ],
+       "additionalProperties":false,
+       "properties":{
+          "description": {
+            "type": "string"
+          }
+       }
+    }
+    """
     And a pension content block has been created
 
   @enable-sidekiq-test-mode

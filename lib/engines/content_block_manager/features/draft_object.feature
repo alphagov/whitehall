@@ -3,9 +3,21 @@ Feature: Drafting a content block
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
-    And a schema "pension" exists with the following fields:
-      | field         | type   | format | required |
-      | description   | string | string | true     |
+    And a schema "pension" exists:
+    """
+    {
+       "type":"object",
+       "required":[
+          "description"
+       ],
+       "additionalProperties":false,
+       "properties":{
+          "description": {
+            "type": "string"
+          }
+       }
+    }
+    """
     And I visit the Content Block Manager home page
     And I click to create an object
     And I click on the "pension" schema

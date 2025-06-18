@@ -3,17 +3,51 @@ Feature: Create an embedded content object with grouped subschemas
   Background:
     Given I am a GDS admin
     And the organisation "Ministry of Example" exists
-    And a schema "contact" exists with the following fields:
-      | field         | type   | format | required |
-      | description   | string | string | true     |
-    And the schema "contact" has a subschema with the name "email_addresses" and the following fields:
-      | field            | type   | format | required | enum           | pattern          |
-      | title            | string | string | true     |                |                  |
-      | email_address    | string | string | true     |                |                  |
-    And the schema "contact" has a subschema with the name "telephones" and the following fields:
-      | field     | type   | format | required | enum           | pattern          |
-      | title     | string | string | true     |                |                  |
-      | telephone | string | string | true     |                |                  |
+    And a schema "contact" exists:
+    """
+    {
+       "type":"object",
+       "required":[
+          "description"
+       ],
+       "additionalProperties":false,
+       "properties":{
+          "description": {
+            "type": "string"
+          }
+       }
+    }
+    """
+    And the schema has a subschema "email_addresses":
+    """
+    {
+      "type":"object",
+      "required": ["title", "email_address"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "email_address": {
+          "type": "string"
+        }
+      }
+    }
+    """
+    And the schema has a subschema "telephones":
+    """
+    {
+      "type":"object",
+      "required": ["title", "telephone"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        }
+      }
+    }
+    """
     And the schema "contact" has a group "modes" with the following subschemas:
       | email_addresses | telephones |
     And a contact content block has been created

@@ -42,3 +42,17 @@ end
 def should_be_on_change_note_step
   assert_text "Do users have to know the content has changed?"
 end
+
+def fill_in_embedded_object_form(object_type, table)
+  fields = table.hashes.first
+  @details = fields
+  @object_title ||= @details["title"].parameterize
+  fields.keys.each do |k|
+    field = find_field "content_block_manager_content_block_edition_details_#{object_type.pluralize}_#{k}"
+    if field.tag_name == "select"
+      select @details[k], from: field[:id]
+    else
+      fill_in field[:id], with: @details[k]
+    end
+  end
+end
