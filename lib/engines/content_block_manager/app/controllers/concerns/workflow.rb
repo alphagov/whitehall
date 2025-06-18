@@ -1,6 +1,7 @@
 module Workflow
   class Step < Data.define(:name, :show_action, :update_action, :included_in_create_journey)
     SUBSCHEMA_PREFIX = "embedded_".freeze
+    GROUP_PREFIX = "group_".freeze
 
     ALL = [
       Step.new(:edit_draft, :edit_draft, :update_draft, true),

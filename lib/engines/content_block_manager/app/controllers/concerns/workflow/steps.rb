@@ -9,6 +9,7 @@ module Workflow::Steps
   def steps
     @steps ||= [
       *all_steps[0],
+      *group_steps,
       *subschema_steps,
       *all_steps[1..],
     ].compact
@@ -50,8 +51,16 @@ private
       !@content_block_edition.has_entries_for_subschema_id?(subschema.id)
   end
 
+  def skip_group?(subschemas)
+    subschemas.all? { |subschema| skip_subschema?(subschema) }
+  end
+
   def subschemas
     @subschemas ||= ungrouped_subschemas(@schema)
+  end
+
+  def groups
+    @groups ||= grouped_subschemas(@schema)
   end
 
   def subschema_steps
@@ -61,6 +70,19 @@ private
       Workflow::Step.new(
         "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
         "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}".to_sym,
+        :redirect_to_next_step,
+        true,
+      )
+    end
+  end
+
+  def group_steps
+    groups.keys.map do |group|
+      next if skip_group?(groups[group])
+
+      Workflow::Step.new(
+        "#{Workflow::Step::GROUP_PREFIX}#{group}".to_sym,
+        "#{Workflow::Step::GROUP_PREFIX}#{group}".to_sym,
         :redirect_to_next_step,
         true,
       )
