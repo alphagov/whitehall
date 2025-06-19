@@ -941,6 +941,26 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.published_at
   end
 
+  test "should pass validation on creation of edition with HTML attachment with missing contact" do
+    contact = create(:contact)
+    bad_id = "9999999999999"
+    edition = create(:submitted_case_study, body: "[Contact:#{contact.id}]")
+    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{bad_id}]")]
+
+    assert edition.valid?
+  end
+
+  test "should fail validation on publish of edition with HTML attachment with missing contact" do
+    contact = create(:contact)
+    bad_id = "9999999999999"
+    edition = create(:submitted_case_study, body: "[Contact:#{contact.id}]")
+    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{bad_id}]")]
+
+    edition.publish
+
+    assert_not edition.valid?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
