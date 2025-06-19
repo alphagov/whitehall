@@ -3,17 +3,19 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
 
   const Form = window.GOVUK.Modules.JasmineHelpers.Form
 
-  const container = document.createElement('div')
+  let container
 
   const documentType = 'type-toolName'
   const section = 'section'
   const eventName = 'form_response'
 
-  container.dataset.module = 'ga4-form-setup'
-  container.dataset.ga4DocumentType = documentType
-  container.dataset.ga4Section = section
-
   beforeEach(() => {
+    container = document.createElement('div')
+
+    container.dataset.module = 'ga4-form-setup'
+    container.dataset.ga4DocumentType = documentType
+    container.dataset.ga4Section = section
+
     form = new Form()
 
     form.appendToParent(container)
@@ -34,11 +36,17 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
   })
 
   describe('on a tracked form', () => {
-    it('adds the `data-ga4-form` attribute', () => {
+    it('adds the correct data attributes', () => {
       GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
 
-      const ga4Form = form.dataset.ga4Form
+      const { ga4Form } = form.dataset
 
+      const { ga4FormRecordJson, ga4FormIncludeText, ga4FormUseTextCount } =
+        container.dataset
+
+      expect(ga4FormRecordJson).toBeDefined()
+      expect(ga4FormIncludeText).toBeDefined()
+      expect(ga4FormUseTextCount).toBeDefined()
       expect(ga4Form).toBeDefined()
 
       expect(JSON.parse(ga4Form)).toEqual(expectedDefaults)
@@ -96,9 +104,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
     it('does not add the `data-ga4-form` attribute on init', () => {
       GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
 
-      const ga4Form = form.dataset.ga4Form
-
-      expect(ga4Form).not.toBeDefined()
+      expect(form.dataset.ga4Form).not.toBeDefined()
     })
 
     it('does not add the `data-ga4-form` attribute on submit', () => {
@@ -106,9 +112,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
 
       form.submit(submitButton)
 
-      const ga4Form = form.dataset.ga4Form
-
-      expect(ga4Form).not.toBeDefined()
+      expect(form.dataset.ga4Form).not.toBeDefined()
     })
   })
 

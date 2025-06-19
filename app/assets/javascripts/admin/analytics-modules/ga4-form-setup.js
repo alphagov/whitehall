@@ -55,6 +55,10 @@ window.GOVUK.analyticsGa4.analyticsModules =
           form.addEventListener('submit', this.onSubmit)
         }, this)
 
+        $module.setAttribute('data-ga4-form-record-json', '')
+        $module.setAttribute('data-ga4-form-include-text', '')
+        $module.setAttribute('data-ga4-form-use-text-count', '')
+
         new window.GOVUK.Modules.Ga4FormTracker($module).init()
       })
     },
