@@ -16,5 +16,7 @@ Then(/^I should be on the "([^"]*)" step$/) do |step|
     should_be_on_subschema_step(::Regexp.last_match(1), "Add")
   when /edit_#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
     should_be_on_subschema_step(::Regexp.last_match(1), "Edit")
+  when /add_#{Workflow::Step::GROUP_PREFIX}(.*)/
+    assert_text "Add #{::Regexp.last_match(1).humanize(capitalize: false)}"
   end
 end

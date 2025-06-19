@@ -72,6 +72,8 @@ Feature: Create a contact object
       }
     }
     """
+    And the schema "contact" has a group "modes" with the following subschemas:
+      | email_addresses | telephones |
     And I visit the Content Block Manager home page
     And I click to create an object
     And I click on the "contact" schema
@@ -79,22 +81,14 @@ Feature: Create a contact object
       | title            | description   | organisation        | instructions_to_publishers |
       | my basic contact | this is basic | Ministry of Example | this is important  |
 
-  Scenario: GDS editor creates a Contact without any embedded objects
-    When I save and continue
-    And I save and continue
-    Then I am asked to review my answers for a "contact"
-    And I review and confirm my answers are correct
-    Then the edition should have been created successfully
-    And I should be taken to the confirmation page for a new "contact"
-
   @javascript
   Scenario: GDS editor creates a Contact with an email address and a telephone
-    When I click to add a new "email_address"
+    And I click on the "email_addresses" subschema
     And I complete the "email_address" form with the following fields:
       | title     | email_address          |
       | New email | foo@example.com        |
-    And I save and continue
-    When I click to add a new "telephone"
+    And I click to add another "mode"
+    And I click on the "telephones" subschema
     And I fill in the "telephone" form with the following fields:
       | title            |
       | New phone number |
@@ -103,7 +97,7 @@ Feature: Create a contact object
       | Telephone 1 | 12345            | Telephone |
       | Telephone 2 | 6789             | Textphone |
     And I save and continue
-    Then I should be on the "embedded_objects" step
+    Then I should be on the "add_group_modes" step
     When I save and continue
     And I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a new "contact"
@@ -114,22 +108,20 @@ Feature: Create a contact object
   @javascript
   Scenario: GDS editor sees errors for invalid telephone objects
     When I save and continue
-    And I click to add a new "telephone"
+    And I click on the "telephones" subschema
     When I save and continue
     Then I should see errors for the required nested "telephone_number" fields
 
   Scenario: GDS editor edits answers during creation of an object
-    When I click to add a new "email_address"
+    And I click on the "email_addresses" subschema
     And I complete the "email_address" form with the following fields:
       | title     | email_address          |
       | New email | foo@example.com        |
-    And I save and continue
     And I save and continue
     When I click the first edit link
     And I complete the form with the following fields:
       | title            |
       | New email 2 |
-    And I save and continue
     And I save and continue
     Then I am asked to review my answers
     And I confirm my answers are correct
