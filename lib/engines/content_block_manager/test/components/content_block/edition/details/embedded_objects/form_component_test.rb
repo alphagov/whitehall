@@ -10,16 +10,18 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
   let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil) }
   let(:enum_field) { stub("field", name: "enum", component_name: "enum", enum_values: ["some value", "another value"], default_value: "some value") }
   let(:textarea_field) { stub("field", name: "enum", component_name: "textarea", enum_values: nil, default_value: nil) }
+  let(:boolean_field) { stub("field", name: "boolean", component_name: "boolean", enum_values: nil, default_value: nil) }
 
   let(:foo_stub) { stub("string_component") }
   let(:bar_stub) { stub("string_component") }
   let(:enum_stub) { stub("enum_component") }
   let(:textarea_stub) { stub("textarea_component") }
+  let(:boolean_stub) { stub("boolean_component") }
 
   let(:object_title) { "some_object" }
 
   before do
-    schema.stubs(:fields).returns([foo_field, bar_field, enum_field, textarea_field])
+    schema.stubs(:fields).returns([foo_field, bar_field, enum_field, textarea_field, boolean_field])
   end
 
   it "renders fields for each property" do
@@ -49,6 +51,12 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
       object_id: object_title,
     ).returns(textarea_stub)
 
+    ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.expects(:new).with(
+      content_block_edition:,
+      field: boolean_field,
+      object_id: object_title,
+    ).returns(boolean_stub)
+
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
       schema:,
@@ -60,6 +68,7 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     component.expects(:render).with(bar_stub)
     component.expects(:render).with(enum_stub)
     component.expects(:render).with(textarea_stub)
+    component.expects(:render).with(boolean_stub)
 
     render_inline(component)
   end
@@ -94,6 +103,12 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
       object_id: object_title,
     ).returns(textarea_stub)
 
+    ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.expects(:new).with(
+      content_block_edition:,
+      field: boolean_field,
+      object_id: object_title,
+    ).returns(boolean_stub)
+
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
       schema:,
@@ -105,6 +120,7 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     component.expects(:render).with(bar_stub)
     component.expects(:render).with(enum_stub)
     component.expects(:render).with(textarea_stub)
+    component.expects(:render).with(boolean_stub)
 
     render_inline(component)
   end
