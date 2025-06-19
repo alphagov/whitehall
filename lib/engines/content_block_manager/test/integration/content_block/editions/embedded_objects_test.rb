@@ -26,6 +26,104 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
     stub_schema.stubs(:subschema).with(object_type).returns(stub_subschema)
   end
 
+  describe "#new" do
+    describe "when an object type is provided" do
+      it "fetches the subschema and renders the template" do
+        get content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
+          edition,
+          object_type,
+        )
+
+        assert_equal assigns(:content_block_edition), edition
+        assert_equal assigns(:schema), stub_schema
+        assert_equal assigns(:subschema), stub_subschema
+
+        assert_template :new
+      end
+    end
+
+    describe "when no object type is provided" do
+      describe "when a group is provided" do
+        it "renders a list of subschemas for the group" do
+          group = "my_group"
+          subschemas = [stub_subschema]
+
+          stub_schema.stubs(:subschemas_for_group).with(group).returns(subschemas)
+
+          get content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
+            edition,
+            group:,
+          )
+
+          assert_equal assigns(:content_block_edition), edition
+          assert_equal assigns(:schema), stub_schema
+          assert_equal assigns(:group), group
+          assert_equal assigns(:subschemas), subschemas
+          assert_equal assigns(:back_link), content_block_manager.content_block_manager_content_block_workflow_path(
+            edition,
+            step: "group_#{group}",
+          )
+          assert_equal assigns(:redirect_path), content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_edition_path(edition)
+          assert_equal assigns(:context), edition.title
+
+          assert_template "content_block_manager/content_block/shared/embedded_objects/select_subschema"
+        end
+
+        it "404s if no schemas exist for a given group" do
+          group = "my_group"
+          subschemas = []
+          stub_schema.stubs(:subschemas_for_group).with(group).returns(subschemas)
+
+          get content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
+            edition,
+            group:,
+          )
+
+          assert_equal response.status, 404
+        end
+      end
+    end
+  end
+
+  describe "#new_embedded_objects_options_redirect" do
+    describe "when the object_type param is provided" do
+      before do
+        post content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_edition_path(
+          edition,
+          object_type: "something",
+          group: "something",
+        )
+      end
+
+      it "redirects to the path for that object" do
+        assert_redirected_to content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(edition, object_type: "something")
+      end
+
+      it "sets the back link as a flash" do
+        assert_equal content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_edition_path(
+          edition,
+          group: "something",
+        ), flash[:back_link]
+      end
+    end
+
+    describe "when the object_type param is not provided" do
+      it "redirects back to the schema select page with an error" do
+        post content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_edition_path(
+          edition,
+          object_type: nil,
+          group: "something",
+        )
+
+        assert_redirected_to content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
+          edition,
+          group: "something",
+        )
+        assert_equal I18n.t("activerecord.errors.models.content_block_manager/content_block/document.attributes.block_type.blank"), flash[:error]
+      end
+    end
+  end
+
   describe "#create" do
     it "should create an embedded object for an edition" do
       post content_block_manager.create_embedded_object_content_block_manager_content_block_edition_path(
