@@ -19,13 +19,10 @@
       @content_block_edition,
       step: @step_name,
       ), method: :put, id: @step_name do %>
-      <% @subschemas.each do |subschema| %>
-        <%= render ContentBlockManager::Shared::EmbeddedObjectsComponent.new(
-          content_block_edition: @content_block_edition,
-          subschema:,
-          redirect_url: request.fullpath,
-          ) %>
-      <% end %>
+      <%= render ContentBlockManager::ContentBlockEdition::Workflow::GroupComponent.new(
+        content_block_edition: @content_block_edition,
+        subschemas: @subschemas,
+      ) %>
     <% end %>
 
     <%= render ContentBlockManager::Shared::ContinueOrCancelButtonGroup.new(
