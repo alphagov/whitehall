@@ -1,4 +1,4 @@
-<div class="govuk-summary-card">
+<%= content_tag(:div, wrapper_attributes) do %>
   <div class="govuk-summary-card__title-wrapper">
     <h2 class="govuk-summary-card__title">
       <%= title %>
@@ -21,13 +21,13 @@
         <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent.with_collection(
           items,
           title: key.singularize.titleize,
-        ) %>
+          ) %>
       <% else %>
         <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent.new(
           nested_items: items,
           title: key.singularize.titleize,
-        ) %>
+          ) %>
       <% end %>
     <% end %>
   </div>
-</div>
+<% end %>

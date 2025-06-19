@@ -46,25 +46,17 @@ class ContentBlockManager::Shared::EmbeddedObjectsTest < ViewComponent::TestCase
   end
 
   it "renders all embedded objects of a particular type" do
-    object1_double = stub("summary_card_1")
-    object2_double = stub("summary_card_2")
+    summary_card_double = stub("summary_card")
 
-    default_args = {
+    ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:with_collection).with(
+      %w[my-embedded-object another-embedded-object],
       content_block_edition: content_block_edition,
       object_type: subschema.block_type,
       redirect_url:,
-    }
+      test_id_prefix: "embedded",
+    ).returns(summary_card_double)
 
-    ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
-      **default_args.merge(object_title: "my-embedded-object"),
-    ).returns(object1_double)
-
-    ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.expects(:new).with(
-      **default_args.merge(object_title: "another-embedded-object"),
-    ).returns(object2_double)
-
-    component.expects(:render).with(object1_double)
-    component.expects(:render).with(object2_double)
+    component.expects(:render).with(summary_card_double)
 
     render_inline(component)
   end

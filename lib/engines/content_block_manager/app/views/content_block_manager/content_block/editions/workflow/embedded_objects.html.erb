@@ -15,16 +15,14 @@
       ), method: :put, id: "embedded_objects" do %>
 
       <% if @content_block_edition.details[@subschema.block_type] %>
-        <% @content_block_edition.details[@subschema.block_type].keys.each do |k| %>
-          <div data-test-id="embedded_<%= k %>">
-            <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
-              content_block_edition: @content_block_edition,
-              object_type: @subschema.block_type,
-              object_title: k,
-              redirect_url: request.fullpath,
-              ) %>
-          </div>
-          <% end %>
+        <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.with_collection(
+          @content_block_edition.details[@subschema.block_type].keys,
+          content_block_edition: @content_block_edition,
+          object_type: @subschema.block_type,
+          object_title: k,
+          redirect_url: request.fullpath,
+          test_id_prefix: "embedded",
+        ) %>
       <% else %>
         <% if I18n.exists?("content_block_edition.create.embedded_objects.#{@subschema.id}") %>
           <%= render "govuk_publishing_components/components/hint", {
