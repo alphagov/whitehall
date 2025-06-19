@@ -35,6 +35,14 @@ schemas:
         embeddable_as_block: true
         embeddable_fields:
           - telephone_numbers
+        field_order:
+          - title
+          - telephone_numbers
+          - show_uk_call_charges
+        fields:
+          show_uk_call_charges:
+            component:
+              boolean
       addresses:
         group: modes
         group_order: 3
