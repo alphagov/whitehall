@@ -115,13 +115,22 @@ private
     @action = @content_block_edition.document.is_new_block? ? "Add" : "Edit"
 
     if @subschemas.any?
-      render :group_objects
+      if @subschemas.none? { |subschema| has_embedded_objects(subschema) }
+        @group = group_name
+        @back_link = back_path
+        @redirect_path = content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_edition_path(@content_block_edition)
+        @context = @content_block_edition.title
+
+        render "content_block_manager/content_block/shared/embedded_objects/select_subschema"
+      else
+        render :group_objects
+      end
     else
       raise ActionController::RoutingError, "Subschema group #{group_name} does not exist"
     end
   end
 
-  def has_embedded_objects
-    @content_block_edition.details[@subschema.block_type].present?
+  def has_embedded_objects(subschema = @subschema)
+    @content_block_edition.details[subschema.block_type].present?
   end
 end

@@ -407,8 +407,8 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         let(:group) { nil }
         let(:subschemas) do
           [
-            stub("subschema", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", group:),
-            stub("subschema", id: "subschema_2", name: "subschema_2", block_type: "subschema_2", group:),
+            stub("subschema", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", group:, group_order: 0, fields: []),
+            stub("subschema", id: "subschema_2", name: "subschema_2", block_type: "subschema_2", group:, group_order: 1, fields: []),
           ]
         end
 
@@ -454,10 +454,30 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           end
 
           describe "#show" do
-            it "shows the form for the group" do
-              get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "group_some_group")
+            describe "when content exists for at least some of the subschemas" do
+              let(:details) do
+                {
+                  subschemas[0].block_type.to_s => {
+                    "item" => {
+                      "key" => "value",
+                    },
+                  },
+                }
+              end
 
-              assert_template "content_block_manager/content_block/editions/workflow/group_objects"
+              it "shows the form for the group" do
+                get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "group_some_group")
+
+                assert_template "content_block_manager/content_block/editions/workflow/group_objects"
+              end
+            end
+
+            describe "when content does not exist for any of the subschemas" do
+              it "renders the select subschema group" do
+                get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "group_some_group")
+
+                assert_template "content_block_manager/content_block/shared/embedded_objects/select_subschema"
+              end
             end
           end
 
