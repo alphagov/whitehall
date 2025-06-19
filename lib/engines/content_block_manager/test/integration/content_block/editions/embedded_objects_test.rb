@@ -180,6 +180,7 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
         assert_redirected_to content_block_manager.content_block_manager_content_block_workflow_path(
           edition, step: "#{Workflow::Step::GROUP_PREFIX}#{group}"
         )
+        assert_equal "Something added. You can add another some group or finish creating the schema block.", flash[:notice]
       end
     end
   end
@@ -282,6 +283,31 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionD
 
       assert_redirected_to content_block_manager.content_block_manager_content_block_documents_path
       assert_equal "Something edited. You can add another something or finish creating the schema block.", flash[:notice]
+    end
+
+    describe "when the subschema belongs to a group" do
+      let(:group) { "some_group" }
+
+      it "should redirect if a redirect_url is given" do
+        put content_block_manager.embedded_object_content_block_manager_content_block_edition_path(
+          edition,
+          object_type:,
+          object_title: "embedded",
+        ), params: {
+          redirect_url: content_block_manager.content_block_manager_content_block_documents_path,
+          "content_block/edition" => {
+            details: {
+              object_type => {
+                "title" => "Embedded",
+                "is" => "different",
+              },
+            },
+          },
+        }
+
+        assert_redirected_to content_block_manager.content_block_manager_content_block_documents_path
+        assert_equal "Something edited. You can add another some group or finish creating the schema block.", flash[:notice]
+      end
     end
 
     it "should not rename the object if a new title is given" do

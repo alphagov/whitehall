@@ -35,10 +35,12 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
     @content_block_edition.add_object_to_details(@subschema.block_type, @object)
     @content_block_edition.save!
 
+    object_or_group = @subschema.group ? @subschema.group.humanize.singularize : @subschema.name.singularize
+
     flash[:notice] = I18n.t(
       "content_block_edition.create.embedded_objects.added_confirmation",
-      name_capitalized: @subschema.name.singularize,
-      name_downcase: @subschema.name.singularize.downcase,
+      object_name: @subschema.name.singularize,
+      object_or_group: object_or_group.downcase,
       schema_name: @schema.name.singularize.downcase,
     )
     redirect_to embedded_objects_path
@@ -63,10 +65,12 @@ class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsController < C
     @content_block_edition.save!
 
     if params[:redirect_url].present?
+      object_or_group = @subschema.group ? @subschema.group.humanize.singularize : @subschema.name.singularize
+
       flash[:notice] = I18n.t(
         "content_block_edition.create.embedded_objects.edited_confirmation",
-        name_capitalized: @subschema.name.singularize,
-        name_downcase: @subschema.name.singularize.downcase,
+        object_name: @subschema.name.singularize,
+        object_or_group: object_or_group.downcase,
         schema_name: @schema.name.singularize.downcase,
       )
       redirect_to params[:redirect_url], allow_other_host: false
