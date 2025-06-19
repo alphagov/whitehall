@@ -480,3 +480,7 @@ Given(/^my pension content block has no rates$/) do
   @content_block.details["rates"] = {}
   @content_block.save!
 end
+
+And("I choose {string}") do |label|
+  choose label
+end
