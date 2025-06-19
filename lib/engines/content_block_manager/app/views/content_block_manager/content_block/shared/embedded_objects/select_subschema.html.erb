@@ -1,5 +1,5 @@
-<% content_for :context, @content_block_document.title %>
-<% content_for :title, "Add a #{@group.singularize}" %>
+<% content_for :context, @context %>
+<% content_for :title, "Add #{add_indefinite_article @group.singularize}" %>
 
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -13,7 +13,7 @@
     ) %>
 <% end %>
 
-<%= form_with url: content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_document_embedded_objects_path(@content_block_document), method: :post do %>
+<%= form_with url: @redirect_path, method: :post do %>
   <%= hidden_field_tag :object_type, "" %>
   <%= hidden_field_tag :group, @group %>
 
@@ -35,7 +35,7 @@
       text: "Cancel",
       name: "cancel",
       value: "cancel",
-      href: content_block_manager.content_block_manager_content_block_documents_path,
+      href: @back_link,
       secondary_solid: true,
     } %>
   </div>
