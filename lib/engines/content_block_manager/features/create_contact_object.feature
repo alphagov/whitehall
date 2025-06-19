@@ -37,7 +37,11 @@ Feature: Create a contact object
     """
     {
       "type":"object",
-      "required": ["title", "telephone_numbers"],
+      "required": [
+        "title",
+        "telephone_numbers",
+        "show_uk_call_charges"
+      ],
       "properties": {
         "telephone_numbers": {
           "type": "array",
@@ -68,6 +72,13 @@ Feature: Create a contact object
         },
         "title": {
           "type": "string"
+        },
+        "show_uk_call_charges": {
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ]
         }
       }
     }
@@ -100,6 +111,7 @@ Feature: Create a contact object
       | label       | telephone_number | type      |
       | Telephone 1 | 12345            | Telephone |
       | Telephone 2 | 6789             | Textphone |
+    And I choose "Yes"
     And I save and continue
     Then I should be on the "embedded_objects" step
     When I save and continue
