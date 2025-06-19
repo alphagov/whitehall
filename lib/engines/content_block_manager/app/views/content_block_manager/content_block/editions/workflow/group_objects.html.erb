@@ -25,6 +25,16 @@
       ) %>
     <% end %>
 
+    <%= render("govuk_publishing_components/components/button", {
+      text: "Add another #{@group_name.singularize.downcase}",
+      href: content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
+        @content_block_edition,
+        group: @group_name,
+      ),
+      margin_bottom: 6,
+      secondary_solid: true,
+    }) %>
+
     <%= render ContentBlockManager::Shared::ContinueOrCancelButtonGroup.new(
       form_id: @step_name,
       content_block_edition: @content_block_edition,
