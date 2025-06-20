@@ -297,6 +297,7 @@ Whitehall::Application.routes.draw do
       resources :news_articles, path: "news", except: [:index]
       resources :fatality_notices, path: "fatalities", except: [:index]
       resources :consultations, except: [:index] do
+        get :view, on: :member
         resource :outcome, controller: "consultation_responses", type: "ConsultationOutcome", except: %i[new destroy]
         resource :public_feedback, controller: "consultation_responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
       end
