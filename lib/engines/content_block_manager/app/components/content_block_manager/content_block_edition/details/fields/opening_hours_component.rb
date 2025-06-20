@@ -5,17 +5,18 @@ private
     # TODO
   end
 
-  def conditional; end
-
   def items
-    puts "here in items"
     [
       {
         label: "Hours available",
         value: "1",
-        checked: false,
-        conditional: capture { sanitize("<p>hello</p>") },
+        checked: true,
+        conditional:,
       },
     ]
+  end
+
+  def conditional
+    render(ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::DaysComponent.new)
   end
 end
