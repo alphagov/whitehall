@@ -294,14 +294,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
 
-  test "should remove extra quotes from blockquote text" do
-    remover = stub("remover")
-    remover.expects(:remove).returns("remover return value")
-    Whitehall::ExtraQuoteRemover.stubs(:new).returns(remover)
-    edition = build(:published_news_article, body: %(He said:\n> "I'm not sure what you mean!"\nOr so we thought.))
-    assert_match %r{remover return value}, govspeak_edition_to_html(edition)
-  end
-
   test "should add class to last paragraph of blockquote" do
     input = "\n> firstline\n>\n> lastline\n"
     output = '<div class="govspeak"> <blockquote> <p>firstline</p> <p class="last-child">lastline</p> </blockquote></div>'

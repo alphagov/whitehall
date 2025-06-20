@@ -118,10 +118,6 @@ private
     Sprockets::Railtie.build_environment(Rails.application).find_asset(path)
   end
 
-  def remove_extra_quotes_from_blockquotes(govspeak)
-    Whitehall::ExtraQuoteRemover.new.remove(govspeak)
-  end
-
   def wrapped_in_govspeak_div(html_string)
     tag.div(html_string.html_safe, class: "govspeak")
   end
