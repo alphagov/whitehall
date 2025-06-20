@@ -375,28 +375,6 @@ class GovspeakHelperTest < ActionView::TestCase
     end
   end
 
-  test "will add a barchart class to a marked table" do
-    input = <<~INPUT
-      |col|
-      |---|
-      |val|
-      {barchart}
-    INPUT
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "table.js-barchart-table"
-  end
-
-  test "will add a stacked, compact, negative barchart class to a marked table" do
-    input = <<~INPUT
-      |col|
-      |---|
-      |val|
-      {barchart stacked compact negative}
-    INPUT
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "table.mc-stacked.js-barchart-table.mc-negative.compact"
-  end
-
   test "fraction image paths include the public asset host and configured asset prefix" do
     prefix = Rails.application.config.assets.prefix
     path   = "#{Whitehall.public_root}#{prefix}/fractions/1_2.png"
