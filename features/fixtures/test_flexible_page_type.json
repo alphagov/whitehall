@@ -24,6 +24,11 @@
           }
         },
         "required": ["heading_text"]
+      },
+      "body": {
+        "title": "Body",
+        "description": "The main content of the page",
+        "type": "string"
       }
     },
     "required": ["page_title"]

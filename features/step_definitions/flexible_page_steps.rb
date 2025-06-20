@@ -19,6 +19,7 @@ When(/^I draft a new "([^"]*)" flexible page titled "([^"]*)"$/) do |flexible_pa
   within "form" do
     fill_in "edition_title", with: title
     fill_in "edition_flexible_page_content_page_title_heading_text", with: title
+    fill_in "edition_flexible_page_content_body", with: "## Some govspeak\n\nThis is the body content"
   end
   click_button "Save and go to document summary"
 end

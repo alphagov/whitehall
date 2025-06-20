@@ -24,6 +24,12 @@
           }
         },
         "required": ["heading_text"]
+      },
+      "body": {
+        "title": "Body",
+        "description": "The main content for the page",
+        "type": "string",
+        "format": "govspeak"
       }
     },
     "required": ["page_title"]

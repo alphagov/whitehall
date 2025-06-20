@@ -15,7 +15,7 @@ module PublishingApi
       content = BaseItemPresenter.new(item, update_type:).base_attributes
       content.merge!(
         details: {
-          body: "",
+          **type.publishing_api_payload_builder(item.flexible_page_content).call,
         },
         document_type: type.settings["publishing_api_document_type"],
         public_updated_at: item.public_timestamp || item.updated_at,
@@ -40,7 +40,7 @@ module PublishingApi
   private
 
     def type
-      FlexiblePageType.find(item.flexible_page_type)
+      item.type_instance
     end
   end
 end
