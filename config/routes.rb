@@ -297,7 +297,9 @@ Whitehall::Application.routes.draw do
         get :view, on: :member
       end
 
-      resources :news_articles, path: "news", except: [:index]
+      resources :news_articles, path: "news", except: [:index] do
+        get :view, on: :member
+      end
       resources :fatality_notices, path: "fatalities", except: [:index] do
         get :view, on: :member
       end
