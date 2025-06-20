@@ -308,6 +308,7 @@ Whitehall::Application.routes.draw do
       end
 
       resources :calls_for_evidence, path: "calls-for-evidence", except: [:index] do
+        get :view, on: :member
         resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
       end
 

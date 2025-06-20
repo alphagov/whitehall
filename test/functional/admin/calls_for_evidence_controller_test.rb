@@ -162,6 +162,29 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "view displays call_for_evidence fields" do
+    response_form = create(:call_for_evidence_response_form)
+    participation = create(:call_for_evidence_participation, call_for_evidence_response_form: response_form)
+    call_for_evidence = create(:call_for_evidence, call_for_evidence_participation: participation)
+
+    get :view, params: { id: call_for_evidence }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "textarea[name='edition[summary]']"
+      assert_select "input[name*='edition[opening_at']", count: 3
+      assert_select "select[name*='edition[opening_at']", count: 2
+      assert_select "input[name*='edition[closing_at']", count: 3
+      assert_select "select[name*='edition[closing_at']", count: 2
+      assert_select "input[type='text'][name='edition[call_for_evidence_participation_attributes][link_url]']"
+      assert_select "input[type='text'][name='edition[call_for_evidence_participation_attributes][email]']"
+      assert_select "textarea[name='edition[call_for_evidence_participation_attributes][postal_address]']"
+      assert_select "input[type='hidden'][name='edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][id]'][value='#{response_form.id}']"
+      assert_select "input[type='text'][name='edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][title]']"
+      assert_select "input[type='hidden'][name='edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][id]'][value='#{response_form.call_for_evidence_response_form_data.id}']"
+      assert_select "input[type='file'][name='edition[call_for_evidence_participation_attributes][call_for_evidence_response_form_attributes][call_for_evidence_response_form_data_attributes][file]']"
+    end
+  end
+
   test "update should save modified call_for_evidence attributes" do
     call_for_evidence = create(:call_for_evidence)
 
