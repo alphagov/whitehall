@@ -92,12 +92,6 @@ module GovspeakHelper
     headers
   end
 
-  def inline_attachment_code_tags(number)
-    tag.code("!@#{number}") <<
-      " or ".html_safe <<
-      tag.code("[InlineAttachment:#{number}]")
-  end
-
   def fraction_image(numerator, denominator)
     denominator.downcase! if %w[X Y].include? denominator
     if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
