@@ -321,7 +321,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (57.2.0)
+    govuk_publishing_components (57.3.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -722,7 +722,7 @@ GEM
       opentelemetry-semantic_conventions
     opentelemetry-semantic_conventions (1.11.0)
       opentelemetry-api (~> 1.0)
-    ostruct (0.6.1)
+    ostruct (0.6.2)
     pact (1.66.1)
       jsonpath (~> 1.0)
       pact-mock_service (~> 3.0, >= 3.3.1)
@@ -852,7 +852,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.3.0)
-    rdoc (6.14.0)
+    rdoc (6.14.1)
       erb
       psych (>= 4.0.0)
     record_tag_helper (1.0.1)
