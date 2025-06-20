@@ -290,7 +290,9 @@ Whitehall::Application.routes.draw do
 
       resources :suggestions, only: [:index]
 
-      resources :publications, except: [:index]
+      resources :publications, except: [:index] do
+        get :view, on: :member
+      end
 
       resources :flexible_pages, path: "flexible-pages", except: [:index] do
         get :choose_type, on: :collection, as: :choose_type
