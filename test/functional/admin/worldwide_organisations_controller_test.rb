@@ -53,6 +53,17 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 
+  view_test "viewing a readonly representation of this worldwide organisation" do
+    worldwide_organisation = create(:published_worldwide_organisation)
+    get :view, params: { id: worldwide_organisation }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "textarea[name='edition[logo_formatted_name]']"
+      assert_select "select[name='edition[world_location_ids][]']"
+      assert_select "select[name='edition[role_ids][]']"
+    end
+  end
+
 private
 
   def controller_attributes_for(edition_type, attributes = {})

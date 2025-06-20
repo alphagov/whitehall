@@ -335,6 +335,7 @@ Whitehall::Application.routes.draw do
         get :view, on: :member
       end
       resources :worldwide_organisations, path: "worldwide-organisations", except: [:index] do
+        get :view, on: :member
         resources :pages, controller: "worldwide_organisation_pages" do
           get :confirm_destroy, on: :member
 
