@@ -353,7 +353,9 @@ Whitehall::Application.routes.draw do
         end
       end
 
-      resources :detailed_guides, path: "detailed-guides", except: [:index]
+      resources :detailed_guides, path: "detailed-guides", except: [:index] do
+        get :view, on: :member
+      end
       resources :people do
         resources :translations, controller: "person_translations" do
           get :confirm_destroy, on: :member
