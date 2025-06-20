@@ -39,7 +39,12 @@ class FlexiblePageType
   end
 
   def validator
-    JSONSchemer.schema(@schema)
+    formats = {
+      "govspeak" => proc do |instance|
+        instance.is_a?(String) && Govspeak::HtmlValidator.new(instance).valid?
+      end,
+    }
+    JSONSchemer.schema(@schema, formats:)
   end
 
   def publishing_api_payload_builder(page_content)
