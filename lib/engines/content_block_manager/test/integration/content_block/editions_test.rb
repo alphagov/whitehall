@@ -129,7 +129,8 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
       end
 
       describe "when subschemas are present" do
-        let(:subschemas) { [stub("subschema", id: "my_subschema_name")] }
+        let(:group) { nil }
+        let(:subschemas) { [stub("subschema", id: "my_subschema_name", group:)] }
         let!(:schema) { stub_request_for_schema("pension", subschemas:) }
 
         before do
@@ -137,7 +138,7 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
         end
 
         it "redirects to the first subschema step when successful" do
-          redirects_to_step(:embedded_objects) do
+          redirects_to_step(:embedded_my_subschema_name) do
             post content_block_manager.content_block_manager_content_block_document_editions_path(content_block_document), params: {
               "content_block/edition": {
                 document_attributes: {
@@ -145,6 +146,22 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
                 },
               },
             }
+          end
+        end
+
+        describe "when a subschema has a group" do
+          let(:group) { "group" }
+
+          it "redirects to the group step when successful" do
+            redirects_to_step(:group_group) do
+              post content_block_manager.content_block_manager_content_block_document_editions_path(content_block_document), params: {
+                "content_block/edition": {
+                  document_attributes: {
+                    block_type: "pension",
+                  },
+                },
+              }
+            end
           end
         end
       end
@@ -212,11 +229,12 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
       end
 
       describe "when subschemas are present" do
-        let(:subschemas) { [stub("subschema", id: "my_subschema_name")] }
+        let(:group) { nil }
+        let(:subschemas) { [stub("subschema", id: "my_subschema_name", group:)] }
         let!(:schema) { stub_request_for_schema("pension", subschemas:) }
 
-        it "redirects to the first embedded objects step when successful" do
-          redirects_to_step(:embedded_objects) do
+        it "redirects to the first subschema step when successful" do
+          redirects_to_step(:embedded_my_subschema_name) do
             post content_block_manager.content_block_manager_content_block_editions_path, params: {
               something: "else",
               "content_block/edition": {
@@ -225,6 +243,23 @@ class ContentBlockManager::ContentBlock::EditionsTest < ActionDispatch::Integrat
                 organisation_id: organisation.id,
               },
             }
+          end
+        end
+
+        describe "when a subschema has a group" do
+          let(:group) { "group" }
+
+          it "redirects to the group step when successful" do
+            redirects_to_step(:group_group) do
+              post content_block_manager.content_block_manager_content_block_editions_path, params: {
+                something: "else",
+                "content_block/edition": {
+                  document_attributes:,
+                  details:,
+                  organisation_id: organisation.id,
+                },
+              }
+            end
           end
         end
       end

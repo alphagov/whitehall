@@ -1,7 +1,7 @@
 require "test_helper"
 require "capybara/rails"
 
-class ContentBlockManager::ContentBlock::Editions::EmbeddedObjectsTest < ActionDispatch::IntegrationTest
+class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   extend Minitest::Spec::DSL
   include ContentBlockManager::Engine.routes.url_helpers

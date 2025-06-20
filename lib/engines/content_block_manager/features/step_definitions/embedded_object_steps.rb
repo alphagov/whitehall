@@ -95,6 +95,11 @@ And("I click to add a new {string}") do |object_type|
   click_on "Add #{add_indefinite_article object_type.humanize.downcase}"
 end
 
+And("I click to add another {string}") do |object_type|
+  @object_type = object_type
+  click_on "Add another #{object_type.humanize.downcase}"
+end
+
 And("I review and confirm my {string} is correct") do |_object_type|
   check "is_confirmed"
   click_on "Create"

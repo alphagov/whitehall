@@ -3,16 +3,19 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent < ViewC
 
   delegate :document, to: :content_block_edition
 
-  def initialize(content_block_edition:, object_type:, object_title:, redirect_url: nil)
+  with_collection_parameter :object_title
+
+  def initialize(content_block_edition:, object_type:, object_title:, redirect_url: nil, test_id_prefix: nil)
     @content_block_edition = content_block_edition
     @object_type = object_type
     @object_title = object_title
     @redirect_url = redirect_url
+    @test_id_prefix = test_id_prefix
   end
 
 private
 
-  attr_reader :content_block_edition, :object_type, :object_title, :redirect_url
+  attr_reader :content_block_edition, :object_type, :object_title, :redirect_url, :test_id_prefix
 
   def title
     "#{object_type.titleize.singularize} details"
@@ -60,5 +63,16 @@ private
         ),
       },
     ]
+  end
+
+  def wrapper_attributes
+    {
+      "class" => "govuk-summary-card",
+      **data_attributes,
+    }
+  end
+
+  def data_attributes
+    test_id_prefix.present? ? { "data-test-id" => [test_id_prefix, object_title].join("_") } : {}
   end
 end

@@ -15,11 +15,13 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
       @group = params[:group]
       @subschemas = @schema.subschemas_for_group(@group)
       @back_link = content_block_manager.content_block_manager_content_block_document_path(@content_block_document)
+      @redirect_path = content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_document_embedded_objects_path(@content_block_document)
+      @context = @content_block_document.title
 
       if @subschemas.blank?
         render "admin/errors/not_found", status: :not_found
       else
-        render :select_subschema
+        render "content_block_manager/content_block/shared/embedded_objects/select_subschema"
       end
     end
   end

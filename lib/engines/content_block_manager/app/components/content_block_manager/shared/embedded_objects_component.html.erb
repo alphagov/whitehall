@@ -4,16 +4,13 @@
       <h2 class="govuk-heading-m"><%= subschema_name.pluralize.titleize %></h2>
     <% end %>
 
-    <% subschema_keys.each do |k| %>
-      <div data-test-id="embedded_<%= k %>">
-        <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
-          content_block_edition: content_block_edition,
-          object_type: subschema.block_type,
-          object_title: k,
-          redirect_url:,
-        ) %>
-      </div>
-    <% end %>
+    <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.with_collection(
+      subschema_keys,
+      content_block_edition: content_block_edition,
+      object_type: subschema.block_type,
+      redirect_url:,
+      test_id_prefix: "embedded",
+    ) %>
 
     <% if show_add_button? %>
       <%= render "govuk_publishing_components/components/button", {

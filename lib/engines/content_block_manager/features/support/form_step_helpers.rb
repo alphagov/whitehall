@@ -56,3 +56,7 @@ def fill_in_embedded_object_form(object_type, table)
     end
   end
 end
+
+def should_be_on_subschema_step(subschema, prefix)
+  assert_text "#{prefix} #{subschema.humanize(capitalize: false)}"
+end

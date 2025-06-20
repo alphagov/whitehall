@@ -59,6 +59,32 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     end
   end
 
+  it "adds a data attribute if test_id_prefix is set" do
+    component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+      content_block_edition:,
+      object_type: "embedded-objects",
+      object_title: "my-embedded-object",
+      test_id_prefix: "prefix",
+    )
+
+    render_inline component
+
+    assert_selector ".govuk-summary-card[data-test-id='prefix_my-embedded-object']"
+  end
+
+  it "renders a summary list with a collection" do
+    component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.with_collection(
+      %w[my-embedded-object],
+      content_block_edition:,
+      object_type: "embedded-objects",
+    )
+
+    render_inline component
+
+    assert_selector ".govuk-summary-card__title", text: "Embedded Object details"
+    assert_selector ".govuk-summary-list__row", count: 3
+  end
+
   it "renders a summary list with edit link" do
     component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
       content_block_edition:,
