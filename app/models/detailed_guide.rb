@@ -28,6 +28,23 @@ class DetailedGuide < Edition
     rescue Govspeak::OrphanedHeadingError => e
       record.errors.add(:body, "must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): '#{e.heading}'")
     end
+
+  private
+
+    def govspeak_header_hierarchy(govspeak)
+      headers = []
+      govspeak_headers(govspeak, 2..3).each do |header|
+        case header.level
+        when 2
+          headers << { header:, children: [] }
+        when 3
+          raise Govspeak::OrphanedHeadingError, header.text if headers.none?
+
+          headers.last[:children] << header
+        end
+      end
+      headers
+    end
   end
 
   validates_with HeadingHierarchyValidator

@@ -77,21 +77,6 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_header_hierarchy(govspeak)
-    headers = []
-    govspeak_headers(govspeak, 2..3).each do |header|
-      case header.level
-      when 2
-        headers << { header:, children: [] }
-      when 3
-        raise Govspeak::OrphanedHeadingError, header.text if headers.none?
-
-        headers.last[:children] << header
-      end
-    end
-    headers
-  end
-
   def fraction_image(numerator, denominator)
     denominator.downcase! if %w[X Y].include? denominator
     if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
