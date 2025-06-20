@@ -39,7 +39,11 @@ schemas:
           - title
           - telephone_numbers
           - show_uk_call_charges
+          - description
         fields:
+          description:
+            component:
+              textarea
           show_uk_call_charges:
             component:
               boolean
