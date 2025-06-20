@@ -103,6 +103,18 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "view displays publication fields and guidance" do
+    publication = create(:publication)
+
+    get :view, params: { id: publication }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "select[name='edition[publication_type_id]']"
+      assert_select "input[name*='edition[first_published_at']", count: 3
+      assert_select ".js-app-view-edition-form__subtype-format-advice", text: "Use this subformat for… A policy paper explains the government’s position on something. It doesn’t include instructions on how to carry out a task, only the policy itself and how it’ll be implemented.Read the policy papers guidance in full."
+    end
+  end
+
   test "update should save modified publication attributes" do
     publication = create(:publication)
 
