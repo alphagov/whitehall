@@ -78,6 +78,19 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET #view renders the a disabled form showing the document collection contents" do
+    document_collection = create(:document_collection)
+
+    get :view, params: { id: document_collection }
+
+    assert_select "form[action=?] fieldset[disabled='disabled']", admin_document_collection_path(document_collection) do
+      assert_select ".app-view-edit-edition__page-address .govuk-hint", document_collection.public_url
+      assert_select "textarea[name='edition[title]']", document_collection.title
+      assert_select "textarea[name='edition[summary]']", text: document_collection.summary
+      assert_select "textarea[name='edition[body]']", text: document_collection.body
+    end
+  end
+
   test "PUT #update updates the document collection" do
     document_collection = create(:document_collection, title: "old-title")
 

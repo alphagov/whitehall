@@ -93,11 +93,26 @@ module Admin::EditionsHelper
   end
 
   def standard_edition_form(edition)
+    # rubocop:disable Rails/HelperInstanceVariable
+    read_only = @read_only_form || false
+    # rubocop:enable Rails/HelperInstanceVariable
+
     form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher ga4-visual-editor-event-handlers", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
-      concat render("standard_fields", form:, edition:)
-      yield(form)
-      concat render("settings_fields", form:, edition:)
-      concat standard_edition_publishing_controls(form, edition)
+      content = "".html_safe
+      content << render("standard_fields", form:, edition:)
+      content << capture(form) { yield(form) }
+      content << render("settings_fields", form:, edition:)
+      content << standard_edition_publishing_controls(form, edition) unless read_only
+      read_only ? content_tag(:fieldset, content, disabled: true, style: "min-inline-size: auto") : content
+    end
+  end
+
+  # Bit of a hack to stop the 'generic_editions_controller_tests' from breaking,
+  # since `view_admin_generic_edition_path` doesn't exist
+  def view_path_for_edition(edition)
+    route_helper = "view_admin_#{edition.type.underscore}_path"
+    if respond_to?(route_helper)
+      send(route_helper, edition)
     end
   end
 

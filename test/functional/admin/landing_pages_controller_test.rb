@@ -58,6 +58,17 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
     assert_template "edit"
   end
 
+  view_test "GET :view fetches the supplied instance for readonly mode" do
+    document = create(:document, slug: "/some-slug-starting-with-slash")
+    page = create(:landing_page, organisations: [@organisation], document:)
+
+    get :view, params: { id: page }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "textarea[name='edition[body]']"
+    end
+  end
+
   test "PUT :update changes the supplied instance with the supplied params" do
     attrs = attributes_for(:landing_page, title: "Hello there")
     document = create(:document, slug: "/some-slug-starting-with-slash")

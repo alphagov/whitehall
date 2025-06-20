@@ -83,6 +83,15 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "viewing a readonly representation of this detailed guide" do
+    detailed_guide = create(:published_detailed_guide)
+    get :view, params: { id: detailed_guide }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "textarea[name='edition[body]']"
+    end
+  end
+
 private
 
   def controller_attributes_for(edition_type, attributes = {})

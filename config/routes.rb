@@ -89,6 +89,7 @@ Whitehall::Application.routes.draw do
       resources :authors, only: [:show]
 
       resources :document_collections, path: "collections", except: [:index] do
+        get :view, on: :member
         resources :document_collection_groups, as: :groups, path: "groups" do
           get :search_options, to: "document_collection_group_document_search#search_options"
           post :search_options, to: "document_collection_group_document_search#search"
@@ -205,6 +206,7 @@ Whitehall::Application.routes.draw do
         member do
           post :submit, to: "edition_workflow#submit"
           post :revise
+          get  :view
           get  :diff
           get  :confirm_approve_retrospectively, to: "edition_workflow#confirm_approve_retrospectively"
           post :approve_retrospectively, to: "edition_workflow#approve_retrospectively"
@@ -288,16 +290,25 @@ Whitehall::Application.routes.draw do
 
       resources :suggestions, only: [:index]
 
-      resources :publications, except: [:index]
+      resources :publications, except: [:index] do
+        get :view, on: :member
+      end
 
       resources :flexible_pages, path: "flexible-pages", except: [:index] do
         get :choose_type, on: :collection, as: :choose_type
       end
-      resources :landing_pages, path: "landing-pages", except: [:index]
+      resources :landing_pages, path: "landing-pages", except: [:index] do
+        get :view, on: :member
+      end
 
-      resources :news_articles, path: "news", except: [:index]
-      resources :fatality_notices, path: "fatalities", except: [:index]
+      resources :news_articles, path: "news", except: [:index] do
+        get :view, on: :member
+      end
+      resources :fatality_notices, path: "fatalities", except: [:index] do
+        get :view, on: :member
+      end
       resources :consultations, except: [:index] do
+        get :view, on: :member
         resource :outcome, controller: "consultation_responses", type: "ConsultationOutcome", except: %i[new destroy]
         resource :public_feedback, controller: "consultation_responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
       end
@@ -309,6 +320,7 @@ Whitehall::Application.routes.draw do
       end
 
       resources :calls_for_evidence, path: "calls-for-evidence", except: [:index] do
+        get :view, on: :member
         resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
       end
 
@@ -318,9 +330,14 @@ Whitehall::Application.routes.draw do
         get :reorder, on: :collection
       end
 
-      resources :speeches, except: [:index]
-      resources :statistical_data_sets, path: "statistical-data-sets", except: [:index]
+      resources :speeches, except: [:index] do
+        get :view, on: :member
+      end
+      resources :statistical_data_sets, path: "statistical-data-sets", except: [:index] do
+        get :view, on: :member
+      end
       resources :worldwide_organisations, path: "worldwide-organisations", except: [:index] do
+        get :view, on: :member
         resources :pages, controller: "worldwide_organisation_pages" do
           get :confirm_destroy, on: :member
 
@@ -352,7 +369,9 @@ Whitehall::Application.routes.draw do
         end
       end
 
-      resources :detailed_guides, path: "detailed-guides", except: [:index]
+      resources :detailed_guides, path: "detailed-guides", except: [:index] do
+        get :view, on: :member
+      end
       resources :people do
         resources :translations, controller: "person_translations" do
           get :confirm_destroy, on: :member
@@ -410,7 +429,9 @@ Whitehall::Application.routes.draw do
           post :unfeature, on: :member
         end
       end
-      resources :case_studies, path: "case-studies", except: [:index]
+      resources :case_studies, path: "case-studies", except: [:index] do
+        get :view, on: :member
+      end
       if Rails.env.test?
         resources :generic_editions, path: "generic-editions"
       end

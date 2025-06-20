@@ -28,4 +28,13 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
     assert_equal "no_image", edition.reload.image_display_option
     assert_nil edition.lead_image
   end
+
+  view_test "viewing a readonly representation of this case study" do
+    case_study = create(:published_case_study)
+    get :view, params: { id: case_study }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "textarea[name='edition[body]']"
+    end
+  end
 end
