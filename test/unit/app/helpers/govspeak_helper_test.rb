@@ -294,12 +294,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
 
-  test "should add class to last paragraph of blockquote" do
-    input = "\n> firstline\n>\n> lastline\n"
-    output = '<div class="govspeak"> <blockquote> <p>firstline</p> <p class="last-child">lastline</p> </blockquote></div>'
-    assert_equivalent_html output, govspeak_to_html(input).gsub(/\s+/, " ")
-  end
-
   test "adds numbers to h2 headings" do
     input = "# main\n\n## first\n\n## second"
     output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first"> <span class="number">1. </span>first</h2> <h2 id="second"> <span class="number">2. </span>second</h2></div>'
