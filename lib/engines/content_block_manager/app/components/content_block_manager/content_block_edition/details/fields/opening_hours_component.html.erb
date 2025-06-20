@@ -1,12 +1,15 @@
- <%= render "govuk_publishing_components/components/checkboxes", {
-    name: "opening_hours[]",
-    id: "opening_hours",
+<%= render "govuk_publishing_components/components/checkboxes", {
+    name:,
+    id:,
+    heading: "Show opening hours?",
+    visually_hide_heading: true,
+    no_hint_text: true,
     items:     [
       {
         label: "Hours available",
         value: "1",
         checked: false,
-        conditional: capture do sanitize("<p>hello</p>") end,
+        conditional: sanitize("<p>hello</p>"),
       },
     ],
-  } %>
+} %>
