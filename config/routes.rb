@@ -331,7 +331,9 @@ Whitehall::Application.routes.draw do
       resources :speeches, except: [:index] do
         get :view, on: :member
       end
-      resources :statistical_data_sets, path: "statistical-data-sets", except: [:index]
+      resources :statistical_data_sets, path: "statistical-data-sets", except: [:index] do
+        get :view, on: :member
+      end
       resources :worldwide_organisations, path: "worldwide-organisations", except: [:index] do
         resources :pages, controller: "worldwide_organisation_pages" do
           get :confirm_destroy, on: :member

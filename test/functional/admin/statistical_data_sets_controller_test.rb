@@ -18,6 +18,15 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :statistical_data_set
   should_allow_access_limiting_of :statistical_data_set
 
+  view_test "viewing a readonly representation of this edition" do
+    statistical_data_set = create(:published_statistical_data_set)
+    get :view, params: { id: statistical_data_set }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "textarea[name='edition[body]']"
+    end
+  end
+
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(
       alternative_format_provider_id: create(:alternative_format_provider).id,
