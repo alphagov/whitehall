@@ -38,6 +38,7 @@ schemas:
         field_order:
           - title
           - telephone_numbers
+          - opening_hours
           - show_uk_call_charges
           - description
         fields:
@@ -47,6 +48,9 @@ schemas:
           show_uk_call_charges:
             component:
               boolean
+          opening_hours:
+            component:
+              opening_hours
       addresses:
         group: modes
         group_order: 3
