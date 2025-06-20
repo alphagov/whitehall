@@ -56,6 +56,7 @@ gem "select_with_search_component", github: "alphagov/select-with-search-compone
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
 gem "sprockets-rails"
+gem "strong_migrations"
 gem "terser"
 gem "transitions", require: ["transitions", "active_record/transitions"]
 gem "validates_email_format_of"
