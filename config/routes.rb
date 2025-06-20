@@ -328,7 +328,9 @@ Whitehall::Application.routes.draw do
         get :reorder, on: :collection
       end
 
-      resources :speeches, except: [:index]
+      resources :speeches, except: [:index] do
+        get :view, on: :member
+      end
       resources :statistical_data_sets, path: "statistical-data-sets", except: [:index]
       resources :worldwide_organisations, path: "worldwide-organisations", except: [:index] do
         resources :pages, controller: "worldwide_organisation_pages" do
