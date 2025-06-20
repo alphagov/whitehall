@@ -71,12 +71,6 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_headers(govspeak, level = (2..2))
-    build_govspeak_document(govspeak).headers.select do |header|
-      level.cover?(header.level)
-    end
-  end
-
   def fraction_image(numerator, denominator)
     denominator.downcase! if %w[X Y].include? denominator
     if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")

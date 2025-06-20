@@ -31,6 +31,12 @@ class DetailedGuide < Edition
 
   private
 
+    def govspeak_headers(govspeak, level)
+      build_govspeak_document(govspeak).headers.select do |header|
+        level.cover?(header.level)
+      end
+    end
+
     def govspeak_header_hierarchy(govspeak)
       headers = []
       govspeak_headers(govspeak, 2..3).each do |header|

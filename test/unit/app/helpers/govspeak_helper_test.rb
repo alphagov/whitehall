@@ -72,12 +72,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "a[href='#{public_url}']", text: "that"
   end
 
-  test "should only extract level two headers by default" do
-    text = "# Heading 1\n\n## Heading 2\n\n### Heading 3"
-    headers = govspeak_headers(text)
-    assert_equal [Govspeak::Header.new("Heading 2", 2, "heading-2")], headers
-  end
-
   test "should extract header hierarchy from level 2+3 headings" do
     text = "# Heading 1\n\n## Heading 2a\n\n### Heading 3a\n\n### Heading 3b\n\n#### Ignored heading\n\n## Heading 2b"
     headers = govspeak_header_hierarchy(text)
