@@ -81,7 +81,6 @@ module GovspeakHelper
   def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
-    govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
