@@ -50,6 +50,17 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "when viewing shows the saved fields" do
+    field = create(:operational_field)
+    edition = create(:fatality_notice, operational_field: field)
+
+    get :view, params: { id: edition }
+
+    assert_select "form#edit_edition fieldset[disabled='disabled']" do
+      assert_select "select[name='edition[operational_field_id]']"
+    end
+  end
+
   view_test "should display fields for new fatality notice casualties" do
     get :new
 
