@@ -89,6 +89,7 @@ Whitehall::Application.routes.draw do
       resources :authors, only: [:show]
 
       resources :document_collections, path: "collections", except: [:index] do
+        get :view, on: :member
         resources :document_collection_groups, as: :groups, path: "groups" do
           get :search_options, to: "document_collection_group_document_search#search_options"
           post :search_options, to: "document_collection_group_document_search#search"
