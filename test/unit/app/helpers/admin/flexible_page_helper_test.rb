@@ -101,4 +101,39 @@ class Admin::FlexiblePageHelperTest < ActionView::TestCase
     render inline: render_flexible_page_content_fields(schema, FlexiblePage.new)
     assert_dom "label", text: "One (required)"
   end
+
+  test "flexible page helper renders an input for a string property without govspeak format" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "title" => {
+          "type" => "string",
+          "title" => "Title",
+          "description" => "A regular string field",
+        },
+      },
+    }
+
+    render inline: render_flexible_page_content_fields(schema, FlexiblePage.new)
+    assert_dom "input[name=\"edition[flexible_page_content][title]\"]"
+    refute_dom "textarea[name=\"edition[flexible_page_content][title]\"]"
+  end
+
+  test "flexible page helper renders a textarea for a string property in the govspeak format" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "body" => {
+          "type" => "string",
+          "title" => "Body",
+          "description" => "The body content in govspeak format",
+          "format" => "govspeak",
+        },
+      },
+    }
+
+    render inline: render_flexible_page_content_fields(schema, FlexiblePage.new)
+    assert_dom "textarea[name=\"edition[flexible_page_content][body]\"]"
+    refute_dom "input[name=\"edition[flexible_page_content][body]\"]"
+  end
 end
