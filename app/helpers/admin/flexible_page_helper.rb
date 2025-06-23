@@ -14,8 +14,28 @@ private
 
     case property["type"]
     when "string"
-      component = property["format"] == "govspeak" ? "textarea" : "input"
-      render "govuk_publishing_components/components/#{component}", field_attrs
+      if property["format"] == "image_select"
+        render "govuk_publishing_components/components/select", {
+          id: "edition_flexible_page_content_#{path.join('_')}",
+          label: property["title"] + (schema["required"]&.include?(path.last.to_s) ? " (required)" : ""),
+          name: "edition[flexible_page_content][#{path.join('][')}]",
+          options: [
+            {
+              text: "No image selected",
+              value: "",
+            },
+          ] + edition.images.map do |image|
+            {
+              text: image.filename,
+              value: image.id,
+              selected: image.id == edition.flexible_page_content.dig(*path)&.to_i,
+            }
+          end,
+        }
+      else
+        component = property["format"] == "govspeak" ? "textarea" : "input"
+        render "govuk_publishing_components/components/#{component}", field_attrs
+      end
     when "object"
       render "govuk_publishing_components/components/fieldset", {
         legend_text: property["title"],
