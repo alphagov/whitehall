@@ -12,12 +12,20 @@ module Workflow::ShowMethods
     render :edit_draft
   end
 
-  def embedded_objects
-    @subschemas = @schema.subschemas
-    @content_block_edition = ContentBlockManager::ContentBlock::Edition.find(params[:id])
-    @title = @content_block_edition.document.is_new_block? ? "Add to #{@schema.name}" : "Change #{@schema.name}"
+  # This handles the optional embedded objects and groups in the flow, delegating to `embedded_objects`
+  # or `embedded_group_objects` as appropriate
+  def method_missing(method_name, *arguments, &block)
+    if method_name.to_s =~ /#{Workflow::Step::SUBSCHEMA_PREFIX}(.*)/
+      embedded_objects(::Regexp.last_match(1))
+    elsif method_name.to_s =~ /#{Workflow::Step::GROUP_PREFIX}(.*)/
+      group_objects(::Regexp.last_match(1))
+    else
+      super
+    end
+  end
 
-    render :embedded_objects
+  def respond_to_missing?(method_name, include_private = false)
+    method_name.to_s.start_with?(Workflow::Step::SUBSCHEMA_PREFIX) || super
   end
 
   def review_links
@@ -87,7 +95,42 @@ module Workflow::ShowMethods
 
 private
 
-  def has_embedded_objects
-    @content_block_edition.details[@subschema.block_type].present?
+  def embedded_objects(subschema_name)
+    @subschema = @schema.subschema(subschema_name)
+    @step_name = current_step.name
+    @action = @content_block_edition.document.is_new_block? ? "Add" : "Edit"
+    @add_button_text = has_embedded_objects ? "Add another #{subschema_name.humanize.singularize.downcase}" : "Add #{helpers.add_indefinite_article @subschema.name.humanize.singularize.downcase}"
+
+    if @subschema
+      render :embedded_objects
+    else
+      raise ActionController::RoutingError, "Subschema #{subschema_name} does not exist"
+    end
+  end
+
+  def group_objects(group_name)
+    @group_name = group_name
+    @subschemas = @schema.subschemas_for_group(group_name)
+    @step_name = current_step.name
+    @action = @content_block_edition.document.is_new_block? ? "Add" : "Edit"
+
+    if @subschemas.any?
+      if @subschemas.none? { |subschema| has_embedded_objects(subschema) }
+        @group = group_name
+        @back_link = back_path
+        @redirect_path = content_block_manager.new_embedded_objects_options_redirect_content_block_manager_content_block_edition_path(@content_block_edition)
+        @context = @content_block_edition.title
+
+        render "content_block_manager/content_block/shared/embedded_objects/select_subschema"
+      else
+        render :group_objects
+      end
+    else
+      raise ActionController::RoutingError, "Subschema group #{group_name} does not exist"
+    end
+  end
+
+  def has_embedded_objects(subschema = @subschema)
+    @content_block_edition.details[subschema.block_type].present?
   end
 end

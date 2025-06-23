@@ -9,6 +9,7 @@ When("I click on the {string} subschema") do |schema_id|
   schema = @schemas.values.last
   subschema = schema.subschema(schema_id)
   choose subschema.name.singularize
+  @object_type = schema_id
   click_save_and_continue
 end
 

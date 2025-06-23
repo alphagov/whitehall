@@ -89,16 +89,22 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
     describe "when subschemas are present" do
       let(:subschemas) do
         [
-          stub("subschema_1", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", embeddable_fields: [], fields: [stub("field", name: "name")]),
-          stub("subschema_2", id: "subschema_2", name: "subschema_2", block_type: "subschema_1", fields: []),
+          stub("subschema_1", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", embeddable_fields: [], fields: [stub("field", name: "name")], group: nil),
+          stub("subschema_2", id: "subschema_2", name: "subschema_2", block_type: "subschema_1", fields: [], group: nil),
         ]
       end
 
       let!(:schema) { stub_request_for_schema("pension", subschemas:) }
 
       describe "#show" do
-        it "shows the embedded_objects step" do
-          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+        it "shows the form for the first subschema" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+          assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+        end
+
+        it "shows the form for the second subschema" do
+          get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
           assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
         end
@@ -107,19 +113,24 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
           let(:details) { { subschema_1: { existing_subschema: { name: "existing subschema" } } } }
           let(:edition) { create(:content_block_edition, document:, details:, organisation:, instructions_to_publishers: "instructions", title: "Some Edition Title") }
 
-          it "shows the existing block and how to add other embedded blocks" do
-            visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+          it "shows the existing block and how to add another embedded block" do
+            visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
 
             assert_text "existing subschema"
             assert_text "Add another subschema 1"
-            assert_text "Add another subschema 2"
           end
         end
       end
 
       describe "#update" do
+        it "redirects to the second subschema" do
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+          assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :embedded_subschema_2)
+        end
+
         it "redirects to the review page" do
-          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+          put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
           assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review)
         end
@@ -352,8 +363,8 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
       describe "when subschemas are present" do
         let(:subschemas) do
           [
-            stub("subschema", id: "subschema_1", name: "subschema_1", block_type: "subschema_1"),
-            stub("subschema", id: "subschema_2", name: "subschema_2", block_type: "subschema_2"),
+            stub("subschema", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", group: nil),
+            stub("subschema", id: "subschema_2", name: "subschema_2", block_type: "subschema_2", group: nil),
           ]
         end
 
@@ -364,18 +375,118 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         end
 
         describe "#show" do
-          it "renders the embedded objects template" do
-            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+          it "shows the form for the first subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+          end
+
+          it "shows the form for the second subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
             assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
           end
         end
 
         describe "#update" do
+          it "redirects to the second subschema" do
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :embedded_subschema_2)
+          end
+
           it "redirects to review links" do
-            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_objects")
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
 
             assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
+          end
+        end
+      end
+
+      describe "when subschemas are present" do
+        let(:group) { nil }
+        let(:subschemas) do
+          [
+            stub("subschema", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", group:, group_order: 0, fields: []),
+            stub("subschema", id: "subschema_2", name: "subschema_2", block_type: "subschema_2", group:, group_order: 1, fields: []),
+          ]
+        end
+
+        let!(:schema) { stub_request_for_schema("pension", subschemas:) }
+
+        before do
+          ContentBlockManager::ContentBlock::Edition.any_instance.stubs(:has_entries_for_subschema_id?).returns(true)
+        end
+
+        describe "#show" do
+          it "shows the form for the first subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+          end
+
+          it "shows the form for the second subschema" do
+            get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
+
+            assert_template "content_block_manager/content_block/editions/workflow/embedded_objects"
+          end
+        end
+
+        describe "#update" do
+          it "redirects to the second subschema" do
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_1")
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :embedded_subschema_2)
+          end
+
+          it "redirects to review links" do
+            put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_subschema_2")
+
+            assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
+          end
+        end
+
+        describe "when the subschemas are in a group" do
+          let(:group) { "some_group" }
+
+          before do
+            schema.stubs(:subschemas_for_group).with(group).returns(subschemas)
+          end
+
+          describe "#show" do
+            describe "when content exists for at least some of the subschemas" do
+              let(:details) do
+                {
+                  subschemas[0].block_type.to_s => {
+                    "item" => {
+                      "key" => "value",
+                    },
+                  },
+                }
+              end
+
+              it "shows the form for the group" do
+                get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "group_some_group")
+
+                assert_template "content_block_manager/content_block/editions/workflow/group_objects"
+              end
+            end
+
+            describe "when content does not exist for any of the subschemas" do
+              it "renders the select subschema group" do
+                get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "group_some_group")
+
+                assert_template "content_block_manager/content_block/shared/embedded_objects/select_subschema"
+              end
+            end
+          end
+
+          describe "#update" do
+            it "redirects to review links" do
+              put content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "group_some_group")
+
+              assert_redirected_to content_block_manager_content_block_workflow_path(id: edition.id, step: :review_links)
+            end
           end
         end
       end
@@ -476,8 +587,18 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
 
   describe "when an unknown subschema step is provided" do
     describe "#show" do
-      it "shows the new edition for review" do
+      it "returns a 404" do
         get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "embedded_something")
+
+        assert_response :missing
+      end
+    end
+  end
+
+  describe "when an unknown group step is provided" do
+    describe "#show" do
+      it "returns a 404" do
+        get content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step: "group_something")
 
         assert_response :missing
       end

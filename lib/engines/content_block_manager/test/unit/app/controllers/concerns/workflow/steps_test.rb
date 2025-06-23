@@ -133,8 +133,8 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
   describe "when a schema has subschemas" do
     let(:subschemas) do
       [
-        stub("subschema", id: "something"),
-        stub("subschema", id: "something_else"),
+        stub("subschema", id: "something", group: nil),
+        stub("subschema", id: "something_else", group: nil),
       ]
     end
 
@@ -148,26 +148,36 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
     end
 
     describe "#steps" do
-      it "returns all the steps" do
-        assert_equal workflow.steps, Workflow::Step::ALL
+      it "inserts the subschemas into the flow" do
+        assert_equal workflow.steps, [
+          Workflow::Step::ALL[0],
+          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
+          Workflow::Step::ALL[1..],
+        ].flatten
       end
 
-      describe "when no subschemas are present" do
+      describe "when there are entries missing for a given subschema" do
         before do
           content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(false)
-          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(false)
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(true)
         end
 
-        it "removes the embedded_objects step" do
-          assert_equal(workflow.steps, Workflow::Step::ALL.reject { |step| step.name == :embedded_objects })
+        it "skips the subschemas without data" do
+          assert_equal workflow.steps, [
+            Workflow::Step::ALL[0],
+            Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
+            Workflow::Step::ALL[1..],
+          ].flatten
         end
       end
     end
 
     describe "#next_step" do
       [
-        %i[edit_draft embedded_objects],
-        %i[embedded_objects review_links],
+        %i[edit_draft embedded_something],
+        %i[embedded_something embedded_something_else],
+        %i[embedded_something_else review_links],
         %i[review_links internal_note],
         %i[internal_note change_note],
         %i[change_note schedule_publishing],
@@ -186,8 +196,9 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
     describe "#previous_step" do
       [
-        %i[embedded_objects edit_draft],
-        %i[review_links embedded_objects],
+        %i[embedded_something edit_draft],
+        %i[embedded_something_else embedded_something],
+        %i[review_links embedded_something_else],
         %i[internal_note review_links],
         %i[change_note internal_note],
         %i[schedule_publishing change_note],
@@ -211,16 +222,18 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
       it "removes steps not included in the create journey" do
         assert_equal workflow.steps, [
           Workflow::Step.new(:edit_draft, :edit_draft, :update_draft, true),
-          Workflow::Step.new(:embedded_objects, :embedded_objects, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_something, :embedded_something, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_something_else, :embedded_something_else, :redirect_to_next_step, true),
           Workflow::Step.new(:review, :review, :validate_review_page, true),
           Workflow::Step.new(:confirmation, :confirmation, nil, true),
-        ]
+        ].flatten
       end
 
       describe "#next_step" do
         [
-          %i[edit_draft embedded_objects],
-          %i[embedded_objects review],
+          %i[edit_draft embedded_something],
+          %i[embedded_something embedded_something_else],
+          %i[embedded_something_else review],
           %i[review confirmation],
         ].each do |current_step, expected_step|
           describe "when current_step is #{current_step}" do
@@ -235,8 +248,163 @@ class Workflow::StepsTest < ActionDispatch::IntegrationTest
 
       describe "#previous_step" do
         [
-          %i[embedded_objects edit_draft],
-          %i[review embedded_objects],
+          %i[embedded_something edit_draft],
+          %i[embedded_something_else embedded_something],
+          %i[review embedded_something_else],
+        ].each do |current_step, expected_step|
+          describe "when current_step is #{current_step}" do
+            let(:step) { current_step }
+
+            it "returns #{expected_step} step" do
+              assert_equal workflow.previous_step.name, expected_step
+            end
+          end
+        end
+      end
+    end
+  end
+
+  describe "when a schema has grouped subschemas" do
+    let(:subschemas) do
+      [
+        stub("subschema", id: "something", group: "my_group"),
+        stub("subschema", id: "something_else", group: "my_group"),
+        stub("subschema", id: "ungrouped", group: nil),
+      ]
+    end
+
+    let!(:schema) { stub_request_for_schema(content_block_document.block_type, subschemas:) }
+
+    let(:step) { "something" }
+
+    before do
+      content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(true)
+      content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(true)
+      content_block_edition.stubs(:has_entries_for_subschema_id?).with("ungrouped").returns(true)
+    end
+
+    describe "#steps" do
+      it "inserts the subschemas into the flow" do
+        assert_equal workflow.steps, [
+          Workflow::Step::ALL[0],
+          Workflow::Step.new(:group_my_group, :group_my_group, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_ungrouped, :embedded_ungrouped, :redirect_to_next_step, true),
+          Workflow::Step::ALL[1..],
+        ].flatten
+      end
+
+      describe "when there are entries missing for a given subschema" do
+        before do
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(false)
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(false)
+          content_block_edition.stubs(:has_entries_for_subschema_id?).with("ungrouped").returns(true)
+        end
+
+        it "skips the subschemas without data" do
+          assert_equal workflow.steps, [
+            Workflow::Step::ALL[0],
+            Workflow::Step.new(:embedded_ungrouped, :embedded_ungrouped, :redirect_to_next_step, true),
+            Workflow::Step::ALL[1..],
+          ].flatten
+        end
+
+        describe "when there are entries missing for only some subschemas in a group" do
+          before do
+            content_block_edition.stubs(:has_entries_for_subschema_id?).with("something").returns(false)
+            content_block_edition.stubs(:has_entries_for_subschema_id?).with("something_else").returns(true)
+            content_block_edition.stubs(:has_entries_for_subschema_id?).with("ungrouped").returns(true)
+          end
+
+          it "retains the group" do
+            assert_equal workflow.steps, [
+              Workflow::Step::ALL[0],
+              Workflow::Step.new(:group_my_group, :group_my_group, :redirect_to_next_step, true),
+              Workflow::Step.new(:embedded_ungrouped, :embedded_ungrouped, :redirect_to_next_step, true),
+              Workflow::Step::ALL[1..],
+            ].flatten
+          end
+        end
+      end
+    end
+
+    describe "#next_step" do
+      [
+        %i[edit_draft group_my_group],
+        %i[group_my_group embedded_ungrouped],
+        %i[embedded_ungrouped review_links],
+        %i[review_links internal_note],
+        %i[internal_note change_note],
+        %i[change_note schedule_publishing],
+        %i[schedule_publishing review],
+        %i[review confirmation],
+      ].each do |current_step, expected_step|
+        describe "when current_step is #{current_step}" do
+          let(:step) { current_step }
+
+          it "returns #{expected_step} step" do
+            assert_equal workflow.next_step.name, expected_step
+          end
+        end
+      end
+    end
+
+    describe "#previous_step" do
+      [
+        %i[group_my_group edit_draft],
+        %i[embedded_ungrouped group_my_group],
+        %i[review_links embedded_ungrouped],
+        %i[internal_note review_links],
+        %i[change_note internal_note],
+        %i[schedule_publishing change_note],
+        %i[review schedule_publishing],
+      ].each do |current_step, expected_step|
+        describe "when current_step is #{current_step}" do
+          let(:step) { current_step }
+
+          it "returns #{expected_step} step" do
+            assert_equal workflow.previous_step.name, expected_step
+          end
+        end
+      end
+    end
+
+    describe "and the content block is new" do
+      before do
+        content_block_document.expects(:is_new_block?).at_least_once.returns(true)
+      end
+
+      it "removes steps not included in the create journey" do
+        assert_equal workflow.steps, [
+          Workflow::Step.new(:edit_draft, :edit_draft, :update_draft, true),
+          Workflow::Step.new(:group_my_group, :group_my_group, :redirect_to_next_step, true),
+          Workflow::Step.new(:embedded_ungrouped, :embedded_ungrouped, :redirect_to_next_step, true),
+          Workflow::Step.new(:review, :review, :validate_review_page, true),
+          Workflow::Step.new(:confirmation, :confirmation, nil, true),
+        ].flatten
+      end
+
+      describe "#next_step" do
+        [
+          %i[edit_draft group_my_group],
+          %i[group_my_group embedded_ungrouped],
+          %i[embedded_ungrouped review],
+          %i[review confirmation],
+        ].each do |current_step, expected_step|
+          describe "when current_step is #{current_step}" do
+            let(:step) { current_step }
+
+            it "returns #{expected_step} step" do
+              assert_equal workflow.next_step.name, expected_step
+            end
+          end
+        end
+      end
+
+      describe "#previous_step" do
+        [
+          %i[group_my_group edit_draft],
+          %i[embedded_ungrouped group_my_group],
+          %i[review embedded_ungrouped],
         ].each do |current_step, expected_step|
           describe "when current_step is #{current_step}" do
             let(:step) { current_step }

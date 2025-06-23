@@ -40,8 +40,8 @@ en:
       title: "Create %{block_type}"
       embedded_objects:
         rates: "Enter %{block_type} details. You can do this now or later."
-        added_confirmation: "%{name_capitalized} added. You can add more items or finish creating the %{schema_name} block."
-        edited_confirmation: "%{name_capitalized} edited. You can edit more items or finish creating the %{schema_name} block."
+        added_confirmation: "%{object_name} added. You can add another %{object_or_group} or finish creating the %{schema_name} block."
+        edited_confirmation: "%{object_name} edited. You can add another %{object_or_group} or finish creating the %{schema_name} block."
     confirmation_page:
       scheduled:
         banner: "%{block_type} scheduled to publish on %{date}"
