@@ -107,12 +107,12 @@ module Admin::EditionsHelper
     end
   end
 
-  # Bit of a hack to stop the 'generic_editions_controller_tests' from breaking,
-  # since `view_admin_generic_edition_path` doesn't exist
   def view_path_for_edition(edition)
     route_helper = "view_admin_#{edition.type.underscore}_path"
     if respond_to?(route_helper)
       send(route_helper, edition)
+    elsif edition.is_a?(CorporateInformationPage)
+      "/government/admin/organisations/#{edition.organisation.slug}/corporate_information_pages/#{edition.id}/view"
     end
   end
 

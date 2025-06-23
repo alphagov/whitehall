@@ -101,4 +101,24 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal "It's my title!", edition_title_link_or_edition_title(edition)
   end
+
+  test "#view_path_for_edition returns view path for standard edition types" do
+    edition = create(:publication)
+
+    assert_equal "/government/admin/publications/#{edition.id}/view", view_path_for_edition(edition)
+  end
+
+  test "#view_path_for_edition returns view path for Corporate Information Pages" do
+    edition = create(:corporate_information_page)
+
+    assert_equal "/government/admin/organisations/#{edition.organisation.slug}/corporate_information_pages/#{edition.id}/view", view_path_for_edition(edition)
+  end
+
+  # Bit of a hack to stop the 'generic_editions_controller_tests' from breaking,
+  # since `view_admin_generic_edition_path` doesn't exist
+  test "#view_path_for_edition returns nil for Generic Edition" do
+    edition = build(:published_edition)
+
+    assert_equal nil, view_path_for_edition(edition)
+  end
 end

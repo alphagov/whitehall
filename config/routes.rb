@@ -115,6 +115,7 @@ Whitehall::Application.routes.draw do
       resources :organisations do
         resources :groups, except: [:show]
         resources :corporate_information_pages do
+          get :view, on: :member
           resources :translations, controller: "corporate_information_pages_translations"
         end
         resources :contacts do

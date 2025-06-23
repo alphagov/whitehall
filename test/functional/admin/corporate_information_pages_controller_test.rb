@@ -65,6 +65,17 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     end
   end
 
+  view_test "GET :view should display read-only form for existing corporate information page" do
+    corporate_information_page = create(:corporate_information_page, organisation: @organisation)
+    get :view, params: { organisation_id: @organisation, id: corporate_information_page }
+
+    assert_select "form fieldset[disabled='disabled']" do
+      assert_select "textarea[name='edition[body]']", corporate_information_page.body
+      assert_select "textarea[name='edition[summary]']", corporate_information_page.summary
+      assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
+    end
+  end
+
   test "PUT :update should update an existing corporate information page and redirect on success" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     new_attributes = { body: "New body", summary: "New summary" }

@@ -10,5 +10,10 @@
     secondary_solid: true,
   } %>
 
-  <%= link_to "Cancel", edition.new_record? ? admin_editions_path : admin_edition_path(edition), class: "govuk-link govuk-link--no-visited-state" %>
+  <% cancel_link_path = if edition.is_a?(CorporateInformationPage)
+                          edition.new_record? ? polymorphic_path([:admin, edition.organisation, CorporateInformationPage]) : admin_edition_path(edition)
+                        else
+                          edition.new_record? ? admin_editions_path : admin_edition_path(edition)
+                        end %>
+  <%= link_to "Cancel", cancel_link_path, class: "govuk-link govuk-link--no-visited-state" %>
 </div>
