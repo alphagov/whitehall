@@ -21,12 +21,28 @@ class Admin::FlexiblePagesControllerTest < ActionController::TestCase
   end
 
   test "POST create re-renders the new edition template with the submitted flexible page content if the form is invalid" do
-    flexible_page_content = {
-      "page_title" => {
-        "heading_text" => "foo",
+    flexible_page_types = {
+      "test_type" => {
+        "key" => "test_type",
+        "schema" => {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://www.gov.uk/schemas/test_type/v1",
+          "type" => "object",
+          "properties" => {
+            "test_attribute" => {
+              "title" => "Test Attribute",
+              "type" => "string",
+            },
+          },
+        },
       },
     }
-    post :create, params: { edition: { flexible_page_type: "history_page", flexible_page_content: } }
+    FlexiblePageType.setup_test_types(flexible_page_types)
+
+    flexible_page_content = {
+      "test_attribute" => "foo",
+    }
+    post :create, params: { edition: { flexible_page_type: "test_type", flexible_page_content: } }
     assert_template "admin/editions/new"
   end
 end
