@@ -1,0 +1,64 @@
+<div class="app-c-content-block-manager-opening-hours-item-component">
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Days",
+    heading_level: 3,
+    heading_size: "m",
+  } do %>
+    <% capture do %>
+      <div class="govuk-hint">
+        For example, Monday to Friday
+      </div>
+      <div class="app-c-content-block-manager-opening-hours-item-component__input-group">
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item">
+          <%= render "govuk_publishing_components/components/select", day_arguments("day_from") %>
+        </div>
+
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item">
+          <p class="govuk-body">To</p>
+        </div>
+
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item">
+          <%= render "govuk_publishing_components/components/select", day_arguments("day_to") %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/fieldset", {
+    legend_text: "Time",
+    heading_level: 3,
+    heading_size: "m",
+  } do %>
+    <% capture do %>
+      <div class="govuk-hint">
+        For example, 8:30am to 4:30pm
+      </div>
+
+      <div class="app-c-content-block-manager-opening-hours-item-component__input-group">
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item app-c-content-block-manager-opening-hours-item-component__input-item--time">
+          <%= render "govuk_publishing_components/components/select", hour_arguments("time_from(h)") %>
+        </div>
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item app-c-content-block-manager-opening-hours-item-component__input-item--time">
+          <%= render "govuk_publishing_components/components/select", minute_arguments("time_from(m)") %>
+        </div>
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item app-c-content-block-manager-opening-hours-item-component__input-item--time">
+          <%= render "govuk_publishing_components/components/select", meridian_arguments("time_from(meridian)") %>
+        </div>
+
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item">
+          <p class="govuk-body">To</p>
+        </div>
+
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item app-c-content-block-manager-opening-hours-item-component__input-item--time">
+          <%= render "govuk_publishing_components/components/select", hour_arguments("time_to(h)") %>
+        </div>
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item app-c-content-block-manager-opening-hours-item-component__input-item--time">
+          <%= render "govuk_publishing_components/components/select", minute_arguments("time_to(m)") %>
+        </div>
+        <div class="app-c-content-block-manager-opening-hours-item-component__input-item app-c-content-block-manager-opening-hours-item-component__input-item--time">
+          <%= render "govuk_publishing_components/components/select", meridian_arguments("time_to(meridian)") %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

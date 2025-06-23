@@ -59,3 +59,17 @@ en:
       hints:
         rates:
           amount: "Enter an exact amount, with the currency symbol - for example: £122.50"
+      labels:
+        contacts:
+          telephones:
+            opening_hours:
+              day_from: From
+              day_to: To
+              time_from(h): Hours
+              time_from(m): Minutes
+              time_from(meridian): AM/PM
+              time_to(h): Hours
+              time_to(m): Minutes
+              time_to(meridian): AM/PM
+
+
