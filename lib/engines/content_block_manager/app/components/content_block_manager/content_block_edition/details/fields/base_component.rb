@@ -3,7 +3,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent <
 
   PARENT_CLASS = "content_block_manager_content_block_edition".freeze
 
-  def initialize(content_block_edition:, field:, value: nil, object_id: nil)
+  def initialize(content_block_edition:, field:, value: nil, object_id: nil, **_args)
     @content_block_edition = content_block_edition
     @field = field
     @value = value
