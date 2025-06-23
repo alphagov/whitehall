@@ -24,7 +24,38 @@ When(/^I draft a new "([^"]*)" flexible page titled "([^"]*)"$/) do |flexible_pa
   click_button "Save and go to document summary"
 end
 
+When(/^I publish a submitted draft of a test flexible page titled "([^"]*)"$/) do |title|
+  submitter = create(:user)
+  flexible_page = FlexiblePage.new
+  as_user(submitter) do
+    flexible_page.flexible_page_type = "test"
+    flexible_page.title = title
+    flexible_page.state = "submitted"
+    flexible_page.document = Document.new
+    flexible_page.document.slug = title.parameterize
+    flexible_page.flexible_page_content = {
+      "page_title" => {
+        "heading_text" => title,
+        "context" => "Additional context",
+      },
+      "body" => "Some text",
+    }
+    flexible_page.creator = submitter
+    flexible_page.save!
+    stub_publishing_api_links_with_taxons(flexible_page.content_id, %w[a-taxon-content-id])
+  end
+
+  visit admin_flexible_page_path(flexible_page)
+  click_link "Publish"
+  expect(page).to have_content("Once you publish, this document will be visible to the public")
+  click_button "Publish"
+end
+
 Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
   expect(page.find("h1")).to have_content(title)
   expect(page).to have_content("Your document has been saved.")
+end
+
+Then(/^I can see that the draft edition of "([^"]*)" was published successfully$/) do |title|
+  expect(page).to have_content("The document #{title} has been published")
 end
