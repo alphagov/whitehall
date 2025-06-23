@@ -1,0 +1,13 @@
+.app-c-content-block-manager-opening-hours-component {
+  .gem-c-fieldset {
+    background-color: govuk-colour("white");
+  }
+
+  .gem-c-checkboxes > .govuk-fieldset > .govuk-fieldset__legend {
+    @extend .govuk-visually-hidden;
+  }
+
+  .js-add-another__fieldset > .govuk-fieldset > .govuk-fieldset__legend {
+    @extend .govuk-visually-hidden;
+  }
+}
