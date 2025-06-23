@@ -64,7 +64,7 @@ class CallForEvidence < Publicationesque
   end
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    Whitehall::RenderingApp::FRONTEND
   end
 
   def allows_inline_attachments?

@@ -24,7 +24,7 @@ module PublishingApi
           details:,
           document_type:,
           public_updated_at:,
-          rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+          rendering_app: Whitehall::RenderingApp::FRONTEND,
           schema_name: SCHEMA_NAME,
           links: edition_links,
           auth_bypass_ids: [call_for_evidence.auth_bypass_id],
