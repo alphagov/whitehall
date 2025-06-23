@@ -1,5 +1,6 @@
 class Admin::FlexiblePagesController < Admin::EditionsController
   before_action :prevent_access_when_disabled
+  before_action :create_content_block_context
   def choose_type; end
 
 private
@@ -10,6 +11,10 @@ private
 
   def prevent_access_when_disabled
     head :not_found unless Flipflop.flexible_pages?
+  end
+
+  def create_content_block_context
+    FlexiblePageContentBlocks::Context.create(@edition, view_context)
   end
 
   def new_edition_params

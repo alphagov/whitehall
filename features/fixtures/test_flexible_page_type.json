@@ -28,7 +28,14 @@
       "body": {
         "title": "Body",
         "description": "The main content of the page",
-        "type": "string"
+        "type": "string",
+        "format": "govspeak"
+      },
+      "image": {
+        "title": "Image",
+        "description": "The image for the page",
+        "type": "string",
+        "format": "image_select"
       }
     },
     "required": ["page_title"]

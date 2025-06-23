@@ -41,8 +41,11 @@ class FlexiblePage < Edition
   end
 
   def content_conforms_to_schema
-    unless type_instance.validator.valid?(flexible_page_content)
-      errors.add(:flexible_page_content, "does not conform to schema for the #{type_instance.label}.")
+    formats = FlexiblePageContentBlocks::Factory.build_all.each_with_object({}) do |block, object|
+      object[block.json_schema_format] = block.json_schema_validator unless block.json_schema_format == "default"
+    end
+    unless JSONSchemer.schema(type_instance.schema, formats:).valid?(flexible_page_content)
+      errors.add(:flexible_page_content, "does not conform with the expected schema")
     end
   end
 end

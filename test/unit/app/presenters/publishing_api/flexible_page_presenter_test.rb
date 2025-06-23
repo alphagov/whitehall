@@ -69,6 +69,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
       "property_one" => "Foo",
       "property_two" => "Bar",
     }
+    FlexiblePageContentBlocks::Context.create(page, nil)
     presenter = PublishingApi::FlexiblePagePresenter.new(page)
     content = presenter.content
     assert_equal page.flexible_page_content["property_one"], content[:details][:property_one]
