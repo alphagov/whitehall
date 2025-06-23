@@ -14,8 +14,10 @@ class PublishingApi::PayloadBuilder::FlexiblePageContentTest < ActiveSupport::Te
       },
     }
     content = { "test_attribute" => "some text" }
+    page = FlexiblePage.new
+    page.flexible_page_content = content
 
-    payload_builder = PublishingApi::PayloadBuilder::FlexiblePageContent.new(test_schema, content)
+    payload_builder = PublishingApi::PayloadBuilder::FlexiblePageContent.new(test_schema, page)
 
     assert_equal({ test_attribute: "some text" }, payload_builder.call)
   end
@@ -45,8 +47,10 @@ class PublishingApi::PayloadBuilder::FlexiblePageContentTest < ActiveSupport::Te
       "test_attribute_one" => "foo",
       "test_attribute_two" => "bar",
     } }
+    page = FlexiblePage.new
+    page.flexible_page_content = content
 
-    payload_builder = PublishingApi::PayloadBuilder::FlexiblePageContent.new(test_schema, content)
+    payload_builder = PublishingApi::PayloadBuilder::FlexiblePageContent.new(test_schema, page)
 
     assert_equal({ test_object_attribute: {
       test_attribute_one: "foo",
@@ -73,6 +77,8 @@ class PublishingApi::PayloadBuilder::FlexiblePageContentTest < ActiveSupport::Te
     content = {
       "test_attribute" => govspeak,
     }
+    page = FlexiblePage.new
+    page.flexible_page_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
@@ -80,8 +86,37 @@ class PublishingApi::PayloadBuilder::FlexiblePageContentTest < ActiveSupport::Te
       .returns(html)
 
     Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-    payload_builder = PublishingApi::PayloadBuilder::FlexiblePageContent.new(test_schema, content)
+    payload_builder = PublishingApi::PayloadBuilder::FlexiblePageContent.new(test_schema, page)
 
     assert_equal({ test_attribute: html }, payload_builder.call)
+  end
+
+  test "it presents image select fields" do
+    test_schema = {
+      "$schema" => "https://json-schema.org/draft/2020-12/schema",
+      "$id" => "https://www.gov.uk/schemas/test_type/v1",
+      "title" => "Test type",
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+          "format" => "image_select",
+        },
+      },
+    }
+    images = create_list(:image, 3)
+    content = { "test_attribute" => images[1].id }
+    page = FlexiblePage.new
+    page.flexible_page_content = content
+    page.images = images
+
+    payload_builder = PublishingApi::PayloadBuilder::FlexiblePageContent.new(test_schema, page)
+
+    assert_equal({ test_attribute: {
+      src: images[1].url,
+      caption: images[1].caption,
+      alt_text: images[1].alt_text,
+    } }, payload_builder.call)
   end
 end

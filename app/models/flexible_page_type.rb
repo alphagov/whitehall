@@ -53,7 +53,7 @@ class FlexiblePageType
     JSONSchemer.schema(@schema, formats:)
   end
 
-  def publishing_api_payload_builder(page_content)
-    PublishingApi::PayloadBuilder::FlexiblePageContent.new(@schema, page_content)
+  def publishing_api_payload_builder(page)
+    PublishingApi::PayloadBuilder::FlexiblePageContent.new(@schema, page)
   end
 end
