@@ -28,7 +28,7 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
     data_pointer = error["data_pointer"].delete_prefix("/")
     field_items = data_pointer.split("/")
     attribute = field_items.last
-    key = field_items.count > 1 ? "#{field_items.first}_#{attribute}" : attribute
+    key = key_with_optional_prefix(error, nil)
     edition.errors.add(
       "details_#{key}",
       I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: attribute.humanize),
