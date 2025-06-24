@@ -1,8 +1,16 @@
-<% content_for :page_title, "Edit #{@edition.format_name}" %>
-<% content_for :title, "Editing #{@edition.format_name}" %>
+<% content_for :page_title, "#{@edition.editable? ? 'Edit' : 'View'} #{@edition.format_name}" %>
+<% content_for :title, "#{@edition.editable? ? 'Editing' : 'Viewing'}  #{@edition.format_name}" %>
 <% content_for :context, @edition.title %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 <% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
+
+<% unless @edition.editable? %>
+  <% content_for :back_link do %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: admin_edition_path(@edition),
+    } %>
+  <% end %>
+<% end %>
 
 <% if @conflicting_edition %>
   <div class="govuk-grid-row">
@@ -27,7 +35,7 @@
       <%= render "components/secondary_navigation", {
         aria_label: "Document navigation",
         items: secondary_navigation_tabs_items(@edition, request.path),
-      } %>
+      } if @edition.editable? %>
 
       <%= render "form", edition: @edition %>
     </div>

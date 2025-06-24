@@ -238,6 +238,24 @@ module AdminEditionControllerTestHelpers
         assert_select "a[href=?]", admin_edition_path, text: /cancel/i
       end
 
+      view_test "GET :edit on published edition shows read-only version of the form" do
+        published_edition = create("published_#{edition_type}")
+
+        get :edit, params: { id: published_edition }
+
+        assert_select "form fieldset[disabled='disabled']" do
+          assert_select "textarea[name='edition[body]']", published_edition.body
+          assert_select "textarea[name='edition[summary]']", published_edition.summary
+        end
+
+        # no tabs for Attachments, Images etc, as we don't yet have read-only equivalents of those forms
+        refute_select ".app-c-secondary-navigation"
+
+        # normal Edit form has a 'Cancel' link at the bottom of the form. It makes more
+        # sense here to have a standard 'Back' link breadcrumb
+        assert_select ".govuk-back-link", text: "Back"
+      end
+
       test "update should save modified edition attributes" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
