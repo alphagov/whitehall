@@ -59,3 +59,6 @@ en:
       hints:
         rates:
           amount: "Enter an exact amount, with the currency symbol - for example: £122.50"
+      labels:
+        telephones:
+          show_uk_call_charges: "Show UK call charges"

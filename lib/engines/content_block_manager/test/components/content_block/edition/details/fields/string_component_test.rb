@@ -79,6 +79,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
 
   describe "hints" do
     it "should render hint text when a translation exists" do
+      I18n.expects(:t).with("content_block_edition.details.labels.email_address", default: "Email address").returns(nil)
       I18n.expects(:t).with("content_block_edition.details.hints.email_address", default: nil).returns("Some hint text")
 
       render_inline(
@@ -93,6 +94,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
     end
 
     it "should use the object_id for the hint text when provided" do
+      I18n.expects(:t).with("content_block_edition.details.labels.my_suffix.email_address", default: "Email address").returns(nil)
       I18n.expects(:t).with("content_block_edition.details.hints.my_suffix.email_address", default: nil).returns("Some hint text")
 
       render_inline(
@@ -105,6 +107,23 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
       )
 
       assert_selector ".govuk-hint", text: "Some hint text"
+    end
+  end
+
+  describe "when there is a translation for a field label" do
+    it "should return the translation" do
+      I18n.expects(:t).with("content_block_edition.details.hints.email_address", default: nil).returns("Some hint text")
+
+      I18n.expects(:t).with("content_block_edition.details.labels.email_address", default: "Email address").returns("Email address translated")
+
+      render_inline(
+        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+          content_block_edition:,
+          field:,
+        ),
+      )
+
+      assert_selector "label", text: "Email address translated"
     end
   end
 end
