@@ -37,6 +37,8 @@
         items: secondary_navigation_tabs_items(@edition, request.path),
       } if @edition.editable? %>
 
+      <%= govspeak_to_html("^This is a read-only view of the current (#{@edition.state}) edition. To edit, please return to the summary page and choose \"Create new edition\".^") unless @edition.editable? %>
+
       <%= render "form", edition: @edition %>
     </div>
 

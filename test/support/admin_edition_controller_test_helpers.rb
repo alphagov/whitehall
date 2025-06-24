@@ -243,6 +243,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, params: { id: published_edition }
 
+        assert_select ".govspeak div[role='note']", text: "This is a read-only view of the current (published) edition. To edit, please return to the summary page and choose “Create new edition”."
         assert_select "form fieldset[disabled='disabled']" do
           assert_select "textarea[name='edition[body]']", published_edition.body
           assert_select "textarea[name='edition[summary]']", published_edition.summary
