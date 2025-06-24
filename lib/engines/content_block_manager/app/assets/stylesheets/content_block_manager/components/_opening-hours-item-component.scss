@@ -18,4 +18,12 @@
       }
     }
   }
+
+  &__time-group {
+    @extend .govuk-date-input__item;
+
+    &--error {
+      @extend .govuk-form-group--error;
+    }
+  }
 }

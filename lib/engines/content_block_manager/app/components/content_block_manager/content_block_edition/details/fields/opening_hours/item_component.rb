@@ -1,24 +1,28 @@
 class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent < ViewComponent::Base
+  include ErrorsHelper
+
   DAYS = Date::DAYNAMES.rotate(1)
   HOURS = (1..12).to_a
   MINUTES = (0..59).map { |i| sprintf("%02d", i) }
   MERIDIAN = %w[AM PM].freeze
 
-  def initialize(name_prefix:, id_prefix:, value:, index:, field:)
+  def initialize(name_prefix:, id_prefix:, value:, index:, field:, errors:)
     @name_prefix = name_prefix
     @id_prefix = id_prefix
     @value = value
     @index = index
     @field = field
+    @errors = errors
   end
 
 private
 
-  attr_reader :name_prefix, :id_prefix, :value, :index, :field
+  attr_reader :name_prefix, :id_prefix, :value, :index, :field, :errors
 
   def day_arguments(field_name)
     select_arguments(field_name).merge(
-      options: options(field_name, DAYS)
+      options: options(field_name, DAYS),
+      error_message: error_for_field_name(field_name),
     )
   end
 
@@ -46,6 +50,26 @@ private
       name: "#{name_prefix}[][#{field_name}]",
       id: "#{id_prefix}_#{index}_#{field_name.parameterize.underscore}",
     }
+  end
+
+  def time_error_message(prefix)
+    content_tag(:p, error_for_field_name(prefix), class: "govuk-error-message") if show_time_errors?(prefix)
+  end
+
+  def time_error_class(prefix)
+    "app-c-content-block-manager-opening-hours-item-component__time-group--error" if show_time_errors?(prefix)
+  end
+
+  def show_time_errors?(prefix)
+    error_for_field_name(prefix).present?
+  end
+
+  def error_for_field_name(field_name)
+    errors_for(errors, [error_prefix, index, field_name].compact.join("_").to_sym)&.first&.fetch(:text, nil)
+  end
+
+  def error_prefix
+    id_prefix.gsub("content_block_manager_content_block_edition_", "")
   end
 
   def options(field_name, items)
