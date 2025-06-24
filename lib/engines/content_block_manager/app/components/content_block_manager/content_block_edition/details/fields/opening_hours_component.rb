@@ -12,6 +12,7 @@ private
       value: value,
       index:,
       field:,
+      errors:,
     )
   end
 end

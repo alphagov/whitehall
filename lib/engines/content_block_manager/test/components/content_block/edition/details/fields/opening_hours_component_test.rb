@@ -103,6 +103,52 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursCom
         end
       end
     end
+
+    describe "when errors are present" do
+      let(:errors) do
+        [
+          stub(:error, attribute: :details_items_0_day_from, full_message: "Day from can't be blank"),
+          stub(:error, attribute: :details_items_0_day_to, full_message: "Day to can't be blank"),
+          stub(:error, attribute: :details_items_0_time_from, full_message: "Time from is invalid"),
+          stub(:error, attribute: :details_items_0_time_to, full_message: "Time to is invalid"),
+        ]
+      end
+
+      before do
+        content_block_edition.stubs(:errors).returns(errors)
+      end
+
+      it "displays the errors" do
+        render_inline component
+
+        assert_selector ".govuk-checkboxes__conditional" do |conditional|
+          conditional.assert_selector ".gem-c-add-another" do |component|
+            component.assert_selector ".js-add-another__fieldset", count: 2
+            component.assert_selector ".js-add-another__empty", count: 1
+
+            component.assert_selector ".js-add-another__fieldset", text: "Opening Hour 1" do |fieldset|
+              fieldset.assert_selector ".govuk-form-group--error", text: "Day from can't be blank" do |form_group|
+                form_group.assert_selector ".govuk-error-message", text: "Day from can't be blank"
+                form_group.assert_selector "#content_block_manager_content_block_edition_details_items_0_day_from.govuk-select--error"
+              end
+
+              fieldset.assert_selector ".govuk-form-group--error", text: "Day to can't be blank" do |form_group|
+                form_group.assert_selector ".govuk-error-message", text: "Day to can't be blank"
+                form_group.assert_selector "#content_block_manager_content_block_edition_details_items_0_day_to.govuk-select--error"
+              end
+
+              fieldset.assert_selector ".app-c-content-block-manager-opening-hours-item-component__time-group--error", text: "Time from is invalid" do |form_group|
+                form_group.assert_selector ".govuk-error-message", text: "Time from is invalid"
+              end
+
+              fieldset.assert_selector ".app-c-content-block-manager-opening-hours-item-component__time-group--error", text: "Time to is invalid" do |form_group|
+                form_group.assert_selector ".govuk-error-message", text: "Time to is invalid"
+              end
+            end
+          end
+        end
+      end
+    end
   end
 
 private
