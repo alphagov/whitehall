@@ -179,6 +179,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
                       "properties" => {
                         "foo" => {
                           "type" => "string",
+                          "pattern" => "valid",
                         },
                         "bar" => {
                           "type" => "string",
@@ -222,6 +223,36 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
       assert_equal content_block_edition.valid?, false
       errors = content_block_edition.errors
       assert_error errors:, key: :details_things_array_of_objects_1_foo, type: "blank", attribute: "Foo"
+    end
+
+    it "returns an error if an item is invalid in an array of objects" do
+      content_block_edition = build(
+        :content_block_edition,
+        :pension,
+        details: {
+          foo: "foo@example.com",
+          bar: "2022-01-01",
+          things: {
+            "something-else": {
+              array_of_objects: [
+                {
+                  foo: "not correct",
+                  bar: "something",
+                },
+                {
+                  foo: "",
+                  bar: "something",
+                },
+              ],
+            },
+          },
+        },
+        schema:,
+      )
+
+      assert_equal content_block_edition.valid?, false
+      errors = content_block_edition.errors
+      assert_error errors:, key: :details_things_array_of_objects_0_foo, type: "invalid", attribute: "Foo"
     end
   end
 
