@@ -237,6 +237,32 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
           nested_block.assert_selector ".govuk-summary-list__value", text: "Bar"
         end
       end
+
+      it "returns a translated field if there is one present" do
+        I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.name", default: "Name").returns("Name translated")
+        I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
+        I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
+
+        component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+          content_block_edition:,
+          object_type: "embedded-objects",
+          object_title: "my-embedded-object",
+        )
+
+        render_inline component
+
+        assert_selector ".govuk-summary-list__row[data-testid='my_embedded_object_name']", text: /Name/ do
+          assert_selector ".govuk-summary-list__key", text: "Name translated"
+        end
+
+        assert_selector ".app-c-content-block-manager-nested-item-component", text: /Field 1/ do |nested_block|
+          nested_block.assert_selector ".govuk-summary-list__key", text: "Item translated"
+        end
+
+        assert_selector ".app-c-content-block-manager-nested-item-component", text: /Field 2/ do |nested_block|
+          nested_block.assert_selector ".govuk-summary-list__key", text: "Item translated"
+        end
+      end
     end
 
     describe "when hashes are present" do

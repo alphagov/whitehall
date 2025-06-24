@@ -68,5 +68,13 @@ class ContentBlockManager::ContentBlock::SummaryListHelperTest < ActiveSupport::
     it "returns a titleized version with a count when an index is present" do
       assert_equal key_to_title("items/1"), "Item 2"
     end
+
+    describe "when there is a translation for the key" do
+      it "returns translated key" do
+        I18n.expects(:t).with("content_block_edition.details.labels.object_type.item", default: "Item").returns("Item translated")
+
+        assert_equal key_to_title("item", "object_type"), "Item translated"
+      end
+    end
   end
 end

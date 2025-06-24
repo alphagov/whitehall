@@ -30,7 +30,7 @@ private
   def rows
     first_class_items(items).map do |key, value|
       {
-        field: key_to_title(key),
+        field: key_to_title(key, object_type),
         value:,
         data: {
           testid: [object_title.parameterize, key].compact.join("_").underscore,

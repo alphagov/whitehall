@@ -1,4 +1,5 @@
 class ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent < ViewComponent::Base
+  include ContentBlockManager::ContentBlock::TranslationHelper
   with_collection_parameter :nested_items
 
   def initialize(nested_items:, title:, nested_items_counter: nil)
@@ -22,7 +23,7 @@ private
   def rows
     nested_items.map do |key, value|
       {
-        key: key.titleize,
+        key: humanized_label(key),
         value:,
       }
     end

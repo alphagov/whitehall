@@ -1,4 +1,5 @@
 module ContentBlockManager::ContentBlock::SummaryListHelper
+  include ContentBlockManager::ContentBlock::TranslationHelper
   def first_class_items(input)
     result = {}
 
@@ -22,12 +23,12 @@ module ContentBlockManager::ContentBlock::SummaryListHelper
     end
   end
 
-  def key_to_title(key)
+  def key_to_title(key, object_type = nil)
     subject, count = key.split("/")
     if count
-      "#{subject.singularize} #{count.to_i + 1}".titleize
+      humanized_label("#{subject.singularize} #{count.to_i + 1}", object_type)
     else
-      subject.titleize
+      humanized_label(subject, object_type)
     end
   end
 end
