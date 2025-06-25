@@ -1,6 +1,8 @@
 class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::MetadataComponent < ViewComponent::Base
-  def initialize(items:)
+  include ContentBlockManager::ContentBlock::TranslationHelper
+  def initialize(items:, object_type:)
     @items = items
+    @object_type = object_type
   end
 
 private
@@ -10,7 +12,7 @@ private
   def rows
     items.map do |key, value|
       {
-        field: key.titleize,
+        field: humanized_label(key, @object_type),
         value: value,
       }
     end
