@@ -2,7 +2,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursCom
 private
 
   def label
-    "Opening Hours"
+    "Opening Hour"
   end
 
   def component(index)

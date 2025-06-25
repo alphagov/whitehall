@@ -79,6 +79,34 @@ Feature: Create a contact object
             "true",
             "false"
           ]
+        },
+        "opening_hours": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "day_from",
+              "day_to",
+              "time_from",
+              "time_to"
+            ],
+            "properties": {
+              "day_from": {
+                "type": "string"
+              },
+              "day_to": {
+                "type": "string"
+              },
+              "time_from": {
+                "type": "string",
+                "pattern": "^[0-9]{1,2}:[0-9]{2}AM|PM$"
+              },
+              "time_to": {
+                "type": "string",
+                "pattern": "^[0-9]{1,2}:[0-9]{2}AM|PM$"
+              }
+            }
+          }
         }
       }
     }
@@ -107,6 +135,10 @@ Feature: Create a contact object
       | label       | telephone_number | type      |
       | Telephone 1 | 12345            | Telephone |
       | Telephone 2 | 6789             | Textphone |
+    And I add the following "opening_hours" to the form:
+      | day_from | day_to | time_from | time_to |
+      | Monday   | Friday | 9:00AM    | 5:00PM  |
+      | Saturday | Sunday  | 10:00AM   | 3:00PM  |
     And I choose "Yes"
     And I save and continue
     Then I should be on the "add_group_modes" step
