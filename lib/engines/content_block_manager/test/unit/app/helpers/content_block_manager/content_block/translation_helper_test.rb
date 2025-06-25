@@ -33,4 +33,14 @@ class ContentBlockManager::ContentBlock::TranslationHelperTest < ActiveSupport::
       assert_equal "Field name", humanized_label("field-name", nil)
     end
   end
+
+  describe "translated_value" do
+    it "calls translation config with value" do
+      I18n.expects(:t)
+          .with("content_block_edition.details.values.field value", default: "field value")
+          .returns("field value")
+
+      assert_equal "field value", translated_value("field value")
+    end
+  end
 end

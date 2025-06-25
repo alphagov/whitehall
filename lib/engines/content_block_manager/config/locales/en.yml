@@ -73,3 +73,6 @@ en:
               time_to(h): Hours
               time_to(m): Minutes
               time_to(meridian): AM/PM
+      values:
+        true: "Yes"
+        false: "No"
