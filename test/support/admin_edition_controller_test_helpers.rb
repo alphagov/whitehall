@@ -238,6 +238,25 @@ module AdminEditionControllerTestHelpers
         assert_select "a[href=?]", admin_edition_path, text: /cancel/i
       end
 
+      view_test "GET :edit on published edition shows read-only version of the form" do
+        published_edition = create("published_#{edition_type}")
+
+        get :edit, params: { id: published_edition }
+
+        assert_select ".govspeak div[role='note']", text: "This is a read-only view of the current (published) edition. To edit, please return to the summary page and choose “Create new edition”."
+        assert_select "form fieldset[disabled='disabled']" do
+          assert_select "textarea[name='edition[body]']", published_edition.body
+          assert_select "textarea[name='edition[summary]']", published_edition.summary
+        end
+
+        # no tabs for Attachments, Images etc, as we don't yet have read-only equivalents of those forms
+        refute_select ".app-c-secondary-navigation"
+
+        # normal Edit form has a 'Cancel' link at the bottom of the form. It makes more
+        # sense here to have a standard 'Back' link breadcrumb
+        assert_select ".govuk-back-link", text: "Back"
+      end
+
       test "update should save modified edition attributes" do
         edition = create(edition_type) # rubocop:disable Rails/SaveBang
 
@@ -753,32 +772,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_prevent_modification_of_unmodifiable(edition_type)
-      (Edition::UNMODIFIABLE_STATES - %w[deleted]).each do |state|
-        test "edit not allowed for #{state} #{edition_type}" do
-          edition = create(edition_type.to_s, state.to_s)
-
-          get :edit, params: { id: edition }
-
-          assert_redirected_to send("admin_#{edition_type}_path", edition)
-        end
-
-        test "update not allowed for #{state} #{edition_type}" do
-          edition = create(edition_type.to_s, state.to_s)
-
-          put :update,
-              params: {
-                id: edition,
-                edition: {
-                  title: "new-title",
-                },
-              }
-
-          assert_redirected_to send("admin_#{edition_type}_path", edition)
-        end
-      end
-    end
-
     def should_allow_overriding_of_first_published_at_for(edition_type)
       edition_class = class_for(edition_type)
 
@@ -831,6 +824,14 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_equal [current_user], edition.reload.recent_edition_openings.map(&:editor)
+      end
+
+      test "viewing a read-only edit form for an existing #{edition_type} should not record a RecentEditionOpening" do
+        published_edition = create("published_#{edition_type}")
+
+        get :edit, params: { id: published_edition }
+
+        assert_equal [], published_edition.reload.recent_edition_openings.map(&:editor)
       end
 
       view_test "should not see a warning when editing an edition that nobody has recently edited" do

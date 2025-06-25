@@ -23,7 +23,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         stub_publishing_api_expanded_links_with_taxons(published_collection.content_id, [taxons])
         stub_publishing_api_has_links({ content_id: published_collection.content_id, links: })
 
-        visit edit_admin_document_collection_path(published_collection)
+        visit admin_document_collection_path(published_collection)
         click_button "Create new edition"
         click_link "Email notifications"
 
@@ -40,7 +40,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         stub_publishing_api_expanded_links_with_taxons(published_collection.content_id, [taxons])
         stub_publishing_api_has_links({ content_id: published_collection.content_id, links: })
 
-        visit edit_admin_document_collection_path(published_collection)
+        visit admin_document_collection_path(published_collection)
         click_button "Create new edition"
         assert page.has_no_link?("Email notifications")
       end

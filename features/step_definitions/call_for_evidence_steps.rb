@@ -32,7 +32,7 @@ Then(/^the call for evidence can be associated with topical events$/) do
 end
 
 When(/^I add an outcome to the call for evidence$/) do
-  visit edit_admin_call_for_evidence_path(CallForEvidence.last)
+  visit admin_call_for_evidence_path(CallForEvidence.last)
   click_button "Create new edition"
   click_link "Outcome"
 

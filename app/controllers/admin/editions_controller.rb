@@ -7,7 +7,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
   before_action :clear_response_form_file_cache, only: %i[create update]
   before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
-  before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
+  before_action :prevent_modification_of_unmodifiable_edition, only: %i[update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
   before_action :set_creator_for_review_reminder, only: %i[create update]
@@ -96,7 +96,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def edit
-    @edition.open_for_editing_as(current_user)
+    @edition.open_for_editing_as(current_user) if @edition.editable?
     fetch_version_and_remark_trails
   end
 
