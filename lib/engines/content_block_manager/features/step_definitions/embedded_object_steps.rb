@@ -28,6 +28,26 @@ end
 
 And("I add the following {string} to the form:") do |item_type, table|
   fields = table.hashes
+
+  if item_type == "opening_hours"
+    fields.map! do |item|
+      time_from = item.delete("time_from")
+      time_to = item.delete("time_to")
+
+      item["time_from(h)"] = time_from.split(":")[0]
+      item["time_from(m)"] = time_from.split(":")[1][0..1]
+      item["time_from(meridian)"] = time_from[-2..]
+
+      item["time_to(h)"] = time_to.split(":")[0]
+      item["time_to(m)"] = time_to.split(":")[1][0..1]
+      item["time_to(meridian)"] = time_to[-2..]
+
+      item
+    end
+
+    check "Hours available"
+  end
+
   fields.each do |row|
     field_prefix = "content_block/edition[details][#{@object_type.pluralize}][#{item_type}][]"
 
@@ -42,7 +62,9 @@ And("I add the following {string} to the form:") do |item_type, table|
       end
     end
 
-    click_on "Add a #{item_type.humanize.singularize}" unless row == fields.last
+    page.driver.with_playwright_page do |page|
+      page.get_by_text("Add #{add_indefinite_article item_type.humanize.singularize}").click unless row == fields.last
+    end
   end
 end
 

@@ -1,0 +1,19 @@
+<div class="app-c-content-block-manager-opening-hours-component">
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "hours_available",
+    id: "hours_available",
+    heading: "Opening hours",
+    no_hint_text: true,
+    small: true,
+    items: [
+      {
+        label: "Hours available",
+        value: "1",
+        checked: value.any?,
+        conditional: capture do
+          render_parent
+        end,
+      },
+    ],
+  } %>
+</div>

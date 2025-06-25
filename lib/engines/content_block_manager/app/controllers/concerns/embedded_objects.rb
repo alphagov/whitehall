@@ -1,5 +1,6 @@
 module EmbeddedObjects
   extend ActiveSupport::Concern
+  include ParamsPreprocessor
 
   def get_schema_and_subschema(block_type, object_type)
     schema = get_schema(block_type)
@@ -17,7 +18,7 @@ module EmbeddedObjects
   end
 
   def object_params(subschema)
-    params.require("content_block/edition").permit(
+    processed_params.require("content_block/edition").permit(
       details: {
         subschema.block_type.to_s => subschema.permitted_params,
       },

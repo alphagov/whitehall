@@ -25,11 +25,11 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
         component.assert_selector ".js-add-another__empty", count: 1
 
         component.assert_selector ".js-add-another__fieldset", text: /Item 1/ do |fieldset|
-          expect_form_fields(fieldset, 1)
+          expect_form_fields(fieldset, 0)
         end
 
         component.assert_selector ".js-add-another__empty", text: /Item 2/ do |fieldset|
-          expect_form_fields(fieldset, 2)
+          expect_form_fields(fieldset, 1)
         end
       end
     end
@@ -46,15 +46,15 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
         component.assert_selector ".js-add-another__empty", count: 1
 
         component.assert_selector ".js-add-another__fieldset", text: /Item 1/ do |fieldset|
-          expect_form_fields(fieldset, 1, "foo")
+          expect_form_fields(fieldset, 0, "foo")
         end
 
         component.assert_selector ".js-add-another__fieldset", text: /Item 2/ do |fieldset|
-          expect_form_fields(fieldset, 2, "bar")
+          expect_form_fields(fieldset, 1, "bar")
         end
 
         component.assert_selector ".js-add-another__empty", text: /Item 3/ do |fieldset|
-          expect_form_fields(fieldset, 3)
+          expect_form_fields(fieldset, 2)
         end
       end
     end
@@ -63,7 +63,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
 private
 
   def expect_form_fields(fieldset, index, value = nil)
-    fieldset.assert_selector ".govuk-fieldset__legend", text: "Item #{index}"
+    fieldset.assert_selector ".govuk-fieldset__legend", text: "Item #{index + 1}"
     fieldset.assert_selector ".govuk-form-group", count: 1
     fieldset.assert_selector ".govuk-form-group" do |form_group|
       form_group.assert_selector "input[value='#{value}']" unless value.nil?

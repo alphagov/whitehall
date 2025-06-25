@@ -15,12 +15,12 @@ private
         { fields: render(component(index)) }
       end
     else
-      [{ fields: empty }]
+      [{ fields: render(component(0)) }]
     end
   end
 
   def empty
-    render component(value.count + 1)
+    render component(value.count.positive? ? value.count : 1)
   end
 
   def component(index)
