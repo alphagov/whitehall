@@ -1,5 +1,6 @@
 class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent < ViewComponent::Base
   include ContentBlockManager::ContentBlock::SummaryListHelper
+  include ContentBlockManager::ContentBlock::TranslationHelper
 
   delegate :document, to: :content_block_edition
 
@@ -31,7 +32,7 @@ private
     first_class_items(items).map do |key, value|
       {
         field: key_to_title(key, object_type),
-        value:,
+        value: translated_value(value),
         data: {
           testid: [object_title.parameterize, key].compact.join("_").underscore,
         },

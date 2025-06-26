@@ -13,7 +13,7 @@ private
     items.map do |key, value|
       {
         field: humanized_label(key, @object_type),
-        value: value,
+        value: translated_value(value),
       }
     end
   end

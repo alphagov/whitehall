@@ -72,6 +72,39 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
     assert_selector ".govuk-summary-card[data-test-id='prefix_my-embedded-object']"
   end
 
+  describe "when there is a translated value" do
+    it "returns a translated value" do
+      I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.name", default: "Name").returns("Name")
+      I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.field-1", default: "Field 1").returns("Field 1")
+      I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.field-2", default: "Field 2").returns("Field 2")
+
+      I18n.expects(:t).with("content_block_edition.details.values.My Embedded Object", default: "My Embedded Object").returns("My Embedded Object translated")
+      I18n.expects(:t).with("content_block_edition.details.values.Value 2", default: "Value 2").returns("Value 2 translated")
+      I18n.expects(:t).with("content_block_edition.details.values.Value 1", default: "Value 1").returns("Value 1 translated")
+
+      component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
+        content_block_edition:,
+        object_type: "embedded-objects",
+        object_title: "my-embedded-object",
+        test_id_prefix: "prefix",
+      )
+
+      render_inline component
+
+      assert_selector ".govuk-summary-list__row[data-testid='my_embedded_object_name']", text: /Name/ do
+        assert_selector ".govuk-summary-list__value", text: "My Embedded Object translated"
+      end
+
+      assert_selector ".govuk-summary-list__row[data-testid='my_embedded_object_field_1']", text: /Field 1/ do
+        assert_selector ".govuk-summary-list__value", text: "Value 1 translated"
+      end
+
+      assert_selector ".govuk-summary-list__row[data-testid='my_embedded_object_field_2']", text: /Field 2/ do
+        assert_selector ".govuk-summary-list__value", text: "Value 2 translated"
+      end
+    end
+  end
+
   it "renders a summary list with a collection" do
     component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.with_collection(
       %w[my-embedded-object],
@@ -242,6 +275,8 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
         I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.name", default: "Name").returns("Name translated")
         I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
         I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
+
+        I18n.expects(:t).with("content_block_edition.details.values.My Embedded Object", default: "My Embedded Object").returns("My Embedded Object")
 
         component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
           content_block_edition:,
