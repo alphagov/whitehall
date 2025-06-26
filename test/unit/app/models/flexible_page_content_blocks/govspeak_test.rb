@@ -49,13 +49,13 @@ class FlexiblePageContentBlocks::GovspeakRenderingTest < ActionView::TestCase
     @page.flexible_page_content = { "test_attribute" => "## foo" }
     @block = FlexiblePageContentBlocks::Govspeak.new
 
-    path = %w[test_attribute]
+    path = FlexiblePageContentBlocks::Path.new.push("test_attribute")
     render html: @block.render(
       @schema["properties"]["test_attribute"],
       @page.flexible_page_content["test_attribute"],
       path,
     )
 
-    assert_dom "textarea[name=?]", "edition[flexible_page_content][#{path.join('][')}]", text: @page.flexible_page_content["test_attribute"]
+    assert_dom "textarea[name=?]", path.form_control_name, text: @page.flexible_page_content["test_attribute"]
   end
 end

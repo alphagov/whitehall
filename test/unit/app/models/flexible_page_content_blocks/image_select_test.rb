@@ -1,4 +1,5 @@
 require "test_helper"
+
 class FlexiblePageContentBlocks::ImageSelectTest < ActiveSupport::TestCase
   test "it allows the content to be an empty string" do
     validator = FlexiblePageContentBlocks::ImageSelect.new.json_schema_validator
@@ -53,14 +54,14 @@ class FlexiblePageContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
     @page.flexible_page_content = { "test_attribute" => @page.images.last.id.to_s }
     @block = FlexiblePageContentBlocks::ImageSelect.new
 
-    path = %w[test_attribute]
+    path = FlexiblePageContentBlocks::Path.new.push("test_attribute")
     render html: @block.render(
       @schema["properties"]["test_attribute"],
       @page.flexible_page_content["test_attribute"],
       path,
     )
 
-    assert_dom "select[name=?]", "edition[flexible_page_content][#{path.join('][')}]"
+    assert_dom "select[name=?]", path.form_control_name
     assert_dom "option[selected]", text: @page.images.last.filename
     @page.images.each do |image|
       assert_dom "option", text: image.filename

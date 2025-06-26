@@ -12,11 +12,11 @@ module FlexiblePageContentBlocks
       content
     end
 
-    def render(property_schema, content, path = [], required: false)
+    def render(property_schema, content, path = Path.new, required: false)
       Context.renderer.render "govuk_publishing_components/components/input", {
-        id: "edition_flexible_page_content_#{path.join('_')}",
+        id: path.form_control_id,
         label: { text: property_schema["title"] + (required ? " (required)" : "") },
-        name: "edition[flexible_page_content][#{path.join('][')}]",
+        name: path.form_control_name,
         value: content,
         hint: property_schema["description"],
       }

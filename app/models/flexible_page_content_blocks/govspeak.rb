@@ -18,13 +18,13 @@ module FlexiblePageContentBlocks
       Whitehall::GovspeakRenderer.new.govspeak_to_html(content)
     end
 
-    def render(property_schema, content, path = [], required: false)
+    def render(property_schema, content, path = Path.new, required: false)
       Context.renderer.render "govuk_publishing_components/components/textarea", {
         label: { text: property_schema["title"] + (required ? " (required)" : "") },
-        name: "edition[flexible_page_content][#{path.join('][')}]",
+        name: path.form_control_name,
         value: content,
         hint: property_schema["description"],
-        textarea_id: "edition_flexible_page_content_#{path.join('_')}",
+        textarea_id: path.form_control_id,
       }
     end
   end
