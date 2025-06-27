@@ -1,0 +1,21 @@
+<%
+  date ||= {}
+  time ||= {}
+
+  component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  component_helper.add_class("app-c-datetime-fields govuk-form-group")
+  component_helper.add_class("govuk-form-group--error") if error_items.present?
+
+  css_classes = %w(gem-c-date-input govuk-date-input)
+%>
+
+<%= tag.div(**component_helper.all_attributes) do %>
+  <% fieldset_content = capture do %>
+    <%= render "govuk_publishing_components/components/date_input", **date %> 
+
+
+  <% end %>
+
+
+
+<% end %>
