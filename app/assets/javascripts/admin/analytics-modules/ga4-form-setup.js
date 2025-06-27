@@ -45,7 +45,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
             eventData = {
               ...eventData,
-              type,
+              type: type === 'create' ? 'new' : type,
               tool_name: toolName
             }
           }
