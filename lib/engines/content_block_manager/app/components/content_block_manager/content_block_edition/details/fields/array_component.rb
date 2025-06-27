@@ -12,7 +12,10 @@ private
   def items
     if value.count.positive?
       Array.new(value.count) do |index|
-        { fields: render(component(index)) }
+        {
+          fields: render(component(index)),
+          destroy_checkbox: destroy_checkbox(index),
+        }
       end
     else
       [{ fields: render(component(0)) }]
@@ -34,6 +37,10 @@ private
       errors:,
       error_lookup_prefix: "details_#{id_suffix}",
     )
+  end
+
+  def destroy_checkbox(index)
+    render("govuk_publishing_components/components/checkboxes", { name: "#{id}[#{index}][_destroy]", items: [{ label: "Delete", value: "1" }] })
   end
 
   def errors

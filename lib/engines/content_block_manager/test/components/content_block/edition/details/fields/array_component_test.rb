@@ -46,11 +46,11 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
         component.assert_selector ".js-add-another__empty", count: 1
 
         component.assert_selector ".js-add-another__fieldset", text: /Item 1/ do |fieldset|
-          expect_form_fields(fieldset, 0, "foo")
+          expect_form_fields(fieldset, 0, "foo", 2)
         end
 
         component.assert_selector ".js-add-another__fieldset", text: /Item 2/ do |fieldset|
-          expect_form_fields(fieldset, 1, "bar")
+          expect_form_fields(fieldset, 1, "bar", 2)
         end
 
         component.assert_selector ".js-add-another__empty", text: /Item 3/ do |fieldset|
@@ -58,16 +58,21 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
         end
       end
     end
+
+    it "renders the hidden delete checkbox for each item" do
+      render_inline component
+
+      assert_selector "input[type='checkbox'][name='content_block_manager_content_block_edition_details_items[0][_destroy]']"
+      assert_selector "input[type='checkbox'][name='content_block_manager_content_block_edition_details_items[1][_destroy]']"
+    end
   end
 
 private
 
-  def expect_form_fields(fieldset, index, value = nil)
+  def expect_form_fields(fieldset, index, value = nil, form_group_count = 1)
     fieldset.assert_selector ".govuk-fieldset__legend", text: "Item #{index + 1}"
-    fieldset.assert_selector ".govuk-form-group", count: 1
-    fieldset.assert_selector ".govuk-form-group" do |form_group|
-      form_group.assert_selector "input[value='#{value}']" unless value.nil?
-      form_group.assert_selector ".govuk-label", text: "Item"
-    end
+    fieldset.assert_selector ".govuk-form-group", count: form_group_count
+    fieldset.assert_selector "input[value='#{value}']" unless value.nil?
+    fieldset.assert_selector ".govuk-label", text: "Item"
   end
 end
