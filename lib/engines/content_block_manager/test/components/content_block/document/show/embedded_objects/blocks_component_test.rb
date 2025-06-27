@@ -278,7 +278,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
     parent_container.assert_selector "[data-testid='#{test_id}']", visible: visible do |row|
       row.assert_selector ".govuk-summary-list__key", text: key, visible: visible
       row.assert_selector ".govuk-summary-list__value", visible: visible do |col|
-        col.assert_selector ".app-c-embedded-objects-blocks-component__content", text: value, visible: visible
+        col.assert_selector ".app-c-embedded-objects-blocks-component__content.govspeak", text: value, visible: visible
         col.assert_selector ".app-c-embedded-objects-blocks-component__embed-code", text: content_block_document.embed_code_for_field([object_type, object_title, embed_code_suffix].compact.join("/")), visible: visible
       end
     end

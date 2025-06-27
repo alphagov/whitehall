@@ -159,17 +159,59 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
             "something" => {
               "type" => "array",
               "items" => {
-                "type" => "string",
+                "properties" => {
+                  "foo" => { "type" => "string" },
+                  "bar" => { "type" => "string", "enum" => %w[foo bar] },
+                },
               },
             },
           },
         }
       end
 
-      it "returns nil" do
+      it "returns the array items" do
         assert_equal field.array_items, {
-          "type" => "string",
+          "properties" => {
+            "foo" => { "type" => "string" },
+            "bar" => { "type" => "string", "enum" => %w[foo bar] },
+          },
         }
+      end
+
+      describe "when an order is specified" do
+        let(:config) do
+          {
+            "field_order" => %w[bar foo],
+          }
+        end
+
+        it "returns the array items with the specified order" do
+          assert_equal field.array_items, {
+            "properties" => {
+              "bar" => { "type" => "string", "enum" => %w[foo bar] },
+              "foo" => { "type" => "string" },
+            },
+          }
+        end
+      end
+
+      describe "when the array type is a string" do
+        let(:body) do
+          {
+            "properties" => {
+              "something" => {
+                "type" => "array",
+                "items" => {
+                  "type" => "string",
+                },
+              },
+            },
+          }
+        end
+
+        it "returns successfully" do
+          assert_equal field.array_items, { "type" => "string" }
+        end
       end
     end
   end

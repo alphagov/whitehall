@@ -51,6 +51,11 @@ schemas:
           opening_hours:
             component:
               opening_hours
+          telephone_numbers:
+            field_order:
+              - type
+              - label
+              - telephone_number
       addresses:
         group: modes
         group_order: 3

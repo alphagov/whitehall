@@ -46,7 +46,13 @@ module ContentBlockManager
         end
 
         def array_items
-          properties.fetch("items", nil)
+          properties.fetch("items", nil)&.tap do |array_items|
+            if array_items["type"] == "object"
+              array_items["properties"] = array_items["properties"].sort_by { |k, _v|
+                field_ordering_rule.find_index(k) || Float::INFINITY
+              }.to_h
+            end
+          end
         end
 
         def is_required?
@@ -65,6 +71,10 @@ module ContentBlockManager
 
         def config
           @config ||= schema.config.dig("fields", name) || {}
+        end
+
+        def field_ordering_rule
+          @field_ordering_rule ||= config["field_order"] || []
         end
       end
     end

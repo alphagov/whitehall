@@ -83,7 +83,7 @@ private
   end
 
   def content_for_row(key, value)
-    content = content_tag(:p, value, class: "app-c-embedded-objects-blocks-component__content")
+    content = content_tag(:p, value, class: "app-c-embedded-objects-blocks-component__content govspeak")
     content << content_tag(:p, content_block_document.embed_code_for_field("#{object_type}/#{object_title}/#{key}"), class: "app-c-embedded-objects-blocks-component__embed-code")
     content
   end
@@ -98,7 +98,7 @@ private
   def content_for_block_row
     content = content_tag(:div,
                           content_block_edition.render(content_block_document.embed_code_for_field("#{object_type}/#{object_title}")),
-                          class: "app-c-embedded-objects-blocks-component__content")
+                          class: "app-c-embedded-objects-blocks-component__content govspeak")
     content << content_tag(:p, content_block_document.embed_code_for_field("#{object_type}/#{object_title}"), class: "app-c-embedded-objects-blocks-component__embed-code")
     content
   end
