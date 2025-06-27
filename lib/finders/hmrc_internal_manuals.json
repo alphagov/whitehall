@@ -18,15 +18,6 @@
         "display_as_result_metadata": true,
         "filterable": true,
         "short_name": "Published at"
-      },
-      {
-        "name": "Organisation",
-        "key": "organisations",
-        "short_name": "From",
-        "type": "text",
-        "display_as_result_metadata": true,
-        "filterable": true,
-        "preposition": "from"
       }
     ],
     "filter": {
