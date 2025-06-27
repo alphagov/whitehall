@@ -24,6 +24,12 @@
       "content_store_document_type": ["hmrc_manual", "hmrc_manual_section"]
     },
     "show_summaries": true,
+    "sort": [
+      {"key": "-popularity", "name": "Most viewed", "default":  true},
+      {"key": "-relevance", "name": "Relevance"},
+      {"key": "-public_timestamp", "name": "Updated (newest)"},
+      {"key": "public_timestamp", "name": "Updated (oldest)"}
+    ],
     "default_documents_per_page": 50
   },
   "routes": [
