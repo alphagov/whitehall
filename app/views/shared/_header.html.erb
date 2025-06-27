@@ -23,7 +23,7 @@
     *(
       if user_signed_in?
         [
-          main_nav_item(user.name, admin_user_path(user)),
+          main_nav_item("Profile", admin_user_path(user)),
           {
             text: "Logout",
             href: "/auth/gds/sign_out",
