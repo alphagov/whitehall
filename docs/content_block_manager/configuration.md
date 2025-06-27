@@ -20,6 +20,39 @@ An object that defines a schema
 
 This defines if a subschema is embeddable as an entire block.
 
+## `schemas.<schema_name>.field_order`
+
+An array of strings that defines the order that fields appear in when rendering the form.
+
+## `schemas.<schema_name>.fields`
+
+And object that configures fields in a schema
+
+## Properties
+
+- [component](#schemasschema_namefieldsfield_namecomponent)
+- [field_order](#schemasschema_namefieldsfield_namefield_order)
+
+### `schemas.<schema_name>.fields.<field_name>.component`
+
+Allows the component used for the field to be overridden. For example, when specifying:
+
+```yaml
+...
+fields:
+  my_field:
+    component:
+      boolean
+...
+```
+
+The [Boolean](https://github.com/alphagov/whitehall/blob/main/lib/engines/content_block_manager/app/components/content_block_manager/content_block_edition/details/fields/boolean_component.rb) component will be used.
+
+### `schemas.<schema_name>.fields.<field_name>.field_order`
+
+If thew field is an array of objects, specifies an array of strings that defines the order that fields appear in when 
+rendering the subfields that can be contained in that field.
+
 ## `schemas.<schema_name>.subschemas`
 
 A list of [subschemas](#schemasschema_namesubschemassubschema_name) for a specific object
