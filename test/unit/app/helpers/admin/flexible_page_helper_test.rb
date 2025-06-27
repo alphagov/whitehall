@@ -136,4 +136,34 @@ class Admin::FlexiblePageHelperTest < ActionView::TestCase
     assert_dom "textarea[name=\"edition[flexible_page_content][body]\"]"
     refute_dom "input[name=\"edition[flexible_page_content][body]\"]"
   end
+
+  test "flexible page helper renders a select for a number property in the image_select format" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "image" => {
+          "type" => "string",
+          "title" => "Image",
+          "description" => "Select an image",
+          "format" => "image_select",
+        },
+      },
+    }
+
+    filenames = %w[minister-of-funk.960x640.jpg big-cheese.960x640.jpg]
+    page = FlexiblePage.new
+
+    page.images = filenames.map do |filename|
+      create(:image, image_data: create(:image_data, file: upload_fixture(filename, "image/jpg")))
+    end
+    page.flexible_page_content = { "image" => page.images.last.id.to_s }
+
+    render inline: render_flexible_page_content_fields(schema, page)
+    assert_dom "select[name=\"edition[flexible_page_content][image]\"]"
+    assert_dom "option", text: "No image selected"
+    page.images.each do |image|
+      assert_dom "option[value=?]", image.id, text: image.filename
+    end
+    assert_dom "option[selected]", text: page.images.last.filename
+  end
 end

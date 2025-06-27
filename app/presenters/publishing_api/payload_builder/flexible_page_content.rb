@@ -1,13 +1,13 @@
 module PublishingApi
   module PayloadBuilder
     class FlexiblePageContent
-      def initialize(schema, content)
+      def initialize(schema, page)
         @schema = schema
-        @content = content
+        @page = page
       end
 
       def call
-        present_content(@schema, @content)
+        present_content(@schema, @page.flexible_page_content)
       end
 
     private
@@ -23,6 +23,16 @@ module PublishingApi
             when "govspeak"
               html = Whitehall::GovspeakRenderer.new.govspeak_to_html(content[key])
               output.merge!(key.to_sym => html)
+            when "image_select"
+              if (matching_image = @page.images.find { |image| image.id == content[key] })
+                output.merge!(key.to_sym => {
+                  src: matching_image.url,
+                  caption: matching_image.caption,
+                  alt_text: matching_image.alt_text,
+                })
+              else
+                Rails.logger.warning("Flexible page with ID #{@page.id} does not have an image with ID #{content[key]}, so the image has been excluded from the Publishing API payload.")
+              end
             else
               output.merge!(key.to_sym => content[key])
             end

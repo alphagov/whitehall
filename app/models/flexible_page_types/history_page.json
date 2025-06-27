@@ -30,6 +30,12 @@
         "description": "The main content for the page",
         "type": "string",
         "format": "govspeak"
+      },
+      "sidebar_image": {
+        "title": "Sidebar image",
+        "description": "Enter the markdown code for the sidebar image",
+        "type": "string",
+        "format": "image_select"
       }
     },
     "required": ["page_title"]
@@ -38,6 +44,7 @@
     "base_path_prefix": "/government/history",
     "publishing_api_schema_name": "history",
     "publishing_api_document_type": "history",
-    "rendering_app": "government-frontend"
+    "rendering_app": "government-frontend",
+    "images_enabled": true
   }
 }

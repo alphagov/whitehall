@@ -35,6 +35,7 @@ class Admin::FlexiblePagesControllerTest < ActionController::TestCase
             },
           },
         },
+        "settings" => {},
       },
     }
     FlexiblePageType.setup_test_types(flexible_page_types)

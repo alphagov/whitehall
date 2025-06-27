@@ -1,5 +1,6 @@
 class FlexiblePage < Edition
   include Edition::Identifiable
+  include Edition::Images
   validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
   validate :content_conforms_to_schema
 
@@ -25,6 +26,10 @@ class FlexiblePage < Edition
 
   def previously_published
     false
+  end
+
+  def allows_image_attachments?
+    type_instance.settings["images_enabled"]
   end
 
   def base_path
