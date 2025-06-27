@@ -37,23 +37,4 @@ class FlexiblePageType
   def properties
     @schema["properties"]
   end
-
-  # TODO: Separate schema validation from content validation so that we can get easier error handling and contextual validation
-  def validator
-    formats = {
-      "govspeak" => proc do |instance|
-        instance.is_a?(String) && Govspeak::HtmlValidator.new(instance).valid?
-      end,
-      "image_select" => proc do |instance|
-        next true if instance.blank?
-
-        instance.to_i.positive?
-      end,
-    }
-    JSONSchemer.schema(@schema, formats:)
-  end
-
-  def publishing_api_payload_builder(page)
-    PublishingApi::PayloadBuilder::FlexiblePageContent.new(@schema, page)
-  end
 end
