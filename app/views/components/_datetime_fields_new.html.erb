@@ -1,21 +1,45 @@
 <%
+  name ||= nil
+
   date ||= {}
+  date[:name] = name
+
   time ||= {}
+  time[:name] = name
+
+  legend_text ||= nil
 
   component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
   component_helper.add_class("app-c-datetime-fields govuk-form-group")
-  component_helper.add_class("govuk-form-group--error") if error_items.present?
 
   css_classes = %w(gem-c-date-input govuk-date-input)
 %>
 
 <%= tag.div(**component_helper.all_attributes) do %>
-  <% fieldset_content = capture do %>
-    <%= render "govuk_publishing_components/components/date_input", **date %> 
+  <%= render "govuk_publishing_components/components/fieldset", {
+    # describedby: aria_described_by,
+    legend_text:,
+    role: "group"
+  } do %>
+    <%= render "govuk_publishing_components/components/date_input", **date %>
+    <%= render "govuk_publishing_components/components/fieldset", {
+      legend_text: tag.span("#{time[:legend_text]}")
+    } do %>
+      <div class="govuk-form-group app-c-datetime-fields__date-time-wrapper">
+        <%= render "govuk_publishing_components/components/select", {
+          id: "#{name}-hour",
+          label: "Hour",
+          options: [*0..23].map{ |n| { text: format('%02d', n), value: format('%02d', n) } },
+        } %>
 
+        <span class="app-c-datetime-fields__time-separator">:</span>
 
+        <%= render "govuk_publishing_components/components/select", {
+          id: "#{name}-minute",
+          label: "Minute",
+          options: [*0..59].map{ |n| { text: format('%02d', n), value: format('%02d', n) } },
+        } %>
+      </div> 
+    <% end %>
   <% end %>
-
-
-
 <% end %>
