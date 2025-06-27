@@ -52,6 +52,18 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
       expect(JSON.parse(ga4Form)).toEqual(expectedDefaults)
     })
 
+    it('uses new instead of create as action', () => {
+      container.dataset.ga4DocumentType = 'create-toolName'
+
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      const { ga4Form } = form.dataset
+
+      expect(ga4Form).toBeDefined()
+
+      expect(JSON.parse(ga4Form)).toEqual({ ...expectedDefaults, type: 'new' })
+    })
+
     it('adds the `data-ga4-form-change-tracking` attribute if no tracked components', () => {
       GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
 
