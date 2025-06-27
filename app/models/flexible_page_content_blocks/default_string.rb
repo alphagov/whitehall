@@ -12,6 +12,10 @@ module FlexiblePageContentBlocks
       content
     end
 
+    def to_partial_path
+      "admin/flexible_pages/content_blocks/default_string"
+    end
+
     def render(property_schema, content, path = Path.new, required: false)
       Context.renderer.render "govuk_publishing_components/components/input", {
         id: path.form_control_id,
