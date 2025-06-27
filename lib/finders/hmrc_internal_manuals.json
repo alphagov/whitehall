@@ -12,6 +12,24 @@
     "document_noun": "result",
     "facets": [
       {
+        "allowed_values": [
+          {
+            "label": "HMRC Manual",
+            "value": "hmrc_manual"
+          },
+          {
+            "label": "HMRC Manual Section",
+            "value": "hmrc_manual_section"
+          }
+        ],
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "key": "content_store_document_type",
+        "name": "Document type",
+        "preposition": "of type",
+        "type": "text"
+      },
+      {
         "name": "Published",
         "key": "public_timestamp",
         "type": "date",
