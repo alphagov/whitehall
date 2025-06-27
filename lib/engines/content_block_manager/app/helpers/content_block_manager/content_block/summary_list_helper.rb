@@ -1,5 +1,10 @@
 module ContentBlockManager::ContentBlock::SummaryListHelper
   include ContentBlockManager::ContentBlock::TranslationHelper
+
+  def fields_for_schema(schema)
+    schema.hide_title? ? schema.fields.reject { |field| field.name == "title" } : schema.fields
+  end
+
   def first_class_items(input)
     result = {}
 

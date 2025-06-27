@@ -23,7 +23,7 @@ private
   end
 
   def items
-    schema.fields.map { |field|
+    fields_for_schema(schema).map { |field|
       [field.name, object[field.name]]
     }.to_h
   end

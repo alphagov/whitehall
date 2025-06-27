@@ -56,7 +56,13 @@ module ContentBlockManager
       private
 
         def custom_component
-          @custom_component ||= config["component"]
+          @custom_component ||= begin
+                                  if name == "title" && schema.hide_title?
+                                    "hidden_title"
+                                  else
+                                    config["component"]
+                                  end
+                                end
         end
 
         def properties

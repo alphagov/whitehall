@@ -33,6 +33,7 @@ schemas:
         group: modes
         group_order: 2
         embeddable_as_block: true
+        hide_title: true
         embeddable_fields:
           - telephone_numbers
         field_order:

@@ -99,6 +99,10 @@ module ContentBlockManager
         @body["required"] || []
       end
 
+      def hide_title?
+        config["hide_title"].present?
+      end
+
     private
 
       def field_names
