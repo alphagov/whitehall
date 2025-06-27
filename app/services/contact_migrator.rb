@@ -46,8 +46,25 @@ private
     end
   end
 
-  def migrate_contacts_on_html_attachment(_html_attachment)
-    # TODO: implement!
+  def migrate_contacts_on_html_attachment(html_attachment)
+    updated_body = replace_contact_ids(html_attachment.govspeak_content.body)
+    return if updated_body == html_attachment.govspeak_content.body
+
+    should_publish_the_updated_draft = false
+    edition = html_attachment.attachable
+    if edition.state == "published"
+      edition = create_new_draft(edition)
+      should_publish_the_updated_draft = true
+    end
+
+    if edition.editable?
+      cloned_attachment = edition.html_attachments.find { |att| att.slug == html_attachment.slug }
+      cloned_attachment.govspeak_content.update!(body: updated_body)
+      edition.update!(minor_change: true)
+      publish_edition(edition) if should_publish_the_updated_draft
+    else
+      Rails.logger.debug "Unable to process HTML attachment #{html_attachment.id} due to its parent edition state (edition ID: #{edition.id}, state: #{edition.state})"
+    end
   end
 
   def create_new_draft(published_edition)
