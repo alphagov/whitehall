@@ -1,0 +1,69 @@
+{
+  "base_path": "/government/hmrc-manuals-search",
+  "title": "HMRC manuals",
+  "description": "Find HMRC technical guidance.",
+  "locale": "en",
+  "document_type": "finder",
+  "schema_name": "finder",
+  "publishing_app": "whitehall",
+  "rendering_app": "finder-frontend",
+  "update_type": "major",
+  "details": {
+    "summary": [
+      {
+        "content": "These manuals contain technical guidance for HMRC staff and tax professionals and are also published in accordance with the [HMRC Publication scheme](https://www.gov.uk/government/organisations/hm-revenue-customs/about/publication-scheme).\n\nThe guidance is not comprehensive and does not provide a definitive answer in every case. It is based on the law as it stood when they were published. HMRC publishes amended or supplementary guidance if there's a change in the law or in the department's interpretation of it.\n\nFind out [how HMRC advice and information can help you](https://www.gov.uk/guidance/when-you-can-rely-on-information-or-advice-provided-by-hm-revenue-and-customs).",
+        "content_type": "text/govspeak"
+      }
+    ],
+    "filter": { "content_store_document_type": ["hmrc_manual", "hmrc_manual_section"] },
+    "facets": [
+      {
+        "allowed_values": [
+          { "label": "HMRC manual", "value": "hmrc_manual" },
+          { "label": "HMRC manual page", "value": "hmrc_manual_section" }
+        ],
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "key": "content_store_document_type",
+        "name": "Page type",
+        "preposition": "of type",
+        "type": "text"
+      },
+      {
+        "name": "Last updated",
+        "key": "public_timestamp",
+        "type": "date",
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "short_name": "Updated",
+        "preposition": "Updated"
+      }
+    ],
+    "sort": [
+      {"key": "title", "name": "A-Z", "default":  true},
+      {"key": "-popularity", "name": "Most viewed"},
+      {"key": "-relevance", "name": "Relevance"},
+      {"key": "-public_timestamp", "name": "Updated (newest)"},
+      {"key": "public_timestamp", "name": "Updated (oldest)"}
+    ],
+    "document_noun": "result",
+    "show_summaries": false,
+    "show_metadata_block": true,
+    "show_table_of_contents": true,
+    "default_documents_per_page": 50
+  },
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/government/hmrc-manuals-search"
+    },
+    {
+      "type": "exact",
+      "path": "/government/hmrc-manuals-search.json"
+    },
+    {
+      "type": "exact",
+      "path": "/government/hmrc-manuals-search.atom"
+    }
+  ]
+}
