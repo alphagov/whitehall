@@ -1,0 +1,8 @@
+<% required = required || false %>
+<%= render "govuk_publishing_components/components/input", {
+  id: path.form_control_id,
+  label: { text: schema["title"] + (required ? " (required)" : "") },
+  name: path.form_control_name,
+  value: content,
+  hint: schema["description"],
+} %>
