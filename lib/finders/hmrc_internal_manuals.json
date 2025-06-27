@@ -1,0 +1,52 @@
+{
+  "base_path": "/government/hmrc-manuals-search",
+  "title": "HMRC manuals",
+  "description": "Find HMRC technical guidance.",
+  "locale": "en",
+  "document_type": "finder",
+  "schema_name": "finder",
+  "publishing_app": "whitehall",
+  "rendering_app": "finder-frontend",
+  "update_type": "major",
+  "details": {
+    "document_noun": "manual",
+    "facets": [
+      {
+        "name": "Published",
+        "key": "public_timestamp",
+        "type": "date",
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "short_name": "Published at"
+      },
+      {
+        "name": "Organisation",
+        "key": "organisations",
+        "short_name": "From",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "preposition": "from"
+      }
+    ],
+    "filter": {
+      "content_store_document_type": ["hmrc_manual", "hmrc_manual_section"]
+    },
+    "show_summaries": true,
+    "default_documents_per_page": 50
+  },
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/government/hmrc-manuals-search"
+    },
+    {
+      "type": "exact",
+      "path": "/government/hmrc-manuals-search.json"
+    },
+    {
+      "type": "exact",
+      "path": "/government/hmrc-manuals-search.atom"
+    }
+  ]
+}
