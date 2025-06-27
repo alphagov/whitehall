@@ -1,0 +1,22 @@
+<% required = required || false %>
+<% select_options = [
+     {
+       text: "No image selected",
+       value: "",
+     },
+   ] + FlexiblePageContentBlocks::Context.page.images.map do |image|
+  {
+    text: image.filename,
+    value: image.id,
+    selected: image.id == content.to_i,
+  }
+end %>
+
+<%= render "govuk_publishing_components/components/select", {
+  id: path.form_control_id,
+  label: schema["title"] + (required ? " (required)" : ""),
+  name: path.form_control_name,
+  options: select_options,
+  hint: schema["description"],
+  heading_size: "m",
+} %>

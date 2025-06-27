@@ -39,10 +39,16 @@
     <%= render "govuk_publishing_components/components/heading", {
       text: "Content",
       font_size: "l",
+      margin_bottom: 3,
     } %>
 
     <%= form.hidden_field :flexible_page_type, value: @edition.flexible_page_type %>
-    <%= FlexiblePageContentBlocks::DefaultObject.new.render(FlexiblePageType.find(@edition.flexible_page_type).schema, @edition.flexible_page_content) %>
+    <%= render("admin/flexible_pages/content_blocks/default_object", {
+      schema: FlexiblePageType.find(@edition.flexible_page_type).schema,
+      content: @edition.flexible_page_content,
+      path: FlexiblePageContentBlocks::Path.new,
+      root: true,
+    }) %>
     <%= render("settings_fields", form:, edition:) %>
     <%= standard_edition_publishing_controls(form, edition) %>
   </div>

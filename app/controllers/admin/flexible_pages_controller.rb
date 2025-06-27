@@ -15,7 +15,7 @@ private
   end
 
   def create_content_block_context
-    FlexiblePageContentBlocks::Context.create(@edition, view_context)
+    FlexiblePageContentBlocks::Context.create_for_page(@edition)
   end
 
   def new_edition_params

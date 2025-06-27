@@ -1,0 +1,11 @@
+<% required = required || false %>
+<%= render "govuk_publishing_components/components/textarea", {
+  label: {
+    text: schema["title"] + (required ? " (required)" : ""),
+    heading_size: "m",
+  },
+  name: path.form_control_name,
+  value: content,
+  hint: schema["description"],
+  textarea_id: path.form_control_id,
+} %>

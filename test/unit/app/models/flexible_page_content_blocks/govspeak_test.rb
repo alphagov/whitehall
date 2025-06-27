@@ -45,17 +45,15 @@ class FlexiblePageContentBlocks::GovspeakRenderingTest < ActionView::TestCase
     }
 
     @page = FlexiblePage.new
-    FlexiblePageContentBlocks::Context.create(@page, view)
+    FlexiblePageContentBlocks::Context.create_for_page(@page)
     @page.flexible_page_content = { "test_attribute" => "## foo" }
     @block = FlexiblePageContentBlocks::Govspeak.new
 
-    path = FlexiblePageContentBlocks::Path.new.push("test_attribute")
-    render html: @block.render(
-      @schema["properties"]["test_attribute"],
-      @page.flexible_page_content["test_attribute"],
-      path,
-    )
-
-    assert_dom "textarea[name=?]", path.form_control_name, text: @page.flexible_page_content["test_attribute"]
+    render partial: @block.to_partial_path, locals: {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.flexible_page_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+    }
+    assert_dom "textarea[name=?]", "edition[flexible_page_content][test_attribute]", text: @page.flexible_page_content["test_attribute"]
   end
 end
