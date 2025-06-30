@@ -101,4 +101,48 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
     assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
+
+  test "it renders not nested child attribute content" do
+    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "not_nested_attribute" => {
+          "title" => "Not nested attribute",
+          "type" => "string",
+        },
+      },
+    }
+    content = { "not_nested_attribute" => "bar" }
+
+    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, content)
+    assert_dom "input[name=?][value=?]", "edition[flexible_page_content][not_nested_attribute]", "bar"
+  end
+
+  test "it renders nested child attribute content" do
+    skip("Will be reenabled in subsequent PR")
+
+    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "test_object_attribute" => {
+          "title" => "Test attribute",
+          "type" => "object",
+          "properties" => {
+            "nested_attribute" => {
+              "title" => "Nested attribute",
+              "type" => "string",
+            },
+          },
+        },
+      },
+    }
+    content = { "test_object_attribute" => { "nested_attribute" => "foo" } }
+
+    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, content)
+    assert_dom "input[name=?][value=?]", "edition[flexible_page_content][test_object_attribute][nested_attribute]", "foo"
+  end
 end
