@@ -49,12 +49,20 @@ private
   end
 
   def select_options(enum, value)
-    enum.map do |item|
-      {
+    options = [{
+      text: "Select",
+      value: "",
+      selected: value.nil?,
+    }]
+
+    enum.each do |item|
+      options << {
         text: item.humanize,
         value: item,
         selected: item == value,
       }
     end
+
+    options
   end
 end

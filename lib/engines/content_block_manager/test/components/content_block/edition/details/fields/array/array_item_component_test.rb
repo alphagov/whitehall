@@ -71,6 +71,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
 
       assert_selector "label", text: "Bar"
       assert_selector "select[name='foo[bar][]'][id='foo_bar_1']" do |select|
+        select.assert_selector "option[value=''][selected]", text: "Select"
         select.assert_selector "option[value='foo']", text: "Foo"
         select.assert_selector "option[value='bar']", text: "Bar"
         select.assert_selector "option[value='baz']", text: "Baz"
