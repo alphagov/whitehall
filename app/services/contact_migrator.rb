@@ -30,6 +30,11 @@ class ContactMigrator
 private
 
   def migrate_contacts_on_edition(edition)
+    if edition.document.latest_edition != edition
+      Rails.logger.debug "Unable to process edition #{edition.id} as a newer edition exists (#{edition.document.latest_edition.id})"
+      return
+    end
+
     updated_body = replace_contact_ids(edition.body)
     return if updated_body == edition.body
 
@@ -47,11 +52,16 @@ private
   end
 
   def migrate_contacts_on_html_attachment(html_attachment)
+    edition = html_attachment.attachable
+    if edition.document.latest_edition != edition
+      Rails.logger.debug "Unable to process HTML Attachment #{html_attachment.id} as a newer edition exists (parent edition: #{edition.id}, latest edition: #{edition.document.latest_edition.id})"
+      return
+    end
+
     updated_body = replace_contact_ids(html_attachment.govspeak_content.body)
     return if updated_body == html_attachment.govspeak_content.body
 
     should_publish_the_updated_draft = false
-    edition = html_attachment.attachable
     if edition.state == "published"
       edition = create_new_draft(edition)
       should_publish_the_updated_draft = true
@@ -59,6 +69,9 @@ private
 
     if edition.editable?
       cloned_attachment = edition.html_attachments.find { |att| att.slug == html_attachment.slug }
+      if cloned_attachment.nil?
+        raise "cloned_attachment INEXPLICIBLY NIL, original html_attachment ID #{html_attachment.id}"
+      end
       cloned_attachment.govspeak_content.update!(body: updated_body)
       edition.update!(minor_change: true)
       publish_edition(edition) if should_publish_the_updated_draft

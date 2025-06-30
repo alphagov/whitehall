@@ -52,12 +52,10 @@ describe ContactMigrator do
     end
 
     it "does not raise if edition_id and contact_mapping are provided" do
-      fake_edition = Edition.new(id: 1)
+      fake_edition = create(:edition)
       fake_edition.stubs(:update!).returns(true)
 
-      Edition.stub(:find, fake_edition) do
-        ContactMigrator.call(edition_id: 1, contact_mapping: contact_mapping)
-      end
+      ContactMigrator.call(edition_id: fake_edition.id, contact_mapping: contact_mapping)
     end
 
     it "does not raise if html_attachment_id and contact_mapping are provided" do
@@ -96,6 +94,18 @@ describe ContactMigrator do
       assert_includes messages.join("\n"), expected_message
     end
 
+    it "warns if the passed Edition is not the latest edition" do
+      published = create(:published_edition, body: bad_body)
+      new_draft = create(:draft_edition, document: published.document)
+
+      messages = capture_rails_logger(level: :debug) do
+        ContactMigrator.call(edition_id: published.id, contact_mapping: contact_mapping)
+      end
+
+      expected_message = "Unable to process edition #{published.id} as a newer edition exists (#{new_draft.id})"
+      assert_includes messages.join("\n"), expected_message
+    end
+
     it "warns if Edition associated with referenced HTML Attachment is anything other than Draft/Submitted/Rejected/Published" do
       edition = create(:unpublished_edition)
       attachment = create(:html_attachment, attachable: edition)
@@ -105,6 +115,20 @@ describe ContactMigrator do
       end
 
       expected_message = "Unable to process HTML attachment #{attachment.id} due to its parent edition state (edition ID: #{edition.id}, state: unpublished)"
+      assert_includes messages.join("\n"), expected_message
+    end
+
+    it "warns if the Edition associated with the referenced HTML Attachment is not the latest edition" do
+      published = create(:published_edition)
+      attachment = create(:html_attachment, attachable: published)
+      attachment.govspeak_content.update!(body: bad_body)
+      new_draft = create(:draft_edition, document: published.document)
+
+      messages = capture_rails_logger(level: :debug) do
+        ContactMigrator.call(html_attachment_id: attachment.id, contact_mapping: contact_mapping)
+      end
+
+      expected_message = "Unable to process HTML Attachment #{attachment.id} as a newer edition exists (parent edition: #{published.id}, latest edition: #{new_draft.id})"
       assert_includes messages.join("\n"), expected_message
     end
   end
