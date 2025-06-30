@@ -30,6 +30,12 @@ schemas:
         embeddable_as_block: true
         embeddable_fields:
           - email_address
+        field_order:
+          - title
+          - email_address
+          - subject
+          - body
+          - description
       telephones:
         group: modes
         group_order: 2
