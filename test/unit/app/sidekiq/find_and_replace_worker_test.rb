@@ -163,6 +163,17 @@ class FindAndReplaceWorkerTest < ActiveSupport::TestCase
           )
         end
 
+        it "saves a custom internal changenote against the new edition, if provided" do
+          published_edition = create(:published_edition, body: "foo")
+          params            = valid_params.merge("edition_id" => published_edition.id, "changenote" => "Replaced foo with bar")
+          FindAndReplaceWorker.new.perform(**params)
+
+          assert_equal(
+            "Replaced foo with bar",
+            published_edition.document.latest_edition.editorial_remarks.last.body,
+          )
+        end
+
         it "logs the action against the automated user" do
           published_edition = create(:published_edition, body: "foo")
           params            = valid_params.merge("edition_id" => published_edition.id)

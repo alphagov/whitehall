@@ -7,6 +7,8 @@ class FindAndReplaceWorker < WorkerBase
   def perform(args)
     edition_id = args["edition_id"]
     replacements = args["replacements"]
+    @changenote = args["changenote"] || "Automatically republished content with some body changes"
+
     validate_params!(edition_id, replacements)
     edition = find_and_validate_edition(edition_id)
     return unless edition
@@ -93,7 +95,7 @@ private
       edition_publisher = Whitehall.edition_services.force_publisher(
         draft_edition,
         user: robot_user,
-        remark: "Automatically republished content with some body changes",
+        remark: @changenote,
       )
       edition_publisher.perform!
       log("Success: performed find-and-replace on edition #{edition.id}, saving and publishing a new edition #{draft_edition.id}.")
