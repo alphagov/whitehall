@@ -43,66 +43,66 @@ World(JavascriptHelper)
 # it in our SelectWithSearch component. Unfortunately, its behaviour is more
 # obtuse than Chosen.js because it doesn't preserve the original <select> element.
 
-module Capybara::DSL
-  def select(value, options = {})
-    if use_choices_select?(value, options)
-      select_from_choices(value, options)
-    elsif options.key?(:from)
-      from = options.delete(:from)
-      find(:select, from, **options).find(:option, value, **options).select_option
-    else
-      find(:option, value, **options).select_option
-    end
-  end
+# module Capybara::DSL
+#   def select(value, options = {})
+#     if use_choices_select?(value, options)
+#       select_from_choices(value, options)
+#     elsif options.key?(:from)
+#       from = options.delete(:from)
+#       find(:select, from, **options).find(:option, value, **options).select_option
+#     else
+#       find(:option, value, **options).select_option
+#     end
+#   end
 
-  def use_choices_select?(value, options)
-    return unless running_javascript?
+#   def use_choices_select?(value, options)
+#     return unless running_javascript?
 
-    return_choices_div(value, options).present?
-  end
+#     return_choices_div(value, options).present?
+#   end
 
-  def return_choices_div(value, options)
-    if options.key?(:from).present?
-      # selects based on on id or label pased in and returns the parent div
-      find(:select, options[:from], visible: :all).ancestor(".app-c-select-with-search", wait: false)
-    else
-      # selects based on on value input by the user.
-      # will throw and error for ambiguous matches.
-      find(
-        "div[role='option'][class='choices__item choices__item--choice choices__item--selectable']",
-        text: value,
-        visible: false,
-        wait: false,
-      )
-       .ancestor(".app-c-select-with-search", wait: false)
-    end
-  rescue Capybara::ElementNotFound
-    nil
-  end
+#   def return_choices_div(value, options)
+#     if options.key?(:from).present?
+#       # selects based on on id or label pased in and returns the parent div
+#       find(:select, options[:from], visible: :all).ancestor(".app-c-select-with-search", wait: false)
+#     else
+#       # selects based on on value input by the user.
+#       # will throw and error for ambiguous matches.
+#       find(
+#         "div[role='option'][class='choices__item choices__item--choice choices__item--selectable']",
+#         text: value,
+#         visible: false,
+#         wait: false,
+#       )
+#        .ancestor(".app-c-select-with-search", wait: false)
+#     end
+#   rescue Capybara::ElementNotFound
+#     nil
+#   end
 
-  def select_from_choices(value, options)
-    div = return_choices_div(value, options)
-    select = div.find("select", visible: false)
+#   def select_from_choices(value, options)
+#     div = return_choices_div(value, options)
+#     select = div.find("select", visible: false)
 
-    # if the option is already selected we don't need to do anything
-    # the selector below will complain as the divs masquerading as options
-    # are dynamically created/removed when options are selected/deselected
-    select_has_value_as_text = all(".choices__list.choices__list--single", visible: false, text: value, wait: false).present?
-    return if select_has_value_as_text || select.value == value
+#     # if the option is already selected we don't need to do anything
+#     # the selector below will complain as the divs masquerading as options
+#     # are dynamically created/removed when options are selected/deselected
+#     select_has_value_as_text = all(".choices__list.choices__list--single", visible: false, text: value, wait: false).present?
+#     return if select_has_value_as_text || select.value == value
 
-    choices_option = div.find(
-      "div[role='treeitem'][class='choices__item choices__item--choice choices__item--selectable'], div[role='option'][class='choices__item choices__item--choice choices__item--selectable']",
-      text: value,
-      visible: false,
-    )
+#     choices_option = div.find(
+#       "div[role='treeitem'][class='choices__item choices__item--choice choices__item--selectable'], div[role='option'][class='choices__item choices__item--choice choices__item--selectable']",
+#       text: value,
+#       visible: false,
+#     )
 
-    data_value = choices_option["data-value"]
+#     data_value = choices_option["data-value"]
 
-    execute_script("arguments[0].choices.setChoiceByValue(arguments[1])", div, data_value)
+#     execute_script("arguments[0].choices.setChoiceByValue(arguments[1])", div, data_value)
 
-    # As we are directly interfacing with the Choices.js API, we need to manually
-    # trigger a change event on the hidden <select> element so event listeners
-    # know it has changed.
-    execute_script("arguments[0].dispatchEvent(new Event('change'))", select)
-  end
-end
+#     # As we are directly interfacing with the Choices.js API, we need to manually
+#     # trigger a change event on the hidden <select> element so event listeners
+#     # know it has changed.
+#     execute_script("arguments[0].dispatchEvent(new Event('change'))", select)
+#   end
+# end
