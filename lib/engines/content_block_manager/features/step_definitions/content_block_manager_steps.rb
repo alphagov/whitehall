@@ -484,3 +484,11 @@ end
 And("I choose {string}") do |label|
   choose label
 end
+
+When("I choose {string} from the type dropdown") do |type|
+  select type, from: "content_block_manager_content_block_edition_details_telephones_telephone_numbers_0_type"
+end
+
+Then("the label should be set to {string}") do |label|
+  expect(find("#content_block_manager_content_block_edition_details_telephones_telephone_numbers_0_label").value).to eq(label)
+end

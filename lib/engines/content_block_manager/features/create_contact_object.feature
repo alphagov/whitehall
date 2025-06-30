@@ -156,6 +156,12 @@ Feature: Create a contact object
     When I save and continue
     Then I should see errors for the required nested "telephone_number" fields
 
+  @javascript
+  Scenario: Telephone number label is automatically populated
+    When I click on the "telephones" subschema
+    And I choose "Textphone" from the type dropdown
+    Then the label should be set to "Textphone"
+
   Scenario: GDS editor edits answers during creation of an object
     And I click on the "email_addresses" subschema
     And I complete the "email_address" form with the following fields:

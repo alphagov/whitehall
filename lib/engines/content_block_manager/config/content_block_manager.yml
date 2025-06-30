@@ -52,6 +52,8 @@ schemas:
             component:
               opening_hours
           telephone_numbers:
+            data_attributes:
+              module: auto-populate-telephone-number-label
             field_order:
               - type
               - label
