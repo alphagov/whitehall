@@ -1,3 +1,4 @@
+# Trying to figure out how flexible pages work? Check the documentation: `docs/flexible_pages.md`!
 class Admin::FlexiblePagesController < Admin::EditionsController
   before_action :prevent_access_when_disabled
   before_action :create_content_block_context

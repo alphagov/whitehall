@@ -1,0 +1,49 @@
+# Flexible Pages
+
+Whitehall offers a "flexible" pages feature. Flexible pages are editionable Whitehall documents that have their content schemas defined as JSON rather than in code. The content for a flexible page is stored in the `flexible_page_content` JSON column on the `edition_translations` table. Flexible pages have a "type", which is stored in the `flexible_page_type` column on the editions table. Users must select the type of flexible page they wish to create once they have selected "flexible page" from the new document type selection screen.
+
+## Flexible Page Configuration
+
+Flexible page types are defined as JSON. The JSON files are stored in the `app/models/flexible_page_types` directory.
+
+The JSON for each type has these top level keys:
+
+- 'key': The unique identifier for the flexible page type. This is what will be stored in the edition's `flexible_page_type` column.
+- 'schema': The schema for the flexible page type, defined as [JSON schema](https://json-schema.org/docs). Each schema must have a root schema of the type "object".
+- 'settings': The settings for the flexible page type. All settings are required.
+
+These are the settings available for flexible page types:
+
+| Key                          | Description                                                                                                                                            |
+|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| base_path_prefix             | The prefix for the base path at which the flexible page will be published. E.g. /government/history for the page /government/history/10-downing-street | 
+| publishing_api_schema_name   | The Publishing API schema name for flexible pages of this type                                                                                         |
+| publishing_api_document_type | The Publishing API document type for flexible pages of this type                                                                                       |
+| rendering_app                | The rendering app for the flexible page type                                                                                                           |
+| images_enabled               | Whether or not users should be able to upload images for this flexible page type using the images tab on the edition form                              |
+
+The types are loaded from the JSON files on the first call to the `types` method on the [flexible page type model](../app/models/flexible_page_type.rb) and cached in memory. The model provides an ergonomic way to read values from a configuration file.
+
+## Content Blocks
+
+Each property within a flexible page schema is represented in the application as a content block. The content block is specified via the "type" and "format" options on the property schema. Content blocks are defined in the `app/models/flexible_page_content_blocks` directory.
+
+Each content block implements the following methods:
+
+- `json_schema_type`: The "type" value in the JSON schema property that maps to this content block
+- `json_schema_format`: The "format" value in the JSON schema property that maps to this content block
+- `json_schema_validator`: Returns a proc which validates user input for the property. The proc is passed as part of the 'formats' configuration value to the [JSONSchemer](https://github.com/davishmcclurg/json_schemer) gem's schema object.
+- `publishing_api_payload(content)`: Returns the value to be sent to Publishing API for the property. This can return any type. If returning a hash, ensure you use symbols for the keys.
+- `render(property_schema, content, path = Path.new, required: false)`: Renders the form control for the property. The property schema and content are provided for the specific part of the tree being rendered by the content block. The location in the tree is specified by the immutable [path object](../app/models/flexible_page_content_blocks/path.rb), which provides convenience methods for doing things such as building the correct name attribute for the form control. If you are rendering child properties for an "object" block, ensure that you push a new segment onto the path (see  the [default object implementation](../app/models/flexible_page_content_blocks/default_object.rb) for an example).
+
+Content blocks are instantiated via the [content block factory](../app/models/flexible_page_content_blocks/factory.rb). To add a new block type, add a new block class implementing the methods above to the `app/models/flexible_page_content_blocks` directory, and add the block type to the private `BLOCKS` constant in the factory class. The `BLOCKS` constant is a hash that maps each block class to its type and format.
+
+There are two potential "gotchas" in to do with block types. The first is that you can't define a numeric type. Usually, Rails is able to cast model attribute values to a number if the attribute is stored using a numeric database column. However, because we store all the flexible page content in a single JSON column, Rails can't do that for flexible page content values. Therefore, we are forced to define all leaf schema properties as strings. It may be possible to implement some sort of type casting solution in future if this becomes especially painful.
+
+The second "gotcha" is that you can't define nullable types, which in JSON schema is usually done by defining a type of `[string, null]`. However, Rails will typically interpret empty form input values as an empty string, rather than `nil`.
+
+### Content Block Context
+
+In general, the content block methods such as `publishing_api_payload` and `render` only receive the JSON schema and content for the specific flexible page property that the block represents. However, in some cases, the content blocks require additional data from the flexible page record. To facilitate this, we provide a [context object](../app/models/flexible_page_content_blocks/context.rb) which is instantiated in a before callback in the [controller](../app/controllers/admin/flexible_pages_controller.rb).
+
+The context provides access to the flexible page model associated with the request, and also to the view context. The view context should be used to render a template partial for each block (see the [default string object](../app/models/flexible_page_content_blocks/default_string.rb)'s render method for an example).
