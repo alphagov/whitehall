@@ -59,6 +59,10 @@ module ContentBlockManager
           schema.required_fields.include?(name)
         end
 
+        def data_attributes
+          @data_attributes ||= config["data_attributes"] || {}
+        end
+
       private
 
         def custom_component

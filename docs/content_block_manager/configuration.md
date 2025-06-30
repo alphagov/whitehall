@@ -32,6 +32,7 @@ And object that configures fields in a schema
 
 - [component](#schemasschema_namefieldsfield_namecomponent)
 - [field_order](#schemasschema_namefieldsfield_namefield_order)
+- [data_attributes](#schemasschema_namefieldsfield_namedata_attributes)
 
 ### `schemas.<schema_name>.fields.<field_name>.component`
 
@@ -52,6 +53,11 @@ The [Boolean](https://github.com/alphagov/whitehall/blob/main/lib/engines/conten
 
 If thew field is an array of objects, specifies an array of strings that defines the order that fields appear in when 
 rendering the subfields that can be contained in that field.
+
+### `schemas.<schema_name>.fields.<field_name>.data_attributes`
+
+A key/value list of data attributes to return in the HTML that surrounds the component for a given field. This is 
+useful for providing Javascript modules or custom selectors.
 
 ## `schemas.<schema_name>.subschemas`
 

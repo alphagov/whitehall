@@ -89,7 +89,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
     describe "when subschemas are present" do
       let(:subschemas) do
         [
-          stub("subschema_1", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", embeddable_fields: [], fields: [stub("field", name: "name")], group: nil),
+          stub("subschema_1", id: "subschema_1", name: "subschema_1", block_type: "subschema_1", embeddable_fields: [], fields: [stub("field", name: "name", data_attributes: nil)], group: nil),
           stub("subschema_2", id: "subschema_2", name: "subschema_2", block_type: "subschema_1", fields: [], group: nil),
         ]
       end

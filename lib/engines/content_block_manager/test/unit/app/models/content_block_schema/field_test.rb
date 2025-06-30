@@ -229,4 +229,22 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
       assert_equal false, field.is_required?
     end
   end
+
+  describe "#data_attributes" do
+    describe "when a `data_attributes` config var is set" do
+      let(:config) do
+        { "fields" => { "something" => { "data_attributes" => { "foo" => "bar" } } } }
+      end
+
+      it "returns the data attributes" do
+        assert_equal field.data_attributes, { "foo" => "bar" }
+      end
+    end
+
+    describe "when a `data_attributes` config var is not set" do
+      it "returns an empty hash" do
+        assert_equal field.data_attributes, {}
+      end
+    end
+  end
 end
