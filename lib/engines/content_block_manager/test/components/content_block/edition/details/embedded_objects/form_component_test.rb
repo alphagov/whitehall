@@ -6,11 +6,11 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
   let(:content_block_edition) { build(:content_block_edition) }
   let(:schema) { build(:content_block_schema) }
 
-  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil, default_value: nil) }
-  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil) }
-  let(:enum_field) { stub("field", name: "enum", component_name: "enum", enum_values: ["some value", "another value"], default_value: "some value") }
-  let(:textarea_field) { stub("field", name: "enum", component_name: "textarea", enum_values: nil, default_value: nil) }
-  let(:boolean_field) { stub("field", name: "boolean", component_name: "boolean", enum_values: nil, default_value: nil) }
+  let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil, default_value: nil, data_attributes: nil) }
+  let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil, data_attributes: nil) }
+  let(:enum_field) { stub("field", name: "enum", component_name: "enum", enum_values: ["some value", "another value"], default_value: "some value", data_attributes: nil) }
+  let(:textarea_field) { stub("field", name: "enum", component_name: "textarea", enum_values: nil, default_value: nil, data_attributes: nil) }
+  let(:boolean_field) { stub("field", name: "boolean", component_name: "boolean", enum_values: nil, default_value: nil, data_attributes: nil) }
 
   let(:foo_stub) { stub("string_component") }
   let(:bar_stub) { stub("string_component") }
