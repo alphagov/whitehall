@@ -801,6 +801,10 @@ html_attachments_with_missing_contacts = [
   8_657_454,
 ]
 
+# while testing!
+editions_with_missing_contacts = []#[editions_with_missing_contacts.first]
+html_attachments_with_missing_contacts = html_attachments_with_missing_contacts.first(10)
+
 editions_with_missing_contacts.each do |edition_id|
   ContactMigrator.call(edition_id:, contact_mapping:)
 end
