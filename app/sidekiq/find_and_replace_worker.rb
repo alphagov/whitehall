@@ -13,15 +13,33 @@ class FindAndReplaceWorker < WorkerBase
     edition = find_and_validate_edition(edition_id)
     return unless edition
 
-    updated_body = find_and_replace(edition.body, replacements)
-    if updated_body == edition.body
-      log(
-        "Skipping: Edition #{edition.id}. Its body doesn't need changing.",
-      )
-      return
-    end
+    updated_edition_body = find_and_replace(edition.body, replacements)
+    updates_to_apply = {
+      edition: updated_edition_body != edition.body ? updated_edition_body : nil,
+      html_attachments: edition.html_attachments.map { |attachment|
+        updated_body = find_and_replace(attachment.body, replacements)
+        { slug: attachment.slug, body: updated_body } if updated_body != attachment.body
+      }.compact,
+    }
 
-    edition.editable? ? update_draft(edition, updated_body) : create_and_publish_draft(edition, updated_body)
+    if updates_to_apply[:edition] || updates_to_apply[:html_attachments].any?
+      attachments_log_str = updates_to_apply[:html_attachments].any? ? " and its HTML attachments (#{updates_to_apply[:html_attachments].map { |att| att[:slug] }.join(', ')})" : ""
+
+      if edition.editable?
+        update_html_attachments(edition, updates_to_apply[:html_attachments])
+        update_draft(edition, updated_edition_body)
+        log("Success: performed find-and-replace on edition #{edition.id}#{attachments_log_str} and saved the draft.")
+      else
+        draft_edition = create_draft(edition, updated_edition_body)
+        update_html_attachments(draft_edition, updates_to_apply[:html_attachments])
+        publish_draft(draft_edition)
+        log("Success: performed find-and-replace on edition #{edition.id}#{attachments_log_str}, saving and publishing this as new edition #{draft_edition.id}.")
+      end
+    else
+      log(
+        "Skipping: Edition #{edition.id}. Neither it nor its HTML attachments need changing.",
+      )
+    end
   end
 
 private
@@ -82,23 +100,33 @@ private
         minor_change: true,
         body: updated_body,
       )
-      log(
-        "Success: performed find-and-replace on edition #{edition.id} and saved the draft.",
-      )
     end
   end
 
-  def create_and_publish_draft(edition, updated_body)
+  def update_html_attachments(edition, html_attachments_array_hash)
+    AuditTrail.acting_as(robot_user) do
+      html_attachments_array_hash.each do |att|
+        edition.html_attachments.find_by(slug: att[:slug]).govspeak_content.update!(body: att[:body])
+      end
+    end
+  end
+
+  def create_draft(edition, updated_body)
     AuditTrail.acting_as(robot_user) do
       draft_edition = edition.create_draft(robot_user)
       draft_edition.update!(minor_change: true, body: updated_body)
+      draft_edition
+    end
+  end
+
+  def publish_draft(draft_edition)
+    AuditTrail.acting_as(robot_user) do
       edition_publisher = Whitehall.edition_services.force_publisher(
         draft_edition,
         user: robot_user,
         remark: @changenote,
       )
       edition_publisher.perform!
-      log("Success: performed find-and-replace on edition #{edition.id}, saving and publishing a new edition #{draft_edition.id}.")
     end
   end
 

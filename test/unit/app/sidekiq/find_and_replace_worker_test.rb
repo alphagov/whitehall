@@ -83,11 +83,11 @@ class FindAndReplaceWorkerTest < ActiveSupport::TestCase
         worker.perform(params)
       end
 
-      it "logs but avoids processing cases where the passed Edition would be unchanged by the find-and-replace" do
+      it "logs but avoids processing cases where the passed Edition and its HTML attachments would be unchanged by the find-and-replace" do
         published_edition = create(:published_edition, body: "something safe")
         params = valid_params.merge("edition_id" => published_edition.id)
 
-        expected_msg = "Skipping: Edition #{published_edition.id}. Its body doesn't need changing."
+        expected_msg = "Skipping: Edition #{published_edition.id}. Neither it nor its HTML attachments need changing."
         worker = FindAndReplaceWorker.new
         worker.expects(:log).with(expected_msg)
         worker.perform(params)
@@ -115,6 +115,24 @@ class FindAndReplaceWorkerTest < ActiveSupport::TestCase
           assert_not_includes draft_edition.reload.body, "foo"
         end
 
+        it "performs a find-and-replace on the bodies of the Edition's HTML Attachments, but keeps the Edition as a draft" do
+          draft_edition = create(:draft_edition, body: "lorem ipsum")
+          attachment = create(:html_attachment, attachable: draft_edition)
+          attachment.govspeak_content.update!(body: "foo")
+          params = {
+            "edition_id" => draft_edition.id,
+            "replacements" => [{ "find" => "foo", "replace" => "bar" }],
+          }
+
+          worker = FindAndReplaceWorker.new
+          worker.expects(:log).with("Success: performed find-and-replace on edition #{draft_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
+          worker.perform(params)
+
+          assert_equal "draft", draft_edition.reload.state
+          assert_equal draft_edition.reload.body, "lorem ipsum"
+          assert_equal draft_edition.reload.html_attachments.last.body, "bar"
+        end
+
         it "logs the action against the automated user" do
           published_edition = create(:published_edition, body: "foo")
           params            = valid_params.merge("edition_id" => published_edition.id)
@@ -140,7 +158,7 @@ class FindAndReplaceWorkerTest < ActiveSupport::TestCase
             +1,
             "A new (draft) edition should be created and then published",
           ) do
-            expected_msg = /Success: performed find-and-replace on edition #{published_edition.id}, saving and publishing a new edition \d+\./
+            expected_msg = /Success: performed find-and-replace on edition #{published_edition.id}, saving and publishing this as new edition \d+\./
             worker = FindAndReplaceWorker.new
             worker.expects(:log).with(regexp_matches(expected_msg))
             worker.perform(params)
@@ -150,6 +168,31 @@ class FindAndReplaceWorkerTest < ActiveSupport::TestCase
           assert_equal "published", latest.state
           assert_includes latest.body, "bar"
           assert_not_includes latest.body, "foo"
+        end
+
+        it "performs a find-and-replace on the bodies of the Edition's HTML Attachments, and publishes the Edition" do
+          published_edition = create(:published_edition, body: "lorem ipsum")
+          attachment = create(:html_attachment, attachable: published_edition)
+          attachment.govspeak_content.update!(body: "foo")
+          params = {
+            "edition_id" => published_edition.id,
+            "replacements" => [{ "find" => "foo", "replace" => "bar" }],
+          }
+
+          assert_difference(
+            -> { Edition.where(document: published_edition.document).count },
+            +1,
+            "A new (draft) edition should be created and then published",
+          ) do
+            worker = FindAndReplaceWorker.new
+            worker.expects(:log).with("Success: performed find-and-replace on edition #{published_edition.id} and its HTML attachments (#{attachment.slug}), saving and publishing this as new edition #{published_edition.id + 1}.")
+            worker.perform(params)
+          end
+
+          latest = published_edition.document.reload.latest_edition
+          assert_equal "published", latest.state
+          assert_equal latest.body, "lorem ipsum"
+          assert_equal latest.html_attachments.last.body, "bar"
         end
 
         it "saves an internal changenote against the new edition" do
