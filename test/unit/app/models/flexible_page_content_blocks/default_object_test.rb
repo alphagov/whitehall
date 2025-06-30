@@ -66,4 +66,39 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
     refute_dom "legend", text: schema["title"]
   end
+
+  test "it renders non-required child attribute" do
+    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+        },
+      },
+    }
+
+    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
+    assert_dom "label", text: schema["properties"]["test_attribute"]["title"]
+  end
+
+  test "it passes the required attribute on to any required child attributes" do
+    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+        },
+      },
+      "required" => %w[test_attribute],
+    }
+
+    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
+    assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
+  end
 end
