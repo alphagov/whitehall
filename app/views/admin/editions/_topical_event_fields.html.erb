@@ -1,14 +1,10 @@
 <% cache_if edition.topical_event_ids.empty?, "#{taggable_topical_events_cache_digest}-design-system" do %>
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "edition_topical_event_ids",
     name: "edition[topical_event_ids][]",
     include_blank: true,
     label: "Topical events",
     heading_size: "m",
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Topical events",
-    },
     options: TopicalEvent.order(:name).map do |topical_event|
       {
         text: topical_event.name,
@@ -16,8 +12,6 @@
         selected: edition.topical_event_ids.include?(topical_event.id),
       }
     end,
-    select: {
-      multiple: true,
-    },
+    multiple: true,
   } %>
 <% end %>

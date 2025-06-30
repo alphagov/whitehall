@@ -25,16 +25,15 @@
     <% end %>
 
     <% if filter_by.include?(:author) %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         label: "Author",
         id: "author_filter",
         name: "author",
         heading_size: "s",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Author",
-          change_category: "update-filter select",
-          filter_parent: true,
+        data_attributes: {
+          ga4_section: "Author",
+          ga4_change_category: "update-filter select",
+          ga4_filter_parent: true,
         },
         options: admin_author_filter_options(current_user).map do |name, id|
           {
@@ -47,32 +46,30 @@
     <% end %>
 
     <% if filter_by.include?(:organisation) %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         label: "Organisation",
         id: "organisation_filter",
         name: "organisation",
         heading_size: "s",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Organisation",
-          change_category: "update-filter select",
-          filter_parent: true,
+        data_attributes: {
+          ga4_section: "Organisation",
+          ga4_change_category: "update-filter select",
+          ga4_filter_parent: true,
         },
         grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
       } %>
     <% end %>
 
     <% if filter_by.include?(:world_location) %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         label: "World location",
         id: "world_location_filter",
         name: "world_location",
         heading_size: "s",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "World location",
-          change_category: "update-filter select",
-          filter_parent: true,
+        data_attributes: {
+          ga4_section: "World location",
+          ga4_change_category: "update-filter select",
+          ga4_filter_parent: true,
         },
         options: admin_world_location_filter_options(current_user).map do |name, id|
           {
@@ -85,32 +82,30 @@
     <% end %>
 
     <% if filter_by.include?(:type) %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         label: "Document type",
         id: "type_filter",
         name: "type",
         heading_size: "s",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Document type",
-          change_category: "update-filter select",
-          filter_parent: true,
+        data_attributes: {
+          ga4_section: "Document type",
+          ga4_change_category: "update-filter select",
+          ga4_filter_parent: true,
         },
         grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
       } %>
     <% end %>
 
     <% if filter_by.include?(:state) %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         label: "State",
         id: "state_filter",
         name: "state",
         heading_size: "s",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "State",
-          change_category: "update-filter select",
-          filter_parent: true,
+        data_attributes: {
+          ga4_section: "State",
+          ga4_change_category: "update-filter select",
+          ga4_filter_parent: true,
         },
         options: admin_state_filter_options.map do |text, value|
           {

@@ -5,16 +5,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @user, as: :user, url: admin_user_path(@user), method: :put do |form| %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         id: "user_world_location_ids",
         name: "user[world_location_ids][]",
         include_blank: true,
         label: "Locations",
         heading_size: "l",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Locations",
-        },
         options: WorldLocation.all.map do |l|
           {
             text: l.name,
@@ -22,9 +18,7 @@
             selected: form.object.world_location_ids.include?(l.id),
           }
         end,
-        select: {
-          multiple: true,
-        },
+        multiple: true,
       } %>
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {

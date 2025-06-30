@@ -1,17 +1,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for social_media_account, url: destination do |form| %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         label: "Service (required)",
         id: "social_media_account_social_media_service_id",
         name: "social_media_account[social_media_service_id]",
         heading_size: "l",
         include_blank: true,
         error_items: errors_for(social_media_account.errors, :social_media_service_id),
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Service (required)",
-        },
         options: SocialMediaService.all.map do |service|
           {
             text: service.name,

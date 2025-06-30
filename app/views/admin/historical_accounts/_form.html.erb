@@ -16,16 +16,12 @@
         maxlength: MaxLengths::SUMMARY,
       } %>
 
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         id: "historical_account_political_parties",
         name: "historical_account[political_party_ids][]",
         error_items: errors_for(historical_account.errors, :political_parties),
         label: "Political parties (required)",
         heading_size: "l",
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Political parties (required)",
-        },
         options: PoliticalParty.all.map do |party|
           {
             text: party.name,
@@ -33,9 +29,7 @@
             selected: historical_account.political_party_ids.include?(party.id),
           }
         end,
-        select: {
-          multiple: true,
-        },
+        multiple: true,
       } %>
 
       <%= render "govuk_publishing_components/components/input", {

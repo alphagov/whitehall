@@ -29,15 +29,11 @@
     error_message: errors_for_input(role.errors, :type),
   } %>
 
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "role_organisation_ids",
     label: "Organisations",
     heading_size: "l",
     name: "role[organisation_ids][]",
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Organisations",
-    },
     options: Organisation.with_translations(:en).map do |org|
       {
         text: org.select_name,
@@ -45,9 +41,7 @@
         selected: role.organisation_ids.include?(org.id),
       }
     end,
-    select: {
-      multiple: true,
-    },
+    multiple: true,
   } %>
 
   <%= render "govuk_publishing_components/components/select", {

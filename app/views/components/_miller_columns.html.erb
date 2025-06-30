@@ -33,10 +33,10 @@
       }
       select_helper = GovukPublishingComponents::Presenters::SelectWithSearchHelper.new(select_config)
     %>
-    <%= content_tag :div, class: select_helper.css_classes, data: select_helper.data_attributes do %>
+    <%= content_tag :div, class: select_helper.css_classes do %>
       <%= select_tag(
         "app-c-miller-columns__search-input",
-        select_helper.options_html,
+        select_helper.options_markup,
         id: "app-c-miller-columns__search-input",
         class: select_helper.select_classes,
         multiple: true,

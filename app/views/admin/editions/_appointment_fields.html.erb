@@ -1,17 +1,11 @@
 <% cache_if edition.role_appointment_ids.empty?, "#{taggable_ministerial_role_appointments_cache_digest}-design-system" do %>
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "edition_role_appointment_ids",
     name: "edition[role_appointment_ids][]",
     include_blank: true,
     label: "Ministers",
     heading_size: "m",
     options: taggable_ministerial_role_appointments_container(edition.role_appointment_ids),
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Ministers",
-    },
-    select: {
-      multiple: true,
-    },
+    multiple: true,
   } %>
 <% end %>

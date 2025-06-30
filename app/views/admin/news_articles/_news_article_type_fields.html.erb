@@ -1,5 +1,5 @@
 <div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="<%= NewsArticleType::FORMAT_ADVICE %>">
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     name: "edition[news_article_type_id]",
     id: "edition_news_article_type_id",
     label: "News article type (required)",
@@ -7,10 +7,6 @@
     value: edition.news_article_type_id,
     error_items: errors_for(edition.errors, :news_article_type_id),
     include_blank: true,
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "News article type (required)",
-    },
     options: NewsArticleType.all.map do |type|
       {
         text: type.singular_name,

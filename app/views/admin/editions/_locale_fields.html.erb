@@ -18,16 +18,12 @@
         label: "Create a foreign language only #{edition.model_name.human.downcase}",
         value: "1",
         checked: form.object.primary_locale != "en",
-        conditional: (render "components/select_with_search", {
+        conditional: (render "govuk_publishing_components/components/select_with_search", {
           id: "edition_primary_locale",
           name: "edition[primary_locale]",
           label: "Document language",
           heading_size: "m",
           include_blank: true,
-          ga_data: {
-            document_type: "#{action_name}-#{controller_name}",
-            section: "Document language",
-          },
           errors: errors_for(edition.errors, :primary_locale),
           options: locale_options.map do |language, value|
             {
