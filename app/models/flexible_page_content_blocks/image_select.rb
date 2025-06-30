@@ -38,6 +38,7 @@ module FlexiblePageContentBlocks
         name: path.form_control_name,
         options: select_options(content),
         hint: property_schema["description"],
+        heading_size: "m",
       }
     end
 

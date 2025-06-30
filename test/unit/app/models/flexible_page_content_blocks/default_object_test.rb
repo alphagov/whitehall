@@ -45,8 +45,25 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
       "required" => %w[test_attribute],
     }
-    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
+    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {}, Path.new.push("test_attribute"))
     assert_dom "legend", text: schema["title"]
     assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
+  end
+
+  test "it does not render a fieldset with the schema title as the legend for the root object" do
+    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+        },
+      },
+      "required" => %w[test_attribute],
+    }
+    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
+    refute_dom "legend", text: schema["title"]
   end
 end

@@ -20,7 +20,10 @@ module FlexiblePageContentBlocks
 
     def render(property_schema, content, path = Path.new, required: false)
       Context.renderer.render "govuk_publishing_components/components/textarea", {
-        label: { text: property_schema["title"] + (required ? " (required)" : "") },
+        label: {
+          text: property_schema["title"] + (required ? " (required)" : ""),
+          heading_size: "m",
+        },
         name: path.form_control_name,
         value: content,
         hint: property_schema["description"],

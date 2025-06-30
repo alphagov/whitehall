@@ -21,7 +21,11 @@ module FlexiblePageContentBlocks
 
     def render(schema, content, path = Path.new, required: false)
       Context.renderer.render("govuk_publishing_components/components/fieldset", {
-        legend_text: schema["title"] + (required ? " (required)" : ""),
+        legend_text: if path.to_a.blank?
+                       ""
+                     else
+                       schema["title"] + (required ? " (required)" : "")
+                     end,
         heading_size: "m",
         id: path.form_control_id,
       }) do
