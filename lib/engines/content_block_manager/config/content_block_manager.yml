@@ -35,6 +35,7 @@ schemas:
         embeddable_as_block: true
         embeddable_fields:
           - telephone_numbers
+          - opening_hours
         field_order:
           - title
           - telephone_numbers
