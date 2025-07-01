@@ -1,7 +1,7 @@
 class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComponent < ViewComponent::Base
   include ErrorsHelper
 
-  def initialize(field_name:, array_items:, name_prefix:, id_prefix:, value:, index:, errors:, error_lookup_prefix:)
+  def initialize(field_name:, array_items:, name_prefix:, id_prefix:, value:, index:, errors:, error_lookup_prefix:, can_be_deleted:)
     @field_name = field_name
     @array_items = array_items
     @name_prefix = name_prefix
@@ -10,11 +10,19 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
     @index = index
     @errors = errors
     @error_lookup_prefix = error_lookup_prefix
+    @can_be_deleted = can_be_deleted
   end
 
 private
 
-  attr_reader :field_name, :array_items, :name_prefix, :id_prefix, :value, :index, :errors, :error_lookup_prefix
+  attr_reader :field_name, :array_items, :name_prefix, :id_prefix, :value, :index, :errors, :error_lookup_prefix, :can_be_deleted
+
+  def wrapper_classes
+    [
+      "app-c-content-block-manager-array-item-component",
+      ("app-c-content-block-manager-array-item-component--immutable" unless can_be_deleted),
+    ].join(" ")
+  end
 
   def name
     "#{name_prefix}[]"

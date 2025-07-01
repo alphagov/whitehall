@@ -9,6 +9,12 @@
     padding-top: govuk-spacing(6);
     padding-bottom: govuk-spacing(6);
 
+    &:has(.app-c-content-block-manager-array-item-component--immutable) {
+      .gem-c-add-another__remove-button {
+        display: none;
+      }
+    }
+
     .govuk-fieldset__legend {
       margin-bottom: govuk-spacing(6);
     }

@@ -13,12 +13,14 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
       index:,
       errors:,
       error_lookup_prefix:,
+      can_be_deleted:,
     )
   end
 
   let(:errors) { stub(:errors) }
   let(:error_lookup_prefix) { "foo_bar" }
   let(:errors_for_field) { [] }
+  let(:can_be_deleted) { true }
 
   before do
     component.stubs(:errors_for).returns(errors_for_field)
@@ -32,28 +34,50 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::Array::ItemComp
     let(:field_value) { ["", "Some text"] }
     let(:index) { 1 }
 
-    it "renders a text field" do
-      render_inline(component)
+    describe "if the item can be deleted" do
+      let(:can_be_deleted) { true }
 
-      assert_selector "label", text: "Bar"
-      assert_selector "input[type='text'][value='Some text'][name='foo[bar][]'][id='foo_bar_1']"
-    end
-
-    describe "when error messages are present" do
-      let(:errors_for_field) do
-        [{ text: "Bar cannot be blank" }]
-      end
-
-      before do
-        component.expects(:errors_for).with(errors, "#{error_lookup_prefix}_#{index}".to_sym).returns(errors_for_field)
-      end
-
-      it "renders an error" do
+      it "renders without the '--immutable' class, to show the 'delete' button" do
         render_inline(component)
 
-        assert_selector ".govuk-form-group--error" do |form_group|
-          form_group.assert_selector ".govuk-error-message", text: "Bar cannot be blank"
+        assert_selector ".app-c-content-block-manager-array-item-component"
+        refute_selector ".app-c-content-block-manager-array-item-component--immutable"
+      end
+
+      it "renders a text field" do
+        render_inline(component)
+
+        assert_selector "label", text: "Bar"
+        assert_selector "input[type='text'][value='Some text'][name='foo[bar][]'][id='foo_bar_1']"
+      end
+
+      describe "when error messages are present" do
+        let(:errors_for_field) do
+          [{ text: "Bar cannot be blank" }]
         end
+
+        before do
+          component.expects(:errors_for).with(errors, "#{error_lookup_prefix}_#{index}".to_sym).returns(errors_for_field)
+        end
+
+        it "renders an error" do
+          render_inline(component)
+
+          assert_selector ".govuk-form-group--error" do |form_group|
+            form_group.assert_selector ".govuk-error-message", text: "Bar cannot be blank"
+          end
+        end
+      end
+    end
+
+    describe "if the item cannot be deleted" do
+      let(:can_be_deleted) { false }
+
+      it "renders with the '--immutable' class, to suppress the 'delete' button" do
+        render_inline(component)
+
+        assert_selector ".app-c-content-block-manager-array-item-component"
+        assert_selector ".app-c-content-block-manager-array-item-component--immutable"
       end
     end
   end
