@@ -77,37 +77,19 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
     assert_selector 'input[value="some custom value"]'
   end
 
-  describe "hints" do
-    it "should render hint text when a translation exists" do
-      I18n.expects(:t).with("content_block_edition.details.labels.email_address", default: "Email address").returns(nil)
-      I18n.expects(:t).with("content_block_edition.details.hints.email_address", default: nil).returns("Some hint text")
+  it "should render hint text when a translation exists" do
+    I18n.expects(:t).with("content_block_edition.details.labels.email_address", default: "Email address").returns(nil)
+    I18n.expects(:t).with("content_block_edition.details.hints.email_address", default: nil).returns("Some hint text")
 
-      render_inline(
-        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
-          content_block_edition:,
-          field:,
-          value: "some custom value",
-        ),
-      )
+    render_inline(
+      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+        content_block_edition:,
+        field:,
+        value: "some custom value",
+      ),
+    )
 
-      assert_selector ".govuk-hint", text: "Some hint text"
-    end
-
-    it "should use the object_id for the hint text when provided" do
-      I18n.expects(:t).with("content_block_edition.details.labels.my_suffix.email_address", default: "Email address").returns(nil)
-      I18n.expects(:t).with("content_block_edition.details.hints.my_suffix.email_address", default: nil).returns("Some hint text")
-
-      render_inline(
-        ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
-          content_block_edition:,
-          field:,
-          value: "some custom value",
-          object_id: "my_suffix",
-        ),
-      )
-
-      assert_selector ".govuk-hint", text: "Some hint text"
-    end
+    assert_selector ".govuk-hint", text: "Some hint text"
   end
 
   describe "when there is a translation for a field label" do
@@ -124,6 +106,37 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent
       )
 
       assert_selector "label", text: "Email address translated"
+    end
+  end
+
+  describe "when a subschema is present" do
+    let(:subschema) { stub(:schema, block_type: "my_suffix") }
+
+    let(:component) do
+      ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.new(
+        content_block_edition:,
+        field:,
+        value: "some custom value",
+        subschema:,
+      )
+    end
+
+    it "should generate the correct name and ID" do
+      render_inline component
+
+      expected_name = "content_block/edition[details][my_suffix][email_address]"
+      expected_id = "#{ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent::PARENT_CLASS}_details_my_suffix_email_address"
+
+      assert_selector "input[type=\"text\"][name=\"#{expected_name}\"][id=\"#{expected_id}\"]"
+    end
+
+    it "should use the subschema for the hint text when provided" do
+      I18n.expects(:t).with("content_block_edition.details.labels.my_suffix.email_address", default: "Email address").returns(nil)
+      I18n.expects(:t).with("content_block_edition.details.hints.my_suffix.email_address", default: nil).returns("Some hint text")
+
+      render_inline component
+
+      assert_selector ".govuk-hint", text: "Some hint text"
     end
   end
 end

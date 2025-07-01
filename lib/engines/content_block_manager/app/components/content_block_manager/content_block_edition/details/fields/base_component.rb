@@ -4,19 +4,23 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent <
 
   PARENT_CLASS = "content_block_manager_content_block_edition".freeze
 
-  def initialize(content_block_edition:, field:, value: nil, object_id: nil, **_args)
+  def initialize(content_block_edition:, field:, value: nil, subschema: nil, **_args)
     @content_block_edition = content_block_edition
     @field = field
     @value = value
-    @object_id = object_id
+    @subschema = subschema
   end
 
 private
 
-  attr_reader :content_block_edition, :field, :object_id, :value
+  attr_reader :content_block_edition, :field, :subschema, :value
+
+  def subschema_block_type
+    @subschema_block_type ||= subschema&.block_type
+  end
 
   def label
-    "#{humanized_label(field.name, object_id)}#{field.is_required? ? nil : optional_label}"
+    "#{humanized_label(field.name, subschema_block_type)}#{field.is_required? ? nil : optional_label}"
   end
 
   def optional_label
@@ -24,8 +28,8 @@ private
   end
 
   def name
-    if object_id
-      "content_block/edition[details][#{object_id}][#{field.name}]"
+    if subschema_block_type
+      "content_block/edition[details][#{subschema_block_type}][#{field.name}]"
     else
       "content_block/edition[details][#{field.name}]"
     end
@@ -44,10 +48,10 @@ private
   end
 
   def translation_lookup
-    @translation_lookup ||= object_id ? "#{object_id}.#{field.name}" : field.name
+    @translation_lookup ||= subschema_block_type ? "#{subschema_block_type}.#{field.name}" : field.name
   end
 
   def id_suffix
-    object_id ? "#{object_id}_#{field.name}" : field.name
+    subschema_block_type ? "#{subschema_block_type}_#{field.name}" : field.name
   end
 end

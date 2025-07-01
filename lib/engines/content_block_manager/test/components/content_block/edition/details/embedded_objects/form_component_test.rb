@@ -4,7 +4,9 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition) }
-  let(:schema) { build(:content_block_schema) }
+
+  let(:block_type) { "some_object" }
+  let(:subschema) { build(:content_block_schema, block_type:) }
 
   let(:foo_field) { stub("field", name: "foo", component_name: "string", enum_values: nil, default_value: nil, data_attributes: nil) }
   let(:bar_field) { stub("field", name: "bar", component_name: "string", enum_values: nil, default_value: nil, data_attributes: nil) }
@@ -18,29 +20,27 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
   let(:textarea_stub) { stub("textarea_component") }
   let(:boolean_stub) { stub("boolean_component") }
 
-  let(:object_title) { "some_object" }
-
   before do
-    schema.stubs(:fields).returns([foo_field, bar_field, enum_field, textarea_field, boolean_field])
+    subschema.stubs(:fields).returns([foo_field, bar_field, enum_field, textarea_field, boolean_field])
   end
 
   it "renders fields for each property" do
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: foo_field,
-      object_id: object_title,
+      subschema:,
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: bar_field,
-      object_id: object_title,
+      subschema:,
     ).returns(bar_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
       content_block_edition:,
       field: enum_field,
-      object_id: object_title,
+      subschema:,
       enum: ["some value", "another value"],
       default: "some value",
     ).returns(enum_stub)
@@ -48,19 +48,18 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     ContentBlockManager::ContentBlockEdition::Details::Fields::TextareaComponent.expects(:new).with(
       content_block_edition:,
       field: textarea_field,
-      object_id: object_title,
+      subschema:,
     ).returns(textarea_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.expects(:new).with(
       content_block_edition:,
       field: boolean_field,
-      object_id: object_title,
+      subschema:,
     ).returns(boolean_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
-      schema:,
-      object_title:,
+      subschema:,
       params: nil,
     )
 
@@ -79,20 +78,20 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: foo_field,
-      object_id: object_title,
+      subschema:,
       value: "something",
     ).returns(foo_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
       content_block_edition:,
       field: bar_field,
-      object_id: object_title,
+      subschema:,
     ).returns(bar_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
       content_block_edition:,
       field: enum_field,
-      object_id: object_title,
+      subschema:,
       enum: ["some value", "another value"],
       default: "some value",
     ).returns(enum_stub)
@@ -100,19 +99,18 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
     ContentBlockManager::ContentBlockEdition::Details::Fields::TextareaComponent.expects(:new).with(
       content_block_edition:,
       field: textarea_field,
-      object_id: object_title,
+      subschema:,
     ).returns(textarea_stub)
 
     ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.expects(:new).with(
       content_block_edition:,
       field: boolean_field,
-      object_id: object_title,
+      subschema:,
     ).returns(boolean_stub)
 
     component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
       content_block_edition:,
-      schema:,
-      object_title:,
+      subschema:,
       params:,
     )
 

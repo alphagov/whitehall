@@ -1,20 +1,23 @@
 class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent < ContentBlockManager::ContentBlockEdition::Details::FormComponent
-  def initialize(content_block_edition:, schema:, object_title:, params:)
+  def initialize(content_block_edition:, subschema:, params:)
     @content_block_edition = content_block_edition
-    @schema = schema
-    @object_title = object_title
+    @subschema = subschema
     @params = params || {}
   end
 
 private
 
-  attr_reader :content_block_edition, :schema, :object_title, :params
+  attr_reader :content_block_edition, :subschema, :params
+
+  def schema
+    @subschema
+  end
 
   def component_args(field)
     {
       content_block_edition:,
       field: field,
-      object_id: object_title,
+      subschema:,
       value: params[field.name],
     }.compact
   end
