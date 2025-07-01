@@ -51,11 +51,11 @@ module ContentBlockManager
         key = key_for_object(body)
 
         details[object_type] ||= {}
-        details[object_type][key] = body.to_h
+        details[object_type][key] = remove_destroyed body.to_h
       end
 
       def update_object_with_details(object_type, object_title, body)
-        details[object_type][object_title] = body.to_h
+        details[object_type][object_title] = remove_destroyed body.to_h
       end
 
       def key_for_object(object)
@@ -64,6 +64,21 @@ module ContentBlockManager
 
       def has_entries_for_subschema_id?(subschema_id)
         details[subschema_id].present?
+      end
+
+    private
+
+      def remove_destroyed(item)
+        item.each_with_object({}) { |(key, value), hash|
+          case value
+          when String
+            hash[key] = value
+          when Hash
+            hash[key] = remove_destroyed(value)
+          when Array
+            hash[key] = value.select { |i| !i.is_a?(Hash) || i.delete("_destroy") != "1" }
+          end
+        }.to_h
       end
     end
   end

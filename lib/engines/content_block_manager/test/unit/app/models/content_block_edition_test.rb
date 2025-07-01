@@ -216,6 +216,27 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
       assert_equal content_block_edition.details["something"], { "random-string" => { "something" => "else" } }
     end
+
+    it "removes deleted items from the array, as well as the `_destroy` markers" do
+      content_block_edition.add_object_to_details("something", {
+        "title" => "A title",
+        "array_items" => [
+          { "name" => "item 1", "_destroy" => "0" },
+          { "name" => "item 2", "_destroy" => "1" },
+          { "name" => "item 3", "_destroy" => "0" },
+        ],
+      })
+
+      assert_equal content_block_edition.details["something"], {
+        "a-title" => {
+          "title" => "A title",
+          "array_items" => [
+            { "name" => "item 1" },
+            { "name" => "item 3" },
+          ],
+        },
+      }
+    end
   end
 
   describe "#update_object_with_details" do
@@ -233,6 +254,42 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       content_block_edition.update_object_with_details("something", "my-thing", { "title" => "Other thing", "something" => "changed" })
 
       assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "Other thing", "something" => "changed" } }
+    end
+
+    describe "when an object has an array" do
+      before do
+        content_block_edition.details["something"] = {
+          "my-thing" => {
+            "title" => "My thing",
+            "array_items" => [
+              { "name" => "item 1" },
+              { "name" => "item 2" },
+              { "name" => "item 3" },
+            ],
+          },
+        }
+      end
+
+      it "removes deleted items from the array, as well as the `_destroy` markers" do
+        content_block_edition.update_object_with_details("something", "my-thing", {
+          "title" => "My thing",
+          "array_items" => [
+            { "name" => "item 1", "_destroy" => "0" },
+            { "name" => "item 2", "_destroy" => "1" },
+            { "name" => "item 3", "_destroy" => "0" },
+          ],
+        })
+
+        assert_equal content_block_edition.details["something"], {
+          "my-thing" => {
+            "title" => "My thing",
+            "array_items" => [
+              { "name" => "item 1" },
+              { "name" => "item 3" },
+            ],
+          },
+        }
+      end
     end
   end
 
