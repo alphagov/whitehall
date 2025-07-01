@@ -229,5 +229,20 @@ class FindAndReplaceWorkerTest < ActiveSupport::TestCase
         end
       end
     end
+
+    describe "logging with custom prefix" do
+      it "logs with custom prefix if provided" do
+        edition = create(:draft_edition, body: "foo")
+        params = valid_params.merge("log_prefix" => "[MyFindAndReplaceScript] ", "edition_id" => edition.id)
+
+        log_io = StringIO.new
+        custom_logger = Logger.new(log_io)
+        Rails.stub(:logger, custom_logger) do
+          FindAndReplaceWorker.new.perform(params)
+        end
+
+        assert_match "[MyFindAndReplaceScript] Success: performed find-and-replace on edition #{edition.id} and saved the draft.", log_io.string
+      end
+    end
   end
 end

@@ -8,6 +8,7 @@ class FindAndReplaceWorker < WorkerBase
     edition_id = args["edition_id"]
     replacements = args["replacements"]
     @changenote = args["changenote"] || "Automatically republished content with some body changes"
+    @log_prefix = args["log_prefix"] || ""
 
     validate_params!(edition_id, replacements)
     edition = find_and_validate_edition(edition_id)
@@ -83,7 +84,7 @@ private
   end
 
   def log(message)
-    Rails.logger.info(message)
+    Rails.logger.info("#{@log_prefix}#{message}")
   end
 
   def find_and_replace(body, replacements)
