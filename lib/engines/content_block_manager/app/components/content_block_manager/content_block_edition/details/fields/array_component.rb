@@ -1,4 +1,9 @@
 class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponent < ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent
+  def initialize(object_title: nil, **args)
+    @object_title = object_title
+    super(**args)
+  end
+
 private
 
   def label

@@ -7,12 +7,14 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
   let(:field) { stub("field", name: "items", array_items:, is_required?: true) }
   let(:array_items) { { "type" => "string" } }
   let(:field_value) { nil }
+  let(:object_title) { nil }
 
   let(:component) do
     ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponent.new(
       content_block_edition:,
       field:,
       value: field_value,
+      object_title:,
     )
   end
 

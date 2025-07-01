@@ -6,6 +6,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursCom
   let(:content_block_edition) { build(:content_block_edition, :pension) }
   let(:field) { stub("field", name: "items", is_required?: true) }
   let(:field_value) { nil }
+  let(:object_title) { nil }
 
   let(:days) { ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent::DAYS }
   let(:hours) { ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent::HOURS }
@@ -17,6 +18,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursCom
       content_block_edition:,
       field:,
       value: field_value,
+      object_title:,
     )
   end
 

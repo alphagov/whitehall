@@ -122,4 +122,60 @@ class ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormCo
 
     render_inline(component)
   end
+
+  it "sends the subschema's block_type as an `object_title` if provided" do
+    object_title = "something"
+
+    ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
+      content_block_edition:,
+      field: foo_field,
+      subschema:,
+      object_title:,
+    ).returns(foo_stub)
+
+    ContentBlockManager::ContentBlockEdition::Details::Fields::StringComponent.expects(:new).with(
+      content_block_edition:,
+      field: bar_field,
+      subschema:,
+      object_title:,
+    ).returns(bar_stub)
+
+    ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.expects(:new).with(
+      content_block_edition:,
+      field: enum_field,
+      subschema:,
+      enum: ["some value", "another value"],
+      default: "some value",
+      object_title:,
+    ).returns(enum_stub)
+
+    ContentBlockManager::ContentBlockEdition::Details::Fields::TextareaComponent.expects(:new).with(
+      content_block_edition:,
+      field: textarea_field,
+      subschema:,
+      object_title:,
+    ).returns(textarea_stub)
+
+    ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.expects(:new).with(
+      content_block_edition:,
+      field: boolean_field,
+      subschema:,
+      object_title:,
+    ).returns(boolean_stub)
+
+    component = ContentBlockManager::ContentBlockEdition::Details::EmbeddedObjects::FormComponent.new(
+      content_block_edition:,
+      subschema:,
+      params: nil,
+      object_title:,
+    )
+
+    component.expects(:render).with(foo_stub)
+    component.expects(:render).with(bar_stub)
+    component.expects(:render).with(enum_stub)
+    component.expects(:render).with(textarea_stub)
+    component.expects(:render).with(boolean_stub)
+
+    render_inline(component)
+  end
 end
