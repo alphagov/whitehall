@@ -1,12 +1,11 @@
 module FlexiblePageContentBlocks
   module Context
     class << self
-      attr_reader :page, :renderer
+      attr_reader :page
     end
 
-    def self.create(page, renderer = nil)
+    def self.create_for_page(page)
       @page = page
-      @renderer = renderer
     end
   end
 end

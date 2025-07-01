@@ -12,14 +12,8 @@ module FlexiblePageContentBlocks
       content
     end
 
-    def render(property_schema, content, path = Path.new, required: false)
-      Context.renderer.render "govuk_publishing_components/components/input", {
-        id: path.form_control_id,
-        label: { text: property_schema["title"] + (required ? " (required)" : "") },
-        name: path.form_control_name,
-        value: content,
-        hint: property_schema["description"],
-      }
+    def to_partial_path
+      "admin/flexible_pages/content_blocks/default_string"
     end
   end
 end

@@ -1,7 +1,6 @@
 require "test_helper"
 class FlexiblePageContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
   test "it builds the Publishing API payload for the nested content" do
-    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, nil)
     schema = {
       "type" => "object",
       "properties" => {
@@ -33,7 +32,6 @@ end
 
 class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCase
   test "it renders a fieldset with the schema title as the legend containing the child attributes" do
-    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
     schema = {
       "title" => "Test object",
       "type" => "object",
@@ -45,13 +43,12 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
       "required" => %w[test_attribute],
     }
-    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {}, Path.new.push("test_attribute"))
-    assert_dom "legend", text: schema["title"]
+    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new, required: true }
+    assert_dom "legend", text: "#{schema['title']} (required)"
     assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
 
   test "it does not render a fieldset with the schema title as the legend for the root object" do
-    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
     schema = {
       "title" => "Test object",
       "type" => "object",
@@ -63,12 +60,11 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
       "required" => %w[test_attribute],
     }
-    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
+    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new, required: false, root: true }
     refute_dom "legend", text: schema["title"]
   end
 
   test "it renders non-required child attribute" do
-    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
     schema = {
       "title" => "Test object",
       "type" => "object",
@@ -80,12 +76,12 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
     }
 
-    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
+    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new }
     assert_dom "label", text: schema["properties"]["test_attribute"]["title"]
+    refute_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
 
   test "it passes the required attribute on to any required child attributes" do
-    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
     schema = {
       "title" => "Test object",
       "type" => "object",
@@ -97,13 +93,11 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
       "required" => %w[test_attribute],
     }
-
-    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, {})
+    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new }
     assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
 
-  test "it renders not nested child attribute content" do
-    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
+  test "it renders not-nested child attribute content" do
     schema = {
       "title" => "Test object",
       "type" => "object",
@@ -115,15 +109,11 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
     }
     content = { "not_nested_attribute" => "bar" }
-
-    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, content)
+    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content:, path: Path.new }
     assert_dom "input[name=?][value=?]", "edition[flexible_page_content][not_nested_attribute]", "bar"
   end
 
   test "it renders nested child attribute content" do
-    skip("Will be reenabled in subsequent PR")
-
-    FlexiblePageContentBlocks::Context.create(FlexiblePage.new, view)
     schema = {
       "title" => "Test object",
       "type" => "object",
@@ -141,8 +131,7 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
     }
     content = { "test_object_attribute" => { "nested_attribute" => "foo" } }
-
-    render html: FlexiblePageContentBlocks::DefaultObject.new.render(schema, content)
+    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content:, path: Path.new }
     assert_dom "input[name=?][value=?]", "edition[flexible_page_content][test_object_attribute][nested_attribute]", "foo"
   end
 end

@@ -31,32 +31,8 @@ module FlexiblePageContentBlocks
       end
     end
 
-    def render(property_schema, content, path = Path.new, required: false)
-      Context.renderer.render "govuk_publishing_components/components/select", {
-        id: path.form_control_id,
-        label: property_schema["title"] + (required ? " (required)" : ""),
-        name: path.form_control_name,
-        options: select_options(content),
-        hint: property_schema["description"],
-        heading_size: "m",
-      }
-    end
-
-  private
-
-    def select_options(content)
-      [
-        {
-          text: "No image selected",
-          value: "",
-        },
-      ] + Context.page.images.map do |image|
-        {
-          text: image.filename,
-          value: image.id,
-          selected: image.id == content.to_i,
-        }
-      end
+    def to_partial_path
+      "admin/flexible_pages/content_blocks/image_select"
     end
   end
 end
