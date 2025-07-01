@@ -64,8 +64,72 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponentT
     it "renders the hidden delete checkbox for each item" do
       render_inline component
 
-      assert_selector "input[type='checkbox'][name='content_block_manager_content_block_edition_details_items[0][_destroy]']"
-      assert_selector "input[type='checkbox'][name='content_block_manager_content_block_edition_details_items[1][_destroy]']"
+      assert_selector ".js-add-another__fieldset", text: /Item 1/ do |fieldset|
+        fieldset.assert_selector "input[type='checkbox'][name='content_block/edition[details][items][][_destroy]']"
+      end
+
+      assert_selector ".js-add-another__fieldset", text: /Item 2/ do |fieldset|
+        fieldset.assert_selector "input[type='checkbox'][name='content_block/edition[details][items][][_destroy]']"
+      end
+    end
+  end
+
+  describe "when an object title is provided" do
+    let(:field_value) { %w[foo bar] }
+    let(:object_title) { "field" }
+
+    let(:latest_edition) { build(:content_block_edition, :contact, details:) }
+
+    before do
+      content_block_edition.document.stubs(:latest_edition).returns(latest_edition)
+    end
+
+    describe "when all items have previously been published" do
+      let(:details) do
+        {
+          object_title => {
+            field.name => field_value,
+          },
+        }
+      end
+
+      it "does not render any deletion checkboxes" do
+        render_inline component
+
+        assert_selector ".js-add-another__fieldset", text: /Item 1/ do |fieldset|
+          fieldset.assert_selector "input[type='hidden'][name='content_block/edition[details][items][][_destroy]'][value='0']", visible: false
+          fieldset.assert_no_selector "input[type='checkbox'][name='content_block/edition[details][items][][_destroy]']"
+        end
+
+        assert_selector ".js-add-another__fieldset", text: /Item 2/ do |fieldset|
+          fieldset.assert_selector "input[type='hidden'][name='content_block/edition[details][items][][_destroy]'][value='0']", visible: false
+          fieldset.assert_no_selector "input[type='checkbox'][name='content_block/edition[details][items][][_destroy]']"
+        end
+      end
+    end
+
+    describe "one item has been previously published" do
+      let(:details) do
+        {
+          object_title => {
+            field.name => %w[foo],
+          },
+        }
+      end
+
+      it "renders a deletion checkbox for the unpublished item only" do
+        render_inline component
+
+        assert_selector ".js-add-another__fieldset", text: /Item 1/ do |fieldset|
+          fieldset.assert_selector "input[type='hidden'][name='content_block/edition[details][items][][_destroy]'][value='0']", visible: false
+          fieldset.assert_no_selector "input[type='checkbox'][name='content_block/edition[details][items][][_destroy]']"
+        end
+
+        assert_selector ".js-add-another__fieldset", text: /Item 2/ do |fieldset|
+          fieldset.assert_no_selector "input[type='hidden'][name='content_block/edition[details][items][][_destroy]'][value='0']", visible: false
+          fieldset.assert_selector "input[type='checkbox'][name='content_block/edition[details][items][][_destroy]']"
+        end
+      end
     end
   end
 

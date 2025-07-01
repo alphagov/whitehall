@@ -45,10 +45,26 @@ private
   end
 
   def destroy_checkbox(index)
-    render("govuk_publishing_components/components/checkboxes", { name: "#{id}[#{index}][_destroy]", items: [{ label: "Delete", value: "1" }] })
+    field_name = "#{name}[][_destroy]"
+    if can_be_deleted?(index)
+      render("govuk_publishing_components/components/checkboxes", { name: field_name, items: [{ label: "Delete", value: "1" }] })
+    else
+      hidden_field_tag(field_name, 0)
+    end
   end
 
   def errors
     content_block_edition.errors
+  end
+
+  def can_be_deleted?(index)
+    immutability_checker&.can_be_deleted?(index)
+  end
+
+  def immutability_checker
+    @immutability_checker ||= ContentBlockManager::EmbeddedObjectImmutabilityCheck.new(
+      edition: content_block_edition.document.latest_edition,
+      field_reference: [subschema_block_type, @object_title, field.name].compact,
+    )
   end
 end
