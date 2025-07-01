@@ -14,6 +14,7 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
         "time_to(h)" => "5",
         "time_to(m)" => "30",
         "time_to(meridian)" => "PM",
+        "_destroy" => "0",
       },
     ]
   end
@@ -51,6 +52,7 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
                   "day_to" => "Friday",
                   "time_from" => "9:00AM",
                   "time_to" => "5:30PM",
+                  "_destroy" => "0",
                 },
               ],
             },
