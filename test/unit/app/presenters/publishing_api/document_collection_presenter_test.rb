@@ -72,6 +72,40 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   test "it presents the auth bypass id" do
     assert_equal [@document_collection.auth_bypass_id], @presented_content[:auth_bypass_ids]
   end
+
+  test "it includes headers when headers are present in body" do
+    document_collection = create(
+      :document_collection,
+      title: "Some document collection",
+      summary: "Some summary",
+      body: "##Some header\n\nSome content",
+    )
+
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
+
+    expected_headers = [
+      {
+        text: "Some header",
+        level: 2,
+        id: "some-header",
+      },
+    ]
+
+    assert_equal expected_headers, presented_document_collection.content[:details][:headers]
+  end
+
+  test "it does not include headers when headers are not present in body" do
+    document_collection = create(
+      :published_document_collection,
+      title: "Some document collection",
+      summary: "Some summary",
+      body: "Some content",
+    )
+
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
+
+    assert_nil presented_document_collection.content[:details][:headers]
+  end
 end
 
 class PublishingApi::DocumentCollectionPresenterWithPublicTimestampTest < ActiveSupport::TestCase
