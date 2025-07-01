@@ -36,6 +36,13 @@ schemas:
           - subject
           - body
           - description
+        fields:
+          body:
+            component:
+              textarea
+          description:
+            component:
+              textarea
       telephones:
         group: modes
         group_order: 2
