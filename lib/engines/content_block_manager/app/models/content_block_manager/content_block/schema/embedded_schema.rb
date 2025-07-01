@@ -33,7 +33,7 @@ module ContentBlockManager
             if field.nested_fields.present?
               { field.name => field.nested_fields.map(&:name) }
             elsif field.format == "array"
-              { field.name => field.array_items["properties"]&.keys || [] }
+              { field.name => [*field.array_items["properties"]&.keys, "_destroy"] || [] }
             else
               field.name
             end
