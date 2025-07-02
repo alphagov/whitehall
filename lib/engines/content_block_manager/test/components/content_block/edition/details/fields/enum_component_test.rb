@@ -95,7 +95,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
       ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
         content_block_edition:,
         field:,
-        enum: [],
+        enum: ["a week", "a month"],
       ),
     )
 

@@ -6,6 +6,8 @@ module AdminEditionWorldLocationsBehaviour
       edition_class = class_for(document_type)
 
       view_test "new displays document form with world locations field" do
+        create(:world_location, { active: true })
+
         get :new
 
         assert_select "form#new_edition" do
@@ -34,6 +36,8 @@ module AdminEditionWorldLocationsBehaviour
 
       view_test "edit displays document form with world locations field" do
         edition = create(document_type) # rubocop:disable Rails/SaveBang
+        create(:world_location, { active: true })
+
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
