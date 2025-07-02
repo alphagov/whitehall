@@ -64,7 +64,7 @@ module Capybara::DSL
   def return_choices_div(value, options)
     if options.key?(:from).present?
       # selects based on on id or label pased in and returns the parent div
-      find(:select, options[:from], visible: :all).ancestor(".app-c-select-with-search", wait: false)
+      find(:select, options[:from], visible: :all).ancestor(".gem-c-select-with-search", wait: false)
     else
       # selects based on on value input by the user.
       # will throw and error for ambiguous matches.
@@ -74,7 +74,7 @@ module Capybara::DSL
         visible: false,
         wait: false,
       )
-       .ancestor(".app-c-select-with-search", wait: false)
+       .ancestor(".gem-c-select-with-search", wait: false)
     end
   rescue Capybara::ElementNotFound
     nil
@@ -98,7 +98,7 @@ module Capybara::DSL
 
     data_value = choices_option["data-value"]
 
-    execute_script("arguments[0].choices.setChoiceByValue(arguments[1])", div, data_value)
+    execute_script("arguments[0].choices.setChoiceByValue(arguments[1])", select, data_value)
 
     # As we are directly interfacing with the Choices.js API, we need to manually
     # trigger a change event on the hidden <select> element so event listeners
