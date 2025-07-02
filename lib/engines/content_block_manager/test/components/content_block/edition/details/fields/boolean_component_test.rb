@@ -6,7 +6,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponen
   let(:content_block_edition) { build(:content_block_edition, :pension) }
   let(:field) { stub("field", name: "email_address", is_required?: true) }
 
-  it "should not check any radios if no value given" do
+  it "should not check the checkbox if no value given" do
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.new(
         content_block_edition:,
@@ -14,13 +14,11 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponen
       ),
     )
 
-    assert_selector "input[type=\"radio\"][value=\"true\"]"
-    assert_no_selector "input[type=\"radio\"][value=\"true\"][checked=\"checked\"]"
-    assert_selector "input[type=\"radio\"][value=\"false\"]"
-    assert_no_selector "input[type=\"radio\"][value=\"false\"][checked=\"checked\"]"
+    assert_selector "input[type=\"checkbox\"][value=\"true\"]"
+    assert_no_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
   end
 
-  it "should check Yes radio if value given is 'true'" do
+  it "should check checkbox if value given is 'true'" do
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.new(
         content_block_edition:,
@@ -29,10 +27,10 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponen
       ),
     )
 
-    assert_selector "input[type=\"radio\"][value=\"true\"][checked=\"checked\"]"
+    assert_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
   end
 
-  it "should check No radio if value given is 'false'" do
+  it "should not check the checkbox if value given is 'false'" do
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.new(
         content_block_edition:,
@@ -41,6 +39,6 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponen
       ),
     )
 
-    assert_selector "input[type=\"radio\"][value=\"false\"][checked=\"checked\"]"
+    assert_no_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
   end
 end
