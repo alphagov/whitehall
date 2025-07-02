@@ -63,7 +63,7 @@ And("I add the following {string} to the form:") do |item_type, table|
     end
 
     page.driver.with_playwright_page do |page|
-      page.get_by_text("Add #{add_indefinite_article item_type.humanize.singularize}").click unless row == fields.last
+      page.get_by_text("Add another #{item_type.humanize.singularize}").click unless row == fields.last
     end
   end
 end
