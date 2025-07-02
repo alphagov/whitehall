@@ -274,7 +274,7 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
       end
 
       it "returns permitted params" do
-        assert_equal schema.permitted_params, ["title", { "foo" => [] }, { "bar" => %w[my_string] }]
+        assert_equal schema.permitted_params, ["title", { "foo" => %w[_destroy] }, { "bar" => %w[my_string _destroy] }]
       end
     end
   end

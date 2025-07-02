@@ -25,6 +25,7 @@ private
         "day_to" => hours["day_to"],
         "time_from" => format_time(hours, "time_from"),
         "time_to" => format_time(hours, "time_to"),
+        "_destroy" => hours["_destroy"],
       }
     end
   end

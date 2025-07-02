@@ -13,6 +13,7 @@ private
       index:,
       field:,
       errors:,
+      can_be_deleted: can_be_deleted?(index),
     )
   end
 end

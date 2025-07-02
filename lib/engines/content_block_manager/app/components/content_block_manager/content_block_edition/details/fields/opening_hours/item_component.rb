@@ -6,18 +6,26 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::I
   MINUTES = (0..59).map { |i| sprintf("%02d", i) }
   MERIDIAN = %w[AM PM].freeze
 
-  def initialize(name_prefix:, id_prefix:, value:, index:, field:, errors:)
+  def initialize(name_prefix:, id_prefix:, value:, index:, field:, errors:, can_be_deleted:)
     @name_prefix = name_prefix
     @id_prefix = id_prefix
     @value = value
     @index = index
     @field = field
     @errors = errors
+    @can_be_deleted = can_be_deleted
   end
 
 private
 
-  attr_reader :name_prefix, :id_prefix, :value, :index, :field, :errors
+  attr_reader :name_prefix, :id_prefix, :value, :index, :field, :errors, :can_be_deleted
+
+  def wrapper_classes
+    [
+      "app-c-content-block-manager-opening-hours-item-component",
+      ("app-c-content-block-manager-opening-hours-item-component--immutable" unless can_be_deleted),
+    ].join(" ")
+  end
 
   def day_arguments(field_name)
     select_arguments(field_name).merge(
