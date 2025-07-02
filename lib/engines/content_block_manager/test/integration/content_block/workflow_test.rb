@@ -60,7 +60,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
         it "shows the correct context and confirmation text" do
           visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
 
-          assert_text "Create content block"
+          assert_text document.title
           assert_text "I confirm that the details I’ve put into the content block have been checked and are factually correct."
         end
       end
@@ -561,7 +561,7 @@ class ContentBlockManager::ContentBlock::WorkflowTest < ActionDispatch::Integrat
       it "shows the correct context and confirmation text" do
         visit content_block_manager.content_block_manager_content_block_workflow_path(id: edition.id, step:)
 
-        assert_text "Edit content block"
+        assert_text document.title
         assert_text "I confirm that the details I’ve put into the content block have been checked and are factually correct."
       end
     end

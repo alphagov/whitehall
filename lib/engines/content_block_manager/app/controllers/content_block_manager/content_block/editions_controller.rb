@@ -5,8 +5,8 @@ class ContentBlockManager::ContentBlock::EditionsController < ContentBlockManage
 
   def new
     if params[:document_id]
-      @title = "Edit content block"
       @content_block_document = ContentBlockManager::ContentBlock::Document.find(params[:document_id])
+      @title = @content_block_document.title
       @schema = ContentBlockManager::ContentBlock::Schema.find_by_block_type(@content_block_document.block_type)
       content_block_edition = @content_block_document.latest_edition
     else
@@ -25,6 +25,7 @@ class ContentBlockManager::ContentBlock::EditionsController < ContentBlockManage
     @content_block_edition = ContentBlockManager::CreateEditionService.new(@schema).call(edition_params, document_id: params[:document_id])
     redirect_to content_block_manager.content_block_manager_content_block_workflow_path(id: @content_block_edition.id, step: next_step.name)
   rescue ActiveRecord::RecordInvalid => e
+    @title = params[:document_id] ? e.record.document.title : "Create content block"
     @form = ContentBlockManager::ContentBlock::EditionForm.for(content_block_edition: e.record, schema: @schema)
     render "content_block_manager/content_block/editions/new"
   end
