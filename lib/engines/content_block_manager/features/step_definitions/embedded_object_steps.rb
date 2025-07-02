@@ -45,7 +45,7 @@ And("I add the following {string} to the form:") do |item_type, table|
       item
     end
 
-    check "Hours available"
+    check "Show opening hours"
   end
 
   fields.each do |row|
