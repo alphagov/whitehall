@@ -61,43 +61,29 @@ class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
         published_edition = create(:publication, :published, body: "harmless body")
         create_danger_link_check_report(published_edition)
 
-        worker = RemoveDangerousLinksWorker.new
-        worker.expects(:create_sanitized_edition_and_publish_it!).never
+        RemoveDangerousLinksWorker.new.perform(published_edition.id)
 
-        worker.perform(published_edition.id)
+        latest_edition = published_edition.document.reload.latest_edition
+        assert_equal published_edition.id, latest_edition.id
       end
     end
 
     describe "error handling" do
-      it "raises an exception if the passed edition is not 'published'" do
-        draft_edition = create(:publication, :draft)
-        create_danger_link_check_report(draft_edition)
+      it "logs if the passed edition is not 'published' or editable" do
+        withdrawn_edition = create(:withdrawn_edition)
+        create_danger_link_check_report(withdrawn_edition)
 
-        error = assert_raises(ArgumentError) do
-          RemoveDangerousLinksWorker.new.perform(draft_edition.id)
+        assert_logged "Aborting: Edition #{withdrawn_edition.id} was passed, but is in state 'withdrawn' and cannot be acted on." do
+          RemoveDangerousLinksWorker.new.perform(withdrawn_edition.id)
         end
-        assert_equal "draft edition with ID #{draft_edition.id} passed to RemoveDangerousLinksWorker: expecting 'published'", error.message
-      end
-
-      it "does nothing if the edition is published but there is a newer draft (we don't want to risk overwriting with our changes)" do
-        published_edition = create(:publication, :published)
-        create_danger_link_check_report(published_edition)
-        published_edition.create_draft(create(:user))
-
-        error = assert_raises(ArgumentError) do
-          RemoveDangerousLinksWorker.new.perform(published_edition.id)
-        end
-        assert_equal "Published edition with ID #{published_edition.id} passed to RemoveDangerousLinksWorker but it already has a draft. Aborting to avoid overwriting.", error.message
       end
 
       it "does nothing if there are no dangerous links" do
         published_edition = create(:publication, :published)
         create_happy_link_check_report(published_edition)
 
-        worker = RemoveDangerousLinksWorker.new
-        worker.expects(:remove_danger_links).never
-
-        worker.perform(published_edition.id)
+        FindAndReplaceWorker.expects(:new).never
+        RemoveDangerousLinksWorker.new.perform(published_edition.id)
       end
     end
   end
@@ -120,5 +106,14 @@ private
       edition: edition,
       links: [],
     )
+  end
+
+  def assert_logged(msg, &block)
+    log_io = StringIO.new
+    custom_logger = Logger.new(log_io)
+
+    Rails.stub(:logger, custom_logger, &block)
+
+    assert_match msg, log_io.string
   end
 end
