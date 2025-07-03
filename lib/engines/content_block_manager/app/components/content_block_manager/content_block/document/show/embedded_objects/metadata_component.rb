@@ -1,8 +1,9 @@
 class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::MetadataComponent < ViewComponent::Base
   include ContentBlockManager::ContentBlock::TranslationHelper
-  def initialize(items:, object_type:)
+  def initialize(items:, object_type:, schema:)
     @items = items
     @object_type = object_type
+    @schema = schema
   end
 
 private

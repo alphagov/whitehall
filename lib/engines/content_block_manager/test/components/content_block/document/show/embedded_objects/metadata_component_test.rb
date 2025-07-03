@@ -12,10 +12,46 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Metada
 
   let(:object_type) { "telephone" }
 
+  let(:body) do
+    {
+      "type" => "object",
+      "patternProperties" => {
+        "*" => {
+          "type" => "object",
+          "properties" => properties,
+        },
+      },
+    }
+  end
+
+  let(:properties) do
+    {
+      "foo" => {
+        "type" => "string",
+      },
+      "fizz" => {
+        "type" => "string",
+      },
+    }
+  end
+
+  let(:schema_id) { "bar" }
+
+  let(:parent_schema_id) { "parent_schema_id" }
+
+  let(:schema) do
+    ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new(schema_id, body, parent_schema_id)
+  end
+
+  let(:schema_config) do
+    {}
+  end
+
   let(:component) do
     ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::MetadataComponent.new(
       items:,
       object_type:,
+      schema:,
     )
   end
 
