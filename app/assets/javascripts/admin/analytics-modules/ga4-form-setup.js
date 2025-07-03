@@ -50,9 +50,14 @@ window.GOVUK.analyticsGa4.analyticsModules =
             const [type, toolName] =
               documentTypeContainer.dataset.ga4DocumentType.split('-')
 
+            const synonyms = {
+              create: 'new',
+              update: 'edit'
+            }
+
             eventData = {
               ...eventData,
-              type: type === 'create' ? 'new' : type,
+              type: synonyms[type] || type,
               tool_name: toolName
             }
           }
