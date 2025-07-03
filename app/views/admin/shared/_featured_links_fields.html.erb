@@ -28,4 +28,7 @@
     }
   end,
   empty: render(partial: "admin/shared/featured_link_fields", locals: { form:, featured_link: new_featured_link, index: featured_links.length, model: }),
+  data_attributes: {
+    ga4_start_index: 0,
+  },
 } %>

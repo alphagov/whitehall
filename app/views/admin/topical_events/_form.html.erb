@@ -147,6 +147,9 @@
         }
       end,
       empty: render(partial: "admin/topical_events/social_media_account_fields", locals: { form:, social_media_account: SocialMediaAccount.new, index: form.object.social_media_accounts.length }),
+      data_attributes: {
+        ga4_start_index: 0,
+      },
     } %>
   <% end %>
 
