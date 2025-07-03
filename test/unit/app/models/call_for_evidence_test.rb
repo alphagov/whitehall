@@ -401,4 +401,8 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     assert_not call_for_evidence.valid?
     assert_includes call_for_evidence.errors[:call_for_evidence_response_form], "must have finished uploading"
   end
+
+  test "is rendered by frontend" do
+    assert CallForEvidence.new.rendering_app == Whitehall::RenderingApp::FRONTEND
+  end
 end
