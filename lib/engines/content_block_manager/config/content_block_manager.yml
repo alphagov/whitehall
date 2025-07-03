@@ -38,10 +38,10 @@ schemas:
           - opening_hours
         field_order:
           - title
+          - description
           - telephone_numbers
           - opening_hours
           - show_uk_call_charges
-          - description
         fields:
           description:
             component:
