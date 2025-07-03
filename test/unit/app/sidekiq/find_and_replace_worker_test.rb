@@ -133,6 +133,41 @@ class FindAndReplaceWorkerTest < ActiveSupport::TestCase
           assert_equal draft_edition.reload.html_attachments.last.body, "bar"
         end
 
+        it "performs a find-and-replace on the edition body, but keeps it as a draft" do
+          scheduled_edition = create(:scheduled_edition, body: "foo lorem ipsum")
+          params = {
+            "edition_id" => scheduled_edition.id,
+            "replacements" => [{ "find" => "foo", "replace" => "bar" }],
+          }
+
+          expected_msg = "Success: performed find-and-replace on edition #{scheduled_edition.id} and saved the draft."
+          worker = FindAndReplaceWorker.new
+          worker.expects(:log).with(expected_msg)
+          worker.perform(params)
+
+          assert_equal "scheduled", scheduled_edition.reload.state
+          assert_includes scheduled_edition.reload.body, "bar"
+          assert_not_includes scheduled_edition.reload.body, "foo"
+        end
+
+        it "performs a find-and-replace on the bodies of the Edition's HTML Attachments, but keeps the Edition as a draft" do
+          force_scheduled_edition = create(:force_scheduled_edition, body: "lorem ipsum")
+          attachment = create(:html_attachment, attachable: force_scheduled_edition)
+          attachment.govspeak_content.update!(body: "foo")
+          params = {
+            "edition_id" => force_scheduled_edition.id,
+            "replacements" => [{ "find" => "foo", "replace" => "bar" }],
+          }
+
+          worker = FindAndReplaceWorker.new
+          worker.expects(:log).with("Success: performed find-and-replace on edition #{force_scheduled_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
+          worker.perform(params)
+
+          assert_equal "scheduled", force_scheduled_edition.reload.state
+          assert_equal force_scheduled_edition.reload.body, "lorem ipsum"
+          assert_equal force_scheduled_edition.reload.html_attachments.last.body, "bar"
+        end
+
         it "logs the action against the automated user" do
           published_edition = create(:published_edition, body: "foo")
           params            = valid_params.merge("edition_id" => published_edition.id)

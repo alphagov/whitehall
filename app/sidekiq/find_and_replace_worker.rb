@@ -26,7 +26,7 @@ class FindAndReplaceWorker < WorkerBase
     if updates_to_apply[:edition] || updates_to_apply[:html_attachments].any?
       attachments_log_str = updates_to_apply[:html_attachments].any? ? " and its HTML attachments (#{updates_to_apply[:html_attachments].map { |att| att[:slug] }.join(', ')})" : ""
 
-      if edition.editable?
+      if edition.editable? || edition.scheduled?
         update_html_attachments(edition, updates_to_apply[:html_attachments])
         update_draft(edition, updated_edition_body)
         log("Success: performed find-and-replace on edition #{edition.id}#{attachments_log_str} and saved the draft.")
@@ -97,10 +97,8 @@ private
 
   def update_draft(edition, updated_body)
     AuditTrail.acting_as(robot_user) do
-      edition.update!(
-        minor_change: true,
-        body: updated_body,
-      )
+      edition.body = updated_body
+      edition.save!(validate: false)
     end
   end
 
