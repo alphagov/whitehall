@@ -813,20 +813,19 @@ end
 # Rails.logger.level = Logger::INFO
 # ActiveRecord::Base.logger = nil # Temporarily silence SQL logging
 
+editions_to_process = []
 editions_with_missing_contacts.each do |edition_id|
+  editions_to_process << Edition.find(edition_id).document.latest_edition.id
+end
+html_attachments_with_missing_contacts.each do |html_attachment_id|
+  editions_to_process << HtmlAttachment.find(html_attachment_id).attachable.document.latest_edition.id
+end
+
+editions_to_process.uniq.each do |edition_id|
   FindAndReplaceWorker.perform_async(
     "edition_id" => edition_id,
     "replacements" => find_and_replace_mapping,
-    "changenote" => "Automatically republished Edition with fixed Contact embed code",
-    "log_prefix" => "[UpdateContactIds][edition] ",
-  )
-end
-
-html_attachments_with_missing_contacts.each do |html_attachment_id|
-  FindAndReplaceWorker.perform_async(
-    "edition_id" => HtmlAttachment.find(html_attachment_id).attachable.document.latest_edition.id,
-    "replacements" => find_and_replace_mapping,
-    "changenote" => "Automatically republished Edition with fixed Contact embed code in HTML Attachment(s)",
-    "log_prefix" => "[UpdateContactIds][html_attachment] ",
+    "changenote" => "Automatically republished Edition (and any of its HTML attachments) with fixed Contact embed code",
+    "log_prefix" => "[UpdateContactIds] ",
   )
 end
