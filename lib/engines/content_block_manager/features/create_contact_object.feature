@@ -139,7 +139,6 @@ Feature: Create a contact object
       | day_from | day_to | time_from | time_to |
       | Monday   | Friday | 9:00AM    | 5:00PM  |
       | Saturday | Sunday  | 10:00AM   | 3:00PM  |
-    And I choose "Yes"
     And I save and continue
     Then I should be on the "add_group_modes" step
     When I save and continue

@@ -61,7 +61,7 @@ en:
           amount: "Enter an exact amount, with the currency symbol - for example: £122.50"
       labels:
         telephones:
-          show_uk_call_charges: "Show UK call charges"
+          show_uk_call_charges: "Show hyperlink to 'Find out about call charges'"
         contacts:
           telephones:
             opening_hours:

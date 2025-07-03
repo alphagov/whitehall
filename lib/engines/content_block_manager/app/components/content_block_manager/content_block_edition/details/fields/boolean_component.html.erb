@@ -1,8 +1,11 @@
-<%= render "govuk_publishing_components/components/radio", {
-  heading:,
+<%= hidden_field_tag name, false %>
+<%= render "govuk_publishing_components/components/checkboxes", {
+  heading: label,
+  visually_hide_heading: true,
+  no_hint_text: true,
+  small: true,
   name:,
   id:,
   heading_size: "s",
-  error_items:,
   items:,
 } %>
