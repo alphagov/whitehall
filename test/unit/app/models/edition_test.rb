@@ -972,6 +972,25 @@ class EditionTest < ActiveSupport::TestCase
     refute edition.revalidation_passed?
   end
 
+  test "should update cached 'revalidation_passed' value on each `valid?` call" do
+    edition = create(:edition)
+    assert edition.revalidation_passed?
+
+    # Simulate it becoming invalid (but without triggering revalidation)
+    edition.update_column(:first_published_at, Date.parse("1500-01-01"))
+
+    # Should still reflect the cached state from creation
+    assert edition.revalidation_passed?
+    assert edition.reload.revalidation_passed?
+
+    # Now force a full validation
+    refute edition.valid?
+    refute edition.revalidation_passed?
+
+    # And ensure the updated value is persisted to the DB
+    refute edition.reload.revalidation_passed?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

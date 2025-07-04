@@ -75,7 +75,7 @@ class Edition < ApplicationRecord
 
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
-  after_create :cache_revalidation_result
+  after_validation :cache_revalidation_result
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
@@ -111,7 +111,13 @@ class Edition < ApplicationRecord
   end
 
   def cache_revalidation_result
-    self.revalidation_passed = valid?
+    result = errors.empty?
+
+    if new_record?
+      self.revalidation_passed = result
+    else
+      update_column(:revalidation_passed, result)
+    end
   end
 
   def unmodifiable?
