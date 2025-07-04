@@ -6,6 +6,8 @@ module AdminEditionRolesBehaviour
       edition_class = class_for(document_type)
 
       view_test "new displays document form with roles field" do
+        create(:role)
+
         get :new
 
         assert_select "form#new_edition" do
@@ -33,6 +35,7 @@ module AdminEditionRolesBehaviour
       end
 
       view_test "edit displays document form with roles field" do
+        create(:role)
         edition = create(document_type) # rubocop:disable Rails/SaveBang
         get :edit, params: { id: edition }
 

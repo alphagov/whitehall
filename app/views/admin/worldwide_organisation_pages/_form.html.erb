@@ -4,17 +4,13 @@
     admin_worldwide_organisation_pages_path(@worldwide_organisation) do |form| %>
 
   <% unless form.object.persisted? %>
-    <%= render "components/select_with_search", {
+    <%= render "govuk_publishing_components/components/select_with_search", {
       id: "worldwide_organisation_page_corporate_information_page_type_id",
       name: "worldwide_organisation_page[corporate_information_page_type_id]",
       label: "Type",
       heading_size: "l",
       error_items: errors_for(worldwide_organisation_page.errors, :corporate_information_page_type_id),
       include_blank: true,
-      ga_data: {
-        document_type: "#{action_name}-#{controller_name}",
-        section: "Type",
-      },
       options: corporate_information_page_types(@worldwide_organisation).map do |type, value|
         {
           text: type,

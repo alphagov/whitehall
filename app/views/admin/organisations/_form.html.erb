@@ -37,17 +37,13 @@
     error_items: errors_for(organisation.errors, :logo_formatted_name),
   } %>
 
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     label: "Logo crest (required)",
     name: "organisation[organisation_logo_type_id]",
     id: "organisation_organisation_logo_type_id",
     heading_size: "l",
     error_items: errors_for(organisation.errors, :organisation_logo_type_id),
     include_blank: true,
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Logo crest (required)",
-    },
     options: OrganisationLogoType.all.map do |logo_type|
       {
         text: logo_type.title,
@@ -76,17 +72,13 @@
     } %>
   </div>
 
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     label: "Brand colour",
     name: "organisation[organisation_brand_colour_id]",
     id: "organisation_organisation_brand_colour_id",
     heading_size: "l",
     error_items: errors_for(organisation.errors, :organisation_brand_colour_id),
     include_blank: true,
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Brand colour",
-    },
     options: OrganisationBrandColour.all.map do |brand_colour|
       {
         text: brand_colour.title,
@@ -125,17 +117,13 @@
     error_items: errors_for(organisation.errors, :url),
   } %>
 
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     label: "Organisation type (required)",
     name: "organisation[organisation_type_key]",
     id: "organisation_organisation_type_key",
     heading_size: "l",
     error_items: errors_for(organisation.errors, :organisation_type_key),
     include_blank: true,
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Organisation type (required)",
-    },
     options: OrganisationType.in_listing_order.map do |type|
       {
         text: type.name,
@@ -250,14 +238,10 @@
     legend_text: "Associations",
     heading_size: "l",
   } do %>
-    <%= render "components/select_with_search", {
+    <%= render "govuk_publishing_components/components/select_with_search", {
       id: "organisation_parent_organisation_ids",
       name: "organisation[parent_organisation_ids][]",
       label: "Sponsoring organisations",
-      ga_data: {
-        document_type: "#{action_name}-#{controller_name}",
-        section: "Sponsoring organisations",
-      },
       heading_size: "m",
       options: (Organisation.with_translations(:en) - [organisation]).map do |org|
                   {
@@ -266,9 +250,7 @@
                     selected: organisation.parent_organisation_ids.include?(org.id),
                   }
                 end,
-      select: {
-        multiple: true,
-      },
+      multiple: true,
     } %>
 
     <%= render "govuk_publishing_components/components/heading", {
@@ -281,7 +263,7 @@
       <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][ordering]", topical_event_organisation.ordering %>
       <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][id]", topical_event_organisation.id %>
 
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
         label: "Topical Event #{topical_event_organisation.ordering + 1}",
         name: "organisation[topical_event_organisations_attributes][][topical_event_id]",
         id: "organisation_topical_event_ids_#{topical_event_organisation.ordering}",

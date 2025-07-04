@@ -1,12 +1,8 @@
-<%= render "/components/select_with_search", {
+<%= render "govuk_publishing_components/components/select_with_search", {
   id: "role_appointment_person_id",
   label: "Person (required)",
   heading_size: "l",
   name: "role_appointment[person_id]",
-  ga_data: {
-    document_type: "#{action_name}-#{controller_name}",
-    section: "Person (required)",
-  },
   options:
     disambiguated_people_names.map { |person_name, person_id|
       {

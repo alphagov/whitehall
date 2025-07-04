@@ -2,19 +2,13 @@
 <% index = "1" unless defined?(index) %>
 
 <% cache_if edition.role_ids.empty?, "#{taggable_roles_cache_digest}-design-system" do %>
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "edition_roles",
     name: "edition[role_ids][]",
     error_items: errors_for(edition.errors, :roles),
     label: "Roles" + "#{' (required)' if required}",
     heading_size: "m",
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Roles" + "#{' (required)' if required}",
-    },
     options: taggable_roles_container(edition.role_ids),
-    select: {
-      multiple: true,
-    },
+    multiple: true,
   } %>
 <% end %>

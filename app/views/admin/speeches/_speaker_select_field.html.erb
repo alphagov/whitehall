@@ -1,12 +1,8 @@
 <% cache_if edition.role_appointment_id.nil?, "#{taggable_role_appointments_cache_digest}-design-system" do %>
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "edition_role_appointment_id",
     name: "edition[role_appointment_id]",
     label: "",
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Edition role appointment ID",
-    },
     error_items: errors_for(edition.errors, :role_appointment_id),
     include_blank: true,
     options: taggable_role_appointments_container([edition.role_appointment_id]),

@@ -62,6 +62,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CountryComponen
       ContentBlockManager::ContentBlockEdition::Details::Fields::CountryComponent.new(
         content_block_edition:,
         field:,
+        enum: %w[country],
       ),
     )
 

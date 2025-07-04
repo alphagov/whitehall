@@ -51,15 +51,11 @@
     error_message: errors_for_input(statistics_announcement.errors, :summary),
   } %>
 
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "statistics_announcement_organisations",
     label: "Organisations (required)",
     heading_size: "l",
     name: "statistics_announcement[organisation_ids][]",
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "Organisations (required)",
-    },
     options: Organisation.with_translations.order("organisation_translations.name").map do |org|
       {
         text: org.select_name,
@@ -67,9 +63,7 @@
         selected: statistics_announcement.organisation_ids.include?(org.id),
       }
     end,
-    select: {
-      multiple: true,
-    },
+    multiple: true,
     error_items: errors_for(statistics_announcement.errors, :organisations),
   } %>
 

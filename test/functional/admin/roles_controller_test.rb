@@ -163,6 +163,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   view_test "new should display form for creating a new role" do
+    create(:organisation)
+
     get :new
 
     assert_select "form[action='#{admin_roles_path}']" do

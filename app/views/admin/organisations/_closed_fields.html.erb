@@ -1,14 +1,10 @@
-<%= render "components/select_with_search", {
+<%= render "govuk_publishing_components/components/select_with_search", {
   label: "Reason for closure (required)",
   name: "organisation[govuk_closed_status]",
   id: "organisation_govuk_closed_status",
   heading_size: "m",
   error_items: errors_for(organisation.errors, :govuk_closed_status),
   include_blank: true,
-  ga_data: {
-    document_type: "#{action_name}-#{controller_name}",
-    section: "Reason for closure (required)",
-  },
   options: [
     {
       text: "No longer exists",
@@ -48,16 +44,12 @@
   ],
 } %>
 
-<%= render "components/select_with_search", {
+<%= render "govuk_publishing_components/components/select_with_search", {
   id: "organisation_superseding_organisation_ids",
   name: "organisation[superseding_organisation_ids][]",
   include_blank: true,
   label: "Superseding organisations",
   heading_size: "m",
-  ga_data: {
-    document_type: "#{action_name}-#{controller_name}",
-    section: "Superseding organisations",
-  },
   options: (Organisation.with_translations(:en) - [organisation]).map do |org|
               {
                 text: org.name,
@@ -65,9 +57,7 @@
                 selected: organisation.superseding_organisation_ids.include?(org.id),
               }
             end,
-  select: {
-    multiple: true,
-  },
+  multiple: true,
 } %>
 
 <%= render "components/datetime_fields", {

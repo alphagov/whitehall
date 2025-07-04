@@ -1,14 +1,10 @@
-<%= render "components/select_with_search", {
+<%= render "govuk_publishing_components/components/select_with_search", {
   id: "edition_operational_field_id",
   label: "Field of operation (required)",
   name: "edition[operational_field_id]",
   heading_size: "l",
   error_items: errors_for(edition.errors, :operational_field_id),
   include_blank: true,
-  ga_data: {
-    document_type: "#{action_name}-#{controller_name}",
-    section: "Field of operation (required)",
-  },
   options: OperationalField.all.map do |operation|
     {
       text: operation.name,

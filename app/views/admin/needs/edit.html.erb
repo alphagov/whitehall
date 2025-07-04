@@ -5,20 +5,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_tag admin_update_needs_path(content_id: @document.content_id), method: :patch do %>
-      <%= render "components/select_with_search", {
+      <%= render "govuk_publishing_components/components/select_with_search", {
           id: "need_ids",
           name: "need_ids[]",
           include_blank: true,
           label: "Select associated user needs",
           heading_size: "l",
-          ga_data: {
-            document_type: "#{action_name}-#{controller_name}",
-            section: "Select associated user needs",
-          },
           options: taggable_needs_container(@document.need_ids),
-          select: {
-            multiple: true,
-          },
+          multiple: true,
       } %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">

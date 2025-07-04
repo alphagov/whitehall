@@ -46,15 +46,12 @@
         },
         content: {
           html: (
-            render "components/select_with_search", {
+            render "govuk_publishing_components/components/select_with_search", {
               id: "lead_organisation",
               name: "lead_organisation",
+              label: "Lead organisation",
               include_blank: false,
               options: options_for_lead_organisation([@filters[:lead_organisation]]),
-              ga_data: {
-                document_type: "#{action_name}-#{controller_name}",
-                section: "Lead organisation",
-              },
             }
           ),
         },

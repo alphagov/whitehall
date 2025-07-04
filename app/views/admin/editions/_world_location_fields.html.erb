@@ -1,19 +1,13 @@
 <% required = false unless defined?(required) %>
 
 <% cache_if edition.world_location_ids.empty?, "#{taggable_world_locations_cache_digest}-design-system" do %>
-  <%= render "components/select_with_search", {
+  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "edition_world_locations",
     name: "edition[world_location_ids][]",
     error_items: errors_for(edition.errors, :world_locations),
     label: "World locations" + "#{' (required)' if required}",
-    ga_data: {
-      document_type: "#{action_name}-#{controller_name}",
-      section: "World locations" + "#{' (required)' if required}",
-    },
     heading_size: "m",
     options: taggable_world_locations_container(edition.world_location_ids),
-    select: {
-      multiple: true,
-    },
+    multiple: true,
   } %>
 <% end %>

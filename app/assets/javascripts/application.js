@@ -7,13 +7,13 @@
 //= require govuk_publishing_components/components/govspeak
 //= require govuk_publishing_components/components/reorderable-list
 //= require govuk_publishing_components/components/table
+//= require govuk_publishing_components/components/select-with-search
 //= require govuk_publishing_components/lib/trigger-event
 //= require govuk_publishing_components/lib/cookie-functions
 
 //= require components/govspeak-editor
 //= require components/image-cropper
 //= require components/miller-columns
-//= require select_with_search_component/application
 
 //= require admin/analytics-modules/ga4-index-section-setup.js
 //= require admin/analytics-modules/ga4-button-setup.js
