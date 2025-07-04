@@ -111,6 +111,9 @@
         }
       end,
       empty: render(partial: "admin/contacts/contact_number_fields", locals: { contact_form:, contact_number: ContactNumber.new, index: contact_form.object.contact_numbers.length, name:, id: }),
+      data_attributes: {
+        ga4_start_index: 0,
+      },
     } %>
   <% end %>
 </div>

@@ -5,7 +5,8 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4SearchSetup', function () {
   const expectedDataset = {
     ga4SearchType: expectedGa4DocumentType,
     ga4SearchSection: expectedGa4SearchSection,
-    ga4SearchUrl: '/'
+    ga4SearchUrl: '/',
+    ga4SearchInputName: 'search-input'
   }
 
   const container = document.createElement('div')
@@ -17,6 +18,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4SearchSetup', function () {
 
     beforeAll(function () {
       input = document.createElement('input')
+      input.name = 'search-input'
       input.type = 'search'
       button = document.createElement('button')
       button.type = 'submit'
@@ -74,6 +76,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4SearchSetup', function () {
 
     beforeAll(function () {
       input = document.createElement('input')
+      input.name = 'search-input'
       input.type = 'text'
       button = document.createElement('button')
       button.type = 'submit'

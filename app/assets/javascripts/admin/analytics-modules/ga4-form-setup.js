@@ -28,6 +28,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
           const sectionContainer = form.closest('[data-ga4-section]')
           const documentTypeContainer = form.closest('[data-ga4-document-type]')
+          const contentIdContainer = form.closest('[data-ga4-content-id]')
 
           let eventData = {
             event_name: 'form_response',
@@ -39,13 +40,24 @@ window.GOVUK.analyticsGa4.analyticsModules =
               sectionContainer.getAttribute('data-ga4-section')
           }
 
+          if (contentIdContainer) {
+            eventData.content_id = contentIdContainer.getAttribute(
+              'data-ga4-content-id'
+            )
+          }
+
           if (documentTypeContainer) {
             const [type, toolName] =
               documentTypeContainer.dataset.ga4DocumentType.split('-')
 
+            const synonyms = {
+              create: 'new',
+              update: 'edit'
+            }
+
             eventData = {
               ...eventData,
-              type: type === 'create' ? 'new' : type,
+              type: synonyms[type] || type,
               tool_name: toolName
             }
           }

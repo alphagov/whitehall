@@ -35,6 +35,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
           searchForm.dataset.ga4SearchType = ga4DocumentType
           searchForm.dataset.ga4SearchUrl = window.location.pathname
           searchForm.dataset.ga4SearchSection = ga4SearchSection
+          searchForm.dataset.ga4SearchInputName = searchFormInput.name
 
           // an event is added by default to all buttons in whitehall
           // in `ga4-button-setup`, this removes that event and prevents

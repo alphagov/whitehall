@@ -44,6 +44,9 @@
         }
       end,
       empty: render(partial: "admin/fatality_notices/casualty_fields", locals: { form:, casualty: FatalityNoticeCasualty.new, index: form.object.fatality_notice_casualties.length }),
+      data_attributes: {
+        ga4_start_index: 0,
+      },
     } %>
   <% end %>
 <% end %>

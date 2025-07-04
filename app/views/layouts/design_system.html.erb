@@ -23,8 +23,18 @@
 
   <%= render partial: "shared/header" %>
 
-  <div class="govuk-width-container" data-ga4-no-copy data-module="ga4-event-tracker ga4-paste-tracker ga4-button-setup ga4-index-section-setup ga4-form-setup" data-ga4-search-section-type="Filter by" data-ga4-section="<%= yield(:page_title).presence || yield(:title) %>" data-ga4-filter-type="<%= controller_name %>" data-ga4-document-type="<%= action_name %>-<%= controller_name %>">
-
+  <%= tag.div(
+    class: "govuk-width-container",
+    data: {
+      ga4_no_copy: "",
+      module: "ga4-event-tracker ga4-paste-tracker ga4-button-setup ga4-index-section-setup ga4-form-setup",
+      ga4_search_section_type: "Filter by",
+      ga4_section: yield(:page_title).presence || yield(:title),
+      ga4_filter_type: controller_name,
+      ga4_document_type: "#{action_name}-#{controller_name}",
+      ga4_content_id: get_content_id(@edition),
+    },
+  ) do %>
     <%= render "shared/phase_banner", {
       show_feedback_banner: t("admin.feedback.show_banner"),
     } %>
@@ -77,7 +87,7 @@
       <% end %>
       <%= yield %>
     </main>
-  </div>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/layout_footer", {
     data_attributes: {

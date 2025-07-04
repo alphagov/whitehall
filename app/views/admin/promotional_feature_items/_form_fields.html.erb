@@ -79,5 +79,8 @@
       }
     end,
     empty: render(partial: "admin/promotional_feature_items/link_fields", locals: { form:, link: PromotionalFeatureLink.new, index: form.object.links.length, name:, id: }),
+    data_attributes: {
+      ga4_start_index: 0,
+    },
   } %>
 <% end %>
