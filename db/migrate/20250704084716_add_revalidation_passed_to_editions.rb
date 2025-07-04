@@ -1,6 +1,7 @@
 class AddRevalidationPassedToEditions < ActiveRecord::Migration[8.0]
   def change
-    add_column :editions, :revalidation_passed, :boolean, null: false, default: true
-    add_index :editions, :revalidation_passed
+    change_table :editions, bulk: true do |t|
+      t.boolean :revalidation_passed, null: false, default: true
+    end
   end
 end
