@@ -961,6 +961,17 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test "should set 'revalidation_passed' value correctly on create" do
+    edition = create(:edition)
+    assert edition.revalidation_passed?
+
+    edition = build(:edition)
+    edition.update(summary: nil) # invalid without summary
+    edition.save(validate: false)
+
+    refute edition.revalidation_passed?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
