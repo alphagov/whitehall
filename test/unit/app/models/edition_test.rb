@@ -978,6 +978,47 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.revalidated_at
   end
 
+  test "should update cached 'revalidated_at' value on each `valid?` call" do
+    edition = create(:edition)
+    assert edition.revalidated_at
+
+    # Simulate it becoming invalid (but without triggering revalidation)
+    edition.update_column(:first_published_at, Date.parse("1500-01-01"))
+
+    # Should still reflect the cached state from creation
+    assert edition.revalidated_at
+    assert edition.reload.revalidated_at
+
+    # Now force a full validation
+    assert_not edition.valid?
+    assert_nil edition.revalidated_at
+
+    # And ensure the updated value is persisted to the DB
+    assert_nil edition.reload.revalidated_at
+  end
+
+  test "should update cached 'revalidated_at' value on update" do
+    edition = create(:edition)
+
+    Timecop.freeze "2025-07-09" do
+      edition.update!(summary: "foo")
+      edition.save!
+    end
+
+    assert_equal Time.zone.parse("2025-07-09 00:00:00.000000000 BST +01:00"), edition.revalidated_at
+  end
+
+  test "should nullify 'revalidated_at' if we somehow update a record to become invalid" do
+    edition = create(:edition)
+    assert edition.revalidated_at
+
+    # invalid without summary
+    edition.update(summary: nil) # rubocop:disable Rails/SaveBang
+    edition.save!(validate: false)
+
+    assert_nil edition.revalidated_at
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

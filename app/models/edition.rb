@@ -73,7 +73,7 @@ class Edition < ApplicationRecord
 
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
-  after_create :cache_revalidation_result
+  after_validation :cache_revalidation_result
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
@@ -109,7 +109,14 @@ class Edition < ApplicationRecord
   end
 
   def cache_revalidation_result
-    self.revalidated_at = Time.zone.now if valid?
+    # Set `nil` if invalid edition, otherwise use current timestamp
+    value_to_set = errors.empty? ? Time.zone.now : nil
+
+    if new_record?
+      self.revalidated_at = value_to_set
+    else
+      update_column(:revalidated_at, value_to_set)
+    end
   end
 
   def unmodifiable?
