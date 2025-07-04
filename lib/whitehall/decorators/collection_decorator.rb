@@ -11,12 +11,8 @@ module Whitehall
     class CollectionDecorator
       include Enumerable
 
-      # @return [Class] the decorator class used to decorate each item, as set by
-      #   {#initialize}.
-      attr_reader :decorator_class
+      attr_reader :decorator_class, :object
 
-      # @return [Hash] extra data to be used in user-defined methods, and passed
-      #   to each item's decorator.
       attr_accessor :context
 
       extend DelegateInstanceMethodsOf
@@ -29,21 +25,12 @@ module Whitehall
                                    without_methods_of: Array,
                                    with_default_methods: false
 
-      # @param [Enumerable] object
-      #   collection to decorate.
-      # @param [Class] decorator_class
-      #   the decorator class used to decorate each item. When `nil`, each item's
-      #   {Decoratable#decorate decorate} method will be used.
-      # @param [Object] context
-      #   extra data to be stored in the collection decorator and used in
-      #   user-defined methods, and passed to each item's decorator.
       def initialize(object, decorator_class, context)
         @object = object
         @decorator_class = decorator_class
         @context = context
       end
 
-      # @return [Array] the decorated items.
       def decorated_collection
         @decorated_collection ||= object.map { |item| decorate_item(item) }
       end
@@ -73,9 +60,6 @@ module Whitehall
         decorated_collection.replace(other)
         self
       end
-
-      # @return the collection being decorated.
-      attr_reader :object
 
       # Decorates the given item.
       def decorate_item(item)
