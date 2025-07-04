@@ -46,6 +46,7 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Subsch
     ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::MetadataComponent.expects(:new).with(
       items: { "title" => "Some title" },
       object_type:,
+      schema: subschema,
     ).returns(metadata_response)
 
     ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::BlocksComponent.expects(:new).with(

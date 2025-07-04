@@ -29,6 +29,12 @@ Feature: Create a contact object
         },
         "email_address": {
           "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
         }
       }
     }
@@ -124,8 +130,8 @@ Feature: Create a contact object
   Scenario: GDS editor creates a Contact with an email address and a telephone
     And I click on the "email_addresses" subschema
     And I complete the "email_address" form with the following fields:
-      | title     | email_address          |
-      | New email | foo@example.com        |
+      | title     | email_address    | subject  | body             |
+      | New email | foo@example.com  | Your ref | Name and address |
     And I click to add another "mode"
     And I click on the "telephones" subschema
     And I fill in the "telephone" form with the following fields:
