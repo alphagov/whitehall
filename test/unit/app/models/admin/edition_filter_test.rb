@@ -225,6 +225,14 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [tagged_news], filter.editions
   end
 
+  test "should filter by invalid, non-superseded editions" do
+    invalid_draft_edition = create(:draft_edition, revalidation_passed: false)
+    invalid_published_edition = create(:published_edition, revalidation_passed: false)
+    invalid_superseded_edition = create(:superseded_edition, revalidation_passed: false)
+
+    assert_equal [invalid_draft_edition, invalid_published_edition], Admin::EditionFilter.new(Edition, @current_user, only_invalid_editions: true).editions
+  end
+
   test "should filter by broken links" do
     edition_with_broken_link = create(
       :published_publication,
