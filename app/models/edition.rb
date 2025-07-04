@@ -109,13 +109,18 @@ class Edition < ApplicationRecord
   end
 
   def cache_revalidation_result
-    # Set `nil` if invalid edition, otherwise use current timestamp
-    value_to_set = errors.empty? ? Time.zone.now : nil
+    return unless new_record? || changed? || validation_context == :publish
 
-    if new_record?
-      self.revalidated_at = value_to_set
+    # If there were no errors, the edition passed re-validation
+    new_timestamp = errors.empty? ? Time.current : nil
+
+    if validation_context == :publish && !changed?
+      # Someone called valid?(:publish) on an already-saved record
+      # There may be no subsequent save, so hit the DB directly
+      update_column(:revalidated_at, new_timestamp)
     else
-      update_column(:revalidated_at, value_to_set)
+      # We’re inside a create/update flow; assigning is enough:
+      self.revalidated_at = new_timestamp # will be persisted with the save
     end
   end
 

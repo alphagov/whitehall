@@ -2,6 +2,7 @@ require "test_helper"
 
 class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
+  include TaxonomyHelper
 
   test "returns downcased humanized class name as format name" do
     assert_equal "case study", CaseStudy.format_name
@@ -978,23 +979,48 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.revalidated_at
   end
 
-  test "should update cached 'revalidated_at' value on each `valid?` call" do
+  test "should update cached 'revalidated_at' value on each `valid?(:publish)` call" do
     edition = create(:edition)
+    stub_publishing_api_links_with_taxons(edition.content_id, [child_taxon_content_id])
     assert edition.revalidated_at
 
-    # Simulate it becoming invalid (but without triggering revalidation)
-    edition.update_column(:first_published_at, Date.parse("1500-01-01"))
+    # Simulate it becoming invalid in publish contexts,
+    # i.e. embed a non-existent contact
+    edition.update(body: "[Contact:9999999]") # rubocop:disable Rails/SaveBang
+    # ...but don't trigger revalidation yet
+    edition.save!(validate: false)
 
     # Should still reflect the cached state from creation
     assert edition.revalidated_at
     assert edition.reload.revalidated_at
 
     # Now force a full validation
-    assert_not edition.valid?
+    assert_not edition.valid?(:publish)
+    # It should reset `revalidated_at` to nil
     assert_nil edition.revalidated_at
-
-    # And ensure the updated value is persisted to the DB
+    # ...and ensure the updated value is persisted to the DB
     assert_nil edition.reload.revalidated_at
+  end
+
+  test "should not update cached 'revalidated_at' value on each general `valid?` call" do
+    edition = create(:edition)
+    stub_publishing_api_links_with_taxons(edition.content_id, [child_taxon_content_id])
+    assert edition.revalidated_at
+
+    # Simulate it becoming invalid in publish contexts,
+    # i.e. embed a non-existent contact
+    edition.update(body: "[Contact:9999999]") # rubocop:disable Rails/SaveBang
+    # ...but don't trigger revalidation yet
+    edition.save!(validate: false)
+
+    # Should still reflect the cached state from creation
+    assert edition.revalidated_at
+    assert edition.reload.revalidated_at
+
+    # Now force a validation but outside of the publish context
+    # ...it shouldn't change anything, since we only care about the publish context
+    assert edition.valid?
+    assert edition.reload.revalidated_at
   end
 
   test "should update cached 'revalidated_at' value on update" do
