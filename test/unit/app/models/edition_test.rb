@@ -961,34 +961,56 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
-  test "should set 'revalidation_passed' value correctly on create" do
-    edition = create(:edition)
-    assert edition.revalidation_passed?
+  test "sets 'revalidation_passed' correctly on create, then flips after publish validation fails" do
+    # Taxon validator is a special case - let's just stub it for now
+    TaxonValidator.any_instance.stubs(:validate).returns(nil)
 
-    edition = build(:edition)
-    edition.update(summary: nil) # invalid without summary
+    # Create a valid edition
+    edition = create(:edition)
+    assert edition.valid?(:publish)
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
+
+    # Invalidate it directly in the DB (without triggering revalidation)
+    edition.summary = nil # invalid without summary
     edition.save(validate: false)
 
-    refute edition.revalidation_passed?
+    # Still shows the original cached value
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
+
+    # Trigger validation in :publish context again
+    refute edition.valid?(:publish)
+
+    # Now cache should be updated to false
+    assert_equal false, edition.revalidation_passed?
+    assert_equal false, edition.reload.revalidation_passed?
   end
 
-  test "should update cached 'revalidation_passed' value on each `valid?` call" do
-    edition = create(:edition)
-    assert edition.revalidation_passed?
+  test "updates cached value on every `valid?(:publish)` call" do
+    # Taxon validator is a special case - let's just stub it for now
+    TaxonValidator.any_instance.stubs(:validate).returns(nil)
 
-    # Simulate it becoming invalid (but without triggering revalidation)
+    edition = create(:edition)
+
+    # Initially valid
+    assert edition.valid?(:publish)
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
+
+    # Make it invalid by setting a nonsense published date
     edition.update_column(:first_published_at, Date.parse("1500-01-01"))
 
-    # Should still reflect the cached state from creation
-    assert edition.revalidation_passed?
-    assert edition.reload.revalidation_passed?
+    # Still shows cached 'true'
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
 
-    # Now force a full validation
-    refute edition.valid?
-    refute edition.revalidation_passed?
+    # Re-validate, now fails
+    refute edition.valid?(:publish)
 
-    # And ensure the updated value is persisted to the DB
-    refute edition.reload.revalidation_passed?
+    # Cache should now say false
+    assert_equal false, edition.revalidation_passed?
+    assert_equal false, edition.reload.revalidation_passed?
   end
 
   def decoded_token_payload(token)

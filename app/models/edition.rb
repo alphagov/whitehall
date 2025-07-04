@@ -111,6 +111,8 @@ class Edition < ApplicationRecord
   end
 
   def cache_revalidation_result
+    return unless validation_context == :publish
+
     result = errors.empty?
 
     if new_record?
