@@ -28,7 +28,7 @@ class RevalidateEditionsWorkerTest < ActiveSupport::TestCase
       end
 
       unexpected_ids.each do |id|
-        refute_includes enqueued_ids, id, "Did not expect edition #{id} to be enqueued"
+        assert_not_includes enqueued_ids, id, "Did not expect edition #{id} to be enqueued"
       end
     end
   end

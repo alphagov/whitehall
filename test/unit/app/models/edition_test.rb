@@ -973,14 +973,14 @@ class EditionTest < ActiveSupport::TestCase
 
     # Invalidate it directly in the DB (without triggering revalidation)
     edition.summary = nil # invalid without summary
-    edition.save(validate: false)
+    edition.save!(validate: false)
 
     # Still shows the original cached value
     assert_equal true, edition.revalidation_passed?
     assert_equal true, edition.reload.revalidation_passed?
 
     # Trigger validation in :publish context again
-    refute edition.valid?(:publish)
+    assert_not edition.valid?(:publish)
 
     # Now cache should be updated to false
     assert_equal false, edition.revalidation_passed?
@@ -1006,7 +1006,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal true, edition.reload.revalidation_passed?
 
     # Re-validate, now fails
-    refute edition.valid?(:publish)
+    assert_not edition.valid?(:publish)
 
     # Cache should now say false
     assert_equal false, edition.revalidation_passed?
