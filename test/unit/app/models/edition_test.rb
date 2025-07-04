@@ -961,6 +961,58 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test "sets 'revalidation_passed' correctly on create, then flips after publish validation fails" do
+    # Taxon validator is a special case - let's just stub it for now
+    TaxonValidator.any_instance.stubs(:validate).returns(nil)
+
+    # Create a valid edition
+    edition = create(:edition)
+    assert edition.valid?(:publish)
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
+
+    # Invalidate it directly in the DB (without triggering revalidation)
+    edition.summary = nil # invalid without summary
+    edition.save!(validate: false)
+
+    # Still shows the original cached value
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
+
+    # Trigger validation in :publish context again
+    assert_not edition.valid?(:publish)
+
+    # Now cache should be updated to false
+    assert_equal false, edition.revalidation_passed?
+    assert_equal false, edition.reload.revalidation_passed?
+  end
+
+  test "updates cached value on every `valid?(:publish)` call" do
+    # Taxon validator is a special case - let's just stub it for now
+    TaxonValidator.any_instance.stubs(:validate).returns(nil)
+
+    edition = create(:edition)
+
+    # Initially valid
+    assert edition.valid?(:publish)
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
+
+    # Make it invalid by setting a nonsense published date
+    edition.update_column(:first_published_at, Date.parse("1500-01-01"))
+
+    # Still shows cached 'true'
+    assert_equal true, edition.revalidation_passed?
+    assert_equal true, edition.reload.revalidation_passed?
+
+    # Re-validate, now fails
+    assert_not edition.valid?(:publish)
+
+    # Cache should now say false
+    assert_equal false, edition.revalidation_passed?
+    assert_equal false, edition.reload.revalidation_passed?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

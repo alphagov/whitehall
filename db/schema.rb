@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_10_095041) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_04_084716) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -455,6 +455,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_095041) do
     t.boolean "visual_editor"
     t.integer "government_id"
     t.string "flexible_page_type"
+    t.boolean "revalidation_passed", default: true, null: false
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
     t.index ["document_id"], name: "index_editions_on_document_id"
@@ -467,6 +468,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_095041) do
     t.index ["public_timestamp", "document_id"], name: "index_editions_on_public_timestamp_and_document_id"
     t.index ["public_timestamp"], name: "index_editions_on_public_timestamp"
     t.index ["publication_type_id"], name: "index_editions_on_publication_type_id"
+    t.index ["revalidation_passed"], name: "index_editions_on_revalidation_passed"
     t.index ["role_appointment_id"], name: "index_editions_on_role_appointment_id"
     t.index ["speech_type_id"], name: "index_editions_on_speech_type_id"
     t.index ["state", "type"], name: "index_editions_on_state_and_type"
