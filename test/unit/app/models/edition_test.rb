@@ -961,6 +961,23 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test "should set 'revalidated_at' value correctly on create" do
+    Timecop.freeze "2025-07-08" do
+      edition = create(:edition)
+      assert edition.revalidated_at
+      assert_equal Time.zone.parse("2025-07-08 00:00:00.000000000 BST +01:00"), edition.revalidated_at
+    end
+  end
+
+  test "should set null 'revalidated_at' if we somehow create an invalid record" do
+    edition = build(:edition)
+    # invalid without summary
+    edition.update(summary: nil) # rubocop:disable Rails/SaveBang
+    edition.save!(validate: false)
+
+    assert_nil edition.revalidated_at
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
