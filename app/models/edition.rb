@@ -75,6 +75,7 @@ class Edition < ApplicationRecord
 
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
+  after_create :cache_revalidation_result
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
@@ -107,6 +108,10 @@ class Edition < ApplicationRecord
 
   def skip_main_validation?
     FROZEN_STATES.include?(state)
+  end
+
+  def cache_revalidation_result
+    self.revalidated_at = Time.zone.now if valid?
   end
 
   def unmodifiable?
