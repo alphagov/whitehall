@@ -7,6 +7,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:document) { create(:content_block_document, :pension, content_id:, sluggable_string: "some-edition-title") }
+    let(:major_change) { true }
     let(:edition) do
       create(
         :content_block_edition,
@@ -15,6 +16,8 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
         organisation: @organisation,
         instructions_to_publishers: "instructions",
         title: "Some Edition Title",
+        change_note: "Something changed publicly",
+        major_change:,
       )
     end
 
@@ -55,7 +58,8 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
             primary_publishing_organisation: [@organisation.content_id],
           },
           update_type: "major",
-        }
+          change_note: edition.change_note,
+        },
       )
 
       Services.publishing_api.expects(:publish).with(content_id, "content_block")
@@ -65,7 +69,25 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
       assert_equal "published", edition.state
       assert_equal edition.id, document.live_edition_id
     end
-    
+
+    describe "when the change is not major" do
+      let(:major_change) { false }
+
+      it "sends a minor update_type with no change note to the Publishing API" do
+        Services.publishing_api.expects(:put_content).with do |_content_id, payload|
+          payload[:update_type]
+          payload[:change_note].nil?
+        end
+
+        Services.publishing_api.stubs(:publish)
+
+        ContentBlockManager::PublishEditionService.new.call(edition)
+
+        assert_equal "published", edition.state
+        assert_equal edition.id, document.live_edition_id
+      end
+    end
+
     it "rolls back the Whitehall ContentBlockEdition and ContentBlockDocument if the publishing API request fails" do
       Services.publishing_api.stubs(:put_content).raises(
         GdsApi::HTTPErrorResponse.new(

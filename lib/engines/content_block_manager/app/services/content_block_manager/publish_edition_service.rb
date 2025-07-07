@@ -33,7 +33,10 @@ module ContentBlockManager
     end
 
     def create_publishing_api_edition(content_id:, content_id_alias:, schema_id:, content_block_edition:)
-      Services.publishing_api.put_content(content_id, publishing_api_payload(schema_id, content_id_alias, content_block_edition))
+      Services.publishing_api.put_content(
+        content_id,
+        publishing_api_payload(schema_id, content_id_alias, content_block_edition),
+      )
     end
 
     def publishing_api_payload(schema_id, content_id_alias, content_block_edition)
@@ -50,7 +53,8 @@ module ContentBlockManager
             content_block_edition.lead_organisation.content_id,
           ],
         },
-        update_type: "major",
+        update_type: content_block_edition.major_change ? "major" : "minor",
+        change_note: content_block_edition.major_change ? content_block_edition.change_note : nil,
       }
     end
 
