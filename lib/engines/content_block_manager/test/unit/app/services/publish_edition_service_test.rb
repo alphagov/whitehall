@@ -7,6 +7,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
     let(:content_id) { "49453854-d8fd-41da-ad4c-f99dbac601c3" }
     let(:schema) { build(:content_block_schema, block_type: "content_block_type", body: { "properties" => { "foo" => "", "bar" => "" } }) }
     let(:document) { create(:content_block_document, :pension, content_id:, sluggable_string: "some-edition-title") }
+    let(:major_change) { true }
     let(:edition) do
       create(
         :content_block_edition,
@@ -15,6 +16,8 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
         organisation: @organisation,
         instructions_to_publishers: "instructions",
         title: "Some Edition Title",
+        change_note: "Something changed publicly",
+        major_change:,
       )
     end
 
@@ -38,15 +41,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
     end
 
     it "creates an Edition in the Publishing API" do
-      fake_put_content_response = GdsApi::Response.new(
-        stub("http_response", code: 200, body: {}),
-      )
-      fake_publish_content_response = GdsApi::Response.new(
-        stub("http_response", code: 200, body: {}),
-      )
-
-      publishing_api_mock = Minitest::Mock.new
-      publishing_api_mock.expect :put_content, fake_put_content_response, [
+      Services.publishing_api.expects(:put_content).with(
         content_id,
         {
           schema_name: schema.id,
@@ -63,74 +58,74 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
             primary_publishing_organisation: [@organisation.content_id],
           },
           update_type: "major",
+          change_note: edition.change_note,
         },
-      ]
-      publishing_api_mock.expect :publish, fake_publish_content_response, [
-        content_id,
-        "content_block",
-      ]
+      )
 
-      Services.stub :publishing_api, publishing_api_mock do
+      Services.publishing_api.expects(:publish).with(content_id, "content_block")
+
+      ContentBlockManager::PublishEditionService.new.call(edition)
+
+      assert_equal "published", edition.state
+      assert_equal edition.id, document.live_edition_id
+    end
+
+    describe "when the change is not major" do
+      let(:major_change) { false }
+
+      it "sends a minor update_type with no change note to the Publishing API" do
+        Services.publishing_api.expects(:put_content).with do |_content_id, payload|
+          payload[:update_type]
+          payload[:change_note].nil?
+        end
+
+        Services.publishing_api.stubs(:publish)
+
         ContentBlockManager::PublishEditionService.new.call(edition)
 
-        publishing_api_mock.verify
         assert_equal "published", edition.state
         assert_equal edition.id, document.live_edition_id
       end
     end
 
     it "rolls back the Whitehall ContentBlockEdition and ContentBlockDocument if the publishing API request fails" do
-      exception = GdsApi::HTTPErrorResponse.new(
-        422,
-        "An internal error message",
-        "error" => { "message" => "Some backend error" },
+      Services.publishing_api.stubs(:put_content).raises(
+        GdsApi::HTTPErrorResponse.new(
+          422,
+          "An internal error message",
+          "error" => { "message" => "Some backend error" },
+        ),
       )
-      raises_exception = ->(*_args) { raise exception }
 
       assert_equal "draft", edition.state
       assert_nil document.live_edition_id
 
-      Services.publishing_api.stub :put_content, raises_exception do
-        assert_raises(GdsApi::HTTPErrorResponse) do
-          ContentBlockManager::PublishEditionService.new.call(edition)
-        end
-        assert_equal "draft", edition.state
-        assert_nil document.live_edition_id
+      assert_raises(GdsApi::HTTPErrorResponse) do
+        ContentBlockManager::PublishEditionService.new.call(edition)
       end
+
+      assert_equal "draft", edition.state
+      assert_nil document.live_edition_id
     end
 
     it "discards the latest draft if the publish request fails" do
-      fake_put_content_response = GdsApi::Response.new(
-        stub("http_response", code: 200, body: {}),
-      )
-      fake_discard_draft_content_response = GdsApi::Response.new(
-        stub("http_response", code: 200, body: {}),
+      Services.publishing_api.stubs(:put_content)
+      Services.publishing_api.stubs(:publish).raises(
+        GdsApi::HTTPErrorResponse.new(
+          422,
+          "An internal error message",
+          "error" => { "message" => "Some backend error" },
+        ),
       )
 
-      publishing_api_mock = Minitest::Mock.new
-      publishing_api_mock.expect :put_content, fake_put_content_response, [
-        String,
-        Hash,
-      ]
-      publishing_api_mock.expect :discard_draft, fake_discard_draft_content_response, [
-        content_id,
-      ]
+      Services.publishing_api.expects(:discard_draft).with(content_id)
 
-      exception = GdsApi::HTTPErrorResponse.new(
-        422,
-        "An internal error message",
-        "error" => { "message" => "Some backend error" },
-      )
-      raises_exception = ->(*_args) { raise exception }
-
-      Services.publishing_api.stub :publish, raises_exception do
-        assert_raises(ContentBlockManager::PublishEditionService::PublishingFailureError, "Could not publish #{content_id} because: Some backend error") do
-          ContentBlockManager::PublishEditionService.new.call(edition)
-          publishing_api_mock.verify
-        end
-        assert_equal "draft", edition.state
-        assert_nil document.live_edition_id
+      assert_raises(ContentBlockManager::PublishEditionService::PublishingFailureError, "Could not publish #{content_id} because: Some backend error") do
+        ContentBlockManager::PublishEditionService.new.call(edition)
       end
+
+      assert_equal "draft", edition.state
+      assert_nil document.live_edition_id
     end
 
     it "supersedes any previously scheduled editions" do

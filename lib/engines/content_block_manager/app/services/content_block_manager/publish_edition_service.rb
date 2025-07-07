@@ -20,14 +20,7 @@ module ContentBlockManager
         content_id:,
         content_id_alias:,
         schema_id: schema.id,
-        title: content_block_edition.title,
-        details: content_block_edition.details,
-        instructions_to_publishers: content_block_edition.instructions_to_publishers,
-        links: {
-          primary_publishing_organisation: [
-            content_block_edition.lead_organisation.content_id,
-          ],
-        },
+        content_block_edition:,
       )
       dequeue_all_previously_queued_editions(content_block_edition)
       publish_publishing_api_edition(content_id:)
@@ -39,18 +32,30 @@ module ContentBlockManager
       raise e
     end
 
-    def create_publishing_api_edition(content_id:, content_id_alias:, schema_id:, title:, instructions_to_publishers:, details:, links:)
-      Services.publishing_api.put_content(content_id, {
+    def create_publishing_api_edition(content_id:, content_id_alias:, schema_id:, content_block_edition:)
+      Services.publishing_api.put_content(
+        content_id,
+        publishing_api_payload(schema_id, content_id_alias, content_block_edition),
+      )
+    end
+
+    def publishing_api_payload(schema_id, content_id_alias, content_block_edition)
+      {
         schema_name: schema_id,
         document_type: schema_id,
         publishing_app: Whitehall::PublishingApp::WHITEHALL,
-        title:,
-        instructions_to_publishers:,
+        title: content_block_edition.title,
+        instructions_to_publishers: content_block_edition.instructions_to_publishers,
         content_id_alias:,
-        details:,
-        links:,
-        update_type: "major",
-      })
+        details: content_block_edition.details,
+        links: {
+          primary_publishing_organisation: [
+            content_block_edition.lead_organisation.content_id,
+          ],
+        },
+        update_type: content_block_edition.major_change ? "major" : "minor",
+        change_note: content_block_edition.major_change ? content_block_edition.change_note : nil,
+      }
     end
 
     def publish_publishing_api_edition(content_id:)
