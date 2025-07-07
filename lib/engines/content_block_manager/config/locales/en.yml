@@ -59,6 +59,13 @@ en:
       hints:
         rates:
           amount: "Enter an exact amount, with the currency symbol - for example: £122.50"
+        email_addresses:
+          subject: 
+            "Set a default subject line that will automatically pre-fill when users send an email. 
+            For example: 'Lastname Firstname - DD/MM/YYYY - passport number'"
+          body: 
+            "Set default body content that will automatically pre-fill when users send an email. 
+            For example: 'The body of the email must include your name, date of birth, passport number and mobile phone number.'"
       labels:
         telephones:
           show_uk_call_charges: "Show hyperlink to 'Find out about call charges'"
