@@ -23,44 +23,6 @@
       error: true,
     } %>
   <% end %>
-  <% if @edition.scheduled_publication %>
-    <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
-      <%= render "components/inset_prompt", {
-        title: "This edition cannot be scheduled",
-        data_attributes: {
-          module: "ga4-auto-tracker",
-          ga4_auto: {
-            type: "scheduled",
-            text: force_scheduler.failure_reasons_plaintext,
-          }.merge(ga4_auto_attributes).as_json,
-        },
-        description: render("govuk_publishing_components/components/list", {
-          visible_counters: true,
-          items: force_scheduler.failure_reasons,
-        }),
-        error: true,
-      } %>
-    <% end %>
-  <% else %>
-    <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
-      <%= render "components/inset_prompt", {
-        title: "This edition cannot be force-published",
-        module: "ga4-auto-tracker",
-        data_attributes: {
-          module: "ga4-auto-tracker",
-          ga4_auto: {
-            type: "force published",
-            text: force_scheduler.failure_reasons_plaintext,
-          }.merge(ga4_auto_attributes).as_json,
-        },
-        description: render("govuk_publishing_components/components/list", {
-          visible_counters: true,
-          items: force_publisher.failure_reasons,
-        }),
-        error: true,
-      } %>
-    <% end %>
-  <% end %>
   <% if show_similar_slugs_warning?(@edition) %>
     <%= render "components/inset_prompt", {
       data_attributes: {
