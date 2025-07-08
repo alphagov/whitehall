@@ -22,7 +22,10 @@ This defines if a subschema is embeddable as an entire block.
 
 ## `schemas.<schema_name>.field_order`
 
-An array of strings that defines the order that fields appear in when rendering the form.
+An array of strings that defines the order in which:
+
+- fields appear when rendering the form
+- properties are listed when viewing an embedded object in a summary list
 
 ## `schemas.<schema_name>.fields`
 
