@@ -24,7 +24,7 @@ class DocumentCollection < Edition
   add_trait ClonesGroupsTrait
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    Whitehall::RenderingApp::FRONTEND
   end
 
   def content_ids
