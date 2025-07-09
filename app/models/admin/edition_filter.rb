@@ -121,6 +121,7 @@ module Admin
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
       editions = editions.only_invalid_editions if only_invalid_editions
+      editions = editions.not_validated_since(not_validated_since) if not_validated_since
       editions = editions.only_broken_links if only_broken_links
       editions = editions.review_overdue if review_overdue
 
@@ -249,6 +250,10 @@ module Admin
 
     def topical_event
       TopicalEvent.find(options[:topical_event]) if options[:topical_event].present?
+    end
+
+    def not_validated_since
+      options[:not_validated_since].presence
     end
 
     def location_matches
