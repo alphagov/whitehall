@@ -6,10 +6,6 @@ Whitehall (also known as 'Whitehall Admin' or 'Whitehall Publisher') is used by 
 
 **Use [GOV.UK Docker](https://github.com/alphagov/govuk-docker) to run any commands that follow.**
 
-## Nomenclature
-
-- *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown) used throughout whitehall as the general publishing format
-
 ## Technical documentation
 
 This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
