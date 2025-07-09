@@ -27,7 +27,7 @@
 # 1048455, 1048463, 1048467, 1048469, 1048473, 1048475, 1048479, 1048481, 1048487, 1048491, 1048493, 1048497, 1048501, 1048507, 1048509, 1048511, 1049303, 1049639, 1050990, 1051019, 1051041, 1051043, 1751104
 #
 # On closer inspection (https://github.com/alphagov/whitehall/pull/10388#discussion_r2192532605),
-#these are all also unused thumbnails, but just happen not to follow the filename pattern for some reason.
+# these are all also unused thumbnails, but just happen not to follow the filename pattern for some reason.
 # So they can be deleted too.
 non_conforming_thumbnail_assets = [1_048_455, 1_048_463, 1_048_467, 1_048_469, 1_048_473, 1_048_475, 1_048_479, 1_048_481, 1_048_487, 1_048_491, 1_048_493, 1_048_497, 1_048_501, 1_048_507, 1_048_509, 1_048_511, 1_049_303, 1_049_639, 1_050_990, 1_051_019, 1_051_041, 1_051_043, 1_751_104]
 
