@@ -73,7 +73,8 @@ class Edition < ApplicationRecord
 
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
-  after_validation :cache_revalidation_result
+  after_validation :update_revalidated_at, if: -> { validation_context == :publish }
+  after_commit :trigger_revalidation, on: %i[create update]
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
@@ -108,20 +109,18 @@ class Edition < ApplicationRecord
     FROZEN_STATES.include?(state)
   end
 
-  def cache_revalidation_result
-    return unless new_record? || changed? || validation_context == :publish
+  def update_revalidated_at
+    new_value = errors.empty? ? Time.current : nil
 
-    # If there were no errors, the edition passed re-validation
-    new_timestamp = errors.empty? ? Time.current : nil
-
-    if validation_context == :publish && !changed?
-      # Someone called valid?(:publish) on an already-saved record
-      # There may be no subsequent save, so hit the DB directly
-      update_column(:revalidated_at, new_timestamp)
+    if persisted?
+      update_column(:revalidated_at, new_value)
     else
-      # We’re inside a create/update flow; assigning is enough:
-      self.revalidated_at = new_timestamp # will be persisted with the save
+      self.revalidated_at = new_value
     end
+  end
+
+  def trigger_revalidation
+    valid?(:publish)
   end
 
   def unmodifiable?
