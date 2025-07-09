@@ -33,7 +33,7 @@ class DetailedGuide < Edition
   validates_with HeadingHierarchyValidator
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    Whitehall::RenderingApp::FRONTEND
   end
 
   def related_detailed_guide_ids
