@@ -50,22 +50,23 @@ schemas:
         embeddable_fields:
           - telephone_numbers
           - opening_hours
+          - call_charges
         field_order:
           - title
           - description
           - telephone_numbers
           - opening_hours
-          - show_uk_call_charges
+          - call_charges
         fields:
           description:
             component:
               textarea
-          show_uk_call_charges:
-            component:
-              boolean
           opening_hours:
             component:
               opening_hours
+          call_charges:
+            component:
+              call_charges
           telephone_numbers:
             data_attributes:
               module: auto-populate-telephone-number-label

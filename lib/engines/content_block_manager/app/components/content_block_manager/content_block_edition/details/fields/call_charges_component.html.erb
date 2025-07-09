@@ -1,0 +1,36 @@
+<div class="app-c-content-block-manager-call-charges-component">
+
+  <% show_call_charges_info_url = field.nested_fields.find{ |nf| nf.name == "show_call_charges_info_url" } %>
+  <% call_charges_info_url = field.nested_fields.find{ |nf| nf.name == "call_charges_info_url" } %>
+
+  <% call_charges_url_input = capture do %>
+    <%= render("govuk_publishing_components/components/input", {
+                label: {
+                text: "URL to find out about call charges",
+              },
+              name: name_for_field(call_charges_info_url) ,
+              id: id_for_field(call_charges_info_url),
+              value: value_for_field(call_charges_info_url) || "https://gov.uk/call-charges",
+            }) %>
+  <% end %>
+
+  <input type="hidden" name="<%= name_for_field(show_call_charges_info_url) %>" value="off">
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: name_for_field(show_call_charges_info_url),
+    id: id_for_field(show_call_charges_info_url),
+    heading: "Show call charges info link?",
+    visually_hide_heading: true,
+    no_hint_text: true,
+    small: true,
+    items: [
+      {
+        label: "Show hyperlink to 'Find out about call charges'",
+        value: "on",
+        checked: value_for_field(show_call_charges_info_url) == "on",
+        conditional: call_charges_url_input,
+      },
+    ],
+  } %>
+
+</div>
