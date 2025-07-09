@@ -251,8 +251,8 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal [], detailed_guide.related_mainstream_content_ids
   end
 
-  test "is rendered by government-frontend" do
-    assert DetailedGuide.new.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  test "is rendered by frontend" do
+    assert DetailedGuide.new.rendering_app == Whitehall::RenderingApp::FRONTEND
   end
 
   test "#all_nation_applicability_selected? false if first draft and unsaved" do
