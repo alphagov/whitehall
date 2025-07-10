@@ -41,10 +41,12 @@
     "filter": {
       "content_store_document_type": ["hmrc_manual", "hmrc_manual_section"]
     },
-    "summary": {
-      "content_type": "text/govspeak",
-      "content": "These manuals contain technical guidance for HMRC staff and tax professionals and are also published in accordance with the [HMRC Publication scheme](https://www.gov.uk/government/organisations/hm-revenue-customs/about/publication-scheme).\n\nThe guidance is not comprehensive and does not provide a definitive answer in every case. It is based on the law as it stood when they were published. HMRC publishes amended or supplementary guidance if there's a change in the law or in the department's interpretation of it.\n\nFind out [how HMRC advice and information can help you](https://www.gov.uk/guidance/when-you-can-rely-on-information-or-advice-provided-by-hm-revenue-and-customs)."
-    },
+    "summary": [
+      {
+        "content_type": "text/govspeak",
+        "content": "These manuals contain technical guidance for HMRC staff and tax professionals and are also published in accordance with the [HMRC Publication scheme](https://www.gov.uk/government/organisations/hm-revenue-customs/about/publication-scheme).\n\nThe guidance is not comprehensive and does not provide a definitive answer in every case. It is based on the law as it stood when they were published. HMRC publishes amended or supplementary guidance if there's a change in the law or in the department's interpretation of it.\n\nFind out [how HMRC advice and information can help you](https://www.gov.uk/guidance/when-you-can-rely-on-information-or-advice-provided-by-hm-revenue-and-customs)."
+      }
+    ],
     "show_summaries": false,
     "show_metadata_block": true,
     "show_table_of_contents": true,
