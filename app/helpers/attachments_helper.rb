@@ -15,7 +15,7 @@ module AttachmentsHelper
 
   def preview_path_for_attachment(attachment)
     if attachment.attachment_data.all_asset_variants_uploaded?
-      "/media/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}/preview"
+      "/csv-preview/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}"
     end
   end
 
