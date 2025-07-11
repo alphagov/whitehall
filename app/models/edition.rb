@@ -27,6 +27,7 @@ class Edition < ApplicationRecord
   include Edition::Scopes::Orderable
   include Edition::Scopes::SearchableByTitle
   include Edition::Scopes::FilterableByAuthor
+  include Edition::Scopes::FilterableByInvalid
   include Edition::Scopes::FilterableByBrokenLinks
   include Edition::Scopes::FilterableByDate
   include Edition::Scopes::FilterableByTopicalEvent
@@ -73,12 +74,11 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
-  # @!group Callbacks
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
+  after_validation :cache_revalidation_result
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
-  # @!endgroup
 
   after_update :republish_topical_event_to_publishing_api
 
@@ -109,6 +109,22 @@ class Edition < ApplicationRecord
 
   def skip_main_validation?
     FROZEN_STATES.include?(state)
+  end
+
+  def cache_revalidation_result
+    return unless new_record? || changed? || validation_context == :publish
+
+    # If there were no errors, the edition passed re-validation
+    new_timestamp = errors.empty? ? Time.current : nil
+
+    if validation_context == :publish && !changed?
+      # Someone called valid?(:publish) on an already-saved record
+      # There may be no subsequent save, so hit the DB directly
+      update_column(:revalidated_at, new_timestamp)
+    else
+      # We’re inside a create/update flow; assigning is enough:
+      self.revalidated_at = new_timestamp # will be persisted with the save
+    end
   end
 
   def unmodifiable?

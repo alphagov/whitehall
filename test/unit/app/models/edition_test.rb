@@ -2,6 +2,7 @@ require "test_helper"
 
 class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
+  include TaxonomyHelper
 
   test "returns downcased humanized class name as format name" do
     assert_equal "case study", CaseStudy.format_name
@@ -959,6 +960,89 @@ class EditionTest < ActiveSupport::TestCase
     edition.publish
 
     assert_not edition.valid?
+  end
+
+  test "should set 'revalidated_at' value correctly on create" do
+    Timecop.freeze "2025-07-08" do
+      edition = create(:edition)
+      assert edition.revalidated_at
+      assert_equal Time.zone.parse("2025-07-08 00:00:00.000000000 BST +01:00"), edition.revalidated_at
+    end
+  end
+
+  test "should set null 'revalidated_at' if we somehow create an invalid record" do
+    edition = build(:edition)
+    # invalid without summary
+    edition.update(summary: nil) # rubocop:disable Rails/SaveBang
+    edition.save!(validate: false)
+
+    assert_nil edition.revalidated_at
+  end
+
+  test "should update cached 'revalidated_at' value on each `valid?(:publish)` call" do
+    edition = create(:edition)
+    stub_publishing_api_links_with_taxons(edition.content_id, [child_taxon_content_id])
+    assert edition.revalidated_at
+
+    # Simulate it becoming invalid in publish contexts,
+    # i.e. embed a non-existent contact
+    edition.update(body: "[Contact:9999999]") # rubocop:disable Rails/SaveBang
+    # ...but don't trigger revalidation yet
+    edition.save!(validate: false)
+
+    # Should still reflect the cached state from creation
+    assert edition.revalidated_at
+    assert edition.reload.revalidated_at
+
+    # Now force a full validation
+    assert_not edition.valid?(:publish)
+    # It should reset `revalidated_at` to nil
+    assert_nil edition.revalidated_at
+    # ...and ensure the updated value is persisted to the DB
+    assert_nil edition.reload.revalidated_at
+  end
+
+  test "should not update cached 'revalidated_at' value on each general `valid?` call" do
+    edition = create(:edition)
+    stub_publishing_api_links_with_taxons(edition.content_id, [child_taxon_content_id])
+    assert edition.revalidated_at
+
+    # Simulate it becoming invalid in publish contexts,
+    # i.e. embed a non-existent contact
+    edition.update(body: "[Contact:9999999]") # rubocop:disable Rails/SaveBang
+    # ...but don't trigger revalidation yet
+    edition.save!(validate: false)
+
+    # Should still reflect the cached state from creation
+    assert edition.revalidated_at
+    assert edition.reload.revalidated_at
+
+    # Now force a validation but outside of the publish context
+    # ...it shouldn't change anything, since we only care about the publish context
+    assert edition.valid?
+    assert edition.reload.revalidated_at
+  end
+
+  test "should update cached 'revalidated_at' value on update" do
+    edition = create(:edition)
+
+    Timecop.freeze "2025-07-09" do
+      edition.update!(summary: "foo")
+      edition.save!
+    end
+
+    assert_equal Time.zone.parse("2025-07-09 00:00:00.000000000 BST +01:00"), edition.revalidated_at
+  end
+
+  test "should nullify 'revalidated_at' if we somehow update a record to become invalid" do
+    edition = create(:edition)
+    assert edition.revalidated_at
+
+    # invalid without summary
+    edition.update(summary: nil) # rubocop:disable Rails/SaveBang
+    edition.save!(validate: false)
+
+    assert_nil edition.revalidated_at
   end
 
   def decoded_token_payload(token)

@@ -225,6 +225,34 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [tagged_news], filter.editions
   end
 
+  test "should filter by invalid, non-superseded editions" do
+    # rubocop:disable Lint/UselessAssignment
+    valid_draft_edition = create(:draft_edition, revalidated_at: Time.zone.now)
+    valid_published_edition = create(:published_edition, revalidated_at: Time.zone.now)
+    invalid_draft_edition = create(:draft_edition, revalidated_at: nil)
+    invalid_published_edition = create(:published_edition, revalidated_at: nil)
+    invalid_superseded_edtion = create(:superseded_edition, revalidated_at: nil)
+    # rubocop:enable Lint/UselessAssignment
+
+    assert_equal(
+      [invalid_draft_edition, invalid_published_edition],
+      Admin::EditionFilter.new(Edition, @current_user, only_invalid_editions: true).editions.sort_by(&:id),
+    )
+  end
+
+  test "should filter by editions not validated since X" do
+    # rubocop:disable Lint/UselessAssignment
+    edition_validated_recently = create(:draft_edition, revalidated_at: Time.zone.now)
+    edition_validated_ages_ago = create(:published_edition, revalidated_at: 1.year.ago)
+    edition_never_validated = create(:draft_edition, revalidated_at: nil)
+    # rubocop:enable Lint/UselessAssignment
+
+    assert_equal(
+      [edition_validated_ages_ago, edition_never_validated],
+      Admin::EditionFilter.new(Edition, @current_user, not_validated_since: 1.week.ago.strftime("%d/%m/%Y")).editions.sort_by(&:id),
+    )
+  end
+
   test "should filter by broken links" do
     edition_with_broken_link = create(
       :published_publication,
