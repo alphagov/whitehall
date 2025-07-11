@@ -20,45 +20,45 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
     updater.validate
     assert_equal(
+      ["Expected the following headers: URL,New lead organisations,New supporting organisations. Detected: Foo,"],
       updater.errors,
-      ["Expected the following headers: Document type,New lead organisations,New supporting organisations,Slug. Detected: Foo,"],
     )
 
     raw_csv = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      some-slug,Publication,lead-organisation,supporting-organisation,some extra data here which should trip up the validator
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/government/publications/some-slug,lead-organisation,supporting-organisation,some extra data here which should trip up the validator
     CSV
     updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
     updater.validate
     assert_equal(
+      ["Exactly three fields expected. Detected: 4 ([\"https://www.gov.uk/government/publications/some-slug\", \"lead-organisation\", \"supporting-organisation\", \"some extra data here which should trip up the validator\"])"],
       updater.errors,
-      ["Exactly four fields expected. Detected: 5 ([\"some-slug\", \"Publication\", \"lead-organisation\", \"supporting-organisation\", \"some extra data here which should trip up the validator\"])"],
     )
   end
 
   test "it has a `validate` method that tracks invalid documents and organisations in the `errors` array" do
     raw_csv = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      some-slug,Publication,lead-organisation,supporting-organisation
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/government/publications/some-slug,lead-organisation,supporting-organisation
     CSV
 
     updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
     updater.validate
 
     assert_equal(
-      updater.errors,
       [
-        "Document not found: some-slug",
+        "Document not found: https://www.gov.uk/government/publications/some-slug",
         "Organisation not found: lead-organisation",
         "Organisation not found: supporting-organisation",
       ],
+      updater.errors,
     )
   end
 
   test "it has a `validate` method that returns empty `errors` array if no errors" do
     raw_csv = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      some-slug,Publication,lead-organisation,supporting-organisation
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/guidance/some-slug,lead-organisation,supporting-organisation
     CSV
 
     create(:document, document_type: "DetailedGuide", slug: "some-slug")
@@ -68,15 +68,15 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
     updater.validate
 
-    assert_equal(updater.errors, [])
+    assert_equal([], updater.errors)
   end
 
   test "it has a `summarise_changes` method that returns a hash summarising the changes" do
     raw_csv = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      some-slug,Publication,new-lead-organisation,new-supporting-organisation
-      another-slug,Publication,"new-lead-organisation,old-lead-organisation"
-      final-slug,Publication,old-lead-organisation,new-supporting-organisation
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/government/publications/some-slug,new-lead-organisation,new-supporting-organisation
+      https://www.gov.uk/government/publications/another-slug,"new-lead-organisation,old-lead-organisation"
+      https://www.gov.uk/government/publications/final-slug,old-lead-organisation,new-supporting-organisation
     CSV
 
     old_lead_org = create(:organisation, slug: "old-lead-organisation")
@@ -112,9 +112,8 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
     updater.validate
 
-    assert_equal(updater.errors, [])
+    assert_equal([], updater.errors)
     assert_equal(
-      updater.summarise_changes,
       [
         {
           slug: "some-slug",
@@ -132,6 +131,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
           supporting_orgs_summary: "Added new-supporting-organisation. Result: new-supporting-organisation",
         },
       ],
+      updater.summarise_changes,
     )
   end
 
@@ -146,13 +146,13 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     end
   end
 
-  test "it spots ambiguous slugs" do
+  test "it correctly maps the slug to the document type" do
     csv_file = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      shared-slug,,lead-organisation,
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/guidance/uk-ncp-complaint-handling-process,lead-organisation,
     CSV
 
-    slug = "shared-slug"
+    slug = "uk-ncp-complaint-handling-process"
     create(
       :document,
       document_type: "DetailedGuide",
@@ -166,87 +166,53 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     create(:organisation, slug: "lead-organisation")
 
     updater = process(csv_file)
-    assert_equal(
-      updater.errors,
-      ["Ambiguous slug: shared-slug (document_types: [\"DetailedGuide\", \"Publication\"])"],
-    )
-  end
-
-  test "it ignores the 'document type' field unless the 'slug' field is ambiguous" do
-    csv_with_bad_document_type = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      shared-slug,"THIS DOCUMENT TYPE DOES NOT EXIST",lead-organisation,
-    CSV
-
-    csv_with_valid_document_type = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      shared-slug,CaseStudy,lead-organisation,
-    CSV
-
-    slug = "shared-slug"
-    publication = create(:publication, document: build(:document, slug:))
-    organisation = create(:organisation, slug: "lead-organisation")
-
-    # it works when slug is unique, despite the invalid document type
-    updater = process(csv_with_bad_document_type)
-    assert_equal publication.lead_organisations, [organisation]
-
-    # create two more documents with the same slug but different types
-    case_study = create(:case_study, document: build(:document, slug:))
-    news_article = create(:news_article, document: build(:document, slug:))
-
-    # cannot find document with the specified document_type now that the slug is ambiguous
     updater.validate
-    assert_equal(updater.errors, ["Document not found: shared-slug"])
 
-    # it works when the CSV specifies a valid document type
-    process(csv_with_valid_document_type)
-    assert_equal case_study.lead_organisations, [organisation]
-    assert_not_equal news_article.lead_organisations, [organisation]
+    assert_equal([], updater.errors)
   end
 
   test "it changes the lead organisations" do
     csv_file = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      this-is-a-slug,,lead-organisation,
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/government/publications/some-slug,lead-organisation,
     CSV
 
-    document = create(:document, slug: "this-is-a-slug")
+    document = create(:document, slug: "some-slug")
     edition = create(:published_publication, document:)
     organisation = create(:organisation, slug: "lead-organisation")
 
     process(csv_file)
 
-    assert_equal edition.lead_organisations, [organisation]
-    assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
-    assert_equal PublishingApiDocumentRepublishingWorker.jobs.first["args"].first, document.id
+    assert_equal [organisation], edition.lead_organisations
+    assert_equal 1, PublishingApiDocumentRepublishingWorker.jobs.size
+    assert_equal document.id, PublishingApiDocumentRepublishingWorker.jobs.first["args"].first
   end
 
   test "it changes the supporting organisations" do
     csv_file = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      this-is-a-slug,,,"supporting-organisation-1,supporting-organisation-2"
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/government/publications/some-slug,,"supporting-organisation-1,supporting-organisation-2"
     CSV
 
-    document = create(:document, slug: "this-is-a-slug")
+    document = create(:document, slug: "some-slug")
     edition = create(:published_publication, document:)
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
     process(csv_file)
 
-    assert_equal edition.supporting_organisations, [organisation1, organisation2]
-    assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 1
-    assert_equal PublishingApiDocumentRepublishingWorker.jobs.first["args"].first, document.id
+    assert_equal [organisation1, organisation2], edition.supporting_organisations
+    assert_equal 1, PublishingApiDocumentRepublishingWorker.jobs.size
+    assert_equal document.id, PublishingApiDocumentRepublishingWorker.jobs.first["args"].first
   end
 
   test "it just updates the draft when there is not a change to the published edition" do
     csv_file = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      this-is-a-slug,,lead-organisation,
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/government/publications/some-slug,lead-organisation,
     CSV
 
-    document = create(:document, slug: "this-is-a-slug")
+    document = create(:document, slug: "some-slug")
     organisation = create(:organisation, slug: "lead-organisation")
     create(
       :published_publication,
@@ -262,20 +228,21 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     process(csv_file)
 
-    assert_equal draft_edition.lead_organisations, [organisation]
-    assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
+    assert_equal [organisation], draft_edition.lead_organisations
+    assert_equal 0, PublishingApiDocumentRepublishingWorker.jobs.size
   end
 
+  # TODO: this one seems to pass no matter what I set at the CSV file 🤔
   test "it doesn't change a document which has already changed" do
     csv_file = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      this-is-a-slug,,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/government/publications/some-slug,,,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
     CSV
 
     lead_organisation = create(:organisation, slug: "lead-organisation")
     supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
     supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
-    document = create(:document, slug: "this-is-a-slug")
+    document = create(:document, slug: "some-slug")
     create(
       :publication,
       document:,
@@ -289,16 +256,16 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       process(csv_file)
     end
 
-    assert_equal PublishingApiDocumentRepublishingWorker.jobs.size, 0
+    assert_equal 0, PublishingApiDocumentRepublishingWorker.jobs.size
   end
 
   test "it processes Statistics Announcements" do
     csv_file = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      this-is-a-slug,StatisticsAnnouncement,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+      URL,New lead organisations,New supporting organisations
+      http://gov.uk/government/statistics/announcements/slug,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
     CSV
 
-    announcement = create(:statistics_announcement, slug: "this-is-a-slug")
+    announcement = create(:statistics_announcement, slug: "slug")
 
     lead_organisation = create(:organisation, slug: "lead-organisation")
     supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
@@ -309,13 +276,13 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     process(csv_file)
 
-    assert_equal [lead_organisation, supporting_organisation1, supporting_organisation2], announcement.reload.organisations
+    assert_equal announcement.reload.organisations, [lead_organisation, supporting_organisation1, supporting_organisation2]
   end
 
   test "it doesn't change a Statistics Announcement which has already changed" do
     csv_file = <<~CSV
-      Slug,Document type,New lead organisations,New supporting organisations
-      this-is-a-slug,StatisticsAnnouncement,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+      URL,New lead organisations,New supporting organisations
+      http://gov.uk/government/statistics/announcements/slug,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
     CSV
 
     lead_organisation = create(:organisation, slug: "lead-organisation")
@@ -324,7 +291,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     document = create(
       :statistics_announcement,
-      slug: "this-is-a-slug",
+      slug: "slug",
       organisations: [lead_organisation, supporting_organisation1, supporting_organisation2],
     )
 
