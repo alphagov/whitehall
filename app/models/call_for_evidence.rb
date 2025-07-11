@@ -130,10 +130,6 @@ class CallForEvidence < Publicationesque
     title
   end
 
-  def base_path
-    "/government/calls-for-evidence/#{slug}"
-  end
-
   def publishing_api_presenter
     PublishingApi::CallForEvidencePresenter
   end

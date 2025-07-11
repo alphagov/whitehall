@@ -144,10 +144,6 @@ class Consultation < Publicationesque
     title
   end
 
-  def base_path
-    "/government/consultations/#{slug}"
-  end
-
   def publishing_api_presenter
     PublishingApi::ConsultationPresenter
   end

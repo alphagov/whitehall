@@ -1,4 +1,5 @@
 class OperationalField < ApplicationRecord
+  include Admin::BasePathHelper
   include PublishesToPublishingApi
   include Searchable
 
@@ -32,7 +33,7 @@ class OperationalField < ApplicationRecord
   end
 
   def base_path
-    "/government/fields-of-operation/#{slug}"
+    document_type_and_slug_to_base_path(OperationalField, slug)
   end
 
   def public_path(options = {})

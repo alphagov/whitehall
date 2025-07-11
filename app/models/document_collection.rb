@@ -35,10 +35,6 @@ class DocumentCollection < Edition
     true
   end
 
-  def base_path
-    "/government/collections/#{slug}"
-  end
-
   def publishing_api_presenter
     PublishingApi::DocumentCollectionPresenter
   end

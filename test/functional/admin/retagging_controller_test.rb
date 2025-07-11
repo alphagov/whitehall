@@ -25,13 +25,13 @@ class Admin::RetaggingControllerTest < ActionController::TestCase
 
   test "Submitting a CSV with invalid data should show an error message" do
     csv_to_submit = <<~CSV
-      Slug,New lead organisations,New supporting organisations,Document type
-      /made-up-slug,government-digital-service,geospatial-commission,Publication
+      URL,New lead organisations,New supporting organisations
+      https://www.gov.uk/guidance/made-up-slug,government-digital-service,geospatial-commission
     CSV
     post :preview, params: { csv_input: csv_to_submit }
 
     assert_response :ok
     assert_template :index
-    assert_equal flash[:alert], "Errors with CSV input: <br>Document not found: made-up-slug<br>Organisation not found: government-digital-service<br>Organisation not found: geospatial-commission"
+    assert_equal flash[:alert], "Errors with CSV input: <br>Document not found: https://www.gov.uk/guidance/made-up-slug<br>Organisation not found: government-digital-service<br>Organisation not found: geospatial-commission"
   end
 end

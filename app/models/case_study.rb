@@ -22,10 +22,6 @@ class CaseStudy < Edition
     !non_english_edition?
   end
 
-  def base_path
-    "/government/case-studies/#{slug}"
-  end
-
   def publishing_api_presenter
     PublishingApi::CaseStudyPresenter
   end
