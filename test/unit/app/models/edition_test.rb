@@ -965,43 +965,9 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
-  test "should set 'revalidated_at' value correctly on create" do
-    Timecop.freeze "2025-07-08" do
-      edition = create(:edition)
-      assert edition.revalidated_at
-      assert_equal Time.zone.parse("2025-07-08 00:00:00.000000000 BST +01:00"), edition.revalidated_at
-    end
-  end
-
-  test "should nullify 'revalidated_at' if we somehow update a record to become invalid" do
-    edition = create(:edition)
-    assert edition.revalidated_at
-
-    # invalid without summary
-    edition.update(summary: nil) # rubocop:disable Rails/SaveBang
-    edition.save!(validate: false)
-
-    assert_nil edition.revalidated_at
-  end
-
-  test "should update cached 'revalidated_at' value on update, setting the value as if we've called valid?(:publish)" do
-    # create a valid edition
-    edition = create(:edition)
-    assert edition.revalidated_at
-
-    # update the edition in a way that makes it PASS `valid?`...
-    # ...but FAIL `valid?(:publish)`
-    # i.e. embed a non-existent contact (`validates_with GovspeakContactEmbedValidator, on: :publish`)
-    edition.update!(body: "[Contact:9999999]")
-
-    # Verify that `revalidated_at` is reset to `nil` (because of failed `valid?(:publish)`)
-    # despite `edition.valid?` passing
-    assert_nil edition.reload.revalidated_at
-    assert edition.valid?
-  end
-
   test "should update cached 'revalidated_at' value on each `valid?(:publish)` call" do
     edition = create(:edition)
+    edition.valid?(:publish)
     assert edition.revalidated_at
 
     # Simulate it becoming invalid in publish contexts - i.e. embed a non-existent
@@ -1009,7 +975,7 @@ class EditionTest < ActiveSupport::TestCase
     # avoid callbacks)
     edition.translations.first.update_columns(body: "[Contact:9999999]")
 
-    # Should still reflect the cached state from creation
+    # Should still reflect the cached state from earlier call to `valid?(:publish)`
     assert edition.revalidated_at
     assert edition.reload.revalidated_at
 
@@ -1023,6 +989,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should NOT update cached 'revalidated_at' value on each general `valid?` call" do
     edition = create(:edition)
+    edition.valid?(:publish)
     assert edition.revalidated_at
 
     # Simulate it becoming invalid in publish contexts - i.e. embed a non-existent
@@ -1030,7 +997,7 @@ class EditionTest < ActiveSupport::TestCase
     # avoid callbacks)
     edition.translations.first.update_columns(body: "[Contact:9999999]")
 
-    # Should still reflect the cached state from creation
+    # Should still reflect the cached state from earlier call to `valid?(:publish)`
     assert edition.revalidated_at
     assert edition.reload.revalidated_at
 

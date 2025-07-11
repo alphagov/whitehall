@@ -74,7 +74,6 @@ class Edition < ApplicationRecord
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
   after_validation :update_revalidated_at, if: -> { validation_context == :publish }
-  after_commit :trigger_revalidation, on: %i[create update]
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
@@ -117,10 +116,6 @@ class Edition < ApplicationRecord
     else
       self.revalidated_at = new_value
     end
-  end
-
-  def trigger_revalidation
-    valid?(:publish)
   end
 
   def unmodifiable?
