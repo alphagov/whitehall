@@ -1,5 +1,3 @@
-# The base class for almost all editoral content.
-# @abstract Using STI should not create editions directly.
 class Edition < ApplicationRecord
   include Edition::Traits
 
@@ -73,12 +71,11 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
-  # @!group Callbacks
   before_create :set_auth_bypass_id
   before_save :set_public_timestamp
+  after_validation :update_revalidated_at, if: -> { validation_context == :publish }
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
-  # @!endgroup
 
   after_update :republish_topical_event_to_publishing_api
 
@@ -109,6 +106,16 @@ class Edition < ApplicationRecord
 
   def skip_main_validation?
     FROZEN_STATES.include?(state)
+  end
+
+  def update_revalidated_at
+    new_value = errors.empty? ? Time.current : nil
+
+    if persisted?
+      update_column(:revalidated_at, new_value)
+    else
+      self.revalidated_at = new_value
+    end
   end
 
   def unmodifiable?

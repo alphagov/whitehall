@@ -5,8 +5,6 @@
 # - Consultations
 # - Publication
 # - Statistical Data Sets
-#
-# @abstract
 class Publicationesque < Edition
   include Edition::HasDocumentCollections
   include Edition::Organisations

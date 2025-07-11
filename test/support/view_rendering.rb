@@ -25,7 +25,6 @@ module ViewRendering
     end
   end
 
-  # @private
   class EmptyTemplateResolver
     def self.build(path)
       if path.is_a?(::ActionView::Resolver)
@@ -51,8 +50,6 @@ module ViewRendering
     # Delegates all methods to the submitted resolver and for all methods
     # that return a collection of `ActionView::Template` instances, return
     # templates with modified source
-    #
-    # @private
     class ResolverDecorator < ::ActionView::Resolver
       (::ActionView::Resolver.instance_methods - Object.instance_methods).each do |method|
         undef_method method
@@ -87,8 +84,6 @@ module ViewRendering
 
     # Delegates find_templates to the submitted path set and then returns
     # templates with modified source
-    #
-    # @private
     class FileSystemResolver < ::ActionView::FileSystemResolver
     private
 
@@ -99,7 +94,6 @@ module ViewRendering
     end
   end
 
-  # @private
   class EmptyTemplateHandler
     def self.call(_template, _source = nil)
       ::Rails.logger.info("  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.")
@@ -109,8 +103,6 @@ module ViewRendering
   end
 
   # Used to null out view rendering in controller specs.
-  #
-  # @private
   module EmptyTemplates
     def prepend_view_path(new_path)
       super(_path_decorator(*new_path))
@@ -127,7 +119,6 @@ module ViewRendering
     end
   end
 
-  # @private
   RESOLVER_CACHE = Hash.new do |hash, path|
     hash[path] = EmptyTemplateResolver.build(path)
   end

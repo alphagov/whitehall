@@ -1,4 +1,3 @@
-# @abstract
 class Role < ApplicationRecord
   include HasContentId
   include PublishesToPublishingApi
