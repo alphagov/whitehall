@@ -1,5 +1,7 @@
 module DataHygiene
   class BulkOrganisationUpdater
+    include Admin::BasePathHelper
+
     attr_accessor :errors
 
     def initialize(raw_csv)
@@ -14,15 +16,15 @@ module DataHygiene
     end
 
     def validate
-      expected_headers_sorted = ["Document type", "New lead organisations", "New supporting organisations", "Slug"]
+      expected_headers = ["URL", "New lead organisations", "New supporting organisations"]
       @validated_rows = @parsed_csv.each_with_index.map do |row, index|
-        if index.zero? && row.headers.compact.sort != expected_headers_sorted
-          errors << "Expected the following headers: #{expected_headers_sorted.join(',')}. Detected: #{row.headers.join(',')}"
+        if index.zero? && row.headers.compact.sort != expected_headers.sort
+          errors << "Expected the following headers: #{expected_headers.join(',')}. Detected: #{row.headers.join(',')}"
           break
         end
 
-        if row.fields.count != 4
-          errors << "Exactly four fields expected. Detected: #{row.fields.count} (#{row.fields})"
+        if row.fields.count != 3
+          errors << "Exactly three fields expected. Detected: #{row.fields.count} (#{row.fields})"
           break
         end
 
@@ -91,26 +93,14 @@ module DataHygiene
     end
 
     def find_document(row)
-      slug = row.fetch("Slug")&.strip&.split("/")&.last
-      document_type = row.fetch("Document type")&.strip&.delete(" ")
+      url = row.fetch("URL").strip
+      slug = url.split("/").last
 
-      return if slug.blank?
-
-      documents = Document.where(slug:)
-      documents = Document.where(slug:, document_type:) if documents.many? && document_type.present?
-      statistics_announcements = StatisticsAnnouncement.where(slug:)
-
-      if documents.many?
-        errors << "Ambiguous slug: #{slug} (document_types: #{documents.map(&:document_type)})"
-        nil
-      elsif documents.any?
-        documents.first
-      elsif statistics_announcements.any?
-        statistics_announcements.first
-      else
-        errors << "Document not found: #{slug}"
-        nil
-      end
+      document_type = url_to_document_type(url).name
+      document_type == "StatisticsAnnouncement" ? StatisticsAnnouncement.find_by!(slug:) : Document.find_by!(slug:, document_type:)
+    rescue ActiveRecord::RecordNotFound
+      errors << "Document not found: #{url}"
+      nil
     end
 
     def find_organisations(row, column)
