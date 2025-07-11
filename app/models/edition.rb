@@ -1,6 +1,7 @@
 # The base class for almost all editoral content.
 # @abstract Using STI should not create editions directly.
 class Edition < ApplicationRecord
+  include Admin::BasePathHelper
   include Edition::Traits
 
   include Edition::NullImages
@@ -394,8 +395,7 @@ class Edition < ApplicationRecord
   end
 
   def base_path
-    url_slug = slug || id.to_param
-    "/government/generic-editions/#{url_slug}"
+    document_type_and_slug_to_base_path(self.class, slug || id.to_param)
   end
 
   def public_path(options = {})
