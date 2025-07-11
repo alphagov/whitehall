@@ -112,10 +112,6 @@ class DetailedGuide < Edition
     newly_created ? false : all_nation_applicability
   end
 
-  def base_path
-    "/guidance/#{slug}"
-  end
-
   def publishing_api_presenter
     PublishingApi::DetailedGuidePresenter
   end

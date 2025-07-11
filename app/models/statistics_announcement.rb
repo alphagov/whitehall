@@ -15,6 +15,7 @@ class StatisticsAnnouncement < ApplicationRecord
   extend FriendlyId
   friendly_id :title
   include PublishesToPublishingApi
+  include Admin::BasePathHelper
 
   def can_publish_to_publishing_api?
     super && !publication_has_been_published? && !unpublished?
@@ -152,7 +153,7 @@ class StatisticsAnnouncement < ApplicationRecord
   end
 
   def base_path
-    "/government/statistics/announcements/#{slug}"
+    document_type_and_slug_to_base_path(StatisticsAnnouncement, slug)
   end
 
   def public_path(options = {})

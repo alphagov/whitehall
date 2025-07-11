@@ -52,10 +52,6 @@ class Speech < Announcement
     Whitehall::RenderingApp::FRONTEND
   end
 
-  def base_path
-    "/government/speeches/#{slug}"
-  end
-
   def publishing_api_presenter
     PublishingApi::SpeechPresenter
   end

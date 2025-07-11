@@ -35,6 +35,17 @@ module Admin::BasePathHelper
     common_superclass(matches.map(&:keys).flatten.compact.map { |klass| Object.const_get(klass) })
   end
 
+  def document_type_and_slug_to_base_path(klass, slug)
+    matches = MAPPINGS.select do |mapping|
+      mapping.keys.first == klass.name
+    end
+    return "#{matches.first.values.first}/#{slug}" if matches.count == 1
+
+    return "/government/generic-editions/#{slug}" if matches.count.zero?
+
+    raise "Ambiguous document type #{klass}. Its base path can vary depending on other factors. You cannot use the `document_type_and_slug_to_base_path` method." if matches.count > 1
+  end
+
 private
 
   def extract_path(input)
