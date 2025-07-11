@@ -1,5 +1,5 @@
 <%
-  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links, :review_overdue]
+  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_invalid_editions, :only_broken_links, :review_overdue]
   anchor ||= anchor || ""
   raise "filter action required" unless defined?(filter_action)
 %>
@@ -153,6 +153,25 @@
           },
         } %>
       <% end %>
+    <% end %>
+
+    <% if filter_by.include?(:only_invalid_editions) %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "only_invalid_editions",
+        small: true,
+        data_attributes: {
+          ga4_change_category: "update-filter checkbox",
+          ga4_filter_parent: true,
+        },
+        items: [
+          {
+            label: "Only invalid editions",
+            value: "1",
+            bold: true,
+            checked: params["only_invalid_editions"],
+          },
+        ],
+      } %>
     <% end %>
 
     <% if filter_by.include?(:only_broken_links) %>
