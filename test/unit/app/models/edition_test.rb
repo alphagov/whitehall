@@ -786,6 +786,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.historic?
   end
 
+  test "#has_been_tagged? is false when request from publishing-api 404s" do
+    edition = create(:edition)
+
+    stub_any_publishing_api_call_to_return_not_found
+
+    assert_not edition.has_been_tagged?
+  end
+
   test "#has_been_tagged? is false when request from publishing-api has no taxons" do
     edition = create(:edition)
 
