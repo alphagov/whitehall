@@ -86,6 +86,8 @@ window.GOVUK.analyticsGa4.analyticsModules =
       try {
         const dataGa4Form = JSON.parse(form.getAttribute('data-ga4-form'))
 
+        if (!activeElement.matches('button[type=submit]')) return
+
         dataGa4Form.action = activeElement.textContent
 
         form.setAttribute('data-ga4-form', JSON.stringify(dataGa4Form))
