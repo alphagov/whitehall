@@ -18,17 +18,19 @@
   } %>
 <% end %>
 
-<%= render "govuk_publishing_components/components/add_another", {
-  fieldset_legend: "Featured link",
-  add_button_text: "Add another featured link",
-  items: featured_links.each_with_index.map do  |featured_link, index|
-    {
-      fields: render(partial: "admin/shared/featured_link_fields", locals: { form:, featured_link:, index:, model: }),
-      destroy_checkbox: render("govuk_publishing_components/components/checkboxes", { name: "#{model}[featured_links_attributes][#{index}][_destroy]", items: [{label: "Delete", value: "1" }]}),
-    }
-  end,
-  empty: render(partial: "admin/shared/featured_link_fields", locals: { form:, featured_link: new_featured_link, index: featured_links.length, model: }),
-  data_attributes: {
-    ga4_start_index: 0,
-  },
-} %>
+<div data-ga4-section="Featured link">
+  <%= render "govuk_publishing_components/components/add_another", {
+    fieldset_legend: "Featured link",
+    add_button_text: "Add another featured link",
+    items: featured_links.each_with_index.map do  |featured_link, index|
+      {
+        fields: render(partial: "admin/shared/featured_link_fields", locals: { form:, featured_link:, index:, model: }),
+        destroy_checkbox: render("govuk_publishing_components/components/checkboxes", { name: "#{model}[featured_links_attributes][#{index}][_destroy]", items: [{label: "Delete", value: "1" }]}),
+      }
+    end,
+    empty: render(partial: "admin/shared/featured_link_fields", locals: { form:, featured_link: new_featured_link, index: featured_links.length, model: }),
+    data_attributes: {
+      ga4_start_index: 0,
+    },
+  } %>
+</div>
