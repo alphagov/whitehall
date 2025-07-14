@@ -183,6 +183,7 @@ FactoryBot.define do
   factory :superseded_edition, parent: :edition, traits: [:superseded]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
   factory :force_scheduled_edition, parent: :edition, traits: [:force_scheduled]
+  factory :force_published_edition, parent: :edition, traits: [:force_published]
   factory :unpublished_edition, parent: :edition, traits: [:unpublished]
   factory :withdrawn_edition, parent: :edition, traits: [:withdrawn]
   factory :protected_edition, parent: :edition, traits: [:access_limited]
