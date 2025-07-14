@@ -62,7 +62,7 @@ class ContentBlockManager::PublishEditionServiceTest < ActiveSupport::TestCase
         },
       )
 
-      Services.publishing_api.expects(:publish).with(content_id, "content_block")
+      Services.publishing_api.expects(:publish).with(content_id)
 
       ContentBlockManager::PublishEditionService.new.call(edition)
 
