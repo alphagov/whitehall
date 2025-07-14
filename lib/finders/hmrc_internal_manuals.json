@@ -63,12 +63,13 @@
         "type": "text"
       },
       {
-        "name": "Published",
+        "name": "Last Updated",
         "key": "public_timestamp",
         "type": "date",
         "display_as_result_metadata": true,
         "filterable": true,
-        "short_name": "Published at"
+        "short_name": "Updated",
+        "preposition": "Updated"
       }
     ],
     "filter": {
