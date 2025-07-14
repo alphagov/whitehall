@@ -15,8 +15,8 @@ class EditionScheduler < EditionService
     return @failure_reasons if @failure_reasons
 
     reasons = []
-    if !edition.valid?
-      reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
+    if !edition.valid?(:publish)
+      reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
     elsif !can_transition?
       reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}"
     elsif edition.scheduled_publication.blank?
@@ -32,10 +32,6 @@ class EditionScheduler < EditionService
   end
 
 private
-
-  def govspeak_link_validator
-    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
-  end
 
   def fire_transition!
     super

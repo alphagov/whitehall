@@ -75,6 +75,7 @@ class ActiveSupport::TestCase
     stub_publishing_api_publish_intent
     Services.publishing_api.stubs(:get_events_for_content_id).returns([])
     Services.stubs(:asset_manager).returns(stub_everything("asset-manager"))
+    TaxonValidator.any_instance.stubs(:validate)
   end
 
   teardown do
@@ -240,8 +241,8 @@ class ActionController::TestCase
     # header.
     stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
     stub_publishing_api_has_linkables([], document_type: "topic")
-
     stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/links/}).to_return(body: { links: {} }.to_json)
+    TaxonValidator.any_instance.stubs(:validate)
   end
 
   def login_as(role_or_user, organisation = nil)

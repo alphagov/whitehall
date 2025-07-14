@@ -56,6 +56,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test "GET #confirm_force_publish redirects when edition must tagged be taxons but is not" do
+    TaxonValidator.any_instance.unstub(:validate)
     stub_publishing_api_links_with_taxons(draft_edition.content_id, [])
 
     get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
