@@ -12,6 +12,39 @@
     "document_noun": "result",
     "facets": [
       {
+        "key": "related_to_business_tax",
+        "filter_key": "part_of_taxonomy_tree",
+        "filter_value": "28262ae3-599c-4259-ae30-3c83a5ec02a1",
+        "name": "Business tax",
+        "short_name": "Business tax",
+        "type": "checkbox",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
+      },
+      {
+        "key": "related_to_trade_and_investment",
+        "filter_key": "part_of_taxonomy_tree",
+        "filter_value": "ed2ca1f7-5463-4eda-9324-b597e269e242",
+        "name": "Trade and investment",
+        "short_name": "Trade",
+        "type": "checkbox",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
+      },
+      {
+        "key": "related_to_consumer_rights",
+        "filter_key": "part_of_taxonomy_tree",
+        "filter_value": "da0bc015-f8e5-492c-8d81-6fbf9b18947c",
+        "name": "Consumer rights and issues",
+        "short_name": "Consumer rights",
+        "type": "checkbox",
+        "display_as_result_metadata": false,
+        "filterable": true,
+        "preposition": "about"
+      },
+      {
         "allowed_values": [
           {
             "label": "HMRC Manual",
