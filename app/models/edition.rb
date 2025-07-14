@@ -25,6 +25,7 @@ class Edition < ApplicationRecord
   include Edition::Scopes::Orderable
   include Edition::Scopes::SearchableByTitle
   include Edition::Scopes::FilterableByAuthor
+  include Edition::Scopes::FilterableByInvalid
   include Edition::Scopes::FilterableByBrokenLinks
   include Edition::Scopes::FilterableByDate
   include Edition::Scopes::FilterableByTopicalEvent
