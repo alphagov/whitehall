@@ -168,6 +168,8 @@ class Edition < ApplicationRecord
     return false if api_response["links"].nil? || api_response["links"]["taxons"].nil?
 
     api_response["links"]["taxons"].any?
+  rescue GdsApi::HTTPNotFound
+    false
   end
 
   def create_draft(user, allow_creating_draft_from_deleted_edition: false)
