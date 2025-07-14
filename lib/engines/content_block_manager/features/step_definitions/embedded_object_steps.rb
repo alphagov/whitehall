@@ -68,6 +68,33 @@ And("I add the following {string} to the form:") do |item_type, table|
   end
 end
 
+Given("I indicate that the call charges info URL should be shown") do
+  check "Show hyperlink to 'Find out about call charges'"
+end
+
+Given("I change the call charges info URL from its default value") do
+  fill_in("URL to find out about call charges", with: "https://custom.example.com")
+end
+
+When("I should see that the call charges info URL is to be shown") do
+  # navigate to "telephones" tab
+  find("#tab_telephones").click
+  # expand the list of telphone details
+  find("span[data-ga4-expandable='']", text: "All telephone attributes").click
+
+  within(".gem-c-summary-card[title='Call Charges']") do
+    expect(page).to have_css("dt", text: "Show call charges info url")
+    expect(page).to have_css("dt", text: "on")
+  end
+end
+
+When("I should see that the call charges info URL is not the default value") do
+  within(".gem-c-summary-card[title='Call Charges']") do
+    expect(page).not_to have_content("https://gov.uk/call-charges")
+    expect(page).to have_content("https://custom.example.com")
+  end
+end
+
 Then("I should be asked to review my {string}") do |object_type|
   assert_text "Review #{object_type}"
 end

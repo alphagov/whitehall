@@ -45,8 +45,7 @@ Feature: Create a contact object
       "type":"object",
       "required": [
         "title",
-        "telephone_numbers",
-        "show_uk_call_charges"
+        "telephone_numbers"
       ],
       "properties": {
         "telephone_numbers": {
@@ -79,12 +78,18 @@ Feature: Create a contact object
         "title": {
           "type": "string"
         },
-        "show_uk_call_charges": {
-          "type": "string",
-          "enum": [
-            "true",
-            "false"
-          ]
+        "call_charges": {
+          "type": "object",
+          "properties": {
+            "call_charges_info_url": {
+              "type": "string",
+              "default": "https://gov.uk/call-charges"
+            },
+            "show_call_charges_info_url": {
+              "type": "boolean",
+              "default": false
+            }
+          }
         },
         "opening_hours": {
           "type": "array",
@@ -141,6 +146,8 @@ Feature: Create a contact object
       | label       | telephone_number | type      |
       | Telephone 1 | 12345            | Telephone |
       | Telephone 2 | 6789             | Textphone |
+    And I indicate that the call charges info URL should be shown
+    And I change the call charges info URL from its default value
     And I add the following "opening_hours" to the form:
       | day_from | day_to | time_from | time_to |
       | Monday   | Friday | 9:00AM    | 5:00PM  |
@@ -153,6 +160,8 @@ Feature: Create a contact object
     When I click to view the content block
     And I should see the created embedded object of type "email_address"
     And I should see the created embedded object of type "telephone"
+    And I should see that the call charges info URL is to be shown
+    And I should see that the call charges info URL is not the default value
 
   @javascript
   Scenario: GDS editor sees errors for invalid telephone objects
