@@ -6,8 +6,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CallChargesComp
   let(:content_block_edition) { build(:content_block_edition, :contact) }
   let(:call_charges_nested_fields) do
     [
-      stub("field", name: "show_call_charges_info_url"),
-      stub("field", name: "call_charges_info_url"),
+      stub("field", name: "show_call_charges_info_url", default_value: nil),
+      stub("field", name: "call_charges_info_url", default_value: "https://default.example.com"),
     ]
   end
   let(:schema) { stub("schema", id: "root") }
@@ -109,7 +109,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CallChargesComp
             component.assert_selector(
               "input" \
               "[name='content_block/edition[details][call_charges][call_charges_info_url]']" \
-              "[value='https://gov.uk/call-charges']",
+              "[value='https://default.example.com']",
             )
           end
         end

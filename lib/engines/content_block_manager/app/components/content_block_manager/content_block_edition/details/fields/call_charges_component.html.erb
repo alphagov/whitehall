@@ -10,7 +10,7 @@
               },
               name: name_for_field(call_charges_info_url) ,
               id: id_for_field(call_charges_info_url),
-              value: value_for_field(call_charges_info_url) || "https://gov.uk/call-charges",
+              value: value_for_field(call_charges_info_url) || call_charges_info_url.default_value,
             }) %>
   <% end %>
 
