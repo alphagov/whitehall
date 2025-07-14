@@ -85,7 +85,8 @@
     "show_metadata_block": true,
     "show_table_of_contents": true,
     "sort": [
-      {"key": "-popularity", "name": "Most viewed", "default":  true},
+      {"key": "title", "name": "A-Z", "default":  true},
+      {"key": "-popularity", "name": "Most viewed"},
       {"key": "-relevance", "name": "Relevance"},
       {"key": "-public_timestamp", "name": "Updated (newest)"},
       {"key": "public_timestamp", "name": "Updated (oldest)"}
