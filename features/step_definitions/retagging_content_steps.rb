@@ -1,9 +1,9 @@
 # rubocop:disable Style/GlobalVars
 Given("the documents and organisations I am retagging exist") do
   $csv_to_submit = <<~CSV
-    Slug,New lead organisations,New supporting organisations,Document type
-    /government/publications/linked-identifier-schemes-best-practice-guide,"cabinet-office,government-digital-service",geospatial-commission,Publication
-    /government/publications/search-engine-optimisation-for-publishers-best-practice-guide,government-digital-service,"cabinet-office, geospatial-commission",Publication
+    URL,New lead organisations,New supporting organisations
+    https://www.gov.uk/government/publications/linked-identifier-schemes-best-practice-guide,"cabinet-office,government-digital-service",geospatial-commission
+    https://www.gov.uk/government/publications/search-engine-optimisation-for-publishers-best-practice-guide,government-digital-service,"cabinet-office, geospatial-commission"
   CSV
 
   create(:organisation, slug: "government-digital-service")
