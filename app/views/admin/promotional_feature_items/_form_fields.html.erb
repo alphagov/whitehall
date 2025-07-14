@@ -68,6 +68,9 @@
 <%= render "govuk_publishing_components/components/fieldset", {
   legend_text: "Feature item links",
   heading_size: "l",
+  data_attributes: {
+    ga4_section: "Feature item links",
+  },
 } do %>
   <%= render "govuk_publishing_components/components/add_another", {
     fieldset_legend: "Link",

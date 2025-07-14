@@ -136,6 +136,9 @@
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Social media accounts",
     heading_size: "l",
+    data_attributes: {
+      ga4_section: "Social media accounts",
+    },
   } do %>
     <%= render "govuk_publishing_components/components/add_another", {
       fieldset_legend: "Account",
