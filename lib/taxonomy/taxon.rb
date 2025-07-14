@@ -48,8 +48,6 @@ module Taxonomy
     end
 
     # Get ancestors of a taxon
-    #
-    # @return [Array] all taxons in the path from the root of the taxonomy to the parent taxon
     def ancestors
       if parent_node.nil?
         []
@@ -59,8 +57,6 @@ module Taxonomy
     end
 
     # Get a breadcrumb trail for a taxon
-    #
-    # @return [Array] all taxons in the path from the root of the taxonomy to this taxon
     def breadcrumb_trail
       ancestors + [self]
     end
