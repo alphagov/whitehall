@@ -76,6 +76,12 @@ Given("I change the call charges info URL from its default value") do
   fill_in("URL to find out about call charges", with: "https://custom.example.com")
 end
 
+Given("I change the call charges info label from its default value") do
+  within(".app-c-content-block-manager-call-charges-component") do
+    fill_in("Label", with: "Learn about the cost of calls (custom label)")
+  end
+end
+
 When("I should see that the call charges info URL is to be shown") do
   # navigate to "telephones" tab
   find("#tab_telephones").click
@@ -92,6 +98,13 @@ When("I should see that the call charges info URL is not the default value") do
   within(".gem-c-summary-card[title='Call Charges']") do
     expect(page).not_to have_content("https://gov.uk/call-charges")
     expect(page).to have_content("https://custom.example.com")
+  end
+end
+
+When("I should see that the call charges info label is not the default value") do
+  within(".gem-c-summary-card[title='Call Charges']") do
+    expect(page).not_to have_content("Find out about call charges")
+    expect(page).to have_content("Learn about the cost of calls (custom label)")
   end
 end
 

@@ -81,6 +81,10 @@ Feature: Create a contact object
         "call_charges": {
           "type": "object",
           "properties": {
+            "label": {
+              "type": "string",
+              "default": "Find out about call charges"
+            },
             "call_charges_info_url": {
               "type": "string",
               "default": "https://gov.uk/call-charges"
@@ -148,6 +152,7 @@ Feature: Create a contact object
       | Telephone 2 | 6789             | Textphone |
     And I indicate that the call charges info URL should be shown
     And I change the call charges info URL from its default value
+    And I change the call charges info label from its default value
     And I add the following "opening_hours" to the form:
       | day_from | day_to | time_from | time_to |
       | Monday   | Friday | 9:00AM    | 5:00PM  |
@@ -162,6 +167,7 @@ Feature: Create a contact object
     And I should see the created embedded object of type "telephone"
     And I should see that the call charges info URL is to be shown
     And I should see that the call charges info URL is not the default value
+    And I should see that the call charges info label is not the default value
 
   @javascript
   Scenario: GDS editor sees errors for invalid telephone objects

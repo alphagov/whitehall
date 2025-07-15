@@ -2,8 +2,18 @@
 
   <% show_call_charges_info_url = field.nested_field("show_call_charges_info_url") %>
   <% call_charges_info_url = field.nested_field("call_charges_info_url") %>
+  <% label = field.nested_field("label") %>
 
   <% call_charges_url_input = capture do %>
+    <%= render("govuk_publishing_components/components/input", {
+              label: {
+              text: "Label",
+            },
+            name: name_for_field(label) ,
+            id: id_for_field(label),
+            value: value_for_field(label) || label.default_value,
+          }) %>
+
     <%= render("govuk_publishing_components/components/input", {
                 label: {
                 text: "URL to find out about call charges",
