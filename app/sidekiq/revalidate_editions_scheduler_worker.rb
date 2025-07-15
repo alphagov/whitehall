@@ -2,11 +2,8 @@ class RevalidateEditionsSchedulerWorker
   include Sidekiq::Job
   sidekiq_options queue: "edition_revalidation", retry: 0
 
-  BATCH_SIZE  = ENV.fetch("REVALIDATE_BATCH_SIZE", 100).to_i
-  MAX_BATCHES = ENV.fetch("REVALIDATE_MAX_BATCHES", 1000).to_i # 1000 × 100 = 100 000 editions/run
-  def self.stale_after
-    1.week.ago
-  end
+  BATCH_SIZE  = 100
+  MAX_BATCHES = 1000 # 1000 × 100 = 100 000 editions/run
 
   def perform
     scope = Edition.not_validated_since(1.week.ago.strftime("%d/%m/%Y"))
