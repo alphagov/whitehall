@@ -280,7 +280,7 @@ end
 
 Then("I should see the details for the contact content block") do
   expect(page).to have_selector("h1", text: @content_block.document.title)
-  should_show_generic_content_block_details("contact", @content_block.document.title, @organisation)
+  should_show_generic_content_block_details(@content_block.document.title, @organisation)
 end
 
 When("I click the first edit link") do

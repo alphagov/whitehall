@@ -4,19 +4,18 @@ def should_show_summary_title_for_generic_content_block(document_title)
 end
 
 def should_show_summary_card_for_contact_content_block(document_title, email_address, organisation, instructions_to_publishers = nil)
-  should_show_generic_content_block_details("contact", document_title, organisation, instructions_to_publishers)
+  should_show_generic_content_block_details(document_title, organisation, instructions_to_publishers)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Email address")
   expect(page).to have_selector(".govuk-summary-list__value", text: email_address)
 end
 
 def should_show_summary_card_for_pension_content_block(document_title, description, organisation, instructions_to_publishers = nil)
-  should_show_generic_content_block_details("pension", document_title, organisation, instructions_to_publishers)
+  should_show_generic_content_block_details(document_title, organisation, instructions_to_publishers)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Description")
   expect(page).to have_selector(".govuk-summary-list__value", text: description)
 end
 
-def should_show_generic_content_block_details(block_type, document_title, organisation, instructions_to_publishers = nil)
-  expect(page).to have_selector(".govuk-summary-card__title", text: "#{block_type.humanize} details")
+def should_show_generic_content_block_details(document_title, organisation, instructions_to_publishers = nil)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Title")
   expect(page).to have_selector(".govuk-summary-list__value", text: document_title)
   expect(page).to have_selector(".govuk-summary-list__key", text: "Lead organisation")

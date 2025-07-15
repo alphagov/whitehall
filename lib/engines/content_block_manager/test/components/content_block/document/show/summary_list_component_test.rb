@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTest < ViewComponent::TestCase
+class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
 
   include ActionView::Helpers::TagHelper
@@ -41,7 +41,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
   it "renders a scheduled content block correctly" do
     content_block_document.latest_edition.state = "scheduled"
 
-    render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
+    render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
     assert_selector ".govuk-summary-list__row", count: 6
 
@@ -55,7 +55,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
     it "renders them" do
       content_block_document.latest_edition.instructions_to_publishers = "instructions"
 
-      render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
+      render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
       assert_selector ".govuk-summary-list__key", text: "Instructions to publishers"
       assert_selector ".govuk-summary-list__value p", text: "instructions"
@@ -68,7 +68,7 @@ class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponentTes
     end
 
     it "assembles the embed code functionality" do
-      render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent.new(content_block_document:))
+      render_inline(ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent.new(content_block_document:))
 
       assert_selector ".govuk-summary-list__row", count: 7
 

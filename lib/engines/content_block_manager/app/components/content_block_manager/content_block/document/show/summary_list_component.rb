@@ -1,4 +1,4 @@
-class ContentBlockManager::ContentBlock::Document::Show::SummaryCardComponent < ViewComponent::Base
+class ContentBlockManager::ContentBlock::Document::Show::SummaryListComponent < ViewComponent::Base
   include ContentBlockManager::ContentBlock::EditionHelper
   include ContentBlockManager::ContentBlock::EmbedCodeHelper
 
@@ -10,7 +10,7 @@ private
 
   attr_reader :content_block_document
 
-  def rows
+  def items
     [
       title_item,
       *details_items,
@@ -20,27 +20,23 @@ private
     ].compact
   end
 
-  def title
-    "#{content_block_document.block_type.humanize} details"
-  end
-
   def title_item
     {
-      key: "Title",
+      field: "Title",
       value: content_block_document.title,
     }
   end
 
   def organisation_item
     {
-      key: "Lead organisation",
+      field: "Lead organisation",
       value: content_block_edition.lead_organisation,
     }
   end
 
   def instructions_item
     {
-      key: "Instructions to publishers",
+      field: "Instructions to publishers",
       value: formatted_instructions_to_publishers(content_block_edition),
     }
   end
@@ -49,7 +45,7 @@ private
     schema.fields.map { |field|
       key = field.name
       rows = [{
-        key: key.humanize,
+        field: key.humanize,
         value: content_block_edition.details[key],
         data: data_attributes_for_row(key),
       }]
@@ -77,18 +73,16 @@ private
   def status_item
     if content_block_edition.state == "scheduled"
       {
-        key: "Status",
+        field: "Status",
         value: scheduled_value,
-        actions: [
-          {
-            label: sanitize("Edit <span class='govuk-visually-hidden'>schedule</span>"),
-            href: helpers.content_block_manager.content_block_manager_content_block_document_schedule_edit_path(content_block_document),
-          },
-        ],
+        edit: {
+          href: helpers.content_block_manager.content_block_manager_content_block_document_schedule_edit_path(content_block_document),
+          link_text: sanitize("Edit <span class='govuk-visually-hidden'>schedule</span>"),
+        },
       }
     else
       {
-        key: "Status",
+        field: "Status",
         value: last_updated_value,
       }
     end
