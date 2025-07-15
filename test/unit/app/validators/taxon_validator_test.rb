@@ -6,6 +6,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
   end
 
   test "is invalid when edition has not been tagged to a taxon" do
+    TaxonValidator.any_instance.unstub(:validate)
     edition = create(:draft_edition)
 
     stub_publishing_api_has_links(

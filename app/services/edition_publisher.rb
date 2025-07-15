@@ -7,7 +7,7 @@ class EditionPublisher < EditionService
     return @failure_reasons if @failure_reasons
 
     reasons = []
-    reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
+    reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?(:publish)
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
     reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}" if scheduled_for_publication?
 
@@ -16,10 +16,6 @@ class EditionPublisher < EditionService
 
   def failure_reasons_plaintext
     failure_reasons.map { |reason| ActionController::Base.helpers.strip_tags(reason).gsub(/\s+/, " ") }.join(", ")
-  end
-
-  def govspeak_link_validator
-    @govspeak_link_validator ||= DataHygiene::GovspeakLinkValidator.new(edition.body)
   end
 
   def verb
