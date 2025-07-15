@@ -210,11 +210,16 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal content_block_edition.details["something"], { "another-thing" => {}, "my-thing" => { "title" => "My thing", "something" => "else" } }
     end
 
-    it "creates a random key if a title is not provided" do
-      SecureRandom.expects(:alphanumeric).returns("RANDOM-STRING")
-      content_block_edition.add_object_to_details("something", { "something" => "else" })
+    describe "when a title is not provided" do
+      it "creates a key using the object type and count of objects" do
+        content_block_edition.add_object_to_details("something", { "something" => "else" })
+        content_block_edition.add_object_to_details("something", { "something" => "additional" })
 
-      assert_equal content_block_edition.details["something"], { "random-string" => { "something" => "else" } }
+        assert_equal content_block_edition.details["something"], {
+          "something-1" => { "something" => "else" },
+          "something-2" => { "something" => "additional" },
+        }
+      end
     end
 
     it "removes deleted items from the array, as well as the `_destroy` markers" do
