@@ -4,21 +4,29 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CallChargesComp
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :contact) }
-  let(:call_charges_nested_fields) do
-    [
-      stub("field", name: "show_call_charges_info_url", default_value: nil),
-      stub("field", name: "call_charges_info_url", default_value: "https://default.example.com"),
-    ]
+  let(:schema) { build(:content_block_schema) }
+
+  let(:body) do
+    {
+      "type" => "object",
+      "properties" =>
+        { "call_charges" =>
+          { "type" => "object",
+            "properties" =>
+          { "label" => { "type" => "string", "default" => "Find out about call charges" },
+            "call_charges_info_url" => { "type" => "string", "default" => "https://default.example.com" },
+            "show_call_charges_info_url" => { "type" => "boolean", "default" => false } } } },
+    }
   end
-  let(:schema) { stub("schema", id: "root") }
+
+  before do
+    schema.stubs(:body).returns(body)
+  end
 
   let(:field) do
-    stub(
-      "field",
-      name: "call_charges",
-      nested_fields: call_charges_nested_fields,
-      schema:,
-      is_required?: true,
+    ContentBlockManager::ContentBlock::Schema::Field.new(
+      "call_charges",
+      schema,
     )
   end
 

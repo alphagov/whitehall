@@ -145,6 +145,55 @@ class ContentBlockManager::ContentBlock::Schema::FieldTest < ActiveSupport::Test
     end
   end
 
+  describe "nested_field(name)" do
+    let(:body) do
+      {
+        "properties" => {
+          "something" => {
+            "type" => "object",
+            "properties" => {
+              "foo" => { "type" => "string" },
+              "bar" => { "type" => "string", "enum" => %w[bat cat], "default" => "cat" },
+            },
+          },
+        },
+      }
+    end
+
+    context "when no name is given" do
+      it "raises an error" do
+        error = assert_raises(ArgumentError) do
+          field.nested_field(nil)
+        end
+        assert_equal("Provide the name of a nested field", error.message)
+      end
+    end
+
+    context "when a valid name is given" do
+      let(:expected_match) do
+        ContentBlockManager::ContentBlock::Schema::Field::NestedField.new(
+          name: "bar",
+          format: "string",
+          enum_values: %w[bat cat],
+          default_value: "cat",
+        )
+      end
+
+      it "returns the nested field with the matching name" do
+        assert_equal(
+          expected_match,
+          field.nested_field("bar"),
+        )
+      end
+    end
+
+    context "when an unknown name is given" do
+      it "returns nil" do
+        assert_nil(field.nested_field("unknown_name"))
+      end
+    end
+  end
+
   describe "#array_items" do
     describe "when there are no properties present" do
       it "returns nil" do

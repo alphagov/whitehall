@@ -54,6 +54,12 @@ module ContentBlockManager
           end
         end
 
+        def nested_field(name)
+          raise(ArgumentError, "Provide the name of a nested field") if name.blank?
+
+          nested_fields.find { |field| field.name == name }
+        end
+
         def array_items
           properties.fetch("items", nil)&.tap do |array_items|
             if array_items["type"] == "object"
