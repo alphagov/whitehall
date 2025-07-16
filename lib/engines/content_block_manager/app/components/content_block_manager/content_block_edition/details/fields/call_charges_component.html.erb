@@ -3,7 +3,7 @@
   <% call_charges_url_input = capture do %>
     <%= render("govuk_publishing_components/components/input", {
               label: {
-              text: "Label",
+              text: label_for("label"),
             },
             name: name_for_field(label) ,
             id: id_for_field(label),
@@ -12,7 +12,7 @@
 
     <%= render("govuk_publishing_components/components/input", {
                 label: {
-                text: "URL to find out about call charges",
+                text: label_for("call_charges_info_url"),
               },
               name: name_for_field(call_charges_info_url) ,
               id: id_for_field(call_charges_info_url),
@@ -25,13 +25,13 @@
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: name_for_field(show_call_charges_info_url),
     id: id_for_field(show_call_charges_info_url),
-    heading: "Show call charges info link?",
+    heading: label_for("show_call_charges_info_url"),
     visually_hide_heading: true,
     no_hint_text: true,
     small: true,
     items: [
       {
-        label: "Show hyperlink to 'Find out about call charges'",
+        label: label_for("show_call_charges_info_url"),
         value: "true",
         checked: value_for_field(show_call_charges_info_url) == true,
         conditional: call_charges_url_input,
