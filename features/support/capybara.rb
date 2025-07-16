@@ -14,6 +14,10 @@ Capybara.register_driver :playwright do |app|
                                    headless: true)
 end
 
+Capybara.configure do |config|
+  config.asset_host = ENV.fetch("ASSET_HOST", nil)
+end
+
 Capybara.javascript_driver = :playwright
 
 module ScreenshotHelper

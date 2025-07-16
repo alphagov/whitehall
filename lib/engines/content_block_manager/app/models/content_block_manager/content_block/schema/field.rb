@@ -4,7 +4,11 @@ module ContentBlockManager
       class Field
         attr_reader :name, :schema
 
-        NestedField = Data.define(:name, :format, :enum_values)
+        NestedField = Data.define(:name, :format, :enum_values, :default_value) do
+          def initialize(name:, format:, enum_values:, default_value: nil)
+            super(name:, format:, enum_values:, default_value:)
+          end
+        end
 
         def initialize(name, schema)
           @name = name
@@ -40,9 +44,20 @@ module ContentBlockManager
         def nested_fields
           if format == "object"
             properties.fetch("properties", {}).map do |key, value|
-              NestedField.new(name: key, format: value["type"], enum_values: value["enum"])
+              NestedField.new(
+                name: key,
+                format: value["type"],
+                enum_values: value["enum"],
+                default_value: value["default"],
+              )
             end
           end
+        end
+
+        def nested_field(name)
+          raise(ArgumentError, "Provide the name of a nested field") if name.blank?
+
+          nested_fields.find { |field| field.name == name }
         end
 
         def array_items
