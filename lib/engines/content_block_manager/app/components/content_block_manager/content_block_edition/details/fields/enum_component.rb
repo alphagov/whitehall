@@ -5,17 +5,29 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent <
     super(**args)
   end
 
-private
-
   def options
-    [blank_option, @enum].flatten.compact.map do |item|
+    options = [
       {
+        text: blank_option,
+        value: "",
+        selected: selected?(blank_option),
+      },
+    ]
+
+    enum.each do |item|
+      options.push({
         text: item,
         value: item,
         selected: selected?(item),
-      }
+      })
     end
+
+    options
   end
+
+private
+
+  attr_reader :enum
 
   def error_message
     error_items&.first&.fetch(:text)

@@ -103,4 +103,35 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponentTe
     assert_selector ".govuk-error-message", text: "Some error goes here"
     assert_selector "select.govuk-select--error"
   end
+
+  describe "#options" do
+    it "returns a list of options" do
+      component = ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
+        content_block_edition:,
+        field:,
+        enum: ["a week", "a month"],
+      )
+
+      assert_equal component.options, [
+        { text: "", value: "", selected: true },
+        { text: "a week", value: "a week", selected: false },
+        { text: "a month", value: "a month", selected: false },
+      ]
+    end
+
+    it "sets an option as selected when value is provided" do
+      component = ContentBlockManager::ContentBlockEdition::Details::Fields::EnumComponent.new(
+        content_block_edition:,
+        field:,
+        enum: ["a week", "a month"],
+        value: "a week",
+      )
+
+      assert_equal component.options, [
+        { text: "", value: "", selected: false },
+        { text: "a week", value: "a week", selected: true },
+        { text: "a month", value: "a month", selected: false },
+      ]
+    end
+  end
 end
