@@ -80,21 +80,27 @@ schemas:
         field_order:
           - title
           - street_address
-          - locality
-          - region
+          - town_or_city
+          - state_or_county
           - postal_code
           - country
+          - description
         embeddable_as_block: true
         embeddable_fields:
+          - title
           - street_address
-          - locality
-          - region
+          - town_or_city
+          - state_or_county
           - postal_code
           - country
+          - description
         fields:
           country:
             component:
               country
+          description:
+            component:
+              textarea
       contact_forms:
         group: modes
         embeddable_as_block: true

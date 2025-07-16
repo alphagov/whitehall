@@ -69,6 +69,8 @@ en:
       labels:
         telephones:
           show_uk_call_charges: "Show hyperlink to 'Find out about call charges'"
+        addresses:
+          title: Recipient
         contacts:
           telephones:
             opening_hours:
