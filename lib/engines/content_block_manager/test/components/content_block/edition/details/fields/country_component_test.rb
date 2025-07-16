@@ -9,7 +9,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CountryComponen
   let(:world_locations) { build_list(:world_location, 5) }
 
   before do
-    WorldLocation.stubs(:all).returns(world_locations)
+    WorldLocation.stubs(:geographical).returns(world_locations)
   end
 
   it "should render an select field populated with WorldLocations" do
