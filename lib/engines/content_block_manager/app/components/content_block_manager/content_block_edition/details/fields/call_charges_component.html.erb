@@ -1,9 +1,5 @@
 <div class="app-c-content-block-manager-call-charges-component">
 
-  <% show_call_charges_info_url = field.nested_field("show_call_charges_info_url") %>
-  <% call_charges_info_url = field.nested_field("call_charges_info_url") %>
-  <% label = field.nested_field("label") %>
-
   <% call_charges_url_input = capture do %>
     <%= render("govuk_publishing_components/components/input", {
               label: {
