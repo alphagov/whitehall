@@ -72,6 +72,10 @@ en:
           bsl_guidance:
             show: Show BSL guidance?
             value: Value
+          video_relay_service:
+            show: Include Relay UK?
+            prefix: Prefix
+            telephone_number: Telephone number
         addresses:
           title: Recipient
         contacts:
