@@ -67,10 +67,12 @@ en:
             "Set default body content that will automatically pre-fill when users send an email. 
             For example: 'The body of the email must include your name, date of birth, passport number and mobile phone number.'"
       labels:
-        telephones:
-          show_uk_call_charges: "Show hyperlink to 'Find out about call charges'"
         addresses:
           title: Recipient
+        call_charges:
+          show_call_charges_info_url: "Show hyperlink to 'Find out about call charges'"
+          label: "Label"
+          call_charges_info_url: "URL to find out about call charges"
         contacts:
           telephones:
             opening_hours:
