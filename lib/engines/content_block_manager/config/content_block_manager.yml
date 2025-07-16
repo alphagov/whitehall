@@ -91,6 +91,10 @@ schemas:
           - region
           - postal_code
           - country
+        fields:
+          country:
+            component:
+              country
       contact_forms:
         group: modes
         embeddable_as_block: true
