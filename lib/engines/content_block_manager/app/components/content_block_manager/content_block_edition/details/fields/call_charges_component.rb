@@ -10,4 +10,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CallChargesComp
   def label
     field.nested_field("label")
   end
+
+  def label_for(name)
+    I18n.t("content_block_edition.details.labels.call_charges.#{name}")
+  end
 end
