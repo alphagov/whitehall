@@ -74,14 +74,14 @@ module ContentBlockManager
     private
 
       def remove_destroyed(item)
-        item.each_with_object({}) { |(key, value), hash|
+        item.transform_values { |value|
           case value
-          when String
-            hash[key] = value
           when Hash
-            hash[key] = remove_destroyed(value)
+            remove_destroyed(value)
           when Array
-            hash[key] = value.select { |i| !i.is_a?(Hash) || i.delete("_destroy") != "1" }
+            value.select { |i| !i.is_a?(Hash) || i.delete("_destroy") != "1" }
+          else
+            value
           end
         }.to_h
       end

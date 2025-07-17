@@ -12,11 +12,26 @@ class ParamsPreprocessors::TelephonePreprocessor
     if params.dig("content_block/edition", "details", "telephones", "opening_hours")
       params["hours_available"] ? format_opening_hours : strip_opening_hours
     end
+
+    params["content_block/edition"]["details"]["telephones"]["call_charges"] = format_call_charges
   end
 
 private
 
   attr_accessor :params
+
+  def format_call_charges
+    call_charges = params["content_block/edition"]["details"]["telephones"]["call_charges"]
+    if call_charges
+      call_charges["show_call_charges_info_url"] = ActiveRecord::Type::Boolean.new.cast(call_charges["show_call_charges_info_url"]) || false
+
+      if call_charges["show_call_charges_info_url"] == false
+        call_charges = {}
+      end
+
+      call_charges
+    end
+  end
 
   def format_opening_hours
     params["content_block/edition"]["details"]["telephones"]["opening_hours"].map! do |hours|
