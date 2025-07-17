@@ -9,51 +9,18 @@
   "rendering_app": "finder-frontend",
   "update_type": "major",
   "details": {
-    "document_noun": "result",
+    "summary": [
+      {
+        "content": "These manuals contain technical guidance for HMRC staff and tax professionals and are also published in accordance with the [HMRC Publication scheme](https://www.gov.uk/government/organisations/hm-revenue-customs/about/publication-scheme).\n\nThe guidance is not comprehensive and does not provide a definitive answer in every case. It is based on the law as it stood when they were published. HMRC publishes amended or supplementary guidance if there's a change in the law or in the department's interpretation of it.\n\nFind out [how HMRC advice and information can help you](https://www.gov.uk/guidance/when-you-can-rely-on-information-or-advice-provided-by-hm-revenue-and-customs).",
+        "content_type": "text/govspeak"
+      }
+    ],
+    "filter": { "content_store_document_type": ["hmrc_manual", "hmrc_manual_section"] },
     "facets": [
       {
-        "key": "related_to_business_tax",
-        "filter_key": "part_of_taxonomy_tree",
-        "filter_value": "28262ae3-599c-4259-ae30-3c83a5ec02a1",
-        "name": "Business tax",
-        "short_name": "Business tax",
-        "type": "checkbox",
-        "display_as_result_metadata": false,
-        "filterable": true,
-        "preposition": "about"
-      },
-      {
-        "key": "related_to_trade_and_investment",
-        "filter_key": "part_of_taxonomy_tree",
-        "filter_value": "ed2ca1f7-5463-4eda-9324-b597e269e242",
-        "name": "Trade and investment",
-        "short_name": "Trade",
-        "type": "checkbox",
-        "display_as_result_metadata": false,
-        "filterable": true,
-        "preposition": "about"
-      },
-      {
-        "key": "related_to_consumer_rights",
-        "filter_key": "part_of_taxonomy_tree",
-        "filter_value": "da0bc015-f8e5-492c-8d81-6fbf9b18947c",
-        "name": "Consumer rights and issues",
-        "short_name": "Consumer rights",
-        "type": "checkbox",
-        "display_as_result_metadata": false,
-        "filterable": true,
-        "preposition": "about"
-      },
-      {
         "allowed_values": [
-          {
-            "label": "HMRC Manual Landing Page",
-            "value": "hmrc_manual"
-          },
-          {
-            "label": "HMRC Manual Content Page",
-            "value": "hmrc_manual_section"
-          }
+          { "label": "HMRC Manual Landing Page", "value": "hmrc_manual" },
+          { "label": "HMRC Manual Content Page", "value": "hmrc_manual_section" }
         ],
         "display_as_result_metadata": false,
         "filterable": true,
@@ -72,18 +39,6 @@
         "preposition": "Updated"
       }
     ],
-    "filter": {
-      "content_store_document_type": ["hmrc_manual", "hmrc_manual_section"]
-    },
-    "summary": [
-      {
-        "content_type": "text/govspeak",
-        "content": "These manuals contain technical guidance for HMRC staff and tax professionals and are also published in accordance with the [HMRC Publication scheme](https://www.gov.uk/government/organisations/hm-revenue-customs/about/publication-scheme).\n\nThe guidance is not comprehensive and does not provide a definitive answer in every case. It is based on the law as it stood when they were published. HMRC publishes amended or supplementary guidance if there's a change in the law or in the department's interpretation of it.\n\nFind out [how HMRC advice and information can help you](https://www.gov.uk/guidance/when-you-can-rely-on-information-or-advice-provided-by-hm-revenue-and-customs)."
-      }
-    ],
-    "show_summaries": false,
-    "show_metadata_block": true,
-    "show_table_of_contents": true,
     "sort": [
       {"key": "title", "name": "A-Z", "default":  true},
       {"key": "-popularity", "name": "Most viewed"},
@@ -91,6 +46,10 @@
       {"key": "-public_timestamp", "name": "Updated (newest)"},
       {"key": "public_timestamp", "name": "Updated (oldest)"}
     ],
+    "document_noun": "result",
+    "show_summaries": false,
+    "show_metadata_block": true,
+    "show_table_of_contents": true,
     "default_documents_per_page": 50
   },
   "routes": [
