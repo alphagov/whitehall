@@ -19,7 +19,7 @@ class LinkCheckReportValidatorTest < ActiveSupport::TestCase
 
     assert_equal 1, edition.errors.count
     assert_equal(
-      "This document has not been published. You need to remove dangerous links before publishing.",
+      "You need to remove dangerous links before publishing.",
       edition.errors[:base].first,
     )
   end
