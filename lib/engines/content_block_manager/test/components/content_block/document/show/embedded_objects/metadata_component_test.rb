@@ -80,6 +80,38 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Metada
 
       assert_text "STUB_RESPONSE"
     end
+
+    context "when nested fields exist" do
+      let(:items) do
+        {
+          "foo" => "bar",
+          "nested" => {
+            "field" => "item",
+          },
+        }
+      end
+
+      it "supports nested fields" do
+        component.expects(:render).with(
+          "govuk_publishing_components/components/summary_list", {
+            items: [
+              {
+                field: "Foo",
+                value: "bar",
+              },
+              {
+                field: "Nested",
+                value: { "field" => "item" },
+              },
+            ],
+          }
+        ).returns("STUB_RESPONSE")
+
+        render_inline component
+
+        assert_text "STUB_RESPONSE"
+      end
+    end
   end
 
   context "when a field order IS defined" do
