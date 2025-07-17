@@ -67,6 +67,9 @@ schemas:
           call_charges:
             component:
               call_charges
+          bsl_guidance:
+            component:
+              bsl_guidance
           telephone_numbers:
             data_attributes:
               module: auto-populate-telephone-number-label
