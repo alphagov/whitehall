@@ -14,6 +14,7 @@ class ParamsPreprocessors::TelephonePreprocessor
     end
 
     params["content_block/edition"]["details"]["telephones"]["call_charges"] = format_call_charges
+    params["content_block/edition"]["details"]["telephones"]["bsl_guidance"] = format_bsl_guidance
   end
 
 private
@@ -30,6 +31,19 @@ private
       end
 
       call_charges
+    end
+  end
+
+  def format_bsl_guidance
+    bsl_guidance = params["content_block/edition"]["details"]["telephones"]["bsl_guidance"]
+    if bsl_guidance
+      bsl_guidance["show"] = ActiveRecord::Type::Boolean.new.cast(bsl_guidance["show"]) || false
+
+      if bsl_guidance["show"] == false
+        bsl_guidance = {}
+      end
+
+      bsl_guidance
     end
   end
 
