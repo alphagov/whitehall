@@ -53,10 +53,10 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CallChargesComp
         end
       end
 
-      context "when the 'show_call_charges_info_url' value is 'on'" do
+      context "when the 'show_call_charges_info_url' value is true" do
         let(:field_value) do
           { "call_charges_info_url" => nil,
-            "show_call_charges_info_url" => "on" }
+            "show_call_charges_info_url" => true }
         end
 
         it "sets the checkbox to _checked_" do
@@ -68,10 +68,10 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CallChargesComp
         end
       end
 
-      context "when the 'show_call_charges_info_url' value is 'off'" do
+      context "when the 'show_call_charges_info_url' value is false" do
         let(:field_value) do
           { "call_charges_info_url" => nil,
-            "show_call_charges_info_url" => "off" }
+            "show_call_charges_info_url" => false }
         end
 
         it "sets the checkbox to _unchecked_" do
