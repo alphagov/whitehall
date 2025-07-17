@@ -20,8 +20,10 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
   end
 
   let(:show_call_charges_info_url) { "true" }
-  let(:hours_available) { "1" }
+  let(:show_video_relay_service) { "true" }
   let(:show_bsl_guidance) { "true" }
+
+  let(:hours_available) { "1" }
 
   let(:call_charges) do
     {
@@ -38,9 +40,18 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
     }
   end
 
+  let(:video_relay_service) do
+    {
+      "show" => show_video_relay_service,
+      "telephone_number_prefix" => "**Custom** prefix 121212 then",
+      "telephone_number" => "1234 123 1234",
+    }
+  end
+
   let(:details) do
     {
       "telephones" => {
+        "video_relay_service" => video_relay_service,
         "opening_hours" => opening_hours,
         "call_charges" => call_charges,
         "bsl_guidance" => bsl_guidance,
@@ -136,6 +147,51 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
         result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
 
         assert_equal result["content_block/edition"]["details"]["telephones"]["bsl_guidance"], {}
+      end
+    end
+  end
+
+  describe "processing of 'video relay service' object" do
+    describe "when 'show' is set to a `true` string" do
+      let(:show_video_relay_service) { "true" }
+
+      it "converts the string to a boolean" do
+        result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
+
+        assert_equal(
+          {
+            "show" => true,
+            "telephone_number_prefix" => "**Custom** prefix 121212 then",
+            "telephone_number" => "1234 123 1234",
+          },
+          result["content_block/edition"]["details"]["telephones"]["video_relay_service"],
+        )
+      end
+    end
+
+    describe "when 'show' is set to a `false` string" do
+      let(:show_video_relay_service) { "false" }
+
+      it "empties the video relay service object" do
+        result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
+
+        assert_equal(
+          {},
+          result["content_block/edition"]["details"]["telephones"]["video_relay_service"],
+        )
+      end
+    end
+
+    describe "when 'show' is empty" do
+      let(:show_video_relay_service) { "" }
+
+      it "empties the video relay service object" do
+        result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
+
+        assert_equal(
+          {},
+          result["content_block/edition"]["details"]["telephones"]["video_relay_service"],
+        )
       end
     end
   end

@@ -15,6 +15,7 @@ class ParamsPreprocessors::TelephonePreprocessor
 
     params["content_block/edition"]["details"]["telephones"]["call_charges"] = format_call_charges
     params["content_block/edition"]["details"]["telephones"]["bsl_guidance"] = format_bsl_guidance
+    params["content_block/edition"]["details"]["telephones"]["video_relay_service"] = video_relay_service
   end
 
 private
@@ -44,6 +45,20 @@ private
       end
 
       bsl_guidance
+    end
+  end
+
+  def video_relay_service
+    obj = params["content_block/edition"]["details"]["telephones"]["video_relay_service"]
+    if obj
+      obj["show"] = ActiveRecord::Type::Boolean.new
+        .cast(obj["show"]) || false
+
+      if obj["show"] == false
+        obj = {}
+      end
+
+      obj
     end
   end
 
