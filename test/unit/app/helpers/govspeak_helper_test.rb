@@ -502,6 +502,19 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equivalent_html '<div class="govspeak"><p>Every way to embed an attachment:</p></div>', html
   end
 
+  test "uses locale of HTML attachment" do
+    body = <<~MARKDOWN
+      Footnote[^1]
+
+      [^1]: Description
+    MARKDOWN
+
+    html_attachment = create(:html_attachment, body:, locale: "cy")
+
+    html = govspeak_html_attachment_to_html(html_attachment)
+    assert_select_within_html html, "a", text: "[troednodyn 1]", count: 1
+  end
+
 private
 
   def collapse_whitespace(string)
