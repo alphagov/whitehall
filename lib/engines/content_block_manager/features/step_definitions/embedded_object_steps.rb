@@ -82,29 +82,41 @@ Given("I change the call charges info label from its default value") do
   end
 end
 
-When("I should see that the call charges info URL is to be shown") do
+When("I view all the telephone attributes") do
   # navigate to "telephones" tab
   find("#tab_telephones").click
   # expand the list of telphone details
   find("span[data-ga4-expandable='']", text: "All telephone attributes").click
+end
 
+Then("I should see that the call charges fields have been changed") do
   within(".gem-c-summary-card[title='Call Charges']") do
     expect(page).to have_css("dt", text: "Show call charges info url")
     expect(page).to have_css("dt", text: "on")
-  end
-end
 
-When("I should see that the call charges info URL is not the default value") do
-  within(".gem-c-summary-card[title='Call Charges']") do
     expect(page).not_to have_content("https://gov.uk/call-charges")
     expect(page).to have_content("https://custom.example.com")
+
+    expect(page).not_to have_content("Find out about call charges")
+    expect(page).to have_content("Learn about the cost of calls (custom label)")
   end
 end
 
-When("I should see that the call charges info label is not the default value") do
-  within(".gem-c-summary-card[title='Call Charges']") do
-    expect(page).not_to have_content("Find out about call charges")
-    expect(page).to have_content("Learn about the cost of calls (custom label)")
+When("I indicate that BSL guidance should be shown") do
+  check I18n.t("content_block_edition.details.labels.telephones.bsl_guidance.show")
+end
+
+When("I change the BSL guidance label from its default value") do
+  fill_in(I18n.t("content_block_edition.details.labels.telephones.bsl_guidance.value"), with: "More about BSL")
+end
+
+Then("I should see that the BSL guidance fields have been changed") do
+  within(".gem-c-summary-card[title='Bsl Guidance']") do
+    expect(page).to have_css("dt", text: "Show")
+    expect(page).to have_css("dt", text: "true")
+
+    expect(page).to have_css("dt", text: "Value")
+    expect(page).to have_css("dt", text: "More about BSL")
   end
 end
 

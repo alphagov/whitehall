@@ -51,10 +51,12 @@ schemas:
           - telephone_numbers
           - opening_hours
           - call_charges
+          - bsl_guidance
         field_order:
           - title
           - description
           - telephone_numbers
+          - bsl_guidance
           - opening_hours
           - call_charges
         fields:
@@ -67,6 +69,9 @@ schemas:
           call_charges:
             component:
               call_charges
+          bsl_guidance:
+            component:
+              bsl_guidance
           telephone_numbers:
             data_attributes:
               module: auto-populate-telephone-number-label

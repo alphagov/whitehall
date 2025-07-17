@@ -95,6 +95,19 @@ Feature: Create a contact object
             }
           }
         },
+        "bsl_guidance": {
+          "type": "object",
+          "properties": {
+            "show": {
+              "type": "boolean",
+              "default": false
+            },
+            "value": {
+              "type": "string",
+              "default": "British Sign Language (BSL) [video relay service](https://connect.interpreterslive.co.uk/vrs?ilc=DWP)> if you’re on a computer - find out how to [use the service on mobile or tablet](https://www.youtube.com/watch?v=oELNMfAvDxw)"
+            }
+          }
+        },
         "opening_hours": {
           "type": "array",
           "items": {
@@ -153,6 +166,8 @@ Feature: Create a contact object
     And I indicate that the call charges info URL should be shown
     And I change the call charges info URL from its default value
     And I change the call charges info label from its default value
+    And I indicate that BSL guidance should be shown
+    And I change the BSL guidance label from its default value
     And I add the following "opening_hours" to the form:
       | day_from | day_to | time_from | time_to |
       | Monday   | Friday | 9:00AM    | 5:00PM  |
@@ -165,9 +180,9 @@ Feature: Create a contact object
     When I click to view the content block
     And I should see the created embedded object of type "email_address"
     And I should see the created embedded object of type "telephone"
-    And I should see that the call charges info URL is to be shown
-    And I should see that the call charges info URL is not the default value
-    And I should see that the call charges info label is not the default value
+    When I view all the telephone attributes
+    Then I should see that the call charges fields have been changed
+    And I should see that the BSL guidance fields have been changed
 
   @javascript
   Scenario: GDS editor sees errors for invalid telephone objects

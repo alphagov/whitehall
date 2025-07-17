@@ -21,6 +21,7 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
 
   let(:show_call_charges_info_url) { "true" }
   let(:hours_available) { "1" }
+  let(:show_bsl_guidance) { "true" }
 
   let(:call_charges) do
     {
@@ -30,11 +31,19 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
     }
   end
 
+  let(:bsl_guidance) do
+    {
+      "show" => show_bsl_guidance,
+      "value" => "Some value",
+    }
+  end
+
   let(:details) do
     {
       "telephones" => {
         "opening_hours" => opening_hours,
         "call_charges" => call_charges,
+        "bsl_guidance" => bsl_guidance,
       },
     }
   end
@@ -102,6 +111,31 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
         result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
 
         assert_equal result["content_block/edition"]["details"]["telephones"]["call_charges"], {}
+      end
+    end
+  end
+
+  describe "BSL guidance preprocessing" do
+    describe "when show is set to a `true` string" do
+      let(:show_bsl_guidance) { "true" }
+
+      it "converts the string to a boolean" do
+        result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
+
+        assert_equal result["content_block/edition"]["details"]["telephones"]["bsl_guidance"], {
+          "show" => true,
+          "value" => "Some value",
+        }
+      end
+    end
+
+    describe "when show_call_charges_info_url is empty" do
+      let(:show_bsl_guidance) { "" }
+
+      it "empties the BSL Guidance object" do
+        result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
+
+        assert_equal result["content_block/edition"]["details"]["telephones"]["bsl_guidance"], {}
       end
     end
   end
