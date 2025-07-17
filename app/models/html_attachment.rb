@@ -10,6 +10,7 @@ class HtmlAttachment < Attachment
   before_save :ensure_slug_is_valid
 
   validates :govspeak_content, presence: true
+  validates_with GovspeakContactEmbedValidator
 
   accepts_nested_attributes_for :govspeak_content
   delegate :body,
