@@ -67,8 +67,69 @@ namespace :reporting do
       print_result(object)
     end
   end
+
+  desc "Prints a report of all 'invalid editions', broken down by edition state"
+  task invalid_editions: :environment do
+    editions = Edition.only_invalid_editions
+      .map do |ed|
+      ed.valid?(:publish)
+      [ed.id, ed.state, ed.errors.map(&:full_message)]
+    end
+
+    summarise_invalid_editions(
+      "All invalid editions",
+      grouped_and_sorted_invalid_editions(editions),
+    )
+    summarise_invalid_editions(
+      "Invalid published editions",
+      grouped_and_sorted_invalid_editions(editions.select { |ed| ed[1] == "published" }),
+    )
+    summarise_invalid_editions(
+      "Invalid withdrawn editions",
+      grouped_and_sorted_invalid_editions(editions.select { |ed| ed[1] == "withdrawn" }),
+    )
+  end
 end
 
 def print_result(object)
   puts "#{object.class.name},#{object.content_id},#{object.base_path}"
+end
+
+def classify_error(error)
+  case error
+  when /Contact ID \d+ doesn't exist/
+    # There is one error per Contact ID - so we need to group under the following string
+    "Invalid Contact ID"
+  when %r{Issue with link `[^`]+`: If you are linking to a document created within Whitehall publisher}
+    # There is one error per bad internal link - so we need to group under the following string
+    "Invalid internal GOV.UK link format"
+  when /Issue with link `.*`: Non-document or external links should start with http:\/\/, https:\/\/, mailto:, or #/
+    # There is one error per bad external link - so we need to group under the following string
+    "Invalid external link structure"
+  when /Excluded nations (can not exclude all nations|is invalid)|Alternative URL for excluded nation is not valid./
+    # There are a few different nation-related validation messages, which we'd rather group together for reporting purposes
+    "Invalid nations applicability settings"
+  else
+    error
+  end
+end
+
+def grouped_and_sorted_invalid_editions(editions)
+  editions
+    .flat_map { |edition_id, _state, errors| errors.map { |error| [classify_error(error), edition_id] } }
+    .group_by(&:first)
+    .transform_values { |pairs|
+    ids = pairs.map(&:last).uniq
+    { ids: ids, count: ids.size }
+  }
+    .sort_by { |error, data| [-data[:count], error.to_s] }
+end
+
+def summarise_invalid_editions(prefix, scope)
+  puts "#{prefix} (#{scope.count})"
+  puts "-------------------------------"
+  scope.each do |error, hash|
+    puts "#{hash[:count]} editions with error `#{error}`. Example edition IDs: #{hash[:ids].first(10).sort.join(', ')}"
+  end
+  puts "" # newline
 end
