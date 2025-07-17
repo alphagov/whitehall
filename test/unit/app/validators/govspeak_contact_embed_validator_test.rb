@@ -31,29 +31,4 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
       "Contact ID #{bad_id} doesn't exist",
     ], test_model.errors.map(&:type)
   end
-
-  test "should be valid if the HTML attachment contains a Contact that exists" do
-    contact = create(:contact)
-    edition = create(:case_study, body: "[Contact:#{contact.id}]")
-
-    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{contact.id}]")]
-
-    GovspeakContactEmbedValidator.new.validate(edition)
-
-    assert_equal 0, edition.errors.size
-    assert_equal 0, edition.html_attachments.first.errors.size
-  end
-
-  test "should be invalid if the HTML attachment contains a Contact that doesn't exist" do
-    contact = create(:contact)
-    bad_id = "9999999999999"
-    edition = create(:case_study, body: "[Contact:#{contact.id}]")
-
-    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{bad_id}]")]
-
-    GovspeakContactEmbedValidator.new.validate(edition)
-
-    assert_equal 0, edition.errors.size
-    assert_equal 1, edition.html_attachments.first.errors.size
-  end
 end

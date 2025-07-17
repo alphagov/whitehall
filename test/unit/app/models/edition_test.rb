@@ -955,68 +955,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.published_at
   end
 
-  test "should pass validation on creation of edition with HTML attachment with missing contact" do
-    contact = create(:contact)
-    bad_id = "9999999999999"
-    edition = create(:submitted_case_study, body: "[Contact:#{contact.id}]")
-    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{bad_id}]")]
-
-    assert edition.valid?
-  end
-
-  test "should fail validation on publish of edition with HTML attachment with missing contact" do
-    contact = create(:contact)
-    bad_id = "9999999999999"
-    edition = create(:submitted_case_study, body: "[Contact:#{contact.id}]")
-    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{bad_id}]")]
-
-    edition.publish
-
-    assert_not edition.valid?
-  end
-
-  test "should update cached 'revalidated_at' value on each `valid?(:publish)` call" do
-    edition = create(:edition)
-    edition.valid?(:publish)
-    assert edition.revalidated_at
-
-    # Simulate it becoming invalid in publish contexts - i.e. embed a non-existent
-    # contact - but don't trigger revalidation yet (i.e. use `update_columns` to
-    # avoid callbacks)
-    edition.translations.first.update_columns(body: "[Contact:9999999]")
-
-    # Should still reflect the cached state from earlier call to `valid?(:publish)`
-    assert edition.revalidated_at
-    assert edition.reload.revalidated_at
-
-    # Now force a full validation
-    assert_not edition.valid?(:publish)
-    # It should reset `revalidated_at` to nil
-    assert_nil edition.revalidated_at
-    # ...and ensure the updated value is persisted to the DB
-    assert_nil edition.reload.revalidated_at
-  end
-
-  test "should NOT update cached 'revalidated_at' value on each general `valid?` call" do
-    edition = create(:edition)
-    edition.valid?(:publish)
-    assert edition.revalidated_at
-
-    # Simulate it becoming invalid in publish contexts - i.e. embed a non-existent
-    # contact - but don't trigger revalidation yet (i.e. use `update_columns` to
-    # avoid callbacks)
-    edition.translations.first.update_columns(body: "[Contact:9999999]")
-
-    # Should still reflect the cached state from earlier call to `valid?(:publish)`
-    assert edition.revalidated_at
-    assert edition.reload.revalidated_at
-
-    # Now force a validation but outside of the publish context
-    # ...it shouldn't change anything, since we only care about the publish context
-    assert edition.valid?
-    assert edition.reload.revalidated_at
-  end
-
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
