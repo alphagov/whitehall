@@ -3,7 +3,7 @@ class LinkCheckReportValidator < ActiveModel::Validator
     if contains_dangerous_links?(edition)
       edition.errors.add(
         :base,
-        "This document has not been published. You need to remove dangerous links before publishing.".html_safe,
+        "You need to remove dangerous links before publishing.".html_safe,
       )
     end
   end

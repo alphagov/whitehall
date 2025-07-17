@@ -40,7 +40,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
 
     scheduler = EditionScheduler.new(edition)
     assert_not scheduler.can_perform?
-    assert_equal "This edition is invalid: This document has not been published. You need to add a topic before publishing.", scheduler.failure_reason
+    assert_equal "This edition is invalid: You need to add a topic before publishing.", scheduler.failure_reason
   end
 
   test "an edition cannot be scheduled without a scheduled_publication timestamp" do
