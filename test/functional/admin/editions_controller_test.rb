@@ -1,6 +1,8 @@
 require "test_helper"
+require "capybara/rails"
 
 class Admin::EditionsControllerTest < ActionController::TestCase
+  include Capybara::DSL
   include Admin::EditionRoutesHelper
 
   setup do
@@ -154,6 +156,18 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   test "should remember title filter options" do
     get :index, params: { title: "test" }
     assert_equal "test", session[:document_filters]["title"]
+  end
+
+  view_test "should have an 'only invalid editions' checkbox that sets the 'only_invalid_editions' filter" do
+    visit "/government/admin/editions"
+    check "Only invalid editions"
+    click_button "Search"
+    assert_includes current_url, "only_invalid_editions=1"
+  end
+
+  test "should remember 'only invalid editions' option" do
+    get :index, params: { only_invalid_editions: "1" }
+    assert_equal "1", session[:document_filters]["only_invalid_editions"]
   end
 
   test "index should redirect to remembered filtered options if available" do
