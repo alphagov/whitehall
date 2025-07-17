@@ -20,7 +20,7 @@
       {
         "allowed_values": [
           { "label": "HMRC Manual Landing Page", "value": "hmrc_manual" },
-          { "label": "HMRC Manual Content Page", "value": "hmrc_manual_section" }
+          { "label": "HMRC Manual Section", "value": "hmrc_manual_section" }
         ],
         "display_as_result_metadata": false,
         "filterable": true,
