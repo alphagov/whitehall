@@ -6,43 +6,22 @@
 %>
 
 <div class="app-view-summary__sidebar-notices">
-  <% if @edition.scheduled_publication %>
-    <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
-      <%= render "components/inset_prompt", {
-        title: "This edition cannot be scheduled",
-        data_attributes: {
-          module: "ga4-auto-tracker",
-          ga4_auto: {
-            type: "scheduled",
-            text: force_scheduler.failure_reasons_plaintext,
-          }.merge(ga4_auto_attributes).as_json,
-        },
-        description: render("govuk_publishing_components/components/list", {
-          visible_counters: true,
-          items: force_scheduler.failure_reasons,
-        }),
-        error: true,
-      } %>
-    <% end %>
-  <% else %>
-    <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
-      <%= render "components/inset_prompt", {
-        title: "This edition cannot be force-published",
+  <% unless @edition.valid?(:publish) %>
+    <%= render "components/inset_prompt", {
+      data_attributes: {
         module: "ga4-auto-tracker",
-        data_attributes: {
-          module: "ga4-auto-tracker",
-          ga4_auto: {
-            type: "force published",
-            text: force_scheduler.failure_reasons_plaintext,
-          }.merge(ga4_auto_attributes).as_json,
-        },
-        description: render("govuk_publishing_components/components/list", {
-          visible_counters: true,
-          items: force_publisher.failure_reasons,
-        }),
-        error: true,
-      } %>
-    <% end %>
+        ga4_auto: {
+          type: "show invalid edition warning",
+          text: @edition.errors.map(&:full_message).join(", "),
+        }.merge(ga4_auto_attributes).as_json,
+      },
+      title: "This edition is invalid",
+      description: render("govuk_publishing_components/components/list", {
+        visible_counters: true,
+        items:  @edition.errors.map(&:full_message),
+      }),
+      error: true,
+    } %>
   <% end %>
   <% if show_similar_slugs_warning?(@edition) %>
     <%= render "components/inset_prompt", {
