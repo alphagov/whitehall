@@ -1,7 +1,7 @@
 <% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
 <% content_for :title, "Edit file attachments" %>
 <% content_for :context, "Attachments for publication" %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @bulk_upload)) %>
+<% content_for :error_summary, bulk_attachment_errors(@bulk_upload.attachments) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
