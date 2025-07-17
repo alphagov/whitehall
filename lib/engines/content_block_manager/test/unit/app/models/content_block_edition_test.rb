@@ -246,19 +246,19 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
 
   describe "#update_object_with_details" do
     before do
-      content_block_edition.details["something"] = { "my-thing" => { "title" => "My thing", "something" => "else" } }
+      content_block_edition.details["something"] = { "my-thing" => { "title" => "My thing", "something" => "else", "boolean" => true } }
     end
 
     it "updates a given object's details" do
-      content_block_edition.update_object_with_details("something", "my-thing", { "title" => "My thing", "something" => "changed" })
+      content_block_edition.update_object_with_details("something", "my-thing", { "title" => "My thing", "something" => "changed", "boolean" => true })
 
-      assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "My thing", "something" => "changed" } }
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "My thing", "something" => "changed", "boolean" => true } }
     end
 
     it "keeps the original key if the title changes" do
-      content_block_edition.update_object_with_details("something", "my-thing", { "title" => "Other thing", "something" => "changed" })
+      content_block_edition.update_object_with_details("something", "my-thing", { "title" => "Other thing", "something" => "changed", "boolean" => true })
 
-      assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "Other thing", "something" => "changed" } }
+      assert_equal content_block_edition.details["something"], { "my-thing" => { "title" => "Other thing", "something" => "changed", "boolean" => true } }
     end
 
     describe "when an object has an array" do
