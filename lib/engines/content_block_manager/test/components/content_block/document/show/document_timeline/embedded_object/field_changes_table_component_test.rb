@@ -6,6 +6,9 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Embed
   let(:field_diff) do
     {
       "email_address" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old@email.com", new_value: "new@email.com"),
+      "object" => {
+        "something" => ContentBlockManager::ContentBlock::DiffItem.new(previous_value: "old value", new_value: "new value"),
+      },
     }
   end
 
@@ -28,6 +31,10 @@ class ContentBlockManager::ContentBlock::Document::Show::DocumentTimeline::Embed
     assert_selector "tr:nth-child(1) th:nth-child(1)", text: "Email address"
     assert_selector "tr:nth-child(1) td:nth-child(2)", text: "old@email.com"
     assert_selector "tr:nth-child(1) td:nth-child(3)", text: "new@email.com"
+
+    assert_selector "tr:nth-child(2) th:nth-child(1)", text: "Object something"
+    assert_selector "tr:nth-child(2) td:nth-child(2)", text: "old value"
+    assert_selector "tr:nth-child(2) td:nth-child(3)", text: "new value"
   end
 
   describe "when a title cannot be found for the object" do
