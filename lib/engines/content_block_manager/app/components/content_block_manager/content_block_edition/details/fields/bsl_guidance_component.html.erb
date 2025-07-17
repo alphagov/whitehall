@@ -1,0 +1,32 @@
+<div class="app-c-content-block-manager-bsl-guidance-component">
+  <% value_input = capture do %>
+    <%= render "govuk_publishing_components/components/textarea", {
+      label: {
+        text: humanized_label("value", "telephones.bsl_guidance"),
+      },
+      name: name_for_field(value_field) ,
+      id: id_for_field(value_field),
+      value: value_for_field(value_field) || value_field.default_value,
+    } %>
+  <% end %>
+
+  <input type="hidden" name="<%= name_for_field(show_field) %>" value="false">
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: name_for_field(show_field),
+    id: id_for_field(show_field),
+    text: humanized_label("show", "telephones.bsl_guidance"),
+    heading: humanized_label("show", "telephones.bsl_guidance"),
+    visually_hide_heading: true,
+    no_hint_text: true,
+    small: true,
+    items: [
+      {
+        label: humanized_label("show", "telephones.bsl_guidance"),
+        value: "true",
+        checked: value_for_field(show_field) == true,
+        conditional: value_input,
+      },
+    ],
+  } %>
+</div>
