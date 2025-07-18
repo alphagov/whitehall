@@ -1,13 +1,21 @@
 class FlexiblePage < Edition
+  # Publishing workflow
   include Edition::Identifiable
   include Edition::FactCheckable
-  include Edition::Images
+  # include Edition::Translatable # NB: doesn't look like we need this at all.
+
   # File attachments
   include ::Attachable
   include Edition::AlternativeFormatProvider
 
-  # NB: doesn't look like we need this at all.
-  # include Edition::Translatable
+  # Images
+  include Edition::Images
+  # TODO: can these two modules be combined? Feels as though we
+  # should just have `Edition::LeadImage` and allow consumers of
+  # the module to opt into (or out of) CustomLeadImage via
+  # overriding a method
+  include Edition::CustomLeadImage
+  include Edition::LeadImage
 
   validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
   validate :content_conforms_to_schema
@@ -49,6 +57,10 @@ class FlexiblePage < Edition
 
   def allows_image_attachments?
     type_instance.settings["images_enabled"]
+  end
+
+  def can_have_custom_lead_image?
+    type_instance.settings["custom_lead_image_enabled"]
   end
 
   def alternative_format_provider_required?

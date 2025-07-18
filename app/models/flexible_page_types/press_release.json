@@ -49,6 +49,7 @@
     "translations_enabled": true,
     "fact_check_enabled": true,
     "images_enabled": true,
+    "custom_lead_image_enabled": true,
     "file_attachments_enabled": true,
     "associations": [
       {
