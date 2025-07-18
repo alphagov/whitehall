@@ -46,6 +46,7 @@
     "publishing_api_document_type": "press_release",
     "parent_document_type": "news_article",
     "rendering_app": "frontend",
+    "fact_check_enabled": true,
     "images_enabled": true,
     "file_attachments_enabled": true,
     "associations": [

@@ -1,5 +1,6 @@
 class FlexiblePage < Edition
   include Edition::Identifiable
+  include Edition::FactCheckable
   include Edition::Images
   # File attachments
   include ::Attachable
@@ -32,6 +33,10 @@ class FlexiblePage < Edition
 
   def previously_published
     false
+  end
+
+  def can_be_fact_checked?
+    type_instance.settings["fact_check_enabled"]
   end
 
   def allows_image_attachments?
