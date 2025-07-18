@@ -1,25 +1,37 @@
+<%
+ name ||= "attachment"
+ heading_size ||= "l"
+ heading_level ||= 2
+%>
+
 <%= form.fields_for(:attachment_data, include_id: false) do |attachment_data_fields| %>
   <% if attachment_data_fields.object.filename %>
-    <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id) %>
-    <p class="govuk-body">Current file: <%= link_to_attachment_data(attachment_data_fields.object) %></p>
+    <%= hidden_field_tag "#{name}[attachment_data_attributes][to_replace_id]", attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id %>
+    <% unless controller_name == "bulk_uploads" %>
+      <p class="govuk-body">Current file: <%= link_to_attachment_data(attachment_data_fields.object) %></p>
+    <% end %>
   <% end %>
 
-  <%= render "govuk_publishing_components/components/file_upload", {
-    label: {
-      text: attachment_data_fields.object.filename ? "Replace file" : "File (required)",
-      heading_level: 2,
-      heading_size: "l",
-    },
-    name: "attachment[attachment_data_attributes][file]",
-    id: "attachment_attachment_data_file",
-    hint: raw(attachment_data_fields.object.filename ? "You must replace the attachment markdown in the body text" : "You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>."),
-    error_items: errors_for(attachment_data_fields.object.errors, :file),
-  } %>
+  <% if !attachment_data_fields.object.file_cache.present? %>
+    <%= render "govuk_publishing_components/components/file_upload", {
+      label: {
+        text: attachment_data_fields.object.filename ? "Replace file" : "File (required)",
+        heading_level:,
+        heading_size:,
+      },
+      name: "#{name}[attachment_data_attributes][file]",
+      id: "#{name}_attachment_data_file",
+      hint: raw(attachment_data_fields.object.filename ? "You must replace the attachment markdown in the body text" : "You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>."),
+      error_items: errors_for(attachment_data_fields.object.errors, :file),
+    } %>
+  <% elsif controller_name != "bulk_uploads" %>
+    <p class="govuk-body already_uploaded"><%= File.basename(attachment_data_fields.object.file_cache) %> already uploaded</p>
+  <% end %>
 
-  <%= form.hidden_field :accessible, value: "0" %>
+  <%= hidden_field_tag "#{name}[accessible]", "0" %>
 
   <%= render "govuk_publishing_components/components/checkboxes", {
-    name: "attachment[accessible]",
+    name: "#{name}[accessible]",
     items: [
       {
         label: "Attachment is accessible",
@@ -29,9 +41,6 @@
     ],
   } %>
 
-  <% if attachment_data_fields.object.file_cache.present? %>
-    <p class="govuk-body already_uploaded"><%= File.basename(attachment_data_fields.object.file_cache) %> already uploaded</p>
-  <% end %>
+  <%= hidden_field_tag "#{name}[attachment_data_attributes][file_cache]", attachment_data_fields.object.file_cache %>
 
-  <%= attachment_data_fields.hidden_field :file_cache %>
 <% end %>
