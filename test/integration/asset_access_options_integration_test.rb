@@ -127,11 +127,14 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           visit admin_news_article_path(edition)
           click_link "Add attachments"
           click_link "Bulk upload from Zip file"
-          attach_file "Zip file", path_to_attachment("sample_attachment.zip")
+          attach_file "Files", path_to_attachment("logo.png")
+          attach_file "Files", path_to_attachment("greenpaper.pdf")
           click_button "Upload zip"
-          fill_in "Title", with: "file-title"
+          fill_in "bulk_upload[attachments][0][title]", with: "file-title"
+          fill_in "bulk_upload[attachments][1][title]", with: "file-title"
           click_button "Save"
           assert find("li", text: "greenpaper.pdf")
+          assert find("li", text: "logo.pdf")
         end
 
         it "marks attachment as access limited in Asset Manager" do
