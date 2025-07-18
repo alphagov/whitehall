@@ -41,6 +41,7 @@
     "required": ["page_title", "body"]
   },
   "settings": {
+    "legacy_presenter": "NewsArticlePresenter",
     "base_path_prefix": "/government/news",
     "publishing_api_schema_name": "flexible_page",
     "publishing_api_document_type": "world_news_story",
