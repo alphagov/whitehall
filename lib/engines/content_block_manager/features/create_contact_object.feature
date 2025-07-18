@@ -78,6 +78,23 @@ Feature: Create a contact object
         "title": {
           "type": "string"
         },
+        "video_relay_service": {
+          "type": "object",
+          "properties": {
+            "show": {
+              "type": "boolean",
+              "default": false
+            },
+            "prefix": {
+              "type": "string",
+              "default": "**Default** prefix: 18000 then"
+            },
+            "telephone_number": {
+              "type": "string",
+              "default": "0800 123 4567"
+            }
+          }
+        },
         "call_charges": {
           "type": "object",
           "properties": {
@@ -163,6 +180,8 @@ Feature: Create a contact object
       | label       | telephone_number | type      |
       | Telephone 1 | 12345            | Telephone |
       | Telephone 2 | 6789             | Textphone |
+    And I indicate that the video relay service info should be displayed
+    And I provide custom video relay service info where available
     And I indicate that the call charges info URL should be shown
     And I change the call charges info URL from its default value
     And I change the call charges info label from its default value
@@ -182,6 +201,8 @@ Feature: Create a contact object
     And I should see the created embedded object of type "telephone"
     When I view all the telephone attributes
     Then I should see that the call charges fields have been changed
+    And I should see that the video relay service info is to be shown
+    And I should see that the custom video relay info has been recorded
     And I should see that the BSL guidance fields have been changed
 
   @javascript

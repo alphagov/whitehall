@@ -49,6 +49,7 @@ schemas:
         embeddable_as_block: true
         embeddable_fields:
           - telephone_numbers
+          - video_relay_service
           - opening_hours
           - call_charges
           - bsl_guidance
@@ -56,6 +57,7 @@ schemas:
           - title
           - description
           - telephone_numbers
+          - video_relay_service
           - bsl_guidance
           - opening_hours
           - call_charges
@@ -72,6 +74,9 @@ schemas:
           bsl_guidance:
             component:
               bsl_guidance
+          video_relay_service:
+            component:
+              video_relay_service
           telephone_numbers:
             data_attributes:
               module: auto-populate-telephone-number-label

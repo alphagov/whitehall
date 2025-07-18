@@ -1,4 +1,5 @@
 require_relative "../support/form_step_helpers"
+require_relative "./video_relay_service_steps"
 
 When("I visit the page to create a new {string} for the block") do |object_type|
   visit content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
