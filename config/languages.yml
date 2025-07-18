@@ -126,6 +126,10 @@ ko:
   direction: ltr
   english_name: Korean
   native_name: 한국어
+ky:
+  direction: ltr
+  english_name: Kyrgyz
+  native_name: Кыргызча
 lt:
   direction: ltr
   english_name: Lithuanian
