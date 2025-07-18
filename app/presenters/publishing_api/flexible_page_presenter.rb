@@ -27,22 +27,6 @@ module PublishingApi
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
       content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
-
-      if type.settings["legacy_presenter"]
-        # override the presented content - the frontend isn't ready yet
-        stubbed = NewsArticle.new(
-          document: item.document,
-          title: item.title,
-          body: "TESTING",
-          summary: "TESTING",
-          public_timestamp: content[:public_updated_at],
-          news_article_type_id: Object.const_get("NewsArticleType::#{type.settings['publishing_api_document_type'].camelize}").id,
-          auth_bypass_id: item.auth_bypass_id,
-        )
-        klass = Object.const_get("PublishingApi::#{type.settings["legacy_presenter"]}").new(stubbed)
-        klass.content
-        puts klass.content
-      end
     end
 
     def links
