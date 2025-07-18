@@ -5,6 +5,10 @@ class FlexiblePage < Edition
   # File attachments
   include ::Attachable
   include Edition::AlternativeFormatProvider
+
+  # NB: doesn't look like we need this at all.
+  # include Edition::Translatable
+
   validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
   validate :content_conforms_to_schema
 
@@ -33,6 +37,10 @@ class FlexiblePage < Edition
 
   def previously_published
     false
+  end
+
+  def translatable?
+    type_instance.settings["translations_enabled"]
   end
 
   def can_be_fact_checked?

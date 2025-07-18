@@ -48,6 +48,7 @@
       content: @edition.flexible_page_content,
       path: FlexiblePageContentBlocks::Path.new,
       root: true,
+      primary_locale: true,
     }) %>
     <%= render("settings_fields", form:, edition:) %>
     <%= standard_edition_publishing_controls(form, edition) %>

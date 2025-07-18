@@ -290,6 +290,10 @@ Whitehall::Application.routes.draw do
 
       resources :flexible_pages, path: "flexible-pages", except: [:index] do
         get :choose_type, on: :collection, as: :choose_type
+
+        resources :translations, controller: "flexible_pages_translations", except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
       end
       resources :landing_pages, path: "landing-pages", except: [:index]
 

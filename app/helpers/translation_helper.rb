@@ -1,4 +1,10 @@
 module TranslationHelper
+  def add_translation_prefix_if_necessary(string, primary_locale)
+    return string if primary_locale
+
+    "Translated " + string.sub(/^./) { |c| c.downcase }
+  end
+
   def t_lang(key, options = {})
     fallback = t_fallback(key, options)
     if fallback && fallback != I18n.locale

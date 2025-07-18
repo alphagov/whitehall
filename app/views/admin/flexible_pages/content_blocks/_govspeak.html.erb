@@ -1,11 +1,12 @@
 <% required = required || false %>
 <%= render "govuk_publishing_components/components/textarea", {
   label: {
-    text: schema["title"] + (required ? " (required)" : ""),
+    text: add_translation_prefix_if_necessary(schema["title"] + (required ? " (required)" : ""), primary_locale),
     heading_size: "m",
   },
   name: path.form_control_name,
   value: content,
   hint: schema["description"],
   textarea_id: path.form_control_id,
+  right_to_left: FlexiblePageContentBlocks::Context.page.translation_rtl?,
 } %>
