@@ -1,6 +1,9 @@
 class FlexiblePage < Edition
   include Edition::Identifiable
   include Edition::Images
+  # File attachments
+  include ::Attachable
+  include Edition::AlternativeFormatProvider
   validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
   validate :content_conforms_to_schema
 
@@ -33,6 +36,10 @@ class FlexiblePage < Edition
 
   def allows_image_attachments?
     type_instance.settings["images_enabled"]
+  end
+
+  def alternative_format_provider_required?
+    type_instance.settings["file_attachments_enabled"]
   end
 
   def base_path
