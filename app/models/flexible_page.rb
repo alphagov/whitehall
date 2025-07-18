@@ -46,6 +46,14 @@ class FlexiblePage < Edition
     "#{type_instance.settings['base_path_prefix']}/#{slug}"
   end
 
+  def type
+    type_instance.settings["parent_document_type"].humanize || display_type
+  end
+
+  def display_type
+    type_instance.settings["publishing_api_document_type"].humanize
+  end
+
   def type_instance
     FlexiblePageType.find(flexible_page_type)
   end

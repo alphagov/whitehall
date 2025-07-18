@@ -44,6 +44,7 @@
     "base_path_prefix": "/government/news",
     "publishing_api_schema_name": "flexible_page",
     "publishing_api_document_type": "world_news_story",
+    "parent_document_type": "news_article",
     "rendering_app": "frontend",
     "images_enabled": true,
     "file_attachments_enabled": true,
