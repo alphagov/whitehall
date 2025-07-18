@@ -1,6 +1,22 @@
 class FlexiblePage < Edition
+  # Publishing workflow
   include Edition::Identifiable
+  include Edition::FactCheckable
+  # include Edition::Translatable # NB: doesn't look like we need this at all.
+
+  # File attachments
+  include ::Attachable
+  include Edition::AlternativeFormatProvider
+
+  # Images
   include Edition::Images
+  # TODO: can these two modules be combined? Feels as though we
+  # should just have `Edition::LeadImage` and allow consumers of
+  # the module to opt into (or out of) CustomLeadImage via
+  # overriding a method
+  include Edition::CustomLeadImage
+  include Edition::LeadImage
+
   validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
   validate :content_conforms_to_schema
 
@@ -17,6 +33,9 @@ class FlexiblePage < Edition
   end
 
   def body_required?
+    # This suppresses the 'default' 'body' that is used by legacy Editions.
+    # Flexible page schemas will define their own separate "body" property
+    # if it is needed (as well as its required/optional status).
     false
   end
 
@@ -28,12 +47,36 @@ class FlexiblePage < Edition
     false
   end
 
+  def translatable?
+    type_instance.settings["translations_enabled"]
+  end
+
+  def can_be_fact_checked?
+    type_instance.settings["fact_check_enabled"]
+  end
+
   def allows_image_attachments?
     type_instance.settings["images_enabled"]
   end
 
+  def can_have_custom_lead_image?
+    type_instance.settings["custom_lead_image_enabled"]
+  end
+
+  def alternative_format_provider_required?
+    type_instance.settings["file_attachments_enabled"]
+  end
+
   def base_path
     "#{type_instance.settings['base_path_prefix']}/#{slug}"
+  end
+
+  def type
+    type_instance.settings["parent_document_type"].humanize || display_type
+  end
+
+  def display_type
+    type_instance.settings["publishing_api_document_type"].humanize
   end
 
   def type_instance

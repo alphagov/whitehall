@@ -6,7 +6,15 @@ class Admin::EditionTranslationsController < Admin::BaseController
   def new; end
 
   def edit
-    load_document_history
+    if @edition.is_a?(FlexiblePage)
+      redirect_to edit_admin_flexible_page_translation_path(
+        flexible_page_id: @edition.id,
+        id: translation_locale.code
+      )
+    else
+      load_document_history
+      render :edit
+    end
   end
 
   def update
