@@ -17,6 +17,9 @@ class FlexiblePage < Edition
   end
 
   def body_required?
+    # This suppresses the 'default' 'body' that is used by legacy Editions.
+    # Flexible page schemas will define their own separate "body" property
+    # if it is needed (as well as its required/optional status).
     false
   end
 
