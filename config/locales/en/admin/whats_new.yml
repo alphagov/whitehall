@@ -6,134 +6,69 @@ en:
       show_banner: false
       title: What’s new in Whitehall Publisher
       summary: |
-        Summary of updates from the GOV.UK publishing teams on Whitehall Publisher, the roadmap, and getting involved
-      last_updated: Last updated 29 February 2024
+        Summary of updates from the GOV.UK publishing team on Whitehall Publisher, the roadmap, and getting involved
+      last_updated: Last updated 18 July 2025
       introduction:
-        heading: Our roadmap
+        heading: Roadmap overview
         body_govspeak: |
-          This quarter we are planning to:
+          Now:
 
-          - finish our work on the move to the GOV.UK design system
-          - explore how to improve the editor journey when creating or editing a draft
-          - review how you navigate in Whitehall, as well as add document collections
+          - We continue to work on the support and feature request backlog. 
+          - We are refactoring some of Whitehall's underlying technical design to make future development of content types easier.
+          - We are exploring how Whitehall might support new layouts for some pages.
 
-          Next quarter we plan to:
+          Next:
 
-          - review and fix accessibility issues from an accessibility audit
-          - explore new ways of adding or uploading content, and images
+          - We will revisit how "Visual editor" might improve content creation.
+          - We will be considering options for improving how access and permissions work in Whitehall.
 
-          ### Take part in user research
-
-          You can [sign up to take part in Whitehall Publisher user research](https://docs.google.com/forms/d/e/1FAIpQLSci1Ff7YGLWnvDiuaoAVKzSO06q32kgjVYnSX9A5Kf7jliLaQ/viewform). If you cannot access Google Forms, email <publishing-service-research@digital.cabinet-office.gov.uk>. Once you’ve signed up, you could be invited to feedback on new features and designs, user interviews or test products.
       upcoming_changes:
         heading: Upcoming changes
       recent_changes:
         heading: Recent changes
         updates:
-          - heading: Specialist topic tags removed
-            area: Creating and updating documents
-            type: change
-            date: 29 February 2024
+          - heading: Whitehall search for "Only invalid editions"
+            area: Searching for documents
+            type: improvement
+            date: 17 July 2025
             body_govspeak: |
-              All specialist topic pages have now been archived and we have removed the step to tag content to specialist topics. Find out more about [why we’ve retired specialist topic pages](https://3.basecamp.com/4322319/buckets/15005645/messages/5444046751).
-          - heading: Changes to adding lead images in Whitehall
+               Searches can now show all of the editions that have issues that would need addressing if you were to try to publish a new edition of that document. This helps departments see where there are issues and take remedial action. 
+               
+               [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8869164879).
+          - heading: Seeing validation issues on summary pages
             area: Creating and updating documents
             type: improvement
-            date: 7 November 2023
+            date: 17 July 2025
             body_govspeak: |
-              We've made some changes to adding lead images in Whitehall:
-
-              - for Case Studies you can use your organisations default news image or any uploaded image as your lead image
-              - for News Articles you can choose any of the uploaded images as the lead image
-          - heading: Unpublishing documents puts them into a new "Unpublished" state
+              We are now surfacing all validation issues in the sidebar of each edition on the summary page. This makes it clear at a glance what issue needs fixing (without having to try to publish or schedule the edition first).
+              
+              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8869164879).
+          - heading: Adding topic taxonomy tags to scheduled content
             area: Creating and updating documents
             type: change
-            date: 19 October 2023
+            date: 15 July 2025
             body_govspeak: |
-              The “Unpublish” document button no longer changes a published document back into a draft. Instead, the document is put into a new “Unpublished” state.
+              It is no longer possible to schedule content to be published without adding topic taxonomy tags. Publishers and reviewers will no longer be able to "Force schedule" content without adding a tag. 
+              
+              This helps ensure the email subscriptions and filtering through search work as expected.
 
-              This means that unpublished documents will no longer appear in your “My Draft Documents” area of the dashboard. You can also filter the documents list for unpublished documents.
-          - heading: Pasting tables to markdown in the document body editor
+              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8872624190)
+          - heading: Dangerous links removed from Whitehall content
             area: Creating and updating documents
-            type: new
-            date: 29 September 2023
+            type: security
+            date: 08 April 2025
             body_govspeak: |
-              There is now experimental support for pasting tables from other applications into the body editor and having them automatically translated to markdown. Note that this feature may not always behave as expected, especially in cases where the table cells contain multiples lines of content, and you should check the table is rendered correctly using the preview before publishing. Please let us know if you encounter cases where the generated markdown could be improved.
-          - heading:
-            area: Creating and updating documents
-            type: new
-            date: 8 September
-            body_govspeak: |
-              The "Save and continue" button no longer prompts users to update topic tags. Instead, it takes you directly to the document summary page. The save buttons have been updated to reflect this: "Save" saves your draft, and "Save and go to summary" goes to the document summary page.
-          - heading: Preview on GOV.UK from the edit screen
-            area: Creating and updating documents
-            type: new
-            date: 25 August 2023
-            body_govspeak: |
-              Once your document is saved, you can now click a link to see a preview of what your content looks like on GOV.UK without having to visit the document summary screen.
-          - heading: New call for evidence content type
-            area: Creating and updating documents
-            type: new
-            date: 9 August 2023
-            body_govspeak: |
-              We have released a call for evidence content type in Whitehall. This is similar to consultations, but is now available in the new document menu. Outcomes are optional, but for details [read more in the GOV.UK guidance](https://www.gov.uk/guidance/how-to-publish-on-gov-uk/calls-for-evidence).
-          - heading: New images
-            area: Creating and updating documents
-            type: new
-            date: 3 August 2023
-            body_govspeak: |
-              Images that have been added now display on the document summary page, before you publish. You can also go to the images edit screen from the document summary.
-          - heading: New Markdown for attachments
-            area: Creating and updating documents
-            type: improvement
-            date: 1 August 2023
-            body_govspeak: |
-              We have updated the way you can add attachments. The attachment tab now includes the Markdown to add to your document and a ‘copy to clipboard’ button, similar to images. The Markdown you will use will now be based on the file name of the document, rather than `!@1` or `[InlineAttachment:1]`, although this will still work.
-          - heading: Review dates and email reminders on all content types
-            area: Creating and updating documents
-            type: new
-            date: 18 July 2023
-            body_govspeak: |
-              When creating a document, there is a now a review dates section. You can find this under 'Schedule publication.'
+              A number of URLs on Whitehall pages were discovered to now go through to “inappropriate” content on third-party sites.
 
-              Setting a review date is optional, but it allows you, or your team, to receive an email reminder when content needs to be reviewed.
+              Work was done to monitor this and automate the removal of the dangerous links. This may result in the force publishing of content. When this happens a message will show saying: “This edition has been superseded” and internal note saying “Dangerous links automatically removed” will be added.
+          - heading: Removing unwanted assets
+            area: Supporting and managing content
+            type: maintenance
+            date: January 2025
+            body_govspeak: |
+              Throughout 2024 we noticed an increasing number of support tickets alerting us to assets (mostly PDFs) that had remained live despite the publishers removing them in Whitehall. We investigated the issues and removed 146,000 superseded assets for the system. We also solved some of the underlying issues that had caused the problems to occur. 
 
-              You can also edit and manage a review date from the document summary screen.
-          - heading: New page for uploading and managing images
-            area: Creating and updating documents
-            type: change
-            date: 11 May 2023
-            body_govspeak: |
-              There is now an images tab where you can upload and manage images for your document. This appears after you save a document.
-
-              You can now upload images bigger than 960 pixels wide by 640 pixels high for edition or document pages and resize them with a new cropping tool.
-
-              The image file name is now used as the Markdown to add the image to the body text.
-          - heading: Edit edition page moved to the Design System
-            type: improvement
-            date: 11 May 2023
-            body_govspeak: |
-              The edit edition page has moved to use the GOV.UK Design System. This includes translations.
-          - heading: Document history and notes can now be filtered
-            area: Creating and updating documents
-            type: change
-            date: 13 February 2023
-            body_govspeak: |
-              Based on feedback from publishers, we’ve added a filter for history and internal notes on the edition summary page.
-          - heading: Document history and notes have been merged
-            area: Creating and updating documents
-            type: change
-            date: 2 February 2023
-            body_govspeak: |
-              History and notes have been merged into a single history tab on the edition summary page. Internal notes will be shown alongside a document’s history.
-
-              ‘Remarks’ or ‘editorial remarks’ are now known as ‘internal notes’.
-          - heading: Edition summary page and worldwide tagging move to the Design System
-            area: Creating and updating documents
-            type: improvement
-            date: 2 February 2023
-            body_govspeak: |
-              The edition summary page (where you can do things like previewing, history and notes, submitting for 2i or publishing) and worldwide tagging have moved to use the GOV.UK Design System.
+              This reduced the number of support issues related to the issue from 3-5 per week to a handful per quarter.
 
       guidance:
         heading: Publishing guidance, updates and support
