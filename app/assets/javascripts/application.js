@@ -4,6 +4,7 @@
 //= require govuk_publishing_components/components/accordion
 //= require govuk_publishing_components/components/add-another
 //= require govuk_publishing_components/components/copy-to-clipboard
+//= require govuk_publishing_components/components/file-upload
 //= require govuk_publishing_components/components/govspeak
 //= require govuk_publishing_components/components/reorderable-list
 //= require govuk_publishing_components/components/table
