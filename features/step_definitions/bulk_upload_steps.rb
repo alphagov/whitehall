@@ -2,10 +2,11 @@ When(/^I upload a zip file containing several attachments and give them titles$/
   @edition = Edition.last
   visit admin_edition_attachments_path(@edition)
   click_link "Bulk upload from Zip file"
-  attach_file "Zip file", Rails.root.join("test/fixtures/two-pages-and-greenpaper.zip")
+  attach_file "Files", Rails.root.join("test/fixtures/two-pages.pdf")
+  attach_file "Files", Rails.root.join("test/fixtures/greenpaper.pdf")
   click_button "Upload zip"
-  fill_in "bulk_upload_attachments_0_title", with: "Two pages title"
-  fill_in "bulk_upload_attachments_1_title", with: "Greenpaper title"
+  fill_in "bulk_upload[attachments][0]_title", with: "Two pages title"
+  fill_in "bulk_upload[attachments][1]_title", with: "Greenpaper title"
   click_button "Save"
 end
 
@@ -24,9 +25,10 @@ When(/^I upload a zip file that contains a file "(.*?)"$/) do |_file|
   @old_attachment_data = @attachment.attachment_data
   visit admin_edition_attachments_path(@edition)
   click_link "Bulk upload from Zip file"
-  attach_file "Zip file", Rails.root.join("test/fixtures/two-pages-and-greenpaper.zip")
+  attach_file "Files", Rails.root.join("test/fixtures/two-pages.pdf")
+  attach_file "Files", Rails.root.join("test/fixtures/greenpaper.pdf")
   click_button "Upload zip"
-  fill_in "bulk_upload_attachments_0_title", with: "Two pages title"
+  fill_in "bulk_upload[attachments][0]_title", with: "Two pages title"
   click_button "Save"
 end
 

@@ -6,7 +6,7 @@ Feature: Bulk uploading attachments to editions
 
   Scenario: Uploading mulitple attachments from a zip file
     Given a draft news article "Stubble to be Outlawed" exists
-    When I upload a zip file containing several attachments and give them titles
+    When I bulk upload several attachments and give them titles
     Then I should see that the news article has attachments
 
   Scenario: Replacing existing attachments with a zip file

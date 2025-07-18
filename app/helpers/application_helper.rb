@@ -150,4 +150,25 @@ module ApplicationHelper
 
     edition.content_id
   end
+
+  def error_items(errors, name)
+    errors.map do |error|
+      error_item = {
+        text: error.full_message,
+        data_attributes: {
+          module: "ga4-auto-tracker",
+          "ga4-auto": {
+            event_name: "form_error",
+            type: "ga4_title",
+            text: error.full_message.to_s.humanize,
+            section: error.attribute.to_s.humanize,
+            action: "error",
+          }.to_json,
+        },
+      }
+
+      error_item[:href] = "##{name}_#{error.attribute.to_s.gsub('.', '_')}" unless error.attribute == :base
+      error_item
+    end
+  end
 end

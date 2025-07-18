@@ -1,3 +1,8 @@
+<%
+  name ||= "attachment"
+  heading_level ||= 2
+%>
+
 <% if attachable.respond_to?(:translated_locales) && attachable.translated_locales.many? %>
   <%
     locale_options = [{text: "All languages", value: ""}]
@@ -11,11 +16,11 @@
   %>
   <div class="govuk-!-margin-bottom-8 js-locale-switcher-selector">
     <%= render "govuk_publishing_components/components/select", {
-      id: "attachment_locale",
+      id: "#{name}_locale",
       label: "Display language",
-      name: "attachment[locale]",
-      heading_level: 2,
-      heading_size: heading_size,
+      name: "#{name}[locale]",
+      heading_level:,
+      heading_size:,
       options: locale_options,
       hint: "This determines the translations of the publication that the attachment will appear in.",
     } %>
@@ -31,10 +36,10 @@
     label: {
       text: "ISBN",
     },
-    name: "attachment[isbn]",
-    id: "attachment_isbn",
-    heading_level: 2,
-    heading_size: heading_size,
+    name: "#{name}[isbn]",
+    id: "#{name}_isbn",
+    heading_level:,
+    heading_size:,
     value: form.object.isbn,
     error_items: errors_for(attachment.errors, :isbn),
   } %>
@@ -45,9 +50,9 @@
     label: {
       text: "Unique reference",
     },
-    name: "attachment[unique_reference]",
-    heading_level: 2,
-    heading_size: heading_size,
+    name: "#{name}[unique_reference]",
+    heading_level:,
+    heading_size:,
     value: form.object.unique_reference,
   } %>
 </div>
@@ -63,8 +68,8 @@
     label: {
       text: "Command paper number",
     },
-    name: "attachment[command_paper_number]",
-    id: "attachment_command_paper_number",
+    name: "#{name}[command_paper_number]",
+    id: "#{name}_command_paper_number",
     value: form.object.command_paper_number,
     error_items: errors_for(attachment.errors, :command_paper_number),
     heading_size: attachable.can_have_attached_house_of_commons_papers? ? subheading_size : heading_size,
@@ -74,8 +79,8 @@
   <%= form.hidden_field :unnumbered_command_paper, value: "0" %>
 
   <%= render "govuk_publishing_components/components/checkboxes", {
-    name: "attachment[unnumbered_command_paper]",
-    id: "attachment_unnumbered_command_paper",
+    name: "#{name}[unnumbered_command_paper]",
+    id: "#{name}_unnumbered_command_paper",
     items: [
       {
         label: "Unnumbered",
