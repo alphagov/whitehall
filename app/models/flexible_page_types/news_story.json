@@ -1,0 +1,74 @@
+{
+  "key": "news_story",
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.gov.uk/schemas/history_page/v1",
+    "title": "News story",
+    "description": "News written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.",
+    "type": "object",
+    "properties": {
+      "page_title": {
+        "title": "Page title",
+        "description": "The title of the news article",
+        "type": "object",
+        "properties": {
+          "heading_text": {
+            "title": "Heading text",
+            "description": "The main heading text for the page title",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "description": "Some additional context for the page title",
+            "type": "string"
+          }
+        },
+        "required": ["heading_text"]
+      },
+      "body": {
+        "title": "Body",
+        "description": "The main content for the page",
+        "type": "string",
+        "format": "govspeak"
+      },
+      "lead_image": {
+        "title": "Sidebar image",
+        "description": "Enter the markdown code for the sidebar image",
+        "type": "string",
+        "format": "image_select"
+      }
+    },
+    "required": ["page_title", "body"]
+  },
+  "settings": {
+    "base_path_prefix": "/government/news",
+    "publishing_api_schema_name": "flexible_page",
+    "publishing_api_document_type": "news_story",
+    "rendering_app": "frontend",
+    "images_enabled": true,
+    "file_attachments_enabled": true,
+    "associations": [
+      {
+        "type": "ministers",
+        "required": false
+      },
+      {
+        "type": "topical_events",
+        "required": false
+      },
+      {
+        "type": "world_locations",
+        "required": false
+      },
+      {
+        "type": "lead_organisations",
+        "required": true,
+        "limit": 5
+      },
+      {
+        "type": "supporting_organisations",
+        "required": false
+      }
+    ]
+  }
+}
