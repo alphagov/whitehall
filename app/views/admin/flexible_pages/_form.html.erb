@@ -50,6 +50,44 @@
       root: true,
       primary_locale: true,
     }) %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Associations",
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+
+    <!-- TODO: we should order these based on the order they appear in the schema -->
+    <!-- TODO: we need to pass 'required: true' as appropriate - but this only seems supported by World Locations and Worldwide Organisation fields -->
+
+    <div class="govuk-!-margin-bottom-4">
+      <% if @edition.can_be_associated_with_role_appointments? %>
+        <div class="app-view-edit-edition__appointment-fields">
+          <%= render "appointment_fields", form: form, edition: @edition %>
+        </div>
+      <% end %>
+
+      <% if @edition.can_be_associated_with_topical_events? %>
+        <%= render "topical_event_fields", form: form, edition: @edition %>
+      <% end %>
+
+      <% if @edition.can_be_associated_with_worldwide_organisations? %>
+        <div class="app-view-edit-edition__world-organisation-fields govuk-!-margin-bottom-4">
+          <%= render "worldwide_organisation_fields", form: form, edition: @edition, required: true, index: "3" %>
+        </div>
+      <% end %>
+
+      <% if @edition.can_be_associated_with_world_locations? %>
+        <%= render "world_location_fields", form: form, edition: @edition %>
+      <% end %>
+
+      <% if @edition.can_be_related_to_organisations? %>
+        <div class="app-view-edit-edition__organisation-fields">
+          <%= render "organisation_fields", form: form, edition: @edition %>
+        </div>
+      <% end %>
+    </div>
+
     <%= render("settings_fields", form:, edition:) %>
     <%= standard_edition_publishing_controls(form, edition) %>
   </div>

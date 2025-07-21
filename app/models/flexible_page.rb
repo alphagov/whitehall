@@ -17,6 +17,13 @@ class FlexiblePage < Edition
   include Edition::CustomLeadImage
   include Edition::LeadImage
 
+  # Associations
+  include Edition::Organisations
+  include Edition::RoleAppointments
+  include Edition::TopicalEvents
+  include Edition::WorldLocations
+  include Edition::WorldwideOrganisations
+
   validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
   validate :content_conforms_to_schema
 
@@ -67,6 +74,34 @@ class FlexiblePage < Edition
     type_instance.settings["file_attachments_enabled"]
   end
 
+  def can_be_associated_with_world_locations?
+    add_association("world_locations")
+  end
+
+  def can_be_associated_with_role_appointments?
+    add_association("ministers")
+  end
+
+  def can_be_associated_with_topical_events?
+    add_association("topical_events")
+  end
+
+  def can_be_related_to_organisations?
+    add_association("lead_organisations")
+  end
+
+  def skip_organisation_validation?
+    !can_be_related_to_organisations?
+  end
+
+  def can_have_supporting_organisations?
+    add_association("supporting_organisations")
+  end
+
+  def can_be_associated_with_worldwide_organisations?
+    add_association("worldwide_organisations")
+  end
+
   def base_path
     "#{type_instance.settings['base_path_prefix']}/#{slug}"
   end
@@ -90,5 +125,17 @@ class FlexiblePage < Edition
     unless JSONSchemer.schema(type_instance.schema, formats:).valid?(flexible_page_content)
       errors.add(:flexible_page_content, "does not conform with the expected schema")
     end
+  end
+
+private
+
+  def add_association(property)
+    association = type_instance.settings["associations"]
+      .find { |association| association["type"] == property }
+    
+    !association.nil?
+
+    # TODO: the 'required' logic
+    # association.dig("required")
   end
 end
