@@ -17,7 +17,7 @@ private
   def unordered_rows
     items.map do |key, value|
       {
-        field: humanized_label(key, @object_type),
+        field: humanized_label(relative_key: key, root_object: @object_type),
         value: translated_value(value),
       }
     end

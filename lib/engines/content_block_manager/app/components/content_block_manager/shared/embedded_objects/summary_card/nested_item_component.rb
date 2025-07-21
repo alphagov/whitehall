@@ -23,7 +23,7 @@ private
   def rows
     nested_items.map do |key, value|
       {
-        key: humanized_label(key),
+        key: humanized_label(relative_key: key),
         value:,
       }
     end

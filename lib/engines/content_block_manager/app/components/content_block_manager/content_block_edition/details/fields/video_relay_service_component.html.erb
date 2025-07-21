@@ -2,18 +2,14 @@
 
   <% video_relay_service_inputs = capture do %>
     <%= render("govuk_publishing_components/components/textarea", {
-            label: {
-                text: humanized_label("prefix", "telephones.video_relay_service"),
-            },
+            label: { text: label_for("prefix") },
             name: name_for_field(prefix) ,
             id: id_for_field(prefix),
             value: value_for_field(prefix) || prefix.default_value,
           }) %>
 
     <%= render("govuk_publishing_components/components/input", {
-              label: {
-                  text: humanized_label("telephone_number", "telephones.video_relay_service"),
-              },
+              label: { text: label_for("telephone_number") },
               name: name_for_field(telephone_number) ,
               id: id_for_field(telephone_number),
               value: value_for_field(telephone_number) || telephone_number.default_value,
@@ -25,14 +21,14 @@
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: name_for_field(show_video_relay_service),
     id: id_for_field(show_video_relay_service),
-    text: humanized_label("show", "telephones.video_relay_service"),
-    heading: humanized_label("show", "telephones.video_relay_service"),
+    text: label_for("show"),
+    heading: label_for("show"),
     visually_hide_heading: true,
     no_hint_text: true,
     small: true,
     items: [
       {
-        label: humanized_label("show", "telephones.video_relay_service"),
+        label: label_for("show"),
         value: "true",
         checked: value_for_field(show_video_relay_service) == true,
         conditional: video_relay_service_inputs,

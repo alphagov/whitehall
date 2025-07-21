@@ -10,4 +10,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
   def telephone_number
     field.nested_field("telephone_number")
   end
+
+  def label_for(field_name)
+    humanized_label(relative_key: field_name, root_object: "telephones.video_relay_service")
+  end
 end
