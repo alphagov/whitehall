@@ -92,11 +92,6 @@ en:
               time_to(h): Hours
               time_to(m): Minutes
               time_to(meridian): AM/PM
-        video_relay_service:
-          show_video_relay_service: "Show video relay service information"
-          telephone_number_prefix: "Prefix to telephone number"
-          telephone_number: "Telephone number"
-          information: "Information"
       values:
         true: "Yes"
         false: "No"
