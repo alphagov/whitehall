@@ -126,21 +126,26 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         before do
           visit admin_news_article_path(edition)
           click_link "Add attachments"
-          click_link "Bulk upload from Zip file"
-          attach_file "Zip file", path_to_attachment("sample_attachment.zip")
-          click_button "Upload zip"
-          fill_in "Title", with: "file-title"
+          click_link "Bulk upload multiple files"
+          attach_file "Select files for upload", [path_to_attachment("logo.png"), path_to_attachment("greenpaper.pdf")]
+          click_button "Upload and continue"
+          fill_in "bulk_upload[attachments][0][title]", with: "file-title"
+          fill_in "bulk_upload[attachments][1][title]", with: "file-title"
           click_button "Save"
           assert find("li", text: "greenpaper.pdf")
+          assert find("li", text: "logo.png")
         end
 
         it "marks attachment as access limited in Asset Manager" do
-          Services.asset_manager.expects(:create_asset).with(
-            has_entries(
-              access_limited_organisation_ids: [organisation.content_id],
-              auth_bypass_ids: [edition.auth_bypass_id],
-            ),
-          ).returns(asset_manager_response)
+          Services.asset_manager
+                  .expects(:create_asset)
+                  .at_least(2)
+                  .with(
+                    has_entries(
+                      access_limited_organisation_ids: [organisation.content_id],
+                      auth_bypass_ids: [edition.auth_bypass_id],
+                    ),
+                  ).returns(asset_manager_response)
 
           AssetManagerCreateAssetWorker.drain
         end
