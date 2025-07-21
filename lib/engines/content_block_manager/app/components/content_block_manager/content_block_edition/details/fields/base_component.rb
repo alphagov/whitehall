@@ -20,7 +20,9 @@ private
   end
 
   def label
-    "#{humanized_label(field.name, subschema_block_type)}#{field.is_required? ? nil : optional_label}"
+    optional = field.is_required? ? nil : optional_label
+    "#{humanized_label(relative_key: field.name, root_object: subschema_block_type)}" \
+    "#{optional}"
   end
 
   def optional_label

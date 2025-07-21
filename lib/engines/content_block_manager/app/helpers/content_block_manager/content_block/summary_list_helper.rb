@@ -26,9 +26,9 @@ module ContentBlockManager::ContentBlock::SummaryListHelper
   def key_to_title(key, object_type = nil)
     subject, count = key.split("/")
     if count
-      humanized_label("#{subject.singularize} #{count.to_i + 1}", object_type)
+      humanized_label(relative_key: "#{subject.singularize} #{count.to_i + 1}", root_object: object_type)
     else
-      humanized_label(subject, object_type)
+      humanized_label(relative_key: subject, root_object: object_type)
     end
   end
 end

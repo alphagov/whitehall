@@ -14,7 +14,10 @@ class ContentBlockManager::ContentBlock::TranslationHelperTest < ActiveSupport::
           )
           .returns("Field label")
 
-        assert_equal "Field label", humanized_label("nested_object.field_name", "root_object")
+        assert_equal(
+          "Field label",
+          humanized_label(relative_key: "nested_object.field_name", root_object: "root_object"),
+        )
       end
     end
 
@@ -27,7 +30,10 @@ class ContentBlockManager::ContentBlock::TranslationHelperTest < ActiveSupport::
           )
           .returns("Field label")
 
-        assert_equal "Field label", humanized_label("nested_object.field_name", nil)
+        assert_equal(
+          "Field label",
+          humanized_label(relative_key: "nested_object.field_name"),
+        )
       end
     end
 
@@ -39,7 +45,10 @@ class ContentBlockManager::ContentBlock::TranslationHelperTest < ActiveSupport::
         )
         .returns("Field label")
 
-      assert_equal "Field label", humanized_label("nested_object.field-name", nil)
+      assert_equal(
+        "Field label",
+        humanized_label(relative_key: "nested_object.field-name"),
+      )
     end
   end
 
