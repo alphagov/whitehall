@@ -5,32 +5,41 @@ class ContentBlockManager::ContentBlock::TranslationHelperTest < ActiveSupport::
   include ContentBlockManager::ContentBlock::TranslationHelper
 
   describe "humanized_label" do
-    describe "when there is an object type" do
-      it "calls translation config with type" do
+    describe "when there is a 'root object'" do
+      it "prepends the root object to the 'relative label key'" do
         I18n.expects(:t)
-            .with("content_block_edition.details.labels.object_type.field_name", default: "Field name")
-            .returns("Field name")
+          .with(
+            "content_block_edition.details.labels.root_object.nested_object.field_name",
+            default: "Nested object.field name",
+          )
+          .returns("Field label")
 
-        assert_equal "Field name", humanized_label("field_name", "object_type")
+        assert_equal "Field label", humanized_label("nested_object.field_name", "root_object")
       end
     end
 
-    describe "when there is not an object type" do
-      it "calls translation config without type" do
+    describe "when there is not a 'root object'" do
+      it "uses only the 'relative label key" do
         I18n.expects(:t)
-            .with("content_block_edition.details.labels.field_name", default: "Field name")
-            .returns("Field name")
+          .with(
+            "content_block_edition.details.labels.nested_object.field_name",
+            default: "Nested object.field name",
+          )
+          .returns("Field label")
 
-        assert_equal "Field name", humanized_label("field_name", nil)
+        assert_equal "Field label", humanized_label("nested_object.field_name", nil)
       end
     end
 
-    it "strips hyphens" do
+    it "strips hyphens from the 'default' passed to I18n.t" do
       I18n.expects(:t)
-          .with("content_block_edition.details.labels.field-name", default: "Field name")
-          .returns("Field name")
+        .with(
+          "content_block_edition.details.labels.nested_object.field-name",
+          default: "Nested object.field name",
+        )
+        .returns("Field label")
 
-      assert_equal "Field name", humanized_label("field-name", nil)
+      assert_equal "Field label", humanized_label("nested_object.field-name", nil)
     end
   end
 
