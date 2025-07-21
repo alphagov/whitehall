@@ -68,7 +68,6 @@ en:
             For example: 'The body of the email must include your name, date of birth, passport number and mobile phone number.'"
       labels:
         telephones:
-          show_uk_call_charges: "Show hyperlink to 'Find out about call charges'"
           bsl_guidance:
             show: Show BSL guidance?
             value: Value
@@ -76,6 +75,10 @@ en:
             show: Include Relay UK?
             prefix: Prefix
             telephone_number: Telephone number
+          call_charges:
+            show_call_charges_info_url: "Show hyperlink to 'Find out about call charges'"
+            label: "Label"
+            call_charges_info_url: "URL to find out about call charges"
         addresses:
           title: Recipient
         contacts:
@@ -89,11 +92,6 @@ en:
               time_to(h): Hours
               time_to(m): Minutes
               time_to(meridian): AM/PM
-        video_relay_service:
-          show_video_relay_service: "Show video relay service information"
-          telephone_number_prefix: "Prefix to telephone number"
-          telephone_number: "Telephone number"
-          information: "Information"
       values:
         true: "Yes"
         false: "No"
