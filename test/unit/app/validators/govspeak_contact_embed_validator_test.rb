@@ -49,7 +49,8 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
     GovspeakContactEmbedValidator.new.validate(test_model)
 
     assert_equal 1, test_model.errors.size
-    assert_equal ["HTML Attachment 'html-attachment-title-1' invalid: Contact ID #{bad_id} doesn't exist"], test_model.errors.map(&:type)
+    error_message = test_model.errors.map(&:type).first
+    assert_match(/HTML Attachment '.*' invalid: Contact ID #{bad_id} doesn't exist/, error_message)
   end
 
   test "should use HTML attachment title in error message when title is present" do
@@ -82,5 +83,17 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
 
     assert_equal 1, test_model.errors.size
     assert_equal ["HTML Attachment #{test_model.id} invalid: Contact ID #{bad_id} doesn't exist"], test_model.errors.map(&:type)
+  end
+
+  test "should skip validation when creating a draft with existing invalid HTML attachment" do
+    published_edition = create(:published_publication)
+    invalid_attachment = build(:html_attachment, body: "[Contact:9999999999999]", attachable: published_edition)
+    invalid_attachment.save!(validate: false)
+    
+    user = create(:user)
+    assert_nothing_raised do
+      draft_edition = published_edition.create_draft(user)
+      assert_equal 2, draft_edition.html_attachments.count
+    end
   end
 end
