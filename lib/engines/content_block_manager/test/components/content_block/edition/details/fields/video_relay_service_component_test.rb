@@ -188,4 +188,25 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
       end
     end
   end
+
+  describe "when errors are present" do
+    before do
+      content_block_edition.errors.add(:details_video_relay_service_prefix, "Prefix error")
+      content_block_edition.errors.add(:details_video_relay_service_telephone_number, "Telephone error")
+    end
+
+    it "should show errors" do
+      render_inline(component)
+
+      assert_selector ".govuk-form-group.govuk-form-group--error", text: /Prefix/ do |form_group|
+        form_group.assert_selector ".govuk-error-message", text: "Prefix error"
+        form_group.assert_selector "textarea.govuk-textarea--error"
+      end
+
+      assert_selector ".govuk-form-group.govuk-form-group--error", text: /Telephone number/ do |form_group|
+        form_group.assert_selector ".govuk-error-message", text: "Telephone error"
+        form_group.assert_selector "input.govuk-input--error"
+      end
+    end
+  end
 end
