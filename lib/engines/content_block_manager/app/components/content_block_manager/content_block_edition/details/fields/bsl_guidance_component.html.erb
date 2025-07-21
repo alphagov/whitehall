@@ -1,9 +1,7 @@
 <div class="app-c-content-block-manager-bsl-guidance-component">
   <% value_input = capture do %>
     <%= render "govuk_publishing_components/components/textarea", {
-      label: {
-        text: humanized_label(relative_key: "value", root_object: "telephones.bsl_guidance"),
-      },
+      label: { text: label_for("value") },
       name: name_for_field(value_field) ,
       id: id_for_field(value_field),
       value: value_for_field(value_field) || value_field.default_value,
@@ -15,14 +13,14 @@
   <%= render "govuk_publishing_components/components/checkboxes", {
     name: name_for_field(show_field),
     id: id_for_field(show_field),
-    text: humanized_label(relative_key: "show", root_object: "telephones.bsl_guidance"),
-    heading: humanized_label(relative_key: "show", root_object: "telephones.bsl_guidance"),
+    text: label_for("show"),
+    heading: label_for("show"),
     visually_hide_heading: true,
     no_hint_text: true,
     small: true,
     items: [
       {
-        label: humanized_label(relative_key: "show", root_object: "telephones.bsl_guidance"),
+        label: label_for("show"),
         value: "true",
         checked: value_for_field(show_field) == true,
         conditional: value_input,
