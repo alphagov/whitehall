@@ -28,7 +28,7 @@
           @content_block_edition.details[subschema.id].keys,
           content_block_edition: @content_block_edition,
           object_type: subschema.id,
-          redirect_url: content_block_manager.content_block_manager_content_block_workflow_path(@content_block_edition, step: "#{Workflow::Step::SUBSCHEMA_PREFIX}#{subschema.id}"),
+          redirect_url: redirect_url_for_subschema(subschema, @content_block_edition),
           test_id_prefix: "review_embedded",
         ) %>
       <% end %>
