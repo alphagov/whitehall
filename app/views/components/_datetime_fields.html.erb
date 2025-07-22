@@ -41,82 +41,79 @@
 %>
 <% if prefix && field_name %>
   <%= tag.div class: root_classes, data: data_attributes, id: id do %>
-    <% unless date_only && !date_heading %>
-      <%= render "govuk_publishing_components/components/heading", {
-        text: date_heading || "Date (required)",
-        heading_level: heading_level || 3,
-        font_size: heading_size || "m",
-        padding: true,
+    <% date_input = capture do %>
+      <%= render "govuk_publishing_components/components/date_input", {
+        id: date_id,
+        hint: date_hint,
+        error_items: error_items,
+        items: date_input_items,
       } %>
     <% end %>
 
-    <%= render "govuk_publishing_components/components/date_input", {
-      id: date_id,
-      hint: date_hint,
-      error_items: error_items,
-      items: date_input_items,
+    <%= render "govuk_publishing_components/components/fieldset", {
+      heading_level: heading_level || 3,
+      heading_size: heading_size || "m",
+      legend_text: date_heading || "Date (required)",
+      text: date_input,
     } %>
 
     <% unless date_only %>
-      <div class="govuk-!-margin-top-3">
-        <%= render "govuk_publishing_components/components/heading", {
-          text: "Time",
-          heading_level: heading_level || 3,
-          font_size: heading_size || "m",
-          padding: true,
-        } %>
-      </div>
-
-      <% if time_hint %>
-        <%= render "govuk_publishing_components/components/hint", {
-          text: time_hint,
-          id: time_hint_id,
-        } %>
-      <% end %>
-
-      <div class="app-c-datetime-fields__date-time-wrapper">
-        <div class="app-c-datetime-fields__date-time">
-          <%= render "govuk_publishing_components/components/label", {
-            text: "Hour",
-            html_for: hour_select_id,
-            id: hour_label_id,
+      <%= render "govuk_publishing_components/components/fieldset", {
+        legend_text: "Time",
+        heading_level: heading_level || 3,
+        heading_size: heading_size || "m",
+      } do %>
+        <% if time_hint %>
+          <%= render "govuk_publishing_components/components/hint", {
+            text: time_hint,
+            id: time_hint_id,
           } %>
+        <% end %>
 
-          <%= select_hour hour_value,
-                          {
-                            include_blank: true,
-                            prefix: prefix,
-                            field_name: "#{field_name}(4i)",
-                          },
-                          {
-                            id: hour_select_id,
-                            class: "govuk-select app-c-datetime-fields__date-time-input",
-                            "aria-describedby": "#{hour_label_id} #{time_hint_id if time_hint.present?}".strip,
-                          } %>
-        </div>
+        <div class="app-c-datetime-fields__date-time-wrapper">
+          <div class="app-c-datetime-fields__date-time">
+            <%= render "govuk_publishing_components/components/label", {
+              text: "Hour",
+              html_for: hour_select_id,
+              id: hour_label_id,
+            } %>
 
-        <p class="govuk-body app-c-datetime-fields__time-separator">:</p>
-
-        <div class="app-c-datetime-fields__date-time">
-          <%= render "govuk_publishing_components/components/label", {
-            text: "Minute",
-            html_for: minute_select_id,
-            id: minute_label_id,
-          } %>
-
-          <%= select_minute minute_value,
+            <%= select_hour hour_value,
                             {
                               include_blank: true,
                               prefix: prefix,
-                              field_name: "#{field_name}(5i)",
+                              field_name: "#{field_name}(4i)",
                             },
                             {
-                              id: minute_select_id,
+                              id: hour_select_id,
                               class: "govuk-select app-c-datetime-fields__date-time-input",
-                              "aria-describedby": "#{minute_label_id} #{time_hint_id if time_hint.present?}".strip,
+                              "aria-describedby": "#{hour_label_id} #{time_hint_id if time_hint.present?}".strip,
                             } %>
+          </div>
+
+          <p class="govuk-body app-c-datetime-fields__time-separator">:</p>
+
+          <div class="app-c-datetime-fields__date-time">
+            <%= render "govuk_publishing_components/components/label", {
+              text: "Minute",
+              html_for: minute_select_id,
+              id: minute_label_id,
+            } %>
+
+            <%= select_minute minute_value,
+                              {
+                                include_blank: true,
+                                prefix: prefix,
+                                field_name: "#{field_name}(5i)",
+                              },
+                              {
+                                id: minute_select_id,
+                                class: "govuk-select app-c-datetime-fields__date-time-input",
+                                "aria-describedby": "#{minute_label_id} #{time_hint_id if time_hint.present?}".strip,
+                              } %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
