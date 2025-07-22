@@ -110,47 +110,76 @@ class ReportingRake < ActiveSupport::TestCase
     end
   end
 
-  describe "rake reporting:invalid_editions" do
-    teardown do
-      Rake::Task["reporting:invalid_editions"].reenable
-    end
-
-    test "it groups and summarises all of the invalid editions" do
-      edition_with_missing_contact = create(:published_edition)
-      edition_with_missing_contact.translations.first.update_columns(body: "[Contact:9999999]")
-      edition_with_bad_link_1 = create(:withdrawn_edition, body: "[bad link](http:::::://gov.uk)")
-      edition_with_bad_link_2 = create(:edition, body: "[another bad link](http:::::://gov.uk)")
-      blank_edition = create(:edition)
-      blank_edition.translations.first.update_columns(body: "")
+  describe "rake tasks for reporting invalid editions" do
+    setup do
+      @edition_with_missing_contact = create(:published_edition, created_at: 1.year.ago)
+      @edition_with_missing_contact.translations.first.update_columns(body: "[Contact:9999999]")
+      @edition_with_bad_link_1 = create(:withdrawn_edition, body: "[bad link](http:::::://gov.uk)", created_at: 1.year.ago)
+      @edition_with_bad_link_2 = create(:edition, body: "[another bad link](http:::::://gov.uk)", created_at: Time.zone.now)
+      @blank_edition = create(:edition, created_at: 1.year.ago)
+      @blank_edition.translations.first.update_columns(body: "")
 
       invalid_editions = [
-        edition_with_missing_contact,
-        edition_with_bad_link_1,
-        edition_with_bad_link_2,
-        blank_edition,
+        @edition_with_missing_contact,
+        @edition_with_bad_link_1,
+        @edition_with_bad_link_2,
+        @blank_edition,
       ]
 
       invalid_editions.each { |edition| edition.valid?(:publish) }
+    end
 
-      expected_output = <<~OUTPUT
-        All invalid editions (3)
-        -------------------------------
-        2 editions with error `Invalid external link structure`. Example edition IDs: #{edition_with_bad_link_1.id}, #{edition_with_bad_link_2.id}
-        1 editions with error `Body cannot be blank`. Example edition IDs: #{blank_edition.id}
-        1 editions with error `Invalid Contact ID`. Example edition IDs: #{edition_with_missing_contact.id}
+    describe "rake reporting:invalid_editions" do
+      teardown do
+        Rake::Task["reporting:invalid_editions"].reenable
+      end
 
-        Invalid published editions (1)
-        -------------------------------
-        1 editions with error `Invalid Contact ID`. Example edition IDs: #{edition_with_missing_contact.id}
+      test "it groups and summarises all of the invalid editions" do
+        expected_output = <<~OUTPUT
+          All invalid editions (3)
+          -------------------------------
+          2 editions with error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_1.id}, #{@edition_with_bad_link_2.id}
+          1 editions with error `Body cannot be blank`. Example edition IDs: #{@blank_edition.id}
+          1 editions with error `Invalid Contact ID`. Example edition IDs: #{@edition_with_missing_contact.id}
 
-        Invalid withdrawn editions (1)
-        -------------------------------
-        1 editions with error `Invalid external link structure`. Example edition IDs: #{edition_with_bad_link_1.id}
+          Invalid published editions (1)
+          -------------------------------
+          1 editions with error `Invalid Contact ID`. Example edition IDs: #{@edition_with_missing_contact.id}
 
-      OUTPUT
+          Invalid withdrawn editions (1)
+          -------------------------------
+          1 editions with error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_1.id}
 
-      assert_output(expected_output) do
-        Rake.application.invoke_task "reporting:invalid_editions"
+        OUTPUT
+
+        assert_output(expected_output) do
+          Rake.application.invoke_task "reporting:invalid_editions"
+        end
+      end
+    end
+
+    describe "rake reporting:invalid_editions_created_since" do
+      teardown do
+        Rake::Task["reporting:invalid_editions_created_since"].reenable
+      end
+
+      test "it groups and summarises all of the invalid editions created since the given date" do
+        expected_output = <<~OUTPUT
+          All invalid editions (1)
+          -------------------------------
+          1 editions with error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_2.id}
+
+          Invalid published editions (0)
+          -------------------------------
+
+          Invalid withdrawn editions (0)
+          -------------------------------
+
+        OUTPUT
+
+        assert_output(expected_output) do
+          Rake.application.invoke_task "reporting:invalid_editions_created_since[#{Time.zone.now.strftime('%Y-%m-%d')}]"
+        end
       end
     end
   end

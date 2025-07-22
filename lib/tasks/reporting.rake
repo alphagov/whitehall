@@ -70,24 +70,15 @@ namespace :reporting do
 
   desc "Prints a report of all 'invalid editions', broken down by edition state"
   task invalid_editions: :environment do
-    editions = Edition.only_invalid_editions
-      .map do |ed|
-      ed.valid?(:publish)
-      [ed.id, ed.state, ed.errors.map(&:full_message)]
-    end
+    scope = Edition.only_invalid_editions
+    report_invalid_editions(scope)
+  end
 
-    summarise_invalid_editions(
-      "All invalid editions",
-      grouped_and_sorted_invalid_editions(editions),
-    )
-    summarise_invalid_editions(
-      "Invalid published editions",
-      grouped_and_sorted_invalid_editions(editions.select { |ed| ed[1] == "published" }),
-    )
-    summarise_invalid_editions(
-      "Invalid withdrawn editions",
-      grouped_and_sorted_invalid_editions(editions.select { |ed| ed[1] == "withdrawn" }),
-    )
+  desc "Prints a report of all 'invalid editions' created since a certain date (e.g. '2015-05-08'), broken down by edition state"
+  task :invalid_editions_created_since, [:from_date] => :environment do |_, args|
+    scope = Edition.only_invalid_editions
+      .where("created_at > ?", Time.zone.parse(args[:from_date]).iso8601)
+    report_invalid_editions(scope)
   end
 end
 
@@ -132,4 +123,24 @@ def summarise_invalid_editions(prefix, scope)
     puts "#{hash[:count]} editions with error `#{error}`. Example edition IDs: #{hash[:ids].first(10).sort.join(', ')}"
   end
   puts "" # newline
+end
+
+def report_invalid_editions(scope)
+  editions = scope.map do |ed|
+    ed.valid?(:publish)
+    [ed.id, ed.state, ed.errors.map(&:full_message)]
+  end
+
+  summarise_invalid_editions(
+    "All invalid editions",
+    grouped_and_sorted_invalid_editions(editions),
+  )
+  summarise_invalid_editions(
+    "Invalid published editions",
+    grouped_and_sorted_invalid_editions(editions.select { |ed| ed[1] == "published" }),
+  )
+  summarise_invalid_editions(
+    "Invalid withdrawn editions",
+    grouped_and_sorted_invalid_editions(editions.select { |ed| ed[1] == "withdrawn" }),
+  )
 end
