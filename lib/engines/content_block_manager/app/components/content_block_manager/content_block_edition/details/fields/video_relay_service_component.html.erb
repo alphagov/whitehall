@@ -6,14 +6,16 @@
             name: name_for_field(prefix) ,
             id: id_for_field(prefix),
             value: value_for_field(prefix) || prefix.default_value,
-          }) %>
+            error_items: errors_for_field(prefix),
+    }) %>
 
     <%= render("govuk_publishing_components/components/input", {
               label: { text: label_for("telephone_number") },
               name: name_for_field(telephone_number) ,
               id: id_for_field(telephone_number),
               value: value_for_field(telephone_number) || telephone_number.default_value,
-            }) %>
+              error_items: errors_for_field(telephone_number),
+    }) %>
   <% end %>
 
   <input type="hidden" name="<%= name_for_field(show_video_relay_service) %>" value="false">

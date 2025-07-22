@@ -62,4 +62,31 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ObjectComponent
       assert_selector "input[name=\"content_block/edition[details][nested][label]\"][value=\"something\"]"
     end
   end
+
+  describe "when errors are present for the object" do
+    before do
+      content_block_edition.errors.add(:details_nested_label, "Label error")
+      content_block_edition.errors.add(:details_nested_type, "Type error")
+      content_block_edition.errors.add(:details_nested_email_address, "Email address error")
+    end
+
+    it "should show errors" do
+      render_inline(component)
+
+      assert_selector ".govuk-form-group.govuk-form-group--error", text: /Label/ do |form_group|
+        form_group.assert_selector ".govuk-error-message", text: "Label error"
+        form_group.assert_selector "input.govuk-input--error"
+      end
+
+      assert_selector ".govuk-form-group.govuk-form-group--error", text: /Type/ do |form_group|
+        form_group.assert_selector ".govuk-error-message", text: "Type error"
+        form_group.assert_selector "input.govuk-input--error"
+      end
+
+      assert_selector ".govuk-form-group.govuk-form-group--error", text: /Email address/ do |form_group|
+        form_group.assert_selector ".govuk-error-message", text: "Email address error"
+        form_group.assert_selector "input.govuk-input--error"
+      end
+    end
+  end
 end
