@@ -112,14 +112,19 @@ class ReportingRake < ActiveSupport::TestCase
 
   describe "rake tasks for reporting invalid editions" do
     setup do
+      Edition.delete_all
+      @edition_with_multiple_issues = create(:published_edition, created_at: 1.year.ago)
+      @edition_with_multiple_issues.translations.first.update_columns(body: "[Contact:9999999] [and a bad link](http:::::://gov.uk)")
       @edition_with_missing_contact = create(:published_edition, created_at: 1.year.ago)
       @edition_with_missing_contact.translations.first.update_columns(body: "[Contact:9999999]")
-      @edition_with_bad_link_1 = create(:withdrawn_edition, body: "[bad link](http:::::://gov.uk)", created_at: 1.year.ago)
+      # can't use `create(:withdrawn_edition)` here as it creates an additional edition and throws off the counts
+      @edition_with_bad_link_1 = create(:edition, state: "withdrawn", body: "[bad link](http:::::://gov.uk)", created_at: 1.year.ago)
       @edition_with_bad_link_2 = create(:edition, body: "[another bad link](http:::::://gov.uk)", created_at: Time.zone.now)
       @blank_edition = create(:edition, created_at: 1.year.ago)
       @blank_edition.translations.first.update_columns(body: "")
 
       invalid_editions = [
+        @edition_with_multiple_issues,
         @edition_with_missing_contact,
         @edition_with_bad_link_1,
         @edition_with_bad_link_2,
@@ -136,19 +141,21 @@ class ReportingRake < ActiveSupport::TestCase
 
       test "it groups and summarises all of the invalid editions" do
         expected_output = <<~OUTPUT
-          All invalid editions (3)
+          Found 5 invalid editions. Analysing (this could take a few minutes)...
+          All invalid editions (5)
           -------------------------------
-          2 editions with error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_1.id}, #{@edition_with_bad_link_2.id}
-          1 editions with error `Body cannot be blank`. Example edition IDs: #{@blank_edition.id}
-          1 editions with error `Invalid Contact ID`. Example edition IDs: #{@edition_with_missing_contact.id}
+          3 editions have the error `Invalid external link structure`. Example edition IDs: #{@edition_with_multiple_issues.id}, #{@edition_with_bad_link_1.id}, #{@edition_with_bad_link_2.id}
+          2 editions have the error `Invalid Contact ID`. Example edition IDs: #{@edition_with_multiple_issues.id}, #{@edition_with_missing_contact.id}
+          1 editions have the error `Body cannot be blank`. Example edition IDs: #{@blank_edition.id}
 
-          Invalid published editions (1)
+          Invalid published editions (2)
           -------------------------------
-          1 editions with error `Invalid Contact ID`. Example edition IDs: #{@edition_with_missing_contact.id}
+          2 editions have the error `Invalid Contact ID`. Example edition IDs: #{@edition_with_multiple_issues.id}, #{@edition_with_missing_contact.id}
+          1 editions have the error `Invalid external link structure`. Example edition IDs: #{@edition_with_multiple_issues.id}
 
           Invalid withdrawn editions (1)
           -------------------------------
-          1 editions with error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_1.id}
+          1 editions have the error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_1.id}
 
         OUTPUT
 
@@ -165,9 +172,10 @@ class ReportingRake < ActiveSupport::TestCase
 
       test "it groups and summarises all of the invalid editions created since the given date" do
         expected_output = <<~OUTPUT
+          Found 1 invalid editions. Analysing (this could take a few minutes)...
           All invalid editions (1)
           -------------------------------
-          1 editions with error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_2.id}
+          1 editions have the error `Invalid external link structure`. Example edition IDs: #{@edition_with_bad_link_2.id}
 
           Invalid published editions (0)
           -------------------------------

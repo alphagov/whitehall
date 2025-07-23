@@ -117,15 +117,17 @@ def grouped_and_sorted_invalid_editions(editions)
 end
 
 def summarise_invalid_editions(prefix, scope)
-  puts "#{prefix} (#{scope.count})"
+  sum_without_duplicates = scope.flat_map { |_, data| data[:ids] }.uniq.count
+  puts "#{prefix} (#{sum_without_duplicates})"
   puts "-------------------------------"
   scope.each do |error, hash|
-    puts "#{hash[:count]} editions with error `#{error}`. Example edition IDs: #{hash[:ids].first(10).sort.join(', ')}"
+    puts "#{hash[:count]} editions have the error `#{error}`. Example edition IDs: #{hash[:ids].first(10).sort.join(', ')}"
   end
   puts "" # newline
 end
 
 def report_invalid_editions(scope)
+  puts "Found #{scope.count} invalid editions. Analysing (this could take a few minutes)..."
   editions = scope.map do |ed|
     ed.valid?(:publish)
     [ed.id, ed.state, ed.errors.map(&:full_message)]
