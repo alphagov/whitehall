@@ -18,7 +18,7 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
   end
 
   test "export_for_document_collection writes publications to a CSV file" do
-    publication = create(:publication, :with_file_attachment)
+    publication = create(:published_publication, :with_file_attachment)
 
     Rake.application.invoke_task "publications:export_for_document_collection"
 
@@ -36,8 +36,8 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
   end
 
   test "export_for_document_collection handles multiple publications" do
-    create(:publication, :with_file_attachment)
-    create(:publication, :with_file_attachment)
+    create(:published_publication, :with_file_attachment)
+    create(:published_publication, :with_file_attachment)
 
     Rake.application.invoke_task "publications:export_for_document_collection"
 
@@ -46,7 +46,7 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
   end
 
   test "export_for_document_collection only supports pdf attachments" do
-    create(:publication, :with_html_attachment)
+    create(:published_publication, :with_html_attachment)
 
     Rake.application.invoke_task "publications:export_for_document_collection"
 
@@ -60,7 +60,7 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
   end
 
   test "export_for_document_collection gets the first pdf attachment" do
-    publication = create(:publication, :with_html_attachment)
+    publication = create(:published_publication, :with_html_attachment)
     additional_attachment = create(:file_attachment, attachable: publication)
 
     Rake.application.invoke_task "publications:export_for_document_collection"
@@ -73,7 +73,7 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
   end
 
   test "export_for_document_collection gets the first pdf attachment if there are multiple" do
-    publication = create(:publication, :with_html_attachment)
+    publication = create(:published_publication, :with_html_attachment)
     additional_attachment1 = create(:file_attachment, attachable: publication)
     create(:file_attachment, attachable: publication)
 
@@ -84,6 +84,17 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
     assert_equal additional_attachment1.title, csv[0]['attachment_title']
     assert_equal additional_attachment1.filename, csv[0]['attachment_filename']
     assert_equal additional_attachment1.url, csv[0]['attachment_url']
+  end
+
+  test "export_for_document_collection only exports published publications" do
+    published_publication = create(:published_publication)
+    create(:draft_publication)
+
+    Rake.application.invoke_task "publications:export_for_document_collection"
+
+    csv = CSV.read(CSV_PATH, headers: true)
+    assert_equal 1, csv.size
+    assert_equal published_publication.title, csv[0]['title']
   end
 
 

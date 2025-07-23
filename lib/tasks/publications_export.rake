@@ -8,7 +8,7 @@ namespace :publications do
 
     CSV.open(filepath, 'w') do |csv|
       csv << %w"title summary body attachment_title attachment_filename attachment_url attachment_created_at attachment_updated_at"
-      publications = Publication.all
+      publications = Publication.all.where(state: :published)
       publications.each do |publication|
         attachment = publication.attachments.find { |a| a.is_a?(FileAttachment) && a.pdf? }
         csv << [
