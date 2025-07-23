@@ -276,6 +276,9 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
         I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
         I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
 
+        I18n.expects(:t).with("content_block_edition.details.values.Foo", default: "Foo").returns("Foo translated")
+        I18n.expects(:t).with("content_block_edition.details.values.Bar", default: "Bar").returns("Bar translated")
+
         I18n.expects(:t).with("content_block_edition.details.values.My Embedded Object", default: "My Embedded Object").returns("My Embedded Object")
 
         component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
@@ -292,10 +295,12 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
 
         assert_selector ".app-c-content-block-manager-nested-item-component", text: /Field 1/ do |nested_block|
           nested_block.assert_selector ".govuk-summary-list__key", text: "Item translated"
+          nested_block.assert_selector ".govuk-summary-list__value", text: "Foo translated"
         end
 
         assert_selector ".app-c-content-block-manager-nested-item-component", text: /Field 2/ do |nested_block|
           nested_block.assert_selector ".govuk-summary-list__key", text: "Item translated"
+          nested_block.assert_selector ".govuk-summary-list__value", text: "Bar translated"
         end
       end
     end
