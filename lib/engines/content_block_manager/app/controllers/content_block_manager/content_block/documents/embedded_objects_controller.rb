@@ -31,13 +31,14 @@ class ContentBlockManager::ContentBlock::Documents::EmbeddedObjectsController < 
     @content_block_edition = @content_block_document.latest_edition.clone_edition(creator: current_user)
 
     @params = object_params(@subschema).dig(:details, @subschema.block_type)
+    object_title = @content_block_edition.key_for_object(@subschema.block_type, @params&.fetch("title"))
     @content_block_edition.add_object_to_details(@subschema.block_type, @params)
     @content_block_edition.save!
 
     redirect_to content_block_manager.review_embedded_object_content_block_manager_content_block_edition_path(
       @content_block_edition,
       object_type: @subschema.block_type,
-      object_title: @content_block_edition.key_for_object(@subschema.block_type, @params),
+      object_title:,
     )
   rescue ActiveRecord::RecordInvalid
     render :new

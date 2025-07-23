@@ -210,14 +210,65 @@ class ContentBlockManager::ContentBlockEditionTest < ActiveSupport::TestCase
       assert_equal content_block_edition.details["something"], { "another-thing" => {}, "my-thing" => { "title" => "My thing", "something" => "else" } }
     end
 
+    describe "when an object with the same title already exists" do
+      before do
+        content_block_edition.details["something"] = {
+          "my-thing" => {
+            "title" => "My thing",
+            "something" => "here",
+          },
+        }
+      end
+
+      it "generates a new key" do
+        content_block_edition.add_object_to_details("something", { "title" => "My thing", "something" => "else" })
+        assert_equal content_block_edition.details["something"], {
+          "my-thing" => {
+            "title" => "My thing",
+            "something" => "here",
+          },
+          "my-thing-1" => {
+            "title" => "My thing",
+            "something" => "else",
+          },
+        }
+      end
+
+      it "tries again if there is already an exising key" do
+        10.times do |i|
+          content_block_edition.details["something"]["my-thing-#{i}"] = {
+            "title" => "My thing",
+            "something" => "here",
+          }
+        end
+
+        content_block_edition.add_object_to_details("something", { "title" => "My thing", "something" => "else" })
+
+        expected = content_block_edition.details["something"].merge({ "my-thing-10" => { "title" => "My thing", "something" => "else" } })
+        assert_equal content_block_edition.details["something"], expected
+      end
+    end
+
     describe "when a title is not provided" do
-      it "creates a key using the object type and count of objects" do
+      it "creates a key using the object type" do
         content_block_edition.add_object_to_details("something", { "something" => "else" })
         content_block_edition.add_object_to_details("something", { "something" => "additional" })
 
         assert_equal content_block_edition.details["something"], {
-          "something-1" => { "something" => "else" },
-          "something-2" => { "something" => "additional" },
+          "something" => { "something" => "else" },
+          "something-1" => { "something" => "additional" },
+        }
+      end
+    end
+
+    describe "when a title is blank" do
+      it "creates a key using the object type" do
+        content_block_edition.add_object_to_details("something", { "title" => "", "something" => "else" })
+        content_block_edition.add_object_to_details("something", { "title" => "", "something" => "additional" })
+
+        assert_equal content_block_edition.details["something"], {
+          "something" => { "title" => "", "something" => "else" },
+          "something-1" => { "title" => "", "something" => "additional" },
         }
       end
     end
