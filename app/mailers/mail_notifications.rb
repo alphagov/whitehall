@@ -60,13 +60,6 @@ class MailNotifications < ApplicationMailer
               subject:
   end
 
-  def broken_link_reports(public_url, recipient_address)
-    @public_url = public_url
-    view_mail template_id,
-              to: recipient_address,
-              subject: "Monthly Whitehall broken links report"
-  end
-
   def document_list(public_url, recipient_address, filter_title)
     @public_url = public_url
 
