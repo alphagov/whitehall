@@ -36,13 +36,6 @@ module Whitehall
     Locale.all_keys.map(&:to_sym)
   end
 
-  def self.system_binaries
-    {
-      zipinfo: File.which("zipinfo"),
-      unzip: File.which("unzip"),
-    }
-  end
-
   def self.router_prefix
     "/government"
   end
