@@ -7,7 +7,7 @@ class Admin::BulkUploadsController < Admin::BaseController
 
   def new; end
 
-  def upload_zip
+  def upload_files
     @bulk_upload.build_attachments_from_files(files_params)
 
     if @bulk_upload.errors.present?

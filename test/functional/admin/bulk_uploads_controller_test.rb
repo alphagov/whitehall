@@ -34,7 +34,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     end
   end
 
-  def post_to_upload_zip(*files)
+  def post_to_upload_files(*files)
     params = {}
     files ||= []
 
@@ -42,7 +42,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
       files: files.map { |f| f && upload_fixture(f) },
     }
 
-    post :upload_zip, params: { edition_id: @edition }.merge(params)
+    post :upload_files, params: { edition_id: @edition }.merge(params)
   end
 
   test "Actions are unavailable on unmodifiable editions" do
@@ -64,13 +64,13 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "POST :upload_zip with no files requests that files be specified" do
-    post_to_upload_zip(nil)
+  view_test "POST :upload_files with no files requests that files be specified" do
+    post_to_upload_files(nil)
     assert_select ".gem-c-error-summary__list-item", /Files not selected for upload/
   end
 
-  view_test "POST :upload_zip prompts for metadata for each file" do
-    post_to_upload_zip("two-pages.pdf", "greenpaper.pdf")
+  view_test "POST :upload_files prompts for metadata for each file" do
+    post_to_upload_files("two-pages.pdf", "greenpaper.pdf")
     assert_response :success
     assert_select "input[name='bulk_upload[attachments][0][title]']"
     assert_select "input[name='bulk_upload[attachments][1][title]']"
@@ -78,16 +78,16 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     assert_select ".govuk-fieldset__heading", /File: greenpaper.pdf/
   end
 
-  view_test "POST :upload_zip when replacing an attachment sets to_replace_id" do
+  view_test "POST :upload_files when replacing an attachment sets to_replace_id" do
     existing_file = File.open(Rails.root.join("test/fixtures/greenpaper.pdf"))
     @edition.attachments << existing = build(:file_attachment, file: existing_file)
-    post_to_upload_zip("two-pages.pdf", "greenpaper.pdf")
+    post_to_upload_files("two-pages.pdf", "greenpaper.pdf")
     assert_response :success
     assert_select "input[name*='to_replace_id'][value='#{existing.attachment_data.id}']"
   end
 
-  view_test "POST :upload_zip with illegal file" do
-    post_to_upload_zip("two-pages.pdf", "greenpaper.pdf", "pdfinfo_dummy.sh")
+  view_test "POST :upload_files with illegal file" do
+    post_to_upload_files("two-pages.pdf", "greenpaper.pdf", "pdfinfo_dummy.sh")
     assert_response :success
     assert_select ".gem-c-error-summary__list-item", /included not allowed type .sh/
     assert_select "input[type=file]"
