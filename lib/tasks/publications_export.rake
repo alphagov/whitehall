@@ -7,7 +7,9 @@ namespace :publications do
     puts "Exporting publications to #{filepath}..."
 
     CSV.open(filepath, 'w') do |csv|
-      # TODO: implement in next commit
+      publication = Publication.first
+      csv << %w"title summary body"
+      csv << [publication.title, publication.summary, publication.body] if publication
     end
   end
 end

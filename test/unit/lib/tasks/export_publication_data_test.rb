@@ -9,8 +9,14 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
   end
 
   test "export_for_document_collection writes publications to a CSV file" do
+    publication = create(:publication, title: "Test Publication", summary: "This is a test publication.", body: "Detailed body content.")
     Rake.application.invoke_task "publications:export_for_document_collection"
 
     assert File.exist?(CSV_PATH), "CSV file should be created"
+    csv = CSV.read(CSV_PATH, headers: true)
+    assert_equal 1, csv.size
+    assert_equal publication.title, csv[0]['title']
+    assert_equal publication.summary, csv[0]['summary']
+    assert_equal publication.body, csv[0]['body']
   end
 end
