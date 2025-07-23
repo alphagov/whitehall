@@ -21,22 +21,6 @@ module Admin::TaggableContentHelper
     end
   end
 
-  def taggable_needs_container(selected_ids)
-    Services.publishing_api.get_linkables(document_type: "need").to_a.map do |need|
-      title, content_id = need.values_at("title", "content_id")
-      {
-        text: title,
-        value: content_id,
-        selected: selected_ids.include?(content_id),
-      }
-    end
-  rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
-    stale_data = Rails.cache.fetch("need.linkables")
-    return stale_data if stale_data
-
-    raise
-  end
-
   def taggable_role_appointments_container(selected_ids = [])
     cached_taggable_role_appointments.map do |appointment|
       {
