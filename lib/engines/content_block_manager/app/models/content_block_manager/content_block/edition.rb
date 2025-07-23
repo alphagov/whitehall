@@ -48,7 +48,7 @@ module ContentBlockManager
       end
 
       def add_object_to_details(object_type, body)
-        key = key_for_object(object_type, body)
+        key = key_for_object(object_type, body["title"])
 
         details[object_type] ||= {}
         details[object_type][key] = remove_destroyed body.to_h
@@ -58,13 +58,17 @@ module ContentBlockManager
         details[object_type][object_title] = remove_destroyed body.to_h
       end
 
-      def key_for_object(object_type, object)
-        if object["title"].present?
-          object["title"].parameterize
-        else
-          current_count = details[object_type]&.values&.count || 0
-          "#{object_type.parameterize}-#{current_count + 1}"
+      def key_for_object(object_type, title)
+        base_key = (title.presence || object_type).parameterize
+        key = base_key
+        counter = 1
+
+        while details.dig(object_type, key).present?
+          key = "#{base_key}-#{counter}"
+          counter += 1
         end
+
+        key
       end
 
       def has_entries_for_subschema_id?(subschema_id)
