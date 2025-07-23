@@ -16,12 +16,21 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
   let(:content_block_document) { build(:content_block_document, :pension) }
 
   let(:schema) { stub("schema") }
-  let(:subschema) { stub("schema", embeddable_as_block?: embeddable_as_block) }
+  let(:subschema) { stub("sub-schema", embeddable_as_block?: embeddable_as_block) }
+
+  let(:subschema_config) do
+    {
+      "fields" => {
+        "things" => {},
+      },
+    }
+  end
 
   before do
     content_block_document.stubs(:schema).returns(schema)
     content_block_document.stubs(:latest_edition).returns(content_block_edition)
     schema.stubs(:subschema).with(object_type).returns(subschema)
+    subschema.stubs(:config).returns(subschema_config)
   end
 
   let(:component) do
@@ -262,6 +271,57 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Blocks
               parent_container: summary_card,
             )
           end
+        end
+      end
+
+      context "when the nested object has a defined 'field_order'" do
+        let(:subschema_config) do
+          {
+            "fields" => {
+              "nested_item" => { "field_order" => %w[first_one second_one third_one] },
+            },
+          }
+        end
+
+        let(:items) do
+          {
+            "nested_item" => [
+              {
+                "third_one" => "1-3",
+                "first_one" => "1-1",
+                "second_one" => "1-2",
+              },
+              {
+                "third_one" => "2-3",
+                "first_one" => "2-1",
+                "second_one" => "2-2",
+              },
+            ],
+          }
+        end
+
+        it "orders the data rows accordingly, coping with formatting of keys" do
+          render_inline component
+
+          keys_in_rendered_order =
+            page.all(".govuk-summary-list__key", visible: false)
+              .map { |e| e.text.strip }
+              .reject { |i| i == "Something" }
+
+          values_in_rendered_order =
+            page.all(".app-c-embedded-objects-blocks-component__content", visible: false)
+              .map { |e| e.text.strip }
+              .reject { |i| i == "BLOCK_RESPONSE" }
+
+          assert_equal(
+            ["First one", "Second one", "Third one", "First one", "Second one", "Third one"],
+            keys_in_rendered_order,
+          )
+
+          assert_equal(
+            %w[1-1 1-2 1-3 2-1 2-2 2-3],
+            values_in_rendered_order,
+          )
         end
       end
     end

@@ -61,12 +61,22 @@ private
   end
 
   def rows_for_nested_items(items, nested_name, index)
-    items.map do |key, value|
+    rows = items.map do |key, value|
       {
         key: key_to_title(key),
         value: content_for_row(embed_code_identifier(nested_name, index, key), value),
         data: data_attributes_for_row(embed_code_identifier(nested_name, index, key)),
       }
+    end
+    ordered_by_field_order(rows, nested_name)
+  end
+
+  def ordered_by_field_order(rows, nested_object_name)
+    field_order = schema.config.dig("fields", nested_object_name, "field_order")
+    return rows unless field_order
+
+    rows.sort_by do |row|
+      field_order.index(row.fetch(:key).parameterize(separator: "_")) || Float::INFINITY
     end
   end
 
