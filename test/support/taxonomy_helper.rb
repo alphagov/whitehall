@@ -82,14 +82,15 @@ module TaxonomyHelper
   end
 
   def stub_publishing_api_links_with_taxons(content_id, taxons)
-    stub_publishing_api_has_links(
+    stub_publishing_api_has_expanded_links(
       {
         "content_id" => content_id,
-        "links" => {
+        "expanded_links" => {
           "taxons" => taxons,
         },
         "version" => 1,
       },
+      with_drafts: false,
     )
   end
 
