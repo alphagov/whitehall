@@ -1,0 +1,32 @@
+<% content_for :context, edition.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
+<% content_for :page_title, "Edit translation for: #{@edition.title}" %>
+<% content_for :title, "#{@translation_locale.native_language_name} (#{@translation_locale.english_language_name}) translation" %>
+
+<%= form_for @translated_edition, as: :edition, url: admin_flexible_page_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
+  <div class="<%= "right-to-left" if edition.rtl? %>">
+    <%= form.hidden_field :lock_version %>
+
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Content",
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+
+    <%= form.hidden_field :flexible_page_type, value: @translated_edition.flexible_page_type %>
+    <%= render("admin/flexible_pages/content_blocks/default_object", {
+      schema: FlexiblePageType.find(@translated_edition.flexible_page_type).schema,
+      content: @translated_edition.flexible_page_content,
+      path: FlexiblePageContentBlocks::Path.new,
+      root: true,
+      primary_locale: false,
+    }) %>
+    <div class="govuk-button-group">
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save",
+      } %>
+
+      <%= link_to("Cancel", admin_edition_path(edition), class: "govuk-link govuk-link--no-visited-state") %>
+    </div>
+  </div>
+<% end %>

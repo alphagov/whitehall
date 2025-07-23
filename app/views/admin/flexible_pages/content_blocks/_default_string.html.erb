@@ -1,8 +1,9 @@
 <% required = required || false %>
 <%= render "govuk_publishing_components/components/input", {
   id: path.form_control_id,
-  label: { text: schema["title"] + (required ? " (required)" : "") },
+  label: { text: add_translation_prefix_if_necessary(schema["title"] + (required ? " (required)" : ""), primary_locale) },
   name: path.form_control_name,
   value: content,
   hint: schema["description"],
+  right_to_left: FlexiblePageContentBlocks::Context.page.translation_rtl?,
 } %>
