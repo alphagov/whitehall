@@ -32,7 +32,7 @@ private
     first_class_items(items).map do |key, value|
       {
         field: key_to_title(key, object_type),
-        value: translated_value(value),
+        value: translated_value(key, value),
         data: {
           testid: [object_title.parameterize, key].compact.join("_").underscore,
         },

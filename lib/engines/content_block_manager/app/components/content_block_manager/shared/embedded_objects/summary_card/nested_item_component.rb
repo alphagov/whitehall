@@ -24,7 +24,7 @@ private
     nested_items.map do |key, value|
       {
         key: humanized_label(relative_key: key),
-        value: translated_value(value),
+        value: translated_value(key, value),
       }
     end
   end

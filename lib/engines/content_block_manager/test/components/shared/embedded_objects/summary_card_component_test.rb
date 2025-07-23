@@ -78,16 +78,16 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.field-1", default: "Field 1").returns("Field 1")
       I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.field-2", default: "Field 2").returns("Field 2")
 
-      I18n.expects(:t).with("content_block_edition.details.values.My Embedded Object", default: "My Embedded Object").returns("My Embedded Object translated")
-      I18n.expects(:t).with("content_block_edition.details.values.Value 2", default: "Value 2").returns("Value 2 translated")
-      I18n.expects(:t).with("content_block_edition.details.values.Value 1", default: "Value 1").returns("Value 1 translated")
-
       component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
         content_block_edition:,
         object_type: "embedded-objects",
         object_title: "my-embedded-object",
         test_id_prefix: "prefix",
       )
+
+      component.expects(:translated_value).with("name", "My Embedded Object").returns("My Embedded Object translated")
+      component.expects(:translated_value).with("field-1", "Value 1").returns("Value 1 translated")
+      component.expects(:translated_value).with("field-2", "Value 2").returns("Value 2 translated")
 
       render_inline component
 
@@ -272,25 +272,39 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       end
 
       it "returns a translated field if there is one present" do
-        I18n.expects(:t).with("content_block_edition.details.labels.embedded-objects.name", default: "Name").returns("Name translated")
-        I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
-        I18n.expects(:t).with("content_block_edition.details.labels.item", default: "Item").returns("Item translated")
-
-        I18n.expects(:t).with("content_block_edition.details.values.Foo", default: "Foo").returns("Foo translated")
-        I18n.expects(:t).with("content_block_edition.details.values.Bar", default: "Bar").returns("Bar translated")
-
-        I18n.expects(:t).with("content_block_edition.details.values.My Embedded Object", default: "My Embedded Object").returns("My Embedded Object")
-
         component = ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponent.new(
           content_block_edition:,
           object_type: "embedded-objects",
           object_title: "my-embedded-object",
         )
 
+        component.expects(:key_to_title).with("name", "embedded-objects").returns("Name translated")
+        component.expects(:translated_value).with("name", "My Embedded Object").returns("My Embedded Object translated")
+
+        ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent
+          .any_instance
+          .expects(:humanized_label)
+          .with(relative_key: "item")
+          .twice
+          .returns("Item translated")
+
+        ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent
+          .any_instance
+          .expects(:translated_value)
+          .with("item", "Foo")
+          .returns("Foo translated")
+
+        ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent
+          .any_instance
+          .expects(:translated_value)
+          .with("item", "Bar")
+          .returns("Bar translated")
+
         render_inline component
 
-        assert_selector ".govuk-summary-list__row[data-testid='my_embedded_object_name']", text: /Name/ do
-          assert_selector ".govuk-summary-list__key", text: "Name translated"
+        assert_selector ".govuk-summary-list__row[data-testid='my_embedded_object_name']", text: /Name/ do |nested_block|
+          nested_block.assert_selector ".govuk-summary-list__key", text: "Name translated"
+          nested_block.assert_selector ".govuk-summary-list__value", text: "My Embedded Object translated"
         end
 
         assert_selector ".app-c-content-block-manager-nested-item-component", text: /Field 1/ do |nested_block|

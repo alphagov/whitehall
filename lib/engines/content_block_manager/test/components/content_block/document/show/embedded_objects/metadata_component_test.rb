@@ -145,11 +145,21 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Metada
 
   describe "when there is a translated field label" do
     it "uses translated label" do
-      I18n.expects(:t).with("content_block_edition.details.labels.telephone.foo", default: "Foo").returns("Foo translated")
-      I18n.expects(:t).with("content_block_edition.details.labels.telephone.fizz", default: "Fizz").returns("Fizz translated")
+      component.expects(:humanized_label)
+               .with(relative_key: "foo", root_object: object_type)
+               .returns("Foo translated")
 
-      I18n.expects(:t).with("content_block_edition.details.values.bar", default: "bar").returns("bar")
-      I18n.expects(:t).with("content_block_edition.details.values.buzz", default: "buzz").returns("buzz")
+      component.expects(:humanized_label)
+               .with(relative_key: "fizz", root_object: object_type)
+               .returns("Fizz translated")
+
+      component.expects(:translated_value)
+               .with("foo", "bar")
+               .returns("bar")
+
+      component.expects(:translated_value)
+               .with("fizz", "buzz")
+               .returns("buzz")
 
       component.expects(:render).with(
         "govuk_publishing_components/components/summary_list", {
@@ -174,11 +184,21 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::Metada
 
   describe "when there is a translated field value" do
     it "uses translated label" do
-      I18n.expects(:t).with("content_block_edition.details.labels.telephone.foo", default: "Foo").returns("Foo")
-      I18n.expects(:t).with("content_block_edition.details.labels.telephone.fizz", default: "Fizz").returns("Fizz")
+      component.expects(:humanized_label)
+               .with(relative_key: "foo", root_object: object_type)
+               .returns("Foo")
 
-      I18n.expects(:t).with("content_block_edition.details.values.bar", default: "bar").returns("Bar translated")
-      I18n.expects(:t).with("content_block_edition.details.values.buzz", default: "buzz").returns("Buzz translated")
+      component.expects(:humanized_label)
+               .with(relative_key: "fizz", root_object: object_type)
+               .returns("Fizz")
+
+      component.expects(:translated_value)
+               .with("foo", "bar")
+               .returns("Bar translated")
+
+      component.expects(:translated_value)
+               .with("fizz", "buzz")
+               .returns("Buzz translated")
 
       component.expects(:render).with(
         "govuk_publishing_components/components/summary_list", {
