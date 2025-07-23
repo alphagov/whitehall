@@ -5,7 +5,6 @@ namespace :test do
     Dir.glob(Rails.root.join("tmp/test/env*/*uploads/system")).each do |uploads_folder|
       FileUtils.rm_rf(uploads_folder)
     end
-    FileUtils.rm_rf Rails.root.join("tmp/test/bulk-upload-zip-file-tmp")
   end
 end
 
