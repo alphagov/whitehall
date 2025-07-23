@@ -5,7 +5,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_for @bulk_upload, url: upload_zip_admin_edition_bulk_uploads_path(@edition), multipart: true do |form| %>
+    <%= form_for @bulk_upload, url: upload_files_admin_edition_bulk_uploads_path(@edition), multipart: true do |form| %>
 
       <%= form.hidden_field :edition, value: @edition %>
 
