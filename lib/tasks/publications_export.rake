@@ -7,6 +7,9 @@ namespace :publications do
     puts "Exporting publications to #{filepath}..."
 
     CSV.open(filepath, 'w') do |csv|
+      publlication = Publication.first
+      csv << %w"title summary"
+      csv << [publlication.title, publlication.summary] if publlication
     end
   end
 end
