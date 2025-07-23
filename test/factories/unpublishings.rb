@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :unpublishing do
     unpublishing_reason_id { UnpublishingReason::PUBLISHED_IN_ERROR_ID }
-    edition { create(:published_case_study, state: "draft", first_published_at: 2.days.ago) }
+    edition { create(:published_edition, state: "draft", first_published_at: 2.days.ago) }
 
     after(:build) do |unpublishing|
       unpublishing.document_type = unpublishing.edition.class.name
