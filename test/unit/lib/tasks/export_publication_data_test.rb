@@ -25,4 +25,15 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
     assert_equal publication.attachments[0].created_at, csv[0]['attachment_created_at']
     assert_equal publication.attachments[0].updated_at, csv[0]['attachment_updated_at']
   end
+
+  test "export_for_document_collection_handles_multiple_publications" do
+    create(:publication, :with_file_attachment)
+    create(:publication, :with_file_attachment)
+
+    Rake.application.invoke_task "publications:export_for_document_collection"
+
+    assert File.exist?(CSV_PATH), "CSV file should be created"
+    csv = CSV.read(CSV_PATH, headers: true)
+    assert_equal 2, csv.size
+  end
 end
