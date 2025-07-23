@@ -17,7 +17,10 @@
     } %>
 
     <% nested_items(items).each do |key, items| %>
-      <% if items.is_a?(Array) %>
+      <% if key == "opening_hours"%>
+        <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::OpeningHoursComponent.with_collection(items) %>
+
+      <% elsif items.is_a?(Array) %>
         <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent.with_collection(
           items,
           title: key.singularize.titleize,
