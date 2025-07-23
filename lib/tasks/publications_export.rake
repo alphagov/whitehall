@@ -10,15 +10,16 @@ namespace :publications do
       csv << %w"title summary body attachment_title attachment_filename attachment_url attachment_created_at attachment_updated_at"
       publications = Publication.all
       publications.each do |publication|
+        attachment = publication.attachments.find { |a| a.is_a?(FileAttachment) && a.pdf? }
         csv << [
           publication.title,
           publication.summary,
           publication.body,
-          publication.attachments[0].title,
-          publication.attachments[0].filename,
-          publication.attachments[0].url,
-          publication.attachments[0].created_at,
-          publication.attachments[0].updated_at,
+          attachment&.title || "",
+          attachment&.filename || "",
+          attachment&.url || "",
+          attachment&.created_at || "",
+          attachment&.updated_at || "",
         ]
       end
     end
