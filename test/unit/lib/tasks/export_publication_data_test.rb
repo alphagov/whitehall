@@ -59,4 +59,17 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
     assert_empty csv[0]['attachment_updated_at']
   end
 
+  test "export_for_document_collection gets the first pdf attachment" do
+    publication = create(:publication, :with_html_attachment)
+    additional_attachment = create(:file_attachment, attachable: publication)
+
+    Rake.application.invoke_task "publications:export_for_document_collection"
+
+    csv = CSV.read(CSV_PATH, headers: true)
+    assert_equal 1, csv.size
+    assert_equal additional_attachment.title, csv[0]['attachment_title']
+    assert_equal additional_attachment.filename, csv[0]['attachment_filename']
+    assert_equal additional_attachment.url, csv[0]['attachment_url']
+  end
+
 end
