@@ -163,11 +163,11 @@ class Edition < ApplicationRecord
   end
 
   def has_been_tagged?
-    api_response = Services.publishing_api.get_links(content_id)
+    api_response = Services.publishing_api.get_expanded_links(content_id, with_drafts: false)
 
-    return false if api_response["links"].nil? || api_response["links"]["taxons"].nil?
+    return false if api_response["expanded_links"].nil? || api_response["expanded_links"]["taxons"].nil?
 
-    api_response["links"]["taxons"].any?
+    api_response["expanded_links"]["taxons"].any?
   rescue GdsApi::HTTPNotFound
     false
   end

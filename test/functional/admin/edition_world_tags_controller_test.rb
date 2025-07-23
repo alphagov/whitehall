@@ -14,6 +14,18 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [child_taxon])
   end
 
+  def stub_publishing_api_links_with_taxons(content_id, taxons)
+    stub_publishing_api_has_links(
+      {
+        "content_id" => content_id,
+        "links" => {
+          "taxons" => taxons,
+        },
+        "version" => 1,
+      },
+    )
+  end
+
   test "should return an error on a version conflict" do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [world_child_taxon])
 
