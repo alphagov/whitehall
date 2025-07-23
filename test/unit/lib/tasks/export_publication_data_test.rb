@@ -1,11 +1,20 @@
 require "test_helper"
 require "rake"
+
 class ExportPublicationDataTest < ActiveSupport::TestCase
   CSV_PATH = Rails.root.join("publications_export.csv")
 
   teardown do
     File.delete(CSV_PATH) if File.exist?(CSV_PATH)
     Rake::Task["publications:export_for_document_collection"].reenable
+  end
+
+  test "export_for_document_collection handles no publications" do
+    Rake.application.invoke_task "publications:export_for_document_collection"
+
+    assert File.exist?(CSV_PATH), "CSV file should be created"
+    csv = CSV.read(CSV_PATH, headers: true)
+    assert_equal 0, csv.size, "CSV should be empty when no publications exist"
   end
 
   test "export_for_document_collection writes publications to a CSV file" do
@@ -26,7 +35,7 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
     assert_equal publication.attachments[0].updated_at, csv[0]['attachment_updated_at']
   end
 
-  test "export_for_document_collection_handles_multiple_publications" do
+  test "export_for_document_collection handles multiple publications" do
     create(:publication, :with_file_attachment)
     create(:publication, :with_file_attachment)
 
@@ -36,4 +45,5 @@ class ExportPublicationDataTest < ActiveSupport::TestCase
     csv = CSV.read(CSV_PATH, headers: true)
     assert_equal 2, csv.size
   end
+
 end
