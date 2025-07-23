@@ -8,8 +8,8 @@ namespace :publications do
 
     CSV.open(filepath, 'w') do |csv|
       publlication = Publication.first
-      csv << %w"title summary"
-      csv << [publlication.title, publlication.summary] if publlication
+      csv << %w"title summary body"
+      csv << [publlication.title, publlication.summary, publlication.body] if publlication
     end
   end
 end
