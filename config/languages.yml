@@ -1,11 +1,11 @@
 ar:
   direction: rtl
   english_name: Arabic
-  native_name: العربية
+  native_name: العربيَّة
 az:
   direction: ltr
   english_name: Azeri
-  native_name: Azərbaycanca
+  native_name: Azeri
 be:
   direction: ltr
   english_name: Belarusian
@@ -13,7 +13,7 @@ be:
 bg:
   direction: ltr
   english_name: Bulgarian
-  native_name: Български
+  native_name: български
 bn:
   direction: ltr
   english_name: Bangla
@@ -77,7 +77,7 @@ gd:
 gu:
   direction: ltr
   english_name: Gujarati
-  native_name: ગુજરાતી
+  native_name: જોર્જિયન
 he:
   direction: rtl
   english_name: Hebrew
@@ -85,7 +85,7 @@ he:
 hi:
   direction: ltr
   english_name: Hindi
-  native_name: हिन्दी
+  native_name: हिंदी
 hr:
   direction: ltr
   english_name: Croatian
@@ -157,11 +157,11 @@ nl:
 pa:
   direction: ltr
   english_name: Punjabi Gurmukhi
-  native_name: ਪੰਜਾਬੀ
+  native_name: ਪੰਜਾਬੀ ਗੁਰਮੁਖੀ
 pa-pk:
   direction: rtl
   english_name: Punjabi Shahmukhi
-  native_name: پنجابی
+  pa-native_name: پنجابی شاہ مُکھی
 pl:
   direction: ltr
   english_name: Polish
@@ -169,7 +169,7 @@ pl:
 ps:
   direction: rtl
   english_name: Pashto
-  native_name: پښتو
+  native_name: جرمني
 pt:
   direction: ltr
   english_name: Portuguese
@@ -189,7 +189,7 @@ si:
 sk:
   direction: ltr
   english_name: Slovak
-  native_name: Slovenčina
+  native_name: Slovensky
 sl:
   direction: ltr
   english_name: Slovene
@@ -205,11 +205,11 @@ sq:
 sr:
   direction: ltr
   english_name: Serbian
-  native_name: Српски
+  native_name: Srpski
 sv:
   direction: ltr
   english_name: Swedish
-  native_name: Svenska
+  native_name: Svensk
 sw:
   direction: ltr
   english_name: Swahili
@@ -241,7 +241,7 @@ ur:
 uz:
   direction: ltr
   english_name: Uzbek
-  native_name: Oʻzbek
+  native_name: Ўзбекча
 vi:
   direction: ltr
   english_name: Vietnamese
@@ -249,7 +249,7 @@ vi:
 yi:
   direction: rtl
   english_name: Yiddish
-  native_name: ייִדיש
+  native_name: יידיש
 zh:
   direction: ltr
   english_name: Chinese
@@ -257,7 +257,7 @@ zh:
 zh-hk:
   direction: ltr
   english_name: Cantonese
-  native_name: 粵語
+  native_name: 中文
 zh-tw:
   direction: ltr
   english_name: Traditional Chinese
