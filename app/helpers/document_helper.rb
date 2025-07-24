@@ -82,7 +82,6 @@ private
       "xml" => file_abbr_tag("XML", "XML document"),
       "xsd" => file_abbr_tag("XSD", "XML Schema"),
       "xslt" => file_abbr_tag("XSLT", "Extensible Stylesheet Language Transformation"),
-      "zip" => file_abbr_tag("ZIP", "Zip archive"),
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
   end
