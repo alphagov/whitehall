@@ -52,6 +52,7 @@ module PublishingApi
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
         details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
         details_hash.merge!(PayloadBuilder::Attachments.for(item))
+        details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
       end
     end
 

@@ -63,6 +63,39 @@ class PublishingApi::StatisticalDataSetPresenterTest < ActiveSupport::TestCase
   test "it presents the auth bypass id" do
     assert_equal [@statistical_data_set.auth_bypass_id], @presented_content[:auth_bypass_ids]
   end
+
+  test "it includes headers when headers are present in body" do
+    statistical_data_set = create(
+      :statistical_data_set,
+      title: "Some data set",
+      body: "##Some header\n\nSome content",
+    )
+
+    presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(statistical_data_set)
+
+    expected_headers = [
+      {
+        text: "Some header",
+        level: 2,
+        id: "some-header",
+      },
+    ]
+
+    assert_equal expected_headers, presented_statistical_data_set.content[:details][:headers]
+  end
+
+  test "it does not include headers when headers are not present in body" do
+    statistical_data_set = create(
+      :published_statistical_data_set,
+      title: "Some data set",
+      summary: "Some summary",
+      body: "Some content",
+    )
+
+    presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(statistical_data_set)
+
+    assert_nil presented_statistical_data_set.content[:details][:headers]
+  end
 end
 
 class PublishingApi::StatisticalDataSetWithPublicTimestampTest < ActiveSupport::TestCase
