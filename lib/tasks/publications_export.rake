@@ -1,14 +1,15 @@
 namespace :publications do
   desc "Export all publications for a document collection to a CSV file."
-  task :export_for_document_collection, [:organisation_slug] => :environment do |_, args|
+  task :export_for_document_collection, [:organisation_slug, :documents_collection_slug] => :environment do |_, args|
     require "csv"
 
     filepath = Rails.root.join("publications_export.csv")
     puts "Exporting publications to #{filepath}..."
 
     publications = Publication
-                     .joins(:organisations)
+                     .joins(document: { document_collections: [:document, :organisations] })
                      .where(organisations: { slug: args[:organisation_slug] })
+                     .where(documents_editions: { slug: args[:documents_collection_slug] })
                      .where(state: :published)
 
     CSV.open(filepath, 'w') do |csv|
