@@ -7,13 +7,14 @@ namespace :publications do
     puts "Exporting publications to #{filepath}..."
 
     publications = Publication
-                     .joins(document: { document_collections: [:document, :organisations] })
+                     .joins(document: { document_collections: %i[document organisations] })
                      .where(organisations: { slug: args[:organisation_slug] })
                      .where(documents_editions: { slug: args[:documents_collection_slug] })
+                     .where(document_collections_documents: { state: :published })
                      .where(state: :published)
 
-    CSV.open(filepath, 'w') do |csv|
-      csv << %w"title summary body attachment_title attachment_filename attachment_url attachment_created_at attachment_updated_at"
+    CSV.open(filepath, "w") do |csv|
+      csv << %w[title summary body attachment_title attachment_filename attachment_url attachment_created_at attachment_updated_at]
       publications.each do |publication|
         attachment = publication.attachments.find { |a| a.is_a?(FileAttachment) && a.pdf? }
         csv << [
