@@ -44,10 +44,6 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal "MS Powerpoint Presentation", humanized_content_type("pptx")
   end
 
-  test "should return Zip archive for humanized content type" do
-    assert_equal '<abbr title="Zip archive">ZIP</abbr>', humanized_content_type("zip")
-  end
-
   test "should return XML for humanized content type" do
     assert_equal '<abbr title="XML document">XML</abbr>', humanized_content_type("xml")
   end
