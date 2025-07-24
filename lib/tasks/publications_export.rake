@@ -29,5 +29,7 @@ namespace :publications do
         ]
       end
     end
+
+    puts "Exported #{publications.count} Publication(s)."
   end
 end
