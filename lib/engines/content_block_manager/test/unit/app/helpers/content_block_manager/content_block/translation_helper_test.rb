@@ -55,10 +55,10 @@ class ContentBlockManager::ContentBlock::TranslationHelperTest < ActiveSupport::
   describe "translated_value" do
     it "calls translation config with value" do
       I18n.expects(:t)
-          .with("content_block_edition.details.values.field value", default: "field value")
+          .with("content_block_edition.details.values.key.field value", default: ["content_block_edition.details.values.field value".to_sym, "field value"])
           .returns("field value")
 
-      assert_equal "field value", translated_value("field value")
+      assert_equal "field value", translated_value("key", "field value")
     end
   end
 end

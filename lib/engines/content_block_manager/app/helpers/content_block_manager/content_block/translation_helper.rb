@@ -8,8 +8,10 @@ module ContentBlockManager::ContentBlock::TranslationHelper
     )
   end
 
-  def translated_value(value)
-    translation_path = "content_block_edition.details.values.#{value}"
-    I18n.t(translation_path, default: value)
+  def translated_value(key, value)
+    default_path = "content_block_edition.details.values.#{value}"
+    translation_path = "content_block_edition.details.values.#{key}.#{value}"
+
+    I18n.t(translation_path, default: [default_path.to_sym, value])
   end
 end
