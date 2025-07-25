@@ -1,5 +1,5 @@
 <% content_for :context, @context %>
-<% content_for :title, "Add #{add_indefinite_article @group.singularize}" %>
+<% content_for :title, "Add #{add_indefinite_article @group.humanize.singularize.downcase}" %>
 
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {

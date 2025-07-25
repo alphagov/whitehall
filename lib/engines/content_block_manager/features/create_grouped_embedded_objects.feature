@@ -48,15 +48,15 @@ Feature: Create an embedded content object with grouped subschemas
       }
     }
     """
-    And the schema "contact" has a group "modes" with the following subschemas:
+    And the schema "contact" has a group "contact_methods" with the following subschemas:
       | email_addresses | telephones |
     And a contact content block has been created
 
   Scenario: GDS editor creates and edits an email_address
     When I visit the Content Block Manager home page
     And I click to view the document
-    And I click to add a new "mode"
-    Then I should see all the subschemas for "modes" listed
+    And I click to add a new "contact_method"
+    Then I should see all the subschemas for "contact_methods" listed
     When I click on the "email_addresses" subschema
     Then I should see a form to create a "email address" for the content block
     When I complete the "email_address" form with the following fields:
