@@ -27,6 +27,14 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Bulk uploading attachments without .zip files
+            area: Adding attachments
+            type: improvement
+            date: 25 July 2025
+            body_govspeak: |
+               Previously, publishers were required to put files in a .zip before bulk uploading. This is no longer the case. Publishers can upload (or drag and drop) files directly onto the page.
+               
+               [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8893161083).
           - heading: Whitehall search for "Only invalid editions"
             area: Searching for documents
             type: improvement
