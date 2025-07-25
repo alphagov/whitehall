@@ -442,7 +442,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0603)
+    mime-types-data (3.2025.0722)
     mini_magick (5.3.0)
       logger
     mini_mime (1.1.5)
@@ -760,7 +760,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    playwright-ruby-client (1.51.0)
+    playwright-ruby-client (1.54.0)
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
     plek (5.2.2)
