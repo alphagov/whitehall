@@ -19,7 +19,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
         published_collection = create(:published_document_collection, taxonomy_topic_email_override: work_taxon_content_id)
         stub_publishing_api_has_item(content_id: work_taxon_content_id, title: work_taxon_parent["title"])
         taxons = { "title" => "title", "base_path" => "/foo", "content_id" => "work_taxon_content_id" }
-        links = { "meets_user_needs" => %w[123] }
+        links = {}
         stub_publishing_api_expanded_links_with_taxons(published_collection.content_id, [taxons])
         stub_publishing_api_has_links({ content_id: published_collection.content_id, links: })
 
@@ -36,7 +36,7 @@ class DocumentCollectionEmailOverrideTest < ActionDispatch::IntegrationTest
       it "shows the user a summary page" do
         published_collection = create(:published_document_collection)
         taxons = { "title" => "Foo", "base_path" => "/foo", "content_id" => "123asd" }
-        links = { "meets_user_needs" => %w[123] }
+        links = {}
         stub_publishing_api_expanded_links_with_taxons(published_collection.content_id, [taxons])
         stub_publishing_api_has_links({ content_id: published_collection.content_id, links: })
 

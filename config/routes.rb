@@ -17,8 +17,6 @@ Whitehall::Application.routes.draw do
 
       get "find-in-admin-bookmarklet" => "find_in_admin_bookmarklet#index", as: :find_in_admin_bookmarklet_instructions_index
       get "by-content-id/:content_id" => "documents#by_content_id"
-      get "/:content_id/needs" => "needs#edit", as: :edit_needs
-      patch "/:content_id/needs" => "needs#update", as: :update_needs
 
       resources :users, only: %i[index show edit update]
 
