@@ -68,6 +68,11 @@ schemas:
           opening_hours:
             component:
               opening_hours
+            field_order:
+              - day_from
+              - time_from
+              - day_to
+              - time_to
           call_charges:
             component:
               call_charges
