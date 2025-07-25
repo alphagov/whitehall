@@ -166,6 +166,17 @@ class AttachmentsHelperTest < ActionView::TestCase
     assert_equal expect_params, attachment_component_params(attachment)
   end
 
+  test "generate errors for array of attachments uploaded via bulk uploader" do
+    attachment = create(:csv_attachment, attachable: create(:edition))
+    attachment.title = nil
+    attachment.validate
+
+    rendered = bulk_attachment_errors([attachment])
+
+    assert_select_within_html rendered, ".govuk-error-summary"
+    assert_select_within_html rendered, "a", href: "#bulk_upload[attachments][0]_title", text: "#{attachment.filename}: Title cannot be blank"
+  end
+
   def file_attachment(file_name, params = {})
     file = File.open(Rails.root.join("test/fixtures", file_name))
     create(:file_attachment, params.merge({ file: }))

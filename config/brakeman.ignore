@@ -58,29 +58,6 @@
       "note": ""
     },
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "2077ddd55d2cec15aa57aea698c801daa599019d9664dadbf36fe974da8826ac",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/uploaders/attachment_uploader.rb",
-      "line": 95,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`#{Whitehall.system_binaries[:zipinfo]} -1 \"#{zip_path}\" | grep -v /$ | while read -r line ; do basename \"$line\"; done`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "AttachmentUploader::ZipFile",
-        "method": "filenames"
-      },
-      "user_input": "Whitehall.system_binaries[:zipinfo]",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "350182256fb694cc2d01dd7ef57fb80d62ed9a456d33d673eed24b02739f4b56",
@@ -165,29 +142,6 @@
       "confidence": "Weak",
       "cwe_id": [
         79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "83cb07b23845591c7f6f25cf9670c4d48c87e8a7fd77abce67a88f2ca3912733",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/models/bulk_upload.rb",
-      "line": 149,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{temp_location.shellescape} > /dev/null\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ZipFile",
-        "method": "is_a_zip?"
-      },
-      "user_input": "Whitehall.system_binaries[:zipinfo]",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
       ],
       "note": ""
     },
@@ -303,29 +257,6 @@
       "confidence": "Medium",
       "cwe_id": [
         79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "d4d3ca2e3f25f46fa84a65737ad237cbe532de2dd2ebd50b2a1abb341589c058",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/models/bulk_upload.rb",
-      "line": 138,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(temp_dir, \"extracted\")} #{temp_location.shellescape}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ZipFile",
-        "method": "extract_contents"
-      },
-      "user_input": "Whitehall.system_binaries[:unzip]",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
       ],
       "note": ""
     }

@@ -28,7 +28,7 @@
       </li>
       <% if attachable.is_a?(Edition) %>
         <li>
-          <%= link_to "Bulk upload from Zip file".html_safe, new_admin_edition_bulk_upload_path(attachable), class: "govuk-link govuk-link--no-visited-state" %>
+          <%= link_to "Bulk upload multiple files".html_safe, new_admin_edition_bulk_upload_path(attachable), class: "govuk-link govuk-link--no-visited-state" %>
         </li>
       <% end %>
       <% if attachable.allows_html_attachments? %>

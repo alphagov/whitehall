@@ -1,23 +1,42 @@
 <% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
 <% content_for :title, "Bulk upload" %>
 <% content_for :context, "Attachments for #{@edition.format_name}" %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @zip_file, parent_class: "zip_file")) %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @bulk_upload, parent_class: "bulk_upload")) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_for @zip_file, url: upload_zip_admin_edition_bulk_uploads_path(@edition), multipart: true do |form| %>
+
+    <div class="govuk-!-margin-bottom-8">
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "Bulk uploading from Zip files is no longer supported. Please select directly the files you wish to upload.",
+      } %>
+
+      <%= render "govuk_publishing_components/components/details", {
+        title: "You must upload attachments in an open standards format.",
+      } do %>
+        <p>For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.</p>
+        <p>Read more about <%= link_to "open standards formats", "https://www.gov.uk/guidance/content-design/planning-content#open-formats", class: "govuk-link govuk-link--no-visited-state" %>.</p>
+      <% end %>
+    </div>
+
+    <%= form_for @bulk_upload, url: upload_files_admin_edition_bulk_uploads_path(@edition), multipart: true do |form| %>
+
+      <%= form.hidden_field :edition, value: @edition %>
 
       <%= render "govuk_publishing_components/components/file_upload", {
         label: {
-          text: "Zip file",
+          text: "Select files for upload",
+          hint: "You can choose multiple files to be uploaded",
         },
-        name: "bulk_upload_zip_file[zip_file]",
-        id: "zip_file_zip_file",
-        error_items: errors_for(@zip_file.errors, :zip_file),
+        name: "bulk_upload[files][]",
+        id: "bulk_upload_files",
+        error_items: errors_for(@bulk_upload.errors, :files),
+        javascript: true,
+        multiple: true,
       } %>
 
       <div class="govuk-button-group">
-        <%= render "govuk_publishing_components/components/button", { text: "Upload zip" } %>
+        <%= render "govuk_publishing_components/components/button", { text: "Upload and continue" } %>
 
         <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
       </div>

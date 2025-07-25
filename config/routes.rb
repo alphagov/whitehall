@@ -245,7 +245,7 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
         resources :bulk_uploads, except: %i[show edit update] do
-          post :upload_zip, on: :collection
+          post :upload_files, on: :collection
           get :set_titles, on: :member
         end
         resources :images, controller: "edition_images", only: %i[create destroy edit update index] do
@@ -441,7 +441,6 @@ Whitehall::Application.routes.draw do
   get "healthcheck/overdue" => "healthcheck#overdue"
   get "healthcheck/unenqueued_scheduled_editions" => "healthcheck#unenqueued_scheduled_editions"
 
-  resources :broken_links_export_request, path: "/export/broken_link_reports", param: :export_id, only: [:show]
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
 
   scope via: :all do

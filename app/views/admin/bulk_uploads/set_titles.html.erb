@@ -1,7 +1,7 @@
 <% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
 <% content_for :title, "Edit file attachments" %>
 <% content_for :context, "Attachments for publication" %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @bulk_upload)) %>
+<% content_for :error_summary, bulk_attachment_errors(@bulk_upload.attachments) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -9,49 +9,20 @@
       <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
         <% @bulk_upload.attachments.each.with_index do |attachment, i| %>
           <%= form.fields_for :attachments, attachment do |attachment_fields| %>
-            <%= render "govuk_publishing_components/components/heading", {
-              text: "File: " + attachment_fields.object.filename,
-              font_size: "l",
-              padding: true,
-            } %>
 
-            <%= render "govuk_publishing_components/components/input", {
-              label: {
-                text: "Title (required)",
-              },
-              name: "bulk_upload[attachments_attributes][#{i}][title]",
-              id: "bulk_upload_attachments_#{i}_title",
-              autofocus: true,
-              margin_top: 10,
-              heading_level: 2,
-              heading_size: "m",
-              value: attachment_fields.object.title,
-              error_message: errors_for_input(attachment.errors, :title),
-            } %>
+            <% name = "bulk_upload[attachments][#{i}]" %>
 
-            <% if @edition.allows_attachment_references? %>
-              <%= render "admin/attachments/reference_fields", attachable: @edition, form: attachment_fields, attachment: attachment, heading_size: "m", subheading_size: "s" %>
-            <% end %>
+            <%= render "govuk_publishing_components/components/fieldset", { legend_text: "File: #{attachment.attachment_data.filename}", heading_level: 2, heading_size: "l" } do %>
 
-            <%= render "govuk_publishing_components/components/checkboxes", {
-              name: "bulk_upload[attachments_attributes][#{i}][accessible]",
-              items: [
-                {
-                  label: "Attachment is accessible",
-                  value: "1",
-                  checked: attachment.accessible,
-                },
-              ],
-            } %>
-
-            <%= attachment_fields.fields_for :attachment_data, attachment_fields.object.attachment_data, include_id: false do |attachment_data_fields| %>
-              <%= attachment_data_fields.hidden_field :file_cache %>
-              <% if attachment_data_fields.object.to_replace_id %>
-                <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id) %>
+              <% unless attachment.new_record? %>
+                <%= hidden_field_tag "#{name}[id]", attachment.id %>
               <% end %>
+
+              <%= render "admin/attachments/form_fields", form: attachment_fields, attachment:, attachable: @edition, heading_size: "s", heading_level: 3, name:, margin_bottom: 4 %>
             <% end %>
-            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
           <% end %>
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
         <% end %>
 
         <div class="govuk-button-group">

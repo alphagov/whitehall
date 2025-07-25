@@ -18,7 +18,7 @@ RUN rails assets:precompile && rm -fr log
 
 
 FROM --platform=$TARGETPLATFORM $base_image
-RUN install_packages imagemagick unzip zip
+RUN install_packages imagemagick
 
 ENV GOVUK_APP_NAME=whitehall
 

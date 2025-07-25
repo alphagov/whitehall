@@ -36,13 +36,6 @@ module Whitehall
     Locale.all_keys.map(&:to_sym)
   end
 
-  def self.system_binaries
-    {
-      zipinfo: File.which("zipinfo"),
-      unzip: File.which("unzip"),
-    }
-  end
-
   def self.router_prefix
     "/government"
   end
@@ -84,10 +77,6 @@ module Whitehall
 
   def self.asset_manager_tmp_dir
     File.join(uploads_root, "asset-manager-tmp")
-  end
-
-  def self.bulk_upload_tmp_dir
-    @bulk_upload_tmp_dir ||= FileUtils.mkdir_p(File.join(uploads_root, "bulk-upload-zipfile-tmp"))
   end
 
   def self.edition_classes
