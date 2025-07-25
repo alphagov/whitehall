@@ -76,7 +76,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormTracker', function () {
       expect(mockGa4SendData).toHaveBeenCalledWith(
         {
           ...expectedAttributes,
-          section: `${Form.formDefaultOptions.legend} - ${Form.formDefaultOptions.label}`,
+          section: `${Form.formDefaultOptions.label}`,
           ...JSON.parse(index.dataset.ga4Index),
           action: 'select'
         },

@@ -16,11 +16,11 @@ class DatetimefieldsComponentTest < ComponentTestCase
     })
 
     assert_select ".app-c-datetime-fields"
-    assert_select "h3.govuk-heading-m", text: "Date (required)"
+    assert_select "h3.govuk-fieldset__heading", text: "Date (required)"
     assert_select ".govuk-input[name='day']"
     assert_select ".govuk-input[name='month']"
     assert_select ".govuk-input[name='year']"
-    assert_select "h3.govuk-heading-m", text: "Time"
+    assert_select "h3.govuk-fieldset__heading", text: "Time"
     assert_select ".govuk-label", text: "Hour"
     assert_select ".govuk-label", text: "Minute"
   end
@@ -45,8 +45,8 @@ class DatetimefieldsComponentTest < ComponentTestCase
       heading_size: "l",
     })
 
-    assert_select "h1.govuk-heading-l", text: "i am heading"
-    assert_select "h1.govuk-heading-l", text: "Time"
+    assert_select "h1.govuk-fieldset__heading", text: "i am heading"
+    assert_select "h1.govuk-fieldset__heading", text: "Time"
   end
 
   test "shows hint text" do

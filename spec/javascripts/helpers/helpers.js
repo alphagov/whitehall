@@ -24,19 +24,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label for="day" class="gem-c-label govuk-label">Day</label>
-          <input class="gem-c-input govuk-input govuk-input--width-4" id="day" name="day" type="text">
+          <input class="gem-c-input govuk-input govuk-input--width-4" name="date(1i)" id="date_1i" type="text">
         </div>
       </div>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label for="month" class="gem-c-label govuk-label">Month</label>
-          <input class="gem-c-input govuk-input govuk-input--width-4" name="month" id="month" type="text">
+          <input class="gem-c-input govuk-input govuk-input--width-4" name="date(2i)" id="date_2i" type="text">
         </div>
       </div>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
           <label for="year" class="gem-c-label govuk-label">Year</label>
-          <input class="gem-c-input govuk-input govuk-input--width-4" name="year" id="year" type="text">
+          <input class="gem-c-input govuk-input govuk-input--width-4" name="date(3i)" id="date_3i" type="text">
         </div>
       </div>
       </fieldset>
@@ -88,8 +88,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       <fieldset class="govuk-fieldset">
         <legend>${legend}</legend>
         <div class="govuk-radios">
-            <input type="radio" name="radio-group" id="radio" value="1">
-            <label for="radio">${value}</label>
+            <input type="radio" name="radio(1i)" id="radio_1i" value="1">
+            <label for="radio_1i">${value}</label>
+        </div>
+        <div class="govuk-radios">
+            <input type="radio" name="radio(2i)" id="radio_2i" value="2">
+            <label for="radio_2i">${value} 2</label>
         </div>
       </fieldset>
     `

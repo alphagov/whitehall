@@ -25,26 +25,53 @@ window.GOVUK.analyticsGa4.analyticsModules =
         //   change the value of the form
         // - a hidden input because the user can't interact with it
         const indexedElements = moduleElement.querySelectorAll(
-          'select, textarea, input:not([data-module~="select-with-search"] input):not([type="radio"]):not([type="hidden"]), fieldset'
+          'select, textarea, input:not([data-module~="select-with-search"] input):not([type="hidden"])'
         )
 
-        indexedElements.forEach((element, index) => {
-          if (element.tagName === 'FIELDSET' || !element.closest('fieldset')) {
-            const indexData = {
-              index_section: index,
-              index_section_count: indexedElements.length
-            }
-            element.dataset.ga4Index = JSON.stringify(indexData)
-            element.dataset.ga4IndexSection = index
+        let index = 0
 
-            if (element.closest('[data-module~="ga4-finder-tracker"]')) {
+        Array.from(indexedElements)
+          .map((element) => {
+            const form = element.form
+            // field could have a hidden element if it is
+            // a checkbox so need to exclude hidden
+            const multipleElements = form.querySelectorAll(
+              `[name='${element.name}']:not([type="hidden"])`
+            )
+            // if name is split then `name` will be of format
+            // `name[Ni]` where `N` is index of split field
+            const splitField = element.name.match(/^.*\(\di\)?.$/)
+
+            const indexableElement =
+              (multipleElements.length > 1 || splitField
+                ? element.closest('fieldset')
+                : element) || element
+
+            if (!indexableElement.dataset.ga4IndexSection) {
+              indexableElement.dataset.ga4IndexSection = index
+              index += 1
+            }
+
+            if (
+              indexableElement.closest('[data-module~="ga4-finder-tracker"]')
+            ) {
               // required attribute for `ga4-finder-tracker`
               // assumes that index values will come from
               // an element with `ga4-filter-parent` set
-              element.dataset.ga4FilterParent = true
+              indexableElement.dataset.ga4FilterParent = true
             }
-          }
-        })
+
+            return indexableElement
+          })
+          .forEach((element) => {
+            if (element.dataset.ga4IndexSection) {
+              const indexData = {
+                index_section: +element.dataset.ga4IndexSection,
+                index_section_count: index
+              }
+              element.dataset.ga4Index = JSON.stringify(indexData)
+            }
+          })
       })
     }
   }
