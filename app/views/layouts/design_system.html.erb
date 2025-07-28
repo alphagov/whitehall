@@ -7,7 +7,7 @@
     <meta name="govuk:user-organisation-name" content="<%= current_user&.organisation_name %>">
     <meta name="govuk:user-role" content="<%= current_user&.role %>">
     <meta name="govuk:format" content="<%= "#{action_name}-#{controller_name}" %>">
-    <meta name="govuk:format" content="<%= "#{action_name}-#{controller_name}" %>">
+    <meta name="govuk:user-id" content="">
     <% if get_content_id(@edition) %>
       <meta name="govuk:content-id" content="<%= get_content_id(@edition) %>">
     <% end %>
