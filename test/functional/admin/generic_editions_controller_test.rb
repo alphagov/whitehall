@@ -65,15 +65,16 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
 
   test "PUT :update shows add tag save message when 'Save and got to document summary' button clicked and document has tags" do
     edition = create(:edition)
-    stub_publishing_api_has_links(
+    stub_publishing_api_has_expanded_links(
       {
         "content_id" => edition.content_id,
-        "links" => {
+        "expanded_links" => {
           "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
           "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
         },
         "version" => 1,
       },
+      with_drafts: false,
     )
 
     put :update, params: { id: edition, edition: { title: "New title" }, save_and_continue: "Save and continue editing" }
