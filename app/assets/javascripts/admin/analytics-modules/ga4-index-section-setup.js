@@ -32,10 +32,9 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
         Array.from(indexedElements)
           .map((element) => {
-            const form = element.form
             // field could have a hidden element if it is
             // a checkbox so need to exclude hidden
-            const multipleElements = form.querySelectorAll(
+            const multipleElements = moduleElement.querySelectorAll(
               `[name='${element.name}']:not([type="hidden"])`
             )
             // if name is split then `name` will be of format
