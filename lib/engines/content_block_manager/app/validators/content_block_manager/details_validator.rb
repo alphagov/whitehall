@@ -19,7 +19,7 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
       key = key_with_optional_prefix(error, k)
       edition.errors.add(
         "details_#{key}",
-        I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.blank", attribute: k.humanize),
+        translate_error("blank", k),
       )
     end
   end
@@ -31,7 +31,7 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
     key = key_with_optional_prefix(error, nil)
     edition.errors.add(
       "details_#{key}",
-      I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: attribute.humanize),
+      translate_error("invalid", attribute),
     )
   end
 
@@ -54,6 +54,15 @@ class ContentBlockManager::DetailsValidator < ActiveModel::Validator
     else
       key
     end
+  end
+
+  def translate_error(type, attribute)
+    default = "activerecord.errors.models.content_block_manager/content_block/edition.#{type}".to_sym
+    I18n.t(
+      "activerecord.errors.models.content_block_manager/content_block/edition.attributes.#{attribute}.#{type}",
+      attribute: attribute.humanize,
+      default: [default],
+    )
   end
 
 private

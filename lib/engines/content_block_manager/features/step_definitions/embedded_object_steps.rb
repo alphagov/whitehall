@@ -112,7 +112,7 @@ When("I change the BSL guidance label from its default value") do
 end
 
 Then("I should see that the BSL guidance fields have been changed") do
-  within(".gem-c-summary-card[title='Bsl Guidance']") do
+  within(".gem-c-summary-card[title='BSL Guidance']") do
     expect(page).to have_css("dt", text: "Show")
     expect(page).to have_css("dt", text: "true")
 

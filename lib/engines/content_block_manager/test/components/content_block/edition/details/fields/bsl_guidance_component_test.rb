@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentBlockManager::ContentBlockEdition::Details::Fields::BslGuidanceComponentTest < ViewComponent::TestCase
+class ContentBlockManager::ContentBlockEdition::Details::Fields::BSLGuidanceComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :contact) }
@@ -35,7 +35,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BslGuidanceComp
   end
 
   let(:component) do
-    ContentBlockManager::ContentBlockEdition::Details::Fields::BslGuidanceComponent.new(
+    ContentBlockManager::ContentBlockEdition::Details::Fields::BSLGuidanceComponent.new(
       content_block_edition:,
       field: field,
       value: field_value,

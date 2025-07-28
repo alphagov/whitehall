@@ -41,7 +41,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
 
   let(:schema) { build(:content_block_schema, body:) }
 
-  test "it validates the presence of fields" do
+  it "validates the presence of fields" do
     content_block_edition = build(
       :content_block_edition,
       :pension,
@@ -59,7 +59,7 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
     assert_error errors:, key: :details_bar, type: "blank", attribute: "Bar"
   end
 
-  test "it validates the format of fields" do
+  it "validates the format of fields" do
     content_block_edition = build(
       :content_block_edition,
       :pension,
@@ -253,6 +253,23 @@ class ContentBlockManager::DetailsValidatorTest < ActiveSupport::TestCase
       assert_equal content_block_edition.valid?, false
       errors = content_block_edition.errors
       assert_error errors:, key: :details_things_array_of_objects_0_foo, type: "invalid", attribute: "Foo"
+    end
+  end
+
+  describe "#translate_error" do
+    let(:validator) { ContentBlockManager::DetailsValidator.new }
+
+    it "attempts to find a translation for a field when validation fails" do
+      attribute = "foo"
+      type = "bar"
+
+      I18n.expects(:t).with(
+        "activerecord.errors.models.content_block_manager/content_block/edition.attributes.#{attribute}.#{type}",
+        attribute: attribute.humanize,
+        default: ["activerecord.errors.models.content_block_manager/content_block/edition.#{type}".to_sym],
+      ).returns("translated")
+
+      assert_equal validator.translate_error(type, attribute), "translated"
     end
   end
 

@@ -26,7 +26,7 @@
     <% end %>
 
     <%= render("govuk_publishing_components/components/button", {
-      text: "Add another #{@group_name.singularize.downcase}",
+      text: "Add another #{@group_name.humanize.singularize.downcase}",
       href: content_block_manager.new_embedded_object_content_block_manager_content_block_edition_path(
         @content_block_edition,
         group: @group_name,

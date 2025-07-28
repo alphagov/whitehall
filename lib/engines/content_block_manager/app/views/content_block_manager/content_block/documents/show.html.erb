@@ -64,7 +64,7 @@
 <% grouped_subschemas(@schema).each do |group, subschemas| %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-l subschema-listing__heading"><%= h group.titleize %></h2>
+      <h2 class="govuk-heading-l subschema-listing__heading"><%= h group.humanize %></h2>
     </div>
     <div class="govuk-grid-column-one-third govuk-!-text-align-right">
       <%= render("govuk_publishing_components/components/button", {

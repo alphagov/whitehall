@@ -25,7 +25,7 @@ schemas:
           textarea
     subschemas:
       email_addresses:
-        group: modes
+        group: contact_methods
         group_order: 1
         embeddable_as_block: true
         embeddable_fields:
@@ -44,7 +44,7 @@ schemas:
             component:
               textarea
       telephones:
-        group: modes
+        group: contact_methods
         group_order: 2
         embeddable_as_block: true
         embeddable_fields:
@@ -85,7 +85,7 @@ schemas:
               - label
               - telephone_number
       addresses:
-        group: modes
+        group: contact_methods
         group_order: 3
         field_order:
           - title
@@ -112,7 +112,7 @@ schemas:
             component:
               textarea
       contact_forms:
-        group: modes
+        group: contact_methods
         embeddable_as_block: true
         group_order: 4
         embeddable_fields:

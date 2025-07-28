@@ -156,7 +156,7 @@ Feature: Create a contact object
       }
     }
     """
-    And the schema "contact" has a group "modes" with the following subschemas:
+    And the schema "contact" has a group "contact_methods" with the following subschemas:
       | email_addresses | telephones |
     And I visit the Content Block Manager home page
     And I click to create an object
@@ -171,7 +171,7 @@ Feature: Create a contact object
     And I complete the "email_address" form with the following fields:
       | title     | email_address    | subject  | body             |
       | New email | foo@example.com  | Your ref | Name and address |
-    And I click to add another "mode"
+    And I click to add another "contact_method"
     And I click on the "telephones" subschema
     And I fill in the "telephone" form with the following fields:
       | title            |
@@ -192,7 +192,7 @@ Feature: Create a contact object
       | Monday   | Friday | 9:00AM    | 5:00PM  |
       | Saturday | Sunday  | 10:00AM   | 3:00PM  |
     And I save and continue
-    Then I should be on the "add_group_modes" step
+    Then I should be on the "add_group_contact_methods" step
     When I save and continue
     And I review and confirm my answers are correct
     Then I should be taken to the confirmation page for a new "contact"
