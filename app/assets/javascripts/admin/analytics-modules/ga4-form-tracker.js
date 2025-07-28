@@ -22,8 +22,11 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     }
   }
 
-  Ga4FormTracker.prototype.parentDateComponent = function (target) {
-    return target.closest('.govuk-date-input')
+  Ga4FormTracker.prototype.dateTimeComponent = function (target) {
+    return (
+      target.closest('.app-c-datetime-fields') ||
+      target.closest('.govuk-date-input')
+    )
   }
 
   Ga4FormTracker.prototype.getSection = function (target, checkableValue) {
@@ -34,23 +37,28 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
         this.trackingTrigger
       )
     const fieldset = target.closest('fieldset')
+    const legend = fieldset && fieldset.querySelector('legend')
     const sectionContainer = form.closest('[data-ga4-section]')
     const label = form.querySelector(`label[for='${id}']`)
-    const parentDateComponent = this.parentDateComponent(target)
+    const dateTimeComponent = this.dateTimeComponent(target)
 
     let section = sectionContainer && sectionContainer.dataset.ga4Section
 
-    if (fieldset) {
-      const legend = fieldset.querySelector('legend')
+    if (legend && (checkableValue || dateTimeComponent)) {
+      section = legend ? legend.innerText : section
 
-      // the date component submits several inputs as one
-      // event, so we don't want to include the label of
-      // the last interacted with input in the section
-      if (checkableValue || parentDateComponent) {
-        section = legend ? legend.innerText : section
-      } else {
-        section =
-          legend && label ? `${legend.innerText} - ${label.innerText}` : section
+      if (dateTimeComponent) {
+        // this is an intermediary measure!! need to rework the legends
+        // for all datetime fields so they are more descriptive as
+        // nested legends have inconsistent screenreader behaviour
+        // this work can happen as part of moving datetime out of whitehall
+        const dateTimeFieldset = dateTimeComponent.closest('fieldset')
+        if (dateTimeFieldset) {
+          const dateTimeLegend = dateTimeFieldset.querySelector('legend')
+          if (dateTimeLegend && dateTimeLegend.innerText !== section) {
+            section = `${dateTimeLegend.innerText} - ${section}`
+          }
+        }
       }
     } else {
       section = label ? label.innerText : section
@@ -61,8 +69,10 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
 
   Ga4FormTracker.prototype.handleDateComponent = function (target) {
     const isDateComponent = target.closest('.govuk-date-input')
+    const value = target.value
 
-    if (!isDateComponent) return target.value
+    if (!isDateComponent)
+      return typeof value === 'string' ? value.replace(/[\n\r]/g, ' ') : value
 
     // only track if completely filled in
     const inputs = [
@@ -89,22 +99,17 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     if (!form.hasAttribute('data-ga4-form-change-tracking')) return
 
     const target = event.target
-    const { type, name, id } = target
+    const { type, id } = target
 
     if (type === 'search') return
 
     const index = this.getJson(target, 'data-ga4-index')
-    let value = (event.detail && event.detail.value) || target.value
-
-    if (typeof value === 'string') {
-      // remove newlines
-      value = value.replace(/[\n\r]/g, ' ')
-    }
+    const value = (event.detail && event.detail.value) || target.value
 
     // a radio or check input with a `name` and `value`
     // or an option of `value` within a `select` with `name`
     const checkableValue = form.querySelector(
-      `[name="${name}"][value="${value}"], [name="${name}"] [value="${value}"]`
+      `#${id}[value="${value}"], #${id} [value="${value}"]`
     )
 
     let action = 'select'
@@ -132,10 +137,13 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     window.GOVUK.analyticsGa4.core.applySchemaAndSendData(
       {
         ...index,
-        section: this.getSection(target, checkableValue),
+        section: this.getSection(
+          target,
+          checkableValue && checkableValue.matches(':not(option)')
+        ),
         event_name: 'select_content',
         action,
-        text
+        text: text.replace(/\r?\n|\r/g, '')
       },
       'event_data'
     )
