@@ -111,7 +111,7 @@ schemas:
           description:
             component:
               textarea
-      contact_forms:
+      contact_links:
         group: contact_methods
         embeddable_as_block: true
         group_order: 4
