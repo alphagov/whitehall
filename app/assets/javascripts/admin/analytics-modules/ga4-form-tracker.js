@@ -39,7 +39,7 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     const fieldset = target.closest('fieldset')
     const legend = fieldset && fieldset.querySelector('legend')
     const sectionContainer = form.closest('[data-ga4-section]')
-    const label = form.querySelector(`label[for='${id}']`)
+    const label = form.querySelector(`label[for='${CSS.escape(id)}']`)
     const dateTimeComponent = this.dateTimeComponent(target)
 
     let section = sectionContainer && sectionContainer.dataset.ga4Section
@@ -109,7 +109,7 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     // a radio or check input with a `name` and `value`
     // or an option of `value` within a `select` with `name`
     const checkableValue = form.querySelector(
-      `#${id}[value="${value}"], #${id} [value="${value}"]`
+      `#${CSS.escape(id)}[value="${CSS.escape(value)}"], #${CSS.escape(id)} [value="${CSS.escape(value)}"]`
     )
 
     let action = 'select'
@@ -125,7 +125,7 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
 
       if (!text) {
         // it's not an option so has no innerText
-        text = form.querySelector(`label[for='${id}']`).innerText
+        text = form.querySelector(`label[for='${CSS.escape(id)}']`).innerText
       }
     } else if (!text) {
       // it's a free form text field

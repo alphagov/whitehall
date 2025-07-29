@@ -35,7 +35,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
             // field could have a hidden element if it is
             // a checkbox so need to exclude hidden
             const multipleElements = moduleElement.querySelectorAll(
-              `[name='${element.name}']:not([type="hidden"])`
+              `[name='${CSS.escape(element.name)}']:not([type="hidden"])`
             )
             // if name is split then `name` will be of format
             // `name[Ni]` where `N` is index of split field
