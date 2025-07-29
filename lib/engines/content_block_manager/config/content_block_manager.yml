@@ -121,3 +121,8 @@ schemas:
               textarea
         embeddable_fields:
           - url
+        field_order:
+          - title
+          - url
+          - description
+
