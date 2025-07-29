@@ -156,8 +156,26 @@ Feature: Create a contact object
       }
     }
     """
+    And the schema has a subschema "contact_links":
+    """
+    {
+      "type":"object",
+      "required": ["url"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+    """
     And the schema "contact" has a group "contact_methods" with the following subschemas:
-      | email_addresses | telephones |
+      | email_addresses | telephones | contact_links |
     And I visit the Content Block Manager home page
     And I click to create an object
     And I click on the "contact" schema
@@ -192,6 +210,12 @@ Feature: Create a contact object
       | Monday   | Friday | 9:00AM    | 5:00PM  |
       | Saturday | Sunday  | 10:00AM   | 3:00PM  |
     And I save and continue
+    And I click to add another "contact_method"
+    And I click on the "contact_links" subschema
+    And I fill in the "contact_link" form with the following fields:
+      | title            | url                | description |
+      | Contact Us       | http://example.com | Description |
+    When I save and continue
     Then I should be on the "add_group_contact_methods" step
     When I save and continue
     And I review and confirm my answers are correct
@@ -199,6 +223,7 @@ Feature: Create a contact object
     When I click to view the content block
     And I should see the created embedded object of type "email_address"
     And I should see the created embedded object of type "telephone"
+    And I should see the created embedded object of type "contact_link"
     When I view all the telephone attributes
     Then I should see that the call charges fields have been changed
     And I should see that the video relay service info is to be shown

@@ -111,9 +111,18 @@ schemas:
           description:
             component:
               textarea
-      contact_forms:
+      contact_links:
         group: contact_methods
         embeddable_as_block: true
         group_order: 4
+        fields:
+          description:
+            component:
+              textarea
         embeddable_fields:
           - url
+        field_order:
+          - title
+          - url
+          - description
+
