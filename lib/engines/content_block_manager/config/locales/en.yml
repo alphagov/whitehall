@@ -79,6 +79,8 @@ en:
             show_call_charges_info_url: "Show hyperlink to 'Find out about call charges'"
             label: "Label"
             call_charges_info_url: "URL to find out about call charges"
+        contact_links:
+          url: URL
         addresses:
           title: Recipient
         contacts:
