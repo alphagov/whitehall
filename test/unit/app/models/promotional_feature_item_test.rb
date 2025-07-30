@@ -3,7 +3,9 @@ require "test_helper"
 class PromotionalFeatureItemTest < ActiveSupport::TestCase
   VALID_YOUTUBE_URLS = [
     "https://youtu.be/fFmDQn9Lbl4",
+    "https://youtu.be/fFmDQn9Lbl4?si=9638MLETxOvSfmSw",
     "https://www.youtube.com/watch?v=fFmDQn9Lbl4",
+    "https://youtu.be/fFmDQn9Lbl4?feature=shared&t=2",
   ].freeze
 
   test "invalid without a summary" do
