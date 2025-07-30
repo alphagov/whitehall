@@ -7,6 +7,10 @@
     <meta name="govuk:user-organisation-name" content="<%= current_user&.organisation_name %>">
     <meta name="govuk:user-role" content="<%= current_user&.role %>">
     <meta name="govuk:format" content="<%= "#{action_name}-#{controller_name}" %>">
+    <meta name="govuk:user-id" content="">
+    <% if get_content_id(@edition) %>
+      <meta name="govuk:content-id" content="<%= get_content_id(@edition) %>">
+    <% end %>
     <%= javascript_include_tag "admin/domain-config" %>
     <%= javascript_include_tag "govuk_publishing_components/load-analytics" %>
   <% end %>
@@ -32,7 +36,6 @@
       ga4_section: yield(:page_title).presence || yield(:title),
       ga4_filter_type: controller_name,
       ga4_document_type: "#{action_name}-#{controller_name}",
-      ga4_content_id: get_content_id(@edition),
     },
   ) do %>
     <%= render "shared/phase_banner", {
