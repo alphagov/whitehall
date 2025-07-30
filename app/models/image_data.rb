@@ -12,7 +12,7 @@ class ImageData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
+  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image, validate_integrity: true
 
   validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." }
   validates_with ImageValidator, if: :image_changed?

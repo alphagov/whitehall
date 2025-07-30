@@ -1,5 +1,5 @@
 class ConsultationResponseFormData < ApplicationRecord
-  mount_uploader :file, ResponseDocumentUploader, mount_on: :carrierwave_file
+  mount_uploader :file, ResponseDocumentUploader, mount_on: :carrierwave_file, validate_integrity: true
 
   has_one :consultation_response_form
   has_many :assets,

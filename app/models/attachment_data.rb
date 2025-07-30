@@ -2,7 +2,7 @@ require "pdf-reader"
 require "timeout"
 
 class AttachmentData < ApplicationRecord
-  mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
+  mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file, validate_integrity: true
 
   has_many :attachments, -> { order(:attachable_id) }, inverse_of: :attachment_data
   has_many :assets,
@@ -13,8 +13,7 @@ class AttachmentData < ApplicationRecord
 
   before_save :update_file_attributes
 
-  validates :file, presence: true
-  validate :file_is_not_empty
+  validate :file_must_be_valid
 
   attr_accessor :to_replace_id, :attachable
 
@@ -205,6 +204,12 @@ class AttachmentData < ApplicationRecord
   end
 
 private
+  def file_must_be_valid
+    if file.blank? && !errors[:file].present?
+      errors.add(:file, activerecord.errors.models.attachment_data.attributes.file.blank)
+    end
+    file_is_not_empty
+  end
 
   def filtered_attachments(include_deleted_attachables: false)
     if include_deleted_attachables

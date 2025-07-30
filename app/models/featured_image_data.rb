@@ -1,5 +1,5 @@
 class FeaturedImageData < ApplicationRecord
-  mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
+  mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image, validate_integrity: true
   include ImageKind
 
   belongs_to :featured_imageable, polymorphic: true
@@ -8,7 +8,7 @@ class FeaturedImageData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  validates :file, presence: true
+  validate :file_must_be_valid
   validates :featured_imageable, presence: true
 
   validates_with ImageValidator
@@ -38,6 +38,11 @@ class FeaturedImageData < ApplicationRecord
   end
 
 private
+  def file_must_be_valid
+    if file.blank? && !errors[:file].present?
+      errors.add(:file, activerecord.errors.models.attachment_data.attributes.file.blank)
+    end
+  end
 
   def assets_match_updated_image_filename
     assets.all? { |asset| asset.filename.include?(filename) } if filename

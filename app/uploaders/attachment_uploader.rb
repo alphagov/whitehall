@@ -92,6 +92,20 @@ class AttachmentUploader < WhitehallUploader
       end
     end
 
+    class FilenameLengthExaminer < Examiner
+      def valid?
+        zip_file.filenames.all? { |filename| valid_filename_length(filename) }
+      end
+
+      def valid_filename_length(filename)
+        filename.length <= 255
+      end
+
+      def failure_message
+        "Zip file included file with name that exceeded 255 characters"
+      end
+    end
+
     class ArcGISShapefileExaminer < Examiner
       REQUIRED_EXTS = %w[shp shx dbf].freeze
       OPTIONAL_EXTS = %w[aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml shp_rxl].freeze
@@ -163,7 +177,7 @@ class AttachmentUploader < WhitehallUploader
       end
 
       def failure_message
-        "The contents of your zip file did not meet any of our constraints: #{@others.map(&:failure_message).join(' or: ')}"
+        "did not meet our constraints for a zip file: #{@others.map(&:failure_message).join(' or: ')}"
       end
     end
   end
@@ -174,6 +188,7 @@ class AttachmentUploader < WhitehallUploader
 
     zip_file = ZipFile.new(new_file.path)
     examiners = [
+      ZipFile::FilenameLengthExaminer.new(zip_file),
       ZipFile::UTF8FilenamesExaminer.new(zip_file),
       ZipFile::AnyValidExaminer.new(
         zip_file,

@@ -1,5 +1,5 @@
 class CallForEvidenceResponseFormData < ApplicationRecord
-  mount_uploader :file, ResponseDocumentUploader, mount_on: :carrierwave_file
+  mount_uploader :file, ResponseDocumentUploader, mount_on: :carrierwave_file, validate_integrity: true
 
   has_one :call_for_evidence_response_form
 
