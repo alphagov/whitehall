@@ -17,30 +17,32 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   end
 
   def valid_create_params
-    fixture_file = upload_fixture("two-pages-and-greenpaper.zip")
-    zip_file = BulkUpload::ZipFile.new(fixture_file)
-    bulk_upload = BulkUpload.from_files(@edition, zip_file.extracted_file_paths)
-    params = { attachments_attributes: {} }
+    files = %w[simple.pdf whitepaper.pdf].map { |f| upload_fixture(f) }
+    bulk_upload = BulkUpload.new(@edition)
+    bulk_upload.build_attachments_from_files(files)
+    params = { attachments: {} }
     bulk_upload.attachments.each_with_index do |attachment, i|
-      params[:attachments_attributes][i.to_s] = params_for_attachment(attachment, i + 1)
+      params[:attachments][i.to_s] = params_for_attachment(attachment, i + 1)
     end
+
     params
   end
 
   def invalid_create_params
     valid_create_params.tap do |params|
-      params[:attachments_attributes]["0"][:title] = ""
+      params[:attachments]["0"][:title] = ""
     end
   end
 
-  def post_to_upload_zip(filename)
+  def post_to_upload_files(*files)
     params = {}
-    if filename
-      params[:bulk_upload_zip_file] = {
-        zip_file: upload_fixture(filename),
-      }
-    end
-    post :upload_zip, params: { edition_id: @edition }.merge(params)
+    files ||= []
+
+    params[:bulk_upload] = {
+      files: files.map { |f| f && upload_fixture(f) },
+    }
+
+    post :upload_files, params: { edition_id: @edition }.merge(params)
   end
 
   test "Actions are unavailable on unmodifiable editions" do
@@ -62,39 +64,32 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "POST :upload_zip with no zip file requests that zip file be specified" do
-    post_to_upload_zip(nil)
-    assert_select ".gem-c-error-summary__list-item", /file cannot be blank/
+  view_test "POST :upload_files with no files requests that files be specified" do
+    post_to_upload_files(nil)
+    assert_select ".gem-c-error-summary__list-item", /Files not selected for upload/
   end
 
-  view_test "POST :upload_zip prompts for metadata for each file in the zip" do
-    post_to_upload_zip("two-pages-and-greenpaper.zip")
+  view_test "POST :upload_files prompts for metadata for each file" do
+    post_to_upload_files("two-pages.pdf", "greenpaper.pdf")
     assert_response :success
-    assert_select "input[name='bulk_upload[attachments_attributes][0][title]']"
-    assert_select "input[name='bulk_upload[attachments_attributes][1][title]']"
-    assert_select ".gem-c-heading", /two-pages.pdf/
-    assert_select ".gem-c-heading", /greenpaper.pdf/
+    assert_select "input[name='bulk_upload[attachments][0][title]']"
+    assert_select "input[name='bulk_upload[attachments][1][title]']"
+    assert_select ".govuk-fieldset__heading", /File: two-pages.pdf/
+    assert_select ".govuk-fieldset__heading", /File: greenpaper.pdf/
   end
 
-  view_test "POST :upload_zip lists errors and re-renders form when zip invalid" do
-    post_to_upload_zip("whitepaper.pdf")
-    assert_response :success
-    assert_select ".gem-c-error-summary__list-item", /not a zip file/
-    assert_select "input[type=file]"
-  end
-
-  view_test "POST :upload_zip when replacing an attachment sets to_replace_id" do
+  view_test "POST :upload_files when replacing an attachment sets to_replace_id" do
     existing_file = File.open(Rails.root.join("test/fixtures/greenpaper.pdf"))
     @edition.attachments << existing = build(:file_attachment, file: existing_file)
-    post_to_upload_zip("two-pages-and-greenpaper.zip")
+    post_to_upload_files("two-pages.pdf", "greenpaper.pdf")
     assert_response :success
     assert_select "input[name*='to_replace_id'][value='#{existing.attachment_data.id}']"
   end
 
-  view_test "POST :upload_zip with illegal zip contents shows an error" do
-    post_to_upload_zip("sample_attachment_containing_exe.zip")
+  view_test "POST :upload_files with illegal file" do
+    post_to_upload_files("two-pages.pdf", "greenpaper.pdf", "pdfinfo_dummy.sh")
     assert_response :success
-    assert_select ".gem-c-error-summary__list-item", /contains invalid files/
+    assert_select ".gem-c-error-summary__list-item", /included not allowed type .sh/
     assert_select "input[type=file]"
   end
 
@@ -110,7 +105,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     post :create, params: { edition_id: @edition, bulk_upload: invalid_create_params }
 
     assert_response :success
-    assert_select ".gem-c-error-summary__list-item", text: /enter missing fields/
+    assert_select ".gem-c-error-summary__list-item", text: /simple.pdf: Title cannot be blank/
   end
 
   test "POST :create associates the attachment's attachment_data object with the edition" do

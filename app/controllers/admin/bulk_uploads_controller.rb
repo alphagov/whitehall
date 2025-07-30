@@ -3,29 +3,23 @@ class Admin::BulkUploadsController < Admin::BaseController
   before_action :limit_edition_access!
   before_action :enforce_permissions!
   before_action :prevent_modification_of_unmodifiable_edition
+  before_action :build_bulk_upload
 
-  def new
-    @zip_file = BulkUpload::ZipFile.new
-  end
+  def new; end
 
-  def upload_zip
-    filename = params.fetch(:bulk_upload_zip_file, {})[:zip_file]
-    @zip_file = BulkUpload::ZipFile.new(filename)
-    if @zip_file.valid?
-      @bulk_upload = BulkUpload.from_files(@edition, @zip_file.extracted_file_paths)
-      @zip_file.cleanup_extracted_files
-      render :set_titles
-    else
+  def upload_files
+    @bulk_upload.build_attachments_from_files(files_params)
+
+    if @bulk_upload.errors.present?
       render :new
+    else
+      render :set_titles
     end
   end
 
   def create
-    @bulk_upload = BulkUpload.new(@edition)
-    @bulk_upload.attachments_attributes = create_params[:attachments_attributes]
-    @bulk_upload.attachments.each do |attachment|
-      attachment.attachment_data.attachable = @edition
-    end
+    @bulk_upload.build_attachments_from_params(attachments_params)
+
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)
     else
@@ -35,6 +29,10 @@ class Admin::BulkUploadsController < Admin::BaseController
 
 private
 
+  def build_bulk_upload
+    @bulk_upload = BulkUpload.new(@edition)
+  end
+
   def find_edition
     @edition = Edition.find(params[:edition_id])
   end
@@ -43,8 +41,16 @@ private
     enforce_permission!(:update, @edition)
   end
 
+  def files_params
+    params.fetch(:bulk_upload, {})[:files]
+  end
+
+  def attachments_params
+    create_params.fetch(:attachments, [])
+  end
+
   def create_params
-    params.require(:bulk_upload).permit(attachments_attributes: [
+    params.fetch(:bulk_upload).permit(attachments: [
       { attachment_data_attributes: %i[file_cache to_replace_id] },
       :id,
       :title,
