@@ -22,8 +22,8 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
     assert data_set.access_limited?
   end
 
-  test "specifies rendering app to be government frontend" do
+  test "specifies rendering app to be frontend" do
     statistical_data_set = StatisticalDataSet.new
-    assert statistical_data_set.rendering_app.include?(Whitehall::RenderingApp::GOVERNMENT_FRONTEND)
+    assert statistical_data_set.rendering_app.include?(Whitehall::RenderingApp::FRONTEND)
   end
 end
