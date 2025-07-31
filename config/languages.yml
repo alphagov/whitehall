@@ -65,7 +65,7 @@ fa:
 fi:
   direction: ltr
   english_name: Finnish
-  native_name: Suomi
+  native_name: suomi
 fr:
   direction: ltr
   english_name: French
@@ -153,7 +153,7 @@ nl:
 'no':
   direction: ltr
   english_name: Norwegian
-  native_name: Norsk
+  native_name: norsk
 pa:
   direction: ltr
   english_name: Punjabi Gurmukhi
@@ -205,7 +205,7 @@ sq:
 sr:
   direction: ltr
   english_name: Serbian
-  native_name: Srpski
+  native_name: srpski
 sv:
   direction: ltr
   english_name: Swedish
