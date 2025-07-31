@@ -252,13 +252,13 @@ yi:
   native_name: יידיש
 zh:
   direction: ltr
-  english_name: Chinese
-  native_name: 中文
+  english_name: Simplified Chinese
+  native_name: 简体中文
 zh-hk:
   direction: ltr
-  english_name: Cantonese
-  native_name: 中文
+  english_name: Traditional Chinese (Hong Kong)
+  native_name: 繁體中文（香港）
 zh-tw:
   direction: ltr
-  english_name: Traditional Chinese
-  native_name: 繁體中文
+  english_name: Traditional Chinese (Taiwan)
+  native_name: 繁體中文（臺灣)
