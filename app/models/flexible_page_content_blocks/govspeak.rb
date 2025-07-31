@@ -1,5 +1,6 @@
 module FlexiblePageContentBlocks
   class Govspeak
+    include Presenters::PublishingApi::PayloadHeadingsHelper
     def json_schema_type
       "string"
     end
@@ -15,7 +16,10 @@ module FlexiblePageContentBlocks
     end
 
     def publishing_api_payload(content)
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(content)
+      {
+        html: Whitehall::GovspeakRenderer.new.govspeak_to_html(content),
+        **extract_headings(content),
+      }
     end
 
     def to_partial_path

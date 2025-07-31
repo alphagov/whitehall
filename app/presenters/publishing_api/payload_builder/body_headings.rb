@@ -1,6 +1,8 @@
 module PublishingApi
   module PayloadBuilder
     class BodyHeadings
+      include Presenters::PublishingApi::PayloadHeadingsHelper
+
       attr_reader :item
 
       def self.for(item)
@@ -12,29 +14,7 @@ module PublishingApi
       end
 
       def call
-        headers = body_headings
-
-        return {} if headers.empty?
-
-        { headers: }
-      end
-
-    private
-
-      def body_headings
-        if item
-          body_headings = Govspeak::Document.new(item.body).structured_headers
-          remove_empty_headers(body_headings.map(&:to_h))
-        else
-          []
-        end
-      end
-
-      def remove_empty_headers(body_headings)
-        body_headings.each do |body_heading|
-          body_heading.delete_if { |k, v| k == :headers && v.empty? }
-          remove_empty_headers(body_heading[:headers]) if body_heading.key?(:headers)
-        end
+        extract_headings(item.body)
       end
     end
   end

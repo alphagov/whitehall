@@ -75,4 +75,120 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
     assert_equal page.flexible_page_content["property_one"], content[:details][:property_one]
     assert_equal page.flexible_page_content["property_two"], content[:details][:property_two]
   end
+
+  test "it includes headers for each govspeak type block" do
+    type_key = "test_type_key"
+    FlexiblePageType.setup_test_types({
+      type_key => {
+        "key" => type_key,
+        "schema" => {
+          "type" => "object",
+          "title" => "An object",
+          "properties" => {
+            "chunk_of_content_one" => {
+              "title" => "A govspeak block",
+              "description" => "Some bit of content",
+              "type" => "string",
+              "format" => "govspeak",
+            },
+            "chunk_of_content_two" => {
+              "title" => "Another govspeak block",
+              "description" => "Another bit of content",
+              "type" => "string",
+              "format" => "govspeak",
+            },
+          },
+        },
+        "settings" => {
+          "base_path_prefix" => "/government/test",
+          "publishing_api_schema_name" => "schema_name",
+          "publishing_api_document_type" => "document_type",
+          "rendering_app" => "rendering-app",
+        },
+      },
+    })
+    page = FlexiblePage.new
+    page.flexible_page_type = type_key
+    page.document = Document.new
+    page.document.slug = "page-title"
+    page.flexible_page_content = {
+      "chunk_of_content_one" => "## Header for chunk one\n\nSome content",
+      "chunk_of_content_two" => "## Header for chunk two\n\nSome more content",
+    }
+    FlexiblePageContentBlocks::Context.create_for_page(page)
+    presenter = PublishingApi::FlexiblePagePresenter.new(page)
+    content = presenter.content
+    expected_hash_for_chunk_of_content_one = {
+      html: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-one\">Header for chunk one</h2> <p>Some content</p> </div>",
+      headers: [
+        {
+          text: "Header for chunk one",
+          level: 2,
+          id: "header-for-chunk-one",
+        },
+      ],
+    }
+    expected_hash_for_chunk_of_content_two = {
+      html: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-two\">Header for chunk two</h2> <p>Some more content</p> </div>",
+      headers: [
+        {
+          text: "Header for chunk two",
+          level: 2,
+          id: "header-for-chunk-two",
+        },
+      ],
+    }
+    assert_equal expected_hash_for_chunk_of_content_one[:html], content[:details][:chunk_of_content_one][:html].squish
+    assert_equal expected_hash_for_chunk_of_content_one[:headers], content[:details][:chunk_of_content_one][:headers]
+    assert_equal expected_hash_for_chunk_of_content_two[:html], content[:details][:chunk_of_content_two][:html].squish
+    assert_equal expected_hash_for_chunk_of_content_two[:headers], content[:details][:chunk_of_content_two][:headers]
+  end
+
+  test "it includes headers once, one layer up, if there is a govspeak block with a 'body' key" do
+    type_key = "test_type_key"
+    FlexiblePageType.setup_test_types({
+      type_key => {
+        "key" => type_key,
+        "schema" => {
+          "type" => "object",
+          "title" => "An object",
+          "properties" => {
+            "body" => {
+              "title" => "Body",
+              "description" => "The main content for the page",
+              "type" => "string",
+              "format" => "govspeak",
+            },
+          },
+        },
+        "settings" => {
+          "base_path_prefix" => "/government/test",
+          "publishing_api_schema_name" => "schema_name",
+          "publishing_api_document_type" => "document_type",
+          "rendering_app" => "rendering-app",
+        },
+      },
+    })
+    page = FlexiblePage.new
+    page.flexible_page_type = type_key
+    page.document = Document.new
+    page.document.slug = "page-title"
+    page.flexible_page_content = {
+      "body" => "## Header for content\n\nSome content",
+    }
+    FlexiblePageContentBlocks::Context.create_for_page(page)
+    presenter = PublishingApi::FlexiblePagePresenter.new(page)
+    content = presenter.content
+
+    expected_body = "<div class=\"govspeak\"><h2 id=\"header-for-content\">Header for content</h2> <p>Some content</p> </div>"
+    expected_headers = [
+      {
+        text: "Header for content",
+        level: 2,
+        id: "header-for-content",
+      },
+    ]
+    assert_equal expected_body, content[:details][:body].squish
+    assert_equal expected_headers, content[:details][:headers]
+  end
 end

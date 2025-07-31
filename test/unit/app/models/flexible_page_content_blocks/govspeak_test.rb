@@ -25,7 +25,54 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
       payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
-      assert_equal html, payload
+      assert_equal html, payload[:html]
+    end
+  end
+
+  test "it includes headers in the payload, if present in the govspeak" do
+    govspeak = "## Some header\n\n%A callout%"
+    html = "<h3>Some header</h3><p class=\"govuk-callout\">A callout</p>"
+    content = {
+      "test_attribute" => govspeak,
+    }
+    page = FlexiblePage.new
+    page.flexible_page_content = content
+    govspeak_renderer = mock("Whitehall::GovspeakRenderer")
+    govspeak_renderer
+      .expects(:govspeak_to_html)
+      .with(govspeak)
+      .returns(html)
+    expected_headers = [
+      {
+        text: "Some header",
+        level: 2,
+        id: "some-header",
+      },
+    ]
+    Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
+      payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
+      assert_equal expected_headers, payload[:headers]
+      assert_not_nil payload[:html]
+    end
+  end
+
+  test "it does not include headers in the payload, if not present in the govspeak" do
+    govspeak = "Some content without headers"
+    html = "Some content without headers"
+    content = {
+      "test_attribute" => govspeak,
+    }
+    page = FlexiblePage.new
+    page.flexible_page_content = content
+    govspeak_renderer = mock("Whitehall::GovspeakRenderer")
+    govspeak_renderer
+      .expects(:govspeak_to_html)
+      .with(govspeak)
+      .returns(html)
+    Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
+      payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
+      assert_nil payload[:headers]
+      assert_not_nil payload[:html]
     end
   end
 end

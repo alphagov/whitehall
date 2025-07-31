@@ -25,7 +25,7 @@ class FlexiblePageContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
       },
     }
     payload = FlexiblePageContentBlocks::DefaultObject.new.publishing_api_payload(schema, content)
-    assert_equal(Whitehall::GovspeakRenderer.new.govspeak_to_html(content["test_attribute"]), payload[:test_attribute])
+    assert_equal(Whitehall::GovspeakRenderer.new.govspeak_to_html(content["test_attribute"]), payload[:test_attribute][:html])
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
   end
 end
