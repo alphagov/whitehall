@@ -8,7 +8,7 @@ class FeaturedImageData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  validates :file, presence: true
+  validate :file_is_not_blank
   validates :featured_imageable, presence: true
 
   validates_with ImageValidator
@@ -38,6 +38,12 @@ class FeaturedImageData < ApplicationRecord
   end
 
 private
+
+  def file_is_not_blank
+    if file.blank? && errors[:file].blank?
+      errors.add(:file, I18n.t("errors.messages.blank"))
+    end
+  end
 
   def assets_match_updated_image_filename
     assets.all? { |asset| asset.filename.include?(filename) } if filename
