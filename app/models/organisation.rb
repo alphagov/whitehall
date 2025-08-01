@@ -351,24 +351,12 @@ class Organisation < ApplicationRecord
     govuk_status == "live"
   end
 
-  def joining?
-    govuk_status == "joining"
-  end
-
-  def transitioning?
-    govuk_status == "transitioning"
-  end
-
   def closed?
     govuk_status == "closed"
   end
 
   def exempt?
     govuk_status == "exempt"
-  end
-
-  def no_longer_exists?
-    govuk_closed_status == "no_longer_exists"
   end
 
   def replaced?
@@ -385,10 +373,6 @@ class Organisation < ApplicationRecord
 
   def changed_name?
     govuk_closed_status == "changed_name"
-  end
-
-  def left_gov?
-    govuk_closed_status == "left_gov"
   end
 
   def devolved?
