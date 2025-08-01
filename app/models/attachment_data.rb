@@ -2,7 +2,7 @@ require "pdf-reader"
 require "timeout"
 
 class AttachmentData < ApplicationRecord
-  mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
+  mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file, validate_integrity: true
 
   has_many :attachments, -> { order(:attachable_id) }, inverse_of: :attachment_data
   has_many :assets,
@@ -13,7 +13,7 @@ class AttachmentData < ApplicationRecord
 
   before_save :update_file_attributes
 
-  validates :file, presence: true
+  validate :file_is_not_blank
   validate :file_is_not_empty
 
   attr_accessor :to_replace_id, :attachable
@@ -232,6 +232,10 @@ private
     end
   rescue Timeout::Error, PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError, OpenSSL::Cipher::CipherError
     nil
+  end
+
+  def file_is_not_blank
+    errors.add(:file, :blank) if file.blank? && errors[:file].blank?
   end
 
   def file_is_not_empty

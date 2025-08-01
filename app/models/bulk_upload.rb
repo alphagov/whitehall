@@ -17,7 +17,7 @@ class BulkUpload
   end
 
   def build_attachments_from_files(files)
-    @attachments = if files.compact.present?
+    @attachments = if files.present? && files.compact.present?
                      files.compact.map { |file| build_attachment_for_file(file) }
                    else
                      errors.add(:files, message: "not selected for upload")
@@ -65,12 +65,14 @@ private
 
     attachment = find_attachment_with_file(filename) || FileAttachment.new(attachment_data_attributes: { file: })
 
-    unless AttachmentUploader::MIME_ALLOW_LIST.include?(sanitized_file.content_type)
-      errors.add(:files, message: "included not allowed type #{File.extname(filename)}")
-    end
-
     unless attachment.new_record?
       attachment.attachment_data_attributes = { file:, to_replace_id: attachment.attachment_data.id }
+    end
+
+    attachment.attachment_data.valid?
+
+    if attachment.attachment_data.errors[:file].present?
+      errors.add(:files, message: "included #{filename}: #{attachment.attachment_data.errors.messages_for(:file).join(', ')}")
     end
 
     attachment
