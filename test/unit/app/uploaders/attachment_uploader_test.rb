@@ -32,7 +32,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
       uploader.store!(file_fixture("dodgy.exe"))
     end
 
-    assert_match %r{You are not allowed to upload "exe" files}, exception.message
+    assert_match %r{is of not allowed type "exe", allowed types: chm, csv, diff, doc, docx, dot, dxf, eps, gif, gml, ics, jpg, kml, odp, ods, odt, pdf, png, ppt, pptx, ps, rdf, ris, rtf, sch, txt, vcf, wsdl, xls, xlsm, xlsx, xlt, xml, xsd, xslt, zip}, exception.message
   end
 
   test "should store uploads in a directory that persists across deploys" do

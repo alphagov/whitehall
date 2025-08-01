@@ -6,7 +6,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     image_data = build(:featured_image_data, file: svg_image)
 
     assert_not image_data.valid?
-    assert_includes image_data.errors.map(&:full_message), "File You are not allowed to upload \"svg\" files, allowed types: jpg, jpeg, gif, png"
+    assert_includes image_data.errors.map(&:full_message), "File is of not allowed type \"svg\", allowed types: jpg, jpeg, gif, png"
   end
 
   test "rejects non-image file uploads" do
@@ -14,7 +14,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     topical_event_featuring_image_data = build(:featured_image_data, file: non_image_file)
 
     assert_not topical_event_featuring_image_data.valid?
-    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File You are not allowed to upload \"zip\" files, allowed types: jpg, jpeg, gif, png"
+    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File is of not allowed type \"zip\", allowed types: jpg, jpeg, gif, png"
   end
 
   test "should ensure that file is present" do

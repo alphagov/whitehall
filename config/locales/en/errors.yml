@@ -2,6 +2,8 @@ en:
   errors:
     messages:
       blank: "cannot be blank"
+      extension_allowlist_error: "is of not allowed type %{extension}, allowed types: %{allowed_types}"
+      extension_denylist_error: "is of not allowed type %{extension}, prohibited types: %{prohibited_types}"
   activerecord:
     attributes:
       publication/nation_inapplicabilities:
