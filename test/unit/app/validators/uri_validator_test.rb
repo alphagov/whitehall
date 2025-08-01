@@ -56,6 +56,18 @@ class UriValidatorTest < ActiveSupport::TestCase
     assert_equal ["is not valid."], feature_link.errors[:url]
   end
 
+  test "should be valid with 255 character alternative url" do
+    alternative_url_255_character = "https://1HHGPav0JgJ6r1rJR34wO2Tksnimp6DjWIrJU02iQgcUK6H7he4aWZ5wrtNGOifEHoLO9afMMfNIZxoOTj6BkQE7NcBwY4fvYpCXwCFaBjnXkRqyl3LfFAIJc5GUXz64LGwQvHQHiOkFdP2fk43HkM2Dx6aHoHxdgRHRB7jVzGNLNwUBQtFdjlLv4CBHRTFMnHBtSsskEXhSGlv0TubV2uouqlUkoLSOwC3AJHa4XN1bcD23112.com"
+    feature_link = validate(PromotionalFeatureLink.new(url: alternative_url_255_character))
+    assert feature_link.errors.empty?
+  end
+
+  test "should error with more than 255 character alternative url" do
+    alternative_url_256_character = "https://1HHGPav0JgJ6r1rJR34wO2Tksnimp6DjWIrJU02iQgcUK6H7he4aWZ5wrtNGOifEHoLO9afMMfNIZxoOTj6BkQE7NcBwY4fvYpCXwCFaBjnXkRqyl3LfFAIJc5GUXz64LGwQvHQHiOkFdP2fk43HkM2Dx6aHoHxdgRHRB7jVzGNLNwUBQtFdjlLv4CBHRTFMnHBtSsskEXhSGlv0TubV2uouqlUkoLSOwC3AJHa4XN1bcD231125.com"
+    feature_link = validate(PromotionalFeatureLink.new(url: alternative_url_256_character))
+    assert_includes feature_link.errors[:url], I18n.t("activerecord.errors.models.nation_inapplicability.attributes.alternative_url.too_long")
+  end
+
 private
 
   def validate(record)
