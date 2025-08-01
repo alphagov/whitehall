@@ -83,7 +83,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     promotional_feature = build(:promotional_feature_item, image: svg_image)
 
     assert_not promotional_feature.valid?
-    assert_includes promotional_feature.errors.map(&:full_message), "Image You are not allowed to upload \"svg\" files, allowed types: jpg, jpeg, gif, png"
+    assert_includes promotional_feature.errors.map(&:full_message), "Image is of not allowed type \"svg\", allowed types: jpg, jpeg, gif, png"
   end
 
   test "rejects non-image file uploads" do
@@ -91,7 +91,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     promotional_feature_item = build(:promotional_feature_item, image: non_image_file)
 
     assert_not promotional_feature_item.valid?
-    assert_includes promotional_feature_item.errors.map(&:full_message), "Image You are not allowed to upload \"zip\" files, allowed types: jpg, jpeg, gif, png"
+    assert_includes promotional_feature_item.errors.map(&:full_message), "Image is of not allowed type \"zip\", allowed types: jpg, jpeg, gif, png"
   end
 
   test "accepts valid image uploads" do

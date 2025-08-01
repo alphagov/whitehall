@@ -88,7 +88,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   view_test "POST :upload_files with illegal file" do
     post_to_upload_files("two-pages.pdf", "greenpaper.pdf", "pdfinfo_dummy.sh")
     assert_response :success
-    assert_select ".gem-c-error-summary__list-item", /included not allowed type .sh/
+    assert_select ".gem-c-error-summary__list-item", /Files included pdfinfo_dummy.sh: is of not allowed type "sh", allowed types: chm, csv, diff, doc, docx, dot, dxf, eps, gif, gml, ics, jpg, kml, odp, ods, odt, pdf, png, ppt, pptx, ps, rdf, ris, rtf, sch, txt, vcf, wsdl, xls, xlsm, xlsx, xlt, xml, xsd, xslt, zip/
     assert_select "input[type=file]"
   end
 
