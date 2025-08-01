@@ -296,10 +296,6 @@ class Organisation < ApplicationRecord
     OrganisationLogoType.find_by_id(organisation_logo_type_id)
   end
 
-  def organisation_logo_type=(organisation_logo_type)
-    self.organisation_logo_type_id = organisation_logo_type && organisation_logo_type.id
-  end
-
   def organisation_crest
     organisation_logo_type.try(:class_name)
   end

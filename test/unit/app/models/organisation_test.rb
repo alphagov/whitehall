@@ -154,7 +154,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without a organisation logo type" do
-    organisation = build(:organisation, organisation_logo_type: nil)
+    organisation = build(:organisation, organisation_logo_type_id: nil)
     assert_not organisation.valid?
   end
 
