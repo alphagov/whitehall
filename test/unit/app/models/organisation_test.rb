@@ -154,7 +154,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without a organisation logo type" do
-    organisation = build(:organisation, organisation_logo_type: nil)
+    organisation = build(:organisation, organisation_logo_type_id: nil)
     assert_not organisation.valid?
   end
 
@@ -932,12 +932,6 @@ class OrganisationTest < ActiveSupport::TestCase
   test "#organisation_brand_colour fetches the brand colour" do
     org = create(:organisation, organisation_brand_colour_id: 1)
     assert_equal org.organisation_brand_colour, OrganisationBrandColour::AttorneyGeneralsOffice
-  end
-
-  test "#organisation_brand_colour= sets the brand colour" do
-    org = create(:organisation)
-    org.organisation_brand_colour = OrganisationBrandColour::AttorneyGeneralsOffice
-    assert_equal org.organisation_brand_colour_id, 1
   end
 
   test "excluding_govuk_status_closed scopes to all organisations which don't have a govuk_state of 'closed'" do
