@@ -36,10 +36,9 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   def post_to_upload_files(*files)
     params = {}
-    files ||= []
 
     params[:bulk_upload] = {
-      files: files.map { |f| f && upload_fixture(f) },
+      files: files && files.map { |f| f && upload_fixture(f) },
     }
 
     post :upload_files, params: { edition_id: @edition }.merge(params)

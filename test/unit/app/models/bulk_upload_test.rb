@@ -100,8 +100,6 @@ class BulkUploadTest < ActiveSupport::TestCase
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.build_attachments_from_params(params)
 
-    # binding.pry
-
     assert_difference("edition.attachments.count", 2) do
       assert bulk_upload.save_attachments, "should return true"
       assert_equal attachment, edition.reload.attachments[0]
