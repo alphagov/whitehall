@@ -304,10 +304,6 @@ class Organisation < ApplicationRecord
     OrganisationBrandColour.find_by_id(organisation_brand_colour_id)
   end
 
-  def organisation_brand_colour=(organisation_brand_colour)
-    self.organisation_brand_colour_id = organisation_brand_colour && organisation_brand_colour.id
-  end
-
   def organisation_brand
     organisation_brand_colour.try(:class_name)
   end

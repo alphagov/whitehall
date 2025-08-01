@@ -934,12 +934,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal org.organisation_brand_colour, OrganisationBrandColour::AttorneyGeneralsOffice
   end
 
-  test "#organisation_brand_colour= sets the brand colour" do
-    org = create(:organisation)
-    org.organisation_brand_colour = OrganisationBrandColour::AttorneyGeneralsOffice
-    assert_equal org.organisation_brand_colour_id, 1
-  end
-
   test "excluding_govuk_status_closed scopes to all organisations which don't have a govuk_state of 'closed'" do
     open_org = create(:organisation, govuk_status: "live")
     _closed_org = create(:closed_organisation)
