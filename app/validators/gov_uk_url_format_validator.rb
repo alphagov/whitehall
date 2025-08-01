@@ -24,10 +24,15 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
 
 private
 
+  # Expects a fully qualified URL, but anything else might be OK (e.g. for internal links).
+  # We don't need to report bad URLs here as whatever model is using the GovUkUrlFormatValidator
+  # should also be using the UriValidator.
   def matches_allow_list?(value)
     uri = URI.parse(value)
-    uri.host&.end_with?(*EXTERNAL_HOST_ALLOW_LIST)
+    return true unless uri.host
+
+    uri.host.end_with?(*EXTERNAL_HOST_ALLOW_LIST)
   rescue URI::InvalidURIError
-    false
+    true
   end
 end
