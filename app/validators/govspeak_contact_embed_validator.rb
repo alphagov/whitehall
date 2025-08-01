@@ -8,7 +8,7 @@ class GovspeakContactEmbedValidator < ActiveModel::Validator
     extract_contact_ids(record).each do |contact_id|
       next if contact_exists?(contact_id)
 
-      record.errors.add(:base, build_error_message(record, contact_id))
+      add_contact_error(record, contact_id)
     end
   end
 
@@ -66,11 +66,24 @@ private
     end
   end
 
-  def build_html_attachment_error(record, base_message)
+  def add_contact_error(record, contact_id)
+    case record
+    when Edition
+      record.errors.add(:body, "Contact ID #{contact_id} doesn't exist")
+    when HtmlAttachment
+      record.errors.add(:govspeak_content, build_html_attachment_error_message(record, contact_id))
+    else
+      record.errors.add(:base, "Contact ID #{contact_id} doesn't exist")
+    end
+  end
+
+  def build_html_attachment_error_message(record, contact_id)
     identifier = attachment_identifier(record)
     context_hint = context_hint_for_attachment(record)
-    "HTML Attachment #{identifier} invalid: #{base_message}#{context_hint}"
+    "HTML Attachment #{identifier} contains invalid contact reference: Contact ID #{contact_id} doesn't exist#{context_hint}"
   end
+
+
 
   def attachment_identifier(record)
     record.title.present? ? "'#{record.title}'" : record.id

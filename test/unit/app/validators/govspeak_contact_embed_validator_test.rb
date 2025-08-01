@@ -97,7 +97,7 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
     attachment = build(:html_attachment, body: "[Contact:#{@invalid_contact_id}]", attachable: new_edition)
 
     assert_not attachment.valid?
-    error_message = attachment.errors.full_messages.first
+    error_message = attachment.errors[:govspeak_content].first
     assert_includes error_message, "Contact ID #{@invalid_contact_id} doesn't exist"
     assert_includes error_message, "You may need to create this contact first"
   end
@@ -112,7 +112,7 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
     attachment.title = "Updated title"
     assert_not attachment.valid?
 
-    error_message = attachment.errors.full_messages.first
+    error_message = attachment.errors[:govspeak_content].first
     assert_includes error_message, "Contact ID #{@invalid_contact_id} doesn't exist"
     assert_includes error_message, "may have been removed since the original publication"
   end
@@ -122,7 +122,7 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
     attachment = build(:html_attachment, body: "[Contact:#{@invalid_contact_id}]", attachable: new_edition)
 
     assert_not attachment.valid?
-    error_message = attachment.errors.full_messages.first
+    error_message = attachment.errors[:govspeak_content].first
     assert_includes error_message, "Contact ID #{@invalid_contact_id} doesn't exist"
     assert_includes error_message, "You may need to create this contact first"
   end
@@ -157,7 +157,7 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
 
     attachment.title = "Updated title"
     assert_not attachment.valid?
-    error_message = attachment.errors.full_messages.first
+    error_message = attachment.errors[:govspeak_content].first
     assert_includes error_message, "Contact ID #{@invalid_contact_id} doesn't exist"
     assert_includes error_message, "may have been removed since the original publication"
   end
@@ -245,24 +245,27 @@ private
   end
 
   def assert_no_contact_errors(model)
-    contact_errors = model.errors.select { |error| error.message.include?("Contact ID") }
-    assert_empty contact_errors, "Expected no contact validation errors"
+    body_errors = model.errors[:body].select { |error| error.include?("Contact ID") }
+    content_errors = model.errors[:govspeak_content].select { |error| error.include?("Contact ID") }
+    assert_empty body_errors + content_errors, "Expected no contact validation errors"
   end
 
   def assert_contact_error_present(model, contact_id = @invalid_contact_id)
-    contact_errors = model.errors.select { |error| error.message.include?("Contact ID") }
-    assert_equal 1, contact_errors.size, "Expected exactly one contact validation error"
-    assert_includes contact_errors.first.message, contact_id.to_s
+    body_errors = model.errors[:body].select { |error| error.include?("Contact ID") }
+    content_errors = model.errors[:govspeak_content].select { |error| error.include?("Contact ID") }
+    total_errors = body_errors + content_errors
+    assert_equal 1, total_errors.size, "Expected exactly one contact validation error"
+    assert_includes total_errors.first, contact_id.to_s
   end
 
   def assert_html_attachment_error(model, expected_identifier, contact_id = @invalid_contact_id)
-    assert_equal 1, model.errors.size
-    error_message = model.errors.map(&:type).first
+    assert_equal 1, model.errors[:govspeak_content].size, "Expected exactly one govspeak_content error"
+    error_message = model.errors[:govspeak_content].first
 
     if expected_identifier.is_a?(Numeric) || expected_identifier.to_s.match?(/^\d+$/)
-      assert_includes error_message, "HTML Attachment #{expected_identifier} invalid"
+      assert_includes error_message, "HTML Attachment #{expected_identifier} contains invalid contact reference"
     else
-      assert_includes error_message, "HTML Attachment '#{expected_identifier}' invalid"
+      assert_includes error_message, "HTML Attachment '#{expected_identifier}' contains invalid contact reference"
     end
 
     assert_includes error_message, "Contact ID #{contact_id} doesn't exist"
