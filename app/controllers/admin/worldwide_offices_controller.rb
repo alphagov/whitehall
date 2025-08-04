@@ -108,7 +108,7 @@ private
   end
 
   def find_worldwide_organisation
-    @worldwide_organisation = Edition.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
   end
 
   def find_worldwide_office
