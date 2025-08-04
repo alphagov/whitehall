@@ -3,193 +3,102 @@ require "test_helper"
 class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
 
-  let(:content_block_edition) { build(:content_block_edition, :pension) }
-  let(:field) { stub("field", name: "items", is_required?: true) }
-  let(:field_value) { nil }
-  let(:object_title) { nil }
+  let(:content_block_edition) { build(:content_block_edition, :contact) }
+  let(:schema) { build(:content_block_schema) }
 
-  let(:days) { ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent::DAYS }
-  let(:hours) { ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent::HOURS }
-  let(:minutes) { ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent::MINUTES }
-  let(:meridian) { ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent::MERIDIAN }
+  let(:body) do
+    {
+      "type" => "object",
+      "properties" =>
+        { "opening_hours" =>
+            { "type" => "object",
+              "properties" =>
+                { "opening_hours" => { "type" => "string" },
+                  "show_opening_hours" => { "type" => "boolean" } } } },
+    }
+  end
+
+  before do
+    schema.stubs(:body).returns(body)
+  end
+
+  let(:field) do
+    ContentBlockManager::ContentBlock::Schema::Field.new(
+      "opening_hours",
+      schema,
+    )
+  end
+
+  let(:field_value) do
+    { "show_opening_hours" => nil,
+      "opening_hours" => nil }
+  end
 
   let(:component) do
     ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursComponent.new(
       content_block_edition:,
-      field:,
+      field: field,
       value: field_value,
-      object_title:,
     )
   end
 
-  describe "when there are no items present" do
-    it "renders with one empty item and a template" do
-      render_inline component
+  describe "Opening hours component" do
+    describe "show nested field" do
+      it "shows a checkbox to toggle 'Show Opening Hours' option" do
+        render_inline(component)
 
-      assert_selector ".govuk-checkboxes__conditional" do |conditional|
-        conditional.assert_selector ".gem-c-add-another" do |component|
-          component.assert_selector ".js-add-another__fieldset", count: 1
-          component.assert_selector ".js-add-another__empty", count: 1
+        assert_selector(".govuk-checkboxes") do |component|
+          component.assert_selector("label", text: I18n.t("content_block_edition.details.labels.telephones.opening_hours.show_opening_hours"))
+        end
+      end
 
-          component.assert_selector ".js-add-another__fieldset", text: /Opening Hour 1/ do |fieldset|
-            expect_form_fields(fieldset, 0)
-          end
+      context "when the 'show_opening_hours' value is true" do
+        let(:field_value) do
+          { "show_opening_hours" => true,
+            "opening_hours" => nil }
+        end
 
-          component.assert_selector ".js-add-another__empty", text: /Opening Hour 2/ do |fieldset|
-            expect_form_fields(fieldset, 1)
+        it "sets the checkbox to _checked_" do
+          render_inline(component)
+
+          assert_selector(".govuk-checkboxes") do |component|
+            component.assert_selector("input[checked='checked']")
           end
         end
       end
-    end
-  end
 
-  describe "when there are items present" do
-    let(:field_value) do
-      [
-        {
-          "day_from" => "Tuesday",
-          "day_to" => "Friday",
-          "time_from" => "9:30AM",
-          "time_to" => "5:45PM",
-        },
-        {
-          "day_from" => "Saturday",
-          "day_to" => "Sunday",
-          "time_from" => "12:00PM",
-          "time_to" => "3:00PM",
-        },
-      ]
-    end
+      context "when the 'show_opening_hours' value is false" do
+        let(:field_value) do
+          { "show_opening_hours" => false,
+            "opening_hours" => nil }
+        end
 
-    it "renders a fieldset for each item and a template" do
-      render_inline component
+        it "sets the checkbox to _unchecked_" do
+          render_inline(component)
 
-      assert_selector ".govuk-checkboxes__conditional" do |conditional|
-        conditional.assert_selector ".gem-c-add-another" do |component|
-          component.assert_selector ".js-add-another__fieldset", count: 2
-          component.assert_selector ".js-add-another__empty", count: 1
-
-          component.assert_selector ".js-add-another__fieldset", text: "Opening Hour 1" do |fieldset|
-            expect_form_fields(fieldset, 0)
-
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][day_from]'] option[value='Tuesday'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][day_to]'] option[value='Friday'][selected]"
-
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_from(h)]'] option[value='9'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_from(m)]'] option[value='30'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_from(meridian)]'] option[value='AM'][selected]"
-
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_to(h)]'] option[value='5'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_to(m)]'] option[value='45'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_to(meridian)]'] option[value='PM'][selected]"
-          end
-
-          component.assert_selector ".js-add-another__fieldset", text: "Opening Hour 2" do |fieldset|
-            expect_form_fields(fieldset, 1)
-
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][day_from]'] option[value='Saturday'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][day_to]'] option[value='Sunday'][selected]"
-
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_from(h)]'] option[value='12'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_from(m)]'] option[value='00'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_from(meridian)]'] option[value='PM'][selected]"
-
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_to(h)]'] option[value='3'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_to(m)]'] option[value='00'][selected]"
-            fieldset.assert_selector "select[name='content_block/edition[details][items][][time_to(meridian)]'] option[value='PM'][selected]"
-          end
-
-          component.assert_selector ".js-add-another__empty", text: "Opening Hour 3" do |fieldset|
-            expect_form_fields(fieldset, 2)
+          assert_selector(".govuk-checkboxes") do |component|
+            component.assert_no_selector("input[checked='checked']")
           end
         end
       end
     end
 
-    describe "when errors are present" do
-      let(:errors) do
-        [
-          stub(:error, attribute: :details_items_0_day_from, full_message: "Day from can't be blank"),
-          stub(:error, attribute: :details_items_0_day_to, full_message: "Day to can't be blank"),
-          stub(:error, attribute: :details_items_0_time_from, full_message: "Time from is invalid"),
-          stub(:error, attribute: :details_items_0_time_to, full_message: "Time to is invalid"),
-        ]
-      end
-
-      before do
-        content_block_edition.stubs(:errors).returns(errors)
-      end
-
-      it "displays the errors" do
-        render_inline component
-
-        assert_selector ".govuk-checkboxes__conditional" do |conditional|
-          conditional.assert_selector ".gem-c-add-another" do |component|
-            component.assert_selector ".js-add-another__fieldset", count: 2
-            component.assert_selector ".js-add-another__empty", count: 1
-
-            component.assert_selector ".js-add-another__fieldset", text: "Opening Hour 1" do |fieldset|
-              fieldset.assert_selector ".govuk-form-group--error", text: "Day from can't be blank" do |form_group|
-                form_group.assert_selector ".govuk-error-message", text: "Day from can't be blank"
-                form_group.assert_selector "#content_block_manager_content_block_edition_details_items_0_day_from.govuk-select--error"
-              end
-
-              fieldset.assert_selector ".govuk-form-group--error", text: "Day to can't be blank" do |form_group|
-                form_group.assert_selector ".govuk-error-message", text: "Day to can't be blank"
-                form_group.assert_selector "#content_block_manager_content_block_edition_details_items_0_day_to.govuk-select--error"
-              end
-
-              fieldset.assert_selector ".app-c-content-block-manager-opening-hours-item-component__time-group--error", text: "Time from is invalid" do |form_group|
-                form_group.assert_selector ".govuk-error-message", text: "Time from is invalid"
-              end
-
-              fieldset.assert_selector ".app-c-content-block-manager-opening-hours-item-component__time-group--error", text: "Time to is invalid" do |form_group|
-                form_group.assert_selector ".govuk-error-message", text: "Time to is invalid"
-              end
-            end
-          end
-        end
-      end
-    end
-  end
-
-private
-
-  def expect_form_fields(fieldset, index)
-    fieldset.assert_selector ".govuk-fieldset__legend", text: "Opening Hour #{index + 1}"
-    fieldset.assert_selector ".app-c-content-block-manager-opening-hours-item-component" do |component|
-      component.assert_selector ".govuk-fieldset", text: "Days" do |days_fieldset|
-        days_fieldset.assert_selector "select#content_block_manager_content_block_edition_details_items_#{index}_day_from" do |select|
-          days.each do |day|
-            select.assert_selector "option[value='#{day}']", text: day
-          end
+    describe "'opening_hours' nested field" do
+      context "when a value is set for the 'opening_hours'" do
+        let(:field_value) do
+          { "show_opening_hours" => true,
+            "opening_hours" => "CUSTOM VALUE" }
         end
 
-        days_fieldset.assert_selector "select#content_block_manager_content_block_edition_details_items_#{index}_day_to" do |select|
-          days.each do |day|
-            select.assert_selector "option[value='#{day}']", text: day
-          end
-        end
-      end
+        it "displays that value in the input field" do
+          render_inline(component)
 
-      component.assert_selector ".govuk-fieldset", text: "Time" do |time_fieldset|
-        %w[from to].each do |from_to|
-          time_fieldset.assert_selector "select#content_block_manager_content_block_edition_details_items_#{index}_time_#{from_to}_h" do |select|
-            hours.each do |hour|
-              select.assert_selector "option[value='#{hour}']", text: hour
-            end
-          end
-
-          time_fieldset.assert_selector "select#content_block_manager_content_block_edition_details_items_#{index}_time_#{from_to}_m" do |select|
-            minutes.each do |minute|
-              select.assert_selector "option[value='#{minute}']", text: minute
-            end
-          end
-
-          time_fieldset.assert_selector "select#content_block_manager_content_block_edition_details_items_#{index}_time_#{from_to}_meridian" do |select|
-            meridian.each do |am_pm|
-              select.assert_selector "option[value='#{am_pm}']", text: am_pm
-            end
+          assert_selector(".govuk-checkboxes") do |component|
+            component.assert_selector(
+              "textarea" \
+                "[name='content_block/edition[details][opening_hours][opening_hours]']",
+              text: "CUSTOM VALUE",
+            )
           end
         end
       end
