@@ -7,11 +7,11 @@
 <% if attachable.respond_to?(:translated_locales) && attachable.translated_locales.many? %>
   <%
     locale_options = [{text: "All languages", value: ""}]
-    locale_options.concat(attachable.translated_locales.map do |locale|
+    locale_options.concat(options_for_locales(attachable.translated_locales).map do |language, value|
       {
-        text: native_language_name_for(locale),
-        value: locale,
-        selected: attachment.locale == locale.to_s,
+        text: language,
+        value: value,
+        selected: attachment.locale == value,
       }
     end)
   %>
