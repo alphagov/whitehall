@@ -126,31 +126,30 @@ Feature: Create a contact object
           }
         },
         "opening_hours": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "day_from",
-              "day_to",
-              "time_from",
-              "time_to"
-            ],
+          "type": "object",
+          "properties": {
+            "opening_hours": {
+              "type": "string"
+            },
+            "show_opening_hours": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "if": {
             "properties": {
-              "day_from": {
-                "type": "string"
-              },
-              "day_to": {
-                "type": "string"
-              },
-              "time_from": {
-                "type": "string",
-                "pattern": "^[0-9]{1,2}:[0-9]{2}AM|PM$"
-              },
-              "time_to": {
-                "type": "string",
-                "pattern": "^[0-9]{1,2}:[0-9]{2}AM|PM$"
+              "show_opening_hours": {
+                "const": true
               }
             }
+          },
+          "then": {
+            "required": [
+              "opening_hours"
+            ]
+          },
+          "else": {
+            "required": []
           }
         }
       }
@@ -205,10 +204,8 @@ Feature: Create a contact object
     And I change the call charges info label from its default value
     And I indicate that BSL guidance should be shown
     And I change the BSL guidance label from its default value
-    And I add the following "opening_hours" to the form:
-      | day_from | day_to | time_from | time_to |
-      | Monday   | Friday | 9:00AM    | 5:00PM  |
-      | Saturday | Sunday  | 10:00AM   | 3:00PM  |
+    And I indicate that the opening hours should be shown
+    And I input the opening hours
     And I save and continue
     And I click to add another "contact_method"
     And I click on the "contact_links" subschema
