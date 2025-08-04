@@ -10,7 +10,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".gem-c-layout-header__logo", text: /Whitehall Publisher/
-    assert_select ".govuk-header__navigation-item", text: "Dashboard"
+    assert_select ".govuk-service-navigation__item", text: "Dashboard"
   end
 
   view_test "highlights the 'Dashboard' tab when it is the currently selected tab- Main navigation" do
@@ -170,10 +170,10 @@ private
   end
 
   def assert_not_active_item(path)
-    assert_select ".govuk-header__navigation-item--active a[href=\"#{path}\"]", false
+    assert_select ".govuk-service-navigation__item--active a[href=\"#{path}\"]", false
   end
 
   def assert_active_item(path)
-    assert_select ".govuk-header__navigation-item--active a[href=\"#{path}\"]"
+    assert_select ".govuk-service-navigation__item--active a[href=\"#{path}\"]"
   end
 end

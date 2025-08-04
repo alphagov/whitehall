@@ -9,6 +9,7 @@
 //= require govuk_publishing_components/components/reorderable-list
 //= require govuk_publishing_components/components/table
 //= require govuk_publishing_components/components/select-with-search
+//= require govuk_publishing_components/components/service-navigation
 //= require govuk_publishing_components/lib/trigger-event
 //= require govuk_publishing_components/lib/cookie-functions
 
