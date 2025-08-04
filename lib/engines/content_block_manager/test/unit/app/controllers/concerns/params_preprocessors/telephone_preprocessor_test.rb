@@ -4,26 +4,17 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:opening_hours) do
-    [
-      {
-        "day_from" => "Monday",
-        "day_to" => "Friday",
-        "time_from(h)" => "9",
-        "time_from(m)" => "00",
-        "time_from(meridian)" => "AM",
-        "time_to(h)" => "5",
-        "time_to(m)" => "30",
-        "time_to(meridian)" => "PM",
-        "_destroy" => "0",
-      },
-    ]
+    {
+      "show_opening_hours" => show_opening_hours,
+      "opening_hours" => "Some text",
+    }
   end
 
   let(:show_call_charges_info_url) { "true" }
   let(:show_video_relay_service) { "true" }
   let(:show_bsl_guidance) { "true" }
 
-  let(:hours_available) { "1" }
+  let(:show_opening_hours) { "1" }
 
   let(:call_charges) do
     {
@@ -61,7 +52,7 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
 
   let(:params) do
     {
-      "hours_available" => hours_available,
+      "show_opening_hours" => show_opening_hours,
       "content_block/edition" => {
         "details" => details,
       },
@@ -69,33 +60,28 @@ class ParamsPreprocessors::TelephonePreprocessorTest < ActiveSupport::TestCase
   end
 
   describe "opening hours processing" do
-    describe "when hours_available is set" do
-      let(:hours_available) { "1" }
+    describe "when show_opening_hours is set" do
+      let(:show_opening_hours) { "1" }
 
       it "formats the opening hours correctly" do
         result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
 
-        assert_equal result["hours_available"], "1"
-        assert_equal result["content_block/edition"]["details"]["telephones"]["opening_hours"], [
-          {
-            "day_from" => "Monday",
-            "day_to" => "Friday",
-            "time_from" => "9:00AM",
-            "time_to" => "5:30PM",
-            "_destroy" => "0",
-          },
-        ]
+        assert_equal result["show_opening_hours"], "1"
+        assert_equal result["content_block/edition"]["details"]["telephones"]["opening_hours"], {
+          "show_opening_hours" => true,
+          "opening_hours" => "Some text",
+        }
       end
     end
 
-    describe "when hours_available is not set" do
-      let(:hours_available) { nil }
+    describe "when show_opening_hours is not set" do
+      let(:show_opening_hours) { nil }
 
-      it "clears the opening_hours array" do
+      it "clears the opening_hours object" do
         result = ParamsPreprocessors::TelephonePreprocessor.new(params).processed_params
 
         assert_equal result["hours_available"], nil
-        assert_equal result["content_block/edition"]["details"]["telephones"]["opening_hours"], []
+        assert_equal result["content_block/edition"]["details"]["telephones"]["opening_hours"], {}
       end
     end
   end

@@ -111,6 +111,14 @@ When("I change the BSL guidance label from its default value") do
   fill_in(I18n.t("content_block_edition.details.labels.telephones.bsl_guidance.value"), with: "More about BSL")
 end
 
+When("I indicate that the opening hours should be shown") do
+  check I18n.t("content_block_edition.details.labels.telephones.opening_hours.show_opening_hours")
+end
+
+When("I input the opening hours") do
+  fill_in(I18n.t("content_block_edition.details.labels.telephones.opening_hours.opening_hours"), with: "Monday - Friday: 9am-5pm")
+end
+
 Then("I should see that the BSL guidance fields have been changed") do
   within(".gem-c-summary-card[title='BSL Guidance']") do
     expect(page).to have_css("dt", text: "Show")

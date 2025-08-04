@@ -1,19 +1,15 @@
-class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursComponent < ContentBlockManager::ContentBlockEdition::Details::Fields::ArrayComponent
+class ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHoursComponent < ContentBlockManager::ContentBlockEdition::Details::Fields::ObjectComponent
 private
 
-  def label
-    "Opening Hour"
+  def show_opening_hours
+    field.nested_field("show_opening_hours")
   end
 
-  def component(index)
-    ContentBlockManager::ContentBlockEdition::Details::Fields::OpeningHours::ItemComponent.new(
-      name_prefix: name,
-      id_prefix: id,
-      value: value,
-      index:,
-      field:,
-      errors:,
-      can_be_deleted: can_be_deleted?(index),
-    )
+  def opening_hours
+    field.nested_field("opening_hours")
+  end
+
+  def label_for(field_name)
+    humanized_label(relative_key: field_name, root_object: "telephones.opening_hours")
   end
 end

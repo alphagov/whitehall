@@ -1,19 +1,27 @@
-<div class="app-c-content-block-manager-opening-hours-component">
-  <%= render "govuk_publishing_components/components/checkboxes", {
-    name: "hours_available",
-    id: "hours_available",
-    heading: "Opening hours",
-    no_hint_text: true,
-    small: true,
-    items: [
-      {
-        label: "Show opening hours",
-        value: "1",
-        checked: value.any?,
-        conditional: capture do
-          render_parent
-        end,
-      },
-    ],
-  } %>
-</div>
+<input type="hidden" name="<%= name_for_field(show_opening_hours) %>" value="false">
+
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: name_for_field(show_opening_hours),
+  id: id_for_field(show_opening_hours),
+  text: label_for("show_opening_hours"),
+  heading: label_for("show_opening_hours"),
+  visually_hide_heading: true,
+  no_hint_text: true,
+  small: true,
+  items: [
+    {
+      label: label_for("show_opening_hours"),
+      value: "true",
+      checked: value_for_field(show_opening_hours) == true,
+      conditional: capture do
+        render("govuk_publishing_components/components/textarea", {
+          label: { text: label_for("opening_hours") },
+          name: name_for_field(opening_hours) ,
+          id: id_for_field(opening_hours),
+          value: value_for_field(opening_hours),
+          error_items: errors_for_field(opening_hours),
+        })
+      end,
+    },
+  ],
+} %>
