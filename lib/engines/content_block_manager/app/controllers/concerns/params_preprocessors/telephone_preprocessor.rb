@@ -9,10 +9,7 @@ class ParamsPreprocessors::TelephonePreprocessor
   end
 
   def process!
-    if params.dig("content_block/edition", "details", "telephones", "opening_hours")
-      params["hours_available"] ? format_opening_hours : strip_opening_hours
-    end
-
+    params["content_block/edition"]["details"]["telephones"]["opening_hours"] = format_opening_hours
     params["content_block/edition"]["details"]["telephones"]["call_charges"] = format_call_charges
     params["content_block/edition"]["details"]["telephones"]["bsl_guidance"] = format_bsl_guidance
     params["content_block/edition"]["details"]["telephones"]["video_relay_service"] = video_relay_service
@@ -63,14 +60,16 @@ private
   end
 
   def format_opening_hours
-    params["content_block/edition"]["details"]["telephones"]["opening_hours"].map! do |hours|
-      {
-        "day_from" => hours["day_from"],
-        "day_to" => hours["day_to"],
-        "time_from" => format_time(hours, "time_from"),
-        "time_to" => format_time(hours, "time_to"),
-        "_destroy" => hours["_destroy"],
-      }
+    obj = params["content_block/edition"]["details"]["telephones"]["opening_hours"]
+    if obj
+      obj["show_opening_hours"] = ActiveRecord::Type::Boolean.new
+                                               .cast(obj["show_opening_hours"]) || false
+
+      if obj["show_opening_hours"] == false
+        obj = {}
+      end
+
+      obj
     end
   end
 
