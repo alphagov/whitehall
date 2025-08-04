@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_08_124941) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_01_063927) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -561,19 +561,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_08_124941) do
     t.boolean "enabled", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "force_publication_attempts", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "import_id"
-    t.integer "total_documents"
-    t.integer "successful_documents"
-    t.datetime "enqueued_at", precision: nil
-    t.datetime "started_at", precision: nil
-    t.datetime "finished_at", precision: nil
-    t.text "log", size: :long
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.index ["import_id"], name: "index_force_publication_attempts_on_import_id"
   end
 
   create_table "governments", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

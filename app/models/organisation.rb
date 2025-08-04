@@ -296,20 +296,12 @@ class Organisation < ApplicationRecord
     OrganisationLogoType.find_by_id(organisation_logo_type_id)
   end
 
-  def organisation_logo_type=(organisation_logo_type)
-    self.organisation_logo_type_id = organisation_logo_type && organisation_logo_type.id
-  end
-
   def organisation_crest
     organisation_logo_type.try(:class_name)
   end
 
   def organisation_brand_colour
     OrganisationBrandColour.find_by_id(organisation_brand_colour_id)
-  end
-
-  def organisation_brand_colour=(organisation_brand_colour)
-    self.organisation_brand_colour_id = organisation_brand_colour && organisation_brand_colour.id
   end
 
   def organisation_brand
@@ -359,24 +351,12 @@ class Organisation < ApplicationRecord
     govuk_status == "live"
   end
 
-  def joining?
-    govuk_status == "joining"
-  end
-
-  def transitioning?
-    govuk_status == "transitioning"
-  end
-
   def closed?
     govuk_status == "closed"
   end
 
   def exempt?
     govuk_status == "exempt"
-  end
-
-  def no_longer_exists?
-    govuk_closed_status == "no_longer_exists"
   end
 
   def replaced?
@@ -393,10 +373,6 @@ class Organisation < ApplicationRecord
 
   def changed_name?
     govuk_closed_status == "changed_name"
-  end
-
-  def left_gov?
-    govuk_closed_status == "left_gov"
   end
 
   def devolved?
