@@ -413,7 +413,7 @@ Then(/^I should see the object store's home page title$/) do
 end
 
 And(/^I should see the object store's navigation$/) do
-  expect(page).to have_selector("a.govuk-header__link[href='#{content_block_manager.content_block_manager_root_path}']", text: "Blocks")
+  expect(page).to have_selector("a.govuk-service-navigation__link[href='#{content_block_manager.content_block_manager_root_path}']", text: "Blocks")
 end
 
 And("I should see the object store's phase banner") do
