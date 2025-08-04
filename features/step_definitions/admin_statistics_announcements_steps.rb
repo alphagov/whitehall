@@ -138,7 +138,7 @@ end
 When(/^I change the release date on the announcement$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
 
-  click_on "Change dates"
+  click_on "Change or confirm dates"
 
   within "#statistics_announcement_date_change_release_date" do
     fill_in_date_and_time_field("14-Dec-#{Time.zone.today.year.next} 09:30")
