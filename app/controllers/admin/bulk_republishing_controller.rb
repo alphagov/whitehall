@@ -85,6 +85,8 @@ class Admin::BulkRepublishingController < Admin::BaseController
     content_ids = content_ids_string_to_array(params[:content_ids])
     return if redirect_if_no_requested_content_ids(content_ids)
 
+    return if redirect_if_duplicated_content_ids(content_ids)
+
     matching_document_content_ids = Document.where(content_id: content_ids).pluck(:content_id)
     return if redirect_if_unfound_content_ids(matching_document_content_ids, content_ids)
 
@@ -170,6 +172,18 @@ private
       organisation_id:,
       content_ids:,
     )
+  end
+
+  def redirect_if_duplicated_content_ids(requested_content_ids)
+    unless requested_content_ids.length == requested_content_ids.uniq.length
+
+      duplicated_content_ids = requested_content_ids.group_by { |e| e }.select { |_k, v| v.size > 1 }.map(&:first)
+
+      flash[:alert] = "Duplicated content IDs (#{content_ids_array_to_string(duplicated_content_ids)}) provided. Please remove these from the input."
+      redirect_to(admin_bulk_republishing_documents_by_content_ids_new_path)
+
+      true
+    end
   end
 
   def redirect_if_no_requested_content_ids(requested_content_ids)
