@@ -18,7 +18,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
       $modules.forEach(($module) => {
         const forms = $module.querySelectorAll(
-          "form:not([data-module~='ga4-finder-tracker'])"
+          "form:not([data-module~='ga4-finder-tracker']):not([data-module~='ga4-form-tracker'])"
         )
 
         forms.forEach(function (form) {
@@ -56,15 +56,13 @@ window.GOVUK.analyticsGa4.analyticsModules =
           }
 
           form.setAttribute('data-ga4-form', JSON.stringify(eventData))
+          form.setAttribute('data-ga4-form-record-json', '')
+          form.setAttribute('data-ga4-form-include-text', '')
+          form.setAttribute('data-ga4-form-use-text-count', '')
+          new window.GOVUK.Modules.Ga4FormTracker(form).init()
 
           form.addEventListener('submit', this.onSubmit)
         }, this)
-
-        $module.setAttribute('data-ga4-form-record-json', '')
-        $module.setAttribute('data-ga4-form-include-text', '')
-        $module.setAttribute('data-ga4-form-use-text-count', '')
-
-        new window.GOVUK.Modules.Ga4FormTracker($module).init()
       })
     },
 
