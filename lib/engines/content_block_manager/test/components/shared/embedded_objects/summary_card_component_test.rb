@@ -24,7 +24,16 @@ class ContentBlockManager::Shared::EmbeddedObjects::SummaryCardComponentTest < V
       stub("field", name: "field-2"),
     ]
   end
-  let(:subschema) { stub(:subschema, embeddable_fields: %w[name field-1 field-2], fields:) }
+
+  let(:subschema) do
+    stub(
+      :subschema,
+      embeddable_fields: %w[name field-1 field-2],
+      govspeak_enabled?: false,
+      fields:,
+    )
+  end
+
   let(:document) { build(:content_block_document, :pension, schema:) }
   let(:content_block_edition) { build_stubbed(:content_block_edition, :pension, details:, document:) }
 

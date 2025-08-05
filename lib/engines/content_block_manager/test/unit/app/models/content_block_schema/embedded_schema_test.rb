@@ -278,4 +278,58 @@ class ContentBlockManager::ContentBlock::Schema::EmbeddedSchemaTest < ActiveSupp
       end
     end
   end
+
+  describe "#govspeak_enabled?(field:)" do
+    let(:body) do
+      {
+        "type" => "object",
+        "patternProperties" => {
+          "*" => {
+            "type" => "object",
+            "properties" => {
+              "field_1" => { "type" => "string" },
+              "field_2" => { "type" => "string" },
+              "x-govspeak_enabled" => %w[field_2],
+              "nested_object_1" => {
+                "type" => "object",
+                "properties" => {
+                  "field_1" => { "type" => "string" },
+                  "field_2" => { "type" => "string" },
+                },
+                "x-govspeak_enabled" => %w[field_2],
+              },
+              "nested_object_2" => {
+                "type" => "object",
+                "properties" => {
+                  "field_1" => { "type" => "string" },
+                  "field_2" => { "type" => "string" },
+                },
+                "x-govspeak_enabled" => %w[field_1],
+              },
+            },
+          },
+        },
+      }
+    end
+
+    context "when a nested_object_key is given" do
+      it "returns true if the given field in the nested object is declared govspeak_enabled" do
+        assert(schema.govspeak_enabled?(nested_object_key: "nested_object_1", field_name: "field_2"))
+      end
+
+      it "returns false if the given field in the nested object is NOT govspeak_enabled" do
+        assert_not(schema.govspeak_enabled?(nested_object_key: "nested_object_2", field_name: "field_2"))
+      end
+    end
+
+    context "when a nested_object_key is NOT given" do
+      it "returns true if the given field in the top-level properties is govspeak_enabled" do
+        assert(schema.govspeak_enabled?(field_name: "field_2"))
+      end
+
+      it "returns false if the given field in the top-level properties is NOT govspeak_enabled" do
+        assert_not(schema.govspeak_enabled?(field_name: "field_1"))
+      end
+    end
+  end
 end

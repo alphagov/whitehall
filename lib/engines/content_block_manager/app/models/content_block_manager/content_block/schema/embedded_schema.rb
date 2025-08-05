@@ -2,6 +2,8 @@ module ContentBlockManager
   module ContentBlock
     class Schema
       class EmbeddedSchema < ContentBlockManager::ContentBlock::Schema
+        GOVSPEAK_ENABLED_PROPERTY_KEY = "x-govspeak_enabled".freeze
+
         def initialize(id, body, parent_schema_id)
           @parent_schema_id = parent_schema_id
           body = body["patternProperties"]&.values&.first || raise(ArgumentError, "Subschema `#{id}` is invalid")
@@ -38,6 +40,20 @@ module ContentBlockManager
               field.name
             end
           end
+        end
+
+        def govspeak_enabled?(field_name:, nested_object_key: nil)
+          return top_level_govspeak_enabled_fields.include?(field_name) unless nested_object_key
+
+          govspeak_enabled_fields_for_nested_object(nested_object_key).include?(field_name)
+        end
+
+        def govspeak_enabled_fields_for_nested_object(object_key)
+          body.dig("properties", object_key, GOVSPEAK_ENABLED_PROPERTY_KEY) || []
+        end
+
+        def top_level_govspeak_enabled_fields
+          body.dig("properties", GOVSPEAK_ENABLED_PROPERTY_KEY) || []
         end
 
       private

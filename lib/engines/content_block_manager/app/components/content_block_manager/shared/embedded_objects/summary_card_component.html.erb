@@ -15,17 +15,20 @@
     <%= render "govuk_publishing_components/components/summary_list", {
       items: rows,
     } %>
-
     <% nested_items(items).each do |key, items| %>
       <% if items.is_a?(Array) %>
         <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent.with_collection(
           items,
+          object_key: key,
           title: key.singularize.titleize,
+          subschema: schema,
           ) %>
       <% else %>
         <%= render ContentBlockManager::Shared::EmbeddedObjects::SummaryCard::NestedItemComponent.new(
           nested_items: items,
+          object_key: key,
           title: key.singularize.titleize,
+          subschema: schema,
           ) %>
       <% end %>
     <% end %>
