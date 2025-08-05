@@ -1,7 +1,7 @@
 <% content_for :page_title, "New document" %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-two-thirds" data-module="ga4-form-tracker" data-ga4-form="<%= { event_name: "form_response", action: "Save", section: "New document", type: "index", tool_name: "new_document" }.to_json %>">
     <%= form_with url: admin_new_document_options_path do %>
       <%= render "govuk_publishing_components/components/radio", {
         heading: "New document",

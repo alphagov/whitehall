@@ -39,10 +39,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
     it('adds the correct data attributes', () => {
       GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
 
-      const { ga4Form } = form.dataset
-
-      const { ga4FormRecordJson, ga4FormIncludeText, ga4FormUseTextCount } =
-        container.dataset
+      const { ga4Form, ga4FormRecordJson, ga4FormIncludeText, ga4FormUseTextCount } = form.dataset
 
       expect(ga4FormRecordJson).toBeDefined()
       expect(ga4FormIncludeText).toBeDefined()
@@ -98,6 +95,11 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
     })
 
     it('updates the `data-ga4-form` attribute on submit', () => {
+      const mockGa4SendData = spyOn(
+        window.GOVUK.analyticsGa4.core,
+        'applySchemaAndSendData'
+      )
+
       const secondSubmitButton = submitButton.cloneNode()
       secondSubmitButton.innerHTML = 'Save and continue'
       form.appendChild(secondSubmitButton)
@@ -123,6 +125,26 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
   describe('on a untracked form', () => {
     beforeEach(() => {
       form.dataset.module = 'ga4-finder-tracker'
+    })
+
+    it('does not add the `data-ga4-form` attribute on init', () => {
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      expect(form.dataset.ga4Form).not.toBeDefined()
+    })
+
+    it('does not add the `data-ga4-form` attribute on submit', () => {
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      form.submit(submitButton)
+
+      expect(form.dataset.ga4Form).not.toBeDefined()
+    })
+  })
+
+  describe('on a form that is already tracked', () => {
+    beforeEach(() => {
+      form.dataset.module = 'ga4-form-tracker'
     })
 
     it('does not add the `data-ga4-form` attribute on init', () => {

@@ -23,19 +23,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       <legend>${legend}</legend>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
-          <label for="day" class="gem-c-label govuk-label">Day</label>
+          <label for="date_1i" class="gem-c-label govuk-label">Day</label>
           <input class="gem-c-input govuk-input govuk-input--width-4" name="date(1i)" id="date_1i" type="text">
         </div>
       </div>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
-          <label for="month" class="gem-c-label govuk-label">Month</label>
+          <label for="date_2i" class="gem-c-label govuk-label">Month</label>
           <input class="gem-c-input govuk-input govuk-input--width-4" name="date(2i)" id="date_2i" type="text">
         </div>
       </div>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
-          <label for="year" class="gem-c-label govuk-label">Year</label>
+          <label for="date_3i" class="gem-c-label govuk-label">Year</label>
           <input class="gem-c-input govuk-input govuk-input--width-4" name="date(3i)" id="date_3i" type="text">
         </div>
       </div>
