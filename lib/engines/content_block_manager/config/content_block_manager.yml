@@ -32,6 +32,7 @@ schemas:
           - email_address
         field_order:
           - title
+          - label
           - email_address
           - subject
           - body
@@ -123,6 +124,7 @@ schemas:
           - url
         field_order:
           - title
+          - label
           - url
           - description
 
