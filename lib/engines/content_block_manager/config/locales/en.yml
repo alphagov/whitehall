@@ -87,8 +87,6 @@ en:
             call_charges_info_url: "URL to find out about call charges"
         contact_links:
           url: URL
-        addresses:
-          title: Recipient
       values:
         true: "Yes"
         false: "No"
