@@ -27,6 +27,9 @@ Feature: Create a contact object
         "title": {
           "type": "string"
         },
+        "label": {
+          "type": "string"
+        },
         "email_address": {
           "type": "string"
         },
@@ -164,6 +167,9 @@ Feature: Create a contact object
         "title": {
           "type": "string"
         },
+        "label": {
+          "type": "string"
+        },
         "url": {
           "type": "string"
         },
@@ -186,8 +192,8 @@ Feature: Create a contact object
   Scenario: GDS editor creates a Contact with an email address and a telephone
     And I click on the "email_addresses" subschema
     And I complete the "email_address" form with the following fields:
-      | title     | email_address    | subject  | body             |
-      | New email | foo@example.com  | Your ref | Name and address |
+      | title     | label         | email_address    | subject  | body             |
+      | Email us  | Send an email | foo@example.com  | Your ref | Name and address |
     And I click to add another "contact_method"
     And I click on the "telephones" subschema
     And I fill in the "telephone" form with the following fields:
@@ -210,8 +216,8 @@ Feature: Create a contact object
     And I click to add another "contact_method"
     And I click on the "contact_links" subschema
     And I fill in the "contact_link" form with the following fields:
-      | title            | url                | description |
-      | Contact Us       | http://example.com | Description |
+      | title              | label      | url                | description |
+      | Contact Form       | Contact Us | http://example.com | Description |
     When I save and continue
     Then I should be on the "add_group_contact_methods" step
     When I save and continue
