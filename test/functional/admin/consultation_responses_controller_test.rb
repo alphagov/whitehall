@@ -15,12 +15,6 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "Access is forbidden to users who do not have access to the consultation" do
-    login_as :world_editor
-    get :show, params: { consultation_id: @consultation, type: "ConsultationOutcome" }
-    assert_response :forbidden
-  end
-
   view_test "GET :show renders a form for outcome when one does not exist" do
     get :show, params: { consultation_id: @consultation, type: "ConsultationOutcome" }
 

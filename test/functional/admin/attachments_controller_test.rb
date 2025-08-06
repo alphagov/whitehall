@@ -516,12 +516,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
         }
   end
 
-  test "attachment access is forbidden for users without access to the edition" do
-    login_as :world_editor
-    get :new, params: { edition_id: @edition }
-    assert_response :forbidden
-  end
-
   test "attachments can have locales" do
     post :create, params: { edition_id: @edition, attachment: valid_file_attachment_params.merge(locale: :fr) }
     attachment = @edition.reload.attachments.first

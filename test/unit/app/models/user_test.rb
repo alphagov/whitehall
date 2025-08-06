@@ -62,28 +62,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.gds_editor?
   end
 
-  test "should be a world editor if has whitehall World Editor role" do
-    user = build(:user, permissions: [User::Permissions::WORLD_EDITOR])
-    assert user.world_editor?
-    assert_equal "World Editor", user.role
-  end
-
-  test "should not be a world editor if does not have has whitehall World Editor role" do
-    user = build(:user, permissions: [])
-    assert_not user.world_editor?
-  end
-
-  test "should be a world writer if has whitehall World Editor role" do
-    user = build(:user, permissions: [User::Permissions::WORLD_WRITER])
-    assert user.world_writer?
-    assert_equal "World Writer", user.role
-  end
-
-  test "should not be a world writer if does not have has whitehall World Writer role" do
-    user = build(:user, permissions: [])
-    assert_not user.world_writer?
-  end
-
   test "returns enabled users" do
     create(:disabled_user)
     user = create(:user)

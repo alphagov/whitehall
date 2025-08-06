@@ -46,14 +46,4 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     assert_redirected_to admin_edition_images_path(edition)
     assert_equal "This edition is invalid: Body cannot have a reference to the lead image in the text", flash[:alert]
   end
-
-  test "PATCH :update forbids unauthorised users" do
-    login_as :world_editor
-    image = build(:image)
-    edition = create(:draft_case_study, images: [image])
-
-    get :update, params: { edition_id: edition.id, id: image.id }
-
-    assert_response :forbidden
-  end
 end

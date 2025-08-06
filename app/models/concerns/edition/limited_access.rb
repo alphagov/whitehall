@@ -8,40 +8,24 @@ module Edition::LimitedAccess
   module ClassMethods
     def accessible_to(user)
       access_clauses = ["access_limited = false"]
-      loc_clauses = []
       binds = {}
-      if user
-        if user.organisation
-          access_clauses << "EXISTS (
+      if user&.organisation
+        access_clauses << "EXISTS (
                  SELECT * FROM edition_organisations eo_accessibility_check
                  WHERE
                    eo_accessibility_check.edition_id = editions.id
                  AND eo_accessibility_check.organisation_id = :organisation_id)"
-          binds[:organisation_id] = user.organisation.id
-          access_clauses << "EXISTS (
+        binds[:organisation_id] = user.organisation.id
+        access_clauses << "EXISTS (
                  SELECT * FROM edition_authors author_accessibility_check
                  WHERE
                    author_accessibility_check.edition_id = editions.id
                  AND author_accessibility_check.user_id = :user_id)"
-          binds[:user_id] = user.id
-        end
-        if user.location_limited?
-          loc_clauses << "EXISTS (
-                 SELECT 1 FROM edition_world_locations location_accessibility_check
-                  WHERE location_accessibility_check.edition_id = editions.id
-                    AND location_accessibility_check.world_location_id IN (:user_location_ids))"
-          # if the user has no world locations (which shouldn't happen,
-          # but you never know) make sure we don't generate 'IN ()' SQL
-          # which doesn't do what you expect
-          binds[:user_location_ids] = [0, *user.world_location_ids]
-        end
+        binds[:user_id] = user.id
       end
-      # we want ((access_limited = false or (in_org or is_author)) and (in_loc))
+      # we want ((access_limited = false or (in_org or is_author)))
       access_clause = access_clauses.join(" OR ")
-      loc_clause = loc_clauses.join(" OR ")
-      where_clause = access_clause
-      where_clause = "(#{where_clause}) AND (#{loc_clause})" if loc_clause.present?
-      where(where_clause, binds)
+      where(access_clause, binds)
     end
 
     def access_limited_by_default?

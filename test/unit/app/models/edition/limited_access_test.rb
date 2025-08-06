@@ -52,32 +52,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert_not Edition.accessible_to(user).include?(inaccessible)
   end
 
-  test "can select all editions accessible to a particular world user, respecting access_limit, org and location" do
-    my_organisation = create(:organisation)
-    other_organisation = create(:organisation)
-    my_location = create(:world_location)
-    other_location = create(:world_location)
-    user = create(:world_writer, organisation: my_organisation, world_locations: [my_location])
-    accessible = [
-      create(:draft_publication, access_limited: false, world_locations: [my_location]),
-      create(:draft_publication, access_limited: true, organisations: [my_organisation], world_locations: [my_location]),
-      create(:draft_publication, access_limited: true, organisations: [other_organisation], authors: [user], world_locations: [my_location]),
-    ]
-    inaccessible = [
-      create(:draft_publication, access_limited: false, world_locations: [other_location]),
-      create(:draft_publication, access_limited: false, organisations: [my_organisation]),
-      create(:draft_publication, access_limited: true, organisations: [my_organisation], world_locations: [other_location]),
-      create(:draft_publication, access_limited: true, organisations: [other_organisation], world_locations: [my_location]),
-    ]
-
-    accessible.each.with_index do |edition, i|
-      assert Edition.accessible_to(user).include?(edition), "doc #{i} should be accessible"
-    end
-    inaccessible.each.with_index do |edition, i|
-      assert_not Edition.accessible_to(user).include?(edition), "doc #{i} should not be accessible"
-    end
-  end
-
   test "#access_limited_object returns self" do
     edition = LimitedAccessEdition.new
 
