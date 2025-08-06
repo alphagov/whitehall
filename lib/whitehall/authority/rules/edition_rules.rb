@@ -12,7 +12,6 @@ module Whitehall::Authority::Rules
         make_editorial_remark
         make_fact_check
         mark_political
-        modify
         perform_administrative_tasks
         publish
         reject

@@ -179,7 +179,7 @@ class ManagingEditorTest < ActiveSupport::TestCase
   end
 
   test "cannot modify historic editions" do
-    assert_not enforcer_for(managing_editor, historic_edition).can?(:modify)
+    assert_not enforcer_for(managing_editor, historic_edition).can?(:update)
   end
 
   test "cannot publish historic editions" do

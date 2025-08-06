@@ -168,8 +168,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_editor, normal_edition).can?(:mark_political)
   end
 
-  test "cannot modify historic editions" do
-    assert_not enforcer_for(department_editor, historic_edition).can?(:modify)
+  test "cannot update historic editions" do
+    assert_not enforcer_for(department_editor, historic_edition).can?(:update)
   end
 
   test "cannot publish historic editions" do

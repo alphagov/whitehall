@@ -214,6 +214,6 @@ class WorldWriterTest < ActiveSupport::TestCase
 
   test "cannot modify historic editions" do
     user = world_writer(["hat land", "tie land"])
-    assert_not enforcer_for(user, historic_edition).can?(:modify)
+    assert_not enforcer_for(user, historic_edition).can?(:update)
   end
 end
