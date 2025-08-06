@@ -35,16 +35,23 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
     }
   })
 
-  describe('on a tracked form', () => {
+  describe('on a tracked form with multiple inputs', () => {
     it('adds the correct data attributes', () => {
       GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
 
-      const { ga4Form, ga4FormRecordJson, ga4FormIncludeText, ga4FormUseTextCount } = form.dataset
+      const {
+        ga4Form,
+        ga4FormRecordJson,
+        ga4FormIncludeText,
+        ga4FormUseTextCount,
+        ga4FormSplitResponseText
+      } = form.dataset
 
       expect(ga4FormRecordJson).toBeDefined()
       expect(ga4FormIncludeText).toBeDefined()
       expect(ga4FormUseTextCount).toBeDefined()
-      expect(ga4Form).toBeDefined()
+      expect(ga4FormUseTextCount).toBeDefined()
+      expect(ga4FormSplitResponseText).toBeDefined()
 
       expect(JSON.parse(ga4Form)).toEqual(expectedDefaults)
     })
@@ -95,10 +102,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
     })
 
     it('updates the `data-ga4-form` attribute on submit', () => {
-      spyOn(
-        window.GOVUK.analyticsGa4.core,
-        'applySchemaAndSendData'
-      )
+      spyOn(window.GOVUK.analyticsGa4.core, 'applySchemaAndSendData')
 
       const secondSubmitButton = submitButton.cloneNode()
       secondSubmitButton.innerHTML = 'Save and continue'
@@ -173,6 +177,18 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
       GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
 
       expect(singleFieldForm.dataset.ga4FormRecordJson).not.toBeDefined()
+    })
+
+    it('does not add the `data-ga4-form-split-response-text` attribute on init', () => {
+      container.innerHTML = ''
+
+      const singleFieldForm = new Form(['radio'])
+
+      singleFieldForm.appendToParent(container)
+
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      expect(singleFieldForm.dataset.ga4FormSplitResponseText).not.toBeDefined()
     })
   })
 

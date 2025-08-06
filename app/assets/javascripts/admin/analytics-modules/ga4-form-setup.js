@@ -64,6 +64,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
           ) {
             // only record JSON if number of fields larger than 1
             form.setAttribute('data-ga4-form-record-json', '')
+            form.setAttribute('data-ga4-form-split-response-text', '')
           }
 
           form.setAttribute('data-ga4-form-include-text', '')
