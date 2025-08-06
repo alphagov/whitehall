@@ -36,11 +36,6 @@ class Admin::BaseController < ApplicationController
     end
   end
 
-  def preview_design_system?(next_release: false)
-    current_user.can_preview_design_system? || (next_release && current_user.can_preview_next_release?)
-  end
-  helper_method :preview_design_system?
-
   def product_name
     Whitehall.product_name
   end

@@ -3,7 +3,6 @@ module Whitehall::Authority::Rules
     def self.actions
       %i[
         approve
-        confirm_export
         create
         delete
         export
@@ -12,12 +11,9 @@ module Whitehall::Authority::Rules
         make_editorial_remark
         make_fact_check
         mark_political
-        modify
         perform_administrative_tasks
         publish
         reject
-        review_editorial_remark
-        review_fact_check
         see
         select_government_for_history_mode
         unpublish
@@ -137,7 +133,7 @@ module Whitehall::Authority::Rules
       case action
       when :perform_administrative_tasks
         actor.gds_admin?
-      when :export, :confirm_export
+      when :export
         actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?
       when :create, :see
         true

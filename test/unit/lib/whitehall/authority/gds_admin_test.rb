@@ -36,7 +36,7 @@ class GDSAdminTest < ActiveSupport::TestCase
   end
 
   test "can modify historic editions" do
-    assert enforcer_for(gds_admin, historic_edition).can?(:modify)
+    assert enforcer_for(gds_admin, historic_edition).can?(:update)
   end
 
   test "can create social media accounts" do

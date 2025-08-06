@@ -99,13 +99,6 @@ class WorldWriterTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:make_fact_check)
   end
 
-  test "can view fact check requests on a edition that is about their location and not access limited" do
-    user = world_writer(["hat land", "tie land"])
-    edition = with_locations(normal_edition, ["shirt land", "hat land"])
-
-    assert enforcer_for(user, edition).can?(:review_fact_check)
-  end
-
   test "cannot publish an edition that is about their location and not access limited" do
     user = world_writer(["hat land", "tie land"])
     edition = with_locations(normal_edition, ["shirt land", "hat land"])
@@ -174,13 +167,6 @@ class WorldWriterTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:make_editorial_remark)
   end
 
-  test "can review editorial remarks that is about their location and not access limited" do
-    user = world_writer(["hat land", "tie land"])
-    edition = with_locations(normal_edition, ["shirt land", "hat land"])
-
-    assert enforcer_for(user, edition).can?(:review_editorial_remark)
-  end
-
   test 'cannot clear the "not reviewed" flag on editions about their location and not access limited' do
     user = world_writer(["hat land", "tie land"])
     edition = with_locations(normal_edition, ["shirt land", "hat land"])
@@ -214,6 +200,6 @@ class WorldWriterTest < ActiveSupport::TestCase
 
   test "cannot modify historic editions" do
     user = world_writer(["hat land", "tie land"])
-    assert_not enforcer_for(user, historic_edition).can?(:modify)
+    assert_not enforcer_for(user, historic_edition).can?(:update)
   end
 end

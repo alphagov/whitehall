@@ -73,10 +73,6 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert enforcer_for(department_editor, normal_edition).can?(:make_fact_check)
   end
 
-  test "can view fact check requests on a edition" do
-    assert enforcer_for(department_editor, normal_edition).can?(:review_fact_check)
-  end
-
   test "can publish an edition" do
     assert enforcer_for(department_editor, normal_edition).can?(:publish)
   end
@@ -110,10 +106,6 @@ class DepartmentEditorTest < ActiveSupport::TestCase
 
   test "can make editorial remarks" do
     assert enforcer_for(department_editor, normal_edition).can?(:make_editorial_remark)
-  end
-
-  test "can review editorial remarks" do
-    assert enforcer_for(department_editor, normal_edition).can?(:review_editorial_remark)
   end
 
   test 'can clear the "not reviewed" flag on editions they didn\'t force publish' do
@@ -168,8 +160,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_editor, normal_edition).can?(:mark_political)
   end
 
-  test "cannot modify historic editions" do
-    assert_not enforcer_for(department_editor, historic_edition).can?(:modify)
+  test "cannot update historic editions" do
+    assert_not enforcer_for(department_editor, historic_edition).can?(:update)
   end
 
   test "cannot publish historic editions" do
