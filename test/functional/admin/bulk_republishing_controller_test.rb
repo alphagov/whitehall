@@ -380,6 +380,13 @@ class Admin::BulkRepublishingControllerTest < ActionController::TestCase
     assert_equal "No content IDs provided", flash[:alert]
   end
 
+  test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to POST :republish_documents_by_content_ids with duplicate content IDs" do
+    post :republish_documents_by_content_ids, params: { content_ids: "abc-123, abc-123, def-456", reason: "this needs republishing" }
+
+    assert_redirected_to admin_bulk_republishing_documents_by_content_ids_new_path
+    assert_equal "Duplicated content IDs ('abc-123') provided. Please remove these from the input.", flash[:alert]
+  end
+
   test "GDS Admin users should be redirected back to :new_documents_by_content_ids when trying to POST :republish_documents_by_content_ids with invalid content IDs" do
     post :republish_documents_by_content_ids, params: { content_ids: "this is not valid", reason: "this needs republishing" }
 

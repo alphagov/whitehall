@@ -109,6 +109,8 @@ class Admin::BulkRepublishingController < Admin::BaseController
     content_ids = content_ids_string_to_array(@content_ids_string)
     return if redirect_if_no_requested_content_ids(content_ids)
 
+    return if redirect_if_duplicated_content_ids(content_ids)
+
     @matching_documents = Document.where(content_id: content_ids)
     return if redirect_if_unfound_content_ids(@matching_documents.pluck(:content_id), content_ids)
 
