@@ -3,7 +3,6 @@ module Whitehall::Authority::Rules
     def self.actions
       %i[
         approve
-        confirm_export
         create
         delete
         export
@@ -134,7 +133,7 @@ module Whitehall::Authority::Rules
       case action
       when :perform_administrative_tasks
         actor.gds_admin?
-      when :export, :confirm_export
+      when :export
         actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?
       when :create, :see
         true
