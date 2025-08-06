@@ -129,22 +129,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.can_force_publish_anything?
   end
 
-  test "cannot preview unreleased Design System changes by default" do
-    user = build(:user)
-    assert_not user.can_preview_design_system?
-    assert_not user.can_preview_next_release?
-  end
-
-  test "can preview unreleased Design System changes if given permission" do
-    user = build(:user, permissions: [User::Permissions::PREVIEW_DESIGN_SYSTEM])
-    assert user.can_preview_design_system?
-  end
-
-  test "can preview the upcoming Design System release if given permission" do
-    user = build(:user, permissions: [User::Permissions::PREVIEW_NEXT_RELEASE])
-    assert user.can_preview_next_release?
-  end
-
   test "can see the visual editor if given permission" do
     user = build(:user, permissions: [User::Permissions::VISUAL_EDITOR_PRIVATE_BETA])
     assert user.can_see_visual_editor_private_beta?

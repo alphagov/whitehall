@@ -68,7 +68,7 @@ You can, for example, add the "Preview next release" permission as follows:
 
 ```rb
 > user = User::first()
-> user.permissions <<= User::Permissions::PREVIEW_NEXT_RELEASE
+> user.permissions <<= User::Permissions::MANAGING_EDITOR
 > user.save!
 ```
 
@@ -76,7 +76,7 @@ Similarly you can remove permissions by removing them from user.permissions:
 
 ```rb
 > user = User::first()
-> user.permissions.reject! { |p| p == User::Permissions::PREVIEW_NEXT_RELEASE }
+> user.permissions.reject! { |p| p == User::Permissions::MANAGING_EDITOR }
 > user.save!
 ```
 

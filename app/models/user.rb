@@ -25,8 +25,6 @@ class User < ApplicationRecord
     WORLD_EDITOR = "World Editor".freeze
     FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
     GDS_ADMIN = "GDS Admin".freeze
-    PREVIEW_DESIGN_SYSTEM = "Preview design system".freeze
-    PREVIEW_NEXT_RELEASE = "Preview next release".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
     VISUAL_EDITOR_PRIVATE_BETA = "Visual editor private beta".freeze
   end
@@ -84,14 +82,6 @@ class User < ApplicationRecord
 
   def can_force_publish_anything?
     has_permission?(Permissions::FORCE_PUBLISH_ANYTHING)
-  end
-
-  def can_preview_design_system?
-    has_permission?(Permissions::PREVIEW_DESIGN_SYSTEM)
-  end
-
-  def can_preview_next_release?
-    has_permission?(Permissions::PREVIEW_NEXT_RELEASE)
   end
 
   def can_see_visual_editor_private_beta?
