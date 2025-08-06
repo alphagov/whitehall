@@ -34,24 +34,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert_not e.reload.access_limited?
   end
 
-  test "can select all editions accessible to a particular user" do
-    my_organisation = create(:organisation)
-    other_organisation = create(:organisation)
-    user = create(:user, organisation: my_organisation)
-    accessible = [
-      create(:draft_news_article),
-      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
-      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation], authors: [user]),
-      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation]),
-    ]
-    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
-
-    accessible.each.with_index do |edition, i|
-      assert Edition.accessible_to(user).include?(edition), "doc #{i} should be accessible"
-    end
-    assert_not Edition.accessible_to(user).include?(inaccessible)
-  end
-
   test "#access_limited_object returns self" do
     edition = LimitedAccessEdition.new
 
@@ -67,12 +49,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   test "is not accessible if edition is not accessible to user" do
     user = build(:user)
     edition_id = 123
-    edition = LimitedAccessEdition.new(id: edition_id)
-    accessible_scope = stub("accessible-scope")
-    LimitedAccessEdition.stubs(:accessible_to).with(user)
-      .returns(accessible_scope)
-
-    accessible_scope.stubs(:where).with(id: edition_id).returns([])
+    edition = LimitedAccessEdition.new(id: edition_id, access_limited: true)
 
     assert_not edition.accessible_to?(user)
   end
@@ -81,11 +58,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     user = build(:user)
     edition_id = 123
     edition = LimitedAccessEdition.new(id: edition_id)
-    accessible_scope = stub("accessible-scope")
-    LimitedAccessEdition.stubs(:accessible_to).with(user)
-      .returns(accessible_scope)
-
-    accessible_scope.stubs(:where).with(id: edition_id).returns([edition_id])
 
     assert edition.accessible_to?(user)
   end
