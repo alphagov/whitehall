@@ -2,7 +2,7 @@
 #
 # There are many types of publications - see `PublicationType`.
 #
-# Publication pages are rendered by Whitehall.
+# Publication pages are rendered by Frontend.
 #
 # Note that `Publicationesque` inherits from `Edition`
 class Publication < Publicationesque
@@ -69,7 +69,7 @@ class Publication < Publicationesque
   end
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    Whitehall::RenderingApp::FRONTEND
   end
 
   def allows_inline_attachments?
