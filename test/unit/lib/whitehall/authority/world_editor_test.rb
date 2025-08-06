@@ -98,13 +98,6 @@ class WorldEditorTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:make_fact_check)
   end
 
-  test "can view fact check requests on a edition that is about their location and not access limited" do
-    user = world_editor(["hat land", "tie land"])
-    edition = with_locations(normal_edition, ["shirt land", "hat land"])
-
-    assert enforcer_for(user, edition).can?(:review_fact_check)
-  end
-
   test "can publish an edition that is about their location and not access limited" do
     user = world_editor(["hat land", "tie land"])
     edition = with_locations(normal_edition, ["shirt land", "hat land"])
@@ -169,13 +162,6 @@ class WorldEditorTest < ActiveSupport::TestCase
     edition = with_locations(normal_edition, ["shirt land", "hat land"])
 
     assert enforcer_for(user, edition).can?(:make_editorial_remark)
-  end
-
-  test "can review editorial remarks that is about their location and not access limited" do
-    user = world_editor(["hat land", "tie land"])
-    edition = with_locations(normal_edition, ["shirt land", "hat land"])
-
-    assert enforcer_for(user, edition).can?(:review_editorial_remark)
   end
 
   test 'can clear the "not reviewed" flag on editions about their location and not access limited that they didn\'t force publish' do

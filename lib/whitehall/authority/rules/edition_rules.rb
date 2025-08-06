@@ -15,8 +15,6 @@ module Whitehall::Authority::Rules
         perform_administrative_tasks
         publish
         reject
-        review_editorial_remark
-        review_fact_check
         see
         select_government_for_history_mode
         unpublish

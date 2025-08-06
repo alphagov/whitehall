@@ -73,10 +73,6 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     assert enforcer_for(department_writer, normal_edition).can?(:make_fact_check)
   end
 
-  test "can view fact check requests on an edition" do
-    assert enforcer_for(department_writer, normal_edition).can?(:review_fact_check)
-  end
-
   test "cannot publish an edition" do
     assert_not enforcer_for(department_writer, normal_edition).can?(:publish)
   end
@@ -117,10 +113,6 @@ class DepartmentWriterTest < ActiveSupport::TestCase
 
   test "can make editorial remarks" do
     assert enforcer_for(department_writer, normal_edition).can?(:make_editorial_remark)
-  end
-
-  test "can review editorial remarks" do
-    assert enforcer_for(department_writer, normal_edition).can?(:review_editorial_remark)
   end
 
   test 'cannot clear the "not reviewed" flag on edition' do

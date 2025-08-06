@@ -76,10 +76,6 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_edition).can?(:make_fact_check)
   end
 
-  test "can view fact check requests on an edition" do
-    assert enforcer_for(gds_editor, normal_edition).can?(:review_fact_check)
-  end
-
   test "can publish an edition" do
     assert enforcer_for(gds_editor, normal_edition).can?(:publish)
   end
@@ -123,10 +119,6 @@ class GDSEditorTest < ActiveSupport::TestCase
 
   test "can make editorial remarks" do
     assert enforcer_for(gds_editor, normal_edition).can?(:make_editorial_remark)
-  end
-
-  test "can review editorial remarks" do
-    assert enforcer_for(gds_editor, normal_edition).can?(:review_editorial_remark)
   end
 
   test 'can clear the "not reviewed" flag on editions they didn\'t force publish' do

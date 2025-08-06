@@ -59,10 +59,6 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_fatality_notice).can?(:make_fact_check)
   end
 
-  test "can view fact check requests on a edition" do
-    assert enforcer_for(gds_editor, normal_fatality_notice).can?(:review_fact_check)
-  end
-
   test "can publish a fatality notice" do
     assert enforcer_for(gds_editor, normal_fatality_notice).can?(:publish)
   end
@@ -87,10 +83,6 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
 
   test "can make editorial remarks" do
     assert enforcer_for(gds_editor, normal_fatality_notice).can?(:make_editorial_remark)
-  end
-
-  test "can review editorial remarks" do
-    assert enforcer_for(gds_editor, normal_fatality_notice).can?(:review_editorial_remark)
   end
 
   test 'can clear the "not reviewed" flag on fatality notices they didn\'t force publish' do
