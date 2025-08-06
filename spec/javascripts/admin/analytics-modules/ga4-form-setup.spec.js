@@ -95,7 +95,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
     })
 
     it('updates the `data-ga4-form` attribute on submit', () => {
-      const mockGa4SendData = spyOn(
+      spyOn(
         window.GOVUK.analyticsGa4.core,
         'applySchemaAndSendData'
       )
@@ -159,6 +159,20 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
       form.submit(submitButton)
 
       expect(form.dataset.ga4Form).not.toBeDefined()
+    })
+  })
+
+  describe('on a form with one input', () => {
+    it('does not add the `data-ga4-form-record-json` attribute on init', () => {
+      container.innerHTML = ''
+
+      const singleFieldForm = new Form(['radio'])
+
+      singleFieldForm.appendToParent(container)
+
+      GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
+
+      expect(singleFieldForm.dataset.ga4FormRecordJson).not.toBeDefined()
     })
   })
 
