@@ -61,7 +61,7 @@ In development you are logged in as the first user - in the console you can find
 ```rb
 > user = User::first()
 > user.permissions
- ["Editor", "GDS Editor", "Import CSVs", "signin"]
+ ["Editor", "GDS Editor", "signin"]
 ```
 
 You can, for example, add the "Preview next release" permission as follows:
