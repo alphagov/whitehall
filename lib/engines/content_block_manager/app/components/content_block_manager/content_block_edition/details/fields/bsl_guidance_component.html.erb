@@ -1,11 +1,14 @@
 <div class="app-c-content-block-manager-bsl-guidance-component">
   <% value_input = capture do %>
-    <%= render "govuk_publishing_components/components/textarea", {
-      label: { text: label_for("value") },
-      name: name_for_field(value_field) ,
-      id: id_for_field(value_field),
-      value: value_for_field(value_field) || value_field.default_value,
-    } %>
+    <%= render(
+      ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabledTextareaComponent.new(
+        content_block_edition: content_block_edition,
+        value: value,
+        nested_object_key: field.name,
+        field: value_field,
+        subschema: subschema,
+      ),
+    ) %>
   <% end %>
 
   <input type="hidden" name="<%= name_for_field(show_field) %>" value="false">
