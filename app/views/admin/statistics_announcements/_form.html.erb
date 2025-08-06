@@ -103,11 +103,11 @@
         },
         hour: {
           id: "statistics_announcement_statistics_announcement_dates_attributes_release_date_4i",
-          value: params.dig("statistics_announcement", "statistics_announcement_dates_attributes", "release_date(4i)")&.to_i || statistics_announcement.current_release_date&.release_date&.hour,
+          value: params.dig("statistics_announcement", "statistics_announcement_dates_attributes", "release_date(4i)")&.to_i || statistics_announcement.current_release_date&.release_date&.hour || 9,
         },
         minute: {
           id: "statistics_announcement_statistics_announcement_dates_attributes_release_date_5i",
-          value: params.dig("statistics_announcement", "statistics_announcement_dates_attributes", "release_date(5i)")&.to_i || statistics_announcement.current_release_date&.release_date&.min,
+          value: params.dig("statistics_announcement", "statistics_announcement_dates_attributes", "release_date(5i)")&.to_i || statistics_announcement.current_release_date&.release_date&.min || 30,
         },
       } %>
     <% end %>
@@ -137,6 +137,7 @@
         :or,
         {
           value: "exact_confirmed",
+          hint_text: "Changes (including to the date or time) will require a public change note",
           text: "Exact date (confirmed)",
           checked: statistics_announcement.current_release_date&.precision == 0 && statistics_announcement.current_release_date&.confirmed,
         },
