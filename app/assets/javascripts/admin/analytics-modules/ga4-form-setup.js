@@ -56,7 +56,16 @@ window.GOVUK.analyticsGa4.analyticsModules =
           }
 
           form.setAttribute('data-ga4-form', JSON.stringify(eventData))
-          form.setAttribute('data-ga4-form-record-json', '')
+
+          if (
+            form.querySelectorAll(
+              'fieldset, input:not([type="checkbox"],[type="hidden"],[type="radio"],[type="search"]), select'
+            ).length > 1
+          ) {
+            // only record JSON if number of fields larger than 1
+            form.setAttribute('data-ga4-form-record-json', '')
+          }
+
           form.setAttribute('data-ga4-form-include-text', '')
           form.setAttribute('data-ga4-form-use-text-count', '')
           new window.GOVUK.Modules.Ga4FormTracker(form).init()
