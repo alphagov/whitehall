@@ -1,6 +1,7 @@
 $govuk-page-width: 1140px;
 
 @import "govuk_publishing_components/all_components";
+@import "content_block_tools";
 
 @import "./components/datetime-fields";
 @import "./components/govspeak-editor";
