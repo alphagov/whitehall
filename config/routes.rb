@@ -242,6 +242,15 @@ Whitehall::Application.routes.draw do
           get :reorder, on: :collection
           get :confirm_destroy, on: :member
         end
+        resources :html_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :file_attachments, only: %i[edit destroy update] do
+          get :confirm_destroy, on: :member
+        end
+        resources :external_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
         resources :bulk_uploads, except: %i[show edit update] do
           post :upload_files, on: :collection
           get :set_titles, on: :member
@@ -304,6 +313,16 @@ Whitehall::Application.routes.draw do
         get :reorder, on: :collection
       end
 
+      resources :html_attachments, path: "consultation-responses/:consultation_response_id/html_attachments", as: "consultation_response_html_attachments", except: %i[index show] do
+        get :confirm_destroy, on: :member
+      end
+      resources :external_attachments, path: "consultation-responses/:consultation_response_id/external_attachments", as: "consultation_response_external_attachments", except: %i[index show] do
+        get :confirm_destroy, on: :member
+      end
+      resources :file_attachments, path: "consultation-responses/:consultation_response_id/file_attachments", as: "consultation_response_file_attachments", only: %i[edit destroy update] do
+        get :confirm_destroy, on: :member
+      end
+
       resources :calls_for_evidence, path: "calls-for-evidence", except: [:index] do
         resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
       end
@@ -312,6 +331,16 @@ Whitehall::Application.routes.draw do
         put :order, on: :collection
         get :confirm_destroy, on: :member
         get :reorder, on: :collection
+      end
+
+      resources :html_attachments, path: "call-for-evidence-responses/:call_for_evidence_response_id/html_attachments", as: "call_for_evidence_response_html_attachments", except: %i[index show] do
+        get :confirm_destroy, on: :member
+      end
+      resources :external_attachments, path: "call-for-evidence-responses/:call_for_evidence_response_id/external_attachments", as: "call_for_evidence_response_external_attachments", except: %i[index show] do
+        get :confirm_destroy, on: :member
+      end
+      resources :file_attachments, path: "call-for-evidence-responses/:call_for_evidence_response_id/file_attachments", as: "call_for_evidence_response_file_attachments", only: %i[edit destroy update] do
+        get :confirm_destroy, on: :member
       end
 
       resources :speeches, except: [:index]
@@ -345,6 +374,13 @@ Whitehall::Application.routes.draw do
       resources :worldwide_organisation_pages, only: [] do
         resources :attachments, except: [:show] do
           get :confirm_destroy, on: :member
+        end
+        resources :file_attachments, only: %i[edit destroy update] do
+          get :confirm_destroy, on: :member
+        end
+        resources :bulk_uploads, except: %i[show edit update] do
+          post :upload_files, on: :collection
+          get :set_titles, on: :member
         end
       end
 

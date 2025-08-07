@@ -1,0 +1,22 @@
+<%= form_for attachment, url: admin_edition_external_attachments_path, as: :attachment, html: { :class => "app-view-attachments__form", data: { module: "LocaleSwitcher ga4-visual-editor-event-handlers", "rtl-locales": Locale.right_to_left.collect(&:to_param) }}, multipart: true do |form| %>
+
+  <% fields = capture do %>
+    <div class="govuk-!-margin-bottom-8">
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "External url (required)",
+        },
+        name: "attachment[external_url]",
+        id: "attachment_external_url",
+        heading_level: 2,
+        heading_size: 'l',
+        value: form.object.external_url,
+        error_items: errors_for(attachment.errors, :external_url),
+      } %>
+    </div>
+  <% end %>
+
+  <%= render "admin/shared/attachments/form", form: do %>
+    <%= fields %>
+  <% end %>
+<% end %>

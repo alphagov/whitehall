@@ -1,0 +1,54 @@
+<%
+  margin_bottom ||= 8
+%>
+
+<div class="govuk-!-margin-bottom-<%= margin_bottom %>">
+  <%= render("govuk_publishing_components/components/input", {
+    label: {
+      text: "House of Commons paper number",
+    },
+    name: "attachment[hoc_paper_number]",
+    id: "attachment_hoc_paper_number",
+    value: form.object.hoc_paper_number,
+    error_items: errors_for(attachment.errors, :unnumbered_hoc_paper),
+    heading_size: heading_size,
+  }) %>
+
+  <%= form.hidden_field :unnumbered_hoc_paper, value: "0" %>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "attachment[unnumbered_hoc_paper]",
+    id: "attachment_unnumbered_hoc_paper",
+    items: [
+      {
+        label: "Unnumbered act paper",
+        value: "1",
+        checked: attachment.unnumbered_hoc_paper,
+      },
+    ],
+  } %>
+</div>
+
+<%
+  options = [{text: "", value: ""}]
+  options.concat(Attachment.parliamentary_sessions.map do |session|
+    {
+      text: session,
+      value: session,
+      selected: form.object.parliamentary_session == session,
+    }
+  end)
+%>
+
+<div class="govuk-!-margin-bottom-<%= margin_bottom %>">
+  <%= render "govuk_publishing_components/components/select", {
+    label: "Parliamentary session",
+    name: "attachment[parliamentary_session]",
+    id: "attachment_parliamentary_session",
+    heading_level: 3,
+    heading_size: heading_size,
+    options: options,
+    hint: "Choose the right Parliamentary session",
+    error_message: errors_for_input(attachment.errors, :parliamentary_session),
+  } %>
+</div>

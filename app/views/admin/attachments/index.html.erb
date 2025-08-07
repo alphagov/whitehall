@@ -24,21 +24,16 @@
     } %>
     <ul class="govuk-list">
       <li>
-        <%= link_to "Upload new file attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment]), class: "govuk-link govuk-link--no-visited-state" %>
+        <%= link_to "Upload file attachments".html_safe, new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), BulkUpload]), class: "govuk-link govuk-link--no-visited-state" %>
       </li>
-      <% if attachable.is_a?(Edition) %>
-        <li>
-          <%= link_to "Bulk upload multiple files".html_safe, new_admin_edition_bulk_upload_path(attachable), class: "govuk-link govuk-link--no-visited-state" %>
-        </li>
-      <% end %>
       <% if attachable.allows_html_attachments? %>
         <li>
-          <%= link_to "Add new HTML attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment], type: "html"), class: "govuk-link govuk-link--no-visited-state" %>
+          <%= link_to "Add new HTML attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), HtmlAttachment]), class: "govuk-link govuk-link--no-visited-state" %>
         </li>
       <% end %>
       <% if attachable.allows_external_attachments? %>
         <li>
-          <%= link_to "Add new external attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment], type: "external"), class: "govuk-link govuk-link--no-visited-state" %>
+          <%= link_to "Add new external attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), ExternalAttachment]), class: "govuk-link govuk-link--no-visited-state" %>
         </li>
       <% end %>
     </ul>
