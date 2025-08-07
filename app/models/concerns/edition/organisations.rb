@@ -90,6 +90,25 @@ module Edition::Organisations
     true
   end
 
+  # Rails automatically defines methods called
+  # `validate_associated_records_for_<association>` for any association that is
+  # autosaved or validated. These methods run validations on each associated
+  # EditionOrganisation and Organisation, which causes an otherwise-valid edition
+  # to become invalid if any linked organisation is invalid (for example, because
+  # of an overlong custom_jobs_url). We don’t want an invalid organisation to
+  # block publication of an edition, so we override these methods to no-op.
+  #
+  # Presence and uniqueness of associated organisations are already enforced
+  # by our own custom validators, so skipping these auto-generated validations
+  # has no negative side-effects.
+  def validate_associated_records_for_edition_organisations
+    # no-op: prevent associated EditionOrganisation validations from running
+  end
+
+  def validate_associated_records_for_organisations
+    # no-op: prevent associated Organisation validations from running
+  end
+
 private
 
   def at_least_one_lead_organisation
