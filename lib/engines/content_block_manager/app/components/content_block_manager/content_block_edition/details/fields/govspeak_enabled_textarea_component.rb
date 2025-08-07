@@ -15,8 +15,22 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
 
   attr_reader :content_block_edition, :nested_object_key, :field, :subschema, :errors
 
+  def govspeak_enabled?
+    subschema.govspeak_enabled?(nested_object_key: nested_object_key, field_name: field.name)
+  end
+
   def id_attribute
     "#{PARENT_CLASS}_details_#{subschema_block_type}_#{nested_object_key}_#{field.name}"
+  end
+
+  def aria_described_by
+    "#{id_attribute}-hint"
+  end
+
+  def hint_text
+    return nil unless govspeak_enabled?
+
+    "Govspeak supported"
   end
 
   def label

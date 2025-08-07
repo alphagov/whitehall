@@ -1,9 +1,10 @@
 <div class="app-c-content-block-manager-govspeak-enabled-textarea-component">
   <%= render("govuk_publishing_components/components/textarea", {
-              label: { text: label },
+              label: { text: label, hint_text: hint_text, hint_id: aria_described_by },
               name: name_attribute,
               id: id_attribute,
               value: value_or_default,
               error_items: error_items,
+              describedby: aria_described_by,
   }) %>
 </div>

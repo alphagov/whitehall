@@ -155,6 +155,72 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
         end
       end
     end
+
+    describe "'Govspeak supported' indicator" do
+      context "when the field IS declared 'govspeak-enabled' in the subschema" do
+        let(:properties) do
+          {
+            "video_relay_service" => {
+              "x-govspeak_enabled" => %w[prefix],
+            },
+          }
+        end
+
+        it "displays a 'Govspeak supported' hint" do
+          render_inline component
+
+          assert_selector(COMPONENT_CLASS) do |component|
+            displays_indication_that_govspeak_is_supported(component)
+          end
+        end
+
+        describe "hint ID mapping to textarea 'aria-describedby'" do
+          let(:expected_hint_id_to_aria_mapping) do
+            "content_block_manager_content_block_edition_details_" \
+              "telephones_video_relay_service_prefix-" \
+              "hint"
+          end
+
+          it "includes an 'aria-describedby' attribute on the textarea, to match the label hint's ID" do
+            render_inline component
+
+            assert_selector(COMPONENT_CLASS) do |component|
+              component.assert_selector(
+                "textarea[aria-describedby='#{expected_hint_id_to_aria_mapping}']",
+              )
+            end
+          end
+
+          it "includes an ID on the label hint div, matching the 'aria-describedby' on the textarea" do
+            render_inline component
+
+            assert_selector(COMPONENT_CLASS) do |component|
+              component.assert_selector(
+                "div.govuk-hint[id='#{expected_hint_id_to_aria_mapping}']",
+              )
+            end
+          end
+        end
+      end
+
+      context "when the field is NOT declared 'govspeak-enabled in the subschema" do
+        let(:properties) do
+          {
+            "video_relay_service" => {
+              "x-govspeak_enabled" => [],
+            },
+          }
+        end
+
+        it "does NOT display the 'Govspeak supported' hint" do
+          render_inline component
+
+          assert_selector(COMPONENT_CLASS) do |component|
+            displays_no_indication_that_govspeak_is_supported(component)
+          end
+        end
+      end
+    end
   end
 
   def wraps_whole_textarea_in_element_with_id_describing_path_to_field(component)
@@ -193,6 +259,20 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
     component.assert_selector(
       "textarea",
       text: value,
+    )
+  end
+
+  def displays_indication_that_govspeak_is_supported(component)
+    component.assert_selector(
+      ".govuk-hint",
+      text: "Govspeak supported",
+    )
+  end
+
+  def displays_no_indication_that_govspeak_is_supported(component)
+    component.assert_no_selector(
+      ".govuk-hint",
+      text: "Govspeak supported",
     )
   end
 end
