@@ -43,6 +43,31 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     end
   end
 
+  test "should remain publishable when linked organisations are invalid" do
+    # Build and persist an organisation that will be invalid.
+    invalid_org = create(:organisation)
+    invalid_org.update_column(:homepage_type, "invalid")
+    assert_not invalid_org.valid?, "Homepage type is not included in the list"
+
+    # Create an edition using the invalid organisation as the lead organisation and
+    # disable default organisation creation. Persisting the edition mirrors real usage.
+    edition = create(
+      :publication,
+      create_default_organisation: false,
+      lead_organisations: [invalid_org],
+      supporting_organisations: [],
+    )
+
+    # The edition should be valid for publishing before any side-effects.
+    assert edition.valid?(:publish), "edition should be valid in publish context before touching organisations"
+
+    # Reading organisation names used to build unsaved translations and make the edition
+    # invalid via autosave validations:contentReference[oaicite:0]{index=0}. After overriding those validations,
+    # the edition should remain valid even after accessing organisation names.
+    edition.organisations.map(&:name)
+    assert edition.valid?(:publish), "edition should still be valid in publish context after reading organisation names"
+  end
+
   test "#sorted_organisations returns organisations in alphabetical order" do
     organisation1 = create(:organisation, name: "Ministry of Jazz")
     organisation2 = create(:organisation, name: "Free Jazz Foundation")
