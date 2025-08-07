@@ -4,32 +4,50 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :contact) }
-  let(:schema) { build(:content_block_schema) }
+
+  let(:properties) do
+    {
+      "video_relay_service" => {
+        "type" => "object",
+        "properties" => {
+          "show" => {
+            "type" => "boolean", "default" => false
+          },
+          "prefix" => {
+            "type" => "string", "default" => "**Default** prefix: 18000 then"
+          },
+          "telephone_number" => {
+            "type" => "string", "default" => "0800 123 4567"
+          },
+        },
+      },
+    }
+  end
 
   let(:body) do
     {
       "type" => "object",
-      "properties" =>
-        { "video_relay_service" =>
-          { "type" => "object",
-            "properties" =>
-          { "show" =>
-              { "type" => "boolean", "default" => false },
-            "prefix" =>
-              { "type" => "string", "default" => "**Default** prefix: 18000 then" },
-            "telephone_number" =>
-              { "type" => "string", "default" => "0800 123 4567" } } } },
+      "patternProperties" => {
+        "*" => {
+          "type" => "object",
+          "properties" => properties,
+        },
+      },
     }
   end
 
-  before do
-    schema.stubs(:body).returns(body)
+  let(:subschema) do
+    ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new(
+      "telephones",
+      body,
+      "parent_schema_id",
+    )
   end
 
   let(:field) do
     ContentBlockManager::ContentBlock::Schema::Field.new(
       "video_relay_service",
-      schema,
+      subschema,
     )
   end
 
@@ -46,6 +64,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
       content_block_edition:,
       field: field,
       value: field_value,
+      subschema: subschema,
     )
   end
 
@@ -112,7 +131,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
           assert_selector(".app-c-content-block-manager-video-relay-service-component") do |component|
             component.assert_selector(
               "textarea" \
-              "[name='content_block/edition[details][video_relay_service][prefix]']",
+              "[name='content_block/edition[details][telephones][video_relay_service][prefix]']",
               text: "**Custom** prefix: 19222 then",
             )
           end
@@ -134,7 +153,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
           assert_selector(".app-c-content-block-manager-video-relay-service-component") do |component|
             component.assert_selector(
               "textarea" \
-              "[name='content_block/edition[details][video_relay_service][prefix]']",
+              "[name='content_block/edition[details][telephones][video_relay_service][prefix]']",
               text: "**Default** prefix: 18000 then",
             )
           end
@@ -158,7 +177,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
           assert_selector(".app-c-content-block-manager-video-relay-service-component") do |component|
             component.assert_selector(
               "input" \
-              "[name='content_block/edition[details][video_relay_service][telephone_number]']" \
+              "[name='content_block/edition[details][telephones][video_relay_service][telephone_number]']" \
               "[value='1234 987 6543']",
             )
           end
@@ -180,7 +199,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
           assert_selector(".app-c-content-block-manager-video-relay-service-component") do |component|
             component.assert_selector(
               "input" \
-              "[name='content_block/edition[details][video_relay_service][telephone_number]']" \
+              "[name='content_block/edition[details][telephones][video_relay_service][telephone_number]']" \
               "[value='0800 123 4567']",
             )
           end
@@ -191,8 +210,8 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::VideoRelayServi
 
   describe "when errors are present" do
     before do
-      content_block_edition.errors.add(:details_video_relay_service_prefix, "Prefix error")
-      content_block_edition.errors.add(:details_video_relay_service_telephone_number, "Telephone error")
+      content_block_edition.errors.add(:details_telephones_video_relay_service_prefix, "Prefix error")
+      content_block_edition.errors.add(:details_telephones_video_relay_service_telephone_number, "Telephone error")
     end
 
     it "should show errors" do
