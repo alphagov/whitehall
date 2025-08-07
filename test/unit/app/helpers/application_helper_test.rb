@@ -4,7 +4,6 @@ class ApplicationHelperTest < ActionView::TestCase
   include ERB::Util
   include Rails.application.routes.url_helpers
 
-  # Exposes request object to helper in tests
   delegate :request, to: :controller
 
   test "#link_to_attachment returns nil when attachment is nil" do
@@ -99,7 +98,96 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
+  test "collect_filtered_validation_errors prioritizes specific over generic errors and handles multiple records" do
+    record_with_mixed_errors = create_record_with_errors(
+      create_error(:body, "Contact ID 123 doesn't exist"),
+      create_error(:attachments, "is invalid"),
+    )
+
+    result = collect_filtered_validation_errors(record_with_mixed_errors)
+    assert_includes result, "Body Contact ID 123 doesn't exist"
+    assert_not_includes result, "Attachments is invalid"
+
+    record1 = create_record_with_errors(create_error(:body, "Contact ID 999999 doesn't exist"))
+    record2 = create_record_with_errors(
+      create_error(:attachments, "is invalid"),
+      create_error(:govspeak_content, "Contact ID 888888 doesn't exist"),
+    )
+    record3 = create_record_with_errors(create_error(:body, "Contact ID 999999 doesn't exist"))
+
+    result_multiple = collect_filtered_validation_errors([record1, record2, record3])
+
+    assert_includes result_multiple, "Body Contact ID 999999 doesn't exist"
+    assert_includes result_multiple, "Govspeak content Contact ID 888888 doesn't exist"
+    assert_not_includes result_multiple, "Attachments is invalid"
+    assert_equal 2, result_multiple.length
+  end
+
+  test "collect_edition_and_attachment_error_sources gathers all error sources" do
+    edition = mock("edition")
+    html_attachment = mock("html_attachment")
+    file_attachment = mock("file_attachment")
+
+    edition.expects(:respond_to?).with(:html_attachments).returns(true)
+    edition.expects(:respond_to?).with(:file_attachments).returns(true)
+    edition.expects(:html_attachments).returns([html_attachment])
+    edition.expects(:file_attachments).returns([file_attachment])
+
+    result = collect_edition_and_attachment_error_sources(edition)
+
+    assert_equal [edition, html_attachment, file_attachment], result
+
+    edition_without_file_attachments = mock("edition_without_file_attachments")
+    edition_without_file_attachments.expects(:respond_to?).with(:html_attachments).returns(true)
+    edition_without_file_attachments.expects(:respond_to?).with(:file_attachments).returns(false)
+    edition_without_file_attachments.expects(:html_attachments).returns([html_attachment])
+
+    result_partial = collect_edition_and_attachment_error_sources(edition_without_file_attachments)
+
+    assert_equal [edition_without_file_attachments, html_attachment], result_partial
+  end
+
+  test "collect_filtered_validation_errors shows all errors when no specific ones exist and preserves specific attachment errors" do
+    record_generic = create_record_with_errors(
+      create_error(:attachments, "is invalid"),
+      create_error(:html_attachments, "is invalid"),
+    )
+
+    result_generic = collect_filtered_validation_errors(record_generic)
+    assert_includes result_generic, "Attachments is invalid"
+    assert_includes result_generic, "Html attachments is invalid"
+
+    record_specific = create_record_with_errors(
+      create_error(:attachments, "must have finished uploading"),
+    )
+
+    result_specific = collect_filtered_validation_errors(record_specific)
+    assert_includes result_specific, "Attachments must have finished uploading"
+  end
+
 private
+
+  def create_error(attribute, message)
+    error = mock("error_#{attribute}_#{message.gsub(/\W/, '_')}")
+    error.stubs(:attribute).returns(attribute)
+    error.stubs(:message).returns(message)
+
+    humanized_attribute = case attribute.to_s
+                          when "html_attachments" then "Html attachments"
+                          when "govspeak_content" then "Govspeak content"
+                          else
+                            attribute.to_s.humanize
+                          end
+
+    error.stubs(:full_message).returns("#{humanized_attribute} #{message}")
+    error
+  end
+
+  def create_record_with_errors(*errors)
+    record = mock("record_with_#{errors.length}_errors")
+    record.stubs(:errors).returns(errors)
+    record
+  end
 
   def appoint_minister(attributes = {})
     organisation_name = attributes.delete(:organisation)
