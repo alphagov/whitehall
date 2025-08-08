@@ -1,12 +1,12 @@
-<% content_for :page_title, "Bulk upload for: #{@edition.title}" %>
+<% content_for :page_title, "Adding #{attachment.attachable_model_name} #{attachment.readable_type} attachment" %>
 <% content_for :title, "Edit file attachments" %>
-<% content_for :context, "Attachments for publication" %>
+<% content_for :context, "Attachments for #{attachment.attachable_model_name}" %>
 <% content_for :error_summary, bulk_attachment_errors(@bulk_upload.attachments) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-!-margin-bottom-8">
-      <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
+      <%= form_for @bulk_upload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), @bulk_upload]) do |form| %>
         <% @bulk_upload.attachments.each.with_index do |attachment, i| %>
           <%= form.fields_for :attachments, attachment do |attachment_fields| %>
 
@@ -18,7 +18,7 @@
                 <%= hidden_field_tag "#{name}[id]", attachment.id %>
               <% end %>
 
-              <%= render "admin/attachments/form_fields", form: attachment_fields, attachment:, attachable: @edition, heading_size: "s", heading_level: 3, name:, margin_bottom: 4 %>
+              <%= render "admin/attachments/form_fields", form: attachment_fields, attachment:, attachable:, heading_size: "s", heading_level: 3, name:, margin_bottom: 4 %>
             <% end %>
           <% end %>
 
@@ -28,7 +28,7 @@
         <div class="govuk-button-group">
           <%= render "govuk_publishing_components/components/button", { text: "Save" } %>
 
-          <%= link_to("Cancel", admin_edition_attachments_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+          <%= link_to("Cancel", attachable_attachments_path(attachable), class: "govuk-link govuk-link--no-visited-state") %>
         </div>
       <% end %>
     </div>
