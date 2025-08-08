@@ -1,14 +1,6 @@
 require "test_helper"
 
 class Admin::EditionImagesControllerTest < ActionController::TestCase
-  test "forbids unauthorised users from viewing the images index endpoint" do
-    edition = create(:draft_publication)
-    user = create(:world_editor)
-    login_as user
-    get :index, params: { edition_id: edition.id }
-    assert_equal 403, response.status
-  end
-
   view_test "edit page displays alt text input for images with alt text" do
     login_authorised_user
     image = build(:image)

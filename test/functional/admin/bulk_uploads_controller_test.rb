@@ -57,12 +57,6 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     assert_select "input[type=file]"
   end
 
-  test "bulk upload access is forbidden for users without access to the edition" do
-    login_as :world_editor
-    get :new, params: { edition_id: @edition }
-    assert_response :forbidden
-  end
-
   view_test "POST :upload_files with no files requests that files be specified" do
     post_to_upload_files(nil)
     assert_select ".gem-c-error-summary__list-item", /Files not selected for upload/

@@ -57,14 +57,6 @@ FactoryBot.define do
     permissions { [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR] }
   end
 
-  factory :world_editor, parent: :user do
-    permissions { [User::Permissions::SIGNIN, User::Permissions::WORLD_EDITOR] }
-  end
-
-  factory :world_writer, parent: :user do
-    permissions { [User::Permissions::SIGNIN, User::Permissions::WORLD_WRITER] }
-  end
-
   factory :export_data_user, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::EXPORT_DATA] }
   end

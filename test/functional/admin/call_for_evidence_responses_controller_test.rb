@@ -15,12 +15,6 @@ class Admin::CallForEvidenceResponsesControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "Access is forbidden to users who do not have access to the call_for_evidence" do
-    login_as :world_editor
-    get :show, params: { call_for_evidence_id: @call_for_evidence, type: "CallForEvidenceOutcome" }
-    assert_response :forbidden
-  end
-
   view_test "GET :show renders a form for outcome when one does not exist" do
     get :show, params: { call_for_evidence_id: @call_for_evidence, type: "CallForEvidenceOutcome" }
 
