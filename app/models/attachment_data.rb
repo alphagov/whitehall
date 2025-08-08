@@ -15,6 +15,7 @@ class AttachmentData < ApplicationRecord
 
   validate :file_is_not_blank
   validate :file_is_not_empty
+  validate :filename_is_unique
 
   attr_accessor :to_replace_id, :attachable
 
@@ -232,6 +233,24 @@ private
     end
   rescue Timeout::Error, PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError, OpenSSL::Cipher::CipherError
     nil
+  end
+
+  def attachment_with_same_filename
+    attachable && attachable.attachments.with_filename(filename).first
+  end
+
+  def same_filename_as_replacement?
+    return if to_replace_id.blank?
+
+    to_replace = AttachmentData.find(to_replace_id)
+
+    to_replace && to_replace.filename == filename
+  end
+
+  def filename_is_unique
+    if !same_filename_as_replacement? && attachment_with_same_filename && attachment_with_same_filename.attachment_data != self
+      errors.add(:file, "with name \"#{filename}\" already attached to document")
+    end
   end
 
   def file_is_not_blank
