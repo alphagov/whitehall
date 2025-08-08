@@ -24,10 +24,11 @@ class Admin::BulkUploadsController < Admin::AttachmentsController
         attachable_draft_updater
         attachment_updater(attachment.attachment_data)
       end
-      
+
       flash[:notice] = notice
       flash[:html_safe] = true
-      redirect_to attachable_attachments_path(attachable)
+
+      redirect_to_attachments_index
     else
       render :set_titles
     end
