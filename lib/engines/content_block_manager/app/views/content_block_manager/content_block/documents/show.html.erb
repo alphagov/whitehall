@@ -63,18 +63,8 @@
 
 <% grouped_subschemas(@schema).each do |group, subschemas| %>
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
       <h2 class="govuk-heading-l subschema-listing__heading"><%= h group.humanize %></h2>
-    </div>
-    <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-      <%= render("govuk_publishing_components/components/button", {
-        text: "Add #{add_indefinite_article group.humanize.singularize.downcase}",
-        href: content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
-          @content_block_document,
-          group:,
-          ),
-        margin_bottom: 6,
-      }) %>
     </div>
   </div>
   <div class="govuk-grid-row">
