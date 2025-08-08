@@ -63,6 +63,12 @@ Feature: Edit a pension object
       | My rate | £122.50 | a week    |
     Then I should be on the "edit_embedded_rates" step
     And I should see the updated rates for that block
+    When I click to add another "rate"
+    And I complete the "rate" form with the following fields:
+      | title        | amount  | frequency |
+      | Another rate | £137.99 | a month   |
+    Then I should be on the "edit_embedded_rates" step
+    And I should see the updated rates for that block
     When I save and continue
     Then I should be on the "review_links" step
     And I should see a back link to the "embedded_rates" step
