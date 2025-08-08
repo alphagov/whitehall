@@ -68,7 +68,7 @@ end
 
 When(/^I start creating a new HTML attachment for publication "(.*?)"$/) do |title|
   @publication = create(:publication, title:, attachments: [])
-  visit new_admin_edition_attachment_path(@publication, type: "html")
+  visit new_admin_edition_html_attachment_path(@publication)
 end
 
 When(/^I fill in the required fields for HTML attachment "(.*?)"$/) do |title|

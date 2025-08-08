@@ -159,7 +159,11 @@ Whitehall::Application.routes.draw do
         end
         resources :file_attachments, except: %i[index show] do
           get :confirm_destroy, on: :member
-        end        
+        end
+        resources :bulk_uploads, except: %i[show edit update] do
+          post :upload_files, on: :collection
+          get :set_titles, on: :member
+        end
       end
       resources :policy_groups, path: "groups", except: [:show] do
         get :confirm_destroy, on: :member
@@ -169,7 +173,11 @@ Whitehall::Application.routes.draw do
         end
         resources :file_attachments, except: %i[index show] do
           get :confirm_destroy, on: :member
-        end        
+        end
+        resources :bulk_uploads, except: %i[show edit update] do
+          post :upload_files, on: :collection
+          get :set_titles, on: :member
+        end
       end
       resources :operational_fields, except: [:show]
 
@@ -328,6 +336,10 @@ Whitehall::Application.routes.draw do
         resources :external_attachments, except: %i[index show] do
           get :confirm_destroy, on: :member
         end
+        resources :bulk_uploads, except: %i[show edit update] do
+          post :upload_files, on: :collection
+          get :set_titles, on: :member
+        end
       end
 
       resources :call_for_evidence_responses, only: [] do
@@ -344,6 +356,10 @@ Whitehall::Application.routes.draw do
         end
         resources :external_attachments, except: %i[index show] do
           get :confirm_destroy, on: :member
+        end
+        resources :bulk_uploads, except: %i[show edit update] do
+          post :upload_files, on: :collection
+          get :set_titles, on: :member
         end
       end
 
@@ -385,6 +401,10 @@ Whitehall::Application.routes.draw do
         end
         resources :file_attachments, except: %i[index show] do
           get :confirm_destroy, on: :member
+        end
+        resources :bulk_uploads, except: %i[show edit update] do
+          post :upload_files, on: :collection
+          get :set_titles, on: :member
         end
         resources :external_attachments, except: %i[index show] do
           get :confirm_destroy, on: :member
