@@ -157,6 +157,9 @@ Whitehall::Application.routes.draw do
         resources :attachments, except: [:show] do
           put :order, on: :collection
         end
+        resources :file_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end        
       end
       resources :policy_groups, path: "groups", except: [:show] do
         get :confirm_destroy, on: :member
@@ -164,6 +167,9 @@ Whitehall::Application.routes.draw do
           put :order, on: :collection
           get :confirm_destroy, on: :member
         end
+        resources :file_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end        
       end
       resources :operational_fields, except: [:show]
 
@@ -242,6 +248,15 @@ Whitehall::Application.routes.draw do
           get :reorder, on: :collection
           get :confirm_destroy, on: :member
         end
+        resources :html_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :file_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :external_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
         resources :bulk_uploads, except: %i[show edit update] do
           post :upload_files, on: :collection
           get :set_titles, on: :member
@@ -298,20 +313,42 @@ Whitehall::Application.routes.draw do
         resource :public_feedback, controller: "consultation_responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
       end
 
-      resources :attachments, path: "consultation-responses/:consultation_response_id/attachments", as: "consultation_response_attachments" do
-        put :order, on: :collection
-        get :confirm_destroy, on: :member
-        get :reorder, on: :collection
+      resources :consultation_responses, only: [] do
+        resources :attachments, except: [:show] do
+          put :order, on: :collection
+          get :reorder, on: :collection
+          get :confirm_destroy, on: :member
+        end
+        resources :html_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :file_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :external_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+      end
+
+      resources :call_for_evidence_responses, only: [] do
+        resources :attachments, except: [:show] do
+          put :order, on: :collection
+          get :reorder, on: :collection
+          get :confirm_destroy, on: :member
+        end
+        resources :html_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :file_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :external_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
       end
 
       resources :calls_for_evidence, path: "calls-for-evidence", except: [:index] do
         resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
-      end
-
-      resources :attachments, path: "call-for-evidence-responses/:call_for_evidence_response_id/attachments", as: "call_for_evidence_response_attachments" do
-        put :order, on: :collection
-        get :confirm_destroy, on: :member
-        get :reorder, on: :collection
       end
 
       resources :speeches, except: [:index]
@@ -344,6 +381,12 @@ Whitehall::Application.routes.draw do
 
       resources :worldwide_organisation_pages, only: [] do
         resources :attachments, except: [:show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :file_attachments, except: %i[index show] do
+          get :confirm_destroy, on: :member
+        end
+        resources :external_attachments, except: %i[index show] do
           get :confirm_destroy, on: :member
         end
       end

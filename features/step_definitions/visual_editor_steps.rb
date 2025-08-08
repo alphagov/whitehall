@@ -93,7 +93,7 @@ end
 When(/^I edit a pre-existing HTML attachment$/) do
   publication = create(:publication, attachments: [], visual_editor: nil)
   attachment = create(:html_attachment, attachable: publication, visual_editor: nil)
-  visit edit_admin_edition_attachment_path(publication.id, attachment.id)
+  visit edit_admin_edition_html_attachment_path(publication.id, attachment.id)
 end
 
 When(/^I update the publication in the govspeak editor$/) do
@@ -120,7 +120,7 @@ end
 When(/^I edit an HTML attachment saved with visual editor$/) do
   publication = create(:publication, attachments: [], visual_editor: nil)
   attachment = create(:html_attachment, attachable: publication, visual_editor: true)
-  visit edit_admin_edition_attachment_path(publication.id, attachment.id)
+  visit edit_admin_edition_html_attachment_path(publication.id, attachment.id)
 end
 
 When(/^I edit a publication that has been previously exited$/) do
@@ -131,5 +131,5 @@ end
 When(/^I edit an HTML attachment that has been previously exited$/) do
   publication = create(:publication, attachments: [], visual_editor: nil)
   attachment = create(:html_attachment, attachable: publication, visual_editor: false)
-  visit edit_admin_edition_attachment_path(publication.id, attachment.id)
+  visit edit_admin_edition_html_attachment_path(publication.id, attachment.id)
 end
