@@ -5,6 +5,16 @@ class Admin::HtmlAttachmentsController < Admin::AttachmentsController
 
 private
 
+  def save_attachment
+    super
+
+    if attachment.valid? && !attachable_is_an_edition?
+      Whitehall::PublishingApi.save_draft(attachment)
+    end
+
+    attachment.valid?
+  end
+
   def build_attachment
     HtmlAttachment.new(attachment_params).tap do |attachment|
       attachment.build_govspeak_content if attachment.govspeak_content.blank?
