@@ -7,6 +7,7 @@ class PublishingApiWorker < WorkerBase
               locale = I18n.default_locale.to_s,
               bulk_publishing = false)
     model = class_for(model_name).unscoped.find_by(id:)
+
     return if model.nil?
 
     presenter = PublishingApiPresenters.presenter_for(model, update_type:)

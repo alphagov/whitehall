@@ -1,14 +1,18 @@
 class Admin::HtmlAttachmentsController < Admin::AttachmentsController
-  before_action :save_draft, only: %i[create update], if: :save_attachment
-
   def new; end
 
   def edit; end
 
 private
 
-  def save_draft
-    Whitehall::PublishingApi.save_draft(attachment)
+  def save_attachment
+    super
+
+    if attachment.valid? && !attachable_is_an_edition?
+      Whitehall::PublishingApi.save_draft(attachment)
+    end
+
+    attachment.valid?
   end
 
   def build_attachment
