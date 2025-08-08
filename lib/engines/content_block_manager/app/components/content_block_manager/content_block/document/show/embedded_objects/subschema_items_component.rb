@@ -1,8 +1,7 @@
 class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent < ViewComponent::Base
-  def initialize(content_block_edition:, subschema:, show_button: true)
+  def initialize(content_block_edition:, subschema:)
     @content_block_edition = content_block_edition
     @subschema = subschema
-    @show_button = show_button
   end
 
   def id
@@ -23,9 +22,5 @@ private
 
   def object_type
     @object_type ||= subschema.id
-  end
-
-  def button_text
-    "Add #{helpers.add_indefinite_article subschema.name.singularize.downcase}"
   end
 end

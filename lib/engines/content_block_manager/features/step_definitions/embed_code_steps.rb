@@ -1,12 +1,3 @@
-When("I click to copy the embed code for the content block {string}") do |content_block_name|
-  within(".govuk-summary-card", text: content_block_name) do
-    find("a", text: "Copy code").click
-    has_text?("Code copied")
-    edition = ContentBlockManager::ContentBlock::Edition.find_by(title: content_block_name)
-    @embed_code = edition.document.embed_code
-  end
-end
-
 When("I click to copy the embed code for the pension {string}, rate {string} and field {string}") do |pension_title, rate_name, field_name|
   within(".govuk-summary-list__row", text: field_name.humanize) do
     find("a", text: "Copy code").click

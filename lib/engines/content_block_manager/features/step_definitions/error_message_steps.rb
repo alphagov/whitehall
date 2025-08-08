@@ -1,7 +1,3 @@
-Then("I should see a message that the field is an invalid {string}") do |format|
-  assert_text I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: format)
-end
-
 Then("I should see a message that I need to confirm the details are correct") do
   assert_text I18n.t("content_block_edition.review_page.errors.confirm"), minimum: 2
 end

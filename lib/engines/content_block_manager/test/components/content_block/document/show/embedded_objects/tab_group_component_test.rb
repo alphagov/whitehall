@@ -34,13 +34,11 @@ class ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::TabGro
     ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.expects(:new).with(
       content_block_edition:,
       subschema: subschema_1,
-      show_button: false,
     ).returns(tab_component_1_double)
 
     ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemsComponent.expects(:new).with(
       content_block_edition:,
       subschema: subschema_2,
-      show_button: false,
     ).returns(tab_component_2_double)
 
     component.expects(:render).with(tab_component_1_double).returns(tab_component_1_double.content)

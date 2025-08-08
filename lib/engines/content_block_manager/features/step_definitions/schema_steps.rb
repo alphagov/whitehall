@@ -23,13 +23,6 @@ Then("I should see all the schemas listed") do
   end
 end
 
-Then("I should see all the subschemas for {string} listed") do |group|
-  schema = @schemas.values.last
-  schema&.subschemas_for_group(group)&.each do |subschema|
-    expect(page).to have_content(subschema.name.singularize)
-  end
-end
-
 And("the schema {string} has a group {string} with the following subschemas:") do |block_type, group, table|
   subschemas = table.raw.first
   schema = @schemas[block_type]

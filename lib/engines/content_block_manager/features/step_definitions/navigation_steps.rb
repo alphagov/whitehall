@@ -1,11 +1,3 @@
-When("I access the create object page") do
-  visit content_block_manager.new_content_block_manager_content_block_edition_path
-end
-
-When("I visit the page for the content block") do
-  visit content_block_manager.content_block_manager_content_block_edition_path(@content_block)
-end
-
 When("I visit the Content Block Manager home page") do
   visit content_block_manager.content_block_manager_root_path
 end

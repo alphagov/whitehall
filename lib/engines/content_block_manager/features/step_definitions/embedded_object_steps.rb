@@ -1,21 +1,6 @@
 require_relative "../support/form_step_helpers"
 require_relative "./video_relay_service_steps"
 
-When("I visit the page to create a new {string} for the block") do |object_type|
-  visit content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
-    document_id: @content_block.document.id,
-    object_type: object_type.pluralize,
-  )
-end
-
-Then("I should see a form to create a {string} for the content block") do |object_type|
-  expect(page).to have_text("Add #{add_indefinite_article object_type}")
-end
-
-Then("I should see confirmation that my {string} has been created") do |object_type|
-  expect(page).to have_text("#{object_type.capitalize} created")
-end
-
 When("I complete the {string} form with the following fields:") do |object_type, table|
   fill_in_embedded_object_form(object_type, table)
 
@@ -129,26 +114,6 @@ Then("I should see that the BSL guidance fields have been changed") do
   end
 end
 
-Then("I should be asked to review my {string}") do |object_type|
-  assert_text "Review #{object_type}"
-end
-
-Then("the {string} should have been created successfully") do |object_type|
-  edition = ContentBlockManager::ContentBlock::Edition.all.last
-
-  assert_not_nil edition
-  assert_not_nil edition.document
-  key = @object_title
-
-  @details.keys.each do |k|
-    assert_equal edition.details[object_type.parameterize.pluralize][key][k], @details[k]
-  end
-
-  version = edition.versions.order("created_at asc").first
-  assert_equal version.updated_embedded_object_type, object_type.pluralize
-  assert_equal version.updated_embedded_object_title, @object_title
-end
-
 Then("I should see errors for the required {string} fields") do |object_type|
   schema = @schemas.values.first.subschema(object_type.pluralize)
   required_fields = schema.body["required"]
@@ -181,19 +146,6 @@ end
 And("I click to add another {string}") do |object_type|
   @object_type = object_type
   click_on "Add another #{object_type.humanize.downcase}"
-end
-
-And("I review and confirm my {string} is correct") do |_object_type|
-  check "is_confirmed"
-  click_on "Create"
-end
-
-And(/^I click create$/) do
-  click_on "Create"
-end
-
-When(/^I click edit$/) do
-  click_on "Edit"
 end
 
 And(/^that pension has a rate with the following fields:$/) do |table|
