@@ -24,11 +24,6 @@ And(/^I schedule the change for (\d+) days in the future$/) do |number_of_days|
   schedule_change(number_of_days)
 end
 
-Then("the edition should have been scheduled successfully") do
-  @schema = @schemas[@content_block.document.block_type]
-  assert_text "#{@schema.name} scheduled successfully"
-end
-
 And("the block is scheduled and published") do
   @is_scheduled = true
   create(:scheduled_publishing_robot)

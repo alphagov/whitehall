@@ -38,10 +38,6 @@ When("I click to view results") do
   click_button "View results"
 end
 
-Then("I should see a Cancel button to the document list page") do
-  expect(page).to have_link("Cancel", href: content_block_manager.content_block_manager_content_block_documents_path)
-end
-
 When("I complete the form with the following fields:") do |table|
   fields = table.hashes.first
   @title = fields.delete("title")
@@ -59,17 +55,6 @@ When("I complete the form with the following fields:") do |table|
     fill_in "content_block_manager_content_block_edition_details_#{k}", with: @details[k]
   end
 
-  click_save_and_continue
-end
-
-When("I complete the form") do
-  @title = "My title"
-  @details = @schema.fields.index_with { |f| "#{f} content" }
-
-  fill_in "Title", with: @title
-  @details.keys.each do |k|
-    fill_in "content_block_manager/content_block_edition_details_#{k}", with: @details[k]
-  end
   click_save_and_continue
 end
 
@@ -97,20 +82,6 @@ And("I should be taken to the confirmation page for a published block") do
     "View content block",
     href: content_block_manager.content_block_manager_content_block_document_path(
       content_block_edition.document,
-    ),
-  )
-end
-
-And("I should be taken to the confirmation page for a new contact block") do
-  content_block = ContentBlockManager::ContentBlock::Edition.last
-
-  assert_text I18n.t("content_block_edition.confirmation_page.created.banner", block_type: "Contact")
-  assert_text I18n.t("content_block_edition.confirmation_page.created.detail")
-
-  expect(page).to have_link(
-    "View content block",
-    href: content_block_manager.content_block_manager_content_block_document_path(
-      content_block.document,
     ),
   )
 end
@@ -224,10 +195,6 @@ Then("I am taken back to Content Block Manager home page") do
   assert_equal current_path, content_block_manager.content_block_manager_root_path
 end
 
-Then("I am taken back to the view page of the content block") do
-  assert_equal current_path, content_block_manager.content_block_manager_content_block_document_path(@content_block.document)
-end
-
 And("no draft Content Block Edition has been created") do
   assert_equal 0, ContentBlockManager::ContentBlock::Edition.where(state: "draft").count
 end
@@ -271,11 +238,6 @@ When("I click to view the document with title {string}") do |title|
   content_block = ContentBlockManager::ContentBlock::Edition.where(title:).first
 
   click_link href: content_block_manager.content_block_manager_content_block_document_path(content_block.document)
-end
-
-When("I click to view the edition") do
-  @schema = @schemas[@content_block.document.block_type]
-  click_link href: content_block_manager.content_block_manager_content_block_edition_path(@content_block)
 end
 
 Then("I should see the details for the contact content block") do
@@ -337,10 +299,6 @@ end
 
 Then("I confirm my answers are correct") do
   check "is_confirmed"
-end
-
-Then("I accept and publish") do
-  click_on "Accept and publish"
 end
 
 When("I review and confirm my answers are correct") do
@@ -466,12 +424,6 @@ And(/^I update the content block and publish$/) do
   review_and_confirm
 end
 
-Then("I should see an error for an invalid {string}") do |attribute|
-  expect(page).to have_content(
-    I18n.t("activerecord.errors.models.content_block_manager/content_block/edition.invalid", attribute: attribute.humanize),
-  )
-end
-
 And(/^I click the back link$/) do
   click_on "Back"
 end
@@ -479,10 +431,6 @@ end
 Given(/^my pension content block has no rates$/) do
   @content_block.details["rates"] = {}
   @content_block.save!
-end
-
-And("I choose {string}") do |label|
-  choose label
 end
 
 When("I choose {string} from the type dropdown") do |type|
