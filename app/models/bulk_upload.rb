@@ -5,14 +5,14 @@ class BulkUpload
 
   validate :attachments_must_be_valid
 
-  attr_reader :edition, :attachments, :files
+  attr_reader :attachable, :attachments, :files
 
-  def initialize(edition)
-    if edition.nil?
-      throw Error("No edition specified")
+  def initialize(attachable)
+    if attachable.nil?
+      throw Error("No attachable specified")
     end
 
-    @edition = edition
+    @attachable = attachable
     @attachments = []
   end
 
@@ -94,13 +94,13 @@ private
   end
 
   def find_attachment_with_file(filename)
-    @edition.attachments.with_filename(filename).first
+    @attachable.attachments.with_filename(filename).first
   end
 
   def find_and_update_existing_attachment(attachment_params)
     attachment_attributes = attachment_params.except(:attachment_data_attributes)
     attachment_data_attributes = attachment_params.fetch(:attachment_data_attributes, {})
-    attachment_data_attributes[:attachable] = @edition
+    attachment_data_attributes[:attachable] = @attachable
 
     attachment = FileAttachment.find_by(id: attachment_attributes[:id]) || FileAttachment.new(attachment_params)
     attachment.attributes = attachment_attributes.except(:id)
@@ -111,7 +111,7 @@ private
 
     attachment.attachment_data = AttachmentData.new(attachment_data_attributes)
 
-    attachment.attachable = @edition
+    attachment.attachable = @attachable
 
     attachment
   end
