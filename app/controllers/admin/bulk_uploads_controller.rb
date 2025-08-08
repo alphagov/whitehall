@@ -17,6 +17,11 @@ class Admin::BulkUploadsController < Admin::AttachmentsController
     @bulk_upload.build_attachments_from_params(attachments_params)
 
     if @bulk_upload.save_attachments
+      @bulk_upload.attachments.each do |attachment|
+        attachable_draft_updater
+        attachment_updater(attachment.attachment_data)
+      end
+
       redirect_to attachable_attachments_path(attachable)
     else
       render :set_titles

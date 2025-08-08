@@ -165,9 +165,10 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     def add_attachment(filename)
-      click_link "Upload new file attachment"
+      click_link "Upload new file attachments"
+      attach_file "Select files for upload", path_to_attachment(filename)
+      click_button "Upload and continue"
       fill_in "Title", with: "Attachment Title"
-      attach_file "File", path_to_attachment(filename)
       click_button "Save"
       assert_text "Attachment 'Attachment Title' uploaded"
     end
