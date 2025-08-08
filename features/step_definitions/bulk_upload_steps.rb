@@ -1,7 +1,7 @@
 When("I bulk upload files and give them titles") do
   @edition = Edition.last
   visit admin_edition_attachments_path(@edition)
-  click_link "Bulk upload multiple files"
+  click_link "Upload new file attachments"
   attach_file "Select files for upload", [Rails.root.join("test/fixtures/greenpaper.pdf"), Rails.root.join("test/fixtures/two-pages.pdf")]
   click_button "Upload and continue"
   fill_in "bulk_upload[attachments][0]_title", with: "Two pages title"
@@ -23,7 +23,7 @@ end
 When(/^I bulk upload files including the file "(.*?)"$/) do |_file|
   @old_attachment_data = @attachment.attachment_data
   visit admin_edition_attachments_path(@edition)
-  click_link "Bulk upload multiple files"
+  click_link "Upload new file attachments"
   attach_file "Select files for upload", [Rails.root.join("test/fixtures/greenpaper.pdf"), Rails.root.join("test/fixtures/two-pages.pdf")]
   click_button "Upload and continue"
   fill_in "bulk_upload[attachments][0]_title", with: "Two pages title"

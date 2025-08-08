@@ -10,9 +10,10 @@ module AttachmentHelper
   end
 
   def upload_new_attachment(file_path, attachment_title)
-    click_link "Upload new file attachment"
+    click_link "Upload new file attachments"
+    attach_file "Select files for upload", file_path
+    click_button "Upload and continue"
     fill_in "Title", with: attachment_title
-    attach_file "File", file_path
     click_button "Save"
     Attachment.find_by(title: attachment_title)
   end
