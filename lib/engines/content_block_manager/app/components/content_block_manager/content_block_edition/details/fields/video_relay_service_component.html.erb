@@ -1,13 +1,15 @@
 <div class="app-c-content-block-manager-video-relay-service-component">
 
   <% video_relay_service_inputs = capture do %>
-    <%= render("govuk_publishing_components/components/textarea", {
-            label: { text: label_for("prefix") },
-            name: name_for_field(prefix) ,
-            id: id_for_field(prefix),
-            value: value_for_field(prefix) || prefix.default_value,
-            error_items: errors_for_field(prefix),
-    }) %>
+    <%= render(
+      ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabledTextareaComponent.new(
+        content_block_edition: content_block_edition,
+        value: value,
+        nested_object_key: field.name,
+        field: prefix,
+        subschema: subschema,
+      ),
+    ) %>
 
     <%= render("govuk_publishing_components/components/input", {
               label: { text: label_for("telephone_number") },
