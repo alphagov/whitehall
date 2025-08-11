@@ -100,7 +100,6 @@ private
   def find_and_update_existing_attachment(attachment_params)
     attachment_attributes = attachment_params.except(:attachment_data_attributes)
     attachment_data_attributes = attachment_params.fetch(:attachment_data_attributes, {})
-    attachment_data_attributes[:attachable] = @attachable
 
     attachment = FileAttachment.find_by(id: attachment_attributes[:id]) || FileAttachment.new(attachment_params)
     attachment.attributes = attachment_attributes.except(:id)
@@ -110,6 +109,8 @@ private
     end
 
     attachment.attachment_data = AttachmentData.new(attachment_data_attributes)
+
+    attachment.attachment_data.attachable = @attachable
 
     attachment.attachable = @attachable
 
