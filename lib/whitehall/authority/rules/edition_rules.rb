@@ -30,98 +30,18 @@ module Whitehall::Authority::Rules
     end
 
     def can?(action)
-      return false unless valid_action?(action)
+      raise "Invalid authorisation action for an edition" unless EditionRules.actions.include?(action)
 
       if subject.is_a?(Class)
         can_with_a_class?(action)
+      elsif subject.historic?
+        can_with_a_historic_instance?(action)
       else
         can_with_an_instance?(action)
       end
     end
 
-    def valid_action?(action)
-      EditionRules.actions.include?(action)
-    end
-
   private
-
-    def can_with_an_instance?(action)
-      if !can_see?
-        false
-      elsif action != :see && @subject.historic?
-        actor.gds_editor? || actor.gds_admin?
-      elsif action == :unpublish && actor.managing_editor?
-        true
-      elsif action == :unwithdraw && actor.managing_editor?
-        true
-      elsif actor.gds_admin?
-        gds_admin_can?(action)
-      elsif actor.gds_editor?
-        gds_editor_can?(action)
-      elsif actor.departmental_editor?
-        departmental_editor_can?(action)
-      elsif actor.managing_editor?
-        managing_editor_can?(action)
-      elsif actor.scheduled_publishing_robot?
-        scheduled_publishing_robot_can?(action)
-      else
-        departmental_writer_can?(action)
-      end
-    end
-
-    def gds_admin_can?(action)
-      case action
-      when :perform_administrative_tasks
-        true
-      else
-        gds_editor_can?(action)
-      end
-    end
-
-    def gds_editor_can?(action)
-      case action
-      when :approve
-        can_approve?
-      when :publish
-        can_publish?
-      when :force_publish
-        can_force_publish?
-      when :perform_administrative_tasks
-        false
-      when :unpublish
-        false
-      else
-        true
-      end
-    end
-
-    def can_approve?
-      actor_is_not_publisher? && actor_is_not_scheduler?
-    end
-
-    def can_publish?
-      actor_is_not_submitter? && not_publishing_scheduled_edition_without_authority?
-    end
-
-    def can_force_publish?
-      not_publishing_scheduled_edition_without_authority?
-    end
-
-    def actor_is_not_publisher?
-      subject.published_by != actor
-    end
-
-    def actor_is_not_submitter?
-      subject.submitted_by != actor
-    end
-
-    def actor_is_not_scheduler?
-      !subject.scheduled? || subject.scheduled_by != actor
-    end
-
-    def not_publishing_scheduled_edition_without_authority?
-      !subject.scheduled? || actor.can_publish_scheduled_editions?
-    end
 
     def can_with_a_class?(action)
       case action
@@ -136,62 +56,45 @@ module Whitehall::Authority::Rules
       end
     end
 
-    def can_see?
+    def can_with_an_instance?(action)
+      return false if access_limit_enforced?
+
+      case action
+      when :approve
+        (actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?) &&
+          subject.published_by != actor && (!subject.scheduled? || subject.scheduled_by != actor)
+      when :force_publish
+        (actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?) &&
+          (!subject.scheduled? || actor.can_publish_scheduled_editions?)
+      when :mark_political
+        actor.gds_admin? || actor.gds_editor? || actor.managing_editor?
+      when :perform_administrative_tasks
+        actor.gds_admin?
+      when :publish
+        (actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor? || actor.scheduled_publishing_robot?) &&
+          subject.submitted_by != actor && (!subject.scheduled? || actor.can_publish_scheduled_editions?)
+      when :reject
+        actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?
+      when :select_government_for_history_mode
+        actor.gds_admin? || actor.gds_editor?
+      when :unpublish
+        actor.gds_admin? || actor.managing_editor?
+      when :unwithdraw
+        actor.gds_admin? || actor.gds_editor? || actor.managing_editor?
+      else
+        true
+      end
+    end
+
+    def can_with_a_historic_instance?(action)
+      action == :see || actor.gds_editor? || actor.gds_admin?
+    end
+
+    def access_limit_enforced?
       if subject.access_limited?
         organisations = subject.organisations
         organisations += subject.edition_organisations.map(&:organisation) if subject.respond_to?(:edition_organisations)
-        organisations.include?(actor.organisation)
-      elsif actor.gds_admin? || actor.gds_editor?
-        true
-      else
-        true
-      end
-    end
-
-    def departmental_editor_can?(action)
-      case action
-      when :approve
-        can_approve?
-      when :publish
-        can_publish?
-      when :force_publish
-        can_force_publish?
-      when :unpublish, :mark_political, :perform_administrative_tasks, :select_government_for_history_mode
-        false
-      else
-        true
-      end
-    end
-
-    def managing_editor_can?(action)
-      case action
-      when :mark_political
-        true
-      else
-        departmental_editor_can?(action)
-      end
-    end
-
-    def departmental_writer_can?(action)
-      disallowed_actions = %i[
-        approve
-        publish
-        unpublish
-        unwithdraw
-        force_publish
-        reject
-        mark_political
-        select_government_for_history_mode
-        perform_administrative_tasks
-      ]
-
-      disallowed_actions.include?(action) == false
-    end
-
-    def scheduled_publishing_robot_can?(action)
-      case action
-      when :publish
-        can_publish?
+        organisations.exclude?(actor.organisation)
       else
         false
       end

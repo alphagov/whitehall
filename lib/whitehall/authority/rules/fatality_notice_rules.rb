@@ -10,7 +10,7 @@ module Whitehall::Authority::Rules
       actor_can_handle_fatalities? && super
     end
 
-    def can_see?
+    def can_with_an_instance?(action)
       actor_can_handle_fatalities? && super
     end
   end
