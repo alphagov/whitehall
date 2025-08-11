@@ -87,7 +87,7 @@ class ExportPublicationsForDocumentCollectionTest < ActiveSupport::TestCase
 
     test "gets the first pdf attachment if there are multiple attachments" do
       publication = create(:published_publication, :with_html_attachment)
-      additional_attachment = create(:file_attachment, attachable: publication)
+      additional_attachment = create(:file_attachment, attachable: publication, file: file_fixture("whitepaper.pdf"))
       document_collection = create(:published_document_collection, :with_group, organisations: [publication.organisations.first])
       create(:document_collection_group_membership, document_collection_group: document_collection.groups.first, document: publication.document)
 
@@ -105,7 +105,7 @@ class ExportPublicationsForDocumentCollectionTest < ActiveSupport::TestCase
     test "gets the first pdf attachment if there are multiple pdf attachments" do
       publication = create(:published_publication, :with_html_attachment)
       additional_attachment1 = create(:file_attachment, attachable: publication)
-      create(:file_attachment, attachable: publication)
+      create(:file_attachment, attachable: publication, file: file_fixture("whitepaper.pdf"))
       document_collection = create(:published_document_collection, :with_group, organisations: [publication.organisations.first])
       create(:document_collection_group_membership, document_collection_group: document_collection.groups.first, document: publication.document)
 
