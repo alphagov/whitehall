@@ -64,11 +64,11 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
   end
 
   describe "GovspeakEnabledTextareaComponent" do
-    it "wraps component in an element with an ID describing path to field" do
+    it "gives the textarea an ID describing path to field" do
       render_inline component
 
       assert_selector(COMPONENT_CLASS) do |component|
-        wraps_whole_textarea_in_element_with_id_describing_path_to_field(component)
+        gives_textarea_id_describing_path_to_field(component)
       end
     end
 
@@ -192,6 +192,39 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
               )
             end
           end
+
+          it "includes a 'Preview' button" do
+            render_inline component
+
+            assert_selector(COMPONENT_CLASS) do |component|
+              component.assert_selector(
+                "button.js-app-c-govspeak-editor__preview-button",
+                text: "Preview",
+              )
+            end
+          end
+
+          it "includes a 'Back to edit' button" do
+            render_inline component
+
+            assert_selector(COMPONENT_CLASS) do |component|
+              component.assert_selector(
+                "button.js-app-c-govspeak-editor__back-button",
+                text: "Back to edit",
+              )
+            end
+          end
+
+          it "includes a preview element to be replaced by the Govspeak which JS will render into HTML" do
+            render_inline component
+
+            assert_selector(COMPONENT_CLASS) do |component|
+              component.assert_selector(
+                ".app-c-govspeak-editor__preview.js-locale-switcher-custom p",
+                text: "Generating preview, please wait.",
+              )
+            end
+          end
         end
       end
 
@@ -211,16 +244,49 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
             displays_no_indication_that_govspeak_is_supported(component)
           end
         end
+
+        it "does NOT  include a 'Preview' button" do
+          render_inline component
+
+          assert_selector(COMPONENT_CLASS) do |component|
+            component.assert_no_selector(
+              "button.js-app-c-govspeak-editor__preview-button",
+              text: "Preview",
+            )
+          end
+        end
+
+        it "does NOT include 'Back to edit' button" do
+          render_inline component
+
+          assert_selector(COMPONENT_CLASS) do |component|
+            component.assert_no_selector(
+              "button.js-app-c-govspeak-editor__back-button",
+              text: "Back to edit",
+            )
+          end
+        end
+
+        it "does NOT include a preview element to be replaced by the rendered Govspeak" do
+          render_inline component
+
+          assert_selector(COMPONENT_CLASS) do |component|
+            component.assert_no_selector(
+              ".app-c-govspeak-editor__preview.js-locale-switcher-custom p",
+              text: "Generating preview, please wait.",
+            )
+          end
+        end
       end
     end
   end
 
-  def wraps_whole_textarea_in_element_with_id_describing_path_to_field(component)
-    expected_component_id =
+  def gives_textarea_id_describing_path_to_field(component)
+    expected_id =
       "content_block_manager_content_block_edition_details_telephones_video_relay_service_prefix"
 
     component.assert_selector(
-      "div[id='#{expected_component_id}']",
+      "textarea[id='#{expected_id}']",
     )
   end
 
