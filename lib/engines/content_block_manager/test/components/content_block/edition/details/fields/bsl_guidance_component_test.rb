@@ -4,28 +4,43 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BSLGuidanceComp
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :contact) }
-  let(:schema) { build(:content_block_schema) }
+
+  let(:properties) do
+    {
+      "bsl_guidance" => {
+        "type" => "object",
+        "properties" => {
+          "value" => { "type" => "string", "default" => "DEFAULT VALUE" },
+          "show" => { "type" => "boolean", "default" => false },
+        },
+      },
+    }
+  end
 
   let(:body) do
     {
       "type" => "object",
-      "properties" =>
-        { "bsl_guidance" =>
-            { "type" => "object",
-              "properties" =>
-                { "value" => { "type" => "string", "default" => "DEFAULT VALUE" },
-                  "show" => { "type" => "boolean", "default" => false } } } },
+      "patternProperties" => {
+        "*" => {
+          "type" => "object",
+          "properties" => properties,
+        },
+      },
     }
   end
 
-  before do
-    schema.stubs(:body).returns(body)
+  let(:subschema) do
+    ContentBlockManager::ContentBlock::Schema::EmbeddedSchema.new(
+      "telephones",
+      body,
+      "parent_schema_id",
+    )
   end
 
   let(:field) do
     ContentBlockManager::ContentBlock::Schema::Field.new(
       "bsl_guidance",
-      schema,
+      subschema,
     )
   end
 
@@ -39,6 +54,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BSLGuidanceComp
       content_block_edition:,
       field: field,
       value: field_value,
+      subschema: subschema,
     )
   end
 
@@ -96,7 +112,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BSLGuidanceComp
           assert_selector(".app-c-content-block-manager-bsl-guidance-component") do |component|
             component.assert_selector(
               "textarea" \
-              "[name='content_block/edition[details][bsl_guidance][value]']",
+              "[name='content_block/edition[details][telephones][bsl_guidance][value]']",
               text: "CUSTOM VALUE",
             )
           end
@@ -115,7 +131,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BSLGuidanceComp
           assert_selector(".app-c-content-block-manager-bsl-guidance-component") do |component|
             component.assert_selector(
               "textarea" \
-              "[name='content_block/edition[details][bsl_guidance][value]']",
+              "[name='content_block/edition[details][telephones][bsl_guidance][value]']",
               text: "DEFAULT VALUE",
             )
           end
