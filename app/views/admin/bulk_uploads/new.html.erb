@@ -21,8 +21,6 @@
 
     <%= form_for @bulk_upload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), @bulk_upload]) + "/upload_files", multipart: true do |form| %>
 
-      <%= form.hidden_field :edition, value: @edition %>
-
       <%= render "govuk_publishing_components/components/file_upload", {
         label: {
           text: "Select files for upload",

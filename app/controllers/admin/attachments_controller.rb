@@ -91,6 +91,7 @@ private
   def type
     attachment.readable_type.downcase
   end
+  helper_method :type
 
   def check_attachable_allows_attachment_type
     redirect_to attachable_attachments_path(attachable) unless attachable.allows_attachment_type?(type)
