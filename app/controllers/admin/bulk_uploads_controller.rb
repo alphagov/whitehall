@@ -1,5 +1,6 @@
 class Admin::BulkUploadsController < Admin::AttachmentsController
   before_action :build_bulk_upload
+  include ActionView::Helpers::TagHelper
 
   def new; end
 
@@ -21,7 +22,8 @@ class Admin::BulkUploadsController < Admin::AttachmentsController
         attachable_draft_updater
         attachment_updater(attachment.attachment_data)
       end
-
+      
+      flash[:notice] = notice
       redirect_to attachable_attachments_path(attachable)
     else
       render :set_titles
@@ -29,6 +31,21 @@ class Admin::BulkUploadsController < Admin::AttachmentsController
   end
 
 private
+
+  def notice
+    notices = @bulk_upload.attachments.map { |attachment| "Attachment '#{attachment.title}' #{attachment.attachment_data.to_replace_id.present? ? 'updated' : 'uploaded'}".html_safe }
+
+    notice = "".html_safe
+    notice << content_tag(:ul) do
+      inner_html = "".html_safe
+      notices.each { |notice| inner_html << content_tag(:li, notice, class: "gem-c-success-alert__message") }
+      inner_html
+    end
+
+    flash[:html_safe] = notice
+
+    notice
+  end
 
   def build_attachment
     FileAttachment.new(attachable:)
