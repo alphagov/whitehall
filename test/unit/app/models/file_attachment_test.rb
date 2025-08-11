@@ -30,7 +30,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     duplicate  = build(:file_attachment, file: file_fixture("whitepaper.pdf"), attachable:)
 
     assert_not duplicate.valid?(:user_input)
-    assert_match %r{This policy group already has a file called "whitepaper.pdf"}, duplicate.errors[:base].first
+    assert_match %r{with name "whitepaper.pdf" already attached to document}, duplicate.attachment_data.errors[:file].first
   end
 
   test "unique filename check does not explode if file is not present" do

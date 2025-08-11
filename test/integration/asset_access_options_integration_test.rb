@@ -127,7 +127,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         before do
           visit admin_news_article_path(edition)
           click_link "Add attachments"
-          click_link "Bulk upload multiple files"
+          click_link "Upload new file attachments"
           attach_file "Select files for upload", [path_to_attachment("logo.png"), path_to_attachment("greenpaper.pdf")]
           click_button "Upload and continue"
           fill_in "bulk_upload[attachments][0][title]", with: "file-title"

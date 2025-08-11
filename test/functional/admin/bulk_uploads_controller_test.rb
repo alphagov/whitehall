@@ -109,4 +109,25 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
       assert_equal @edition, attachment.attachment_data.attachable
     end
   end
+
+  test "POST :create doesnt update the publishing api" do
+    Whitehall::PublishingApi
+      .expects(:save_draft)
+      .with(@edition).twice
+
+    Whitehall::PublishingApi
+      .expects(:save_draft)
+      .with(instance_of(FileAttachment))
+      .never
+
+    post :create, params: { edition_id: @edition, bulk_upload: valid_create_params }
+  end
+
+  test "POST :create triggers a job to be queued to store the attachments in Asset Manager" do
+    model_type = AttachmentData.to_s
+
+    AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id]).twice
+
+    post :create, params: { edition_id: @edition, bulk_upload: valid_create_params }
+  end
 end

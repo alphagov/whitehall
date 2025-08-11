@@ -6,8 +6,8 @@ module ServiceListeners
 
     describe ServiceListeners::AttachmentAssetDeleter do
       let(:edition) { create(:draft_news_article) }
-      let(:first_attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
-      let(:second_attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
+      let(:first_attachment) { create(:file_attachment, attachable: edition) }
+      let(:second_attachment) { create(:csv_attachment, attachable: edition) }
 
       before do
         stub_asset(first_attachment.attachment_data.assets.first.asset_manager_id)
