@@ -14,11 +14,29 @@
 
             <%= render "govuk_publishing_components/components/fieldset", { legend_text: "File: #{attachment.attachment_data.filename}", heading_level: 2, heading_size: "l" } do %>
 
+              <%= render "admin/shared/attachments/fields", form: attachment_fields, attachment:, attachable:, heading_size: "s", heading_level: 3, subheading_size: "m", name:, margin_bottom: 4 %>
+
+              <%= attachment_fields.fields_for(:attachment_data, include_id: false) do |attachment_data_fields| %>
+                <%= hidden_field_tag "#{name}[attachment_data_attributes][to_replace_id]", attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id %>
+
+                <%= hidden_field_tag "#{name}[attachment_data_attributes][file_cache]", attachment_data_fields.object.file_cache %>
+              <% end %>
+
               <% unless attachment.new_record? %>
                 <%= hidden_field_tag "#{name}[id]", attachment.id %>
               <% end %>
 
-              <%= render "admin/attachments/form_fields", form: attachment_fields, attachment:, attachable:, heading_size: "s", heading_level: 3, name:, margin_bottom: 4 %>
+              <%= hidden_field_tag "#{name}[accessible]", "0" %>
+              <%= render "govuk_publishing_components/components/checkboxes", {
+                name: "#{name}[accessible]",
+                items: [
+                  {
+                    label: "Attachment is accessible",
+                    value: "1",
+                    checked: attachment.accessible,
+                  },
+                ],
+              } %>
             <% end %>
           <% end %>
 
