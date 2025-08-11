@@ -75,9 +75,20 @@ class AttachableTest < ActiveSupport::TestCase
     edition
   end
 
+  def build_consultation_with_three_attachments
+    consultation = create(:consultation)
+
+    consultation.attachments << @sample_csv = create(:file_attachment, file: upload_fixture("sample-from-excel.csv", "text/csv"), attachable: consultation)
+    consultation.attachments << @greenpaper_pdf = create(:file_attachment, file: upload_fixture("greenpaper.pdf", "application/pdf"), attachable: consultation)
+    consultation.attachments << @two_pages_pdf = create(:file_attachment, file: upload_fixture("two-pages.pdf"), attachable: consultation)
+
+    consultation
+  end
+
   test "#reorder_attachments should update the ordering of its attachments" do
-    attachable = create(:consultation)
-    a, b, c = 3.times.map { create(:file_attachment, attachable:) }
+    attachable = build_consultation_with_three_attachments
+
+    a, b, c = attachable.attachments
 
     attachable.reload.reorder_attachments([b.id, a.id, c.id])
 
@@ -97,8 +108,8 @@ class AttachableTest < ActiveSupport::TestCase
 
   test "#reorder_attachments handles deleted attachments that had high ordering values" do
     attachable = create(:consultation)
-    a = create(:file_attachment, attachable:, ordering: 0)
-    b = create(:file_attachment, attachable:, ordering: 1)
+    a = create(:file_attachment, attachable:, ordering: 0, file: file_fixture("whitepaper.pdf"))
+    b = create(:file_attachment, attachable:, ordering: 1, file: file_fixture("simple.pdf"))
     create(:file_attachment, attachable:, ordering: 2, deleted: true)
 
     attachable.reload.reorder_attachments([b.id, a.id])
@@ -109,10 +120,10 @@ class AttachableTest < ActiveSupport::TestCase
   test "#reorder_attachments handles deleted attachments that had low ordering values" do
     attachable = create(:consultation)
     create(:file_attachment, attachable:, ordering: 0, deleted: true)
-    create(:file_attachment, attachable:, ordering: 1, deleted: true)
-    create(:file_attachment, attachable:, ordering: 2, deleted: true)
-    a = create(:file_attachment, attachable:, ordering: 3)
-    b = create(:file_attachment, attachable:, ordering: 4)
+    create(:file_attachment, attachable:, ordering: 1, deleted: true, file: file_fixture("whitepaper.pdf"))
+    create(:file_attachment, attachable:, ordering: 2, deleted: true, file: file_fixture("simple.pdf"))
+    a = create(:file_attachment, attachable:, ordering: 3, file: file_fixture("sample-from-excel.csv"))
+    b = create(:file_attachment, attachable:, ordering: 4, file: file_fixture("logo.png"))
 
     attachable.reload.reorder_attachments([b.id, a.id])
 
