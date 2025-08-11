@@ -1,0 +1,22 @@
+<%
+  name ||= "attachment"
+  heading_level ||= 2
+  heading_size ||= "l"
+  subheading_size ||= nil
+  margin_bottom ||= 8
+%>
+
+<section class="govuk-grid-column-two-thirds">
+  <%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment], as: :attachment, html: { :class => "app-view-attachments__form", data: { module: "LocaleSwitcher ga4-visual-editor-event-handlers", "rtl-locales": Locale.right_to_left.collect(&:to_param) }}, multipart: true do |form| %>
+
+    <%= render "admin/shared/attachments/fields", form:, attachment:, attachable:, heading_size:, heading_level:, subheading_size:, margin_bottom:, name: %>
+
+    <%= render "admin/#{type}_attachments/fields", form:, attachment:, attachable:, heading_size:, subheading_size: %>
+
+    <div class="govuk-button-group">
+      <%= render "govuk_publishing_components/components/button", { text: "Save" } %>
+
+      <%= link_to("Cancel", attachable_attachments_path(attachable), class: "govuk-link govuk-link--no-visited-state") %>
+    </div>
+  <% end %>
+</section>
