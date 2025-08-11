@@ -21,7 +21,6 @@ class User < ApplicationRecord
     GDS_EDITOR = "GDS Editor".freeze
     VIP_EDITOR = "VIP Editor".freeze
     PUBLISH_SCHEDULED_EDITIONS = "Publish scheduled editions".freeze
-    FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
     GDS_ADMIN = "GDS Admin".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
     VISUAL_EDITOR_PRIVATE_BETA = "Visual editor private beta".freeze
@@ -62,10 +61,6 @@ class User < ApplicationRecord
 
   def can_publish_scheduled_editions?
     has_permission?(Permissions::PUBLISH_SCHEDULED_EDITIONS)
-  end
-
-  def can_force_publish_anything?
-    has_permission?(Permissions::FORCE_PUBLISH_ANYTHING)
   end
 
   def can_see_visual_editor_private_beta?

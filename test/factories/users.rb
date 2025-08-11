@@ -69,7 +69,6 @@ FactoryBot.define do
         User::Permissions::SIGNIN,
         User::Permissions::DEPARTMENTAL_EDITOR,
         User::Permissions::GDS_EDITOR,
-        User::Permissions::FORCE_PUBLISH_ANYTHING,
       ]
     end
   end

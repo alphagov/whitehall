@@ -46,9 +46,7 @@ module Whitehall::Authority::Rules
   private
 
     def can_with_an_instance?(action)
-      if actor.can_force_publish_anything? && action == :force_publish
-        true
-      elsif !can_see?
+      if !can_see?
         false
       elsif action != :see && @subject.historic?
         actor.gds_editor? || actor.gds_admin?

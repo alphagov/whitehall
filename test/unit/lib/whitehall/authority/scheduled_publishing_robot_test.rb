@@ -9,7 +9,6 @@ class ScheduledPublishingRobotTest < ActiveSupport::TestCase
       departmental_editor?: false,
       scheduled_publishing_robot?: true,
       organisation: nil,
-      can_force_publish_anything?: false,
       can_publish_scheduled_editions?: true,
     )
   end

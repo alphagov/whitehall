@@ -7,7 +7,6 @@ class GDSEditorTest < ActiveSupport::TestCase
       id:,
       gds_editor?: true,
       organisation: build(:organisation),
-      can_force_publish_anything?: false,
     )
   end
 
@@ -100,17 +99,6 @@ class GDSEditorTest < ActiveSupport::TestCase
   test "can force publish a edition we created" do
     me = gds_editor
     assert enforcer_for(me, normal_edition(me)).can?(:force_publish)
-  end
-
-  test "can force publish a limited access edition outside their org if they can_force_publish_anything?" do
-    organisation1 = "organisation_1"
-    organisation2 = "organisation_2"
-    user = gds_editor
-    user.stubs(:organisation).returns(organisation1)
-    user.stubs(:can_force_publish_anything?).returns(true)
-    edition = limited_publication([organisation2])
-
-    assert enforcer_for(user, edition).can?(:force_publish)
   end
 
   test "cannot force publish a scheduled edition" do
