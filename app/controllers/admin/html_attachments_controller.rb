@@ -5,6 +5,13 @@ class Admin::HtmlAttachmentsController < Admin::AttachmentsController
 
 private
 
+  def edition_image_ids
+    return [] unless attachable_is_an_edition?
+
+    attachable.images.pluck(:id)
+  end
+  helper_method :edition_image_ids
+
   def save_attachment
     super
 
