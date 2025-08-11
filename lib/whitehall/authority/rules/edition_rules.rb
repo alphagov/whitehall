@@ -64,10 +64,6 @@ module Whitehall::Authority::Rules
         departmental_editor_can?(action)
       elsif actor.managing_editor?
         managing_editor_can?(action)
-      elsif actor.world_editor?
-        world_editor_can?(action)
-      elsif actor.world_writer?
-        world_writer_can?(action)
       elsif actor.scheduled_publishing_robot?
         scheduled_publishing_robot_can?(action)
       else
@@ -142,10 +138,6 @@ module Whitehall::Authority::Rules
       end
     end
 
-    def world_actor?
-      actor.world_editor? || actor.world_writer?
-    end
-
     def can_see?
       if subject.access_limited?
         organisations = subject.organisations
@@ -153,8 +145,6 @@ module Whitehall::Authority::Rules
         organisations.include?(actor.organisation)
       elsif actor.gds_admin? || actor.gds_editor?
         true
-      elsif world_actor? && (subject.world_locations & actor.world_locations).empty?
-        false
       else
         true
       end
@@ -184,10 +174,6 @@ module Whitehall::Authority::Rules
       end
     end
 
-    def world_editor_can?(action)
-      departmental_editor_can?(action)
-    end
-
     def departmental_writer_can?(action)
       disallowed_actions = %i[
         approve
@@ -202,10 +188,6 @@ module Whitehall::Authority::Rules
       ]
 
       disallowed_actions.include?(action) == false
-    end
-
-    def world_writer_can?(action)
-      departmental_writer_can?(action)
     end
 
     def scheduled_publishing_robot_can?(action)

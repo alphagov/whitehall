@@ -21,8 +21,6 @@ class User < ApplicationRecord
     GDS_EDITOR = "GDS Editor".freeze
     VIP_EDITOR = "VIP Editor".freeze
     PUBLISH_SCHEDULED_EDITIONS = "Publish scheduled editions".freeze
-    WORLD_WRITER = "World Writer".freeze
-    WORLD_EDITOR = "World Editor".freeze
     FORCE_PUBLISH_ANYTHING = "Force publish anything".freeze
     GDS_ADMIN = "GDS Admin".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
@@ -33,8 +31,6 @@ class User < ApplicationRecord
     if gds_editor? then "GDS Editor"
     elsif departmental_editor? then "Departmental Editor"
     elsif managing_editor? then "Managing Editor"
-    elsif world_editor? then "World Editor"
-    elsif world_writer? then "World Writer"
     else
       "Writer"
     end
@@ -56,24 +52,12 @@ class User < ApplicationRecord
     has_permission?(Permissions::VIP_EDITOR)
   end
 
-  def world_editor?
-    has_permission?(Permissions::WORLD_EDITOR)
-  end
-
-  def world_writer?
-    has_permission?(Permissions::WORLD_WRITER)
-  end
-
   def gds_admin?
     has_permission?(Permissions::GDS_ADMIN)
   end
 
   def scheduled_publishing_robot?
     can_publish_scheduled_editions?
-  end
-
-  def location_limited?
-    world_editor? || world_writer?
   end
 
   def can_publish_scheduled_editions?
