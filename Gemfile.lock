@@ -117,7 +117,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    capybara-playwright-driver (0.5.6)
+    capybara-playwright-driver (0.5.7)
       addressable
       capybara
       playwright-ruby-client (>= 1.16.0)
@@ -436,7 +436,7 @@ GEM
       notifications-ruby-client (~> 6.0)
       rack (>= 2.1.4.1)
     marcel (1.0.4)
-    matrix (0.4.2)
+    matrix (0.4.3)
     maxitest (6.0.0)
       minitest (>= 5.20.0, < 5.26.0)
     method_source (1.1.0)
@@ -762,7 +762,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    playwright-ruby-client (1.54.0)
+    playwright-ruby-client (1.54.1)
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
     plek (5.2.2)
@@ -854,7 +854,7 @@ GEM
     redis (4.8.1)
     redis-client (0.25.0)
       connection_pool
-    regexp_parser (2.10.0)
+    regexp_parser (2.11.1)
     reline (0.6.2)
       io-console (~> 0.5)
     request_store (1.7.0)
