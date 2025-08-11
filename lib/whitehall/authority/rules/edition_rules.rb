@@ -65,14 +65,14 @@ module Whitehall::Authority::Rules
           subject.published_by != actor && (!subject.scheduled? || subject.scheduled_by != actor)
       when :force_publish
         (actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?) &&
-          (!subject.scheduled? || actor.can_publish_scheduled_editions?)
+          !subject.scheduled?
       when :mark_political
         actor.gds_admin? || actor.gds_editor? || actor.managing_editor?
       when :perform_administrative_tasks
         actor.gds_admin?
       when :publish
-        (actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor? || actor.scheduled_publishing_robot?) &&
-          subject.submitted_by != actor && (!subject.scheduled? || actor.can_publish_scheduled_editions?)
+        (actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?) &&
+          subject.submitted_by != actor && !subject.scheduled?
       when :reject
         actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?
       when :select_government_for_history_mode

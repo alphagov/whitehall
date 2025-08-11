@@ -55,14 +55,6 @@ class User < ApplicationRecord
     has_permission?(Permissions::GDS_ADMIN)
   end
 
-  def scheduled_publishing_robot?
-    can_publish_scheduled_editions?
-  end
-
-  def can_publish_scheduled_editions?
-    has_permission?(Permissions::PUBLISH_SCHEDULED_EDITIONS)
-  end
-
   def can_see_visual_editor_private_beta?
     has_permission?(Permissions::VISUAL_EDITOR_PRIVATE_BETA)
   end
