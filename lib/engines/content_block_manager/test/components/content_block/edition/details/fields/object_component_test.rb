@@ -6,13 +6,13 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ObjectComponent
   let(:content_block_edition) { build(:content_block_edition, :pension) }
   let(:nested_fields) do
     [
-      stub("field", name: "label", enum_values: nil),
-      stub("field", name: "type", enum_values: %w[enum_1 enum_2 enum_3]),
-      stub("field", name: "email_address", enum_values: nil),
+      stub("field", name: "label", enum_values: nil, default_value: nil),
+      stub("field", name: "type", enum_values: %w[enum_1 enum_2 enum_3], default_value: nil),
+      stub("field", name: "email_address", enum_values: nil, default_value: nil),
     ]
   end
   let(:schema) { stub("schema", id: "root") }
-  let(:field) { stub("field", name: "nested", nested_fields:, schema:, is_required?: true) }
+  let(:field) { stub("field", name: "nested", nested_fields:, schema:, is_required?: true, default_value: nil) }
 
   let(:label_stub) { stub("string_component") }
   let(:type_stub) { stub("enum_component") }
@@ -60,6 +60,24 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::ObjectComponent
       render_inline(component)
 
       assert_selector "input[name=\"content_block/edition[details][nested][label]\"][value=\"something\"]"
+    end
+  end
+
+  describe "when default values are present for the object" do
+    let(:nested_fields) do
+      [
+        stub("field", name: "label", enum_values: nil, default_value: "LABEL DEFAULT"),
+        stub("field", name: "type", enum_values: %w[enum_1 enum_2 enum_3], default_value: "TYPE DEFAULT"),
+        stub("field", name: "email_address", enum_values: nil, default_value: "EMAIL DEFAULT"),
+      ]
+    end
+
+    it "renders the field with the default values" do
+      render_inline(component)
+
+      assert_selector "input[name=\"content_block/edition[details][nested][label]\"][value=\"LABEL DEFAULT\"]"
+      assert_selector "input[name=\"content_block/edition[details][nested][type]\"][value=\"TYPE DEFAULT\"]"
+      assert_selector "input[name=\"content_block/edition[details][nested][email_address]\"][value=\"EMAIL DEFAULT\"]"
     end
   end
 

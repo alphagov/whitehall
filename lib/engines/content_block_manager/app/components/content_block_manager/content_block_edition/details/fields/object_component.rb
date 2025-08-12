@@ -14,6 +14,6 @@ private
   end
 
   def value_for_field(field)
-    value&.fetch(field.name, nil)
+    value&.fetch(field.name, nil) || field.default_value
   end
 end
