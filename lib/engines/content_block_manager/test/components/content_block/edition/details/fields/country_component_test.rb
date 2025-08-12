@@ -4,7 +4,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::CountryComponen
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :pension) }
-  let(:field) { stub("field", name: "country", is_required?: true) }
+  let(:field) { stub("field", name: "country", is_required?: true, default_value: nil) }
 
   let(:world_locations) { 5.times.map { |i| build(:world_location, name: "World location #{i}") } }
   let(:uk) { build(:world_location, name: "United Kingdom") }
