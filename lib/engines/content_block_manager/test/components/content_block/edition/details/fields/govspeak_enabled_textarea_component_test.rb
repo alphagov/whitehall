@@ -44,11 +44,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
     )
   end
 
-  let(:field_value) do
-    {
-      "prefix" => nil,
-    }
-  end
+  let(:field_value) { nil }
 
   let(:component) do
     ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabledTextareaComponent.new(
@@ -94,9 +90,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
 
     describe "default value" do
       context "when there is NO value set for the textarea" do
-        let(:field_value) do
-          { "prefix" => nil }
-        end
+        let(:field_value) { nil }
 
         it "supplies the default value defined in the schema" do
           render_inline component
@@ -108,9 +102,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
       end
 
       context "when there IS a value set for the textarea" do
-        let(:field_value) do
-          { "prefix" => "Field value *set*" }
-        end
+        let(:field_value) {  "Field value *set*" }
 
         it "displays that value" do
           render_inline component

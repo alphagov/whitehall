@@ -97,6 +97,21 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BSLGuidanceComp
           end
         end
       end
+
+      context "when the 'show' value is nil" do
+        let(:field_value) do
+          { "value" => nil,
+            "show" => nil }
+        end
+
+        it "sets the checkbox to _unchecked_" do
+          render_inline(component)
+
+          assert_selector(".app-c-content-block-manager-bsl-guidance-component") do |component|
+            component.assert_no_selector("input[checked='checked']")
+          end
+        end
+      end
     end
 
     describe "'value' nested field" do

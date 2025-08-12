@@ -3,7 +3,7 @@
     <%= render(
       ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabledTextareaComponent.new(
         content_block_edition: content_block_edition,
-        value: value,
+        value: value_for_field(value_field),
         nested_object_key: field.name,
         field: value_field,
         subschema: subschema,

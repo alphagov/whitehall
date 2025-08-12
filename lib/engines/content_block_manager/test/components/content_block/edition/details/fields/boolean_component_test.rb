@@ -4,41 +4,49 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponen
   extend Minitest::Spec::DSL
 
   let(:content_block_edition) { build(:content_block_edition, :pension) }
-  let(:field) { stub("field", name: "email_address", is_required?: true) }
+  let(:default_value) { nil }
+  let(:field) { stub("field", name: "email_address", is_required?: true, default_value:) }
 
-  it "should not check the checkbox if no value given" do
+  before do
     render_inline(
       ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.new(
         content_block_edition:,
         field:,
+        value: field_value,
       ),
     )
-
-    assert_selector "input[type=\"checkbox\"][value=\"true\"]"
-    assert_no_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
   end
 
-  it "should check checkbox if value given is 'true'" do
-    render_inline(
-      ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.new(
-        content_block_edition:,
-        field:,
-        value: "true",
-      ),
-    )
+  describe "when no value is given" do
+    let(:field_value) { nil }
 
-    assert_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
+    it "should not check the checkbox" do
+      assert_selector "input[type=\"checkbox\"][value=\"true\"]"
+      assert_no_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
+    end
+
+    describe "when the default value is true" do
+      let(:default_value) { "true" }
+
+      it "should check the checkbox" do
+        assert_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
+      end
+    end
   end
 
-  it "should not check the checkbox if value given is 'false'" do
-    render_inline(
-      ContentBlockManager::ContentBlockEdition::Details::Fields::BooleanComponent.new(
-        content_block_edition:,
-        field:,
-        value: "false",
-      ),
-    )
+  describe "when the value given is 'true'" do
+    let(:field_value) { "true" }
 
-    assert_no_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
+    it "should check the checkbox" do
+      assert_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
+    end
+  end
+
+  describe "when the value given is 'false'" do
+    let(:field_value) { "false" }
+
+    it "should check the checkbox" do
+      assert_no_selector "input[type=\"checkbox\"][value=\"true\"][checked=\"checked\"]"
+    end
   end
 end

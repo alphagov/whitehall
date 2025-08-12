@@ -7,7 +7,7 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::BaseComponent <
   def initialize(content_block_edition:, field:, value: nil, subschema: nil, **_args)
     @content_block_edition = content_block_edition
     @field = field
-    @value = value
+    @value = value || field.default_value
     @subschema = subschema
   end
 

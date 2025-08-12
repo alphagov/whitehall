@@ -44,20 +44,10 @@ class ContentBlockManager::ContentBlockEdition::Details::Fields::GovspeakEnabled
     "content_block/edition[details][#{subschema_block_type}][#{nested_object_key}][#{field.name}]"
   end
 
-  def value_or_default
-    value_for_field(field) || field.default_value
-  end
-
   def error_items
     errors_for(
       content_block_edition.errors,
       "details_#{subschema_block_type}_#{nested_object_key}_#{field.name}".to_sym,
     )
-  end
-
-private
-
-  def value_for_field(field)
-    value&.fetch(field.name, nil)
   end
 end
