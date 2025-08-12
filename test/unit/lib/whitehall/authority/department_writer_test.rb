@@ -8,7 +8,6 @@ class DepartmentWriterTest < ActiveSupport::TestCase
       gds_editor?: false,
       departmental_editor?: false,
       organisation: nil,
-      can_force_publish_anything?: false,
     )
   end
 
@@ -91,24 +90,6 @@ class DepartmentWriterTest < ActiveSupport::TestCase
 
   test "cannot force publish a scheduled edition" do
     assert_not enforcer_for(department_writer, scheduled_edition).can?(:force_publish)
-  end
-
-  test "can force publish an edition if they can_force_publish_anything?" do
-    user = department_writer
-    user.stubs(:can_force_publish_anything?).returns(true)
-
-    assert enforcer_for(user, normal_edition).can?(:force_publish)
-  end
-
-  test "can force publish a limited access edition outside their org if they can_force_publish_anything?" do
-    organisation1 = "organisation_1"
-    organisation2 = "organisation_2"
-    user = department_writer
-    user.stubs(:organisation).returns(organisation1)
-    user.stubs(:can_force_publish_anything?).returns(true)
-    edition = limited_publication([organisation2])
-
-    assert enforcer_for(user, edition).can?(:force_publish)
   end
 
   test "can make editorial remarks" do

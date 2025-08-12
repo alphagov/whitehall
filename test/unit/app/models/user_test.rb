@@ -97,16 +97,6 @@ class UserTest < ActiveSupport::TestCase
     assert gds_editor.can_handle_fatalities?
   end
 
-  test "cannot force publish anything by default" do
-    user = build(:user)
-    assert_not user.can_force_publish_anything?
-  end
-
-  test "can force publish imports if given permission" do
-    user = build(:user, permissions: [User::Permissions::FORCE_PUBLISH_ANYTHING])
-    assert user.can_force_publish_anything?
-  end
-
   test "can see the visual editor if given permission" do
     user = build(:user, permissions: [User::Permissions::VISUAL_EDITOR_PRIVATE_BETA])
     assert user.can_see_visual_editor_private_beta?

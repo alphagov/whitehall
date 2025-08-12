@@ -40,7 +40,7 @@ FactoryBot.define do
   factory :scheduled_publishing_robot, parent: :user do
     uid { nil }
     name { "Scheduled Publishing Robot" }
-    permissions { [User::Permissions::SIGNIN, User::Permissions::PUBLISH_SCHEDULED_EDITIONS] }
+    permissions { [User::Permissions::SIGNIN] }
   end
 
   factory :gds_admin, parent: :user do
@@ -69,7 +69,6 @@ FactoryBot.define do
         User::Permissions::SIGNIN,
         User::Permissions::DEPARTMENTAL_EDITOR,
         User::Permissions::GDS_EDITOR,
-        User::Permissions::FORCE_PUBLISH_ANYTHING,
       ]
     end
   end
