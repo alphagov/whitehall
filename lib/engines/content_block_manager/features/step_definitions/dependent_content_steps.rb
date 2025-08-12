@@ -54,9 +54,3 @@ When(/^dependent content exists for a content block$/) do
     .with(query: { uuids: [host_editor_id] })
     .to_return(body: [@host_content_editor].to_json)
 end
-
-And("the host documents link to the draft content store") do
-  @dependent_content.each do |item|
-    expect(page).to have_selector("a.govuk-link[href='#{Plek.external_url_for('draft-origin') + item['base_path']}']", text: item["title"])
-  end
-end

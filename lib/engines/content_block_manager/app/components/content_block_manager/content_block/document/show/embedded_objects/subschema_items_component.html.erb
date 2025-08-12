@@ -1,14 +1,3 @@
-<% if show_button %>
-  <%= render("govuk_publishing_components/components/button", {
-        text: button_text,
-        href: helpers.content_block_manager.new_content_block_manager_content_block_document_embedded_object_path(
-          content_block_edition.document,
-          object_type: subschema.id,
-        ),
-        margin_bottom: 6,
-  }) %>
-<% end %>
-
 <% embedded_objects.keys.each do |key| %>
   <%= render ContentBlockManager::ContentBlock::Document::Show::EmbeddedObjects::SubschemaItemComponent.new(
         content_block_edition:,
