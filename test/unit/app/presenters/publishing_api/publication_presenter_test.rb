@@ -27,7 +27,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       locale: "en",
       public_updated_at: publication.public_timestamp,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: "government-frontend",
+      rendering_app: "frontend",
       routes: [
         { path: public_path, type: "exact" },
       ],
