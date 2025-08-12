@@ -1,0 +1,33 @@
+name: Flog - Code Complexity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  flog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Ensure dev/test gems are installed
+        run: |
+          bundle config set with 'development test'
+          bundle install --jobs 4 --retry 3
+
+      - name: Generate complexity.txt
+        run: |
+          find app lib -path 'lib/engines/*' -prune -o -type f -name '*.rb' -print0 \
+            | xargs -0 bundle exec flog --all --methods-only --continue \
+            > complexity.txt
+          cat complexity.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flog-complexity-snapshot
+          path: |
+            complexity.txt
