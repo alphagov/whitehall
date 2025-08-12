@@ -43,6 +43,8 @@ module Whitehall::Authority
     "Edition" => Rules::EditionRules,
     "FatalityNotice" => Rules::FatalityNoticeRules,
     "LandingPage" => Rules::LandingPageRules,
+    "FlexiblePage" => Rules::FlexiblePageRules,
+    "FlexiblePageType" => Rules::FlexiblePageTypeRules,
     "MinisterialRole" => Rules::MinisterialRoleRules,
     "Person" => Rules::PersonRules,
     "PolicyGroup" => Rules::PolicyGroupRules,
