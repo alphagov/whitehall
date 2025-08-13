@@ -33,17 +33,6 @@ module Admin::EditionActionsHelper
         end,
       ],
       [
-        "News article sub-types",
-        NewsArticleType.all.map do |sub_type|
-          value = "news_article_#{sub_type.id}"
-          {
-            text: sub_type.plural_name,
-            value:,
-            selected: selected == value,
-          }
-        end,
-      ],
-      [
         "Speech sub-types",
         SpeechType.all.map do |sub_type|
           value = "speech_#{sub_type.id}"

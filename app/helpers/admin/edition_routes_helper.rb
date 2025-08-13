@@ -3,7 +3,6 @@ module Admin::EditionRoutesHelper
 
   EDITION_TYPES = [CallForEvidence,
                    Publication,
-                   NewsArticle,
                    Consultation,
                    Speech,
                    DetailedGuide,

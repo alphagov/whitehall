@@ -92,7 +92,6 @@ module Admin::RepublishingHelper
       WorldwideOrganisation
       FatalityNotice
       LandingPage
-      NewsArticle
       Publication
       Speech
       StatisticalDataSet

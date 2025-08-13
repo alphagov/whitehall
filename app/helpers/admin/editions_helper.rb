@@ -143,14 +143,6 @@ module Admin::EditionsHelper
     end
   end
 
-  def warn_about_lack_of_contacts_in_body?(edition)
-    if edition.is_a?(NewsArticle) && edition.news_article_type == NewsArticleType::PressRelease
-      Govspeak::ContactsExtractor.new(edition.body).valid_contacts.empty?
-    else
-      false
-    end
-  end
-
   def withdrawal_or_unpublishing(edition)
     edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Withdrawn.id ? "withdrawal" : "unpublishing"
   end

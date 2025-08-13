@@ -19,7 +19,6 @@ private
       detailed_guide: "Use this to tell users the steps they need to take to complete a clearly defined task. They are usually aimed at specialist or professional audiences.",
       document_collection: "Use this to group related documents on a single page for a specific audience or around a specific theme.",
       fatality_notice: "Use this to provide official confirmation of the death of a member of the armed forces while on deployment. Ministry of Defence only.",
-      news_article: "Use this for news story, press release, government response, and world news story.",
       publication: "Use this for standalone government documents, white papers, strategy documents, and reports.",
       speech: "Use this for speeches by ministers or other named spokespeople, and ministerial statements to Parliament.",
       statistical_data_set: "Use this for data that you publish monthly or more often without analysis.",

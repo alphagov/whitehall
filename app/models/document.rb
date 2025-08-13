@@ -235,7 +235,6 @@ class Document < ApplicationRecord
         types = {
           "consultation" => Consultation,
           "publication" => Publication,
-          "news_article" => NewsArticle,
           "speech" => Speech,
           "detailed_guide" => DetailedGuide,
           "document_collection" => DocumentCollection,

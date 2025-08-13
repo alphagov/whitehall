@@ -95,7 +95,6 @@ module Whitehall
       DocumentCollection,
       FatalityNotice,
       LandingPage,
-      NewsArticle,
       Publication,
       Speech,
       StatisticalDataSet,
@@ -110,7 +109,6 @@ module Whitehall
   def self.analytics_format(format)
     {
       policy: "policy",
-      news: "news",
       detailed_guidance: "detailed_guidance",
     }[format]
   end
