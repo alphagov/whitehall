@@ -385,7 +385,7 @@ GEM
       reline (>= 0.4.2)
     isbn_validation (1.2.2)
       activerecord (>= 3)
-    jbuilder (2.14.0)
+    jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     json (2.13.2)
