@@ -7,23 +7,18 @@
 
 <div class="app-view-summary__sidebar-notices">
   <% unless @edition.valid?(:publish) %>
-    <%
-      error_sources = collect_edition_and_attachment_error_sources(@edition)
-      error_messages = collect_filtered_validation_errors(error_sources)
-    %>
-
     <%= render "components/inset_prompt", {
       data_attributes: {
         module: "ga4-auto-tracker",
         ga4_auto: {
           type: "show invalid edition warning",
-          text: error_messages.join(", "),
+          text: @edition.errors.map(&:full_message).join(", "),
         }.merge(ga4_auto_attributes).as_json,
       },
       title: "This edition is invalid",
       description: render("govuk_publishing_components/components/list", {
         visible_counters: true,
-        items: error_messages,
+        items: @edition.errors.map(&:full_message),
       }),
       error: true,
     } %>

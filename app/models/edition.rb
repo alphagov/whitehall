@@ -56,6 +56,8 @@ class Edition < ApplicationRecord
   validates_with GovspeakContactEmbedValidator, on: :publish
   validates_with TaxonValidator, on: :publish, if: :requires_taxon?
 
+  validate :check_html_attachments_for_publication, on: :publish
+
   validates :creator, presence: true
   validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
   validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }
@@ -453,6 +455,23 @@ class Edition < ApplicationRecord
   end
 
 private
+
+  def check_html_attachments_for_publication
+    return unless respond_to?(:html_attachments)
+
+    html_attachments.each do |attachment|
+      next if attachment.valid?
+
+      attachment.invalid_contact_messages.each do |msg|
+        identifier = attachment.title.present? ? "'#{attachment.title}'" : attachment.id
+        errors.add(:base, "HTML Attachment #{identifier} contains invalid contact reference: #{msg}")
+      end
+
+      attachment.errors.messages[:base]&.each do |msg|
+        errors.add(:base, msg)
+      end
+    end
+  end
 
   def date_for_government
     published_edition_date = first_public_at.try(:to_date)

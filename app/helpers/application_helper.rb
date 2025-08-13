@@ -146,38 +146,4 @@ module ApplicationHelper
   def get_content_id(edition)
     edition&.content_id
   end
-
-  def collect_filtered_validation_errors(record_or_records)
-    records = Array(record_or_records)
-    edition = records.first
-
-    if edition.is_a?(Edition) && only_generic_attachment_errors?(edition)
-      edition.errors.clear
-      edition.valid?(:publish)
-    end
-
-    all_errors = records.flat_map { |record| record.errors.map(&:full_message) }.uniq
-    specific_errors = all_errors.reject do |msg|
-      msg.match?(/\b\w*attachments?\b.*is invalid$/i)
-    end
-
-    specific_errors.any? ? specific_errors : all_errors
-  end
-
-  def collect_edition_and_attachment_error_sources(edition)
-    sources = [edition]
-    sources += edition.html_attachments if edition.respond_to?(:html_attachments)
-    sources += edition.file_attachments if edition.respond_to?(:file_attachments)
-    sources
-  end
-
-private
-
-  def only_generic_attachment_errors?(record)
-    return false unless record.errors.any?
-
-    record.errors.all? do |error|
-      error.attribute.to_s.match?(/\battachments?\b/) && error.message == "is invalid"
-    end
-  end
 end
