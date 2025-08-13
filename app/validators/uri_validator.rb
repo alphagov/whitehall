@@ -17,14 +17,8 @@ class UriValidator < ActiveModel::EachValidator
 
     if uri.blank?
       record.errors.add(attribute, failure_message)
-    elsif uri.host&.end_with?("gov.uk")
-      record.errors.add(attribute, "is not valid. A redirect to a page on GOV.UK should not be specified with a full url (e.g. use '/example' rather than 'https://www.gov.uk/example')")
     elsif allowed_protocols.exclude?(uri.scheme)
-      if uri.scheme.nil? && value[0] == "/"
-        # Internal GOV.UK link - this is valid.
-      else
-        record.errors.add(attribute, "is not valid. Make sure it starts with http(s)")
-      end
+      record.errors.add(attribute, "is not valid. Make sure it starts with http(s)")
     end
   rescue URI::Error
     record.errors.add(attribute, failure_message)
