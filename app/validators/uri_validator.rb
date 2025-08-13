@@ -1,7 +1,7 @@
 # Modified from https://gist.github.com/timocratic/5113293
 require "addressable/uri"
 
-# Accepts options[:message] and options[:allowed_protocols]
+# Accepts options[:message]
 class UriValidator < ActiveModel::EachValidator
   MAX_LENGTH = 255
 
@@ -17,7 +17,7 @@ class UriValidator < ActiveModel::EachValidator
 
     if uri.blank?
       record.errors.add(attribute, failure_message)
-    elsif allowed_protocols.exclude?(uri.scheme)
+    elsif %w[http https].exclude?(uri.scheme)
       record.errors.add(attribute, "is not valid. Make sure it starts with http(s)")
     end
   rescue URI::Error
@@ -28,9 +28,5 @@ private
 
   def failure_message
     options[:message] || "is not valid."
-  end
-
-  def allowed_protocols
-    @allowed_protocols ||= [options[:allowed_protocols] || %w[http https]].flatten
   end
 end
