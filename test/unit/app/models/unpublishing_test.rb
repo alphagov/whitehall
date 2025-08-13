@@ -1,5 +1,6 @@
 require "test_helper"
 
+# TODO: consolidate gov_uk_url_format_validator tests
 class UnpublishingTest < ActiveSupport::TestCase
   test "#unpublished_at is automatically populated if left blank" do
     unpublishing = create(:unpublishing)

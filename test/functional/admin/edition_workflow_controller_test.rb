@@ -240,6 +240,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal publication, assigns(:edition)
   end
 
+  # TODO: consolidate gov_uk_url_format_validator tests
   view_test "confirm_unpublish describes the constraints of the alternative URL" do
     login_as(create(:managing_editor))
     publication = create(:published_publication)
