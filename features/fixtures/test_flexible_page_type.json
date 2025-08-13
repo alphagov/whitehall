@@ -44,6 +44,7 @@
     "base_path_prefix": "/government/test-type",
     "publishing_api_schema_name": "test_type",
     "publishing_api_document_type": "test_type",
-    "rendering_app": "government-frontend"
+    "rendering_app": "government-frontend",
+    "organisations": null
   }
 }

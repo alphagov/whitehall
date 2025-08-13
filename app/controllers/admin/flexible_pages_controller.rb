@@ -2,7 +2,9 @@
 class Admin::FlexiblePagesController < Admin::EditionsController
   before_action :prevent_access_when_disabled
   before_action :create_content_block_context
-  def choose_type; end
+  def choose_type
+    @permitted_flexible_page_types = FlexiblePageType.all.select { |type| can?(current_user, type) }
+  end
 
 private
 

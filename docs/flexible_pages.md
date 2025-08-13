@@ -10,17 +10,18 @@ The JSON for each type has these top level keys:
 
 - 'key': The unique identifier for the flexible page type. This is what will be stored in the edition's `flexible_page_type` column.
 - 'schema': The schema for the flexible page type, defined as [JSON schema](https://json-schema.org/docs). Each schema must have a root schema of the type "object".
-- 'settings': The settings for the flexible page type. All settings are required.
+- 'settings': The settings for the flexible page type.
 
-These are the settings available for flexible page types:
+These are the settings available for flexible page types. All settings are required.
 
-| Key                          | Description                                                                                                                                            |
-|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| base_path_prefix             | The prefix for the base path at which the flexible page will be published. E.g. /government/history for the page /government/history/10-downing-street | 
-| publishing_api_schema_name   | The Publishing API schema name for flexible pages of this type                                                                                         |
-| publishing_api_document_type | The Publishing API document type for flexible pages of this type                                                                                       |
-| rendering_app                | The rendering app for the flexible page type                                                                                                           |
-| images_enabled               | Whether or not users should be able to upload images for this flexible page type using the images tab on the edition form                              |
+| Key                      | Description                                                                                                                                                                          |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| base_path_prefix         | The prefix for the base path at which the flexible page will be published. E.g. /government/history for the page /government/history/10-downing-street                               |
+| publishing_api_schema_name | The Publishing API schema name for flexible pages of this type                                                                                                                       |
+| publishing_api_document_type | The Publishing API document type for flexible pages of this type                                                                                                                     |
+| rendering_app            | The redering app for the flexible page type                                                                                                                                         |
+| images_enabled           | Whether or not users should be able to upload images for this flexible page type using the images tab on the edition form                                                            |
+| organisations            | An array of organisation content IDs. Only users from one of the listed organisations will be able to use the flexible page type. Use "null" to allow all users to use the page type |
 
 The types are loaded from the JSON files on the first call to the `types` method on the [flexible page type model](../app/models/flexible_page_type.rb) and cached in memory. The model provides an ergonomic way to read values from a configuration file.
 
