@@ -19,9 +19,8 @@ class FlexiblePageContentBlocks::ImageSelectTest < ActiveSupport::TestCase
     payload = FlexiblePageContentBlocks::ImageSelect.new.publishing_api_payload(images[1].id)
 
     assert_equal({
-      src: images[1].url,
+      url: images[1].url,
       caption: images[1].caption,
-      alt_text: images[1].alt_text,
     }, payload)
   end
 
