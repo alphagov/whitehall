@@ -5,10 +5,6 @@ class Announcement < Edition
   include Edition::WorldLocations
   include Edition::TopicalEvents
 
-  def self.published_with_eager_loading(ids)
-    published.with_translations.includes([:document, { organisations: :translations }]).where(id: ids)
-  end
-
   def presenter
     AnnouncementPresenter
   end
