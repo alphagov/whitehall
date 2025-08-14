@@ -2,21 +2,19 @@ require "test_helper"
 
 class ImageKindTest < ActiveSupport::TestCase
   setup do
-    @test_instance = (
-      Class.new do
-        include ActiveModel::Model
-        include ActiveModel::Attributes
-        include ActiveModel::AttributeAssignment
+    @test_instance = Class.new {
+      include ActiveModel::Model
+      include ActiveModel::Attributes
+      include ActiveModel::AttributeAssignment
 
-        include ImageKind
+      include ImageKind
 
-        attr_reader :assigned_attributes
+      attr_reader :assigned_attributes
 
-        def assign_attributes(attributes)
-          @assigned_attributes = attributes
-        end
+      def assign_attributes(attributes)
+        @assigned_attributes = attributes
       end
-    ).new
+    }.new
   end
 
   test "adds an image_kind method with a default" do

@@ -10,21 +10,21 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   describe "#taxon_data" do
     test "base hash" do
       setup_taxons
-      assert_equal %w[taxon1 taxon2], (subject.taxon_data.map { |t| t["title"] })
+      assert_equal(%w[taxon1 taxon2], subject.taxon_data.map { |t| t["title"] })
     end
 
     test "expanded links" do
       setup_taxons
-      assert_equal %w[child1 child2],
-                   (subject.taxon_data.first.dig("links", "child_taxons").map { |t| t["title"] })
+      assert_equal(%w[child1 child2],
+                   subject.taxon_data.first.dig("links", "child_taxons").map { |t| t["title"] })
     end
   end
 
   describe "#world_taxon_data" do
     test "#expanded links" do
       setup_world_taxons
-      assert_equal %w[country-1 country-2],
-                   (subject.world_taxon_data.map { |t| t["title"] })
+      assert_equal(%w[country-1 country-2],
+                   subject.world_taxon_data.map { |t| t["title"] })
     end
   end
 

@@ -382,8 +382,8 @@ module PublishingApi::CallForEvidencePresenterTest
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
 
       assert_details_attribute :outcome_documents, [attachments_double]
-      assert_details_attribute :outcome_attachments,
-                               (call_for_evidence.outcome.attachments.map { |a| a.publishing_api_details[:id] })
+      assert_details_attribute(:outcome_attachments,
+                               call_for_evidence.outcome.attachments.map { |a| a.publishing_api_details[:id] })
     end
 
     test "validity" do
@@ -426,8 +426,8 @@ module PublishingApi::CallForEvidencePresenterTest
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
 
       assert_details_attribute :documents, [attachments_double]
-      assert_details_attribute :featured_attachments,
-                               (call_for_evidence.attachments.map { |a| a.publishing_api_details[:id] })
+      assert_details_attribute(:featured_attachments,
+                               call_for_evidence.attachments.map { |a| a.publishing_api_details[:id] })
     end
 
     test "validity" do

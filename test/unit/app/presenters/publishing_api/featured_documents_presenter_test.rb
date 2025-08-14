@@ -121,7 +121,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
     document_limit = 1
     presented_locations = featured_documents(world_location.world_location_news, document_limit)
 
-    assert_equal [create(:published_case_study).title], (presented_locations.map { |presented_location| presented_location[:title] })
+    assert_equal([create(:published_case_study).title], presented_locations.map { |presented_location| presented_location[:title] })
   end
 
   test("filters out featured documents if feature image assets are missing") do
