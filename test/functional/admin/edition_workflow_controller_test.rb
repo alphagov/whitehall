@@ -240,24 +240,15 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal publication, assigns(:edition)
   end
 
-  # TODO: consolidate gov_uk_url_format_validator tests
   view_test "confirm_unpublish describes the constraints of the alternative URL" do
     login_as(create(:managing_editor))
     publication = create(:published_publication)
     get :confirm_unpublish, params: { id: publication, lock_version: publication.lock_version }
 
     alternative_uris_constraints = <<~CONSTRAINTS
-      Must be a GOV.UK URL or a link ending in:
+      Must be an internal GOV.UK path (e.g. `/browse/benefits`) or a full URL to one of the sites on the allowlist below:
 
-        .caa.co.uk
-        .gov.uk
-        .independent-inquiry.uk
-        .judiciary.uk
-        .nationalhighways.co.uk
-        .nhs.uk
-        .police.uk
-        .pubscodeadjudicator.org.uk
-        .ukri.org
+        #{GovUkUrlFormatValidator::EXTERNAL_HOST_ALLOW_LIST.join(" ")}
     CONSTRAINTS
     alternative_uris_constraints = alternative_uris_constraints.strip.gsub(/\s+/, " ")
 
