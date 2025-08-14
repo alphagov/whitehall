@@ -6,6 +6,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   setup do
     login_as :gds_editor
     @edition = create(:consultation)
+    @publication = create(:publication)
   end
 
   def self.supported_attachable_types
@@ -39,12 +40,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
-    create(:html_attachment, title: "An HTML attachment", attachable: @edition)
-    create(:file_attachment, title: "An uploaded file attachment", attachable: @edition)
-    create(:file_attachment_with_no_assets, title: "An uploading file attachment", attachable: @edition, file: upload_fixture("two-pages.pdf"))
-    create(:external_attachment, title: "An external attachment", attachable: @edition)
+    create(:html_attachment, title: "An HTML attachment", attachable: @publication)
+    create(:file_attachment, title: "An uploaded file attachment", attachable: @publication)
+    create(:file_attachment_with_no_assets, title: "An uploading file attachment", attachable: @publication, file: upload_fixture("two-pages.pdf"))
+    create(:external_attachment, title: "An external attachment", attachable: @publication)
 
-    get :index, params: { edition_id: @edition }
+    get :index, params: { edition_id: @publication }
 
     assert_response :success
     assert_select "p.govuk-body", text: "Title: An HTML attachment"
@@ -54,9 +55,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :index shows external attachments" do
-    create(:external_attachment, title: "An external attachment", attachable: @edition)
+    create(:external_attachment, title: "An external attachment", attachable: @publication)
 
-    get :index, params: { edition_id: @edition }
+    get :index, params: { edition_id: @publication }
 
     assert_response :success
     assert_select "p.govuk-body", text: "Title: An external attachment"

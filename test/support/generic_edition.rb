@@ -14,4 +14,12 @@ class GenericEdition < Edition
   def publishing_api_presenter
     GenericEditionPresenter
   end
+
+  def allows_external_attachments?
+    true
+  end
+
+  def allows_html_attachments?
+    true
+  end
 end

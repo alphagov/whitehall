@@ -1,6 +1,5 @@
 class Admin::AttachmentsController < Admin::BaseController
   before_action :limit_attachable_access, if: :attachable_is_an_edition?
-  before_action :check_attachable_allows_attachment_type, only: %i[create new update edit]
   before_action :update_attachment_params, only: :update
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
@@ -80,10 +79,6 @@ private
     attachment.readable_type.downcase
   end
   helper_method :type
-
-  def check_attachable_allows_attachment_type
-    redirect_to attachable_attachments_path(attachable) unless attachable.allows_attachment_type?(type)
-  end
 
   def attachable_param
     params.keys.find { |k| k =~ /_id$/ }
