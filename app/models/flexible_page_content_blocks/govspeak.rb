@@ -17,7 +17,7 @@ module FlexiblePageContentBlocks
 
     def publishing_api_payload(content)
       {
-        html: Whitehall::GovspeakRenderer.new.govspeak_to_html(content),
+        html: Whitehall::GovspeakRenderer.new.govspeak_to_html(content, images: Context.page.images),
         **extract_headings(content),
       }
     end
