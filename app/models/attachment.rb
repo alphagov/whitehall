@@ -16,6 +16,7 @@ class Attachment < ApplicationRecord
 
   validates_with AttachmentValidator, on: :user_input
   validates :attachable, presence: true
+  validate :is_supported_attachable?
   validates :title, presence: true, length: { maximum: 255 }
   validates :isbn, isbn_format: true, allow_blank: true
   validates :unique_reference, length: { maximum: 255 }, allow_blank: true
@@ -147,6 +148,14 @@ class Attachment < ApplicationRecord
   end
 
 private
+
+  def is_supported_attachable?
+    prevent_saving_of_abstract_base_class
+
+    unless attachable && attachable.allows_attachment_type?(readable_type.downcase)
+      errors.add(:base, "Attachable does not allow attachment type of #{readable_type.downcase}")
+    end
+  end
 
   def set_ordering
     self.ordering = attachable.next_ordering
