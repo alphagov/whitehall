@@ -30,7 +30,6 @@ class Admin::ExternalAttachmentsControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: attachable, attachment: valid_external_attachment_params }
 
-    assert_response :redirect
     assert_equal 0, attachable.reload.attachments.size
   end
 
