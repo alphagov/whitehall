@@ -6,7 +6,6 @@ class Unpublishing < ApplicationRecord
   validates :edition, :unpublishing_reason, :document_type, :slug, presence: true
   validates :explanation, presence: { message: "must be provided when withdrawing", if: :withdrawn? }
   validates :alternative_url, presence: { message: "must be provided to redirect the document", if: :redirect? }
-  validates :alternative_url, uri: true, allow_blank: true
   validates :alternative_url, gov_uk_url_format: true, allow_blank: true
   validate :redirect_not_circular
 
