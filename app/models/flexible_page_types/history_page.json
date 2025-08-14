@@ -7,24 +7,6 @@
     "description": "A history page on GOV.UK",
     "type": "object",
     "properties": {
-      "page_title": {
-        "title": "Page title",
-        "description": "The title of the history page",
-        "type": "object",
-        "properties": {
-          "heading_text": {
-            "title": "Heading text",
-            "description": "The main heading text for the page title",
-            "type": "string"
-          },
-          "context": {
-            "title": "Context",
-            "description": "Some additional context for the page title",
-            "type": "string"
-          }
-        },
-        "required": ["heading_text"]
-      },
       "body": {
         "title": "Body",
         "description": "The main content for the page",
@@ -37,14 +19,13 @@
         "type": "string",
         "format": "image_select"
       }
-    },
-    "required": ["page_title"]
+    }
   },
   "settings": {
     "base_path_prefix": "/government/history",
     "publishing_api_schema_name": "history",
     "publishing_api_document_type": "history",
-    "rendering_app": "government-frontend",
+    "rendering_app": "frontend",
     "images_enabled": true,
     "organisations": ["af07d5a5-df63-4ddc-9383-6a666845ebe9"]
   }

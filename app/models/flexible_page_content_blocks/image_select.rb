@@ -21,9 +21,8 @@ module FlexiblePageContentBlocks
 
       if (selected_image = Context.page.images.find { |image| image.id == content.to_i })
         {
-          src: selected_image.url,
+          url: selected_image.url,
           caption: selected_image.caption,
-          alt_text: selected_image.alt_text,
         }
       else
         Rails.logger.warn("Flexible page with ID #{Context.page.id} does not have an image with ID #{content}, so the image has been excluded from the Publishing API payload.")
