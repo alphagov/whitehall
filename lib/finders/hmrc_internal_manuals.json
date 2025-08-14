@@ -19,18 +19,18 @@
     "facets": [
       {
         "allowed_values": [
-          { "label": "HMRC Manual Landing Page", "value": "hmrc_manual" },
-          { "label": "HMRC Manual Section", "value": "hmrc_manual_section" }
+          { "label": "HMRC manual", "value": "hmrc_manual" },
+          { "label": "HMRC manual page", "value": "hmrc_manual_section" }
         ],
         "display_as_result_metadata": false,
         "filterable": true,
         "key": "content_store_document_type",
-        "name": "Document type",
+        "name": "Page type",
         "preposition": "of type",
         "type": "text"
       },
       {
-        "name": "Last Updated",
+        "name": "Last updated",
         "key": "public_timestamp",
         "type": "date",
         "display_as_result_metadata": true,
