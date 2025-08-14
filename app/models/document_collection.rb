@@ -1,7 +1,6 @@
 class DocumentCollection < Edition
   include Edition::Organisations
   include Edition::TaggableOrganisations
-
   include Edition::TopicalEvents
 
   has_many :groups,

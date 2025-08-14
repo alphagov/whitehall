@@ -1,6 +1,7 @@
 class Role < ApplicationRecord
   include HasContentId
   include PublishesToPublishingApi
+  include TranslatableModel
 
   HISTORIC_ROLE_PARAM_MAPPINGS = { "past-prime-ministers" => "prime-minister",
                                    "past-chancellors" => "chancellor-of-the-exchequer",
@@ -64,7 +65,6 @@ class Role < ApplicationRecord
   extend FriendlyId
   friendly_id
 
-  include TranslatableModel
   translates :name, :responsibilities
 
   def self.prime_minister_role

@@ -1,6 +1,7 @@
 class Person < ApplicationRecord
   include PublishesToPublishingApi
   include ReshuffleMode
+  include TranslatableModel
 
   has_many :role_appointments,
            lambda {
@@ -34,7 +35,6 @@ class Person < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_name
 
-  include TranslatableModel
   translates :biography
 
   before_destroy :prevent_destruction_if_appointed

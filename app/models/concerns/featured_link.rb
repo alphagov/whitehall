@@ -1,5 +1,6 @@
 class FeaturedLink < ApplicationRecord
   extend ActiveSupport::Concern
+  include TranslatableModel
 
   DEFAULT_SET_SIZE = 5
 
@@ -10,7 +11,6 @@ class FeaturedLink < ApplicationRecord
   validates :url, :title, presence: true
   validates :url, uri: true
 
-  include TranslatableModel
   translates :title, :url
 
   def republish_organisation_to_publishing_api

@@ -7,14 +7,12 @@
 # Once the statistics are published, the statistics announcement will redirect and
 # disappear from search.
 #
-# Statistics Announcements pages are rendered by the `government-frontend` app,
-# the index page is still rendered from Whitehall.
-#
 # Statistics announcements are not versioned/editioned.
 class StatisticsAnnouncement < ApplicationRecord
   extend FriendlyId
   friendly_id :title
   include PublishesToPublishingApi
+  include Searchable
 
   def can_publish_to_publishing_api?
     super && !publication_has_been_published? && !unpublished?
@@ -71,7 +69,6 @@ class StatisticsAnnouncement < ApplicationRecord
 
   default_scope { published }
 
-  include Searchable
   searchable  only: :without_published_publication,
               title: :title,
               link: :base_path,

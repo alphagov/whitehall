@@ -1,6 +1,7 @@
 class Contact < ApplicationRecord
   include Dependable
   include PublishesToPublishingApi
+  include TranslatableModel
 
   belongs_to :contactable, polymorphic: true
   has_many   :contact_numbers, dependent: :destroy
@@ -23,7 +24,6 @@ class Contact < ApplicationRecord
   after_create :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
 
-  include TranslatableModel
   translates :title,
              :comments,
              :recipient,

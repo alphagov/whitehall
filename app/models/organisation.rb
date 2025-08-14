@@ -5,6 +5,8 @@ class Organisation < ApplicationRecord
   include Searchable
   include Organisation::OrganisationTypeConcern
   include UserOrderable
+  include TranslatableModel
+  include Featurable
 
   date_attributes(:closed_at)
 
@@ -174,10 +176,7 @@ class Organisation < ApplicationRecord
   delegate :ministerial_department?, to: :type
   delegate :devolved_administration?, to: :type
 
-  include TranslatableModel
   translates :name, :logo_formatted_name, :acronym
-
-  include Featurable
 
   mount_uploader :logo, LogoUploader
 
