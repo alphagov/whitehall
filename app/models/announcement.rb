@@ -5,10 +5,6 @@ class Announcement < Edition
   include Edition::WorldLocations
   include Edition::TopicalEvents
 
-  def presenter
-    AnnouncementPresenter
-  end
-
   def base_path
     "/government/news/#{slug}"
   end

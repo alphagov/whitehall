@@ -12,10 +12,6 @@ class Publicationesque < Edition
 
   include ::Attachable
 
-  def presenter
-    PublicationesquePresenter
-  end
-
 protected
 
   def hash_with_blank_values?(hash)
