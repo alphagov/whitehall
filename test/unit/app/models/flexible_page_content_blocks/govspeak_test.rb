@@ -17,11 +17,13 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
       "test_attribute" => govspeak,
     }
     page = FlexiblePage.new
+    page.images = [create(:image)]
     page.flexible_page_content = content
+    FlexiblePageContentBlocks::Context.create_for_page(page)
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
-      .with(govspeak)
+      .with(govspeak, images: page.images)
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
       payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
@@ -37,10 +39,11 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     }
     page = FlexiblePage.new
     page.flexible_page_content = content
+    FlexiblePageContentBlocks::Context.create_for_page(page)
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
-      .with(govspeak)
+      .with(govspeak, images: [])
       .returns(html)
     expected_headers = [
       {
@@ -64,10 +67,11 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     }
     page = FlexiblePage.new
     page.flexible_page_content = content
+    FlexiblePageContentBlocks::Context.create_for_page(page)
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
-      .with(govspeak)
+      .with(govspeak, images: [])
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
       payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
