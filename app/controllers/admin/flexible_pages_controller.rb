@@ -1,7 +1,6 @@
 # Trying to figure out how flexible pages work? Check the documentation: `docs/flexible_pages.md`!
 class Admin::FlexiblePagesController < Admin::EditionsController
   before_action :prevent_access_when_disabled
-  before_action :create_content_block_context
   def choose_type
     @permitted_flexible_page_types = FlexiblePageType.all.select { |type| can?(current_user, type) }
   end
@@ -14,10 +13,6 @@ private
 
   def prevent_access_when_disabled
     head :not_found unless Flipflop.flexible_pages?
-  end
-
-  def create_content_block_context
-    FlexiblePageContentBlocks::Context.create_for_page(@edition)
   end
 
   def new_edition_params

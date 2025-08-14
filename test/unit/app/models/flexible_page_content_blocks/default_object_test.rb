@@ -25,8 +25,8 @@ class FlexiblePageContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
       },
     }
     page = FlexiblePage.new
-    FlexiblePageContentBlocks::Context.create_for_page(page)
-    payload = FlexiblePageContentBlocks::DefaultObject.new.publishing_api_payload(schema, content)
+    factory = FlexiblePageContentBlocks::Factory.new(page)
+    payload = FlexiblePageContentBlocks::DefaultObject.new(factory).publishing_api_payload(schema, content)
     assert_equal(Whitehall::GovspeakRenderer.new.govspeak_to_html(content["test_attribute"]), payload[:test_attribute][:html])
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
   end
@@ -45,7 +45,9 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
       "required" => %w[test_attribute],
     }
-    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new, required: true }
+    factory = FlexiblePageContentBlocks::Factory.new(FlexiblePage.new)
+    block = FlexiblePageContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content: {}, path: Path.new, required: true }
     assert_dom "legend", text: "#{schema['title']} (required)"
     assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
@@ -62,7 +64,9 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
       "required" => %w[test_attribute],
     }
-    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new, required: false, root: true }
+    factory = FlexiblePageContentBlocks::Factory.new(FlexiblePage.new)
+    block = FlexiblePageContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content: {}, path: Path.new, required: false, root: true }
     refute_dom "legend", text: schema["title"]
   end
 
@@ -78,7 +82,9 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
     }
 
-    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new }
+    factory = FlexiblePageContentBlocks::Factory.new(FlexiblePage.new)
+    block = FlexiblePageContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content: {}, path: Path.new }
     assert_dom "label", text: schema["properties"]["test_attribute"]["title"]
     refute_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
@@ -95,7 +101,9 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
       "required" => %w[test_attribute],
     }
-    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content: {}, path: Path.new }
+    factory = FlexiblePageContentBlocks::Factory.new(FlexiblePage.new)
+    block = FlexiblePageContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content: {}, path: Path.new }
     assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
 
@@ -111,7 +119,9 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
     }
     content = { "not_nested_attribute" => "bar" }
-    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content:, path: Path.new }
+    factory = FlexiblePageContentBlocks::Factory.new(FlexiblePage.new)
+    block = FlexiblePageContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content:, path: Path.new }
     assert_dom "input[name=?][value=?]", "edition[flexible_page_content][not_nested_attribute]", "bar"
   end
 
@@ -133,7 +143,9 @@ class FlexiblePageContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       },
     }
     content = { "test_object_attribute" => { "nested_attribute" => "foo" } }
-    render partial: "admin/flexible_pages/content_blocks/default_object", locals: { schema:, content:, path: Path.new }
+    factory = FlexiblePageContentBlocks::Factory.new(FlexiblePage.new)
+    block = FlexiblePageContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content:, path: Path.new }
     assert_dom "input[name=?][value=?]", "edition[flexible_page_content][test_object_attribute][nested_attribute]", "foo"
   end
 end

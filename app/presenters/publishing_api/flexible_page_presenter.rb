@@ -14,9 +14,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(item, update_type:).base_attributes
       content.merge!(
-        details: {
-          **flatten_headers(FlexiblePageContentBlocks::DefaultObject.new.publishing_api_payload(type.schema, item.flexible_page_content)),
-        },
+        details:,
         document_type: type.settings["publishing_api_document_type"],
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: type.settings["rendering_app"],
@@ -38,6 +36,13 @@ module PublishingApi
     end
 
   private
+
+    def details
+      root_block = FlexiblePageContentBlocks::Factory.new(item).build("object")
+      {
+        **flatten_headers(root_block.publishing_api_payload(type.schema, item.flexible_page_content)),
+      }
+    end
 
     def flatten_headers(content)
       if content[:body]

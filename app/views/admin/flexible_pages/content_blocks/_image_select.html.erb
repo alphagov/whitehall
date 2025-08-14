@@ -4,7 +4,7 @@
        text: "No image selected",
        value: "",
      },
-   ] + FlexiblePageContentBlocks::Context.page.images.map do |image|
+   ] + image_select.images.map do |image|
   {
     text: image.filename,
     value: image.id,

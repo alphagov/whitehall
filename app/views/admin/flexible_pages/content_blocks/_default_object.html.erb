@@ -8,8 +8,8 @@
     id: path.form_control_id,
   } do %>
     <% schema["properties"].each do |property_key, property_schema| %>
-      <% block = FlexiblePageContentBlocks::Factory.build(property_schema["type"], property_schema["format"] || "default") %>
-      <%= render block.to_partial_path, {
+      <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
+      <%= render block, {
         schema: property_schema,
         content: content[property_key],
         path: path.push(property_key),
@@ -19,8 +19,8 @@
   <% end %>
 <% else %>
   <% schema["properties"].each do |property_key, property_schema| %>
-    <% block = FlexiblePageContentBlocks::Factory.build(property_schema["type"], property_schema["format"] || "default") %>
-    <%= render block.to_partial_path, {
+    <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
+    <%= render block, {
       schema: property_schema,
       content: content[property_key],
       path: path.push(property_key),
