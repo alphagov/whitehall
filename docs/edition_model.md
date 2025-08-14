@@ -4,7 +4,7 @@ This page documents only a subset of the full Document and Edition model world -
 
 ![Edition Model diagram](diagrams/edition_model.png)
 
-Note, as a simplification, that concerns are not shown.  For instance `Attachment` is actually linked to an `Attachable` which is a concern mixed in by `Publicationesque`
+Note, as a simplification, that concerns are not shown.  For instance `Attachment` is actually linked to an `Attachable` which is a concern mixed into the model (e.g. Publication).
 
 ## Document
 

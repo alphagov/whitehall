@@ -3,8 +3,13 @@
 # Example:
 #  https://www.gov.uk/government/statistical-data-sets/2011-skills-for-life-survey-small-area-estimation-data
 #
-class StatisticalDataSet < Publicationesque
+class StatisticalDataSet < Edition
   include Edition::AlternativeFormatProvider
+  include Edition::HasDocumentCollections
+  include Edition::Organisations
+  include Edition::TaggableOrganisations
+
+  include ::Attachable
 
   def allows_attachment_references?
     true
