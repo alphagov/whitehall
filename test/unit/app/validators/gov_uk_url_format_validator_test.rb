@@ -1,15 +1,19 @@
 require "test_helper"
 
-# TODO: consolidate gov_uk_url_format_validator tests
 class GovUkUrlFormatValidatorTest < ActiveSupport::TestCase
-#   setup do
-#     @validator = UriValidator.new(attributes: [:url])
-#   end
+  setup do
+    @validator = GovUkUrlFormatValidator.new(attributes: [:alternative_url])
+  end
 
-#   test "validates nil urls" do
-#     feature_link = validate(PromotionalFeatureLink.new(url: nil))
-#     assert feature_link.errors.empty?
-#   end
+  # test "validates https urls on the allowlist" do
+  #   redirect_link = validate(Unpublishing.new(alternative_url: "https://nhs.uk/bar"))
+  #   assert redirect_link.errors.empty?
+  # end
+
+  test "validates https subdomain / wildcard urls on the allowlist" do
+    redirect_link = validate(Unpublishing.new(alternative_url: "https://foo.nhs.uk/bar"))
+    assert redirect_link.errors.empty?
+  end
 
 #   test "validates http urls" do
 #     feature_link = validate(PromotionalFeatureLink.new(url: "http://example.com"))
@@ -69,10 +73,10 @@ class GovUkUrlFormatValidatorTest < ActiveSupport::TestCase
 #     assert_includes feature_link.errors[:url], I18n.t("activerecord.errors.models.nation_inapplicability.attributes.alternative_url.too_long")
 #   end
 
-# private
+private
 
-#   def validate(record)
-#     @validator.validate(record)
-#     record
-#   end
+  def validate(record)
+    @validator.validate(record)
+    record
+  end
 end
