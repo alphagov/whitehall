@@ -150,19 +150,6 @@ module Whitehall
       PublishingApiUnpublishingWorker.new.perform(unpublishing.id)
     end
 
-    def self.save_draft_redirect_async(base_path, redirects, locale = I18n.default_locale.to_s)
-      PublishingApiRedirectWorker.perform_async(
-        base_path,
-        redirects,
-        locale.to_s,
-        draft: true,
-      )
-    end
-
-    def self.save_draft_gone_async(base_path)
-      PublishingApiGoneWorker.perform_async(base_path, draft: true)
-    end
-
     def self.discard_draft_async(edition)
       locales_for(edition).each do |locale|
         PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale.to_s)
