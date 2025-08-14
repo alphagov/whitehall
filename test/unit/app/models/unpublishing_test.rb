@@ -1,7 +1,10 @@
 require "test_helper"
 
-# TODO: consolidate gov_uk_url_format_validator tests
 class UnpublishingTest < ActiveSupport::TestCase
+  setup do
+    @valid_alternative_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example"
+  end
+
   test "#unpublished_at is automatically populated if left blank" do
     unpublishing = create(:unpublishing)
     assert_equal Time.zone.now, unpublishing.unpublished_at
@@ -13,7 +16,6 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal unpublished_at, unpublishing.unpublished_at
   end
 
-  # moved from duplicate file
   test "is not valid without an unpublishing reason" do
     unpublishing = build(:unpublishing, unpublishing_reason: nil)
     assert_not unpublishing.valid?
@@ -44,10 +46,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true)
     assert_not unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: @valid_alternative_url)
     assert unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: false, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
+    unpublishing = build(:unpublishing, redirect: false, alternative_url: @valid_alternative_url)
     assert unpublishing.valid?
   end
 
@@ -60,12 +62,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
   end
 
+  # TODO: consolidate gov_uk_url_format_validator tests
   test "alternative_url must be internal (www.gov.uk) or present on the allowed list" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
     assert_not unpublishing.valid?
-
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
-    assert unpublishing.valid?
 
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.independent-inquiry.uk/about-the-independent-inquiry/")
     assert unpublishing.valid?
@@ -121,6 +121,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk/guidance/document-path#part-one")
     assert_includes unpublishing.alternative_path, "#part-one"
   end
+  # UP TO HERE
 
   test "returns an unpublishing reason" do
     unpublishing = build(:unpublishing, unpublishing_reason: reason)
