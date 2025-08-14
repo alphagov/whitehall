@@ -28,7 +28,6 @@ module Edition::Scopes::FilterableByType
       where(arel_table[:type].not_in(edition_classes.map(&:name)))
     }
 
-    scope :announcements, -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
     scope :consultations, -> { by_type("Consultation") }
     scope :call_for_evidence, -> { by_type("CallForEvidence") }
     scope :detailed_guides, -> { by_type("DetailedGuide") }

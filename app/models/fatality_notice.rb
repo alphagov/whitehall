@@ -1,6 +1,11 @@
-class FatalityNotice < Announcement
+class FatalityNotice < Edition
   include Edition::RoleAppointments
   include Edition::FactCheckable
+  include Edition::Images
+  include Edition::Organisations
+  include Edition::TaggableOrganisations
+  include Edition::WorldLocations
+  include Edition::TopicalEvents
 
   belongs_to :operational_field
 

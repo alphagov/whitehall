@@ -2,7 +2,6 @@ require "uri"
 
 module Admin::BasePathHelper
   MAPPINGS = [
-    { "Announcement" => "/government/news" },
     { "CallForEvidence" => "/government/calls-for-evidence" },
     { "CaseStudy" => "/government/case-studies" },
     { "Consultation" => "/government/consultations" },
