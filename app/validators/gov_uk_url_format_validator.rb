@@ -19,7 +19,26 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
   end
 
   def self.matches_gov_uk?(value)
-    %r{\A#{Whitehall.public_protocol}://#{Whitehall.public_host}/}.match?(value)
+    uri = URI.parse(value)
+    return false unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+
+    host = uri.host&.downcase
+    return false if host.blank?
+
+    %w[
+      gov.uk
+      www.gov.uk
+      staging.publishing.service.gov.uk
+      www.staging.publishing.service.gov.uk
+      integration.publishing.service.gov.uk
+      www.integration.publishing.service.gov.uk
+      test.gov.uk
+      www.test.gov.uk
+      dev.gov.uk
+      www.dev.gov.uk
+    ].include?(host)
+  rescue URI::InvalidURIError
+    false
   end
 
 private
