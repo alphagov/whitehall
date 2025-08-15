@@ -80,7 +80,7 @@ module OrganisationHelper
 
   def needs_definite_article?(phrase)
     exceptions = [/civil service resourcing/, /^hm/, /ordnance survey/]
-    !has_definite_article?(phrase) && !(exceptions.any? { |e| e =~ phrase.downcase })
+    !has_definite_article?(phrase) && exceptions.none? { |e| e =~ phrase.downcase }
   end
 
   def has_definite_article?(phrase)

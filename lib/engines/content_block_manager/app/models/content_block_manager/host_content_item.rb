@@ -12,7 +12,6 @@ module ContentBlockManager
     :host_content_id,
     :host_locale,
   )
-
     DEFAULT_ORDER = "-unique_pageviews".freeze
 
     class << self
