@@ -1,4 +1,6 @@
 class SocialMediaAccount < ApplicationRecord
+  include TranslatableModel
+
   belongs_to :socialable, polymorphic: true
   belongs_to :social_media_service
 
@@ -8,7 +10,6 @@ class SocialMediaAccount < ApplicationRecord
   validates :social_media_service, presence: true
   validates :url, presence: true, uri: true
 
-  include TranslatableModel
   translates :url, :title
 
   def republish_organisation_to_publishing_api

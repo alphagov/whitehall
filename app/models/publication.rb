@@ -3,9 +3,7 @@
 # There are many types of publications - see `PublicationType`.
 #
 # Publication pages are rendered by Frontend.
-#
-# Note that `Publicationesque` inherits from `Edition`
-class Publication < Publicationesque
+class Publication < Edition
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::RoleAppointments
@@ -14,6 +12,11 @@ class Publication < Publicationesque
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
   include Edition::TopicalEvents
+  include Edition::HasDocumentCollections
+  include Edition::Organisations
+  include Edition::TaggableOrganisations
+
+  include ::Attachable
 
   before_validation :set_statistics_announcement
   validates :publication_type_id, presence: true

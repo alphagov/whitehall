@@ -1,4 +1,9 @@
 class WorldwideOrganisationPage < ApplicationRecord
+  include HasContentId
+  include Attachable
+  include HasCorporateInformationPageType
+  include TranslatableModel
+
   belongs_to :edition
 
   validates :body, presence: true
@@ -13,11 +18,6 @@ class WorldwideOrganisationPage < ApplicationRecord
   after_commit :republish_worldwide_organisation_draft
   after_destroy :discard_draft
 
-  include HasContentId
-  include Attachable
-  include HasCorporateInformationPageType
-
-  include TranslatableModel
   translates :title, :summary, :body
 
   delegate :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true

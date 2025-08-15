@@ -14,11 +14,7 @@ together {
     Edition .> editions
     rectangle "(others)" as othereds
     Edition <|-- othereds
-    Edition <|-- Publicationesque
-    abstract Publicationesque
-    Publicationesque <|-- Publication
-    rectangle "(others)" as otherpubs
-    Publicationesque <|-- otherpubs
+    Edition <|-- Publication
 }
 
 together {
@@ -36,7 +32,7 @@ together {
 
 Document *-r- Edition : "has_many"
 
-Publicationesque *-r- Attachment: "has_many"
+Publication *-r- Attachment: "has_many"
 
 
 class Document {

@@ -1,4 +1,6 @@
 class WorldwideOffice < ApplicationRecord
+  include HasContentId
+
   has_one :contact, as: :contactable, dependent: :destroy
   belongs_to :edition
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office
@@ -12,8 +14,6 @@ class WorldwideOffice < ApplicationRecord
 
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists
-
-  include HasContentId
 
   contact_methods = %w[
     comments

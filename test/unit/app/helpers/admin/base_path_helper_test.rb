@@ -7,7 +7,6 @@ class Admin::BasePathHelperTest < ActionView::TestCase
 
   describe "#url_to_document_type" do
     test "it maps a URL to a document type" do
-      assert_equal Announcement, url_to_document_type("/government/news/slug") # defaults to parent, rather than e.g. NewsArticle
       assert_equal CallForEvidence, url_to_document_type("/government/calls-for-evidence/slug")
       assert_equal CaseStudy, url_to_document_type("/government/case-studies/slug")
       assert_equal Consultation, url_to_document_type("/government/consultations/slug")

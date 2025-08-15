@@ -21,7 +21,6 @@ class TopicalEvent < ApplicationRecord
 
   has_many :topical_event_memberships, inverse_of: :topical_event
   has_many :editions, through: :topical_event_memberships
-  has_many :announcements, through: :topical_event_memberships
   has_many :consultations, through: :topical_event_memberships
   has_many :calls_for_evidence, through: :topical_event_memberships
   has_many :detailed_guides, through: :topical_event_memberships
@@ -52,12 +51,6 @@ class TopicalEvent < ApplicationRecord
            -> { order("topical_event_featurings.ordering ASC") },
            through: :topical_event_featurings,
            source: :edition
-
-  has_many :published_announcements,
-           -> { where("editions.state" => "published") },
-           through: :topical_event_memberships,
-           class_name: "Announcement",
-           source: :announcement
 
   has_many :published_publications,
            -> { where("editions.state" => "published") },
@@ -129,10 +122,6 @@ class TopicalEvent < ApplicationRecord
 
   def scheduled_editions
     editions.scheduled.order("scheduled_publication ASC")
-  end
-
-  def published_announcements
-    published_editions.announcements
   end
 
   def published_consultations

@@ -1,4 +1,4 @@
-class NewsArticle < Announcement
+class NewsArticle < Edition
   include Edition::RoleAppointments
   include Edition::HasDocumentCollections
   include ::Attachable
@@ -7,6 +7,11 @@ class NewsArticle < Announcement
   include Edition::FactCheckable
   include Edition::CustomLeadImage
   include Edition::LeadImage
+  include Edition::Images
+  include Edition::Organisations
+  include Edition::TaggableOrganisations
+  include Edition::WorldLocations
+  include Edition::TopicalEvents
 
   validate :ministers_are_not_associated, if: :world_news_story?
   validates :news_article_type_id, presence: true
@@ -44,6 +49,10 @@ class NewsArticle < Announcement
 
   def rendering_app
     Whitehall::RenderingApp::FRONTEND
+  end
+
+  def base_path
+    "/government/news/#{slug}"
   end
 
   def locale_can_be_changed?

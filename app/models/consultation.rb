@@ -1,4 +1,4 @@
-class Consultation < Publicationesque
+class Consultation < Edition
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::RoleAppointments
@@ -6,6 +6,11 @@ class Consultation < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::TopicalEvents
   include Edition::HasOpeningAndClosingDates
+  include Edition::HasDocumentCollections
+  include Edition::Organisations
+  include Edition::TaggableOrganisations
+
+  include ::Attachable
 
   validates :external_url, presence: true, if: :external?
   validates :external_url, uri: true, allow_blank: true
@@ -166,5 +171,11 @@ private
 
   def consultation_response_file_uploaded_to_asset_manager!
     errors.add(:consultation_response_form, "must have finished uploading") unless consultation_participation.consultation_response_form_uploaded_to_asset_manager?
+  end
+
+  def all_blank_or_empty_hashes(attributes)
+    attributes.values.reduce(true) do |result, value|
+      result && (value.is_a?(Hash) ? all_blank_or_empty_hashes(value) : value.blank?)
+    end
   end
 end

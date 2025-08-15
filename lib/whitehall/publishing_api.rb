@@ -142,29 +142,12 @@ module Whitehall
       PublishingApiGoneWorker.perform_async(content_id, alternative_path, explanation, locale.to_s)
     end
 
-    def self.publish_vanish_async(document_content_id, locale = I18n.default_locale.to_s)
-      PublishingApiVanishWorker.perform_async(document_content_id, locale.to_s)
-    end
-
     def self.publish_withdrawal_sync(document_content_id, explanation, unpublished_at, locale = I18n.default_locale.to_s)
       PublishingApiWithdrawalWorker.new.perform(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
     end
 
     def self.unpublish_sync(unpublishing)
       PublishingApiUnpublishingWorker.new.perform(unpublishing.id)
-    end
-
-    def self.save_draft_redirect_async(base_path, redirects, locale = I18n.default_locale.to_s)
-      PublishingApiRedirectWorker.perform_async(
-        base_path,
-        redirects,
-        locale.to_s,
-        draft: true,
-      )
-    end
-
-    def self.save_draft_gone_async(base_path)
-      PublishingApiGoneWorker.perform_async(base_path, draft: true)
     end
 
     def self.discard_draft_async(edition)

@@ -3,7 +3,6 @@ class TopicalEventMembership < ApplicationRecord
   belongs_to :topical_event, inverse_of: :topical_event_memberships
 
   belongs_to :detailed_guide, foreign_key: :edition_id
-  belongs_to :announcement, foreign_key: :edition_id
   belongs_to :news_article, foreign_key: :edition_id
   belongs_to :speech, foreign_key: :edition_id
   belongs_to :publication, foreign_key: :edition_id

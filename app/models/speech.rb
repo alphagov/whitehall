@@ -1,7 +1,12 @@
-class Speech < Announcement
+class Speech < Edition
   include Edition::Appointment
   include Edition::HasDocumentCollections
   include Edition::LeadImage
+  include Edition::Images
+  include Edition::Organisations
+  include Edition::TaggableOrganisations
+  include Edition::WorldLocations
+  include Edition::TopicalEvents
 
   validates :speech_type_id, presence: true
   validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }

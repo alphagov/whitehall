@@ -171,8 +171,6 @@ FactoryBot.define do
     end
   end
 
-  factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations]
-
   factory :edition_with_document, parent: :edition, traits: [:with_document]
   factory :draft_edition, parent: :edition, traits: [:draft]
   factory :submitted_edition, parent: :edition, traits: [:submitted]

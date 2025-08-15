@@ -1,4 +1,9 @@
 class WorldLocation < ApplicationRecord
+  include HasContentId
+  include AnalyticsIdentifierPopulator
+  include TranslatableModel
+  include PublishesToPublishingApi
+
   has_many :edition_world_locations, inverse_of: :world_location
   has_many :editions,
            through: :edition_world_locations
@@ -32,17 +37,11 @@ class WorldLocation < ApplicationRecord
 
   accepts_nested_attributes_for :edition_world_locations
 
-  include HasContentId
-
-  include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WL"
 
-  include TranslatableModel
   translates :name
 
   scope :ordered_by_name, -> { with_translations(I18n.default_locale).order("world_location_translations.name") }
-
-  include PublishesToPublishingApi
 
   def self.active
     where(active: true)

@@ -9,6 +9,7 @@ class WorldwideOrganisation < Edition
   include Edition::WorldLocations
 
   include Attachable
+  include AnalyticsIdentifierPopulator
 
   has_many :pages, class_name: "WorldwideOrganisationPage", foreign_key: :edition_id, dependent: :destroy, autosave: true
 
@@ -82,7 +83,6 @@ class WorldwideOrganisation < Edition
 
   add_trait ClonePagesTrait
 
-  include AnalyticsIdentifierPopulator
   self.analytics_prefix = "WO"
 
   delegate :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true

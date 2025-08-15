@@ -1,4 +1,9 @@
 class WorldLocationNews < ApplicationRecord
+  include Featurable
+  include TranslatableModel
+  include PublishesToPublishingApi
+  include Searchable
+
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 5
 
   belongs_to :world_location
@@ -15,14 +20,8 @@ class WorldLocationNews < ApplicationRecord
   has_many :offsite_links, as: :parent
   accepts_nested_attributes_for :offsite_links
 
-  include Featurable
-
-  include TranslatableModel
   translates :title, :mission_statement
 
-  include PublishesToPublishingApi
-
-  include Searchable
   searchable title: :title,
              link: :search_link,
              format: "world_location_news",

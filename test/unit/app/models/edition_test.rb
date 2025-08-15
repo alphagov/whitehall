@@ -683,15 +683,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_not no_fatalities_or_guides.include?(edition3)
   end
 
-  test "without_editions_of_type doesn't exclude subclasses of the supplied classes" do
-    edition1 = create(:edition, type: "Announcement")
-    edition2 = create(:fatality_notice)
-
-    no_editions = Edition.without_editions_of_type(Announcement)
-    assert no_editions.include?(edition2)
-    assert_not no_editions.include?(edition1)
-  end
-
   should_not_accept_footnotes_in :body
 
   test "previously_published returns true for edition with first_published_at timestamp" do
@@ -830,7 +821,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "#attachables returns empty array" do
-    non_attachable_edition = build(:announcement)
+    non_attachable_edition = build(:speech)
     assert_not non_attachable_edition.allows_attachments?
     assert_equal [], non_attachable_edition.attachables
   end
