@@ -146,15 +146,4 @@ module ApplicationHelper
   def get_content_id(edition)
     edition&.content_id
   end
-
-  def filtered_validation_errors(edition)
-    all_messages = edition.errors.map(&:full_message)
-    has_contact_errors = all_messages.any? { |msg| msg.include?("Contact ID") || msg.include?("contact reference") }
-
-    if has_contact_errors
-      all_messages.reject { |msg| msg.match?(/\A(Attachments|Html attachments) is invalid\z/) }
-    else
-      all_messages
-    end
-  end
 end

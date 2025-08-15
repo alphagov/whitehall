@@ -45,6 +45,7 @@ module Attachable
     end
 
     validate :check_html_attachments_on_publish, on: :publish
+    validate :check_attachments_on_publish, on: :publish
 
     def attachments_ready_for_publishing
       attachments.select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
@@ -198,12 +199,29 @@ module Attachable
 private
 
   def check_html_attachments_on_publish
-    html_attachments&.each do |attachment|
+    add_attachment_errors(html_attachments, "HTML Attachment") do |msg|
+      if msg.include?("Body contains invalid contact reference:")
+        msg.sub("Body contains invalid contact reference: Contact ID ", "contains invalid contact reference. Contact ")
+      else
+        "error: #{msg}"
+      end
+    end
+    errors.delete(:html_attachments, :invalid)
+  end
+
+  def check_attachments_on_publish
+    add_attachment_errors(attachments.reject { |a| a.is_a?(HtmlAttachment) }, "Attachment") { |msg| "error: #{msg}" }
+    errors.delete(:attachments, :invalid)
+  end
+
+  def add_attachment_errors(collection, prefix)
+    collection&.each do |attachment|
       next if attachment.valid?
 
       attachment.errors.full_messages.each do |msg|
         identifier = attachment.title.present? ? "'#{attachment.title}'" : attachment.id
-        errors.add(:base, "HTML Attachment #{identifier} error: #{msg}")
+        formatted_msg = yield(msg)
+        errors.add(:base, "#{prefix} #{identifier} #{formatted_msg}")
       end
     end
   end

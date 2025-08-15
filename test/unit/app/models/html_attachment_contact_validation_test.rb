@@ -62,5 +62,7 @@ class HtmlAttachmentContactValidationTest < ActiveSupport::TestCase
     error_message = edition.errors[:base].first
     assert_includes error_message, "HTML Attachment 'Invalid Doc' contains invalid contact reference"
     assert_includes error_message, "Contact #{@invalid_contact_id} doesn't exist"
+
+    assert_not(edition.errors.full_messages.any? { |msg| msg == "Html attachments is invalid" })
   end
 end

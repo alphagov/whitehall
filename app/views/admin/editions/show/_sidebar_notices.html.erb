@@ -18,7 +18,7 @@
       title: "This edition is invalid",
       description: render("govuk_publishing_components/components/list", {
         visible_counters: true,
-        items:  @edition.errors.map(&:full_message),
+        items: @edition.errors.map(&:full_message),
       }),
       error: true,
     } %>

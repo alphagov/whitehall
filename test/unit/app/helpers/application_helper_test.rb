@@ -99,36 +99,6 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
-  test "filtered_validation_errors filters out generic association errors when contact errors exist" do
-    edition = build(:draft_news_article)
-
-    edition.errors.add(:base, "Body contains invalid contact reference: Contact ID 999 doesn't exist")
-    edition.errors.add(:base, "HTML Attachment 'Title' contains invalid contact reference: Contact ID 888 doesn't exist")
-    edition.errors.add(:html_attachments, "is invalid")
-    edition.errors.add(:attachments, "is invalid")
-
-    filtered_errors = filtered_validation_errors(edition)
-
-    assert_includes filtered_errors, "Body contains invalid contact reference: Contact ID 999 doesn't exist"
-    assert_includes filtered_errors, "HTML Attachment 'Title' contains invalid contact reference: Contact ID 888 doesn't exist"
-    assert_not_includes filtered_errors, "Html attachments is invalid"
-    assert_not_includes filtered_errors, "Attachments is invalid"
-  end
-
-  test "filtered_validation_errors keeps generic association errors when no contact errors exist" do
-    edition = build(:draft_news_article)
-
-    edition.errors.add(:title, "is too long")
-    edition.errors.add(:html_attachments, "is invalid")
-    edition.errors.add(:attachments, "is invalid")
-
-    filtered_errors = filtered_validation_errors(edition)
-
-    assert_includes filtered_errors, "Title is too long"
-    assert_includes filtered_errors, "Html attachments is invalid"
-    assert_includes filtered_errors, "Attachments is invalid"
-  end
-
 private
 
   def appoint_minister(attributes = {})

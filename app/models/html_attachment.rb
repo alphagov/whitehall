@@ -104,12 +104,6 @@ class HtmlAttachment < Attachment
     PublishingApi::HtmlAttachmentPresenter
   end
 
-  def invalid_contact_messages
-    errors.details[:base]
-      .select { |detail| detail[:error] == :invalid_contact }
-      .map { |detail| "Contact #{detail[:contact_id]} doesn't exist" }
-  end
-
 private
 
   def skip_contact_validation?

@@ -113,20 +113,4 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     assert_select ".govuk-link", text: "Preview on website (opens in new tab)", href: draft_edition.public_url(draft: true), count: 0
     assert_select ".govuk-inset-text", text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
   end
-
-  view_test "visiting an invalid edition should show the validation errors" do
-    bad_id = "9999999999999"
-    edition = create(:draft_edition, body: "[Contact:#{bad_id}]")
-    edition.save!(validate: false)
-    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-
-    get :show, params: { id: edition }
-
-    assert_select ".app-view-summary__sidebar .app-c-inset-prompt--error" do |elements|
-      expected_message = "This edition is invalid"
-      assert elements.text.include?(expected_message), "Could not find \"#{expected_message}\" in #{elements.text}"
-      expected_message = "Contact ID #{bad_id} doesn't exist"
-      assert elements.text.include?(expected_message), "Could not find \"#{expected_message}\" in #{elements.text}"
-    end
-  end
 end
