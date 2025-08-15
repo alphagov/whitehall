@@ -19,14 +19,13 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     page = FlexiblePage.new
     page.images = [create(:image)]
     page.flexible_page_content = content
-    FlexiblePageContentBlocks::Context.create_for_page(page)
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
       .with(govspeak, images: page.images)
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
-      payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
+      payload = FlexiblePageContentBlocks::Govspeak.new(page.images).publishing_api_payload(govspeak)
       assert_equal html, payload[:html]
     end
   end
@@ -39,7 +38,6 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     }
     page = FlexiblePage.new
     page.flexible_page_content = content
-    FlexiblePageContentBlocks::Context.create_for_page(page)
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
@@ -67,7 +65,6 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     }
     page = FlexiblePage.new
     page.flexible_page_content = content
-    FlexiblePageContentBlocks::Context.create_for_page(page)
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
@@ -83,7 +80,7 @@ end
 
 class FlexiblePageContentBlocks::GovspeakRenderingTest < ActionView::TestCase
   test "it renders a textarea" do
-    @schema = {
+    schema = {
       "type" => "object",
       "properties" => {
         "test_attribute" => {
@@ -95,16 +92,15 @@ class FlexiblePageContentBlocks::GovspeakRenderingTest < ActionView::TestCase
       },
     }
 
-    @page = FlexiblePage.new
-    FlexiblePageContentBlocks::Context.create_for_page(@page)
-    @page.flexible_page_content = { "test_attribute" => "## foo" }
-    @block = FlexiblePageContentBlocks::Govspeak.new
+    page = FlexiblePage.new
+    page.flexible_page_content = { "test_attribute" => "## foo" }
+    block = FlexiblePageContentBlocks::Govspeak.new
 
-    render partial: @block.to_partial_path, locals: {
-      schema: @schema["properties"]["test_attribute"],
-      content: @page.flexible_page_content["test_attribute"],
+    render block, {
+      schema: schema["properties"]["test_attribute"],
+      content: page.flexible_page_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
-    assert_dom "textarea[name=?]", "edition[flexible_page_content][test_attribute]", text: @page.flexible_page_content["test_attribute"]
+    assert_dom "textarea[name=?]", "edition[flexible_page_content][test_attribute]", text: page.flexible_page_content["test_attribute"]
   end
 end

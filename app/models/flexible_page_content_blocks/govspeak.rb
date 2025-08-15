@@ -1,6 +1,11 @@
 module FlexiblePageContentBlocks
   class Govspeak
     include Presenters::PublishingApi::PayloadHeadingsHelper
+
+    def initialize(images = [])
+      @images = images
+    end
+
     def json_schema_type
       "string"
     end
@@ -17,7 +22,7 @@ module FlexiblePageContentBlocks
 
     def publishing_api_payload(content)
       {
-        html: Whitehall::GovspeakRenderer.new.govspeak_to_html(content, images: Context.page.images),
+        html: Whitehall::GovspeakRenderer.new.govspeak_to_html(content, images: @images),
         **extract_headings(content),
       }
     end

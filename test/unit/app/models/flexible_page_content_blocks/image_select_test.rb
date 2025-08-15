@@ -15,8 +15,7 @@ class FlexiblePageContentBlocks::ImageSelectTest < ActiveSupport::TestCase
     images = create_list(:image, 3)
     page = FlexiblePage.new
     page.images = images
-    FlexiblePageContentBlocks::Context.create_for_page(page)
-    payload = FlexiblePageContentBlocks::ImageSelect.new.publishing_api_payload(images[1].id)
+    payload = FlexiblePageContentBlocks::ImageSelect.new(page.images).publishing_api_payload(images[1].id)
 
     assert_equal({
       url: images[1].url,
@@ -25,8 +24,6 @@ class FlexiblePageContentBlocks::ImageSelectTest < ActiveSupport::TestCase
   end
 
   test "does not have a publishing api payload if no image is selected" do
-    page = FlexiblePage.new
-    FlexiblePageContentBlocks::Context.create_for_page(page)
     payload = FlexiblePageContentBlocks::ImageSelect.new.publishing_api_payload("")
 
     assert_nil payload
@@ -49,11 +46,10 @@ class FlexiblePageContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
 
     @page = FlexiblePage.new
     @page.images = create_list(:image, 3)
-    FlexiblePageContentBlocks::Context.create_for_page(@page)
     @page.flexible_page_content = { "test_attribute" => @page.images.last.id.to_s }
-    @block = FlexiblePageContentBlocks::ImageSelect.new
+    @block = FlexiblePageContentBlocks::ImageSelect.new(@page.images)
 
-    render partial: @block.to_partial_path, locals: {
+    render @block, {
       schema: @schema["properties"]["test_attribute"],
       content: @page.flexible_page_content["test_attribute"],
       path: Path.new.push("test_attribute"),

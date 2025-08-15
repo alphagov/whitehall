@@ -69,7 +69,6 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
       "property_one" => "Foo",
       "property_two" => "Bar",
     }
-    FlexiblePageContentBlocks::Context.create_for_page(page)
     presenter = PublishingApi::FlexiblePagePresenter.new(page)
     content = presenter.content
     assert_equal page.flexible_page_content["property_one"], content[:details][:property_one]
@@ -115,7 +114,6 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
       "chunk_of_content_one" => "## Header for chunk one\n\nSome content",
       "chunk_of_content_two" => "## Header for chunk two\n\nSome more content",
     }
-    FlexiblePageContentBlocks::Context.create_for_page(page)
     presenter = PublishingApi::FlexiblePagePresenter.new(page)
     content = presenter.content
     expected_hash_for_chunk_of_content_one = {
@@ -176,7 +174,6 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
     page.flexible_page_content = {
       "body" => "## Header for content\n\nSome content",
     }
-    FlexiblePageContentBlocks::Context.create_for_page(page)
     presenter = PublishingApi::FlexiblePagePresenter.new(page)
     content = presenter.content
 

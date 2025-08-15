@@ -1,30 +1,37 @@
 module FlexiblePageContentBlocks
   class Factory
-    BLOCKS = {
-      "string" => {
-        "default" => FlexiblePageContentBlocks::DefaultString,
-        "govspeak" => FlexiblePageContentBlocks::Govspeak,
-        "image_select" => FlexiblePageContentBlocks::ImageSelect,
-      },
-      "object" => {
-        "default" => FlexiblePageContentBlocks::DefaultObject,
-      },
-    }.freeze
-    private_constant :BLOCKS
-
-    def self.build(type, format)
-      block_class = BLOCKS.dig(type, format)
-      raise "No block is defined for the #{type} type #{format} format" if block_class.blank?
-
-      block_class.new
+    def initialize(page)
+      @page = page
     end
 
-    def self.build_all
-      all_block_classes = []
-      BLOCKS.values.each do |formats|
-        all_block_classes << formats.values
+    def build(type, format = "default")
+      block_constructor = blocks.dig(type, format)
+      raise "No block is defined for the #{type} type #{format} format" if block_constructor.nil?
+
+      block_constructor.call(@page)
+    end
+
+    def build_all
+      all_block_constructors = []
+      blocks.values.each do |formats|
+        all_block_constructors << formats.values
       end
-      all_block_classes.flatten.map(&:new)
+      all_block_constructors.flatten.map { |constructor| constructor.call(@page) }
+    end
+
+  private
+
+    def blocks
+      {
+        "string" => {
+          "default" => ->(_page) { FlexiblePageContentBlocks::DefaultString.new },
+          "govspeak" => ->(page) { FlexiblePageContentBlocks::Govspeak.new(page.images) },
+          "image_select" => ->(page) { FlexiblePageContentBlocks::ImageSelect.new(page.images) },
+        },
+        "object" => {
+          "default" => ->(_page) { FlexiblePageContentBlocks::DefaultObject.new(self) },
+        },
+      }.freeze
     end
   end
 end

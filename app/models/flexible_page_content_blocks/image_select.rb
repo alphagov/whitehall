@@ -1,5 +1,11 @@
 module FlexiblePageContentBlocks
   class ImageSelect
+    attr_reader :images
+
+    def initialize(images = [])
+      @images = images
+    end
+
     def json_schema_type
       "string"
     end
@@ -19,13 +25,13 @@ module FlexiblePageContentBlocks
     def publishing_api_payload(content)
       return nil if content.blank?
 
-      if (selected_image = Context.page.images.find { |image| image.id == content.to_i })
+      if (selected_image = images.find { |image| image.id == content.to_i })
         {
           url: selected_image.url,
           caption: selected_image.caption,
         }
       else
-        Rails.logger.warn("Flexible page with ID #{Context.page.id} does not have an image with ID #{content}, so the image has been excluded from the Publishing API payload.")
+        Rails.logger.warn("The page does not have an image with ID #{content}, so the image has been excluded from the Publishing API payload.")
         nil
       end
     end
