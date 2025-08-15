@@ -1139,7 +1139,6 @@ DEPENDENCIES
   responders
   rinku
   rubocop-govuk
-  rubyzip
   sentry-sidekiq
   sidekiq-scheduler
   simplecov
