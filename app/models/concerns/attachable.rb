@@ -36,12 +36,15 @@ module Attachable
         def process_associations_after_save(edition)
           @edition.attachments.each do |attachment|
             draft_attachment = attachment.deep_clone
+            draft_attachment.instance_variable_set(:@created_during_draft, true)
             edition.attachments << draft_attachment
-            raise "Your edition failed to create successfully. Please contact GOV.UK support." unless draft_attachment.save!
+            draft_attachment.save!
           end
         end
       end
     end
+
+    validate :check_html_attachments_on_publish, on: :publish
 
     def attachments_ready_for_publishing
       attachments.select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
@@ -188,6 +191,19 @@ module Attachable
 
       ordered_attachment_ids.each.with_index(start_at) do |attachment_id, ordering|
         attachments.find(attachment_id).update_column(:ordering, ordering)
+      end
+    end
+  end
+
+private
+
+  def check_html_attachments_on_publish
+    html_attachments&.each do |attachment|
+      next if attachment.valid?
+
+      attachment.errors.full_messages.each do |msg|
+        identifier = attachment.title.present? ? "'#{attachment.title}'" : attachment.id
+        errors.add(:base, "HTML Attachment #{identifier} error: #{msg}")
       end
     end
   end

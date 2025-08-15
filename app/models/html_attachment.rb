@@ -10,7 +10,7 @@ class HtmlAttachment < Attachment
   before_save :ensure_slug_is_valid
 
   validates :govspeak_content, presence: true
-  validates_with GovspeakContactEmbedValidator
+  validates_with GovspeakContactEmbedValidator, unless: :skip_contact_validation?
 
   accepts_nested_attributes_for :govspeak_content
   delegate :body,
@@ -104,7 +104,22 @@ class HtmlAttachment < Attachment
     PublishingApi::HtmlAttachmentPresenter
   end
 
+  def invalid_contact_messages
+    errors.details[:base]
+      .select { |detail| detail[:error] == :invalid_contact }
+      .map { |detail| "Contact #{detail[:contact_id]} doesn't exist" }
+  end
+
 private
+
+  def skip_contact_validation?
+    return false if persisted? && !@created_during_draft
+
+    @created_during_draft ||
+      (attachable.respond_to?(:draft?) && attachable.draft? &&
+       attachable.respond_to?(:document) && attachable.document.present? &&
+       !attachable.document.editions.published.empty?)
+  end
 
   def public_path(options = {})
     append_url_options(base_path, options)
