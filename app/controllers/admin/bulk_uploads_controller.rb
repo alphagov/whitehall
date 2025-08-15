@@ -1,9 +1,8 @@
-class Admin::BulkUploadsController < Admin::BaseController
-  before_action :find_edition
-  before_action :limit_edition_access!
-  before_action :enforce_permissions!
-  before_action :prevent_modification_of_unmodifiable_edition
+class Admin::BulkUploadsController < Admin::AttachmentsController
   before_action :build_bulk_upload
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::TextHelper
+  attr_accessor :output_buffer
 
   def new; end
 
@@ -21,7 +20,15 @@ class Admin::BulkUploadsController < Admin::BaseController
     @bulk_upload.build_attachments_from_params(attachments_params)
 
     if @bulk_upload.save_attachments
-      redirect_to admin_edition_attachments_path(@edition)
+      @bulk_upload.attachments.each do |attachment|
+        attachable_draft_updater
+        attachment_updater(attachment.attachment_data)
+      end
+
+      flash[:notice] = notice
+      flash[:html_safe] = true
+
+      redirect_to_attachments_index
     else
       render :set_titles
     end
@@ -29,16 +36,24 @@ class Admin::BulkUploadsController < Admin::BaseController
 
 private
 
+  def notice
+    content_tag(:ul) do
+      @bulk_upload.attachments.each do |attachment|
+        concat content_tag(
+          :li,
+          "Attachment '#{attachment.title}' #{attachment.attachment_data.to_replace_id.present? ? 'updated' : 'uploaded'}".html_safe,
+          class: "gem-c-success-alert__message",
+        )
+      end
+    end
+  end
+
+  def build_attachment
+    FileAttachment.new(attachable:)
+  end
+
   def build_bulk_upload
-    @bulk_upload = BulkUpload.new(@edition)
-  end
-
-  def find_edition
-    @edition = Edition.find(params[:edition_id])
-  end
-
-  def enforce_permissions!
-    enforce_permission!(:update, @edition)
+    @bulk_upload = BulkUpload.new(attachable)
   end
 
   def files_params

@@ -7,12 +7,10 @@
 <%= form.fields_for(:attachment_data, include_id: false) do |attachment_data_fields| %>
   <% if attachment_data_fields.object.filename %>
     <%= hidden_field_tag "#{name}[attachment_data_attributes][to_replace_id]", attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id %>
-    <% unless controller_name == "bulk_uploads" %>
-      <p class="govuk-body">Current file: <%= link_to_attachment_data(attachment_data_fields.object) %></p>
-    <% end %>
+    <p class="govuk-body">Current file: <%= link_to_attachment_data(attachment_data_fields.object) %></p>
   <% end %>
 
-  <% if !attachment_data_fields.object.file_cache.present? %>
+  <% if !attachment_data_fields.object.file_cache.present? || attachment_data_fields.object.errors[:file].present? %>
     <%= render "govuk_publishing_components/components/file_upload", {
       label: {
         text: attachment_data_fields.object.filename ? "Replace file" : "File (required)",
@@ -24,7 +22,7 @@
       hint: raw(attachment_data_fields.object.filename ? "You must replace the attachment markdown in the body text" : "You must upload attachments in an <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/planning-content#open-formats'>open standards format</a>."),
       error_items: errors_for(attachment_data_fields.object.errors, :file),
     } %>
-  <% elsif controller_name != "bulk_uploads" %>
+  <% else %>
     <p class="govuk-body already_uploaded"><%= File.basename(attachment_data_fields.object.file_cache) %> already uploaded</p>
   <% end %>
 
@@ -41,6 +39,6 @@
     ],
   } %>
 
-  <%= hidden_field_tag "#{name}[attachment_data_attributes][file_cache]", attachment_data_fields.object.file_cache %>
+  <%= hidden_field_tag "#{name}[attachment_data_attributes][file_cache]", attachment_data_fields.object.errors[:file].blank? ? attachment_data_fields.object.file_cache : nil %>
 
 <% end %>
