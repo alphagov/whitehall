@@ -1,34 +1,62 @@
 require "test_helper"
 
 class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
-  test "should be valid if the input is nil" do
-    test_model = Edition.new(body: nil)
-
-    GovspeakContactEmbedValidator.new.validate(test_model)
-
-    assert_equal 0, test_model.errors.size
-    assert_equal [], test_model.errors[:body]
+  def setup
+    @valid_contact = create(:contact)
+    @invalid_contact_id = "99999"
+    @validator = GovspeakContactEmbedValidator.new
   end
 
-  test "should be valid if the input contains a Contact that exists" do
-    contact = create(:contact)
-    test_model = Edition.new(body: "[Contact:#{contact.id}]")
-
-    GovspeakContactEmbedValidator.new.validate(test_model)
-
-    assert_equal 0, test_model.errors.size
-    assert_equal [], test_model.errors[:body]
+  test "validates nil body without errors" do
+    record = create_record_with_body(nil)
+    @validator.validate(record)
+    assert_empty record.errors[:body]
   end
 
-  test "should be invalid if the input contains a Contact that doesn't exist" do
-    bad_id = "9999999999999"
-    test_model = Edition.new(body: "[Contact:#{bad_id}]")
+  test "validates empty body without errors" do
+    record = create_record_with_body("")
+    @validator.validate(record)
+    assert_empty record.errors[:base]
+  end
 
-    GovspeakContactEmbedValidator.new.validate(test_model)
+  test "validates body with existing contact without errors" do
+    record = create_record_with_body("[Contact:#{@valid_contact.id}]")
+    @validator.validate(record)
+    assert_empty record.errors[:base]
+  end
 
-    assert_equal 1, test_model.errors.size
-    assert_equal [
-      "Contact ID #{bad_id} doesn't exist",
-    ], test_model.errors.map(&:type)
+  test "validates body with multiple existing contacts without errors" do
+    contact2 = create(:contact)
+    record = create_record_with_body("[Contact:#{@valid_contact.id}] and [Contact:#{contact2.id}]")
+    @validator.validate(record)
+    assert_empty record.errors[:base]
+  end
+
+  test "adds error with structured details for non-existent contact" do
+    record = create_record_with_body("[Contact:#{@invalid_contact_id}]")
+    @validator.validate(record)
+
+    assert_equal 1, record.errors[:base].size
+    error_details = record.errors.details[:base].first
+    assert_equal :invalid_contact, error_details[:error]
+    assert_equal @invalid_contact_id, error_details[:contact_id]
+  end
+
+  test "adds multiple errors for multiple invalid contacts" do
+    invalid_id_2 = "88888"
+    record = create_record_with_body("[Contact:#{@invalid_contact_id}] and [Contact:#{invalid_id_2}]")
+    @validator.validate(record)
+
+    assert_equal 2, record.errors[:base].size
+    error_details = record.errors.details[:base]
+    contact_ids = error_details.map { |detail| detail[:contact_id] }
+    assert_includes contact_ids, @invalid_contact_id
+    assert_includes contact_ids, invalid_id_2
+  end
+
+private
+
+  def create_record_with_body(body)
+    OpenStruct.new(body: body, errors: ActiveModel::Errors.new(self))
   end
 end
