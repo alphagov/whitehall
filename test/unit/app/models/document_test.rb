@@ -643,14 +643,14 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   describe "The new document view model" do
-    it "should include flexible page type in all types when feature flag enabled" do
+    it "should include configurable document type in all types when feature flag enabled" do
       test_strategy = Flipflop::FeatureSet.current.test!
 
-      assert_not Document::View::New.all_types.include?(FlexiblePage)
-      test_strategy.switch!(:flexible_pages, true)
+      assert_not Document::View::New.all_types.include?(StandardEdition)
+      test_strategy.switch!(:configurable_document_types, true)
 
-      assert Document::View::New.all_types.include?(FlexiblePage)
-      test_strategy.switch!(:flexible_pages, false)
+      assert Document::View::New.all_types.include?(StandardEdition)
+      test_strategy.switch!(:configurable_document_types, false)
     end
 
     it "should scope document types to those that user can create" do

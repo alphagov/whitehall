@@ -1,4 +1,4 @@
-module FlexiblePageContentBlocks
+module ConfigurableContentBlocks
   class ImageSelect
     attr_reader :images
 
@@ -37,7 +37,7 @@ module FlexiblePageContentBlocks
     end
 
     def to_partial_path
-      "admin/flexible_pages/content_blocks/image_select"
+      "admin/configurable_content_blocks/image_select"
     end
   end
 end

@@ -1,15 +1,15 @@
-class FlexiblePage < Edition
+class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
-  validates :flexible_page_type, presence: true, inclusion: { in: -> { FlexiblePageType.all_keys } }
+  validates :flexible_page_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
 
   def self.choose_document_type_form_action
-    "choose_type_admin_flexible_pages_path"
+    "choose_type_admin_standard_editions_path"
   end
 
   def publishing_api_presenter
-    PublishingApi::FlexiblePagePresenter
+    PublishingApi::StandardEditionPresenter
   end
 
   def summary_required?
@@ -37,11 +37,11 @@ class FlexiblePage < Edition
   end
 
   def type_instance
-    FlexiblePageType.find(flexible_page_type)
+    ConfigurableDocumentType.find(flexible_page_type)
   end
 
   def content_conforms_to_schema
-    formats = FlexiblePageContentBlocks::Factory.new(self).build_all.each_with_object({}) do |block, object|
+    formats = ConfigurableContentBlocks::Factory.new(self).build_all.each_with_object({}) do |block, object|
       object[block.json_schema_format] = block.json_schema_validator unless block.json_schema_format == "default"
     end
     unless JSONSchemer.schema(type_instance.schema, formats:).valid?(flexible_page_content)

@@ -1,4 +1,4 @@
-module FlexiblePageContentBlocks
+module ConfigurableContentBlocks
   class DefaultString
     def json_schema_type
       "string"
@@ -13,7 +13,7 @@ module FlexiblePageContentBlocks
     end
 
     def to_partial_path
-      "admin/flexible_pages/content_blocks/default_string"
+      "admin/configurable_content_blocks/default_string"
     end
   end
 end

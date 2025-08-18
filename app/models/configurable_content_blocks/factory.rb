@@ -1,4 +1,4 @@
-module FlexiblePageContentBlocks
+module ConfigurableContentBlocks
   class Factory
     def initialize(page)
       @page = page
@@ -24,12 +24,12 @@ module FlexiblePageContentBlocks
     def blocks
       {
         "string" => {
-          "default" => ->(_page) { FlexiblePageContentBlocks::DefaultString.new },
-          "govspeak" => ->(page) { FlexiblePageContentBlocks::Govspeak.new(page.images) },
-          "image_select" => ->(page) { FlexiblePageContentBlocks::ImageSelect.new(page.images) },
+          "default" => ->(_page) { ConfigurableContentBlocks::DefaultString.new },
+          "govspeak" => ->(page) { ConfigurableContentBlocks::Govspeak.new(page.images) },
+          "image_select" => ->(page) { ConfigurableContentBlocks::ImageSelect.new(page.images) },
         },
         "object" => {
-          "default" => ->(_page) { FlexiblePageContentBlocks::DefaultObject.new(self) },
+          "default" => ->(_page) { ConfigurableContentBlocks::DefaultObject.new(self) },
         },
       }.freeze
     end

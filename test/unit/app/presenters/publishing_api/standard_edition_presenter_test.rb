@@ -1,13 +1,13 @@
 require "test_helper"
 
-class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
-  test "it sets the schema name, document type, base path and rendering app based on the flexible page type settings" do
+class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
+  test "it sets the schema name, document type, base path and rendering app based on the document type settings" do
     schema_name = "test_type_schema"
     document_type = "test_type"
     rendering_app = "government-frontend"
     base_path_prefix = "/government/history"
     type_key = "test_type_key"
-    FlexiblePageType.setup_test_types({
+    ConfigurableDocumentType.setup_test_types({
       type_key => {
         "key" => type_key,
         "schema" => {
@@ -22,11 +22,11 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.flexible_page_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
-    presenter = PublishingApi::FlexiblePagePresenter.new(page)
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
     assert_equal "#{base_path_prefix}/#{page.document.slug}", content[:base_path]
     assert_equal schema_name, content[:schema_name]
@@ -36,7 +36,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
 
   test "it includes the flexible page content values in the details hash" do
     type_key = "test_type_key"
-    FlexiblePageType.setup_test_types({
+    ConfigurableDocumentType.setup_test_types({
       type_key => {
         "key" => type_key,
         "schema" => {
@@ -61,7 +61,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.flexible_page_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
@@ -69,7 +69,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
       "property_one" => "Foo",
       "property_two" => "Bar",
     }
-    presenter = PublishingApi::FlexiblePagePresenter.new(page)
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
     assert_equal page.flexible_page_content["property_one"], content[:details][:property_one]
     assert_equal page.flexible_page_content["property_two"], content[:details][:property_two]
@@ -77,7 +77,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
 
   test "it includes headers for each govspeak type block" do
     type_key = "test_type_key"
-    FlexiblePageType.setup_test_types({
+    ConfigurableDocumentType.setup_test_types({
       type_key => {
         "key" => type_key,
         "schema" => {
@@ -106,7 +106,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.flexible_page_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
@@ -114,7 +114,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
       "chunk_of_content_one" => "## Header for chunk one\n\nSome content",
       "chunk_of_content_two" => "## Header for chunk two\n\nSome more content",
     }
-    presenter = PublishingApi::FlexiblePagePresenter.new(page)
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
     expected_hash_for_chunk_of_content_one = {
       html: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-one\">Header for chunk one</h2> <p>Some content</p> </div>",
@@ -144,7 +144,7 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
 
   test "it includes headers once, one layer up, if there is a govspeak block with a 'body' key" do
     type_key = "test_type_key"
-    FlexiblePageType.setup_test_types({
+    ConfigurableDocumentType.setup_test_types({
       type_key => {
         "key" => type_key,
         "schema" => {
@@ -167,14 +167,14 @@ class PublishingApi::FlexiblePagePresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.flexible_page_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
     page.flexible_page_content = {
       "body" => "## Header for content\n\nSome content",
     }
-    presenter = PublishingApi::FlexiblePagePresenter.new(page)
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
     expected_body = "<div class=\"govspeak\"><h2 id=\"header-for-content\">Header for content</h2> <p>Some content</p> </div>"

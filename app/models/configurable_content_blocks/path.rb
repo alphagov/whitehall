@@ -1,4 +1,4 @@
-module FlexiblePageContentBlocks
+module ConfigurableContentBlocks
   class Path
     def initialize(segments = [])
       @segments = segments

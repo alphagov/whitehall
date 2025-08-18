@@ -43,11 +43,11 @@
     } %>
 
     <%= form.hidden_field :flexible_page_type, value: @edition.flexible_page_type %>
-    <% root_block = FlexiblePageContentBlocks::Factory.new(@edition).build("object") %>
+    <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build("object") %>
     <%= render(root_block, {
-      schema: FlexiblePageType.find(@edition.flexible_page_type).schema,
+      schema: ConfigurableDocumentType.find(@edition.flexible_page_type).schema,
       content: @edition.flexible_page_content,
-      path: FlexiblePageContentBlocks::Path.new,
+      path: ConfigurableContentBlocks::Path.new,
       root: true,
     }) %>
     <%= render("settings_fields", form:, edition:) %>

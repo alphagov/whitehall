@@ -1,20 +1,20 @@
-Given(/^the flexible pages feature flag is (enabled|disabled)$/) do |enabled|
+Given(/^the configurable document types feature flag is (enabled|disabled)$/) do |enabled|
   @test_strategy ||= Flipflop::FeatureSet.current.test!
-  @test_strategy.switch!(:flexible_pages, enabled == "enabled")
+  @test_strategy.switch!(:configurable_document_types, enabled == "enabled")
 end
 
-Given(/^the test flexible page type is defined$/) do
-  type_definition = JSON.parse(File.read(Rails.root.join("features/fixtures/test_flexible_page_type.json")))
-  FlexiblePageType.setup_test_types({ "test" => type_definition })
+Given(/^the test configurable document type is defined$/) do
+  type_definition = JSON.parse(File.read(Rails.root.join("features/fixtures/test_configurable_document_type.json")))
+  ConfigurableDocumentType.setup_test_types({ "test" => type_definition })
 end
 
-When(/^I draft a new "([^"]*)" flexible page titled "([^"]*)"$/) do |flexible_page_type, title|
+When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |configurable_document_type, title|
   create(:organisation) if Organisation.count.zero?
   visit admin_root_path
   find("li.app-c-sub-navigation__list-item a", text: "New document").click
-  page.choose("Flexible page")
+  page.choose("Standard edition")
   click_button("Next")
-  page.choose(flexible_page_type)
+  page.choose(configurable_document_type)
   click_button("Next")
   within "form" do
     fill_in "edition_title", with: title
@@ -24,28 +24,28 @@ When(/^I draft a new "([^"]*)" flexible page titled "([^"]*)"$/) do |flexible_pa
   click_button "Save and go to document summary"
 end
 
-When(/^I publish a submitted draft of a test flexible page titled "([^"]*)"$/) do |title|
+When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
   submitter = create(:user)
-  flexible_page = FlexiblePage.new
+  standard_edition = StandardEdition.new
   as_user(submitter) do
-    flexible_page.flexible_page_type = "test"
-    flexible_page.title = title
-    flexible_page.state = "submitted"
-    flexible_page.document = Document.new
-    flexible_page.document.slug = title.parameterize
-    flexible_page.flexible_page_content = {
+    standard_edition.flexible_page_type = "test"
+    standard_edition.title = title
+    standard_edition.state = "submitted"
+    standard_edition.document = Document.new
+    standard_edition.document.slug = title.parameterize
+    standard_edition.flexible_page_content = {
       "page_title" => {
         "heading_text" => title,
         "context" => "Additional context",
       },
       "body" => "Some text",
     }
-    flexible_page.creator = submitter
-    flexible_page.save!
-    stub_publishing_api_links_with_taxons(flexible_page.content_id, %w[a-taxon-content-id])
+    standard_edition.creator = submitter
+    standard_edition.save!
+    stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
   end
 
-  visit admin_flexible_page_path(flexible_page)
+  visit admin_standard_edition_path(standard_edition)
   click_link "Publish"
   expect(page).to have_content("Once you publish, this document will be visible to the public")
   click_button "Publish"

@@ -1,12 +1,12 @@
 require "test_helper"
-class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
+class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
   test "it validates that the content is a string" do
-    validator = FlexiblePageContentBlocks::Govspeak.new.json_schema_validator
+    validator = ConfigurableContentBlocks::Govspeak.new.json_schema_validator
     assert_not validator.call(5)
   end
 
   test "it validates that the content is valid govspeak" do
-    validator = FlexiblePageContentBlocks::Govspeak.new.json_schema_validator
+    validator = ConfigurableContentBlocks::Govspeak.new.json_schema_validator
     assert_not validator.call("<script>alert('You've been pwned!')</script>'")
   end
 
@@ -16,7 +16,7 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     content = {
       "test_attribute" => govspeak,
     }
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.images = [create(:image)]
     page.flexible_page_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
@@ -25,7 +25,7 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
       .with(govspeak, images: page.images)
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
-      payload = FlexiblePageContentBlocks::Govspeak.new(page.images).publishing_api_payload(govspeak)
+      payload = ConfigurableContentBlocks::Govspeak.new(page.images).publishing_api_payload(govspeak)
       assert_equal html, payload[:html]
     end
   end
@@ -36,7 +36,7 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     content = {
       "test_attribute" => govspeak,
     }
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.flexible_page_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
@@ -51,7 +51,7 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
       },
     ]
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
-      payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
+      payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
       assert_equal expected_headers, payload[:headers]
       assert_not_nil payload[:html]
     end
@@ -63,7 +63,7 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
     content = {
       "test_attribute" => govspeak,
     }
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.flexible_page_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
@@ -71,14 +71,14 @@ class FlexiblePageContentBlocks::GovspeakTest < ActiveSupport::TestCase
       .with(govspeak, images: [])
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
-      payload = FlexiblePageContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
+      payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
       assert_nil payload[:headers]
       assert_not_nil payload[:html]
     end
   end
 end
 
-class FlexiblePageContentBlocks::GovspeakRenderingTest < ActionView::TestCase
+class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
   test "it renders a textarea" do
     schema = {
       "type" => "object",
@@ -92,9 +92,9 @@ class FlexiblePageContentBlocks::GovspeakRenderingTest < ActionView::TestCase
       },
     }
 
-    page = FlexiblePage.new
+    page = StandardEdition.new
     page.flexible_page_content = { "test_attribute" => "## foo" }
-    block = FlexiblePageContentBlocks::Govspeak.new
+    block = ConfigurableContentBlocks::Govspeak.new
 
     render block, {
       schema: schema["properties"]["test_attribute"],

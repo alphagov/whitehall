@@ -1,13 +1,13 @@
 require "test_helper"
 
-class FlexiblePageContentBlocks::DefaultStringTest < ActiveSupport::TestCase
+class ConfigurableContentBlocks::DefaultStringTest < ActiveSupport::TestCase
   test "it presents the content" do
-    payload = FlexiblePageContentBlocks::DefaultString.new.publishing_api_payload("foo")
+    payload = ConfigurableContentBlocks::DefaultString.new.publishing_api_payload("foo")
     assert_equal("foo", payload)
   end
 end
 
-class FlexiblePageContentBlocks::DefaultStringRenderingTest < ActionView::TestCase
+class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCase
   setup do
     @schema = {
       "type" => "object",
@@ -20,9 +20,9 @@ class FlexiblePageContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
       },
     }
 
-    @page = FlexiblePage.new
+    @page = StandardEdition.new
     @page.flexible_page_content = { "test_attribute" => "foo" }
-    @block = FlexiblePageContentBlocks::DefaultString.new
+    @block = ConfigurableContentBlocks::DefaultString.new
   end
 
   test "the form label is equal to the attribute title" do

@@ -1,5 +1,5 @@
 module PublishingApi
-  class FlexiblePagePresenter
+  class StandardEditionPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
 
     attr_accessor :item, :update_type
@@ -38,7 +38,7 @@ module PublishingApi
   private
 
     def details
-      root_block = FlexiblePageContentBlocks::Factory.new(item).build("object")
+      root_block = ConfigurableContentBlocks::Factory.new(item).build("object")
       {
         **flatten_headers(root_block.publishing_api_payload(type.schema, item.flexible_page_content)),
       }

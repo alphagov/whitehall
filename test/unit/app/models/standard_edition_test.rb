@@ -1,15 +1,15 @@
 require "test_helper"
 
-class FlexiblePageTest < ActiveSupport::TestCase
+class StandardEditionTest < ActiveSupport::TestCase
   test "does not require some of the standard edition fields" do
-    page = FlexiblePage.new
+    page = StandardEdition.new
     assert_not page.summary_required?
     assert_not page.body_required?
     assert_not page.can_set_previously_published?
     assert_not page.previously_published
   end
 
-  test "it allows images if the flexible page type settings permit them" do
+  test "it allows images if the configurable document type settings permit them" do
     test_types = {
       "test_type_with_images" => {
         "key" => "test_type_with_images",
@@ -50,9 +50,9 @@ class FlexiblePageTest < ActiveSupport::TestCase
         },
       },
     }
-    FlexiblePageType.setup_test_types(test_types)
-    page_with_images = FlexiblePage.new(flexible_page_type: "test_type_with_images")
-    page_without_images = FlexiblePage.new(flexible_page_type: "test_type_without_images")
+    ConfigurableDocumentType.setup_test_types(test_types)
+    page_with_images = StandardEdition.new(flexible_page_type: "test_type_with_images")
+    page_without_images = StandardEdition.new(flexible_page_type: "test_type_without_images")
     assert page_with_images.allows_image_attachments?
     assert_not page_without_images.allows_image_attachments?
   end
@@ -77,8 +77,8 @@ class FlexiblePageTest < ActiveSupport::TestCase
         "settings" => {},
       },
     }
-    FlexiblePageType.setup_test_types(test_types)
-    page = FlexiblePage.new
+    ConfigurableDocumentType.setup_test_types(test_types)
+    page = StandardEdition.new
     page.title = "Test Page"
     page.flexible_page_type = "test_type"
     page.flexible_page_content = {}

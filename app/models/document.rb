@@ -246,7 +246,7 @@ class Document < ApplicationRecord
           "worldwide_organisation" => WorldwideOrganisation,
           "landing_page" => LandingPage,
         }
-        types["flexible_page"] = FlexiblePage if Flipflop.enabled?(:flexible_pages)
+        types["standard_edition"] = StandardEdition if Flipflop.enabled?(:configurable_document_types)
         types
       end
     end

@@ -1,8 +1,8 @@
-class FlexiblePageType
+class ConfigurableDocumentType
   attr_reader :key, :schema, :settings
 
   def self.types
-    @types ||= Dir.glob("app/models/flexible_page_types/*.json").each_with_object({}) do |filename, hash|
+    @types ||= Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
       data = JSON.parse(File.read(filename))
       hash[data["key"]] = data
     end
