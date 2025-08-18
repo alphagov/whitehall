@@ -69,6 +69,7 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
           form.setAttribute('data-ga4-form-include-text', '')
           form.setAttribute('data-ga4-form-use-text-count', '')
+          form.setAttribute('data-ga4-form-use-select-count', '')
           new window.GOVUK.Modules.Ga4FormTracker(form).init()
 
           form.addEventListener('submit', this.onSubmit)

@@ -44,6 +44,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
         ga4FormRecordJson,
         ga4FormIncludeText,
         ga4FormUseTextCount,
+        ga4FormUseSelectCount,
         ga4FormSplitResponseText
       } = form.dataset
 
@@ -51,6 +52,7 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
       expect(ga4FormIncludeText).toBeDefined()
       expect(ga4FormUseTextCount).toBeDefined()
       expect(ga4FormUseTextCount).toBeDefined()
+      expect(ga4FormUseSelectCount).toBeDefined()
       expect(ga4FormSplitResponseText).toBeDefined()
 
       expect(JSON.parse(ga4Form)).toEqual(expectedDefaults)
