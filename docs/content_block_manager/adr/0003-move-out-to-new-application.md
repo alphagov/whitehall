@@ -135,7 +135,9 @@ In addition we will need to:
 - obtain SSL certificates and configure DNS (see
   [Kubernetes: Create a new application][])
 - setup application accounts on related / 3rd party services such as Sentry,
-  Notify etc.
+  Logit, Notify etc.
+- configure Google Analytics to continue to record user behaviour as is
+  currently done in Whitehall
 - understand governance requirements, e.g. for IT healthchecks
 - implement an on-call rota to support the application out of hours
 
