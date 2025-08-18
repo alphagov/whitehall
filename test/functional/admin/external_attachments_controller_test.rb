@@ -26,11 +26,10 @@ class Admin::ExternalAttachmentsControllerTest < ActionController::TestCase
   end
 
   test "POST :create ignores external attachments when attachable does not allow them" do
-    attachable = create(:statistical_data_set, access_limited: false)
+    attachable = create(:statistical_data_set, attachments: [])
 
     post :create, params: { edition_id: attachable, attachment: valid_external_attachment_params }
 
-    assert_response :redirect
     assert_equal 0, attachable.reload.attachments.size
   end
 

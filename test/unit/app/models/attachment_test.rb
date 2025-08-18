@@ -131,4 +131,10 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.destroy!
     assert attachment.deleted?
   end
+
+  test "prevents save on attachable that does not support attachment type" do
+    attachment = build(:external_attachment, attachable: build(:statistical_data_set))
+
+    assert_not attachment.valid?
+  end
 end
