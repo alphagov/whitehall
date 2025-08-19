@@ -25,7 +25,7 @@
     "base_path_prefix": "/government/history",
     "publishing_api_schema_name": "history",
     "publishing_api_document_type": "history",
-    "rendering_app": "frontend",
+    "rendering_app": "government-frontend",
     "images_enabled": true,
     "organisations": ["af07d5a5-df63-4ddc-9383-6a666845ebe9"]
   }
