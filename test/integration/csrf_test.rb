@@ -29,6 +29,7 @@ class CsrfTest < ActionController::TestCase
     with_test_routes do
       session["_csrf_token"] = SecureRandom.base64(32)
       post :create, params: { authenticity_token: session["_csrf_token"] }
+      assert_response :ok
     end
   end
 

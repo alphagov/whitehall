@@ -13,7 +13,7 @@ class Admin::ErrorsControllerTest < ActionDispatch::IntegrationTest
     "400": :bad_request,
     "403": :forbidden,
     "404": :not_found,
-    "422": :unprocessable_entity,
+    "422": :unprocessable_content,
     "500": :internal_server_error,
   }.freeze
 

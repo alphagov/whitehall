@@ -236,7 +236,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
   test "slug requires minimum 3 azAZ characters" do
     attachment = create(:html_attachment, locale: "cs", title: "tot")
-    assert_equal nil, attachment.slug
+    assert_nil attachment.slug
   end
 
   test "slug reverts to nil, if document has never been published, if title is changed such that minimum 3 azAZ characters is not reached" do
@@ -248,7 +248,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment.save!
     attachment.reload
 
-    assert_equal nil, attachment.slug
+    assert_nil attachment.slug
   end
 
   test "even if slug is considered too short NOW, slug on legacy old attachment is not updated when the title is changed if document is published" do

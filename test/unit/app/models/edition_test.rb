@@ -379,7 +379,9 @@ class EditionTest < ActiveSupport::TestCase
   test "should still be supersedeable if alt text validation would normally fail" do
     article = create(:published_news_article, images: [build(:image)])
     article.images.first.update_column(:alt_text, nil)
-    NewsArticle.find(article.id).supersede!
+    article = NewsArticle.find(article.id)
+    article.supersede!
+    assert_equal "superseded", article.state
   end
 
   test "should be invalid without a summary" do

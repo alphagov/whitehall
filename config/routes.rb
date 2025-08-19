@@ -445,7 +445,7 @@ Whitehall::Application.routes.draw do
     match "/400", to: "admin/errors#bad_request"
     match "/403", to: "admin/errors#forbidden"
     match "/404", to: "admin/errors#not_found"
-    match "/422", to: "admin/errors#unprocessable_entity"
+    match "/422", to: "admin/errors#unprocessable_content"
     match "/500", to: "admin/errors#internal_server_error"
   end
 

@@ -264,7 +264,7 @@ private
     if params[:lock_version]
       @edition.lock_version = params[:lock_version]
     else
-      render plain: "All workflow actions require a lock version", status: :unprocessable_entity
+      render plain: "All workflow actions require a lock version", status: :unprocessable_content
     end
   end
 

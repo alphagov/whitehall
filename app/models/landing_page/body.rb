@@ -41,7 +41,7 @@ class LandingPage::Body
   def present_for_publishing_api
     raise "cannot present invalid body to publishing api - errors: #{errors.to_a}" if invalid?
 
-    body.merge({
+    body.except("blocks").merge({
       breadcrumbs:,
       navigation_groups:,
       blocks: blocks.map(&:present_for_publishing_api),

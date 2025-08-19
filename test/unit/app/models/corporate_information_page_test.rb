@@ -193,12 +193,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal corporate_information_page.alternative_format_provider, corporate_information_page.organisation
   end
 
-  test "should support attachments" do
-    organisation = build(:organisation_with_alternative_format_contact_email)
-    corporate_information_page = build(:corporate_information_page, organisation:)
-    corporate_information_page.attachments << build(:file_attachment)
-  end
-
   test "#alternative_format_provider_required? should be true if an attachment is a file attachment" do
     corporate_information_page = build(:corporate_information_page)
     corporate_information_page.attachments << build(:file_attachment)

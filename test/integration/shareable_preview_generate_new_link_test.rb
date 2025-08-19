@@ -16,13 +16,11 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
       end
 
       test "it shows the generate new link feature" do
-        get admin_case_study_path(edition)
-        assert_selector "section", text: "Generate new link"
+        find(".govuk-details__summary", text: "Share document preview").click
+        assert page.has_content? "Generate new link"
       end
 
       test "it revokes the previous links and generates a new one" do
-        get admin_case_study_path(edition)
-
         find(".govuk-details__summary", text: "Share document preview").click
 
         current_preview_url = all("input").first.value
@@ -37,7 +35,7 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
         new_query_string = Rack::Utils.parse_query URI(new_preview_url).query
         new_token = new_query_string["token"]
 
-        assert_selector ".gem-c-success-alert__message", text: "New document preview link generated"
+        assert page.has_content? "New document preview link generated"
         assert_not_equal current_token, new_token
       end
     end
@@ -51,8 +49,7 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
       end
 
       test "it does not show the generate new link feature" do
-        get admin_case_study_path(edition)
-        assert_no_selector "section", text: "Generate new link"
+        assert_not page.has_content? "Share document preview"
       end
     end
 

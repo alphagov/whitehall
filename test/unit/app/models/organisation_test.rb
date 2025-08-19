@@ -791,22 +791,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [topical_events[1], topical_events[0]], organisation.topical_events
   end
 
-  test "can have associated contacts" do
-    organisation = create(:organisation)
-    organisation.contacts.create!(title: "Main office", contact_type: ContactType::FOI)
-  end
-
   test "destroy deletes related contacts" do
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation)
     organisation.destroy!
     assert_nil Contact.find_by(id: contact.id)
-  end
-
-  test "can have associated social media accounts" do
-    service = create(:social_media_service)
-    organisation = create(:organisation)
-    organisation.social_media_accounts.create!(social_media_service_id: service.id, url: "http://example.com")
   end
 
   test "destroy deletes related social media accounts" do
@@ -1039,24 +1028,6 @@ class OrganisationTest < ActiveSupport::TestCase
 
     organisation.update!(
       organisation_chart_url: "http://www.example.com/path/to/new_chart",
-    )
-  end
-
-  test "#save triggers organisation with a changed default news organisation image to republish news articles" do
-    organisation = create(:organisation)
-
-    documents = NewsArticle
-      .in_organisation(organisation)
-      .includes(:images)
-      .where(images: { id: nil })
-      .map(&:document)
-
-    documents.each do |d|
-      Whitehall::PublishingApi.expects(:republish_document_async).with(d)
-    end
-
-    organisation.update!(
-      default_news_image: create(:featured_image_data),
     )
   end
 

@@ -31,7 +31,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
 
   test "#perform returns without consequence if the edition is already published" do
     edition = create(:published_edition)
-    ScheduledPublishingWorker.new.perform(edition.id)
+    assert_nil ScheduledPublishingWorker.new.perform(edition.id)
   end
 
   test ".queue queues a job for a scheduled edition" do

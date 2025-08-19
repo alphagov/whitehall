@@ -415,11 +415,6 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_not_includes organisation.corporate_information_page_types.map(&:id), 20
   end
 
-  test "should support attachments" do
-    organisation = build(:worldwide_organisation)
-    organisation.attachments << build(:file_attachment)
-  end
-
   %w[body summary title].each do |param|
     test "should not be valid without a #{param}" do
       assert_not build(:worldwide_organisation, param.to_sym => nil).valid?
