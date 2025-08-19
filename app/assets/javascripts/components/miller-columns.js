@@ -1,5 +1,5 @@
 //= require choices.js/public/assets/scripts/choices.min.js
-//= require miller-columns-element
+//= require vendor/miller-columns
 'use strict'
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}

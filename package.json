@@ -17,7 +17,6 @@
   "dependencies": {
     "cropperjs": "^1.6.2",
     "govspeak-visual-editor": "^3.0.0",
-    "miller-columns-element": "^2.0.1",
     "paste-html-to-govspeak": "^0.5.0"
   },
   "devDependencies": {
