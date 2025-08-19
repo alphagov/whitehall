@@ -46,16 +46,16 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
 
     @page = StandardEdition.new
     @page.images = create_list(:image, 3)
-    @page.flexible_page_content = { "test_attribute" => @page.images.last.id.to_s }
+    @page.block_content = { "test_attribute" => @page.images.last.id.to_s }
     @block = ConfigurableContentBlocks::ImageSelect.new(@page.images)
 
     render @block, {
       schema: @schema["properties"]["test_attribute"],
-      content: @page.flexible_page_content["test_attribute"],
+      content: @page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
 
-    assert_dom "select[name=?]", "edition[flexible_page_content][test_attribute]"
+    assert_dom "select[name=?]", "edition[block_content][test_attribute]"
     assert_dom "option[selected]", text: @page.images.last.filename
     @page.images.each do |image|
       assert_dom "option", text: image.filename

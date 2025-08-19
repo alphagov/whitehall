@@ -1,7 +1,7 @@
 class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
-  validates :flexible_page_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
+  validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
 
   def self.choose_document_type_form_action
@@ -37,15 +37,15 @@ class StandardEdition < Edition
   end
 
   def type_instance
-    ConfigurableDocumentType.find(flexible_page_type)
+    ConfigurableDocumentType.find(configurable_document_type)
   end
 
   def content_conforms_to_schema
     formats = ConfigurableContentBlocks::Factory.new(self).build_all.each_with_object({}) do |block, object|
       object[block.json_schema_format] = block.json_schema_validator unless block.json_schema_format == "default"
     end
-    unless JSONSchemer.schema(type_instance.schema, formats:).valid?(flexible_page_content)
-      errors.add(:flexible_page_content, "does not conform with the expected schema")
+    unless JSONSchemer.schema(type_instance.schema, formats:).valid?(block_content)
+      errors.add(:block_content, "does not conform with the expected schema")
     end
   end
 end

@@ -40,7 +40,7 @@ module PublishingApi
     def details
       root_block = ConfigurableContentBlocks::Factory.new(item).build("object")
       {
-        **flatten_headers(root_block.publishing_api_payload(type.schema, item.flexible_page_content)),
+        **flatten_headers(root_block.publishing_api_payload(type.schema, item.block_content)),
       }
     end
 

@@ -48,31 +48,31 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
 
   test "user can see an edition if the document type is managed by their organisation" do
     user = User.new(organisation: @organisation)
-    page = StandardEdition.new(flexible_page_type: @type_key)
+    page = StandardEdition.new(configurable_document_type: @type_key)
     assert Whitehall::Authority::Enforcer.new(user, page).can?(:see)
   end
 
   test "user can not see an edition if the document type is not managed by their organisation" do
     user = User.new(organisation: create(:organisation))
-    page = StandardEdition.new(flexible_page_type: @type_key)
+    page = StandardEdition.new(configurable_document_type: @type_key)
     assert_not Whitehall::Authority::Enforcer.new(user, page).can?(:see)
   end
 
   test "normal edition rules are applied for actions requiring higher privileges" do
     user = User.new(organisation: @organisation)
-    page = StandardEdition.new(flexible_page_type: @type_key)
+    page = StandardEdition.new(configurable_document_type: @type_key)
     assert_not Whitehall::Authority::Enforcer.new(user, page).can?(:force_publish)
   end
 
   test "normal edition rules are applied when the document type is not limited to specific organisations" do
     user = User.new(organisation: create(:organisation))
-    page = StandardEdition.new(flexible_page_type: @no_organisations_type_key)
+    page = StandardEdition.new(configurable_document_type: @no_organisations_type_key)
     assert Whitehall::Authority::Enforcer.new(user, page).can?(:see)
   end
 
   test "cannot do anything to an edition if they do not belong to a permitted organisation" do
     user = User.new(organisation: create(:organisation))
-    page = StandardEdition.new(flexible_page_type: @type_key)
+    page = StandardEdition.new(configurable_document_type: @type_key)
     enforcer = Whitehall::Authority::Enforcer.new(user, page)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|

@@ -23,7 +23,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
     })
     page = StandardEdition.new
-    page.flexible_page_type = type_key
+    page.configurable_document_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -34,7 +34,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal rendering_app, content[:rendering_app]
   end
 
-  test "it includes the flexible page content values in the details hash" do
+  test "it includes the block content values in the details hash" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types({
       type_key => {
@@ -62,17 +62,17 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
     })
     page = StandardEdition.new
-    page.flexible_page_type = type_key
+    page.configurable_document_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
-    page.flexible_page_content = {
+    page.block_content = {
       "property_one" => "Foo",
       "property_two" => "Bar",
     }
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
-    assert_equal page.flexible_page_content["property_one"], content[:details][:property_one]
-    assert_equal page.flexible_page_content["property_two"], content[:details][:property_two]
+    assert_equal page.block_content["property_one"], content[:details][:property_one]
+    assert_equal page.block_content["property_two"], content[:details][:property_two]
   end
 
   test "it includes headers for each govspeak type block" do
@@ -107,10 +107,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
     })
     page = StandardEdition.new
-    page.flexible_page_type = type_key
+    page.configurable_document_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
-    page.flexible_page_content = {
+    page.block_content = {
       "chunk_of_content_one" => "## Header for chunk one\n\nSome content",
       "chunk_of_content_two" => "## Header for chunk two\n\nSome more content",
     }
@@ -168,10 +168,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
     })
     page = StandardEdition.new
-    page.flexible_page_type = type_key
+    page.configurable_document_type = type_key
     page.document = Document.new
     page.document.slug = "page-title"
-    page.flexible_page_content = {
+    page.block_content = {
       "body" => "## Header for content\n\nSome content",
     }
     presenter = PublishingApi::StandardEditionPresenter.new(page)

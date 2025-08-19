@@ -67,7 +67,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "label", "Test Type Two"
   end
 
-  test "POST create re-renders the new edition template with the submitted flexible page content if the form is invalid" do
+  test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do
     configurable_document_types = {
       "test_type" => {
         "key" => "test_type",
@@ -87,10 +87,10 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     }
     ConfigurableDocumentType.setup_test_types(configurable_document_types)
 
-    flexible_page_content = {
+    block_content = {
       "test_attribute" => "foo",
     }
-    post :create, params: { edition: { flexible_page_type: "test_type", flexible_page_content: } }
+    post :create, params: { edition: { configurable_document_type: "test_type", block_content: } }
     assert_template "admin/editions/new"
   end
 end

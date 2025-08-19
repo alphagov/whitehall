@@ -51,13 +51,13 @@ class StandardEditionTest < ActiveSupport::TestCase
       },
     }
     ConfigurableDocumentType.setup_test_types(test_types)
-    page_with_images = StandardEdition.new(flexible_page_type: "test_type_with_images")
-    page_without_images = StandardEdition.new(flexible_page_type: "test_type_without_images")
+    page_with_images = StandardEdition.new(configurable_document_type: "test_type_with_images")
+    page_without_images = StandardEdition.new(configurable_document_type: "test_type_without_images")
     assert page_with_images.allows_image_attachments?
     assert_not page_without_images.allows_image_attachments?
   end
 
-  test "it is invalid if the flexible page content does not conform to the flexible page type schema" do
+  test "it is invalid if the block content does not conform to the configurable document type schema" do
     test_types = {
       "test_type" => {
         "key" => "test_type",
@@ -80,8 +80,8 @@ class StandardEditionTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(test_types)
     page = StandardEdition.new
     page.title = "Test Page"
-    page.flexible_page_type = "test_type"
-    page.flexible_page_content = {}
+    page.configurable_document_type = "test_type"
+    page.block_content = {}
     page.creator = User.new
     assert page.invalid?
   end

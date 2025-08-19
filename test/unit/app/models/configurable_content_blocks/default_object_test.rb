@@ -122,7 +122,7 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
     block = ConfigurableContentBlocks::DefaultObject.new(factory)
     render block, { schema:, content:, path: Path.new }
-    assert_dom "input[name=?][value=?]", "edition[flexible_page_content][not_nested_attribute]", "bar"
+    assert_dom "input[name=?][value=?]", "edition[block_content][not_nested_attribute]", "bar"
   end
 
   test "it renders nested child attribute content" do
@@ -146,6 +146,6 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
     block = ConfigurableContentBlocks::DefaultObject.new(factory)
     render block, { schema:, content:, path: Path.new }
-    assert_dom "input[name=?][value=?]", "edition[flexible_page_content][test_object_attribute][nested_attribute]", "foo"
+    assert_dom "input[name=?][value=?]", "edition[block_content][test_object_attribute][nested_attribute]", "foo"
   end
 end

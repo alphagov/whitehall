@@ -42,11 +42,11 @@
       margin_bottom: 3,
     } %>
 
-    <%= form.hidden_field :flexible_page_type, value: @edition.flexible_page_type %>
+    <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
     <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build("object") %>
     <%= render(root_block, {
-      schema: ConfigurableDocumentType.find(@edition.flexible_page_type).schema,
-      content: @edition.flexible_page_content,
+      schema: ConfigurableDocumentType.find(@edition.configurable_document_type).schema,
+      content: @edition.block_content,
       path: ConfigurableContentBlocks::Path.new,
       root: true,
     }) %>

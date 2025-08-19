@@ -1,33 +1,33 @@
 # Configurable Document Types
 
-Whitehall offers a "flexible" pages feature. Flexible pages are editionable Whitehall documents that have their content schemas defined as JSON rather than in code. The content for a flexible page is stored in the `flexible_page_content` JSON column on the `edition_translations` table. Flexible pages have a "type", which is stored in the `flexible_page_type` column on the editions table. Users must select the type of flexible page they wish to create once they have selected "flexible page" from the new document type selection screen.
+Whitehall offers configurable document types. Configurable documents are editionable Whitehall documents that have their content schemas defined as JSON rather than in code. The content for an edition of a configurable document is stored in the `block_content` JSON column on the `edition_translations` table. These editions have a "type", which is stored in the `configurable_document_type` column on the editions table.
 
-## Flexible Page Configuration
+## Document Type Configuration
 
-Flexible page types are defined as JSON. The JSON files are stored in the `app/models/flexible_page_types` directory.
+Configurable document types are defined as JSON. The JSON files are stored in the `app/models/configurable_document_types` directory.
 
 The JSON for each type has these top level keys:
 
-- 'key': The unique identifier for the flexible page type. This is what will be stored in the edition's `flexible_page_type` column.
-- 'schema': The schema for the flexible page type, defined as [JSON schema](https://json-schema.org/docs). Each schema must have a root schema of the type "object".
-- 'settings': The settings for the flexible page type.
+- 'key': The unique identifier for the document type. This is what will be stored in the edition's `configurable_document_type` column.
+- 'schema': The schema for the document type, defined as [JSON schema](https://json-schema.org/docs). Each schema must have a root schema of the type "object".
+- 'settings': The settings for the document type.
 
-These are the settings available for flexible page types. All settings are required.
+These are the settings available for configurable document types. All settings are required.
 
-| Key                      | Description                                                                                                                                                                          |
-|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| base_path_prefix         | The prefix for the base path at which the flexible page will be published. E.g. /government/history for the page /government/history/10-downing-street                               |
-| publishing_api_schema_name | The Publishing API schema name for flexible pages of this type                                                                                                                       |
-| publishing_api_document_type | The Publishing API document type for flexible pages of this type                                                                                                                     |
-| rendering_app            | The redering app for the flexible page type                                                                                                                                         |
-| images_enabled           | Whether or not users should be able to upload images for this flexible page type using the images tab on the edition form                                                            |
-| organisations            | An array of organisation content IDs. Only users from one of the listed organisations will be able to use the flexible page type. Use "null" to allow all users to use the page type |
+| Key                      | Description                                                                                                                                                                         |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| base_path_prefix         | The prefix for the base path at which the document will be published. E.g. /government/history for the page /government/history/10-downing-street                                   |
+| publishing_api_schema_name | The Publishing API schema name for documents of this type                                                                                                                           |
+| publishing_api_document_type | The Publishing API document type for documents of this type                                                                                                                         |
+| rendering_app            | The redering app for the document type                                                                                                                                              |
+| images_enabled           | Whether or not users should be able to upload images for this document type using the images tab on the edition form                                                                |
+| organisations            | An array of organisation content IDs. Only users from one of the listed organisations will be able to use the document type. Use "null" to allow all users to use the document type |
 
-The types are loaded from the JSON files on the first call to the `types` method on the [flexible page type model](../app/models/flexible_page_type.rb) and cached in memory. The model provides an ergonomic way to read values from a configuration file.
+The types are loaded from the JSON files on the first call to the `types` method on the [configurable document type model](../app/models/configurable_document_type.rb) and cached in memory. The model provides an ergonomic way to read values from a configuration file.
 
 ## Content Blocks
 
-Each property within a flexible page schema is represented in the application as a content block. The content block is specified via the "type" and "format" options on the property schema. Content blocks are defined in the `app/models/flexible_page_content_blocks` directory.
+Each property within a configurable document schema is represented in the application as a content block. The content block is specified via the "type" and "format" options on the property schema. Content blocks are defined in the `app/models/configurable_content_blocks` directory.
 
 Each content block implements the following methods:
 
@@ -43,8 +43,8 @@ Block views use the following [partial-local](https://guides.rubyonrails.org/act
 - The `root` (default `false`) attribute, which is only set to `true` for the rendering of the original `DefaultObject` block that wraps all the other blocks in the schema. 
 - The `required` attribute. The required properties are defined at the parent level in [JSON schema](https://json-schema.org/docs), so the `required` attribute is extracted in the parent view, and passed on to any required child property, which then gets rendered with a "(required)" specification in its label.
 
-Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb). To add a new block type, add a new block class implementing the methods above to the `app/models/flexible_page_content_blocks` directory, and add the block type to the private blocks method in the factory class. The `blocks` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the flexible page object as its only argument. Any values from the page object needed by the block can be passed to the block's initialize method, e.g. the Image Select block is passed the page's images.
+Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb). To add a new block type, add a new block class implementing the methods above to the `app/models/configurable_content_blocks` directory, and add the block type to the private blocks method in the factory class. The `blocks` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the configurable document edition object as its only argument. Any values from the edition object needed by the block can be passed to the block's initialize method, e.g. the Image Select block is passed the edition's images.
 
-There are two potential "gotchas" in to do with block types. The first is that you can't define a numeric type. Usually, Rails is able to cast model attribute values to a number if the attribute is stored using a numeric database column. However, because we store all the flexible page content in a single JSON column, Rails can't do that for flexible page content values. Therefore, we are forced to define all leaf schema properties as strings. It may be possible to implement some sort of type casting solution in future if this becomes especially painful.
+There are two potential "gotchas" in to do with block types. The first is that you can't define a numeric type. Usually, Rails is able to cast model attribute values to a number if the attribute is stored using a numeric database column. However, because we store all the edition content in a single JSON column, Rails can't do that for block content values. Therefore, we are forced to define all leaf schema properties as strings. It may be possible to implement some sort of type casting solution in future if this becomes especially painful.
 
 The second "gotcha" is that you can't define nullable types, which in JSON schema is usually done by defining a type of `[string, null]`. However, Rails will typically interpret empty form input values as an empty string, rather than `nil`.

@@ -304,10 +304,10 @@ private
             ],
           },
         ],
-        flexible_page_content: {},
+        block_content: {},
       },
       :auth_bypass_id,
-      :flexible_page_type,
+      :configurable_document_type,
     ]
   end
 

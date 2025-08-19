@@ -18,8 +18,8 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   click_button("Next")
   within "form" do
     fill_in "edition_title", with: title
-    fill_in "edition_flexible_page_content_page_title_heading_text", with: title
-    fill_in "edition_flexible_page_content_body", with: "## Some govspeak\n\nThis is the body content"
+    fill_in "edition_block_content_page_title_heading_text", with: title
+    fill_in "edition_block_content_body", with: "## Some govspeak\n\nThis is the body content"
   end
   click_button "Save and go to document summary"
 end
@@ -28,12 +28,12 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
   submitter = create(:user)
   standard_edition = StandardEdition.new
   as_user(submitter) do
-    standard_edition.flexible_page_type = "test"
+    standard_edition.configurable_document_type = "test"
     standard_edition.title = title
     standard_edition.state = "submitted"
     standard_edition.document = Document.new
     standard_edition.document.slug = title.parameterize
-    standard_edition.flexible_page_content = {
+    standard_edition.block_content = {
       "page_title" => {
         "heading_text" => title,
         "context" => "Additional context",

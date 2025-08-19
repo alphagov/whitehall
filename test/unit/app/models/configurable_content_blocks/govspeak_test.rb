@@ -18,7 +18,7 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     }
     page = StandardEdition.new
     page.images = [create(:image)]
-    page.flexible_page_content = content
+    page.block_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
@@ -37,7 +37,7 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
       "test_attribute" => govspeak,
     }
     page = StandardEdition.new
-    page.flexible_page_content = content
+    page.block_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
@@ -64,7 +64,7 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
       "test_attribute" => govspeak,
     }
     page = StandardEdition.new
-    page.flexible_page_content = content
+    page.block_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
@@ -93,14 +93,14 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
     }
 
     page = StandardEdition.new
-    page.flexible_page_content = { "test_attribute" => "## foo" }
+    page.block_content = { "test_attribute" => "## foo" }
     block = ConfigurableContentBlocks::Govspeak.new
 
     render block, {
       schema: schema["properties"]["test_attribute"],
-      content: page.flexible_page_content["test_attribute"],
+      content: page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
-    assert_dom "textarea[name=?]", "edition[flexible_page_content][test_attribute]", text: page.flexible_page_content["test_attribute"]
+    assert_dom "textarea[name=?]", "edition[block_content][test_attribute]", text: page.block_content["test_attribute"]
   end
 end
