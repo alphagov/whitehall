@@ -1,5 +1,5 @@
 class PromotionalFeatureItem < ApplicationRecord
-  VALID_YOUTUBE_URL_FORMAT = /\A(?:https:\/\/youtu\.be\/|https:\/\/www\.youtube\.com\/watch\?v=)([0-9A-Za-z_-]*)(?:$|(?:\?|&).*$)/
+  VALID_YOUTUBE_URL_FORMAT = /\A(?:https:\/\/youtu\.be\/|https:\/\/www\.youtube\.com\/watch\?v=)([0-9A-Za-z_-]*)(?:\z|(?:\?|&).*\z)/
 
   include ImageKind
 
