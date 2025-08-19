@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
   helper ComponentGuideHelper
-  protect_from_forgery
+  protect_from_forgery with: :exception, prepend: true
 
   before_action :set_current_user
   before_action :set_authenticated_user_header
