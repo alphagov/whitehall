@@ -16,7 +16,7 @@ module Edition::Translatable
   included do
     include TranslatableModel
 
-    translates :title, :summary, :body, :flexible_page_content
+    translates :title, :summary, :body, :block_content
 
     add_trait Trait
 

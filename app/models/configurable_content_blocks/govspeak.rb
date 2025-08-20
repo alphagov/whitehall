@@ -1,4 +1,4 @@
-module FlexiblePageContentBlocks
+module ConfigurableContentBlocks
   class Govspeak
     include Presenters::PublishingApi::PayloadHeadingsHelper
 
@@ -28,7 +28,7 @@ module FlexiblePageContentBlocks
     end
 
     def to_partial_path
-      "admin/flexible_pages/content_blocks/govspeak"
+      "admin/configurable_content_blocks/govspeak"
     end
   end
 end

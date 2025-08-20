@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class FlexiblePageTypeRules
+  class ConfigurableDocumentTypeRules
     def initialize(actor, subject)
       @actor = actor
       @subject = subject

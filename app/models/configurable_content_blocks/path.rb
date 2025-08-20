@@ -1,4 +1,4 @@
-module FlexiblePageContentBlocks
+module ConfigurableContentBlocks
   class Path
     def initialize(segments = [])
       @segments = segments
@@ -13,11 +13,11 @@ module FlexiblePageContentBlocks
     end
 
     def form_control_id
-      "edition_flexible_page_content_#{@segments.join('_')}"
+      "edition_block_content_#{@segments.join('_')}"
     end
 
     def form_control_name
-      "edition[flexible_page_content][#{@segments.join('][')}]"
+      "edition[block_content][#{@segments.join('][')}]"
     end
   end
 end

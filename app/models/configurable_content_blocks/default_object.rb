@@ -1,4 +1,4 @@
-module FlexiblePageContentBlocks
+module ConfigurableContentBlocks
   class DefaultObject
     attr_reader :block_factory
 
@@ -15,7 +15,7 @@ module FlexiblePageContentBlocks
     end
 
     def to_partial_path
-      "admin/flexible_pages/content_blocks/default_object"
+      "admin/configurable_content_blocks/default_object"
     end
 
     def publishing_api_payload(schema, content)

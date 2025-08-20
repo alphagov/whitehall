@@ -3,8 +3,8 @@
   "schema": {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://www.gov.uk/schemas/history_page/v1",
-    "title": "Test flexible page type",
-    "description": "A test flexible page on GOV.UK",
+    "title": "Test configurable document type",
+    "description": "A test configurable document on GOV.UK",
     "type": "object",
     "properties": {
       "page_title": {

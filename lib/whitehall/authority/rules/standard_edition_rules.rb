@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class FlexiblePageRules < Whitehall::Authority::Rules::EditionRules
+  class StandardEditionRules < Whitehall::Authority::Rules::EditionRules
   protected
 
     def can_with_an_instance?(action)

@@ -42,12 +42,12 @@
       margin_bottom: 3,
     } %>
 
-    <%= form.hidden_field :flexible_page_type, value: @edition.flexible_page_type %>
-    <% root_block = FlexiblePageContentBlocks::Factory.new(@edition).build("object") %>
+    <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
+    <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build("object") %>
     <%= render(root_block, {
-      schema: FlexiblePageType.find(@edition.flexible_page_type).schema,
-      content: @edition.flexible_page_content,
-      path: FlexiblePageContentBlocks::Path.new,
+      schema: ConfigurableDocumentType.find(@edition.configurable_document_type).schema,
+      content: @edition.block_content,
+      path: ConfigurableContentBlocks::Path.new,
       root: true,
     }) %>
     <%= render("settings_fields", form:, edition:) %>

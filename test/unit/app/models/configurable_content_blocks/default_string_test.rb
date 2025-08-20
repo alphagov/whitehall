@@ -1,13 +1,13 @@
 require "test_helper"
 
-class FlexiblePageContentBlocks::DefaultStringTest < ActiveSupport::TestCase
+class ConfigurableContentBlocks::DefaultStringTest < ActiveSupport::TestCase
   test "it presents the content" do
-    payload = FlexiblePageContentBlocks::DefaultString.new.publishing_api_payload("foo")
+    payload = ConfigurableContentBlocks::DefaultString.new.publishing_api_payload("foo")
     assert_equal("foo", payload)
   end
 end
 
-class FlexiblePageContentBlocks::DefaultStringRenderingTest < ActionView::TestCase
+class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCase
   setup do
     @schema = {
       "type" => "object",
@@ -20,15 +20,15 @@ class FlexiblePageContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
       },
     }
 
-    @page = FlexiblePage.new
-    @page.flexible_page_content = { "test_attribute" => "foo" }
-    @block = FlexiblePageContentBlocks::DefaultString.new
+    @page = StandardEdition.new
+    @page.block_content = { "test_attribute" => "foo" }
+    @block = ConfigurableContentBlocks::DefaultString.new
   end
 
   test "the form label is equal to the attribute title" do
     render @block, {
       schema: @schema["properties"]["test_attribute"],
-      content: @page.flexible_page_content["test_attribute"],
+      content: @page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
     assert_dom "label", text: @schema["properties"]["test_attribute"]["title"]
@@ -37,7 +37,7 @@ class FlexiblePageContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
   test "it adds a required message to the label when the attribute is required" do
     render @block, {
       schema: @schema["properties"]["test_attribute"],
-      content: @page.flexible_page_content["test_attribute"],
+      content: @page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
       required: true,
     }
@@ -47,25 +47,25 @@ class FlexiblePageContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
   test "it sets the input name correctly" do
     render @block, {
       schema: @schema["properties"]["test_attribute"],
-      content: @page.flexible_page_content["test_attribute"],
+      content: @page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
-    assert_dom "input[name=?]", "edition[flexible_page_content][test_attribute]"
+    assert_dom "input[name=?]", "edition[block_content][test_attribute]"
   end
 
   test "it sets the input value based on the content" do
     render @block, {
       schema: @schema["properties"]["test_attribute"],
-      content: @page.flexible_page_content["test_attribute"],
+      content: @page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
-    assert_dom "input[value=?]", @page.flexible_page_content["test_attribute"]
+    assert_dom "input[value=?]", @page.block_content["test_attribute"]
   end
 
   test "it sets the hint text based on the description" do
     render @block, {
       schema: @schema["properties"]["test_attribute"],
-      content: @page.flexible_page_content["test_attribute"],
+      content: @page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
     assert_dom ".govuk-hint", text: @schema["properties"]["test_attribute"]["description"]

@@ -643,27 +643,31 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   describe "The new document view model" do
-    it "should include flexible page type in all types when feature flag enabled" do
+    it "should include configurable document type in types hash when feature flag enabled" do
       test_strategy = Flipflop::FeatureSet.current.test!
 
-      assert_not Document::View::New.all_types.include?(FlexiblePage)
-      test_strategy.switch!(:flexible_pages, true)
+      assert_not Document::View::New.types_hash.values.pluck("klass").include?(StandardEdition)
+      test_strategy.switch!(:configurable_document_types, true)
 
-      assert Document::View::New.all_types.include?(FlexiblePage)
-      test_strategy.switch!(:flexible_pages, false)
+      assert Document::View::New.types_hash.values.pluck("klass").include?(StandardEdition)
+      test_strategy.switch!(:configurable_document_types, false)
     end
 
     it "should scope document types to those that user can create" do
       enforcer = Minitest::Mock.new
-      types = Document::View::New.all_types
-      last_type = types.pop
+      last_element = Document::View::New.types_hash.to_a.last
+      last_element_key = last_element[0]
+      last_element_klass = last_element[1]["klass"]
+      last_element_label = last_element[1]["label"]
+      last_element_hint_text = last_element[1]["hint_text"]
+      types = Document::View::New.types_hash.except(last_element_key).values.pluck("klass")
       types.each do |type|
         enforcer.expect(:can?, false, [:create])
         type.stubs(:enforcer).returns(enforcer)
       end
+      last_element_klass.stubs(:enforcer).returns(enforcer)
       enforcer.expect(:can?, true, [:create])
-      last_type.stubs(:enforcer).returns(enforcer)
-      assert_equal [last_type], Document::View::New.types_for(enforcer)
+      assert_equal ({ last_element_key => { "klass" => last_element_klass, "hint_text" => last_element_hint_text, "label" => last_element_label } }), Document::View::New.types_for(enforcer)
     end
 
     it "should provide a redirect path helper method for a valid document type" do

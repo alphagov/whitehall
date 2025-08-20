@@ -31,7 +31,7 @@ Flipflop.configure do
   feature :use_friendly_embed_codes,
           description: "Use embed codes with friendly IDs in Content Block Manager",
           default: Whitehall.integration_or_staging? || !Rails.env.production?
-  feature :flexible_pages,
-          description: "Enable flexible pages functionality",
+  feature :configurable_document_types,
+          description: "Enable config driven document types",
           default: Rails.env.development?
 end

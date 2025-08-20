@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_01_063927) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_18_145027) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -379,7 +379,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_01_063927) do
     t.text "body", size: :long
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.json "flexible_page_content"
+    t.json "block_content"
     t.index ["edition_id"], name: "index_edition_translations_on_edition_id"
     t.index ["locale"], name: "index_edition_translations_on_locale"
   end
@@ -454,13 +454,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_01_063927) do
     t.integer "main_office_id"
     t.boolean "visual_editor"
     t.integer "government_id"
-    t.string "flexible_page_type"
+    t.string "configurable_document_type"
     t.datetime "revalidated_at"
     t.index ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id"
     t.index ["closing_at"], name: "index_editions_on_closing_at"
+    t.index ["configurable_document_type"], name: "index_editions_on_configurable_document_type"
     t.index ["document_id"], name: "index_editions_on_document_id"
     t.index ["first_published_at"], name: "index_editions_on_first_published_at"
-    t.index ["flexible_page_type"], name: "index_editions_on_flexible_page_type"
     t.index ["government_id"], name: "fk_rails_6875303236"
     t.index ["main_office_id"], name: "index_editions_on_main_office_id"
     t.index ["opening_at"], name: "index_editions_on_opening_at"

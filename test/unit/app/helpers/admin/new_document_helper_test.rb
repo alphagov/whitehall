@@ -1,12 +1,27 @@
 require "test_helper"
 
 class Admin::NewDocumentHelperTest < ActionView::TestCase
-  test "new_document_radio_item returns a hash representation of the document type" do
-    assert_equal new_document_radio_item(NewsArticle), {
-      value: "news_article",
-      text: "News article",
-      bold: true,
-      hint_text: "Use this for news story, press release, government response, and world news story.",
+  class NewDocType; end
+
+  test "radio_buttons_for returns a hash representation of the document types" do
+    document_types = {
+      "new_doc_type_with_no_hint" => { "klass" => NewDocType, "label" => "Custom visible label for doc type with no hint" },
+      "new_doc_type_with_hint" => { "klass" => NewDocType, "label" => "Custom visible label for doc type with hint", "hint_text" => "Custom hint text for doc type with hint" },
     }
+
+    assert_equal radio_buttons_for(document_types), [
+      {
+        value: "new_doc_type_with_no_hint",
+        text: "Custom visible label for doc type with no hint",
+        bold: true,
+        hint_text: nil,
+      },
+      {
+        value: "new_doc_type_with_hint",
+        text: "Custom visible label for doc type with hint",
+        bold: true,
+        hint_text: "Custom hint text for doc type with hint",
+      },
+    ]
   end
 end

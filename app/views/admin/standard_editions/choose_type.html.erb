@@ -1,14 +1,14 @@
-<% content_for :page_title, "New flexible page" %>
+<% content_for :page_title, "New standard document" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with method: "get", url: new_admin_flexible_page_path do %>
+    <%= form_with method: "get", url: new_admin_standard_edition_path do %>
       <%= render "govuk_publishing_components/components/radio", {
-        heading: "New flexible page",
+        heading: "New standard document",
         heading_level: 1,
-        name: "flexible_page_type",
-        id: "flexible_page_type",
-        items: @permitted_flexible_page_types.map { |type| { text: type.label, value: type.key }},
+        name: "configurable_document_type",
+        id: "configurable_document_type",
+        items: @permitted_configurable_document_types.map { |type| { text: type.label, value: type.key }},
       } %>
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", { text: "Next" } %>

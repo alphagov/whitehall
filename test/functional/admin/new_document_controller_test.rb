@@ -44,7 +44,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 private
 
   def radio_button_values
-    Document::View::New.types_for(@current_user).map { |type| type.name.underscore }
+    Document::View::New.types_for(@current_user).keys
   end
 
   def assert_select_radio_button(value)
