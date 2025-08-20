@@ -1,6 +1,9 @@
-# 5. Use JSON Schema for flexible page schemas
+# 5. Use JSON Schema for configurable document schemas
 
-Date: 2025-06-16
+* First published: 2025-06-16
+* Updated on: 2025-06-16 
+  * Update to replace references to "Flexible Pages" with "Configurable Document", to align with the current terminology used in Whitehall.
+
 
 ## Status
 
@@ -24,6 +27,6 @@ We have chosen to adopt [JSON schema](https://json-schema.org/) for the schema f
 
 ## Consequences
 
-We can iterate more quickly on Flexible Pages because we are using established open source tools with a solid theoretical foundation. We will not have to spend time making decisions about how to represent most content types.
+We can iterate more quickly on Configurable Document Types because we are using established open source tools with a solid theoretical foundation. We will not have to spend time making decisions about how to represent most content types.
 
-It may be slightly harder to deliver complex flexible page features. However, JSON schema can be extended if necessary using the "x-" prefix for custom schema attributes. This will allow us to support features not provided by default JSON schema, though we intend to keep these to a minimum.
+It may be slightly harder to deliver complex document types. However, JSON schema can be extended if necessary using the "x-" prefix for custom schema attributes. This will allow us to support features not provided by default JSON schema, though we intend to keep these to a minimum.
