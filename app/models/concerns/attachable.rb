@@ -38,6 +38,19 @@ module Attachable
             draft_attachment = attachment.deep_clone
             edition.attachments << draft_attachment
             raise "Your edition failed to create successfully. Please contact GOV.UK support." unless draft_attachment.save!
+            draft_attachment.save!(validate: false)
+          end
+        end
+
+        def process_associations_after_validation
+          if @edition.validation_context == :publish
+            @edition.errors.delete(:attachments, :invalid)
+            @edition.errors.delete(:html_attachments, :invalid)
+            @edition.html_attachments.each do |html_attachment|
+              html_attachment.errors.each do |error|
+                @edition.errors.add(:html_attachments, ": \"#{html_attachment.title}\" #{error.message}")
+              end
+            end
           end
         end
       end

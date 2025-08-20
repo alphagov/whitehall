@@ -9,6 +9,8 @@ module Edition::Traits
     def process_associations_before_save(edition); end
 
     def process_associations_after_save(edition); end
+
+    def process_associations_after_validation; end
   end
 
   included do
@@ -17,6 +19,10 @@ module Edition::Traits
 
     define_method :traits do
       self.class.traits.map { |t| t.new(self) }
+    end
+
+    after_validation do
+      self.traits.each { |t| t.process_associations_after_validation }
     end
   end
 

@@ -1,6 +1,8 @@
 ---
 en:
   activerecord:
+    models:
+      html_attachment: "HTML attachment"
     attributes:
       attachment:
         hoc_paper_number: House of Commons paper number
@@ -18,6 +20,7 @@ en:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file: The attached file
       edition:
+        html_attachments: HTML attachments
         nation_inapplicabilities: Excluded nations
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: The attached file
