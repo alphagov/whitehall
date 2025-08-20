@@ -14,11 +14,13 @@ class AnnouncementClearerTest < ActiveSupport::TestCase
 
   test "#clear! does not raise an error if the edition does not have an announcement" do
     statistics = create(:published_statistics)
+    Whitehall::SearchIndex.expects(:delete).never
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
   end
 
   test "#clear! does not raise an error if the edition is not a statistical publication" do
     statistics = create(:published_case_study)
+    Whitehall::SearchIndex.expects(:delete).never
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
   end
 end

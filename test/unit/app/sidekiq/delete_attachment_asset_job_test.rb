@@ -11,6 +11,7 @@ class DeleteAttachmentAssetJobTest < ActiveSupport::TestCase
 
     it "deletes the asset" do
       AssetManager::AssetDeleter.expects(:call).with(asset_manager_id)
+      Logger.any_instance.stubs(:info).with("Asset #{@asset_manager_id} has already been deleted from Asset Manager")
 
       worker.perform(attachment_data.id)
     end

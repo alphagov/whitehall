@@ -43,7 +43,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "publish responds with 422 if missing a lock version" do
     post :publish, params: { id: submitted_edition }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "All workflow actions require a lock version", response.body
   end
 
@@ -111,7 +111,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "schedule responds with 422 if missing a lock version" do
     post :schedule, params: { id: draft_edition }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "All workflow actions require a lock version", response.body
   end
 
@@ -141,7 +141,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "unschedule responds with 422 if missing a lock version" do
     post :unschedule, params: { id: draft_edition }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "All workflow actions require a lock version", response.body
   end
 
@@ -188,7 +188,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "submit responds with 422 if missing a lock version" do
     post :submit, params: { id: draft_edition }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "All workflow actions require a lock version", response.body
   end
 
@@ -210,7 +210,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "reject responds with 422 if missing a lock version" do
     post :reject, params: { id: draft_edition }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "All workflow actions require a lock version", response.body
   end
 
@@ -226,7 +226,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test "approve_retrospectively responds with 422 if missing a lock version" do
     post :approve_retrospectively, params: { id: draft_edition }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "All workflow actions require a lock version", response.body
   end
 
@@ -387,7 +387,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     login_as create(:managing_editor)
     post :unpublish, params: { id: published_edition }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "All workflow actions require a lock version", response.body
   end
 

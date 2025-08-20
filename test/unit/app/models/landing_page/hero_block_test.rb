@@ -71,7 +71,7 @@ class HeroBlockTest < ActiveSupport::TestCase
 
   test "valid when missing hero content blocks" do
     subject = LandingPage::HeroBlock.new(@valid_hero_block_config.except("hero_content"), @valid_hero_block_images)
-    subject.valid?
+    assert subject.valid?
   end
 
   test "invalid when hero content blocks are invalid" do

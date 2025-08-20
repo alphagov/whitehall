@@ -50,9 +50,9 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  test "fails gracefully if the model cannot be found" do
+  test "fails silently if the model cannot be found" do
     non_existent_id = 12
-    PublishingApiWorker.new.perform("Edition", non_existent_id)
+    assert_nil PublishingApiWorker.new.perform("Edition", non_existent_id)
   end
 
   test "passes the update_type option to the presenter" do

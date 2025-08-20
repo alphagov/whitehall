@@ -25,23 +25,23 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
     edition = build_stubbed(:publication, document: @document)
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
-    page.find("a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)")
+    assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)"
   end
 
   test "renders a link with tracking to preview the document when the edition is a foreign language only edition" do
     edition = build_stubbed(:publication, document: @document, primary_locale: :fr)
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
-    page.find("a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)")
+    assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)"
   end
 
   test "renders a link with tracking to preview the document for each translation when there are multiple translations" do
     edition = create(:publication, translated_into: %i[fr es], document: @document)
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
-    page.find("a[href='#{edition.public_url(draft: true)}']", text: "Preview on website - English (opens in new tab)")
-    page.find("a[href='#{edition.public_url(locale: 'fr', draft: true)}']", visible: false, text: "Preview on website - Français (French) (opens in new tab)")
-    page.find("a[href='#{edition.public_url(locale: 'es', draft: true)}']", visible: false, text: "Preview on website - Español (Spanish) (opens in new tab)")
+    assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website - English (opens in new tab)"
+    assert_selector "a[href='#{edition.public_url(locale: 'fr', draft: true)}']", visible: false, text: "Preview on website - Français (French) (opens in new tab)"
+    assert_selector "a[href='#{edition.public_url(locale: 'es', draft: true)}']", visible: false, text: "Preview on website - Español (Spanish) (opens in new tab)"
   end
 
   test "renders sharable preview functionality when edition is a pre-publication state" do

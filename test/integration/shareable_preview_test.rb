@@ -3,7 +3,6 @@ require "capybara/rails"
 
 class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
-  include Capybara::DSL
   include TaxonomyHelper
 
   describe "shareable preview feature" do
@@ -12,12 +11,11 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
 
       before do
         create_setup(edition)
-        visit admin_case_study_path(edition)
       end
 
       test "it shows shareable preview feature" do
         get admin_case_study_path(edition)
-        assert_selector "section", text: "Share document preview"
+        assert_select ".govuk-details__summary-text", text: "Share document preview"
       end
     end
 
@@ -26,12 +24,11 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
 
       before do
         create_setup(edition)
-        visit admin_case_study_path(edition)
       end
 
       test "it does not show shareable preview feature" do
         get admin_case_study_path(edition)
-        assert_no_selector "section", text: "Share document preview"
+        refute_select ".govuk-details__summary-text", text: "Share document preview"
       end
     end
 

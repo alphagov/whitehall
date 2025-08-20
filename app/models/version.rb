@@ -16,4 +16,6 @@ class Version < ApplicationRecord
   def previous
     sibling_versions.preceding(self).first
   end
+
+  public :to_ary
 end

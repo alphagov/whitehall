@@ -16,7 +16,9 @@ class RevalidateEditionsSchedulerWorkerTest < ActiveSupport::TestCase
       unpublished = create(:unpublished_edition, title: "Unpublished")
       superseded = create(:superseded_edition, title: "Superseded")
 
-      RevalidateEditionsSchedulerWorker.new.perform
+      Sidekiq.logger.stub(:info, nil) do
+        RevalidateEditionsSchedulerWorker.new.perform
+      end
 
       # Flatten all batch args (each job's arg is an array of IDs)
       enqueued_ids = RevalidateEditionBatchWorker.jobs.flat_map { |job| job["args"].first }

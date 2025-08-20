@@ -9,10 +9,12 @@ module ServiceListeners
 
     class Publish < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't publish" do
+        PublishingApiWorker.any_instance.expects(:perform).never
         call(create(:published_news_article))
       end
 
       test "with no html attachments doesn't publish" do
+        PublishingApiWorker.any_instance.expects(:perform).never
         publication = create(:published_publication, :with_external_attachment)
         call(publication)
       end
@@ -331,11 +333,14 @@ module ServiceListeners
 
     class UpdateDraft < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't save draft" do
-        call(create(:published_news_article))
+        news_article = create(:published_news_article)
+        Whitehall::PublishingApi.expects(:save_draft).never
+        call(news_article)
       end
 
       test "with no html attachments doesn't save draft" do
         publication = create(:published_publication, :with_external_attachment)
+        Whitehall::PublishingApi.expects(:save_draft).never
         call(publication)
       end
 
@@ -368,6 +373,7 @@ module ServiceListeners
         new_edition = publication.create_draft(create(:writer))
         new_edition.attachments = [build(:external_attachment)]
 
+        Whitehall::PublishingApi.expects(:save_draft).never
         call(new_edition)
       end
 
@@ -633,10 +639,12 @@ module ServiceListeners
 
       class Withdraw < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't publish a withdrawal" do
+          PublishingApiWithdrawalWorker.any_instance.expects(:perform).never
           call(create(:published_news_article))
         end
 
         test "for a publication with no html attachments doesn't publish a withdrawal" do
+          PublishingApiWithdrawalWorker.any_instance.expects(:perform).never
           publication = create(:withdrawn_publication, :with_external_attachment)
           call(publication)
         end
@@ -729,11 +737,13 @@ module ServiceListeners
 
       class Delete < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't discard any drafts" do
+          PublishingApiDiscardDraftWorker.expects(:perform_async).never
           call(create(:published_news_article))
         end
 
         test "for a draft publication with no html attachments doesn't discard any drafts" do
           publication = create(:draft_publication, :with_external_attachment)
+          PublishingApiDiscardDraftWorker.expects(:perform_async).never
           call(publication)
         end
 

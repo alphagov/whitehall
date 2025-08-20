@@ -23,8 +23,9 @@ class RevalidateOldLinkCheckReportsWorkerTest < ActiveSupport::TestCase
     update_publication_with_oldest_report = stub_post_request(links, link_checker_api_batch_report_hash(id: 1, links:))
 
     RevalidateOldLinkCheckReportsWorker.stub_const(:MAX_REPORTS_TO_CHECK, 2) do
-      Sidekiq::Testing.inline! do
+      Sidekiq.logger.stub(:info, nil) do
         RevalidateOldLinkCheckReportsWorker.new.perform
+        RevalidateLinkCheckReportWorker.drain
       end
 
       assert_requested update_publication_with_oldest_report
@@ -40,7 +41,10 @@ class RevalidateOldLinkCheckReportsWorkerTest < ActiveSupport::TestCase
 
     LinkCheckerApiService.expects(:check_links).never
 
-    RevalidateOldLinkCheckReportsWorker.new.perform
+    Sidekiq.logger.stub(:info, nil) do
+      RevalidateOldLinkCheckReportsWorker.new.perform
+      RevalidateLinkCheckReportWorker.drain
+    end
   end
 
 private
