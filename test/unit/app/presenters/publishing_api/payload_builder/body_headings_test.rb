@@ -41,6 +41,27 @@ module PublishingApi
 
         assert_equal BodyHeadings.for(item), {}
       end
+
+      test "filters out govspeak links from the headers text" do
+        item = stub(body: "##Normal Heading\n\nSome stuff\n\n##[Link Heading](https://www.example.com)\n\nSome stuff\n\n")
+
+        expected_headers = {
+          headers: [
+            {
+              text: "Normal Heading",
+              level: 2,
+              id: "normal-heading",
+            },
+            {
+              text: "Link Heading",
+              level: 2,
+              id: "link-heading",
+            },
+          ],
+        }
+
+        assert_equal BodyHeadings.for(item), expected_headers
+      end
     end
   end
 end
