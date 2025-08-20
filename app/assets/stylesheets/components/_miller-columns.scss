@@ -1,10 +1,262 @@
-@import "miller-columns-element/dist/miller-columns";
+.miller-columns-selected {
+  @include govuk-responsive-margin(6, "bottom");
+  display: block;
 
-.app-c-miller-columns__search {
-  margin-bottom: govuk-spacing(6);
+  .govuk-breadcrumbs {
+    display: block;
+    margin: 0;
+    margin-right: 110px;
+  }
+
+  .govuk-breadcrumbs__list-item {
+    margin-bottom: 0;
+  }
+}
+
+.miller-columns-selected__list {
+  @include govuk-font($size: 16);
+  @include govuk-text-colour;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.miller-columns-selected__list-item {
+  position: relative;
+  margin-bottom: 0;
+  padding: govuk-spacing(2) 0;
+  border-top: 1px solid $govuk-border-colour;
+
+  &:last-child {
+    border-bottom: 1px solid $govuk-border-colour;
+  }
+}
+
+.miller-columns-selected__remove-topic {
+  @include govuk-link-common;
+  @include govuk-link-style-no-visited-state;
+  @include govuk-font($size: 16);
+  position: absolute;
+  top: govuk-spacing(2);
+  right: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: $govuk-link-colour;
+  background: transparent;
+  cursor: pointer;
+
+  &:focus {
+    @include govuk-focused-text;
+  }
+}
+
+.miller-columns-selected__remove-topic-name {
+  @include govuk-visually-hidden;
+}
+
+$mc-transition-time: 400ms;
+$mc-selected-item-colour: govuk-colour("white");
+$mc-selected-item-background: govuk-colour("dark-grey");
+$mc-active-item-colour: govuk-colour("white");
+$mc-active-item-background: govuk-colour("blue");
+
+.js-enabled {
+  // Hide nested lists
+  .miller-columns {
+    display: none;
+
+    // Disable pointer events on checkboxes to prevent them from interfering with the miller-columns items
+    .govuk-checkboxes__input,
+    .govuk-checkboxes__label {
+      pointer-events: none;
+    }
+  }
+}
+
+.miller-columns {
+  display: block;
+  width: 100%;
+  height: 100%;
+  @include govuk-responsive-margin(6, "bottom");
+  outline: 0;
+  font-size: 0;
+  white-space: nowrap;
+
+  .govuk-list {
+    .govuk-list {
+      margin-left: govuk-spacing(6);
+    }
+  }
+
+  .govuk-back-link {
+    margin-bottom: govuk-spacing(4);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    border: 0;
+    background: transparent;
+    text-decoration: underline;
+
+    @include govuk-media-query($from: tablet) {
+      display: none;
+    }
+  }
 }
 
 .miller-columns__column {
   position: sticky;
   top: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  white-space: normal;
+  transition-duration: $mc-transition-time;
+  transition-property: width;
+
+  &.miller-columns__column--active {
+    display: inline-block;
+  }
+
+  @include govuk-media-query($from: tablet) {
+    display: inline-block;
+    width: 33.3%;
+    border-right: 1px solid $govuk-border-colour;
+  }
+}
+
+.miller-columns__column--narrow {
+  width: 16.6%;
+  overflow-x: hidden;
+
+  .miller-columns__item,
+  .miller-columns__item label {
+    white-space: nowrap;
+  }
+
+  .miller-columns__item--parent::after {
+    display: none;
+  }
+}
+
+.miller-columns__column--medium {
+  width: 22.2%;
+  overflow-x: hidden;
+
+  .miller-columns__item,
+  .miller-columns__item label {
+    white-space: nowrap;
+  }
+
+  .miller-columns__item--parent::after {
+    display: none;
+  }
+}
+
+.miller-columns__column--collapse {
+  display: none;
+}
+
+.miller-columns__column-heading {
+  @include govuk-text-colour;
+  @include govuk-font($size: 19, $weight: bold);
+  margin-bottom: govuk-spacing(3);
+  margin-top: 0;
+  padding: 0;
+
+  @include govuk-media-query($from: tablet) {
+    display: none;
+  }
+}
+
+.miller-columns__column-list {
+  margin: 0;
+  padding: 0;
+}
+
+.miller-columns__item {
+  position: relative;
+  margin-bottom: 1px;
+  padding: 2px 9px;
+  list-style: none;
+  color: $govuk-text-colour;
+  cursor: pointer;
+  @include govuk-font($size: 16);
+
+  &:hover {
+    color: govuk-colour("black");
+    background-color: $govuk-hover-colour;
+  }
+
+  &:focus {
+    @include govuk-focused-text;
+  }
+
+  .govuk-checkboxes__item {
+    float: none;
+  }
+
+  .govuk-checkboxes__label {
+    @include govuk-font($size: 16);
+    padding: 12px 15px 10px 1px;
+  }
+
+  // Remove box-shadow set in govuk-frontend for govuk-checkboxes__input
+  // as we rely on the parent element miller-columns__item to show the target area on hover
+  .govuk-checkboxes__item:hover .govuk-checkboxes__input:focus + .govuk-checkboxes__label::before,
+  .govuk-checkboxes__item:hover .govuk-checkboxes__input:not(:disabled) + .govuk-checkboxes__label::before {
+    box-shadow: none;
+  }
+}
+
+.miller-columns__item--parent::after {
+  content: "\203A" / "";
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  margin-top: -17px;
+  float: right;
+  font-size: 24px;
+}
+
+.miller-columns__item--selected,
+.miller-columns__item--selected:hover {
+  color: $mc-selected-item-colour;
+  background-color: $mc-selected-item-background;
+
+  .govuk-checkboxes__label {
+    color: $mc-selected-item-colour;
+  }
+}
+
+.miller-columns__item--selected:focus {
+  @include govuk-focused-text;
+
+  .govuk-checkboxes__label {
+    color: $govuk-text-colour;
+  }
+}
+
+.miller-columns__item--active,
+.miller-columns__item--active:hover {
+  color: $mc-active-item-colour;
+  background-color: $mc-active-item-background;
+  box-shadow: none;
+
+  .govuk-checkboxes__label {
+    color: $mc-active-item-colour;
+  }
+}
+
+.miller-columns__item--active:focus {
+  @include govuk-focused-text;
+
+  .govuk-checkboxes__label {
+    color: $govuk-text-colour;
+  }
+}
+
+.app-c-miller-columns__search {
+  margin-bottom: govuk-spacing(6);
 }
