@@ -12,7 +12,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   create(:organisation) if Organisation.count.zero?
   visit admin_root_path
   find("li.app-c-sub-navigation__list-item a", text: "New document").click
-  page.choose("Standard edition")
+  page.choose("Standard document")
   click_button("Next")
   page.choose(configurable_document_type)
   click_button("Next")
