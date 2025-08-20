@@ -30,7 +30,7 @@
 
     <% if @worldwide_organisation.offices.many? %>
       <p class="govuk-body govuk-!-margin-bottom-6">
-        <%= link_to "Set main office", choose_main_office_admin_worldwide_organisation_path(@worldwide_organisation), class: "govuk-link" %>
+        <%= link_to "Set main office", edit_admin_edition_path(@worldwide_organisation) + "#edition_main_office_id-label", class: "govuk-link" %>
       </p>
     <% end %>
   </div>
