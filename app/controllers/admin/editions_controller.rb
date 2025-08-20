@@ -308,6 +308,7 @@ private
       },
       :auth_bypass_id,
       :configurable_document_type,
+      :main_office_id,
     ]
   end
 
