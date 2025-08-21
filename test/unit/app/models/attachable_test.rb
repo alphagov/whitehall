@@ -215,16 +215,15 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "re-editioned editions persists invalid attachments" do
-    file_attachment = build(:file_attachment, command_paper_number: "invalid")
-    file_attachment.save!(validate: false)
+    file_attachment = build(:file_attachment, isbn: "invalid")
     publication = create(
       :published_publication,
       :with_alternative_format_provider,
       attachments: [file_attachment],
     )
+    file_attachment.save!(validate: false)
 
     draft = publication.create_draft(create(:writer))
-
     assert_equal 1, draft.reload.attachments.size
     assert draft.attachments[0].persisted?
   end

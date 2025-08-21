@@ -15,11 +15,13 @@ module Attachable
     has_many :attachments,
              -> { not_deleted.order("attachments.ordering, attachments.id") },
              as: :attachable,
-             inverse_of: :attachable
+             inverse_of: :attachable,
+             validate: false
 
     has_many :html_attachments,
              -> { not_deleted.order("attachments.ordering, attachments.id") },
-             as: :attachable
+             as: :attachable,
+             validate: false
 
     has_many :deleted_html_attachments,
              -> { deleted },
@@ -37,7 +39,7 @@ module Attachable
           @edition.attachments.each do |attachment|
             draft_attachment = attachment.deep_clone
             edition.attachments << draft_attachment
-            raise "Your edition failed to create successfully. Please contact GOV.UK support." unless draft_attachment.save!
+            raise "Your edition failed to create successfully. Please contact GOV.UK support." unless draft_attachment.save!(validate: false)
           end
         end
       end
