@@ -22,6 +22,13 @@ module GovspeakHelper
     wrapped_in_govspeak_div(bare_govspeak_to_html(body, [], attachments))
   end
 
+  def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
+    mapped_images = prepare_images(images)
+    mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
+
+    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments))
+  end
+
   def bare_govspeak_edition_to_html(edition)
     images = prepare_images(edition.try(:images) || [])
 

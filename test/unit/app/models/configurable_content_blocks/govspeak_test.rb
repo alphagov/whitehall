@@ -10,24 +10,17 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     assert_not validator.call("<script>alert('You've been pwned!')</script>'")
   end
 
-  test "it presents the govspeak content as HTML" do
-    govspeak = "## Some Govspeak\n\n%A callout%"
-    html = "<h3>Some govspeak</h3><p class=\"govuk-callout\">A callout</p>"
+  test "it presents the govspeak content as HTML, including images" do
+    image = create(:image)
+    govspeak = "A paragraph followed by an image:\n[Image: #{image.filename}]"
     content = {
       "test_attribute" => govspeak,
     }
     page = StandardEdition.new
-    page.images = [create(:image)]
+    page.images = [image]
     page.block_content = content
-    govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-    govspeak_renderer
-      .expects(:govspeak_to_html)
-      .with(govspeak, images: page.images)
-      .returns(html)
-    Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
-      payload = ConfigurableContentBlocks::Govspeak.new(page.images).publishing_api_payload(govspeak)
-      assert_equal html, payload[:html]
-    end
+    payload = ConfigurableContentBlocks::Govspeak.new(page.images).publishing_api_payload(govspeak)
+    assert_match(/A paragraph followed by an image|img src|#{Regexp.escape(image.url)}/, payload[:html])
   end
 
   test "it includes headers in the payload, if present in the govspeak" do
@@ -40,8 +33,8 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     page.block_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
-      .expects(:govspeak_to_html)
-      .with(govspeak, images: [])
+      .expects(:govspeak_to_html_with_images_and_attachments)
+      .with(govspeak, [])
       .returns(html)
     expected_headers = [
       {
@@ -67,8 +60,8 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     page.block_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
-      .expects(:govspeak_to_html)
-      .with(govspeak, images: [])
+      .expects(:govspeak_to_html_with_images_and_attachments)
+      .with(govspeak, [])
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
       payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)

@@ -1,11 +1,14 @@
 <% required = required || false %>
-<%= render "govuk_publishing_components/components/textarea", {
+<%= render "components/govspeak_editor", {
   label: {
     text: schema["title"] + (required ? " (required)" : ""),
     heading_size: "m",
   },
+  id: path.form_control_id,
   name: path.form_control_name,
   value: content,
-  hint: schema["description"],
-  textarea_id: path.form_control_id,
+  rows: 20,
+  data_attributes: {
+    image_ids: govspeak.images.map { |img| img[:id] }.to_json,
+  },
 } %>
