@@ -45,6 +45,7 @@ module PublishingApi
         .merge(PayloadBuilder::TopicalEvents.for(news_article))
         .merge(PayloadBuilder::Roles.for(news_article))
         .merge(PayloadBuilder::People.for(news_article))
+        .merge(PayloadBuilder::Contacts.for(news_article))
     end
 
     def document_type
