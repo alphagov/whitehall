@@ -66,7 +66,12 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(news_article)
+      [
+        {
+          "content_type" => "text/govspeak",
+          "content" => news_article.body,
+        }
+      ]
     end
 
     def details
