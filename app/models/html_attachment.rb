@@ -107,12 +107,12 @@ class HtmlAttachment < Attachment
 private
 
   def skip_contact_validation?
-    return false if persisted? && !@created_during_draft
+    @created_during_draft || draft_of_previously_published_document?
+  end
 
-    @created_during_draft ||
-      (attachable.respond_to?(:draft?) && attachable.draft? &&
-       attachable.respond_to?(:document) && attachable.document.present? &&
-       !attachable.document.editions.published.empty?)
+  def draft_of_previously_published_document?
+    attachable.draft? &&
+      attachable.document&.editions&.published&.any?
   end
 
   def public_path(options = {})

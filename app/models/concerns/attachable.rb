@@ -199,19 +199,34 @@ module Attachable
 private
 
   def check_html_attachments_on_publish
-    add_attachment_errors(html_attachments, "HTML Attachment") do |msg|
-      if msg.include?("Body contains invalid contact reference:")
-        msg.sub("Body contains invalid contact reference: Contact ID ", "contains invalid contact reference. Contact ")
-      else
-        "error: #{msg}"
-      end
+    add_attachment_errors(html_attachments, "HTML Attachment") do |attachment, msg|
+      format_attachment_error_message(attachment, msg)
     end
     errors.delete(:html_attachments, :invalid)
   end
 
   def check_attachments_on_publish
-    add_attachment_errors(attachments.reject { |a| a.is_a?(HtmlAttachment) }, "Attachment") { |msg| "error: #{msg}" }
+    add_attachment_errors(attachments.reject(&:html?), "Attachment") do |attachment, msg|
+      format_attachment_error_message(attachment, msg)
+    end
     errors.delete(:attachments, :invalid)
+  end
+
+  def format_attachment_error_message(attachment, msg)
+    if has_invalid_contact_error?(attachment)
+      contact_id = attachment.errors.details[:base].find { |error| error[:error] == :invalid_contact }[:contact_id]
+      I18n.t("errors.messages.invalid_contact_reference", contact_id: contact_id)
+    else
+      I18n.t("errors.messages.attachment_error", msg: msg)
+    end
+  end
+
+  def has_invalid_contact_error?(attachment)
+    attachment.errors.details[:base].any? { |error| error[:error] == :invalid_contact }
+  end
+
+  def attachment_identifier(attachment)
+    attachment.title.present? ? "'#{attachment.title}'" : attachment.id
   end
 
   def add_attachment_errors(collection, prefix)
@@ -219,9 +234,8 @@ private
       next if attachment.valid?
 
       attachment.errors.full_messages.each do |msg|
-        identifier = attachment.title.present? ? "'#{attachment.title}'" : attachment.id
-        formatted_msg = yield(msg)
-        errors.add(:base, "#{prefix} #{identifier} #{formatted_msg}")
+        formatted_msg = yield(attachment, msg)
+        errors.add(:base, "#{prefix} #{attachment_identifier(attachment)} #{formatted_msg}")
       end
     end
   end

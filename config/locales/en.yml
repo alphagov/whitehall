@@ -119,6 +119,10 @@ en:
         minister: Minister
         speaker: Speaker
       written_on: 'Written on:'
+    errors:
+      messages:
+        attachment_error: "error: %{msg}"
+        invalid_contact_reference: "contains invalid contact reference. Contact %{contact_id} doesn't exist"
     type:
       about:
         one: About
