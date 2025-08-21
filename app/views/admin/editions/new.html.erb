@@ -1,5 +1,5 @@
 <% content_for :page_title, "New #{@edition.type.titleize}" %>
-<% content_for :title, "New #{@edition.format_name}" %>
+<% content_for :title, "New #{extract_format_name(@edition)}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 
 <div class="govuk-grid-row">

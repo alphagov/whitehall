@@ -251,4 +251,8 @@ module Admin::EditionsHelper
   def edition_title_link_or_edition_title(edition)
     edition.public_url ? sanitize(link_to(edition.title, edition.public_url, { class: "govuk-link" })) : edition.title
   end
+
+  def extract_format_name(edition)
+    Flipflop.enabled?(:configurable_document_types) && edition.configurable_document_type ? edition.configurable_document_type.humanize.downcase : edition.format_name
+  end
 end

@@ -8,6 +8,10 @@ class StandardEdition < Edition
     "choose_type_admin_standard_editions_path"
   end
 
+  def display_type
+    configurable_document_type.humanize
+  end
+
   def publishing_api_presenter
     PublishingApi::StandardEditionPresenter
   end
