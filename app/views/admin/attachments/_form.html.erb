@@ -2,7 +2,7 @@
 
   <%= render "form_fields", form:, attachment:, attachable:, heading_size:, subheading_size: %>
 
-  <%= hidden_field_tag :type, params[:type] %>
+  <%= hidden_field_tag(:type, params[:type]) %>
 
   <div class="govuk-button-group">
     <%= render "govuk_publishing_components/components/button", { text: "Save" } %>
