@@ -2,6 +2,8 @@ module ConfigurableContentBlocks
   class Govspeak
     include Presenters::PublishingApi::PayloadHeadingsHelper
 
+    attr_reader :images
+
     def initialize(images = [])
       @images = images
     end
