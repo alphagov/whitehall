@@ -12,7 +12,7 @@ module Govspeak
       # scan yields an array of capture groups for each match
       # so "[Contact:1] is now [Contact:2]" => [["1"], ["2"]]
       @govspeak.scan(EmbeddedContentPatterns::CONTACT).map { |capture|
-        capture.first.to_i
+        capture.first
       }.uniq
     end
   end

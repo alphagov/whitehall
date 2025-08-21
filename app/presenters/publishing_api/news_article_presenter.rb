@@ -45,6 +45,7 @@ module PublishingApi
         .merge(PayloadBuilder::TopicalEvents.for(news_article))
         .merge(PayloadBuilder::Roles.for(news_article))
         .merge(PayloadBuilder::People.for(news_article))
+        .merge(PayloadBuilder::Contacts.for(news_article))
     end
 
     def document_type
@@ -66,7 +67,12 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(news_article)
+      [
+        {
+          "content_type" => "text/govspeak",
+          "content" => news_article.body,
+        }
+      ]
     end
 
     def details
