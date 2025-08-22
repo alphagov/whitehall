@@ -97,10 +97,11 @@ module GovspeakHelper
     headers
   end
 
-  def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
+  def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
+    govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
 
     locale = options[:locale]
 
@@ -110,8 +111,6 @@ module GovspeakHelper
         replace_internal_admin_links_in(nokogiri_doc, &block)
 
         case options[:heading_numbering]
-        when :auto
-          add_heading_numbers(nokogiri_doc)
         when :manual
           add_manual_heading_numbers(nokogiri_doc)
         end
@@ -177,17 +176,30 @@ private
     Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
   end
 
-  def add_heading_numbers(nokogiri_doc)
-    h2_depth = 0
-    h3_depth = 0
-    nokogiri_doc.css("h2, h3").each do |el|
-      if el.name == "h2"
-        h3_depth = 0
-        number = "#{h2_depth += 1}."
-      else
-        number = "#{h2_depth}.#{h3_depth += 1}"
+  def add_heading_numbers(govspeak)
+    return govspeak if govspeak.blank?
+
+    h2 = 0
+    h3 = 0
+
+    govspeak.gsub(/^(###|##)\s*(.+)$/) do
+      hashes = Regexp.last_match(1)
+      heading_text = Regexp.last_match(2).strip
+
+      if hashes == "##"
+        h2 += 1
+        h3 = 0
+        num = "#{h2}."
+      else # "###"
+        h2 = 1 if h2.zero?
+        h3 += 1
+        num = "#{h2}.#{h3}"
       end
-      el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{el.inner_html}))
+
+      # We have to manually derive and append a slug otherwise when Govspeak
+      # generates the HTML, it includes the <span> and number in the ID. Hence
+      # the `heading_text.parameterize`
+      "#{hashes} <span class=\"number\">#{num} </span>#{heading_text} {##{heading_text.parameterize}}"
     end
   end
 
