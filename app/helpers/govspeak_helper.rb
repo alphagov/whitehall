@@ -97,12 +97,6 @@ module GovspeakHelper
     headers
   end
 
-  def inline_attachment_code_tags(number)
-    tag.code("!@#{number}") <<
-      " or ".html_safe <<
-      tag.code("[InlineAttachment:#{number}]")
-  end
-
   def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
@@ -128,22 +122,6 @@ module GovspeakHelper
   end
 
 private
-
-  def asset_exists?(path)
-    # This acts as environment agnostic look-up to Rails.application.assets
-    # to find whether a file is in Sprockets. In a prod environment
-    # Rails.application.assets is nil (and the asset manifest is used instead)
-    # whereas in dev/test using the Rails.application.asset_manifest only
-    # works if the developer has run assets:precompile rake task first (which
-    # can be a point of frustration for devs)
-    # Using the build_environment allows this to flip between either as per:
-    # https://github.com/rails/sprockets-rails/issues/237#issuecomment-308666272
-    Sprockets::Railtie.build_environment(Rails.application).find_asset(path)
-  end
-
-  def wrapped_in_govspeak_div(html_string)
-    tag.div(html_string.html_safe, class: "govspeak")
-  end
 
   def render_embedded_contacts(govspeak, heading_tag)
     return govspeak if govspeak.blank?
