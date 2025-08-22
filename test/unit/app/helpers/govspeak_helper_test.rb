@@ -375,41 +375,6 @@ class GovspeakHelperTest < ActionView::TestCase
     end
   end
 
-  test "fraction image paths include the public asset host and configured asset prefix" do
-    prefix = Rails.application.config.assets.prefix
-    path   = "#{Whitehall.public_root}#{prefix}/fractions/1_2.png"
-    html   = govspeak_to_html("I'm [Fraction:1/2] a person")
-
-    assert_select_within_html(html, "img[src='#{path}']")
-  end
-
-  test "will create bespoke fractions" do
-    input = "Some text [Fraction:1/72] and some text"
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > sup", text: "1"
-    assert_select_within_html html, "span.fraction > sub", text: "72"
-  end
-
-  test "will create fractions using images for a known set" do
-    input = "Some text [Fraction:1/4] and some text"
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt='1/4']"
-  end
-
-  test "will create algebraic and trigonometric fractions using images for a known set" do
-    input = "Some text [Fraction:c/sinC] and some text"
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt='c/sinC']"
-
-    input = "Some text [Fraction:1/x] and some text"
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt='1/x']"
-
-    input = "Some text with an uppercased fraction [Fraction:1/X] and some text"
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt='1/x']"
-  end
-
   test "should convert a HTML attachment" do
     html_attachment = create(:html_attachment, body: "## A heading")
     html = govspeak_html_attachment_to_html(html_attachment)

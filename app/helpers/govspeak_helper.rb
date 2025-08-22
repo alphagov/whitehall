@@ -4,8 +4,6 @@ module GovspeakHelper
   include Rails.application.routes.url_helpers
   include AttachmentsHelper
 
-  FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
-
   def govspeak_to_html(govspeak, options = {})
     wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, [], [], options))
   end
@@ -105,18 +103,10 @@ module GovspeakHelper
       tag.code("[InlineAttachment:#{number}]")
   end
 
-  def fraction_image(numerator, denominator)
-    denominator.downcase! if %w[X Y].include? denominator
-    if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
-      asset_path("fractions/#{numerator}_#{denominator}.png", host: Whitehall.public_root)
-    end
-  end
-
   def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
-    govspeak = render_embedded_fractions(govspeak)
 
     locale = options[:locale]
 
@@ -161,18 +151,6 @@ private
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: Regexp.last_match(1)))
         render(partial: "contacts/contact", locals: { contact:, heading_tag: }, formats: [:html])
-      else
-        ""
-      end
-    end
-  end
-
-  def render_embedded_fractions(govspeak)
-    return govspeak if govspeak.blank?
-
-    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |_match|
-      if Regexp.last_match(1).present? && Regexp.last_match(2).present?
-        render(partial: "shared/govspeak_fractions", formats: [:html], locals: { numerator: Regexp.last_match(1), denominator: Regexp.last_match(2) })
       else
         ""
       end
