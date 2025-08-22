@@ -5,7 +5,6 @@ module Whitehall
   autoload :RandomKey, "whitehall/random_key"
   autoload :FormBuilder, "whitehall/form_builder"
   autoload :Uploader, "whitehall/uploader"
-  autoload :ExtraQuoteRemover, "whitehall/extra_quote_remover"
   autoload :GovspeakRenderer, "whitehall/govspeak_renderer"
 
   mattr_accessor :content_store
