@@ -5,8 +5,7 @@ module Admin::AdminGovspeakHelper
     images = prepare_images(images)
     attachments = prepare_attachments(attachments, alternative_format_contact_email)
     govspeak = ContentBlockManager::FindAndReplaceEmbedCodesService.call(govspeak || "")
-    html = bare_govspeak_to_admin_html(govspeak, images, attachments)
-    wrapped_in_govspeak_div(html)
+    bare_govspeak_to_admin_html(govspeak, images, attachments)
   end
 
   def govspeak_edition_to_admin_html(edition)
@@ -19,7 +18,7 @@ module Admin::AdminGovspeakHelper
                     []
                   end
 
-    wrapped_in_govspeak_div(bare_govspeak_to_admin_html(edition.body, images, attachments))
+    bare_govspeak_to_admin_html(edition.body, images, attachments)
   end
 
   def bare_govspeak_to_admin_html(govspeak, images = [], attachments = [])

@@ -127,6 +127,6 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     expected = "Expected output"
     ContentBlockManager::FindAndReplaceEmbedCodesService.expects(:call).with(input).returns(expected)
 
-    assert_equivalent_html "<div class=\"govspeak\">#{bare_govspeak_to_admin_html(expected, [], [])}</div>", govspeak_to_admin_html(input)
+    assert_equivalent_html bare_govspeak_to_admin_html(expected, [], []), govspeak_to_admin_html(input)
   end
 end

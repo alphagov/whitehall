@@ -5,25 +5,25 @@ module GovspeakHelper
   include AttachmentsHelper
 
   def govspeak_to_html(govspeak, options = {})
-    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, [], [], options))
+    bare_govspeak_to_html(govspeak, [], [], options)
   end
 
   def govspeak_edition_to_html(edition)
     return "" unless edition
 
-    wrapped_in_govspeak_div(bare_govspeak_edition_to_html(edition))
+    bare_govspeak_edition_to_html(edition)
   end
 
   def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
     attachments = prepare_attachments(attachments, alternative_format_contact_email)
-    wrapped_in_govspeak_div(bare_govspeak_to_html(body, [], attachments))
+    bare_govspeak_to_html(body, [], attachments)
   end
 
   def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
     mapped_images = prepare_images(images)
     mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
 
-    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments))
+    bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments)
   end
 
   def bare_govspeak_edition_to_html(edition)
@@ -47,7 +47,7 @@ module GovspeakHelper
     heading_numbering = html_attachment.manually_numbered_headings? ? :manual : :auto
     options = { heading_numbering:, locale:, contact_heading_tag: "h4" }
 
-    wrapped_in_govspeak_div(bare_govspeak_to_html(html_attachment.body, images, [], options))
+    bare_govspeak_to_html(html_attachment.body, images, [], options)
   end
 
   def prepare_images(images)
@@ -104,7 +104,7 @@ module GovspeakHelper
 
     locale = options[:locale]
 
-    markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
+    html = markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
@@ -117,14 +117,11 @@ module GovspeakHelper
         end
       }
       .to_html
-      .html_safe
+
+    "<div class=\"govspeak\">#{html}</div>".html_safe
   end
 
 private
-
-  def wrapped_in_govspeak_div(html_string)
-    tag.div(html_string.html_safe, class: "govspeak")
-  end
 
   def render_embedded_contacts(govspeak, heading_tag)
     return govspeak if govspeak.blank?
