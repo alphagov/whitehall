@@ -97,20 +97,17 @@ module GovspeakHelper
     headers
   end
 
-  def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {}, &block)
+  def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {})
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
+    govspeak = replace_internal_admin_links(govspeak, options[:preview] == true)
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
     govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
 
     locale = options[:locale]
 
     html = markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
-      .tap { |nokogiri_doc|
-        # post-processors
-        replace_internal_admin_links_in(nokogiri_doc, &block)
-      }
       .to_html
 
     "<div class=\"govspeak\">#{html}</div>".html_safe
@@ -137,21 +134,7 @@ module GovspeakHelper
   end
 
   def bare_govspeak_to_admin_html(govspeak, images = [], attachments = [])
-    bare_govspeak_to_html(govspeak, images, attachments) do |replacement_html, edition|
-      latest_edition = edition && edition.document.latest_edition
-      if latest_edition.nil?
-        replacement_html = tag.del(replacement_html)
-        explanation = state = "deleted"
-      else
-        state = latest_edition.state
-        explanation = link_to(state, admin_edition_path(latest_edition))
-      end
-
-      tag.span class: "#{state}_link" do
-        annotation = tag.sup(safe_join(["(", explanation, ")"]), class: "explanation")
-        safe_join [replacement_html, annotation], " "
-      end
-    end
+    bare_govspeak_to_html(govspeak, images, attachments, { preview: true })
   end
 
 private
@@ -168,8 +151,34 @@ private
     end
   end
 
-  def replace_internal_admin_links_in(nokogiri_doc, &block)
-    Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
+  def replace_internal_admin_links(govspeak, preview)
+    return govspeak if govspeak.blank?
+
+    # [text](url) — skip images via negative lookbehind for "!"
+    govspeak.gsub(/(?<!!)\[([^\]]+)\]\(([^)\s]+)\)/) do
+      text = Regexp.last_match(1)
+      href = Regexp.last_match(2)
+      if GovspeakLinkValidator.is_internal_admin_link?(href)
+        edition = Whitehall::AdminLinkLookup.find_edition(href)
+        public_url = "[#{text}](#{edition&.public_url})"
+        latest_edition = edition&.document&.latest_edition
+        if preview
+          if !latest_edition
+            "<del>#{text}</del>"
+          elsif edition == latest_edition && edition.state == "published"
+            public_url
+          else
+            "[#{latest_edition.state}](#{admin_publication_path(latest_edition)})"
+          end
+        elsif edition&.linkable?
+          public_url
+        else
+          text
+        end
+      else
+        Regexp.last_match(0)
+      end
+    end
   end
 
   def add_heading_numbers(govspeak)
