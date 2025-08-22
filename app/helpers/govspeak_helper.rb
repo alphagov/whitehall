@@ -108,7 +108,6 @@ module GovspeakHelper
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
-        add_class_to_links(nokogiri_doc)
 
         case options[:heading_numbering]
         when :auto
@@ -122,6 +121,10 @@ module GovspeakHelper
   end
 
 private
+
+  def wrapped_in_govspeak_div(html_string)
+    tag.div(html_string.html_safe, class: "govspeak")
+  end
 
   def render_embedded_contacts(govspeak, heading_tag)
     return govspeak if govspeak.blank?
@@ -137,12 +140,6 @@ private
 
   def replace_internal_admin_links_in(nokogiri_doc, &block)
     Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
-  end
-
-  def add_class_to_links(nokogiri_doc)
-    nokogiri_doc.css("a").map do |el|
-      el[:class] = "govuk-link" unless el[:class] =~ /button/
-    end
   end
 
   def add_heading_numbers(nokogiri_doc)

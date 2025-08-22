@@ -16,7 +16,7 @@ class PublishingApi::MinistersIndexEnableReshufflePresenterTest < ActionView::Te
 
       expected_details = {
         reshuffle: {
-          message: "<p>Check <a href=\"/government/news/ministerial-appointments-february-2023\" class=\"govuk-link\">latest appointments</a>.</p>\n",
+          message: "<p>Check <a href=\"/government/news/ministerial-appointments-february-2023\">latest appointments</a>.</p>\n",
         },
       }
 
