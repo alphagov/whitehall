@@ -79,33 +79,6 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_headers(govspeak, level = (2..2))
-    build_govspeak_document(govspeak).headers.select do |header|
-      level.cover?(header.level)
-    end
-  end
-
-  def govspeak_header_hierarchy(govspeak)
-    headers = []
-    govspeak_headers(govspeak, 2..3).each do |header|
-      case header.level
-      when 2
-        headers << { header:, children: [] }
-      when 3
-        raise Govspeak::OrphanedHeadingError, header.text if headers.none?
-
-        headers.last[:children] << header
-      end
-    end
-    headers
-  end
-
-  def inline_attachment_code_tags(number)
-    tag.code("!@#{number}") <<
-      " or ".html_safe <<
-      tag.code("[InlineAttachment:#{number}]")
-  end
-
   def fraction_image(numerator, denominator)
     denominator.downcase! if %w[X Y].include? denominator
     if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
@@ -116,10 +89,8 @@ module GovspeakHelper
   def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
-    govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = render_embedded_fractions(govspeak)
-    govspeak = set_classes_for_charts(govspeak)
 
     locale = options[:locale]
 
@@ -128,7 +99,6 @@ module GovspeakHelper
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
         add_class_to_links(nokogiri_doc)
-        add_class_to_last_blockquote_paragraph(nokogiri_doc)
 
         case options[:heading_numbering]
         when :auto
@@ -153,10 +123,6 @@ private
     # Using the build_environment allows this to flip between either as per:
     # https://github.com/rails/sprockets-rails/issues/237#issuecomment-308666272
     Sprockets::Railtie.build_environment(Rails.application).find_asset(path)
-  end
-
-  def remove_extra_quotes_from_blockquotes(govspeak)
-    Whitehall::ExtraQuoteRemover.new.remove(govspeak)
   end
 
   def wrapped_in_govspeak_div(html_string)
@@ -187,34 +153,8 @@ private
     end
   end
 
-  def set_classes_for_charts(govspeak)
-    return govspeak if govspeak.blank?
-
-    govspeak.gsub(GovspeakHelper::BARCHART_REGEXP) do
-      stacked = ".mc-stacked" if Regexp.last_match(1).include? "stacked"
-      compact = ".compact" if Regexp.last_match(1).include? "compact"
-      negative = ".mc-negative" if Regexp.last_match(1).include? "negative"
-
-      [
-        "{:",
-        ".js-barchart-table",
-        stacked,
-        compact,
-        negative,
-        ".mc-auto-outdent",
-        "}",
-      ].join(" ")
-    end
-  end
-
   def replace_internal_admin_links_in(nokogiri_doc, &block)
     Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
-  end
-
-  def add_class_to_last_blockquote_paragraph(nokogiri_doc)
-    nokogiri_doc.css("blockquote p:last-child").map do |el|
-      el[:class] = "last-child"
-    end
   end
 
   def add_class_to_links(nokogiri_doc)

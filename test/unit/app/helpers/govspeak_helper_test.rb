@@ -72,12 +72,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "a[href='#{public_url}']", text: "that"
   end
 
-  test "should only extract level two headers by default" do
-    text = "# Heading 1\n\n## Heading 2\n\n### Heading 3"
-    headers = govspeak_headers(text)
-    assert_equal [Govspeak::Header.new("Heading 2", 2, "heading-2")], headers
-  end
-
   test "should extract header hierarchy from level 2+3 headings" do
     text = "# Heading 1\n\n## Heading 2a\n\n### Heading 3a\n\n### Heading 3b\n\n#### Ignored heading\n\n## Heading 2b"
     headers = govspeak_header_hierarchy(text)
@@ -300,20 +294,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
 
-  test "should remove extra quotes from blockquote text" do
-    remover = stub("remover")
-    remover.expects(:remove).returns("remover return value")
-    Whitehall::ExtraQuoteRemover.stubs(:new).returns(remover)
-    edition = build(:published_news_article, body: %(He said:\n> "I'm not sure what you mean!"\nOr so we thought.))
-    assert_match %r{remover return value}, govspeak_edition_to_html(edition)
-  end
-
-  test "should add class to last paragraph of blockquote" do
-    input = "\n> firstline\n>\n> lastline\n"
-    output = '<div class="govspeak"> <blockquote> <p>firstline</p> <p class="last-child">lastline</p> </blockquote></div>'
-    assert_equivalent_html output, govspeak_to_html(input).gsub(/\s+/, " ")
-  end
-
   test "adds numbers to h2 headings" do
     input = "# main\n\n## first\n\n## second"
     output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first"> <span class="number">1. </span>first</h2> <h2 id="second"> <span class="number">2. </span>second</h2></div>'
@@ -387,28 +367,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_nothing_raised do
       assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
     end
-  end
-
-  test "will add a barchart class to a marked table" do
-    input = <<~INPUT
-      |col|
-      |---|
-      |val|
-      {barchart}
-    INPUT
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "table.js-barchart-table"
-  end
-
-  test "will add a stacked, compact, negative barchart class to a marked table" do
-    input = <<~INPUT
-      |col|
-      |---|
-      |val|
-      {barchart stacked compact negative}
-    INPUT
-    html = govspeak_to_html(input)
-    assert_select_within_html html, "table.mc-stacked.js-barchart-table.mc-negative.compact"
   end
 
   test "fraction image paths include the public asset host and configured asset prefix" do
