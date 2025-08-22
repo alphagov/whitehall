@@ -4,8 +4,6 @@ module GovspeakHelper
   include Rails.application.routes.url_helpers
   include AttachmentsHelper
 
-  FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
-
   def govspeak_to_html(govspeak, options = {})
     wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, [], [], options))
   end
@@ -99,24 +97,10 @@ module GovspeakHelper
     headers
   end
 
-  def inline_attachment_code_tags(number)
-    tag.code("!@#{number}") <<
-      " or ".html_safe <<
-      tag.code("[InlineAttachment:#{number}]")
-  end
-
-  def fraction_image(numerator, denominator)
-    denominator.downcase! if %w[X Y].include? denominator
-    if numerator.present? && denominator.present? && asset_exists?("fractions/#{numerator}_#{denominator}.png")
-      asset_path("fractions/#{numerator}_#{denominator}.png", host: Whitehall.public_root)
-    end
-  end
-
   def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
-    govspeak = render_embedded_fractions(govspeak)
 
     locale = options[:locale]
 
@@ -124,7 +108,6 @@ module GovspeakHelper
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
-        add_class_to_links(nokogiri_doc)
 
         case options[:heading_numbering]
         when :auto
@@ -138,18 +121,6 @@ module GovspeakHelper
   end
 
 private
-
-  def asset_exists?(path)
-    # This acts as environment agnostic look-up to Rails.application.assets
-    # to find whether a file is in Sprockets. In a prod environment
-    # Rails.application.assets is nil (and the asset manifest is used instead)
-    # whereas in dev/test using the Rails.application.asset_manifest only
-    # works if the developer has run assets:precompile rake task first (which
-    # can be a point of frustration for devs)
-    # Using the build_environment allows this to flip between either as per:
-    # https://github.com/rails/sprockets-rails/issues/237#issuecomment-308666272
-    Sprockets::Railtie.build_environment(Rails.application).find_asset(path)
-  end
 
   def wrapped_in_govspeak_div(html_string)
     tag.div(html_string.html_safe, class: "govspeak")
@@ -167,26 +138,8 @@ private
     end
   end
 
-  def render_embedded_fractions(govspeak)
-    return govspeak if govspeak.blank?
-
-    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |_match|
-      if Regexp.last_match(1).present? && Regexp.last_match(2).present?
-        render(partial: "shared/govspeak_fractions", formats: [:html], locals: { numerator: Regexp.last_match(1), denominator: Regexp.last_match(2) })
-      else
-        ""
-      end
-    end
-  end
-
   def replace_internal_admin_links_in(nokogiri_doc, &block)
     Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
-  end
-
-  def add_class_to_links(nokogiri_doc)
-    nokogiri_doc.css("a").map do |el|
-      el[:class] = "govuk-link" unless el[:class] =~ /button/
-    end
   end
 
   def add_heading_numbers(nokogiri_doc)
