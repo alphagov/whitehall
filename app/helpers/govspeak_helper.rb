@@ -125,7 +125,6 @@ module GovspeakHelper
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
         add_class_to_links(nokogiri_doc)
-        add_class_to_last_blockquote_paragraph(nokogiri_doc)
 
         case options[:heading_numbering]
         when :auto
@@ -182,12 +181,6 @@ private
 
   def replace_internal_admin_links_in(nokogiri_doc, &block)
     Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
-  end
-
-  def add_class_to_last_blockquote_paragraph(nokogiri_doc)
-    nokogiri_doc.css("blockquote p:last-child").map do |el|
-      el[:class] = "last-child"
-    end
   end
 
   def add_class_to_links(nokogiri_doc)
