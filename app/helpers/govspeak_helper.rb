@@ -98,19 +98,20 @@ module GovspeakHelper
   end
 
   def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {}, &block)
-    # pre-processors
+    html = markup_to_nokogiri_doc(govspeak, images, attachments, locale: options[:locale])
+      .to_html
+
+    "<div class=\"govspeak\">#{html}</div>".html_safe
+  end
+
+  # TODO - do we need a &block parameter here?
+  def preprocess_govspeak(govspeak, attachments, options)
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = replace_internal_admin_links(govspeak)
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
     govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
-
-    locale = options[:locale]
-
-    html = markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
-      .to_html
-
-    "<div class=\"govspeak\">#{html}</div>".html_safe
+    govspeak
   end
 
 private
@@ -198,6 +199,7 @@ private
     end
   end
 
+  # TODO: can we pass a `locale` instead of `options`, as we only ever have one option at this point?
   def markup_to_nokogiri_doc(govspeak, images = [], attachments = [], options = {})
     govspeak = build_govspeak_document(govspeak, images, attachments, options)
     doc = Nokogiri::HTML::Document.new
