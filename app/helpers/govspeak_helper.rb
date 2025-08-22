@@ -97,28 +97,21 @@ module GovspeakHelper
     headers
   end
 
-  def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
-    # pre-processors
-    govspeak = convert_attachment_syntax(govspeak, attachments)
-    govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
-
-    locale = options[:locale]
-
-    html = markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
-      .tap { |nokogiri_doc|
-        # post-processors
-        replace_internal_admin_links_in(nokogiri_doc, &block)
-
-        case options[:heading_numbering]
-        when :auto
-          add_heading_numbers(nokogiri_doc)
-        when :manual
-          add_manual_heading_numbers(nokogiri_doc)
-        end
-      }
+  def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {}, &block)
+    html = markup_to_nokogiri_doc(govspeak, images, attachments, locale: options[:locale])
       .to_html
 
     "<div class=\"govspeak\">#{html}</div>".html_safe
+  end
+
+  # TODO - do we need a &block parameter here?
+  def preprocess_govspeak(govspeak, attachments, options)
+    govspeak = convert_attachment_syntax(govspeak, attachments)
+    govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
+    govspeak = replace_internal_admin_links(govspeak)
+    govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
+    govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
+    govspeak
   end
 
 private
@@ -135,37 +128,78 @@ private
     end
   end
 
-  def replace_internal_admin_links_in(nokogiri_doc, &block)
-    Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
-  end
-
-  def add_heading_numbers(nokogiri_doc)
-    h2_depth = 0
-    h3_depth = 0
-    nokogiri_doc.css("h2, h3").each do |el|
-      if el.name == "h2"
-        h3_depth = 0
-        number = "#{h2_depth += 1}."
+  def replace_internal_admin_links(govspeak)
+    # [text](url) — skip images via negative lookbehind for "!"
+    govspeak = govspeak.gsub(/(?<!!)\[([^\]]+)\]\(([^)\s]+)\)/) do
+      text, href = Regexp.last_match(1), Regexp.last_match(2)
+      unless GovspeakLinkValidator.is_internal_admin_link?(href)
+        Regexp.last_match(0)
       else
-        number = "#{h2_depth}.#{h3_depth += 1}"
+        edition = Whitehall::AdminLinkLookup.find_edition(href)
+        edition&.linkable? ? "[#{text}](#{edition.public_url})" : text
       end
-      el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{el.inner_html}))
+    end
+
+    # <url>
+    govspeak.gsub(/<((?:https?:\/\/)[^>\s]+)>/) do
+      href = Regexp.last_match(1)
+      unless GovspeakLinkValidator.is_internal_admin_link?(href)
+        Regexp.last_match(0)
+      else
+        edition = Whitehall::AdminLinkLookup.find_edition(href)
+        edition&.linkable? ? "<#{edition.public_url}>" : href
+      end
     end
   end
 
-  def add_manual_heading_numbers(nokogiri_doc)
-    nokogiri_doc.css("h2, h3").each do |el|
-      if (number = extract_number_from_heading(el))
-        heading_without_number = el.inner_html.gsub(number, "")
-        el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{heading_without_number}))
+  def add_heading_numbers(govspeak)
+    return govspeak if govspeak.blank?
+
+    h2 = 0
+    h3 = 0
+
+    govspeak.gsub(/^(###|##)\s*(.+)$/) do
+      hashes = Regexp.last_match(1)
+      heading_text = Regexp.last_match(2).strip
+
+      if hashes == "##"
+        h2 += 1
+        h3 = 0
+        num = "#{h2}."
+      else # "###"
+        h2 = 1 if h2.zero?
+        h3 += 1
+        num = "#{h2}.#{h3}"
+      end
+
+      # We have to manually derive and append a slug otherwise when Govspeak
+      # generates the HTML, it includes the <span> and number in the ID. Hence
+      # the `heading_text.parameterize`
+      "#{hashes} <span class=\"number\">#{num} </span>#{heading_text} {##{heading_text.parameterize}}"
+    end
+  end
+
+  def add_manual_heading_numbers(govspeak)
+    return govspeak if govspeak.blank?
+
+    govspeak.gsub(/^(###|##)\s*(\S+)\s+(.*)$/) do
+      match_data = Regexp.last_match
+      hashes = match_data[1]
+      token = match_data[2]
+      title = match_data[3].strip
+
+      # Only treat as manual if token is purely numeric (1. / 2) / 42.12 / 3.0.1)
+      if token.match?(/\A\d+(?:\.\d+)*(?:[.)])?\z/) && !title.empty?
+        display = token.end_with?(")") ? token.sub(/\)\z/, ".") : token
+        slug    = title.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-+|-+$/, "")
+        "#{hashes} <span class=\"number\">#{display} </span> #{title} {##{slug}}"
+      else
+        match_data[0] # keep the original heading exactly as written
       end
     end
   end
 
-  def extract_number_from_heading(nokogiri_el)
-    nokogiri_el.inner_text[/^\d+.?[^\s]*/]
-  end
-
+  # TODO: can we pass a `locale` instead of `options`, as we only ever have one option at this point?
   def markup_to_nokogiri_doc(govspeak, images = [], attachments = [], options = {})
     govspeak = build_govspeak_document(govspeak, images, attachments, options)
     doc = Nokogiri::HTML::Document.new
