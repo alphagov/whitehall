@@ -98,19 +98,20 @@ module GovspeakHelper
   end
 
   def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {})
-    # pre-processors
+    processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
+    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
+      .to_html
+
+    "<div class=\"govspeak\">#{html}</div>".html_safe
+  end
+
+  def preprocess_govspeak(govspeak, attachments, options)
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = replace_internal_admin_links(govspeak, options[:preview] == true)
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
     govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
-
-    locale = options[:locale]
-
-    html = markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
-      .to_html
-
-    "<div class=\"govspeak\">#{html}</div>".html_safe
+    govspeak
   end
 
   def govspeak_to_admin_html(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
