@@ -4,7 +4,6 @@ module GovspeakHelper
   include Rails.application.routes.url_helpers
   include AttachmentsHelper
 
-  BARCHART_REGEXP = /{barchart(.*?)}/
   FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
 
   def govspeak_to_html(govspeak, options = {})
@@ -118,7 +117,6 @@ module GovspeakHelper
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = render_embedded_fractions(govspeak)
-    govspeak = set_classes_for_charts(govspeak)
 
     locale = options[:locale]
 
@@ -179,26 +177,6 @@ private
       else
         ""
       end
-    end
-  end
-
-  def set_classes_for_charts(govspeak)
-    return govspeak if govspeak.blank?
-
-    govspeak.gsub(GovspeakHelper::BARCHART_REGEXP) do
-      stacked = ".mc-stacked" if Regexp.last_match(1).include? "stacked"
-      compact = ".compact" if Regexp.last_match(1).include? "compact"
-      negative = ".mc-negative" if Regexp.last_match(1).include? "negative"
-
-      [
-        "{:",
-        ".js-barchart-table",
-        stacked,
-        compact,
-        negative,
-        ".mc-auto-outdent",
-        "}",
-      ].join(" ")
     end
   end
 
