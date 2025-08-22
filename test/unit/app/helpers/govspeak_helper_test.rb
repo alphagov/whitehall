@@ -312,8 +312,19 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   it "adds manual numbering to heading tags" do
-    input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence\n\n## 0GD Not all numeric characters"
-    expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2> <h2 id="gd-not-all-numeric-characters"> <span class="number">0GD </span> Not all numeric characters</h2></div>'
+    input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence"
+    expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2></div>'
+    assert_equivalent_html expected_output, govspeak_to_html(input, heading_numbering: :manual).gsub(/\s+/, " ")
+  end
+
+  it "avoids adding manual numbering and `<span class=number>` to heading tags that start with numbers but aren't intended for manual numbering" do
+    # NB, the reason we expect a `gd-not-all-numeric-characters` ID rather than
+    #  a `0gd-not-all-numeric-characters` is that pre-HTML5 IDs _must_ begin with
+    # a letter: https://www.w3.org/TR/html4/types.html#type-id
+    # See also this issue in Kramdown:
+    # https://github.com/gettalong/kramdown/issues/711
+    input = "## 0GD Not all numeric characters"
+    expected_output = '<div class="govspeak"><h2 id="gd-not-all-numeric-characters">0GD Not all numeric characters</h2></div>'
     assert_equivalent_html expected_output, govspeak_to_html(input, heading_numbering: :manual).gsub(/\s+/, " ")
   end
 

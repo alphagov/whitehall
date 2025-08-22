@@ -102,6 +102,7 @@ module GovspeakHelper
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
+    govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
 
     locale = options[:locale]
 
@@ -109,11 +110,6 @@ module GovspeakHelper
       .tap { |nokogiri_doc|
         # post-processors
         replace_internal_admin_links_in(nokogiri_doc, &block)
-
-        case options[:heading_numbering]
-        when :manual
-          add_manual_heading_numbers(nokogiri_doc)
-        end
       }
       .to_html
 
@@ -203,17 +199,24 @@ private
     end
   end
 
-  def add_manual_heading_numbers(nokogiri_doc)
-    nokogiri_doc.css("h2, h3").each do |el|
-      if (number = extract_number_from_heading(el))
-        heading_without_number = el.inner_html.gsub(number, "")
-        el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{heading_without_number}))
+  def add_manual_heading_numbers(govspeak)
+    return govspeak if govspeak.blank?
+
+    govspeak.gsub(/^(###|##)\s*(\S+)\s+(.*)$/) do
+      match_data = Regexp.last_match
+      hashes = match_data[1]
+      token = match_data[2]
+      title = match_data[3].strip
+
+      # Only treat as manual if token is purely numeric (1. / 2) / 42.12 / 3.0.1)
+      if token.match?(/\A\d+(?:\.\d+)*(?:[.)])?\z/) && !title.empty?
+        display = token.end_with?(")") ? token.sub(/\)\z/, ".") : token
+        slug    = title.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-+|-+$/, "")
+        "#{hashes} <span class=\"number\">#{display} </span> #{title} {##{slug}}"
+      else
+        match_data[0] # keep the original heading exactly as written
       end
     end
-  end
-
-  def extract_number_from_heading(nokogiri_el)
-    nokogiri_el.inner_text[/^\d+.?[^\s]*/]
   end
 
   def markup_to_nokogiri_doc(govspeak, images = [], attachments = [], options = {})
