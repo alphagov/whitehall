@@ -55,17 +55,6 @@ When(/^I create a new edition of the "([^"]*)" worldwide organisation$/) do |nam
   click_button "Create new edition"
 end
 
-When(/^I choose "([^"]*)" to be the main office for the worldwide organisation$/) do |contact_title|
-  WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: contact_title }).first
-  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-  click_link "Edit draft"
-  click_link "Offices"
-
-  click_link "Set main office"
-  choose contact_title
-  click_button "Save"
-end
-
 When(/^I withdraw the worldwide organisation "([^"]*)" with the explanation "([^"]*)"$/) do |org_name, explanation|
   organisation = WorldwideOrganisation.find_by(title: org_name)
   visit admin_worldwide_organisation_path(organisation)
@@ -214,6 +203,13 @@ And(/^I edit the worldwide organisation "([^"]*)" adding the role of "([^"]*)"$/
   click_button "Save and go to document summary"
 end
 
+And(/^I edit the worldwide organisation "([^"]*)" setting the main office to "([^"]*)"$/) do |title, main_office|
+  begin_editing_document(title)
+  select "United Kingdom", from: "World locations"
+  select main_office, from: "Main office"
+  click_button "Save and go to document summary"
+end
+
 And(/^I edit the worldwide organisation "([^"]*)" adding the social media service of "([^"]*)" with title "([^"]*)" at URL "([^"]*)"$/) do |title, social_media_service_name, social_media_title, social_media_url|
   begin_editing_document(title)
   click_link "Social media accounts"
@@ -299,14 +295,9 @@ Then(/^I should see the worldwide organisation "([^"]*)" has no social media acc
   expect(@worldwide_organisation.social_media_accounts).to be_empty
 end
 
-Then(/^the "([^"]*)" should be marked as the main office for the worldwide organisation$/) do |contact_title|
-  admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
-
-  within ".app-vc-worldwide-offices-index-office-summary-card-component", match: :first do
-    expect(page).to have_content contact_title
-    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__key", text: "Main office"
-    assert_selector ".govuk-summary-list__row:nth-child(4) .govuk-summary-list__value", text: "Yes"
-  end
+Then(/^the "([^"]*)" should be marked as the main office for the worldwide organisation "([^"]*)"$/) do |main_office, title|
+  @worldwide_organisation = WorldwideOrganisation.find_by(title:)
+  expect(@worldwide_organisation.main_office.title).to eq(main_office)
 end
 
 Then(/^The "([^"]*)" worldwide organisation should have no offices$/) do |title|

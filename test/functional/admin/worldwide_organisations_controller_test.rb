@@ -52,6 +52,39 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 
+  test "PUT :update - updates the main office" do
+    offices = [create(:worldwide_office), create(:worldwide_office)]
+    worldwide_organisation = create(:worldwide_organisation, offices:)
+
+    put :update,
+        params: {
+          id: worldwide_organisation.id,
+          edition: controller_attributes_for(
+            :worldwide_organisation,
+            main_office_id: offices.last.id,
+          ),
+        }
+
+    assert_equal offices.last, worldwide_organisation.reload.main_office
+    assert_equal "Your document has been saved", flash[:notice]
+    assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
+  end
+
+  view_test "GET :new does not display main office selection" do
+    get :new
+
+    refute_select "select#edition_main_office_id"
+  end
+
+  view_test "GET :edit does display main office selection if there are multiple offices" do
+    offices = [create(:worldwide_office), create(:worldwide_office)]
+    worldwide_organisation = create(:worldwide_organisation, offices:)
+
+    get :edit, params: { id: worldwide_organisation.id }
+
+    assert_select "select#edition_main_office_id"
+  end
+
 private
 
   def controller_attributes_for(edition_type, attributes = {})

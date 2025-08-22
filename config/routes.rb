@@ -325,11 +325,6 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        member do
-          get :choose_main_office, to: "worldwide_organisations_main_offices#show"
-          put :set_main_office, to: "worldwide_organisations_main_offices#update"
-        end
-
         resources :worldwide_offices, path: "offices", except: [:show] do
           member do
             get :confirm_destroy

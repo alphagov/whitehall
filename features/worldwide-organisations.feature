@@ -75,10 +75,8 @@ Feature: Worldwide organisations
 
   Scenario: Choosing the main office for a worldwide organisation with multiple offices
     Given an worldwide organisation "Test Worldwide Organisation" with offices "Head office" and "Branch office"
-    When I choose "Branch office" to be the main office for the worldwide organisation
-    Then the "Branch office" should be marked as the main office for the worldwide organisation
-    When I choose "Head office" to be the main office for the worldwide organisation
-    Then the "Head office" should be marked as the main office for the worldwide organisation
+    And I edit the worldwide organisation "Test Worldwide Organisation" setting the main office to "Branch office"
+    Then the "Branch office" should be marked as the main office for the worldwide organisation "Test Worldwide Organisation"
 
   Scenario: Deleting an office for a worldwide organisation
     Given an worldwide organisation "Test Worldwide Organisation"
