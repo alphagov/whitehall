@@ -101,16 +101,13 @@ module GovspeakHelper
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
+    govspeak = replace_internal_admin_links(govspeak)
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
     govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
 
     locale = options[:locale]
 
     html = markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
-      .tap { |nokogiri_doc|
-        # post-processors
-        replace_internal_admin_links_in(nokogiri_doc, &block)
-      }
       .to_html
 
     "<div class=\"govspeak\">#{html}</div>".html_safe
@@ -130,8 +127,28 @@ private
     end
   end
 
-  def replace_internal_admin_links_in(nokogiri_doc, &block)
-    Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
+  def replace_internal_admin_links(govspeak)
+    # [text](url) — skip images via negative lookbehind for "!"
+    govspeak = govspeak.gsub(/(?<!!)\[([^\]]+)\]\(([^)\s]+)\)/) do
+      text, href = Regexp.last_match(1), Regexp.last_match(2)
+      unless GovspeakLinkValidator.is_internal_admin_link?(href)
+        Regexp.last_match(0)
+      else
+        edition = Whitehall::AdminLinkLookup.find_edition(href)
+        edition&.linkable? ? "[#{text}](#{edition.public_url})" : text
+      end
+    end
+
+    # <url>
+    govspeak.gsub(/<((?:https?:\/\/)[^>\s]+)>/) do
+      href = Regexp.last_match(1)
+      unless GovspeakLinkValidator.is_internal_admin_link?(href)
+        Regexp.last_match(0)
+      else
+        edition = Whitehall::AdminLinkLookup.find_edition(href)
+        edition&.linkable? ? "<#{edition.public_url}>" : href
+      end
+    end
   end
 
   def add_heading_numbers(govspeak)
