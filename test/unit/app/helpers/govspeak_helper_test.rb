@@ -107,13 +107,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal "", govspeak_edition_to_html(nil)
   end
 
-  test "should optionally not wrap output in a govspeak class" do
-    document = build(:published_news_article, body: "govspeak-text")
-    html = bare_govspeak_edition_to_html(document)
-    assert_select_within_html html, ".govspeak", false
-    assert_select_within_html html, "p", "govspeak-text"
-  end
-
   def edition_with_attachment(body:)
     attachment = build(:file_attachment, title: "Green paper")
     create(:published_detailed_guide, :with_file_attachment, attachments: [attachment], body:)
