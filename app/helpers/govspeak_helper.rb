@@ -116,7 +116,6 @@ module GovspeakHelper
   def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
     # pre-processors
     govspeak = convert_attachment_syntax(govspeak, attachments)
-    govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
@@ -153,10 +152,6 @@ private
     # Using the build_environment allows this to flip between either as per:
     # https://github.com/rails/sprockets-rails/issues/237#issuecomment-308666272
     Sprockets::Railtie.build_environment(Rails.application).find_asset(path)
-  end
-
-  def remove_extra_quotes_from_blockquotes(govspeak)
-    Whitehall::ExtraQuoteRemover.new.remove(govspeak)
   end
 
   def wrapped_in_govspeak_div(html_string)
