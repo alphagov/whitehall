@@ -948,24 +948,22 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.published_at
   end
 
-  test "should pass validation on creation of edition with HTML attachment with missing contact" do
+  test "should pass validation on saving of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
-    bad_id = "9999999999999"
-    edition = create(:submitted_case_study, body: "[Contact:#{contact.id}]")
-    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{bad_id}]")]
+    attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")
+    edition = create(:submitted_case_study, html_attachments: [attachment])
+    contact.destroy!
 
     assert edition.valid?
   end
 
-  test "should fail validation on publish of edition with HTML attachment with missing contact" do
+  test "should fail validation on publish of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
-    bad_id = "9999999999999"
-    edition = create(:submitted_case_study, body: "[Contact:#{contact.id}]")
-    edition.html_attachments = [create(:html_attachment, body: "[Contact:#{bad_id}]")]
+    attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")
+    edition = create(:submitted_case_study, html_attachments: [attachment])
+    contact.destroy!
 
-    edition.publish
-
-    assert_not edition.valid?
+    assert_not edition.valid?(:publish)
   end
 
   test "should update cached 'revalidated_at' value on each `valid?(:publish)` call" do
