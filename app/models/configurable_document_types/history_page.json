@@ -19,7 +19,8 @@
         "type": "string",
         "format": "image_select"
       }
-    }
+    },
+    "required": ["body"]
   },
   "settings": {
     "base_path_prefix": "/government/history",
