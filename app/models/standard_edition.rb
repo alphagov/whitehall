@@ -20,10 +20,6 @@ class StandardEdition < Edition
     PublishingApi::StandardEditionPresenter
   end
 
-  def summary_required?
-    false
-  end
-
   def body_required?
     false
   end

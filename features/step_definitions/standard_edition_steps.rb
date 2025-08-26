@@ -19,6 +19,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   expect(page).to have_content("New test")
   within "form" do
     fill_in "edition_title", with: title
+    fill_in "edition_summary", with: "A brief summary of the document."
     fill_in "edition_block_content_page_title_heading_text", with: title
     fill_in "edition_block_content_body", with: "## Some govspeak\n\nThis is the body content"
   end
@@ -31,6 +32,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
   as_user(submitter) do
     standard_edition.configurable_document_type = "test"
     standard_edition.title = title
+    standard_edition.summary = "A brief summary of the document."
     standard_edition.state = "submitted"
     standard_edition.document = Document.new
     standard_edition.document.slug = title.parameterize

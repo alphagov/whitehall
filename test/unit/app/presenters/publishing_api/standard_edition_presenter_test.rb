@@ -75,6 +75,29 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal page.block_content["property_two"], content[:details][:property_two]
   end
 
+  test "it includes a title and a description" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types({
+      type_key => {
+        "key" => type_key,
+        "schema" => {
+          "type" => "object",
+          "title" => "An object",
+          "description" => "A test schema",
+          "properties" => {},
+        },
+        "settings" => {},
+      },
+    })
+    page = StandardEdition.new(title: "Page Title", summary: "Page Summary")
+    page.configurable_document_type = type_key
+    page.document = Document.new(slug: "page-title")
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+    assert_equal page.title, content[:title]
+    assert_equal page.summary, content[:description]
+  end
+
   test "it includes headers for each govspeak type block" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types({
