@@ -27,9 +27,12 @@ if Organisation.where(name: "HM Revenue & Customs").blank?
 end
 
 if Organisation.where(name: "Test Organisation").blank?
+  Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
+  Organisation.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
   Organisation.create!(
     name: "Test Organisation",
     slug: "government-digital-service",
+    content_id: "af07d5a5-df63-4ddc-9383-6a666845ebe9",
     acronym: "TO",
     organisation_type_key: :other,
     logo_formatted_name: "Test",
