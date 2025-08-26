@@ -22,6 +22,8 @@ class SendReviewRemindersTest < ActiveSupport::TestCase
     ReviewReminderNotifierWorker.expects(:perform_async).with(already_sent.id).never
     ReviewReminderNotifierWorker.expects(:perform_async).with(not_due_yet.id).never
 
-    Rake.application.invoke_task "send_review_reminders"
+    Confirm.stub(:ask, true) do
+      Rake.application.invoke_task "send_review_reminders"
+    end
   end
 end
