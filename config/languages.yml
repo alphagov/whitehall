@@ -126,6 +126,10 @@ ko:
   direction: ltr
   english_name: Korean
   native_name: 한국어
+ku:
+  direction: rtl
+  english_name: Kurdish Sorani
+  native_name: سۆرانی کوردی
 ky:
   direction: ltr
   english_name: Kyrgyz
@@ -226,6 +230,10 @@ th:
   direction: ltr
   english_name: Thai
   native_name: ไทย
+ti:
+  direction: ltr
+  english_name: Tigrinya
+  native_name: ትግሪኛ
 tk:
   direction: ltr
   english_name: Turkmen

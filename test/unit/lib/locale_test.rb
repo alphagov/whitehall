@@ -55,7 +55,7 @@ class LocaleTest < ActiveSupport::TestCase
   end
 
   test "knows if languages are left-to-right or right-to-left" do
-    right_to_left_locale_codes = %i[ar dr fa he pa-pk ps ur yi]
+    right_to_left_locale_codes = %i[ar dr fa he ku pa-pk ps ur yi]
     right_to_left_locales = right_to_left_locale_codes.map { |code| Locale.new(code) }
     left_to_right_locales = (Locale.all - right_to_left_locales)
 
