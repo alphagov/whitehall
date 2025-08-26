@@ -7,8 +7,8 @@
    ] + image_select.images.map do |image|
   {
     text: image.filename,
-    value: image.id,
-    selected: image.id == content.to_i,
+    value: image.image_data.id,
+    selected: image.image_data.id == content.to_i,
   }
 end %>
 

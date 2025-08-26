@@ -28,11 +28,13 @@ end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
   submitter = create(:user)
+  image = create(:image)
   standard_edition = StandardEdition.new
   as_user(submitter) do
     standard_edition.configurable_document_type = "test"
     standard_edition.title = title
     standard_edition.summary = "A brief summary of the document."
+    standard_edition.images = [image]
     standard_edition.state = "submitted"
     standard_edition.document = Document.new
     standard_edition.document.slug = title.parameterize
@@ -41,6 +43,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
         "heading_text" => title,
         "context" => "Additional context",
       },
+      "image" => image.image_data.id.to_s,
       "body" => "Some text",
     }
     standard_edition.creator = submitter
@@ -62,4 +65,11 @@ end
 
 Then(/^I can see that the draft edition of "([^"]*)" was published successfully$/) do |title|
   expect(page).to have_content("The document #{title} has been published")
+end
+
+And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |title|
+  standard_edition = StandardEdition.find_by(title: title)
+  visit admin_standard_edition_path(standard_edition)
+  click_button "Create new edition"
+  expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
 end

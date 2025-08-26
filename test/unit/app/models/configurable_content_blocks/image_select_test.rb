@@ -15,7 +15,7 @@ class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
     images = create_list(:image, 3)
     page = StandardEdition.new
     page.images = images
-    payload = ConfigurableContentBlocks::ImageSelect.new(page.images).publishing_api_payload(images[1].id)
+    payload = ConfigurableContentBlocks::ImageSelect.new(page.images).publishing_api_payload(images[1].image_data.id)
 
     assert_equal({
       url: images[1].url,
@@ -46,7 +46,7 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
 
     @page = StandardEdition.new
     @page.images = create_list(:image, 3)
-    @page.block_content = { "test_attribute" => @page.images.last.id.to_s }
+    @page.block_content = { "test_attribute" => @page.images.last.image_data.id.to_s }
     @block = ConfigurableContentBlocks::ImageSelect.new(@page.images)
 
     render @block, {
