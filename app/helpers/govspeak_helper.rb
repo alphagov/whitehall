@@ -93,14 +93,6 @@ module GovspeakHelper
     headers
   end
 
-  def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {})
-    processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
-    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
-      .to_html
-
-    "<div class=\"govspeak\">#{html}</div>".html_safe
-  end
-
   def preprocess_govspeak(govspeak, attachments, options)
     govspeak ||= ""
     govspeak = ContentBlockManager::FindAndReplaceEmbedCodesService.call(govspeak) if options[:preview]
@@ -113,6 +105,14 @@ module GovspeakHelper
   end
 
 private
+
+  def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {})
+    processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
+    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
+      .to_html
+
+    "<div class=\"govspeak\">#{html}</div>".html_safe
+  end
 
   def render_embedded_contacts(govspeak, heading_tag)
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do

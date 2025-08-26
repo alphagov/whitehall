@@ -89,17 +89,11 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
   end
 
   view_test "show displays all non-english translations" do
-    edition = create(:draft_edition, title: "english-title", summary: "english-summary", body: "english-body-in-govspeak")
+    edition = create(:draft_edition, title: "english-title")
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-    with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", body: "french-body-in-govspeak") }
+    with_locale(:fr) { edition.update!(title: "french-title") }
 
-    transformation = {
-      "english-body-in-govspeak" => "english-body-in-html",
-      "french-body-in-govspeak" => "french-body-in-html",
-    }
-    govspeak_transformation_fixture(transformation) do
-      get :show, params: { id: edition }
-    end
+    get :show, params: { id: edition }
 
     refute_select ".govuk-table__row .govuk-table__cell:nth-child(2)", text: "english-title"
     assert_select ".govuk-table__row .govuk-table__cell:nth-child(2)", text: "french-title"

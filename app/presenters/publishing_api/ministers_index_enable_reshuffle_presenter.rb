@@ -19,7 +19,7 @@ module PublishingApi
 
     def details
       {
-        reshuffle: { message: bare_govspeak_to_html(SitewideSetting.find_by(key: :minister_reshuffle_mode).govspeak) },
+        reshuffle: { message: govspeak_to_html(SitewideSetting.find_by(key: :minister_reshuffle_mode).govspeak) },
       }
     end
   end

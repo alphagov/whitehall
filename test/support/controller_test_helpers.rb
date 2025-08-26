@@ -19,15 +19,4 @@ module ControllerTestHelpers
       end
     end
   end
-
-  def govspeak_transformation_fixture(transformation)
-    GovspeakHelper.send(:alias_method, "orig_bare_govspeak_to_html".to_sym, "bare_govspeak_to_html".to_sym)
-    GovspeakHelper.send(:define_method, "bare_govspeak_to_html".to_sym) do |govspeak, *args|
-      transformation[govspeak] || transformation[:default] || send("orig_bare_govspeak_to_html".to_sym, govspeak, *args)
-    end
-    yield
-  ensure
-    GovspeakHelper.send(:alias_method, "bare_govspeak_to_html".to_sym, "orig_bare_govspeak_to_html".to_sym)
-    GovspeakHelper.send(:remove_method, "orig_bare_govspeak_to_html".to_sym)
-  end
 end

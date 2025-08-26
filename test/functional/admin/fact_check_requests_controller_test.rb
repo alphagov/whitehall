@@ -8,13 +8,11 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   view_test "should render the content using govspeak markup" do
-    edition = create(:edition, body: "body-in-govspeak")
+    edition = create(:edition, body: "[some link](https://example.com)")
     fact_check_request = create(:fact_check_request, edition:, comments: "comment")
-    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, params: { id: fact_check_request }
-    end
+    get :show, params: { id: fact_check_request }
 
-    assert_select ".app-view-editions-edition__document__body", text: "body-in-html"
+    assert_select "a[href='https://example.com']", text: "some link"
   end
 
   view_test "should not display the edition if it has been deleted" do
@@ -55,13 +53,11 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   view_test "turn govspeak into nice markup when editing" do
-    edition = create(:edition, body: "body-in-govspeak")
+    edition = create(:edition, body: "[some link](https://example.com)")
     fact_check_request = create(:fact_check_request, edition:)
-    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :edit, params: { id: fact_check_request }
-    end
+    get :edit, params: { id: fact_check_request }
 
-    assert_select ".app-view-editions-edition__document__body", text: "body-in-html"
+    assert_select "a[href='https://example.com']", text: "some link"
   end
 
   test "adding comments to a publication" do
