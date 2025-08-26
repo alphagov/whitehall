@@ -16,6 +16,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   click_button("Next")
   page.choose(configurable_document_type)
   click_button("Next")
+  expect(page).to have_content("New test")
   within "form" do
     fill_in "edition_title", with: title
     fill_in "edition_block_content_page_title_heading_text", with: title
@@ -54,6 +55,7 @@ end
 Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
   expect(page.find("h1")).to have_content(title)
   expect(page).to have_content("Your document has been saved.")
+  expect(page).to have_content("Standard edition: Test")
 end
 
 Then(/^I can see that the draft edition of "([^"]*)" was published successfully$/) do |title|
