@@ -36,6 +36,21 @@
     id: "associations",
   } do %>
     <div class="govuk-!-margin-bottom-4">
+      <% if edition.offices.many? %>
+        <%= render "govuk_publishing_components/components/select_with_search", {
+          name: "edition[main_office_id]",
+          id: "edition_main_office_id",
+          label: "Main office",
+          heading_size: "m",
+          options: edition.offices. sort_by(&:title).map do |office|
+            {
+              value: office.id,
+              text: office.title,
+              selected: office == edition.main_office,
+            }
+          end,
+        } %>
+      <% end %>
       <%= render "world_location_fields", form: form, edition: edition %>
       <%= render "role_fields", form: form, edition: edition %>
       <%= render "organisation_fields", form: form, edition: edition, required: true %>
