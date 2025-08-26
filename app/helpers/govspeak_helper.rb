@@ -5,7 +5,14 @@ module GovspeakHelper
   include AttachmentsHelper
 
   def govspeak_to_html(govspeak, options = {})
-    bare_govspeak_to_html(govspeak, [], [], options)
+    images = options[:images] || []
+    attachments = options[:attachments] || []
+
+    processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
+    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
+      .to_html
+
+    "<div class=\"govspeak\">#{html}</div>".html_safe
   end
 
   def govspeak_edition_to_html(edition, options = {})
@@ -20,19 +27,19 @@ module GovspeakHelper
                     []
                   end
 
-    bare_govspeak_to_html(edition.body, images, attachments, options)
+    govspeak_to_html(edition.body, options.merge(images: images, attachments: attachments))
   end
 
   def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil, options = {})
     attachments = prepare_attachments(attachments, alternative_format_contact_email)
-    bare_govspeak_to_html(body, [], attachments, options)
+    govspeak_to_html(body, options.merge(attachments: attachments))
   end
 
   def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil, options = {})
     mapped_images = prepare_images(images)
     mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
 
-    bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments, options)
+    govspeak_to_html(govspeak, options.merge(images: mapped_images, attachments: mapped_attachments))
   end
 
   def govspeak_html_attachment_to_html(html_attachment)
@@ -43,7 +50,7 @@ module GovspeakHelper
     heading_numbering = html_attachment.manually_numbered_headings? ? :manual : :auto
     options = { heading_numbering:, locale:, contact_heading_tag: "h4" }
 
-    bare_govspeak_to_html(html_attachment.body, images, [], options)
+    govspeak_to_html(html_attachment.body, options.merge(images: images))
   end
 
   def prepare_images(images)
@@ -105,14 +112,6 @@ module GovspeakHelper
   end
 
 private
-
-  def bare_govspeak_to_html(govspeak = "", images = [], attachments = [], options = {})
-    processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
-    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
-      .to_html
-
-    "<div class=\"govspeak\">#{html}</div>".html_safe
-  end
 
   def render_embedded_contacts(govspeak, heading_tag)
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
