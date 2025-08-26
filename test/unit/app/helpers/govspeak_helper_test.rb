@@ -536,7 +536,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
     it "should allow attached images to be embedded in admin html" do
       image = build(:image)
-      html = govspeak_to_html_with_images_and_attachments("!!1", [image], [], nil, { preview: true })
+      html = govspeak_to_html("!!1", images: [image], preview: true)
       assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.url
     end
 

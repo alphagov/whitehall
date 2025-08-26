@@ -33,8 +33,8 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     page.block_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
-      .expects(:govspeak_to_html_with_images_and_attachments)
-      .with(govspeak, [])
+      .expects(:govspeak_to_html)
+      .with(govspeak, images: [])
       .returns(html)
     expected_headers = [
       {
@@ -60,8 +60,8 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     page.block_content = content
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
-      .expects(:govspeak_to_html_with_images_and_attachments)
-      .with(govspeak, [])
+      .expects(:govspeak_to_html)
+      .with(govspeak, images: [])
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
       payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)

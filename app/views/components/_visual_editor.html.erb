@@ -49,12 +49,9 @@
     </div>
 
     <div class="app-c-visual-editor__content">
-      <%= govspeak_to_html_with_images_and_attachments(
+      <%= govspeak_to_html(
         value,
-        [],
-        [],
-        nil,
-        { preview: true },
+        preview: true,
        ) %>
     </div>
 

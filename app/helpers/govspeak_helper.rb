@@ -30,13 +30,6 @@ module GovspeakHelper
     govspeak_to_html(edition.body, options.merge(images: images, attachments: attachments))
   end
 
-  def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil, options = {})
-    mapped_images = prepare_images(images)
-    mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
-
-    govspeak_to_html(govspeak, options.merge(images: mapped_images, attachments: mapped_attachments))
-  end
-
   def govspeak_html_attachment_to_html(html_attachment)
     # HTML attachments can embed images - but not attachments - from their parent Edition
     images = prepare_images(html_attachment.attachable.try(:images) || [])
