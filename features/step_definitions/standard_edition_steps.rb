@@ -20,7 +20,6 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   within "form" do
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
-    fill_in "edition_block_content_page_title_heading_text", with: title
     fill_in "edition_block_content_body", with: "## Some govspeak\n\nThis is the body content"
   end
   click_button "Save and go to document summary"
@@ -39,10 +38,6 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
     standard_edition.document = Document.new
     standard_edition.document.slug = title.parameterize
     standard_edition.block_content = {
-      "page_title" => {
-        "heading_text" => title,
-        "context" => "Additional context",
-      },
       "image" => image.image_data.id.to_s,
       "body" => "Some text",
     }

@@ -7,24 +7,6 @@
     "description": "A test configurable document on GOV.UK",
     "type": "object",
     "properties": {
-      "page_title": {
-        "title": "Page title",
-        "description": "The title of the page",
-        "type": "object",
-        "properties": {
-          "heading_text": {
-            "title": "Heading text",
-            "description": "The main heading text for the page title",
-            "type": "string"
-          },
-          "context": {
-            "title": "Context",
-            "description": "Some additional context for the page title",
-            "type": "string"
-          }
-        },
-        "required": ["heading_text"]
-      },
       "body": {
         "title": "Body",
         "description": "The main content of the page",
@@ -37,8 +19,7 @@
         "type": "string",
         "format": "image_select"
       }
-    },
-    "required": ["page_title"]
+    }
   },
   "settings": {
     "base_path_prefix": "/government/test-type",
