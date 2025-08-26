@@ -35,8 +35,8 @@ module GovspeakHelper
     images = prepare_images(html_attachment.attachable.try(:images) || [])
     locale = html_attachment.translated_locales.first
 
-    heading_numbering = html_attachment.manually_numbered_headings? ? :manual : :auto
-    options = { heading_numbering:, locale:, contact_heading_tag: "h4" }
+    options = { locale:, contact_heading_tag: "h4" }
+    options.merge!(heading_numbering: :auto) unless html_attachment.manually_numbered_headings?
 
     govspeak_to_html(html_attachment.body, options.merge(images: images))
   end
@@ -87,7 +87,6 @@ module GovspeakHelper
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = replace_internal_admin_links(govspeak, options[:preview] == true)
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
-    govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
     govspeak
   end
 
@@ -153,24 +152,6 @@ private
       # generates the HTML, it includes the <span> and number in the ID. Hence
       # the `heading_text.parameterize`
       "#{hashes} <span class=\"number\">#{num} </span>#{heading_text} {##{heading_text.parameterize}}"
-    end
-  end
-
-  def add_manual_heading_numbers(govspeak)
-    govspeak.gsub(/^(###|##)\s*(\S+)\s+(.*)$/) do
-      match_data = Regexp.last_match
-      hashes = match_data[1]
-      token = match_data[2]
-      title = match_data[3].strip
-
-      # Only treat as manual if token is purely numeric (1. / 2) / 42.12 / 3.0.1)
-      if token.match?(/\A\d+(?:\.\d+)*(?:[.)])?\z/) && !title.empty?
-        display = token.end_with?(")") ? token.sub(/\)\z/, ".") : token
-        slug    = title.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-+|-+$/, "")
-        "#{hashes} <span class=\"number\">#{display} </span> #{title} {##{slug}}"
-      else
-        match_data[0] # keep the original heading exactly as written
-      end
     end
   end
 
