@@ -1,5 +1,7 @@
 module PublishingApi
   class PolicyGroupPresenter
+    include AttachmentsHelper
+
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
@@ -51,7 +53,10 @@ module PublishingApi
     def body
       # It looks 'wrong' using the description as the body, but it isn't
       if item.description.present?
-        Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments, item.email)
+        Whitehall::GovspeakRenderer.new.govspeak_to_html(
+          item.description,
+          attachments: prepare_attachments(item.attachments, item.email),
+        )
       else
         ""
       end

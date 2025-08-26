@@ -30,11 +30,6 @@ module GovspeakHelper
     govspeak_to_html(edition.body, options.merge(images: images, attachments: attachments))
   end
 
-  def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil, options = {})
-    attachments = prepare_attachments(attachments, alternative_format_contact_email)
-    govspeak_to_html(body, options.merge(attachments: attachments))
-  end
-
   def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil, options = {})
     mapped_images = prepare_images(images)
     mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
@@ -68,14 +63,6 @@ module GovspeakHelper
         created_at: image.created_at,
         updated_at: image.updated_at,
       }
-    end
-  end
-
-  def prepare_attachments(attachments, alternative_format_contact_email)
-    attachments
-      .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
-      .map do |attachment|
-      attachment_component_params(attachment, alternative_format_contact_email:)
     end
   end
 
