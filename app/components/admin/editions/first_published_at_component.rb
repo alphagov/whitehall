@@ -11,10 +11,6 @@ class Admin::Editions::FirstPublishedAtComponent < ViewComponent::Base
     @year = year
   end
 
-  def render?
-    edition.can_set_previously_published?
-  end
-
 private
 
   attr_reader :edition, :previously_published, :day, :month, :year

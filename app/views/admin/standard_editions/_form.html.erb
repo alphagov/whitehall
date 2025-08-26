@@ -69,6 +69,15 @@
       path: ConfigurableContentBlocks::Path.new,
       root: true,
     }) %>
+
+    <%= render Admin::Editions::FirstPublishedAtComponent.new(
+      edition:,
+      previously_published: params.dig("edition", "previously_published") == "true" || edition.previously_published == true,
+      year: @edition_params.try(:dig, "first_published_at(1i)") || edition.first_published_at&.year,
+      month: @edition_params.try(:dig, "first_published_at(2i)") || edition.first_published_at&.month,
+      day: @edition_params.try(:dig, "first_published_at(3i)") || edition.first_published_at&.day,
+    ) %>
+
     <%= render("settings_fields", form:, edition:) %>
     <%= standard_edition_publishing_controls(form, edition) %>
   </div>

@@ -25,11 +25,7 @@ class StandardEdition < Edition
   end
 
   def can_set_previously_published?
-    false
-  end
-
-  def previously_published
-    false
+    type_instance.settings["backdating_enabled"]
   end
 
   def allows_image_attachments?

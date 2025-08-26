@@ -35,6 +35,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
     standard_edition.summary = "A brief summary of the document."
     standard_edition.images = [image]
     standard_edition.state = "submitted"
+    standard_edition.previously_published = false
     standard_edition.document = Document.new
     standard_edition.document.slug = title.parameterize
     standard_edition.block_content = {
