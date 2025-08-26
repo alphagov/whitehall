@@ -1,7 +1,13 @@
 <section>
   <article class="document">
     <div class="body">
-      <%= govspeak_to_admin_html params[:body], @images, @attachments, @alternative_format_contact_email %>
+      <%= govspeak_to_html_with_images_and_attachments(
+        params[:body],
+        @images,
+        @attachments,
+        @alternative_format_contact_email,
+        { preview: true },
+       ) %>
     </div>
   </article>
 </section>

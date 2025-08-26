@@ -14,16 +14,16 @@ module GovspeakHelper
     bare_govspeak_edition_to_html(edition)
   end
 
-  def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
+  def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil, options = {})
     attachments = prepare_attachments(attachments, alternative_format_contact_email)
-    bare_govspeak_to_html(body, [], attachments)
+    bare_govspeak_to_html(body, [], attachments, options)
   end
 
-  def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
+  def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil, options = {})
     mapped_images = prepare_images(images)
     mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
 
-    bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments)
+    bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments, options)
   end
 
   def bare_govspeak_edition_to_html(edition)
@@ -106,19 +106,14 @@ module GovspeakHelper
   end
 
   def preprocess_govspeak(govspeak, attachments, options)
+    govspeak ||= ""
+    govspeak = ContentBlockManager::FindAndReplaceEmbedCodesService.call(govspeak) if options[:preview]
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = replace_internal_admin_links(govspeak, options[:preview] == true)
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
     govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
     govspeak
-  end
-
-  def govspeak_to_admin_html(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
-    images = prepare_images(images)
-    attachments = prepare_attachments(attachments, alternative_format_contact_email)
-    govspeak = ContentBlockManager::FindAndReplaceEmbedCodesService.call(govspeak || "")
-    bare_govspeak_to_html(govspeak, images, attachments, { preview: true })
   end
 
   def govspeak_edition_to_admin_html(edition)
@@ -137,8 +132,6 @@ module GovspeakHelper
 private
 
   def render_embedded_contacts(govspeak, heading_tag)
-    return govspeak if govspeak.blank?
-
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: Regexp.last_match(1)))
         render(partial: "contacts/contact", locals: { contact:, heading_tag: }, formats: [:html])
@@ -149,8 +142,6 @@ private
   end
 
   def replace_internal_admin_links(govspeak, preview)
-    return govspeak if govspeak.blank?
-
     # [text](url) — skip images via negative lookbehind for "!"
     govspeak.gsub(/(?<!!)\[([^\]]+)\]\(([^)\s]+)\)/) do
       text = Regexp.last_match(1)
@@ -179,8 +170,6 @@ private
   end
 
   def add_heading_numbers(govspeak)
-    return govspeak if govspeak.blank?
-
     h2 = 0
     h3 = 0
 
@@ -206,8 +195,6 @@ private
   end
 
   def add_manual_heading_numbers(govspeak)
-    return govspeak if govspeak.blank?
-
     govspeak.gsub(/^(###|##)\s*(\S+)\s+(.*)$/) do
       match_data = Regexp.last_match
       hashes = match_data[1]
@@ -234,8 +221,6 @@ private
 
   # convert deprecated Whitehall !@n syntax to Govspeak [Attachment: example.pdf] syntax
   def convert_attachment_syntax(govspeak, attachments = [])
-    return govspeak if govspeak.blank?
-
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if (attachment = attachments[Regexp.last_match(1).to_i - 1])
         "\n\n[Attachment: #{attachment[:id]}]\n\n"

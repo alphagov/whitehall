@@ -449,68 +449,68 @@ class GovspeakHelperTest < ActionView::TestCase
     include Admin::EditionRoutesHelper
 
     it "should wrap admin output with a govspeak class" do
-      html = govspeak_to_admin_html("govspeak-text")
+      html = govspeak_to_html("govspeak-text", { preview: true })
       assert_select_within_html html, ".govspeak", text: "govspeak-text"
     end
 
     it "should mark the admin govspeak output as html safe" do
-      html = govspeak_to_admin_html("govspeak-text")
+      html = govspeak_to_html("govspeak-text", { preview: true })
       assert html.html_safe?
     end
 
     it "should not alter mailto urls in the admin preview" do
-      html = govspeak_to_admin_html("no [change](mailto:dave@example.com)")
+      html = govspeak_to_html("no [change](mailto:dave@example.com)", { preview: true })
       assert_select_within_html html, "a[href=?]", "mailto:dave@example.com", text: "change"
     end
 
     it "should not alter urls to other sites in the admin preview" do
-      html = govspeak_to_admin_html("no [change](http://external.example.com/page.html)")
+      html = govspeak_to_html("no [change](http://external.example.com/page.html)", { preview: true })
       assert_select_within_html html, "a[href=?]", "http://external.example.com/page.html", text: "change"
     end
 
     it "should not alter partial urls in the admin preview" do
-      html = govspeak_to_admin_html("no [change](http://)")
+      html = govspeak_to_html("no [change](http://)", { preview: true })
       assert_select_within_html html, "a[href=?]", "http://", text: "change"
     end
 
     it "should rewrite link to draft edition in admin preview" do
       publication = create(:draft_publication)
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path(publication)})", { preview: true })
       assert_select_within_html html, "a[href=?]", admin_publication_path(publication), text: "draft"
     end
 
     it "should not alter unicode when replacing links" do
       publication = create(:published_publication)
-      html = govspeak_to_admin_html("the [☃](#{admin_publication_path(publication)})")
+      html = govspeak_to_html("the [☃](#{admin_publication_path(publication)})", { preview: true })
       assert_select_within_html html, "a[href=?]", publication.public_url, text: "☃"
     end
 
     it "should rewrite link to deleted edition in admin preview" do
       publication = create(:deleted_publication)
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path(publication)})", { preview: true })
       assert_select_within_html html, "del", text: "that"
     end
 
     it "should rewrite link to missing edition in admin preview" do
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path('98765')})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path('98765')})", { preview: true })
       assert_select_within_html html, "del", text: "that"
     end
 
     it "should rewrite link to bad edition ID in admin preview" do
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path('not-an-id')})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path('not-an-id')})", { preview: true })
       assert_select_within_html html, "del", text: "that"
     end
 
     it "should rewrite link to published edition in admin preview" do
       publication = create(:published_publication)
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path(publication)})", { preview: true })
       assert_select_within_html html, "a[href=?]", publication.public_url, text: "that"
     end
 
     it "should rewrite link to published edition with a newer draft in admin preview" do
       publication = create(:published_publication)
       new_draft = publication.create_draft(create(:writer))
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path(publication)})", { preview: true })
       assert_select_within_html html, "a[href=?]", admin_publication_path(new_draft), text: "draft"
     end
 
@@ -522,7 +522,7 @@ class GovspeakHelperTest < ActionView::TestCase
       new_edition.save_as(writer)
       new_edition.submit!
       publish(new_edition)
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path(publication)})", { preview: true })
       assert_select_within_html html, "a[href=?]", admin_publication_path(new_edition), text: "published"
     end
 
@@ -530,13 +530,13 @@ class GovspeakHelperTest < ActionView::TestCase
       document = create(:document)
       publication = create(:published_publication, document:)
       deleted_edition = create(:deleted_publication, document:)
-      html = govspeak_to_admin_html("this and [that](#{admin_publication_path(deleted_edition)})")
+      html = govspeak_to_html("this and [that](#{admin_publication_path(deleted_edition)})", { preview: true })
       assert_select_within_html html, "a[href=?]", admin_publication_path(publication), text: "published"
     end
 
     it "should allow attached images to be embedded in admin html" do
       image = build(:image)
-      html = govspeak_to_admin_html("!!1", [image])
+      html = govspeak_to_html_with_images_and_attachments("!!1", [image], [], nil, { preview: true })
       assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.url
     end
 
@@ -551,7 +551,7 @@ class GovspeakHelperTest < ActionView::TestCase
       contact = build(:contact)
       Contact.stubs(:find_by).with(id: "1").returns(contact)
       input = "[Contact:1]"
-      output = govspeak_to_admin_html(input)
+      output = govspeak_to_html(input, { preview: true })
       contact_html = render("contacts/contact", contact:, heading_tag: "p")
       assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
     end
@@ -563,7 +563,7 @@ class GovspeakHelperTest < ActionView::TestCase
       contact_html = render("contacts/contact", contact:, heading_tag: "p")
       controller.lookup_context.formats = %i[atom]
       assert_nothing_raised do
-        assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_admin_html(input)
+        assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input, { preview: true })
       end
     end
 
@@ -571,8 +571,7 @@ class GovspeakHelperTest < ActionView::TestCase
       input = "Here is some Govspeak"
       expected = "Expected output"
       ContentBlockManager::FindAndReplaceEmbedCodesService.expects(:call).with(input).returns(expected)
-
-      assert_equivalent_html bare_govspeak_to_html(expected, [], [], { preview: true }), govspeak_to_admin_html(input)
+      bare_govspeak_to_html(input, [], [], { preview: true })
     end
   end
 
