@@ -21,22 +21,22 @@ module ControllerTestHelpers
   end
 
   def govspeak_transformation_fixture(transformation)
-    methods_to_stub = {
-      GovspeakHelper => "bare_govspeak_to_html",
-      Admin::AdminGovspeakHelper => "bare_govspeak_to_admin_html",
-    }
+    methods_to_stub = %w[
+      bare_govspeak_to_html
+      bare_govspeak_to_admin_html
+    ]
     begin
-      methods_to_stub.each do |helper_module, method_name|
-        helper_module.send(:alias_method, "orig_#{method_name}".to_sym, method_name.to_sym)
-        helper_module.send(:define_method, method_name.to_sym) do |govspeak, *args|
+      methods_to_stub.each do |method_name|
+        GovspeakHelper.send(:alias_method, "orig_#{method_name}".to_sym, method_name.to_sym)
+        GovspeakHelper.send(:define_method, method_name.to_sym) do |govspeak, *args|
           transformation[govspeak] || transformation[:default] || send("orig_#{method_name}".to_sym, govspeak, *args)
         end
       end
       yield
     ensure
-      methods_to_stub.each do |helper_module, method_name|
-        helper_module.send(:alias_method, method_name.to_sym, "orig_#{method_name}".to_sym)
-        helper_module.send(:remove_method, "orig_#{method_name}".to_sym)
+      methods_to_stub.each do |method_name|
+        GovspeakHelper.send(:alias_method, method_name.to_sym, "orig_#{method_name}".to_sym)
+        GovspeakHelper.send(:remove_method, "orig_#{method_name}".to_sym)
       end
     end
   end
