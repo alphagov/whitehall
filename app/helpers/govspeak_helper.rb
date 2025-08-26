@@ -8,10 +8,19 @@ module GovspeakHelper
     bare_govspeak_to_html(govspeak, [], [], options)
   end
 
-  def govspeak_edition_to_html(edition)
+  def govspeak_edition_to_html(edition, options = {})
     return "" unless edition
 
-    bare_govspeak_edition_to_html(edition)
+    images = prepare_images(edition.try(:images) || [])
+
+    # some Edition types don't allow attachments to be embedded in body content
+    attachments = if edition.allows_inline_attachments?
+                    prepare_attachments(edition.attachments, edition.alternative_format_contact_email)
+                  else
+                    []
+                  end
+
+    bare_govspeak_to_html(edition.body, images, attachments, options)
   end
 
   def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil, options = {})
@@ -24,19 +33,6 @@ module GovspeakHelper
     mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
 
     bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments, options)
-  end
-
-  def bare_govspeak_edition_to_html(edition)
-    images = prepare_images(edition.try(:images) || [])
-
-    # some Edition types don't allow attachments to be embedded in body content
-    attachments = if edition.allows_inline_attachments?
-                    prepare_attachments(edition.attachments, edition.alternative_format_contact_email)
-                  else
-                    []
-                  end
-
-    bare_govspeak_to_html(edition.body, images, attachments)
   end
 
   def govspeak_html_attachment_to_html(html_attachment)
@@ -114,19 +110,6 @@ module GovspeakHelper
     govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
     govspeak = add_manual_heading_numbers(govspeak) if options[:heading_numbering] == :manual
     govspeak
-  end
-
-  def govspeak_edition_to_admin_html(edition)
-    images = prepare_images(edition.try(:images) || [])
-
-    # some Edition types don't allow attachments to be embedded in body content
-    attachments = if edition.allows_inline_attachments?
-                    prepare_attachments(edition.attachments, edition.alternative_format_contact_email)
-                  else
-                    []
-                  end
-
-    bare_govspeak_to_html(edition.body, images, attachments, { preview: true })
   end
 
 private

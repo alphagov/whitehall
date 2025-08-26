@@ -543,7 +543,7 @@ class GovspeakHelperTest < ActionView::TestCase
     it "should allow attached images to be embedded in edition body" do
       image = build(:image)
       edition = build(:published_news_article, body: "!!1", images: [image])
-      html = govspeak_edition_to_admin_html(edition)
+      html = govspeak_edition_to_html(edition, { preview: true })
       assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.url
     end
 
