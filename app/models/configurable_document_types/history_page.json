@@ -29,6 +29,7 @@
     "rendering_app": "government-frontend",
     "images_enabled": true,
     "organisations": ["af07d5a5-df63-4ddc-9383-6a666845ebe9"],
-    "backdating_enabled": false
+    "backdating_enabled": false,
+    "history_mode_enabled": false
   }
 }

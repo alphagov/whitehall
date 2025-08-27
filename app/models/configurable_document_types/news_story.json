@@ -27,6 +27,7 @@
     "rendering_app": "frontend",
     "images_enabled": true,
     "organisations": null,
-    "backdating_enabled": true
+    "backdating_enabled": true,
+    "history_mode_enabled": true
   }
 }
