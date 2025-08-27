@@ -7,6 +7,12 @@
     "description": "A history page on GOV.UK",
     "type": "object",
     "properties": {
+      "lead_paragraph": {
+        "title": "Lead Paragraph",
+        "description": "Optional text that appears above the main content",
+        "type": "string",
+        "format": "govspeak"
+      },
       "body": {
         "title": "Body",
         "description": "The main content for the page",
