@@ -13,3 +13,4 @@ Feature: Standard Editions
     And the test configurable document type is defined
     When I publish a submitted draft of a test configurable document titled "The history of GOV.UK"
     Then I can see that the draft edition of "The history of GOV.UK" was published successfully
+    And a new draft of "The history of GOV.UK" is created with the correct field values

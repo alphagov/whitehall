@@ -25,7 +25,7 @@ module ConfigurableContentBlocks
     def publishing_api_payload(content)
       return nil if content.blank?
 
-      if (selected_image = images.find { |image| image.id == content.to_i })
+      if (selected_image = images.find { |image| image.image_data.id == content.to_i })
         {
           url: selected_image.url,
           caption: selected_image.caption,

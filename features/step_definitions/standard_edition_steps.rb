@@ -16,9 +16,10 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   click_button("Next")
   page.choose(configurable_document_type)
   click_button("Next")
+  expect(page).to have_content("New test")
   within "form" do
     fill_in "edition_title", with: title
-    fill_in "edition_block_content_page_title_heading_text", with: title
+    fill_in "edition_summary", with: "A brief summary of the document."
     fill_in "edition_block_content_body", with: "## Some govspeak\n\nThis is the body content"
   end
   click_button "Save and go to document summary"
@@ -26,18 +27,18 @@ end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
   submitter = create(:user)
+  image = create(:image)
   standard_edition = StandardEdition.new
   as_user(submitter) do
     standard_edition.configurable_document_type = "test"
     standard_edition.title = title
+    standard_edition.summary = "A brief summary of the document."
+    standard_edition.images = [image]
     standard_edition.state = "submitted"
     standard_edition.document = Document.new
     standard_edition.document.slug = title.parameterize
     standard_edition.block_content = {
-      "page_title" => {
-        "heading_text" => title,
-        "context" => "Additional context",
-      },
+      "image" => image.image_data.id.to_s,
       "body" => "Some text",
     }
     standard_edition.creator = submitter
@@ -54,8 +55,16 @@ end
 Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
   expect(page.find("h1")).to have_content(title)
   expect(page).to have_content("Your document has been saved.")
+  expect(page).to have_content("Standard edition: Test")
 end
 
 Then(/^I can see that the draft edition of "([^"]*)" was published successfully$/) do |title|
   expect(page).to have_content("The document #{title} has been published")
+end
+
+And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |title|
+  standard_edition = StandardEdition.find_by(title: title)
+  visit admin_standard_edition_path(standard_edition)
+  click_button "Create new edition"
+  expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
 end

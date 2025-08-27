@@ -8,12 +8,16 @@ class StandardEdition < Edition
     "choose_type_admin_standard_editions_path"
   end
 
-  def publishing_api_presenter
-    PublishingApi::StandardEditionPresenter
+  def format_name
+    type_instance.label.downcase
   end
 
-  def summary_required?
-    false
+  def display_type
+    type_instance.label
+  end
+
+  def publishing_api_presenter
+    PublishingApi::StandardEditionPresenter
   end
 
   def body_required?

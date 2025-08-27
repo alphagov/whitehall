@@ -14,6 +14,7 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(item, update_type:).base_attributes
       content.merge!(
+        description: item.summary,
         details:,
         document_type: type.settings["publishing_api_document_type"],
         public_updated_at: item.public_timestamp || item.updated_at,
