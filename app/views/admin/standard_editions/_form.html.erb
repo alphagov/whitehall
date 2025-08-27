@@ -78,6 +78,8 @@
       day: @edition_params.try(:dig, "first_published_at(3i)") || edition.first_published_at&.day,
     ) %>
 
+    <%= render Admin::Editions::HistoryModeFormControls.new(@edition, current_user) %>
+
     <%= render("settings_fields", form:, edition:) %>
     <%= standard_edition_publishing_controls(form, edition) %>
   </div>

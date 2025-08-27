@@ -67,6 +67,42 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "label", "Test Type Two"
   end
 
+  view_test "GET edit renders the history mode form controls when history mode is enabled" do
+    configurable_document_types = {
+      "test_type" => {
+        "key" => "test_type_one",
+        "schema" => {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://www.gov.uk/schemas/test_type/v1",
+          "title" => "Test Type One",
+          "type" => "object",
+          "properties" => {
+            "test_attribute" => {
+              "title" => "Test Attribute",
+              "type" => "string",
+            },
+          },
+        },
+        "settings" => {
+          "history_mode_enabled" => true,
+        },
+      },
+    }
+    ConfigurableDocumentType.setup_test_types(configurable_document_types)
+
+    edition = build(:published_standard_edition)
+    edition.configurable_document_type = "test_type"
+    edition.block_content = { "test_attribute" => "test" }
+    edition.save!
+
+    draft = edition.create_draft(edition.authors.first)
+    login_as :managing_editor
+    get :edit, params: { id: draft.id }
+
+    assert_response :ok
+    assert_select "legend", text: "Political"
+  end
+
   test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do
     configurable_document_types = {
       "test_type" => {
