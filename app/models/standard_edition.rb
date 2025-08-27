@@ -32,6 +32,10 @@ class StandardEdition < Edition
     type_instance.settings["images_enabled"]
   end
 
+  def can_be_marked_political?
+    type_instance.settings["history_mode_enabled"]
+  end
+
   def base_path
     "#{type_instance.settings['base_path_prefix']}/#{slug}"
   end
