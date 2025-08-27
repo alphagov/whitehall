@@ -1,0 +1,7 @@
+javascript:(function() {
+    var req = new XMLHttpRequest();
+    req.open('GET', document.location, false);
+    req.send(null);
+    var match = req.getAllResponseHeaders().match('link: <(.*)>; rel="up"');
+    document.location = match[1];
+})()
