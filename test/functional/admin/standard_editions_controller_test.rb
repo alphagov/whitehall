@@ -84,8 +84,6 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     ConfigurableDocumentType.setup_test_types(configurable_document_types)
 
     edition = build(:standard_edition)
-    edition.configurable_document_type = "test_type"
-    edition.block_content = {}
     edition.save!
 
     get :edit, params: { id: edition }
@@ -122,8 +120,6 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     ConfigurableDocumentType.setup_test_types(configurable_document_types)
 
     edition = build(:standard_edition)
-    edition.configurable_document_type = "test_type"
-    edition.block_content = { "test_attribute" => "test" }
     edition.save!
 
     get :edit, params: { id: edition }
@@ -156,8 +152,6 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     ConfigurableDocumentType.setup_test_types(configurable_document_types)
 
     edition = build(:published_standard_edition)
-    edition.configurable_document_type = "test_type"
-    edition.block_content = { "test_attribute" => "test" }
     edition.save!
 
     draft = edition.create_draft(edition.authors.first)

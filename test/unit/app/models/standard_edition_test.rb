@@ -171,11 +171,7 @@ class StandardEditionTest < ActiveSupport::TestCase
       },
     }
     ConfigurableDocumentType.setup_test_types(test_types)
-    page = StandardEdition.new
-    page.title = "Test Page"
-    page.configurable_document_type = "test_type"
-    page.block_content = {}
-    page.creator = User.new
+    page = build(:standard_edition, { configurable_document_type: "test_type", block_content: {} })
     assert page.invalid?
   end
 end

@@ -22,8 +22,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+    page = build(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -61,14 +60,16 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+    page = build(:standard_edition,
+                 {
+                   configurable_document_type: type_key,
+                   block_content: {
+                     "property_one" => "Foo",
+                     "property_two" => "Bar",
+                   },
+                 })
     page.document = Document.new
     page.document.slug = "page-title"
-    page.block_content = {
-      "property_one" => "Foo",
-      "property_two" => "Bar",
-    }
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
     assert_equal page.block_content["property_one"], content[:details][:property_one]
@@ -89,8 +90,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         "settings" => {},
       },
     })
-    page = StandardEdition.new(title: "Page Title", summary: "Page Summary")
-    page.configurable_document_type = type_key
+    page = build(:standard_edition, {
+      title: "Page Title",
+      summary: "Page Summary",
+      configurable_document_type: type_key,
+    })
     page.document = Document.new(slug: "page-title")
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
@@ -135,8 +139,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+    page = build(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
     page.block_content = {
@@ -197,17 +200,16 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+    page = build(:standard_edition, { configurable_document_type: type_key,
+                                      block_content: {
+                                        "chunk_of_content_one" => "Some content",
+                                        "chunk_of_content_two" => "Some more content",
+                                      } })
     page.document = Document.new
     page.document.slug = "page-title"
-    page.block_content = {
-      "chunk_of_content_one" => "Some content",
-      "chunk_of_content_two" => "Some more content",
-    }
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
-    assert_equal nil, content[:details][:headers]
+    assert_nil content[:details][:headers]
   end
 end
