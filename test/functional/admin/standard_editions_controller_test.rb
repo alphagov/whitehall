@@ -67,6 +67,37 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "label", "Test Type Two"
   end
 
+  view_test "GET edit renders default fields for a standard document" do
+    configurable_document_types = {
+      "test_type" => {
+        "key" => "test_type_one",
+        "schema" => {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://www.gov.uk/schemas/test_type/v1",
+          "title" => "Test Type One",
+          "type" => "object",
+          "properties" => {},
+        },
+        "settings" => {},
+      },
+    }
+    ConfigurableDocumentType.setup_test_types(configurable_document_types)
+
+    edition = build(:standard_edition)
+    edition.configurable_document_type = "test_type"
+    edition.block_content = {}
+    edition.save!
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "label", text: "Title (required)"
+    assert_select "label", text: "Summary (required)"
+    assert_select "legend", text: "Limit access"
+    assert_select "legend", text: "Schedule publication"
+    assert_select "legend", text: "Review date"
+  end
+
   view_test "GET edit renders previously published form controls if backdating is enabled" do
     configurable_document_types = {
       "test_type" => {
