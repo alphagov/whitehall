@@ -25,15 +25,15 @@ class StandardEdition < Edition
   end
 
   def can_set_previously_published?
-    false
-  end
-
-  def previously_published
-    false
+    type_instance.settings["backdating_enabled"]
   end
 
   def allows_image_attachments?
     type_instance.settings["images_enabled"]
+  end
+
+  def can_be_marked_political?
+    type_instance.settings["history_mode_enabled"]
   end
 
   def base_path

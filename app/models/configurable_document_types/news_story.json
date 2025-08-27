@@ -1,0 +1,33 @@
+{
+  "key": "news_story",
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.gov.uk/schemas/news_story/v1",
+    "title": "News Story",
+    "description": "News written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.",
+    "type": "object",
+    "properties": {
+      "body": {
+        "title": "Body (required)",
+        "type": "string",
+        "format": "govspeak"
+      },
+      "image": {
+        "title": "Lead image",
+        "description": "Select a lead image, if required",
+        "type": "string",
+        "format": "image_select"
+      }
+    }
+  },
+  "settings": {
+    "base_path_prefix": "/government/news",
+    "publishing_api_schema_name": "news_article",
+    "publishing_api_document_type": "news_story",
+    "rendering_app": "frontend",
+    "images_enabled": true,
+    "organisations": null,
+    "backdating_enabled": true,
+    "history_mode_enabled": true
+  }
+}

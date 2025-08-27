@@ -3,12 +3,23 @@
 require "test_helper"
 
 class Admin::Editions::FirstPublishedAtComponentTest < ViewComponent::TestCase
-  test "doesn't render when the edition can't set previously published" do
+  test "renders a hidden checkbox with the value set to false when the document can't set previously published and has never been published before" do
     edition = build(:consultation)
+
+    render_inline(Admin::Editions::FirstPublishedAtComponent.new(edition:, previously_published: false))
+
+    assert_selector "input[type='hidden'][name='edition[previously_published]'][value='false']", visible: :hidden
+    assert_selector ".govuk-checkboxes", count: 0
+  end
+
+  test "renders nothing when the document can't set previously published and has been published before" do
+    edition = build(:published_consultation)
 
     render_inline(Admin::Editions::FirstPublishedAtComponent.new(edition:, previously_published: true))
 
-    assert page.text.blank?
+    assert_selector "input[type='hidden'][name='edition[previously_published]'][value='false']", visible: :hidden, count: 0
+    assert_selector ".govuk-checkboxes", count: 0
+    assert_selector ".govuk-fieldset", text: "First published", count: 0
   end
 
   test "when the document has never been published it renders with the correct fields" do
