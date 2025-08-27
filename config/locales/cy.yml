@@ -1,5 +1,9 @@
 ---
 cy:
+  contact:
+    access_and_opening_times: Mynediad ac amseroedd agor
+    contact_form: Ffurflen gysylltu
+    email: E-bost
   corporate_information_page:
     type:
       link_text:
