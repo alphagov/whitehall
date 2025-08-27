@@ -18,6 +18,12 @@
         "description": "Enter the markdown code for the sidebar image",
         "type": "string",
         "format": "image_select"
+      },
+      "lead_paragraph": {
+        "title": "Lead paragraph",
+        "description": "Optional text that appears above the main content",
+        "type": "string",
+        "format": "default"
       }
     },
     "required": ["body"]
