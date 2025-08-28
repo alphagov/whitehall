@@ -114,7 +114,8 @@ class Admin::BulkRepublishingController < Admin::BaseController
 
     bulk_content_type_key = :all_documents_by_content_ids
     bulk_content_type_metadata_for_content_ids = bulk_content_type_metadata.fetch(bulk_content_type_key)
-    action = "#{bulk_content_type_metadata_for_content_ids[:name].upcase_first} #{content_ids_array_to_string(content_ids)} have been queued for republishing"
+    content_ids_string = content_ids.length > 20 ? "specified" : content_ids_array_to_string(content_ids)
+    action = "#{bulk_content_type_metadata_for_content_ids[:name].upcase_first} #{content_ids_string} have been queued for republishing"
     bulk_content_type_value = RepublishingEvent.bulk_content_types.fetch(bulk_content_type_key)
     @republishing_event = build_republishing_event(action:, bulk_content_type: bulk_content_type_value, content_ids:)
 
