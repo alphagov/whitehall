@@ -32,6 +32,8 @@ class Attachment < ApplicationRecord
   scope :not_deleted, -> { where(deleted: false) }
   scope :deleted, -> { where(deleted: true) }
 
+  self.ignored_columns += %w[visual_editor]
+
   class Null
     def deleted?
       false
