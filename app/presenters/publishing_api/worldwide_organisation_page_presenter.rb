@@ -1,5 +1,7 @@
 module PublishingApi
   class WorldwideOrganisationPagePresenter
+    include AttachmentsHelper
+
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
@@ -18,7 +20,11 @@ module PublishingApi
 
       content.merge!(
         details: {
-          body: Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.body, item.attachments, item.alternative_format_contact_email),
+          body: Whitehall::GovspeakRenderer.new.govspeak_to_html(
+            item.body,
+            attachments: item.attachments,
+            alternative_format_contact_email: item.alternative_format_contact_email,
+          ),
         },
         description: item.summary,
         public_updated_at: item.updated_at.rfc3339,

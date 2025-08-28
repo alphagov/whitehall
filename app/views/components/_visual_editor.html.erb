@@ -49,7 +49,10 @@
     </div>
 
     <div class="app-c-visual-editor__content">
-      <%= govspeak_to_admin_html value, [], [], nil %>
+      <%= govspeak_to_html(
+        value,
+        preview: true,
+       ) %>
     </div>
 
     <div class="app-c-visual-editor__container"></div>

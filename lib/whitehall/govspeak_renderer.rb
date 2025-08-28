@@ -3,9 +3,7 @@ module Whitehall
   class GovspeakRenderer < ActionController::Renderer
     delegate :govspeak_edition_to_html,
              :govspeak_to_html,
-             :govspeak_with_attachments_to_html,
              :govspeak_html_attachment_to_html,
-             :govspeak_to_html_with_images_and_attachments,
              :block_attachments,
              to: :helpers
 

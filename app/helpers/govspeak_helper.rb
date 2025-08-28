@@ -5,49 +5,40 @@ module GovspeakHelper
   include AttachmentsHelper
 
   def govspeak_to_html(govspeak, options = {})
-    bare_govspeak_to_html(govspeak, [], [], options)
+    images = prepare_images(options[:images] || [])
+    attachments = prepare_attachments(options[:attachments] || [], options[:alternative_format_contact_email])
+
+    processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
+    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
+      .to_html
+
+    "<div class=\"govspeak\">#{html}</div>".html_safe
   end
 
-  def govspeak_edition_to_html(edition)
+  def govspeak_edition_to_html(edition, options = {})
     return "" unless edition
 
-    bare_govspeak_edition_to_html(edition)
-  end
-
-  def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
-    attachments = prepare_attachments(attachments, alternative_format_contact_email)
-    bare_govspeak_to_html(body, [], attachments)
-  end
-
-  def govspeak_to_html_with_images_and_attachments(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
-    mapped_images = prepare_images(images)
-    mapped_attachments = prepare_attachments(attachments, alternative_format_contact_email)
-
-    bare_govspeak_to_html(govspeak, mapped_images, mapped_attachments)
-  end
-
-  def bare_govspeak_edition_to_html(edition)
-    images = prepare_images(edition.try(:images) || [])
-
+    options.merge!(images: edition.try(:images))
     # some Edition types don't allow attachments to be embedded in body content
-    attachments = if edition.allows_inline_attachments?
-                    prepare_attachments(edition.attachments, edition.alternative_format_contact_email)
-                  else
-                    []
-                  end
+    if edition.allows_inline_attachments?
+      options.merge!(
+        attachments: edition.attachments,
+        alternative_format_contact_email: edition.alternative_format_contact_email,
+      )
+    end
 
-    bare_govspeak_to_html(edition.body, images, attachments)
+    govspeak_to_html(edition.body, options)
   end
 
   def govspeak_html_attachment_to_html(html_attachment)
     # HTML attachments can embed images - but not attachments - from their parent Edition
-    images = prepare_images(html_attachment.attachable.try(:images) || [])
+    images = html_attachment.attachable.try(:images)
     locale = html_attachment.translated_locales.first
 
-    heading_numbering = html_attachment.manually_numbered_headings? ? :manual : :auto
-    options = { heading_numbering:, locale:, contact_heading_tag: "h4" }
+    options = { locale:, contact_heading_tag: "h4" }
+    options.merge!(heading_numbering: :auto) unless html_attachment.manually_numbered_headings?
 
-    bare_govspeak_to_html(html_attachment.body, images, [], options)
+    govspeak_to_html(html_attachment.body, options.merge(images: images))
   end
 
   def prepare_images(images)
@@ -65,14 +56,6 @@ module GovspeakHelper
         created_at: image.created_at,
         updated_at: image.updated_at,
       }
-    end
-  end
-
-  def prepare_attachments(attachments, alternative_format_contact_email)
-    attachments
-      .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
-      .map do |attachment|
-      attachment_component_params(attachment, alternative_format_contact_email:)
     end
   end
 
@@ -97,35 +80,19 @@ module GovspeakHelper
     headers
   end
 
-  def bare_govspeak_to_html(govspeak, images = [], attachments = [], options = {}, &block)
-    # pre-processors
+  def preprocess_govspeak(govspeak, attachments, options)
+    govspeak ||= ""
+    govspeak = ContentBlockManager::FindAndReplaceEmbedCodesService.call(govspeak) if options[:preview]
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
-
-    locale = options[:locale]
-
-    html = markup_to_nokogiri_doc(govspeak, images, attachments, locale:)
-      .tap { |nokogiri_doc|
-        # post-processors
-        replace_internal_admin_links_in(nokogiri_doc, &block)
-
-        case options[:heading_numbering]
-        when :auto
-          add_heading_numbers(nokogiri_doc)
-        when :manual
-          add_manual_heading_numbers(nokogiri_doc)
-        end
-      }
-      .to_html
-
-    "<div class=\"govspeak\">#{html}</div>".html_safe
+    govspeak = replace_internal_admin_links(govspeak, options[:preview] == true)
+    govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
+    govspeak
   end
 
 private
 
   def render_embedded_contacts(govspeak, heading_tag)
-    return govspeak if govspeak.blank?
-
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: Regexp.last_match(1)))
         render(partial: "contacts/contact", locals: { contact:, heading_tag: }, formats: [:html])
@@ -135,35 +102,57 @@ private
     end
   end
 
-  def replace_internal_admin_links_in(nokogiri_doc, &block)
-    Govspeak::AdminLinkReplacer.new(nokogiri_doc).replace!(&block)
-  end
-
-  def add_heading_numbers(nokogiri_doc)
-    h2_depth = 0
-    h3_depth = 0
-    nokogiri_doc.css("h2, h3").each do |el|
-      if el.name == "h2"
-        h3_depth = 0
-        number = "#{h2_depth += 1}."
+  def replace_internal_admin_links(govspeak, preview)
+    # [text](url) — skip images via negative lookbehind for "!"
+    govspeak.gsub(/(?<!!)\[([^\]]+)\]\(([^)\s]+)\)/) do
+      text = Regexp.last_match(1)
+      href = Regexp.last_match(2)
+      if GovspeakLinkValidator.is_internal_admin_link?(href)
+        edition = Whitehall::AdminLinkLookup.find_edition(href)
+        public_url = "[#{text}](#{edition&.public_url})"
+        latest_edition = edition&.document&.latest_edition
+        if preview
+          if !latest_edition
+            "<del>#{text}</del>"
+          elsif edition == latest_edition && edition.state == "published"
+            public_url
+          else
+            "[#{latest_edition.state}](#{admin_publication_path(latest_edition)})"
+          end
+        elsif edition&.linkable?
+          public_url
+        else
+          text
+        end
       else
-        number = "#{h2_depth}.#{h3_depth += 1}"
-      end
-      el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{el.inner_html}))
-    end
-  end
-
-  def add_manual_heading_numbers(nokogiri_doc)
-    nokogiri_doc.css("h2, h3").each do |el|
-      if (number = extract_number_from_heading(el))
-        heading_without_number = el.inner_html.gsub(number, "")
-        el.inner_html = el.document.fragment(%(<span class="number">#{number} </span>#{heading_without_number}))
+        Regexp.last_match(0)
       end
     end
   end
 
-  def extract_number_from_heading(nokogiri_el)
-    nokogiri_el.inner_text[/^\d+.?[^\s]*/]
+  def add_heading_numbers(govspeak)
+    h2 = 0
+    h3 = 0
+
+    govspeak.gsub(/^(###|##)\s*(.+)$/) do
+      hashes = Regexp.last_match(1)
+      heading_text = Regexp.last_match(2).strip
+
+      if hashes == "##"
+        h2 += 1
+        h3 = 0
+        num = "#{h2}."
+      else # "###"
+        h2 = 1 if h2.zero?
+        h3 += 1
+        num = "#{h2}.#{h3}"
+      end
+
+      # We have to manually derive and append a slug otherwise when Govspeak
+      # generates the HTML, it includes the <span> and number in the ID. Hence
+      # the `heading_text.parameterize`
+      "#{hashes} <span class=\"number\">#{num} </span>#{heading_text} {##{heading_text.parameterize}}"
+    end
   end
 
   def markup_to_nokogiri_doc(govspeak, images = [], attachments = [], options = {})
@@ -175,8 +164,6 @@ private
 
   # convert deprecated Whitehall !@n syntax to Govspeak [Attachment: example.pdf] syntax
   def convert_attachment_syntax(govspeak, attachments = [])
-    return govspeak if govspeak.blank?
-
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if (attachment = attachments[Regexp.last_match(1).to_i - 1])
         "\n\n[Attachment: #{attachment[:id]}]\n\n"

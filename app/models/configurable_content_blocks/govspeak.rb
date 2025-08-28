@@ -24,7 +24,7 @@ module ConfigurableContentBlocks
 
     def publishing_api_payload(content)
       {
-        html: Whitehall::GovspeakRenderer.new.govspeak_to_html_with_images_and_attachments(content, @images),
+        html: Whitehall::GovspeakRenderer.new.govspeak_to_html(content, images: @images),
         **extract_headings(content),
       }
     end
