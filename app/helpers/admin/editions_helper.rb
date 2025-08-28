@@ -95,7 +95,7 @@ module Admin::EditionsHelper
   def standard_edition_form(edition)
     read_only = !edition.editable?
 
-    form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher ga4-visual-editor-event-handlers", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
+    form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form|
       content = "".html_safe
       content << render("standard_fields", form:, edition:)
       content << capture(form) { yield(form) }

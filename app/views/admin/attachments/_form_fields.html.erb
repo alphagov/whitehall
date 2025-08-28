@@ -49,25 +49,6 @@
     </div>
 
     <div class="govuk-!-margin-bottom-<%= margin_bottom %> app-view-attachments__form-body js-locale-switcher-field">
-      <% if Flipflop.govspeak_visual_editor? && current_user.can_see_visual_editor_private_beta? && form.object.visual_editor %>
-        <%= render "components/visual_editor", {
-          label: {
-            text: "Body (required)",
-            heading_size: "l",
-          },
-          name: "#{name}[govspeak_content_attributes][body]",
-          rows: 20,
-          id: "#{name}_govspeak_content_body",
-          value: form.object.govspeak_content.body,
-          error_items: errors_for(attachment.errors, :"govspeak_content.body"),
-          right_to_left:  form.object.rtl_locale?,
-          data_attributes: {
-            image_ids: @edition && @edition.images.any? ? @edition.images.map { |img| img[:id] } : [],
-            attachment_ids: [], # HTML attachments cannot embed Attachments from their parent Edition
-          },
-          hidden_field_name: "#{name}[visual_editor]",
-        } %>
-      <% else %>
       <%= render "components/govspeak_editor", {
         label: {
           heading_size:,
@@ -84,8 +65,6 @@
           attachment_ids: [], # HTML attachments cannot embed Attachments from their parent Edition
         },
       } %>
-        <%= hidden_field_tag "#{name}[visual_editor]", false %>
-        <% end %>
     </div>
 
     <% if !attachment.new_record? %>

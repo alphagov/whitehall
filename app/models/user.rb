@@ -23,7 +23,6 @@ class User < ApplicationRecord
     PUBLISH_SCHEDULED_EDITIONS = "Publish scheduled editions".freeze
     GDS_ADMIN = "GDS Admin".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
-    VISUAL_EDITOR_PRIVATE_BETA = "Visual editor private beta".freeze
   end
 
   def role
@@ -53,10 +52,6 @@ class User < ApplicationRecord
 
   def gds_admin?
     has_permission?(Permissions::GDS_ADMIN)
-  end
-
-  def can_see_visual_editor_private_beta?
-    has_permission?(Permissions::VISUAL_EDITOR_PRIVATE_BETA)
   end
 
   def organisation_name
