@@ -55,7 +55,8 @@ module PublishingApi
       if item.description.present?
         Whitehall::GovspeakRenderer.new.govspeak_to_html(
           item.description,
-          attachments: prepare_attachments(item.attachments, item.email),
+          attachments: item.attachments,
+          alternative_format_contact_email: item.email,
         )
       else
         ""

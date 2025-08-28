@@ -6,7 +6,7 @@ module GovspeakHelper
 
   def govspeak_to_html(govspeak, options = {})
     images = prepare_images(options[:images] || [])
-    attachments = options[:attachments] || []
+    attachments = prepare_attachments(options[:attachments] || [], options[:alternative_format_contact_email])
 
     processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
     html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
@@ -18,15 +18,16 @@ module GovspeakHelper
   def govspeak_edition_to_html(edition, options = {})
     return "" unless edition
 
-    images = edition.try(:images)
+    options.merge!(images: edition.try(:images))
     # some Edition types don't allow attachments to be embedded in body content
-    attachments = if edition.allows_inline_attachments?
-                    prepare_attachments(edition.attachments, edition.alternative_format_contact_email)
-                  else
-                    []
-                  end
+    if edition.allows_inline_attachments?
+      options.merge!(
+        attachments: edition.attachments,
+        alternative_format_contact_email: edition.alternative_format_contact_email,
+      )
+    end
 
-    govspeak_to_html(edition.body, options.merge(images: images, attachments: attachments))
+    govspeak_to_html(edition.body, options)
   end
 
   def govspeak_html_attachment_to_html(html_attachment)

@@ -22,7 +22,8 @@ module PublishingApi
         details: {
           body: Whitehall::GovspeakRenderer.new.govspeak_to_html(
             item.body,
-            attachments: prepare_attachments(item.attachments, item.alternative_format_contact_email),
+            attachments: item.attachments,
+            alternative_format_contact_email: item.alternative_format_contact_email,
           ),
         },
         description: item.summary,

@@ -4,7 +4,8 @@
       <%= govspeak_to_html(
         params[:body],
         images: @images,
-        attachments: prepare_attachments(@attachments, @alternative_format_contact_email),
+        attachments: @attachments,
+        alternative_format_contact_email: @alternative_format_contact_email,
         preview: true,
        ) %>
     </div>
