@@ -61,6 +61,10 @@ When(/^I view the (publication|news article|consultation|speech|document) "([^"]
   click_link title
 end
 
+When(/^I visit the list of documents$/) do
+  visit admin_editions_path
+end
+
 When(/^I visit the list of draft documents$/) do
   visit admin_editions_path(state: :draft)
 end
@@ -79,6 +83,13 @@ end
 
 When(/^I filter by organisation "([^"]*)"$/) do |organisation_name|
   filter_editions_by :organisation, organisation_name
+end
+
+When(/^I filter by only invalid editions/) do
+  within ".app-view-filter" do
+    check "Only invalid editions"
+    click_on "Search"
+  end
 end
 
 When("I submit {edition}") do |edition|

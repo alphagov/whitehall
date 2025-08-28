@@ -41,3 +41,17 @@ Feature: Filtering documents by author in admin
     When I filter by review overdue
     Then I should see the publication "I moustache you a question"
     And I should not see the publication "Standard Beard Lengths"
+
+  Scenario: Viewing only invalid documents
+    Given I am a writer
+    And a world location "United Kingdom" exists
+    When I draft a new worldwide organisation "Test Worldwide Organisation" assigned to world location "United Kingdom"
+
+    And I draft a new invalid publication "Invalid Publication"
+    And I visit the list of documents
+    Then I should see the publication "Invalid Publication"
+    And I should see the worldwide organisation "Test Worldwide Organisation"
+
+    When I filter by only invalid editions
+    Then I should see the publication "Invalid Publication"
+    And I should not see the worldwide organisation "Test Worldwide Organisation"

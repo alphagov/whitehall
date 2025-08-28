@@ -19,6 +19,15 @@ When(/^I draft a new publication "([^"]*)"$/) do |title|
   add_external_attachment
 end
 
+When(/^I draft a new invalid publication "([^"]*)"$/) do |title|
+  bad_id = 9_999_999_999_999
+  begin_drafting_publication(title)
+  within "form" do
+    fill_in "edition_body", with: "[Contact:#{bad_id}]"
+  end
+  click_button "Save and go to document summary"
+end
+
 Given(/^"([^"]*)" drafts a new publication "([^"]*)"$/) do |user_name, title|
   user = User.find_by(name: user_name)
   as_user(user) do
