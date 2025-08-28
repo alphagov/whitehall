@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_18_145027) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_28_073712) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -63,7 +63,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_18_145027) do
     t.string "content_id"
     t.boolean "deleted", default: false, null: false
     t.boolean "safely_resluggable", default: true
-    t.boolean "visual_editor"
     t.index ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type"
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id"
@@ -452,7 +451,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_18_145027) do
     t.string "logo_formatted_name"
     t.string "analytics_identifier"
     t.integer "main_office_id"
-    t.boolean "visual_editor"
     t.integer "government_id"
     t.string "configurable_document_type"
     t.datetime "revalidated_at"
