@@ -46,13 +46,20 @@ module PublishingApi
     end
 
     def flatten_headers(content)
-      if content[:body]
-        html = content.dig(:body, :html)
-        headers = content.dig(:body, :headers)
-        content[:body] = html
-        content[:headers] = headers
+      headers = []
+
+      content.keys.each do |key|
+        content_for_key = content[key]
+
+        next unless content_for_key.is_a?(Hash)
+
+        html_for_content_block = content_for_key[:html]
+        headers_for_content_block = content_for_key[:headers]
+        content[key] = html_for_content_block if html_for_content_block.present?
+        headers << headers_for_content_block if headers_for_content_block.present?
       end
 
+      content[:headers] = headers.any? ? headers.flatten : nil
       content.compact
     end
 
