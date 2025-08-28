@@ -293,7 +293,7 @@ class Document < ApplicationRecord
         if Flipflop.enabled?(:configurable_document_types)
           types["standard_edition"] = {
             "klass" => StandardEdition,
-            "hint_text" => "NEW Use this to create config-driven documents.",
+            "hint_text" => "EXPERIMENTAL - DEVELOPERS ONLY Use this to create config-driven documents.",
             "label" => "Standard document",
           }
         end

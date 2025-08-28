@@ -5,7 +5,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
   setup do
     @organisation = create(:organisation)
-    login_as :writer, @organisation
+    login_as :gds_admin, @organisation
 
     @test_strategy ||= Flipflop::FeatureSet.current.test!
     @test_strategy.switch!(:configurable_document_types, true)
