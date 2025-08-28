@@ -62,3 +62,11 @@ jobs:
   test-features:
     name: Test features
     uses: ./.github/workflows/cucumber.yml
+
+  notify-slack-if-failure-on-main:
+    if: ${{ failure() }}
+    uses: alphagov/govuk-infrastructure/.github/actions/report-run-failure/action.yml@main
+    with:
+      slack_webhook_url: ${{ secrets.GOVUK_SLACK_WEBHOOK_URL }}
+      channel: govuk-whitehall-experience-tech
+      message: "Whitehall CI failed on 'main' and blocked the deployment. Investigate!"
