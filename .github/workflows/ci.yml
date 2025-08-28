@@ -68,7 +68,7 @@ jobs:
     steps:
       - name: Notify Slack if failure on main
         if: ${{ failure() }}
-        uses: alphagov/govuk-infrastructure/.github/actions/report-run-failure/action.yml@main
+        uses: alphagov/govuk-infrastructure/.github/actions/report-run-failure@main
         with:
           slack_webhook_url: ${{ secrets.GOVUK_SLACK_WEBHOOK_URL }}
           channel: govuk-whitehall-experience-tech
