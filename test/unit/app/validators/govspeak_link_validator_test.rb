@@ -64,13 +64,6 @@ class GovspeakLinkValidatorTest < ActiveSupport::TestCase
     assert_equal ["Issue with link `government/admin/policies/12345`: This is an invalid admin link.  Did you mean /government/admin/policies/12345 instead of government/admin/policies/12345?"], test_model.errors.map(&:type)
   end
 
-  test "should be invalid if it contains a non-admin absolute path" do
-    test_model = Edition.new(body: "[example text](/government/policies)")
-    GovspeakLinkValidator.new.validate(test_model)
-    assert_equal 1, test_model.errors.size
-    assert_equal ["Issue with link `/government/policies`: If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs."], test_model.errors.map(&:type)
-  end
-
   test "should identify internal admin links" do
     assert GovspeakLinkValidator.is_internal_admin_link?([Whitehall.router_prefix, "admin", "test"].join("/"))
     assert_not GovspeakLinkValidator.is_internal_admin_link?("http://www.google.com/")

@@ -5,13 +5,9 @@ class GovspeakLinkValidator < ActiveModel::Validator
     matches(record.body, /\[.*?\]\((\S*?)(?:\s+"[^"]+")?\)/) do |match|
       link = match[1]
 
-      fix = if link.first == "/"
-              unless self.class.is_internal_admin_link?(link)
-                "If you are linking to a document created within Whitehall publisher, please use the internal admin path, e.g. /government/admin/publications/3373. If you are linking to other GOV.UK links, please use full URLs."
-              end
-            elsif self.class.is_internal_admin_link?("/#{link}")
+      fix = if self.class.is_internal_admin_link?("/#{link}")
               "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"
-            elsif !%r{^(?:https?://|mailto:|#)}.match?(link)
+            elsif !self.class.is_internal_admin_link?(link) && !%r{^(?:https?://|mailto:|#)}.match?(link)
               "Non-document or external links should start with http://, https://, mailto:, or # (for linking to sections on the same page, eg #actions on a policy)"
             elsif link.match?(/whitehall-admin/)
               "This links to the whitehall-admin domain. Please use paths, eg /government/admin/publications/3373, for documents created in publisher (see guidance on creating links) or full URLs for other GOV.UK links."
