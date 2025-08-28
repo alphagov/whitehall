@@ -131,15 +131,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_not_nil(Attachment.find_by(title: attachment[:title]))
   end
 
-  test "POST :create saves an html attachment with a visual editor flag" do
-    attachment = valid_html_attachment_params.merge(title: SecureRandom.uuid, visual_editor: true)
-
-    post :create, params: { edition_id: @edition.id, type: "html", attachment: }
-
-    attachment = Attachment.find_by(title: attachment[:title])
-    assert_equal true, attachment.visual_editor
-  end
-
   test "POST :create for an HtmlAttachment updates the publishing api" do
     attachment = valid_html_attachment_params
 
@@ -281,17 +272,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
-  view_test "GET :new shows visual editor and no markdown help if permission and feature flag are enabled" do
-    feature_flags.switch!(:govspeak_visual_editor, true)
-    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-    publication = create(:publication)
-    get :new, params: { edition_id: publication, type: "html" }
-
-    assert_select(".app-c-visual-editor__container")
-    assert_select ".govspeak-help", visible: false, count: 1
-  end
-
   view_test "GET :new for a consultation includes hidden locale field with value set to consultation primary locale" do
     consultation = create(:consultation, primary_locale: "cy")
     get :new, params: { edition_id: consultation, type: "file" }
@@ -315,39 +295,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition, attachment_data: create(:attachment_data, attachable: @edition))
     get :edit, params: { edition_id: @edition, id: attachment }
     assert_select "input[type=file]"
-  end
-
-  view_test "GET :edit shows visual editor and no markdown help if permission and feature flag are enabled, and attachment has been saved with visual editor" do
-    feature_flags.switch!(:govspeak_visual_editor, true)
-    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-    attachment = create(:html_attachment, attachable: @edition, visual_editor: true)
-    get :edit, params: { edition_id: @edition, id: attachment }
-
-    assert_select(".app-c-visual-editor__container")
-    assert_select ".govspeak-help", visible: false, count: 1
-  end
-
-  view_test "edit form does not render visual editor, and renders the markdown help, for exited attachments" do
-    feature_flags.switch!(:govspeak_visual_editor, true)
-    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-    attachment = create(:html_attachment, attachable: @edition, visual_editor: false)
-    get :edit, params: { edition_id: @edition, id: attachment }
-
-    assert_select ".app-c-visual-editor__container", count: 0
-    assert_select ".govspeak-help", count: 1
-  end
-
-  view_test "edit form does not render visual editor, and renders the markdown help, for pre-existing attachments" do
-    feature_flags.switch!(:govspeak_visual_editor, true)
-    current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-    attachment = create(:html_attachment, attachable: @edition, visual_editor: nil)
-    get :edit, params: { edition_id: @edition, id: attachment }
-
-    assert_select ".app-c-visual-editor__container", count: 0
-    assert_select ".govspeak-help", count: 1
   end
 
   test "PUT :update for HTML attachment updates the attachment" do

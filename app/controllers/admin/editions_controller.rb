@@ -241,7 +241,6 @@ private
       :read_consultation_principles,
       :all_nation_applicability,
       :speaker_radios,
-      :visual_editor,
       :logo_formatted_name,
       {
         all_nation_applicability: [],
@@ -344,9 +343,6 @@ private
     edition_locale = edition_params[:primary_locale] || I18n.default_locale
     I18n.with_locale(edition_locale) do
       @edition = LocalisedModel.new(new_edition, edition_locale)
-      if @edition.visual_editor.nil?
-        @edition.visual_editor = Flipflop.govspeak_visual_editor? && current_user.can_see_visual_editor_private_beta?
-      end
     end
   end
 

@@ -60,16 +60,6 @@ module AdminEditionControllerTestHelpers
         assert_select(".js-app-c-govspeak-editor__preview-button")
       end
 
-      view_test "new form has visual editor and no markdown help when flip flop enabled and user has permission" do
-        feature_flags.switch!(:govspeak_visual_editor, true)
-        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-        get :new
-
-        assert_select(".app-c-visual-editor__container")
-        assert_select ".govspeak-help", visible: false, count: 1
-      end
-
       view_test "new form has cancel link which takes the user to the list of drafts" do
         get :new
         assert_select "a[href=?]", admin_editions_path, text: /cancel/i
@@ -191,42 +181,6 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select(".js-app-c-govspeak-editor__preview-button")
-      end
-
-      view_test "edit form renders visual editor and no markdown help when feature flag is enabled, user has permission, and edition has been saved with visual editor" do
-        feature_flags.switch!(:govspeak_visual_editor, true)
-        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-        edition = create(edition_type, visual_editor: true)
-
-        get :edit, params: { id: edition }
-
-        assert_select(".app-c-visual-editor__container")
-        assert_select ".govspeak-help", visible: false, count: 1
-      end
-
-      view_test "edit form does not render visual editor, and renders the markdown help, for exited editions" do
-        feature_flags.switch!(:govspeak_visual_editor, true)
-        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-        edition = create(edition_type, visual_editor: false)
-
-        get :edit, params: { id: edition }
-
-        assert_select ".app-c-visual-editor__container", count: 0
-        assert_select ".govspeak-help", count: 1
-      end
-
-      view_test "edit form does not render visual editor, and renders the markdown help, for pre-existing editions" do
-        feature_flags.switch!(:govspeak_visual_editor, true)
-        current_user.permissions << User::Permissions::VISUAL_EDITOR_PRIVATE_BETA
-
-        edition = create(edition_type, visual_editor: nil)
-
-        get :edit, params: { id: edition }
-
-        assert_select ".app-c-visual-editor__container", count: 0
-        assert_select ".govspeak-help", count: 1
       end
 
       view_test "edit form has cancel link which takes the user back to edition" do
