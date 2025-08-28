@@ -23,7 +23,7 @@
         "title": "Lead paragraph",
         "description": "Optional text that appears above the main content",
         "type": "string",
-        "format": "govspeak"
+        "format": "default"
       }
     },
     "required": ["body"]
