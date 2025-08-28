@@ -2,6 +2,9 @@ FactoryBot.define do
   factory :standard_edition, class: StandardEdition, parent: :edition do
     sequence(:title) { |index| "standard-edition-title-#{index}" }
     summary { "standard-edition-summary" }
+    previously_published { false }
+    configurable_document_type { "test_type" }
+    block_content { {} }
 
     factory :draft_standard_edition, parent: :standard_edition, traits: [:draft]
     factory :submitted_standard_edition, parent: :standard_edition, traits: [:submitted]
