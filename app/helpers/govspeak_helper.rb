@@ -5,7 +5,7 @@ module GovspeakHelper
   include AttachmentsHelper
 
   def govspeak_to_html(govspeak, options = {})
-    images = options[:images] || []
+    images = prepare_images(options[:images] || [])
     attachments = options[:attachments] || []
 
     processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
@@ -18,8 +18,7 @@ module GovspeakHelper
   def govspeak_edition_to_html(edition, options = {})
     return "" unless edition
 
-    images = prepare_images(edition.try(:images) || [])
-
+    images = edition.try(:images)
     # some Edition types don't allow attachments to be embedded in body content
     attachments = if edition.allows_inline_attachments?
                     prepare_attachments(edition.attachments, edition.alternative_format_contact_email)
@@ -32,7 +31,7 @@ module GovspeakHelper
 
   def govspeak_html_attachment_to_html(html_attachment)
     # HTML attachments can embed images - but not attachments - from their parent Edition
-    images = prepare_images(html_attachment.attachable.try(:images) || [])
+    images = html_attachment.attachable.try(:images)
     locale = html_attachment.translated_locales.first
 
     options = { locale:, contact_heading_tag: "h4" }
