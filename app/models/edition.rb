@@ -84,8 +84,6 @@ class Edition < ApplicationRecord
 
   validates_with UnmodifiableValidator, if: :unmodifiable?
 
-  self.ignored_columns += %w[visual_editor]
-
   def self.format_name
     @format_name ||= model_name.human.downcase
   end
