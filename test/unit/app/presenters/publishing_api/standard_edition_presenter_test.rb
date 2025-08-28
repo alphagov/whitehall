@@ -98,7 +98,75 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal page.summary, content[:description]
   end
 
-  test "it includes headers for each govspeak type block" do
+  test "it includes headers once, in the details, from all govspeak blocks, based on the order they are listed in the schema" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types({
+      type_key => {
+        "key" => type_key,
+        "schema" => {
+          "type" => "object",
+          "title" => "An object",
+          "properties" => {
+            "chunk_of_content_one" => {
+              "title" => "A govspeak block",
+              "description" => "Some bit of content",
+              "type" => "string",
+              "format" => "govspeak",
+            },
+            "string_chunk_of_content" => {
+              "title" => "A string",
+              "description" => "Some bit of content",
+              "type" => "string",
+              "format" => "default",
+            },
+            "chunk_of_content_two" => {
+              "title" => "Another govspeak block",
+              "description" => "Another bit of content",
+              "type" => "string",
+              "format" => "govspeak",
+            },
+          },
+        },
+        "settings" => {
+          "base_path_prefix" => "/government/test",
+          "publishing_api_schema_name" => "schema_name",
+          "publishing_api_document_type" => "document_type",
+          "rendering_app" => "rendering-app",
+        },
+      },
+    })
+    page = StandardEdition.new
+    page.configurable_document_type = type_key
+    page.document = Document.new
+    page.document.slug = "page-title"
+    page.block_content = {
+      "string_chunk_of_content" => "Head-less content",
+      "chunk_of_content_two" => "## Header for chunk two\nSome more content",
+      "chunk_of_content_one" => "## Header for chunk one\nSome content",
+    }
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+    expected_details = {
+      chunk_of_content_one: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-one\">Header for chunk one</h2>\n<p>Some content</p>\n</div>",
+      string_chunk_of_content: "Head-less content",
+      chunk_of_content_two: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-two\">Header for chunk two</h2>\n<p>Some more content</p>\n</div>",
+      headers: [{
+        text: "Header for chunk one",
+        level: 2,
+        id: "header-for-chunk-one",
+      },
+                {
+                  text: "Header for chunk two",
+                  level: 2,
+                  id: "header-for-chunk-two",
+                }],
+
+    }
+
+    assert_equal expected_details, content[:details]
+  end
+
+  test "it does not include a headers key in the details if there are no headers in any of the content blocks" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types({
       type_key => {
@@ -134,81 +202,12 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     page.document = Document.new
     page.document.slug = "page-title"
     page.block_content = {
-      "chunk_of_content_one" => "## Header for chunk one\n\nSome content",
-      "chunk_of_content_two" => "## Header for chunk two\n\nSome more content",
-    }
-    presenter = PublishingApi::StandardEditionPresenter.new(page)
-    content = presenter.content
-    expected_hash_for_chunk_of_content_one = {
-      html: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-one\">Header for chunk one</h2> <p>Some content</p> </div>",
-      headers: [
-        {
-          text: "Header for chunk one",
-          level: 2,
-          id: "header-for-chunk-one",
-        },
-      ],
-    }
-    expected_hash_for_chunk_of_content_two = {
-      html: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-two\">Header for chunk two</h2> <p>Some more content</p> </div>",
-      headers: [
-        {
-          text: "Header for chunk two",
-          level: 2,
-          id: "header-for-chunk-two",
-        },
-      ],
-    }
-    assert_equal expected_hash_for_chunk_of_content_one[:html], content[:details][:chunk_of_content_one][:html].squish
-    assert_equal expected_hash_for_chunk_of_content_one[:headers], content[:details][:chunk_of_content_one][:headers]
-    assert_equal expected_hash_for_chunk_of_content_two[:html], content[:details][:chunk_of_content_two][:html].squish
-    assert_equal expected_hash_for_chunk_of_content_two[:headers], content[:details][:chunk_of_content_two][:headers]
-  end
-
-  test "it includes headers once, one layer up, if there is a govspeak block with a 'body' key" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types({
-      type_key => {
-        "key" => type_key,
-        "schema" => {
-          "type" => "object",
-          "title" => "An object",
-          "properties" => {
-            "body" => {
-              "title" => "Body",
-              "description" => "The main content for the page",
-              "type" => "string",
-              "format" => "govspeak",
-            },
-          },
-        },
-        "settings" => {
-          "base_path_prefix" => "/government/test",
-          "publishing_api_schema_name" => "schema_name",
-          "publishing_api_document_type" => "document_type",
-          "rendering_app" => "rendering-app",
-        },
-      },
-    })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
-    page.document = Document.new
-    page.document.slug = "page-title"
-    page.block_content = {
-      "body" => "## Header for content\n\nSome content",
+      "chunk_of_content_one" => "Some content",
+      "chunk_of_content_two" => "Some more content",
     }
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
-    expected_body = "<div class=\"govspeak\"><h2 id=\"header-for-content\">Header for content</h2> <p>Some content</p> </div>"
-    expected_headers = [
-      {
-        text: "Header for content",
-        level: 2,
-        id: "header-for-content",
-      },
-    ]
-    assert_equal expected_body, content[:details][:body].squish
-    assert_equal expected_headers, content[:details][:headers]
+    assert_equal nil, content[:details][:headers]
   end
 end
