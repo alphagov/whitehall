@@ -1,0 +1,37 @@
+<% content_for :page_title, "Whitehall bookmarklets" %>
+<% content_for :title, "Whitehall bookmarklets" %>
+<% content_for :title_margin_bottom, 6 %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-8">Bookmarklets provide a quick way for publishers to find the admin area in Whitehall related to the page they are looking at.</p>
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "'Find in Admin' bookmarket instructions",
+      font_size: "m",
+      margin_bottom: 4,
+    } %>
+    <p class="govuk-body govuk-!-margin-bottom-2">
+      This bookmarklet will provide you with a button that allows you to jump immediately from a
+      frontend page to the corresponding admin page.</p>
+    <p class="govuk-body">Drag the button below to your browser's bookmark bar:</p>
+    <div class="govuk-button-group">
+      <a class="gem-c-button govuk-button" href="javascript:(function(){ <%= render("find_in_admin").gsub(/[\r\n]/,"") %> })()">Find in admin</a>
+    </div>
+    <p class="govuk-body govuk-!-margin-bottom-8">Then, when you're on a frontend page on www.gov.uk you can click 'Find in admin' from your bookmarks toolbar to
+      go to the corresponding
+      admin page.</p>
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "'Find a PDF publication page in Whitehall' bookmarket instructions",
+      font_size: "m",
+      margin_bottom: 4,
+    } %>
+    <p class="govuk-body govuk-!-margin-bottom-2">
+      This bookmarklet will provide you with a button that allows you to jump immediately from a PDF to the corresponding admin page where the PDF was attached.</p>
+    <p class="govuk-body">Drag the button below to your browser's bookmark bar:</p>
+    <div class="govuk-button-group">
+      <a class="gem-c-button govuk-button" href="javascript:(function(){ <%= render("find_parent_document").gsub(/[\r\n]/,"") %> })()">Find a PDF publication page in Whitehall</a>
+    </div>
+    <p class="govuk-body">Then, when you're on a PDF on www.gov.uk, you can click 'Find a PDF publication page in Whitehall' from your bookmarks toolbar to be redirected to the page where the PDF was attached in Whitehall. </p>
+    <p class="govuk-body">If you aren't redirected, it may suggest the Whitehall document the PDF was first published to doesn't exist anymore or that the PDF wasn't attached to a Whitehall document.</p>
+  </div>
+</div>

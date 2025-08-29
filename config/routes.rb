@@ -15,7 +15,7 @@ Whitehall::Application.routes.draw do
     namespace :admin do
       root to: "dashboard#index", via: :get
 
-      get "find-in-admin-bookmarklet" => "find_in_admin_bookmarklet#index", as: :find_in_admin_bookmarklet_instructions_index
+      get "bookmarklets" => "bookmarklets#index", as: :bookmarklets_instructions_index
       get "by-content-id/:content_id" => "documents#by_content_id"
 
       resources :users, only: %i[index show edit update]

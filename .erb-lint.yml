@@ -3,7 +3,8 @@ glob: "**/*.erb"
 exclude:
   - '**/vendor/**/*'
   - 'test/fixtures/**'
-  - "app/views/admin/find_in_admin_bookmarklet/_bookmarklet.erb"
+  - "app/views/admin/bookmarklets/_find_in_admin.erb"
+  - "app/views/admin/bookmarklets/_find_parent_document.erb"
 linters:
   Rubocop:
     enabled: true
