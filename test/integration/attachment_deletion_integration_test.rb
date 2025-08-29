@@ -122,7 +122,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         before do
           stub_asset(replacement_asset_manager_id, { "draft" => true, "parent_document_url" => latest_attachable.public_url(draft: true) })
 
-          replacement_data = create(:attachment_data, attachable: latest_attachable)
+          replacement_data = create(:attachment_data, attachable: latest_attachable, file: upload_fixture("two-pages.pdf"))
           attachment.attachment_data.replaced_by = replacement_data
           attachment.attachment_data.save!
 
@@ -222,7 +222,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       let(:gds_editor) { create(:gds_editor) }
       let(:attachable) { create(:policy_group) }
       let(:first_attachment) { build(:file_attachment, attachable:) }
-      let(:second_attachment) { build(:file_attachment, attachable:) }
+      let(:second_attachment) { build(:csv_attachment, attachable:) }
       let(:first_asset_manager_id) { first_attachment.attachment_data.assets.first.asset_manager_id }
       let(:second_asset_manager_id) { second_attachment.attachment_data.assets.first.asset_manager_id }
 

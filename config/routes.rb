@@ -18,6 +18,33 @@ Whitehall::Application.routes.draw do
       get "bookmarklets" => "bookmarklets#index", as: :bookmarklets_instructions_index
       get "by-content-id/:content_id" => "documents#by_content_id"
 
+      concern :confirmable_destroy do
+        get :confirm_destroy, on: :member
+      end
+
+      concern :attachable do
+        resources :attachments, except: [:show], concerns: :confirmable_destroy do
+          put :order, on: :collection
+          get :reorder, on: :collection
+        end
+        resources :file_attachments, except: %i[index show], concerns: :confirmable_destroy
+        resources :bulk_uploads, except: %i[show edit update] do
+          post :upload_files, on: :collection
+          get :set_titles, on: :member
+        end
+      end
+
+      # to include additional attachment types other than `file`
+      # include the following concerns for each allowed type
+      # as well as the `attachable` concern
+      concern :attachable_with_html do
+        resources :html_attachments, except: %i[index show], concerns: :confirmable_destroy
+      end
+
+      concern :attachable_with_external do
+        resources :external_attachments, except: %i[index show], concerns: :confirmable_destroy
+      end
+
       resources :users, only: %i[index show edit update]
 
       scope :republishing do
@@ -153,17 +180,9 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
       end
-      resources :corporate_information_pages, only: [] do
-        resources :attachments, except: [:show] do
-          put :order, on: :collection
-        end
-      end
-      resources :policy_groups, path: "groups", except: [:show] do
+      resources :corporate_information_pages, concerns: :attachable
+      resources :policy_groups, path: "groups", except: [:show], concerns: :attachable do
         get :confirm_destroy, on: :member
-        resources :attachments do
-          put :order, on: :collection
-          get :confirm_destroy, on: :member
-        end
       end
       resources :operational_fields, except: [:show]
 
@@ -185,7 +204,7 @@ Whitehall::Application.routes.draw do
         get :confirm_destroy, on: :member
       end
 
-      resources :editions, only: [:index] do
+      resources :editions, only: [:index], concerns: %i[attachable attachable_with_html attachable_with_external] do
         resource :tags, only: %i[edit update], controller: :edition_tags
         resource :legacy_associations, only: %i[edit update], controller: :edition_legacy_associations
         resource :world_tags, only: %i[edit update], controller: :edition_world_tags
@@ -237,15 +256,6 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
         resources :fact_check_requests, only: %i[show create edit update], shallow: true
-        resources :attachments, except: [:show] do
-          put :order, on: :collection
-          get :reorder, on: :collection
-          get :confirm_destroy, on: :member
-        end
-        resources :bulk_uploads, except: %i[show edit update] do
-          post :upload_files, on: :collection
-          get :set_titles, on: :member
-        end
         resources :images, controller: "edition_images", only: %i[create destroy edit update index] do
           get :confirm_destroy, on: :member
         end
@@ -298,20 +308,11 @@ Whitehall::Application.routes.draw do
         resource :public_feedback, controller: "consultation_responses", type: "ConsultationPublicFeedback", except: %i[new destroy]
       end
 
-      resources :attachments, path: "consultation-responses/:consultation_response_id/attachments", as: "consultation_response_attachments" do
-        put :order, on: :collection
-        get :confirm_destroy, on: :member
-        get :reorder, on: :collection
-      end
+      resources :consultation_responses, concerns: %i[attachable attachable_with_html attachable_with_external]
+      resources :call_for_evidence_responses, concerns: %i[attachable attachable_with_html attachable_with_external]
 
       resources :calls_for_evidence, path: "calls-for-evidence", except: [:index] do
-        resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy]
-      end
-
-      resources :attachments, path: "call-for-evidence-responses/:call_for_evidence_response_id/attachments", as: "call_for_evidence_response_attachments" do
-        put :order, on: :collection
-        get :confirm_destroy, on: :member
-        get :reorder, on: :collection
+        resource :outcome, controller: "call_for_evidence_responses", type: "CallForEvidenceOutcome", except: %i[new destroy], concerns: %i[attachable attachable_with_html attachable_with_external]
       end
 
       resources :speeches, except: [:index]
@@ -337,11 +338,7 @@ Whitehall::Application.routes.draw do
         end
       end
 
-      resources :worldwide_organisation_pages, only: [] do
-        resources :attachments, except: [:show] do
-          get :confirm_destroy, on: :member
-        end
-      end
+      resources :worldwide_organisation_pages, concerns: %i[attachable attachable_with_external]
 
       resources :detailed_guides, path: "detailed-guides", except: [:index]
       resources :people do
