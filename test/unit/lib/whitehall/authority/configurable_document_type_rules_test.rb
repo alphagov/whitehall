@@ -5,45 +5,23 @@ class ConfigurableDocumentTypeRulesTest < ActiveSupport::TestCase
     @organisation = create(:organisation)
     @type_key = "test_type"
     @no_organisations_type_key = "test_type_without_orgs"
-    test_types = {
-      "test_type" => {
-        "key" => @type_key,
-        "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title": "Test type",
-          "type": "object",
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test attribute",
-              "type" => "string",
-            },
+    test_type_with_user_organisation =
+      build_configurable_document_type(
+        @type_key, {
+          "settings" => {
+            "organisations" => [@organisation.content_id],
           },
-        },
-        "settings" => {
-          "organisations" => [@organisation.content_id],
-        },
-      },
-      "test_type_without_orgs" => {
-        "key" => @no_organisations_type_key,
-        "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title": "Test type without orgs",
-          "type": "object",
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test attribute",
-              "type" => "string",
-            },
+        }
+      )
+    test_type_with_no_organisation =
+      build_configurable_document_type(
+        @no_organisations_type_key, {
+          "settings" => {
+            "organisations" => nil,
           },
-        },
-        "settings" => {
-          "organisations" => nil,
-        },
-      },
-    }
-    ConfigurableDocumentType.setup_test_types(test_types)
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(test_type_with_user_organisation.merge(test_type_with_no_organisation))
   end
 
   test "user can create an edition if the document type is managed by their organisation" do

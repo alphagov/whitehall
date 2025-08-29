@@ -30,6 +30,35 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
     assert_equal(Whitehall::GovspeakRenderer.new.govspeak_to_html(content["test_attribute"]), payload[:test_attribute][:html])
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
   end
+  test "it omits any missing block content from the Publishing API payload" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "format" => "govspeak",
+        },
+        "test_object_attribute" => {
+          "type" => "object",
+          "properties" => {
+            "test_string" => {
+              "type" => "string",
+            },
+          },
+        },
+      },
+    }
+    content = {
+      "test_object_attribute" => {
+        "test_string" => "bar",
+      },
+    }
+    page = StandardEdition.new
+    factory = ConfigurableContentBlocks::Factory.new(page)
+    payload = ConfigurableContentBlocks::DefaultObject.new(factory).publishing_api_payload(schema, content)
+    assert_not payload.key?(:test_attribute)
+    assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
+  end
 end
 
 class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCase

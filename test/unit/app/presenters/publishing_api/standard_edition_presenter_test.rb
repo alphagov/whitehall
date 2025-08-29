@@ -7,23 +7,17 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     rendering_app = "government-frontend"
     base_path_prefix = "/government/history"
     type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types({
-      type_key => {
-        "key" => type_key,
-        "schema" => {
-          "type" => "object",
-          "properties" => [],
-        },
-        "settings" => {
-          "base_path_prefix" => "/government/history",
-          "publishing_api_schema_name" => schema_name,
-          "publishing_api_document_type" => document_type,
-          "rendering_app" => rendering_app,
-        },
+
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "base_path_prefix" => "/government/history",
+        "publishing_api_schema_name" => schema_name,
+        "publishing_api_document_type" => document_type,
+        "rendering_app" => rendering_app,
       },
-    })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+    }))
+
+    page = build(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -36,39 +30,30 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
   test "it includes the block content values in the details hash" do
     type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types({
-      type_key => {
-        "key" => type_key,
-        "schema" => {
-          "type" => "object",
-          "title" => "An object",
-          "properties" => {
-            "property_one" => {
-              "type" => "string",
-              "title" => "Property One",
-            },
-            "property_two" => {
-              "type" => "string",
-              "title" => "Property Two",
-            },
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "schema" => {
+        "properties" => {
+          "property_one" => {
+            "type" => "string",
+            "title" => "Property One",
+          },
+          "property_two" => {
+            "type" => "string",
+            "title" => "Property Two",
           },
         },
-        "settings" => {
-          "base_path_prefix" => "/government/test",
-          "publishing_api_schema_name" => "schema_name",
-          "publishing_api_document_type" => "document_type",
-          "rendering_app" => "rendering-app",
-        },
       },
-    })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+    }))
+    page = build(:standard_edition,
+                 {
+                   configurable_document_type: type_key,
+                   block_content: {
+                     "property_one" => "Foo",
+                     "property_two" => "Bar",
+                   },
+                 })
     page.document = Document.new
     page.document.slug = "page-title"
-    page.block_content = {
-      "property_one" => "Foo",
-      "property_two" => "Bar",
-    }
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
     assert_equal page.block_content["property_one"], content[:details][:property_one]
@@ -77,66 +62,48 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
   test "it includes a title and a description" do
     type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types({
-      type_key => {
-        "key" => type_key,
-        "schema" => {
-          "type" => "object",
-          "title" => "An object",
-          "description" => "A test schema",
-          "properties" => {},
-        },
-        "settings" => {},
-      },
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key))
+    page = build(:standard_edition, {
+      title: "Page Title",
+      summary: "Page Summary",
+      configurable_document_type: type_key,
     })
-    page = StandardEdition.new(title: "Page Title", summary: "Page Summary")
-    page.configurable_document_type = type_key
     page.document = Document.new(slug: "page-title")
     presenter = PublishingApi::StandardEditionPresenter.new(page)
+
     content = presenter.content
+
     assert_equal page.title, content[:title]
     assert_equal page.summary, content[:description]
   end
 
   test "it includes headers once, in the details, from all govspeak blocks, based on the order they are listed in the schema" do
     type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types({
-      type_key => {
-        "key" => type_key,
-        "schema" => {
-          "type" => "object",
-          "title" => "An object",
-          "properties" => {
-            "chunk_of_content_one" => {
-              "title" => "A govspeak block",
-              "description" => "Some bit of content",
-              "type" => "string",
-              "format" => "govspeak",
-            },
-            "string_chunk_of_content" => {
-              "title" => "A string",
-              "description" => "Some bit of content",
-              "type" => "string",
-              "format" => "default",
-            },
-            "chunk_of_content_two" => {
-              "title" => "Another govspeak block",
-              "description" => "Another bit of content",
-              "type" => "string",
-              "format" => "govspeak",
-            },
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "schema" => {
+        "properties" => {
+          "chunk_of_content_one" => {
+            "title" => "A govspeak block",
+            "description" => "Some bit of content",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+          "string_chunk_of_content" => {
+            "title" => "A string",
+            "description" => "Some bit of content",
+            "type" => "string",
+            "format" => "default",
+          },
+          "chunk_of_content_two" => {
+            "title" => "Another govspeak block",
+            "description" => "Another bit of content",
+            "type" => "string",
+            "format" => "govspeak",
           },
         },
-        "settings" => {
-          "base_path_prefix" => "/government/test",
-          "publishing_api_schema_name" => "schema_name",
-          "publishing_api_document_type" => "document_type",
-          "rendering_app" => "rendering-app",
-        },
       },
-    })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
     page.block_content = {
@@ -166,14 +133,46 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal expected_details, content[:details]
   end
 
+  test "it includes headers once, one layer up, if there is a govspeak block with a 'body' key" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "schema" => {
+        "properties" => {
+          "body" => {
+            "title" => "Body",
+            "description" => "The main content for the page",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+        },
+      },
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key,
+                                      block_content: {
+                                        "body" => "## Header for content\n\nSome content",
+                                      } })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    expected_body = "<div class=\"govspeak\"><h2 id=\"header-for-content\">Header for content</h2> <p>Some content</p> </div>"
+    expected_headers = [
+      {
+        text: "Header for content",
+        level: 2,
+        id: "header-for-content",
+      },
+    ]
+    assert_equal expected_body, content[:details][:body].squish
+    assert_equal expected_headers, content[:details][:headers]
+  end
+
   test "it does not include a headers key in the details if there are no headers in any of the content blocks" do
     type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types({
-      type_key => {
-        "key" => type_key,
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type(type_key, {
         "schema" => {
-          "type" => "object",
-          "title" => "An object",
           "properties" => {
             "chunk_of_content_one" => {
               "title" => "A govspeak block",
@@ -189,25 +188,18 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
             },
           },
         },
-        "settings" => {
-          "base_path_prefix" => "/government/test",
-          "publishing_api_schema_name" => "schema_name",
-          "publishing_api_document_type" => "document_type",
-          "rendering_app" => "rendering-app",
-        },
-      },
-    })
-    page = StandardEdition.new
-    page.configurable_document_type = type_key
+      }),
+    )
+    page = build(:standard_edition, { configurable_document_type: type_key,
+                                      block_content: {
+                                        "chunk_of_content_one" => "Some content",
+                                        "chunk_of_content_two" => "Some more content",
+                                      } })
     page.document = Document.new
     page.document.slug = "page-title"
-    page.block_content = {
-      "chunk_of_content_one" => "Some content",
-      "chunk_of_content_two" => "Some more content",
-    }
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
-    assert_equal nil, content[:details][:headers]
+    assert_nil content[:details][:headers]
   end
 end

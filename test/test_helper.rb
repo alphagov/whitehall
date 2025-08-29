@@ -44,6 +44,7 @@ class ActiveSupport::TestCase
   include PublishingApiTestHelpers
   include GovukSchemas::AssertMatchers
   include UrlHelpers
+  include ConfigurableDocumentTypeHelper
   extend GovspeakValidationTestHelper
 
   if ENV["RUN_IN_PARALLEL"] == "false"

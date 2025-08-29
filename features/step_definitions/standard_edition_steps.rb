@@ -26,27 +26,21 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
 end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
-  submitter = create(:user)
   image = create(:image)
-  standard_edition = StandardEdition.new
-  as_user(submitter) do
-    standard_edition.configurable_document_type = "test"
-    standard_edition.title = title
-    standard_edition.summary = "A brief summary of the document."
-    standard_edition.images = [image]
-    standard_edition.state = "submitted"
-    standard_edition.previously_published = false
-    standard_edition.document = Document.new
-    standard_edition.document.slug = title.parameterize
-    standard_edition.block_content = {
-      "image" => image.image_data.id.to_s,
-      "body" => "Some text",
-    }
-    standard_edition.creator = submitter
-    standard_edition.save!
-    stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
-  end
 
+  standard_edition = create(
+    :submitted_standard_edition,
+    {
+      configurable_document_type: "test",
+      images: [image],
+      title: title,
+      block_content: {
+        "image" => image.image_data.id.to_s,
+        "body" => "Some text",
+      },
+    },
+  )
+  stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
   visit admin_standard_edition_path(standard_edition)
   click_link "Publish"
   expect(page).to have_content("Once you publish, this document will be visible to the public")
