@@ -180,7 +180,20 @@ module Admin::EditionsHelper
 
   def status_text(edition)
     if edition.unpublishing.present?
-      "#{edition.state.capitalize} (unpublished #{time_ago_in_words(edition.unpublishing.created_at)} ago)"
+      summary = "#{edition.state.capitalize} (#{time_ago_in_words(edition.unpublishing.created_at)} ago)"
+      consolidated = edition.unpublishing.unpublishing_reason_id == UnpublishingReason::CONSOLIDATED_ID
+
+      if edition.state == "unpublished"
+        reason = consolidated ? "being consolidated into another page" : "being published in error"
+        details = if consolidated || edition.unpublishing.redirect
+                    "User is redirected from <a href='#{Whitehall.public_root}#{edition.base_path}'>#{Whitehall.public_root}#{edition.base_path}</a> to <a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>"
+                  else
+                    "User-facing reason: '#{edition.unpublishing.explanation}'. Alternative URL displayed to user: <a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>"
+                  end
+        summary = "#{summary} due to #{reason}. #{details}"
+      end
+
+      summary
     else
       edition.state.capitalize
     end
