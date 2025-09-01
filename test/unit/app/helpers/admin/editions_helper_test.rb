@@ -121,7 +121,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     edition.unpublishing.alternative_url = alternative_url
     edition.unpublishing.unpublishing_reason_id = UnpublishingReason::CONSOLIDATED_ID
     edition.unpublishing.save!
-    assert_equal "Unpublished (less than a minute ago) due to being consolidated into another page. User is redirected from <a href='https://www.test.gov.uk#{edition.base_path}'>https://www.test.gov.uk#{edition.base_path}</a> to <a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+    assert_equal "Unpublished (less than a minute ago) due to being consolidated into another page. User is redirected from<br><a href='https://www.test.gov.uk#{edition.base_path}'>https://www.test.gov.uk#{edition.base_path}</a><br>to<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
 
     edition.unpublishing.unpublishing_reason_id = UnpublishingReason::PUBLISHED_IN_ERROR_ID
     edition.unpublishing.redirect = false
@@ -129,11 +129,11 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     edition.unpublishing.explanation = "the doc was published in error"
     edition.unpublishing.save!
 
-    assert_equal "Unpublished (less than a minute ago) due to being published in error. User-facing reason: 'the doc was published in error'. Alternative URL displayed to user: <a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+    assert_equal "Unpublished (less than a minute ago) due to being published in error. User-facing reason: 'the doc was published in error'. Alternative URL displayed to user:<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
 
     edition.unpublishing.created_at = 1.year.ago
     edition.unpublishing.redirect = true
     edition.unpublishing.save!
-    assert_equal "Unpublished (about 1 year ago) due to being published in error. User is redirected from <a href='https://www.test.gov.uk#{edition.base_path}'>https://www.test.gov.uk#{edition.base_path}</a> to <a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+    assert_equal "Unpublished (about 1 year ago) due to being published in error. User is redirected from<br><a href='https://www.test.gov.uk#{edition.base_path}'>https://www.test.gov.uk#{edition.base_path}</a><br>to<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
   end
 end
