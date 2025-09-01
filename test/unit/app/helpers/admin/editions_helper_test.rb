@@ -101,4 +101,19 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal "It's my title!", edition_title_link_or_edition_title(edition)
   end
+
+  test "#status_text returns the state if it is anything other than unpublished" do
+    edition = build(:published_edition)
+
+    assert_equal "Published", status_text(edition)
+  end
+
+  test "#status_text returns information about when the document was unpublished" do
+    edition = create(:unpublished_edition)
+
+    assert_equal "Unpublished (unpublished less than a minute ago)", status_text(edition)
+
+    edition.unpublishing.created_at = 1.year.ago
+    assert_equal "Unpublished (unpublished about 1 year ago)", status_text(edition)
+  end
 end
