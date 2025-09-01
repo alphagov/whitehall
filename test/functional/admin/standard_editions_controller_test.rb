@@ -22,77 +22,39 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET choose_type scopes the list of types to types that the user has permission to use" do
-    configurable_document_types = {
-      "test_type_one" => {
-        "key" => "test_type_one",
-        "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title" => "Test Type One",
-          "type" => "object",
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test Attribute",
-              "type" => "string",
-            },
-          },
-        },
-        "settings" => {
-          "organisations" => [@current_user.organisation.content_id],
-        },
-      },
-      "test_type_two" => {
-        "key" => "test_type_two",
-        "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title" => "Test Type Two",
-          "type" => "object",
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test Attribute",
-              "type" => "string",
-            },
-          },
-        },
-        "settings" => {
-          "organisations" => [SecureRandom.uuid],
-        },
-      },
-    }
-    ConfigurableDocumentType.setup_test_types(configurable_document_types)
+    configurable_document_type_user_org = build_configurable_document_type("test_type", { "schema" => { "title" => "Test Type One" }, "settings" => { "organisations" => [@current_user.organisation.content_id] } })
+    configurable_document_type_other_org = build_configurable_document_type("other_type", { "schema" => { "title" => "Test Type Two" }, "settings" => { "organisations" => [SecureRandom.uuid] } })
+
+    ConfigurableDocumentType.setup_test_types(configurable_document_type_user_org
+                                                .merge(configurable_document_type_other_org))
     get :choose_type
     assert_response :ok
     assert_dom "label", "Test Type One"
     refute_dom "label", "Test Type Two"
   end
 
-  view_test "GET edit renders previously published form controls if backdating is enabled" do
-    configurable_document_types = {
-      "test_type" => {
-        "key" => "test_type_one",
-        "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title" => "Test Type One",
-          "type" => "object",
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test Attribute",
-              "type" => "string",
-            },
-          },
-        },
-        "settings" => {
-          "backdating_enabled" => true,
-        },
-      },
-    }
-    ConfigurableDocumentType.setup_test_types(configurable_document_types)
+  view_test "GET edit renders default fields for a standard document" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     edition = build(:standard_edition)
-    edition.configurable_document_type = "test_type"
-    edition.block_content = { "test_attribute" => "test" }
+    edition.save!
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "label", text: "Title (required)"
+    assert_select "label", text: "Summary (required)"
+    assert_select "legend", text: "Limit access"
+    assert_select "legend", text: "Schedule publication"
+    assert_select "legend", text: "Review date"
+  end
+
+  view_test "GET edit renders previously published form controls if backdating is enabled" do
+    configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "backdating_enabled" => true } })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = build(:standard_edition)
     edition.save!
 
     get :edit, params: { id: edition }
@@ -102,31 +64,10 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET edit renders the history mode form controls when history mode is enabled" do
-    configurable_document_types = {
-      "test_type" => {
-        "key" => "test_type_one",
-        "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title" => "Test Type One",
-          "type" => "object",
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test Attribute",
-              "type" => "string",
-            },
-          },
-        },
-        "settings" => {
-          "history_mode_enabled" => true,
-        },
-      },
-    }
-    ConfigurableDocumentType.setup_test_types(configurable_document_types)
+    configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "history_mode_enabled" => true } })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     edition = build(:published_standard_edition)
-    edition.configurable_document_type = "test_type"
-    edition.block_content = { "test_attribute" => "test" }
     edition.save!
 
     draft = edition.create_draft(edition.authors.first)
@@ -138,24 +79,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do
-    configurable_document_types = {
-      "test_type" => {
-        "key" => "test_type",
-        "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "type" => "object",
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test Attribute",
-              "type" => "string",
-            },
-          },
-        },
-        "settings" => {},
-      },
-    }
-    ConfigurableDocumentType.setup_test_types(configurable_document_types)
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     block_content = {
       "test_attribute" => "foo",
