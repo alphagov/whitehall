@@ -100,6 +100,10 @@ class AttachmentData < ApplicationRecord
     attachments.size == 1 && attachments.first.attachable.publicly_visible?
   end
 
+  def needs_discarding?
+    attachments.size == 1
+  end
+
   delegate :accessible_to?, to: :significant_attachable
 
   delegate :access_limited?, to: :last_attachable

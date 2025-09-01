@@ -4,7 +4,7 @@ Whitehall::Application.config.to_prepare do
       if %w[publish force_publish].include?(event)
         ServiceListeners::AttachmentAssetPublisher.call(edition)
       elsif event == "delete"
-        ServiceListeners::AttachmentAssetDeleter.call(edition)
+        ServiceListeners::DraftAttachmentAssetDiscarder.call(edition)
       else
         ServiceListeners::AttachmentUpdater.call(attachable: edition)
       end

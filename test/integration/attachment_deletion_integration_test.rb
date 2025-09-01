@@ -73,6 +73,40 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
 
+    context "given an unpublished document, with a new draft" do
+      let(:managing_editor) { create(:managing_editor) }
+      let(:earliest_attachable) { create(:unpublished_publication, :with_file_attachment) }
+      let(:latest_attachable) { earliest_attachable.reload.create_draft(managing_editor) }
+      let(:attachment) { latest_attachable.attachments.first }
+      let(:original_asset_manager_id) { attachment.attachment_data.assets.first.asset_manager_id }
+      let(:topic_taxon) { build(:taxon_hash) }
+
+      before do
+        login_as(managing_editor)
+
+        setup_publishing_api_for(latest_attachable)
+        stub_publishing_api_has_linkables([], document_type: "topic")
+        stub_publishing_api_expanded_links_with_taxons(latest_attachable.content_id, [])
+        stub_publishing_api_links_with_taxons(latest_attachable.content_id, [topic_taxon["content_id"]])
+
+        stub_asset(original_asset_manager_id, { "draft" => false, "parent_document_url" => latest_attachable.public_url(draft: false) })
+
+        latest_attachable.update!(minor_change: true)
+      end
+
+      it "does not delete the asset when the draft is discarded, if the attachment was present on the previous edition" do
+        Services.asset_manager.expects(:delete_asset).never
+
+        visit admin_publication_path(latest_attachable)
+        click_link "Delete draft"
+        assert_text "Are you sure you want to delete this draft?"
+        click_button "Delete"
+        assert_text "The draft of '#{latest_attachable.title}' has been deleted"
+
+        DeleteAttachmentAssetJob.drain
+      end
+    end
+
     context "given a published document with a draft" do
       let(:managing_editor) { create(:managing_editor) }
       let(:earliest_attachable) { create(:published_news_article, :with_file_attachment) }
