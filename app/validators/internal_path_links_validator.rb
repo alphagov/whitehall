@@ -1,6 +1,6 @@
 require "addressable/uri"
 
-class GovspeakLinkValidator < ActiveModel::Validator
+class InternalPathLinksValidator < ActiveModel::Validator
   def validate(record)
     matches(record.body, /\[.*?\]\((\S*?)(?:\s+"[^"]+")?\)/) do |match|
       link = match[1]
