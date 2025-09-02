@@ -317,6 +317,12 @@ class GovspeakHelperTest < ActionView::TestCase
     assert actual_output.include?("café</h1>")
   end
 
+  it "should not turn h4 headings into h3s" do
+    input = "#### Level 4 Heading"
+    actual_output = govspeak_to_html(input, heading_numbering: :auto)
+    assert_equal "<div class=\"govspeak\"><h4 id=\"level-4-heading\">Level 4 Heading</h4>\n</div>", actual_output
+  end
+
   it "converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id>" do
     contact = build(:contact)
     Contact.stubs(:find_by).with(id: "1").returns(contact)

@@ -134,9 +134,12 @@ private
     h2 = 0
     h3 = 0
 
-    govspeak.gsub(/^(###|##)\s*(.+)$/) do
+    govspeak.gsub(/^(##+)\s*(.+)$/) do
       hashes = Regexp.last_match(1)
       heading_text = Regexp.last_match(2).strip
+
+      # Heading numbers aren't applied for H4s and below, so skip replacement.
+      next "#{hashes} #{heading_text}" if hashes.length > 3
 
       if hashes == "##"
         h2 += 1
