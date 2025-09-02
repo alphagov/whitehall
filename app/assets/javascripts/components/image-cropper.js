@@ -12,8 +12,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.$targetHeight = parseInt(this.$imageCropper.dataset.height, 10)
     this.$croppingX = parseInt(this.$imageCropper.dataset.left, 10)
     this.$croppingY = parseInt(this.$imageCropper.dataset.top, 10)
-
-    console.log(this.$croppingX, this.$croppingY)
   }
 
   ImageCropper.prototype.init = function () {
@@ -94,8 +92,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       // eslint-disable-line
       viewMode: 2,
       aspectRatio: this.$targetWidth / this.$targetHeight,
-      x: this.$croppingX,
-      y: this.$croppingY,
       autoCrop: true,
       autoCropArea: 1,
       guides: false,
@@ -106,7 +102,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       rotatable: false,
       scalable: false
     })
-    // this.setupFormListener()
   }
 
   ImageCropper.prototype.initKeyboardControls = function () {

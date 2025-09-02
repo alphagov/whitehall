@@ -32,7 +32,6 @@ class Admin::EditionImagesController < Admin::BaseController
     else
       @valid_width = image_kind_config.valid_width
       @valid_height = image_kind_config.valid_height
-      @data_url = image_data_url
       render :edit
     end
   end
@@ -49,12 +48,6 @@ class Admin::EditionImagesController < Admin::BaseController
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
-    elsif new_image_needs_cropping?
-      image_kind_config = @new_image.image_data.image_kind_config
-      @valid_width = image_kind_config.valid_width
-      @valid_height = image_kind_config.valid_height
-      @data_url = image_data_url
-      render :crop
     else
       @new_image.errors.delete(:"image_data.file", :too_large)
       # Remove @new_image from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
@@ -74,10 +67,6 @@ private
 
   def image_kind_config
     image.image_data.image_kind_config
-  end
-
-  def new_image_needs_cropping?
-    @new_image.errors.of_kind?(:"image_data.file", :too_large) && @new_image.errors.size == 1
   end
 
   def image
