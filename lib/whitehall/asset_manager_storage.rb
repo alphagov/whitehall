@@ -52,10 +52,6 @@ class Whitehall::AssetManagerStorage
       false
     end
 
-    def to_file
-      @store_path
-    end
-
   private
 
     def get_asset
