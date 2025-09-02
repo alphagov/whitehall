@@ -35,6 +35,14 @@ class ImageData < ApplicationRecord
     content_type !~ /svg/
   end
 
+  def requires_crop?
+    has_invalid_dimensions? && crop_data.blank?
+  end
+
+  def original_uploaded?
+    assets.map(&:variant).map(&:to_sym).include?(:original)
+  end
+
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = file.active_version_names + [:original]
@@ -60,6 +68,16 @@ class ImageData < ApplicationRecord
   # had a valid width to have been saved
   def width
     (dimensions || {})["width"] || image_kind_config.valid_width
+  end
+
+  def has_invalid_dimensions?
+    target_width = image_kind_config.valid_width
+    target_height = image_kind_config.valid_height
+
+    too_small = width < target_width || width < target_height
+    too_large = height > target_width || height > target_height
+
+    return too_small || too_large
   end
 
 private

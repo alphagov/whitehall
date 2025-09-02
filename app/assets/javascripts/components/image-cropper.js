@@ -10,6 +10,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
     this.$targetWidth = parseInt(this.$imageCropper.dataset.width, 10)
     this.$targetHeight = parseInt(this.$imageCropper.dataset.height, 10)
+    this.$croppingX = parseInt(this.$imageCropper.dataset.left, 10)
+    this.$croppingY = parseInt(this.$imageCropper.dataset.top, 10)
+
+    console.log(this.$croppingX, this.$croppingY)
   }
 
   ImageCropper.prototype.init = function () {
@@ -29,6 +33,24 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.$image.addEventListener(
       'ready',
       function () {
+        fetch(this.$image.src)
+        .then(res => res.blob())
+        .then(blob => {
+          const file = new File(
+            [blob],
+            this.$imageCropper.dataset.filename,
+            {
+              type: this.$imageCropper.dataset.type,
+              lastModified: new Date().getTime()
+            }
+          )
+
+          const input = this.$imageCropper.querySelector('.js-cropped-image-input-file')
+          const container = new DataTransfer()
+          container.items.add(file)
+          input.files = container.files
+        });
+
         this.initKeyboardControls()
         this.updateAriaLabel()
       }.bind(this)
@@ -38,6 +60,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       'crop',
       function () {
         this.updateAriaLabel()
+
+        const input = this.$imageCropper.querySelector('.js-cropped-image-input')
+
+        const { left, top, width, height } = this.cropper.cropBoxData
+
+        input.value = JSON.stringify({ left, top, width, height })
       }.bind(this)
     )
 
@@ -66,6 +94,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       // eslint-disable-line
       viewMode: 2,
       aspectRatio: this.$targetWidth / this.$targetHeight,
+      x: this.$croppingX,
+      y: this.$croppingY,
       autoCrop: true,
       autoCropArea: 1,
       guides: false,
@@ -76,7 +106,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       rotatable: false,
       scalable: false
     })
-    this.setupFormListener()
+    // this.setupFormListener()
   }
 
   ImageCropper.prototype.initKeyboardControls = function () {
@@ -160,38 +190,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       '% of the image, centered on the ' +
       positionText +
       'is selected.'
-  }
-
-  ImageCropper.prototype.setupFormListener = function () {
-    const input = this.$imageCropper.querySelector('.js-cropped-image-input')
-    input.form.addEventListener(
-      'submit',
-      function (event) {
-        event.preventDefault()
-        this.cropper
-          .getCroppedCanvas({
-            width: this.$targetWidth,
-            height: this.$targetHeight
-          })
-          .toBlob(
-            function (blob) {
-              const file = new File(
-                [blob],
-                this.$imageCropper.dataset.filename,
-                {
-                  type: this.$imageCropper.dataset.type,
-                  lastModified: new Date().getTime()
-                }
-              )
-              const container = new DataTransfer()
-              container.items.add(file)
-              input.files = container.files
-              input.form.submit()
-            }.bind(this),
-            this.$imageCropper.dataset.type
-          )
-      }.bind(this)
-    )
   }
 
   Modules.ImageCropper = ImageCropper
