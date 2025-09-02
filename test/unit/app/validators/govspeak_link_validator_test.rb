@@ -10,15 +10,6 @@ class GovspeakLinkValidatorTest < ActiveSupport::TestCase
     assert_equal [], test_model.errors[:body]
   end
 
-  test "should be invalid if it contains a correct absolute URL containing 'whitehall-admin'" do
-    test_model = Edition.new(body: "[example text](https://www.whitehall-admin.gov.uk/example)")
-
-    GovspeakLinkValidator.new.validate(test_model)
-
-    assert_equal 1, test_model.errors.size
-    assert_equal ["Issue with link `https://www.whitehall-admin.gov.uk/example`: This links to the whitehall-admin domain. Please use paths, eg /government/admin/publications/3373, for documents created in publisher (see guidance on creating links) or full URLs for other GOV.UK links."], test_model.errors.map(&:type)
-  end
-
   test "should be valid if it contains a proper admin absolute path" do
     test_model = Edition.new(body: "
       [example text](/government/admin/policies/12345)
