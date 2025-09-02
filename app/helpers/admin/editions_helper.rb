@@ -185,12 +185,14 @@ module Admin::EditionsHelper
 
       if edition.state == "unpublished"
         reason = consolidated ? "being consolidated into another page" : "being published in error"
-        details = if consolidated || edition.unpublishing.redirect
-                    "User is redirected from<br><a href='#{Whitehall.public_root}#{edition.base_path}'>#{Whitehall.public_root}#{edition.base_path}</a><br>to<br><a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>"
-                  else
-                    "User-facing reason: '#{edition.unpublishing.explanation}'. Alternative URL displayed to user:<br><a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>"
-                  end
-        summary = "#{summary} due to #{reason}. #{details}"
+        details = ""
+        if consolidated || edition.unpublishing.redirect
+          details = " User is redirected from<br><a href='#{Whitehall.public_root}#{edition.base_path}'>#{Whitehall.public_root}#{edition.base_path}</a><br>to<br><a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>"
+        else
+          details << " User-facing reason: '#{edition.unpublishing.explanation}'." if edition.unpublishing.explanation.present?
+          details << " Alternative URL displayed to user:<br><a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>" if edition.unpublishing.alternative_url.present?
+        end
+        summary = "#{summary} due to #{reason}.#{details}"
       end
 
       summary
