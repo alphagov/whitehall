@@ -6,8 +6,21 @@
 <div class="govuk-grid-row">
 
   <section class="govuk-grid-column-two-thirds">
-    <%= form_tag [:admin, :edition, :image], id: image, method: :patch do %>
+    <%= form_tag [:admin, :edition, :image], id: image, multipart: true, method: :patch do %>
       <p class="govuk-body-lead">You can leave any image detail blank if you do not need it.</p>
+
+      <%= hidden_field_tag("image[image_data][image_kind]", image.image_data.image_kind) %>
+
+      <%= render "components/image_cropper", {
+        name: "image[image_data][crop_data]",
+        src: image.url,
+        filename: image.filename,
+        type: image.content_type,
+        width: @valid_width,
+        height: @valid_height,
+        x: (image&.image_data&.crop_data || {})["x"],
+        y: (image&.image_data&.crop_data || {})["y"],
+      } %>
 
       <%= render "govuk_publishing_components/components/textarea", {
         label: {

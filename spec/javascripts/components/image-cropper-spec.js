@@ -5,19 +5,22 @@ describe('GOVUK.Modules.ImageCropper', () => {
     const canvas = document.createElement('canvas')
     canvas.setAttribute('width', 1920)
     canvas.setAttribute('height', 1280)
-    const dataURL = canvas.toDataURL('image/png')
+    const src = canvas.toDataURL('image/png')
 
     component = document.createElement('div')
-    component.setAttribute('data-filename', 'test.png')
+    component.setAttribute('data-filename', 'icon.png')
     component.setAttribute('data-type', 'image/png')
     component.setAttribute('data-width', '960')
     component.setAttribute('data-height', '640')
+    component.setAttribute('data-x', 0)
+    component.setAttribute('data-y', 0)
     component.setAttribute('class', 'app-c-image-cropper')
     component.innerHTML = `
-      <input type="file" class="js-cropped-image-input" name="image" hidden>
+      <input class="js-cropped-image-input" name="image" hidden>
       <div style="position: relative; width: 1920px; height: 1280px;">
-        <img class="app-c-image-cropper__image" src="${dataURL}"/>
+        <img class="app-c-image-cropper__image" src="${src}"/>
       </div>
+      <input type="file" class="js-cropped-image-input-file">
     `
 
     form = document.createElement('form')
@@ -38,13 +41,20 @@ describe('GOVUK.Modules.ImageCropper', () => {
 
   afterEach(() => form.remove())
 
-  it('should attach an image to the input when the form is submitted', (done) => {
-    form.submit = () => {
+  it('should add cropping data to input when crop takes place', (done) => {
+    const image = document.querySelector('.app-c-image-cropper__image')
+    image.addEventListener('crop', () => {
       const input = document.querySelector('.js-cropped-image-input')
-      expect(input.files.length).toBe(1)
+      expect(input.value).toBe(
+        // the cropper supports width and height that are bigger
+        // that the height and width specified if the aspect ratio
+        // of the cropped width and height is the same (since we
+        // use "fit to size" image processing on our images)
+        JSON.stringify({ x: 0, y: 0, width: 1920, height: 1280 })
+      )
       done()
-    }
-    form.dispatchEvent(new Event('submit'))
+    })
+    image.dispatchEvent(new CustomEvent('crop'))
   })
 
   it('should update the aria label as the selection is controlled using the keyboard', (done) => {

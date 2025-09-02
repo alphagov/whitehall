@@ -1,5 +1,8 @@
 Given("a draft document with images exists") do
-  images = [build(:image), build(:image)]
+  svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
+  image = build(:image, image_data: svg_image_data)
+  images = [build(:image), image]
+
   @edition = create(:draft_publication, body: "!!2", images:)
 end
 
@@ -30,13 +33,20 @@ Then(/^I should see a list with (\d+) image/) do |count|
   expect(page).to have_selector(".app-view-edition-resource__preview", count:)
 end
 
+Then(/^I should see that the image requires cropping/) do
+  expect(page).to have_content("Requires crop")
+end
+
+Then(/^I should not see that the image requires cropping/) do
+  expect(page).not_to have_content("Requires crop")
+end
+
 When(/^I select an image for the (?:detailed guide|publication)$/) do
   within ".images" do
     attach_file "File", jpg_image
     # Click event necessary for fieldset cloning - attaching file doesn't seem
     # to trigger the click event
     execute_script("document.querySelector('.js-upload-image-input').dispatchEvent(new CustomEvent('click', { bubbles: true }))")
-    fill_in "Alt text", with: "minister of funk", match: :first
   end
 end
 
@@ -46,6 +56,10 @@ end
 
 When("I click to edit the details of an image") do
   first("a", text: "Edit details").click
+end
+
+When("I click to edit the details of the image that needs to be cropped") do
+  find_all("a", text: "Edit details").last.click
 end
 
 When("I click to hide the lead image") do

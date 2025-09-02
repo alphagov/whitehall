@@ -11,18 +11,16 @@ Feature: Images tab on edit edition
     When I visit the images tab of the document with images
     Then I should see a list with 2 images
     When I upload a 960x960 image
-    Then I am redirected to a page for image cropping
-    When I click the "Save and continue" button on the crop page
-    And I update the image details and save
-    Then I should see a list with 3 image
+    Then I should see a list with 3 images
+    Then I should see that the image requires cropping
+    When I click to edit the details of the image that needs to be cropped
+    When I update the image details and save
+    Then I should not see that the image requires cropping
 
   @javascript
-  Scenario: Uploading an oversized file with duplicated filename
+  Scenario: Uploading a file with a duplicated filename
     When a draft document with images exists
     And I visit the images tab of the document with images
     And I upload a 960x960 image
-    And I am redirected to a page for image cropping
-    And I click the "Save and continue" button on the crop page
-    And I update the image details and save
     And I upload a 960x960 image
     Then I should get 1 error message
