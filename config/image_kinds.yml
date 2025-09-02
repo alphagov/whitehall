@@ -9,6 +9,7 @@ default:
     - name: s960
       width: 960
       height: 640
+      crop: true
     - name: s712
       width: 712
       height: 480
