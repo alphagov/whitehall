@@ -41,7 +41,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
   end
 
   test "does not render a button to update the image to the lead image if the image is an SVG for case studies" do
-    svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
+    svg_image_data = build(:image_data_for_svg, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
     image = build_stubbed(:image, caption: "caption", alt_text: "alt text", image_data: svg_image_data)
     edition = build_stubbed(:draft_case_study, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
@@ -52,8 +52,9 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
   test "image filename markdown displayed" do
     jpeg = upload_fixture("images/960x640_jpeg.jpg")
     gif = upload_fixture("images/960x640_gif.gif")
-    jpeg_image_data = build_stubbed(:image_data, file: jpeg)
-    gif_image_data = build_stubbed(:image_data, file: gif)
+    jpeg_image_data = build(:image_data, file: jpeg)
+    gif_image_data = build(:image_data, file: gif)
+
     images = [build_stubbed(:image, image_data: jpeg_image_data), build_stubbed(:image, image_data: gif_image_data)]
     edition = build_stubbed(:draft_publication, images:)
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image: images.first, last_image: false))
@@ -62,16 +63,17 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
   end
 
   test "image index markdown used when edition has duplicate image filenames" do
-    images = [build_stubbed(:image), build_stubbed(:image)]
-    edition = build_stubbed(:draft_publication, images:)
+    images = [build(:image, id: 1), build(:image, id: 2)]
+    edition = build(:draft_publication, id: 1, images:)
+
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image: images.first, last_image: false))
 
     assert_selector "input[value='!!1']"
   end
 
   test "image index markdown handles a lead image being present correctly" do
-    images = [build_stubbed(:image), build_stubbed(:image), build_stubbed(:image)]
-    edition = build_stubbed(:draft_news_article, images:, lead_image: images.second)
+    images = [build(:image, id: 1), build(:image, id: 2), build(:image, id: 3)]
+    edition = build(:draft_news_article, id: 1, images:, lead_image: images.second)
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image: images.third, last_image: false))
 
     assert_selector "input[value='!!3']"
@@ -89,7 +91,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
 
   test "does not render a line break if last_image parameter is true " do
     image = build_stubbed(:image)
-    edition = build_stubbed(:draft_news_article, images: [image])
+    edition = build_stubbed(:draft_news_article, id: 1, images: [image])
 
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: true))
 

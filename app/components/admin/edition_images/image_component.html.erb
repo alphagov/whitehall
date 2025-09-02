@@ -1,7 +1,7 @@
  <li class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
-    <% if image.image_data&.all_asset_variants_uploaded? %>
-      <img src="<%= image.url %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">
+    <% if image.image_data&.original_uploaded? && image.thumbnail %>
+      <img src="<%= image.thumbnail %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">
     <% else %>
       <span class="govuk-tag govuk-tag--green">Processing</span>
     <% end %>
@@ -10,11 +10,15 @@
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
     <p class="govuk-body"><strong>Alt text: </strong><%= alt_text %></p>
-    <%= render "govuk_publishing_components/components/copy_to_clipboard", {
-      label: tag.strong("Markdown code:"),
-      copyable_content: image_markdown,
-      button_text: "Copy Markdown",
-    } %>
+    <% if image.image_data&.bitmap? && image.image_data&.requires_crop? %>
+      <span class="govuk-tag govuk-tag--red">Requires crop</span>
+    <% else %>
+      <%= render "govuk_publishing_components/components/copy_to_clipboard", {
+        label: tag.strong("Markdown code:"),
+        copyable_content: image_markdown,
+        button_text: "Copy Markdown",
+      } %>
+    <% end %>
   </div>
 
   <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group govuk-!-margin-top-4">

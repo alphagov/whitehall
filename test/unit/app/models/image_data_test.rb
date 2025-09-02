@@ -30,10 +30,26 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.valid?
   end
 
-  test "rejects images larger than 960x640" do
+  test "returns image config dimensions if saved image bitmap with no saved dimensions" do
+    ImageUploader.enable_processing = false
+    image_data = build_example("960x640_jpeg.jpg")
+    assert image_data.dimensions, nil
+    assert image_data.height, image_data.image_kind_config.valid_height
+    assert image_data.width, image_data.image_kind_config.valid_width
+    ImageUploader.enable_processing = true
+  end
+
+  test "returns image dimensions if saved image bitmap" do
     image_data = build_example("960x960_jpeg.jpg")
-    assert_not image_data.valid?
-    assert image_data.errors.of_kind?(:file, :too_large)
+    assert image_data.height, 960
+    assert image_data.width, 960
+  end
+
+  test "returns no image dimensions if saved image not bitmap" do
+    svg = upload_fixture("images/test-svg.svg", "image/svg+xml")
+    image_data = ImageData.create!(file: svg)
+    assert_nil image_data.height
+    assert_nil image_data.width
   end
 
   test "rejects image as 'too small' when it's too large in one dimension but too small in another" do

@@ -1,5 +1,13 @@
-<%= tag.div class: "app-c-image-cropper", tabindex: "0", data: { module: "image-cropper", filename:, type:, width:, height: }, "aria-live" => "polite" do %>
-  <input type="file" class="js-cropped-image-input" name="<%= name %>" hidden>
+<%
+  x ||= 0
+  y ||= 0
+%>
+
+<%= tag.div class: "app-c-image-cropper", tabindex: "0", data: { module: "image-cropper", filename:, type:, width:, height:, x:, y: }, "aria-live" => "polite" do %>
+  <input class="js-cropped-image-input" name="<%= name %>[x]" hidden value="<%= x %>">
+  <input class="js-cropped-image-input" name="<%= name %>[y]" hidden value="<%= y %>">
+  <input class="js-cropped-image-input" name="<%= name %>[height]" hidden value="<%= height %>">
+  <input class="js-cropped-image-input" name="<%= name %>[width]" hidden value="<%= width %>">
   <%= tag.div class: "app-c-image-cropper__container" do %>
     <%= tag.img class: "app-c-image-cropper__image",
       src: src %>
