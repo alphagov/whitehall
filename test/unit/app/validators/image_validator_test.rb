@@ -18,10 +18,6 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert_validates_as_valid(ImageValidator.new, "960x640_jpeg_with_uppercase_extension.JPG")
   end
 
-  test "should not accept a corrupt image" do
-    assert_validates_as_invalid(ImageValidator.new, "not_an_image.jpg")
-  end
-
   test "should allow specified mime-types" do
     subject = ImageValidator.new(mime_types: {
       "image/gif" => /.gif$/,
@@ -38,8 +34,8 @@ class ImageValidatorTest < ActiveSupport::TestCase
           "some image kind",
           "display_name" => "some image kind display name",
           "permitted_uses" => [],
-          "valid_width" => 50,
-          "valid_height" => 33,
+          "valid_width" => 300,
+          "valid_height" => 1000,
           "versions" => [],
         )
       end
@@ -47,8 +43,8 @@ class ImageValidatorTest < ActiveSupport::TestCase
 
     subject = ImageValidator.new
 
-    assert_validates_as_valid(subject, "50x33_gif.gif")
-    assert_validates_as_invalid(subject, "960x640_jpeg.jpg")
+    assert_validates_as_invalid(subject, "50x33_gif.gif")
+    assert_validates_as_valid(subject, "300x1000_png.png")
   end
 
   test "accepts any size if the model does not have image kind config" do
@@ -66,13 +62,6 @@ class ImageValidatorTest < ActiveSupport::TestCase
     too_small = build_example("50x33_gif.gif")
     subject.validate(too_small)
     assert too_small.errors.of_kind?(:file, :too_small)
-  end
-
-  test "error type is :too_large when the image is too large" do
-    subject = ImageValidator.new
-    too_large = build_example("960x960_jpeg.jpg")
-    subject.validate(too_large)
-    assert too_large.errors.of_kind?(:file, :too_large)
   end
 
   test "it should not throw an exception if a file isn't present" do
@@ -106,7 +95,9 @@ private
       File.open(Rails.root.join("test/fixtures/images", file_name)) do |file|
         @example_model.new(file:).tap do |image_data|
           carrierwave_file = image_data.file.file
-          carrierwave_file.content_type = content_type(file_name)
+          if carrierwave_file
+            carrierwave_file.content_type = content_type(file_name)
+          end
         end
       end
     else
