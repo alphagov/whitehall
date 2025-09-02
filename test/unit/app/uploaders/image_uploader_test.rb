@@ -21,6 +21,42 @@ class ImageUploaderTest < ActiveSupport::TestCase
     assert_equal %w[jpg jpeg gif png svg], uploader.extension_allowlist
   end
 
+  test "should save uploaded image with correct dimensions" do
+    images_to_upload = %w[images/960x640_jpeg.jpg images/960x960_jpeg.jpg]
+
+    images_to_upload.each do |image|
+      file = upload_fixture(image)
+      width, height = MiniMagick::Image.open(file.tempfile).dimensions
+      image_data = ImageData.create!(file:)
+      assert_equal image_data.height, height
+      assert_equal image_data.width, width
+    end
+  end
+
+  test "should store only original version of large image without crop data in asset manager" do
+    file = upload_fixture("images/960x960_jpeg.jpg")
+    ImageData.create!(file:)
+
+    Services.asset_manager.stubs(:create_asset).with { |params|
+      assert params[:file].path.split("/").last == "960x960_jpeg.jpg"
+    }.once.returns("id" => "http://asset-manager/assets/some-id", "name" => "test-svg.svg")
+
+    AssetManagerCreateAssetWorker.drain
+  end
+
+  test "should store all variations of large image that has crop data in asset manager" do
+    file = upload_fixture("images/960x960_jpeg.jpg")
+    cropped_image_data = ImageData.new(crop_data: { x: 0, y: 0, width: 960, height: 640 })
+    cropped_image_data.file = file
+    cropped_image_data.save!
+
+    Services.asset_manager.stubs(:create_asset).with { |params|
+      assert params[:file].path.split("/").last.match("960x960_jpeg.jpg")
+    }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "960x960_jpeg.jpg")
+
+    AssetManagerCreateAssetWorker.drain
+  end
+
   test "should send correctly resized versions of a bitmap image to asset manager" do
     create(:image_data_with_no_assets)
 

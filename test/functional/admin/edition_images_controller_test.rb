@@ -1,6 +1,11 @@
 require "test_helper"
 
 class Admin::EditionImagesControllerTest < ActionController::TestCase
+  setup do
+    io_object = upload_fixture("minister-of-funk.960x640.jpg").tempfile.to_io
+    stub_request(:get, %r{.*/media/.*/minister-of-funk.960x640.jpg}).to_return(status: 200, body: io_object, headers: {})
+  end
+
   view_test "edit page displays alt text input for images with alt text" do
     login_authorised_user
     image = build(:image)
@@ -16,7 +21,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: edition.id, id: image.id }
 
-    assert_select "img:match('src',?)", /media\/asset_manager_id_original\/minister-of-funk.960x640.jpg/, count: 1
+    assert_select "img:match('src',?)", /.*data:image.*/
   end
 
   view_test "edit page shows processing label if some of the image assets haven't finished processing" do
@@ -37,7 +42,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "#image_alt_text", count: 0
   end
 
-  test "#create redirects to #edit with a valid image upload" do
+  test "#create renders #index with a valid image upload" do
     login_authorised_user
     edition = create(:news_article)
 
@@ -46,7 +51,8 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, image: { image_data: { file: } } }
 
-    assert_redirected_to edit_admin_edition_image_path(edition, edition.images.last)
+    assert_template "admin/edition_images/index"
+    assert_equal "960x640_jpeg.jpg successfully uploaded", flash[:notice]
   end
 
   test "#create updates the lead_image association if edition can have a custom lead image" do
@@ -59,21 +65,6 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_equal "960x640_jpeg.jpg", edition.reload.lead_image.filename
   end
 
-  view_test "#create shows the cropping page if image is too large" do
-    login_authorised_user
-    edition = create(:news_article)
-
-    filename = "images/960x960_jpeg.jpg"
-    post :create, params: { edition_id: edition.id, image: { image_data: { file: upload_fixture(filename, "image/jpeg") } } }
-
-    assert_template "admin/edition_images/crop"
-    assert_select "h1", "Crop image"
-
-    img = document_root_element.css("img.app-c-image-cropper__image").first
-    expected_data_url = "data:image/jpeg;base64,#{Base64.strict_encode64(file_fixture(filename).read)}"
-    assert_equal expected_data_url, img["src"], "Expected img src to be a Data URL representation of the uploaded file"
-  end
-
   view_test "#create shows a validation error if image is too small" do
     login_authorised_user
     edition = create(:news_article)
@@ -82,7 +73,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     post :create, params: { edition_id: edition.id, image: { image_data: { file: } } }
 
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is 960 pixels wide and 640 pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is at least 960 pixels wide and at least 640 pixels tall"
   end
 
   view_test "#create shows a validation error if image has a duplicated filename" do
