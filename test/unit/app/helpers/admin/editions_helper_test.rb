@@ -101,4 +101,88 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal "It's my title!", edition_title_link_or_edition_title(edition)
   end
+
+  test "#status_text returns just the state if it is anything other than unpublished or withdrawn" do
+    edition = build(:published_edition)
+
+    assert_equal "Published", status_text(edition)
+  end
+
+  test "#status_text returns both the state and time information if it is withdrawn" do
+    edition = create(:withdrawn_edition)
+
+    assert_equal "Withdrawn (less than a minute ago)", status_text(edition)
+  end
+
+  test "#status_text has special handling for unpublished (due to consolidation)" do
+    alternative_url = "https://gov.uk/foo"
+    edition = create(:edition, :unpublished)
+
+    edition.unpublishing.alternative_url = alternative_url
+    edition.unpublishing.unpublishing_reason_id = UnpublishingReason::CONSOLIDATED_ID
+    edition.unpublishing.save!
+    assert_equal "Unpublished (less than a minute ago) due to being consolidated into another page. User is redirected from<br><a href='https://www.test.gov.uk#{edition.base_path}'>https://www.test.gov.uk#{edition.base_path}</a><br>to<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+  end
+
+  test "#status_text has special handling for unpublished (due to publish in error) - redirect to alternative URL" do
+    alternative_url = "https://gov.uk/foo"
+    edition = create(:edition, :unpublished)
+    edition.unpublishing.alternative_url = alternative_url
+    edition.unpublishing.unpublishing_reason_id = UnpublishingReason::PUBLISHED_IN_ERROR_ID
+    edition.unpublishing.created_at = 1.year.ago
+    edition.unpublishing.alternative_url = alternative_url
+    edition.unpublishing.redirect = true
+    edition.unpublishing.save!
+
+    assert_equal "Unpublished (about 1 year ago) due to being published in error. User is redirected from<br><a href='https://www.test.gov.uk#{edition.base_path}'>https://www.test.gov.uk#{edition.base_path}</a><br>to<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+  end
+
+  test "#status_text has special handling for unpublished (due to publish in error) - no explanation or alternative URL (i.e. leads to a 410 Gone page)" do
+    edition = create(:edition, :unpublished)
+    edition.unpublishing.unpublishing_reason_id = UnpublishingReason::PUBLISHED_IN_ERROR_ID
+    edition.unpublishing.alternative_url = ""
+    edition.unpublishing.explanation = ""
+    edition.unpublishing.redirect = false
+    edition.unpublishing.save!
+
+    assert_equal "Unpublished (less than a minute ago) due to being published in error.", status_text(edition)
+  end
+
+  test "#status_text has special handling for unpublished (due to publish in error) - explanation provided, no alternative URL" do
+    edition = create(:edition, :unpublished)
+
+    edition.unpublishing.unpublishing_reason_id = UnpublishingReason::PUBLISHED_IN_ERROR_ID
+    edition.unpublishing.alternative_url = ""
+    edition.unpublishing.redirect = false
+    edition.unpublishing.explanation = "the doc was published in error"
+    edition.unpublishing.save!
+
+    assert_equal "Unpublished (less than a minute ago) due to being published in error. User-facing reason: 'the doc was published in error'.", status_text(edition)
+  end
+
+  test "#status_text has special handling for unpublished (due to publish in error) - no explanation, but an alternative URL" do
+    alternative_url = "https://gov.uk/foo"
+    edition = create(:edition, :unpublished)
+
+    edition.unpublishing.unpublishing_reason_id = UnpublishingReason::PUBLISHED_IN_ERROR_ID
+    edition.unpublishing.alternative_url = alternative_url
+    edition.unpublishing.redirect = false
+    edition.unpublishing.explanation = ""
+    edition.unpublishing.save!
+
+    assert_equal "Unpublished (less than a minute ago) due to being published in error. Alternative URL displayed to user:<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+  end
+
+  test "#status_text has special handling for unpublished (due to publish in error) - explanation and an alternative URL provided" do
+    alternative_url = "https://gov.uk/foo"
+    edition = create(:edition, :unpublished)
+
+    edition.unpublishing.unpublishing_reason_id = UnpublishingReason::PUBLISHED_IN_ERROR_ID
+    edition.unpublishing.alternative_url = alternative_url
+    edition.unpublishing.explanation = "the doc was published in error"
+    edition.unpublishing.redirect = false
+    edition.unpublishing.save!
+
+    assert_equal "Unpublished (less than a minute ago) due to being published in error. User-facing reason: 'the doc was published in error'. Alternative URL displayed to user:<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+  end
 end
