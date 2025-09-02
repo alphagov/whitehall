@@ -16,6 +16,10 @@ class Asset < ApplicationRecord
     end
   end
 
+  def original?
+    variant == "original"
+  end
+
   enum :variant, {
     original: "original".freeze,
   }.merge(

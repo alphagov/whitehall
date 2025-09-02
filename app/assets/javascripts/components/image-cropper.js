@@ -10,6 +10,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
     this.$targetWidth = parseInt(this.$imageCropper.dataset.width, 10)
     this.$targetHeight = parseInt(this.$imageCropper.dataset.height, 10)
+    this.$croppingX = parseInt(this.$imageCropper.dataset.x, 10)
+    this.$croppingY = parseInt(this.$imageCropper.dataset.y, 10)
   }
 
   ImageCropper.prototype.init = function () {
@@ -31,6 +33,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       function () {
         this.initKeyboardControls()
         this.updateAriaLabel()
+
+        const cropBoxData = this.cropper.getCropBoxData()
+
+        cropBoxData.left = this.$croppingX
+        cropBoxData.top = this.$croppingY
+
+        this.cropper.setCropBoxData(cropBoxData)
       }.bind(this)
     )
 
@@ -38,6 +47,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       'crop',
       function () {
         this.updateAriaLabel()
+
+        const input = this.$imageCropper.querySelector(
+          '.js-cropped-image-input'
+        )
+
+        const { x, y, width, height } = this.cropper.getData(true)
+
+        input.value = JSON.stringify({ x, y, width, height })
       }.bind(this)
     )
 
@@ -76,7 +93,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       rotatable: false,
       scalable: false
     })
-    this.setupFormListener()
   }
 
   ImageCropper.prototype.initKeyboardControls = function () {
@@ -160,38 +176,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       '% of the image, centered on the ' +
       positionText +
       'is selected.'
-  }
-
-  ImageCropper.prototype.setupFormListener = function () {
-    const input = this.$imageCropper.querySelector('.js-cropped-image-input')
-    input.form.addEventListener(
-      'submit',
-      function (event) {
-        event.preventDefault()
-        this.cropper
-          .getCroppedCanvas({
-            width: this.$targetWidth,
-            height: this.$targetHeight
-          })
-          .toBlob(
-            function (blob) {
-              const file = new File(
-                [blob],
-                this.$imageCropper.dataset.filename,
-                {
-                  type: this.$imageCropper.dataset.type,
-                  lastModified: new Date().getTime()
-                }
-              )
-              const container = new DataTransfer()
-              container.items.add(file)
-              input.files = container.files
-              input.form.submit()
-            }.bind(this),
-            this.$imageCropper.dataset.type
-          )
-      }.bind(this)
-    )
   }
 
   Modules.ImageCropper = ImageCropper

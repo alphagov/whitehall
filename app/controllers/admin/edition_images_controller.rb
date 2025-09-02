@@ -16,7 +16,26 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def update
-    if image.update(params.require(:image).permit(:caption, :alt_text))
+    @valid_width = image_kind_config.valid_width
+    @valid_height = image_kind_config.valid_height
+
+    image_params_hash = image_params.to_h
+
+    begin
+      if image_params_hash["image_data"]["crop_data"]
+        image_params_hash["image_data"]["crop_data"] = JSON.parse(image_params_hash["image_data"]["crop_data"])
+      end
+    rescue JSON::ParserError
+      render :edit, alert: "Error processing crop data, try again"
+    end
+
+    image.assign_attributes(image_params_hash.except("image_data"))
+
+    image.image_data.crop_data = image_params_hash["image_data"]["crop_data"]
+
+    image.image_data.validate_on_image = image
+
+    if image.save
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       redirect_to admin_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
     else
@@ -29,42 +48,30 @@ class Admin::EditionImagesController < Admin::BaseController
     @new_image.build_image_data(image_params["image_data"])
 
     @new_image.image_data.validate_on_image = @new_image
-    # so that auth_bypass_id is discoverable by AssetManagerStorage
+
     @new_image.image_data.images << @new_image
 
     if @new_image.save
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
-      redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
-    elsif new_image_needs_cropping?
-      image_kind_config = @new_image.image_data.image_kind_config
-      @valid_width = image_kind_config.valid_width
-      @valid_height = image_kind_config.valid_height
-      @data_url = image_data_url
-      render :crop
+      flash.notice = "#{@new_image.filename} successfully uploaded"
     else
-      @new_image.errors.delete(:"image_data.file", :too_large)
       # Remove @new_image from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
       @edition.images.delete(@new_image)
-      render :index
     end
+
+    render :index
   end
 
   def edit
-    image = Image.find(params[:id])
-    flash.now.notice = "The image is being processed. Try refreshing the page." unless image&.image_data&.all_asset_variants_uploaded?
+    @valid_width = image_kind_config.valid_width
+    @valid_height = image_kind_config.valid_height
   end
 
 private
 
-  def new_image_needs_cropping?
-    @new_image.errors.of_kind?(:"image_data.file", :too_large) && @new_image.errors.size == 1
-  end
-
-  def image_data_url
-    file = @new_image.image_data.file
-    image_data = Base64.strict_encode64(file.read)
-    "data:#{file.content_type};base64,#{image_data}"
+  def image_kind_config
+    image.image_data.image_kind_config
   end
 
   def image
@@ -93,6 +100,6 @@ private
   end
 
   def image_params
-    params.fetch(:image, {}).permit(image_data: %i[file image_kind])
+    params.fetch(:image, {}).permit(:caption, :alt_text, image_data: %i[crop_data file image_kind])
   end
 end

@@ -30,12 +30,6 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.valid?
   end
 
-  test "rejects images larger than 960x640" do
-    image_data = build_example("960x960_jpeg.jpg")
-    assert_not image_data.valid?
-    assert image_data.errors.of_kind?(:file, :too_large)
-  end
-
   test "rejects image as 'too small' when it's too large in one dimension but too small in another" do
     image_data = build_example("300x1000_png.png")
     assert_not image_data.valid?

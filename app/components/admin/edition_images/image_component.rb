@@ -40,6 +40,6 @@ private
   end
 
   def can_be_custom_lead_image?
-    edition.can_have_custom_lead_image? && !image.svg?
+    edition.can_have_custom_lead_image? && !image.svg? && !image.image_data.requires_crop?
   end
 end
