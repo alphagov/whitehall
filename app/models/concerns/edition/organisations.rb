@@ -10,11 +10,8 @@ module Edition::Organisations
   end
 
   included do
-    has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true
-    has_many :organisations, -> { includes(:translations) }, through: :edition_organisations
-
-    before_validation :mark_for_destruction_all_edition_organisations_for_destruction
-    after_save :clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
+    has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true, validate: false
+    has_many :organisations, -> { includes(:translations) }, through: :edition_organisations, validate: false
 
     validate :at_least_one_lead_organisation
     validate :no_duplication_of_organisations
@@ -22,52 +19,44 @@ module Edition::Organisations
     add_trait Trait
   end
 
+  def sorted_organisations
+    organisations.alphabetical
+  end
+
   def lead_edition_organisations
-    edition_organisations.where(lead: true).order("edition_organisations.lead_ordering")
+    edition_organisations.select(&:lead?).sort { |a, b| a.lead_ordering <=> b.lead_ordering }
   end
 
   def supporting_edition_organisations
-    edition_organisations.where(lead: false)
+    edition_organisations.reject(&:lead?)
   end
 
   def lead_organisations
-    organisations.where(edition_organisations: { lead: true }).reorder("edition_organisations.lead_ordering")
+    lead_edition_organisations.map(&:organisation)
+  end
+
+  def supporting_organisations
+    supporting_edition_organisations.map(&:organisation)
   end
 
   def lead_organisation_ids
     lead_organisations.pluck(:id)
   end
 
-  def sorted_organisations
-    organisations.alphabetical
-  end
-
   def lead_organisations=(new_lead_organisations)
     self.lead_organisation_ids = new_lead_organisations.map(&:id)
-  end
-
-  def lead_organisation_ids=(new_lead_organisation_ids)
-    __mange_edition_organisations(new_lead_organisation_ids, for_lead: true)
-  end
-
-  def supporting_organisations
-    organisations.where(edition_organisations: { lead: false })
   end
 
   def supporting_organisations=(new_supporting_organisations)
     self.supporting_organisation_ids = new_supporting_organisations.map(&:id)
   end
 
+  def lead_organisation_ids=(new_lead_organisation_ids)
+    assign_organisation_ids(new_lead_organisation_ids, true)
+  end
+
   def supporting_organisation_ids=(new_supporting_organisation_ids)
-    __mange_edition_organisations(new_supporting_organisation_ids, for_lead: false)
-  end
-
-  def association_with_organisation(organisation)
-    edition_organisations.find_by(organisation_id: organisation.id)
-  end
-
-  def importance_ordered_organisations
-    organisations.reorder("edition_organisations.lead DESC, edition_organisations.lead_ordering")
+    assign_organisation_ids(new_supporting_organisation_ids, false)
   end
 
   def can_be_related_to_organisations?
@@ -82,31 +71,8 @@ module Edition::Organisations
     false
   end
 
-  def search_index
-    super.merge("organisations" => organisations.map(&:slug))
-  end
-
   def limits_access_via_organisations?
     true
-  end
-
-  # Rails automatically defines methods called
-  # `validate_associated_records_for_<association>` for any association that is
-  # autosaved or validated. These methods run validations on each associated
-  # EditionOrganisation and Organisation, which causes an otherwise-valid edition
-  # to become invalid if any linked organisation is invalid (for example, because
-  # of an overlong custom_jobs_url). We don’t want an invalid organisation to
-  # block publication of an edition, so we override these methods to no-op.
-  #
-  # Presence and uniqueness of associated organisations are already enforced
-  # by our own custom validators, so skipping these auto-generated validations
-  # has no negative side-effects.
-  def validate_associated_records_for_edition_organisations
-    # no-op: prevent associated EditionOrganisation validations from running
-  end
-
-  def validate_associated_records_for_organisations
-    # no-op: prevent associated Organisation validations from running
   end
 
 private
@@ -118,89 +84,49 @@ private
   end
 
   def no_duplication_of_organisations
-    # NOTE: we have a uniquness index on the table to prevent this, but it's
-    # a good idea to trap it somewhere earlier where we can show a nice error
-    # validates_uniqueness_of on the EditionOrganisation wouldn't really
-    # give us a nice error (edition_organisations is invalid), so lets try
-    # something on the edition itself.
-    all_organisations = edition_organisations
-      .reject { |eo| eo.marked_for_destruction? || __edition_organisations_for_destruction_on_save.include?(eo) }
-      .map(&:organisation_id)
+    all_organisation_ids = edition_organisations.reject(&:marked_for_destruction?).map(&:organisation_id)
 
-    if all_organisations.uniq.size != all_organisations.size
+    if all_organisation_ids.uniq.size != all_organisation_ids.size
       errors.add(:organisations, "must be unique")
     end
   end
 
-  def __mange_edition_organisations(new_organisation_ids, args = {})
-    # try to avoid common AR pitfalls by reusing objects instead of
-    # destroying & creating new.
-    args = { for_lead: true }.merge(args)
-    for_lead = args[:for_lead]
-    existing_edition_organisations = edition_organisations.to_a.dup
+  def assign_organisation_ids(new_organisation_ids, is_lead)
+    # IDs from edition form come through as strings, so map to integers so they match DB values
+    new_organisation_int_ids = new_organisation_ids.map(&:to_i)
+    new_edition_organisations = []
+    updated_edition_organisations = []
+    existing_edition_organisations = edition_organisations.select { |eo| eo.lead == is_lead }
 
-    new_organisation_ids.each.with_index do |new_organisation_id, idx|
-      # find an existing instance
-      existing = existing_edition_organisations
-        .reject { |eo| __edition_organisations_touched_by_lead_or_supporting_organisations_setters.include?(eo) }
-        .detect { |eo| eo.organisation_id.to_s == new_organisation_id.to_s }
+    new_organisation_int_ids.each_with_index do |organisation_id, index|
+      existing_edition_organisation = existing_edition_organisations.find { |eo| eo.organisation_id == organisation_id }
 
-      if existing
-        # and remove it from the things to look at now...
-        existing_edition_organisations.delete(existing)
-        # ...or globally
-        # if it's already been touched we assume lead_orgs or
-        # supporting_orgs has already touched it so someone is trying to set
-        # a duplicate, we should allow this so they get an error
-        __edition_organisations_touched_by_lead_or_supporting_organisations_setters << existing
-        if for_lead
-          existing.lead = true
-          existing.lead_ordering = idx + 1
-        else
-          existing.lead = false
-          existing.lead_ordering = nil
-        end
-        __edition_organisations_for_destruction_on_save.delete(existing)
+      # If a matching edition already exists, update it once. If no matching edition exists, or a duplicate appears in the new IDs, then create
+      # a new edition organisation. Updating the edition organisation again for a duplicate would
+      # effectively silently drop user input.
+      if existing_edition_organisation && updated_edition_organisations.exclude?(existing_edition_organisation)
+        existing_edition_organisation.lead_ordering = index + 1 if is_lead
+
+        new_edition_organisations << existing_edition_organisation
+        updated_edition_organisations << existing_edition_organisation
       else
-        eo = edition_organisations.build(
-          lead: for_lead,
-          organisation_id: new_organisation_id,
-          edition: self,
-        )
-        eo.lead_ordering = idx + 1 if for_lead
-        __edition_organisations_touched_by_lead_or_supporting_organisations_setters << eo
+        attributes = {
+          organisation_id:,
+          lead: is_lead,
+          lead_ordering: is_lead ? (index + 1) : nil,
+        }
+        new_edition_organisations << edition_organisations.build(attributes)
       end
     end
-    # look at the remaining ones and destroy them if they are
-    # lead == for_lead 'cos they weren't consumed above
-    existing_edition_organisations.each do |eo|
-      if eo.lead == for_lead
-        __edition_organisations_for_destruction_on_save << eo
-      end
-    end
-  end
 
-  # rubocop:disable Naming/MemoizedInstanceVariableName
-  #
-  # This seems to result in false positives here, even if the variable
-  # names are changed to start with __.
+    # Add the other half of the existing edition organisations (lead if supporting, or vice versa)
+    new_edition_organisations += edition_organisations.reject { |eo| eo.lead == is_lead }
 
-  def __edition_organisations_touched_by_lead_or_supporting_organisations_setters
-    @edition_organisations_touched_by_lead_or_supporting_organisations_setters ||= []
-  end
-
-  def __edition_organisations_for_destruction_on_save
-    @edition_organisations_for_destruction_on_save ||= []
-  end
-
-  # rubocop:enable Naming/MemoizedInstanceVariableName
-
-  def mark_for_destruction_all_edition_organisations_for_destruction
-    __edition_organisations_for_destruction_on_save.each(&:mark_for_destruction)
-  end
-
-  def clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
-    __edition_organisations_for_destruction_on_save.clear
-    __edition_organisations_touched_by_lead_or_supporting_organisations_setters.clear
+    # Replace the existing edition organisations with the new list in memory using the Active Record Collection Proxy
+    # replace method (https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-replace),
+    # which effectively deletes any old edition organisations that were not present in the input.
+    # We rely on the autosave attribute on the edition_organisations association to ensure these
+    # changes are saved when the edition is saved.
+    edition_organisations.replace(new_edition_organisations)
   end
 end

@@ -108,17 +108,6 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert topical_event.featured_editions.include?(new_version)
   end
 
-  test "#importance_ordered_organisations" do
-    topical_event = create(:topical_event)
-    supporting_org = create(:organisation)
-    supporting_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: false)
-    second_lead_org = create(:organisation)
-    second_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 2)
-    first_lead_org = create(:organisation)
-    first_lead_org.topical_event_organisations.create!(topical_event_id: topical_event.id, lead: true, lead_ordering: 1)
-    assert_equal topical_event.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
-  end
-
   test "#next_ordering gives a value of 0 when there are no existing features" do
     topical_event = create(:topical_event)
 
