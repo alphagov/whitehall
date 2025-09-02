@@ -19,8 +19,7 @@ class ImageValidator < ActiveModel::Validator
     begin
       image_path = file_for(record).path
       validate_mime_type(record, image_path)
-      image = MiniMagick::Image.open(image_path)
-      validate_size(record, image)
+      MiniMagick::Image.open(image_path)
     rescue MiniMagick::Error, MiniMagick::Invalid
       record.errors.add(@method, "could not be read. The file may not be an image or may be corrupt")
     end
@@ -35,25 +34,6 @@ private
     elsif !file_path.downcase.match?(@mime_types[mime_type])
       record.errors.add(@method, "is of type '#{mime_type}', but has the extension '.#{file_path.rpartition('.').last}'.")
     end
-  end
-
-  def validate_size(record, image)
-    return unless record.respond_to?(:image_kind_config)
-
-    actual_width = image[:width]
-    actual_height = image[:height]
-    target_width = record.image_kind_config.valid_width
-    target_height = record.image_kind_config.valid_height
-
-    too_small = actual_width < target_width || actual_height < target_height
-    too_large = actual_width > target_width || actual_height > target_height
-
-    return unless too_small || too_large
-
-    error_type = too_small ? :too_small : :too_large
-    problem = too_small ? "too small" : "too large"
-    message = "is #{problem}. Select an image that is #{target_width} pixels wide and #{target_height} pixels tall"
-    record.errors.add(@method, error_type, message:)
   end
 
   def file_for(record)
