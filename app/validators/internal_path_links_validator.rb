@@ -5,11 +5,15 @@ class InternalPathLinksValidator < ActiveModel::Validator
     matches(record.body, /\[.*?\]\((\S*?)(?:\s+"[^"]+")?\)/) do |match|
       link = match[1]
 
-      fix = if self.class.is_internal_admin_link?("/#{link}")
-              "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"
+      fix = if link.start_with?("//")
+              # Collapse //, ///, //// etc down to a single leading slash for the suggestion
+              suggestion = "/#{link.gsub(/\A\/+/, '')}"
+              "This is an invalid admin link. Did you mean #{suggestion} instead of #{link}?"
+            elsif self.class.is_internal_admin_link?("/#{link}")
+              "This is an invalid admin link. Did you mean /#{link} instead of #{link}?"
             end
 
-      record.errors.add(:base, "Issue with link `#{link}`: #{fix}") if fix
+      record.errors.add(:base, "Issue with 'admin path' link `#{link}`: #{fix}") if fix
     end
   end
 

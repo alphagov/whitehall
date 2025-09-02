@@ -25,7 +25,14 @@ class InternalPathLinksValidatorTest < ActiveSupport::TestCase
     test_model = Edition.new(body: "[example text](government/admin/policies/12345)")
     InternalPathLinksValidator.new.validate(test_model)
     assert_equal 1, test_model.errors.size
-    assert_equal ["Issue with link `government/admin/policies/12345`: This is an invalid admin link.  Did you mean /government/admin/policies/12345 instead of government/admin/policies/12345?"], test_model.errors.map(&:type)
+    assert_equal ["Issue with 'admin path' link `government/admin/policies/12345`: This is an invalid admin link. Did you mean /government/admin/policies/12345 instead of government/admin/policies/12345?"], test_model.errors.map(&:type)
+  end
+
+  test "should be invalid if it contains a malformed admin relative path" do
+    test_model = Edition.new(body: "[example text](//government/admin/policies/12345)")
+    InternalPathLinksValidator.new.validate(test_model)
+    assert_equal 1, test_model.errors.size
+    assert_equal ["Issue with 'admin path' link `//government/admin/policies/12345`: This is an invalid admin link. Did you mean /government/admin/policies/12345 instead of //government/admin/policies/12345?"], test_model.errors.map(&:type)
   end
 
   test "should identify internal admin links" do
