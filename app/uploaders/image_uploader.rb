@@ -22,7 +22,7 @@ class ImageUploader < WhitehallUploader
 
   Whitehall.image_kinds.each do |image_kind, image_kind_config|
     use_versions_for_this_image_kind_proc = lambda do |uploader, opts|
-      uploader.model.image_kind == image_kind && uploader.bitmap?(opts[:file])
+      !uploader.model.requires_crop? && uploader.model.image_kind == image_kind && uploader.bitmap?(opts[:file])
     end
 
     image_kind_config.versions.each do |v|
