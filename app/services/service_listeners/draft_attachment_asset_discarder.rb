@@ -1,12 +1,10 @@
 module ServiceListeners
-  class AttachmentAssetDeleter
+  class DraftAttachmentAssetDiscarder
     def self.call(attachable)
       Attachment.includes(:attachment_data).where(attachable: attachable.attachables).find_each do |attachment|
         attachment_data = attachment.attachment_data
 
-        next unless attachment_data&.deleted?
-
-        DeleteAttachmentAssetJob.perform_async(attachment_data.id)
+        DeleteAttachmentAssetJob.perform_async(attachment_data.id) if attachment_data&.needs_discarding?
       end
     end
   end

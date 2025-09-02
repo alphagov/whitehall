@@ -1,27 +1,28 @@
 require "test_helper"
 
 module ServiceListeners
-  class AttachmentAssetDeleterTest < ActiveSupport::TestCase
+  class DraftAttachmentAssetDiscarderTest < ActiveSupport::TestCase
     extend Minitest::Spec::DSL
 
-    describe ServiceListeners::AttachmentAssetDeleter do
+    describe ServiceListeners::DraftAttachmentAssetDiscarder do
       let(:edition) { create(:draft_news_article) }
       let(:first_attachment) { create(:file_attachment, attachable: edition) }
       let(:second_attachment) { create(:csv_attachment, attachable: edition) }
+      let!(:non_file_attachment) { create(:html_attachment, attachable: edition) }
 
       before do
         stub_asset(first_attachment.attachment_data.assets.first.asset_manager_id)
         stub_asset(second_attachment.attachment_data.assets.first.asset_manager_id)
       end
 
-      it "calls deleter for all assets of all attachments" do
+      it "calls deleter for all assets of all file attachments" do
         edition.delete!
         edition.delete_all_attachments
 
         AssetManager::AssetDeleter.expects(:call).with(first_attachment.attachment_data.assets.first.asset_manager_id)
         AssetManager::AssetDeleter.expects(:call).with(second_attachment.attachment_data.assets.first.asset_manager_id)
 
-        ServiceListeners::AttachmentAssetDeleter.call(edition)
+        ServiceListeners::DraftAttachmentAssetDiscarder.call(edition)
         DeleteAttachmentAssetJob.drain
       end
 
