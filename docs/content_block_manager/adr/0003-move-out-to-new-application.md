@@ -84,7 +84,9 @@ Govspeak textarea.
 
 To offer these features we plan to use Rails' "Hotwire" components, such as
 [Turbo Frames][]. We believe that it would not be practical to introduce this
-library to Whitehall.
+library to Whitehall. Introducing Turbo as a dependency would cause all pages
+within Whitehall to be loaded via Turbo, which may be confusing to users, and
+also have unintended consequences elsewhere in the app.
 
 ## Decision
 
