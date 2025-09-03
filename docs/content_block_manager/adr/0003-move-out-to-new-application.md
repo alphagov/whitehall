@@ -117,6 +117,7 @@ We will "lift and shift" our source code, deferring any refactoring.
 ### Move from MySQL to PostgreSQL
 
 We will use Postgres rather than MySQL in the new Content Block Manager service.
+This aligns with the [Conventions for Rails applications (Data storage)][].
 
 ### Provide continuity for block(s) in production
 
@@ -165,6 +166,9 @@ https://github.com/Shopify/packwerk
 
 [current GDS testing conventions]:
 https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html#testing-utilities
+
+[Conventions for Rails applications (Data storage)]:
+https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html#data-storage
 
 [Kubernetes: Create a new application]:
 https://docs.publishing.service.gov.uk/kubernetes/create-app/#content
