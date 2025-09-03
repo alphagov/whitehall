@@ -18,7 +18,6 @@ class ImageData < ApplicationRecord
   validates_with ImageValidator, if: :image_changed?
   validate :filename_is_unique
 
-  delegate :width, :height, to: :dimensions
   delegate :content_type, to: :file
 
   def filename
@@ -36,6 +35,14 @@ class ImageData < ApplicationRecord
     content_type !~ /svg/
   end
 
+  def requires_crop?
+    has_invalid_dimensions? && crop_data.blank?
+  end
+
+  def original_uploaded?
+    assets.map(&:variant).map(&:to_sym).include?(:original)
+  end
+
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = file.active_version_names + [:original]
@@ -47,23 +54,33 @@ class ImageData < ApplicationRecord
     content_type == SVG_CONTENT_TYPE
   end
 
-private
-
-  Dimensions = Struct.new(:width, :height)
-
-  def dimensions
-    @dimensions ||= if valid?
-                      # Whitehall doesn't store local copies of original images. Once they've been
-                      # uploaded to Asset Manager, we can't expect them to exist locally again.
-                      # But since every uploaded image has to have valid dimensions, we can
-                      # be confident a valid image (either freshly uploaded, or already persisted)
-                      # will have valid dimensions.
-                      Dimensions.new(image_kind_config.valid_width, image_kind_config.valid_height)
-                    else
-                      image = MiniMagick::Image.open file.path
-                      Dimensions.new(image[:width], image[:height])
-                    end
+  # if there is no height, we can assume that this
+  # image was uploaded before the changes to save
+  # the dimensions on upload which means it must have
+  # had a valid height to have been saved
+  def height
+    (dimensions || {})["height"] || image_kind_config.valid_width
   end
+
+  # if there is no width, we can assume that this
+  # image was uploaded before the changes to save
+  # the dimensions on upload which means it must have
+  # had a valid width to have been saved
+  def width
+    (dimensions || {})["width"] || image_kind_config.valid_width
+  end
+
+  def has_invalid_dimensions?
+    target_width = image_kind_config.valid_width
+    target_height = image_kind_config.valid_height
+
+    too_small = width < target_width || width < target_height
+    too_large = height > target_width || height > target_height
+
+    return too_small || too_large
+  end
+
+private
 
   def filename_is_unique
     return if validate_on_image.blank? || file.blank?
