@@ -102,7 +102,7 @@ module Attachable
   end
 
   def allows_attachments?
-    true
+    allows_file_attachments? || allows_html_attachments? || allows_external_attachments?
   end
 
   def allows_file_attachments?
