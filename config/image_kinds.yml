@@ -5,6 +5,10 @@ default:
   valid_height: 640
   permitted_uses:
     - govspeak_embed
+  required_versions: # TODO: make this dynamic per model, as discussed in
+    # https://github.com/alphagov/content-publisher/pull/3311#discussion_r2329354424
+    - s960
+    - s300
   versions:
     - name: s960
       width: 960

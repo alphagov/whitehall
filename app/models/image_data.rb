@@ -1,6 +1,7 @@
 require "mini_magick"
 
 class ImageData < ApplicationRecord
+  has_one :image
   attr_accessor :validate_on_image
 
   include ImageKind
@@ -38,8 +39,10 @@ class ImageData < ApplicationRecord
 
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = file.active_version_names + [:original]
-
+    # TODO: figure out the required variants based on `image.edition.type`
+    # or do something funky like define an `all_asset_variants_uploaded?` method on each content type
+    required_variants = [:original]
+    required_variants += image_kind_config.required_version_names.map(&:to_sym) unless svg?
     (required_variants - asset_variants).empty?
   end
 
