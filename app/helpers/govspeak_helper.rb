@@ -107,7 +107,7 @@ private
     govspeak.gsub(/(?<!!)\[([^\]]+)\]\(([^)\s]+)\)/) do
       text = Regexp.last_match(1)
       href = Regexp.last_match(2)
-      if GovspeakLinkValidator.is_internal_admin_link?(href)
+      if InternalPathLinksValidator.is_internal_admin_link?(href)
         edition = Whitehall::AdminLinkLookup.find_edition(href)
         public_url = "[#{text}](#{edition&.public_url})"
         latest_edition = edition&.document&.latest_edition

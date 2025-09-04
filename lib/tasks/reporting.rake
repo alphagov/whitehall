@@ -91,9 +91,6 @@ def classify_error(error)
   when /Contact ID \d+ doesn't exist/
     # There is one error per Contact ID - so we need to group under the following string
     "Invalid Contact ID"
-  when /Issue with link `.*`: Non-document or external links should start with http:\/\/, https:\/\/, mailto:, or #/
-    # There is one error per bad external link - so we need to group under the following string
-    "Invalid external link structure"
   when /Excluded nations (can not exclude all nations|is invalid)|Alternative URL for excluded nation is not valid./
     # There are a few different nation-related validation messages, which we'd rather group together for reporting purposes
     "Invalid nations applicability settings"
