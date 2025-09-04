@@ -19,7 +19,7 @@ module Whitehall
   end
 
   class ImageKind
-    attr_reader :name, :display_name, :valid_width, :valid_height, :permitted_uses, :versions
+    attr_reader :name, :display_name, :valid_width, :valid_height, :permitted_uses, :versions, :required_version_names
 
     def initialize(name, config)
       @name = name
@@ -28,6 +28,7 @@ module Whitehall
       @valid_height = config.fetch("valid_height")
       @permitted_uses = config.fetch("permitted_uses")
       @versions = config.fetch("versions").map { |version_config| ImageVersion.new(version_config) }.freeze
+      @required_version_names = Array(config["required_versions"]).presence || @versions.map(&:name).freeze
     end
 
     def deconstruct_keys(_keys)
