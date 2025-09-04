@@ -415,7 +415,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_073712) do
     t.datetime "major_change_published_at", precision: nil
     t.datetime "first_published_at", precision: nil
     t.integer "speech_type_id"
-    t.boolean "stub", default: false
+    t.boolean "stub", default: false # TODO: drop
     t.text "change_note", size: :medium
     t.boolean "force_published"
     t.boolean "minor_change", default: false
@@ -427,7 +427,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_073712) do
     t.integer "alternative_format_provider_id"
     t.datetime "public_timestamp", precision: nil
     t.datetime "scheduled_publication", precision: nil
-    t.boolean "replaces_businesslink", default: false
+    t.boolean "replaces_businesslink", default: false # TODO: drop
     t.boolean "access_limited", null: false
     t.integer "published_major_version"
     t.integer "published_minor_version"
