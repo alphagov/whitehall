@@ -67,9 +67,7 @@ private
 
   def changed?
     if @edition.can_be_related_to_organisations?
-      @edition.changed? ||
-        @edition.lead_organisation_ids.map(&:to_s) != edition_params[:lead_organisation_ids] ||
-        @edition.supporting_organisations.map(&:id).map(&:to_s) != edition_params[:supporting_organisation_ids]
+      @edition.changed? || @edition.edition_organisations != Edition.find(params[:id]).edition_organisations
     else
       @edition.changed?
     end

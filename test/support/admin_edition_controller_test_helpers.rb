@@ -548,8 +548,10 @@ module AdminEditionControllerTestHelpers
         organisation2 = create(:organisation)
         organisation3 = create(:organisation)
 
-        edition = create(edition_type, organisations: [organisation1, organisation2])
-        edition.organisations << organisation3
+        edition = build(edition_type)
+        edition.lead_organisations = [organisation1, organisation2]
+        edition.supporting_organisations = [organisation3]
+        edition.save!
 
         put :update,
             params: {

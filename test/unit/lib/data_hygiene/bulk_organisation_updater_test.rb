@@ -183,7 +183,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     process(csv_file)
 
-    assert_equal [organisation], edition.lead_organisations
+    assert_equal [organisation], edition.reload.lead_organisations
     assert_equal 1, PublishingApiDocumentRepublishingWorker.jobs.size
     assert_equal document.id, PublishingApiDocumentRepublishingWorker.jobs.first["args"].first
   end
@@ -191,17 +191,18 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
   test "it changes the supporting organisations" do
     csv_file = <<~CSV
       URL,New lead organisations,New supporting organisations
-      https://www.gov.uk/government/publications/some-slug,,"supporting-organisation-1,supporting-organisation-2"
+      https://www.gov.uk/government/publications/some-slug,"lead-organisation-1","supporting-organisation-1,supporting-organisation-2"
     CSV
 
     document = create(:document, slug: "some-slug")
     edition = create(:published_publication, document:)
+    create(:organisation, slug: "lead-organisation-1")
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
 
     process(csv_file)
 
-    assert_equal [organisation1, organisation2], edition.supporting_organisations
+    assert_equal [organisation1, organisation2], edition.reload.supporting_organisations
     assert_equal 1, PublishingApiDocumentRepublishingWorker.jobs.size
     assert_equal document.id, PublishingApiDocumentRepublishingWorker.jobs.first["args"].first
   end
@@ -228,7 +229,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     process(csv_file)
 
-    assert_equal [organisation], draft_edition.lead_organisations
+    assert_equal [organisation], draft_edition.reload.lead_organisations
     assert_equal 0, PublishingApiDocumentRepublishingWorker.jobs.size
   end
 

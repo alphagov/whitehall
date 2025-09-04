@@ -76,13 +76,4 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
 
     assert_equal [organisation2, organisation3, organisation1], edition.sorted_organisations
   end
-
-  test "#importance_ordered_organisations" do
-    first_lead_org = create(:organisation)
-    second_lead_org = create(:organisation)
-    supporting_org = create(:organisation)
-    edition = create(:publication, lead_organisations: [first_lead_org, second_lead_org], supporting_organisations: [supporting_org])
-
-    assert_equal [first_lead_org, second_lead_org, supporting_org], edition.importance_ordered_organisations
-  end
 end

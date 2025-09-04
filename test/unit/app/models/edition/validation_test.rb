@@ -74,7 +74,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
 
   test "should be invalid when it duplicates lead organisations on save" do
     organisation1 = create(:organisation)
-    edition = create(
+    edition = build(
       :publication,
       create_default_organisation: false,
       lead_organisations: [organisation1],
@@ -143,7 +143,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test "should be invalid when it duplicates support organisations on save" do
     organisation1 = create(:organisation)
     organisation2 = create(:organisation)
-    edition = create(
+    edition = build(
       :publication,
       create_default_organisation: false,
       lead_organisations: [organisation1],
