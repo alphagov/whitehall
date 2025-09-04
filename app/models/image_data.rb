@@ -38,8 +38,8 @@ class ImageData < ApplicationRecord
 
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = file.active_version_names + [:original]
-
+    required_variants = [:original]
+    required_variants += image_kind_config.required_version_names.map(&:to_sym) unless svg?
     (required_variants - asset_variants).empty?
   end
 
