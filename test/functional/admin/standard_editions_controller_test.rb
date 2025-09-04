@@ -78,6 +78,32 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "Political"
   end
 
+  view_test "GET edit renders Attachments tab when file attachments are enabled" do
+    configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true } })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition)
+
+    login_as :managing_editor
+    get :edit, params: { id: edition.id }
+
+    assert_response :ok
+    assert_select "a[href=\"#{admin_edition_attachments_path(edition)}\"]", text: "Attachments"
+  end
+
+  view_test "GET edit does not render the Attachments tab when file attachments are disabled" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition)
+
+    login_as :managing_editor
+    get :edit, params: { id: edition.id }
+
+    assert_response :ok
+    assert_select "a[href=\"#{admin_edition_attachments_path(edition)}\"]", false
+  end
+
   test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
