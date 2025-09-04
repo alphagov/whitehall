@@ -3,7 +3,7 @@ require "test_helper"
 class AttachableTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  class TestAttachable < ActiveRecord::Base
+  class TestAttachable < ApplicationRecord
     self.table_name = "editions" # or any relevant table name
     include ::Attachable
   end

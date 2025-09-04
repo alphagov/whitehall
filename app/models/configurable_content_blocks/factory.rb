@@ -25,13 +25,17 @@ module ConfigurableContentBlocks
       {
         "string" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultString.new },
-          "govspeak" => ->(page) { ConfigurableContentBlocks::Govspeak.new(page.images) },
+          "govspeak" => ->(page) { ConfigurableContentBlocks::Govspeak.new(page.images, inline_attachments) },
           "image_select" => ->(page) { ConfigurableContentBlocks::ImageSelect.new(page.images) },
         },
         "object" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultObject.new(self) },
         },
       }.freeze
+    end
+
+    def inline_attachments
+      @page.attachments.any? && @page.allows_image_attachments? ? @page.attachments : []
     end
   end
 end

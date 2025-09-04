@@ -38,6 +38,10 @@ class StandardEdition < Edition
     type_instance.settings["file_attachments_enabled"]
   end
 
+  def allows_inline_attachments?
+    type_instance.settings["inline_attachments_enabled"]
+  end
+
   def can_be_marked_political?
     type_instance.settings["history_mode_enabled"]
   end
