@@ -52,7 +52,6 @@ class FileAttachment < Attachment
       file_size:,
       filename:,
       number_of_pages:,
-      preview_url:,
       assets:,
     }
   end
@@ -74,11 +73,5 @@ private
         filename: asset.filename,
       }
     end
-  end
-
-  def preview_url
-    return unless csv? && attachable.is_a?(Edition) && attachment_data.all_asset_variants_uploaded?
-
-    Plek.asset_root + "/media/#{attachment_data.id}/#{filename}/preview"
   end
 end
