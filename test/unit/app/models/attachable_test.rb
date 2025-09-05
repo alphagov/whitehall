@@ -3,8 +3,25 @@ require "test_helper"
 class AttachableTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "allows attachment" do
-    assert build(:publication).allows_attachments?
+  class TestAttachable < ApplicationRecord
+    self.table_name = "editions" # or any relevant table name
+    include ::Attachable
+  end
+
+  setup do
+    @test_instance = TestAttachable.new
+  end
+
+  test "allows attachments" do
+    @test_instance.stubs(:allows_file_attachments?).returns(false)
+    assert_not @test_instance.allows_attachments?
+
+    @test_instance.stubs(:allows_html_attachments?).returns(true)
+    assert @test_instance.allows_attachments?
+
+    @test_instance.stubs(:allows_html_attachments?).returns(false)
+    @test_instance.stubs(:allows_external_attachments?).returns(true)
+    assert @test_instance.allows_attachments?
   end
 
   test "allows different attachment types" do

@@ -9,6 +9,7 @@
   value: content,
   rows: 20,
   data_attributes: {
+    attachment_ids: govspeak.attachments.map(&:id),
     image_ids: govspeak.images.map { |img| img[:id] }.to_json,
   },
 } %>

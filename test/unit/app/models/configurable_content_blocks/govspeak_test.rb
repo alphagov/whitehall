@@ -10,17 +10,19 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     assert_not validator.call("<script>alert('You've been pwned!')</script>'")
   end
 
-  test "it presents the govspeak content as HTML, including images" do
+  test "it presents the govspeak content as HTML, including images and attachments" do
     image = create(:image)
-    govspeak = "A paragraph followed by an image:\n[Image: #{image.filename}]"
+    attachment = create(:file_attachment)
+    govspeak = "A paragraph followed by an image:\n[Image: #{image.filename}]\n[Attachment: #{attachment.filename}]"
     content = {
       "test_attribute" => govspeak,
     }
     page = StandardEdition.new
     page.images = [image]
+    page.attachments = [attachment]
     page.block_content = content
-    payload = ConfigurableContentBlocks::Govspeak.new(page.images).publishing_api_payload(govspeak)
-    assert_match(/A paragraph followed by an image|img src|#{Regexp.escape(image.url)}/, payload[:html])
+    payload = ConfigurableContentBlocks::Govspeak.new(page.images, page.attachments).publishing_api_payload(govspeak)
+    assert_match(/A paragraph followed by an image.*img src.*#{Regexp.escape(image.url)}.*href.*#{Regexp.escape(attachment.url)}/m, payload[:html])
   end
 
   test "it includes headers in the payload, if present in the govspeak" do
@@ -34,7 +36,7 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
-      .with(govspeak, images: [])
+      .with(govspeak, images: [], attachments: [])
       .returns(html)
     expected_headers = [
       {
@@ -61,7 +63,7 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     govspeak_renderer = mock("Whitehall::GovspeakRenderer")
     govspeak_renderer
       .expects(:govspeak_to_html)
-      .with(govspeak, images: [])
+      .with(govspeak, images: [], attachments: [])
       .returns(html)
     Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
       payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
@@ -73,6 +75,7 @@ end
 
 class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
   test "it renders a textarea" do
+    file_attachment = create(:file_attachment)
     schema = {
       "type" => "object",
       "properties" => {
@@ -83,10 +86,15 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
           "format" => "govspeak",
         },
       },
+      "settings" => {
+        "file_attachments_enabled" => true,
+        "inline_attachments_enabled" => true,
+      }
     }
 
     page = StandardEdition.new
-    page.block_content = { "test_attribute" => "## foo" }
+    page.attachments = [file_attachment]
+    page.block_content = { "test_attribute" => "## foo\r\n[Attachment: #{file_attachment.filename}]" }
     block = ConfigurableContentBlocks::Govspeak.new
 
     render block, {
@@ -94,6 +102,6 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
       content: page.block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
-    assert_dom "textarea[name=?]", "edition[block_content][test_attribute]", text: page.block_content["test_attribute"]
+    assert_dom "textarea[name=?]", "edition[block_content][test_attribute]", text: "## foo\r\n[Attachment: #{file_attachment.filename}]"
   end
 end
