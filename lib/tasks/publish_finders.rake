@@ -8,4 +8,12 @@ namespace :finders do
       PublishFinder.call(content_item)
     end
   end
+
+  desc "Publish a single finder page (by filename) to the publishing API"
+  task :publish_one, %i[filename] => [:environment] do |_, args|
+    filename = args.fetch(:filename)
+    content_item = JSON.load_file(Rails.root.join("lib/finders/#{filename}"))
+    puts "Publishing #{filename}"
+    PublishFinder.call(content_item)
+  end
 end
