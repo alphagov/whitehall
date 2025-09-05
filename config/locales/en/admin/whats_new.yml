@@ -24,9 +24,35 @@ en:
 
       upcoming_changes:
         heading: Upcoming changes
+        updates:
+          - heading: Changes to image uploading 
+            area: Adding images
+            type: improvement
+            date: Autumn 2025
+            body_govspeak: |
+              Work done on uploading attachments this quarter will inform our approach to improving the image uploading experience. We will be looking at how we can make it easier to upload and crop images in Whitehall.
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Unpublishing reason shows on summary pages
+            area: Managing documents and editions
+            type: improvement
+            date: 04 September 2025
+            body_govspeak: |
+               Previously, the reason for unpublishing was not made clear on the summary page of an edition. Now, if an edition has been unpublished, the reason for unpublishing will be shown in the status section on the summary page.
+
+               Examples:
+
+               - Unpublished (3 months ago) due to being published in error
+               - Unpublished (5 months ago) due to being consolidated into another page
+               
+               This helps publishers and reviewers understand why an edition was unpublished.
+          - heading: Consolidation of single and bulk attachments uploading 
+            area: Adding attachments
+            type: improvement
+            date: 04 September 2025
+            body_govspeak: |
+               In a tweak to the user interface, the single and bulk upload options have been consolidated into one "Add attachment" component. This simplifies the process of adding attachments to a document.
           - heading: Bulk uploading attachments without .zip files
             area: Adding attachments
             type: improvement
