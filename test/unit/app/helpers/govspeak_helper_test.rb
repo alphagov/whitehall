@@ -332,6 +332,29 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
+  it "adds manual numbering to heading tags" do
+    input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence"
+    expected_output = '<div class="govspeak"><h2 id="main">1. Main</h2> <h2 id="second">2. Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence">42.12 Out of sequence</h2></div>'
+    assert_equivalent_html expected_output, govspeak_to_html(input).gsub(/\s+/, " ")
+  end
+
+  it "avoids adding manual numbering to heading tags that start with numbers but aren't intended for manual numbering" do
+    # NB, the reason we expect a `gd-not-all-numeric-characters` ID rather than
+    #  a `0gd-not-all-numeric-characters` is that pre-HTML5 IDs _must_ begin with
+    # a letter: https://www.w3.org/TR/html4/types.html#type-id
+    # See also this issue in Kramdown:
+    # https://github.com/gettalong/kramdown/issues/711
+    input = "## 0GD Not all numeric characters"
+    expected_output = '<div class="govspeak"><h2 id="gd-not-all-numeric-characters">0GD Not all numeric characters</h2></div>'
+    assert_equivalent_html expected_output, govspeak_to_html(input).gsub(/\s+/, " ")
+  end
+
+  it "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
+    input = "## Number 8"
+    result = Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input))
+    assert_equal "Number 8", result.css("h2").first.text
+  end
+
   it "converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id> with defined header level" do
     contact = build(:contact)
     Contact.stubs(:find_by).with(id: "1").returns(contact)
