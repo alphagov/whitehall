@@ -355,6 +355,26 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal "Number 8", result.css("h2").first.text
   end
 
+  it "handles leading numbers and symbols" do
+    # Actual output is:
+    # <div class="govspeak"><h2 id="span-classnumber1-span100000-header-text-here-100-000-header-text-here">
+    # <span class="number">1. </span>£100,000 header text here {#100-000-header-text-here}</h2> </div>
+    # the id issue is still not fixed!
+    input = "## £100,000 header text here"
+    expected_output = '<div class="govspeak"><h2 id="header-text-heret">£100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, govspeak_to_html(input, heading_numbering: :auto).gsub(/\s+/, " ")
+  end
+
+  it "can manage a custom ID in the govspeak" do
+    # Actual output is:
+    # <div class="govspeak"><h2 id="span-classnumber1-span100000-header-text-here-custom-id-100-000-header-text-here-custom-id">
+    # <span class="number">1. </span>£100,000 header text here {#custom-id} {#100-000-header-text-here-custom-id}</h2> </div>
+    # DOUBLE ID
+    input = "## £100,000 header text here {#custom-id}"
+    expected_output = '<div class="govspeak"><h2 id="custom-id">£100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, govspeak_to_html(input, heading_numbering: :auto).gsub(/\s+/, " ")
+  end
+
   it "converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id> with defined header level" do
     contact = build(:contact)
     Contact.stubs(:find_by).with(id: "1").returns(contact)
