@@ -2,6 +2,7 @@
 
 <% if user_signed_in? %>
   <% content_for :head do %>
+    <%= debugbar_head  if defined? Debugbar %>
     <meta name="govuk:components_gem_version" content="<%= GovukPublishingComponents::VERSION %>">
     <meta name="govuk:user-created-at" content="<%= current_user&.created_at&.to_date %>">
     <meta name="govuk:user-organisation-name" content="<%= current_user&.organisation_name %>">
@@ -119,4 +120,5 @@
       },
     ],
   } %>
+  <%= debugbar_body(mode: :poll, poll: { url: "http://whitehall-admin.dev.gov.uk", interval: 1000 }) if defined? Debugbar %>
 <% end %>
