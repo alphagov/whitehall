@@ -289,6 +289,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
     attachments = presented_publication.content[:details][:attachments]
     assert_equal 1, attachments.length
-    assert_not_nil attachments[0][:preview_url]
+    assert_not_nil attachments[0][:assets]
   end
 end
