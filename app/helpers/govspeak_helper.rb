@@ -151,10 +151,11 @@ private
         num = "#{h2}.#{h3}"
       end
 
-      # We have to manually derive and append a slug otherwise when Govspeak
-      # generates the HTML, it includes the <span> and number in the ID. Hence
-      # the `heading_text.parameterize`
-      "#{hashes} <span class=\"number\">#{num} </span>#{heading_text} {##{heading_text.parameterize}}"
+      custom_id_match = heading_text.match(/\{#([^}]+)\}/)
+      clean_heading_text = custom_id_match ? heading_text.gsub(/\s*\{#[^}]+\}/, "") : heading_text
+      id = (custom_id_match&.[](1) || clean_heading_text).gsub(/^[^a-zA-Z]+/, "").parameterize
+
+      "#{hashes} <span class=\"number\">#{num} </span>#{clean_heading_text} {##{id}}"
     end
   end
 
