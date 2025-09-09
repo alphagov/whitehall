@@ -1,0 +1,13 @@
+<div class="app-view-edit-edition__appointment-fields">
+  <% cache_if role_appointments.role_appointment_ids.empty?, "#{taggable_ministerial_role_appointments_cache_digest}-design-system" do %>
+    <%= render "govuk_publishing_components/components/select_with_search", {
+      id: "edition_role_appointment_ids",
+      name: "edition[role_appointment_ids][]",
+      include_blank: true,
+      label: role_appointments.label,
+      heading_size: "m",
+      options: taggable_ministerial_role_appointments_container(role_appointments.role_appointment_ids),
+      multiple: true,
+    } %>
+  <% end %>
+</div>
