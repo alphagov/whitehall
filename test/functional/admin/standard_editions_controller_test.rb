@@ -78,7 +78,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "Political"
   end
 
-  view_test "GET edit renders Attachments tab when file attachments are enabled" do
+  view_test "GET edit renders Attachments tab and alternative format provider select when file attachments are enabled" do
     configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true } })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
@@ -89,6 +89,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_response :ok
     assert_select "a[href=\"#{admin_edition_attachments_path(edition)}\"]", text: "Attachments"
+    assert_select "#edition_alternative_format_provider_id"
   end
 
   view_test "GET edit does not render the Attachments tab when file attachments are disabled" do
