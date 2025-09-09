@@ -21,6 +21,7 @@
       }
     }
   },
+  "associations": [],
   "settings": {
     "base_path_prefix": "/government/test-type",
     "publishing_api_schema_name": "test_type",
