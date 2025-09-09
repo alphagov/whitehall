@@ -124,7 +124,6 @@ module PublishingApi
 
         renderer.block_attachments(
           outcome.attachments,
-          outcome.alternative_format_contact_email,
         )
       end
 
@@ -172,7 +171,6 @@ module PublishingApi
 
         renderer.block_attachments(
           public_feedback.attachments,
-          public_feedback.alternative_format_contact_email,
         )
       end
 

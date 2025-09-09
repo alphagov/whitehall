@@ -123,7 +123,6 @@ module PublishingApi
 
         renderer.block_attachments(
           outcome.attachments,
-          outcome.alternative_format_contact_email,
         )
       end
 

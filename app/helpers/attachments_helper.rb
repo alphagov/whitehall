@@ -9,25 +9,15 @@ module AttachmentsHelper
     { host: Plek.website_root, protocol: "https" }
   end
 
-  def previewable?(attachment)
-    attachment.csv? && attachment.attachable.is_a?(Edition)
-  end
-
-  def preview_path_for_attachment(attachment)
-    if attachment.attachment_data.all_asset_variants_uploaded?
-      "/csv-preview/#{attachment.attachment_data.assets.first.asset_manager_id}/#{attachment.attachment_data.assets.first.filename}"
-    end
-  end
-
-  def prepare_attachments(attachments, alternative_format_contact_email)
+  def prepare_attachments(attachments)
     attachments
       .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
       .map do |attachment|
-      attachment_component_params(attachment, alternative_format_contact_email:)
+      attachment_component_params(attachment)
     end
   end
 
-  def attachment_component_params(attachment, alternative_format_contact_email: nil)
+  def attachment_component_params(attachment)
     params = {
       type: ATTACHMENT_COMPONENT_TYPES.fetch(attachment.class),
       title: attachment.title,
@@ -48,33 +38,25 @@ module AttachmentsHelper
       params[:content_type] = attachment.content_type
       params[:filename] = attachment.filename
       params[:file_size] = attachment.file_size
+      params[:preview_url] = attachment.preview_path if attachment.previewable?
+      params[:alternative_format_contact_email] = attachment.alternative_format_contact_email unless attachment.accessible?
     end
 
     if attachment.pdf?
       params[:number_of_pages] = attachment.number_of_pages
     end
 
-    # CSV attachments on an Edition get a "View online" preview link
-    if previewable?(attachment)
-      params[:preview_url] = preview_path_for_attachment(attachment)
-    end
-
-    # Inaccessible attachments can have alt format contact info
-    unless attachment.accessible?
-      params[:alternative_format_contact_email] = alternative_format_contact_email
-    end
-
     params.compact
   end
 
-  def block_attachments(attachments = [], alternative_format_contact_email = nil)
+  def block_attachments(attachments = [])
     attachments
       .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
       .map do |attachment|
       render(
         partial: "govuk_publishing_components/components/attachment",
         locals: {
-          attachment: attachment_component_params(attachment, alternative_format_contact_email:),
+          attachment: attachment_component_params(attachment),
           margin_bottom: 6,
         },
       )

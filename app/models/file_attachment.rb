@@ -56,13 +56,23 @@ class FileAttachment < Attachment
     }
   end
 
-private
-
   def alternative_format_contact_email
     attachable.alternative_format_contact_email
   rescue NoMethodError
     nil
   end
+
+  def previewable?
+    csv? && attachable.is_a?(Edition)
+  end
+
+  def preview_path
+    if attachment_data.all_asset_variants_uploaded?
+      "/csv-preview/#{attachment_data.assets.first.asset_manager_id}/#{attachment_data.assets.first.filename}"
+    end
+  end
+
+private
 
   def assets
     return unless attachable.is_a?(Edition) && attachment_data.all_asset_variants_uploaded?

@@ -378,7 +378,6 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:block_attachments)
         .with(
           consultation.public_feedback.attachments,
-          consultation.public_feedback.alternative_format_contact_email,
         )
         .returns([attachments_double])
         .at_least_once
@@ -447,7 +446,6 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:block_attachments)
         .with(
           consultation.outcome.attachments,
-          consultation.outcome.alternative_format_contact_email,
         )
         .returns([attachments_double])
         .at_least_once
@@ -493,7 +491,6 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:block_attachments)
         .with(
           consultation.attachments,
-          consultation.alternative_format_contact_email,
         )
         .returns([attachments_double])
         .at_least_once

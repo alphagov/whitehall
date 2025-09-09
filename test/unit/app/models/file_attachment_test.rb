@@ -69,4 +69,19 @@ class FileAttachmentTest < ActiveSupport::TestCase
 
     assert_equal [{ "asset_manager_id": attachment.attachment_data.assets.first.asset_manager_id, "filename": attachment.attachment_data.assets.first.filename }], attachment.publishing_api_details_for_format[:assets]
   end
+
+  test "CSV attachments attached to editions can be previewed" do
+    csv_on_edition = create(:csv_attachment, attachable: create(:edition))
+    assert csv_on_edition.previewable?
+  end
+
+  test "non-CSV attachments are not previewable" do
+    non_csv_on_edition = create(:file_attachment, attachable: create(:edition))
+    assert_not non_csv_on_edition.previewable?
+  end
+
+  test "CSV attachments attached to non-editions are not previewable" do
+    csv_on_policy_group = create(:csv_attachment, attachable: create(:policy_group))
+    assert_not csv_on_policy_group.previewable?
+  end
 end
