@@ -1,6 +1,6 @@
 <section class="govuk-grid-column-one-third">
   <% if image.persisted? %>
-    <% if image.image_data&.all_asset_variants_uploaded? %>
+    <% if image.image_data&.asset_uploaded? %>
       <img src="<%= image.url %>" alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
     <% else %>
       <div class="govuk-!-margin-bottom-4">

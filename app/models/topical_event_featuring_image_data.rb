@@ -18,15 +18,12 @@ class TopicalEventFeaturingImageData < ApplicationRecord
     file&.file&.filename
   end
 
-  def all_asset_variants_uploaded?
-    asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = FeaturedImageUploader.versions.keys.push(:original)
-
-    (required_variants - asset_variants).empty?
+  def asset_uploaded?
+    assets.any? { |asset| asset.variant.to_sym == :original }
   end
 
   def republish_on_assets_ready
-    if all_asset_variants_uploaded?
+    if asset_uploaded?
       topical_event_featuring.topical_event.republish_to_publishing_api_async
     end
   end

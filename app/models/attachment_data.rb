@@ -60,10 +60,8 @@ class AttachmentData < ApplicationRecord
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end
 
-  def all_asset_variants_uploaded?
-    asset_variants = assets.map(&:variant).compact.map(&:to_sym)
-
-    (%i[original] - asset_variants).empty?
+  def asset_uploaded?
+    assets.any? { |asset| asset.variant.to_sym == :original }
   end
 
   def update_file_attributes

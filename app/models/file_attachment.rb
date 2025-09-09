@@ -67,7 +67,7 @@ class FileAttachment < Attachment
   end
 
   def preview_path
-    if attachment_data.all_asset_variants_uploaded?
+    if attachment_data.asset_uploaded?
       "/csv-preview/#{attachment_data.assets.first.asset_manager_id}/#{attachment_data.assets.first.filename}"
     end
   end
@@ -75,7 +75,7 @@ class FileAttachment < Attachment
 private
 
   def assets
-    return unless attachable.is_a?(Edition) && attachment_data.all_asset_variants_uploaded?
+    return unless attachable.is_a?(Edition) && attachment_data.asset_uploaded?
 
     attachment_data.assets.map do |asset|
       {

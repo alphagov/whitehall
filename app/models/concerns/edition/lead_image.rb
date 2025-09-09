@@ -34,7 +34,7 @@ module Edition::LeadImage
   end
 
   def lead_image_has_all_assets?
-    image_data.all_asset_variants_uploaded?
+    image_data.asset_uploaded?
   end
 
 private

@@ -128,7 +128,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     promotional_feature_item.destroy!
   end
 
-  test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
+  test "#asset_uploaded? returns true on update if the new asset has finished uploading" do
     promotional_feature_item = create(:promotional_feature_item)
     Sidekiq::Job.clear_all
 
@@ -148,10 +148,10 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     AssetManagerCreateAssetWorker.drain
 
     promotional_feature_item.reload
-    assert promotional_feature_item.all_asset_variants_uploaded?
+    assert promotional_feature_item.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false on update if the new assets have not finished uploading" do
+  test "#asset_uploaded? returns false on update if the new asset has not finished uploading" do
     promotional_feature_item = create(:promotional_feature_item)
 
     promotional_feature_item.update!(
@@ -160,7 +160,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
       ),
     )
 
-    assert_not promotional_feature_item.all_asset_variants_uploaded?
+    assert_not promotional_feature_item.asset_uploaded?
   end
 
 private

@@ -60,7 +60,7 @@ module PublishingApi
         dates_in_office: person.previous_dates_in_office_for_role(role),
       }
 
-      if person.image&.all_asset_variants_uploaded?
+      if person.image&.asset_uploaded?
         return person_attributes.merge({ image: {
           url: person.image&.url,
           alt_text: person.name,

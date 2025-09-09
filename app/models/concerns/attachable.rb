@@ -46,7 +46,7 @@ module Attachable
     end
 
     def attachments_ready_for_publishing
-      attachments.select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+      attachments.select { |attachment| !attachment.file? || attachment.attachment_data.asset_uploaded? }
     end
   end
 
@@ -98,7 +98,7 @@ module Attachable
     attachments
       .map(&:attachment_data)
       .compact
-      .all?(&:all_asset_variants_uploaded?)
+      .all?(&:asset_uploaded?)
   end
 
   def allows_attachments?

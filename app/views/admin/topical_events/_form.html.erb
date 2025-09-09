@@ -55,7 +55,7 @@
         image_alt: topical_event.logo_alt_text,
         image_cache_name: "topical_event[logo_attributes][file_cache]",
         image_cache: topical_event.logo.file_cache.presence,
-        image_uploaded: topical_event.logo.all_asset_variants_uploaded?,
+        image_uploaded: topical_event.logo.asset_uploaded?,
       } %>
     <% end %>
   </div>

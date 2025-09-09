@@ -24,7 +24,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def show
-    if @organisation.default_news_image && !@organisation.default_news_image&.all_asset_variants_uploaded?
+    if @organisation.default_news_image && !@organisation.default_news_image&.asset_uploaded?
       flash.now.notice = "#{flash[:notice]} The image is being processed. Try refreshing the page."
     end
   end

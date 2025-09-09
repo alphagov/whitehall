@@ -47,13 +47,13 @@ module ApplicationHelper
     name = attachment.name_for_link
     html_class = options.delete(:class)
 
-    return link_to name, attachment.url(options), class: html_class if !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded?
+    return link_to name, attachment.url(options), class: html_class if !attachment.file? || attachment.attachment_data.asset_uploaded?
 
     tag.span(name)
   end
 
   def link_to_attachment_data(attachment_data)
-    return link_to attachment_data.filename, attachment_data.url, class: "govuk-link" if attachment_data.all_asset_variants_uploaded?
+    return link_to attachment_data.filename, attachment_data.url, class: "govuk-link" if attachment_data.asset_uploaded?
 
     tag.span(attachment_data.filename)
   end

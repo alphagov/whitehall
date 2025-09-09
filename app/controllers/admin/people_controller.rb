@@ -21,7 +21,7 @@ class Admin::PeopleController < Admin::BaseController
   end
 
   def show
-    if @person.image && !@person.image&.all_asset_variants_uploaded?
+    if @person.image && !@person.image&.asset_uploaded?
       flash.now.notice = "#{flash[:notice]} The image is being processed. Try refreshing the page."
     end
   end

@@ -16,20 +16,20 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
     assert_equal call_for_evidence_response_form_data.auth_bypass_ids, [auth_bypass_id]
   end
 
-  test "#all_asset_variants_uploaded? should return true when there is an original asset" do
+  test "#asset_uploaded? should return true when there is an original asset" do
     call_for_evidence_response_form_data = build(:call_for_evidence_response_form_data)
 
-    assert call_for_evidence_response_form_data.all_asset_variants_uploaded?
+    assert call_for_evidence_response_form_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? should return false when there is no asset" do
+  test "#asset_uploaded? should return false when there is no asset" do
     call_for_evidence_response_form_data = build(:call_for_evidence_response_form_data)
     call_for_evidence_response_form_data.assets = []
 
-    assert_equal false, call_for_evidence_response_form_data.all_asset_variants_uploaded?
+    assert_equal false, call_for_evidence_response_form_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
+  test "#asset_uploaded? returns true on update if the new asset has finished uploading" do
     call_for_evidence_participation = build(:call_for_evidence_participation)
     call_for_evidence_response_form = build(:call_for_evidence_response_form, call_for_evidence_participation:)
     call_for_evidence_response_form_data = create(:call_for_evidence_response_form_data, call_for_evidence_response_form:)
@@ -48,10 +48,10 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
     AssetManagerCreateAssetWorker.drain
 
     call_for_evidence_response_form_data.reload
-    assert call_for_evidence_response_form_data.all_asset_variants_uploaded?
+    assert call_for_evidence_response_form_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false on update if the new assets have not finished uploading" do
+  test "#asset_uploaded? returns false on update if the new assets has not finished uploading" do
     call_for_evidence_participation = build(:call_for_evidence_participation)
     call_for_evidence_response_form = build(:call_for_evidence_response_form, call_for_evidence_participation:)
     call_for_evidence_response_form_data = create(:call_for_evidence_response_form_data, call_for_evidence_response_form:)
@@ -62,6 +62,6 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
       ),
     )
 
-    assert_not call_for_evidence_response_form_data.all_asset_variants_uploaded?
+    assert_not call_for_evidence_response_form_data.asset_uploaded?
   end
 end

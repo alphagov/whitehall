@@ -105,7 +105,7 @@
             <% if call_for_evidence_response_form.call_for_evidence_response_form_data.try(:persisted?) %>
               <div class="attachment">
                 <p class="govuk-body">Current data:
-                  <% if call_for_evidence_response_form_data.all_asset_variants_uploaded? %>
+                  <% if call_for_evidence_response_form_data.asset_uploaded? %>
                     <%= link_to call_for_evidence_response_form_data.filename, call_for_evidence_response_form_data.file.url, class: "govuk-link" %>
                   <% else %>
                     <%= call_for_evidence_response_form_data.filename %> <span class="govuk-tag govuk-tag--green">Processing</span>

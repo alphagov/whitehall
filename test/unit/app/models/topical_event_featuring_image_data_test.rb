@@ -25,17 +25,17 @@ class TopicalEventFeaturingImageDataTest < ActiveSupport::TestCase
     assert_empty topical_event_featuring_image_data.errors
   end
 
-  test "#all_asset_variants_uploaded? returns true if all assets present" do
+  test "#asset_uploaded? returns true if original asset present" do
     topical_event_featuring_image_data = build(:topical_event_featuring_image_data)
 
-    assert topical_event_featuring_image_data.all_asset_variants_uploaded?
+    assert topical_event_featuring_image_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if an asset variant is missing" do
+  test "#asset_uploaded? returns false if original asset is missing" do
     topical_event_featuring_image_data = build(:topical_event_featuring_image_data)
     topical_event_featuring_image_data.assets = []
 
-    assert_not topical_event_featuring_image_data.all_asset_variants_uploaded?
+    assert_not topical_event_featuring_image_data.asset_uploaded?
   end
 
   test "should republish topical event when assets are ready" do

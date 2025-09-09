@@ -154,7 +154,7 @@ module PublishingApi
     end
 
     def image
-      return unless item.custom_logo_selected? && item.all_asset_variants_uploaded?
+      return unless item.custom_logo_selected? && item.asset_uploaded?
 
       {
         url: item.logo.url,
@@ -285,7 +285,7 @@ module PublishingApi
       item.promotional_features.map do |promotional_feature|
         {
           title: promotional_feature.title,
-          items: promotional_feature.items.select { |item| item.youtube_video_id.present? || item.all_asset_variants_uploaded? }.map do |promotional_feature_item|
+          items: promotional_feature.items.select { |item| item.youtube_video_id.present? || item.asset_uploaded? }.map do |promotional_feature_item|
             if promotional_feature_item.youtube_video_id.present?
               promotional_feature_item_youtube_hash(promotional_feature_item)
             else

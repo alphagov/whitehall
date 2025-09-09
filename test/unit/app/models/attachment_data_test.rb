@@ -426,13 +426,13 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_nil attachment_data.draft_edition_for(user)
   end
 
-  test "#all_asset_variants_uploaded? returns true if all asset variants present" do
+  test "#asset_uploaded? returns true if original asset present" do
     attachment_data = build(:attachment_data)
 
-    assert attachment_data.all_asset_variants_uploaded?
+    assert attachment_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? skips over any legacy asset variants present" do
+  test "#asset_uploaded? skips over any legacy asset variants present" do
     attachment_data = build(:attachment_data)
 
     original_pdf_asset = build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: attachment_data.filename)
@@ -444,12 +444,12 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data.assets << original_pdf_asset
     attachment_data.assets << legacy_thumbnail_asset
 
-    assert attachment_data.all_asset_variants_uploaded?
+    assert attachment_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if there are no assets" do
+  test "#asset_uploaded? returns false if there is no asset" do
     attachment_data = build(:attachment_data_with_no_assets)
 
-    assert_not attachment_data.all_asset_variants_uploaded?
+    assert_not attachment_data.asset_uploaded?
   end
 end

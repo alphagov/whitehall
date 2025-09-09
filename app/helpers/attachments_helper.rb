@@ -11,7 +11,7 @@ module AttachmentsHelper
 
   def prepare_attachments(attachments)
     attachments
-      .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
+      .select { |attachment| !attachment.file? || attachment.attachment_data&.asset_uploaded? }
       .map do |attachment|
       attachment_component_params(attachment)
     end
@@ -51,7 +51,7 @@ module AttachmentsHelper
 
   def block_attachments(attachments = [])
     attachments
-      .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
+      .select { |attachment| !attachment.file? || attachment.attachment_data.asset_uploaded? }
       .map do |attachment|
       render(
         partial: "govuk_publishing_components/components/attachment",

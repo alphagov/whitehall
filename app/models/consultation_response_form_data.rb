@@ -12,11 +12,8 @@ class ConsultationResponseFormData < ApplicationRecord
     [consultation_response_form.consultation_participation.consultation.auth_bypass_id]
   end
 
-  def all_asset_variants_uploaded?
-    asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = [Asset.variants[:original].to_sym]
-
-    return false if (required_variants - asset_variants).any?
+  def asset_uploaded?
+    return false unless assets.any? { |asset| asset.variant.to_sym == :original }
 
     assets_match_updated_image_filename
   end

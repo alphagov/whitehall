@@ -1127,17 +1127,17 @@ class OrganisationTest < ActiveSupport::TestCase
     end
   end
 
-  test "#all_asset_variants_uploaded? returns true if all asset variants present" do
+  test "#asset_uploaded? returns true if the original asset is present" do
     organisation = build(:organisation_with_logo_and_assets)
 
-    assert organisation.all_asset_variants_uploaded?
+    assert organisation.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if there are no assets" do
+  test "#asset_uploaded? returns false if there is no asset present" do
     organisation = build(:organisation_with_logo_and_assets)
     organisation.assets.delete_all
 
-    assert_not organisation.all_asset_variants_uploaded?
+    assert_not organisation.asset_uploaded?
   end
 
   test "should not delete default news image on destroy because news articles might depend on it" do

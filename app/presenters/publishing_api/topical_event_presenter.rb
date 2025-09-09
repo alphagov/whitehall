@@ -38,7 +38,7 @@ module PublishingApi
         details[:about_page_link_text] = item.topical_event_about_page.read_more_link_text if item.topical_event_about_page && item.topical_event_about_page.read_more_link_text
         details[:body] = body
         details[:emphasised_organisations] = item.lead_organisations.map(&:content_id)
-        details[:image] = image if item.logo && item.logo.all_asset_variants_uploaded?
+        details[:image] = image if item.logo && item.logo.asset_uploaded?
         details[:start_date] = item.start_date.rfc3339 if item.start_date
         details[:end_date] = item.end_date.rfc3339 if item.end_date
         details[:ordered_featured_documents] = ordered_featured_documents
@@ -64,7 +64,7 @@ module PublishingApi
         .topical_event_featurings
         .includes(:image, edition: :document)
         .limit(TopicalEvent::MAX_FEATURED_DOCUMENTS)
-        .select { |feature| feature.image.all_asset_variants_uploaded? }
+        .select { |feature| feature.image.asset_uploaded? }
         .map do |feature|
           {
             title: feature.title,

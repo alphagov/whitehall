@@ -40,20 +40,20 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File is too small. Select an image that is 960 pixels wide and 640 pixels tall"
   end
 
-  test "#all_asset_variants_uploaded? returns true if all assets present" do
+  test "#asset_uploaded? returns true if original asset present" do
     featured_image_data = build(:featured_image_data)
 
-    assert featured_image_data.all_asset_variants_uploaded?
+    assert featured_image_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if an asset variant is missing" do
+  test "#asset_uploaded? returns false if original asset is missing" do
     featured_image_data = build(:featured_image_data)
     featured_image_data.assets = []
 
-    assert_not featured_image_data.all_asset_variants_uploaded?
+    assert_not featured_image_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
+  test "#asset_uploaded? returns true on update if the new assets has finished uploading" do
     featured_image_data = create(:featured_image_data)
     Sidekiq::Job.clear_all
 
@@ -73,10 +73,10 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     AssetManagerCreateAssetWorker.drain
 
     featured_image_data.reload
-    assert featured_image_data.all_asset_variants_uploaded?
+    assert featured_image_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false on update if the new assets have not finished uploading" do
+  test "#asset_uploaded? returns false on update if the new asset has not finished uploading" do
     featured_image_data = create(:featured_image_data)
 
     featured_image_data.update!(
@@ -85,7 +85,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
       ),
     )
 
-    assert_not featured_image_data.all_asset_variants_uploaded?
+    assert_not featured_image_data.asset_uploaded?
   end
 
   test "should not delete previous images when FeaturedImageData is updated" do

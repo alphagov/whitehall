@@ -52,7 +52,7 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def edit
     image = Image.find(params[:id])
-    flash.now.notice = "The image is being processed. Try refreshing the page." unless image&.image_data&.all_asset_variants_uploaded?
+    flash.now.notice = "The image is being processed. Try refreshing the page." unless image&.image_data&.asset_uploaded?
   end
 
 private

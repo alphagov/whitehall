@@ -79,29 +79,29 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_equal 7, image_data.assets.count
   end
 
-  test "#all_asset_variants_uploaded? returns true if all assets present" do
+  test "#asset_uploaded? returns true if original asset present" do
     image_data = build(:image_data)
 
-    assert image_data.all_asset_variants_uploaded?
+    assert image_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns true if original asset present for svg" do
+  test "#asset_uploaded? returns true if original asset present for svg" do
     image_data = build(:image_data_for_svg)
 
-    assert image_data.all_asset_variants_uploaded?
+    assert image_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if some assets are missing" do
+  test "#asset_uploaded? returns false if original asset is missing" do
     image_data = build(:image_data_with_no_assets)
-    image_data.assets = [build(:asset), build(:asset, variant: Asset.variants[:s960])]
+    image_data.assets = [build(:asset, variant: Asset.variants[:s960])]
 
-    assert_not image_data.all_asset_variants_uploaded?
+    assert_not image_data.asset_uploaded?
   end
 
-  test "#all_asset_variants_uploaded? returns false if there are no assets" do
+  test "#asset_uploaded? returns false if there are no assets" do
     image_data = build(:image_data_with_no_assets)
 
-    assert_not image_data.all_asset_variants_uploaded?
+    assert_not image_data.asset_uploaded?
   end
 
   test ".svg? returns true when the carrierwave image filename ends with .svg" do

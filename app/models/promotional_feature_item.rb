@@ -39,17 +39,14 @@ class PromotionalFeatureItem < ApplicationRecord
     youtube_video_id
   end
 
-  def all_asset_variants_uploaded?
-    asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = FeaturedImageUploader.versions.keys.push(:original)
-
-    return false if (required_variants - asset_variants).any?
+  def asset_uploaded?
+    return false unless assets.any? { |asset| asset.variant.to_sym == :original }
 
     assets_match_updated_image_filename
   end
 
   def republish_on_assets_ready
-    if all_asset_variants_uploaded?
+    if asset_uploaded?
       republish_organisation
     end
   end

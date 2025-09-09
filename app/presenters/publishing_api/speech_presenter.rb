@@ -139,7 +139,7 @@ module PublishingApi
     end
 
     def image_has_all_assets?
-      image.all_asset_variants_uploaded?
+      image.asset_uploaded?
     end
 
     def alt_text

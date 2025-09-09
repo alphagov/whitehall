@@ -88,7 +88,7 @@ private
 
     {
       field: "Default news image",
-      value: organisation.default_news_image.all_asset_variants_uploaded? ? image_tag(organisation.default_news_image.file.url(:s300)) : tag.span("Processing", class: "govuk-tag govuk-tag--green"),
+      value: organisation.default_news_image.asset_uploaded? ? image_tag(organisation.default_news_image.file.url(:s300)) : tag.span("Processing", class: "govuk-tag govuk-tag--green"),
     }
   end
 

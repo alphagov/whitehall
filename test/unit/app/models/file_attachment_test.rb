@@ -64,7 +64,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     assert attachment.filename_changed?
   end
 
-  test "#assets returns assets list if all_asset_variants_uploaded?" do
+  test "#assets returns assets list if asset_uploaded?" do
     attachment = create(:csv_attachment, attachable: create(:edition))
 
     assert_equal [{ "asset_manager_id": attachment.attachment_data.assets.first.asset_manager_id, "filename": attachment.attachment_data.assets.first.filename }], attachment.publishing_api_details_for_format[:assets]

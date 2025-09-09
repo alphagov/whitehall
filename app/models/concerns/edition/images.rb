@@ -31,7 +31,7 @@ module Edition::Images
       images
         .map(&:image_data)
         .compact
-        .all?(&:all_asset_variants_uploaded?)
+        .all?(&:asset_uploaded?)
     end
   end
 

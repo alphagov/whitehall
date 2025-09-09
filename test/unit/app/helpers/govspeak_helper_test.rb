@@ -175,18 +175,6 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, ".gem-c-attachment"
   end
 
-  it "should ignore images with missing asset variants" do
-    embed_code = "[Image: minister-of-funk.960x640.jpg]"
-    body = "#Heading\n\n#{embed_code}\n\n##Subheading"
-    image = build(:image_with_no_assets)
-    image.image_data.assets = [build(:asset), build(:asset, variant: Asset.variants[:s960])]
-    image.image_data.save!
-    document = build(:published_news_article, images: [image], body:)
-
-    html = govspeak_edition_to_html(document)
-    refute_select_within_html html, ".image.embedded"
-  end
-
   it "should ignore images with image kinds which do not permit use in govspeak embeds" do
     embed_code = "[Image: minister-of-funk.960x640.jpg]"
     body = "#Heading\n\n#{embed_code}\n\n##Subheading"
