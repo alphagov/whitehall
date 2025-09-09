@@ -22,7 +22,10 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     page.attachments = [attachment]
     page.block_content = content
     payload = ConfigurableContentBlocks::Govspeak.new(page.images, page.attachments).publishing_api_payload(govspeak)
-    assert_match(/A paragraph followed by an image.*img src.*#{Regexp.escape(image.url)}.*href.*#{Regexp.escape(attachment.url)}/m, payload[:html])
+    doc = Nokogiri::HTML(payload[:html])
+    assert_not doc.css("a[href=\"#{attachment.url}\"]").empty?
+    assert_not doc.css("img[src=\"#{image.url}\"]").empty?
+    assert_match(/A paragraph followed by an image/m, doc.text)
   end
 
   test "it includes headers in the payload, if present in the govspeak" do
