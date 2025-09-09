@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :schema, :settings
+  attr_reader :key, :schema, :associations, :settings
 
   def self.types
     @types ||= Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
@@ -27,6 +27,7 @@ class ConfigurableDocumentType
   def initialize(type)
     @key = type["key"]
     @schema = type["schema"]
+    @associations = type["associations"]
     @settings = type["settings"]
   end
 
