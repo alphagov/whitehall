@@ -9,6 +9,11 @@ class StandardEdition < Edition
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
 
+  CONFIGURABLE_ASSOCIATIONS = {
+    "role_appointments" => ConfigurableAssociations::RoleAppointments,
+    "topical_events" => ConfigurableAssociations::TopicalEvents,
+  }.freeze
+
   def self.choose_document_type_form_action
     "choose_type_admin_standard_editions_path"
   end
@@ -51,6 +56,14 @@ class StandardEdition < Edition
 
   def type_instance
     ConfigurableDocumentType.find(configurable_document_type)
+  end
+
+  def configurable_associations
+    @configurable_associations ||= type_instance.associations.map do |association|
+      raise "Undefined association #{association['key']}" unless CONFIGURABLE_ASSOCIATIONS.key?(association["key"])
+
+      CONFIGURABLE_ASSOCIATIONS[association["key"]].new(association, self)
+    end
   end
 
   def content_conforms_to_schema

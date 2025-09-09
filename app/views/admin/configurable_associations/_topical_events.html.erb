@@ -1,0 +1,17 @@
+<% cache_if topical_events.topical_event_ids.empty?, "#{taggable_topical_events_cache_digest}-design-system" do %>
+  <%= render "govuk_publishing_components/components/select_with_search", {
+    id: "edition_topical_event_ids",
+    name: "edition[topical_event_ids][]",
+    include_blank: true,
+    label: topical_events.label,
+    heading_size: "m",
+    options: TopicalEvent.order(:name).map do |topical_event|
+      {
+        text: topical_event.name,
+        value: topical_event.id,
+        selected: topical_events.topical_event_ids.include?(topical_event.id),
+      }
+    end,
+    multiple: true,
+  } %>
+<% end %>
