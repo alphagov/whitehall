@@ -20,6 +20,14 @@
       }
     }
   },
+  "associations" : [
+    {
+      "key": "ministerial_role_appointments"
+    },
+    {
+      "key": "topical_events"
+    }
+  ],
   "settings": {
     "base_path_prefix": "/government/news",
     "publishing_api_schema_name": "news_article",

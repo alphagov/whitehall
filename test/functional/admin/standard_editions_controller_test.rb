@@ -105,6 +105,28 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "a[href=\"#{admin_edition_attachments_path(edition)}\"]", false
   end
 
+  view_test "GET edit renders the form controls for the configured associations" do
+    configurable_document_type = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "ministerial_role_appointments",
+      },
+      {
+        "key" => "topical_events",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition)
+
+    login_as :managing_editor
+    get :edit, params: { id: edition.id }
+
+    assert_response :ok
+    assert_select "h2", text: "Associations"
+    assert_select "label", text: "Ministers"
+    assert_select "label", text: "Topical events"
+  end
+
   test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

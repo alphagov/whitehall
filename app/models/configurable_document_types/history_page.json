@@ -28,6 +28,7 @@
     },
     "required": ["body"]
   },
+  "associations": [],
   "settings": {
     "base_path_prefix": "/government/history",
     "publishing_api_schema_name": "history",
