@@ -1,4 +1,5 @@
 require "test_helper"
+
 class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
   test "it raises an error if the block type does not exist" do
     page = StandardEdition.new
@@ -41,12 +42,24 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     assert_equal block, factory.build("string", "image_select")
   end
 
-  test "it can build a govspeak string block" do
-    page = StandardEdition.new
+  test "it can build a govspeak string block, with images and attachments" do
+    test_type_with_images_and_attachments =
+      build_configurable_document_type(
+        "test_type_with_images_and_attachments", {
+          "settings" => {
+            "images_enabled" => true,
+            "file_attachments_enabled" => true,
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_images_and_attachments)
+    page = StandardEdition.new(configurable_document_type: "test_type_with_images_and_attachments")
     page.images = [build(:image)]
+    page.attachments = [build(:file_attachment)]
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::Govspeak")
-    ConfigurableContentBlocks::Govspeak.expects(:new).with(page.images).returns(block)
+    ConfigurableContentBlocks::Govspeak.expects(:new).with(page.images, page.attachments).returns(block)
     assert_equal block, factory.build("string", "govspeak")
   end
 end

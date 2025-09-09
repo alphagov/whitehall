@@ -91,7 +91,6 @@ module PublishingApi
 
       Whitehall::GovspeakRenderer.new.block_attachments(
         attachments_for_current_locale,
-        alternative_format_email,
       )
     end
 

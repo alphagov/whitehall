@@ -31,6 +31,31 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_images.allows_image_attachments?
   end
 
+  test "it allows file attachments if the configurable document type settings permit them" do
+    test_type_with_file_attachments =
+      build_configurable_document_type(
+        "test_type_with_file_attachments", {
+          "settings" => {
+            "file_attachments_enabled" => true,
+          },
+        }
+      )
+    test_type_without_file_attachments =
+      build_configurable_document_type(
+        "test_type_without_file_attachments", {
+          "settings" => {
+            "file_attachments_enabled" => false,
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_file_attachments.merge(test_type_without_file_attachments))
+    page_with_file_attachments = StandardEdition.new(configurable_document_type: "test_type_with_file_attachments")
+    page_without_file_attachments = StandardEdition.new(configurable_document_type: "test_type_without_file_attachments")
+    assert page_with_file_attachments.allows_file_attachments?
+    assert_not page_without_file_attachments.allows_file_attachments?
+  end
+
   test "it allows backdating if the configurable document type settings permit them" do
     test_type_with_backdating =
       build_configurable_document_type(

@@ -25,7 +25,7 @@ module ConfigurableContentBlocks
       {
         "string" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultString.new },
-          "govspeak" => ->(page) { ConfigurableContentBlocks::Govspeak.new(page.images) },
+          "govspeak" => ->(page) { ConfigurableContentBlocks::Govspeak.new(page.images, page.attachments) },
           "image_select" => ->(page) { ConfigurableContentBlocks::ImageSelect.new(page.images) },
         },
         "object" => {

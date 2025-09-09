@@ -1,23 +1,7 @@
 require "test_helper"
 
 class AttachmentsHelperTest < ActionView::TestCase
-  test "CSV attachments attached to editions can be previewed" do
-    csv_on_edition = create(:csv_attachment, attachable: create(:edition))
-    assert previewable?(csv_on_edition)
-  end
-
-  test "non-CSV attachments are not previewable" do
-    non_csv_on_edition = create(:file_attachment, attachable: create(:edition))
-    assert_not previewable?(non_csv_on_edition)
-  end
-
-  test "CSV attachments attached to non-editions are not previewable" do
-    csv_on_policy_group = create(:csv_attachment, attachable: create(:policy_group))
-    assert_not previewable?(csv_on_policy_group)
-  end
-
   test "block_attachments renders an array of rendered attachments and ignores attachments with missing assets" do
-    alternative_format_contact_email = "test@example.com"
     file_attachment_with_all_assets = create(:file_attachment)
     file_attachment_with_missing_assets = create(:file_attachment_with_no_assets)
     attachments = [
@@ -27,7 +11,7 @@ class AttachmentsHelperTest < ActionView::TestCase
       file_attachment_with_missing_assets,
     ]
 
-    rendered_attachments = block_attachments(attachments, alternative_format_contact_email)
+    rendered_attachments = block_attachments(attachments)
 
     assert_equal attachments.length - 1, rendered_attachments.length
 
@@ -37,7 +21,7 @@ class AttachmentsHelperTest < ActionView::TestCase
       assert_select_within_html(rendered, ".gem-c-attachment__title a", text: attachment.title) do |link|
         assert_equal attachment.url, link.attr("href").to_s
       end
-      assert_select_within_html(rendered, "a", text: alternative_format_contact_email) if index == 2
+      assert_select_within_html(rendered, "a", text: attachment.alternative_format_contact_email) if index == 2
     end
   end
 
@@ -135,19 +119,14 @@ class AttachmentsHelperTest < ActionView::TestCase
   end
 
   test "component params only have alternative_format_contact_email when attachment is inaccessible" do
-    alternative_format_contact_email = "test@example.com"
-
-    inaccessible = attachment_component_params(
-      file_attachment("sample.docx", accessible: false),
-      alternative_format_contact_email:,
-    )
+    inaccessible_attachment = file_attachment("sample.docx", accessible: false)
+    inaccessible = attachment_component_params(inaccessible_attachment)
 
     accessible = attachment_component_params(
       file_attachment("sample.docx", accessible: true),
-      alternative_format_contact_email:,
     )
 
-    assert inaccessible[:alternative_format_contact_email].eql? alternative_format_contact_email
+    assert inaccessible[:alternative_format_contact_email].eql? inaccessible_attachment.alternative_format_contact_email
     assert_not accessible.key? :alternative_format_contact_email
   end
 

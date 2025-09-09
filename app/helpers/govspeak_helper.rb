@@ -6,7 +6,7 @@ module GovspeakHelper
 
   def govspeak_to_html(govspeak, options = {})
     images = prepare_images(options[:images] || [])
-    attachments = prepare_attachments(options[:attachments] || [], options[:alternative_format_contact_email])
+    attachments = prepare_attachments(options[:attachments] || [])
 
     processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
     html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])

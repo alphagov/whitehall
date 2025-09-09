@@ -1,6 +1,9 @@
 class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
+  include ::Attachable
+  include Edition::AlternativeFormatProvider
+
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
 
@@ -30,6 +33,10 @@ class StandardEdition < Edition
 
   def allows_image_attachments?
     type_instance.settings["images_enabled"]
+  end
+
+  def allows_file_attachments?
+    type_instance.settings["file_attachments_enabled"]
   end
 
   def can_be_marked_political?

@@ -371,7 +371,6 @@ module PublishingApi::CallForEvidencePresenterTest
         .expects(:block_attachments)
         .with(
           call_for_evidence.outcome.attachments,
-          call_for_evidence.outcome.alternative_format_contact_email,
         )
         .returns([attachments_double])
         .at_least_once
@@ -416,7 +415,6 @@ module PublishingApi::CallForEvidencePresenterTest
         .expects(:block_attachments)
         .with(
           call_for_evidence.attachments,
-          call_for_evidence.alternative_format_contact_email,
         )
         .returns([attachments_double])
         .at_least_once

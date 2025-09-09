@@ -26,7 +26,6 @@ module PublishingApi
       def documents
         renderer.block_attachments(
           document.attachments,
-          document.alternative_format_contact_email,
         )
       end
 
