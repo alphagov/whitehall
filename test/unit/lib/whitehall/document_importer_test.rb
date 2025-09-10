@@ -47,7 +47,7 @@ module Whitehall
 
     describe ".import!" do
       it "creates an edition via `create_base_edition!` and updates the corresponding Document" do
-        @stubbed_edition = create(:draft_standard_edition, configurable_document_type: "news_story", block_content: { "body" => "foo" })
+        @stubbed_edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "news_story", block_content: { "body" => "foo" })
         Whitehall::DocumentImporter.expects(:create_base_edition!).with { |data|
           assert_equal data, @data
         }.returns(@stubbed_edition)
@@ -80,6 +80,31 @@ module Whitehall
         })
         edition = Whitehall::DocumentImporter.create_base_edition!(data)
         assert_nil edition.government_id
+      end
+
+      it "carries over the primary publishing organisation" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@primary_org], edition.lead_organisations
+      end
+
+      it "carries over secondary organisations" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@secondary_org], edition.supporting_organisations
+      end
+
+      it "carries over the role appointments" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@role_appointment], edition.role_appointments
+      end
+
+      it "carries over the topical events" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@topical_event], edition.topical_events
+      end
+
+      it "carries over the world locations" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@world_location], edition.world_locations
       end
 
       it "acts as the robot user if the creator cannot be found" do
@@ -384,7 +409,7 @@ module Whitehall
 
     describe ".save_images" do
       setup do
-        @edition = create(:standard_edition, configurable_document_type: "news_story", block_content: { "body" => "foo" })
+        @edition = create(:standard_edition, :with_organisations, configurable_document_type: "news_story", block_content: { "body" => "foo" })
         @asset_manager_id_for_original_asset = "3333f0aee90e071f61322254"
         @asset_manager_id_for_960_asset = "2222f0aee90e071f6af146159"
         @asset_manager_id_for_300_asset = "1111f0aee90e071f6af146229"

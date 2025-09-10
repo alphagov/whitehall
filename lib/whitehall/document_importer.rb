@@ -43,6 +43,11 @@ class Whitehall::DocumentImporter
         political: data["political"],
         government_id: Government.find_by(content_id: data["government_id"])&.id,
         change_note: combined_change_notes(data["change_notes"]),
+        lead_organisations: Organisation.where(content_id: data["tags"]["primary_publishing_organisation"]),
+        supporting_organisations: Organisation.where(content_id: data["tags"]["organisations"]),
+        topical_events: TopicalEvent.where(content_id: data["tags"]["topical_events"]),
+        world_locations: WorldLocation.where(content_id: data["tags"]["world_locations"]),
+        role_appointments: RoleAppointment.where(content_id: data["tags"]["role_appointments"]),
         alternative_format_provider_id: Organisation.find_by(content_id: data["tags"]["primary_publishing_organisation"]).id,
       )
       edition.creator = user
