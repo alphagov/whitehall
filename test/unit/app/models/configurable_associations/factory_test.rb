@@ -1,43 +1,44 @@
 require "test_helper"
 
 class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
-  test "it raises an error if the association does not exist" do
-    edition = StandardEdition.new
+  test "configurable_associations raises an error if the association does not exist" do
+    association_config = [
+      {
+        "key" => "invalid_association",
+        "label" => "Test",
+      },
+    ]
+    configurable_document_type = build_configurable_document_type("test_type", { "associations" => association_config })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = build(:draft_standard_edition)
     error = assert_raises do
-      ConfigurableAssociations::Factory.new([], edition).build("missing")
+      ConfigurableAssociations::Factory.new(edition).configurable_associations
     end
-    assert_equal "Undefined association: missing", error.message
+    assert_equal "Undefined association: invalid_association", error.message
   end
 
-  test "it raises an error if the config does not exist" do
-    edition = StandardEdition.new
-    error = assert_raises do
-      ConfigurableAssociations::Factory.new([], edition).build("role_appointments")
-    end
-    assert_equal "config not found for association: role_appointments", error.message
-  end
+  test "configurable_associations builds all of the configured associations for an edition" do
+    association_config = [
+      {
+        "key" => "role_appointments",
+        "label" => "Ministers",
+      },
+      {
+        "key" => "topical_events",
+        "label" => "Topical events",
+      },
+    ]
+    configurable_document_type = build_configurable_document_type("test_type", { "associations" => association_config })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-  test "it can build a role appointments association" do
-    edition = StandardEdition.new
-    config = [{
-      "key" => "role_appointments",
-      "label" => "Ministers",
-    }]
-    factory = ConfigurableAssociations::Factory.new(config, edition)
-    association = mock("ConfigurableAssociations::RoleAppointment")
-    ConfigurableAssociations::RoleAppointments.expects(:new).with(config.first, edition.role_appointments).returns(association)
-    assert_equal association, factory.build("role_appointments")
-  end
+    edition = build(:draft_standard_edition)
+    factory = ConfigurableAssociations::Factory.new(edition)
+    role_appointments = mock("ConfigurableAssociations::RoleAppointments")
+    ConfigurableAssociations::RoleAppointments.expects(:new).with(association_config.first, edition.role_appointments).returns(role_appointments)
+    topical_events = mock("ConfigurableAssociations::TopicalEvents")
+    ConfigurableAssociations::TopicalEvents.expects(:new).with(association_config.last, edition.topical_events).returns(topical_events)
 
-  test "it can build a topical events association" do
-    edition = StandardEdition.new
-    config = [{
-      "key" => "topical_events",
-      "label" => "Topical events",
-    }]
-    factory = ConfigurableAssociations::Factory.new(config, edition)
-    association = mock("ConfigurableAssociations::TopicalEvents")
-    ConfigurableAssociations::TopicalEvents.expects(:new).with(config.first, edition.topical_events).returns(association)
-    assert_equal association, factory.build("topical_events")
+    assert_equal [role_appointments, topical_events], factory.configurable_associations
   end
 end

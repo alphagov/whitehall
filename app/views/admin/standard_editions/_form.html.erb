@@ -86,8 +86,9 @@
       margin_bottom: 3,
     } %>
 
+    <% association_factory = ConfigurableAssociations::Factory.new(@edition) %>
     <div class="govuk-!-margin-bottom-4">
-      <% @edition.configurable_associations.each do |association| %>
+      <% association_factory.configurable_associations.each do |association| %>
         <%= render association %>
       <% end %>
     </div>
