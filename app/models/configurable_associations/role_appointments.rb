@@ -10,7 +10,7 @@ module ConfigurableAssociations
     end
 
     def selected_ids
-      @association.pluck(:id)
+      @association.ids
     end
 
     def to_partial_path

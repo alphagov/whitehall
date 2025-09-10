@@ -21,10 +21,8 @@ class RoleAppointmentsRenderingTest < ActionView::TestCase
       "key" => "role_appointments",
       "label" => "Ministers",
     }
-    configurable_document_type = build_configurable_document_type("test_type", { "associations" => [config] })
-    ConfigurableDocumentType.setup_test_types(configurable_document_type)
     appointments = create_list(:ministerial_role_appointment, 2)
-    edition = create(:draft_standard_edition, { role_appointments: [appointments.first] })
+    edition = build(:draft_standard_edition, { role_appointments: [appointments.first] })
 
     role_appointments_association = ConfigurableAssociations::RoleAppointments.new(config, edition.role_appointments)
     render role_appointments_association
