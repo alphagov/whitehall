@@ -48,6 +48,31 @@ module Whitehall
         assert_equal @primary_org.id, edition.alternative_format_provider_id
       end
 
+      it "carries over the primary publishing organisation" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@primary_org], edition.lead_organisations
+      end
+
+      it "carries over secondary organisations" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@secondary_org], edition.supporting_organisations
+      end
+
+      it "carries over the role appointments" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@role_appointment], edition.role_appointments
+      end
+
+      it "carries over the topical events" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@topical_event], edition.topical_events
+      end
+
+      it "carries over the world locations" do
+        edition = Whitehall::DocumentImporter.create_base_edition!(@data)
+        assert_equal [@world_location], edition.world_locations
+      end
+
       it "acts as the robot user if the creator cannot be found" do
         robot_user = User.create!(name: "Scheduled Publishing Robot", email: "robot@example.com")
         data = @data.merge({
