@@ -293,7 +293,7 @@ class GovspeakHelperTest < ActionView::TestCase
   it "adds numbers to h2 headings" do
     input = "# main\n\n## first\n\n## second"
     output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first"> <span class="number">1. </span>first</h2> <h2 id="second"> <span class="number">2. </span>second</h2></div>'
-    assert_equivalent_html output, govspeak_to_html(input, heading_numbering: :auto).gsub(/\s+/, " ")
+    assert_equivalent_html output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
   end
 
   it "adds sub-numbers to h3 tags" do
@@ -303,7 +303,7 @@ class GovspeakHelperTest < ActionView::TestCase
     expected_output_1b = '<h3 id="first-point-two"> <span class="number">1.2 </span>first point two</h3>'
     expected_output2 = '<h2 id="second"> <span class="number">2. </span>second</h2>'
     expected_output_2a = '<h3 id="second-point-one"> <span class="number">2.1 </span>second point one</h3>'
-    actual_output = govspeak_to_html(input, heading_numbering: :auto).gsub(/\s+/, " ")
+    actual_output = collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
     assert_match %r{#{expected_output1}}, actual_output
     assert_match %r{#{expected_output_1a}}, actual_output
     assert_match %r{#{expected_output_1b}}, actual_output
@@ -330,6 +330,47 @@ class GovspeakHelperTest < ActionView::TestCase
     output = govspeak_to_html(input)
     contact_html = render("contacts/contact", contact:, heading_tag: "p")
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
+  end
+
+  it "adds manual numbering to heading tags" do
+    input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence"
+    expected_output = '<div class="govspeak"><h2 id="main">1. Main</h2> <h2 id="second">2. Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence">42.12 Out of sequence</h2></div>'
+    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input))
+  end
+
+  it "avoids adding manual numbering to heading tags that start with numbers but aren't intended for manual numbering" do
+    # NB, the reason we expect a `gd-not-all-numeric-characters` ID rather than
+    #  a `0gd-not-all-numeric-characters` is that pre-HTML5 IDs _must_ begin with
+    # a letter: https://www.w3.org/TR/html4/types.html#type-id
+    # See also this issue in Kramdown:
+    # https://github.com/gettalong/kramdown/issues/711
+    input = "## 0GD Not all numeric characters"
+    expected_output = '<div class="govspeak"><h2 id="gd-not-all-numeric-characters">0GD Not all numeric characters</h2></div>'
+    assert_equivalent_html expected_output, govspeak_to_html(input).gsub(/\s+/, " ")
+  end
+
+  it "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
+    input = "## Number 8"
+    result = Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input))
+    assert_equal "Number 8", result.css("h2").first.text
+  end
+
+  it "handles leading numbers and symbols" do
+    input = "## £100,000 header text here"
+    expected_output = '<div class="govspeak"><h2 id="header-text-here"><span class="number">1. </span>£100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
+  end
+
+  it "can manage a custom ID in the govspeak" do
+    input = "## £100,000 header text here {#custom-id}"
+    expected_output = '<div class="govspeak"><h2 id="custom-id"><span class="number">1. </span>£100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
+  end
+
+  it "can manage a custom ID with leading numbers" do
+    input = "## £100,000 header text here {#10-custom-id}"
+    expected_output = '<div class="govspeak"><h2 id="custom-id"><span class="number">1. </span>£100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
   end
 
   it "converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id> with defined header level" do
