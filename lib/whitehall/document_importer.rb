@@ -19,6 +19,7 @@ class Whitehall::DocumentImporter
     end
 
     save_attachments(data, edition)
+    save_images(data, edition)
 
     edition.document.update_columns(
       created_at: data["created_at"],
@@ -187,6 +188,70 @@ class Whitehall::DocumentImporter
         created_at: attachment_hash["created_at"],
       )
       edition.attachments << attachment
+    end
+  end
+
+  def self.save_images(data, edition)
+    lead_image = nil
+    data["images"].each do |image_hash|
+      image = import_image_and_its_variants(image_hash, edition)
+      edition.images << image
+      lead_image = image if image_hash["lead_image"]
+    end
+
+    if lead_image
+      new_block_content = edition.block_content.to_h.merge("image" => lead_image.image_data_id.to_s)
+      # avoiding calling `edition.save!(validate: false)` here as it would cause an unnecessary entry in the internal change history
+      edition.translation.update!(block_content: new_block_content)
+    end
+  end
+
+  def self.import_image_and_its_variants(image_hash, edition)
+    original_variant = image_hash["variants"].find { |v| v["variant"] == "high_resolution" }
+    uploader_identifier = File.basename(original_variant["file_url"])
+    image_data = ImageData.new(
+      image_kind: "default",
+      carrierwave_image: uploader_identifier,
+    )
+    image_data.save!(validate: false) # no local file, so have to skip validation
+    image_hash["variants"].each do |variant|
+      import_image_variant(variant, image_data)
+    end
+    # Content Publisher exports a caption and a credit, but there is no credit in Whitehall.
+    # We'll append the credit onto the caption as follows:
+    # `caption` => "Foo"
+    # `credit` => "Bar"
+    # result => "Foo. Credit: Bar"
+    caption_parts = [
+      image_hash["caption"].presence,
+      image_hash["credit"].blank? ? nil : "Credit: #{image_hash['credit']}",
+    ].compact
+    caption = caption_parts.join(". ")
+    Image.create!(
+      alt_text: image_hash["alt_text"],
+      caption: caption,
+      edition: edition,
+      image_data: image_data,
+      created_at: image_hash["created_at"],
+    )
+  end
+
+  def self.import_image_variant(variant, image_data)
+    variant_mappings = {
+      "high_resolution" => %w[original],
+      "960" => %w[s960 s712 s630 s465],
+      "300" => %w[s300 s216],
+    }
+    variant_names = variant_mappings[variant["variant"]]
+    raise "Unknown variant: #{variant['variant']}" unless variant_names
+
+    variant_names.each do |variant_name|
+      Asset.create!(
+        variant: variant_name,
+        filename: File.basename(variant["file_url"]),
+        asset_manager_id: variant["file_url"].match(%r{media/([^/]+)}).captures.first,
+        assetable: image_data,
+      )
     end
   end
 

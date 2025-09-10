@@ -41,6 +41,7 @@ module Whitehall
         ],
         "internal_history" => [],
         "attachments" => [],
+        "images" => [],
       }
     end
 
@@ -378,6 +379,87 @@ module Whitehall
         assert_equal 12_344_555, attachment.attachment_data.file_size
         assert_equal 1, attachment.attachment_data.number_of_pages
         assert_equal 2.days.ago.to_i, attachment.attachment_data.created_at.to_i
+      end
+    end
+
+    describe ".save_images" do
+      setup do
+        @edition = create(:standard_edition, configurable_document_type: "news_story", block_content: { "body" => "foo" })
+        @asset_manager_id_for_original_asset = "3333f0aee90e071f61322254"
+        @asset_manager_id_for_960_asset = "2222f0aee90e071f6af146159"
+        @asset_manager_id_for_300_asset = "1111f0aee90e071f6af146229"
+        @data = {
+          "images" => [
+            {
+              "created_at" => "2022-05-25 08:17:06 +0100",
+              "caption" => "Caption for the image",
+              "alt_text" => "Delegates attending the G7 meeting in Germany.",
+              "credit" => "",
+              "lead_image" => true,
+              "variants" => [
+                {
+                  "file_url" => "https://assets.publishing.service.gov.uk/media/#{@asset_manager_id_for_original_asset}/highres.jpg",
+                  "variant" => "high_resolution",
+                },
+                {
+                  "file_url" => "https://assets.publishing.service.gov.uk/media/#{@asset_manager_id_for_960_asset}/960.jpg",
+                  "variant" => "960",
+                },
+                {
+                  "file_url" => "https://assets.publishing.service.gov.uk/media/#{@asset_manager_id_for_300_asset}/300.jpg",
+                  "variant" => "300",
+                },
+              ],
+            },
+          ],
+        }
+      end
+
+      it "carries over the image 'created_at' date" do
+        Whitehall::DocumentImporter.save_images(@data, @edition)
+        assert_equal "2022-05-25 08:17:06 +0100", @edition.images.first.created_at.to_s
+      end
+
+      it "carries over the image 'alt_text'" do
+        Whitehall::DocumentImporter.save_images(@data, @edition)
+        assert_equal "Delegates attending the G7 meeting in Germany.", @edition.images.first.alt_text
+      end
+
+      it "carries over the image 'caption'" do
+        Whitehall::DocumentImporter.save_images(@data, @edition)
+        assert_equal "Caption for the image", @edition.images.first.caption
+      end
+
+      it "appends credit onto the image caption" do
+        @data["images"].first["credit"] = "Image credit"
+        Whitehall::DocumentImporter.save_images(@data, @edition)
+        assert_equal "Caption for the image. Credit: Image credit", @edition.images.first.caption
+      end
+
+      it "saves lead image to the edition" do
+        Whitehall::DocumentImporter.save_images(@data, @edition)
+        assert_equal 1, @edition.images.count
+        assert_equal @edition.images.first.image_data_id, @edition.reload.block_content["image"] # == Lead image
+      end
+
+      it "maps image variants to their closest Whitehall equivalents" do
+        Whitehall::DocumentImporter.save_images(@data, @edition)
+        image_data = @edition.images.first.image_data
+        assert_equal 7, image_data.assets.count
+        assert_equal @asset_manager_id_for_original_asset, image_data.assets.find_by(variant: "original").asset_manager_id
+        assert_equal "highres.jpg", image_data.assets.find_by(variant: "original").filename
+        assert_equal @asset_manager_id_for_960_asset, image_data.assets.find_by(variant: "s960").asset_manager_id
+        assert_equal "960.jpg", image_data.assets.find_by(variant: "s960").filename
+        assert_equal @asset_manager_id_for_960_asset, image_data.assets.find_by(variant: "s712").asset_manager_id
+        assert_equal "960.jpg", image_data.assets.find_by(variant: "s712").filename
+        assert_equal @asset_manager_id_for_960_asset, image_data.assets.find_by(variant: "s630").asset_manager_id
+        assert_equal "960.jpg", image_data.assets.find_by(variant: "s630").filename
+        assert_equal @asset_manager_id_for_960_asset, image_data.assets.find_by(variant: "s465").asset_manager_id
+        assert_equal "960.jpg", image_data.assets.find_by(variant: "s465").filename
+        assert_equal @asset_manager_id_for_300_asset, image_data.assets.find_by(variant: "s300").asset_manager_id
+        assert_equal "300.jpg", image_data.assets.find_by(variant: "s300").filename
+        assert_equal @asset_manager_id_for_300_asset, image_data.assets.find_by(variant: "s216").asset_manager_id
+        assert_equal "300.jpg", image_data.assets.find_by(variant: "s216").filename
       end
     end
   end
