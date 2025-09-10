@@ -1,18 +1,16 @@
 module ConfigurableAssociations
   class Factory
-    def initialize(association_configs, edition)
-      @association_configs = association_configs
+    def initialize(edition)
       @edition = edition
     end
 
-    def build(association_key)
-      association = associations[association_key]
-      raise "Undefined association: #{association_key}" unless association
+    def configurable_associations
+      @edition.type_instance.associations.map do |association_config|
+        association = associations[association_config["key"]]
+        raise "Undefined association: #{association_config['key']}" unless association
 
-      config = @association_configs.find { |config| config["key"] == association_key }
-      raise "config not found for association: #{association_key}" unless config
-
-      association.call(config, @edition)
+        association.call(association_config, @edition)
+      end
     end
 
   private

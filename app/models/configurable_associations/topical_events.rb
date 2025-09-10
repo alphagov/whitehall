@@ -1,13 +1,16 @@
 module ConfigurableAssociations
   class TopicalEvents
-    delegate :topical_event_ids, to: :@edition
-    def initialize(config, edition)
+    def initialize(config, association)
       @config = config
-      @edition = edition
+      @association = association
     end
 
     def label
       @config["label"]
+    end
+
+    def selected_ids
+      @association.pluck(:id)
     end
 
     def to_partial_path
