@@ -11,11 +11,11 @@ module Edition::LeadImage
   end
 
   def lead_image_url
-    image_data ? image_url : placeholder_image_url
+    image_url
   end
 
   def high_resolution_lead_image_url
-    image_data ? image_data.file.url(:s960) : placeholder_image_url
+    image_data.file.url(:s960)
   end
 
   def lead_image_alt_text
@@ -39,20 +39,8 @@ module Edition::LeadImage
 
 private
 
-  def placeholder_image_url
-    ActionController::Base.helpers.image_url(
-      "placeholder.jpg",
-      host: Whitehall.public_root,
-    )
-  end
-
   def image_url
-    content_type = file.content_type
-    if content_type && content_type =~ /svg/
-      image_data.file.url
-    else
-      image_data.file.url(:s300)
-    end
+    image_data.file.url(:s300)
   end
 
   def image_data
