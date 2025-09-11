@@ -74,8 +74,16 @@ class PublishingApiRake < ActiveSupport::TestCase
         DataHygiene::PublishingApiHtmlAttachmentRedirector.expects(:call).with(
           content_id,
           path,
+          dry_run: true,
+        )
+
+        DataHygiene::PublishingApiHtmlAttachmentRedirector.expects(:call).with(
+          content_id,
+          path,
           dry_run: false,
         )
+
+        Thor::Shell::Basic.any_instance.stubs(:yes?).returns(true)
 
         capture_io { task.invoke(content_id, path) }
       end
