@@ -11,7 +11,7 @@ class CaseStudy < Edition
   include Edition::LeadImage
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    Whitehall::RenderingApp::FRONTEND
   end
 
   def display_type_key
