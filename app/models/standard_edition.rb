@@ -3,6 +3,7 @@ class StandardEdition < Edition
   include Edition::Images
   include ::Attachable
   include Edition::AlternativeFormatProvider
+  include StandardEdition::DefaultLeadImage
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
