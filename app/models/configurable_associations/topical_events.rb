@@ -1,7 +1,6 @@
 module ConfigurableAssociations
   class TopicalEvents
-    def initialize(config, association)
-      @config = config
+    def initialize(association)
       @association = association
     end
 

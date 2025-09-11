@@ -9,7 +9,7 @@ module ConfigurableAssociations
         association = associations[association_config["key"]]
         raise "Undefined association: #{association_config['key']}" unless association
 
-        association.call(association_config, @edition)
+        association.call(@edition)
       end
     end
 
@@ -17,8 +17,8 @@ module ConfigurableAssociations
 
     def associations
       {
-        "role_appointments" => ->(config, edition) { ConfigurableAssociations::RoleAppointments.new(config, edition.role_appointments) },
-        "topical_events" => ->(config, edition) { ConfigurableAssociations::TopicalEvents.new(config, edition.topical_events) },
+        "role_appointments" => ->(edition) { ConfigurableAssociations::RoleAppointments.new(edition.role_appointments) },
+        "topical_events" => ->(edition) { ConfigurableAssociations::TopicalEvents.new(edition.topical_events) },
       }.freeze
     end
   end
