@@ -17,7 +17,7 @@ module ConfigurableAssociations
 
     def associations
       {
-        "role_appointments" => ->(edition) { ConfigurableAssociations::RoleAppointments.new(edition.role_appointments) },
+        "ministerial_role_appointments" => ->(edition) { ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments) },
         "topical_events" => ->(edition) { ConfigurableAssociations::TopicalEvents.new(edition.topical_events) },
       }.freeze
     end

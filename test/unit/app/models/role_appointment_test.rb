@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RoleAppointmentTest < ActiveSupport::TestCase
+class MinisterialRoleAppointmentTest < ActiveSupport::TestCase
   test "should be invalid with no started_at" do
     role_appointment = build(:role_appointment, started_at: nil)
     assert_not role_appointment.valid?

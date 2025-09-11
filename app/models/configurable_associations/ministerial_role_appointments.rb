@@ -1,5 +1,5 @@
 module ConfigurableAssociations
-  class RoleAppointments
+  class MinisterialRoleAppointments
     def initialize(association)
       @association = association
     end
@@ -22,7 +22,7 @@ module ConfigurableAssociations
     end
 
     def to_partial_path
-      "admin/configurable_associations/role_appointments"
+      "admin/configurable_associations/ministerial_role_appointments"
     end
   end
 end

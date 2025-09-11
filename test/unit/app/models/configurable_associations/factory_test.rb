@@ -20,7 +20,7 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
   test "configurable_associations builds all of the configured associations for an edition" do
     association_config = [
       {
-        "key" => "role_appointments",
+        "key" => "ministerial_role_appointments",
       },
       {
         "key" => "topical_events",
@@ -32,7 +32,7 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
     edition = build(:draft_standard_edition)
     factory = ConfigurableAssociations::Factory.new(edition)
     role_appointments = mock("ConfigurableAssociations::RoleAppointments")
-    ConfigurableAssociations::RoleAppointments.expects(:new).with(edition.role_appointments).returns(role_appointments)
+    ConfigurableAssociations::MinisterialRoleAppointments.expects(:new).with(edition.role_appointments).returns(role_appointments)
     topical_events = mock("ConfigurableAssociations::TopicalEvents")
     ConfigurableAssociations::TopicalEvents.expects(:new).with(edition.topical_events).returns(topical_events)
 
