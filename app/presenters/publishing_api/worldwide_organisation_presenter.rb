@@ -5,6 +5,7 @@ module PublishingApi
     include ApplicationHelper
     include OrganisationHelper
     include Presenters::PublishingApi::DefaultNewsImageHelper
+    include WorldLocationNewsHelper
 
     attr_accessor :item, :update_type, :state
 
@@ -167,6 +168,7 @@ module PublishingApi
         {
           content_id: world_location.content_id,
           name: world_location.name,
+          base_path: world_location_news_path(world_location)
         }
       end
     end
