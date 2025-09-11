@@ -4,6 +4,10 @@ require "rake"
 class IdentifyPoliticalContentFor < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
+  setup do
+    Thor::Shell::Basic.any_instance.stubs(:yes?).returns(true)
+  end
+
   teardown { task.reenable }
 
   describe "#identify_political_content" do
