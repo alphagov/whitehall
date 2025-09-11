@@ -5,7 +5,6 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
     association_config = [
       {
         "key" => "invalid_association",
-        "label" => "Test",
       },
     ]
     configurable_document_type = build_configurable_document_type("test_type", { "associations" => association_config })
@@ -22,11 +21,9 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
     association_config = [
       {
         "key" => "role_appointments",
-        "label" => "Ministers",
       },
       {
         "key" => "topical_events",
-        "label" => "Topical events",
       },
     ]
     configurable_document_type = build_configurable_document_type("test_type", { "associations" => association_config })

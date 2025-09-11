@@ -5,10 +5,6 @@ module ConfigurableAssociations
       @association = association
     end
 
-    def label
-      @config["label"]
-    end
-
     def selected_ids
       @association.ids
     end
