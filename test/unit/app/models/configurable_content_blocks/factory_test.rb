@@ -34,11 +34,31 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
   end
 
   test "it can build an image select string block" do
-    page = StandardEdition.new
+    test_type = build_configurable_document_type("test_type", {})
+    ConfigurableDocumentType.setup_test_types(test_type)
+    page = StandardEdition.new(configurable_document_type: "test_type")
     page.images = [build(:image)]
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::ImageSelect")
     ConfigurableContentBlocks::ImageSelect.expects(:new).with(page.images).returns(block)
+    assert_equal block, factory.build("string", "image_select")
+  end
+
+  test "it can build an image select block with lead image options, when 'default_lead_image_enabled' is configured" do
+    test_type_with_lead_image_setting =
+      build_configurable_document_type(
+        "test_type_with_lead_image_setting", {
+          "settings" => {
+            "default_lead_image_enabled" => true,
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(test_type_with_lead_image_setting)
+    page = StandardEdition.new(configurable_document_type: "test_type_with_lead_image_setting")
+    url = page.default_lead_image_url
+    factory = ConfigurableContentBlocks::Factory.new(page)
+    block = mock("ConfigurableContentBlocks::ImageSelect")
+    ConfigurableContentBlocks::ImageSelect.expects(:new).with(page.images, default_lead_image_url: url).returns(block)
     assert_equal block, factory.build("string", "image_select")
   end
 

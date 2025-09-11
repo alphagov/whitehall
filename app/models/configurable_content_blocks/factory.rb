@@ -26,12 +26,16 @@ module ConfigurableContentBlocks
         "string" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultString.new },
           "govspeak" => ->(page) { ConfigurableContentBlocks::Govspeak.new(page.images, page.attachments) },
-          "image_select" => ->(page) { ConfigurableContentBlocks::ImageSelect.new(page.images) },
+          "image_select" => ->(page) { ConfigurableContentBlocks::ImageSelect.new(page.images, **lead_image_options(page)) },
         },
         "object" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultObject.new(self) },
         },
       }.freeze
+    end
+
+    def lead_image_options(page)
+      page.can_have_default_lead_image? ? { default_lead_image_url: page.default_lead_image_url } : {}
     end
   end
 end

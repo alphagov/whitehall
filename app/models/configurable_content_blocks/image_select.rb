@@ -1,9 +1,10 @@
 module ConfigurableContentBlocks
   class ImageSelect
-    attr_reader :images
+    attr_reader :images, :default_lead_image_url
 
-    def initialize(images = [])
+    def initialize(images = [], default_lead_image_url: nil)
       @images = images
+      @default_lead_image_url = default_lead_image_url
     end
 
     def json_schema_type
