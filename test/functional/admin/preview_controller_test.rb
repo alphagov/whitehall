@@ -65,4 +65,21 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     post :preview, params: { body: "blah", attachment_ids: [attachment.id] }
     assert_response :forbidden
   end
+
+  view_test "shows rendered content block when an embed code is found" do
+    govspeak = <<~MD
+      some content...
+      {{embed:content_block_pension:my-content-block/rates/rate-1/amount}}
+    MD
+
+    html = <<~HTML
+      <span class="content-block">£123</span>
+    HTML
+
+    ContentBlockManager::FindAndReplaceEmbedCodesService.expects(:call).with(govspeak).returns(html)
+
+    post :preview, params: { body: govspeak }
+
+    assert_select "span.content-block", "£123"
+  end
 end
