@@ -1,22 +1,5 @@
 require "test_helper"
 
-class TopicalEventsTest < ActiveSupport::TestCase
-  test "the cache digest is updated when a topical event is updated" do
-    topical_event = create(:topical_event)
-    edition = build(:draft_standard_edition)
-    topical_events_association = ConfigurableAssociations::TopicalEvents.new(edition.topical_events)
-    digest = topical_events_association.template_cache_digest
-
-    assert_equal digest, topical_events_association.template_cache_digest
-
-    Timecop.freeze 1.hour.since do
-      topical_event.update!(name: "new topic")
-    end
-
-    assert_not_equal digest, topical_events_association.template_cache_digest
-  end
-end
-
 class TopicalEventsRenderingTest < ActionView::TestCase
   test "it renders topical events form control" do
     topical_events = create_list(:topical_event, 2)

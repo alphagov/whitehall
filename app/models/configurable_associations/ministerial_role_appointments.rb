@@ -24,12 +24,6 @@ module ConfigurableAssociations
         .ascending_start_date
     end
 
-    def template_cache_digest
-      role_appointment_timestamps = options_query.pluck(:updated_at)
-      update_timestamps = role_appointment_timestamps.map(&:to_i).join
-      Digest::MD5.hexdigest "role-appointments-#{update_timestamps}"
-    end
-
     def to_partial_path
       "admin/configurable_associations/ministerial_role_appointments"
     end
