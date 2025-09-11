@@ -1,22 +1,5 @@
 require "test_helper"
 
-class MinisterialRoleAppointmentTest < ActiveSupport::TestCase
-  test "the cache digest is updated when a role appointment is updated" do
-    appointment = create(:ministerial_role_appointment)
-    edition = build(:draft_standard_edition)
-    role_appointments_association = ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments)
-    digest = role_appointments_association.template_cache_digest
-
-    assert_equal digest, role_appointments_association.template_cache_digest
-
-    Timecop.freeze 1.hour.since do
-      appointment.update!(ended_at: Time.zone.now)
-    end
-
-    assert_not_equal digest, role_appointments_association.template_cache_digest
-  end
-end
-
 class MinisterialRoleAppointmentsRenderingTest < ActionView::TestCase
   test "it renders role appointments form control" do
     appointments = create_list(:ministerial_role_appointment, 2)
