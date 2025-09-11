@@ -108,7 +108,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   view_test "GET edit renders the form controls for the configured associations" do
     configurable_document_type = build_configurable_document_type("test_type", { "associations" => [
       {
-        "key" => "role_appointments",
+        "key" => "ministerial_role_appointments",
       },
       {
         "key" => "topical_events",

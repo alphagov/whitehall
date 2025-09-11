@@ -22,7 +22,7 @@
   },
   "associations" : [
     {
-      "key": "role_appointments"
+      "key": "ministerial_role_appointments"
     },
     {
       "key": "topical_events"

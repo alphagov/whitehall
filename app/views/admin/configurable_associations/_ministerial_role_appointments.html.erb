@@ -1,16 +1,16 @@
 <div class="app-view-edit-edition__appointment-fields">
-  <% cache_if role_appointments.selected_ids.empty?, "#{role_appointments.template_cache_digest}" do %>
+  <% cache_if ministerial_role_appointments.selected_ids.empty?, "#{ministerial_role_appointments.template_cache_digest}" do %>
     <%= render "govuk_publishing_components/components/select_with_search", {
       id: "edition_role_appointment_ids",
       name: "edition[role_appointment_ids][]",
       include_blank: true,
       label: "Ministers",
       heading_size: "m",
-      options: role_appointments.scoped_appointments.map do |appointment|
+      options: ministerial_role_appointments.scoped_appointments.map do |appointment|
         {
           text: role_appointment_option_label(appointment),
           value: appointment.id,
-          selected: role_appointments.selected_ids.include?(appointment.id),
+          selected: ministerial_role_appointments.selected_ids.include?(appointment.id),
         }
       end,
       multiple: true,
