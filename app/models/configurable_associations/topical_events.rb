@@ -4,8 +4,16 @@ module ConfigurableAssociations
       @association = association
     end
 
+    def publishing_api_links_key
+      :topical_events
+    end
+
     def selected_ids
-      @association.pluck(:id)
+      @association.ids
+    end
+
+    def selected_content_ids
+      @association.map(&:content_id)
     end
 
     def options_query

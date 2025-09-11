@@ -4,8 +4,17 @@ module ConfigurableAssociations
       @association = association
     end
 
+    def publishing_api_links_key
+      :role_appointments
+    end
+
     def selected_ids
       @association.ids
+    end
+
+    def selected_content_ids
+      @association.preload(:person)
+      @association.map { |role_appointment| role_appointment.person.content_id }
     end
 
     def options_query

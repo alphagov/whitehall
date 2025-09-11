@@ -344,4 +344,30 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
     assert_not content[:details].key?(:attachments)
   end
+
+  test "#links includes the selected content IDs for each configured association" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", {
+        "associations" => [
+          {
+            "key" => "ministerial_role_appointments",
+          },
+          {
+            "key" => "topical_events",
+          },
+        ],
+      }),
+    )
+    ministerial_role_appointments = create_list(:ministerial_role_appointment, 2)
+    topical_events = create_list(:topical_event, 2)
+    edition = build(:standard_edition,
+                    role_appointments: ministerial_role_appointments,
+                    topical_events:)
+    presenter = PublishingApi::StandardEditionPresenter.new(edition)
+    links = presenter.links
+    expected_role_appointments = ministerial_role_appointments.map { |appointment| appointment.person.content_id }
+    assert_equal expected_role_appointments, links[:role_appointments]
+    expected_topical_events = topical_events.map(&:content_id)
+    assert_equal expected_topical_events, links[:topical_events]
+  end
 end
