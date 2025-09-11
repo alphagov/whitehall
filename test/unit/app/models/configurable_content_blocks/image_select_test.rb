@@ -61,4 +61,94 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
       assert_dom "option", text: image.filename
     end
   end
+
+  test "it renders the default lead image and guidance, if no custom lead image has been selected" do
+    url = "http://example.com/image.jpg"
+    @schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "image_select",
+        },
+      },
+    }
+
+    @page = StandardEdition.new
+    @page.images = []
+    @page.block_content = { "test_attribute" => "" }
+    @block = ConfigurableContentBlocks::ImageSelect.new(@page.images, default_lead_image_url: url)
+
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.block_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+    }
+
+    assert_dom "h2", text: "Default lead image"
+    assert_dom "p", text: "Default image for your organisation"
+    assert_dom "span", text: "Using a lead image"
+    assert "a", text: url
+  end
+
+  test "it does not render the default lead image if the url is nil" do
+    @schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "image_select",
+        },
+      },
+    }
+
+    @page = StandardEdition.new
+    @page.images = []
+    @page.block_content = { "test_attribute" => "" }
+    @block = ConfigurableContentBlocks::ImageSelect.new(@page.images, default_lead_image_url: nil)
+
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.block_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+    }
+
+    assert_dom "h2", text: "Default lead image", count: 0
+    assert_dom "p", text: "Default image for your organisation", count: 0
+    assert_dom "span", text: "Using a lead image", count: 0
+  end
+
+  test "it does not render the default lead image if a custom lead image has been selected" do
+    url = "http://example.com/image.jpg"
+    @schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "image_select",
+        },
+      },
+    }
+
+    @page = StandardEdition.new
+    @page.images = create_list(:image, 2)
+    @page.block_content = { "test_attribute" => @page.images.last.image_data.id.to_s }
+    @block = ConfigurableContentBlocks::ImageSelect.new(@page.images, default_lead_image_url: url)
+
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.block_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+    }
+
+    assert_dom "h2", text: "Default lead image", count: 0
+    assert_dom "p", text: "Default image for your organisation", count: 0
+    assert_dom "span", text: "Using a lead image", count: 0
+  end
 end

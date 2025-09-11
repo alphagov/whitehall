@@ -13,8 +13,8 @@
         "format": "govspeak"
       },
       "image": {
-        "title": "Lead image",
-        "description": "Select a lead image, if required",
+        "title": "Custom lead image",
+        "description": "Select a lead image. This will override the organisation default news image. To fall back to the organisation image, provide a blank selection.",
         "type": "string",
         "format": "image_select"
       }

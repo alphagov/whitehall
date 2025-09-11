@@ -1,3 +1,28 @@
+<% guidance = tag.p("If you don't select a custom lead image, your organisation's image will be used instead.", class: "govuk-body") + tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body") %>
+
+<% if content.blank? && image_select.default_lead_image_url %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Default lead image",
+    font_size: "m",
+    heading_level: 2,
+  } %>
+
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Using a lead image",
+  } do %>
+    <% guidance %>
+  <% end %>
+
+  <div class="app-c-edition-images-lead-image-component__default_lead_image">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <img src="<%= image_select.default_lead_image_url %>" alt="Default organisation image" class="app-view-edition-resource__preview">
+      </div>
+    </div>
+    <p class="govuk-hint govuk-!-margin-top-2">Default image for your organisation</p>
+  </div>
+<% end %>
+
 <% required = required || false %>
 <% select_options = [
      {
