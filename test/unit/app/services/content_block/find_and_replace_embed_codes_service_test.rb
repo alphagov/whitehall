@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContentBlockManager::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::TestCase
+class ContentBlock::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   it "finds and replaces embed codes" do
@@ -28,7 +28,7 @@ class ContentBlockManager::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::
       <p>#{edition_2.render(edition_2.document.embed_code(use_friendly_id: false))}</p>
     "
 
-    result = ContentBlockManager::FindAndReplaceEmbedCodesService.call(html)
+    result = ContentBlock::FindAndReplaceEmbedCodesService.call(html)
 
     assert_equal result, expected
   end
@@ -38,7 +38,7 @@ class ContentBlockManager::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::
 
     html = edition.document.embed_code
 
-    result = ContentBlockManager::FindAndReplaceEmbedCodesService.call(html)
+    result = ContentBlock::FindAndReplaceEmbedCodesService.call(html)
     assert_equal result, html
   end
 
@@ -47,7 +47,7 @@ class ContentBlockManager::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::
 
     html = edition.document.embed_code
 
-    result = ContentBlockManager::FindAndReplaceEmbedCodesService.call(html)
+    result = ContentBlock::FindAndReplaceEmbedCodesService.call(html)
     assert_equal result, html
   end
 end

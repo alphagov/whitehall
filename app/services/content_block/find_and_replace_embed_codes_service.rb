@@ -1,4 +1,4 @@
-module ContentBlockManager
+module ContentBlock
   class FindAndReplaceEmbedCodesService
     def self.call(html)
       new(html).call
