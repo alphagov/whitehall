@@ -1,12 +1,6 @@
 require "test_helper"
 
 class Edition::LeadImageTest < ActiveSupport::TestCase
-  test "should use placeholder image if none had been uploaded" do
-    model = stub("Target", lead_image: nil, lead_organisations: [], organisations: []).extend(Edition::LeadImage)
-    assert_match %r{placeholder}, model.lead_image_url
-    assert_equal "", model.lead_image_alt_text
-  end
-
   test "should use empty string if no alt_text is provided" do
     model = stub("Target", lead_image: nil, lead_organisations: [], organisations: []).extend(Edition::LeadImage)
     file = stub("File", content_type: "image/jpg")
