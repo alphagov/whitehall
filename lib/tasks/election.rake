@@ -1,7 +1,20 @@
+require "thor"
+
+def shell
+  @shell ||= Thor::Shell::Basic.new
+end
+
 namespace :election do
   desc "Remove MP from MP's letters"
   task remove_mp_letters: :environment do
     puts "Removing MP from MP's letters:"
+    people_count = Person.where('letters LIKE "MP %" OR letters LIKE "% MP %" OR letters LIKE "% MP" OR letters = "MP"').count
+    puts "Found #{people_count} people with 'MP' in their letters."
+    unless shell.yes?("Proceed with processing this number of people?")
+      shell.say_error "Aborted"
+      next
+    end
+
     Person.where('letters LIKE "%MP%"').find_each do |person|
       new_letters = person.letters.split(" ").reject { _1 == "MP" }.join(" ")
       if person.letters == new_letters
@@ -22,6 +35,11 @@ namespace :election do
       .uniq
 
     puts "Republishing #{political_document_ids.count} documents"
+
+    unless shell.yes?("Proceed with republishing these documents? (yes/no)")
+      shell.say_error "Aborted"
+      next
+    end
 
     political_document_ids.each do |document_id|
       print "."
@@ -51,6 +69,13 @@ namespace :election do
       if args[:end_date]
         end_date = Date.parse(args[:end_date])
       end
+
+      puts "You're about to end #{appointments.size} ministerial appointments (excluding the Prime Minister) with an end date of #{end_date}."
+      unless shell.yes?("Proceed with ending these appointments? (yes/no)")
+        shell.say_error "Aborted"
+        next
+      end
+
       appointments.each do |appointment|
         next if appointment.role_id == prime_ministerial_role_id
 
@@ -77,12 +102,16 @@ namespace :election do
       .published
       .where("first_published_at >= ?", date)
 
-    puts "Identifying political content in #{published.size} published editions..."
-    published.find_each { |edition| edition.update_column(:political,  PoliticalContentIdentifier.political?(edition)) }
-
     pre_published_editions = Edition.in_pre_publication_state.where(document_id: published.map(&:document_id))
 
-    puts "Identifying political content in #{pre_published_editions.size} pre-publication editions..."
+    puts "You're about to update the 'political' value for #{published.size} published editions and #{pre_published_editions.size} pre-publication editions associated with #{org} since #{date}"
+    unless shell.yes?("Proceed with updating the 'political' value? (yes/no)")
+      shell.say_error "Aborted"
+      next
+    end
+
+    published.find_each { |edition| edition.update_column(:political, PoliticalContentIdentifier.political?(edition)) }
+
     pre_published_editions.find_each { |edition| edition.update_column(:political, PoliticalContentIdentifier.political?(edition)) }
 
     puts "Done"
