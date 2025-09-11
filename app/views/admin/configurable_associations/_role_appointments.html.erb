@@ -8,7 +8,7 @@
       heading_size: "m",
       options: role_appointments.scoped_appointments.map do |appointment|
         {
-          text: role_appointment_label(appointment),
+          text: role_appointment_option_label(appointment),
           value: appointment.id,
           selected: role_appointments.selected_ids.include?(appointment.id),
         }
