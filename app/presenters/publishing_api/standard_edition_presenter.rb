@@ -20,7 +20,7 @@ module PublishingApi
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: type.settings["rendering_app"],
         schema_name: type.settings["publishing_api_schema_name"],
-        links: edition_links,
+        links:,
         auth_bypass_ids: [item.auth_bypass_id],
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
@@ -29,11 +29,12 @@ module PublishingApi
     end
 
     def links
-      {}
-    end
-
-    def edition_links
-      {}
+      factory = ConfigurableAssociations::Factory.new(item)
+      {}.tap do |links|
+        factory.configurable_associations.each do |association|
+          links[association.publishing_api_links_key] = association.selected_content_ids
+        end
+      end
     end
 
   private
