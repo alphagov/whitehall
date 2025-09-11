@@ -109,11 +109,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     configurable_document_type = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "role_appointments",
-        "label" => "Ministers",
       },
       {
         "key" => "topical_events",
-        "label" => "Topical events",
       },
     ] })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
@@ -125,9 +123,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_response :ok
     assert_select "h2", text: "Associations"
-    ConfigurableDocumentType.find("test_type").associations.each do |association|
-      assert_select "label", text: association["label"]
-    end
+    assert_select "label", text: "Ministers"
+    assert_select "label", text: "Topical events"
   end
 
   test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do

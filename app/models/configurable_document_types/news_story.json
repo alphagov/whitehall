@@ -22,12 +22,10 @@
   },
   "associations" : [
     {
-      "key": "role_appointments",
-      "label": "Ministers"
+      "key": "role_appointments"
     },
     {
-      "key": "topical_events",
-      "label": "Topical Events"
+      "key": "topical_events"
     }
   ],
   "settings": {

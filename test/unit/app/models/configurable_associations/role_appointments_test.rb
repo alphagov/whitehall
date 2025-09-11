@@ -6,7 +6,6 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     edition = build(:draft_standard_edition)
     config = {
       "key" => "role_appointments",
-      "label" => "Ministers",
     }
     role_appointments_association = ConfigurableAssociations::RoleAppointments.new(config, edition.role_appointments)
     digest = role_appointments_association.template_cache_digest
@@ -27,11 +26,10 @@ class RoleAppointmentsRenderingTest < ActionView::TestCase
     edition = build(:draft_standard_edition)
     config = {
       "key" => "role_appointments",
-      "label" => "Ministers",
     }
     role_appointments_association = ConfigurableAssociations::RoleAppointments.new(config, edition.role_appointments)
     render role_appointments_association
-    assert_dom "label", text: config["label"]
+    assert_dom "label", text: "Ministers"
     appointments.each do |appointment|
       assert_dom "option", text: [appointment.person.name, appointment.role.name, appointment.organisations.map(&:name).to_sentence].join(", ")
     end
@@ -40,7 +38,6 @@ class RoleAppointmentsRenderingTest < ActionView::TestCase
   test "it renders role appointments form control with pre-selected options" do
     config = {
       "key" => "role_appointments",
-      "label" => "Ministers",
     }
     appointments = create_list(:ministerial_role_appointment, 2)
     edition = build(:draft_standard_edition, { role_appointments: [appointments.first] })
@@ -57,11 +54,10 @@ class RoleAppointmentsRenderingTest < ActionView::TestCase
     edition = build(:draft_standard_edition)
     config = {
       "key" => "role_appointments",
-      "label" => "Ministers",
     }
     role_appointments_association = ConfigurableAssociations::RoleAppointments.new(config, edition.role_appointments)
     render role_appointments_association
-    assert_dom "label", text: config["label"]
+    assert_dom "label", text: "Ministers"
     ministerial_appointments.each do |appointment|
       assert_dom "option", text: [appointment.person.name, appointment.role.name, appointment.organisations.map(&:name).to_sentence].join(", ")
     end
