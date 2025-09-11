@@ -76,7 +76,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
       <span class="content-block">£123</span>
     HTML
 
-    ContentBlockManager::FindAndReplaceEmbedCodesService.expects(:call).with(govspeak).returns(html)
+    ContentBlock::FindAndReplaceEmbedCodesService.expects(:call).with(govspeak).returns(html)
 
     post :preview, params: { body: govspeak }
 
