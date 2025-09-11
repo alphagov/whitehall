@@ -27,6 +27,7 @@
     "rendering_app": "frontend",
     "images_enabled": true,
     "file_attachments_enabled": true,
+    "default_lead_image_enabled": true,
     "organisations": null,
     "backdating_enabled": true,
     "history_mode_enabled": true

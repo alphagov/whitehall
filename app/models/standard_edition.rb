@@ -43,6 +43,10 @@ class StandardEdition < Edition
     type_instance.settings["history_mode_enabled"]
   end
 
+  def can_have_default_lead_image?
+    type_instance.settings["default_lead_image_enabled"]
+  end
+
   def base_path
     "#{type_instance.settings['base_path_prefix']}/#{slug}"
   end
