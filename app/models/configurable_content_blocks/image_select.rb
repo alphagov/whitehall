@@ -40,5 +40,15 @@ module ConfigurableContentBlocks
     def to_partial_path
       "admin/configurable_content_blocks/image_select"
     end
+
+    def default_lead_image_url
+      lead_image_url(default_lead_image)
+    end
+
+  private
+
+    def lead_image_url(image_data)
+      image_data&.file&.url(:s300)
+    end
   end
 end
