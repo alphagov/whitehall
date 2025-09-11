@@ -105,6 +105,31 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_history_mode.can_be_marked_political?
   end
 
+  test "it allows default lead image behaviour if the schema permits it" do
+    test_type_with_default_lead_image =
+      build_configurable_document_type(
+        "test_type_with_default_lead_image", {
+        "settings" => {
+          "default_lead_image_enabled" => true,
+        },
+      }
+      )
+    test_type_without_default_lead_image =
+      build_configurable_document_type(
+        "test_type_without_default_lead_image", {
+        "settings" => {
+          "default_lead_image_enabled" => false,
+        },
+      }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_default_lead_image.merge(test_type_without_default_lead_image))
+    page_with_default_news_image = StandardEdition.new(configurable_document_type: "test_type_with_default_lead_image")
+    page_without_default_news_image = StandardEdition.new(configurable_document_type: "test_type_without_default_lead_image")
+    assert page_with_default_news_image.can_have_default_news_image?
+    assert_not page_without_default_news_image.can_have_default_news_image?
+  end
+
   test "it is invalid if the block content does not conform to the configurable document type schema" do
     test_type = "test_type"
     configurable_document_type =
