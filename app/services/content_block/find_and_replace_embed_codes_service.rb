@@ -7,11 +7,11 @@ module ContentBlock
     def call
       embed_content_references.uniq.each do |reference|
         content_block = content_blocks.find do |c|
-          c.document.content_id == reference.identifier || c.document.content_id_alias == reference.identifier
+          c.fetch("content_id_aliases").first.fetch("name") == reference.identifier
         end
         next if content_block.nil?
 
-        html.gsub!(reference.embed_code, content_block.render(reference.embed_code))
+        html.gsub!(reference.embed_code, render_block(content_block))
       end
 
       html
@@ -29,16 +29,25 @@ module ContentBlock
       @embed_content_references ||= ContentBlockTools::ContentBlockReference.find_all_in_document(html)
     end
 
-    def identifiers
-      embed_content_references.map(&:identifier)
+    def unique_identifiers
+      embed_content_references.uniq.map(&:identifier)
     end
 
     def content_blocks
-      @content_blocks ||= begin
-        scope = ContentBlockManager::ContentBlock::Edition.current_versions
-        scope.where(document: { content_id: identifiers })
-             .or(scope.where(document: { content_id_alias: identifiers }))
-      end
+      @content_blocks ||= Services.publishing_api.get_content_items(
+        content_id_aliases: unique_identifiers,
+        fields: %w[title content_id_aliases details document_type],
+      ).fetch("results")
+    end
+
+    def render_block(content_block)
+      ContentBlockTools::ContentBlock.new(
+        document_type: content_block.fetch("document_type"),
+        content_id: content_block.fetch("content_id"),
+        title: content_block.fetch("title"),
+        details: content_block.fetch("details"),
+        embed_code: content_block.fetch("content_id_aliases").first.fetch("name"),
+      ).render
     end
   end
 end
