@@ -56,6 +56,7 @@ gem "sidekiq-scheduler"
 gem "sprockets-rails"
 gem "strong_migrations"
 gem "terser"
+gem "timecop"
 gem "transitions", require: ["transitions", "active_record/transitions"]
 gem "validates_email_format_of"
 gem "view_component"
@@ -93,7 +94,6 @@ group :test do
   gem "rails-controller-testing"
   gem "rails-dom-testing"
   gem "simplecov", require: false
-  gem "timecop"
   gem "webmock", require: false
 end
 
