@@ -15,6 +15,7 @@ module ConfigurableDocumentTypeHelper
             },
           },
         },
+        "associations" => [],
         "settings" => {
           "base_path_prefix" => "/government/test",
           "publishing_api_schema_name" => "test_article",
