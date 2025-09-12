@@ -106,6 +106,20 @@ module Whitehall
         assert_equal [@secondary_org], edition.supporting_organisations
       end
 
+      it "allows secondary organisations to be empty" do
+        data = @data.merge({
+          "tags" => {
+            "primary_publishing_organisation" => [@primary_org.content_id],
+            "organisations" => nil,
+            "role_appointments" => [@role_appointment.content_id],
+            "topical_events" => [@topical_event.content_id],
+            "world_locations" => [@world_location.content_id],
+          },
+        })
+        edition = Whitehall::DocumentImporter.create_base_edition!(data)
+        assert_equal [], edition.supporting_organisations
+      end
+
       it "carries over the role appointments" do
         edition = Whitehall::DocumentImporter.create_base_edition!(@data)
         assert_equal [@role_appointment], edition.role_appointments
