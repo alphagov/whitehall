@@ -1,0 +1,15 @@
+<%= render "govuk_publishing_components/components/select_with_search", {
+  id: "edition_world_locations",
+  name: "edition[world_location_ids][]",
+  error_items: errors_for(world_locations.errors, :world_locations),
+  label: "World locations",
+  heading_size: "m",
+  options: world_locations.options_query.map do |world_location|
+    {
+      text: world_location.name,
+      value: world_location.id,
+      selected: world_locations.selected_ids.include?(world_location.id),
+    }
+  end,
+  multiple: true,
+} %>

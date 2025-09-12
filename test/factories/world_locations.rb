@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :world_location, traits: [:translated] do
-    name { "British Antarctic Territory" }
+    sequence(:name) { |index| "world-location-#{index}" }
     world_location_news { FactoryBot.build(:world_location_news) }
     world_location_type { "world_location" }
 
