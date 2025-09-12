@@ -27,6 +27,8 @@ class DocumentImportWorker < WorkerBase
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
       Rails.logger.info "...document published."
     end
+  rescue ActiveRecord::RecordNotUnique => e
+    Rails.logger.info("Skipping #{path_to_import_file} (already imported)")
   rescue JSON::ParserError
     raise "Failed to parse JSON for #{path_to_import_file}"
   end
