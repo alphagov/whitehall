@@ -19,6 +19,7 @@ module ConfigurableAssociations
       {
         "ministerial_role_appointments" => ->(edition) { ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments) },
         "topical_events" => ->(edition) { ConfigurableAssociations::TopicalEvents.new(edition.topical_events) },
+        "world_locations" => ->(edition) { ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors) },
       }.freeze
     end
   end
