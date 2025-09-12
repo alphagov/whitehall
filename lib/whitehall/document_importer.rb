@@ -45,7 +45,7 @@ class Whitehall::DocumentImporter
           change_note: combined_change_notes(data["change_notes"]),
           alternative_format_provider_id: Organisation.find_by(content_id: data["tags"]["primary_publishing_organisation"]).id,
           lead_organisations: [Organisation.find_by(content_id: data["tags"]["primary_publishing_organisation"])],
-          supporting_organisations: Organisation.where(content_id: (data["tags"]["organisations"] - data["tags"]["primary_publishing_organisation"])),
+          supporting_organisations: Organisation.where(content_id: ((data["tags"]["organisations"] || []) - data["tags"]["primary_publishing_organisation"])),
           topical_events: TopicalEvent.where(content_id: data["tags"]["topical_events"]),
           world_locations: WorldLocation.where(content_id: data["tags"]["world_locations"]),
           role_appointments: RoleAppointment.where(content_id: data["tags"]["role_appointments"]),
