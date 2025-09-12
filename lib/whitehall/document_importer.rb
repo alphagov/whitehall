@@ -25,7 +25,7 @@ class Whitehall::DocumentImporter
           title: data["title"],
           summary: data["summary"],
           block_content: {
-            "body" => data["body"],
+            "body" => pre_process_body(data["body"]),
           },
           political: data["political"],
           government_id: data["government_id"],
@@ -58,6 +58,16 @@ class Whitehall::DocumentImporter
       edition.previously_published = false
     end
     edition.major_change_published_at = data["first_published_at"]
+  end
+
+  def self.pre_process_body(body)
+    # Content Publisher has embeds like `[Contact: c1f13fd8-9feb-4028-9323-7cb3383323b4]`.
+    # Here we find-and-replace for Whitehall's equivalent: `[Contact:171]`
+    body.gsub!(/\[Contact: ?(.+?)\]/) do |_match|
+      id = Contact.find_by(content_id: ::Regexp.last_match(1)).id
+      "[Contact:#{id}]"
+    end
+    body
   end
 
   def self.robot_user
