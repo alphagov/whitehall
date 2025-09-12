@@ -157,5 +157,36 @@ module Whitehall
         assert_raises(RuntimeError) { Whitehall::DocumentImporter.derived_state("supercalifragilistic") }
       end
     end
+
+    describe "importing a 'withdrawn' document" do
+      it "creates an unpublishing with the correct attributes" do
+        data = @data.merge(
+          "state" => "withdrawn",
+          "internal_history" => [
+            {
+              "edition_number" => 1,
+              "entry_type" => "withdrawn",
+              "date" => "29 January 2020",
+              "time" => "4:01pm",
+              "user" => "foo@gov.uk",
+              "entry_content" => "This page is now withdrawn",
+            },
+            {
+              "edition_number" => 2,
+              "entry_type" => "draft_discarded",
+              "date" => "30 September 2019",
+              "time" => "11:47am",
+              "user" => "bar@gov.uk",
+              "entry_content" => nil,
+            },
+          ],
+          "base_path" => "/government/news/imported-news-story",
+        )
+        edition = Whitehall::DocumentImporter.create_base_edition!(data)
+        assert_equal "2020-01-29 16:01:00 +0000", edition.unpublishing.created_at.to_s
+        assert_equal "2020-01-29 16:01:00 +0000", edition.unpublishing.updated_at.to_s
+        assert_equal "This page is now withdrawn", edition.unpublishing.explanation
+      end
+    end
   end
 end

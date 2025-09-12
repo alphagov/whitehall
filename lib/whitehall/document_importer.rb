@@ -33,6 +33,23 @@ class Whitehall::DocumentImporter
       )
       edition.creator = user
       set_publishing_metadata(edition, data)
+      if data["state"] == "withdrawn"
+        withdrawn = data["internal_history"].find { |h| h["entry_type"] == "withdrawn" }
+        withdrawn_timestamp = Time.zone.parse("#{withdrawn['date']} #{withdrawn['time']}")
+        unpublishing = Unpublishing.new(
+          unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
+          explanation: withdrawn["entry_content"] || "Withdrawn document imported from Content Publisher",
+          alternative_url: nil,
+          created_at: withdrawn_timestamp,
+          updated_at: withdrawn_timestamp,
+          document_type: "StandardEdition",
+          slug: data["base_path"].split("/").last,
+          redirect: false,
+          content_id: data["content_id"],
+          unpublished_at: withdrawn_timestamp,
+        )
+        edition.unpublishing = unpublishing
+      end
       edition.save!
       return edition
     end
