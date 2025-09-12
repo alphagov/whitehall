@@ -40,6 +40,7 @@ module Whitehall
           },
         ],
         "internal_history" => [],
+        "attachments" => [],
       }
     end
 
@@ -307,6 +308,76 @@ module Whitehall
           • 20 May 2022 11:50pm: Internal note by baz@gov.uk. Details: Removed typo.
         OUTPUT
         assert_equal expected_output.gsub("\n", ""), Whitehall::DocumentImporter.internal_history_summary(internal_history)
+      end
+    end
+
+    describe ".save_attachments" do
+      setup do
+        # Minimal stub of a callback, otherwise the `skip_callback` call raises exception.
+        AttachmentData.set_callback(:save, :before, :update_file_attributes)
+        # Stub the actual method so it does nothing
+        AttachmentData.any_instance.stubs(:update_file_attributes)
+      end
+
+      it "saves attachments to the edition" do
+        edition = create(:edition)
+        data = {
+          "attachments" => [
+            {
+              "file_url" => "https://assets.publishing.service.gov.uk/media/628df069e90e071f6af1465d/foo.pdf",
+              "title" => "foo",
+              "created_at" => "2022-05-25 10:01:29 +0100",
+            },
+            {
+              "file_url" => "https://assets.publishing.service.gov.uk/media/628df082e90e071f61322253/bar.csv",
+              "title" => "bar",
+              "created_at" => "2022-05-25 10:01:53 +0100",
+            },
+          ],
+        }
+
+        stub_request(:get, "https://assets.publishing.service.gov.uk/media/628df069e90e071f6af1465d/foo.pdf")
+          .to_return(status: 200, body: "", headers: {})
+        stub_request(:get, "https://assets.publishing.service.gov.uk/media/628df082e90e071f61322253/bar.csv")
+          .to_return(status: 200, body: "", headers: {})
+
+        Whitehall::DocumentImporter.save_attachments(data, edition)
+
+        assert_equal 2, edition.attachments.count
+        assert_equal "foo", edition.attachments.first.title
+        assert_equal "bar", edition.attachments.last.title
+      end
+
+      it "populates attachment data from the URI response" do
+        # Setup
+        edition = create(:edition)
+        file_url = "http://asset-manager.dev.gov.uk/media/1234-5678-9012-3456-7890/file.pdf"
+        data = {
+          "attachments" => [
+            {
+              "title" => "Attachment",
+              "file_url" => file_url,
+              "created_at" => 2.days.ago.iso8601,
+            },
+          ],
+        }
+        response = mock
+        response.stubs(:content_type).returns("application/pdf")
+        response.stubs(:size).returns(12_344_555)
+        URI.stubs(:parse).with(file_url).returns(stub(open: response))
+        PDF::Reader.stubs(:new).returns(stub(page_count: 1))
+
+        # Action
+        Whitehall::DocumentImporter.save_attachments(data, edition)
+
+        # Assertions
+        assert_equal 1, edition.attachments.count
+        attachment = edition.attachments.find_by(title: "Attachment")
+        assert_not_nil attachment
+        assert_equal "application/pdf", attachment.attachment_data.content_type
+        assert_equal 12_344_555, attachment.attachment_data.file_size
+        assert_equal 1, attachment.attachment_data.number_of_pages
+        assert_equal 2.days.ago.to_i, attachment.attachment_data.created_at.to_i
       end
     end
   end

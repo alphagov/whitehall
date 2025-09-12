@@ -18,6 +18,8 @@ class Whitehall::DocumentImporter
       )
     end
 
+    save_attachments(data, edition)
+
     edition.document.update_columns(
       created_at: data["created_at"],
       content_id: data["content_id"],
@@ -145,6 +147,47 @@ class Whitehall::DocumentImporter
     end
 
     lines.join("<br>")
+  end
+
+  def self.save_attachments(data, edition)
+    data["attachments"].each do |attachment_hash|
+      uploader_identifier = File.basename(attachment_hash["file_url"])
+      response = URI.parse(attachment_hash["file_url"]).open
+      attachment_data = AttachmentData.new(
+        carrierwave_file: uploader_identifier,
+        content_type: response.content_type,
+        file_size: response.size,
+        number_of_pages: response.content_type == "application/pdf" ? PDF::Reader.new(response).page_count : nil,
+        created_at: attachment_hash["created_at"],
+      )
+
+      # Temporarily disable callbacks that try to read the file to get its size and content type
+      # since we don't have a local file, just the Asset Manager reference.
+      attachment_data.skip_file_attribute_update = true
+      attachment_data.save!(validate: false) # no local file, so have to skip validation
+      Asset.create!(
+        variant: "original",
+        filename: File.basename(attachment_hash["file_url"]),
+        asset_manager_id: attachment_hash["file_url"].match(%r{media/([^/]+)}).captures.first,
+        assetable: attachment_data,
+      )
+
+      attachment = FileAttachment.create!(
+        attachable: edition,
+        title: attachment_hash["title"],
+        attachment_data: attachment_data,
+        accessible: false,
+        isbn: "",
+        unique_reference: "",
+        command_paper_number: "",
+        hoc_paper_number: "",
+        parliamentary_session: "",
+        unnumbered_command_paper: false,
+        unnumbered_hoc_paper: false,
+        created_at: attachment_hash["created_at"],
+      )
+      edition.attachments << attachment
+    end
   end
 
   def self.robot_user
