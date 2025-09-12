@@ -29,6 +29,7 @@ class Whitehall::DocumentImporter
           },
           political: data["political"],
           government_id: data["government_id"],
+          change_note: combined_change_notes(data["change_notes"]),
           alternative_format_provider_id: Organisation.find_by(content_id: data["tags"]["primary_publishing_organisation"]).id,
         )
         edition.creator = user
@@ -68,6 +69,14 @@ class Whitehall::DocumentImporter
       "[Contact:#{id}]"
     end
     body
+  end
+
+  def self.combined_change_notes(change_notes)
+    return nil if change_notes.empty?
+
+    change_notes.map { |cn|
+      "#{Time.zone.parse(cn['public_timestamp']).strftime('%-d %B %Y')}: #{cn['note']}"
+    }.join("; ")
   end
 
   def self.robot_user
