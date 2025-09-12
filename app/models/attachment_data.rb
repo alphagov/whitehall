@@ -11,13 +11,13 @@ class AttachmentData < ApplicationRecord
 
   delegate :url, :path, to: :file, allow_nil: true
 
-  before_save :update_file_attributes
+  before_save :update_file_attributes, unless: :skip_file_attribute_update
 
   validate :file_is_not_blank
   validate :file_is_not_empty
   validate :filename_is_unique
 
-  attr_accessor :to_replace_id, :attachable
+  attr_accessor :to_replace_id, :attachable, :skip_file_attribute_update
 
   belongs_to :replaced_by, class_name: "AttachmentData"
   validate :cant_be_replaced_by_self
