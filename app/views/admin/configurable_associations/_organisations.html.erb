@@ -1,0 +1,43 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: "Lead organisations",
+  heading_level: 3,
+  heading_size: "m",
+  id: "edition_lead_organisations",
+  error_message: errors_for_input(organisations.errors, :lead_organisations),
+} do %>
+  <div class="govuk-!-margin-bottom-6">
+    <% 0.upto(3) do |index| %>
+      <% selected_lead_organisation_id_at_index = organisations.selected_lead_organisation_id_at(index) %>
+      <% lead_organisation_select_label = "Lead organisation #{index + 1}" %>
+      <%= render "govuk_publishing_components/components/select_with_search", {
+        id: "edition_lead_organisation_ids_#{index + 1}",
+        name: "edition[lead_organisation_ids][]",
+        label: index == 0 ? lead_organisation_select_label + " (required)" : lead_organisation_select_label,
+        heading_size: "s",
+        include_blank: true,
+        options: organisations.options_query.map do |organisation|
+          {
+            text: organisation.select_name,
+            value: organisation.id,
+            selected: selected_lead_organisation_id_at_index == organisation.id,
+          }
+        end
+      } %>
+    <% end %>
+  </div>
+<% end %>
+<%= render "govuk_publishing_components/components/select_with_search", {
+  id: "edition_supporting_organisation_ids",
+  name: "edition[supporting_organisation_ids][]",
+  include_blank: true,
+  label: "Supporting organisations",
+  heading_size: "m",
+  options: organisations.options_query.map do |organisation|
+    {
+      text: organisation.select_name,
+      value: organisation.id,
+      selected: organisations.selected_supporting_organisation_ids.include?(organisation.id)
+    }
+  end,
+  multiple: true,
+} %>

@@ -116,11 +116,14 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       {
         "key" => "world_locations",
       },
+      {
+        "key" => "organisations",
+      },
     ] })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     create(:world_location, active: true)
-    edition = create(:draft_standard_edition)
+    edition = create(:draft_standard_edition, :with_organisations)
 
     login_as :managing_editor
     get :edit, params: { id: edition.id }
@@ -129,6 +132,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Ministers"
     assert_select "label", text: "Topical events"
     assert_select "label", text: "World locations"
+    assert_select "legend", text: "Lead organisations"
+    assert_select "label", text: "Supporting organisations"
   end
 
   test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do

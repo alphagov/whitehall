@@ -29,6 +29,9 @@
     },
     {
       "key": "world_locations"
+    },
+    {
+      "key": "organisations"
     }
   ],
   "settings": {
