@@ -15,6 +15,7 @@ class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
     images = create_list(:image, 3)
     page = StandardEdition.new
     page.images = images
+    images[1].caption = "A caption"
     payload = ConfigurableContentBlocks::ImageSelect.new(page.images).publishing_api_payload(images[1].image_data.id)
 
     assert_equal({
@@ -25,6 +26,58 @@ class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
 
   test "does not have a publishing api payload if no image is selected" do
     payload = ConfigurableContentBlocks::ImageSelect.new.publishing_api_payload("")
+
+    assert_nil payload
+  end
+
+  test "it sends default lead image as payload, when lead image behaviour is enabled, and there is no image selection" do
+    default_lead_image = create(:organisation, :with_default_news_image).default_news_image
+    images = create_list(:image, 3)
+    page = StandardEdition.new
+    page.images = images
+    payload = ConfigurableContentBlocks::ImageSelect.new(page.images, default_lead_image: default_lead_image).publishing_api_payload("")
+
+    assert_equal({
+                   high_resolution_url: default_lead_image.file.url(:s960),
+                   url: default_lead_image.file.url(:s300),
+                 }, payload)
+  end
+
+  test "it sends selected image as 'lead' payload, and overrides the default image, when lead behaviour is enabled" do
+    default_lead_image = create(:organisation, :with_default_news_image).default_news_image
+    images = create_list(:image, 3)
+    page = StandardEdition.new
+    page.images = images
+    images[1].caption = "A caption"
+    payload = ConfigurableContentBlocks::ImageSelect.new(page.images, default_lead_image: default_lead_image).publishing_api_payload(images[1].image_data.id)
+
+    assert_equal({
+                   high_resolution_url: images[1].image_data.file.url(:s960),
+                   url: images[1].image_data.file.url(:s300),
+                   caption: images[1].caption,
+                 }, payload)
+  end
+
+  test "does not have a publishing api payload if selected image's assets are not ready" do
+    images = create_list(:image, 3)
+    page = StandardEdition.new
+    page.images = images
+    images[1].image_data.assets = []
+    images[1].image_data.save!
+
+    payload = ConfigurableContentBlocks::ImageSelect.new(page.images).publishing_api_payload(images[1].image_data.id)
+
+    assert_nil payload
+  end
+
+  test "does not have a publishing api payload if default lead image's assets are not ready" do
+    default_lead_image = create(:organisation, :with_default_news_image).default_news_image
+    images = create_list(:image, 3)
+    page = StandardEdition.new
+    page.images = images
+    default_lead_image.assets = []
+    default_lead_image.save!
+    payload = ConfigurableContentBlocks::ImageSelect.new(page.images, default_lead_image: default_lead_image).publishing_api_payload("")
 
     assert_nil payload
   end
