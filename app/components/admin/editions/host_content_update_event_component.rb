@@ -28,4 +28,12 @@ private
   def actor
     event.author ? linked_author(event.author, class: "govuk-link") : "User (removed)"
   end
+
+  def block_url
+    [
+      Plek.find("content-block-manager"),
+      "content-id",
+      event.content_id,
+    ].join("/")
+  end
 end
