@@ -41,7 +41,7 @@ class Whitehall::DocumentImporter
             "body" => pre_process_body(data["body"]),
           },
           political: data["political"],
-          government_id: Government.find_by(content_id: data["government_id"]).id,
+          government_id: Government.find_by(content_id: data["government_id"])&.id,
           change_note: combined_change_notes(data["change_notes"]),
           alternative_format_provider_id: Organisation.find_by(content_id: data["tags"]["primary_publishing_organisation"]).id,
           lead_organisations: [Organisation.find_by(content_id: data["tags"]["primary_publishing_organisation"])],
