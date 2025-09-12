@@ -6,6 +6,7 @@ class StandardEdition < Edition
   include Edition::RoleAppointments
   include Edition::TopicalEvents
   include Edition::WorldLocations
+  include Edition::Organisations
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
