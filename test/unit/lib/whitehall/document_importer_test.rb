@@ -268,5 +268,16 @@ module Whitehall
         assert_equal expected_body_output, body_output
       end
     end
+
+    describe ".combined_change_notes" do
+      it "combines change notes into a single string" do
+        change_notes = [
+          { "public_timestamp" => 1.day.ago.iso8601, "note" => "Second note" },
+          { "public_timestamp" => 2.days.ago.iso8601, "note" => "First note" },
+        ]
+        expected_output = "#{1.day.ago.strftime('%-d %B %Y')}: Second note; #{2.days.ago.strftime('%-d %B %Y')}: First note"
+        assert_equal expected_output, Whitehall::DocumentImporter.combined_change_notes(change_notes)
+      end
+    end
   end
 end
