@@ -4,6 +4,13 @@ class StandardEdition < Edition
   include ::Attachable
   include Edition::AlternativeFormatProvider
 
+  # Associations
+  include Edition::Organisations
+  include Edition::RoleAppointments
+  include Edition::TopicalEvents
+  include Edition::WorldLocations
+  include Edition::WorldwideOrganisations
+
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
 
