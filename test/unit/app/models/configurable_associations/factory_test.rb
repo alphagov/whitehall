@@ -25,6 +25,9 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
       {
         "key" => "topical_events",
       },
+      {
+        "key" => "world_locations",
+      },
     ]
     configurable_document_type = build_configurable_document_type("test_type", { "associations" => association_config })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
@@ -35,7 +38,9 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
     ConfigurableAssociations::MinisterialRoleAppointments.expects(:new).with(edition.role_appointments).returns(role_appointments)
     topical_events = mock("ConfigurableAssociations::TopicalEvents")
     ConfigurableAssociations::TopicalEvents.expects(:new).with(edition.topical_events).returns(topical_events)
+    world_locations = mock("ConfigurableAssociations::WorldLocations")
+    ConfigurableAssociations::WorldLocations.expects(:new).with(edition.world_locations, edition.errors).returns(world_locations)
 
-    assert_equal [role_appointments, topical_events], factory.configurable_associations
+    assert_equal [role_appointments, topical_events, world_locations], factory.configurable_associations
   end
 end

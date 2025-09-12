@@ -26,6 +26,9 @@
     },
     {
       "key": "topical_events"
+    },
+    {
+      "key": "world_locations"
     }
   ],
   "settings": {
