@@ -23,9 +23,9 @@ class DocumentImportWorker < WorkerBase
       )
       Rails.logger.info "...route claimed."
 
-      Rails.logger.info "Republishing document..."
+      Rails.logger.info "Re-presenting document to Publishing API..."
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
-      Rails.logger.info "...document published."
+      Rails.logger.info "...document re-presented."
     end
   rescue ActiveRecord::RecordNotUnique => e
     Rails.logger.info("Skipping #{path_to_import_file} (already imported)")
