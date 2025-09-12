@@ -83,8 +83,8 @@ class Whitehall::DocumentImporter
     # Content Publisher has embeds like `[Contact: c1f13fd8-9feb-4028-9323-7cb3383323b4]`.
     # Here we find-and-replace for Whitehall's equivalent: `[Contact:171]`
     body.gsub!(/\[Contact: ?(.+?)\]/) do |_match|
-      id = Contact.find_by(content_id: ::Regexp.last_match(1)).id
-      "[Contact:#{id}]"
+      contact = Contact.find_by(content_id: ::Regexp.last_match(1))
+      contact ? "[Contact:#{contact.id}]" : ""
     end
     body
   end
