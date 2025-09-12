@@ -188,5 +188,50 @@ module Whitehall
         assert_equal "This page is now withdrawn", edition.unpublishing.explanation
       end
     end
+
+    describe ".pre_process_body" do
+      it "replaces Contact content IDs with Whitehall Contact IDs" do
+        contact = create(:contact, content_id: "c1f13fd8-9feb-4028-9323-7cb3383323b4")
+        body_input = <<~BODY
+          ## Foo
+
+          Bar
+
+          [Contact: #{contact.content_id}]
+        BODY
+        expected_body_output = <<~BODY
+          ## Foo
+
+          Bar
+
+          [Contact:#{contact.id}]
+        BODY
+
+        body_output = Whitehall::DocumentImporter.pre_process_body(body_input)
+
+        assert_equal expected_body_output, body_output
+      end
+
+      it "drops contacts if they no longer exist" do
+        body_input = <<~BODY
+          ## Foo
+
+          Bar
+
+          [Contact: random-content-id-that-does-not-exist]
+        BODY
+        expected_body_output = <<~BODY
+          ## Foo
+
+          Bar
+
+
+        BODY
+
+        body_output = Whitehall::DocumentImporter.pre_process_body(body_input)
+
+        assert_equal expected_body_output, body_output
+      end
+    end
   end
 end
