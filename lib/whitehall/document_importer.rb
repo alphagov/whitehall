@@ -6,6 +6,16 @@ class Whitehall::DocumentImporter
   def self.import!(data)
     edition = create_base_edition!(data)
 
+    AuditTrail.acting_as(robot_user) do
+      EditorialRemark.create!(
+        edition: edition,
+        body: internal_history_summary(data["internal_history"]),
+        author: robot_user,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now,
+      )
+    end
+
     edition.document.update_columns(
       content_id: data["content_id"],
       slug: data["base_path"].split("/").last,
@@ -77,6 +87,21 @@ class Whitehall::DocumentImporter
     change_notes.map { |cn|
       "#{Time.zone.parse(cn['public_timestamp']).strftime('%-d %B %Y')}: #{cn['note']}"
     }.join("; ")
+  end
+
+  def self.internal_history_summary(internal_history)
+    return "No internal history available" if internal_history.empty?
+
+    lines = [
+      "Imported from Content Publisher on #{Time.zone.now.strftime('%-d %B %Y at %H:%M')}. Document history:<br>",
+    ]
+    internal_history.each do |entry|
+      line = "#{entry['date']} #{entry['time']}: #{entry['entry_type'].to_s.humanize} by #{entry['user']}"
+      line += ". Details: #{entry['entry_content']}" if entry["entry_content"].present?
+      lines << "• #{line}"
+    end
+
+    lines.join("<br>")
   end
 
   def self.robot_user

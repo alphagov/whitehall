@@ -148,5 +148,41 @@ module Whitehall
         assert_equal expected_output, Whitehall::DocumentImporter.combined_change_notes(change_notes)
       end
     end
+
+    describe ".internal_history_summary" do
+      it "returns nil if there is no internal history" do
+        assert_equal "No internal history available", Whitehall::DocumentImporter.internal_history_summary([])
+      end
+
+      it "returns the internal history summary with the correct timestamp" do
+        internal_history = [
+          {
+            "edition_number" => 3,
+            "entry_type" => "approved",
+            "date" => "25 May 2022",
+            "time" => "10:24am",
+            "user" => "foo.bar@gov.uk",
+            "entry_content" => nil,
+          },
+          {
+            "edition_number" => 3,
+            "entry_type" => "internal_note",
+            "date" => "20 May 2022",
+            "time" => "11:50pm",
+            "user" => "baz@gov.uk",
+            "entry_content" => "Removed typo.",
+          },
+        ]
+
+        Timecop.freeze(Time.zone.parse("2024-06-10 14:30")) do
+          expected_output = <<~OUTPUT
+            Imported from Content Publisher on 10 June 2024 at 14:30. Document history:<br><br>
+            • 25 May 2022 10:24am: Approved by foo.bar@gov.uk<br>
+            • 20 May 2022 11:50pm: Internal note by baz@gov.uk. Details: Removed typo.
+          OUTPUT
+          assert_equal expected_output.gsub("\n", ""), Whitehall::DocumentImporter.internal_history_summary(internal_history)
+        end
+      end
+    end
   end
 end
