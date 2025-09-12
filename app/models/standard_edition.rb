@@ -6,6 +6,7 @@ class StandardEdition < Edition
   include Edition::RoleAppointments
   include Edition::TopicalEvents
   include Edition::WorldLocations
+  include Edition::Organisations
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
@@ -52,6 +53,10 @@ class StandardEdition < Edition
 
   def type_instance
     ConfigurableDocumentType.find(configurable_document_type)
+  end
+
+  def skip_organisation_validation?
+    type_instance.associations.map { |assoc| assoc["key"] }.exclude?("organisations")
   end
 
   def content_conforms_to_schema
