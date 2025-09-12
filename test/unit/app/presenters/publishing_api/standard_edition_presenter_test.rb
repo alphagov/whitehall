@@ -355,19 +355,26 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
           {
             "key" => "topical_events",
           },
+          {
+            "key" => "world_locations",
+          },
         ],
       }),
     )
     ministerial_role_appointments = create_list(:ministerial_role_appointment, 2)
     topical_events = create_list(:topical_event, 2)
+    world_locations = create_list(:world_location, 2, active: true)
     edition = build(:standard_edition,
                     role_appointments: ministerial_role_appointments,
-                    topical_events:)
+                    topical_events:,
+                    world_locations:)
     presenter = PublishingApi::StandardEditionPresenter.new(edition)
     links = presenter.links
     expected_role_appointments = ministerial_role_appointments.map { |appointment| appointment.person.content_id }
     assert_equal expected_role_appointments, links[:role_appointments]
     expected_topical_events = topical_events.map(&:content_id)
     assert_equal expected_topical_events, links[:topical_events]
+    expected_world_locations = world_locations.map(&:content_id)
+    assert_equal expected_world_locations, links[:world_locations]
   end
 end
