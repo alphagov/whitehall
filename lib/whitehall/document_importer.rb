@@ -8,6 +8,16 @@ class Whitehall::DocumentImporter
     # the sidebar, so we need to overwrite the created_at date.
     edition.most_recent_version.update!(created_at: data["created_at"])
 
+    AuditTrail.acting_as(robot_user) do
+      EditorialRemark.create!(
+        edition: edition,
+        body: internal_history_summary(data["internal_history"]),
+        author: robot_user,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now,
+      )
+    end
+
     edition.document.update_columns(
       created_at: data["created_at"],
       content_id: data["content_id"],
@@ -122,6 +132,19 @@ class Whitehall::DocumentImporter
     change_notes.map { |cn|
       "#{Time.zone.parse(cn['public_timestamp']).strftime('%-d %B %Y')}: #{cn['note']}"
     }.join("; ")
+  end
+
+  def self.internal_history_summary(internal_history)
+    lines = [
+      "Imported from Content Publisher. Document history:<br>",
+    ]
+    internal_history.each do |entry|
+      line = "#{entry['date']} #{entry['time']}: #{entry['entry_type'].to_s.humanize} by #{entry['user']}"
+      line += ". Details: #{entry['entry_content']}" if entry["entry_content"].present?
+      lines << "• #{line}"
+    end
+
+    lines.join("<br>")
   end
 
   def self.robot_user

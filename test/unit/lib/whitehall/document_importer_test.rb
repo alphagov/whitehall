@@ -5,6 +5,7 @@ module Whitehall
     extend Minitest::Spec::DSL
 
     setup do
+      @robot_user = User.create!(name: "Scheduled Publishing Robot", email: "robot@example.com")
       @user = create(:user, email: "baz@gov.uk")
       @primary_org = create(:organisation)
       @secondary_org = create(:organisation)
@@ -38,6 +39,7 @@ module Whitehall
             "public_timestamp" => 2.days.ago.iso8601,
           },
         ],
+        "internal_history" => [],
       }
     end
 
@@ -79,19 +81,17 @@ module Whitehall
       end
 
       it "acts as the robot user if the creator cannot be found" do
-        robot_user = User.create!(name: "Scheduled Publishing Robot", email: "robot@example.com")
         data = @data.merge({
           "created_by" => "someone-who-does-not-exist-in-whitehall@example.com",
         })
         edition = Whitehall::DocumentImporter.create_base_edition!(data)
-        assert_equal robot_user, edition.creator
+        assert_equal @robot_user, edition.creator
       end
     end
 
     describe ".robot_user" do
       it "retrieves the robot user" do
-        robot_user = User.create!(name: "Scheduled Publishing Robot", email: "robot@example.com")
-        assert_equal robot_user, Whitehall::DocumentImporter.robot_user
+        assert_equal @robot_user, Whitehall::DocumentImporter.robot_user
       end
     end
 
@@ -277,6 +277,36 @@ module Whitehall
         ]
         expected_output = "#{1.day.ago.strftime('%-d %B %Y')}: Second note; #{2.days.ago.strftime('%-d %B %Y')}: First note"
         assert_equal expected_output, Whitehall::DocumentImporter.combined_change_notes(change_notes)
+      end
+    end
+
+    describe ".internal_history_summary" do
+      it "returns the internal history summary" do
+        internal_history = [
+          {
+            "edition_number" => 3,
+            "entry_type" => "approved",
+            "date" => "25 May 2022",
+            "time" => "10:24am",
+            "user" => "foo.bar@gov.uk",
+            "entry_content" => nil,
+          },
+          {
+            "edition_number" => 3,
+            "entry_type" => "internal_note",
+            "date" => "20 May 2022",
+            "time" => "11:50pm",
+            "user" => "baz@gov.uk",
+            "entry_content" => "Removed typo.",
+          },
+        ]
+
+        expected_output = <<~OUTPUT
+          Imported from Content Publisher. Document history:<br><br>
+          • 25 May 2022 10:24am: Approved by foo.bar@gov.uk<br>
+          • 20 May 2022 11:50pm: Internal note by baz@gov.uk. Details: Removed typo.
+        OUTPUT
+        assert_equal expected_output.gsub("\n", ""), Whitehall::DocumentImporter.internal_history_summary(internal_history)
       end
     end
   end
