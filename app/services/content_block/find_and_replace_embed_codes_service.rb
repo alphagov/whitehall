@@ -6,14 +6,14 @@ module ContentBlock
 
     def call
       embed_content_references.uniq.each do |reference|
-        content_block = content_blocks.find do |c|
-          c.fetch("content_id_aliases").first.fetch("name") == reference.identifier
+        content_item = content_items.find do |item|
+          item.content_id_alias == reference.identifier
         end
-        next if content_block.nil?
+        next if content_item.nil?
 
         html.gsub!(
           reference.embed_code,
-          render_block(content_block: content_block, embed_code: reference.embed_code),
+          render_block(content_item: content_item, embed_code: reference.embed_code),
         )
       end
 
@@ -36,8 +36,10 @@ module ContentBlock
       embed_content_references.uniq.map(&:identifier)
     end
 
-    def content_blocks
-      @content_blocks ||= get_content_items_from_publishing_api
+    def content_items
+      @content_items ||= get_content_items_from_publishing_api.map do |result|
+        PublishingApiContentItem.new(result)
+      end
     end
 
     def get_content_items_from_publishing_api
@@ -50,14 +52,25 @@ module ContentBlock
         )["results"]
     end
 
-    def render_block(content_block:, embed_code:)
+    def render_block(content_item:, embed_code:)
       ContentBlockTools::ContentBlock.new(
-        document_type: content_block.fetch("document_type"),
-        content_id: content_block.fetch("content_id"),
-        title: content_block.fetch("title"),
-        details: content_block.fetch("details"),
+        document_type: content_item.document_type,
+        content_id: content_item.content_id,
+        title: content_item.title,
+        details: content_item.details,
         embed_code: embed_code,
       ).render
+    end
+
+    class PublishingApiContentItem
+      def initialize(result_hash)
+        @document_type = result_hash.fetch("document_type")
+        @content_id = result_hash.fetch("content_id")
+        @title = result_hash.fetch("title")
+        @details = result_hash.fetch("details")
+        @content_id_alias = result_hash.fetch("content_id_aliases").first.fetch("name")
+      end
+      attr_reader :document_type, :content_id, :title, :details, :content_id_alias
     end
   end
 end
