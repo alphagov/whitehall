@@ -5,16 +5,8 @@ module ContentBlock
     end
 
     def call
-      embed_content_references.uniq.each do |reference|
-        content_item = content_items.find do |item|
-          item.content_id_alias == reference.identifier
-        end
-        next if content_item.nil?
-
-        html.gsub!(
-          reference.embed_code,
-          render_block(content_item: content_item, embed_code: reference.embed_code),
-        )
+      unique_embedded_content_references.each do |reference|
+        replace_embed_code_with_rendered_block_for(reference)
       end
 
       html
@@ -28,12 +20,13 @@ module ContentBlock
       @html = html
     end
 
-    def embed_content_references
-      @embed_content_references ||= ContentBlockTools::ContentBlockReference.find_all_in_document(html)
+    def unique_embedded_content_references
+      @unique_embedded_content_references ||=
+        ContentBlockTools::ContentBlockReference.find_all_in_document(html).uniq
     end
 
-    def unique_identifiers
-      embed_content_references.uniq.map(&:identifier)
+    def identifiers
+      unique_embedded_content_references.map(&:identifier)
     end
 
     def content_items
@@ -46,10 +39,22 @@ module ContentBlock
       Services
         .publishing_api
         .get_content_items(
-          content_id_aliases: unique_identifiers,
+          content_id_aliases: identifiers,
           fields: %w[title content_id content_id_aliases details document_type],
           states: %w[published],
         )["results"]
+    end
+
+    def replace_embed_code_with_rendered_block_for(reference)
+      content_item = content_items.find do |item|
+        item.content_id_alias == reference.identifier
+      end
+      return unless content_item
+
+      html.gsub!(
+        reference.embed_code,
+        render_block(content_item: content_item, embed_code: reference.embed_code),
+      )
     end
 
     def render_block(content_item:, embed_code:)
