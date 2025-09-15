@@ -17,6 +17,7 @@ class ContentBlock::FindAndReplaceEmbedCodesServiceTest < ActiveSupport::TestCas
       {
         "title" => "Basic Pension",
         "content_id_aliases" => [
+          { "name" => "possible-future-alternate-id" },
           { "name" => "basic-pension" },
         ],
         "content_id" => "abc123",

@@ -47,7 +47,7 @@ module ContentBlock
 
     def replace_embed_code_with_rendered_block_for(reference)
       content_item = content_items.find do |item|
-        item.content_id_alias == reference.identifier
+        item.content_id_aliases.include?(reference.identifier)
       end
       return unless content_item
 
@@ -73,9 +73,9 @@ module ContentBlock
         @content_id = result_hash.fetch("content_id")
         @title = result_hash.fetch("title")
         @details = result_hash.fetch("details")
-        @content_id_alias = result_hash.fetch("content_id_aliases").first.fetch("name")
+        @content_id_aliases = result_hash.fetch("content_id_aliases").map { |a| a.fetch("name") }
       end
-      attr_reader :document_type, :content_id, :title, :details, :content_id_alias
+      attr_reader :document_type, :content_id, :title, :details, :content_id_aliases
     end
   end
 end
