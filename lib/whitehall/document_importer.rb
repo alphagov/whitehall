@@ -28,6 +28,7 @@ class Whitehall::DocumentImporter
           "body" => data["body"],
         },
         political: data["political"],
+        government_id: Government.find_by(content_id: data["government_id"])&.id,
         alternative_format_provider_id: Organisation.find_by(content_id: data["tags"]["primary_publishing_organisation"]).id,
       )
       edition.creator = user

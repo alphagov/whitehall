@@ -11,6 +11,7 @@ module Whitehall
       @role_appointment = create(:role_appointment)
       @topical_event = create(:topical_event)
       @world_location = create(:world_location)
+      @government = create(:government)
       @data = {
         "created_by" => @user.email,
         "created_at" => 2.days.ago.iso8601,
@@ -23,6 +24,7 @@ module Whitehall
         "summary" => "Imported summary",
         "body" => "Imported body",
         "political" => true,
+        "government_id" => @government.content_id,
         "tags" => {
           "primary_publishing_organisation" => [@primary_org.content_id],
           "organisations" => [@secondary_org.content_id],
@@ -64,7 +66,16 @@ module Whitehall
         assert_equal "Imported summary", edition.summary
         assert_equal "Imported body", edition.block_content["body"]
         assert_equal true, edition.political
+        assert_equal @government.id, edition.government_id
         assert_equal @primary_org.id, edition.alternative_format_provider_id
+      end
+
+      it "allows government to be nil" do
+        data = @data.merge({
+          "government_id" => nil,
+        })
+        edition = Whitehall::DocumentImporter.create_base_edition!(data)
+        assert_nil edition.government_id
       end
 
       it "acts as the robot user if the creator cannot be found" do
