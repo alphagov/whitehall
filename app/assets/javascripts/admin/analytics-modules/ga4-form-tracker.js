@@ -150,6 +150,8 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
   }
 
   Ga4FormTracker.prototype.trackFormSubmit = function (event) {
+    console.log('test')
+
     var target = window.GOVUK.analyticsGa4.core.trackFunctions.findTrackingAttributes(event.target, this.trackingTrigger)
     if (target) {
       try {
@@ -252,7 +254,7 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
         input.answer = this.useSelectCount ? selectedOptions.length : selectedOptions.join(',')
       } else if (isTextField && elem.value) {
         if (this.includeTextInputValues || elem.hasAttribute('data-ga4-form-include-input')) {
-          if (this.useTextCount) {
+          if (this.useTextCount && !isDateField) {
             input.answer = elem.value.length
           } else {
             var PIIRemover = new window.GOVUK.analyticsGa4.PIIRemover()
