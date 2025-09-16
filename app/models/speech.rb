@@ -75,7 +75,7 @@ private
     end
   end
 
-  def skip_organisation_validation?
-    can_have_some_invalid_data? || person_override.present?
+  def organisation_association_enabled?
+    !can_have_some_invalid_data? && person_override.blank?
   end
 end

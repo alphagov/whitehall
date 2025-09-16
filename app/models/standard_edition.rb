@@ -55,8 +55,8 @@ class StandardEdition < Edition
     ConfigurableDocumentType.find(configurable_document_type)
   end
 
-  def skip_organisation_validation?
-    type_instance.associations.map { |assoc| assoc["key"] }.exclude?("organisations")
+  def organisation_association_enabled?
+    type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
   end
 
   def content_conforms_to_schema
