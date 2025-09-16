@@ -59,7 +59,7 @@ module PublishingApi
         headers << headers_for_content_block if headers_for_content_block.present?
       end
 
-      content[:headers] = headers.any? ? headers.flatten : nil
+      content[:headers] = type.settings["send_headings"] == true && headers.any? ? headers.flatten : nil
       content.compact
     end
 

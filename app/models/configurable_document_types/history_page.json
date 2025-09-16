@@ -34,6 +34,7 @@
     "publishing_api_document_type": "history",
     "rendering_app": "frontend",
     "images_enabled": true,
+    "send_headings": true,
     "organisations": ["af07d5a5-df63-4ddc-9383-6a666845ebe9"],
     "backdating_enabled": false,
     "history_mode_enabled": false,

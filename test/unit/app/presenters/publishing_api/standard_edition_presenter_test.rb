@@ -80,6 +80,9 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it includes headers once, in the details, from all govspeak blocks, based on the order they are listed in the schema" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "send_headings" => true,
+      },
       "schema" => {
         "properties" => {
           "chunk_of_content_one" => {
@@ -136,6 +139,9 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it includes headers once, one layer up, if there is a govspeak block with a 'body' key" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "send_headings" => true,
+      },
       "schema" => {
         "properties" => {
           "body" => {
@@ -194,6 +200,42 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
                                       block_content: {
                                         "chunk_of_content_one" => "Some content",
                                         "chunk_of_content_two" => "Some more content",
+                                      } })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_nil content[:details][:headers]
+  end
+
+  test "it does not include a headers key in the details if the document type is not configured to send headings" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "send_headings" => false,
+      },
+      "schema" => {
+        "properties" => {
+          "chunk_of_content_one" => {
+            "title" => "A govspeak block",
+            "description" => "Some bit of content",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+          "chunk_of_content_two" => {
+            "title" => "Another govspeak block",
+            "description" => "Another bit of content",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+        },
+      },
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key,
+                                      block_content: {
+                                        "chunk_of_content_one" => "## Header for chunk one\nSome content",
+                                        "chunk_of_content_two" => "## Header for chunk two\nSome more content",
                                       } })
     page.document = Document.new
     page.document.slug = "page-title"
