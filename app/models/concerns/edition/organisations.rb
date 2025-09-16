@@ -13,8 +13,8 @@ module Edition::Organisations
     has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true, validate: false
     has_many :organisations, -> { includes(:translations) }, through: :edition_organisations, validate: false
 
-    validate :at_least_one_lead_organisation
-    validate :no_duplication_of_organisations
+    validate :at_least_one_lead_organisation, if: :organisation_association_enabled?
+    validate :no_duplication_of_organisations, if: :organisation_association_enabled?
 
     add_trait Trait
   end
@@ -59,16 +59,12 @@ module Edition::Organisations
     assign_organisation_ids(new_supporting_organisation_ids, false)
   end
 
-  def can_be_related_to_organisations?
-    true
-  end
-
   def can_have_supporting_organisations?
     true
   end
 
-  def skip_organisation_validation?
-    false
+  def organisation_association_enabled?
+    true
   end
 
   def limits_access_via_organisations?
@@ -78,7 +74,7 @@ module Edition::Organisations
 private
 
   def at_least_one_lead_organisation
-    if !skip_organisation_validation? && !edition_organisations.detect(&:lead?)
+    unless edition_organisations.detect(&:lead?)
       errors.add(:lead_organisations, "at least one required")
     end
   end

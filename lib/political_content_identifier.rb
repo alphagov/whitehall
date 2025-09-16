@@ -42,7 +42,7 @@ private
   end
 
   def has_political_org?
-    edition.can_be_related_to_organisations? &&
+    edition.organisation_association_enabled? &&
       edition.organisations.where(political: true).any?
   end
 

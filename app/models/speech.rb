@@ -57,6 +57,10 @@ class Speech < Edition
     PublishingApi::SpeechPresenter
   end
 
+  def organisation_association_enabled?
+    !can_have_some_invalid_data? && person_override.blank?
+  end
+
 private
 
   def date_for_government
@@ -65,9 +69,5 @@ private
     else
       super
     end
-  end
-
-  def skip_organisation_validation?
-    can_have_some_invalid_data? || person_override.present?
   end
 end

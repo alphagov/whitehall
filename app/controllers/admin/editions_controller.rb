@@ -385,7 +385,7 @@ private
   end
 
   def build_default_organisation
-    if @edition.can_be_related_to_organisations?
+    if @edition.organisation_association_enabled?
       @edition.edition_organisations.build(lead_ordering: 0, lead: true, organisation: current_user.organisation)
     end
   end
