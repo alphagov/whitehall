@@ -2,11 +2,13 @@ require "test_helper"
 
 class AttachmentsHelperTest < ActionView::TestCase
   test "block_attachments renders an array of rendered attachments and ignores attachments with missing assets" do
-    file_attachment_with_all_assets = create(:file_attachment)
-    file_attachment_with_missing_assets = create(:file_attachment_with_no_assets)
+    alternative_format_contact_email = "test@example.com"
+    attachable = create(:publication)
+    file_attachment_with_all_assets = create(:csv_attachment, attachable:)
+    file_attachment_with_missing_assets = create(:file_attachment_with_no_assets, attachable:)
     attachments = [
-      create(:html_attachment),
-      create(:external_attachment),
+      create(:html_attachment, attachable:),
+      create(:external_attachment, attachable:),
       file_attachment_with_all_assets,
       file_attachment_with_missing_assets,
     ]
@@ -36,7 +38,7 @@ class AttachmentsHelperTest < ActionView::TestCase
   end
 
   test "component params for External attachment" do
-    attachment = create(:external_attachment)
+    attachment = create(:external_attachment, attachable: create(:publication))
     expect_params = {
       type: "external",
       title: attachment.title,

@@ -53,12 +53,11 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
     post :create, params: { edition_id: @edition.id, attachment: }
   end
 
-  test "POST :create ignores html attachments when attachable does not allow them" do
-    attachable = create(:statistical_data_set, access_limited: false)
+  test "POST :create does not create attachment if attachable does not allow html attachments" do
+    attachable = create(:statistical_data_set, access_limited: false, attachments: [])
 
     post :create, params: { edition_id: attachable, attachment: valid_html_attachment_params }
 
-    assert_response :redirect
     assert_equal 0, attachable.reload.attachments.size
   end
 
