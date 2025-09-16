@@ -1,6 +1,8 @@
 class ImageUploader < WhitehallUploader
   include CarrierWave::MiniMagick
 
+  process :store_dimensions
+
   configure do |config|
     config.remove_previously_stored_files_after_update = false
     config.storage = Storage::PreviewableStorage
@@ -10,9 +12,17 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg]
   end
 
+  def store_dimensions
+    if file && model
+      ::MiniMagick::Image.open(file.file)[:dimensions]
+      model.dimensions ||= {}
+      model.dimensions[:width], model.dimensions[:height] = ::MiniMagick::Image.open(file.file)[:dimensions]
+    end
+  end
+
   Whitehall.image_kinds.each do |image_kind, image_kind_config|
     use_versions_for_this_image_kind_proc = lambda do |uploader, opts|
-      uploader.model.image_kind == image_kind && uploader.bitmap?(opts[:file])
+      !uploader.model.requires_crop? && uploader.model.image_kind == image_kind && uploader.bitmap?(opts[:file])
     end
 
     image_kind_config.versions.each do |v|
