@@ -35,7 +35,7 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
     configurable_document_type = build_configurable_document_type("test_type", { "associations" => association_config })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, :with_organisations)
     factory = ConfigurableAssociations::Factory.new(edition)
     role_appointments = mock("ConfigurableAssociations::RoleAppointments")
     ConfigurableAssociations::MinisterialRoleAppointments.expects(:new).with(edition.role_appointments).returns(role_appointments)
@@ -44,7 +44,7 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
     world_locations = mock("ConfigurableAssociations::WorldLocations")
     ConfigurableAssociations::WorldLocations.expects(:new).with(edition.world_locations, edition.errors).returns(world_locations)
     organisations = mock("ConfigurableAssociations::Organisations")
-    ConfigurableAssociations::Organisations.expects(:new).with(edition.organisations, edition.errors).returns(organisations)
+    ConfigurableAssociations::Organisations.expects(:new).with(edition.edition_organisations, edition.errors).returns(organisations)
 
     assert_equal [role_appointments, topical_events, world_locations, organisations], factory.configurable_associations
   end
