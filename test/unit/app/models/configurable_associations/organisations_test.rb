@@ -1,0 +1,36 @@
+require "test_helper"
+
+class OrganisationsRenderingTest < ActionView::TestCase
+  test "it renders the lead organisations form control" do
+    edition = build(:draft_standard_edition, :with_organisations)
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    organisations = create_list(:organisation, 3) + edition.organisations
+    render organisations_association
+    assert_dom "legend", text: "Lead organisations"
+    0.upto(3) do |index|
+      assert_dom "label", text: "Lead organisation #{index + 1}"
+    end
+    organisations.each do |organisation|
+      assert_dom "option", text: organisation.name
+    end
+  end
+
+  test "it renders the supporting organisations form control" do
+    edition = build(:draft_standard_edition, :with_organisations)
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    render organisations_association
+    assert_dom "label", text: "Supporting organisations"
+  end
+
+  test "it renders the lead organisation form control with pre-selected options" do
+    organisations = create_list(:organisation, 3)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 1 }, { organisation: organisations.last, lead: true, lead_ordering: 2 }])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    render organisations_association
+    assert_dom "option[selected]", text: organisations.first.name
+    assert_not_dom "option[selected]", text: organisations.second.name
+    assert_dom "option[selected]", text: organisations.last.name
+  end
+end
