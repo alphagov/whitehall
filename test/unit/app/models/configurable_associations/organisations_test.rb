@@ -73,4 +73,13 @@ class OrganisationsRenderingTest < ActionView::TestCase
     assert_not_dom "select#edition_supporting_organisation_ids option[selected]", text: organisations.second.name
     assert_dom "select#edition_supporting_organisation_ids option[selected]", text: organisations.last.name
   end
+
+  test "it displays errors for lead organisations if there are any" do
+    edition = build(:draft_standard_edition)
+    edition.errors.add(:organisations, "Some error goes here")
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    render organisations_association
+    assert_dom ".govuk-form-group--error"
+    assert_dom ".govuk-error-message", text: "Error: Organisations Some error goes here"
+  end
 end
