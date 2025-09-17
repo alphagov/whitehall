@@ -8,7 +8,11 @@ class OrganisationsRenderingTest < ActionView::TestCase
     render organisations_association
     assert_dom "legend", text: "Lead organisations"
     0.upto(3) do |index|
-      assert_dom "label", text: "Lead organisation #{index + 1}"
+      if index.zero?
+        assert_dom "label", text: "Lead organisation 1 (required)"
+      else
+        assert_dom "label", text: "Lead organisation #{index + 1}"
+      end
     end
     organisations.each do |organisation|
       assert_dom "option", text: organisation.name
