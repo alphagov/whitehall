@@ -61,6 +61,38 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     %i[organisations parent primary_publishing_organisation government].each { |k| assert_includes(expected_content[:links].keys, k) }
   end
 
+  test "it includes headers when headers are present in body" do
+    html_attachment = create(
+      :html_attachment,
+      title: "Some html attachment",
+      body: "##Some header\n\nSome content",
+    )
+
+    presented_html_attachment = PublishingApi::HtmlAttachmentPresenter.new(html_attachment)
+
+    expected_headers = [
+      {
+        text: "Some header",
+        level: 2,
+        id: "some-header",
+      },
+    ]
+
+    assert_equal expected_headers, presented_html_attachment.content[:details][:headers]
+  end
+
+  test "it does not include headers when headers are not present in body" do
+    html_attachment = create(
+      :html_attachment,
+      title: "Some html attachment",
+      body: "Some content",
+    )
+
+    presented_html_attachment = PublishingApi::HtmlAttachmentPresenter.new(html_attachment)
+
+    assert_nil presented_html_attachment.content[:details][:headers]
+  end
+
   test "HtmlAttachment presentation includes the correct locale" do
     create(:publication, :with_html_attachment, :published)
 

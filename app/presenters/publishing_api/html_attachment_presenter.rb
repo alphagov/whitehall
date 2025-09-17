@@ -60,7 +60,9 @@ module PublishingApi
         public_timestamp:,
         first_published_version: first_published_version?,
         political: political?,
-      }
+      }.tap do |details_hash|
+        details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
+      end
 
       maybe_add_national_applicability(details_hash)
     end
