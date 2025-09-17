@@ -14,16 +14,6 @@ module Edition::Scopes::FilterableByType
       merge(type.by_subtypes(subtype_ids))
     }
 
-    scope :by_type_or_subtypes, lambda { |type, subtypes|
-      if subtypes.nil?
-        by_type(type)
-      elsif subtypes.empty?
-        none
-      else
-        by_subtypes(type, subtypes.pluck(:id))
-      end
-    }
-
     scope :without_editions_of_type, lambda { |*edition_classes|
       where(arel_table[:type].not_in(edition_classes.map(&:name)))
     }
