@@ -13,7 +13,11 @@ module ConfigurableAssociations
     end
 
     def selected_supporting_organisation_ids
-      @association.where(lead: false).map(&:organisation_id)
+      @association.reject(&:lead?).map(&:organisation_id)
+    end
+
+    def options_query
+      Organisation.with_translations(:en).order("organisation_translations.name")
     end
 
     def to_partial_path

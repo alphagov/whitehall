@@ -15,11 +15,35 @@ class OrganisationsRenderingTest < ActionView::TestCase
     end
   end
 
+  test "it renders lead organisation options in alphabetical order" do
+    create(:organisation, name: "MOD")
+    create(:organisation, name: "DWP")
+    create(:organisation, name: "HMRC")
+    edition = build(:draft_standard_edition, edition_organisations: [])
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    render organisations_association
+    assert_dom "select#edition_lead_organisation_ids_1 option:nth-child(2)", text: "DWP"
+    assert_dom "select#edition_lead_organisation_ids_1 option:nth-child(3)", text: "HMRC"
+    assert_dom "select#edition_lead_organisation_ids_1 option:nth-child(4)", text: "MOD"
+  end
+
   test "it renders the supporting organisations form control" do
     edition = build(:draft_standard_edition, :with_organisations)
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     render organisations_association
     assert_dom "label", text: "Supporting organisations"
+  end
+
+  test "it renders supporting organisation options in alphabetical order" do
+    create(:organisation, name: "MOD")
+    create(:organisation, name: "DWP")
+    create(:organisation, name: "HMRC")
+    edition = build(:draft_standard_edition, edition_organisations: [])
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    render organisations_association
+    assert_dom "select#edition_supporting_organisation_ids option:nth-child(2)", text: "DWP"
+    assert_dom "select#edition_supporting_organisation_ids option:nth-child(3)", text: "HMRC"
+    assert_dom "select#edition_supporting_organisation_ids option:nth-child(4)", text: "MOD"
   end
 
   test "it renders the lead organisation form control with pre-selected options" do
@@ -32,5 +56,17 @@ class OrganisationsRenderingTest < ActionView::TestCase
     assert_dom "option[selected]", text: organisations.first.name
     assert_not_dom "option[selected]", text: organisations.second.name
     assert_dom "option[selected]", text: organisations.last.name
+  end
+
+  test "it renders the supporting organisation form control with pre-selected options" do
+    organisations = create_list(:organisation, 3)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([{ organisation: organisations.first, lead: false }, { organisation: organisations.last, lead: false }])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    render organisations_association
+    assert_dom "select#edition_supporting_organisation_ids option[selected]", text: organisations.first.name
+    assert_not_dom "select#edition_supporting_organisation_ids option[selected]", text: organisations.second.name
+    assert_dom "select#edition_supporting_organisation_ids option[selected]", text: organisations.last.name
   end
 end

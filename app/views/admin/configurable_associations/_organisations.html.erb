@@ -14,7 +14,13 @@
         label: "Lead organisation #{index + 1}",
         heading_size: "s",
         include_blank: true,
-        options: taggable_organisations_container([selected_lead_organisation_id_at_index]),
+        options: organisations.options_query.map do |organisation|
+          {
+            text: organisation.select_name,
+            value: organisation.id,
+            selected: selected_lead_organisation_id_at_index == organisation.id,
+          }
+        end
       } %>
     <% end %>
   </div>
@@ -25,6 +31,12 @@
   include_blank: true,
   label: "Supporting organisations",
   heading_size: "m",
-  options: taggable_organisations_container(organisations.selected_supporting_organisation_ids),
+  options: organisations.options_query.map do |organisation|
+    {
+      text: organisation.select_name,
+      value: organisation.id,
+      selected: organisations.selected_supporting_organisation_ids.include?(organisation.id)
+    }
+  end,
   multiple: true,
 } %>
