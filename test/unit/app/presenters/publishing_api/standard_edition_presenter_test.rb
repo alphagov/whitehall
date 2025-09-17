@@ -307,4 +307,41 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
     assert_not content[:details].key?(:change_history)
   end
+
+  test "it includes attachments in the details if file attachments are enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "file_attachments_enabled" => true,
+      },
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    attachment = build(:file_attachment)
+    page.stubs(attachments_ready_for_publishing: [attachment])
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_equal 1, content[:details][:attachments].length
+    assert_equal attachment.title, content[:details][:attachments].first[:title]
+  end
+
+  test "it does not include attachments in the details if file attachments are not enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "file_attachments_enabled" => false,
+      },
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    attachment = build(:file_attachment)
+    page.stubs(attachments_ready_for_publishing: [attachment])
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_not content[:details].key?(:attachments)
+  end
 end
