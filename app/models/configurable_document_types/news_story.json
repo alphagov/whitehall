@@ -26,6 +26,7 @@
     "publishing_api_document_type": "news_story",
     "rendering_app": "frontend",
     "images_enabled": true,
+    "send_headings": false,
     "file_attachments_enabled": true,
     "organisations": null,
     "backdating_enabled": true,
