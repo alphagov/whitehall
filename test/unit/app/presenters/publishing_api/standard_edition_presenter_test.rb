@@ -244,4 +244,39 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
     assert_nil content[:details][:headers]
   end
+
+  test "it includes a political key in the details if history mode enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "history_mode_enabled" => true,
+      },
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key,
+                                      political: true })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    page.expects(:political?).returns(true)
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_equal true, content[:details][:political]
+  end
+
+  test "it does not include a political key in the details if history mode not enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "history_mode_enabled" => false,
+      },
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key,
+                                      political: true })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_not content[:details].key?(:political)
+  end
 end
