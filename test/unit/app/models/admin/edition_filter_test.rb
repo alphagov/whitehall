@@ -162,44 +162,44 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [news_article], Admin::EditionFilter.new(Edition, user, world_location: "user").editions
   end
 
+  test "should filter by StandardEdition type" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition)
+
+    assert_equal [edition], Admin::EditionFilter.new(Edition, @current_user, type: "test_type").editions
+  end
+
   test "should filter by news article sub-type" do
     _news_story   = create(:news_article, news_article_type: NewsArticleType::NewsStory)
     press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
-    assert_equal [press_release], Admin::EditionFilter.new(Edition, @current_user, type: "news_article_2").editions
+    assert_equal [press_release], Admin::EditionFilter.new(Edition, @current_user, type: "press_release").editions
   end
 
   test "should filter by speech sub-type" do
     _transcript    = create(:speech, speech_type: SpeechType::Transcript)
     speaking_notes = create(:speech, speech_type: SpeechType::SpeakingNotes)
-    assert_equal [speaking_notes], Admin::EditionFilter.new(Edition, @current_user, type: "speech_3").editions
+    assert_equal [speaking_notes], Admin::EditionFilter.new(Edition, @current_user, type: "speaking_notes").editions
   end
 
   test "should filter by publication sub-type" do
     guidance = create(:publication, publication_type: PublicationType::Guidance)
     _form    = create(:publication, publication_type: PublicationType::Form)
-    assert_equal [guidance], Admin::EditionFilter.new(Edition, @current_user, type: "publication_#{PublicationType::Guidance.id}").editions
+    assert_equal [guidance], Admin::EditionFilter.new(Edition, @current_user, type: "guidance").editions
   end
 
-  test "should filter by multiple publication sub-types" do
-    guidance     = create(:publication, publication_type: PublicationType::Guidance)
-    form         = create(:publication, publication_type: PublicationType::Form)
-    policy_paper = create(:publication, publication_type: PublicationType::PolicyPaper)
+  test "should match both 'StandardEdition' type and sub-type (of 'concrete' model) of the same name" do
+    configurable_document_type = build_configurable_document_type("press_release")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    assert_same_elements [form, policy_paper],
-                         Admin::EditionFilter.new(
-                           Edition,
-                           @current_user,
-                           type: "publication",
-                           subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id],
-                         ).editions
+    standard_edition = create(:draft_standard_edition, configurable_document_type: "press_release")
+    press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
 
-    assert_equal [guidance],
-                 Admin::EditionFilter.new(
-                   Edition,
-                   @current_user,
-                   type: "publication",
-                   subtypes: [PublicationType::Guidance.id],
-                 ).editions
+    assert_equal(
+      [standard_edition, press_release].map(&:id).sort,
+      Admin::EditionFilter.new(Edition, @current_user, type: "press_release").editions.map(&:id).sort,
+    )
   end
 
   test "should filter by title" do
@@ -356,7 +356,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "should generate page title when filtering by document sub-type" do
-    filter = Admin::EditionFilter.new(Edition, build(:user), type: "news_article_1")
+    filter = Admin::EditionFilter.new(Edition, build(:user), type: "news_story")
     assert_equal "Everyone’s news stories", filter.page_title
   end
 

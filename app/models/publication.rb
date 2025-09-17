@@ -51,16 +51,8 @@ class Publication < Edition
     end
   end
 
-  def self.subtypes
-    PublicationType.all
-  end
-
   def self.by_subtype(subtype)
     where(publication_type_id: subtype.id)
-  end
-
-  def self.by_subtypes(subtype_ids)
-    where(publication_type_id: subtype_ids)
   end
 
   def self.not_statistics

@@ -418,18 +418,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "something-going-on", edition.document.slug
   end
 
-  test "is filterable by edition type" do
-    publication = create(:publication)
-    news = create(:news_article)
-    speech = create(:speech)
-    consultation = create(:consultation)
-
-    assert_equal [publication], Edition.by_type("Publication")
-    assert_equal [news], Edition.by_type("NewsArticle")
-    assert_equal [speech], Edition.by_type("Speech")
-    assert_equal [consultation], Edition.by_type("Consultation")
-  end
-
   test "#destroy should also remove the relationship to any authors" do
     edition = create(:draft_edition, creator: create(:writer))
     relation = edition.edition_authors.first

@@ -24,33 +24,30 @@ module Admin::EditionActionsHelper
       [
         "Publication sub-types",
         PublicationType.ordered_by_prevalence.map do |sub_type|
-          value = "publication_#{sub_type.id}"
           {
             text: sub_type.plural_name,
-            value:,
-            selected: selected == value,
+            value: sub_type.key,
+            selected: selected == sub_type.key,
           }
         end,
       ],
       [
         "News article sub-types",
         NewsArticleType.all.map do |sub_type|
-          value = "news_article_#{sub_type.id}"
           {
             text: sub_type.plural_name,
-            value:,
-            selected: selected == value,
+            value: sub_type.key,
+            selected: selected == sub_type.key,
           }
         end,
       ],
       [
         "Speech sub-types",
         SpeechType.all.map do |sub_type|
-          value = "speech_#{sub_type.id}"
           {
             text: sub_type.plural_name,
-            value:,
-            selected: selected == value,
+            value: sub_type.key,
+            selected: selected == sub_type.key,
           }
         end,
       ],

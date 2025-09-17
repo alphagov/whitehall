@@ -19,16 +19,8 @@ class NewsArticle < Edition
   validate :non_english_primary_locale_only_for_world_news_story
   validate :organisations_are_not_associated, if: :world_news_story?
 
-  def self.subtypes
-    NewsArticleType.all
-  end
-
   def self.by_subtype(subtype)
     where(news_article_type_id: subtype.id)
-  end
-
-  def self.by_subtypes(subtype_ids)
-    where(news_article_type_id: subtype_ids)
   end
 
   def news_article_type
