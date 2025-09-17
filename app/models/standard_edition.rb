@@ -35,6 +35,10 @@ class StandardEdition < Edition
     type_instance.settings["backdating_enabled"]
   end
 
+  def translatable?
+    type_instance.settings["translations_enabled"]
+  end
+
   def allows_image_attachments?
     type_instance.settings["images_enabled"]
   end
