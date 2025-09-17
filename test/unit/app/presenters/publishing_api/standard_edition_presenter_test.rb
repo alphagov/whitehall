@@ -279,4 +279,32 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
     assert_not content[:details].key?(:political)
   end
+
+  test "it includes change history in the details if sending change history is enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "send_change_history" => true,
+      },
+    }))
+    page = create(:published_standard_edition, { configurable_document_type: type_key })
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_equal [{ "public_timestamp" => "2011-11-09T11:11:11.000+00:00", "note" => "change-note" }], content[:details][:change_history]
+  end
+
+  test "it does not include change history in the details if sending change history is not enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "send_change_history" => false,
+      },
+    }))
+    page = create(:published_standard_edition, { configurable_document_type: type_key })
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_not content[:details].key?(:change_history)
+  end
 end
