@@ -32,7 +32,9 @@ module PublishingApi
     end
 
     def links
-      {}
+      {
+        world_location_news: [item.world_location_news.content_id],
+      }
     end
   end
 end
