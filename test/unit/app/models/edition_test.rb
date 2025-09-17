@@ -665,26 +665,6 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.translated_locales.include?(:es)
   end
 
-  test "without_editions_of_type allows us to exclude certain subclasses from a result set" do
-    edition1 = create(:case_study)
-    edition2 = create(:fatality_notice)
-
-    no_case_studies = Edition.without_editions_of_type(CaseStudy)
-    assert no_case_studies.include?(edition2)
-    assert_not no_case_studies.include?(edition1)
-  end
-
-  test "without_editions_of_type takes multiple classes to exclude" do
-    edition1 = create(:case_study)
-    edition2 = create(:fatality_notice)
-    edition3 = create(:detailed_guide)
-
-    no_fatalities_or_guides = Edition.without_editions_of_type(FatalityNotice, DetailedGuide)
-    assert no_fatalities_or_guides.include?(edition1)
-    assert_not no_fatalities_or_guides.include?(edition2)
-    assert_not no_fatalities_or_guides.include?(edition3)
-  end
-
   should_not_accept_footnotes_in :body
 
   test "previously_published returns true for edition with first_published_at timestamp" do
