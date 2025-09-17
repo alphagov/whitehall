@@ -82,7 +82,7 @@ module GovspeakHelper
 
   def preprocess_govspeak(govspeak, attachments, options)
     govspeak ||= ""
-    govspeak = ContentBlockManager::FindAndReplaceEmbedCodesService.call(govspeak) if options[:preview]
+    govspeak = ContentBlock::FindAndReplaceEmbedCodesService.call(govspeak) if options[:preview]
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = replace_internal_admin_links(govspeak, options[:preview] == true)
