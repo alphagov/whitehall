@@ -40,9 +40,13 @@ module PublishingApi
 
     def details
       root_block = ConfigurableContentBlocks::Factory.new(item).build("object")
-      {
+      details = {
         **flatten_headers(root_block.publishing_api_payload(type.schema, item.block_content)),
       }
+      details.merge!(PayloadBuilder::ChangeHistory.for(item)) if type.settings["send_change_history"] == true
+      details.merge!(PayloadBuilder::PoliticalDetails.for(item)) if type.settings["history_mode_enabled"] == true
+      details.merge!(PayloadBuilder::Attachments.for(item)) if type.settings["file_attachments_enabled"] == true
+      details
     end
 
     def flatten_headers(content)
