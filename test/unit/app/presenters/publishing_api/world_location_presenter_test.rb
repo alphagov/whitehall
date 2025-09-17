@@ -23,7 +23,9 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
       base_path: nil,
       rendering_app: nil,
     }
-    expected_links = {}
+    expected_links = {
+      world_location_news: [world_location.world_location_news.content_id],
+    }
 
     presented_item = present(world_location)
 
