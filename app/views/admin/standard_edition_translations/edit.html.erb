@@ -1,0 +1,65 @@
+<% content_for :context, @edition.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
+<% content_for :page_title, "Edit translation for: #{@edition.title}" %>
+<% content_for :title, "#{@translation_locale.native_language_name} (#{@translation_locale.english_language_name}) translation" %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_for @translated_edition, as: :edition, url: admin_standard_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
+      <div class="<%= "right-to-left" if @edition.rtl? %>">
+        <%= form.hidden_field :lock_version %>
+
+        <%= render "components/translated_input", {
+          input: {
+            label: {
+              text: "Translated title (required)",
+            },
+            name: "edition[title]",
+            id: "edition_title",
+            heading_level: 2,
+            heading_size: "l",
+            value: @translated_edition.title,
+            error_items: errors_for(form.object.errors, :title),
+            right_to_left: form.object.translation_rtl?,
+            right_to_left_help: false,
+          },
+          details: {
+            text: @edition.title,
+          },
+        } %>
+
+        <%= render "components/translated_textarea", {
+          textarea: {
+            label: {
+              heading_size: "l",
+              text: "Translated summary#{' (required)' unless @edition.is_a?(CorporateInformationPage)}",
+            },
+            name: "edition[summary]",
+            textarea_id: "edition_summary",
+            value: @translated_edition.summary,
+            rows: 2,
+            error_items: errors_for(form.object.errors, :summary),
+            right_to_left: form.object.translation_rtl?,
+            right_to_left_help: false,
+          },
+          details: {
+            text: @edition.summary,
+          },
+        } %>
+
+        <!-- TODO: render content blocks -->
+
+        <div class="govuk-button-group">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Save",
+          } %>
+          <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="govuk-grid-column-one-third">
+    <!-- TODO: render sidebar-->
+  </section>
+</div>
