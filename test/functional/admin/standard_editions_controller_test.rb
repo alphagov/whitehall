@@ -122,7 +122,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     ] })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    create(:world_location, active: true)
+    create(:world_location)
     edition = create(:draft_standard_edition, :with_organisations)
 
     login_as :managing_editor

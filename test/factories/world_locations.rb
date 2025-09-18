@@ -3,6 +3,7 @@ FactoryBot.define do
     sequence(:name) { |index| "world-location-#{index}" }
     world_location_news { FactoryBot.build(:world_location_news) }
     world_location_type { "world_location" }
+    active { true }
 
     trait(:with_worldwide_organisations) do
       after :create do |world_location, _evaluator|
