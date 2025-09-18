@@ -1,0 +1,15 @@
+<%= render "govuk_publishing_components/components/select_with_search", {
+  id: "edition_topical_event_ids",
+  name: "edition[topical_event_ids][]",
+  include_blank: true,
+  label: "Topical events",
+  heading_size: "m",
+  options: topical_events.options_query.map do |topical_event|
+    {
+      text: topical_event.name,
+      value: topical_event.id,
+      selected: topical_events.selected_ids.include?(topical_event.id),
+    }
+  end,
+  multiple: true,
+} %>
