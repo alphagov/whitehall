@@ -3,6 +3,7 @@ class StandardEdition < Edition
   include Edition::Images
   include ::Attachable
   include Edition::AlternativeFormatProvider
+  include StandardEdition::DefaultLeadImage
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
@@ -41,6 +42,10 @@ class StandardEdition < Edition
 
   def can_be_marked_political?
     type_instance.settings["history_mode_enabled"]
+  end
+
+  def can_have_lead_image?
+    type_instance.settings["lead_image_enabled"]
   end
 
   def base_path
