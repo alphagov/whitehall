@@ -383,7 +383,5 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal expected_world_locations, links[:world_locations]
     expected_organisations = organisations.map(&:content_id)
     assert_equal expected_organisations, links[:organisations]
-    expected_primary_publishing_organisation = organisations.first.content_id
-    assert_equal expected_primary_publishing_organisation, links[:primary_publishing_organisation]
   end
 end

@@ -7,16 +7,14 @@ module ConfigurableAssociations
 
     attr_reader :errors
 
-    def publishing_api_links_key
-      :world_locations
+    def links
+      {
+        world_locations: @association.map(&:content_id),
+      }
     end
 
     def selected_ids
       @association.ids
-    end
-
-    def selected_content_ids
-      @association.map(&:content_id)
     end
 
     def options_query

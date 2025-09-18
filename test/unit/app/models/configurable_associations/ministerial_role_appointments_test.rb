@@ -1,5 +1,18 @@
 require "test_helper"
 
+class MinisterialRoleAppointmentsTest < ActiveSupport::TestCase
+  test "it presents the selected role appointment links" do
+    appointments = create_list(:ministerial_role_appointment, 3)
+    edition = build(:draft_standard_edition)
+    edition.role_appointments << [appointments.first, appointments.last]
+    role_appointments_association = ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments)
+    expected_links = {
+      role_appointments: [appointments.first.person.content_id, appointments.last.person.content_id],
+    }
+    assert_equal expected_links, role_appointments_association.links
+  end
+end
+
 class MinisterialRoleAppointmentsRenderingTest < ActionView::TestCase
   test "it renders role appointments form control" do
     appointments = create_list(:ministerial_role_appointment, 2)
