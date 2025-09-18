@@ -21,7 +21,7 @@
             value: organisation.id,
             selected: selected_lead_organisation_id_at_index == organisation.id,
           }
-        end
+        end,
       } %>
     <% end %>
   </div>
@@ -36,7 +36,7 @@
     {
       text: organisation.select_name,
       value: organisation.id,
-      selected: organisations.selected_supporting_organisation_ids.include?(organisation.id)
+      selected: organisations.selected_supporting_organisation_ids.include?(organisation.id),
     }
   end,
   multiple: true,

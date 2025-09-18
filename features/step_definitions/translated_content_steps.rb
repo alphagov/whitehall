@@ -104,7 +104,7 @@ Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*
   contact = create(
     :contact,
     title: contact_title,
-    country: create(:world_location, active: true),
+    country: create(:world_location),
     street_address: "123 The Avenue",
     contactable: organisation,
   )
@@ -145,7 +145,7 @@ Given(/^the world organisation "(.*?)" is translated into French and has an offi
   contact = create(
     :contact,
     title: office_name,
-    country: create(:world_location, active: true),
+    country: create(:world_location),
     street_address: "123 The Avenue",
   )
   create(:contact_number, contact:, label: "English phone", number: "0123456789")

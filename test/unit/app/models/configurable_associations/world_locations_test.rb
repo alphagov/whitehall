@@ -63,7 +63,7 @@ class WorldLocationsRenderingTest < ActionView::TestCase
   end
 
   test "it displays errors if there are any" do
-    world_location = create(:world_location, active: true)
+    world_location = create(:world_location)
     edition = build(:draft_standard_edition, { world_locations: [world_location] })
     edition.errors.add(:world_locations, "Some error goes here")
     world_locations_association = ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors)
