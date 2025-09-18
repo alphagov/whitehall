@@ -13,16 +13,8 @@ class Speech < Edition
 
   delegate :display_type_key, :explanation, to: :speech_type
 
-  def self.subtypes
-    SpeechType.all
-  end
-
   def self.by_subtype(subtype)
     where(speech_type_id: subtype.id)
-  end
-
-  def self.by_subtypes(subtype_ids)
-    where(speech_type_id: subtype_ids)
   end
 
   def speech_type

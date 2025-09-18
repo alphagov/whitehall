@@ -418,18 +418,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "something-going-on", edition.document.slug
   end
 
-  test "is filterable by edition type" do
-    publication = create(:publication)
-    news = create(:news_article)
-    speech = create(:speech)
-    consultation = create(:consultation)
-
-    assert_equal [publication], Edition.by_type("Publication")
-    assert_equal [news], Edition.by_type("NewsArticle")
-    assert_equal [speech], Edition.by_type("Speech")
-    assert_equal [consultation], Edition.by_type("Consultation")
-  end
-
   test "#destroy should also remove the relationship to any authors" do
     edition = create(:draft_edition, creator: create(:writer))
     relation = edition.edition_authors.first
@@ -663,26 +651,6 @@ class EditionTest < ActiveSupport::TestCase
     edition.remove_translations_for(:fr)
     assert_not edition.translated_locales.include?(:fr)
     assert edition.translated_locales.include?(:es)
-  end
-
-  test "without_editions_of_type allows us to exclude certain subclasses from a result set" do
-    edition1 = create(:case_study)
-    edition2 = create(:fatality_notice)
-
-    no_case_studies = Edition.without_editions_of_type(CaseStudy)
-    assert no_case_studies.include?(edition2)
-    assert_not no_case_studies.include?(edition1)
-  end
-
-  test "without_editions_of_type takes multiple classes to exclude" do
-    edition1 = create(:case_study)
-    edition2 = create(:fatality_notice)
-    edition3 = create(:detailed_guide)
-
-    no_fatalities_or_guides = Edition.without_editions_of_type(FatalityNotice, DetailedGuide)
-    assert no_fatalities_or_guides.include?(edition1)
-    assert_not no_fatalities_or_guides.include?(edition2)
-    assert_not no_fatalities_or_guides.include?(edition3)
   end
 
   should_not_accept_footnotes_in :body

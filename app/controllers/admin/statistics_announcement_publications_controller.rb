@@ -42,8 +42,7 @@ private
     params_filters_with_default_state
                        .symbolize_keys
                        .merge(
-                         type: "publication",
-                         subtypes: @statistics_announcement.publication_type,
+                         type: @statistics_announcement.publication_type.key,
                          per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                        )
   end

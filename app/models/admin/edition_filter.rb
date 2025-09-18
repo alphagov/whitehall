@@ -109,9 +109,7 @@ module Admin
       return @unpaginated_editions if @unpaginated_editions
 
       editions = @source
-      editions = editions.by_type(type) if type
-      editions = editions.by_subtype(type, subtype) if subtype
-      editions = editions.by_subtypes(type, subtype_ids) if type && subtype_ids
+      editions = scope_by_type(editions, options[:type]) if options[:type].present?
       editions = editions.in_state(state) if state
       editions = editions.authored_by(author) if author
       editions = editions.in_organisation(organisation) if organisation
@@ -159,33 +157,52 @@ module Admin
       options[:title].presence
     end
 
-    def type
-      EDITION_TYPE_LOOKUP[options[:type].sub(/_\d+$/, "").classify] if options[:type]
-    end
+    def scope_by_type(editions, type)
+      type_class_name = type.sub(/_\d+$/, "").classify
+      return editions.where(type: type_class_name) if EDITION_TYPE_LOOKUP[type_class_name]
 
-    def subtype
-      subtype_class.find_by_id(subtype_id) if type && subtype_id
-    end
+      # `type` (e.g. `press_release`) is not in the EDITION_TYPE_LOOKUP, so
+      # this is either a StandardEdition type, or a "subtype" of a legacy
+      # document type. So we:
+      #
+      # 1. Check `ConfigurableDocumentType` to see if the `type` is a known
+      #    type of StandardEdition.
+      # 2. In addition, loop through all the legacy types:
+      #    NewsArticleType, PublicationType, SpeechType
+      #    Dynamically check their subtypes to see if it matches the `type`.
+      #
+      # We could find editions for BOTH of the above, so we can't just
+      # build on the same `edition.where` call. We need to build some
+      # OR-clauses (from a fresh base relation for the same model) and
+      # then merge that back into the incoming Relation. We do that by
+      # building predicates on the editions table only (Arel), then adding
+      # them with a single `where`.
+      table = Edition.arel_table
+      predicates = []
 
-    def subtype_ids
-      options[:subtypes].present? && options[:subtypes]
-    end
-
-    def subtype_id
-      if options[:type] && options[:type][/\d+$/]
-        options[:type][/\d+$/].to_i
+      # StandardEdition with configurable_document_type
+      if ConfigurableDocumentType.all_keys.include?(type)
+        predicates << table[:type].eq("StandardEdition").and(table[:configurable_document_type].eq(type))
       end
-    end
 
-    def subtype_class
-      "#{type}Type".constantize
+      # Legacy subtypes (TODO: delete this block and refactor this method when the legacy types are removed)
+      %w[NewsArticle Publication Speech].each do |parent_type|
+        type_class = "#{parent_type}Type".constantize
+        if (subtype = type_class.all.select { |k| k.key == type }.first)
+          legacy_col = "#{type_class.new.genus_key}_type_id"
+          predicates << table[:type].eq(parent_type).and(table[legacy_col].eq(subtype.id))
+        end
+      end
+
+      return editions.none if predicates.empty?
+
+      combined = predicates.reduce { |a, b| a.or(b) }
+      editions.where(combined)
     end
 
     def type_for_display
-      if subtype
-        subtype.plural_name.downcase
-      elsif type
-        type.model_name.human.pluralize.downcase
+      if options[:type]
+        options[:type].humanize.pluralize.downcase
       else
         "documents"
       end

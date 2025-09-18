@@ -8,8 +8,7 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     @title = "publication-title"
     @default_filter_params = {
       state: "active",
-      type: "publication",
-      subtypes: @official_statistics_announcement.publication_type,
+      type: @official_statistics_announcement.publication_type.key,
       per_page: 15,
     }
   end
