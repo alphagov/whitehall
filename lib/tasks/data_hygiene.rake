@@ -87,4 +87,12 @@ namespace :data_hygiene do
     puts response.code
     puts response.raw_response_body
   end
+
+  task :reassign_role_appointment_speeches, %i[old_role_appointment_id new_role_appointment_id] => :environment do |_, args|
+    puts "Hello world"
+    old_role_appointment = RoleAppointment.find(args[:old_role_appointment_id])
+    new_role_appointment = RoleAppointment.find(args[:new_role_appointment_id])
+    new_role_appointment.speeches = old_role_appointment.speeches
+    old_role_appointment.speeches.clear
+  end
 end
