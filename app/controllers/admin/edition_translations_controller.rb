@@ -6,7 +6,15 @@ class Admin::EditionTranslationsController < Admin::BaseController
   def new; end
 
   def edit
-    load_document_history
+    if @edition.is_a?(StandardEdition)
+      redirect_to edit_admin_standard_edition_translation_path(
+        standard_edition_id: @edition.id,
+        id: translation_locale.code,
+      )
+    else
+      load_document_history
+      render :edit
+    end
   end
 
   def update
