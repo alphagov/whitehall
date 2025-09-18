@@ -16,10 +16,25 @@ class ReassignRoleAppointmentSpeechesTest < ActiveSupport::TestCase
     old_role_appointment.speeches = speeches
     new_role_appointment = create(:role_appointment)
 
-    out, _err = capture_io { @task.invoke(old_role_appointment.id, new_role_appointment.id) }
+    @task.invoke(old_role_appointment.id, new_role_appointment.id)
 
-    assert_includes out, "Hello world"
     assert_equal new_role_appointment.speeches, old_role_appointment.speeches
     assert_empty old_role_appointment.reload.speeches
+  end
+
+  test "it prints an error if the old role appointment ID does not exist" do
+    old_role_appointment_id = 9999
+    new_role_appointment = create(:role_appointment)
+
+    _out, err = capture_io { @task.invoke(old_role_appointment_id, new_role_appointment.id) }
+    assert_equal "Cannot find old role appointment: #{old_role_appointment_id}", err
+  end
+
+  test "it prints an error if the new role appointment ID does not exist" do
+    old_role_appointment = create(:role_appointment)
+    new_role_appointment_id = 9999
+
+    _out, err = capture_io { @task.invoke(old_role_appointment.id, new_role_appointment_id) }
+    assert_equal "Cannot find new role appointment: #{new_role_appointment_id}", err
   end
 end
