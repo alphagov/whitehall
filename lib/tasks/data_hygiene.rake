@@ -1,3 +1,9 @@
+require "thor"
+
+def shell
+  @shell ||= Thor::Shell::Basic.new
+end
+
 namespace :data_hygiene do
   desc "Merge people records - Dry run"
   task :merge_people_dry_run, %i[person_to_merge person_to_keep] => :environment do |_task, args|
@@ -88,19 +94,25 @@ namespace :data_hygiene do
     puts response.raw_response_body
   end
 
+  desc "Reassign role appointment speeches"
   task :reassign_role_appointment_speeches, %i[old_role_appointment_id new_role_appointment_id] => :environment do |_, args|
     begin
       old_role_appointment = RoleAppointment.find(args[:old_role_appointment_id])
     rescue ActiveRecord::RecordNotFound
-      $stderr.puts "Cannot find old role appointment: #{args[:old_role_appointment_id]}"
-      exit 1
+      shell.say_error "Cannot find old role appointment: #{args[:old_role_appointment_id]}"
+      next
     end
     begin
       new_role_appointment = RoleAppointment.find(args[:new_role_appointment_id])
     rescue ActiveRecord::RecordNotFound
-      $stderr.puts "Cannot find new role appointment: #{args[:new_role_appointment_id]}"
-      exit 1
+      shell.say_error "Cannot find new role appointment: #{args[:new_role_appointment_id]}"
+      next
+    end
+    unless shell.yes?("Proceed with moving speeches from #{old_role_appointment.role_name} to #{new_role_appointment.role_name} (yes/no)")
+      shell.say_error "Move aborted"
+      next
     end
     new_role_appointment.speeches = old_role_appointment.speeches
+    shell.say "Speeches reassigned to #{new_role_appointment.role_name}"
   end
 end
