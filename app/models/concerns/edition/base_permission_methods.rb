@@ -14,6 +14,7 @@ module Edition::BasePermissionMethods
     can_be_grouped_in_collections?
     is_associated_with_a_minister?
     can_be_tagged_to_worldwide_taxonomy?
+    organisation_association_enabled?
   ].each do |method|
     define_method(method) { false }
   end
