@@ -30,10 +30,8 @@ module PublishingApi
 
     def links
       factory = ConfigurableAssociations::Factory.new(item)
-      {}.tap do |links|
-        factory.configurable_associations.each do |association|
-          links[association.publishing_api_links_key] = association.selected_content_ids
-        end
+      factory.configurable_associations.reduce({}) do |links_hash, association|
+        links_hash.merge(association.links)
       end
     end
 

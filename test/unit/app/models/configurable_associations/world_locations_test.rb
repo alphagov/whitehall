@@ -1,5 +1,18 @@
 require "test_helper"
 
+class WorldLocationsTest < ActiveSupport::TestCase
+  test "it presents the selected world location links" do
+    world_locations = create_list(:world_location, 3, active: true)
+    edition = build(:draft_standard_edition, { world_locations: [world_locations.first, world_locations.last] })
+
+    world_locations_association = ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors)
+    expected_links = {
+      world_locations: [world_locations.first.content_id, world_locations.last.content_id],
+    }
+    assert_equal expected_links, world_locations_association.links
+  end
+end
+
 class WorldLocationsRenderingTest < ActionView::TestCase
   test "it renders world locations form control" do
     world_locations = create_list(:world_location, 2, active: true)

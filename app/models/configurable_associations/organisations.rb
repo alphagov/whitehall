@@ -7,8 +7,16 @@ module ConfigurableAssociations
 
     attr_reader :errors
 
-    def publishing_api_links_key
-      :organisations
+    def links
+      @association.preload(:organisation)
+      primary_publishing_organisation = @association
+                                          .select { |edition_org| lead_organisation_selector(0, edition_org) }
+                                          .first
+                                          .organisation
+      {
+        organisations: @association.map { |edition_org| edition_org.organisation.content_id },
+        primary_publishing_organisation: [primary_publishing_organisation.content_id],
+      }
     end
 
     def selected_lead_organisation_id_at(lead_organisation_index)
@@ -18,11 +26,6 @@ module ConfigurableAssociations
 
     def selected_supporting_organisation_ids
       @association.reject(&:lead?).map(&:organisation_id)
-    end
-
-    def selected_content_ids
-      @association.preload(:organisation)
-      @association.map { |edition_org| edition_org.organisation.content_id }
     end
 
     def options_query

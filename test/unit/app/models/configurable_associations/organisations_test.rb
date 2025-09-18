@@ -1,5 +1,29 @@
 require "test_helper"
 
+class OrganisationsTest < ActiveSupport::TestCase
+  test "it presents the selected organisations and primary publishing organisation links" do
+    organisations = create_list(:organisation, 3)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 1 }, { organisation: organisations.last, lead: false }])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    expected_links = {
+      organisations: [organisations.first.content_id, organisations.last.content_id],
+      primary_publishing_organisation: [organisations.first.content_id],
+    }
+    assert_equal expected_links, organisations_association.links
+  end
+
+  test "it presents the first lead organisation as the primary publishing organisation" do
+    organisations = create_list(:organisation, 3)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 2 }, { organisation: organisations.last, lead: true, lead_ordering: 1 }])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    assert_equal [organisations.last.content_id], organisations_association.links[:primary_publishing_organisation]
+  end
+end
+
 class OrganisationsRenderingTest < ActionView::TestCase
   test "it renders the lead organisations form control" do
     edition = build(:draft_standard_edition, :with_organisations)
