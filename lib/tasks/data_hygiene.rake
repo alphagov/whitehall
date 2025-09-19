@@ -94,6 +94,8 @@ namespace :data_hygiene do
     puts response.raw_response_body
   end
 
+  # Use with caution: This task will reassign speeches that are in an unmodifiable state
+  # It bypasses validation on the Speech model
   desc "Reassign role appointment speeches"
   task :reassign_role_appointment_speeches, %i[old_role_appointment_id new_role_appointment_id] => :environment do |_, args|
     begin
@@ -112,7 +114,12 @@ namespace :data_hygiene do
       shell.say_error "Move aborted"
       next
     end
-    new_role_appointment.speeches = old_role_appointment.speeches
+    shell.say "Found #{old_role_appointment.speeches.count} speech(es) to move."
+    old_role_appointment.speeches.find_each do |speech|
+      speech.role_appointment_id = new_role_appointment.id
+      speech.save!(validate: false)
+    end
+
     shell.say "Speeches reassigned to #{new_role_appointment.role_name}"
   end
 end
