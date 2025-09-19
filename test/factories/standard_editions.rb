@@ -5,6 +5,7 @@ FactoryBot.define do
     previously_published { false }
     configurable_document_type { "test_type" }
     block_content { {} }
+    body { nil }
 
     factory :draft_standard_edition, parent: :standard_edition, traits: [:draft]
     factory :submitted_standard_edition, parent: :standard_edition, traits: [:submitted]
