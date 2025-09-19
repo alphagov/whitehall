@@ -5,7 +5,9 @@ class Admin::StandardEditionTranslationsController < Admin::BaseController
 
   before_action :prevent_modification_of_unmodifiable_edition
 
-  def edit; end
+  def edit
+    load_document_history
+  end
 
 private
 
@@ -21,5 +23,9 @@ private
 
   def translation_locale
     @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
+  end
+
+  def load_document_history
+    @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
   end
 end
