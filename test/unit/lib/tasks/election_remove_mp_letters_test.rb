@@ -10,6 +10,7 @@ class RemoveMpLettersRake < ActiveSupport::TestCase
     let(:task) { Rake::Task["election:remove_mp_letters"] }
 
     it "removes the letters MP from people names" do
+      Thor::Shell::Basic.any_instance.stubs(:yes?).returns(true)
       member_a = create(:person, forename: "A", surname: "Member", letters: "MP")
       member_b = create(:person, forename: "B", surname: "Member", letters: "CBE MP")
       member_c = create(:person, forename: "C", surname: "Member", letters: "MP MEng")
