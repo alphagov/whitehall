@@ -174,4 +174,32 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
       )
     end
   end
+
+  # xtest "should limit access to translations of editions that aren't accessible to the current user" do
+  #   ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+  #     "schema" => {
+  #       "properties" => {
+  #         "body" => {
+  #           "title" => "Body (required)",
+  #           "type" => "string",
+  #           "format" => "govspeak",
+  #         },
+  #         "settings" => {
+  #           "organisations" => [create(:organisation).content_id],
+  #         }
+  #       },
+  #     },
+  #   }))
+  #   protected_edition = create(:draft_standard_edition, :access_limited, configurable_document_type: "test_type")
+  #
+  #   get :edit, params: { standard_edition_id: protected_edition.id, id: "en" }
+  #   assert_response :forbidden
+  #
+  #   put :update, params: { standard_edition_id: protected_edition.id, id: "en" }
+  #   assert_response :forbidden
+
+    # We don't have this endpoint in this controller
+    # post :create, params: { edition_id: protected_edition.id, id: "en" }
+    # assert_response :forbidden
+  # end
 end
