@@ -55,4 +55,15 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
     assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.summary
     assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.block_content["body"]
   end
+
+  view_test "renders the govspeak help and history tab" do
+    # TODO: confirm that fact checking is not included at the minute
+    edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title" })
+    create(:editorial_remark, edition:)
+
+    get :edit, params: { standard_edition_id: edition, id: "cy" }
+
+    assert_select ".govuk-tabs__tab", text: "Help"
+    assert_select ".govuk-tabs__tab", text: "History"
+  end
 end

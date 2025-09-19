@@ -64,8 +64,32 @@
       </div>
     <% end %>
   </section>
-
-  <section class="govuk-grid-column-one-third">
-    <!-- TODO: render sidebar-->
-  </section>
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/tabs", {
+      disable_ga4: true,
+      tabs: [
+        {
+          id: "govspeak_tab",
+          label: "Help",
+          content: simple_formatting_sidebar(
+            hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+            show_attachments_tab_help: true,
+            link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_report : nil,
+            ),
+        },
+        {
+          id: "history_tab",
+          label: "History",
+          content: tag.div(
+            render(Admin::Editions::DocumentHistoryTabComponent.new(
+              edition: @edition,
+              document_history: @document_history,
+              editing: true,
+              )),
+            data: { module: "document-history-paginator" },
+            ),
+        },
+      ],
+    } %>
+  </div>
 </div>
