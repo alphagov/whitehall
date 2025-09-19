@@ -47,7 +47,13 @@
           },
         } %>
 
-        <!-- TODO: render content blocks -->
+        <% root_block = ConfigurableContentBlocks::Factory.new(@translated_edition).build("object") %>
+        <%= render(root_block, {
+          schema: ConfigurableDocumentType.find(@translated_edition.configurable_document_type).schema,
+          content: @translated_edition.block_content,
+          path: ConfigurableContentBlocks::Path.new,
+          root: true,
+        }) %>
 
         <div class="govuk-button-group">
           <%= render "govuk_publishing_components/components/button", {

@@ -3,7 +3,17 @@ require "test_helper"
 class Admin::StandardEditionTranslationsControllerTest < ActionController::TestCase
   setup do
     @writer = login_as(:writer)
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {}))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "schema" => {
+        "properties" => {
+          "body" => {
+            "title" => "Body (required)",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+        },
+      },
+    }))
   end
 
   should_be_an_admin_controller
@@ -18,8 +28,8 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
   end
 
   view_test "edit presents a form to update an existing translation" do
-    edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title" })
-    with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary") }
+    edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title", block_content: { body: "english-body" } })
+    with_locale(:fr) { edition.update!(title: "french-title", summary: "french-summary", block_content: { body: "french-body" }) }
 
     get :edit, params: { standard_edition_id: edition, id: "fr" }
 
@@ -28,7 +38,7 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
       assert_select "input[type=text][name='edition[title]'][value='french-title']"
       assert_select "label", text: "Translated summary (required)"
       assert_select "textarea[name='edition[summary]']", text: "french-summary"
-      # assert_select "textarea[name='edition[body]']", "french-body"
+      assert_select "textarea[name='edition[block_content][body]']", "french-body"
 
       assert_select "button[type=submit]"
       assert_select "a[href=?]", @controller.admin_edition_path(edition), text: "Cancel"
@@ -36,12 +46,13 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
   end
 
   view_test "edit shows the english values underneath the associated form fields" do
+    # TODO: - this test should probably be rephrased as the "primary locale" values
     edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title" })
 
     get :edit, params: { standard_edition_id: edition, id: "fr" }
 
     assert_select ".app-c-translated-input__english-translation .govuk-details__text", text: edition.title
     assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.summary
-    # assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.body
+    assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.block_content["body"]
   end
 end
