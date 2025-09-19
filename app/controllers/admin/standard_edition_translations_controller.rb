@@ -9,7 +9,27 @@ class Admin::StandardEditionTranslationsController < Admin::BaseController
     load_document_history
   end
 
+  def update
+    @translated_edition.change_note = "Added translation" if @translated_edition.change_note.blank?
+    if @translated_edition.update(translation_params)
+      save_draft_translation # TODO: revise - removed send_downstream?
+      redirect_to admin_standard_edition_path(@edition), notice: notice_message("saved")
+    else
+      load_document_history
+      render :edit
+    end
+  end
+
 private
+
+  def translation_params
+    params.require(:edition).permit(
+      :title,
+      :summary,
+      :lock_version, # TODO: - why is this needed????
+      block_content: {},
+    )
+  end
 
   def load_translatable_item
     @edition ||= Edition.find(params[:standard_edition_id])
@@ -27,5 +47,13 @@ private
 
   def load_document_history
     @document_history = Document::PaginatedTimeline.new(document: @edition.document, page: params[:page] || 1, only: params[:only])
+  end
+
+  def save_draft_translation
+    Whitehall::PublishingApi.save_draft_translation(@translated_edition, translation_locale.code)
+  end
+
+  def notice_message(action)
+    %(#{translation_locale.english_language_name} translation for "#{@edition.title}" #{action}.)
   end
 end
