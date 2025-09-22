@@ -50,5 +50,6 @@ class WorldwideOfficeType
     Consulate,
     Embassy,
     HighCommission,
+    DeputyHighCommission,
   ].freeze
 end
