@@ -3,6 +3,23 @@ class ImageUploader < WhitehallUploader
 
   process :store_dimensions
 
+  crop_data_blank = lambda do | uploader, opts |
+    return uploader.model.crop_data.blank?
+  end
+
+  version :cropped, unless: crop_data_blank do 
+    process :crop_to_crop_data
+  end
+
+  def crop_to_crop_data
+    crop_data = model.crop_data
+
+    manipulate! do |img|
+      img.crop(crop_data["top"], crop_data["left"], crop_data["width"], crop_data["height"])
+      img
+    end
+  end
+
   configure do |config|
     config.remove_previously_stored_files_after_update = false
     config.storage = Storage::PreviewableStorage
@@ -20,13 +37,10 @@ class ImageUploader < WhitehallUploader
     end
   end
 
+
   Whitehall.image_kinds.each do |image_kind, image_kind_config|
     use_versions_for_this_image_kind_proc = lambda do |uploader, opts|
       uploader.model.image_kind == image_kind && uploader.bitmap?(opts[:file])
-    end
-
-    version :cropped, if: !uploader.model.requires_crop? do 
-      process :crop => uploader.model.crop_data
     end
 
     image_kind_config.versions.each do |v|

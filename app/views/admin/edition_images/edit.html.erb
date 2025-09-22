@@ -18,8 +18,8 @@
         type: image.content_type,
         width: @valid_width,
         height: @valid_height,
-        left: image.image_data&.crop_data["left"],
-        top: image.image_data&.crop_data["top"],
+        left: (image&.image_data&.crop_data || {})["left"],
+        top: (image&.image_data&.crop_data || {})["top"],
       } %>
 
       <%= render "govuk_publishing_components/components/textarea", {

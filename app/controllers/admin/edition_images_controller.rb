@@ -22,9 +22,9 @@ class Admin::EditionImagesController < Admin::BaseController
 
     image.build_image_data(image_update_params.fetch(:image_data))
 
-    image.image_data.crop_data = JSON.parse(image.image_data.crop_data)
-
-    image.image_data.save
+    image.image_data.validate_on_image = @new_image
+    # so that auth_bypass_id is discoverable by AssetManagerStorage
+    image.image_data.images << image
 
     if image.save
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
@@ -44,6 +44,8 @@ class Admin::EditionImagesController < Admin::BaseController
     # so that auth_bypass_id is discoverable by AssetManagerStorage
     @new_image.image_data.images << @new_image
 
+    binding.pry
+
     if @new_image.save
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
@@ -60,6 +62,7 @@ class Admin::EditionImagesController < Admin::BaseController
     @valid_width = image_kind_config.valid_width
     @valid_height = image_kind_config.valid_height
     image = Image.find(params[:id])
+
     flash.now.notice = "The image is being processed. Try refreshing the page." unless image&.image_data&.all_asset_variants_uploaded?
   end
 
