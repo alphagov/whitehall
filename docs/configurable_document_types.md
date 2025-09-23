@@ -10,6 +10,7 @@ The JSON for each type has these top level keys:
 
 - 'key': The unique identifier for the document type. This is what will be stored in the edition's `configurable_document_type` column.
 - 'schema': The schema for the document type, defined as [JSON schema](https://json-schema.org/docs). Each schema must have a root schema of the type "object".
+- 'associations': The associations for the document type. This is a list of strings that map to a set of association objects in the Rails app.
 - 'settings': The settings for the document type.
 
 These are the settings available for configurable document types. All settings are required.
@@ -48,3 +49,36 @@ Content blocks are instantiated via the [content block factory](../app/models/co
 There are two potential "gotchas" in to do with block types. The first is that you can't define a numeric type. Usually, Rails is able to cast model attribute values to a number if the attribute is stored using a numeric database column. However, because we store all the edition content in a single JSON column, Rails can't do that for block content values. Therefore, we are forced to define all leaf schema properties as strings. It may be possible to implement some sort of type casting solution in future if this becomes especially painful.
 
 The second "gotcha" is that you can't define nullable types, which in JSON schema is usually done by defining a type of `[string, null]`. However, Rails will typically interpret empty form input values as an empty string, rather than `nil`.
+
+## Associations
+
+Associations can be added to configurable document types to link them to other content in Whitehall, for example, organisations or topical events. These associations are defined in the `associations` key in the document type's JSON configuration file.
+
+The available associations are:
+
+- `ministerial_role_appointments`
+- `topical_events`
+- `world_locations`
+- `organisations` (includes lead and supporting organisations)
+
+### Architecture
+
+Configurable associations have been implemented using plain old Ruby objects that bundle together the behaviour of the association in a single object, rather than distributing it across several locations in the codebase. The exception to this is persistence behaviour, which remains within the existing Active Record edition concerns. In the future, once the current document types have been migrated to the configurable document type architecture, it may be possible to merge the concerns and the association classes. Until then, any Active Record configuration of the association should take place in the Standard Edition model or the concern.
+
+We use a factory pattern to isolate the association from Active Record, so that the association cannot manipulate the edition model and cause unexpected side effects elsewhere in the application.
+
+The associations are consumed by the [standard edition form](../app/views/admin/standard_editions/_form.html.erb) and the [standard edition presenter](../app/presenters/publishing_api/standard_edition_presenter.rb). They each iterate through the list of associations configured for the document type. The standard edition form renders each association, and the standard edition presenter outputs the links for each association.
+
+### Adding a new association
+
+Adding a new type of association involves changes to several files to handle both the admin interface for selecting the association and the data that is sent to the Publishing API.
+
+The process is as follows:
+
+1.  **Create an association class**: Add a new class to the `app/models/configurable_associations` directory.
+
+2.  **Update the factory**: The factory at `app/models/configurable_associations/factory.rb` is responsible for instantiating the association classes. You need to add the new association to the `associations` hash in this file. The key should match the one used in the document type's JSON configuration.
+
+3.  **Create a view partial**: To allow users to select the association in the admin interface, you need to create a new ERB partial in the `app/views/admin/configurable_associations` directory. The name of the partial should correspond to the key of your new association (e.g., `_my_new_association.html.erb`). This partial will be rendered on the document's edit page. Add the `to_partial_path` method to the association class. The `to_partial_path` method should return the path of the partial template. The partial will have a variable in scope that matches the name of the association class, in snake case, which you can use to access data and methods from the association object.
+
+4.  **Presenter links**: The `app/presenters/publishing_api/standard_edition_presenter.rb` is responsible for generating the payload that is sent to the Publishing API. The `links` method in this presenter iterates over the configured associations for a document type and calls the `links` method on each association object to build up the links hash for the payload. Ensure your new association class provides the correctly formatted links hash.
