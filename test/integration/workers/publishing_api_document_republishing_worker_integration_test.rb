@@ -4,6 +4,7 @@ require "gds_api/test_helpers/publishing_api"
 # Integration Tests to check for what actual HTTP calls are being made to Publishing API by the Document Republishing Worker
 class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
+  include GovspeakHelper
   context "Never before published documents" do
     test "should update the draft edition with all locales when document only has draft" do
       draft_edition = build(:draft_publication)
@@ -269,7 +270,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       html_attachment_presenter = PublishingApiPresenters.presenter_for(edition.attachments.first, update_type: "republish")
       withdrawal_content = {
         type: "withdrawal",
-        explanation: Whitehall::GovspeakRenderer.new.govspeak_to_html(edition.unpublishing.explanation),
+        explanation: govspeak_to_html(edition.unpublishing.explanation),
         unpublished_at: edition.unpublishing.unpublished_at.utc.iso8601,
       }
 

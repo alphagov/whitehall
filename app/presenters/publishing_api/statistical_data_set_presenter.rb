@@ -1,6 +1,7 @@
 module PublishingApi
   class StatisticalDataSetPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include GovspeakHelper
 
     attr_reader :update_type
 
@@ -45,7 +46,7 @@ module PublishingApi
 
     def details
       {
-        body: govspeak_renderer.govspeak_edition_to_html(item),
+        body: govspeak_edition_to_html(item),
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
       }.tap do |details_hash|
@@ -54,10 +55,6 @@ module PublishingApi
         details_hash.merge!(PayloadBuilder::Attachments.for(item))
         details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
       end
-    end
-
-    def govspeak_renderer
-      @govspeak_renderer ||= Whitehall::GovspeakRenderer.new
     end
   end
 end

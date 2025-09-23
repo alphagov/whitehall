@@ -1,34 +1,4 @@
 module AttachmentsHelper
-  ATTACHMENT_COMPONENT_TYPES = {
-    FileAttachment => "file",
-    HtmlAttachment => "html",
-    ExternalAttachment => "external",
-  }.freeze
-
-  def default_url_options
-    { host: Plek.website_root, protocol: "https" }
-  end
-
-  def prepare_attachments(attachments)
-    attachments
-      .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
-      .map(&:publishing_component_params)
-  end
-
-  def block_attachments(attachments = [])
-    attachments
-      .select { |attachment| !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded? }
-      .map do |attachment|
-      render(
-        partial: "govuk_publishing_components/components/attachment",
-        locals: {
-          attachment: attachment.publishing_component_params,
-          margin_bottom: 6,
-        },
-      )
-    end
-  end
-
   def bulk_attachment_errors(attachments = nil)
     return if attachments.blank?
 

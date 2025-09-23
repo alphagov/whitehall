@@ -1,6 +1,7 @@
 module PublishingApi
   class DocumentCollectionPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include GovspeakHelper
 
     attr_reader :update_type
 
@@ -59,7 +60,7 @@ module PublishingApi
       {
         change_history: item.change_history.as_json,
         collection_groups:,
-        body: govspeak_renderer.govspeak_edition_to_html(item),
+        body: govspeak_edition_to_html(item),
         emphasised_organisations: item.lead_organisations.map(&:content_id),
       }.tap do |details_hash|
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
@@ -72,14 +73,10 @@ module PublishingApi
       item.groups.map do |group|
         {
           title: group.heading,
-          body: govspeak_renderer.govspeak_to_html(group.body),
+          body: govspeak_to_html(group.body),
           documents: group.content_ids,
         }
       end
-    end
-
-    def govspeak_renderer
-      @govspeak_renderer ||= Whitehall::GovspeakRenderer.new
     end
   end
 end

@@ -36,7 +36,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       redirects: [],
       update_type: "major",
       details: {
-        body: Whitehall::GovspeakRenderer.new
+        body: ApplicationController.helpers
           .govspeak_html_attachment_to_html(html_attachment),
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,

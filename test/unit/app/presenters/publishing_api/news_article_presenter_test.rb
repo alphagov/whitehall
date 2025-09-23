@@ -58,6 +58,7 @@ module PublishingApi::NewsArticlePresenterTest
   end
 
   class BasicNewsArticleTest < TestCase
+    include GovspeakHelper
     setup do
       self.news_article = create(:news_article)
     end
@@ -112,18 +113,7 @@ module PublishingApi::NewsArticlePresenterTest
     end
 
     test "body details" do
-      body_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer
-        .expects(:govspeak_edition_to_html)
-        .with(news_article)
-        .returns(body_double)
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-
-      assert_details_attribute :body, body_double
+      assert_details_attribute :body, govspeak_to_html(news_article.body)
     end
 
     test "access limitation" do

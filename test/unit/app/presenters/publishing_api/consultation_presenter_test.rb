@@ -55,6 +55,7 @@ module PublishingApi::ConsultationPresenterTest
   end
 
   class BasicConsultationTest < TestCase
+    include GovspeakHelper
     setup do
       self.consultation = create(:consultation)
     end
@@ -115,22 +116,11 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "body details" do
-      body_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer
-        .expects(:govspeak_edition_to_html)
-        .with(consultation)
-        .returns(body_double)
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
-      assert_details_attribute :body, body_double
+      assert_details_attribute :body, govspeak_to_html(consultation.body)
     end
 
     test "content id" do
@@ -330,6 +320,8 @@ module PublishingApi::ConsultationPresenterTest
   end
 
   class ClosedConsultationWithFeedbackTest < TestCase
+    include GovspeakHelper
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.consultation = create(:closed_consultation)
 
@@ -346,49 +338,19 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "public feedback detail" do
-      public_feedback_detail_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer.stubs(:block_attachments)
-
-      govspeak_renderer
-        .expects(:govspeak_to_html)
-        .with(consultation.public_feedback.summary)
-        .returns(public_feedback_detail_double)
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
-      assert_details_attribute :public_feedback_detail,
-                               public_feedback_detail_double
+      assert_details_attribute :public_feedback_detail, govspeak_to_html(consultation.public_feedback.summary)
     end
 
     test "public feedback documents" do
-      attachments_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer.stubs(:govspeak_to_html)
-
-      govspeak_renderer
-        .expects(:block_attachments)
-        .with(
-          consultation.public_feedback.attachments,
-        )
-        .returns([attachments_double])
-        .at_least_once
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
-
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
-      assert_details_attribute :public_feedback_documents, [attachments_double]
+      assert_details_attribute :public_feedback_documents, render_attachments(consultation.public_feedback.attachments)
       assert_details_attribute(:public_feedback_attachments,
                                consultation.public_feedback.attachments.map { |a| a.publishing_api_details[:id] })
     end
@@ -405,6 +367,8 @@ module PublishingApi::ConsultationPresenterTest
   end
 
   class ClosedConsultationWithOutcomeTest < TestCase
+    include GovspeakHelper
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.consultation = create(:consultation_with_outcome_file_attachment)
     end
@@ -414,49 +378,19 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "final outcome detail" do
-      final_outcome_detail_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer.stubs(:block_attachments)
-
-      govspeak_renderer
-        .expects(:govspeak_to_html)
-        .with(consultation.outcome.summary)
-        .returns(final_outcome_detail_double)
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
-      assert_details_attribute :final_outcome_detail,
-                               final_outcome_detail_double
+      assert_details_attribute :final_outcome_detail, govspeak_to_html(consultation.outcome.summary)
     end
 
     test "final outcome documents" do
-      attachments_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer.stubs(:govspeak_to_html)
-
-      govspeak_renderer
-        .expects(:block_attachments)
-        .with(
-          consultation.outcome.attachments,
-        )
-        .returns([attachments_double])
-        .at_least_once
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
-
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
-      assert_details_attribute :final_outcome_documents, [attachments_double]
+      assert_details_attribute :final_outcome_documents, render_attachments(consultation.outcome.attachments)
       assert_details_attribute(:final_outcome_attachments,
                                consultation.outcome.attachments.map { |a| a.publishing_api_details[:id] })
     end
@@ -478,30 +412,17 @@ module PublishingApi::ConsultationPresenterTest
   end
 
   class ConsultationWithFileAttachments < TestCase
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.consultation = create(:consultation, :with_html_attachment)
     end
 
     test "documents" do
-      attachments_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer
-        .expects(:block_attachments)
-        .with(
-          consultation.attachments,
-        )
-        .returns([attachments_double])
-        .at_least_once
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
-
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
-      assert_details_attribute :documents, [attachments_double]
+      assert_details_attribute :documents, render_attachments(consultation.attachments)
       assert_details_attribute(:featured_attachments,
                                consultation.attachments.map { |a| a.publishing_api_details[:id] })
     end

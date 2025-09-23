@@ -2,6 +2,7 @@ require "test_helper"
 
 class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::TestCase
   include Presenters::PublishingApi::FeaturedDocumentsHelper
+  include GovspeakHelper
 
   test("determines ordered featured documents in different locales for editions") do
     case_study = create(:published_case_study)
@@ -28,7 +29,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(case_study.summary),
+            summary: govspeak_to_html(case_study.summary),
             public_updated_at: case_study.public_timestamp,
             document_type: I18n.t("document.type.case_study.one") },
           { title: news_article.title,
@@ -37,7 +38,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(news_article.summary),
+            summary: govspeak_to_html(news_article.summary),
             public_updated_at: news_article.public_timestamp,
             document_type: I18n.t("document.type.press_release.one") },
         ]
@@ -70,7 +71,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.summary),
+            summary: govspeak_to_html(topical_event.summary),
             public_updated_at: topical_event.start_date,
             document_type: nil },
         ]
@@ -100,7 +101,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(offsite_link.summary),
+            summary: govspeak_to_html(offsite_link.summary),
             public_updated_at: offsite_link.date,
             document_type: offsite_link.display_type },
         ]
@@ -144,7 +145,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                  medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                  high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                  alt_text: "" },
-        summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(case_study.summary),
+        summary: govspeak_to_html(case_study.summary),
         public_updated_at: case_study.public_timestamp,
         document_type: I18n.t("document.type.case_study.one"),
       },

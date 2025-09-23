@@ -1,13 +1,13 @@
 module PublishingApi
   module PayloadBuilder
     class Documents
+      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(document)
         new(document).call
       end
 
-      def initialize(document, renderer: Whitehall::GovspeakRenderer.new)
+      def initialize(document)
         self.document = document
-        self.renderer = renderer
       end
 
       def call
@@ -21,12 +21,10 @@ module PublishingApi
 
     private
 
-      attr_accessor :document, :renderer
+      attr_accessor :document
 
       def documents
-        renderer.block_attachments(
-          document.attachments,
-        )
+        render_attachments(document.attachments)
       end
 
       def featured_attachments

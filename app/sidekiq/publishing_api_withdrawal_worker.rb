@@ -1,4 +1,5 @@
 class PublishingApiWithdrawalWorker < PublishingApiWorker
+  include GovspeakHelper
   # `explanation` and `unpublished_at` come from the unpublishing object. Rather than
   # performing a database query here to look up the `unpublishing` linked to the most
   # recent edition, we pass it in directly because the `unpublishing` isn't always
@@ -8,7 +9,7 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
       content_id,
       type: "withdrawal",
       locale:,
-      explanation: Whitehall::GovspeakRenderer.new.govspeak_to_html(explanation),
+      explanation: govspeak_to_html(explanation),
       allow_draft:,
       unpublished_at: Time.zone.parse(unpublished_at),
     )

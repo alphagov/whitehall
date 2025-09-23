@@ -1,6 +1,7 @@
 require "test_helper"
 
 class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
+  include Presenters::PublishingApi::RenderedAttachmentsHelper
   def present(edition)
     edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
     PublishingApi::PublicationPresenter.new(edition)
@@ -41,7 +42,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
           browse_pages: [],
         },
         document_type_label: "Policy paper",
-        documents: Whitehall::GovspeakRenderer.new.block_attachments(publication.attachments),
+        documents: render_attachments(publication.attachments),
         first_public_at: publication.first_public_at,
         change_history: [
           { public_timestamp: publication.public_timestamp, note: "change-note" }.as_json,

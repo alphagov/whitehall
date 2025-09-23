@@ -1,5 +1,6 @@
 module PublishingApi
   class OperationalFieldPresenter
+    include GovspeakHelper
     attr_reader :update_type
 
     MINISTRY_OF_DEFENCE_CONTENT_ID = "d994e55c-48c9-4795-b872-58d8ec98af12".freeze
@@ -7,7 +8,6 @@ module PublishingApi
     def initialize(operational_field, _options = {})
       @operational_field = operational_field
       @update_type = "major"
-      @renderer = Whitehall::GovspeakRenderer.new
     end
 
     delegate :content_id, to: :operational_field
@@ -16,7 +16,7 @@ module PublishingApi
       {}.tap do |content|
         content.merge!(PayloadBuilder::PolymorphicPath.for(operational_field))
         content.merge!(
-          description: @renderer.govspeak_to_html(operational_field.description),
+          description: govspeak_to_html(operational_field.description),
           details: {},
           document_type: "field_of_operation",
           locale: "en",

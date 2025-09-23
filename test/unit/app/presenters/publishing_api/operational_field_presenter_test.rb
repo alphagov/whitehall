@@ -1,6 +1,7 @@
 require "test_helper"
 
 class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
+  include GovspeakHelper
   setup do
     @operational_field = create(
       :operational_field,
@@ -34,7 +35,7 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
       document_type: "field_of_operation",
       rendering_app: "frontend",
       schema_name: "field_of_operation",
-      description: Whitehall::GovspeakRenderer.new.govspeak_to_html(@operational_field.description),
+      description: govspeak_to_html(@operational_field.description),
       routes: [
         {
           path: "/government/fields-of-operation/operational-field-name",

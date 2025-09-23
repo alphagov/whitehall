@@ -1,6 +1,6 @@
 module PublishingApi
   class PolicyGroupPresenter
-    include AttachmentsHelper
+    include GovspeakHelper
 
     attr_accessor :item, :update_type
 
@@ -53,7 +53,7 @@ module PublishingApi
     def body
       # It looks 'wrong' using the description as the body, but it isn't
       if item.description.present?
-        Whitehall::GovspeakRenderer.new.govspeak_to_html(
+        govspeak_to_html(
           item.description,
           attachments: item.attachments,
           alternative_format_contact_email: item.email,

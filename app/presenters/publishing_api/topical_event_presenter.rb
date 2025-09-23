@@ -1,5 +1,6 @@
 module PublishingApi
   class TopicalEventPresenter
+    include GovspeakHelper
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
@@ -47,7 +48,7 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.description)
+      govspeak_to_html(item.description)
     end
 
     def image

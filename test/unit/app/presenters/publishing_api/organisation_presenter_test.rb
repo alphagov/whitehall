@@ -1,12 +1,9 @@
 require "test_helper"
 
 class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
+  include GovspeakHelper
   def present(...)
     PublishingApi::OrganisationPresenter.new(...)
-  end
-
-  def govspeak_to_html(govspeak)
-    Whitehall::GovspeakRenderer.new.govspeak_to_html(govspeak)
   end
 
   test "presents an organisation with a brand colour" do

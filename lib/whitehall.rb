@@ -5,7 +5,6 @@ module Whitehall
   autoload :RandomKey, "whitehall/random_key"
   autoload :FormBuilder, "whitehall/form_builder"
   autoload :Uploader, "whitehall/uploader"
-  autoload :GovspeakRenderer, "whitehall/govspeak_renderer"
 
   mattr_accessor :content_store
   mattr_accessor :default_cache_max_age

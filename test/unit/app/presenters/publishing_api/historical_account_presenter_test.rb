@@ -1,6 +1,7 @@
 require "test_helper"
 
 class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
+  include GovspeakHelper
   test "presents a valid content item" do
     person = create(:person, forename: "Some", surname: "Person")
     role = create(:prime_minister_role)
@@ -40,7 +41,7 @@ class PublishingApi::HistoricalAccountPresenterTest < ActiveSupport::TestCase
       redirects: [],
       public_updated_at: historical_account.updated_at,
       details: {
-        body: Whitehall::GovspeakRenderer.new.govspeak_to_html("Some body text"),
+        body: govspeak_to_html("Some body text"),
         born: "1900",
         dates_in_office: [
           {
