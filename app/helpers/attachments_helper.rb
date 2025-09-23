@@ -12,41 +12,7 @@ module AttachmentsHelper
   def prepare_attachments(attachments)
     attachments
       .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
-      .map do |attachment|
-      attachment_component_params(attachment)
-    end
-  end
-
-  def attachment_component_params(attachment)
-    params = {
-      type: ATTACHMENT_COMPONENT_TYPES.fetch(attachment.class),
-      title: attachment.title,
-      url: attachment.url,
-      isbn: attachment.isbn.presence,
-      unique_reference: attachment.unique_reference.presence,
-      command_paper_number: attachment.command_paper_number.presence,
-      unnumbered_command_paper: attachment.unnumbered_command_paper? || nil,
-      hoc_paper_number: attachment.hoc_paper_number.presence,
-      unnumbered_hoc_paper: attachment.unnumbered_hoc_paper? || nil,
-      parliamentary_session: attachment.parliamentary_session.presence,
-    }
-
-    # File attachments get some extra parameters, including 'id' so
-    # they can be embedded in Govspeak using [Attachment:XX] syntax
-    if attachment.file?
-      params[:id] = attachment.filename
-      params[:content_type] = attachment.content_type
-      params[:filename] = attachment.filename
-      params[:file_size] = attachment.file_size
-      params[:preview_url] = attachment.preview_path if attachment.previewable?
-      params[:alternative_format_contact_email] = attachment.alternative_format_contact_email unless attachment.accessible?
-    end
-
-    if attachment.pdf?
-      params[:number_of_pages] = attachment.number_of_pages
-    end
-
-    params.compact
+      .map(&:publishing_component_params)
   end
 
   def block_attachments(attachments = [])
@@ -56,7 +22,7 @@ module AttachmentsHelper
       render(
         partial: "govuk_publishing_components/components/attachment",
         locals: {
-          attachment: attachment_component_params(attachment),
+          attachment: attachment.publishing_component_params,
           margin_bottom: 6,
         },
       )

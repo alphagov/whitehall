@@ -308,4 +308,14 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   test "#rendering_app returns government_frontend" do
     assert_equal "government-frontend", HtmlAttachment.new.rendering_app
   end
+
+  test "component params for HTML attachment" do
+    attachment = create(:html_attachment)
+    expect_params = {
+      type: "html",
+      title: attachment.title,
+      url: attachment.url,
+    }
+    assert_equal expect_params, attachment.publishing_component_params
+  end
 end
