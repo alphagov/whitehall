@@ -8,6 +8,16 @@ class StandardEdition < Edition
   include Edition::WorldLocations
   include Edition::Organisations
 
+  # TEMPORARY
+  # This pulls in the modules needed for an Edition's associations.
+  # This will be done properly in WHIT-2386.
+  include Edition::Organisations
+  include Edition::RoleAppointments
+  include Edition::TopicalEvents
+  # NB: the following doesn't seem to need to be included in order for
+  # world locations to be associated with the edition 🤔
+  # include Edition::WorldLocations
+
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
 
