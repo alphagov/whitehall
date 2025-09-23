@@ -114,7 +114,7 @@ module Attachable
   end
 
   def allows_inline_attachments?
-    true
+    allows_file_attachments? && !allows_html_attachments? && !allows_external_attachments?
   end
 
   def can_order_attachments?

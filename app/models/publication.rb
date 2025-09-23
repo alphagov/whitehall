@@ -67,10 +67,6 @@ class Publication < Edition
     Whitehall::RenderingApp::FRONTEND
   end
 
-  def allows_inline_attachments?
-    false
-  end
-
   def allows_external_attachments?
     true
   end
