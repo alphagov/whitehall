@@ -13,6 +13,12 @@ class ConfigurableDocumentType
   end
 
   def self.find(type_key)
+    if type_key.nil?
+      raise NotFoundError, "No document type specified"
+    elsif !types.key?(type_key)
+      raise NotFoundError, "No document type found for '#{type_key}'"
+    end
+
     new(types[type_key])
   end
 
@@ -37,5 +43,8 @@ class ConfigurableDocumentType
 
   def properties
     @schema["properties"]
+  end
+
+  class NotFoundError < StandardError
   end
 end

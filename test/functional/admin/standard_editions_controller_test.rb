@@ -19,6 +19,13 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     @test_strategy.switch!(:configurable_document_types, false)
     get :new
     assert_response :not_found
+    assert_template "admin/errors/not_found"
+  end
+
+  test "GET new returns a not_found response when no configurable_document_type parameter is provided" do
+    get :new
+    assert_response :not_found
+    assert_template "admin/errors/not_found"
   end
 
   view_test "GET choose_type scopes the list of types to types that the user has permission to use" do
