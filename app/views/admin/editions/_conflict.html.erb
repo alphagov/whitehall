@@ -8,7 +8,7 @@
   <% end %>
 <% end %>
 
-<% if edition.can_be_related_to_organisations? %>
+<% if edition.organisation_association_enabled? %>
   <h2 class="govuk-heading-m">Organisations</h2>
   <% if edition.organisations.any? %>
     <%= render "admin/organisations/organisations_name_list", organisations: edition.sorted_organisations %>

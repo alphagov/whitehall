@@ -1,4 +1,4 @@
-<% if edition.can_be_related_to_organisations? %>
+<% if edition.organisation_association_enabled? %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: "Lead organisations",
     heading_level: 3,

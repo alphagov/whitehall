@@ -9,11 +9,11 @@ module Edition::BasePermissionMethods
     can_be_associated_with_role_appointments?
     can_be_associated_with_worldwide_organisations?
     can_be_fact_checked?
-    can_be_related_to_organisations?
     can_apply_to_subset_of_nations?
     can_be_grouped_in_collections?
     is_associated_with_a_minister?
     can_be_tagged_to_worldwide_taxonomy?
+    organisation_association_enabled?
   ].each do |method|
     define_method(method) { false }
   end

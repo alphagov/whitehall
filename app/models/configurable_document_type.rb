@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :schema, :settings
+  attr_reader :key, :schema, :associations, :settings
 
   def self.types
     @types ||= Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
@@ -13,6 +13,12 @@ class ConfigurableDocumentType
   end
 
   def self.find(type_key)
+    if type_key.nil?
+      raise NotFoundError, "No document type specified"
+    elsif !types.key?(type_key)
+      raise NotFoundError, "No document type found for '#{type_key}'"
+    end
+
     new(types[type_key])
   end
 
@@ -27,6 +33,7 @@ class ConfigurableDocumentType
   def initialize(type)
     @key = type["key"]
     @schema = type["schema"]
+    @associations = type["associations"]
     @settings = type["settings"]
   end
 
@@ -36,5 +43,8 @@ class ConfigurableDocumentType
 
   def properties
     @schema["properties"]
+  end
+
+  class NotFoundError < StandardError
   end
 end

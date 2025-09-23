@@ -65,8 +65,8 @@ class NewsArticle < Edition
     !world_news_story?
   end
 
-  def skip_organisation_validation?
-    world_news_story?
+  def organisation_association_enabled?
+    !world_news_story?
   end
 
   def skip_world_location_validation?

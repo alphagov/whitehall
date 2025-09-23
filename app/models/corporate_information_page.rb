@@ -56,10 +56,6 @@ class CorporateInformationPage < Edition
     false
   end
 
-  def skip_organisation_validation?
-    true
-  end
-
   def translatable?
     !non_english_edition?
   end

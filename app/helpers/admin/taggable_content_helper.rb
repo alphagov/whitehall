@@ -14,7 +14,7 @@ module Admin::TaggableContentHelper
   def taggable_ministerial_role_appointments_container(selected_ids = [])
     cached_taggable_ministerial_role_appointments.map do |appointment|
       {
-        text: role_appointment_label(appointment),
+        text: role_appointment_option_label(appointment),
         value: appointment.id,
         selected: selected_ids.include?(appointment.id),
       }
@@ -24,7 +24,7 @@ module Admin::TaggableContentHelper
   def taggable_role_appointments_container(selected_ids = [])
     cached_taggable_role_appointments.map do |appointment|
       {
-        text: role_appointment_label(appointment),
+        text: role_appointment_option_label(appointment),
         value: appointment.id,
         selected: selected_ids.include?(appointment.id),
       }
@@ -231,7 +231,7 @@ private
       .ascending_start_date
   end
 
-  def role_appointment_label(appointment)
+  def role_appointment_option_label(appointment)
     organisations = appointment.organisations.map(&:name).to_sentence
     person        = appointment.person.name
     role          = appointment.role.name.dup

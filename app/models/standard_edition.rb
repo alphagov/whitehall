@@ -3,6 +3,10 @@ class StandardEdition < Edition
   include Edition::Images
   include ::Attachable
   include Edition::AlternativeFormatProvider
+  include Edition::RoleAppointments
+  include Edition::TopicalEvents
+  include Edition::WorldLocations
+  include Edition::Organisations
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
@@ -49,6 +53,10 @@ class StandardEdition < Edition
 
   def type_instance
     ConfigurableDocumentType.find(configurable_document_type)
+  end
+
+  def organisation_association_enabled?
+    type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
   end
 
   def content_conforms_to_schema

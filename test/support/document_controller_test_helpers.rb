@@ -4,7 +4,7 @@ module DocumentControllerTestHelpers
 private
 
   def controller_attributes_for(edition_type, attributes = {})
-    if edition_type.to_s.classify.constantize.new.can_be_related_to_organisations?
+    if edition_type.to_s.classify.constantize.new.organisation_association_enabled?
       attributes = attributes.merge(
         lead_organisation_ids: [(Organisation.first || create(:organisation)).id],
       )

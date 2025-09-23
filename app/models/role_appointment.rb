@@ -65,7 +65,7 @@ class RoleAppointment < ApplicationRecord
   scope :for_person, ->(person) { where(person_id: person.id) }
   scope :excluding_ids, ->(*ids) { where("id NOT IN (?)", ids) }
   scope :current, -> { where(CURRENT_CONDITION) }
-  scope :for_ministerial_roles, -> { includes(role: :organisations).merge(Role.ministerial).references(:roles) }
+  scope :for_ministerial_roles, -> { includes(role: :translations).merge(Role.ministerial).references(:roles) }
   scope :alphabetical_by_person, -> { includes(:person).order("people.surname", "people.forename") }
   scope :ascending_start_date, -> { order("started_at DESC") }
   scope :historic, -> { where.not(CURRENT_CONDITION) }

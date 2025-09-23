@@ -66,7 +66,7 @@ private
   end
 
   def changed?
-    if @edition.can_be_related_to_organisations?
+    if @edition.organisation_association_enabled?
       @edition.changed? || @edition.edition_organisations != Edition.find(params[:id]).edition_organisations
     else
       @edition.changed?
