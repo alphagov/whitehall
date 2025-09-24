@@ -69,8 +69,8 @@ class NewsArticle < Edition
     !world_news_story?
   end
 
-  def skip_world_location_validation?
-    !world_news_story?
+  def world_location_association_enabled?
+    world_news_story?
   end
 
   def translatable?
