@@ -10,7 +10,7 @@ module Edition::WorldLocations
   end
 
   included do
-    validate :at_least_one_world_location
+    validate :at_least_one_world_location, if: :world_location_association_enabled?
 
     has_many :edition_world_locations, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy, autosave: true
     has_many :world_locations, through: :edition_world_locations
@@ -22,12 +22,12 @@ module Edition::WorldLocations
     true
   end
 
-  def skip_world_location_validation?
-    true
+  def world_location_association_enabled?
+    false
   end
 
   def at_least_one_world_location
-    if !skip_world_location_validation? && world_locations.empty?
+    if world_locations.empty?
       errors.add(:world_locations, "at least one required")
     end
   end
