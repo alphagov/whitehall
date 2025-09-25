@@ -68,4 +68,114 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
     assert_select ".govuk-tabs__tab", text: "Help"
     assert_select ".govuk-tabs__tab", text: "History"
   end
+
+  test "update creates a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", title: "english-title")
+
+    put :update,
+        params: { standard_edition_id: edition,
+                  id: "fr",
+                  edition: {
+                    title: "translated-title",
+                    summary: "translated-summary",
+                    block_content: {
+                      body: "translated-body",
+                    },
+                  } }
+
+    edition.reload
+
+    with_locale :fr do
+      assert_equal "translated-title", edition.title
+      assert_equal "translated-summary", edition.summary
+      assert_equal "translated-body", edition.block_content["body"]
+    end
+
+    assert_redirected_to @controller.admin_standard_edition_path(edition)
+  end
+
+  test "update creates a translation for a new draft of a previously published edition" do
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type", title: "english-title")
+    draft_edition = published_edition.create_draft(@writer)
+
+    put :update,
+        params: { standard_edition_id: draft_edition,
+                  id: "fr",
+                  edition: {
+                    title: "translated-title",
+                    summary: "translated-summary",
+                    block_content: {
+                      body: "translated-body",
+                    },
+                  } }
+
+    draft_edition.reload
+
+    with_locale :fr do
+      assert_equal "translated-title", draft_edition.title
+      assert_equal "translated-summary", draft_edition.summary
+      assert_equal "translated-body", draft_edition.block_content["body"]
+    end
+  end
+
+  view_test "update renders the form again, with errors, if the translation is invalid" do
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", title: "english-title")
+
+    put :update,
+        params: { standard_edition_id: edition,
+                  id: "fr",
+                  edition: {
+                    title: "",
+                  } }
+
+    assert_select ".govuk-error-summary"
+  end
+
+  view_test "#update puts the translation to the publishing API" do
+    Sidekiq::Testing.inline! do
+      edition = create(:draft_standard_edition, configurable_document_type: "test_type", title: "english-title")
+
+      put :update,
+          params: { standard_edition_id: edition,
+                    id: "fr",
+                    edition: {
+                      title: "translated-title",
+                      summary: "translated-summary",
+                      block_content: {
+                        body: "translated-body",
+                      },
+                    } }
+
+      assert_publishing_api_put_content(
+        edition.content_id,
+        request_json_includes(
+          title: "translated-title",
+          description: "translated-summary",
+          details: { body: "<div class=\"govspeak\"><p>translated-body</p>\n</div>" },
+          locale: "fr",
+        ),
+      )
+    end
+  end
+
+  test "should limit access to translations of editions that aren't accessible to the current user" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "schema" => {
+        "properties" => {
+          "body" => {
+            "title" => "Body (required)",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+        },
+      },
+    }))
+    protected_edition = create(:draft_standard_edition, :access_limited, configurable_document_type: "test_type")
+
+    get :edit, params: { standard_edition_id: protected_edition.id, id: "en" }
+    assert_response :forbidden
+
+    put :update, params: { standard_edition_id: protected_edition.id, id: "en" }
+    assert_response :forbidden
+  end
 end

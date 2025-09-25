@@ -7,8 +7,6 @@
   <section class="govuk-grid-column-two-thirds">
     <%= form_for @translated_edition, as: :edition, url: admin_standard_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
 
-      <%= form.hidden_field :lock_version %>
-
       <%= render "components/translated_input", {
         input: {
           label: {
