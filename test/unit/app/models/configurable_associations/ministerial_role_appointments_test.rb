@@ -7,7 +7,8 @@ class MinisterialRoleAppointmentsTest < ActiveSupport::TestCase
     edition.role_appointments << [appointments.first, appointments.last]
     role_appointments_association = ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments)
     expected_links = {
-      role_appointments: [appointments.first.person.content_id, appointments.last.person.content_id],
+      people: [appointments.first.person.content_id, appointments.last.person.content_id],
+      roles: [appointments.first.role.content_id, appointments.last.role.content_id],
     }
     assert_equal expected_links, role_appointments_association.links
   end

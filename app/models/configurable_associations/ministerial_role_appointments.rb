@@ -5,10 +5,12 @@ module ConfigurableAssociations
     end
 
     def links
-      @association.preload(:person)
-      {
-        role_appointments: @association.map { |role_appointment| role_appointment.person.content_id },
-      }
+      @association.includes(:person, :role)
+
+      @association.each_with_object({ people: [], roles: [] }) do |role_appointment, links|
+        links[:people] << role_appointment.person.content_id
+        links[:roles] << role_appointment.role.content_id
+      end
     end
 
     def selected_ids
@@ -17,9 +19,9 @@ module ConfigurableAssociations
 
     def options_query
       RoleAppointment.for_ministerial_roles
-        .includes(:person)
-        .includes(organisations: :translations)
-        .ascending_start_date
+                     .includes(:person)
+                     .includes(organisations: :translations)
+                     .ascending_start_date
     end
 
     def to_partial_path

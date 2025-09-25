@@ -375,8 +375,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
     presenter = PublishingApi::StandardEditionPresenter.new(edition)
     links = presenter.links
-    expected_role_appointments = ministerial_role_appointments.map { |appointment| appointment.person.content_id }
-    assert_equal expected_role_appointments, links[:role_appointments]
+    expected_people, expected_roles = ministerial_role_appointments
+                                        .map { |appointment| [appointment.person.content_id, appointment.role.content_id] }
+                                        .transpose
+    assert_equal expected_people, links[:people]
+    assert_equal expected_roles, links[:roles]
     expected_topical_events = topical_events.map(&:content_id)
     assert_equal expected_topical_events, links[:topical_events]
     expected_world_locations = world_locations.map(&:content_id)
