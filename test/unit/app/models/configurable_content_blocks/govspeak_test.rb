@@ -74,10 +74,6 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
           "format" => "govspeak",
         },
       },
-      "settings" => {
-        "file_attachments_enabled" => true,
-        "images_enabled" => true,
-      },
     }
 
     govspeak_content = "## foo\n[Attachment: #{file_attachment.filename}]"
@@ -90,5 +86,74 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
     }
 
     assert_dom ".app-c-govspeak-editor[data-attachment-ids=\"[#{file_attachment.id}]\"][data-image-ids=\"[#{image.id}]\"]"
+  end
+
+  test "it sets the direction on the textarea to right to left when the rtl option returns true" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "govspeak",
+        },
+      },
+    }
+    govspeak_content = "## foo"
+    block = ConfigurableContentBlocks::Govspeak.new([], [])
+    render block, {
+      schema: schema["properties"]["test_attribute"],
+      content: govspeak_content,
+      path: Path.new.push("test_attribute"),
+      right_to_left: true,
+    }
+    assert_dom ".app-c-govspeak-editor textarea[dir=\"rtl\"]"
+  end
+
+  test "it renders the primary locale content under the textarea when the translated content is provided" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "govspeak",
+        },
+      },
+    }
+    govspeak_content = "## foo"
+    block = ConfigurableContentBlocks::Govspeak.new([], [])
+    render block, {
+      schema: schema["properties"]["test_attribute"],
+      content: govspeak_content,
+      path: Path.new.push("test_attribute"),
+      translated_content: "## bar",
+    }
+    assert_dom ".govuk-details__text", text: govspeak_content
+  end
+
+  test "it sets the value of the textarea to the translated content when the translated content is provided" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "govspeak",
+        },
+      },
+    }
+    translated_content = "## foo"
+    block = ConfigurableContentBlocks::Govspeak.new([], [])
+    render block, {
+      schema: schema["properties"]["test_attribute"],
+      content: "## bar",
+      path: Path.new.push("test_attribute"),
+      translated_content:,
+    }
+    assert_dom "textarea", text: translated_content
   end
 end

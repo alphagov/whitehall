@@ -45,19 +45,21 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
     end
   end
 
-  view_test "edit shows the english values underneath the associated form fields" do
-    # TODO: - this test should probably be rephrased as the "primary locale" values
-    edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title" })
+  view_test "edit shows the primary locale value underneath the associated form fields" do
+    edition = create(:standard_edition, { configurable_document_type: "test_type",
+                                          title: "english-title",
+                                          summary: "english-summary",
+                                          block_content: {
+                                            body: "test body",
+                                          } })
 
     get :edit, params: { standard_edition_id: edition, id: "fr" }
 
-    assert_select ".app-c-translated-input__english-translation .govuk-details__text", text: edition.title
-    assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.summary
-    assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: edition.block_content["body"]
+    assert_select ".app-c-translated-input__english-translation .govuk-details__text", text: "english-title"
+    assert_select ".app-c-translated-textarea__english-translation .govuk-details__text", text: "english-summary"
   end
 
   view_test "renders the govspeak help and history tab" do
-    # TODO: confirm that fact checking is not included at the minute
     edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title" })
     create(:editorial_remark, edition:)
 

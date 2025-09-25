@@ -137,6 +137,25 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
 
+  test "it passes the right_to_left attribute on to child blocks" do
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+        },
+      },
+      "required" => %w[test_attribute],
+    }
+    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
+    block = ConfigurableContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content: {}, path: Path.new, right_to_left: true }
+    assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
+    assert_dom "input[dir=\"rtl\"]"
+  end
+
   test "it renders not-nested child attribute content" do
     schema = {
       "title" => "Test object",
