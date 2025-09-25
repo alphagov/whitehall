@@ -77,13 +77,24 @@ class OrganisationsRenderingTest < ActionView::TestCase
   test "it renders the lead organisation form control with pre-selected options" do
     organisations = create_list(:organisation, 3)
     edition = build(:draft_standard_edition)
-    edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: true, lead_ordering: 1 }])
+    edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 3 }, { organisation: organisations.last, lead: true, lead_ordering: 1 }])
 
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     render organisations_association
-    assert_dom "option[selected]", text: organisations.first.name
+    assert_dom "#edition_lead_organisation_ids_1 option[selected]", text: organisations.last.name
     assert_not_dom "option[selected]", text: organisations.second.name
-    assert_dom "option[selected]", text: organisations.last.name
+    assert_dom "#edition_lead_organisation_ids_2 option[selected]", text: organisations.first.name
+  end
+
+  test "it renders the lead organisation form control with the default lead organisation" do
+    organisations = create_list(:organisation, 2)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    render organisations_association
+    assert_dom "#edition_lead_organisation_ids_1 option[selected]", text: organisations.first.name
+    assert_not_dom "option[selected]", text: organisations.second.name
   end
 
   test "it renders the supporting organisation form control with pre-selected options" do
