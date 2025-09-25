@@ -12,7 +12,7 @@ class Admin::StandardEditionTranslationsController < Admin::BaseController
   def update
     @translated_edition.change_note = "Added translation" if @translated_edition.change_note.blank?
     if @translated_edition.update(translation_params)
-      save_draft_translation # TODO: revise - removed send_downstream?
+      save_draft_translation
       redirect_to admin_standard_edition_path(@edition), notice: notice_message("saved")
     else
       load_document_history
