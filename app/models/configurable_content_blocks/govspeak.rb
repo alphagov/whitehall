@@ -1,6 +1,7 @@
 module ConfigurableContentBlocks
   class Govspeak
     include Presenters::PublishingApi::PayloadHeadingsHelper
+    include GovspeakHelper
 
     attr_reader :images, :attachments
 
@@ -25,7 +26,7 @@ module ConfigurableContentBlocks
 
     def publishing_api_payload(content)
       {
-        html: Whitehall::GovspeakRenderer.new.govspeak_to_html(content, images: @images, attachments: @attachments),
+        html: govspeak_to_html(content, images: @images, attachments: @attachments),
         **extract_headings(content),
       }
     end

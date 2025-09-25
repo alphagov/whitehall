@@ -2,7 +2,6 @@ require "delegate"
 
 module GovspeakHelper
   include Rails.application.routes.url_helpers
-  include AttachmentsHelper
 
   def govspeak_to_html(govspeak, options = {})
     images = prepare_images(options[:images] || [])
@@ -59,6 +58,12 @@ module GovspeakHelper
     end
   end
 
+  def prepare_attachments(attachments)
+    attachments
+      .select { |attachment| !attachment.file? || attachment.attachment_data&.all_asset_variants_uploaded? }
+      .map(&:publishing_component_params)
+  end
+
   def govspeak_headers(govspeak, level = (2..2))
     build_govspeak_document(govspeak).headers.select do |header|
       level.cover?(header.level)
@@ -95,7 +100,7 @@ private
   def render_embedded_contacts(govspeak, heading_tag)
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: Regexp.last_match(1)))
-        render(partial: "contacts/contact", locals: { contact:, heading_tag: }, formats: [:html])
+        ApplicationController.renderer.render(template: "contacts/_contact", locals: { contact:, heading_tag: }, formats: [:html])
       else
         ""
       end

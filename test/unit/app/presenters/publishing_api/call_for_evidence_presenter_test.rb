@@ -55,6 +55,7 @@ module PublishingApi::CallForEvidencePresenterTest
   end
 
   class BasicCallForEvidenceTest < TestCase
+    include GovspeakHelper
     setup do
       self.call_for_evidence = create(:call_for_evidence)
     end
@@ -115,21 +116,10 @@ module PublishingApi::CallForEvidencePresenterTest
     end
 
     test "body details" do
-      body_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer
-        .expects(:govspeak_edition_to_html)
-        .with(call_for_evidence)
-        .returns(body_double)
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::CallForEvidencePresenter::Outcome.stubs(:for).returns({})
 
-      assert_details_attribute :body, body_double
+      assert_details_attribute :body, govspeak_to_html(call_for_evidence.body)
     end
 
     test "content id" do
@@ -331,6 +321,8 @@ module PublishingApi::CallForEvidencePresenterTest
   end
 
   class ClosedCallForEvidenceWithOutcomeTest < TestCase
+    include GovspeakHelper
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.call_for_evidence = create(:call_for_evidence_with_outcome_file_attachment)
     end
@@ -340,47 +332,18 @@ module PublishingApi::CallForEvidencePresenterTest
     end
 
     test "outcome detail" do
-      outcome_detail_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer.stubs(:block_attachments)
-
-      govspeak_renderer
-        .expects(:govspeak_to_html)
-        .with(call_for_evidence.outcome.summary)
-        .returns(outcome_detail_double)
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
 
       assert_details_attribute :outcome_detail,
-                               outcome_detail_double
+                               govspeak_to_html(call_for_evidence.outcome.summary)
     end
 
     test "outcome documents" do
-      attachments_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer.stubs(:govspeak_to_html)
-
-      govspeak_renderer
-        .expects(:block_attachments)
-        .with(
-          call_for_evidence.outcome.attachments,
-        )
-        .returns([attachments_double])
-        .at_least_once
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
-
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
 
-      assert_details_attribute :outcome_documents, [attachments_double]
+      assert_details_attribute :outcome_documents, render_attachments(call_for_evidence.outcome.attachments)
       assert_details_attribute(:outcome_attachments,
                                call_for_evidence.outcome.attachments.map { |a| a.publishing_api_details[:id] })
     end
@@ -402,28 +365,15 @@ module PublishingApi::CallForEvidencePresenterTest
   end
 
   class CallForEvidenceWithFileAttachments < TestCase
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.call_for_evidence = create(:call_for_evidence, :with_html_attachment)
     end
 
     test "documents" do
-      attachments_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer
-        .expects(:block_attachments)
-        .with(
-          call_for_evidence.attachments,
-        )
-        .returns([attachments_double])
-        .at_least_once
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer).at_least_once
-
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
 
-      assert_details_attribute :documents, [attachments_double]
+      assert_details_attribute :documents, render_attachments(call_for_evidence.attachments)
       assert_details_attribute(:featured_attachments,
                                call_for_evidence.attachments.map { |a| a.publishing_api_details[:id] })
     end

@@ -1,5 +1,6 @@
 module PublishingApi
   class WorldwideOfficePresenter
+    include GovspeakHelper
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
@@ -56,7 +57,7 @@ module PublishingApi
     def access_and_opening_times
       return if item.access_and_opening_times.blank?
 
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.access_and_opening_times)
+      govspeak_to_html(item.access_and_opening_times)
     end
 
     def services

@@ -30,17 +30,11 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
 
   test "it includes headers in the payload, if present in the govspeak" do
     govspeak = "## Some header\n\n%A callout%"
-    html = "<h3>Some header</h3><p class=\"govuk-callout\">A callout</p>"
     content = {
       "test_attribute" => govspeak,
     }
     page = StandardEdition.new
     page.block_content = content
-    govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-    govspeak_renderer
-      .expects(:govspeak_to_html)
-      .with(govspeak, images: [], attachments: [])
-      .returns(html)
     expected_headers = [
       {
         text: "Some header",
@@ -48,31 +42,21 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
         id: "some-header",
       },
     ]
-    Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
-      payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
-      assert_equal expected_headers, payload[:headers]
-      assert_not_nil payload[:html]
-    end
+    payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
+    assert_equal expected_headers, payload[:headers]
+    assert_not_nil payload[:html]
   end
 
   test "it does not include headers in the payload, if not present in the govspeak" do
     govspeak = "Some content without headers"
-    html = "Some content without headers"
     content = {
       "test_attribute" => govspeak,
     }
     page = StandardEdition.new
     page.block_content = content
-    govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-    govspeak_renderer
-      .expects(:govspeak_to_html)
-      .with(govspeak, images: [], attachments: [])
-      .returns(html)
-    Whitehall::GovspeakRenderer.stub :new, govspeak_renderer do
-      payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
-      assert_nil payload[:headers]
-      assert_not_nil payload[:html]
-    end
+    payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
+    assert_nil payload[:headers]
+    assert_not_nil payload[:html]
   end
 end
 

@@ -58,6 +58,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
   end
 
   class BasicCorporateInformationPageTest < TestCase
+    include GovspeakHelper
     setup do
       self.corporate_information_page = create(:corporate_information_page)
     end
@@ -107,18 +108,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test "body details" do
-      body_double = Object.new
-
-      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
-
-      govspeak_renderer
-        .expects(:govspeak_edition_to_html)
-        .with(corporate_information_page)
-        .returns(body_double)
-
-      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
-
-      assert_details_attribute :body, body_double
+      assert_details_attribute :body, govspeak_to_html(corporate_information_page.body)
     end
 
     test "corporate information groups" do

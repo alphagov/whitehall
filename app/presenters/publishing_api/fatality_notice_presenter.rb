@@ -1,6 +1,7 @@
 module PublishingApi
   class FatalityNoticePresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include GovspeakHelper
 
     attr_reader :update_type
 
@@ -60,7 +61,7 @@ module PublishingApi
 
     def details
       details_hash = {
-        body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
+        body: govspeak_edition_to_html(item),
         casualties: item.fatality_notice_casualties.map(&:personal_details),
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),

@@ -1,6 +1,7 @@
 require "test_helper"
 
 class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
+  include GovspeakHelper
   def present(...)
     PublishingApi::WorldwideOfficePresenter.new(...)
   end
@@ -24,7 +25,7 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       details: {
-        access_and_opening_times: Whitehall::GovspeakRenderer.new.govspeak_to_html(worldwide_office.access_and_opening_times),
+        access_and_opening_times: govspeak_to_html(worldwide_office.access_and_opening_times),
         services: [
           {
             title: worldwide_office_service.worldwide_service.name,

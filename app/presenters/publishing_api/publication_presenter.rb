@@ -1,6 +1,8 @@
 module PublishingApi
   class PublicationPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
+    include GovspeakHelper
 
     attr_accessor :item, :update_type
 
@@ -83,15 +85,13 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+      govspeak_edition_to_html(item)
     end
 
     def documents
       return [] unless item.attachments.any?
 
-      Whitehall::GovspeakRenderer.new.block_attachments(
-        attachments_for_current_locale,
-      )
+      render_attachments(attachments_for_current_locale)
     end
 
     def featured_attachments

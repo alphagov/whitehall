@@ -84,4 +84,110 @@ class FileAttachmentTest < ActiveSupport::TestCase
     csv_on_policy_group = create(:csv_attachment, attachable: create(:policy_group))
     assert_not csv_on_policy_group.previewable?
   end
+
+  test "component params for File attachment" do
+    file = File.open("test/fixtures/sample.docx")
+    attachment = create(:file_attachment, { file: })
+    expect_params = {
+      type: "file",
+      id: "sample.docx", # embeddable in Govspeak as [Attachment:sample.docx]
+      title: attachment.title,
+      url: attachment.url,
+      content_type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      filename: attachment.filename,
+      file_size: attachment.file_size,
+    }
+    assert_equal expect_params, attachment.publishing_component_params
+  end
+
+  test "component params for PDF attachment" do
+    file = File.open("test/fixtures/two-pages.pdf")
+    attachment = create(:file_attachment, { file: })
+    expect_params = {
+      type: "file",
+      id: attachment.filename,
+      title: attachment.title,
+      url: attachment.url,
+      content_type: "application/pdf",
+      filename: attachment.filename,
+      file_size: attachment.file_size,
+      number_of_pages: 2,
+    }
+    assert_equal expect_params, attachment.publishing_component_params
+  end
+
+  test "component params for File attachment with reference fields" do
+    file = File.open("test/fixtures/sample.docx")
+    attachment = create(:file_attachment, {
+      file:,
+      isbn: "0261102737",
+      unique_reference: "something unique",
+      command_paper_number: "12345",
+      hoc_paper_number: "98765",
+      parliamentary_session: "2018-19",
+    })
+
+    expect_params = {
+      type: "file",
+      id: attachment.filename,
+      title: attachment.title,
+      url: attachment.url,
+      content_type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      filename: attachment.filename,
+      file_size: attachment.file_size,
+      isbn: attachment.isbn,
+      unique_reference: attachment.unique_reference,
+      command_paper_number: attachment.command_paper_number,
+      hoc_paper_number: attachment.hoc_paper_number,
+      parliamentary_session: "2018-19",
+    }
+    assert_equal expect_params, attachment.publishing_component_params
+  end
+
+  test "component params for File attachment with unnumbered reference fields" do
+    file = File.open("test/fixtures/sample.docx")
+    attachment = create(:file_attachment, {
+      file:,
+      unnumbered_command_paper: true,
+      unnumbered_hoc_paper: true,
+    })
+    expect_params = {
+      type: "file",
+      id: attachment.filename,
+      title: attachment.title,
+      url: attachment.url,
+      content_type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      filename: attachment.filename,
+      file_size: attachment.file_size,
+      unnumbered_command_paper: true,
+      unnumbered_hoc_paper: true,
+    }
+    assert_equal expect_params, attachment.publishing_component_params
+  end
+
+  test "component params only have alternative_format_contact_email when attachment is inaccessible" do
+    file = File.open("test/fixtures/sample.docx")
+    inaccessible_attachment = create(:file_attachment, { file:, accessible: false })
+    inaccessible = inaccessible_attachment.publishing_component_params
+
+    accessible = create(:file_attachment, { file:, accessible: true }).publishing_component_params
+
+    assert inaccessible[:alternative_format_contact_email].eql? inaccessible_attachment.alternative_format_contact_email
+    assert_not accessible.key? :alternative_format_contact_email
+  end
+
+  test "attachment_component_params for previewable CSV" do
+    attachment = create(:csv_attachment, attachable: create(:edition))
+    expect_params = {
+      type: "file",
+      id: attachment.filename,
+      title: attachment.title,
+      url: attachment.url,
+      content_type: "text/csv",
+      filename: attachment.filename,
+      file_size: attachment.file_size,
+      preview_url: "/csv-preview/asset_manager_id/sample.csv",
+    }
+    assert_equal expect_params, attachment.publishing_component_params
+  end
 end

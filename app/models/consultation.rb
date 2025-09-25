@@ -82,10 +82,6 @@ class Consultation < Edition
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
-  def allows_inline_attachments?
-    false
-  end
-
   def outcome_published?
     closed? && outcome.present?
   end

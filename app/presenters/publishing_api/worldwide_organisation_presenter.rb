@@ -4,6 +4,7 @@ module PublishingApi
     include ActionView::Helpers::UrlHelper
     include ApplicationHelper
     include OrganisationHelper
+    include GovspeakHelper
     include Presenters::PublishingApi::DefaultNewsImageHelper
 
     attr_accessor :item, :update_type, :state
@@ -64,7 +65,7 @@ module PublishingApi
 
     def body
       if item.body.present?
-        Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+        govspeak_edition_to_html(item)
       else
         ""
       end

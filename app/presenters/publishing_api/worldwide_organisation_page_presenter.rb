@@ -1,6 +1,6 @@
 module PublishingApi
   class WorldwideOrganisationPagePresenter
-    include AttachmentsHelper
+    include GovspeakHelper
 
     attr_accessor :item, :update_type
 
@@ -20,7 +20,7 @@ module PublishingApi
 
       content.merge!(
         details: {
-          body: Whitehall::GovspeakRenderer.new.govspeak_to_html(
+          body: govspeak_to_html(
             item.body,
             attachments: item.attachments,
             alternative_format_contact_email: item.alternative_format_contact_email,

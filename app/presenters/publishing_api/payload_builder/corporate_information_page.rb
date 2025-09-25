@@ -1,6 +1,7 @@
 module PublishingApi
   module PayloadBuilder
     class CorporateInformationPage
+      include GovspeakHelper
       attr_reader :item
 
       def self.for(item)
@@ -32,9 +33,7 @@ module PublishingApi
       end
 
       def body
-        Whitehall::GovspeakRenderer
-          .new
-          .govspeak_edition_to_html(item)
+        govspeak_edition_to_html(item)
       end
     end
   end

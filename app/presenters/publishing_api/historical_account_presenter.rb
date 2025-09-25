@@ -1,5 +1,6 @@
 module PublishingApi
   class HistoricalAccountPresenter
+    include GovspeakHelper
     NUMBER_OF_RELATED_LINKS = 5
     CONTENT_ID_OF_GOVERNMENT_HISTORY_PAGE = "db95a864-874f-4f50-a483-352a5bc7ba18".freeze
 
@@ -22,7 +23,7 @@ module PublishingApi
       content.merge!(
         description: historical_account.summary,
         details: {
-          body: Whitehall::GovspeakRenderer.new.govspeak_to_html(historical_account.body),
+          body: govspeak_to_html(historical_account.body),
           born: historical_account.born,
           dates_in_office: historical_account.person.previous_dates_in_office_for_role(historical_account.role),
           died: historical_account.died,

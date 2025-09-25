@@ -1,6 +1,7 @@
 require "test_helper"
 
 class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
+  include GovspeakHelper
   test "presents a valid topical_event content item" do
     topical_event = create(
       :topical_event,
@@ -49,7 +50,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       public_updated_at: topical_event.updated_at,
       details: {
         about_page_link_text: topical_event.topical_event_about_page.read_more_link_text,
-        body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+        body: govspeak_to_html(topical_event.description),
         emphasised_organisations: [first_lead_org.content_id, second_lead_org.content_id],
         image: {
           url: topical_event.logo.file.url(:s300),
@@ -123,7 +124,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       redirects: [],
       public_updated_at: topical_event.updated_at,
       details: {
-        body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+        body: govspeak_to_html(topical_event.description),
         emphasised_organisations: [],
         ordered_featured_documents: [],
         social_media_links: [],
@@ -143,7 +144,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
     assert_equal({
-      body: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
+      body: govspeak_to_html(topical_event.description),
       start_date: Time.zone.today.rfc3339,
       emphasised_organisations: [],
       ordered_featured_documents: [],

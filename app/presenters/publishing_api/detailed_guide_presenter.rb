@@ -1,6 +1,7 @@
 module PublishingApi
   class DetailedGuidePresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include GovspeakHelper
 
     attr_accessor :item, :update_type
 
@@ -77,7 +78,7 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+      govspeak_edition_to_html(item)
     end
 
     def related_mainstream_content_ids

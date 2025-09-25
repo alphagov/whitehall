@@ -1,6 +1,7 @@
 module PublishingApi
   class NewsArticlePresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include GovspeakHelper
 
     SCHEMA_NAME = "news_article".freeze
 
@@ -66,7 +67,7 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(news_article)
+      govspeak_edition_to_html(news_article)
     end
 
     def details

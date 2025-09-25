@@ -1,5 +1,6 @@
 module PublishingApi
   class HtmlAttachmentPresenter
+    include GovspeakHelper
     attr_accessor :item, :update_type
 
     def initialize(item, update_type: nil)
@@ -74,7 +75,7 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_html_attachment_to_html(item)
+      govspeak_html_attachment_to_html(item)
     end
 
     def first_published_version?

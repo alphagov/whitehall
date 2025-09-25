@@ -103,6 +103,26 @@ class Attachment < ApplicationRecord
     attachment_fields.merge(publishing_api_details_for_format).compact
   end
 
+  def publishing_component_params
+    types = {
+      FileAttachment => "file",
+      HtmlAttachment => "html",
+      ExternalAttachment => "external",
+    }
+    {
+      type: types.fetch(self.class),
+      title:,
+      url:,
+      isbn: isbn.presence,
+      unique_reference: unique_reference.presence,
+      command_paper_number: command_paper_number.presence,
+      unnumbered_command_paper: unnumbered_command_paper? || nil,
+      hoc_paper_number: hoc_paper_number.presence,
+      unnumbered_hoc_paper: unnumbered_hoc_paper? || nil,
+      parliamentary_session: parliamentary_session.presence,
+    }.compact
+  end
+
   def publishing_api_details_for_format
     {}
   end

@@ -1,6 +1,8 @@
 module PublishingApi
   class CallForEvidencePresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
+    include GovspeakHelper
 
     SCHEMA_NAME = "call_for_evidence".freeze
 
@@ -66,7 +68,7 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(call_for_evidence)
+      govspeak_edition_to_html(call_for_evidence)
     end
 
     def details
@@ -89,13 +91,14 @@ module PublishingApi
     end
 
     class Outcome
+      include GovspeakHelper
+      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(call_for_evidence)
         new(call_for_evidence).call
       end
 
-      def initialize(call_for_evidence, renderer: Whitehall::GovspeakRenderer.new)
+      def initialize(call_for_evidence)
         self.call_for_evidence = call_for_evidence
-        self.renderer = renderer
       end
 
       def call
@@ -110,20 +113,18 @@ module PublishingApi
 
     private
 
-      attr_accessor :call_for_evidence, :renderer
+      attr_accessor :call_for_evidence
 
       delegate :outcome, to: :call_for_evidence
 
       def outcome_detail
-        renderer.govspeak_to_html(outcome.summary)
+        govspeak_to_html(outcome.summary)
       end
 
       def outcome_documents
         return if outcome.attachments.blank?
 
-        renderer.block_attachments(
-          outcome.attachments,
-        )
+        render_attachments(outcome.attachments)
       end
 
       def outcome_attachments

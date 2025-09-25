@@ -1,5 +1,6 @@
 module Edition::CustomLeadImage
   extend ActiveSupport::Concern
+  include GovspeakHelper
 
   included do
     validate :body_does_not_contain_lead_image
@@ -40,7 +41,7 @@ private
   def body_does_not_contain_lead_image
     return if edition_lead_image.blank? || images.none?
 
-    html = Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(self)
+    html = govspeak_edition_to_html(self)
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
 
     if doc.css("img").any? { |img| img[:src] == edition_lead_image.image.url }

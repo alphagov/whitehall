@@ -56,6 +56,18 @@ class FileAttachment < Attachment
     }
   end
 
+  def publishing_component_params
+    super.merge({
+      id: filename,
+      content_type:,
+      filename:,
+      file_size:,
+      preview_url: previewable? ? preview_path : nil,
+      alternative_format_contact_email: accessible? ? nil : alternative_format_contact_email,
+      number_of_pages: pdf? ? number_of_pages : nil,
+    }).compact
+  end
+
   def alternative_format_contact_email
     attachable.alternative_format_contact_email
   rescue NoMethodError

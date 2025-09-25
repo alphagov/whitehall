@@ -4,6 +4,7 @@ module PublishingApi
     include ApplicationHelper
     # This is so we can get the extra text for the summary field
     include OrganisationHelper
+    include GovspeakHelper
     # This is a hack to get the OrganisationHelper to work in this context
     include ActionView::Helpers::UrlHelper
     include Presenters::PublishingApi::FeaturedDocumentsHelper
@@ -117,7 +118,7 @@ module PublishingApi
     end
 
     def html_summary
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(govspeak_summary)
+      govspeak_to_html(govspeak_summary)
     end
 
     def organisation_political

@@ -72,10 +72,6 @@ class CallForEvidence < Edition
     Whitehall::RenderingApp::FRONTEND
   end
 
-  def allows_inline_attachments?
-    false
-  end
-
   def outcome_published?
     closed? && outcome.present?
   end

@@ -1,11 +1,11 @@
 class PublishingApiGoneWorker < PublishingApiWorker
+  include GovspeakHelper
   # Retrying is unlikely to fix the problem - so disable retries.
   sidekiq_options retry: 0
 
   def perform(content_id, alternative_path, explanation, locale, allow_draft = false)
     if explanation.present?
-      rendered_explanation = Whitehall::GovspeakRenderer
-        .new.govspeak_to_html(explanation)
+      rendered_explanation = govspeak_to_html(explanation)
     end
 
     alternative_path_with_no_trailing_space = alternative_path.rstrip if alternative_path

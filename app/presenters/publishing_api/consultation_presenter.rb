@@ -1,6 +1,8 @@
 module PublishingApi
   class ConsultationPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include Presenters::PublishingApi::RenderedAttachmentsHelper
+    include GovspeakHelper
 
     SCHEMA_NAME = "consultation".freeze
 
@@ -66,7 +68,7 @@ module PublishingApi
     end
 
     def body
-      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(consultation)
+      govspeak_edition_to_html(consultation)
     end
 
     def details
@@ -90,13 +92,14 @@ module PublishingApi
     end
 
     class FinalOutcome
+      include GovspeakHelper
+      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(consultation)
         new(consultation).call
       end
 
-      def initialize(consultation, renderer: Whitehall::GovspeakRenderer.new)
+      def initialize(consultation)
         self.consultation = consultation
-        self.renderer = renderer
       end
 
       def call
@@ -111,20 +114,18 @@ module PublishingApi
 
     private
 
-      attr_accessor :consultation, :renderer
+      attr_accessor :consultation
 
       delegate :outcome, to: :consultation
 
       def final_outcome_detail
-        renderer.govspeak_to_html(outcome.summary)
+        govspeak_to_html(outcome.summary)
       end
 
       def final_outcome_documents
         return if outcome.attachments.blank?
 
-        renderer.block_attachments(
-          outcome.attachments,
-        )
+        render_attachments(outcome.attachments)
       end
 
       def final_outcome_attachments
@@ -133,13 +134,14 @@ module PublishingApi
     end
 
     class PublicFeedback
+      include GovspeakHelper
+      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(consultation)
         new(consultation).call
       end
 
-      def initialize(consultation, renderer: Whitehall::GovspeakRenderer.new)
+      def initialize(consultation)
         self.consultation = consultation
-        self.renderer = renderer
       end
 
       def call
@@ -156,22 +158,20 @@ module PublishingApi
 
     private
 
-      attr_accessor :consultation, :renderer
+      attr_accessor :consultation
 
       delegate :public_feedback, to: :consultation
 
       def detail
         return if public_feedback.summary.blank?
 
-        renderer.govspeak_to_html(public_feedback.summary)
+        govspeak_to_html(public_feedback.summary)
       end
 
       def documents
         return if public_feedback.attachments.blank?
 
-        renderer.block_attachments(
-          public_feedback.attachments,
-        )
+        render_attachments(public_feedback.attachments)
       end
 
       def attachments
