@@ -61,4 +61,33 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
       assert_dom "option", text: image.filename
     end
   end
+
+  test "it uses the translated content value when provided" do
+    @schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "string",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "image_select",
+        },
+      },
+    }
+
+    @page = StandardEdition.new
+    @page.images = create_list(:image, 3)
+    @page.block_content = { "test_attribute" => @page.images.last.image_data.id.to_s }
+    @block = ConfigurableContentBlocks::ImageSelect.new(@page.images)
+
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.block_content["test_attribute"],
+      translated_content: @page.images.first.image_data.id.to_s,
+      path: Path.new.push("test_attribute"),
+    }
+
+    assert_dom "select[name=?]", "edition[block_content][test_attribute]"
+    assert_dom "option[selected][value=?]", @page.images.first.image_data.id.to_s
+  end
 end
