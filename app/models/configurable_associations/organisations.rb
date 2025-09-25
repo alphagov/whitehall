@@ -8,14 +8,14 @@ module ConfigurableAssociations
     attr_reader :errors
 
     def links
-      @association.preload(:organisation)
+      @association.includes(:organisation)
       primary_publishing_organisation = @association
-                                          .select { |edition_org| lead_organisation_selector(0, edition_org) }
-                                          .first
-                                          .organisation
+                                          .select(&:lead?)
+                                          .min_by(&:lead_ordering)
+                                          &.organisation
       {
         organisations: @association.map { |edition_org| edition_org.organisation.content_id },
-        primary_publishing_organisation: [primary_publishing_organisation.content_id],
+        primary_publishing_organisation: [primary_publishing_organisation&.content_id],
       }
     end
 
