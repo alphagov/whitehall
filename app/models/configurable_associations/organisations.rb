@@ -20,8 +20,9 @@ module ConfigurableAssociations
     end
 
     def selected_lead_organisation_id_at(lead_organisation_index)
-      @association.select { |edition_org| lead_organisation_selector(lead_organisation_index, edition_org) }
-                  .first.try(:organisation_id)
+      @association.select(&:lead?)
+                  .sort_by(&:lead_ordering)[lead_organisation_index]
+        &.organisation_id
     end
 
     def selected_supporting_organisation_ids
@@ -34,12 +35,6 @@ module ConfigurableAssociations
 
     def to_partial_path
       "admin/configurable_associations/organisations"
-    end
-
-  private
-
-    def lead_organisation_selector(lead_organisation_index, edition_org)
-      edition_org.lead? && edition_org.lead_ordering == lead_organisation_index
     end
   end
 end
