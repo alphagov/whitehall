@@ -61,9 +61,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
 
         const input = this.$imageCropper.querySelector('.js-cropped-image-input')
 
-        const { left, top, width, height } = this.cropper.cropBoxData
+        const { x, y, width, height } = this.cropper.getData()
 
-        input.value = JSON.stringify({ left, top, width, height })
+        input.value = JSON.stringify({ x, y, width, height })
       }.bind(this)
     )
 

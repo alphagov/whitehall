@@ -17,7 +17,7 @@ class ImageUploader < WhitehallUploader
     manipulate! do |img|
       img = MiniMagick::Image.open(url)
       if crop_data
-        img.crop("#{crop_data["width"]}x#{crop_data["height"]}+#{crop_data["left"]}+#{crop_data["top"]}")
+        img.crop("#{crop_data["width"]}x#{crop_data["height"]}+#{crop_data["x"]}+#{crop_data["y"]}")
       end
       img
     end

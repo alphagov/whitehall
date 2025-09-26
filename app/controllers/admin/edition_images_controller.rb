@@ -21,8 +21,19 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if (image_params["image_data"]["file"])
       image.image_data.validate_on_image = image
-      # image.image_data.images << image
-      image.image_data.file.store!(image_params["image_data"]["file"].tempfile)
+
+      # Using CarrierWave::SanitizedFile means that the filename is
+      # sanitized in the same way as other uploaded files.
+      sanitized_file = CarrierWave::SanitizedFile.new(image_params["image_data"]["file"].tempfile)
+
+      # Uploaded files are renamed by Rails but we want to retain
+      # `original_filename` so a file can be reuploaded and keep it's
+      # associated `FileAttachment`. In this step we run `move_to` i.e.
+      # `mv TEMP_DIR/TEMP_FILENAME TEMP_DIR/ORIGINAL_FILENAME`
+      # which renames the uploaded file to `original_filename`.
+      sanitized_file.move_to(File.join(File.dirname(sanitized_file.path), image.image_data.carrierwave_image))
+
+      image.image_data.file.store!(sanitized_file)
     end
 
     image.image_data.save
@@ -48,7 +59,9 @@ class Admin::EditionImagesController < Admin::BaseController
     if @new_image.save
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
-      redirect_to edit_admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
+      # redirect_to admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
+      flash.notice = "#{@new_image.filename} successfully uploaded"
+      render :index
     else
       @new_image.errors.delete(:"image_data.file", :too_large)
       # Remove @new_image from @edition.images array, otherwise the view will render it in the 'Uploaded images' list

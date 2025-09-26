@@ -1,12 +1,11 @@
  <li class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
     <% if image.image_data&.original_uploaded? %>
-
-      <%= image.url(:cropped) %>
-
-      <img src="<%= image.url(:cropped) %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">      
-
-      <img src="<%= image.url %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">
+      <% if image.image_data&.requires_crop? %>
+        <img src="<%= image.url %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">
+      <% else %>
+        <img src="<%= image.url(:cropped) %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">
+      <% end %>
     <% else %>
       <span class="govuk-tag govuk-tag--green">Uploading</span>
     <% end %>
@@ -17,7 +16,7 @@
     <p class="govuk-body"><strong>Alt text: </strong><%= alt_text %></p>
     <% if image.image_data&.requires_crop? %>
       <span class="govuk-tag govuk-tag--red">Requires crop</span>
-    <% elsif image.image_data&.all_asset_variants_uploaded? %>
+    <% elsif !image.image_data&.all_asset_variants_uploaded? %>
       <span class="govuk-tag govuk-tag--green">Processing</span>
     <% else %>
       <%= render "govuk_publishing_components/components/copy_to_clipboard", {
@@ -29,7 +28,9 @@
   </div>
 
   <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group govuk-!-margin-top-4">
-    <%= link_to("Edit details", edit_admin_edition_image_path(edition, image), class: "govuk-link govuk-!-margin-top-2 app-view-edition-resource__actions__link") %>
+    <% if image.image_data&.original_uploaded? %>
+      <%= link_to("Edit details", edit_admin_edition_image_path(edition, image), class: "govuk-link govuk-!-margin-top-2 app-view-edition-resource__actions__link") %>
+    <% end %>
     <%= link_to("Delete image", confirm_destroy_admin_edition_image_path(edition, image), class: "govuk-link gem-link--destructive govuk-!-margin-top-2 app-view-edition-resource__actions__link") %>
 
     <% if can_be_custom_lead_image? %>
