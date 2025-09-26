@@ -153,7 +153,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test "rendering app" do
-      assert_attribute :rendering_app, "government-frontend"
+      assert_attribute :rendering_app, "frontend"
     end
 
     test "schema name" do
