@@ -125,4 +125,28 @@ class StandardEditionTest < ActiveSupport::TestCase
     page = build(:standard_edition, { configurable_document_type: test_type, block_content: {} })
     assert page.invalid?
   end
+
+  test "it allows translations if the configurable document type settings permit them" do
+    test_type_with_translation =
+      build_configurable_document_type(
+        "test_type_with_translation", {
+          "settings" => {
+            "translations_enabled" => true,
+          },
+        }
+      )
+    test_type_without_translation =
+      build_configurable_document_type(
+        "test_type_without_translation", {
+          "settings" => {
+            "translations_enabled" => false,
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(test_type_with_translation.merge(test_type_without_translation))
+    page_with_translation = StandardEdition.new(configurable_document_type: "test_type_with_translation")
+    page_without_translation = StandardEdition.new(configurable_document_type: "test_type_without_translation")
+    assert page_with_translation.translatable?
+    assert_not page_without_translation.translatable?
+  end
 end

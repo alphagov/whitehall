@@ -40,6 +40,7 @@
     "organisations": ["af07d5a5-df63-4ddc-9383-6a666845ebe9"],
     "backdating_enabled": false,
     "history_mode_enabled": false,
-    "file_attachments_enabled": false
+    "file_attachments_enabled": false,
+    "translations_enabled": false
   }
 }

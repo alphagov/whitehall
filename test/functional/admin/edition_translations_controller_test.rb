@@ -37,6 +37,15 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_redirected_to @controller.edit_admin_edition_translation_path(edition, id: "fr")
   end
 
+  test "edit redirects to edit for a standard edition, with the chosen language" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {}))
+    edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title" })
+
+    get :edit, params: { edition_id: edition, id: "fr" }
+
+    assert_redirected_to edit_admin_standard_edition_translation_path(edition, id: "fr")
+  end
+
   view_test "edit indicates which language we are adding a translation for" do
     edition = create(:edition, title: "english-title")
 

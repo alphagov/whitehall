@@ -28,6 +28,6 @@ private
   end
 
   def access_limit_excludes_current_user?
-    edition.limits_access_via_organisations? && edition.edition_organisations.map(&:organisation_id).exclude?(@options[:current_user].organisation.id)
+    edition.organisation_association_enabled? && edition.edition_organisations.map(&:organisation_id).exclude?(@options[:current_user].organisation.id)
   end
 end

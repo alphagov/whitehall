@@ -1,0 +1,94 @@
+<% content_for :context, @edition.title %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
+<% content_for :page_title, "Edit translation for: #{@edition.title}" %>
+<% content_for :title, "#{@translation_locale.native_language_name} (#{@translation_locale.english_language_name}) translation" %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%= form_for @translated_edition, as: :edition, url: admin_standard_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
+
+      <%= render "components/translated_input", {
+        input: {
+          label: {
+            text: "Translated title (required)",
+          },
+          name: "edition[title]",
+          id: "edition_title",
+          heading_level: 2,
+          heading_size: "l",
+          value: @translated_edition.title,
+          error_items: errors_for(form.object.errors, :title),
+          right_to_left: form.object.translation_rtl?,
+          right_to_left_help: false,
+        },
+        details: {
+          text: @edition.title,
+        },
+      } %>
+
+      <%= render "components/translated_textarea", {
+        textarea: {
+          label: {
+            heading_size: "l",
+            text: "Translated summary#{' (required)' unless @edition.is_a?(CorporateInformationPage)}",
+          },
+          name: "edition[summary]",
+          textarea_id: "edition_summary",
+          value: @translated_edition.summary,
+          rows: 2,
+          error_items: errors_for(form.object.errors, :summary),
+          right_to_left: form.object.translation_rtl?,
+          right_to_left_help: false,
+        },
+        details: {
+          text: @edition.summary,
+        },
+      } %>
+
+      <% root_block = ConfigurableContentBlocks::Factory.new(@translated_edition).build("object") %>
+      <%= render(root_block, {
+        schema: ConfigurableDocumentType.find(@translated_edition.configurable_document_type).schema,
+        content: @edition.block_content,
+        translated_content: @translated_edition.block_content,
+        path: ConfigurableContentBlocks::Path.new,
+        right_to_left: form.object.translation_rtl?,
+        root: true,
+      }) %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+        } %>
+        <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/tabs", {
+      disable_ga4: true,
+      tabs: [
+        {
+          id: "govspeak_tab",
+          label: "Help",
+          content: simple_formatting_sidebar(
+            hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+            show_attachments_tab_help: true,
+            link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_report : nil,
+            ),
+        },
+        {
+          id: "history_tab",
+          label: "History",
+          content: tag.div(
+            render(Admin::Editions::DocumentHistoryTabComponent.new(
+              edition: @edition,
+              document_history: @document_history,
+              editing: true,
+              )),
+            data: { module: "document-history-paginator" },
+            ),
+        },
+      ],
+    } %>
+  </div>
+</div>
