@@ -443,7 +443,7 @@ GEM
       rack (>= 2.1.4.1)
     marcel (1.0.4)
     matrix (0.4.3)
-    maxitest (6.0.0)
+    maxitest (6.0.1)
       minitest (>= 5.20.0, < 5.26.0)
     memoist3 (1.0.0)
     method_source (1.1.0)
