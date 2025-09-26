@@ -38,6 +38,7 @@ private
   ## Edition-specific refresh wrapper methods
 
   def republish_latest_unpublished_edition
+    update_unpublished_edition
     unpublish_edition
   end
 
@@ -79,5 +80,10 @@ private
     edition = document.latest_unpublished_edition || document.withdrawn_edition
     PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, edition.draft?)
     handle_attachments_for(edition)
+  end
+
+  def update_unpublished_edition
+    edition = document.latest_unpublished_edition
+    Whitehall::PublishingApi.save_draft(edition, "republish", bulk_publishing:) if edition.present?
   end
 end
