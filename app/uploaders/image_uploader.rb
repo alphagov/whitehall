@@ -12,10 +12,13 @@ class ImageUploader < WhitehallUploader
   end
 
   def crop_to_crop_data
-    crop_data = model.crop_data
+    crop_data = model.crop_data ? JSON.parse(model.crop_data) : nil
 
     manipulate! do |img|
-      img.crop(crop_data["top"], crop_data["left"], crop_data["width"], crop_data["height"])
+      img = MiniMagick::Image.open(url)
+      if crop_data
+        img.crop("#{crop_data["width"]}x#{crop_data["height"]}+#{crop_data["left"]}+#{crop_data["top"]}")
+      end
       img
     end
   end

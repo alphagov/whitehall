@@ -16,15 +16,16 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def update
-    image_update_params = params.require(:image).permit(:caption, :alt_text, image_data: %i[crop_data file image_kind])
+    image.update(image_data_attributes: image_params["image_data"])
+    image.image_data.validate_on_image = image
 
-    image.update(image_update_params.except(:image_data))
+    if (image_params["image_data"]["file"])
+      image.image_data.validate_on_image = image
+      # image.image_data.images << image
+      image.image_data.file.store!(image_params["image_data"]["file"].tempfile)
+    end
 
-    image.build_image_data(image_update_params.fetch(:image_data))
-
-    image.image_data.validate_on_image = @new_image
-    # so that auth_bypass_id is discoverable by AssetManagerStorage
-    image.image_data.images << image
+    image.image_data.save
 
     if image.save
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
@@ -44,8 +45,6 @@ class Admin::EditionImagesController < Admin::BaseController
     # so that auth_bypass_id is discoverable by AssetManagerStorage
     @new_image.image_data.images << @new_image
 
-    binding.pry
-
     if @new_image.save
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
@@ -62,8 +61,6 @@ class Admin::EditionImagesController < Admin::BaseController
     @valid_width = image_kind_config.valid_width
     @valid_height = image_kind_config.valid_height
     image = Image.find(params[:id])
-
-    flash.now.notice = "The image is being processed. Try refreshing the page." unless image&.image_data&.all_asset_variants_uploaded?
   end
 
 private
@@ -98,6 +95,6 @@ private
   end
 
   def image_params
-    params.fetch(:image, {}).permit(image_data: %i[file image_kind])
+    params.fetch(:image, {}).permit(:caption, image_data: %i[crop_data file image_kind])
   end
 end
