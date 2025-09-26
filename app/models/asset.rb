@@ -18,6 +18,7 @@ class Asset < ApplicationRecord
 
   enum :variant, {
     original: "original".freeze,
+    cropped: "cropped".freeze,
   }.merge(
     Whitehall.image_kinds.values
              .flat_map(&:version_names)
