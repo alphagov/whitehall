@@ -43,7 +43,6 @@ Style/OptionalBooleanParameter:
 Lint/MissingSuper:
   Exclude:
     - 'app/components/**/*.rb'
-    - 'lib/engines/**/app/components/**/*.rb'
 
 Rails/SaveBang:
   Exclude:
