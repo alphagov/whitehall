@@ -5,10 +5,7 @@
 # It splits the MiniTest suite into randomly-allocated groups
 # which are executed across multiple GitHub Actions 'matrix' nodes.
 
-test_files = [
-  Dir["test/**/*_test.rb"],
-  Dir["lib/engines/**/test/**/*_test.rb"],
-].flatten
+test_files = Dir["test/**/*_test.rb"]
 
 # Detect isolated test files (those with # RUN_IN_ISOLATION in the first 10 lines)
 isolated_tests, regular_tests = test_files.partition do |file|

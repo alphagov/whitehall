@@ -65,9 +65,3 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
-
-# Require step definitions contained within engines
-Dir.glob(Rails.root.join("lib/engines/**/features/step_definitions/*.rb")).each(&method(:require))
-
-# Require support files contained within engines
-Dir.glob(Rails.root.join("lib/engines/**/features/support/*.rb")).each(&method(:require))
