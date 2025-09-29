@@ -14,7 +14,7 @@ require File.expand_path("config/application", __dir__)
 Whitehall::Application.load_tasks
 
 Minitest::TestTask.create do |t|
-  t.test_globs = %w[test/**/*_test.rb lib/engines/**/test/**/*_test.rb]
+  t.test_globs = %w[test/**/*_test.rb]
 end
 
 Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
