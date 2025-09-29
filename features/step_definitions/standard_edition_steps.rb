@@ -1,9 +1,58 @@
+def create_test_image
+  create(:image)
+end
+
+def create_configurable_document(title:, locale: "en", summary: nil, body: nil)
+  image = create_test_image
+  defaults = default_content_for_locale(locale)
+  create(
+    :draft_standard_edition,
+    {
+      configurable_document_type: "test",
+      images: [image],
+      title: title,
+      summary: summary || defaults[:summary],
+      primary_locale: locale,
+      block_content: {
+        "image" => image.image_data.id.to_s,
+        "body" => body || defaults[:body],
+      },
+    },
+  )
+end
+
+def default_content_for_locale(locale)
+  case locale
+  when "cy"
+    {
+      summary: "Crynodeb Cymraeg o'r ddogfen.",
+      body: "## Rhywfaint o Gymraeg\n\nDyma gynnwys y corff yn Gymraeg",
+    }
+  else
+    {
+      summary: "A brief summary of the document.",
+      body: "## Some English govspeak\n\nThis is the English body content",
+    }
+  end
+end
+
+def add_translation(edition, language, title, summary, body)
+  visit admin_standard_edition_path(edition)
+  click_link "Add translation"
+  select language, from: "Choose language"
+  click_button "Next"
+  fill_in "Translated title (required)", with: title
+  fill_in "Translated summary (required)", with: summary
+  fill_in "edition_block_content_body", with: body
+  click_button "Save"
+end
+
 Given(/^the configurable document types feature flag is (enabled|disabled)$/) do |enabled|
   @test_strategy ||= Flipflop::FeatureSet.current.test!
   @test_strategy.switch!(:configurable_document_types, enabled == "enabled")
 end
 
-Given(/^the test configurable document type is defined$/) do
+Given(/^the test configurable document type is defined(?: with translations enabled)?$/) do
   type_definition = JSON.parse(File.read(Rails.root.join("features/fixtures/test_configurable_document_type.json")))
   ConfigurableDocumentType.setup_test_types({ "test" => type_definition })
 end
@@ -25,9 +74,12 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   click_button "Save and go to document summary"
 end
 
-When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
-  image = create(:image)
+Given(/^I have drafted an English configurable document titled "([^"]*)"$/) do |title|
+  @standard_edition = create_configurable_document(title: title, locale: "en")
+end
 
+When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
+  image = create_test_image
   standard_edition = create(
     :submitted_standard_edition,
     {
@@ -62,4 +114,68 @@ And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |t
   visit admin_standard_edition_path(standard_edition)
   click_button "Create new edition"
   expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
+end
+
+When(/^I create a new configurable document with Welsh as the primary locale titled "([^"]*)"$/) do |title|
+  @welsh_primary_edition = create_configurable_document(title: title, locale: "cy")
+end
+
+Given(/^I have drafted a Welsh primary locale configurable document$/) do
+  @welsh_edition = create_configurable_document(
+    title: "Dogfen Cymraeg",
+    locale: "cy",
+    summary: "Crynodeb Cymraeg",
+    body: "## Govspeak Cymraeg\n\nCynnwys y corff yn Gymraeg",
+  )
+end
+
+Then(/^the document should be saved with Welsh as the primary locale$/) do
+  edition = @welsh_primary_edition || StandardEdition.last
+  expect(edition.primary_locale).to eq("cy")
+end
+
+And(/^English should not appear as a translation option$/) do
+  edition = @welsh_primary_edition || @welsh_edition || StandardEdition.last
+  visit admin_standard_edition_path(edition)
+  if page.has_link?("Add translation")
+    click_link "Add translation"
+    expect(page).not_to have_select("Choose language", with_options: %w[English])
+  else
+    expect(page).not_to have_link("Add translation")
+  end
+end
+
+When(/^I add a Welsh translation "([^"]*)"$/) do |welsh_title|
+  edition = @standard_edition || StandardEdition.last
+  add_translation(
+    edition,
+    "Cymraeg (Welsh)",
+    welsh_title,
+    "Crynodeb Cymraeg byr o'r ddogfen.",
+    "## Rhywfaint o govspeak Cymraeg\n\nDyma gynnwys y corff yn Gymraeg",
+  )
+  visit edit_admin_edition_translation_path(edition, :cy)
+end
+
+Then(/^configured content blocks should appear on the translation page$/) do
+  expect(page).to have_field("edition_block_content_body")
+  expect(page).to have_select("Image")
+end
+
+And(/^the Welsh translation fields should be pre-populated with primary locale content$/) do
+  expect(page).to have_field("edition_block_content_body", with: /govspeak/)
+end
+
+And(/^the image selections should be preserved from the primary locale$/) do
+  edition = @standard_edition || StandardEdition.last
+  expect(page).to have_select("Image", selected: edition.images.first.filename)
+end
+
+And(/^I should see the original English content in "original text" sections$/) do
+  expect(page).to have_css(".app-c-translated-input__english-translation")
+  expect(page).to have_css(".app-c-translated-textarea__english-translation")
+
+  expect(page).to have_css(".app-c-govspeak-editor")
+
+  expect(page).to have_css(".govuk-details", text: "Primary locale content for Body")
 end
