@@ -1,6 +1,4 @@
 class Admin::ErrorsController < Admin::BaseController
-  before_action :prepend_content_block_manager_view_path, if: -> { request.path.start_with?(ContentBlockManager.router_prefix) }
-
   def bad_request
     render(status: :bad_request)
   end
@@ -19,11 +17,5 @@ class Admin::ErrorsController < Admin::BaseController
 
   def internal_server_error
     render(status: :internal_server_error)
-  end
-
-private
-
-  def prepend_content_block_manager_view_path
-    prepend_view_path Rails.root.join("lib/engines/content_block_manager/app/views")
   end
 end

@@ -44,7 +44,6 @@ class Admin::BaseController < ApplicationController
 private
 
   def forbidden!
-    prepend_view_path Rails.root.join("lib/engines/content_block_manager/app/views") if request.path.start_with?(ContentBlockManager.router_prefix)
     render "admin/errors/forbidden", status: :forbidden
   end
 
