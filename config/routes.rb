@@ -450,6 +450,4 @@ Whitehall::Application.routes.draw do
   mount Flipflop::Engine => "/flipflop"
 
   mount GovukPublishingComponents::Engine, at: "/component-guide"
-
-  mount ContentBlockManager::Engine, at: ContentBlockManager.router_prefix, as: "content_block_manager"
 end
