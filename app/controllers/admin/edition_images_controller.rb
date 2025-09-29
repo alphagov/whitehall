@@ -16,10 +16,10 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def update
-    image.update(image_data_attributes: image_params["image_data"])
+    image.update!(image_data_attributes: image_params["image_data"])
     image.image_data.validate_on_image = image
 
-    if (image_params["image_data"]["file"])
+    if image_params["image_data"]["file"]
       image.image_data.validate_on_image = image
 
       # Using CarrierWave::SanitizedFile means that the filename is
@@ -35,8 +35,6 @@ class Admin::EditionImagesController < Admin::BaseController
 
       image.image_data.file.store!(sanitized_file)
     end
-
-    image.image_data.save
 
     if image.save
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
@@ -61,19 +59,18 @@ class Admin::EditionImagesController < Admin::BaseController
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
       # redirect_to admin_edition_image_path(@edition, @new_image.id), notice: "#{@new_image.filename} successfully uploaded"
       flash.notice = "#{@new_image.filename} successfully uploaded"
-      render :index
     else
       @new_image.errors.delete(:"image_data.file", :too_large)
       # Remove @new_image from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
       @edition.images.delete(@new_image)
-      render :index
     end
+
+    render :index
   end
 
   def edit
     @valid_width = image_kind_config.valid_width
     @valid_height = image_kind_config.valid_height
-    image = Image.find(params[:id])
   end
 
 private

@@ -3,7 +3,7 @@ class ImageUploader < WhitehallUploader
 
   process :store_dimensions
 
-  crop_data_blank = lambda do | uploader, opts |
+  crop_data_blank = lambda do |uploader|
     return uploader.model.crop_data.blank?
   end
 
