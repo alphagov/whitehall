@@ -29,16 +29,7 @@ module PublishingApi
     end
 
     def links
-      factory = ConfigurableAssociations::Factory.new(item)
-      links = factory.configurable_associations.reduce({}) do |links_hash, association|
-        links_hash.merge(association.links)
-      end
-      if type.settings["history_mode_enabled"] == true
-        links.merge!(
-          PayloadBuilder::Links.for(item).extract(%i[government]),
-        )
-      end
-      links
+      PayloadBuilder::ConfigurableDocumentLinks.for(item)
     end
 
     def document_type
