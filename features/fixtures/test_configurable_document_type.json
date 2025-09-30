@@ -28,6 +28,7 @@
     "publishing_api_document_type": "test_type",
     "rendering_app": "government-frontend",
     "organisations": null,
-    "backdating_enabled": false
+    "backdating_enabled": false,
+    "translations_enabled": true
   }
 }

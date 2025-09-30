@@ -125,4 +125,43 @@ class StandardEditionTest < ActiveSupport::TestCase
     page = build(:standard_edition, { configurable_document_type: test_type, block_content: {} })
     assert page.invalid?
   end
+
+  test "it allows translations if the configurable document type settings permit them" do
+    test_type_with_translation =
+      build_configurable_document_type(
+        "test_type_with_translation", {
+          "settings" => {
+            "translations_enabled" => true,
+          },
+        }
+      )
+    test_type_without_translation =
+      build_configurable_document_type(
+        "test_type_without_translation", {
+          "settings" => {
+            "translations_enabled" => false,
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(test_type_with_translation.merge(test_type_without_translation))
+    page_with_translation = StandardEdition.new(configurable_document_type: "test_type_with_translation")
+    page_without_translation = StandardEdition.new(configurable_document_type: "test_type_without_translation")
+    assert page_with_translation.translatable?
+    assert_not page_without_translation.translatable?
+  end
+
+  test "non-English documents exclude English as a translation option" do
+    test_type = build_configurable_document_type("test_type", {
+      "settings" => { "translations_enabled" => true },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    welsh_edition = create(:standard_edition,
+                           configurable_document_type: "test_type",
+                           primary_locale: "cy")
+
+    missing_translations = welsh_edition.missing_translations
+
+    assert_not_includes missing_translations, :en
+  end
 end

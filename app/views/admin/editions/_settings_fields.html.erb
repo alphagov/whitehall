@@ -6,7 +6,7 @@
     } %>
 
     <%= render "accessible_attachment_field", form: form, edition: edition %>
-    <%= render "access_limiting_fields", form: form, edition: edition %>
+    <%= render "access_limiting_fields", form: form, edition: edition if edition.organisation_association_enabled? %>
     <%= render "scheduled_publication_fields", form: form, edition: edition %>
     <%= render "review_reminder_fields", form: form, review_reminder: edition.document.review_reminder %>
 </div>

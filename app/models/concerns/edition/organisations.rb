@@ -67,10 +67,6 @@ module Edition::Organisations
     true
   end
 
-  def limits_access_via_organisations?
-    true
-  end
-
 private
 
   def at_least_one_lead_organisation

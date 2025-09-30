@@ -39,10 +39,12 @@ Each content block implements the following methods:
 - `to_partial_path`: Returns the path to the view that renders the form control for the property. 
 
 Block views use the following [partial-local](https://guides.rubyonrails.org/action_view_overview.html#passing-data-to-partials-with-locals-option) variables: 
-- The property `schema` and `content` (default `{}`) are provided for the specific part of the tree being rendered by the content block. 
+- The property `schema` and `content` (default `{}`) are provided for the specific part of the tree being rendered by the content block. The content is for the edition's primary locale.
 - The location in the tree is specified by the immutable [`path` object](../app/models/configurable_content_blocks/path.rb), which provides convenience methods for doing things such as building the correct name attribute for the form control. If you are rendering child properties for an "object" block, ensure that you push a new segment onto the path (see the [default object implementation](../app/models/configurable_content_blocks/default_object.rb) for an example). 
 - The `root` (default `false`) attribute, which is only set to `true` for the rendering of the original `DefaultObject` block that wraps all the other blocks in the schema. 
 - The `required` attribute. The required properties are defined at the parent level in [JSON schema](https://json-schema.org/docs), so the `required` attribute is extracted in the parent view, and passed on to any required child property, which then gets rendered with a "(required)" specification in its label.
+- The `right_to_left` (default `false`) attribute. This is set to true if the locale for the edition translation is set to a language which is read from right to left.
+- The `translated_content` (default `nil`) attribute. If the edition is a translation, then this will be populated with the translated content. Blocks must populate their values with the translated content if it is provided, and may wish to show the content for the primary locale as an aid to the user.
 
 Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb). To add a new block type, add a new block class implementing the methods above to the `app/models/configurable_content_blocks` directory, and add the block type to the private blocks method in the factory class. The `blocks` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the configurable document edition object as its only argument. Any values from the edition object needed by the block can be passed to the block's initialize method, e.g. the Image Select block is passed the edition's images.
 

@@ -67,6 +67,7 @@
       schema: ConfigurableDocumentType.find(@edition.configurable_document_type).schema,
       content: @edition.block_content,
       path: ConfigurableContentBlocks::Path.new,
+      right_to_left: @edition.rtl?,
       root: true,
     }) %>
 

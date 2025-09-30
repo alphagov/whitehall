@@ -70,4 +70,36 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
     }
     assert_dom ".govuk-hint", text: @schema["properties"]["test_attribute"]["description"]
   end
+
+  test "it sets the direction on the input to right to left when the rtl option returns true" do
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.block_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+      right_to_left: true,
+    }
+    assert_dom "input[dir=\"rtl\"]"
+  end
+
+  test "it renders the primary locale content under the input when the translated content is provided" do
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.block_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+      translated_content: "bar",
+    }
+
+    assert_dom ".govuk-details__text", text: @page.block_content["test_attribute"]
+  end
+
+  test "it sets the value of the textarea to the translated content when the translated content is provided" do
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @page.block_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+      translated_content: "bar",
+    }
+
+    assert_dom "input[value=?]", "bar"
+  end
 end
