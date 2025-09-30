@@ -362,16 +362,21 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
             "key" => "organisations",
           },
         ],
+        "settings" => {
+          "history_mode_enabled" => true,
+        },
       }),
     )
     ministerial_role_appointments = create_list(:ministerial_role_appointment, 2)
     topical_events = create_list(:topical_event, 2)
     world_locations = create_list(:world_location, 2, active: true)
     organisations = create_list(:organisation, 2)
+    government = create(:government)
     edition = build(:standard_edition,
                     role_appointments: ministerial_role_appointments,
                     topical_events:,
-                    world_locations:)
+                    world_locations:,
+                    government_id: government.id)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
     presenter = PublishingApi::StandardEditionPresenter.new(edition)
     links = presenter.links
@@ -386,5 +391,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal expected_world_locations, links[:world_locations]
     expected_organisations = organisations.map(&:content_id)
     assert_equal expected_organisations, links[:organisations]
+    expected_government = edition.government.content_id
+    assert_equal [expected_government], links[:government]
   end
 end
