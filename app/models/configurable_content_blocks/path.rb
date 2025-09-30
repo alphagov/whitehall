@@ -8,6 +8,10 @@ module ConfigurableContentBlocks
       self.class.new([*@segments, segment])
     end
 
+    def last
+      @segments.last
+    end
+
     def to_a
       @segments
     end

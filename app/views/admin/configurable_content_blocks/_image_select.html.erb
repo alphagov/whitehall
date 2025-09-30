@@ -1,4 +1,3 @@
-<% required = required || false %>
 <% translated_content = translated_content || nil %>
 <% select_options = [
      {
@@ -9,15 +8,15 @@
   {
     text: image.filename,
     value: image.image_data.id,
-    selected: image.image_data.id == (translated_content || content).to_i,
+    selected: image.image_data.id == (translated_content || image_select.content).to_i,
   }
 end %>
 
 <%= render "govuk_publishing_components/components/select", {
-  id: path.form_control_id,
-  label: schema["title"] + (required ? " (required)" : ""),
-  name: path.form_control_name,
+  id: image_select.path.form_control_id,
+  label: image_select.type_config.attribute_label(image_select.path.last) + (image_select.type_properties.attribute_required?(image_select.path.last) ? " (required)" : ""),
+  name: image_select.path.form_control_name,
   options: select_options,
-  hint: schema["description"],
+  hint: image_select.type_config.attribute_hint_text(image_select.path.last),
   heading_size: "m",
 } %>

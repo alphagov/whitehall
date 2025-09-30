@@ -11,9 +11,9 @@ Feature: Standard Editions
     Given I am a GDS admin
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined
-    When I publish a submitted draft of a test configurable document titled "The history of GOV.UK"
+    When I force publish a draft of a test configurable document titled "The history of GOV.UK"
     Then I can see that the draft edition of "The history of GOV.UK" was published successfully
-    And a new draft of "The history of GOV.UK" is created with the correct field values
+    And a new draft of "The history of GOV.UK" can be created with the correct field values
 
   Scenario: Adding translations with all content block types
     Given I am a GDS admin

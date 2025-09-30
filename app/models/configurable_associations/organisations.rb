@@ -1,8 +1,12 @@
 module ConfigurableAssociations
   class Organisations
-    def initialize(association, errors)
-      @association = association
-      @errors = errors
+    def self.edition_concern
+      Edition::Organisations
+    end
+
+    def initialize(edition)
+      @association = edition.edition_organisations
+      @errors = edition.errors
     end
 
     attr_reader :errors

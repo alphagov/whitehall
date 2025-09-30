@@ -1,6 +1,16 @@
 module Presenters
   module PublishingApi
     module PayloadHeadingsHelper
+      def extract_headings_from_model(item)
+        return {} unless item.class.respond_to?(:attributes_with_headings)
+
+        attribute_names = item.class.attributes_with_headings
+        all_headings = attribute_names.map { |attribute_name| extract_headings(item.public_send(attribute_name)) }
+        {
+          headers: all_headings.flatten
+        }
+      end
+
       def extract_headings(govspeak)
         return {} unless govspeak
 

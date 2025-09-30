@@ -62,14 +62,11 @@
     } %>
 
     <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
-    <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build("object") %>
-    <%= render(root_block, {
-      schema: ConfigurableDocumentType.find(@edition.configurable_document_type).schema,
-      content: @edition.block_content,
-      path: ConfigurableContentBlocks::Path.new,
-      right_to_left: @edition.rtl?,
-      root: true,
-    }) %>
+    <% attribute_model_klass = @edition.class.properties %>
+    <% attribute_model_klass.attribute_names.each do |attribute_name| %>
+      <% block_klass = attribute_model_klass.block_for_attribute(attribute_name) %>
+      <%= render block_klass.new(@edition, ConfigurableContentBlocks::Path.new.push(attribute_name)) %>
+    <% end %>
 
     <%= render Admin::Editions::FirstPublishedAtComponent.new(
       edition:,
@@ -87,10 +84,9 @@
       margin_bottom: 3,
     } %>
 
-    <% association_factory = ConfigurableAssociations::Factory.new(@edition) %>
     <div class="govuk-!-margin-bottom-4">
-      <% association_factory.configurable_associations.each do |association| %>
-        <%= render association %>
+      <% @edition.class.configurable_associations.each do |association_klass| %>
+        <%= render association_klass.new(@edition) %>
       <% end %>
     </div>
 

@@ -2,11 +2,12 @@ def create_test_image
   create(:image)
 end
 
-def create_configurable_document(title:, locale: "en", summary: nil, body: nil)
+def create_configurable_document(title:, locale: "en", summary: nil, body: nil, state: "draft")
   image = create_test_image
   defaults = default_content_for_locale(locale)
-  create(
-    :draft_standard_edition,
+  @user.organisation = create(:organisation)
+  @user.save!
+  ConfigurableDocumentTypes::TestConfigurableDocumentType.create!(
     {
       configurable_document_type: "test",
       images: [image],
@@ -17,6 +18,10 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil)
         "image" => image.image_data.id.to_s,
         "body" => body || defaults[:body],
       },
+      state:,
+      lead_organisations: [@user.organisation],
+      previously_published: false,
+      creator: @user,
     },
   )
 end
@@ -53,23 +58,24 @@ Given(/^the configurable document types feature flag is (enabled|disabled)$/) do
 end
 
 Given(/^the test configurable document type is defined(?: with translations enabled)?$/) do
-  type_definition = JSON.parse(File.read(Rails.root.join("features/fixtures/test_configurable_document_type.json")))
-  ConfigurableDocumentType.setup_test_types({ "test" => type_definition })
+  ConfigurableDocumentType.setup_test_types({ "test" => ConfigurableDocumentTypes::TestConfigurableDocumentType })
 end
 
 When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |configurable_document_type, title|
-  create(:organisation) if Organisation.count.zero?
+  @user.organisation = create(:organisation) if Organisation.count.zero?
+  @user.save!
   visit admin_root_path
   find("li.app-c-sub-navigation__list-item a", text: "New document").click
   page.choose("Standard document")
   click_button("Next")
   page.choose(configurable_document_type)
   click_button("Next")
-  expect(page).to have_content("New test")
+  expect(page).to have_content("New test configurable document type")
   within "form" do
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
     fill_in "edition_block_content_body", with: "## Some govspeak\n\nThis is the body content"
+    select @user.organisation.name, from: "Lead organisation 1"
   end
   click_button "Save and go to document summary"
 end
@@ -78,39 +84,29 @@ Given(/^I have drafted an English configurable document titled "([^"]*)"$/) do |
   @standard_edition = create_configurable_document(title: title, locale: "en")
 end
 
-When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
-  image = create_test_image
-  standard_edition = create(
-    :submitted_standard_edition,
-    {
-      configurable_document_type: "test",
-      images: [image],
-      title: title,
-      block_content: {
-        "image" => image.image_data.id.to_s,
-        "body" => "Some text",
-      },
-    },
+When(/^I force publish a draft of a test configurable document titled "([^"]*)"$/) do |title|
+  standard_edition = create_configurable_document(
+    title:,
   )
   stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
   visit admin_standard_edition_path(standard_edition)
-  click_link "Publish"
-  expect(page).to have_content("Once you publish, this document will be visible to the public")
-  click_button "Publish"
+  click_link "Force publish"
+  fill_in "reason", with: "Testing"
+  click_button "Force publish"
 end
 
 Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
   expect(page.find("h1")).to have_content(title)
   expect(page).to have_content("Your document has been saved.")
-  expect(page).to have_content("Standard edition: Test")
+  expect(page).to have_content("test configurable document type: Test configurable document type")
 end
 
 Then(/^I can see that the draft edition of "([^"]*)" was published successfully$/) do |title|
   expect(page).to have_content("The document #{title} has been published")
 end
 
-And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |title|
-  standard_edition = StandardEdition.find_by(title: title)
+And(/^a new draft of "([^"]*)" can be created with the correct field values$/) do |title|
+  standard_edition = StandardEdition.where(title: title, state: "published").first
   visit admin_standard_edition_path(standard_edition)
   click_button "Create new edition"
   expect(page).to have_select("Image", selected: standard_edition.images.first.filename)

@@ -3,11 +3,21 @@ module ConfigurableContentBlocks
     include Presenters::PublishingApi::PayloadHeadingsHelper
     include GovspeakHelper
 
-    attr_reader :images, :attachments
+    attr_reader :images, :attachments, :path, :type_config, :type_properties, :content, :translated_content, :right_to_left
 
-    def initialize(images = [], attachments = [])
-      @images = images
-      @attachments = attachments
+    def initialize(edition, path, translated_edition = nil)
+      @images = edition.respond_to?(:images) ? edition.images : []
+      @attachments = edition.respond_to?(:attachments) ? edition.attachments : []
+      @path = path
+      @type_config = edition.class.config
+      @type_properties = edition.class.properties
+      @content = path.to_a.inject(edition.block_content) do |content, segment|
+        content.present? ? content.public_send(segment) : nil
+      end
+      @translated_content = path.to_a.inject(translated_edition.block_content) do |content, segment|
+        content.present? ? content.public_send(segment) : nil
+      end unless translated_edition.nil?
+      @right_to_left = translated_edition&.translation_rtl?
     end
 
     def json_schema_type
