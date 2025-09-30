@@ -1,9 +1,18 @@
 module ConfigurableContentBlocks
   class ImageSelect
-    attr_reader :images
+    attr_reader :images, :path, :type_config, :type_properties, :content, :translated_content
 
-    def initialize(images = [])
-      @images = images
+    def initialize(edition, path, translated_edition = nil)
+      @images = edition.images
+      @path = path
+      @type_config = edition.class.config
+      @type_properties = edition.class.properties
+      @content = path.to_a.inject(edition.block_content) do |content, segment|
+        content.present? ? content.public_send(segment) : nil
+      end
+      @translated_content = path.to_a.inject(translated_edition.block_content) do |content, segment|
+        content.present? ? content.public_send(segment) : nil
+      end unless translated_edition.nil?
     end
 
     def json_schema_type

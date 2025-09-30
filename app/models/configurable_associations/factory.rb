@@ -5,7 +5,7 @@ module ConfigurableAssociations
     end
 
     def configurable_associations
-      @edition.type_instance.associations.map do |association_config|
+      @edition.class.type_properties.associations.map do |association_config|
         association = associations[association_config["key"]]
         raise "Undefined association: #{association_config['key']}" unless association
 

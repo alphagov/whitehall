@@ -8,7 +8,7 @@
         heading_level: 1,
         name: "configurable_document_type",
         id: "configurable_document_type",
-        items: @permitted_configurable_document_types.map { |type| { text: type.label, value: type.key }},
+        items: @permitted_configurable_document_types.map { |type| { text: type.config.title, value: type.config.key }},
       } %>
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", { text: "Next" } %>

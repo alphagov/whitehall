@@ -4,6 +4,10 @@ module ConfigurableAssociations
       @association = association
     end
 
+    def self.edition_concern
+      Edition::Organisations
+    end
+
     def links
       @association.includes(:person, :role)
 

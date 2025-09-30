@@ -4,13 +4,19 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
   def choose_type
-    @permitted_configurable_document_types = ConfigurableDocumentType.all.select { |type| can?(current_user, type) }
+    @permitted_configurable_document_types = StandardEdition.subclasses.select { |type| can?(:create, type) }
   end
 
 private
 
   def edition_class
-    StandardEdition
+    if params.key?(:edition) && params[:edition].key?(:configurable_document_type)
+      StandardEdition.subclasses.find { |klass| klass.config.key == params[:edition][:configurable_document_type] }
+    elsif params.key?(:configurable_document_type)
+      StandardEdition.subclasses.find { |klass| klass.config.key == params[:configurable_document_type] }
+    else
+      StandardEdition
+    end
   end
 
   def prevent_access_when_disabled

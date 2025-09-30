@@ -1,14 +1,13 @@
-<% required = required || false %>
-<% right_to_left = right_to_left || false %>
-<% translated_content = translated_content || nil %>
+<% right_to_left = govspeak.right_to_left || false %>
+<% translated_content = govspeak.translated_content || nil %>
 <%= render "components/govspeak_editor", {
   label: {
-    text: schema["title"] + (required ? " (required)" : ""),
+    text: govspeak.type_config.attribute_label(govspeak.path.last) + (govspeak.type_properties.attribute_required?(govspeak.path.last) ? " (required)" : ""),
     heading_size: "m",
   },
-  id: path.form_control_id,
-  name: path.form_control_name,
-  value: (translated_content.presence || content),
+  id: govspeak.path.form_control_id,
+  name: govspeak.path.form_control_name,
+  value: (translated_content.presence || govspeak.content),
   rows: 20,
   data_attributes: {
     attachment_ids: govspeak.attachments.map(&:id),
@@ -18,8 +17,8 @@
 } %>
 <% if translated_content.present? %>
   <%= render "govuk_publishing_components/components/details", {
-    title: "Primary locale content for #{schema["title"]}",
+    title: "Primary locale content for #{govspeak.type_config.attribute_label(govspeak.path.last)}",
   } do %>
-    <%= content %>
+    <%= govspeak.content %>
   <% end %>
 <% end %>

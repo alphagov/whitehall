@@ -2,9 +2,8 @@ class ConfigurableDocumentType
   attr_reader :key, :schema, :associations, :settings
 
   def self.types
-    @types ||= Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
-      data = JSON.parse(File.read(filename))
-      hash[data["key"]] = data
+    @types ||= StandardEdition.subclasses.each_with_object({}) do |klass, hash|
+      hash[klass.config.key] = klass
     end
   end
 
@@ -31,18 +30,11 @@ class ConfigurableDocumentType
   end
 
   def initialize(type)
-    @key = type["key"]
-    @schema = type["schema"]
-    @associations = type["associations"]
-    @settings = type["settings"]
+    @type = type.config
   end
 
   def label
-    @schema["title"]
-  end
-
-  def properties
-    @schema["properties"]
+    @type.title
   end
 
   class NotFoundError < StandardError
