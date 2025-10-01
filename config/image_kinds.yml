@@ -6,9 +6,13 @@ default:
   permitted_uses:
     - govspeak_embed
   versions:
+    - name: cropped
+      width: 960
+      height: 640
     - name: s960
       width: 960
       height: 640
+      from_version: cropped
     - name: s712
       width: 712
       height: 480
