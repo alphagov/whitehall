@@ -156,15 +156,17 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       WebMock.reset!
 
       requests = [
+        stub_publishing_api_put_content(publication_presenter.content_id, publication_presenter.content),
+        stub_publishing_api_put_content(publication_presenter.content_id, with_locale(:es) { publication_presenter.content }),
         stub_publishing_api_unpublish(publication_presenter.content_id, body: {
           type: "gone",
           locale: "en",
-          discard_drafts: true,
+          allow_draft: true,
         }),
         stub_publishing_api_unpublish(publication_presenter.content_id, body: {
           type: "gone",
           locale: "es",
-          discard_drafts: true,
+          allow_draft: true,
         }),
         stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
         stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
@@ -198,15 +200,17 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       WebMock.reset!
 
       requests = [
+        stub_publishing_api_put_content(publication_presenter.content_id, publication_presenter.content),
+        stub_publishing_api_put_content(publication_presenter.content_id, with_locale(:es) { publication_presenter.content }),
         stub_publishing_api_unpublish(publication_presenter.content_id, body: {
           type: "gone",
           locale: "en",
-          discard_drafts: true,
+          allow_draft: true,
         }),
         stub_publishing_api_unpublish(publication_presenter.content_id, body: {
           type: "gone",
           locale: "es",
-          discard_drafts: true,
+          allow_draft: true,
         }),
         stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
         stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
@@ -239,10 +243,11 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
       WebMock.reset!
 
       requests = [
+        stub_publishing_api_put_content(publication_presenter.content_id, publication_presenter.content),
         stub_publishing_api_unpublish(publication_presenter.content_id, body: {
           type: "gone",
           locale: "en",
-          discard_drafts: true,
+          allow_draft: true,
         }),
         stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
         stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
