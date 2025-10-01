@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_28_073712) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_01_125325) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -188,70 +188,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_073712) do
     t.string "content_id", null: false
     t.index ["contact_type_id"], name: "index_contacts_on_contact_type_id"
     t.index ["contactable_id", "contactable_type"], name: "index_contacts_on_contactable_id_and_contactable_type"
-  end
-
-  create_table "content_block_documents", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "content_id"
-    t.string "sluggable_string"
-    t.string "block_type"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "latest_edition_id"
-    t.integer "live_edition_id"
-    t.string "content_id_alias"
-    t.datetime "deleted_at"
-    t.index ["content_id_alias"], name: "index_content_block_documents_on_content_id_alias", unique: true
-    t.index ["latest_edition_id"], name: "index_content_block_documents_on_latest_edition_id"
-    t.index ["live_edition_id"], name: "index_content_block_documents_on_live_edition_id"
-  end
-
-  create_table "content_block_edition_authors", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "edition_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["edition_id"], name: "index_content_block_edition_authors_on_edition_id"
-    t.index ["user_id"], name: "index_content_block_edition_authors_on_user_id"
-  end
-
-  create_table "content_block_edition_organisations", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "content_block_edition_id", null: false
-    t.integer "organisation_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["content_block_edition_id"], name: "idx_on_content_block_edition_id_e433bc9b13"
-    t.index ["organisation_id"], name: "index_content_block_edition_organisations_on_organisation_id"
-  end
-
-  create_table "content_block_editions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.json "details", null: false
-    t.bigint "document_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "state", default: "draft", null: false
-    t.datetime "scheduled_publication", precision: nil
-    t.text "instructions_to_publishers"
-    t.string "title", default: "", null: false
-    t.text "internal_change_note"
-    t.text "change_note"
-    t.boolean "major_change"
-    t.virtual "details_for_indexing", type: :text, as: "json_unquote(`details`)", stored: true
-    t.index ["document_id"], name: "index_content_block_editions_on_document_id"
-    t.index ["title", "details_for_indexing", "instructions_to_publishers"], name: "title_details_instructions_to_publishers", type: :fulltext
-  end
-
-  create_table "content_block_versions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.integer "event", null: false
-    t.string "whodunnit"
-    t.datetime "created_at", precision: nil, null: false
-    t.text "state"
-    t.json "field_diffs"
-    t.string "updated_embedded_object_type"
-    t.string "updated_embedded_object_title"
-    t.index ["item_id"], name: "index_content_block_versions_on_item_id"
-    t.index ["item_type"], name: "index_content_block_versions_on_item_type"
   end
 
   create_table "data_migration_records", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -1265,9 +1201,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_073712) do
     t.datetime "updated_at", precision: nil
   end
 
-  add_foreign_key "content_block_edition_authors", "content_block_editions", column: "edition_id"
-  add_foreign_key "content_block_edition_organisations", "content_block_editions"
-  add_foreign_key "content_block_editions", "content_block_documents", column: "document_id"
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "editions", "governments", on_delete: :nullify
