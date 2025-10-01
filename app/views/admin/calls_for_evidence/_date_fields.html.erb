@@ -10,6 +10,7 @@
       error_items: errors_for(edition.errors, :opening_at),
       date_hint: "For example, 01 08 2022",
       time_hint: "For example, 09:30 or 19:30",
+      ga4_section: "Opening date",
       year: {
         value: params.dig("edition", "opening_at(1i)") || edition.opening_at&.year,
         id: "edition_opening_at_1i",
