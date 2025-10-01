@@ -29,10 +29,11 @@ module PublishingApi
     end
 
     def links
-      factory = ConfigurableAssociations::Factory.new(item)
-      factory.configurable_associations.reduce({}) do |links_hash, association|
-        links_hash.merge(association.links)
-      end
+      PayloadBuilder::ConfigurableDocumentLinks.for(item)
+    end
+
+    def document_type
+      type.settings["publishing_api_document_type"]
     end
 
   private

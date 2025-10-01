@@ -345,46 +345,29 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_not content[:details].key?(:attachments)
   end
 
-  test "#links includes the selected content IDs for each configured association" do
+  test "#links includes the required content IDs" do
     ConfigurableDocumentType.setup_test_types(
       build_configurable_document_type("test_type", {
         "associations" => [
           {
-            "key" => "ministerial_role_appointments",
-          },
-          {
-            "key" => "topical_events",
-          },
-          {
             "key" => "world_locations",
           },
-          {
-            "key" => "organisations",
-          },
         ],
+        "settings" => {
+          "history_mode_enabled" => true,
+        },
       }),
     )
-    ministerial_role_appointments = create_list(:ministerial_role_appointment, 2)
-    topical_events = create_list(:topical_event, 2)
     world_locations = create_list(:world_location, 2, active: true)
-    organisations = create_list(:organisation, 2)
+    government = create(:government)
     edition = build(:standard_edition,
-                    role_appointments: ministerial_role_appointments,
-                    topical_events:,
-                    world_locations:)
-    edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
+                    world_locations:,
+                    government_id: government.id)
     presenter = PublishingApi::StandardEditionPresenter.new(edition)
     links = presenter.links
-    expected_people, expected_roles = ministerial_role_appointments
-                                        .map { |appointment| [appointment.person.content_id, appointment.role.content_id] }
-                                        .transpose
-    assert_equal expected_people, links[:people]
-    assert_equal expected_roles, links[:roles]
-    expected_topical_events = topical_events.map(&:content_id)
-    assert_equal expected_topical_events, links[:topical_events]
     expected_world_locations = world_locations.map(&:content_id)
     assert_equal expected_world_locations, links[:world_locations]
-    expected_organisations = organisations.map(&:content_id)
-    assert_equal expected_organisations, links[:organisations]
+    expected_government = [edition.government.content_id]
+    assert_equal expected_government, links[:government]
   end
 end
