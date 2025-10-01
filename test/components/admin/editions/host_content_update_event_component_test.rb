@@ -2,7 +2,6 @@ require "test_helper"
 
 class Admin::Editions::HostContentUpdateEventComponentTest < ViewComponent::TestCase
   extend Minitest::Spec::DSL
-  include ContentBlockManager::Engine.routes.url_helpers
 
   let(:created_at) { Time.zone.local(2020, 1, 1, 11, 11) }
   let(:content_title) { "Some content" }

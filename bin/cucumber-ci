@@ -5,10 +5,7 @@
 # It splits the cucumber suite into randomly-allocated groups
 # which are executed across multiple GitHub Actions 'matrix' nodes.
 
-test_files = [
-  Dir["features/*.feature"],
-  Dir["lib/engines/**/*.feature"],
-].flatten
+test_files = Dir["features/*.feature"]
 
 # Determine which CI node is running
 node_index = ENV["CI_NODE_INDEX"].to_i

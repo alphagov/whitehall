@@ -37,33 +37,4 @@ class Admin::ErrorsControllerTest < ActionDispatch::IntegrationTest
       assert_select "title", text: /#{Whitehall.product_name}/
     end
   end
-
-  describe "when request comes from ContentBlockManager" do
-    before do
-      path = "some-path"
-      ActionDispatch::Request.any_instance.stubs(:path).returns(path)
-      path.stubs(:start_with?).with(ContentBlockManager.router_prefix).returns(true)
-    end
-
-    ERROR_LOOKUPS.each do |error_code, error|
-      it "should show the #{error} page" do
-        get "/#{error_code}"
-
-        assert_template error
-      end
-
-      it "should render the correct headers" do
-        get "/#{error_code}"
-
-        assert_select ".govuk-header__product-name", text: ContentBlockManager.product_name
-        assert_select ".govuk-phase-banner__content__tag", text: "Beta"
-      end
-
-      it "should render the product name in the title" do
-        get "/#{error_code}"
-
-        assert_select "title", text: /#{ContentBlockManager.product_name}/
-      end
-    end
-  end
 end

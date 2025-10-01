@@ -19,11 +19,6 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Require all Engines inside the `lib/engines` directory
-Dir.glob("lib/engines/**/engine.rb", base: Rails.root).each do |path|
-  require_relative "../#{path}"
-end
-
 module Whitehall
   class Application < Rails::Application
     require "whitehall"
@@ -61,7 +56,6 @@ module Whitehall
     # Custom directories with classes and modules you want to be autoloadable.
     config.eager_load_paths += %W[
       #{config.root}/lib
-      #{config.root}/lib/engines/**
     ]
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
