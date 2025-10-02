@@ -32,6 +32,7 @@ class WorldLocation < ApplicationRecord
   delegate :title, to: :world_location_news
 
   after_commit :republish_index_pages_to_publishing_api
+  after_commit :republish_worldwide_organisations
 
   enum :world_location_type, { world_location: 1, international_delegation: 3 }
 
@@ -96,6 +97,12 @@ class WorldLocation < ApplicationRecord
 
   extend FriendlyId
   friendly_id
+
+  def republish_worldwide_organisations
+    worldwide_organisations.pluck(:document_id).each do |document_id|
+      PublishingApiDocumentRepublishingWorker.perform_async(document_id)
+    end
+  end
 
   def republish_index_pages_to_publishing_api
     PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
