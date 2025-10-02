@@ -7,7 +7,7 @@
 
 ## Status
 
-Accepted
+Superseded by [7. Active Record Configurable Document Types](0007-active-record-configurable-document-types.md)
 
 ## Context
 

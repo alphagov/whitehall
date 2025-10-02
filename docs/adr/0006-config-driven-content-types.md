@@ -4,6 +4,8 @@
 
 Accepted
 
+There has been a subsequent change of implementation approach, from defining document types as JSON to defining them in Ruby. See [7. Active Record Configurable Document Types](0007-active-record-configurable-document-types.md) for more details.
+
 ## Context
 
 ## Terminology
