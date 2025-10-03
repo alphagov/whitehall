@@ -319,7 +319,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (60.2.1)
+    govuk_publishing_components (61.1.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -514,11 +514,11 @@ GEM
       opentelemetry-common (~> 0.20)
       opentelemetry-sdk (~> 1.2)
       opentelemetry-semantic_conventions
-    opentelemetry-helpers-mysql (0.2.0)
-      opentelemetry-api (~> 1.0)
+    opentelemetry-helpers-mysql (0.3.0)
+      opentelemetry-api (~> 1.7)
       opentelemetry-common (~> 0.21)
-    opentelemetry-helpers-sql (0.1.1)
-      opentelemetry-api (~> 1.0)
+    opentelemetry-helpers-sql (0.2.0)
+      opentelemetry-api (~> 1.7)
     opentelemetry-helpers-sql-obfuscation (0.3.0)
       opentelemetry-common (~> 0.21)
     opentelemetry-instrumentation-action_mailer (0.4.0)
