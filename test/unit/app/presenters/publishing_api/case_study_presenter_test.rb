@@ -101,21 +101,27 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
-  test "falls back to the organisation's default news image when there is no image" do
+  test "does not send lead image if there is no image" do
     organisation_image = build(:featured_image_data)
     organisation = create(:organisation, default_news_image: organisation_image)
-
     case_study = create(:published_case_study, lead_organisations: [organisation])
+    assert_nil case_study.lead_image
 
-    expected_hash = {
-      url: organisation_image.file.url(:s300),
-      alt_text: "",
-      caption: nil,
-    }
+    presented_item = present(case_study)
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
+    expected_blank_image = { url: "", caption: nil, alt_text: "" }
+    assert_equal expected_blank_image, present(case_study).content[:details][:image]
+  end
+
+  test "should not send lead image if it doesn't have all assets" do
+    image = build(:image, alt_text: "Image alt text", caption: "A caption")
+    image.image_data.assets = []
+    case_study = build_stubbed(:published_case_study, document: build_stubbed(:document), images: [image], lead_image: image)
+
     presented_item = present(case_study)
 
     assert_valid_against_publisher_schema(presented_item.content, "case_study")
-    assert_equal expected_hash, presented_item.content[:details][:image]
+    assert_equal ({ url: "", caption: nil, alt_text: "" }), presented_item.content[:details][:image]
   end
 
   test "Adds an empty image field if the image display option is no_image" do

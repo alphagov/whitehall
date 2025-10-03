@@ -47,8 +47,23 @@ private
     if case_study?
       edition.emphasised_organisation_default_image_available? && [nil, "organisation_image"].include?(edition.image_display_option)
     elsif news_article?
-      edition.has_lead_image?
+      default_lead_image.present?
     end
+  end
+
+  def default_lead_image
+    # This is only for displaying the default image for news articles, we do not sent this to the Publishing API. Frontend will display the appropriate imagery based on the expanded organisation data.
+    if edition.lead_organisations.any? && edition.lead_organisations.first.default_news_image
+      edition.lead_organisations.first.default_news_image
+    elsif edition.organisations.any? && edition.organisations.first.default_news_image
+      edition.organisations.first.default_news_image
+    elsif edition.respond_to?(:worldwide_organisations) && edition.published_worldwide_organisations.any? && edition.published_worldwide_organisations.first.default_news_image
+      edition.published_worldwide_organisations.first.default_news_image
+    end
+  end
+
+  def default_lead_image_url
+    default_lead_image.file.url(:s300)
   end
 
   def new_image_display_option

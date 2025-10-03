@@ -34,7 +34,7 @@ module Edition::LeadImage
   end
 
   def lead_image_has_all_assets?
-    image_data.all_asset_variants_uploaded?
+    image_data&.all_asset_variants_uploaded?
   end
 
 private
@@ -44,15 +44,7 @@ private
   end
 
   def image_data
-    if lead_image
-      lead_image.image_data
-    elsif lead_organisations.any? && lead_organisations.first.default_news_image
-      lead_organisations.first.default_news_image
-    elsif organisations.any? && organisations.first.default_news_image
-      organisations.first.default_news_image
-    elsif respond_to?(:worldwide_organisations) && published_worldwide_organisations.any? && published_worldwide_organisations.first.default_news_image
-      published_worldwide_organisations.first.default_news_image
-    end
+    lead_image.image_data if lead_image
   end
 
   def uploader
