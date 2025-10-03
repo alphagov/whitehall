@@ -18,27 +18,27 @@ class BulkRepublisher
 
   def republish_all_documents_with_pre_publication_editions_with_html_attachments
     document_ids = Edition
-      .in_pre_publication_state
-      .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
-      .pluck(:document_id)
+                     .in_pre_publication_state
+                     .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
+                     .pluck(:document_id)
 
     republish_all_documents_by_ids(document_ids)
   end
 
   def republish_all_documents_with_publicly_visible_editions_with_attachments
     document_ids = Edition
-      .publicly_visible
-      .where(id: Attachment.where(attachable_type: "Edition").select(:attachable_id))
-      .pluck(:document_id)
+                     .publicly_visible
+                     .where(id: Attachment.where(attachable_type: "Edition").select(:attachable_id))
+                     .pluck(:document_id)
 
     republish_all_documents_by_ids(document_ids)
   end
 
   def republish_all_documents_with_publicly_visible_editions_with_html_attachments
     document_ids = Edition
-      .publicly_visible
-      .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
-      .pluck(:document_id)
+                     .publicly_visible
+                     .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
+                     .pluck(:document_id)
 
     republish_all_documents_by_ids(document_ids)
   end
@@ -66,8 +66,7 @@ class BulkRepublisher
     if non_editionable_content_types.include?(content_type)
       republish_all_by_non_editionable_type(content_type_klass)
     else
-      republishable_document_ids = content_type_klass.joins("INNER JOIN documents ON documents.latest_edition_id = editions.id").pluck(:document_id)
-      republish_all_documents_by_ids(republishable_document_ids)
+      republish_all_by_editionable_type(content_type)
     end
   end
 
@@ -75,9 +74,9 @@ class BulkRepublisher
     raise "Argument must be an organisation" unless organisation.is_a?(Organisation)
 
     document_ids = Edition
-      .latest_edition
-      .in_organisation(organisation)
-      .pluck(:document_id)
+                     .latest_edition
+                     .in_organisation(organisation)
+                     .pluck(:document_id)
 
     republish_all_documents_by_ids(document_ids)
   end
@@ -92,5 +91,33 @@ private
 
   def republish_all_by_non_editionable_type(content_type_klass)
     content_type_klass.find_each(&:bulk_republish_to_publishing_api_async)
+  end
+
+  def republish_all_by_editionable_type(content_type)
+    republishable_document_ids = Edition
+                                   .joins("INNER JOIN documents ON documents.latest_edition_id = editions.id")
+                                   .where(republishable_editions_predicate(content_type)
+                                            .or(republishable_standard_editions_predicate(content_type)))
+                                   .pluck("documents.id")
+
+    republish_all_documents_by_ids(republishable_document_ids)
+  end
+
+  def republishable_editions_predicate(content_type)
+    table = Edition.arel_table
+    table[:type].eq(content_type)
+  end
+
+  def republishable_standard_editions_predicate(content_type)
+    table = Edition.arel_table
+    configurable_document_types_for_schema = ConfigurableDocumentType.all
+                                                                     .select { |configurable_type| configurable_type.key == content_type.underscore }
+                                                                     .map(&:key)
+
+    if configurable_document_types_for_schema
+      table[:type].eq("StandardEdition").and(table[:configurable_document_type].in(configurable_document_types_for_schema))
+    else
+      Arel.sql("FALSE")
+    end
   end
 end
