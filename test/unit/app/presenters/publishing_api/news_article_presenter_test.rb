@@ -229,47 +229,38 @@ module PublishingApi::NewsArticlePresenterTest
   end
 
   class NewsArticleWithImage < TestCase
-    setup do
-      self.news_article = create(:published_news_article)
-      news_article.stubs(
-        has_lead_image?: true,
-        lead_image_url: "/foo",
-        high_resolution_lead_image_url: "/foo-large",
-        lead_image_alt_text: "Bar",
-        lead_image_caption: "Baz",
-        images: [build(:image)],
-        lead_image: build(:image),
-      )
-    end
-
-    test "image" do
+    test "send custom image as lead image" do
       expected_image_caption = "Baz"
       expected_image_alt_text = "Bar"
+      image = create(:image, alt_text: expected_image_alt_text, caption: expected_image_caption)
 
-      expected_image = {
-        high_resolution_url: "/foo-large",
-        url: "/foo",
+      expected_image_payload = {
+        high_resolution_url: image.image_data.file.url(:s960),
+        url: image.image_data.file.url(:s300),
         caption: expected_image_caption,
         alt_text: expected_image_alt_text,
       }
-
-      assert_details_attribute :image, expected_image
+      self.news_article = create(:news_article, lead_image: image)
+      assert_equal expected_image_payload, presented_news_article.content[:details][:image]
     end
 
-    test "should return lead image from worldwide organisations when lead_image_has_all_assets?" do
+    test "does not send image information if lead image is not present" do
+      self.news_article = create(:news_article)
+      assert_nil news_article.lead_image
+      assert_nil presented_news_article.content[:details][:image]
+
       worldwide_organisation = create(:published_worldwide_organisation, :with_default_news_image)
       self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
-
-      assert presented_news_article.content[:details][:image][:url].include?("s300_minister-of-funk.960x640.jpg")
+      assert_nil news_article.lead_image
+      assert_nil presented_news_article.content[:details][:image]
     end
 
-    test "should not return lead image from worldwide organisations when lead_image dont have assets?" do
-      image = build(:featured_image_data)
-      worldwide_organisation = create(:published_worldwide_organisation, default_news_image: image)
-      worldwide_organisation.default_news_image.assets = []
+    test "should not send lead image if it doesn't have all assets" do
+      image = create(:image)
+      image.image_data.assets = []
 
-      self.news_article = create(:news_article_world_news_story, worldwide_organisations: [worldwide_organisation])
-      assert presented_news_article.content[:details][:image].nil?
+      self.news_article = create(:news_article, lead_image: image)
+      assert_nil presented_news_article.content[:details][:image]
     end
   end
 
