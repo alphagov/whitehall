@@ -51,20 +51,19 @@ class BulkRepublisher
 
   def republish_all_non_editionable_content
     non_editionable_content_types.each do |type|
-      republish_all_by_non_editionable_type(type.constantize)
+      republish_all_by_non_editionable_type(type)
     end
   end
 
   def republish_all_by_type(content_type)
-    begin
-      content_type_klass = content_type.constantize
-      raise NameError unless republishable_content_types.include?(content_type)
-    rescue NameError
-      raise "Unknown content type #{content_type}\nCheck the GOV.UK developer documentation for a list of acceptable document types: https://docs.publishing.service.gov.uk/manual/republishing-content.html#whitehall"
-    end
+    error_message = "Unknown content type #{content_type}\n" \
+                    "Check the GOV.UK developer documentation for a list of acceptable document types: " \
+                    "https://docs.publishing.service.gov.uk/manual/republishing-content.html#whitehall"
+
+    raise NameError, error_message unless republishable_content_types.include?(content_type)
 
     if non_editionable_content_types.include?(content_type)
-      republish_all_by_non_editionable_type(content_type_klass)
+      republish_all_by_non_editionable_type(content_type)
     else
       republish_all_by_editionable_type(content_type)
     end
@@ -89,7 +88,8 @@ class BulkRepublisher
 
 private
 
-  def republish_all_by_non_editionable_type(content_type_klass)
+  def republish_all_by_non_editionable_type(content_type)
+    content_type_klass = content_type.constantize
     content_type_klass.find_each(&:bulk_republish_to_publishing_api_async)
   end
 
