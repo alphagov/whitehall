@@ -330,7 +330,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
   describe "#republish_all_by_type" do
     setup do
       BulkRepublisher.any_instance.stubs(:non_editionable_content_types).returns(%w[Contact])
-      BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[Contact CaseStudy])
+      BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[Contact CaseStudy NewsArticle])
     end
 
     context "for editionable content types, like CaseStudy" do
@@ -355,6 +355,21 @@ class BulkRepublisherTest < ActiveSupport::TestCase
           true,
         )
         BulkRepublisher.new.republish_all_by_type("CaseStudy")
+      end
+    end
+
+    context "for editionable content types that also have configurable document types, like NewsArticle" do
+      test "republishes content for the specified type and configurable types via the PublishingApiDocumentRepublishingWorker" do
+        news_article_type = create(:published_news_article)
+        standard_edition_news_article_type = create(:published_standard_edition, :with_organisations, { configurable_document_type: "news_story" })
+        [news_article_type, standard_edition_news_article_type].each do |article|
+          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+            "bulk_republishing",
+            article.document_id,
+            true,
+          )
+        end
+        BulkRepublisher.new.republish_all_by_type("NewsArticle")
       end
     end
 
