@@ -1,7 +1,6 @@
 class Speech < Edition
   include Edition::Appointment
   include Edition::HasDocumentCollections
-  include Edition::LeadImage
   include Edition::Images
   include Edition::Organisations
   include Edition::TaggableOrganisations
