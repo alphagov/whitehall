@@ -67,15 +67,45 @@ class PublishingApiRake < ActiveSupport::TestCase
     describe "#by_content_id" do
       let(:task) { Rake::Task["publishing_api:redirect_html_attachments:by_content_id"] }
 
-      test "redirects HTML attachments" do
+      test "does not redirect HTML attachments when user aborts" do
         content_id = SecureRandom.uuid
         path = "/some-random-path"
 
         DataHygiene::PublishingApiHtmlAttachmentRedirector.expects(:call).with(
           content_id,
           path,
+          dry_run: true,
+        )
+
+        DataHygiene::PublishingApiHtmlAttachmentRedirector.expects(:call).with(
+          content_id,
+          path,
+          dry_run: false,
+        ).never
+
+        Thor::Shell::Basic.any_instance.stubs(:yes?).returns(false)
+
+        out, _err = capture_io { task.invoke(content_id, path) }
+        assert_equal "Aborted", out.strip
+      end
+
+      test "redirects HTML attachments when user confirms" do
+        content_id = SecureRandom.uuid
+        path = "/some-random-path"
+
+        DataHygiene::PublishingApiHtmlAttachmentRedirector.expects(:call).with(
+          content_id,
+          path,
+          dry_run: true,
+        )
+
+        DataHygiene::PublishingApiHtmlAttachmentRedirector.expects(:call).with(
+          content_id,
+          path,
           dry_run: false,
         )
+
+        Thor::Shell::Basic.any_instance.stubs(:yes?).returns(true)
 
         capture_io { task.invoke(content_id, path) }
       end
