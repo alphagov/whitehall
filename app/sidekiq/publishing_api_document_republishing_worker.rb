@@ -38,7 +38,10 @@ private
   ## Edition-specific refresh wrapper methods
 
   def republish_latest_unpublished_edition
-    unpublish_edition
+    edition = document.latest_unpublished_edition
+    Whitehall::PublishingApi.save_draft(edition, "republish", bulk_publishing:)
+    PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, true)
+    handle_attachments_for(edition)
   end
 
   def republish_pre_publication_edition
@@ -52,7 +55,10 @@ private
 
   def republish_withdrawn_edition
     republish_live_edition
-    unpublish_edition
+
+    edition = document.withdrawn_edition
+    PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, edition.draft?)
+    handle_attachments_for(edition)
   end
 
   ## Helper methods that aren't edition-specific and interact with external
@@ -73,11 +79,5 @@ private
   def republish_live_edition
     Whitehall::PublishingApi.publish(document.live_edition, "republish", bulk_publishing:)
     handle_attachments_for(document.live_edition)
-  end
-
-  def unpublish_edition
-    edition = document.latest_unpublished_edition || document.withdrawn_edition
-    PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, edition.draft?)
-    handle_attachments_for(edition)
   end
 end
