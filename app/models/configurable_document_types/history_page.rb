@@ -1,21 +1,17 @@
 module ConfigurableDocumentTypes
-  class HistoryPageProperties
-    include StoreModel::Model
-
-    attribute :body, :string
-    attribute :sidebar_image, :integer
-    attribute :lead_paragraph, :string
+  class HistoryPageProperties < BaseProperties
+    block_attribute :body, :string, default: "", block: ConfigurableContentBlocks::Govspeak
+    block_attribute :lead_paragraph, :string, block: ConfigurableContentBlocks::DefaultString
+    block_attribute :sidebar_image, :integer, block: ConfigurableContentBlocks::ImageSelect
+    self.attributes_with_headings = [:body]
     validates :body, presence: true
-    validates_with NoFootnotesInGovspeakValidator, attribute: :body
-    validates_with InternalPathLinksValidator, on: :publish
-    validates_with GovspeakContactEmbedValidator, on: :publish
   end
 
   class HistoryPage < StandardEdition
     include Edition::Images
+    validates_associated :block_content
 
-    attribute :block_content, HistoryPageProperties.to_type
-    validates :block_content, store_model: { merge_errors: true }
+    include_association ConfigurableAssociations::Organisations
 
     class HistoryPageConfig
       class << self
@@ -24,7 +20,7 @@ module ConfigurableDocumentTypes
         end
 
         def title
-          "History Page"
+          "History page"
         end
 
         def description
@@ -33,29 +29,27 @@ module ConfigurableDocumentTypes
 
         def attribute_label(attribute_name)
           {
-            :body => "Body",
-            :sidebar_image => "Sidebar Image",
-            :lead_paragraph => "Lead Paragraph"
+            "body" => "Body",
+            "image" => "Image",
           }[attribute_name]
         end
 
         def attribute_hint_text(attribute_name)
           {
-            :body => "The main content for the page",
-            :sidebar_image => "Select an image to display in the page sidebar",
-            :lead_paragraph => "Optional text that appears above the main content"
+            "body" => "The main content for the page",
+            "image" => "Select an image to display on the page",
           }[attribute_name]
         end
 
         def base_path_prefix
-          "/government/history"
+          "/government/test-type"
         end
         def publishing_api_schema_name
-          "history"
+          "test_type"
         end
 
         def publishing_api_document_type
-          "history"
+          "test_type"
         end
 
         def rendering_app
@@ -63,13 +57,17 @@ module ConfigurableDocumentTypes
         end
 
         def authorised_organisations
-          ["af07d5a5-df63-4ddc-9383-6a666845ebe9"]
+          nil
         end
       end
     end
 
     def self.config
       HistoryPageConfig
+    end
+
+    def self.properties
+      HistoryPageProperties
     end
   end
 end

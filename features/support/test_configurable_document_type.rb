@@ -1,30 +1,12 @@
 module ConfigurableDocumentTypes
-  class TestConfigurableDocumentTypeProperties
-    include ActiveModel::Attributes
-    include ActiveModel::AttributeAssignment
-    include ActiveModel::Validations
-    @attribute_blocks = {}
-    @attributes_with_headings = []
-
-    class << self
-      attr_accessor :attributes_with_headings
-      def block_attribute(name, cast_type = nil, default: nil, **options)
-        @attribute_blocks[name] = options.delete(:block)
-        attribute(name, cast_type, default:, **options)
-      end
-
-      def block_for_attribute(attribute_name)
-        @attribute_blocks[attribute_name.to_sym]
-      end
-
-      def attribute_required?(attribute_name)
-        self.validators_on(attribute_name).map(&:class).include?(ActiveModel::Validations::PresenceValidator)
-      end
+  class TestConfigurableDocumentTypeProperties < BaseProperties
+    block_attribute :body do
+      default=""
+      block=ConfigurableContentBlocks::Govspeak
     end
-
-    block_attribute :body, :string, default: "", block: ConfigurableContentBlocks::Govspeak
-    block_attribute :image, :integer, block: ConfigurableContentBlocks::ImageSelect
-    self.attributes_with_headings = [:body]
+    block_attribute :image do
+      block=ConfigurableContentBlocks::ImageSelect
+    end
     validates :body, presence: true
   end
 
@@ -34,29 +16,18 @@ module ConfigurableDocumentTypes
     validates_associated :block_content
 
     include_association ConfigurableAssociations::Organisations
+    set_configuration(
+      "test",
+      "Test"
+    )
 
     def translatable?
       true
     end
 
-    def block_content=(value)
-      if value.is_a? TestConfigurableDocumentTypeProperties
-        super(value.attributes)
-      else
-        super(value)
-      end
-    end
-
-    def block_content
-      return nil if self[:block_content].nil?
-
-      TestConfigurableDocumentTypeProperties.new.tap do |properties|
-        properties.assign_attributes(self[:block_content])
-      end
-    end
-
     class TestConfigurableDocumentTypeConfig
       class << self
+
         def key
           "test"
         end
@@ -102,10 +73,6 @@ module ConfigurableDocumentTypes
           nil
         end
       end
-    end
-
-    def self.config
-      TestConfigurableDocumentTypeConfig
     end
 
     def self.properties

@@ -8,6 +8,10 @@ module ConfigurableContentBlocks
       "default"
     end
 
+    def self.active_record_type
+      :string
+    end
+
     def publishing_api_payload(content)
       content
     end

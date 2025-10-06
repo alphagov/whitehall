@@ -1,6 +1,7 @@
 class StandardEdition < Edition
   include Edition::Identifiable
 
+  after_find :initialize_block_content
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
   def self.choose_document_type_form_action
@@ -15,6 +16,21 @@ class StandardEdition < Edition
 
   def self.configurable_associations
     @associations || []
+  end
+
+  Configuration = Struct.new(
+    :key,
+    :title,
+    :description,
+    :base_path_prefix,
+    :publishing_api_schema_name,
+    :publishing_api_document_type,
+    :rendering_app,
+    :authorised_organisations,
+  )
+
+  def self.set_configuration(*values)
+    @configuration = Configuration.new(values)
   end
 
   def authorised_organisations
@@ -67,5 +83,27 @@ class StandardEdition < Edition
 
   def organisation_association_enabled?
     false
+  end
+
+  # Required to work around https://github.com/globalize/globalize/issues/611
+  def block_content=(value)
+    @block_content_shim ||= TestConfigurableDocumentTypeProperties.new
+    if value.is_a? TestConfigurableDocumentTypeProperties
+      @block_content_shim.assign_attributes(value.attributes)
+    else
+      @block_content_shim.assign_attributes(value)
+    end
+    super(value)
+  end
+
+  def block_content
+    return nil if self[:block_content].nil?
+    @block_content_shim
+  end
+
+  private
+  def initialize_block_content
+    @block_content_shim ||= TestConfigurableDocumentTypeProperties.new
+    @block_content_shim.assign_attributes(self[:block_content]) unless self[:block_content].nil?
   end
 end

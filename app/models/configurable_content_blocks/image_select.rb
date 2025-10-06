@@ -23,6 +23,10 @@ module ConfigurableContentBlocks
       "image_select"
     end
 
+    def self.active_record_type
+      :integer
+    end
+
     def json_schema_validator
       proc do |instance|
         next true if instance.blank?

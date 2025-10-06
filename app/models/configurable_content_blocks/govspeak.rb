@@ -24,6 +24,10 @@ module ConfigurableContentBlocks
       "string"
     end
 
+    def self.active_record_type
+      :string
+    end
+
     def json_schema_format
       "govspeak"
     end
