@@ -2,16 +2,19 @@ class StandardEdition < Edition
   include Edition::Identifiable
 
   after_find :initialize_block_content
+  validates_associated :block_content
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
   def self.choose_document_type_form_action
     "choose_type_admin_standard_editions_path"
   end
 
-  def self.include_association(association_klass)
+  def self.associations(association_classes)
     @associations ||= []
-    include association_klass.edition_concern
-    @associations.push(association_klass)
+    association_classes.each do |association_class|
+      include association_class.edition_concern
+      @associations << association_class
+    end
   end
 
   def self.configurable_associations
@@ -27,9 +30,10 @@ class StandardEdition < Edition
     :publishing_api_document_type,
     :rendering_app,
     :authorised_organisations,
+    keyword_init: true
   )
 
-  def self.set_configuration(*values)
+  def self.settings(*values)
     @configuration = Configuration.new(values)
   end
 
@@ -87,8 +91,8 @@ class StandardEdition < Edition
 
   # Required to work around https://github.com/globalize/globalize/issues/611
   def block_content=(value)
-    @block_content_shim ||= TestConfigurableDocumentTypeProperties.new
-    if value.is_a? TestConfigurableDocumentTypeProperties
+    @block_content_shim ||= self.class.properties.new
+    if value.is_a? self.class.properties
       @block_content_shim.assign_attributes(value.attributes)
     else
       @block_content_shim.assign_attributes(value)
@@ -103,7 +107,7 @@ class StandardEdition < Edition
 
   private
   def initialize_block_content
-    @block_content_shim ||= TestConfigurableDocumentTypeProperties.new
+    @block_content_shim ||= self.class.properties.new
     @block_content_shim.assign_attributes(self[:block_content]) unless self[:block_content].nil?
   end
 end
