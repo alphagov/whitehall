@@ -98,7 +98,7 @@ module Admin::RepublishingHelper
       StatisticalDataSet
     ]
 
-    [*editionable_content_types, *non_editionable_content_types].sort
+    (editionable_content_types | non_editionable_content_types | config_driven_content_types).sort
   end
 
   def republishable_pages
@@ -164,6 +164,10 @@ module Admin::RepublishingHelper
       WorldLocation
       WorldLocationNews
     ]
+  end
+
+  def config_driven_content_types
+    ConfigurableDocumentType.all.map { |type| type.key.camelize }
   end
 
   def content_ids_string_to_array(content_ids_string)

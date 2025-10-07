@@ -1,27 +1,63 @@
 require "test_helper"
 
 class Admin::RepublishingHelperTest < ActionView::TestCase
-  test "#republishable_content_types returns a sorted list combining valid document types and other publishable content types" do
-    Rails.application.eager_load!
+  EDITIONABLE_CONTENT_TYPES = %w[
+    CallForEvidence
+    CaseStudy
+    Consultation
+    CorporateInformationPage
+    DetailedGuide
+    DocumentCollection
+    WorldwideOrganisation
+    FatalityNotice
+    LandingPage
+    NewsArticle
+    Publication
+    Speech
+    StatisticalDataSet
+  ].freeze
 
-    # Ignore "abstract" Edition descendants
-    unexpected_content_types = %w[Announcement StandardEdition GenericEdition SearchableEdition]
+  NON_EDITIONABLE_CONTENT_TYPES = %w[
+    Contact
+    Government
+    HistoricalAccount
+    OperationalField
+    Organisation
+    Person
+    PolicyGroup
+    Role
+    RoleAppointment
+    StatisticsAnnouncement
+    TopicalEvent
+    TopicalEventAboutPage
+    WorldLocation
+    WorldLocationNews
+  ].freeze
+
+  test "#republishable_content_types returns a sorted list combining valid document types and other publishable content types" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    configurable_content_types = ConfigurableDocumentType.all.map { |type| type.key.camelize }
 
     expected_content_types = (
-      Edition.descendants.map(&:to_s) + non_editionable_content_types - unexpected_content_types
-    ).reject { _1.include?("Test::") }.sort
+      EDITIONABLE_CONTENT_TYPES + NON_EDITIONABLE_CONTENT_TYPES + configurable_content_types
+    ).sort
+
+    assert_equal expected_content_types, republishable_content_types
+  end
+
+  test "#republishable_content_types removes duplicates when including configurable document types" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(EDITIONABLE_CONTENT_TYPES.first))
+    configurable_content_types = ConfigurableDocumentType.all.map { |type| type.key.camelize }
+
+    expected_content_types = (
+      EDITIONABLE_CONTENT_TYPES + NON_EDITIONABLE_CONTENT_TYPES + configurable_content_types
+    ).uniq.sort
 
     assert_equal expected_content_types, republishable_content_types
   end
 
   test "#non_editionable_content_types returns a list of non-editionable content types" do
-    Rails.application.eager_load!
-    expected_non_editionable_models = ApplicationRecord.subclasses
-      .select { |subclass| subclass.included_modules.include? PublishesToPublishingApi }
-      .map(&:to_s)
-      .sort
-
-    assert_equal expected_non_editionable_models, non_editionable_content_types.sort
+    assert_equal NON_EDITIONABLE_CONTENT_TYPES, non_editionable_content_types
   end
 
   test "#republishing_index_bulk_republishing_rows capitalises the first letter of the bulk content type" do
