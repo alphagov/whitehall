@@ -121,6 +121,8 @@ module PublishingApi
       end
 
       def call
+        # return default_image_option unless news_article.has_lead_image? && news_article.lead_image_has_all_assets?
+
         return {} unless news_article.has_lead_image? && news_article.lead_image_has_all_assets?
 
         {
@@ -132,6 +134,10 @@ module PublishingApi
           },
         }
       end
+      #
+      # def default_image_option
+      #   show_default_image? ? { show_default_image: true } : {}
+      # end
 
     private
 

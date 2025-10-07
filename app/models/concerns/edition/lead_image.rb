@@ -10,6 +10,10 @@ module Edition::LeadImage
     !image_data.nil?
   end
 
+  # def show_default_image?
+  #   image_display_option == "organisation_image"
+  # end
+
   def lead_image_url
     image_url
   end

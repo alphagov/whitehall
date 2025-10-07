@@ -70,7 +70,6 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".app-c-edition-images-lead-image-component__lead_image", count: 0
-    assert_selector ".app-view-edition-resource__actions", count: 0
   end
 
   test "case studies has the correct fields when image_display_option is 'no_image' and no images have been uploaded" do
@@ -111,15 +110,6 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
       assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='no_image']", visible: :hidden
       assert_selector ".govuk-button", text: "Remove lead image"
     end
-  end
-
-  test "other types of edition do not render image display information" do
-    image = build_stubbed(:image)
-    edition = build_stubbed(:draft_news_article, image_display_option: "custom_image", images: [image])
-    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
-
-    assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']", count: 0
-    assert_selector "input[type='hidden'][name='edition[image_display_option]']", visible: :hidden, count: 0
   end
 
   test "case studies renders the organisations default_lead_image when image_display_option is 'organisation_image'" do

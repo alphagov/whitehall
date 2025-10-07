@@ -38,10 +38,8 @@
   </div>
 <% end %>
 
-<% if render_resource_actions? %>
   <div class="govuk-grid-row">
     <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
-      <% if case_study? %>
         <%= form_with(url: update_image_display_option_admin_edition_path(edition), method: :patch) do |form| %>
           <%= hidden_field_tag "edition[image_display_option]", new_image_display_option %>
 
@@ -51,7 +49,6 @@
             margin_bottom: 4,
           } %>
         <% end %>
-      <% end %>
 
       <% if lead_image.present? %>
         <%= link_to("Edit details", edit_admin_edition_image_path(edition, lead_image), class: "govuk-link app-view-edition-resource__actions__link") %>
@@ -59,4 +56,3 @@
       <% end %>
     </div>
   </div>
-<% end %>

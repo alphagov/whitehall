@@ -349,6 +349,28 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_not flash["html_safe"]
   end
 
+  test "PATCH :update_image_display_option on case study updates the image_display option and handles updating an editions lead image" do
+    edition = create(:draft_case_study, image_display_option: "custom_image")
+    image = create(:image, edition:)
+    create(:edition_lead_image, edition:, image:)
+
+    patch :update_image_display_option, params: { id: edition.id, edition: { image_display_option: "no_image" } }
+
+    assert_equal "no_image", edition.reload.image_display_option
+    assert_nil edition.lead_image
+  end
+
+  test "PATCH :update_image_display_option on news article updates the image_display option and handles updating an editions lead image" do
+    edition = create(:draft_news_article, image_display_option: "custom_image")
+    image = create(:image, edition:)
+    create(:edition_lead_image, edition:, image:)
+
+    patch :update_image_display_option, params: { id: edition.id, edition: { image_display_option: "no_image" } }
+
+    assert_equal "no_image", edition.reload.image_display_option
+    assert_nil edition.lead_image
+  end
+
 private
 
   def stub_edition_filter(attributes = {})
