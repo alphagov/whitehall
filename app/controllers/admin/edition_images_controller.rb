@@ -44,23 +44,38 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def create
-    @new_image = @edition.images.build
-    @new_image.build_image_data(image_params["image_data"])
+    @images = if images_params.length.positive?
+                images_params.map { |image| create_image(image) }
+              else
+                invalid_image = @edition.images.build
+                invalid_image.build_image_data({})
+                [invalid_image]
+              end
 
-    @new_image.image_data.validate_on_image = @new_image
-
-    @new_image.image_data.images << @new_image
-
-    if @new_image.save
+    if @images.all?(&:valid?)
+      @images.each(&:save)
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
-      flash.notice = "#{@new_image.filename} successfully uploaded"
+      flash[:notice] = "Images successfully uploaded"
     else
-      # Remove @new_image from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
-      @edition.images.delete(@new_image)
+      flash[:notice] = nil
+      # Remove images from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
+      @images.each { |image| @edition.images.delete(image) }
     end
 
     render :index
+  end
+
+  def create_image(image)
+    new_image = @edition.images.build
+
+    new_image.build_image_data(image["image_data"])
+
+    new_image.image_data.validate_on_image = new_image
+
+    new_image.image_data.images << new_image
+
+    new_image
   end
 
   def edit
@@ -97,6 +112,10 @@ private
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
     end
+  end
+
+  def images_params
+    params.fetch(:images, []).map { |image| image.permit(image_data: %i[file]) }
   end
 
   def image_params

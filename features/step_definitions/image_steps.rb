@@ -100,15 +100,30 @@ And "I should see a button to choose to use the default image" do
 end
 
 And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
-  within "input.gem-c-file-upload" do
-    if width == 960 && height == 640
-      attach_file jpg_image
-    elsif width == 64 && height == 96
-      attach_file Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
-    elsif width == 960 && height == 960
-      attach_file Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")
+  if running_javascript?
+    file = if width == 960 && height == 640
+             jpg_image
+           elsif width == 64 && height == 96
+             Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
+           elsif width == 960 && height == 960
+             Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")
+           end
+
+    attach_file file do
+      find(:label, "Upload an image").click
+    end
+  else
+    within "input.gem-c-file-upload" do
+      if width == 960 && height == 640
+        attach_file jpg_image
+      elsif width == 64 && height == 96
+        attach_file Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
+      elsif width == 960 && height == 960
+        attach_file Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")
+      end
     end
   end
+
   click_on "Upload"
 end
 
