@@ -1,7 +1,7 @@
 <% content_for :context, "#{@edition.title}" %>
 <% content_for :page_title, "Images for #{@edition.format_name}" %>
 <% content_for :title, "Images for #{@edition.format_name}" %>
-<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @new_image, parent_class: "edition_images")) if @new_image.present? %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @images.flat_map { |image| image&.errors&.errors }, parent_class: "edition_images")) if @images.present? %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
