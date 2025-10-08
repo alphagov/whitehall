@@ -5,8 +5,8 @@ def shell
 end
 
 namespace :data_hygiene do
-  desc "Merge people records - Dry run"
-  task :merge_people_dry_run, %i[person_to_merge person_to_keep] => :environment do |_task, args|
+  desc "Merge people records"
+  task :merge_people, %i[person_to_merge person_to_keep] => :environment do |_task, args|
     begin
       person_to_merge = Person.find(args[:person_to_merge])
       person_to_keep = Person.find(args[:person_to_keep])
@@ -30,29 +30,6 @@ namespace :data_hygiene do
            "\t#{person_to_keep.historical_account ? '1' : '0'} historical accounts\n" \
            "\t#{person_to_keep.translations.count} translations #{person_to_keep.translations.pluck(:locale).to_sentence}"
 
-    if person_to_merge.translations.find_by(locale: "en")&.biography != person_to_keep.translations.find_by(locale: "en")&.biography
-      puts "The English biographies of the people to merge are different. If the people get merged, you might lose data. Please manually migrate the data and retry."
-      next
-    end
-  end
-
-  desc "Merge people records"
-  task :merge_people, %i[person_to_merge person_to_keep] => :environment do |_task, args|
-    begin
-      person_to_merge = Person.find(args[:person_to_merge])
-      person_to_keep = Person.find(args[:person_to_keep])
-    rescue ActiveRecord::RecordNotFound
-      puts "Please provide valid person IDs to merge."
-      next
-    end
-
-    person_to_merge_content_id = person_to_merge.content_id
-
-    if person_to_merge == person_to_keep
-      puts "The person IDs provided are the same. Please provide valid person IDs to merge."
-      next
-    end
-
     if person_to_merge.historical_account
       puts "Please remove the historical account from the person you want to merge, and retry."
       next
@@ -60,6 +37,16 @@ namespace :data_hygiene do
 
     if person_to_merge.translations.count > 1
       puts "Please manually migrate non-English translations from the person you want to merge to the person you want to keep, and retry."
+      next
+    end
+
+    if person_to_merge.translations.find_by(locale: "en")&.biography != person_to_keep.translations.find_by(locale: "en")&.biography
+      puts "The English biographies of the people to merge are different. If the people get merged, you might lose data. Please manually migrate the data and retry."
+      next
+    end
+
+    unless shell.yes?("Proceed with merging person of ID ##{person_to_merge} into person of ID ##{person_to_keep}? (yes/no)")
+      puts "Merging aborted"
       next
     end
 
@@ -79,11 +66,12 @@ namespace :data_hygiene do
 
     puts "\nWaiting 10s for changes to propagate through Publishing API, triggering callbacks from Search API, chat, email alerts, etc. before sending a redirect, otherwise the redirect gets overridden...\n"
     10.times do
-      sleep(1)
+      Kernel.sleep(1)
       print "."
     end
     puts "\n"
 
+    person_to_merge_content_id = person_to_merge.content_id
     puts "\nRedirecting the deleted person of content ID: '#{person_to_merge_content_id}' to the person to keep, at path: '/government/people/#{person_to_keep.slug}'"
     response = PublishingApiRedirectWorker.new.perform(
       person_to_merge_content_id,
