@@ -143,14 +143,22 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Supporting organisations"
   end
 
-  test "POST create re-renders the new edition template with the submitted block content if the form is invalid" do
-    configurable_document_type = build_configurable_document_type("test_type")
+  view_test "POST create re-renders the new edition template with the submitted block content and errors if the form is invalid" do
+    configurable_document_type = build_configurable_document_type("test_type", "schema" => {
+      "validations" => {
+        "presence" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     block_content = {
-      "test_attribute" => "foo",
+      "test_attribute" => "",
     }
     post :create, params: { edition: { configurable_document_type: "test_type", block_content: } }
     assert_template "admin/editions/new"
+    assert_select "a[href=\"#edition_test_attribute\"]", text: "Test attribute cannot be blank"
+    assert_select ".govuk-error-message", text: "Error: Test attribute cannot be blank"
   end
 end

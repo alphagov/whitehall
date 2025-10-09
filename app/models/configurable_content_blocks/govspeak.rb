@@ -18,12 +18,6 @@ module ConfigurableContentBlocks
       "govspeak"
     end
 
-    def json_schema_validator
-      proc do |instance|
-        instance.is_a?(String) && ::Govspeak::HtmlValidator.new(instance).valid?
-      end
-    end
-
     def publishing_api_payload(content)
       {
         html: govspeak_to_html(content, images: @images, attachments: @attachments),

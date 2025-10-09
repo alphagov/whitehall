@@ -14,14 +14,6 @@ module ConfigurableContentBlocks
       "image_select"
     end
 
-    def json_schema_validator
-      proc do |instance|
-        next true if instance.blank?
-
-        instance.to_i.positive?
-      end
-    end
-
     def publishing_api_payload(content)
       return nil if content.blank?
 

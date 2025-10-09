@@ -2,6 +2,7 @@ require "test_helper"
 
 class MinisterialRoleAppointmentsTest < ActiveSupport::TestCase
   test "it presents the selected role appointment links" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[ministerial_role_appointments]))
     appointments = create_list(:ministerial_role_appointment, 3)
     edition = build(:draft_standard_edition)
     edition.role_appointments << [appointments.first, appointments.last]
@@ -16,6 +17,7 @@ end
 
 class MinisterialRoleAppointmentsRenderingTest < ActionView::TestCase
   test "it renders role appointments form control" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[ministerial_role_appointments]))
     appointments = create_list(:ministerial_role_appointment, 2)
     edition = build(:draft_standard_edition)
     role_appointments_association = ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments)
@@ -27,6 +29,7 @@ class MinisterialRoleAppointmentsRenderingTest < ActionView::TestCase
   end
 
   test "it renders role appointments form control with pre-selected options" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[ministerial_role_appointments]))
     appointments = create_list(:ministerial_role_appointment, 2)
     edition = build(:draft_standard_edition, { role_appointments: [appointments.first] })
 
@@ -37,6 +40,7 @@ class MinisterialRoleAppointmentsRenderingTest < ActionView::TestCase
   end
 
   test "it renders role appointments for control with only ministerial appointments as options" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[ministerial_role_appointments]))
     ministerial_appointments = create_list(:ministerial_role_appointment, 2)
     other_role_appointments = create_list(:judge_role_appointment, 2)
     edition = build(:draft_standard_edition)

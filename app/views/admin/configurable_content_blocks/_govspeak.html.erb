@@ -1,6 +1,7 @@
 <% required = required || false %>
 <% right_to_left = right_to_left || false %>
 <% translated_content = translated_content || nil %>
+<% errors = errors || [] %>
 <%= render "components/govspeak_editor", {
   label: {
     text: schema["title"] + (required ? " (required)" : ""),
@@ -15,6 +16,7 @@
     image_ids: govspeak.images.map { |img| img[:id] }.to_json,
   },
   right_to_left:,
+  error_items: errors_for(errors, path.validation_error_attribute.to_sym),
 } %>
 <% if translated_content.present? %>
   <%= render "govuk_publishing_components/components/details", {
