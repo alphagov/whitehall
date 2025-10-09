@@ -52,4 +52,4 @@ Feature: Images tab on edit edition
     And I start drafting a new publication "Standard Beard Lengths"
     When I visit the images tab of the document "Standard Beard Lengths"
     And I click upload without attaching a file
-    Then I should get the error message "Image data file cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF."
+    Then I should get the error message "Image data file cannot be blank"

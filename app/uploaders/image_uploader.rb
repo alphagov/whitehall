@@ -1,11 +1,13 @@
 class ImageUploader < WhitehallUploader
   include CarrierWave::MiniMagick
+  include CarrierWave::Uploader::Dimension
 
   process :store_dimensions
 
   configure do |config|
     config.remove_previously_stored_files_after_update = false
     config.storage = Storage::PreviewableStorage
+    config.validate_integrity = true
   end
 
   def downloader
@@ -16,15 +18,35 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg]
   end
 
+  def height_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_height..
+    else
+      0..
+    end
+  end
+
+  def width_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_width..
+    else
+      0..
+    end
+  end
+
   def store_dimensions
     if file && bitmap?(file) && model
       begin
         image = ::MiniMagick::Image.open(file.file)
-        model.dimensions ||= {}
-        model.dimensions[:width], model.dimensions[:height] = image[:dimensions]
+
+        model.dimensions = {}
+        model.dimensions["width"], model.dimensions["height"] = image[:dimensions]
       rescue MiniMagick::Error, MiniMagick::Invalid
-        logger.warn("Error opening #{file.file}")
-        # model.errors.add(:file, "could not be read. The file may not be an image or may be corrupt")
+        raise CarrierWave::IntegrityError, "could not be read. The file may not be an image or may be corrupt"
       end
     end
   end
@@ -74,5 +96,13 @@ class ImageUploader < WhitehallUploader
     # active_versions is protected, so it can only be called by subclasses
     # it returns an array of [key, value] pairs, and we want the keys
     active_versions.map(&:first)
+  end
+
+private
+
+  def check_dimensions!(new_file)
+    super
+  rescue CarrierWave::IntegrityError
+    raise CarrierWave::IntegrityError, "is too small. Select an image that is at least #{width_range.begin} pixels wide and at least #{height_range.begin} pixels tall"
   end
 end

@@ -22,7 +22,7 @@ class ImageDataTest < ActiveSupport::TestCase
   test "rejects images smaller than 960x640" do
     image_data = build_example("50x33_gif.gif")
     assert_not image_data.valid?
-    assert image_data.errors.of_kind?(:file, :too_small)
+    assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
   end
 
   test "accepts images with 960x640 dimensions" do
@@ -33,7 +33,7 @@ class ImageDataTest < ActiveSupport::TestCase
   test "rejects image as 'too small' when it's too large in one dimension but too small in another" do
     image_data = build_example("300x1000_png.png")
     assert_not image_data.valid?
-    assert image_data.errors.of_kind?(:file, :too_small)
+    assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
   end
 
   test "rejects images with duplicate filename on edition" do
