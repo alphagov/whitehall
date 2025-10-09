@@ -7,9 +7,9 @@ class StandardEdition < Edition
   include Edition::TopicalEvents
   include Edition::WorldLocations
   include Edition::Organisations
+  include HasBlockContent
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
-  validate :content_conforms_to_schema
 
   def self.choose_document_type_form_action
     "choose_type_admin_standard_editions_path"
@@ -61,14 +61,5 @@ class StandardEdition < Edition
 
   def organisation_association_enabled?
     type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
-  end
-
-  def content_conforms_to_schema
-    formats = ConfigurableContentBlocks::Factory.new(self).build_all.each_with_object({}) do |block, object|
-      object[block.json_schema_format] = block.json_schema_validator unless block.json_schema_format == "default"
-    end
-    unless JSONSchemer.schema(type_instance.schema, formats:).valid?(block_content)
-      errors.add(:block_content, "does not conform with the expected schema")
-    end
   end
 end

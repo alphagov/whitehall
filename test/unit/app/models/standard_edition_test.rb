@@ -105,7 +105,7 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_history_mode.can_be_marked_political?
   end
 
-  test "it is invalid if the block content does not conform to the configurable document type schema" do
+  test "it is invalid if the block content does not conform to the configurable document type schema validations" do
     test_type = "test_type"
     configurable_document_type =
       build_configurable_document_type(
@@ -118,12 +118,50 @@ class StandardEditionTest < ActiveSupport::TestCase
               },
             },
             "required" => %w[test_attribute],
+            "validations" => {
+              "presence" => {
+                "attributes" => %w[test_attribute],
+              },
+            },
           },
         }
       )
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
-    page = build(:standard_edition, { configurable_document_type: test_type, block_content: {} })
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_attribute: "" } })
     assert page.invalid?
+    assert_not page.errors.where("test_attribute", :blank).empty?
+  end
+
+  test "it is invalid if the nested block content does not conform to the configurable document type schema validations" do
+    test_type = "test_type"
+    configurable_document_type =
+      build_configurable_document_type(
+        test_type, {
+          "schema" => {
+            "properties" => {
+              "test_object_attribute" => {
+                "title" => "Test object attribute",
+                "type" => "object",
+                "properties" => {
+                  "test_nested_attribute" => {
+                    "title" => "Test nested attribute",
+                    "type" => "string",
+                  },
+                },
+                "validations" => {
+                  "presence" => {
+                    "attributes" => %w[test_nested_attribute],
+                  },
+                },
+              },
+            },
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_object_attribute: { test_nested_attribute: "" } } })
+    assert page.invalid?
+    assert_not page.errors.where("test_object_attribute.test_nested_attribute", :blank).empty?
   end
 
   test "it allows translations if the configurable document type settings permit them" do

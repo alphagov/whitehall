@@ -45,12 +45,33 @@ Block views use the following [partial-local](https://guides.rubyonrails.org/act
 - The `required` attribute. The required properties are defined at the parent level in [JSON schema](https://json-schema.org/docs), so the `required` attribute is extracted in the parent view, and passed on to any required child property, which then gets rendered with a "(required)" specification in its label.
 - The `right_to_left` (default `false`) attribute. This is set to true if the locale for the edition translation is set to a language which is read from right to left.
 - The `translated_content` (default `nil`) attribute. If the edition is a translation, then this will be populated with the translated content. Blocks must populate their values with the translated content if it is provided, and may wish to show the content for the primary locale as an aid to the user.
+- The `errors` (default `[]`) attribute. The validation errors for the edition. Use the `errors_for` helper function and pass it both the errors and the attribute "path" to pass the attribute errors to the form control component.
 
 Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb). To add a new block type, add a new block class implementing the methods above to the `app/models/configurable_content_blocks` directory, and add the block type to the private blocks method in the factory class. The `blocks` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the configurable document edition object as its only argument. Any values from the edition object needed by the block can be passed to the block's initialize method, e.g. the Image Select block is passed the edition's images.
 
 There are two potential "gotchas" in to do with block types. The first is that you can't define a numeric type. Usually, Rails is able to cast model attribute values to a number if the attribute is stored using a numeric database column. However, because we store all the edition content in a single JSON column, Rails can't do that for block content values. Therefore, we are forced to define all leaf schema properties as strings. It may be possible to implement some sort of type casting solution in future if this becomes especially painful.
 
 The second "gotcha" is that you can't define nullable types, which in JSON schema is usually done by defining a type of `[string, null]`. However, Rails will typically interpret empty form input values as an empty string, rather than `nil`.
+
+### Content Block Validation
+
+Rails validations can be applied to properties by adding a `validations` key to the property's object schema. The value for the `validations` key should be an object. The keys for the object must map to a validator, as defined in the ['block content' model](../app/models/standard_edition/block_content.rb). The value for each key is an object which will be passed to the validator constructor. The `attributes` must be included in that object, and must be an array of the names of the attributes to be validated. Other options may be passed depending on what arguments the validator's `initialize` method accepts.
+Example:
+```json
+{
+  "validations": {
+    "presence": {
+      "attributes": ["body"]
+    },
+    "max_file_size_custom_validator": {
+      "attributes": [
+        "image"
+      ],
+      "maximum_file_size": 9000
+    }
+  }
+}
+``` 
 
 ## Associations
 

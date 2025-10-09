@@ -1,27 +1,12 @@
 require "test_helper"
 class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
-  test "it validates that the content is a string" do
-    validator = ConfigurableContentBlocks::Govspeak.new.json_schema_validator
-    assert_not validator.call(5)
-  end
-
-  test "it validates that the content is valid govspeak" do
-    validator = ConfigurableContentBlocks::Govspeak.new.json_schema_validator
-    assert_not validator.call("<script>alert('You've been pwned!')</script>'")
-  end
-
   test "it presents the govspeak content as HTML, including images and attachments" do
     image = create(:image)
     attachment = create(:file_attachment)
     govspeak = "A paragraph followed by an image:\n[Image: #{image.filename}]\n[Attachment: #{attachment.filename}]"
-    content = {
-      "test_attribute" => govspeak,
-    }
-    page = StandardEdition.new
-    page.images = [image]
-    page.attachments = [attachment]
-    page.block_content = content
-    payload = ConfigurableContentBlocks::Govspeak.new(page.images, page.attachments).publishing_api_payload(govspeak)
+    images = [image]
+    attachments = [attachment]
+    payload = ConfigurableContentBlocks::Govspeak.new(images, attachments).publishing_api_payload(govspeak)
     doc = Nokogiri::HTML(payload[:html])
     assert_not doc.css("a[href=\"#{attachment.url}\"]").empty?
     assert_not doc.css("img[src=\"#{image.url}\"]").empty?
@@ -30,11 +15,6 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
 
   test "it includes headers in the payload, if present in the govspeak" do
     govspeak = "## Some header\n\n%A callout%"
-    content = {
-      "test_attribute" => govspeak,
-    }
-    page = StandardEdition.new
-    page.block_content = content
     expected_headers = [
       {
         text: "Some header",
@@ -49,11 +29,6 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
 
   test "it does not include headers in the payload, if not present in the govspeak" do
     govspeak = "Some content without headers"
-    content = {
-      "test_attribute" => govspeak,
-    }
-    page = StandardEdition.new
-    page.block_content = content
     payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
     assert_nil payload[:headers]
     assert_not_nil payload[:html]
@@ -155,5 +130,35 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
       translated_content:,
     }
     assert_dom "textarea", text: translated_content
+  end
+
+  test "it renders any validation errors when they are present" do
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+          "format" => "govspeak",
+        },
+      },
+      "validations" => {
+        "presence" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    }
+
+    errors = [mock("object"), mock("object")]
+    messages = %w[foo bar]
+    errors.each_with_index do |error, index|
+      error.expects(:attribute).returns(:test_attribute)
+      error.expects(:full_message).returns(messages[index])
+    end
+
+    block = ConfigurableContentBlocks::Govspeak.new
+    render block, { schema:, content: "## foo", path: Path.new.push("test_attribute"), errors: }
+    assert_dom ".govuk-error-message", "Error: #{messages.join}"
   end
 end

@@ -13,11 +13,15 @@ module ConfigurableContentBlocks
     end
 
     def form_control_id
-      "edition_block_content_#{@segments.join('_')}"
+      "edition_#{@segments.join('_')}"
     end
 
     def form_control_name
       "edition[block_content][#{@segments.join('][')}]"
+    end
+
+    def validation_error_attribute
+      @segments.join(".")
     end
   end
 end
