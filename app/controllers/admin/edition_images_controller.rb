@@ -50,23 +50,39 @@ class Admin::EditionImagesController < Admin::BaseController
       flash.now.notice = "Images successfully uploaded"
     else
       # Remove images from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
-      @images.each { |image| @edition.images.delete(image) }
+      @images.each { |image| image.id.nil? && @edition.images.delete(image) }
     end
 
     render :index
   end
 
   def create_image(image)
-    new_image = @edition.images.build
+    existing_image = @edition.images.joins(:image_data).where(["image_data.carrierwave_image = ?", image["image_data"]["file"].original_filename]).first
 
-    new_image.build_image_data(image["image_data"])
+    if existing_image.present?
+      existing_image.image_data.validate_on_image = existing_image
 
-    new_image.image_data.validate_on_image = new_image
+      sanitized_file = CarrierWave::SanitizedFile.new(image["image_data"]["file"].tempfile)
 
-    # so that auth_bypass_id is discoverable by AssetManagerStorage
-    new_image.image_data.images << new_image
+      # Prevent the new file from being renamed to the temporary name
+      sanitized_file.move_to(File.join(File.dirname(sanitized_file.path), existing_image.image_data.carrierwave_image))
 
-    new_image
+      existing_image.image_data.file.store!(sanitized_file)
+
+      # To force user to supply a new crop for reuploaded image
+      existing_image.image_data.crop_data = nil
+
+      existing_image
+    else
+      new_image = @edition.images.build
+      new_image.build_image_data(image["image_data"])
+
+      new_image.image_data.validate_on_image = new_image
+
+      new_image.image_data.images << new_image
+
+      new_image
+    end
   end
 
   def edit
