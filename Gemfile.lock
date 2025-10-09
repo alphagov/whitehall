@@ -147,7 +147,7 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.2)
-    cucumber (10.1.0)
+    cucumber (10.1.1)
       base64 (~> 0.2)
       builder (~> 3.2)
       cucumber-ci-environment (> 9, < 11)
@@ -168,7 +168,7 @@ GEM
       bigdecimal
     cucumber-gherkin (32.2.0)
       cucumber-messages (> 25, < 28)
-    cucumber-html-formatter (21.14.0)
+    cucumber-html-formatter (21.15.1)
       cucumber-messages (> 19, < 28)
     cucumber-messages (27.2.0)
     cucumber-rails (4.0.0)
