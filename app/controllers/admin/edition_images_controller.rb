@@ -77,22 +77,42 @@ class Admin::EditionImagesController < Admin::BaseController
     else
       flash[:notice] = nil
       # Remove images from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
-      @images.each { |image| @edition.images.delete(image) }
+      @images.each { |image| image.id.nil? && @edition.images.delete(image) }
     end
 
     render :index
   end
 
   def create_image(image)
-    new_image = @edition.images.build
+    existing_image = @edition.images.joins(:image_data).where(["image_data.carrierwave_image = ?", image["image_data"]["file"].original_filename]).first
 
-    new_image.build_image_data(image["image_data"])
+    if existing_image.present?
+      existing_image.image_data.validate_on_image = existing_image
+      # Using CarrierWave::SanitizedFile means that the filename is
+      # sanitized in the same way as other uploaded files.
+      sanitized_file = CarrierWave::SanitizedFile.new(image["image_data"]["file"].tempfile)
 
-    new_image.image_data.validate_on_image = new_image
+      # Uploaded files are renamed by Rails but we want to retain
+      # `original_filename` so a file can be cropped and not saved
+      # with a different name
+      sanitized_file.move_to(File.join(File.dirname(sanitized_file.path), existing_image.image_data.carrierwave_image))
 
-    new_image.image_data.images << new_image
+      existing_image.image_data.file.store!(sanitized_file)
 
-    new_image
+      # remove crop data since it is a new image
+      existing_image.image_data.crop_data = nil
+
+      existing_image
+    else
+      new_image = @edition.images.build
+      new_image.build_image_data(image["image_data"])
+
+      new_image.image_data.validate_on_image = new_image
+
+      new_image.image_data.images << new_image
+
+      new_image
+    end
   end
 
   def edit

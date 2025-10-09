@@ -3,7 +3,7 @@ require_relative "../../../../lib/whitehall/image_kinds"
 
 class ImageValidatorTest < ActiveSupport::TestCase
   def setup
-    @example_model = ImageData
+    @example_model = FeaturedImageData
   end
 
   test "should accept a good jpeg image" do
@@ -28,14 +28,14 @@ class ImageValidatorTest < ActiveSupport::TestCase
   end
 
   test "with image kind config on the model it should only accept original images of a valid size" do
-    @example_model = Class.new(ImageData) do
+    @example_model = Class.new(FeaturedImageData) do
       def image_kind_config
         Whitehall::ImageKind.new(
           "some image kind",
           "display_name" => "some image kind display name",
           "permitted_uses" => [],
-          "valid_width" => 300,
-          "valid_height" => 1000,
+          "valid_width" => 50,
+          "valid_height" => 33,
           "versions" => [],
         )
       end
@@ -43,12 +43,12 @@ class ImageValidatorTest < ActiveSupport::TestCase
 
     subject = ImageValidator.new
 
-    assert_validates_as_invalid(subject, "50x33_gif.gif")
-    assert_validates_as_valid(subject, "300x1000_png.png")
+    assert_validates_as_valid(subject, "50x33_gif.gif")
+    assert_validates_as_invalid(subject, "960x640_jpeg.jpg")
   end
 
   test "accepts any size if the model does not have image kind config" do
-    @example_model = Class.new(ImageData) do
+    @example_model = Class.new(FeaturedImageData) do
       undef_method :image_kind_config
     end
 
@@ -64,16 +64,18 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert too_small.errors.of_kind?(:file, :too_small)
   end
 
+  test "error type is :too_large when the image is too large" do
+    subject = ImageValidator.new
+    too_large = build_example("960x960_jpeg.jpg")
+    subject.validate(too_large)
+    assert too_large.errors.of_kind?(:file, :too_large)
+  end
+
   test "it should not throw an exception if a file isn't present" do
     subject = ImageValidator.new
     assert_nothing_raised do
       assert_validates_as_valid(subject, nil)
     end
-  end
-
-  test "it allows SVG" do
-    subject = ImageValidator.new(size: [960, 640])
-    assert_validates_as_valid(subject, "test-svg.svg")
   end
 
 private
@@ -94,10 +96,8 @@ private
     if file_name.present?
       File.open(Rails.root.join("test/fixtures/images", file_name)) do |file|
         @example_model.new(file:).tap do |image_data|
-          carrierwave_file = image_data.file.file
-          if carrierwave_file
-            carrierwave_file.content_type = content_type(file_name)
-          end
+          carrierwave_image = image_data.file.file
+          carrierwave_image.content_type = content_type(file_name)
         end
       end
     else

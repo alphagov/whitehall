@@ -3,7 +3,6 @@ class ImageValidator < ActiveModel::Validator
     "image/jpeg" => /(\.jpeg|\.jpg)$/,
     "image/gif" => /\.gif$/,
     "image/png" => /\.png$/,
-    "image/svg+xml" => /\.svg$/,
   }.freeze
 
   def initialize(options = {})
@@ -15,15 +14,13 @@ class ImageValidator < ActiveModel::Validator
   def validate(record)
     return if file_for(record).blank?
     return unless File.exist?(file_for(record).path)
+    return if file_for(record).file.content_type.match?(/svg/)
 
     begin
       image_path = file_for(record).path
       validate_mime_type(record, image_path)
       image = MiniMagick::Image.open(image_path)
-
-      unless Marcel::MimeType.for(Pathname.new(image_path)).match?(/svg/)
-        validate_size(record, image)
-      end
+      validate_size(record, image)
     rescue MiniMagick::Error, MiniMagick::Invalid
       record.errors.add(@method, "could not be read. The file may not be an image or may be corrupt")
     end
@@ -49,10 +46,14 @@ private
     target_height = record.image_kind_config.valid_height
 
     too_small = actual_width < target_width || actual_height < target_height
+    too_large = actual_width > target_width || actual_height > target_height
 
-    return unless too_small
+    return unless too_small || too_large
 
-    record.errors.add(@method, :too_small, message: "is too small. Select an image that is at least #{target_width} pixels wide and at least #{target_height} pixels tall")
+    error_type = too_small ? :too_small : :too_large
+    problem = too_small ? "too small" : "too large"
+    message = "is #{problem}. Select an image that is #{target_width} pixels wide and #{target_height} pixels tall"
+    record.errors.add(@method, error_type, message:)
   end
 
   def file_for(record)
