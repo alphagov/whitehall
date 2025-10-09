@@ -460,4 +460,8 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_not consultation.valid?
     assert_includes consultation.errors[:consultation_response_form], "must have finished uploading"
   end
+
+  test "is rendered by frontend" do
+    assert Consultation.new.rendering_app == Whitehall::RenderingApp::FRONTEND
+  end
 end
