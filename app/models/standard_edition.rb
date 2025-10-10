@@ -7,6 +7,7 @@ class StandardEdition < Edition
   include Edition::TopicalEvents
   include Edition::WorldLocations
   include Edition::Organisations
+  include StandardEditions::BlockContent
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
   validate :content_conforms_to_schema
@@ -63,11 +64,13 @@ class StandardEdition < Edition
     type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
   end
 
+private
+
   def content_conforms_to_schema
     formats = ConfigurableContentBlocks::Factory.new(self).build_all.each_with_object({}) do |block, object|
-      object[block.json_schema_format] = block.json_schema_validator unless block.json_schema_format == "default"
+      object[block.json_schema_format] = block.json_schema_validator if block.respond_to?(:json_schema_validator)
     end
-    unless JSONSchemer.schema(type_instance.schema, formats:).valid?(block_content)
+    unless JSONSchemer.schema(type_instance.schema, formats:).valid?(block_content.attributes.to_h.compact)
       errors.add(:block_content, "does not conform with the expected schema")
     end
   end

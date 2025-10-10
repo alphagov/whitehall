@@ -2,6 +2,7 @@ require "test_helper"
 
 class OrganisationsTest < ActiveSupport::TestCase
   test "it presents the selected organisations and primary publishing organisation links" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     organisations = create_list(:organisation, 3)
     edition = build(:draft_standard_edition)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
@@ -15,6 +16,7 @@ class OrganisationsTest < ActiveSupport::TestCase
   end
 
   test "it presents the first lead organisation as the primary publishing organisation" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     organisations = create_list(:organisation, 3)
     edition = build(:draft_standard_edition)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 1 }, { organisation: organisations.last, lead: true, lead_ordering: 0 }])
@@ -26,6 +28,7 @@ end
 
 class OrganisationsRenderingTest < ActionView::TestCase
   test "it renders the lead organisations form control" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     edition = build(:draft_standard_edition, :with_organisations)
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     organisations = create_list(:organisation, 3) + edition.organisations
@@ -44,6 +47,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
   end
 
   test "it renders lead organisation options in alphabetical order" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     create(:organisation, name: "MOD")
     create(:organisation, name: "DWP")
     create(:organisation, name: "HMRC")
@@ -56,6 +60,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
   end
 
   test "it renders the supporting organisations form control" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     edition = build(:draft_standard_edition, :with_organisations)
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     render organisations_association
@@ -63,6 +68,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
   end
 
   test "it renders supporting organisation options in alphabetical order" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     create(:organisation, name: "MOD")
     create(:organisation, name: "DWP")
     create(:organisation, name: "HMRC")
@@ -75,6 +81,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
   end
 
   test "it renders the lead organisation form control with pre-selected options" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     organisations = create_list(:organisation, 3)
     edition = build(:draft_standard_edition)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 3 }, { organisation: organisations.last, lead: true, lead_ordering: 1 }])
@@ -87,6 +94,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
   end
 
   test "it renders the lead organisation form control with the default lead organisation" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     organisations = create_list(:organisation, 2)
     edition = build(:draft_standard_edition)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }])
@@ -98,6 +106,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
   end
 
   test "it renders the supporting organisation form control with pre-selected options" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     organisations = create_list(:organisation, 3)
     edition = build(:draft_standard_edition)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: false }, { organisation: organisations.last, lead: false }])
@@ -110,6 +119,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
   end
 
   test "it displays errors for lead organisations if there are any" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", associations: %w[organisations]))
     edition = build(:draft_standard_edition)
     edition.errors.add(:lead_organisations, "Some error goes here")
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)

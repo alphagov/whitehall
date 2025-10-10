@@ -3,6 +3,7 @@
 <% translated_content = translated_content || {} %>
 <% root = root || false %>
 <% right_to_left = right_to_left || false %>
+<% errors = errors || [] %>
 <% unless root %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: schema["title"] + (required ? " (required)" : ""),
@@ -14,10 +15,11 @@
       <%= render block, {
         schema: property_schema,
         content: content[property_key],
-        translated_content: translated_content.key?(property_key) ? translated_content[property_key] : nil,
+        translated_content: translated_content[property_key],
         path: path.push(property_key),
         required: schema["required"].present? ? schema["required"].include?(property_key) : false,
         right_to_left:,
+        errors:,
       } %>
     <% end %>
   <% end %>
@@ -27,10 +29,11 @@
     <%= render block, {
       schema: property_schema,
       content: content[property_key],
-      translated_content: translated_content.key?(property_key) ? translated_content[property_key] : nil,
+      translated_content: translated_content[property_key],
       path: path.push(property_key),
       required: schema["required"].present? ? schema["required"].include?(property_key) : false,
       right_to_left:,
+      errors:,
     } %>
   <% end %>
 <% end %>

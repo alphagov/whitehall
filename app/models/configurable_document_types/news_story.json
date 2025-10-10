@@ -18,6 +18,11 @@
         "type": "string",
         "format": "image_select"
       }
+    },
+    "validations": {
+      "presence": {
+        "attributes": ["body"]
+      }
     }
   },
   "associations" : [

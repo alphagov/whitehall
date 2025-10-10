@@ -12,7 +12,7 @@
     selected: image.image_data.id == (translated_content || content).to_i,
   }
 end %>
-
+<% errors = errors || [] %>
 <%= render "govuk_publishing_components/components/select", {
   id: path.form_control_id,
   label: schema["title"] + (required ? " (required)" : ""),
@@ -20,4 +20,5 @@ end %>
   options: select_options,
   hint: schema["description"],
   heading_size: "m",
+  error_items: errors_for(errors, path.validation_error_attribute.to_sym),
 } %>

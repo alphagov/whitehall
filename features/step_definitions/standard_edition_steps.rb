@@ -5,20 +5,22 @@ end
 def create_configurable_document(title:, locale: "en", summary: nil, body: nil)
   image = create_test_image
   defaults = default_content_for_locale(locale)
-  create(
-    :draft_standard_edition,
-    {
-      configurable_document_type: "test",
-      images: [image],
-      title: title,
-      summary: summary || defaults[:summary],
-      primary_locale: locale,
-      block_content: {
-        "image" => image.image_data.id.to_s,
-        "body" => body || defaults[:body],
+  I18n.with_locale(locale) do
+    create(
+      :draft_standard_edition,
+      {
+        configurable_document_type: "test",
+        images: [image],
+        title: title,
+        summary: summary || defaults[:summary],
+        primary_locale: locale,
+        block_content: {
+          "image" => image.image_data.id.to_s,
+          "body" => body || defaults[:body],
+        },
       },
-    },
-  )
+    )
+  end
 end
 
 def default_content_for_locale(locale)
@@ -43,7 +45,7 @@ def add_translation(edition, language, title, summary, body)
   click_button "Next"
   fill_in "Translated title (required)", with: title
   fill_in "Translated summary (required)", with: summary
-  fill_in "edition_block_content_body", with: body
+  fill_in "Body", with: body
   click_button "Save"
 end
 
@@ -69,7 +71,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   within "form" do
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
-    fill_in "edition_block_content_body", with: "## Some govspeak\n\nThis is the body content"
+    fill_in "edition_body", with: "## Some govspeak\n\nThis is the body content"
   end
   click_button "Save and go to document summary"
 end
@@ -158,12 +160,12 @@ When(/^I add a Welsh translation "([^"]*)"$/) do |welsh_title|
 end
 
 Then(/^configured content blocks should appear on the translation page$/) do
-  expect(page).to have_field("edition_block_content_body")
+  expect(page).to have_field("Body")
   expect(page).to have_select("Image")
 end
 
 And(/^the Welsh translation fields should be pre-populated with primary locale content$/) do
-  expect(page).to have_field("edition_block_content_body", with: /govspeak/)
+  expect(page).to have_field("Body", with: /govspeak/)
 end
 
 And(/^the image selections should be preserved from the primary locale$/) do

@@ -26,7 +26,12 @@
         "format": "default"
       }
     },
-    "required": ["body"]
+    "required": ["body"],
+    "validations": {
+      "presence": {
+        "attributes": ["body"]
+      }
+    }
   },
   "associations": [],
   "settings": {
