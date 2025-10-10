@@ -7,11 +7,28 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     # Ignore "abstract" Edition descendants
     unexpected_content_types = %w[Announcement StandardEdition GenericEdition SearchableEdition]
 
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "publishing_api_schema_name" => "test_type" } }))
+    configurable_content_types = ConfigurableDocumentType.all.map { |type| type.settings["publishing_api_schema_name"].camelize }
+
     expected_content_types = (
-      Edition.descendants.map(&:to_s) + non_editionable_content_types - unexpected_content_types
+      Edition.descendants.map(&:to_s) + configurable_content_types + non_editionable_content_types - unexpected_content_types
     ).reject { _1.include?("Test::") }.sort
 
     assert_equal expected_content_types, republishable_content_types
+  end
+
+  test "#republishable_content_types removes duplicates when including configurable document types" do
+    Rails.application.eager_load!
+
+    # Ignore "abstract" Edition descendants
+    unexpected_content_types = %w[Announcement StandardEdition GenericEdition SearchableEdition]
+    editionable_content_types = Edition.descendants.map(&:to_s) - unexpected_content_types
+    test_type = editionable_content_types.first.underscore
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(test_type, { "settings" => { "publishing_api_schema_name" => test_type } }))
+    configurable_content_types = ConfigurableDocumentType.all.map { |type| type.settings["publishing_api_schema_name"].camelize }
+
+    expected_content_type_count = (editionable_content_types + non_editionable_content_types + configurable_content_types).uniq.count
+    assert_equal expected_content_type_count, republishable_content_types.count
   end
 
   test "#non_editionable_content_types returns a list of non-editionable content types" do
