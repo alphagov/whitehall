@@ -589,6 +589,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_125325) do
   create_table "image_data", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "carrierwave_image"
     t.datetime "created_at", precision: nil
+    t.json "dimensions"
+    t.json "crop_data"
     t.datetime "updated_at", precision: nil
     t.string "image_kind", default: "default", null: false
   end

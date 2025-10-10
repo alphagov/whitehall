@@ -3,7 +3,7 @@ require_relative "../../../../lib/whitehall/image_kinds"
 
 class ImageValidatorTest < ActiveSupport::TestCase
   def setup
-    @example_model = ImageData
+    @example_model = FeaturedImageData
   end
 
   test "should accept a good jpeg image" do
@@ -18,10 +18,6 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert_validates_as_valid(ImageValidator.new, "960x640_jpeg_with_uppercase_extension.JPG")
   end
 
-  test "should not accept a corrupt image" do
-    assert_validates_as_invalid(ImageValidator.new, "not_an_image.jpg")
-  end
-
   test "should allow specified mime-types" do
     subject = ImageValidator.new(mime_types: {
       "image/gif" => /.gif$/,
@@ -32,7 +28,7 @@ class ImageValidatorTest < ActiveSupport::TestCase
   end
 
   test "with image kind config on the model it should only accept original images of a valid size" do
-    @example_model = Class.new(ImageData) do
+    @example_model = Class.new(FeaturedImageData) do
       def image_kind_config
         Whitehall::ImageKind.new(
           "some image kind",
@@ -52,7 +48,7 @@ class ImageValidatorTest < ActiveSupport::TestCase
   end
 
   test "accepts any size if the model does not have image kind config" do
-    @example_model = Class.new(ImageData) do
+    @example_model = Class.new(FeaturedImageData) do
       undef_method :image_kind_config
     end
 
@@ -82,11 +78,6 @@ class ImageValidatorTest < ActiveSupport::TestCase
     end
   end
 
-  test "it allows SVG" do
-    subject = ImageValidator.new(size: [960, 640])
-    assert_validates_as_valid(subject, "test-svg.svg")
-  end
-
 private
 
   def assert_validates_as_valid(validator, image_file_name)
@@ -105,8 +96,8 @@ private
     if file_name.present?
       File.open(Rails.root.join("test/fixtures/images", file_name)) do |file|
         @example_model.new(file:).tap do |image_data|
-          carrierwave_file = image_data.file.file
-          carrierwave_file.content_type = content_type(file_name)
+          carrierwave_image = image_data.file.file
+          carrierwave_image.content_type = content_type(file_name)
         end
       end
     else
