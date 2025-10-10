@@ -70,6 +70,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
     fill_in "edition_block_content_body", with: "## Some govspeak\n\nThis is the body content"
+    # TODO: choose an organisation
   end
   click_button "Save and go to document summary"
 end
@@ -100,6 +101,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
 end
 
 Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
+  expect(page).to_not have_css(".govuk-error-summary"), "PAGE ERROR: #{page.find('.govuk-error-summary').text}"
   expect(page.find("h1")).to have_content(title)
   expect(page).to have_content("Your document has been saved.")
   expect(page).to have_content("Standard edition: Test")

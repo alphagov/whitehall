@@ -1,0 +1,35 @@
+{
+  "key": "press_release",
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.gov.uk/schemas/press_release/v1",
+    "title": "Press Release",
+    "description": "Unedited press releases as sent to the media, and official statements from the organisation or a minister.",
+    "type": "object",
+    "properties": {
+      "body": {
+        "title": "Body (required)",
+        "type": "string",
+        "format": "govspeak"
+      },
+      "image": {
+        "title": "Lead image",
+        "description": "Select a lead image, if required",
+        "type": "string",
+        "format": "image_select"
+      }
+    }
+  },
+  "settings": {
+    "base_path_prefix": "/government/news",
+    "publishing_api_schema_name": "news_article",
+    "publishing_api_document_type": "press_release",
+    "rendering_app": "frontend",
+    "images_enabled": true,
+    "send_headings": false,
+    "file_attachments_enabled": true,
+    "organisations": null,
+    "backdating_enabled": true,
+    "history_mode_enabled": true
+  }
+}
