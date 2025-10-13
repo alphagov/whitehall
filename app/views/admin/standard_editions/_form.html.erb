@@ -68,6 +68,7 @@
       content: @edition.block_content,
       path: ConfigurableContentBlocks::Path.new,
       right_to_left: @edition.rtl?,
+      errors: @edition.errors,
       root: true,
     }) %>
 

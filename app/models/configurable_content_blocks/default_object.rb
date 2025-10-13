@@ -21,7 +21,7 @@ module ConfigurableContentBlocks
     def publishing_api_payload(schema, content)
       output = {}
       schema["properties"].each do |property_key, property_schema|
-        unless content&.key?(property_key)
+        unless content[property_key]
           logger.warn "Property #{property_key} is missing from content, skipping..."
           next
         end

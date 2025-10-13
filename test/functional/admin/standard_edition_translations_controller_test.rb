@@ -119,16 +119,30 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
   end
 
   view_test "update renders the form again, with errors, if the translation is invalid" do
-    edition = create(:draft_standard_edition, configurable_document_type: "test_type", title: "english-title")
+    configurable_document_type = build_configurable_document_type("test_type", "schema" => {
+      "validations" => {
+        "presence" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    edition = create(:draft_standard_edition,
+                     configurable_document_type: "test_type",
+                     title: "english-title",
+                     block_content: { "test_attribute" => "foo" })
 
     put :update,
         params: { standard_edition_id: edition,
                   id: "fr",
                   edition: {
                     title: "",
+                    block_content: { test_attribute: "" },
                   } }
 
     assert_select ".govuk-error-summary"
+    assert_select "a[href=\"#edition_test_attribute\"]", text: "Test attribute cannot be blank"
+    assert_select ".govuk-error-message", text: "Error: Test attribute cannot be blank"
   end
 
   view_test "#update puts the translation to the publishing API" do

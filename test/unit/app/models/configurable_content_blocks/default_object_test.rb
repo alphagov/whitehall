@@ -156,6 +156,37 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     assert_dom "input[dir=\"rtl\"]"
   end
 
+  test "it passes the errors attribute on to child blocks" do
+    schema = {
+      "title" => "Test object",
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+        },
+      },
+      "validations" => {
+        "presence" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    }
+
+    errors = [mock("object"), mock("object")]
+    messages = %w[foo bar]
+    errors.each_with_index do |error, index|
+      error.expects(:attribute).returns(:test_attribute)
+      error.expects(:full_message).returns(messages[index])
+    end
+
+    edition = build(:draft_standard_edition, { block_content: { "test_attribute": "" } })
+    factory = ConfigurableContentBlocks::Factory.new(edition)
+    block = ConfigurableContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content: {}, path: Path.new, right_to_left: true, errors: }
+    assert_dom ".govuk-error-message", "Error: #{messages.join}"
+  end
+
   test "it renders not-nested child attribute content" do
     schema = {
       "title" => "Test object",
