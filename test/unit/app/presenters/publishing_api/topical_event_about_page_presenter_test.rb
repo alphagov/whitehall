@@ -43,4 +43,34 @@ class PublishingApi::TopicalEventAboutPagePresenterTest < ActiveSupport::TestCas
 
     assert_equal expected_hash, presented_content
   end
+
+  test "it includes headers when headers are present in body" do
+    topical_event_about_page = create(
+      :topical_event_about_page,
+      body: "##Some header\n\nSome content",
+    )
+
+    presented_topical_event_about_page = PublishingApi::TopicalEventAboutPagePresenter.new(topical_event_about_page)
+
+    expected_headers = [
+      {
+        text: "Some header",
+        level: 2,
+        id: "some-header",
+      },
+    ]
+
+    assert_equal expected_headers, presented_topical_event_about_page.content[:details][:headers]
+  end
+
+  test "it does not include headers when headers are not present in body" do
+    topical_event_about_page = create(
+      :topical_event_about_page,
+      body: "Some content",
+    )
+
+    presented_topical_event_about_page = PublishingApi::TopicalEventAboutPagePresenter.new(topical_event_about_page)
+
+    assert_nil presented_topical_event_about_page.content[:details][:headers]
+  end
 end

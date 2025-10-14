@@ -47,7 +47,9 @@ module PublishingApi
       {
         body:,
         read_more: item.read_more_link_text,
-      }
+      }.tap do |details_hash|
+        details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
+      end
     end
 
     def body
