@@ -6,6 +6,7 @@ class StandardEdition::BlockContent
   VALIDATORS = {
     "length" => ActiveModel::Validations::LengthValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
+    "safe_html" => SafeHtmlValidator,
   }.freeze
 
   def initialize(schema, path)
