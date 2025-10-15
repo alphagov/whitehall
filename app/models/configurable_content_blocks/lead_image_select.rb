@@ -8,11 +8,20 @@ module ConfigurableContentBlocks
     end
 
     def publishing_api_payload(content)
-      if (selected_image = images.find { |image| image.image_data.id == content.to_i })&.image_data&.all_asset_variants_uploaded?
+      selected_image = images.find { |image| image.image_data.id == content.to_i }
+      if selected_image&.image_data&.all_asset_variants_uploaded?
+        return {
+          high_resolution_url: selected_image.image_data.file.url(:s960),
+          url: selected_image.image_data.file.url(:s300),
+          caption: lead_image_caption(selected_image),
+        }.compact
+      end
+
+      if default_lead_image&.all_asset_variants_uploaded?
         {
-          url: selected_image.url,
-          caption: selected_image.caption,
-        }
+          high_resolution_url: default_lead_image.file.url(:s960),
+          url: default_lead_image&.file&.url(:s300),
+        } # default images do not have captions
       end
     end
 
@@ -32,6 +41,11 @@ module ConfigurableContentBlocks
 
     def placeholder_image_url
       ActionController::Base.helpers.image_url("placeholder.jpg", host: Whitehall.public_root)
+    end
+
+    def lead_image_caption(image)
+      caption = image&.caption&.strip
+      caption.presence
     end
   end
 end

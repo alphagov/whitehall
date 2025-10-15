@@ -2,12 +2,21 @@ require "test_helper"
 
 class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
   test "it loads the correct image and presents the image attributes" do
-    images = create_list(:image, 3)
+    images = [create(:image), create(:image, caption: "Example caption")]
     payload = ConfigurableContentBlocks::ImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
 
     assert_equal({
       url: images[1].url,
       caption: images[1].caption,
+    }, payload)
+  end
+
+  test "it does not send the the caption if nil" do
+    image = create(:image, caption: nil)
+    payload = ConfigurableContentBlocks::ImageSelect.new([image]).publishing_api_payload(image.image_data.id)
+
+    assert_equal({
+      url: image.url,
     }, payload)
   end
 

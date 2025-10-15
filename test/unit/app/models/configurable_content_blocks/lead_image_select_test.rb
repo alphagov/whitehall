@@ -1,13 +1,34 @@
 require "test_helper"
 
 class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
-  test "it loads the correct image and presents the image attributes" do
-    images = create_list(:image, 3)
+  test "it sends the custom lead image payload to publishing-api" do
+    images = [create(:image), create(:image, caption: "Example caption")]
     payload = ConfigurableContentBlocks::LeadImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
 
     assert_equal({
-      url: images[1].url,
+      high_resolution_url: images[1].image_data.file.url(:s960),
+      url: images[1].image_data&.file&.url(:s300),
       caption: images[1].caption,
+    }, payload)
+  end
+
+  test "it does not send the the caption if nil" do
+    image = create(:image, caption: nil)
+    payload = ConfigurableContentBlocks::LeadImageSelect.new([image]).publishing_api_payload(image.image_data.id)
+
+    assert_equal({
+      high_resolution_url: image.image_data.file.url(:s960),
+      url: image.image_data&.file&.url(:s300),
+    }, payload)
+  end
+
+  test "it sends the default lead image payload if custom lead is missing" do
+    default_lead_image = create(:image, image_data: build(:image_data, file: upload_fixture("big-cheese.960x640.jpg")))
+    payload = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: default_lead_image.image_data).publishing_api_payload("")
+
+    assert_equal({
+      high_resolution_url: default_lead_image.image_data.file.url(:s960),
+      url: default_lead_image.image_data&.file&.url(:s300),
     }, payload)
   end
 
