@@ -10,6 +10,18 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
       caption: images[1].caption,
     }, payload)
   end
+
+  test "does not have a publishing api payload if selected image's assets are not ready" do
+    images = create_list(:image, 3)
+    page = StandardEdition.new
+    page.images = images
+    images[1].image_data.assets = []
+    images[1].image_data.save!
+
+    payload = ConfigurableContentBlocks::LeadImageSelect.new(page.images).publishing_api_payload(images[1].image_data.id)
+
+    assert_nil payload
+  end
 end
 
 class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::TestCase
