@@ -32,8 +32,6 @@ class StandardEdition::BlockContent
     @attributes ||= attributes_class_for(@schema).new
   end
 
-private
-
   def valid_instance_of_document_type_attributes
     return unless @schema.key?("validations")
 
@@ -43,6 +41,8 @@ private
       validates_with VALIDATORS[key], options.with_indifferent_access
     end
   end
+
+private
 
   def valid_nested_attributes
     @schema["properties"].each do |key, nested_schema|
