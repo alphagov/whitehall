@@ -19,5 +19,19 @@ module ConfigurableContentBlocks
     def to_partial_path
       "admin/configurable_content_blocks/lead_image_select"
     end
+
+    def rendered_image_url
+      default_lead_image_url || placeholder_image_url
+    end
+
+  private
+
+    def default_lead_image_url
+      default_lead_image&.url(:s300)
+    end
+
+    def placeholder_image_url
+      ActionController::Base.helpers.image_url("placeholder.jpg", host: Whitehall.public_root)
+    end
   end
 end
