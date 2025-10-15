@@ -21,7 +21,7 @@ class SafeHtmlValidator < ActiveModel::Validator
 private
 
   def check_attribute_for_safety(attribute_name, value)
-    if value.respond_to?(:values) # e.g. Hash
+    if value.respond_to?(:each_value) # e.g. Hash
       value.each_value { |entry| check_attribute_for_safety(attribute_name, entry) }
     elsif value.respond_to?(:each) # e.g. Array
       value.each { |entry| check_attribute_for_safety(attribute_name, entry) }
