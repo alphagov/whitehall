@@ -10,4 +10,8 @@ module StandardEdition::DefaultLeadImage
       published_worldwide_organisations.first.default_news_image
     end
   end
+
+  def non_svg_images
+    images.reject(&:svg?)
+  end
 end
