@@ -8,6 +8,7 @@ class StandardEdition < Edition
   include Edition::WorldLocations
   include Edition::Organisations
   include HasBlockContent
+  include StandardEdition::DefaultLeadImage
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
