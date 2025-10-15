@@ -23,4 +23,26 @@ class BlockContentTest < ActiveSupport::TestCase
     end
     assert_equal "undefined validator type made_up_validation_rule", error.message
   end
+
+  test "maps 'presence' validation to ActiveModel::Validations::PresenceValidator" do
+    schema = {
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+        },
+      },
+      "required" => %w[test_attribute],
+      "validations" => {
+        "presence" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    }
+    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+
+    page.attributes = { "test_attribute" => "" }
+    assert_not page.valid?
+    assert_not page.errors.where("test_attribute", :blank).empty?
+  end
 end
