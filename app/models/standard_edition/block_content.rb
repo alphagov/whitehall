@@ -4,6 +4,7 @@ class StandardEdition::BlockContent
   validate :valid_nested_attributes
 
   VALIDATORS = {
+    "length" => ActiveModel::Validations::LengthValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
   }.freeze
 
@@ -38,7 +39,7 @@ class StandardEdition::BlockContent
     @schema["validations"].each do |key, options|
       raise ArgumentError, "undefined validator type #{key}" unless VALIDATORS.key?(key)
 
-      validates_with VALIDATORS[key], options.with_indifferent_access
+      VALIDATORS[key].new(options.transform_keys(&:to_sym)).validate(self)
     end
   end
 

@@ -71,6 +71,7 @@
           },
           "propertyNames": {
             "enum": [
+              "length",
               "presence"
             ]
           }
