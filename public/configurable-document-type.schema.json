@@ -68,6 +68,7 @@
           },
           "propertyNames": {
             "enum": [
+              "length",
               "presence"
             ]
           }

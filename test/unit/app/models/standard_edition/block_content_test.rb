@@ -44,4 +44,26 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_not page.valid?
     assert_not page.errors.where("test_attribute", :blank).empty?
   end
+
+  test "maps 'length' validation to ActiveModel::Validations::LengthValidator" do
+    schema = {
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+        },
+      },
+      "validations" => {
+        "length" => {
+          "attributes" => %w[test_attribute],
+          "maximum" => 5,
+        },
+      },
+    }
+    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+
+    page.attributes = { "test_attribute" => "exceeds max length" }
+    assert_not page.valid?
+    assert_not page.errors.where("test_attribute", :too_long, count: 5).empty?
+  end
 end
