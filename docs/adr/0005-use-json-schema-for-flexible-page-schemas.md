@@ -7,7 +7,7 @@
 
 ## Status
 
-Accepted
+Superseded by [ADR-0008](./0008-drop-json-schema-for-document-configuration.md)
 
 ## Context
 
