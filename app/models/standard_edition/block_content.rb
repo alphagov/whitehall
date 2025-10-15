@@ -6,6 +6,7 @@ class StandardEdition::BlockContent
   VALIDATORS = {
     "length" => ActiveModel::Validations::LengthValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
+    "safe_html" => SafeHtmlValidator,
   }.freeze
 
   def initialize(schema, path)
@@ -31,6 +32,15 @@ class StandardEdition::BlockContent
 
   def attributes
     @attributes ||= attributes_class_for(@schema).new
+  end
+
+  # Present a Dirty-like interface for validators that rely on `changes`
+  def changes
+    attributes.to_h.transform_values { |v| [nil, v] }
+  end
+
+  def marked_for_destruction?
+    false
   end
 
   def valid_instance_of_document_type_attributes

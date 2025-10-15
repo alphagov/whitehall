@@ -72,7 +72,8 @@
           "propertyNames": {
             "enum": [
               "length",
-              "presence"
+              "presence",
+              "safe_html"
             ]
           }
         }

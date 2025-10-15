@@ -34,16 +34,17 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
   test "enumerable attribute values are validated" do
     errors = mock("object")
     error_message = "cannot include invalid formatting or JavaScript"
-    errors.expects(:add).with("foo", error_message)
-    errors.expects(:add).with("bar", error_message)
-    errors.expects(:add).with("baz", error_message)
+
+    errors.expects(:add).with("foo", :unsafe_html, has_entry(:message, error_message))
+    errors.expects(:add).with("bar", :unsafe_html, has_entry(:message, error_message))
+    errors.expects(:add).with("baz", :unsafe_html, has_entry(:message, error_message))
 
     test_model = mock("object")
     test_model.expects(:marked_for_destruction?).returns(false)
     test_model.expects(:changes).returns({
-      "foo" => [nil, ["<script>alert(\"hax!\")</script>"]],
-      "bar" => [nil, { "bad_content" => "<script>alert(\"hax!\")</script>" }],
-      "baz" => [nil, TestStruct.new("<script>alert(\"hax!\")</script>")],
+      "foo" => [nil, ['<script>alert("hax!")</script>']],
+      "bar" => [nil, { "bad_content" => '<script>alert("hax!")</script>' }],
+      "baz" => [nil, TestStruct.new('<script>alert("hax!")</script>')],
     })
     test_model.expects(:errors).times(3).returns(errors)
 
