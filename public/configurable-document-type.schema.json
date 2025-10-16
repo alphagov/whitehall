@@ -71,6 +71,7 @@
           },
           "propertyNames": {
             "enum": [
+              "embedded_contacts_exist",
               "length",
               "no_footnotes_allowed",
               "presence",

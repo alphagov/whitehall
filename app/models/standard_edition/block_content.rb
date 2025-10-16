@@ -4,6 +4,7 @@ class StandardEdition::BlockContent
   validate :valid_nested_attributes
 
   VALIDATORS = {
+    "embedded_contacts_exist" => GovspeakContactEmbedValidator,
     "length" => ActiveModel::Validations::LengthValidator,
     "no_footnotes_allowed" => NoFootnotesInGovspeakValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
