@@ -8,9 +8,10 @@
     <p class="govuk-body">Current change note: <%= @edition_to_change.change_note %></p>
 
     <%= form_for @edition_to_change, method: :patch, url: admin_edition_change_note_path(@edition_to_change) do |form| %>
-      <%= render "govuk_publishing_components/components/input", {
+      <%= render "govuk_publishing_components/components/textarea", {
         label: {
           text: "New change note:",
+          bold: true,
         },
         name: "new_change_note",
         value: @edition_to_change.change_note,
