@@ -30,12 +30,17 @@ class SafeHtmlValidator < ActiveModel::Validator
 private
 
   def check_attribute_for_safety(attribute_name, value)
-    if value.respond_to?(:each_value) # e.g. Hash
-      value.each_value { |entry| check_attribute_for_safety(attribute_name, entry) }
-    elsif value.respond_to?(:each) && !value.is_a?(String) # Array/Enumerable
-      value.each { |entry| check_attribute_for_safety(attribute_name, entry) }
-    elsif value.is_a?(String)
+    case value
+    when nil
+      # nothing
+    when String
       check_string_is_safe(attribute_name, value)
+    when Hash
+      value.each_value { |v| check_attribute_for_safety(attribute_name, v) }
+    when Struct
+      value.each_pair { |_k, v| check_attribute_for_safety(attribute_name, v) }
+    when Enumerable
+      value.each { |v| check_attribute_for_safety(attribute_name, v) }
     end
   end
 
