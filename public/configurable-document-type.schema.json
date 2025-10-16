@@ -69,6 +69,7 @@
           "propertyNames": {
             "enum": [
               "length",
+              "no_footnotes_allowed",
               "presence",
               "safe_html"
             ]

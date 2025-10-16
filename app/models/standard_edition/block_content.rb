@@ -5,6 +5,7 @@ class StandardEdition::BlockContent
 
   VALIDATORS = {
     "length" => ActiveModel::Validations::LengthValidator,
+    "no_footnotes_allowed" => NoFootnotesInGovspeakValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
     "safe_html" => SafeHtmlValidator,
   }.freeze
