@@ -93,4 +93,27 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_not page.valid?
     assert_not page.errors.where("test_attribute", :unsafe_html).empty?
   end
+
+  test "maps 'no_footnotes_allowed' validation to NoFootnotesInGovspeakValidator" do
+    schema = {
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+          "format" => "govspeak",
+        },
+      },
+      "required" => %w[test_attribute],
+      "validations" => {
+        "no_footnotes_allowed" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    }
+    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+
+    page.attributes = { "test_attribute" => "[^1]\n\n[^1]: Footnote text" }
+    assert_not page.valid?
+    assert_not page.errors.where("test_attribute", :no_footnotes_allowed).empty?
+  end
 end
