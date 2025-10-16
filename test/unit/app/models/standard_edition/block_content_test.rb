@@ -116,4 +116,27 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_not page.valid?
     assert_not page.errors.where("test_attribute", :no_footnotes_allowed).empty?
   end
+
+  test "maps 'valid_internal_path_links' validation to InternalPathLinksValidator" do
+    schema = {
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+          "format" => "govspeak",
+        },
+      },
+      "required" => %w[test_attribute],
+      "validations" => {
+        "valid_internal_path_links" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    }
+    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+
+    page.attributes = { "test_attribute" => "[Invalid admin link](//admin/editions)" }
+    assert_not page.valid?
+    assert_not page.errors.where("test_attribute", :invalid_path_link).empty?
+  end
 end

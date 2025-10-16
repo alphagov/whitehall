@@ -8,6 +8,7 @@ class StandardEdition::BlockContent
     "no_footnotes_allowed" => NoFootnotesInGovspeakValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
     "safe_html" => SafeHtmlValidator,
+    "valid_internal_path_links" => InternalPathLinksValidator,
   }.freeze
 
   def initialize(schema, path)
