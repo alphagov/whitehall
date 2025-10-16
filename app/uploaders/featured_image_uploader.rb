@@ -25,4 +25,34 @@ class FeaturedImageUploader < WhitehallUploader
   def image_cache
     file.file.gsub("/govuk/whitehall/carrierwave-tmp/", "") if send("cache_id").present?
   end
+
+  def height_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_height..
+    else
+      0..
+    end
+  end
+
+  def width_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_width..
+    else
+      0..
+    end
+  end
+
+  def check_dimensions!(new_file)
+    super
+  rescue CarrierWave::IntegrityError
+    if width_range&.begin && width < width_range.begin || height_range&.begin && height < height_range.begin
+      raise CarrierWave::IntegrityError, "is too small. Select an image that is #{model.image_kind_config.valid_width} pixels wide and #{model.image_kind_config.valid_height} pixels tall"
+    elsif width_range&.end && width > width_range.end || height_range&.end && height > height_range.end
+      raise CarrierWave::IntegrityError, "is too large. Select an image that is #{model.image_kind_config.valid_width} pixels wide and #{model.image_kind_config.valid_height} pixels tall"
+    end
+  end
 end
