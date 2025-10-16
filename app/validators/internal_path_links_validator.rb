@@ -1,20 +1,14 @@
 require "addressable/uri"
 
 class InternalPathLinksValidator < ActiveModel::Validator
+  def initialize(opts = {})
+    @attributes = (opts[:attributes] || [opts[:attribute]]).compact
+    super
+  end
+
   def validate(record)
-    matches(record.body, /\[.*?\]\((\S*?)(?:\s+"[^"]+")?\)/) do |match|
-      link = match[1]
-
-      fix = if link.start_with?("//")
-              # Collapse //, ///, //// etc down to a single leading slash for the suggestion
-              suggestion = "/#{link.gsub(/\A\/+/, '')}"
-              "This is an invalid admin link. Did you mean #{suggestion} instead of #{link}?"
-            elsif self.class.is_internal_admin_link?("/#{link}")
-              "This is an invalid admin link. Did you mean /#{link} instead of #{link}?"
-            end
-
-      record.errors.add(:base, "Issue with 'admin path' link `#{link}`: #{fix}") if fix
-    end
+    @record = record
+    @attributes.each { |attribute_name| validate_attribute_contains_only_valid_internal_path_links(attribute_name) }
   end
 
   def self.is_internal_admin_link?(href)
@@ -29,6 +23,22 @@ class InternalPathLinksValidator < ActiveModel::Validator
   end
 
 protected
+
+  def validate_attribute_contains_only_valid_internal_path_links(attribute_name)
+    matches(@record.public_send(attribute_name), /\[.*?\]\((\S*?)(?:\s+"[^"]+")?\)/) do |match|
+      link = match[1]
+
+      fix = if link.start_with?("//")
+              # Collapse //, ///, //// etc down to a single leading slash for the suggestion
+              suggestion = "/#{link.gsub(/\A\/+/, '')}"
+              "This is an invalid admin link. Did you mean #{suggestion} instead of #{link}?"
+            elsif self.class.is_internal_admin_link?("/#{link}")
+              "This is an invalid admin link. Did you mean /#{link} instead of #{link}?"
+            end
+
+      @record.errors.add(attribute_name, :invalid_path_link, message: "has issue with 'admin path' link `#{link}`: #{fix}") if fix
+    end
+  end
 
   def matches(string, regex)
     start_at = 0

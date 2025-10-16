@@ -71,7 +71,8 @@
               "length",
               "no_footnotes_allowed",
               "presence",
-              "safe_html"
+              "safe_html",
+              "valid_internal_path_links"
             ]
           }
         }
