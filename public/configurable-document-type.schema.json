@@ -9,19 +9,15 @@
       "type": "string",
       "pattern": "^[a-z_]*$"
     },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
     "schema": {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "const": "object"
-        },
         "properties": {
           "type": "object",
           "patternProperties": {
@@ -46,7 +42,8 @@
                   ]
                 }
               },
-              "required": ["title", "type"]
+              "required": ["title", "type"],
+              "additionalProperties": false
             }
           }
         },
@@ -76,7 +73,8 @@
           }
         }
       },
-      "required": ["title", "description", "type", "properties"]
+      "required": ["properties"],
+      "additionalProperties": false
     },
     "associations": {
       "type": "array",

@@ -3,11 +3,8 @@ module ConfigurableDocumentTypeHelper
     {
       type => {
         "key" => type,
+        "title" => "Test type",
         "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title" => "Test type",
-          "type" => "object",
           "properties" => {
             "test_attribute" => {
               "title" => "Test Attribute",

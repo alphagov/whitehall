@@ -32,13 +32,15 @@ class ConfigurableDocumentType
 
   def initialize(type)
     @key = type["key"]
+    @title = type["title"]
+    @description = type["description"]
     @schema = type["schema"]
     @associations = type["associations"]
     @settings = type["settings"]
   end
 
   def label
-    @schema["title"]
+    @title
   end
 
   def properties
