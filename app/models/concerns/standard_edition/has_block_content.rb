@@ -12,7 +12,7 @@ module StandardEdition::HasBlockContent
   def block_content
     return nil if super.nil?
 
-    @block_content ||= StandardEdition::BlockContent.new(type_instance.schema, ConfigurableContentBlocks::Path.new)
+    @block_content ||= StandardEdition::BlockContent.new(type_instance.schema)
     @block_content.assign_attributes(super)
     @block_content
   end

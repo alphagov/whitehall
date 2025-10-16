@@ -12,7 +12,7 @@ class StandardEdition::BlockContent
     "valid_internal_path_links" => InternalPathLinksValidator,
   }.freeze
 
-  def initialize(schema, path)
+  def initialize(schema, path = ConfigurableContentBlocks::Path.new)
     @schema = schema
     @path = path
   end

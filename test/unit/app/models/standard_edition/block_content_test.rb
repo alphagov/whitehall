@@ -1,21 +1,27 @@
 require "test_helper"
 
 class BlockContentTest < ActiveSupport::TestCase
-  test "raises exception when encountering a validation rule with no definition" do
-    schema = {
+  setup do
+    @schema = {
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
           "type" => "string",
+          "format" => "govspeak",
         },
       },
+    }
+  end
+
+  test "raises exception when encountering a validation rule with no definition" do
+    schema = @schema.merge({
       "validations" => {
         "made_up_validation_rule" => {
           "attributes" => %w[test_attribute],
         },
       },
-    }
-    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+    })
+    page = StandardEdition::BlockContent.new(schema)
 
     error = assert_raises(ArgumentError) do
       page.attributes = { "test_attribute" => "" }
@@ -25,20 +31,14 @@ class BlockContentTest < ActiveSupport::TestCase
   end
 
   test "maps 'presence' validation to ActiveModel::Validations::PresenceValidator" do
-    schema = {
-      "properties" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "type" => "string",
-        },
-      },
+    schema = @schema.merge({
       "validations" => {
         "presence" => {
           "attributes" => %w[test_attribute],
         },
       },
-    }
-    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+    })
+    page = StandardEdition::BlockContent.new(schema)
 
     page.attributes = { "test_attribute" => "" }
     assert_not page.valid?
@@ -46,21 +46,15 @@ class BlockContentTest < ActiveSupport::TestCase
   end
 
   test "maps 'length' validation to ActiveModel::Validations::LengthValidator" do
-    schema = {
-      "properties" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "type" => "string",
-        },
-      },
+    schema = @schema.merge({
       "validations" => {
         "length" => {
           "attributes" => %w[test_attribute],
           "maximum" => 5,
         },
       },
-    }
-    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+    })
+    page = StandardEdition::BlockContent.new(schema)
 
     page.attributes = { "test_attribute" => "exceeds max length" }
     assert_not page.valid?
@@ -70,21 +64,14 @@ class BlockContentTest < ActiveSupport::TestCase
   test "maps 'safe_html' validation to SafeHtmlValidator" do
     Whitehall.stubs(:skip_safe_html_validation).returns(false)
 
-    schema = {
-      "properties" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "type" => "string",
-          "format" => "govspeak",
-        },
-      },
+    schema = @schema.merge({
       "validations" => {
         "safe_html" => {
           "attributes" => %w[test_attribute],
         },
       },
-    }
-    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+    })
+    page = StandardEdition::BlockContent.new(schema)
 
     page.attributes = { "test_attribute" => "<script>alert('MALICIOUS')</script>" }
     assert_not page.valid?
@@ -92,21 +79,14 @@ class BlockContentTest < ActiveSupport::TestCase
   end
 
   test "maps 'no_footnotes_allowed' validation to NoFootnotesInGovspeakValidator" do
-    schema = {
-      "properties" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "type" => "string",
-          "format" => "govspeak",
-        },
-      },
+    schema = @schema.merge({
       "validations" => {
         "no_footnotes_allowed" => {
           "attributes" => %w[test_attribute],
         },
       },
-    }
-    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+    })
+    page = StandardEdition::BlockContent.new(schema)
 
     page.attributes = { "test_attribute" => "[^1]\n\n[^1]: Footnote text" }
     assert_not page.valid?
@@ -114,21 +94,14 @@ class BlockContentTest < ActiveSupport::TestCase
   end
 
   test "maps 'valid_internal_path_links' validation to InternalPathLinksValidator" do
-    schema = {
-      "properties" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "type" => "string",
-          "format" => "govspeak",
-        },
-      },
+    schema = @schema.merge({
       "validations" => {
         "valid_internal_path_links" => {
           "attributes" => %w[test_attribute],
         },
       },
-    }
-    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+    })
+    page = StandardEdition::BlockContent.new(schema)
 
     page.attributes = { "test_attribute" => "[Invalid admin link](//admin/editions)" }
     assert_not page.valid?
@@ -136,21 +109,14 @@ class BlockContentTest < ActiveSupport::TestCase
   end
 
   test "maps 'embedded_contacts_exist' validation to EmbeddedContactsExistValidator" do
-    schema = {
-      "properties" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "type" => "string",
-          "format" => "govspeak",
-        },
-      },
+    schema = @schema.merge({
       "validations" => {
         "embedded_contacts_exist" => {
           "attributes" => %w[test_attribute],
         },
       },
-    }
-    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+    })
+    page = StandardEdition::BlockContent.new(schema)
 
     page.attributes = { "test_attribute" => "[Contact:999999999]" }
     assert_not page.valid?
