@@ -6,14 +6,6 @@ module ConfigurableContentBlocks
       @images = images
     end
 
-    def json_schema_type
-      "string"
-    end
-
-    def json_schema_format
-      "image_select"
-    end
-
     def publishing_api_payload(content)
       return nil if content.blank?
 

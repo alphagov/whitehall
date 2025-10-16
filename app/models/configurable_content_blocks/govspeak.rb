@@ -10,14 +10,6 @@ module ConfigurableContentBlocks
       @attachments = attachments
     end
 
-    def json_schema_type
-      "string"
-    end
-
-    def json_schema_format
-      "govspeak"
-    end
-
     def publishing_api_payload(content)
       {
         html: govspeak_to_html(content, images: @images, attachments: @attachments),
