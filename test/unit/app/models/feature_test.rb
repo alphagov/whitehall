@@ -9,6 +9,17 @@ class FeatureTest < ActiveSupport::TestCase
     assert_not build(:feature, image: nil).valid?
   end
 
+  test "invalid if alt text is longer than 255 characters" do
+    assert_not build(:feature, alt_text: "a" * 256).valid?
+  end
+
+  test "invalid if alt text is entirely made up of spaces and/or quotes" do
+    assert_not build(:feature, alt_text: "   '  '  ' ").valid?
+    assert_not build(:feature, alt_text: "   \"  \"  \" ").valid?
+    assert_not build(:feature, alt_text: "  “” ").valid? # non-ascii quotes
+    assert_not build(:feature, alt_text: "  “” “” ").valid? # non-ascii quotes
+  end
+
   test "started_at set by default on creation" do
     feature = Feature.create!(
       image: build(:featured_image_data),

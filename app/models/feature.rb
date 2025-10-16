@@ -12,6 +12,7 @@ class Feature < ApplicationRecord
   validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
   validates :alt_text, length: { maximum: 255 }
+  validates :alt_text, format: { without: /\A[ \t'"\u201C\u201D\u2018\u2019]*\z/, message: "must not contain just spaces or quotes. (Leave this field empty to set an empty alt for decorative images.)" }, allow_blank: true
 
   before_validation :set_started_at!, on: :create
 
