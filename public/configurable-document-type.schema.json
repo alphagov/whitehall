@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://whitehall-admin.publishing.service.gov.uk/configurable-document-type.schema.json",
+  "title": "Configurable Document Type",
+  "description": "Schema for a configurable document type in Whitehall",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "pattern": "^[a-z_]*$"
+    },
+    "schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "object"
+        },
+        "properties": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "enum": [
+                    "default",
+                    "govspeak",
+                    "image_select"
+                  ]
+                }
+              },
+              "required": ["title", "type"]
+            }
+          }
+        },
+        "validations": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "properties": {
+                "attributes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "attributes"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "propertyNames": {
+            "enum": [
+              "presence"
+            ]
+          }
+        }
+      },
+      "required": ["title", "description", "type", "properties"]
+    },
+    "associations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "ministerial_role_appointments",
+              "organisations",
+              "topical_events",
+              "world_locations"
+            ]
+          }
+        },
+        "required": ["key"]
+      }
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "base_path_prefix": {
+          "type": "string"
+        },
+        "publishing_api_schema_name": {
+          "type": "string"
+        },
+        "publishing_api_document_type": {
+          "type": "string"
+        },
+        "rendering_app": {
+          "type": "string"
+        },
+        "images_enabled": {
+          "type": "boolean"
+        },
+        "send_headings": {
+          "type": "boolean"
+        },
+        "send_change_history": {
+          "type": "boolean"
+        },
+        "organisations": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "string"
+          }
+        },
+        "backdating_enabled": {
+          "type": "boolean"
+        },
+        "history_mode_enabled": {
+          "type": "boolean"
+        },
+        "file_attachments_enabled": {
+          "type": "boolean"
+        },
+        "translations_enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "base_path_prefix",
+        "publishing_api_schema_name",
+        "publishing_api_document_type",
+        "rendering_app",
+        "images_enabled",
+        "send_headings",
+        "send_change_history",
+        "organisations",
+        "backdating_enabled",
+        "history_mode_enabled",
+        "file_attachments_enabled",
+        "translations_enabled"
+      ]
+    }
+  },
+  "required": ["key", "schema", "associations", "settings"]
+}
