@@ -1,11 +1,8 @@
 {
   "key": "history_page",
+  "title": "History page",
+  "description": "A history page on GOV.UK",
   "schema": {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://www.gov.uk/schemas/history_page/v1",
-    "title": "History page",
-    "description": "A history page on GOV.UK",
-    "type": "object",
     "properties": {
       "body": {
         "title": "Body",
@@ -26,7 +23,6 @@
         "format": "default"
       }
     },
-    "required": ["body"],
     "validations": {
       "presence": {
         "attributes": ["body"]

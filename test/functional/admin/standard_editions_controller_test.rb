@@ -29,8 +29,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET choose_type scopes the list of types to types that the user has permission to use" do
-    configurable_document_type_user_org = build_configurable_document_type("test_type", { "schema" => { "title" => "Test Type One" }, "settings" => { "organisations" => [@current_user.organisation.content_id] } })
-    configurable_document_type_other_org = build_configurable_document_type("other_type", { "schema" => { "title" => "Test Type Two" }, "settings" => { "organisations" => [SecureRandom.uuid] } })
+    configurable_document_type_user_org = build_configurable_document_type("test_type", { "title" => "Test Type One", "settings" => { "organisations" => [@current_user.organisation.content_id] } })
+    configurable_document_type_other_org = build_configurable_document_type("other_type", { "title" => "Test Type Two", "settings" => { "organisations" => [SecureRandom.uuid] } })
 
     ConfigurableDocumentType.setup_test_types(configurable_document_type_user_org
                                                 .merge(configurable_document_type_other_org))
