@@ -30,6 +30,19 @@
     "validations": {
       "presence": {
         "attributes": ["body"]
+      },
+      "length": {
+        "attributes": ["body"],
+        "maximum": 16777215
+      },
+      "safe_html": {
+        "attributes": ["body"]
+      },
+      "no_footnotes_allowed": {
+        "attributes": ["body"]
+      },
+      "embedded_contacts_exist": {
+        "attributes": ["body"]
       }
     }
   },
