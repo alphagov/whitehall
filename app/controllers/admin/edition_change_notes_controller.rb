@@ -9,6 +9,7 @@ class Admin::EditionChangeNotesController < Admin::BaseController
       .without_not_published
       .where(minor_change: false)
       .select(:id, :major_change_published_at, :change_note)
+      .reorder(major_change_published_at: :desc)
   end
 
   def edit
