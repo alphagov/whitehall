@@ -125,7 +125,7 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     assert_select ".app-view-summary__sidebar .app-c-inset-prompt--error" do |elements|
       expected_message = "This edition is invalid"
       assert elements.text.include?(expected_message), "Could not find \"#{expected_message}\" in #{elements.text}"
-      expected_message = "Contact ID #{bad_id} doesn't exist"
+      expected_message = "Body embeds contact (ID #{bad_id}) that doesn't exist"
       assert elements.text.include?(expected_message), "Could not find \"#{expected_message}\" in #{elements.text}"
     end
   end

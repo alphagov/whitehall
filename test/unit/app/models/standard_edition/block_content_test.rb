@@ -134,4 +134,26 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_not page.valid?
     assert_not page.errors.where("test_attribute", :invalid_path_link).empty?
   end
+
+  test "maps 'embedded_contacts_exist' validation to EmbeddedContactsExistValidator" do
+    schema = {
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test attribute",
+          "type" => "string",
+          "format" => "govspeak",
+        },
+      },
+      "validations" => {
+        "embedded_contacts_exist" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
+    }
+    page = StandardEdition::BlockContent.new(schema, ConfigurableContentBlocks::Path.new)
+
+    page.attributes = { "test_attribute" => "[Contact:999999999]" }
+    assert_not page.valid?
+    assert_not page.errors.where("test_attribute", :embedded_contact_invalid).empty?
+  end
 end
