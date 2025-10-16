@@ -73,13 +73,12 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
           "type" => "string",
         },
       },
-      "required" => %w[test_attribute],
     }
     factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
     block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new, required: true }
-    assert_dom "legend", text: "#{schema['title']} (required)"
-    assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
+    render block, { schema:, content: {}, path: Path.new }
+    assert_dom "legend", text: schema["title"].to_s
+    assert_dom "label", text: schema["properties"]["test_attribute"]["title"].to_s
   end
 
   test "it does not render a fieldset with the schema title as the legend for the root object" do
@@ -92,7 +91,6 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
           "type" => "string",
         },
       },
-      "required" => %w[test_attribute],
     }
     factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
     block = ConfigurableContentBlocks::DefaultObject.new(factory)
@@ -119,7 +117,7 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     refute_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
   end
 
-  test "it passes the required attribute on to any required child attributes" do
+  test "it applies the required attribute to any child attributes validated for presence" do
     schema = {
       "title" => "Test object",
       "type" => "object",
@@ -129,7 +127,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
           "type" => "string",
         },
       },
-      "required" => %w[test_attribute],
+      "validations" => {
+        "presence" => {
+          "attributes" => %w[test_attribute],
+        },
+      },
     }
     factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
     block = ConfigurableContentBlocks::DefaultObject.new(factory)
@@ -147,12 +149,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
           "type" => "string",
         },
       },
-      "required" => %w[test_attribute],
     }
     factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
     block = ConfigurableContentBlocks::DefaultObject.new(factory)
     render block, { schema:, content: {}, path: Path.new, right_to_left: true }
-    assert_dom "label", text: "#{schema['properties']['test_attribute']['title']} (required)"
+    assert_dom "label", text: schema["properties"]["test_attribute"]["title"].to_s
     assert_dom "input[dir=\"rtl\"]"
   end
 
