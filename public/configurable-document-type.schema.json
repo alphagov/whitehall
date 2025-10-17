@@ -68,7 +68,12 @@
           },
           "propertyNames": {
             "enum": [
-              "presence"
+              "embedded_contacts_exist",
+              "length",
+              "no_footnotes_allowed",
+              "presence",
+              "safe_html",
+              "valid_internal_path_links"
             ]
           }
         }

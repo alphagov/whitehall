@@ -4,10 +4,15 @@ class StandardEdition::BlockContent
   validate :valid_nested_attributes
 
   VALIDATORS = {
+    "embedded_contacts_exist" => GovspeakContactEmbedValidator,
+    "length" => ActiveModel::Validations::LengthValidator,
+    "no_footnotes_allowed" => NoFootnotesInGovspeakValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
+    "safe_html" => SafeHtmlValidator,
+    "valid_internal_path_links" => InternalPathLinksValidator,
   }.freeze
 
-  def initialize(schema, path)
+  def initialize(schema, path = ConfigurableContentBlocks::Path.new)
     @schema = schema
     @path = path
   end
@@ -40,7 +45,7 @@ private
     @schema["validations"].each do |key, options|
       raise ArgumentError, "undefined validator type #{key}" unless VALIDATORS.key?(key)
 
-      validates_with VALIDATORS[key], options.with_indifferent_access
+      validates_with VALIDATORS[key], options.symbolize_keys
     end
   end
 

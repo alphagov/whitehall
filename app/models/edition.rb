@@ -52,8 +52,8 @@ class Edition < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
   validates_with LinkCheckReportValidator, on: :publish
-  validates_with InternalPathLinksValidator, on: :publish
-  validates_with GovspeakContactEmbedValidator, on: :publish
+  validates_with InternalPathLinksValidator, attribute: :body, on: :publish
+  validates_with GovspeakContactEmbedValidator, attribute: :body, on: :publish
   validates_with TaxonValidator, on: :publish, if: :requires_taxon?
 
   validates :creator, presence: true
