@@ -117,7 +117,6 @@ class StandardEditionTest < ActiveSupport::TestCase
                 "type" => "string",
               },
             },
-            "required" => %w[test_attribute],
             "validations" => {
               "presence" => {
                 "attributes" => %w[test_attribute],

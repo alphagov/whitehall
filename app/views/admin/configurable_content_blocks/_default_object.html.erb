@@ -4,6 +4,7 @@
 <% root = root || false %>
 <% right_to_left = right_to_left || false %>
 <% errors = errors || [] %>
+<% required_attributes = schema.dig("validations", "presence", "attributes") %>
 <% unless root %>
   <%= render "govuk_publishing_components/components/fieldset", {
     legend_text: schema["title"] + (required ? " (required)" : ""),
@@ -17,7 +18,7 @@
         content: content[property_key],
         translated_content: translated_content[property_key],
         path: path.push(property_key),
-        required: schema["required"].present? ? schema["required"].include?(property_key) : false,
+        required: required_attributes && required_attributes.include?(property_key),
         right_to_left:,
         errors:,
       } %>
@@ -31,7 +32,7 @@
       content: content[property_key],
       translated_content: translated_content[property_key],
       path: path.push(property_key),
-      required: schema["required"].present? ? schema["required"].include?(property_key) : false,
+      required: required_attributes && required_attributes.include?(property_key),
       right_to_left:,
       errors:,
     } %>
