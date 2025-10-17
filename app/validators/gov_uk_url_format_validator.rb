@@ -4,6 +4,7 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
     .caa.co.uk
     .gov.uk
     .independent-inquiry.uk
+    .internationalaisafetyreport.org
     .judiciary.uk
     .nationalhighways.co.uk
     .nhs.uk
