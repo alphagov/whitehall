@@ -55,6 +55,13 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     refute_select "td", text: "Draft edition change note"
   end
 
+  test "index receives change notes ordered from newest to oldest" do
+    login_as :gds_admin
+    get :index, params: { edition_id: @current_edition.id }
+    change_notes = assigns(:change_notes)
+    assert_equal [@current_edition.major_change_published_at, @second_edition.major_change_published_at, @first_edition.major_change_published_at], change_notes.map(&:major_change_published_at)
+  end
+
   %i[edit update].each do |action_method|
     test "GDS admin permission required to access #{action_method}" do
       login_as :gds_editor
