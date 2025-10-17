@@ -32,9 +32,6 @@ Each property within a configurable document schema is represented in the applic
 
 Each content block implements the following methods:
 
-- `json_schema_type`: The "type" value in the JSON schema property that maps to this content block
-- `json_schema_format`: The "format" value in the JSON schema property that maps to this content block
-- `json_schema_validator`: Returns a proc which validates user input for the property. The proc is passed as part of the 'formats' configuration value to the [JSONSchemer](https://github.com/davishmcclurg/json_schemer) gem's schema object.
 - `publishing_api_payload(content)`: Returns the value to be sent to Publishing API for the property. This can return any type. If returning a hash, ensure you use symbols for the keys.
 - `to_partial_path`: Returns the path to the view that renders the form control for the property. 
 
