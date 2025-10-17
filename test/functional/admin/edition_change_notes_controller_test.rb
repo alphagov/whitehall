@@ -54,7 +54,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     refute_select "td", text: "4 December 2022 12:00am"
     refute_select "td", text: "Draft edition change note"
   end
-  
+
   test "index receives change notes ordered from newest to oldest" do
     login_as :gds_admin
     get :index, params: { edition_id: @current_edition.id }
