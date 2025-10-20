@@ -6,8 +6,8 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
     payload = ConfigurableContentBlocks::LeadImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
 
     assert_equal({
-      high_resolution_url: images[1].image_data.file.url(:s960),
-      url: images[1].image_data&.file&.url(:s300),
+      high_resolution_url: images[1].image_data.url(:s960),
+      url: images[1].image_data&.url(:s300),
       caption: images[1].caption,
     }, payload)
   end
@@ -17,8 +17,8 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
     payload = ConfigurableContentBlocks::LeadImageSelect.new([image]).publishing_api_payload(image.image_data.id)
 
     assert_equal({
-      high_resolution_url: image.image_data.file.url(:s960),
-      url: image.image_data&.file&.url(:s300),
+      high_resolution_url: image.image_data.url(:s960),
+      url: image.image_data&.url(:s300),
     }, payload)
   end
 
@@ -27,8 +27,8 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
     payload = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: default_lead_image.image_data).publishing_api_payload("")
 
     assert_equal({
-      high_resolution_url: default_lead_image.image_data.file.url(:s960),
-      url: default_lead_image.image_data&.file&.url(:s300),
+      high_resolution_url: default_lead_image.image_data.url(:s960),
+      url: default_lead_image.image_data&.url(:s300),
     }, payload)
   end
 

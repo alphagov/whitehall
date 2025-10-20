@@ -11,16 +11,16 @@ module ConfigurableContentBlocks
       selected_image = images.find { |image| image.image_data.id == content.to_i }
       if selected_image&.image_data&.all_asset_variants_uploaded?
         return {
-          high_resolution_url: selected_image.image_data.file.url(:s960),
-          url: selected_image.image_data.file.url(:s300),
+          high_resolution_url: selected_image.image_data.url(:s960),
+          url: selected_image.image_data.url(:s300),
           caption: lead_image_caption(selected_image),
         }.compact
       end
 
       if default_lead_image&.all_asset_variants_uploaded?
         {
-          high_resolution_url: default_lead_image.file.url(:s960),
-          url: default_lead_image&.file&.url(:s300),
+          high_resolution_url: default_lead_image.url(:s960),
+          url: default_lead_image.url(:s300),
         } # default images do not have captions
       end
     end

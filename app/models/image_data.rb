@@ -19,7 +19,7 @@ class ImageData < ApplicationRecord
   validate :filename_is_unique
 
   delegate :width, :height, to: :dimensions
-  delegate :content_type, to: :file
+  delegate :url, :content_type, to: :file
 
   def filename
     file&.file&.filename
