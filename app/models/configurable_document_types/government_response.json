@@ -1,7 +1,7 @@
 {
-  "key": "news_story",
-  "title": "News Story",
-  "description": "News written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.",
+  "key": "government_response",
+  "title": "Government Response",
+  "description": "Government statements in response to media coverage, such as rebuttals and ‘myth busters’. Do not use for: statements to Parliament. Use the “Speech” format for those.",
   "schema": {
     "properties": {
       "body": {
@@ -10,10 +10,10 @@
         "format": "govspeak"
       },
       "image": {
-        "title": "Custom lead image",
+        "title": "Lead image",
         "description": "Select a lead image, if required",
         "type": "integer",
-        "format": "lead_image_select"
+        "format": "image_select"
       }
     },
     "validations": {
@@ -52,7 +52,7 @@
   "settings": {
     "base_path_prefix": "/government/news",
     "publishing_api_schema_name": "news_article",
-    "publishing_api_document_type": "news_story",
+    "publishing_api_document_type": "government_response",
     "rendering_app": "frontend",
     "images_enabled": true,
     "send_change_history": true,
