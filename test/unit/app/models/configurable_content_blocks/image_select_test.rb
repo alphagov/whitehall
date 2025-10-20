@@ -22,12 +22,10 @@ class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
 
   test "does not have a publishing api payload if selected image's assets are not ready" do
     images = create_list(:image, 3)
-    page = StandardEdition.new
-    page.images = images
     images[1].image_data.assets = []
     images[1].image_data.save!
 
-    payload = ConfigurableContentBlocks::ImageSelect.new(page.images).publishing_api_payload(images[1].image_data.id)
+    payload = ConfigurableContentBlocks::ImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
 
     assert_nil payload
   end
@@ -39,30 +37,27 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
       "type" => "object",
       "properties" => {
         "test_attribute" => {
-          "type" => "string",
+          "type" => "integer",
           "title" => "Test attribute",
           "description" => "A test attribute",
           "format" => "image_select",
         },
       },
     }
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { schema: }))
 
-    page = StandardEdition.new
-    page.configurable_document_type = "test_type"
-    page.images = create_list(:image, 3)
-    page.block_content = { "test_attribute" => page.images.last.image_data.id.to_s }
-    block = ConfigurableContentBlocks::ImageSelect.new(page.images)
+    images = create_list(:image, 3)
+    block_content = { "test_attribute" => images.last.image_data.id.to_s }
+    block = ConfigurableContentBlocks::ImageSelect.new(images)
 
     render block, {
       schema: schema["properties"]["test_attribute"],
-      content: page.block_content["test_attribute"],
+      content: block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
     }
 
     assert_dom "select[name=?]", "edition[block_content][test_attribute]"
-    assert_dom "option[selected]", text: page.images.last.filename
-    page.images.each do |image|
+    assert_dom "option[selected]", text: images.last.filename
+    images.each do |image|
       assert_dom "option", text: image.filename
     end
   end
@@ -72,38 +67,36 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
       "type" => "object",
       "properties" => {
         "test_attribute" => {
-          "type" => "string",
+          "type" => "integer",
           "title" => "Test attribute",
           "description" => "A test attribute",
           "format" => "image_select",
         },
       },
     }
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { schema: }))
 
-    page = StandardEdition.new
-    page.configurable_document_type = "test_type"
-    page.images = create_list(:image, 3)
-    page.block_content = { "test_attribute" => page.images.last.image_data.id.to_s }
-    block = ConfigurableContentBlocks::ImageSelect.new(page.images)
+    images = create_list(:image, 3)
+    block_content = { "test_attribute" => images.last.image_data.id.to_s }
+    block = ConfigurableContentBlocks::ImageSelect.new(images)
 
     render block, {
       schema: schema["properties"]["test_attribute"],
-      content: page.block_content["test_attribute"],
-      translated_content: page.images.first.image_data.id,
+      content: block_content["test_attribute"],
+      translated_content: images.first.image_data.id,
       path: Path.new.push("test_attribute"),
     }
 
     assert_dom "select[name=?]", "edition[block_content][test_attribute]"
-    assert_dom "option[selected][value=?]", page.images.first.image_data.id
+    assert_dom "option[selected][value=?]", images.first.image_data.id
   end
 
   test "it renders any validation errors when they are present" do
     schema = {
+      "title" => "Test object",
       "type" => "object",
       "properties" => {
         "test_attribute" => {
-          "type" => "string",
+          "type" => "integer",
           "title" => "Test attribute",
           "description" => "A test attribute",
           "format" => "image_select",
@@ -115,21 +108,20 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
         },
       },
     }
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "schema" => schema }))
-
-    page = StandardEdition.new
-    page.configurable_document_type = "test_type"
-    page.images = create_list(:image, 3)
-    page.block_content = { "test_attribute" => nil }
-    page.validate
-    block = ConfigurableContentBlocks::ImageSelect.new(page.images)
+    errors = [mock("object"), mock("object")]
+    messages = %w[foo bar]
+    errors.each_with_index do |error, index|
+      error.expects(:attribute).returns(:test_attribute)
+      error.expects(:full_message).returns(messages[index])
+    end
+    block = ConfigurableContentBlocks::ImageSelect.new([create(:image)])
 
     render block, {
-      schema: schema["properties"]["test_attribute"],
-      content: page.block_content["test_attribute"],
+      schema:,
+      content: nil,
       path: Path.new.push("test_attribute"),
-      errors: page.errors,
+      errors:,
     }
-    assert_dom ".govuk-error-message", "Error: #{page.errors.where(:test_attribute).map(&:full_message).join}"
+    assert_dom ".govuk-error-message", "Error: #{messages.join}"
   end
 end
