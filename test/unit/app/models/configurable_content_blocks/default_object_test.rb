@@ -28,7 +28,7 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
     page = StandardEdition.new
     factory = ConfigurableContentBlocks::Factory.new(page)
     payload = ConfigurableContentBlocks::DefaultObject.new(factory).publishing_api_payload(schema, content)
-    assert_equal(govspeak_to_html(content["test_attribute"]), payload[:test_attribute][:html])
+    assert_equal(govspeak_to_html(content["test_attribute"]), payload[:test_attribute])
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
   end
   test "it omits any missing block content from the Publishing API payload" do

@@ -77,13 +77,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal page.summary, content[:description]
   end
 
-  test "it includes headers once, in the details, from all govspeak blocks, based on the order they are listed in the schema" do
+  test "it includes headers once, in the details, from all selected blocks, based on the schema configuration" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
-      "settings" => {
-        "send_headings" => true,
-      },
       "schema" => {
+        "headings_from" => %w[chunk_of_content_one chunk_of_content_two],
         "properties" => {
           "chunk_of_content_one" => {
             "title" => "A govspeak block",
@@ -120,101 +118,26 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       chunk_of_content_one: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-one\">Header for chunk one</h2>\n<p>Some content</p>\n</div>",
       string_chunk_of_content: "Head-less content",
       chunk_of_content_two: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-two\">Header for chunk two</h2>\n<p>Some more content</p>\n</div>",
-      headers: [{
-        text: "Header for chunk one",
-        level: 2,
-        id: "header-for-chunk-one",
-      },
-                {
-                  text: "Header for chunk two",
-                  level: 2,
-                  id: "header-for-chunk-two",
-                }],
-
+      headers: [
+        {
+          text: "Header for chunk one",
+          level: 2,
+          id: "header-for-chunk-one",
+        },
+        {
+          text: "Header for chunk two",
+          level: 2,
+          id: "header-for-chunk-two",
+        },
+      ],
     }
 
     assert_equal expected_details, content[:details]
   end
 
-  test "it includes headers once, one layer up, if there is a govspeak block with a 'body' key" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
-      "settings" => {
-        "send_headings" => true,
-      },
-      "schema" => {
-        "properties" => {
-          "body" => {
-            "title" => "Body",
-            "description" => "The main content for the page",
-            "type" => "string",
-            "format" => "govspeak",
-          },
-        },
-      },
-    }))
-    page = build(:standard_edition, { configurable_document_type: type_key,
-                                      block_content: {
-                                        "body" => "## Header for content\n\nSome content",
-                                      } })
-    page.document = Document.new
-    page.document.slug = "page-title"
-    presenter = PublishingApi::StandardEditionPresenter.new(page)
-    content = presenter.content
-
-    expected_body = "<div class=\"govspeak\"><h2 id=\"header-for-content\">Header for content</h2> <p>Some content</p> </div>"
-    expected_headers = [
-      {
-        text: "Header for content",
-        level: 2,
-        id: "header-for-content",
-      },
-    ]
-    assert_equal expected_body, content[:details][:body].squish
-    assert_equal expected_headers, content[:details][:headers]
-  end
-
-  test "it does not include a headers key in the details if there are no headers in any of the content blocks" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(
-      build_configurable_document_type(type_key, {
-        "schema" => {
-          "properties" => {
-            "chunk_of_content_one" => {
-              "title" => "A govspeak block",
-              "description" => "Some bit of content",
-              "type" => "string",
-              "format" => "govspeak",
-            },
-            "chunk_of_content_two" => {
-              "title" => "Another govspeak block",
-              "description" => "Another bit of content",
-              "type" => "string",
-              "format" => "govspeak",
-            },
-          },
-        },
-      }),
-    )
-    page = build(:standard_edition, { configurable_document_type: type_key,
-                                      block_content: {
-                                        "chunk_of_content_one" => "Some content",
-                                        "chunk_of_content_two" => "Some more content",
-                                      } })
-    page.document = Document.new
-    page.document.slug = "page-title"
-    presenter = PublishingApi::StandardEditionPresenter.new(page)
-    content = presenter.content
-
-    assert_nil content[:details][:headers]
-  end
-
   test "it does not include a headers key in the details if the document type is not configured to send headings" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
-      "settings" => {
-        "send_headings" => false,
-      },
       "schema" => {
         "properties" => {
           "chunk_of_content_one" => {
