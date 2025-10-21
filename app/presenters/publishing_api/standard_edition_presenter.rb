@@ -1,6 +1,7 @@
 module PublishingApi
   class StandardEditionPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
+    include Presenters::PublishingApi::PayloadHeadingsHelper
 
     attr_accessor :item, :update_type
 
@@ -41,30 +42,20 @@ module PublishingApi
     def details
       root_block = ConfigurableContentBlocks::Factory.new(item).build("object")
       details = {
-        **flatten_headers(root_block.publishing_api_payload(type.schema, item.block_content)),
+        **root_block.publishing_api_payload(type.schema, item.block_content),
       }
       details.merge!(PayloadBuilder::ChangeHistory.for(item)) if type.settings["send_change_history"] == true
       details.merge!(PayloadBuilder::PoliticalDetails.for(item)) if type.settings["history_mode_enabled"] == true
       details.merge!(PayloadBuilder::Attachments.for(item)) if type.settings["file_attachments_enabled"] == true
+      details.merge!({ headers: }) if type.schema.key? "headings_from"
       details
     end
 
-    def flatten_headers(content)
-      headers = []
-
-      content.keys.each do |key|
-        content_for_key = content[key]
-
-        next unless content_for_key.is_a?(Hash)
-
-        html_for_content_block = content_for_key[:html]
-        headers_for_content_block = content_for_key[:headers]
-        content[key] = html_for_content_block if html_for_content_block.present?
-        headers << headers_for_content_block if headers_for_content_block.present?
+    def headers
+      headings = type.schema["headings_from"].map do |block_attribute|
+        extract_headings(item.block_content.public_send(block_attribute))[:headers]
       end
-
-      content[:headers] = type.settings["send_headings"] == true && headers.any? ? headers.flatten : nil
-      content.compact
+      headings.flatten.compact
     end
 
     def type

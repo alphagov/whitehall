@@ -11,10 +11,7 @@ module ConfigurableContentBlocks
     end
 
     def publishing_api_payload(content)
-      {
-        html: govspeak_to_html(content, images: @images, attachments: @attachments),
-        **extract_headings(content),
-      }
+      govspeak_to_html(content, images: @images, attachments: @attachments)
     end
 
     def to_partial_path

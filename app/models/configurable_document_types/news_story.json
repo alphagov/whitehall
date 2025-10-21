@@ -55,7 +55,6 @@
     "publishing_api_document_type": "news_story",
     "rendering_app": "frontend",
     "images_enabled": true,
-    "send_headings": false,
     "send_change_history": true,
     "file_attachments_enabled": true,
     "organisations": null,

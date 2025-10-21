@@ -76,6 +76,12 @@
               "valid_internal_path_links"
             ]
           }
+        },
+        "headings_from": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["properties"],
@@ -117,9 +123,6 @@
         "images_enabled": {
           "type": "boolean"
         },
-        "send_headings": {
-          "type": "boolean"
-        },
         "send_change_history": {
           "type": "boolean"
         },
@@ -148,7 +151,6 @@
         "publishing_api_document_type",
         "rendering_app",
         "images_enabled",
-        "send_headings",
         "send_change_history",
         "organisations",
         "backdating_enabled",

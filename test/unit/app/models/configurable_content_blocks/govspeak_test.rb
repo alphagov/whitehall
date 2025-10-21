@@ -7,31 +7,10 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     images = [image]
     attachments = [attachment]
     payload = ConfigurableContentBlocks::Govspeak.new(images, attachments).publishing_api_payload(govspeak)
-    doc = Nokogiri::HTML(payload[:html])
+    doc = Nokogiri::HTML(payload)
     assert_not doc.css("a[href=\"#{attachment.url}\"]").empty?
     assert_not doc.css("img[src=\"#{image.url}\"]").empty?
     assert_match(/A paragraph followed by an image/m, doc.text)
-  end
-
-  test "it includes headers in the payload, if present in the govspeak" do
-    govspeak = "## Some header\n\n%A callout%"
-    expected_headers = [
-      {
-        text: "Some header",
-        level: 2,
-        id: "some-header",
-      },
-    ]
-    payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
-    assert_equal expected_headers, payload[:headers]
-    assert_not_nil payload[:html]
-  end
-
-  test "it does not include headers in the payload, if not present in the govspeak" do
-    govspeak = "Some content without headers"
-    payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(govspeak)
-    assert_nil payload[:headers]
-    assert_not_nil payload[:html]
   end
 end
 
