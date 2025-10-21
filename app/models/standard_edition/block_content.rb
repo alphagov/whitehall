@@ -19,15 +19,14 @@ class StandardEdition::BlockContent
 
   def attributes=(values)
     values = values.to_h
-    values.each do |key, value|
+    @schema["properties"].each do |key, nested_schema|
       setter = "#{key}="
-      if value.is_a? Hash
-        nested_schema = @schema["properties"][key.to_s]
-        nested_attributes = self.class.new(nested_schema, @path.push(key.to_s))
-        nested_attributes.assign_attributes(value)
+      if nested_schema["type"] == "object"
+        nested_attributes = self.class.new(nested_schema, @path.push(key))
+        nested_attributes.assign_attributes(values[key])
         public_send(setter, nested_attributes)
       else
-        public_send(setter, value)
+        public_send(setter, values[key])
       end
     end
   end
