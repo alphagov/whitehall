@@ -7,16 +7,11 @@ module ConfigurableContentBlocks
     end
 
     def publishing_api_payload(content)
-      return nil if content.blank?
-
-      if (selected_image = images.find { |image| image.image_data.id == content.to_i })
+      if (selected_image = images.find { |image| image.image_data.id == content })
         {
           url: selected_image.url,
           caption: selected_image.caption,
         }
-      else
-        Rails.logger.warn("The page does not have an image with ID #{content}, so the image has been excluded from the Publishing API payload.")
-        nil
       end
     end
 

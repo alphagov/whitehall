@@ -12,6 +12,12 @@ class StandardEdition::BlockContent
     "valid_internal_path_links" => InternalPathLinksValidator,
   }.freeze
 
+  TYPE_CASTS = {
+    "integer" => ->(value) { value.blank? ? nil : value.to_i },
+    "object" => ->(value) { value },
+    "string" => ->(value) { value },
+  }.freeze
+
   def initialize(schema, path = ConfigurableContentBlocks::Path.new)
     @schema = schema
     @path = path
@@ -74,8 +80,35 @@ private
   end
 
   def attributes_class_for(schema)
-    attributes_class = Struct.new(*schema["properties"].keys.map(&:to_sym))
-    attributes_class.set_temporary_name("#{schema['title']} attributes")
+    attributes_class = Class.new do
+      def initialize
+        @attributes = {}
+      end
+
+      schema["properties"].each do |key, property_schema|
+        define_method("#{key}=") do |value|
+          type_cast = TYPE_CASTS[property_schema["type"]]
+          raise "Unknown attribute type" if type_cast.blank?
+
+          @attributes[key] = type_cast.call(value)
+        end
+
+        define_method(key) do
+          @attributes[key]
+        end
+      end
+
+      delegate :[], to: :@attributes
+
+      def to_h
+        @attributes
+      end
+
+      def as_json
+        @attributes
+      end
+    end
+    attributes_class.set_temporary_name("Block content attributes")
     attributes_class
   end
 end

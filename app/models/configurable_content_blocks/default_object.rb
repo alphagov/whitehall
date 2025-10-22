@@ -13,10 +13,8 @@ module ConfigurableContentBlocks
     def publishing_api_payload(schema, content)
       output = {}
       schema["properties"].each do |property_key, property_schema|
-        unless content[property_key]
-          logger.warn "Property #{property_key} is missing from content, skipping..."
-          next
-        end
+        next if content[property_key].nil?
+
         block = block_factory.build(property_schema["type"], property_schema["format"] || "default")
         leaf_block = !%w[object array].include?(property_schema["type"])
         payload = leaf_block ? block.publishing_api_payload(content[property_key]) : block.publishing_api_payload(property_schema, content[property_key])

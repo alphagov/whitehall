@@ -12,7 +12,7 @@
       "image": {
         "title": "Lead image",
         "description": "Select a lead image, if required",
-        "type": "string",
+        "type": "integer",
         "format": "image_select"
       }
     },

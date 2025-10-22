@@ -13,7 +13,7 @@
       "image": {
         "title": "Image",
         "description": "The image for the page",
-        "type": "string",
+        "type": "integer",
         "format": "image_select"
       }
     }
