@@ -46,7 +46,8 @@ private
 
   def matches_allow_list?(value)
     uri = URI.parse(value)
-    uri.host&.end_with?(*EXTERNAL_HOST_ALLOW_LIST)
+    uri.host&.end_with?(*EXTERNAL_HOST_ALLOW_LIST) ||
+      EXTERNAL_HOST_ALLOW_LIST.any? { |domain| uri.host == domain.delete_prefix(".") }
   rescue URI::InvalidURIError
     false
   end
