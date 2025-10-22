@@ -9,6 +9,10 @@ FactoryBot.define do
     trait(:with_no_assets) do
       image_data { build(:image_data_with_no_assets) }
     end
+
+    trait(:svg) do
+      image_data { build(:image_data_for_svg) }
+    end
   end
 
   factory :image, parent: :generic_image, traits: [:jpg]

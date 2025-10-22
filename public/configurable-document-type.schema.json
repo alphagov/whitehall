@@ -43,7 +43,8 @@
                   "enum": [
                     "default",
                     "govspeak",
-                    "image_select"
+                    "image_select",
+                    "lead_image_select"
                   ]
                 }
               },

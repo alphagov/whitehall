@@ -42,6 +42,28 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     assert_equal block, factory.build("integer", "image_select")
   end
 
+  test "it can build a lead image select integer block" do
+    page = StandardEdition.new
+    img = create(:image)
+    page.stubs(:default_lead_image).returns(img)
+    factory = ConfigurableContentBlocks::Factory.new(page)
+    block = mock("ConfigurableContentBlocks::LeadImageSelect")
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with(page.images, default_lead_image: img).returns(block)
+    assert_equal block, factory.build("integer", "lead_image_select")
+  end
+
+  test "it filters out svg images" do
+    page = StandardEdition.new
+    images = [create(:image, :svg), create(:image)]
+    page.images = images
+    default_img = create(:image)
+    page.stubs(:default_lead_image).returns(default_img)
+    factory = ConfigurableContentBlocks::Factory.new(page)
+    block = mock("ConfigurableContentBlocks::LeadImageSelect")
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([images.last], default_lead_image: default_img).returns(block)
+    factory.build("integer", "lead_image_select")
+  end
+
   test "it can build a govspeak string block, with images and attachments" do
     test_type_with_images_and_attachments =
       build_configurable_document_type(
