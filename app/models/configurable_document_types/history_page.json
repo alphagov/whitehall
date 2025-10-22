@@ -13,7 +13,7 @@
       "sidebar_image": {
         "title": "Sidebar image",
         "description": "Enter the markdown code for the sidebar image",
-        "type": "string",
+        "type": "integer",
         "format": "image_select"
       },
       "lead_paragraph": {

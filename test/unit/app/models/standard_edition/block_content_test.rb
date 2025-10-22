@@ -3,11 +3,16 @@ require "test_helper"
 class BlockContentTest < ActiveSupport::TestCase
   setup do
     @schema = {
+      "title" => "Test document type",
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
           "type" => "string",
           "format" => "govspeak",
+        },
+        "test_number_attribute" => {
+          "title" => "Test attribute",
+          "type" => "integer",
         },
       },
     }
@@ -28,6 +33,20 @@ class BlockContentTest < ActiveSupport::TestCase
       page.valid?
     end
     assert_equal "undefined validator type made_up_validation_rule", error.message
+  end
+
+  test "casts number attributes to a number for storage" do
+    page = StandardEdition::BlockContent.new(@schema)
+
+    page.attributes = { "test_number_attribute" => "1" }
+    assert_equal(1, page.test_number_attribute)
+  end
+
+  test "casts number attributes to nil for storage if the input value is an empty string" do
+    page = StandardEdition::BlockContent.new(@schema)
+
+    page.attributes = { "test_number_attribute" => "" }
+    assert_nil page.test_number_attribute
   end
 
   test "maps 'presence' validation to ActiveModel::Validations::PresenceValidator" do

@@ -33,13 +33,13 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     assert_equal block, factory.build("string")
   end
 
-  test "it can build an image select string block" do
+  test "it can build an image select integer block" do
     page = StandardEdition.new
     page.images = [build(:image)]
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::ImageSelect")
     ConfigurableContentBlocks::ImageSelect.expects(:new).with(page.images).returns(block)
-    assert_equal block, factory.build("string", "image_select")
+    assert_equal block, factory.build("integer", "image_select")
   end
 
   test "it can build a govspeak string block, with images and attachments" do

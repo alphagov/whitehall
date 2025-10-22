@@ -10,12 +10,6 @@ class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
       caption: images[1].caption,
     }, payload)
   end
-
-  test "does not have a publishing api payload if no image is selected" do
-    payload = ConfigurableContentBlocks::ImageSelect.new.publishing_api_payload("")
-
-    assert_nil payload
-  end
 end
 
 class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
@@ -36,7 +30,7 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
     page = StandardEdition.new
     page.configurable_document_type = "test_type"
     page.images = create_list(:image, 3)
-    page.block_content = { "test_attribute" => page.images.last.image_data.id }
+    page.block_content = { "test_attribute" => page.images.last.image_data.id.to_s }
     block = ConfigurableContentBlocks::ImageSelect.new(page.images)
 
     render block, {
@@ -69,7 +63,7 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
     page = StandardEdition.new
     page.configurable_document_type = "test_type"
     page.images = create_list(:image, 3)
-    page.block_content = { "test_attribute" => page.images.last.image_data.id }
+    page.block_content = { "test_attribute" => page.images.last.image_data.id.to_s }
     block = ConfigurableContentBlocks::ImageSelect.new(page.images)
 
     render block, {
@@ -105,7 +99,7 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
     page = StandardEdition.new
     page.configurable_document_type = "test_type"
     page.images = create_list(:image, 3)
-    page.block_content = { "test_attribute" => "" }
+    page.block_content = { "test_attribute" => nil }
     page.validate
     block = ConfigurableContentBlocks::ImageSelect.new(page.images)
 
