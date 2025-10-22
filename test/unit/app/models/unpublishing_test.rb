@@ -94,6 +94,14 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_not unpublishing.valid?
   end
 
+  test "alternative_url supports an allowlist domain without the www prefix" do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://internationalaisafetyreport.org")
+    assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://nationalhighways.co.uk/page")
+    assert unpublishing.valid?
+  end
+
   test "alternative_url is stripped before validate" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://gov.uk/guidance ")
     unpublishing.valid?
