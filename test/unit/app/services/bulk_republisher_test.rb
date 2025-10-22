@@ -358,6 +358,36 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       end
     end
 
+    context "for editionable content types that also have configurable document types" do
+      test "republishes content for the specified type and configurable types via the PublishingApiDocumentRepublishingWorker" do
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("case_study"))
+        case_study_type = create(:published_case_study)
+        standard_edition_case_study_type = create(:published_standard_edition, :with_organisations, { configurable_document_type: "case_study" })
+        [case_study_type, standard_edition_case_study_type].each do |article|
+          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+            "bulk_republishing",
+            article.document_id,
+            true,
+          )
+        end
+        BulkRepublisher.new.republish_all_by_type("CaseStudy")
+      end
+    end
+
+    context "for content types that are exclusive to standard editions" do
+      test "republishes content for the specified type via the PublishingApiDocumentRepublishingWorker" do
+        BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[TestType])
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+        test_type = create(:published_standard_edition, { configurable_document_type: "test_type" })
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          test_type.document_id,
+          true,
+        )
+        BulkRepublisher.new.republish_all_by_type("TestType")
+      end
+    end
+
     context "for non-editionable content types, like Contact, when publishable to Publishing API" do
       test "republishes all content of the specified type via the Whitehall::Publishing API" do
         2.times do
@@ -384,14 +414,6 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       test "it raises an error" do
         assert_raises(StandardError, match: "Unknown content type User") do
           BulkRepublisher.new.republish_all_by_type("User")
-        end
-      end
-    end
-
-    context "for non-existent content types" do
-      test "it raises an error" do
-        assert_raises(StandardError, match: "Unknown content type SomeDocumentTypeThatDoesntExist") do
-          BulkRepublisher.new.republish_all_by_type("SomeDocumentTypeThatDoesntExist")
         end
       end
     end
