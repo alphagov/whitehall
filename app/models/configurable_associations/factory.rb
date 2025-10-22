@@ -21,6 +21,7 @@ module ConfigurableAssociations
         "topical_events" => ->(edition) { ConfigurableAssociations::TopicalEvents.new(edition.topical_events) },
         "world_locations" => ->(edition) { ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors) },
         "organisations" => ->(edition) { ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors) },
+        "worldwide_organisations" => ->(edition) { ConfigurableAssociations::WorldwideOrganisations.new(edition.edition_worldwide_organisations, edition.errors) },
       }.freeze
     end
   end
