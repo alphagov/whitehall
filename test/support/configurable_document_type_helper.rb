@@ -22,6 +22,7 @@ module ConfigurableDocumentTypeHelper
           "organisations" => nil,
           "backdating_enabled" => false,
           "history_mode_enabled" => false,
+          "translations_enabled" => false,
         },
       }.deep_merge(attributes),
     }

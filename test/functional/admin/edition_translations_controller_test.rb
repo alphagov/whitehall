@@ -31,6 +31,18 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "new omits English from create select" do
+    edition = create(:draft_edition)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+    with_locale(:es) { edition.update!(attributes_for("draft_edition")) }
+
+    get :new, params: { edition_id: edition }
+
+    assert_select "select[name=translation_locale]" do
+      assert_select "option[value=en]", count: 0
+    end
+  end
+
   test "create redirects to edit for the chosen language" do
     edition = create(:edition)
     post :create, params: { edition_id: edition, translation_locale: "fr" }

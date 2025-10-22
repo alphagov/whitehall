@@ -118,8 +118,22 @@ And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |t
   expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
 end
 
-When(/^I create a new configurable document with Welsh as the primary locale titled "([^"]*)"$/) do |title|
-  @welsh_primary_edition = create_configurable_document(title: title, locale: "cy")
+When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)"$/) do |configurable_document_type, title|
+  create(:organisation) if Organisation.count.zero?
+  visit admin_root_path
+  find("li.app-c-sub-navigation__list-item a", text: "New document").click
+  page.choose("Standard document")
+  click_button("Next")
+  page.choose(configurable_document_type)
+  click_button("Next")
+  expect(page).to have_content("New test")
+  within "form" do
+    fill_in "edition_title", with: title
+    fill_in "edition_summary", with: "A brief summary of the document."
+    fill_in "edition_body", with: "## Some govspeak\n\nThis is the body content"
+    select "Cymraeg (Welsh)", from: "Language"
+  end
+  click_button "Save and go to document summary"
 end
 
 Given(/^I have drafted a Welsh primary locale configurable document$/) do
@@ -129,22 +143,6 @@ Given(/^I have drafted a Welsh primary locale configurable document$/) do
     summary: "Crynodeb Cymraeg",
     body: "## Govspeak Cymraeg\n\nCynnwys y corff yn Gymraeg",
   )
-end
-
-Then(/^the document should be saved with Welsh as the primary locale$/) do
-  edition = @welsh_primary_edition || StandardEdition.last
-  expect(edition.primary_locale).to eq("cy")
-end
-
-And(/^English should not appear as a translation option$/) do
-  edition = @welsh_primary_edition || @welsh_edition || StandardEdition.last
-  visit admin_standard_edition_path(edition)
-  if page.has_link?("Add translation")
-    click_link "Add translation"
-    expect(page).not_to have_select("Choose language", with_options: %w[English])
-  else
-    expect(page).not_to have_link("Add translation")
-  end
 end
 
 When(/^I add a Welsh translation "([^"]*)"$/) do |welsh_title|
@@ -180,4 +178,8 @@ And(/^I should see the original English content in "original text" sections$/) d
   expect(page).to have_css(".app-c-govspeak-editor")
 
   expect(page).to have_css(".govuk-details", text: "Primary locale content for Body")
+end
+
+And(/^the language of the document should be Welsh$/) do
+  expect(page).to have_content("Primary language Cymraeg (Welsh)")
 end

@@ -102,6 +102,7 @@
         margin_bottom: 6,
       } %>
 
+      <%= render Admin::Editions::LanguageSelectFormControl.new(@edition) %>
       <%= render "accessible_attachment_field", form: form, edition: @edition if @edition.allows_file_attachments? %>
       <%= render "access_limiting_fields", form: form, edition: @edition %>
       <%= render "scheduled_publication_fields", form: form, edition: @edition %>

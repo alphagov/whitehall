@@ -30,8 +30,8 @@ Feature: Standard Editions
     Given I am a GDS admin
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined with translations enabled
-    When I create a new configurable document with Welsh as the primary locale titled "Strategaeth Ddigidol Cymru"
-    Then the document should be saved with Welsh as the primary locale
-    And English should not appear as a translation option
+    When I create a new "Test configurable document type" with Welsh as the primary locale titled "Strategaeth Ddigidol Cymru"
+    Then I am on the summary page of the draft titled "Strategaeth Ddigidol Cymru"
+    And the language of the document should be Welsh
 
 
