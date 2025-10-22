@@ -135,6 +135,44 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal expected_details, content[:details]
   end
 
+  test "it omits the headers key from the payload if none are present in the selected content" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "schema" => {
+        "headings_from" => %w[chunk_of_content_one chunk_of_content_two],
+        "properties" => {
+          "chunk_of_content_one" => {
+            "title" => "A govspeak block",
+            "description" => "Some bit of content",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+          "chunk_of_content_two" => {
+            "title" => "Another govspeak block",
+            "description" => "Another bit of content",
+            "type" => "string",
+            "format" => "govspeak",
+          },
+        },
+      },
+    }))
+    page = build(:standard_edition, { configurable_document_type: type_key })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    page.block_content = {
+      "chunk_of_content_two" => "Some more content",
+      "chunk_of_content_one" => "Some content",
+    }
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+    expected_details = {
+      chunk_of_content_one: "<div class=\"govspeak\"><p>Some content</p>\n</div>",
+      chunk_of_content_two: "<div class=\"govspeak\"><p>Some more content</p>\n</div>",
+    }
+
+    assert_equal expected_details, content[:details]
+  end
+
   test "it does not include a headers key in the details if the document type is not configured to send headings" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
