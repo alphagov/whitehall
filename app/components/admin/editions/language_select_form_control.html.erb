@@ -1,0 +1,25 @@
+<% selected_value = @edition.primary_locale || "en" %>
+<% if @edition.new_record? %>
+  <div class="govuk-!-margin-bottom-6">
+    <%= hidden_field_tag "edition[create_foreign_language_only]", 1 %>
+    <%= render "govuk_publishing_components/components/select_with_search", {
+      id: "edition_primary_locale",
+      name: "edition[primary_locale]",
+      label: "Language",
+      heading_size: "m",
+      hint_id: "edition_primary_locale_hint",
+      hint: "Warning: the language cannot be changed after this document has been saved",
+      full_width: true,
+      options: options_for_locales(Locale.all).map do |language, value|
+        {
+          text: language,
+          value: value,
+          selected: value == selected_value,
+        }
+      end,
+    } %>
+  </div>
+<% else %>
+  <h3 class="govuk-heading-m">Language</h3>
+  <p class="govuk-body"><%= Locale.new(@edition.primary_locale).native_and_english_language_name %></p>
+<% end %>
