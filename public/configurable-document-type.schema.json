@@ -103,6 +103,7 @@
             "enum": [
               "ministerial_role_appointments",
               "organisations",
+              "worldwide_organisations",
               "topical_events",
               "world_locations"
             ]

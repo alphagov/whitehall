@@ -1,0 +1,39 @@
+{
+  "key": "world_news_story",
+  "title": "World News Story",
+  "description": "???",
+  "schema": {
+    "properties": {
+      "body": {
+          "title": "Body",
+          "type": "string",
+          "format": "govspeak"
+      }
+    },
+    "validations": {
+    }
+  },
+  "associations" : [
+    {
+      "key": "worldwide_organisations",
+      "required": true
+    },
+    {
+      "key": "world_locations",
+      "required": true
+    }
+  ],
+  "settings": {
+    "base_path_prefix": "/government/news",
+    "publishing_api_schema_name": "news_article",
+    "publishing_api_document_type": "world_news_story",
+    "rendering_app": "frontend",
+    "images_enabled": true,
+    "send_change_history": true,
+    "file_attachments_enabled": true,
+    "organisations": null,
+    "backdating_enabled": true,
+    "history_mode_enabled": true,
+    "translations_enabled": true
+  }
+}
