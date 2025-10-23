@@ -17,6 +17,9 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
           {
             "key" => "organisations",
           },
+          {
+            "key" => "worldwide_organisations",
+          },
         ],
       }),
     )
@@ -29,6 +32,9 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
                     topical_events:,
                     world_locations:)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
+    worldwide_organisations = create_list(:worldwide_organisation, 2)
+    edition.edition_worldwide_organisations.build([{ document: worldwide_organisations.first.document }, { document: worldwide_organisations.last.document }])
+
     links = PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(edition)
     expected_people, expected_roles = ministerial_role_appointments
                                         .map { |appointment| [appointment.person.content_id, appointment.role.content_id] }
@@ -43,6 +49,8 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
     assert_equal expected_organisations, links[:organisations]
     expected_primary_publishing_organisation = [organisations.first.content_id]
     assert_equal expected_primary_publishing_organisation, links[:primary_publishing_organisation]
+    expected_worldwide_organisations = worldwide_organisations.map(&:content_id)
+    assert_equal expected_worldwide_organisations, links[:worldwide_organisations]
   end
 
   test "includes government link if the document type has it configured" do
