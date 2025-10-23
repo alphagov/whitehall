@@ -1,10 +1,18 @@
 class ConfigurableDocumentType
   attr_reader :key, :schema, :associations, :settings
 
+  @types_mutex = Mutex.new
+
   def self.types
-    @types ||= Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
-      data = JSON.parse(File.read(filename))
-      hash[data["key"]] = data
+    return @types if @types
+
+    @types_mutex.synchronize do
+      return @types if @types
+
+      @types = Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
+        data = JSON.parse(File.read(filename))
+        hash[data["key"]] = data
+      end
     end
   end
 
