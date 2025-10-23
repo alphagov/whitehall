@@ -28,4 +28,13 @@ class WorldWideOrganisationsRenderingTest < ActionView::TestCase
       assert_dom "option", text: worldwide_organisation.name
     end
   end
+
+  test "it displays errors for worldwide organisations if there are any" do
+    edition = build(:draft_standard_edition)
+    edition.errors.add(:worldwide_organisations, "Some error goes here")
+    worldwide_organisations_association = ConfigurableAssociations::WorldwideOrganisations.new(edition.edition_worldwide_organisations, edition.errors)
+    render worldwide_organisations_association
+    assert_dom ".govuk-form-group--error"
+    assert_dom ".govuk-error-message", text: "Error: Worldwide organisations Some error goes here"
+  end
 end

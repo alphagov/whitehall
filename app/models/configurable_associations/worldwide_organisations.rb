@@ -2,6 +2,8 @@ module ConfigurableAssociations
   class WorldwideOrganisations
     include Admin::TaggableContentHelper
 
+    attr_reader :errors
+
     def initialize(association, errors)
       @association = association
       @errors = errors
