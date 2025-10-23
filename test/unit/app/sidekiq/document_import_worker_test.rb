@@ -14,6 +14,7 @@ class DocumentImportWorkerTest < ActiveSupport::TestCase
         document: build(:document, slug: "press-release-for-test-purposes"),
       ),
     )
+    ConfigurableDocumentType.reset_document_types!
   end
 
   test "imports a document into Whitehall" do

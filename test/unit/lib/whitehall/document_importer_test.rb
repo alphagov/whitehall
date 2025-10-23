@@ -43,6 +43,7 @@ module Whitehall
         "attachments" => [],
         "images" => [],
       }
+      ConfigurableDocumentType.reset_document_types!
     end
 
     describe ".import!" do
