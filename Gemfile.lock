@@ -673,9 +673,8 @@ GEM
     opentelemetry-semantic_conventions (1.36.0)
       opentelemetry-api (~> 1.0)
     ostruct (0.6.3)
-    pact (1.67.0)
+    pact (1.67.2)
       jsonpath (~> 1.0)
-      pact-ffi (~> 0.4.28)
       pact-mock_service (~> 3.0, >= 3.3.1)
       pact-support (~> 1.21, >= 1.21.2)
       rack
@@ -687,12 +686,6 @@ GEM
       thor (>= 0.20, < 2.0)
       webrick (~> 1.8)
       zeitwerk (~> 2.3)
-    pact-ffi (0.4.28.0-aarch64-linux)
-      ffi (~> 1.15)
-    pact-ffi (0.4.28.0-arm64-darwin)
-      ffi (~> 1.15)
-    pact-ffi (0.4.28.0-x86_64-linux)
-      ffi (~> 1.15)
     pact-mock_service (3.12.3)
       find_a_port (~> 1.0.1)
       json
