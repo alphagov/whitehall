@@ -19,8 +19,7 @@ class ImageData < ApplicationRecord
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
-  validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." }
-  validates_with ImageValidator, if: :image_changed?
+  validate :file_is_not_blank
   validate :filename_is_unique
 
   belongs_to :replaced_by, class_name: "ImageData"
@@ -83,6 +82,10 @@ class ImageData < ApplicationRecord
   end
 
 private
+
+  def file_is_not_blank
+    errors.add(:file, :blank) if file.blank? && errors[:file].blank?
+  end
 
   def dimensions_from_config
     return unless bitmap? && respond_to?(:image_kind_config)

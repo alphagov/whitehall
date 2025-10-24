@@ -12,7 +12,6 @@ class PromotionalFeatureItem < ApplicationRecord
            inverse_of: :assetable
 
   validates :summary, presence: true, length: { maximum: 500 }
-  validates_with ImageValidator, method: :image, if: :image_changed?
   validates :title_url, uri: true, allow_blank: true
   validate :image_or_youtube_url_is_present
   validates :youtube_video_url, format: {

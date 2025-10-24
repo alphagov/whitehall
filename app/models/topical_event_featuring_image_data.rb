@@ -10,8 +10,6 @@ class TopicalEventFeaturingImageData < ApplicationRecord
 
   validates :file, presence: true
 
-  validates_with ImageValidator
-
   delegate :url, to: :file
 
   def filename
