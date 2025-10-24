@@ -201,4 +201,30 @@ class StandardEditionTest < ActiveSupport::TestCase
 
     assert_not_includes missing_translations, :en
   end
+
+  test "conditionally requires worldwide organisation and world location associations" do
+    test_type = build_configurable_document_type(
+      "test_type", {
+        "associations" => [
+          {
+            "key" => "worldwide_organisations",
+            "required" => true,
+          },
+          {
+            "key" => "world_locations",
+            "required" => false,
+          },
+          {
+            "key" => "organisations",
+            "required" => true,
+          },
+        ],
+      }
+    )
+    ConfigurableDocumentType.setup_test_types(test_type)
+    page = StandardEdition.new(configurable_document_type: "test_type")
+    assert page.worldwide_organisation_association_required?
+    assert_not page.world_location_association_required?
+    assert_not page.respond_to?(:organisation_association_required?) # ignores required value for other associations
+  end
 end

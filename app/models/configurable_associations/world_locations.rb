@@ -1,11 +1,12 @@
 module ConfigurableAssociations
   class WorldLocations
-    def initialize(association, errors)
+    attr_reader :errors, :required
+
+    def initialize(association, errors, required: false)
       @association = association
       @errors = errors
+      @required = required
     end
-
-    attr_reader :errors
 
     def links
       {

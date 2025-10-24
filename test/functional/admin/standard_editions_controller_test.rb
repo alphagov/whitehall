@@ -126,6 +126,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       {
         "key" => "organisations",
       },
+      {
+        "key" => "worldwide_organisations",
+      },
     ] })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
@@ -141,6 +144,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "World locations"
     assert_select "legend", text: "Lead organisations"
     assert_select "label", text: "Supporting organisations"
+    assert_select "label", text: "Worldwide organisations"
   end
 
   view_test "POST create re-renders the new edition template with the submitted block content and errors if the form is invalid" do

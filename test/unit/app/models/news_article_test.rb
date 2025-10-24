@@ -54,7 +54,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   test "can associate world news stories with worldwide organisations" do
     news_article = create(:news_article_world_news_story)
-    assert news_article.can_be_associated_with_worldwide_organisations?
+    assert news_article.worldwide_organisation_association_required?
     worldwide_organisation = build(:worldwide_organisation, :with_document, title: "Zimbabwean Embassy")
     assert news_article.worldwide_organisation_documents << worldwide_organisation.document
   end
