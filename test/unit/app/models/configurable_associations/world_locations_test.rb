@@ -57,9 +57,9 @@ class WorldLocationsRenderingTest < ActionView::TestCase
     edition = build(:draft_standard_edition)
     world_locations_association = ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors)
     render world_locations_association
-    assert_dom "option:nth-child(1)", text: "Albania"
-    assert_dom "option:nth-child(2)", text: "France"
-    assert_dom "option:nth-child(3)", text: "Zimbabwe"
+    assert_dom "option:nth-child(2)", text: "Albania"
+    assert_dom "option:nth-child(3)", text: "France"
+    assert_dom "option:nth-child(4)", text: "Zimbabwe"
   end
 
   test "it displays errors if there are any" do
