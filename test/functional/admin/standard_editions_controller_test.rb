@@ -44,7 +44,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    edition = build(:standard_edition)
+    edition = build(:standard_edition, :with_organisations)
     edition.save!
 
     get :edit, params: { id: edition }
@@ -61,7 +61,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "backdating_enabled" => true } })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    edition = build(:standard_edition)
+    edition = build(:standard_edition, :with_organisations)
     edition.save!
 
     get :edit, params: { id: edition }
@@ -74,7 +74,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "history_mode_enabled" => true } })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    edition = build(:published_standard_edition)
+    edition = build(:published_standard_edition, :with_organisations)
     edition.save!
 
     draft = edition.create_draft(edition.authors.first)
@@ -89,7 +89,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true } })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    edition = create(:draft_standard_edition)
+    edition = create(:draft_standard_edition, :with_organisations)
 
     login_as :managing_editor
     get :edit, params: { id: edition.id }
@@ -103,7 +103,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-    edition = create(:draft_standard_edition)
+    edition = create(:draft_standard_edition, :with_organisations)
 
     login_as :managing_editor
     get :edit, params: { id: edition.id }
