@@ -15,24 +15,18 @@ module Edition::WorldwideOrganisations
 
     add_trait Trait
 
-    validate :at_least_one_worldwide_organisation
+    validate :at_least_one_worldwide_organisation, if: :worldwide_organisation_association_required?
   end
 
   def worldwide_organisations=(worldwide_organisations)
     self.worldwide_organisation_documents = worldwide_organisations.map(&:document)
   end
 
-  def can_be_associated_with_worldwide_organisations?
-    true
-  end
-
-  def skip_worldwide_organisations_validation?
-    true
+  def worldwide_organisation_association_required?
+    false
   end
 
   def at_least_one_worldwide_organisation
-    return if skip_worldwide_organisations_validation?
-
     errors.add(:worldwide_organisations, "at least one required") if worldwide_organisation_document_ids.empty?
   end
 end

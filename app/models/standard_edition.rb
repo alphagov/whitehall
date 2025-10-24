@@ -7,6 +7,7 @@ class StandardEdition < Edition
   include Edition::TopicalEvents
   include Edition::WorldLocations
   include Edition::Organisations
+  include Edition::WorldwideOrganisations
   include HasBlockContent
   include StandardEdition::DefaultLeadImage
 
@@ -62,5 +63,9 @@ class StandardEdition < Edition
 
   def organisation_association_enabled?
     type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
+  end
+
+  def worldwide_organisation_association_required?
+    type_instance.associations.find { |assoc| assoc["key"] == "worldwide_organisations" }&.dig("required") == true
   end
 end
