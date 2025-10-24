@@ -55,7 +55,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         visit admin_case_study_path(edition)
         click_link "Edit draft"
         click_link "Images"
-        attach_file "image[image_data][file]", path_to_attachment("minister-of-funk.960x640.jpg")
+        attach_file "images[][image_data][file]", path_to_attachment("minister-of-funk.960x640.jpg")
         click_button "Upload"
       end
 

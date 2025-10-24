@@ -2,6 +2,10 @@ require "pdf-reader"
 require "timeout"
 
 class AttachmentData < ApplicationRecord
+  include Replaceable
+
+  attr_accessor :to_replace_id, :attachable
+
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file, validate_integrity: true
 
   has_many :attachments, -> { order(:attachable_id) }, inverse_of: :attachment_data
@@ -16,8 +20,6 @@ class AttachmentData < ApplicationRecord
   validate :file_is_not_blank
   validate :file_is_not_empty
   validate :filename_is_unique
-
-  attr_accessor :to_replace_id, :attachable
 
   belongs_to :replaced_by, class_name: "AttachmentData"
   validate :cant_be_replaced_by_self
@@ -76,18 +78,6 @@ class AttachmentData < ApplicationRecord
     end
   end
 
-  def replace_with!(replacement)
-    # NOTE: we're doing this manually because carrierwave is setup such
-    # that production instances aren't valid because the storage location
-    # for files is not where carrierwave thinks they are (because of
-    # virus-checking).
-    self.replaced_by = replacement
-    cant_be_replaced_by_self
-    raise ActiveRecord::RecordInvalid, self if errors.any?
-
-    update_column(:replaced_by_id, replacement.id)
-  end
-
   def deleted?
     significant_attachment(include_deleted_attachables: true).deleted?
   end
@@ -111,14 +101,6 @@ class AttachmentData < ApplicationRecord
   delegate :access_limited_object, to: :last_attachable
 
   delegate :unpublished?, to: :unpublished_attachable
-
-  def replaced?
-    replaced_by.present?
-  end
-
-  def replacement_asset_for(asset)
-    replaced_by.assets.where(variant: asset.variant).first || replaced_by.assets.where(variant: Asset.variants[:original]).first
-  end
 
   def visible_to?(user)
     !deleted? && (!draft? || (draft? && accessible_to?(user)))
@@ -219,18 +201,6 @@ private
     end
   end
 
-  def cant_be_replaced_by_self
-    return if replaced_by.nil?
-
-    errors.add(:base, "can't be replaced by itself") if replaced_by == self
-  end
-
-  def handle_to_replace_id
-    return if to_replace_id.blank?
-
-    AttachmentData.find(to_replace_id).replace_with!(self)
-  end
-
   def calculate_number_of_pages
     Timeout.timeout(10) do
       PDF::Reader.new(path).page_count
@@ -241,14 +211,6 @@ private
 
   def attachment_with_same_filename
     attachable && attachable.attachments.with_filename(filename).first
-  end
-
-  def same_filename_as_replacement?
-    return if to_replace_id.blank?
-
-    to_replace = AttachmentData.find(to_replace_id)
-
-    to_replace && to_replace.filename == filename
   end
 
   def filename_is_unique
