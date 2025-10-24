@@ -17,7 +17,13 @@ module ConfigurableAssociations
     end
 
     def options
-      taggable_worldwide_organisations_container(@association)
+      WorldwideOrganisation.with_translations.latest_edition.order(:title).map do |worldwide_organisation|
+        {
+          text: worldwide_organisation.title,
+          value: worldwide_organisation.document.id,
+          selected: @association.map { |a| a.document.id }.include?(worldwide_organisation.document.id),
+        }
+      end
     end
 
     def to_partial_path
