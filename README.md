@@ -36,7 +36,6 @@ See the [`docs/`](docs/) directory.
 - [CSS](docs/css.md)
 - [Edition model](docs/edition_model.md)
 - [Edition workflow](docs/edition_workflow.md)
-- [How to publish a finder in whitehall](docs/finders.md)
 - [Internationalisation](docs/internationalisation_guide.md)
 - [JavaScript](docs/javascript.md)
 - [Search Indexing](docs/search_indexing.md)
