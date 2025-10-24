@@ -14,6 +14,7 @@ module Edition::BasePermissionMethods
     is_associated_with_a_minister?
     organisation_association_enabled?
     worldwide_organisation_association_required?
+    world_location_association_required?
   ].each do |method|
     define_method(method) { false }
   end

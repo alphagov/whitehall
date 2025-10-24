@@ -68,4 +68,8 @@ class StandardEdition < Edition
   def worldwide_organisation_association_required?
     type_instance.associations.find { |assoc| assoc["key"] == "worldwide_organisations" }&.dig("required") == true
   end
+
+  def world_location_association_required?
+    type_instance.associations.find { |assoc| assoc["key"] == "world_locations" }&.dig("required") == true
+  end
 end

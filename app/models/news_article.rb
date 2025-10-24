@@ -69,7 +69,7 @@ class NewsArticle < Edition
     !world_news_story?
   end
 
-  def world_location_association_enabled?
+  def world_location_association_required?
     world_news_story?
   end
 

@@ -10,7 +10,7 @@ module Edition::WorldLocations
   end
 
   included do
-    validate :at_least_one_world_location, if: :world_location_association_enabled?
+    validate :at_least_one_world_location, if: :world_location_association_required?
 
     has_many :edition_world_locations, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy, autosave: true
     has_many :world_locations, through: :edition_world_locations
@@ -22,7 +22,7 @@ module Edition::WorldLocations
     true
   end
 
-  def world_location_association_enabled?
+  def world_location_association_required?
     false
   end
 
