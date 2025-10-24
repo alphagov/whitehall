@@ -1,7 +1,6 @@
 module Whitehall
   module Uploader
     autoload :Csv, "whitehall/uploader/csv"
-    autoload :Finders, "whitehall/uploader/finders"
     autoload :Parsers, "whitehall/uploader/parsers"
     autoload :Builders, "whitehall/uploader/builders"
     autoload :HeadingValidator, "whitehall/uploader/heading_validator"
