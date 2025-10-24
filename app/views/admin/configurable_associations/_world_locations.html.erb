@@ -2,7 +2,7 @@
   id: "edition_world_locations",
   name: "edition[world_location_ids][]",
   error_items: errors_for(world_locations.errors, :world_locations),
-  label: "World locations",
+  label: "World locations" + "#{' (required)' if world_locations.required}",
   heading_size: "m",
   options: world_locations.options_query.map do |world_location|
     {

@@ -37,19 +37,25 @@ class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
     ]
     configurable_document_type = build_configurable_document_type("test_type", { "associations" => association_config })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
-
     edition = build(:draft_standard_edition, :with_organisations)
     factory = ConfigurableAssociations::Factory.new(edition)
+
     role_appointments = mock("ConfigurableAssociations::RoleAppointments")
     ConfigurableAssociations::MinisterialRoleAppointments.expects(:new).with(edition.role_appointments).returns(role_appointments)
+
     topical_events = mock("ConfigurableAssociations::TopicalEvents")
     ConfigurableAssociations::TopicalEvents.expects(:new).with(edition.topical_events).returns(topical_events)
+
     world_locations = mock("ConfigurableAssociations::WorldLocations")
-    ConfigurableAssociations::WorldLocations.expects(:new).with(edition.world_locations, edition.errors).returns(world_locations)
+    edition.stubs(:world_location_association_required?).returns(true)
+    ConfigurableAssociations::WorldLocations.expects(:new).with(edition.world_locations, edition.errors, required: true).returns(world_locations)
+
     organisations = mock("ConfigurableAssociations::Organisations")
     ConfigurableAssociations::Organisations.expects(:new).with(edition.edition_organisations, edition.errors).returns(organisations)
+
     worldwide_organisations = mock("ConfigurableAssociations::WorldwideOrganisations")
-    ConfigurableAssociations::WorldwideOrganisations.expects(:new).with(edition.worldwide_organisation_document_ids, edition.errors).returns(worldwide_organisations)
+    edition.stubs(:worldwide_organisation_association_required?).returns(true)
+    ConfigurableAssociations::WorldwideOrganisations.expects(:new).with(edition.worldwide_organisation_document_ids, edition.errors, required: true).returns(worldwide_organisations)
 
     assert_equal [role_appointments, topical_events, world_locations, organisations, worldwide_organisations], factory.configurable_associations
   end

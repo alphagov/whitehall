@@ -3,7 +3,7 @@
   name: "edition[worldwide_organisation_document_ids][]",
   error_items: errors_for(worldwide_organisations.errors, :worldwide_organisations),
   include_blank: true,
-  label: "Worldwide organisations",
+  label: "Worldwide organisations" + "#{' (required)' if worldwide_organisations.required}",
   heading_size: "m",
   options: worldwide_organisations.options,
   multiple: true,
