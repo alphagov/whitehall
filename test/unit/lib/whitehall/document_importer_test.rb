@@ -232,6 +232,41 @@ module Whitehall
 
         assert_equal expected_body_output, body_output
       end
+
+      it "replaces footnotes with their definitions" do
+        body_input = <<~BODY
+          ## Table 3: Estimated number of households eligible
+
+          Local Authority|Households eligible for the means-tested payment[^1]|Individuals eligible for the disability payment*
+          -|-:|-:
+          Aberdeen City|22,900|18,200
+          Aberdeenshire|19,800|18,500
+
+          Some more content. This is some text with a footnote.[^2]
+
+          More text.
+
+          [^1]: Estimates rounded to the nearest 100. Cases categorised as abroad or unknown have not been included in the totals.
+          [^2]: Estimates rounded to the nearest 100. Cases categorised as abroad or unknown have not been included in the totals.
+        BODY
+        expected_body_output = <<~BODY
+          ## Table 3: Estimated number of households eligible
+
+          Local Authority|Households eligible for the means-tested payment (Estimates rounded to the nearest 100. Cases categorised as abroad or unknown have not been included in the totals.)|Individuals eligible for the disability payment*
+          -|-:|-:
+          Aberdeen City|22,900|18,200
+          Aberdeenshire|19,800|18,500
+
+          Some more content. This is some text with a footnote. (Estimates rounded to the nearest 100. Cases categorised as abroad or unknown have not been included in the totals.)
+
+          More text.
+
+        BODY
+
+        body_output = Whitehall::DocumentImporter.pre_process_body(body_input)
+
+        assert_equal expected_body_output, body_output
+      end
     end
   end
 end

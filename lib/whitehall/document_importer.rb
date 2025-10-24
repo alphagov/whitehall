@@ -94,6 +94,24 @@ class Whitehall::DocumentImporter
       contact = Contact.find_by(content_id: ::Regexp.last_match(1))
       contact ? "[Contact:#{contact.id}]" : ""
     end
+
+    # Process footnotes:
+    # 1) Collect single-line footnote definitions: `[^key]: text...`
+    footnote_defs = {}
+    body.scan(/^\[\^([^\]]+)\]:\s*(.+)\s*$/).each do |key, defn|
+      footnote_defs[key] = defn.strip
+    end
+
+    # 2) Remove the footnote definition lines BEFORE replacing references
+    body.gsub!(/^\[\^[^\]]+\]:.*\n?/, "")
+
+    # 3) Replace inline references `[^key]` with ` (definition)`
+    body.gsub!(/\[\^([^\]]+)\]/) do
+      key = Regexp.last_match(1)
+      defn = footnote_defs[key]
+      defn ? " (#{defn})" : "" # drop unknown refs
+    end
+
     body
   end
 
