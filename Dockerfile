@@ -10,8 +10,9 @@ ENV JWT_AUTH_SECRET=unused_yet_required
 WORKDIR $APP_HOME
 COPY Gemfile* .ruby-version ./
 RUN bundle install
-COPY package.json yarn.lock ./
-RUN yarn install --production --frozen-lockfile --non-interactive --link-duplicates
+COPY package.json yarn.lock ./ 
+RUN corepack enable && yarn set version 4.10.3
+RUN yarn install --immutable --non-interactive
 COPY . .
 RUN bootsnap precompile --gemfile .
 RUN rails assets:precompile && rm -fr log

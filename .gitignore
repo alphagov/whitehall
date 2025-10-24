@@ -28,6 +28,8 @@
 /failures
 /node_modules
 /yarn-error.log
+.yarn/
+.pnp.*
 .cache/
 .DS_Store
 /app/assets/builds/*
