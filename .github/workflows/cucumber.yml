@@ -29,7 +29,7 @@ jobs:
           bundler-cache: true
 
       - name: Setup Node
-        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@corepack
 
       - name: Cache Playwright Chromium browser
         id: playwright-cache
