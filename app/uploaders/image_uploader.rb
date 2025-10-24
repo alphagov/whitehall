@@ -6,6 +6,27 @@ class ImageUploader < WhitehallUploader
   configure do |config|
     config.remove_previously_stored_files_after_update = false
     config.storage = Storage::PreviewableStorage
+    config.validate_integrity = true
+  end
+
+  def height_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_height..
+    else
+      0..
+    end
+  end
+
+  def width_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_width..
+    else
+      0..
+    end
   end
 
   def downloader
@@ -75,4 +96,12 @@ class ImageUploader < WhitehallUploader
     # it returns an array of [key, value] pairs, and we want the keys
     active_versions.map(&:first)
   end
+
+  private
+
+  def check_dimensions!(new_file)
+    super
+  rescue CarrierWave::IntegrityError
+    raise CarrierWave::IntegrityError, "is too small. Select an image that is at least #{width_range.begin} pixels wide and at least #{height_range.begin} pixels tall"
+  end  
 end
