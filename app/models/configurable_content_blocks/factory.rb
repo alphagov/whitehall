@@ -29,7 +29,7 @@ module ConfigurableContentBlocks
         },
         "integer" => {
           "image_select" => ->(page) { ConfigurableContentBlocks::ImageSelect.new(page.images) },
-          "lead_image_select" => ->(page) { ConfigurableContentBlocks::LeadImageSelect.new(page.non_svg_images, default_lead_image: page.default_lead_image) },
+          "lead_image_select" => ->(page) { ConfigurableContentBlocks::LeadImageSelect.new(page.non_svg_images, default_lead_image: page.default_lead_image, is_world_news_story: page.configurable_document_type == "world_news_story") },
         },
         "object" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultObject.new(self) },
