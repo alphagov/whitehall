@@ -48,7 +48,7 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     page.stubs(:default_lead_image).returns(img)
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::LeadImageSelect")
-    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with(page.images, default_lead_image: img).returns(block)
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with(page.images, default_lead_image: img, is_world_news_story: false).returns(block)
     assert_equal block, factory.build("integer", "lead_image_select")
   end
 
@@ -60,7 +60,7 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     page.stubs(:default_lead_image).returns(default_img)
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::LeadImageSelect")
-    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([images.last], default_lead_image: default_img).returns(block)
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([images.last], default_lead_image: default_img, is_world_news_story: false).returns(block)
     factory.build("integer", "lead_image_select")
   end
 

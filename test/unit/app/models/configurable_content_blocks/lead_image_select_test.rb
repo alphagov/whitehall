@@ -208,6 +208,30 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
     assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
   end
 
+  test "it renders the uk government logo placeholder for world news story, if default lead image is nil" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "integer",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "lead_image_select",
+        },
+      },
+    }
+    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: nil, is_world_news_story: true)
+
+    render block, {
+      schema: schema["properties"]["test_attribute"],
+      content: nil,
+      path: Path.new.push("test_attribute"),
+    }
+
+    assert_dom "h2", text: "Default lead image"
+    assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg"
+  end
+
   test "it does not render the default lead image if a custom lead image has been selected" do
     schema = {
       "type" => "object",
