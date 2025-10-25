@@ -1,7 +1,7 @@
 <% default_lead_image_hint =  lead_image_select.default_lead_image ? t("configurable_content_blocks.lead_image_select.default_image_hint_for_news_image") : t("configurable_content_blocks.lead_image_select.default_image_hint_for_placeholder") %>
 <% custom_lead_image_hint = "Select a lead image. #{lead_image_select.default_lead_image ? t("configurable_content_blocks.lead_image_select.custom_image_hint_for_news_image") : t("configurable_content_blocks.lead_image_select.custom_image_hint_for_placeholder")}" %>
 
-<% if content.blank? && lead_image_select.rendered_image_url %>
+<% if content.blank? && lead_image_select.rendered_default_image_url %>
   <%= render "govuk_publishing_components/components/heading", {
     text: "Default lead image",
     font_size: "m",
@@ -17,7 +17,7 @@
   <div class="app-c-edition-images-lead-image-component__default_lead_image govuk-!-margin-bottom-4">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
-        <img src="<%= lead_image_select.rendered_image_url %>" alt="Default lead image" class="app-view-edition-resource__preview">
+        <img src="<%= lead_image_select.rendered_default_image_url %>" alt="Default lead image" class="app-view-edition-resource__preview">
       </div>
     </div>
   </div>
