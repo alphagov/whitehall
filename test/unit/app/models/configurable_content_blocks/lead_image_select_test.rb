@@ -23,12 +23,12 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
   end
 
   test "it sends the default lead image payload if custom lead is missing" do
-    default_lead_image = create(:image, image_data: build(:image_data, file: upload_fixture("big-cheese.960x640.jpg")))
-    payload = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: default_lead_image.image_data).publishing_api_payload("")
+    default_lead_image = build(:featured_image_data)
+    payload = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image:).publishing_api_payload("")
 
     assert_equal({
-      high_resolution_url: default_lead_image.image_data.url(:s960),
-      url: default_lead_image.image_data&.url(:s300),
+      high_resolution_url: default_lead_image.url(:s960),
+      url: default_lead_image.url(:s300),
     }, payload)
   end
 
@@ -148,8 +148,8 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
         },
       },
     }
-    default_image = build(:organisation, :with_default_news_image).default_news_image
-    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: default_image)
+    default_lead_image = build(:featured_image_data)
+    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image:)
 
     render block, {
       schema: schema["properties"]["test_attribute"],
@@ -158,7 +158,7 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
     }
 
     assert_dom "h2", text: "Default lead image"
-    assert "a", text: default_image.url
+    assert "a", text: default_lead_image.url
   end
 
   test "it renders a placeholder if default lead image is nil" do
@@ -197,10 +197,10 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
         },
       },
     }
-    default_image = build(:organisation, :with_default_news_image).default_news_image
+    default_lead_image = build(:featured_image_data)
     images = create_list(:image, 2)
     block_content = { "test_attribute" => images.last.image_data.id.to_s }
-    block = ConfigurableContentBlocks::LeadImageSelect.new(images, default_lead_image: default_image)
+    block = ConfigurableContentBlocks::LeadImageSelect.new(images, default_lead_image:)
 
     render block, {
       schema: schema["properties"]["test_attribute"],
@@ -210,6 +210,6 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
 
     assert "a", text: images.last.url
     assert_dom "h2", text: "Default lead image", count: 0
-    assert "a", text: default_image.url, count: 0
+    assert "a", text: default_lead_image.url, count: 0
   end
 end
