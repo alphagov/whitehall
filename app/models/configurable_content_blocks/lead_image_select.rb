@@ -29,7 +29,7 @@ module ConfigurableContentBlocks
       "admin/configurable_content_blocks/lead_image_select"
     end
 
-    def rendered_image_url
+    def rendered_default_image_url
       default_lead_image_url || placeholder_image_url
     end
 
