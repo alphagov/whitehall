@@ -32,14 +32,25 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
     }, payload)
   end
 
-  test "does not have a publishing api payload if selected image's assets are not ready" do
+  test "it sends the placeholder image url if selected image's assets are not ready" do
     images = create_list(:image, 3)
     images[1].image_data.assets = []
     images[1].image_data.save!
 
     payload = ConfigurableContentBlocks::LeadImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
+    assert_equal({
+                   high_resolution_url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
+                   url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
+                 }, payload)
+  end
 
-    assert_nil payload
+  test "it sends the placeholder image url if custom lead and organisation default images are missing" do
+    payload = ConfigurableContentBlocks::LeadImageSelect.new([]).publishing_api_payload("")
+
+    assert_equal({
+      high_resolution_url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
+      url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
+    }, payload)
   end
 end
 
@@ -182,7 +193,7 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
     }
 
     assert_dom "h2", text: "Default lead image"
-    assert_dom "img[src=?]", ActionController::Base.helpers.image_url("placeholder.jpg", host: Whitehall.public_root)
+    assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
   end
 
   test "it does not render the default lead image if a custom lead image has been selected" do

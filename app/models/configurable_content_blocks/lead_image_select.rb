@@ -18,11 +18,16 @@ module ConfigurableContentBlocks
       end
 
       if default_lead_image&.all_asset_variants_uploaded?
-        {
+        return {
           high_resolution_url: default_lead_image.url(:s960),
           url: default_lead_image.url(:s300),
         } # default images do not have captions
       end
+
+      {
+        high_resolution_url: placeholder_image_url,
+        url: placeholder_image_url,
+      }
     end
 
     def to_partial_path
@@ -40,7 +45,7 @@ module ConfigurableContentBlocks
     end
 
     def placeholder_image_url
-      ActionController::Base.helpers.image_url("placeholder.jpg", host: Whitehall.public_root)
+      "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
     end
 
     def lead_image_caption(image)
