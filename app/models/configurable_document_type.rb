@@ -4,22 +4,20 @@ class ConfigurableDocumentType
   @types_mutex = Mutex.new
 
   def self.types
-    @types_mutex.synchronize { @types ||= load_document_types }
+    return @types if @types
+
+    @types_mutex.synchronize do
+      return @types if @types
+
+      @types = Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
+        data = JSON.parse(File.read(filename))
+        hash[data["key"]] = data
+      end
+    end
   end
 
   def self.setup_test_types(test_types)
-    @types_mutex.synchronize { @types = test_types }
-  end
-
-  def self.reset_document_types!
-    @types_mutex.synchronize { @types = load_document_types }
-  end
-
-  def self.load_document_types
-    Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
-      data = JSON.parse(File.read(filename))
-      hash[data["key"]] = data
-    end
+    @types = test_types
   end
 
   def self.find(type_key)
