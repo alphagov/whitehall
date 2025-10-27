@@ -6,49 +6,45 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
-      <%= render "govuk_publishing_components/components/fieldset", {
-        legend_text: "Release date",
-        heading_size: "l",
-      } do %>
-        <%= render "components/datetime_fields", {
-          id: "statistics_announcement_date_change_release_date",
-          date_heading: "Date (required)",
-          field_name: "release_date",
-          prefix: "statistics_announcement_date_change",
-          error_items: errors_for(@statistics_announcement_date_change.errors, :release_date),
-          date_hint: "For example, 01 08 2022",
-          time_hint: "For example, 09:30 or 19:30",
-          year: {
-            id: "statistics_announcement_date_change_release_date_1i",
-            value: params.dig("statistics_announcement_date_change", "release_date(1i)") || @statistics_announcement_date_change.release_date&.year,
-            name: "statistics_announcement_date_change[release_date(1i)]",
-            label: "Year",
-            width: 4,
-          },
-          month: {
-            id: "statistics_announcement_date_change_release_date_2i",
-            value: params.dig("statistics_announcement_date_change", "release_date(2i)") || @statistics_announcement_date_change.release_date&.month,
-            name: "statistics_announcement_date_change[release_date(2i)]",
-            label: "Month",
-            width: 2,
-          },
-          day: {
-            id: "statistics_announcement_date_change_release_date_3i",
-            value: params.dig("statistics_announcement_date_change", "release_date(3i)") || @statistics_announcement_date_change.release_date&.day,
-            name: "statistics_announcement_date_change[release_date(3i)]",
-            label: "Day",
-            width: 2,
-          },
-          hour: {
-            id: "statistics_announcement_date_change_release_date_4i",
-            value: params.dig("statistics_announcement_date_change", "release_date(4i)")&.to_i || @statistics_announcement_date_change.release_date&.hour,
-          },
-          minute: {
-            id: "statistics_announcement_date_change_release_date_5i",
-            value: params.dig("statistics_announcement_date_change", "release_date(5i)")&.to_i || @statistics_announcement_date_change.release_date&.min,
-          },
-        } %>
-      <% end %>
+      <%= render "components/datetime_fields", {
+        id: "statistics_announcement_date_change_release_date",
+        fieldset_legend: "Release date",
+        date_heading: "Date (required)",
+        field_name: "release_date",
+        prefix: "statistics_announcement_date_change",
+        error_items: errors_for(@statistics_announcement_date_change.errors, :release_date),
+        date_hint: "For example, 01 08 2022",
+        time_hint: "For example, 09:30 or 19:30",
+        year: {
+          id: "statistics_announcement_date_change_release_date_1i",
+          value: params.dig("statistics_announcement_date_change", "release_date(1i)") || @statistics_announcement_date_change.release_date&.year,
+          name: "statistics_announcement_date_change[release_date(1i)]",
+          label: "Year",
+          width: 4,
+        },
+        month: {
+          id: "statistics_announcement_date_change_release_date_2i",
+          value: params.dig("statistics_announcement_date_change", "release_date(2i)") || @statistics_announcement_date_change.release_date&.month,
+          name: "statistics_announcement_date_change[release_date(2i)]",
+          label: "Month",
+          width: 2,
+        },
+        day: {
+          id: "statistics_announcement_date_change_release_date_3i",
+          value: params.dig("statistics_announcement_date_change", "release_date(3i)") || @statistics_announcement_date_change.release_date&.day,
+          name: "statistics_announcement_date_change[release_date(3i)]",
+          label: "Day",
+          width: 2,
+        },
+        hour: {
+          id: "statistics_announcement_date_change_release_date_4i",
+          value: params.dig("statistics_announcement_date_change", "release_date(4i)")&.to_i || @statistics_announcement_date_change.release_date&.hour,
+        },
+        minute: {
+          id: "statistics_announcement_date_change_release_date_5i",
+          value: params.dig("statistics_announcement_date_change", "release_date(5i)")&.to_i || @statistics_announcement_date_change.release_date&.min,
+        },
+      } %>
 
       <%= render "govuk_publishing_components/components/radio", {
         heading: "Delivery date",

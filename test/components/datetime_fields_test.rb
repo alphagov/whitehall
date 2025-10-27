@@ -5,10 +5,6 @@ class DatetimefieldsComponentTest < ComponentTestCase
     "datetime_fields"
   end
 
-  test "renders nothing when no parameters given" do
-    assert_empty render_component({})
-  end
-
   test "renders the basic component" do
     render_component({
       prefix: "prefix",
@@ -32,7 +28,7 @@ class DatetimefieldsComponentTest < ComponentTestCase
       id: "kevin",
     })
 
-    assert_select ".app-c-datetime-fields[id='kevin']"
+    assert_select "[id='kevin']"
     assert_select ".govuk-date-input[id='kevin_date']"
   end
 

@@ -1,89 +1,81 @@
 <div class="govuk-!-margin-bottom-8">
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Opening date",
-    heading_size: "l",
+  <%= render "components/datetime_fields", {
     id: "edition_opening_at",
-  } do %>
-    <%= render "components/datetime_fields", {
-      field_name: "opening_at",
-      prefix: "edition",
-      error_items: errors_for(edition.errors, :opening_at),
-      date_hint: "For example, 01 08 2022",
-      time_hint: "For example, 09:30 or 19:30",
-      year: {
-        value: params.dig("edition", "opening_at(1i)") || edition.opening_at&.year,
-        id: "edition_opening_at_1i",
-        name: "edition[opening_at(1i)]",
-        label: "Year",
-        width: 4,
-      },
-      month: {
-        value: params.dig("edition", "opening_at(2i)") || edition.opening_at&.month,
-        id: "edition_opening_at_2i",
-        name: "edition[opening_at(2i)]",
-        label: "Month",
-        width: 2,
-      },
-      day: {
-        value: params.dig("edition", "opening_at(3i)") || edition.opening_at&.day,
-        id: "edition_opening_at_3i",
-        name: "edition[opening_at(3i)]",
-        label: "Day",
-        width: 2,
-      },
-      hour: {
-        value: params.dig("edition", "opening_at(4i)")&.to_i || edition.opening_at&.hour,
-        id: "edition_opening_at_4i",
-      },
-      minute: {
-        value: params.dig("edition", "opening_at(5i)")&.to_i || edition.opening_at&.min,
-        id: "edition_opening_at_5i",
-      },
-    } %>
-  <% end %>
+    fieldset_legend: "Opening date",
+    field_name: "opening_at",
+    prefix: "edition",
+    error_items: errors_for(edition.errors, :opening_at),
+    date_hint: "For example, 01 08 2022",
+    time_hint: "For example, 09:30 or 19:30",
+    year: {
+      value: params.dig("edition", "opening_at(1i)") || edition.opening_at&.year,
+      id: "edition_opening_at_1i",
+      name: "edition[opening_at(1i)]",
+      label: "Year",
+      width: 4,
+    },
+    month: {
+      value: params.dig("edition", "opening_at(2i)") || edition.opening_at&.month,
+      id: "edition_opening_at_2i",
+      name: "edition[opening_at(2i)]",
+      label: "Month",
+      width: 2,
+    },
+    day: {
+      value: params.dig("edition", "opening_at(3i)") || edition.opening_at&.day,
+      id: "edition_opening_at_3i",
+      name: "edition[opening_at(3i)]",
+      label: "Day",
+      width: 2,
+    },
+    hour: {
+      value: params.dig("edition", "opening_at(4i)")&.to_i || edition.opening_at&.hour,
+      id: "edition_opening_at_4i",
+    },
+    minute: {
+      value: params.dig("edition", "opening_at(5i)")&.to_i || edition.opening_at&.min,
+      id: "edition_opening_at_5i",
+    },
+  } %>
 </div>
 
 <div class="govuk-!-margin-bottom-8">
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Closing date",
-    heading_size: "l",
+  <%= render "components/datetime_fields", {
     id: "edition_closing_at",
-  } do %>
-    <%= render "components/datetime_fields", {
-      field_name: "closing_at",
-      prefix: "edition",
-      error_items: errors_for(edition.errors, :closing_at),
-      date_hint: "For example, 01 08 2022",
-      time_hint: "For example, 09:30 or 19:30",
-      year: {
-        value: params.dig("edition", "closing_at(1i)") || edition.closing_at&.year,
-        id: "edition_closing_at_1i",
-        name: "edition[closing_at(1i)]",
-        label: "Year",
-        width: 4,
-      },
-      month: {
-        value: params.dig("edition", "closing_at(2i)") || edition.closing_at&.month,
-        id: "edition_closing_at_2i",
-        name: "edition[closing_at(2i)]",
-        label: "Month",
-        width: 2,
-      },
-      day: {
-        value: params.dig("edition", "closing_at(3i)") || edition.closing_at&.day,
-        id: "edition_closing_at_3i",
-        name: "edition[closing_at(3i)]",
-        label: "Day",
-        width: 2,
-      },
-      hour: {
-        value: params.dig("edition", "closing_at(4i)")&.to_i || edition.closing_at&.hour,
-        id: "edition_closing_at_4i",
-      },
-      minute: {
-        value: params.dig("edition", "closing_at(5i)")&.to_i || edition.closing_at&.min,
-        id: "edition_closing_at_5i",
-      },
-    } %>
-  <% end %>
+    fieldset_legend: "Closing date",
+    field_name: "closing_at",
+    prefix: "edition",
+    error_items: errors_for(edition.errors, :closing_at),
+    date_hint: "For example, 01 08 2022",
+    time_hint: "For example, 09:30 or 19:30",
+    year: {
+      value: params.dig("edition", "closing_at(1i)") || edition.closing_at&.year,
+      id: "edition_closing_at_1i",
+      name: "edition[closing_at(1i)]",
+      label: "Year",
+      width: 4,
+    },
+    month: {
+      value: params.dig("edition", "closing_at(2i)") || edition.closing_at&.month,
+      id: "edition_closing_at_2i",
+      name: "edition[closing_at(2i)]",
+      label: "Month",
+      width: 2,
+    },
+    day: {
+      value: params.dig("edition", "closing_at(3i)") || edition.closing_at&.day,
+      id: "edition_closing_at_3i",
+      name: "edition[closing_at(3i)]",
+      label: "Day",
+      width: 2,
+    },
+    hour: {
+      value: params.dig("edition", "closing_at(4i)")&.to_i || edition.closing_at&.hour,
+      id: "edition_closing_at_4i",
+    },
+    minute: {
+      value: params.dig("edition", "closing_at(5i)")&.to_i || edition.closing_at&.min,
+      id: "edition_closing_at_5i",
+    },
+  } %>
 </div>

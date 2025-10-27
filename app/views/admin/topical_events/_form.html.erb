@@ -67,6 +67,7 @@
       margin_bottom: 2,
     } do %>
       <%= render "components/datetime_fields", {
+        ga4_section: "Duration",
         date_only: true,
         prefix: "topical_event",
         field_name: "start_date",
@@ -100,6 +101,7 @@
       } %>
 
       <%= render "components/datetime_fields", {
+        ga4_section: "Duration",
         date_only: true,
         prefix: "topical_event",
         field_name: "end_date",

@@ -1,39 +1,35 @@
 <% prefix = "consultation_#{consultation_response.singular_routing_symbol}" %>
 
 <%= form_for [:admin, consultation, consultation_response], url: [:admin, consultation, consultation_response.singular_routing_symbol] do |form| %>
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Published on (required)",
-    heading_size: "l",
-  } do %>
-    <%= render "components/datetime_fields", {
-      prefix: prefix,
-      field_name: "published_on",
-      date_only: true,
-      error_items: errors_for(consultation_response.errors, :published_on),
-      year: {
-        value: params.dig("#{prefix}", "published_on(1i)") || consultation_response.published_on&.year,
-        id: "#{prefix}_published_on_1i",
-        name: "#{prefix}[published_on(1i)]",
-        label: "Year",
-        width: 4,
-      },
-      month: {
-        value: params.dig("#{prefix}", "published_on(2i)") || consultation_response.published_on&.month,
-        id: "#{prefix}_published_on_2i",
-        name: "#{prefix}[published_on(2i)]",
-        label: "Month",
-        width: 2,
-      },
-      day: {
-        # id: "consultation_#{consultation_response.singular_routing_symbol}_published_on",
-        value: params.dig("#{prefix}", "published_on(3i)") || consultation_response.published_on&.day,
-        id: "#{prefix}_published_on_3i",
-        name: "#{prefix}[published_on(3i)]",
-        label: "Day",
-        width: 2,
-      },
-    } %>
-  <% end %>
+  <%= render "components/datetime_fields", {
+    fieldset_legend: "Published on (required)",
+    prefix: prefix,
+    field_name: "published_on",
+    date_only: true,
+    error_items: errors_for(consultation_response.errors, :published_on),
+    year: {
+      value: params.dig("#{prefix}", "published_on(1i)") || consultation_response.published_on&.year,
+      id: "#{prefix}_published_on_1i",
+      name: "#{prefix}[published_on(1i)]",
+      label: "Year",
+      width: 4,
+    },
+    month: {
+      value: params.dig("#{prefix}", "published_on(2i)") || consultation_response.published_on&.month,
+      id: "#{prefix}_published_on_2i",
+      name: "#{prefix}[published_on(2i)]",
+      label: "Month",
+      width: 2,
+    },
+    day: {
+      # id: "consultation_#{consultation_response.singular_routing_symbol}_published_on",
+      value: params.dig("#{prefix}", "published_on(3i)") || consultation_response.published_on&.day,
+      id: "#{prefix}_published_on_3i",
+      name: "#{prefix}[published_on(3i)]",
+      label: "Day",
+      width: 2,
+    },
+  } %>
 
   <%= render "components/govspeak_editor", {
     label: {
