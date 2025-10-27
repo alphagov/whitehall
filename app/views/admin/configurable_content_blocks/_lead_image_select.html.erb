@@ -1,4 +1,10 @@
-<% default_lead_image_hint =  lead_image_select.default_lead_image ? t("configurable_content_blocks.lead_image_select.default_image_hint_for_news_image") : t("configurable_content_blocks.lead_image_select.default_image_hint_for_placeholder") %>
+<% default_lead_image_hint = if !lead_image_select.default_lead_image
+                               t("configurable_content_blocks.lead_image_select.default_image_hint_for_placeholder")
+                             elsif lead_image_select.default_lead_image&.all_asset_variants_uploaded?
+                               t("configurable_content_blocks.lead_image_select.default_image_hint_for_news_image")
+                             elsif !lead_image_select.default_lead_image&.all_asset_variants_uploaded?
+                               t("configurable_content_blocks.lead_image_select.default_image_hint_for_news_image_with_missing_variants")
+                             end %>
 <% custom_lead_image_hint = "Select a lead image. #{lead_image_select.default_lead_image ? t("configurable_content_blocks.lead_image_select.custom_image_hint_for_news_image") : t("configurable_content_blocks.lead_image_select.custom_image_hint_for_placeholder")}" %>
 
 <% if content.blank? && lead_image_select.rendered_default_image_url %>

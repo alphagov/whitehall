@@ -208,6 +208,33 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
     assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
   end
 
+  test "it renders a placeholder if default lead image has missing assets" do
+    schema = {
+      "type" => "object",
+      "properties" => {
+        "test_attribute" => {
+          "type" => "integer",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "lead_image_select",
+        },
+      },
+    }
+    default_lead_image = build(:featured_image_data)
+    default_lead_image.assets = []
+    default_lead_image.save!
+    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image:)
+
+    render block, {
+      schema: schema["properties"]["test_attribute"],
+      content: nil,
+      path: Path.new.push("test_attribute"),
+    }
+
+    assert_dom "h2", text: "Default lead image"
+    assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
+  end
+
   test "it renders the uk government logo placeholder for world news story, if default lead image is nil" do
     schema = {
       "type" => "object",

@@ -12,7 +12,8 @@ module ConfigurableContentBlocks
       selected_image = images.find { |image| image.image_data.id == content.to_i }
       if selected_image
         if selected_image.image_data&.all_asset_variants_uploaded?
-          # The payload for lead image must include a high resolution URL, used for metadata: https://github.com/alphagov/frontend/blob/693747dc55d9a42ba209789e6861d9b592b48c8e/spec/system/news_article_spec.rb#L65
+          # The payload for lead image must include a "high resolution url", used for metadata: https://github.com/alphagov/frontend/blob/693747dc55d9a42ba209789e6861d9b592b48c8e/spec/system/news_article_spec.rb#L65
+          # The "url" is used for the lead image rendered on the document page.
           return {
             high_resolution_url: selected_image.image_data.url(:s960),
             url: selected_image.image_data.url(:s300),
@@ -40,7 +41,7 @@ module ConfigurableContentBlocks
   private
 
     def default_lead_image_url
-      default_lead_image&.url(:s300)
+      default_lead_image&.url(:s300) if default_lead_image&.all_asset_variants_uploaded?
     end
 
     def placeholder_image_url
