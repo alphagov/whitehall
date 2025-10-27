@@ -1,10 +1,10 @@
 class EditionWorldTaxonLinkPatcher
-  def call(content_id:, previous_version:, selected_taxons:, invisible_taxons:)
+  def call(content_id:, previous_version:, selected_taxons:)
     Services
       .publishing_api
       .patch_links(
         content_id,
-        links: { taxons: most_specific_taxons(selected_taxons) + invisible_taxons },
+        links: { taxons: most_specific_taxons(selected_taxons) },
         previous_version:,
       )
   end

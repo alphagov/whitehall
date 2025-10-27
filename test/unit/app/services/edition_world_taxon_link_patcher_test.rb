@@ -9,7 +9,6 @@ class EditionWorldTaxonLinkPatcherTest < ActiveSupport::TestCase
     EditionWorldTaxonLinkPatcher.new.call(
       content_id: "12345",
       selected_taxons: [world_taxon, world_child_taxon_content_id],
-      invisible_taxons: [],
       previous_version: "1",
     )
 

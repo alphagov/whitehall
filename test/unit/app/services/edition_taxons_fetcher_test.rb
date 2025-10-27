@@ -264,23 +264,6 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                 ],
               },
             },
-            {
-              "title" => "I am the invisible draft taxon",
-              "content_id" => "eeee",
-              "base_path" => "/i-am-yet-another-taxon",
-              "details" => { "visible_to_departmental_editors" => true },
-              "links" => {
-                "parent_taxons" => [
-                  {
-                    "title" => "I am the parent of the invisible draft taxon",
-                    "content_id" => "ffff",
-                    "base_path" => "/i-am-yet-another-parent-taxon",
-                    "details" => { "visible_to_departmental_editors" => false },
-                    "links" => {},
-                  },
-                ],
-              },
-            },
           ],
         },
       },

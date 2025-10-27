@@ -8,8 +8,6 @@
   <p class="govuk-body">No taxons available</p>
 <% end %>
 
-<%= form.hidden_field "invisible_taxons", value: tag_form.invisible_taxons.join(",") %>
-
 <%= render "govuk_publishing_components/components/details", {
   title: "Changes are applied to a live page as soon as you update the tags",
 } do %>

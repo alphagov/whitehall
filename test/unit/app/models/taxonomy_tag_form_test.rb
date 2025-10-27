@@ -41,29 +41,4 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
     assert_equal(form.selected_taxons, taxons)
     assert_equal(form.previous_version, 1)
   end
-
-  test "#invisible_taxons returns all invisible draft taxons tagged to the content item" do
-    content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
-
-    stub_publishing_api_has_links(
-      {
-        "content_id" => content_id,
-        "links" => {
-          "taxons" => %w[visible_id invisible_id],
-        },
-        "version" => 1,
-      },
-    )
-
-    redis_cache_has_taxons(
-      [
-        build(:taxon_hash, content_id: "visible_id", visibility: true),
-        build(:taxon_hash, content_id: "invisible_id", visibility: false),
-      ],
-    )
-
-    form = TaxonomyTagForm.load(content_id)
-
-    assert_equal %w[invisible_id], form.invisible_taxons
-  end
 end

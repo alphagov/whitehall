@@ -9,7 +9,6 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
     EditionTaxonLinkPatcher.new.call(
       content_id: "1234",
       selected_taxons: [child_taxon_content_id],
-      invisible_taxons: [],
       previous_version: "2",
     )
 
@@ -32,7 +31,6 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
         parent_taxon_content_id,
         child_taxon_content_id,
       ],
-      invisible_taxons: [],
       previous_version: "2",
     )
 

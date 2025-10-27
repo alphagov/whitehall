@@ -24,10 +24,6 @@ class TaxonomyTagForm
     )
   end
 
-  def invisible_taxons
-    selected_taxons - topic_taxonomy.visible_taxons.map(&:content_id)
-  end
-
 private
 
   def topic_taxonomy

@@ -81,22 +81,6 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     refute_select "input[value='#{child_taxon_content_id}'][checked]"
   end
 
-  view_test "keep invisible taxon mappings" do
-    stub_publishing_api_links_with_taxons(
-      @edition.content_id,
-      [
-        child_taxon_content_id,
-        draft_taxon_1_content_id,
-        "invisible_taxon_1_content_id",
-        "invisible_taxon_2_content_id",
-      ],
-    )
-
-    get :edit, params: { edition_id: @edition }
-
-    assert_select "input[name='taxonomy_tag_form[invisible_taxons]'][value='invisible_taxon_1_content_id,invisible_taxon_2_content_id']"
-  end
-
   view_test "should render save button with tracking attributes" do
     stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
 
@@ -105,31 +89,6 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     assert_select "button", text: "Save" do |elements|
       assert_equal 1, elements.length
     end
-  end
-
-  test "should post invisible taxons to publishing-api" do
-    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
-
-    put :update,
-        params: {
-          edition_id: @edition,
-          taxonomy_tag_form: {
-            taxons: [child_taxon_content_id],
-            invisible_taxons: "invisible_taxon_1_content_id",
-            previous_version: 1,
-          },
-        }
-
-    assert_publishing_api_patch_links(
-      @edition.content_id,
-      links: {
-        taxons: [
-          child_taxon_content_id,
-          "invisible_taxon_1_content_id",
-        ],
-      },
-      previous_version: "1",
-    )
   end
 
   test "should also post taxons tagged to the topic and world taxonomies" do

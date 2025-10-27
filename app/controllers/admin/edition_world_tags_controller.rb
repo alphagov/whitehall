@@ -13,7 +13,6 @@ class Admin::EditionWorldTagsController < Admin::BaseController
     EditionWorldTaxonLinkPatcher.new.call(
       content_id: @edition.content_id,
       selected_taxons:,
-      invisible_taxons: previously_selected_topic_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
     )
     redirect_to admin_edition_path(@edition),
@@ -40,10 +39,5 @@ private
 
   def selected_taxons
     params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?)
-  end
-
-  def previously_selected_topic_taxons
-    topic_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
-    topic_taxons.map(&:content_id)
   end
 end

@@ -11,7 +11,6 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
     EditionTaxonLinkPatcher.new.call(
       content_id: @statistics_announcement.content_id,
       selected_taxons:,
-      invisible_taxons:,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
     )
 
@@ -34,9 +33,5 @@ private
 
   def selected_taxons
     params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?)
-  end
-
-  def invisible_taxons
-    params["taxonomy_tag_form"].fetch("invisible_taxons", "").split(",")
   end
 end
