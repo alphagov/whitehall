@@ -11,8 +11,8 @@ WORKDIR $APP_HOME
 COPY Gemfile* .ruby-version ./
 RUN bundle install
 COPY package.json yarn.lock ./ 
-RUN corepack enable && yarn set version 4.10.3
-RUN yarn install --immutable --non-interactive
+RUN corepack enable
+RUN yarn install --immutable
 COPY . .
 RUN bootsnap precompile --gemfile .
 RUN rails assets:precompile && rm -fr log
