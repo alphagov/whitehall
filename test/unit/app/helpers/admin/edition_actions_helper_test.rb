@@ -13,6 +13,8 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
                  "Speeches",
                  "Statistical data sets",
                  "Worldwide organisations"]
+
+    @editions << "History pages"
   end
 
   test "#filter_edition_type_opt_groups should contain a formatted list of the editions" do
