@@ -13,7 +13,7 @@ module Admin::EditionActionsHelper
       ],
       [
         "Types",
-        type_options_container(user).map do |text, value|
+        combined_list_of_document_types(user).map do |text, value|
           {
             text:,
             value:,
@@ -63,5 +63,24 @@ private
 
       [edition_type.format_name.humanize.pluralize, edition_type.model_name.singular]
     }.compact
+  end
+
+  def configurable_document_type_options
+    exclude = %w[news_article speech publication]
+    ConfigurableDocumentType.all.filter_map do |doc|
+      schema = doc.settings["publishing_api_schema_name"]
+      next if exclude.include?(schema)
+
+      [doc.label.pluralize, doc.key]
+    end
+  end
+
+  def combined_list_of_document_types(user)
+    legacy_document_types = type_options_container(user)
+    configurable_document_types = configurable_document_type_options
+
+    combined = legacy_document_types + configurable_document_types
+
+    combined.sort_by { |text, _value| text.to_s.downcase }
   end
 end
