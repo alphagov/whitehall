@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-node@corepack
 
       - name: Run lint:js
         run: yarn run lint:js

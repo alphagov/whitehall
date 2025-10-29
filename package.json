@@ -4,6 +4,7 @@
   "private": true,
   "author": "Government Digital Service",
   "license": "MIT",
+  "packageManager": "yarn@4.10.3",
   "scripts": {
     "lint": "yarn run lint:js && yarn run lint:scss && yarn run lint:prettier",
     "lint:js": "eslint --cache --cache-location .cache/eslint --color --ignore-path .gitignore -- \"**/*.js\"",
