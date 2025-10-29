@@ -6,7 +6,8 @@ module StandardEdition::HasBlockContent
 
   def block_content=(value)
     value = value.is_a?(StandardEdition::BlockContent) ? value.attributes : value
-    super(value)
+    merged_values = value.is_a?(Hash) ? (block_content.to_h || {}).deep_merge(value) : value
+    super(merged_values)
   end
 
   def block_content
