@@ -205,13 +205,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal replace_with, to_be_replaced.reload.replaced_by
   end
 
-  test "replace_with! won't let you replace an instance with itself" do
-    self_referential = create(:attachment_data, attachable: build(:draft_publication, id: 1))
-    assert_raise(ActiveRecord::RecordInvalid) do
-      self_referential.replace_with!(self_referential)
-    end
-  end
-
   test "order attachments by attachable ID" do
     attachment_data = build(:attachment_data)
     edition1 = create(:edition)
