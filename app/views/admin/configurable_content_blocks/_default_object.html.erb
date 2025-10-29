@@ -1,40 +1,34 @@
-<% required = required || false %>
-<% content = content || {} %>
-<% translated_content = translated_content || {} %>
-<% root = root || false %>
-<% right_to_left = right_to_left || false %>
-<% errors = errors || [] %>
-<% required_attributes = schema.dig("validations", "presence", "attributes") %>
-<% unless root %>
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: schema["title"] + (required ? " (required)" : ""),
-    heading_size: "m",
-    id: path.form_control_id,
-  } do %>
-    <% schema["properties"].each do |property_key, property_schema| %>
-      <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
-      <%= render block, {
-        schema: property_schema,
-        content: content[property_key],
-        translated_content: translated_content[property_key],
-        path: path.push(property_key),
-        required: required_attributes && required_attributes.include?(property_key),
-        right_to_left:,
-        errors:,
-      } %>
-    <% end %>
-  <% end %>
-<% else %>
-  <% schema["properties"].each do |property_key, property_schema| %>
+<% required ||= false
+   content ||= {}
+   translated_content ||= {}
+   root ||= false
+   right_to_left ||= false
+   errors ||= []
+   required_attributes = Array(schema.dig("validations", "presence", "attributes"))
+   properties = schema.fetch("properties", {}) %>
+
+<% body = capture do %>
+  <% properties.each do |property_key, property_schema| %>
     <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
     <%= render block, {
       schema: property_schema,
       content: content[property_key],
       translated_content: translated_content[property_key],
       path: path.push(property_key),
-      required: required_attributes && required_attributes.include?(property_key),
-      right_to_left:,
-      errors:,
+      required: required_attributes.include?(property_key),
+      right_to_left: right_to_left,
+      errors: errors,
     } %>
+  <% end %>
+<% end %>
+
+<% if root %>
+  <%= body %>
+<% else %>
+  <%= render "govuk_publishing_components/components/fieldset",
+             { legend_text: "#{schema['title']}#{required ? ' (required)' : ''}",
+               heading_size: "m",
+               id: path.form_control_id } do %>
+    <%= body %>
   <% end %>
 <% end %>
