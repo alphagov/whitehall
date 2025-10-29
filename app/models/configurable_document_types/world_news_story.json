@@ -5,9 +5,10 @@
   "schema": {
     "properties": {
       "body": {
-          "title": "Body",
-          "type": "string",
-          "format": "govspeak"
+        "title": "Body",
+        "type": "string",
+        "format": "govspeak",
+        "tab": "document"
       }
     },
     "validations": {

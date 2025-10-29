@@ -1,9 +1,43 @@
+<% if edition.configurable_document_type.present? %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Select a lead image",
+    font_size: "l",
+    padding: true,
+  } %>
+
+  <%= form_for [:admin, edition], as: :edition do |form| %>
+    <% root_block = ConfigurableContentBlocks::Factory.new(edition).build("object") %>
+    <%= render(root_block, {
+      schema: ConfigurableDocumentType.find(edition.configurable_document_type).schema,
+      content: edition.block_content,
+      path: ConfigurableContentBlocks::Path.new,
+      right_to_left: edition.rtl?,
+      errors: edition.errors,
+      root: true,
+      tab: "images",
+    }) %>
+
+    <div class="govuk-button-group">
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Save",
+        value: "save",
+        name: "save",
+      } %>
+    </div>
+   <% end %>
+<% end %>
+
 <%= render "govuk_publishing_components/components/heading", {
   text: "Uploaded images",
   font_size: "l",
 } %>
 
-<%= render Admin::EditionImages::LeadImageComponent.new(edition: edition) %>
+<%
+  # legacy, non-config-driven lead image behaviour
+  unless edition.configurable_document_type.present?
+%>
+  <%= render Admin::EditionImages::LeadImageComponent.new(edition: edition) %>
+<% end %>
 
 <%= render "govuk_publishing_components/components/heading", {
   text: "Images available to use in document",

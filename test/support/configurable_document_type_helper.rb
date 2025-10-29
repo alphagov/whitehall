@@ -9,6 +9,7 @@ module ConfigurableDocumentTypeHelper
             "test_attribute" => {
               "title" => "Test Attribute",
               "type" => "string",
+              "tab" => "document",
             },
           },
         },

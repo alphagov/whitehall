@@ -46,6 +46,13 @@
                     "image_select",
                     "lead_image_select"
                   ]
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "document",
+                    "images"
+                  ]
                 }
               },
               "required": ["title", "type"],

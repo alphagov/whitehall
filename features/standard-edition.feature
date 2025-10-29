@@ -6,6 +6,9 @@ Feature: Standard Editions
     And the test configurable document type is defined
     When I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     Then I am on the summary page of the draft titled "The history of GOV.UK"
+    And when I switch to the Images tab to fill in the other configurable fields
+    Then the configurable fields on the Images tab are persisted
+    And the configurable fields on the Document tab are not overwritten
 
   Scenario: Force publishing an existing draft configurable document
     Given I am a GDS admin

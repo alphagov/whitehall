@@ -8,13 +8,15 @@
         "title": "Body",
         "description": "The main content of the page",
         "type": "string",
-        "format": "govspeak"
+        "format": "govspeak",
+        "tab": "document"
       },
       "image": {
         "title": "Image",
         "description": "The image for the page",
         "type": "integer",
-        "format": "image_select"
+        "format": "image_select",
+        "tab": "images"
       }
     }
   },
@@ -26,6 +28,7 @@
     "rendering_app": "government-frontend",
     "organisations": null,
     "backdating_enabled": false,
-    "translations_enabled": true
+    "translations_enabled": true,
+    "images_enabled": true
   }
 }

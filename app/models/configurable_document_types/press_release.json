@@ -7,13 +7,15 @@
       "body": {
         "title": "Body",
         "type": "string",
-        "format": "govspeak"
+        "format": "govspeak",
+        "tab": "document"
       },
       "image": {
         "title": "Lead image",
         "description": "Select a lead image, if required",
         "type": "integer",
-        "format": "image_select"
+        "format": "image_select",
+        "tab": "images"
       }
     },
     "validations": {
