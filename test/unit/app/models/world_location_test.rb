@@ -161,4 +161,14 @@ class WorldLocationTest < ActiveSupport::TestCase
       location.destroy!
     end
   end
+
+  test "publishes to Publishing API when not an international delegation" do
+    world_location = create(:world_location)
+    assert world_location.can_publish_to_publishing_api?
+  end
+
+  test "does not publish to Publishing API when an international delegation" do
+    world_location = create(:international_delegation)
+    assert_not world_location.can_publish_to_publishing_api?
+  end
 end

@@ -25,9 +25,6 @@ module PublishingApi
         base_path: nil,
         rendering_app: nil,
       )
-      if item.international_delegation?
-        content.merge!(PayloadBuilder::PolymorphicPath.for(item))
-      end
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 

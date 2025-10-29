@@ -112,4 +112,12 @@ class WorldLocation < ApplicationRecord
   def publishing_api_presenter
     PublishingApi::WorldLocationPresenter
   end
+
+  def can_publish_to_publishing_api?
+    if international_delegation?
+      false
+    else
+      super
+    end
+  end
 end
