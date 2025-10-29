@@ -3,32 +3,6 @@ window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
 window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
 ;(function (Ga4FormTracker) {
-  // extra utility function for parsing
-  // JSON string data attributes (convention
-  // of the components library tracking)
-  Ga4FormTracker.prototype.getJson = function (target, attribute) {
-    let dataContainer
-    let data
-
-    try {
-      dataContainer = target.closest(`[${attribute}]`)
-      data = dataContainer.getAttribute(attribute)
-      return JSON.parse(data)
-    } catch (e) {
-      console.error(
-        `GA4 configuration error: ${e.message}, attempt to access ${attribute} on ${target}`,
-        window.location
-      )
-    }
-  }
-
-  Ga4FormTracker.prototype.dateTimeComponent = function (target) {
-    return (
-      target.closest('.app-c-datetime-fields') ||
-      target.closest('.govuk-date-input')
-    )
-  }
-
   Ga4FormTracker.prototype.getSection = function (target, checkableValue) {
     const { id } = target
     const form =
@@ -40,28 +14,17 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
     const legend = fieldset && fieldset.querySelector('legend')
     const sectionContainer = form.closest('[data-ga4-section]')
     const label = form.querySelector(`label[for='${CSS.escape(id)}']`)
-    const dateTimeComponent = this.dateTimeComponent(target)
 
-    let section = sectionContainer && sectionContainer.dataset.ga4Section
+    const ga4FormSection = target.closest('[data-ga4-form-section]')
 
-    if (legend && (checkableValue || dateTimeComponent)) {
-      section = legend ? legend.innerText : section
+    let section
 
-      if (dateTimeComponent) {
-        // this is an intermediary measure!! need to rework the legends
-        // for all datetime fields so they are more descriptive as
-        // nested legends have inconsistent screenreader behaviour
-        // this work can happen as part of moving datetime out of whitehall
-        const dateTimeFieldset = dateTimeComponent.closest('fieldset')
-        if (dateTimeFieldset) {
-          const dateTimeLegend = dateTimeFieldset.querySelector('legend')
-          if (dateTimeLegend && dateTimeLegend.innerText !== section) {
-            section = `${dateTimeLegend.innerText} - ${section}`
-          }
-        }
-      }
+    if (ga4FormSection) {
+      section = ga4FormSection.dataset.ga4FormSection
     } else {
+      section = sectionContainer && sectionContainer.dataset.ga4Section
       section = label ? label.innerText : section
+      section = legend && checkableValue ? legend.innerText : section
     }
 
     return section
@@ -103,7 +66,20 @@ window.GOVUK.Modules.Ga4FormTracker = window.GOVUK.Modules.Ga4FormTracker || {}
 
     if (type === 'search') return
 
-    const index = this.getJson(target, 'data-ga4-index')
+    const indexContainer =
+      window.GOVUK.analyticsGa4.core.trackFunctions.findTrackingAttributes(
+        target,
+        'data-ga4-index'
+      )
+
+    let index
+
+    try {
+      index = JSON.parse(indexContainer.getAttribute('data-ga4-index'))
+    } catch (e) {
+      console.warn('GA4 configuration error: ' + e.message, window.location)
+    }
+
     const value = (event.detail && event.detail.value) || target.value
 
     // a radio or check input with a `name` and `value`

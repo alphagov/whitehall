@@ -21,6 +21,7 @@ private
 
   def first_published_at_fields
     render("components/datetime_fields", {
+      ga4_form_section: "First published date",
       field_name: "first_published_at",
       prefix: "edition",
       date_heading: "Date (required)",

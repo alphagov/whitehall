@@ -4,48 +4,44 @@
 %>
 
 <div class="govuk-!-margin-bottom-8">
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: edition.authored_article? ? "Written on" : "Delivered on",
-    heading_size: "l",
+  <%= render "components/datetime_fields", {
     id: "edition_delivered_on",
-  } do %>
-    <%= render "components/datetime_fields", {
-        field_name: "delivered_on",
-        prefix: "edition",
-        error_items: errors_for(edition.errors, :delivered_on),
-        date_hint: "For example, 01 08 2022",
-        time_hint: "For example, 09:30 or 19:30",
-        year: {
-          value: params.dig("edition", "delivered_on(1i)") || edition.delivered_on&.year,
-          id: "edition_delivered_on_1i",
-          name: "edition[delivered_on(1i)]",
-          label: "Year",
-          width: 4,
-        },
-        month: {
-          value: params.dig("edition", "delivered_on(2i)") || edition.delivered_on&.month,
-          id: "edition_delivered_on_2i",
-          name: "edition[delivered_on(2i)]",
-          label: "Month",
-          width: 2,
-        },
-        day: {
-          value: params.dig("edition", "delivered_on(3i)") || edition.delivered_on&.day,
-          id: "edition_delivered_on_3i",
-          name: "edition[delivered_on(3i)]",
-          label: "Day",
-          width: 2,
-        },
-        hour: {
-          value: hour_param ? hour_param.to_i : edition.delivered_on&.hour,
-          id: "edition_delivered_on_4i",
-        },
-        minute: {
-          value: minute_param ? minute_param.to_i : edition.delivered_on&.min,
-          id: "edition_delivered_on_5i",
-        },
-      } %>
-  <% end %>
+    fieldset_legend: edition.authored_article? ? "Written on" : "Delivered on",
+    field_name: "delivered_on",
+    prefix: "edition",
+    error_items: errors_for(edition.errors, :delivered_on),
+    date_hint: "For example, 01 08 2022",
+    time_hint: "For example, 09:30 or 19:30",
+    year: {
+      value: params.dig("edition", "delivered_on(1i)") || edition.delivered_on&.year,
+      id: "edition_delivered_on_1i",
+      name: "edition[delivered_on(1i)]",
+      label: "Year",
+      width: 4,
+    },
+    month: {
+      value: params.dig("edition", "delivered_on(2i)") || edition.delivered_on&.month,
+      id: "edition_delivered_on_2i",
+      name: "edition[delivered_on(2i)]",
+      label: "Month",
+      width: 2,
+    },
+    day: {
+      value: params.dig("edition", "delivered_on(3i)") || edition.delivered_on&.day,
+      id: "edition_delivered_on_3i",
+      name: "edition[delivered_on(3i)]",
+      label: "Day",
+      width: 2,
+    },
+    hour: {
+      value: hour_param ? hour_param.to_i : edition.delivered_on&.hour,
+      id: "edition_delivered_on_4i",
+    },
+    minute: {
+      value: minute_param ? minute_param.to_i : edition.delivered_on&.min,
+      id: "edition_delivered_on_5i",
+    },
+  } %>
 
   <div class="app-view-edit-edition__delivered-on-warning js-app-view-edit-edition__delivered-on-warning app-view-edit-edition__delivered-on-warning--hidden govuk-!-margin-top-6" aria-live="polite">
     <%= render "govuk_publishing_components/components/warning_text", {

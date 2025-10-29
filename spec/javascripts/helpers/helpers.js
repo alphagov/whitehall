@@ -19,7 +19,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     const { legend } = options
     const el = document.createElement('div')
     el.innerHTML = `
-      <fieldset class="govuk-date-input">
+      <fieldset data-ga4-form-section="${legend}" class="govuk-date-input">
       <legend>${legend}</legend>
       <div class="govuk-date-input__item">
         <div class="govuk-form-group">
