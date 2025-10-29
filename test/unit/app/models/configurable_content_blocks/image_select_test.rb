@@ -20,6 +20,13 @@ class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
     }, payload)
   end
 
+  test "does not have a publishing api payload if content is nil" do
+    image = create(:image)
+    payload = ConfigurableContentBlocks::ImageSelect.new([image]).publishing_api_payload(nil)
+
+    assert_nil payload
+  end
+
   test "does not have a publishing api payload if selected image's assets are not ready" do
     images = create_list(:image, 3)
     images[1].image_data.assets = []

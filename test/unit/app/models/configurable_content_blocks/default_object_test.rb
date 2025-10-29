@@ -31,7 +31,7 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
     assert_equal(govspeak_to_html(content["test_attribute"]), payload[:test_attribute])
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
   end
-  test "it omits any missing block content from the Publishing API payload" do
+  test "it omits any missing block content from the Publishing API payload, unless it's lead image" do
     schema = {
       "type" => "object",
       "properties" => {
@@ -47,6 +47,12 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
             },
           },
         },
+        "test_lead_image_attribute" => {
+          "type" => "integer",
+          "title" => "Test attribute",
+          "description" => "A test attribute",
+          "format" => "lead_image_select",
+        },
       },
     }
     content = {
@@ -59,6 +65,7 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
     payload = ConfigurableContentBlocks::DefaultObject.new(factory).publishing_api_payload(schema, content)
     assert_not payload.key?(:test_attribute)
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
+    assert payload.key?(:test_lead_image_attribute)
   end
 end
 

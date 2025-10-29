@@ -7,7 +7,9 @@ module ConfigurableContentBlocks
     end
 
     def publishing_api_payload(content)
-      if (selected_image = images.find { |image| image.image_data.id == content.to_i })&.image_data&.all_asset_variants_uploaded?
+      return nil if content.nil?
+
+      if (selected_image = images.find { |image| image.image_data.id == content })&.image_data&.all_asset_variants_uploaded?
         {
           url: selected_image.url,
           caption: image_caption(selected_image),

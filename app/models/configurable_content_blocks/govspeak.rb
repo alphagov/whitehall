@@ -11,6 +11,8 @@ module ConfigurableContentBlocks
     end
 
     def publishing_api_payload(content)
+      return nil if content.nil?
+
       govspeak_to_html(content, images: @images, attachments: @attachments)
     end
 
