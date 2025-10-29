@@ -11,14 +11,6 @@ module ConfigurableContentBlocks
       block_constructor.call(@page)
     end
 
-    def build_all
-      all_block_constructors = []
-      blocks.values.each do |formats|
-        all_block_constructors << formats.values
-      end
-      all_block_constructors.flatten.map { |constructor| constructor.call(@page) }
-    end
-
   private
 
     def blocks
