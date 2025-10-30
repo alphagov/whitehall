@@ -43,5 +43,5 @@ And(/^I make "([^"]*)" a (lead|supporting) organisation$/) do |name, organisatio
 end
 
 Then(/^I can see a "([^"]*)" success notice$/) do |message|
-  expect(find(".gem-c-success-alert__message").text).to eq message
+  expect(find(".govuk-notification-banner__heading").text).to eq message
 end

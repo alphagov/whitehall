@@ -114,7 +114,7 @@ And(/^within the "([^"]*)" "([^"]*)" I set the order of the documents to:$/) do 
 end
 
 Then(/^I can see a "([^"]*)" success flash$/) do |message|
-  expect(find(".gem-c-success-alert__message").text).to eq message
+  expect(find(".govuk-notification-banner__heading").text).to eq message
 end
 
 And(/^the groups should be in the following order:/) do |list|

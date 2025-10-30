@@ -42,7 +42,7 @@ private
         concat content_tag(
           :li,
           "Attachment '#{attachment.title}' #{attachment.attachment_data.to_replace_id.present? ? 'updated' : 'uploaded'}".html_safe,
-          class: "gem-c-success-alert__message",
+          class: "govuk-notification-banner__heading",
         )
       end
     end
