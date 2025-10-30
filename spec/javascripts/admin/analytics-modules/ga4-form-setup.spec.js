@@ -82,12 +82,12 @@ describe('GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup', function () {
       expect(JSON.parse(ga4Form)).toEqual({ ...expectedDefaults, type: 'edit' })
     })
 
-    it('adds the `data-ga4-form-change-tracking` attribute if no tracked components', () => {
+    it('adds the `data-ga4-form-change-tracker` attribute if no tracked components', () => {
       GOVUK.analyticsGa4.analyticsModules.Ga4FormSetup.init()
 
-      const ga4FormChangeTracking = form.dataset.ga4FormChangeTracking
+      const dataModule = form.dataset.module
 
-      expect(ga4FormChangeTracking).toBeDefined()
+      expect(dataModule).toEqual(' ga4-form-change-tracker')
     })
 
     it('does not add the `data-ga4-form-change-tracking` attribute if tracked components', () => {
