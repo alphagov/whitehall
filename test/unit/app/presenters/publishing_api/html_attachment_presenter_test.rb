@@ -81,6 +81,31 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     assert_equal expected_headers, presented_html_attachment.content[:details][:headers]
   end
 
+  test "it includes headers with numbers present in body" do
+    html_attachment = create(
+      :html_attachment,
+      title: "Some html attachment",
+      body: "##1. Some header\n\nSome content\n\n##Another header\n\nMore content",
+    )
+
+    presented_html_attachment = PublishingApi::HtmlAttachmentPresenter.new(html_attachment)
+
+    expected_headers = [
+      {
+        text: "1. Some header",
+        level: 2,
+        id: "some-header",
+      },
+      {
+        text: "Another header",
+        level: 2,
+        id: "another-header",
+      },
+    ]
+
+    assert_equal expected_headers, presented_html_attachment.content[:details][:headers]
+  end
+
   test "it does not include headers when headers are not present in body" do
     html_attachment = create(
       :html_attachment,
