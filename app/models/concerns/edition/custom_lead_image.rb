@@ -44,7 +44,7 @@ private
     html = govspeak_edition_to_html(self)
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
 
-    if doc.css("img").any? { |img| img[:src] == edition_lead_image.image.url }
+    if doc.css("img[src*='#{edition_lead_image.image.filename}']").present?
       errors.add(:body, "cannot have a reference to the lead image in the text")
     end
   end

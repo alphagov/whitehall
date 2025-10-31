@@ -18,6 +18,16 @@ class Image < ApplicationRecord
     image_data.file_url(*args)
   end
 
+  def embed_url
+    return unless image_data.respond_to?(:image_kind_config)
+
+    embed_version = image_data.image_kind_config.embed_version
+
+    return url if embed_version.blank? || !image_data.all_asset_variants_uploaded?
+
+    url(embed_version.to_sym) || url
+  end
+
   def thumbnail
     return image_data.file_url unless bitmap? && !requires_crop?
 
