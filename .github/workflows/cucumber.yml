@@ -64,7 +64,7 @@ jobs:
         run: bundle exec ./bin/cucumber-ci
 
       - name: Upload screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: failure()
         with:
           name: capybara-screenshots
