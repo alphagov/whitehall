@@ -5,6 +5,7 @@ default:
   valid_height: 640
   permitted_uses:
     - govspeak_embed
+  embed_version: s960
   versions:
     - name: s960
       width: 960

@@ -17,7 +17,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     image = create(:image, edition:)
 
     post :preview, params: { body: edition.body, image_ids: edition.images.map(&:id) }
-    assert_select ".document .body figure.image.embedded img[src=?]", image.url
+    assert_select ".document .body figure.image.embedded img[src=?]", image.embed_url
   end
 
   view_test "renders attached images if image_ids provided using filename as a markdown" do
@@ -25,7 +25,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     image = create(:image, edition:)
 
     post :preview, params: { body: edition.body, image_ids: edition.images.map(&:id) }
-    assert_select ".document .body figure.image.embedded img[src=?]", image.url
+    assert_select ".document .body figure.image.embedded img[src=?]", image.embed_url
   end
 
   view_test "renders attached files if attachment_ids provided" do

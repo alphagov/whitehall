@@ -9,7 +9,7 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     payload = ConfigurableContentBlocks::Govspeak.new(images, attachments).publishing_api_payload(govspeak)
     doc = Nokogiri::HTML(payload)
     assert_not doc.css("a[href=\"#{attachment.url}\"]").empty?
-    assert_not doc.css("img[src=\"#{image.url}\"]").empty?
+    assert_not doc.css("img[src=\"#{image.embed_url}\"]").empty?
     assert_match(/A paragraph followed by an image/m, doc.text)
   end
 end
