@@ -23,7 +23,11 @@ window.GOVUK.analyticsGa4.analyticsModules =
 
         forms.forEach(function (form) {
           if (!form.querySelector(trackedComponentsSelector)) {
-            form.setAttribute('data-ga4-form-change-tracking', '')
+            form.setAttribute(
+              'data-module',
+              (form.getAttribute('data-module') || '') +
+                ' ga4-form-change-tracker'
+            )
           }
 
           const sectionContainer = form.closest('[data-ga4-section]')
