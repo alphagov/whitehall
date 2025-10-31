@@ -13,7 +13,9 @@ module ConfigurableContentBlocks
     def publishing_api_payload(schema, content)
       output = {}
       schema["properties"].each do |property_key, property_schema|
-        next if content[property_key].nil?
+        if content[property_key].nil? && property_schema["format"] != "lead_image_select"
+          next
+        end
 
         block = block_factory.build(property_schema["type"], property_schema["format"] || "default")
         leaf_block = !%w[object array].include?(property_schema["type"])

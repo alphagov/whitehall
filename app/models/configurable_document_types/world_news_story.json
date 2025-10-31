@@ -1,19 +1,44 @@
 {
   "key": "world_news_story",
   "title": "World News Story",
-  "description": "???",
+  "description": "Announcements specific to one or more world location. Don’t duplicate news published by another department.",
   "schema": {
     "properties": {
       "body": {
           "title": "Body",
           "type": "string",
           "format": "govspeak"
+      },
+      "image": {
+        "title": "Custom lead image",
+        "description": "Select a lead image, if required",
+        "type": "integer",
+        "format": "lead_image_select"
       }
     },
     "validations": {
+      "presence": {
+        "attributes": ["body"]
+      },
+      "length": {
+        "attributes": ["body"],
+        "maximum": 16777215
+      },
+      "safe_html": {
+        "attributes": ["body"]
+      },
+      "no_footnotes_allowed": {
+        "attributes": ["body"]
+      },
+      "embedded_contacts_exist": {
+        "attributes": ["body"]
+      }
     }
   },
   "associations" : [
+    {
+      "key": "topical_events"
+    },
     {
       "key": "worldwide_organisations",
       "required": true

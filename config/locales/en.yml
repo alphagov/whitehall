@@ -78,6 +78,7 @@ en:
     lead_image_select:
       default_image_hint_for_news_image: "The organisation's default news image is used as a lead image. It appears at the top of the document."
       default_image_hint_for_placeholder: "The organisation does not have a default news image, so a placeholder image will be shown at the top of the document."
+      default_image_hint_for_news_image_with_missing_variants: "The organisation's default news image is used as a lead image. Some assets are still being processed, so a placeholder image will be shown at the top of the document."
       custom_image_hint_for_news_image: "If no image is provided, the organisation's default news image will be shown."
       custom_image_hint_for_placeholder: "If no image is provided, a placeholder will be shown."
   contact:
