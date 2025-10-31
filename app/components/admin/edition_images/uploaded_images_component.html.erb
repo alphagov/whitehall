@@ -6,6 +6,7 @@
   } %>
 
   <%= form_for [:admin, edition], as: :edition do |form| %>
+    <%= hidden_field_tag :redirect_to, admin_edition_images_path(edition) %>
     <% root_block = ConfigurableContentBlocks::Factory.new(edition).build("object") %>
     <%= render(root_block, {
       schema: ConfigurableDocumentType.find(edition.configurable_document_type).schema,
