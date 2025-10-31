@@ -46,13 +46,6 @@
                     "image_select",
                     "lead_image_select"
                   ]
-                },
-                "tab": {
-                  "type": "string",
-                  "enum": [
-                    "document",
-                    "images"
-                  ]
                 }
               },
               "required": ["title", "type"],
@@ -122,6 +115,24 @@
     "settings": {
       "type": "object",
       "properties": {
+        "edit_screens": {
+          "type": "object",
+          "properties": {
+            "document": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "images": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
         "base_path_prefix": {
           "type": "string"
         },

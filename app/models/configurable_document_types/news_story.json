@@ -7,15 +7,13 @@
       "body": {
         "title": "Body",
         "type": "string",
-        "format": "govspeak",
-        "tab": "document"
+        "format": "govspeak"
       },
       "image": {
         "title": "Custom lead image",
         "description": "Select a lead image, if required",
         "type": "integer",
-        "format": "lead_image_select",
-        "tab": "images"
+        "format": "lead_image_select"
       }
     },
     "validations": {
@@ -52,6 +50,10 @@
     }
   ],
   "settings": {
+    "edit_screens": {
+      "document": ["body"],
+      "images": ["image"]
+    },
     "base_path_prefix": "/government/news",
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "news_story",

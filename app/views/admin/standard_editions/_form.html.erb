@@ -70,7 +70,7 @@
       right_to_left: @edition.rtl?,
       errors: @edition.errors,
       root: true,
-      tab: "document",
+      visible_properties: ConfigurableDocumentType.find(edition.configurable_document_type).properties_for_edit_screen("document"),
     }) %>
 
     <%= render Admin::Editions::FirstPublishedAtComponent.new(

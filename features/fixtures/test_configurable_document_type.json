@@ -8,20 +8,22 @@
         "title": "Body",
         "description": "The main content of the page",
         "type": "string",
-        "format": "govspeak",
-        "tab": "document"
+        "format": "govspeak"
       },
       "image": {
         "title": "Image",
         "description": "The image for the page",
         "type": "integer",
-        "format": "image_select",
-        "tab": "images"
+        "format": "image_select"
       }
     }
   },
   "associations": [],
   "settings": {
+    "edit_screens": {
+      "document": ["body"],
+      "images": ["image"]
+    },
     "base_path_prefix": "/government/test-type",
     "publishing_api_schema_name": "test_type",
     "publishing_api_document_type": "test_type",

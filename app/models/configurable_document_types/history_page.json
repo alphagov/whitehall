@@ -8,22 +8,19 @@
         "title": "Body",
         "description": "The main content for the page",
         "type": "string",
-        "format": "govspeak",
-        "tab": "document"
+        "format": "govspeak"
       },
       "sidebar_image": {
         "title": "Sidebar image",
         "description": "Enter the markdown code for the sidebar image",
         "type": "integer",
-        "format": "image_select",
-        "tab": "images"
+        "format": "image_select"
       },
       "lead_paragraph": {
         "title": "Lead paragraph",
         "description": "Optional text that appears above the main content",
         "type": "string",
-        "format": "default",
-        "tab": "document"
+        "format": "default"
       }
     },
     "validations": {
@@ -48,6 +45,10 @@
   },
   "associations": [],
   "settings": {
+    "edit_screens": {
+      "document": ["body", "lead_paragraph"],
+      "images": ["image"]
+    },
     "base_path_prefix": "/government/history",
     "publishing_api_schema_name": "history",
     "publishing_api_document_type": "history",

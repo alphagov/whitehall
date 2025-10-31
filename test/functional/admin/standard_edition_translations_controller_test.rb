@@ -10,8 +10,12 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
             "title" => "Body (required)",
             "type" => "string",
             "format" => "govspeak",
-            "tab" => "document",
           },
+        },
+      },
+      "settings" => {
+        "edit_screens" => {
+          "document" => %w[body],
         },
       },
     }))

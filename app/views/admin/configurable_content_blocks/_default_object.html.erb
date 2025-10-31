@@ -3,14 +3,13 @@
    translated_content ||= {}
    root ||= false
    right_to_left ||= false
-   tab ||= nil
    errors ||= []
    required_attributes = Array(schema.dig("validations", "presence", "attributes"))
-   properties = schema.fetch("properties", {}) %>
+   properties = schema.fetch("properties", {})
+   visible_properties ||= properties %>
 
 <% body = capture do %>
-  <% properties.each do |property_key, property_schema| %>
-    <% next if tab && property_schema["tab"] != tab %>
+  <% visible_properties.each do |property_key, property_schema| %>
     <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
     <%= render block, {
       schema: property_schema,

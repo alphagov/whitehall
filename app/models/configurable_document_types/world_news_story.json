@@ -7,8 +7,7 @@
       "body": {
         "title": "Body",
         "type": "string",
-        "format": "govspeak",
-        "tab": "document"
+        "format": "govspeak"
       }
     },
     "validations": {
@@ -25,6 +24,10 @@
     }
   ],
   "settings": {
+    "edit_screens": {
+      "document": ["body"],
+      "images": ["image"]
+    },
     "base_path_prefix": "/government/news",
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "world_news_story",
