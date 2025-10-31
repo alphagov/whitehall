@@ -76,6 +76,46 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   click_button "Save and go to document summary"
 end
 
+Then("when I switch to the Images tab to fill in the other configurable fields") do
+  # Pretend we've uploaded an image already
+  edition = @standard_edition || StandardEdition.last
+  image = create(:image)
+  edition.update!(images: [image])
+
+  # Go to the Images tab to select the image
+  click_link "Edit draft"
+  click_link "Images"
+
+  # Assert that the valueless "No image selected" option is present as the first option, and that no option has been selected yet
+  expect(page).to have_select("Image", options: ["No image selected", edition.images.first.filename])
+  expect(page).to have_select("Image", selected: nil)
+
+  # Now select the image and save
+  select edition.images.first.filename, from: "Image"
+  click_button "Save"
+end
+
+Then("the configurable fields on the Images tab are persisted") do
+  # Get back to the Images tab
+  edition = @standard_edition || StandardEdition.last
+  visit admin_standard_edition_path(edition)
+  click_link "Edit draft"
+  click_link "Images"
+
+  # Check the select value is pre-selected
+  expect(page).to have_select("Image", selected: edition.images.first.filename)
+end
+
+And("the configurable fields on the Document tab are not overwritten") do
+  # Get back to the Document tab
+  edition = @standard_edition || StandardEdition.last
+  visit admin_standard_edition_path(edition)
+  click_link "Edit draft"
+
+  # Check the body content is still there
+  expect(page).to have_field("Body", with: /This is the body content/)
+end
+
 Given(/^I have drafted an English configurable document titled "([^"]*)"$/) do |title|
   @standard_edition = create_configurable_document(title: title, locale: "en")
 end
@@ -116,6 +156,7 @@ And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |t
   standard_edition = StandardEdition.find_by(title: title)
   visit admin_standard_edition_path(standard_edition)
   click_button "Create new edition"
+  click_link "Images"
   expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
 end
 

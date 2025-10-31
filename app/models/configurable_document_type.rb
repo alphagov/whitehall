@@ -55,6 +55,13 @@ class ConfigurableDocumentType
     @schema["properties"]
   end
 
+  def properties_for_edit_screen(edit_screen)
+    edit_screens = @settings["edit_screens"] || {}
+    return [] unless edit_screens.key?(edit_screen)
+
+    edit_screens[edit_screen].index_with { |key| properties[key] }
+  end
+
   class NotFoundError < StandardError
   end
 end

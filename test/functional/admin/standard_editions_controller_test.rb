@@ -147,6 +147,62 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Worldwide organisations"
   end
 
+  view_test "PATCH update respects a provided safe relative redirect_to path" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(
+      :draft_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      title: "Title",
+      summary: "Summary",
+    )
+
+    # Make update succeed without invoking the service layer
+    @controller.stubs(:updater).returns(stub(can_perform?: true, perform!: true, failure_reason: nil))
+    StandardEdition.any_instance.stubs(:save_as).with(current_user).returns(true)
+
+    custom_path = admin_edition_images_path(edition) # => /government/admin/editions/:id/images
+
+    patch :update, params: {
+      id: edition.id,
+      # minimal permitted attrs to avoid strong params rejection
+      edition: { title: edition.title, summary: edition.summary, configurable_document_type: "test_type" },
+      redirect_to: custom_path,
+      save: "save",
+    }
+
+    assert_redirected_to custom_path
+  end
+
+  view_test "PATCH update does not allow open redirects and falls back to edit page" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(
+      :draft_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      title: "Title",
+      summary: "Summary",
+    )
+
+    @controller.stubs(:updater).returns(stub(can_perform?: true, perform!: true, failure_reason: nil))
+    StandardEdition.any_instance.stubs(:save_as).with(current_user).returns(true)
+
+    fallback_path = edit_admin_standard_edition_path(edition)
+
+    patch :update, params: {
+      id: edition.id,
+      edition: { title: edition.title, summary: edition.summary, configurable_document_type: "test_type" },
+      redirect_to: "https://evil.example/phish",
+      save: "save",
+    }
+
+    assert_redirected_to fallback_path
+  end
+
   view_test "POST create re-renders the new edition template with the submitted block content and errors if the form is invalid" do
     configurable_document_type = build_configurable_document_type("test_type", "schema" => {
       "validations" => {
