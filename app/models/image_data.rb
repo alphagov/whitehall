@@ -1,8 +1,13 @@
 require "mini_magick"
 
 class ImageData < ApplicationRecord
-  attr_accessor :validate_on_image
+  attr_accessor :image, :validate_on_image
 
+  store_accessor :dimensions, %i[width height]
+  store_accessor :crop_data, %i[x y width height], prefix: true
+  after_initialize :dimensions_from_config
+
+  include Replaceable
   include ImageKind
 
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
@@ -18,7 +23,6 @@ class ImageData < ApplicationRecord
   validates_with ImageValidator, if: :image_changed?
   validate :filename_is_unique
 
-  delegate :width, :height, to: :dimensions
   delegate :url, :content_type, to: :file
 
   def filename
@@ -36,6 +40,24 @@ class ImageData < ApplicationRecord
     content_type !~ /svg/
   end
 
+  def crop_data_to_params
+    return if crop_data.blank?
+
+    "#{crop_data_width}x#{crop_data_height}+#{crop_data_x}+#{crop_data_y}"
+  end
+
+  def requires_crop?
+    too_large? && crop_data.blank?
+  end
+
+  def can_be_cropped?
+    too_large? && bitmap?
+  end
+
+  def original_uploaded?
+    assets.map(&:variant).map(&:to_sym).include?(:original)
+  end
+
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
     required_variants = file.active_version_names + [:original]
@@ -47,22 +69,25 @@ class ImageData < ApplicationRecord
     content_type == SVG_CONTENT_TYPE
   end
 
+  def too_large?
+    return unless respond_to?(:image_kind_config) && dimensions.present?
+
+    target_width = image_kind_config.valid_width
+    target_height = image_kind_config.valid_height
+
+    width > target_width || height > target_height
+  end
+
 private
 
-  Dimensions = Struct.new(:width, :height)
+  def dimensions_from_config
+    return unless bitmap? && respond_to?(:image_kind_config)
 
-  def dimensions
-    @dimensions ||= if valid?
-                      # Whitehall doesn't store local copies of original images. Once they've been
-                      # uploaded to Asset Manager, we can't expect them to exist locally again.
-                      # But since every uploaded image has to have valid dimensions, we can
-                      # be confident a valid image (either freshly uploaded, or already persisted)
-                      # will have valid dimensions.
-                      Dimensions.new(image_kind_config.valid_width, image_kind_config.valid_height)
-                    else
-                      image = MiniMagick::Image.open file.path
-                      Dimensions.new(image[:width], image[:height])
-                    end
+    # if no saved dimensions image created when
+    # cropped images were saved with height and
+    # and width of the associated image config
+    self.height ||= image_kind_config.valid_height
+    self.width ||= image_kind_config.valid_width
   end
 
   def filename_is_unique

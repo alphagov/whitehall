@@ -15,7 +15,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
         <% if lead_image.image_data&.all_asset_variants_uploaded? %>
-          <img src="<%= lead_image.url %>" alt="Lead image" class="app-view-edition-resource__preview">
+          <img src="<%= lead_image.url(:s960) %>" alt="Lead image" class="app-view-edition-resource__preview">
         <% else %>
           <span class="govuk-tag govuk-tag--green">Processing</span>
         <% end %>

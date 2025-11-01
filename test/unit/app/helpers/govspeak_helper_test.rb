@@ -275,19 +275,15 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   it "embeds images using !!number syntax" do
-    edition = build(:published_news_article, body: "!!1")
-    image_data = create(:image_data, id: 1)
-    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg", filename: "image.jpg", image_data: ImageData.find(image_data.id))])
+    edition = build(:published_news_article, images: [build(:image)], body: "!!1")
     html = govspeak_edition_to_html(edition)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
 
   it "embeds images using [Image:] syntax" do
-    edition = build(:published_news_article, body: "[Image: image.jpg]")
-    image_data = create(:image_data, id: 1)
-    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg", filename: "image.jpg", image_data: ImageData.find(image_data.id))])
+    edition = build(:published_news_article, images: [build(:image)], body: "[Image: minister-of-funk.960x640.jpg]")
     html = govspeak_edition_to_html(edition)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
 
   it "adds numbers to h2 headings" do
@@ -411,14 +407,14 @@ class GovspeakHelperTest < ActionView::TestCase
     body = "[Image: minister-of-funk.960x640.jpg]"
     html_attachment = create(:html_attachment, attachable: edition, body:)
     html = govspeak_html_attachment_to_html(html_attachment)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.url}']"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
 
   it "HTML attachments can embed images using !!number syntax" do
     edition = create(:published_publication, images: [build(:image)])
     html_attachment = create(:html_attachment, attachable: edition, body: "!!1")
     html = govspeak_html_attachment_to_html(html_attachment)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.url}']"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
 
   it "HTML attachment with automatically numbered headings" do
@@ -561,14 +557,14 @@ class GovspeakHelperTest < ActionView::TestCase
     it "should allow attached images to be embedded in admin html" do
       image = build(:image)
       html = govspeak_to_html("!!1", images: [image], preview: true)
-      assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.url
+      assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.embed_url
     end
 
     it "should allow attached images to be embedded in edition body" do
       image = build(:image)
       edition = build(:published_news_article, body: "!!1", images: [image])
       html = govspeak_edition_to_html(edition, { preview: true })
-      assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.url
+      assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.embed_url
     end
 
     it "uses the frontend contacts/_contact partial when rendering embedded contacts, not the admin partial" do

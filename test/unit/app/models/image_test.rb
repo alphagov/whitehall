@@ -54,4 +54,26 @@ class ImageTest < ActiveSupport::TestCase
     assert image.bitmap?
     assert_not image.svg?
   end
+
+  test "returns variant url of embed_version if specified in config" do
+    image = create(:image)
+
+    image_data = image.image_data
+
+    version = image_data.image_kind_config.versions.first.name
+
+    image_data.image_kind_config.stubs(:embed_version).returns(version)
+
+    assert_equal image.embed_url, image.url(version)
+  end
+
+  test "returns original url if embed_version not specified in config" do
+    image = create(:image)
+
+    image_data = image.image_data
+
+    image_data.image_kind_config.stubs(:embed_version).returns(nil)
+
+    assert_equal image.embed_url, image.url
+  end
 end
