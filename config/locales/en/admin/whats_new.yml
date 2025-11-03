@@ -23,17 +23,23 @@ en:
           - We will be considering options for improving how access and permissions work in Whitehall.
 
       upcoming_changes:
-        heading: Upcoming changes
+        heading: 
         updates:
-          - heading: Changes to image uploading 
-            area: Adding images
-            type: improvement
-            date: Autumn 2025
-            body_govspeak: |
-              Work done on uploading attachments this quarter will inform our approach to improving the image uploading experience. We will be looking at how we can make it easier to upload and crop images in Whitehall.
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Drag and drop (bulk) image uploads in Whitehall
+            area: Managing images
+            type: improvement
+            date: 03 November 2025
+            body_govspeak: |
+               On the document Image tab you can now upload single or multiple files by either choosing them or dragging them to the page.
+               
+               Once the images are uploaded you will see them listed. You can then crop them (if needed), add the caption, copy the Markdown and select the Lead image as before.
+               
+               [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9231783110). 
+               
+               This should speed up the process of adding images to documents in Whitehall, especially when adding multiple images.
           - heading: Unpublishing reason shows on summary pages
             area: Managing documents and editions
             type: improvement
