@@ -97,4 +97,76 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
     assert_equal "# Heading", bc["body"]
     assert_nil bc["unrecognised_key"]
   end
+
+  test "deep merge: updates nested keys and filters invalid ones when assigned via ActionController::Parameters" do
+    nested_type = build_configurable_document_type(
+      "nested_type",
+      "schema" => {
+        "properties" => {
+          "body" => { "title" => "Body", "type" => "string" },
+          "meta" => {
+            "title" => "Meta",
+            "type" => "object",
+            "properties" => {
+              "summary" => { "title" => "Summary", "type" => "string" },
+              "extra" => {
+                "title" => "Extra",
+                "type" => "object",
+                "properties" => {
+                  "audience" => { "title" => "Audience", "type" => "string" },
+                  "count" => { "title" => "Count", "type" => "integer" },
+                },
+              },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(nested_type)
+
+    edition = create(
+      :standard_edition,
+      configurable_document_type: "nested_type",
+      block_content: {
+        "body" => "Start",
+        "meta" => {
+          "summary" => "old summary",
+          "extra" => { "audience" => "public", "count" => 1 },
+          "junk" => "should be removed", # invalid per schema
+        },
+      },
+    )
+
+    # Simulate controller-style assignment (attributes object) rather than a plain Hash
+    params = ActionController::Parameters.new(
+      "block_content" => {
+        "meta" => {
+          "summary" => "new summary",            # overwrite nested valid key
+          "extra" => {
+            "count" => 2,                        # overwrite nested-nested valid key
+            "invalid_nested" => "ignore me",     # invalid nested key
+          },
+          "unknown" => "ignore me too",          # invalid nested key at level 1
+        },
+        "not_in_schema" => "nope",               # invalid top-level key
+      },
+    ).permit!
+
+    assert edition.update(params)
+
+    bc = edition.reload.block_content
+    # top-level preserved
+    assert_equal "Start", bc["body"]
+
+    # nested object merged
+    assert_equal "new summary", bc["meta"]["summary"]
+    assert_equal "public",      bc["meta"]["extra"]["audience"] # preserved
+    assert_equal 2,             bc["meta"]["extra"]["count"]    # updated
+
+    # invalid keys filtered out
+    assert_nil bc["meta"]["junk"]
+    assert_nil bc["meta"]["unknown"]
+    assert_nil bc["meta"]["extra"]["invalid_nested"]
+    assert_nil bc["not_in_schema"]
+  end
 end
