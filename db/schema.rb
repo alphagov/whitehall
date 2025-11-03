@@ -426,7 +426,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_073712) do
     t.integer "alternative_format_provider_id"
     t.datetime "public_timestamp", precision: nil
     t.datetime "scheduled_publication", precision: nil
-    t.boolean "replaces_businesslink", default: false # TODO: drop
     t.boolean "access_limited", null: false
     t.integer "published_major_version"
     t.integer "published_minor_version"
