@@ -42,7 +42,7 @@
   <div class="govuk-grid-row">
     <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
       <% if case_study? %>
-        <%= form_with(url: update_image_display_option_admin_edition_path(edition), method: :patch) do |form| %>
+        <%= form_with(url: update_image_display_option_admin_edition_path(edition), method: :patch, data: { ga4_form_no_answer_undefined: update_image_display_option_button_text }) do |form| %>
           <%= hidden_field_tag "edition[image_display_option]", new_image_display_option %>
 
           <%= render "govuk_publishing_components/components/button", {

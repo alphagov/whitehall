@@ -44,6 +44,8 @@ private
     if @edition.is_latest_edition? && @edition.can_supersede?
       actions << form_with(url: revise_admin_edition_path(@edition.id), method: :post, data: {
         module: "prevent-multiple-form-submissions",
+        ga4_section: "Create new edition",
+        ga4_form_no_answer_undefined: "Create new edition",
       }) do
         render("govuk_publishing_components/components/button", {
           text: "Create new edition",
@@ -56,6 +58,8 @@ private
     if @edition.can_submit?
       actions << form_with(url: submit_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
         module: "prevent-multiple-form-submissions",
+        ga4_section: "Submit for 2nd eyes",
+        ga4_form_no_answer_undefined: "Submit for 2nd eyes",
       }) do
         render("govuk_publishing_components/components/button", {
           text: "Submit for 2nd eyes",
@@ -89,6 +93,8 @@ private
     if @scheduler.can_perform? && @enforcer.can?(:publish)
       actions << form_with(url: schedule_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
         module: "prevent-multiple-form-submissions",
+        ga4_section: "Schedule",
+        ga4_form_no_answer_undefined: "Schedule",
       }) do
         render("govuk_publishing_components/components/button", {
           text: "Schedule",
@@ -126,6 +132,8 @@ private
     if @edition.can_reject? && @enforcer.can?(:reject)
       actions << form_with(url: reject_admin_edition_path(@edition, lock_version: @edition.lock_version), method: :post, data: {
         module: "prevent-multiple-form-submissions",
+        ga4_section: "Reject",
+        ga4_form_no_answer_undefined: "Reject",
       }) do
         render("govuk_publishing_components/components/button", {
           text: "Reject",
