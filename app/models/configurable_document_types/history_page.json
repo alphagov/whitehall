@@ -45,6 +45,10 @@
   },
   "associations": [],
   "settings": {
+    "edit_screens": {
+      "document": ["body", "lead_paragraph"],
+      "images": ["image"]
+    },
     "base_path_prefix": "/government/history",
     "publishing_api_schema_name": "history",
     "publishing_api_document_type": "history",

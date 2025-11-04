@@ -50,6 +50,10 @@
     }
   ],
   "settings": {
+    "edit_screens": {
+      "document": ["body"],
+      "images": ["image"]
+    },
     "base_path_prefix": "/government/news",
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "press_release",

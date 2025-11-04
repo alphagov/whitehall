@@ -5,8 +5,9 @@ module StandardEdition::HasBlockContent
   end
 
   def block_content=(value)
-    value = value.is_a?(StandardEdition::BlockContent) ? value.attributes : value
-    super(value)
+    current  = (as_plain_hash(self[:block_content]) || {}).deep_stringify_keys
+    incoming = (as_plain_hash(value) || {}).deep_stringify_keys
+    super(current.deep_merge(incoming))
   end
 
   def block_content
@@ -24,6 +25,22 @@ private
       block_content.errors.each do |error|
         errors.import(error, { attribute: error.attribute.to_s })
       end
+    end
+  end
+
+  def as_plain_hash(value)
+    case value
+    when nil
+      {}
+    when StandardEdition::BlockContent
+      # unwrap to its attributes, and recurse so nested objects become plain hashes too
+      as_plain_hash(value.attributes)
+    when Hash
+      value.transform_values { |x| as_plain_hash(x) }
+    else
+      # value might be the dynamically generated "Block content attributes" object
+      # defined in StandardEdition::BlockContent, or else a String, Integer, etc.
+      value.respond_to?(:to_h) ? as_plain_hash(value.to_h) : value
     end
   end
 end

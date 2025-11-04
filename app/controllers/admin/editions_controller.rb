@@ -110,7 +110,7 @@ class Admin::EditionsController < Admin::BaseController
         LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
       end
 
-      redirect_to show_or_edit_path, saved_confirmation_notice
+      redirect_to redirect_param(fallback: show_or_edit_path), saved_confirmation_notice
     else
       flash.now[:alert] = updater.failure_reason
       build_edition_dependencies
@@ -520,4 +520,11 @@ private
     @force_scheduler ||= Whitehall.edition_services.force_scheduler(@edition)
   end
   helper_method :force_scheduler
+
+  def redirect_param(fallback: nil)
+    url = params[:redirect_to].presence
+    return url if url && URI.parse(url).host.blank? # only allow same-site paths
+
+    fallback
+  end
 end

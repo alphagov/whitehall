@@ -13,6 +13,11 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
           },
         },
       },
+      "settings" => {
+        "edit_screens" => {
+          "document" => %w[body],
+        },
+      },
     }))
   end
 
