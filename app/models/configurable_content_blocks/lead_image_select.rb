@@ -1,10 +1,10 @@
 module ConfigurableContentBlocks
   class LeadImageSelect
-    attr_reader :images, :default_lead_image
+    attr_reader :images, :default_lead_image, :placeholder_image_url
 
-    def initialize(images = [], default_lead_image: nil, is_world_news_story: false)
+    def initialize(images = [], default_lead_image: nil, placeholder_image_url: nil)
       @images = images
-      @is_world_news_story = is_world_news_story
+      @placeholder_image_url = placeholder_image_url
       @default_lead_image = default_lead_image
     end
 
@@ -42,10 +42,6 @@ module ConfigurableContentBlocks
 
     def default_lead_image_url
       default_lead_image&.url(:s300) if default_lead_image&.all_asset_variants_uploaded?
-    end
-
-    def placeholder_image_url
-      @is_world_news_story ? "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg" : "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
     end
 
     def placeholder_payload

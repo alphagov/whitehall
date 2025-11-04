@@ -36,11 +36,12 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
     images = create_list(:image, 3)
     images[1].image_data.assets = []
     images[1].image_data.save!
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
 
-    payload = ConfigurableContentBlocks::LeadImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
+    payload = ConfigurableContentBlocks::LeadImageSelect.new(images, default_lead_image: nil, placeholder_image_url:).publishing_api_payload(images[1].image_data.id)
     assert_equal({
-      high_resolution_url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
-      url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
+      high_resolution_url: placeholder_image_url,
+      url: placeholder_image_url,
     }, payload)
   end
 
@@ -48,20 +49,21 @@ class ConfigurableContentBlocks::LeadImageSelectTest < ActiveSupport::TestCase
     default_lead_image = build(:featured_image_data)
     default_lead_image.assets = []
     default_lead_image.save!
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
 
-    payload = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image:).publishing_api_payload(nil)
+    payload = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image:, placeholder_image_url:).publishing_api_payload(nil)
     assert_equal({
-      high_resolution_url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
-      url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
+      high_resolution_url: placeholder_image_url,
+      url: placeholder_image_url,
     }, payload)
   end
 
   test "it sends the placeholder image url if custom lead and organisation default images are missing" do
-    payload = ConfigurableContentBlocks::LeadImageSelect.new([]).publishing_api_payload("")
-
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
+    payload = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: nil, placeholder_image_url:).publishing_api_payload("")
     assert_equal({
-      high_resolution_url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
-      url: "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg",
+      high_resolution_url: placeholder_image_url,
+      url: placeholder_image_url,
     }, payload)
   end
 end
@@ -196,7 +198,8 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
         },
       },
     }
-    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: nil)
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
+    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: nil, placeholder_image_url:)
 
     render block, {
       schema: schema["properties"]["test_attribute"],
@@ -205,7 +208,7 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
     }
 
     assert_dom "h2", text: "Default lead image"
-    assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
+    assert_dom "img[src=?]", placeholder_image_url
   end
 
   test "it renders a placeholder if default lead image has missing assets" do
@@ -223,7 +226,8 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
     default_lead_image = build(:featured_image_data)
     default_lead_image.assets = []
     default_lead_image.save!
-    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image:)
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
+    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image:, placeholder_image_url:)
 
     render block, {
       schema: schema["properties"]["test_attribute"],
@@ -232,31 +236,7 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
     }
 
     assert_dom "h2", text: "Default lead image"
-    assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
-  end
-
-  test "it renders the uk government logo placeholder for world news story, if default lead image is nil" do
-    schema = {
-      "type" => "object",
-      "properties" => {
-        "test_attribute" => {
-          "type" => "integer",
-          "title" => "Test attribute",
-          "description" => "A test attribute",
-          "format" => "lead_image_select",
-        },
-      },
-    }
-    block = ConfigurableContentBlocks::LeadImageSelect.new([], default_lead_image: nil, is_world_news_story: true)
-
-    render block, {
-      schema: schema["properties"]["test_attribute"],
-      content: nil,
-      path: Path.new.push("test_attribute"),
-    }
-
-    assert_dom "h2", text: "Default lead image"
-    assert_dom "img[src=?]", "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg"
+    assert_dom "img[src=?]", placeholder_image_url
   end
 
   test "it does not render the default lead image if a custom lead image has been selected" do
