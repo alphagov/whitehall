@@ -11,9 +11,9 @@ class RevalidateEditionsSchedulerWorkerTest < ActiveSupport::TestCase
       scheduled = create(:scheduled_edition, title: "Scheduled")
       force_published = create(:force_published_edition, title: "Force published")
       withdrawn = create(:withdrawn_edition, title: "Withdrawn")
+      unpublished = create(:unpublished_edition, title: "Unpublished")
 
       # Editions that SHOULD NOT trigger a worker
-      unpublished = create(:unpublished_edition, title: "Unpublished")
       superseded = create(:superseded_edition, title: "Superseded")
 
       Sidekiq.logger.stub(:info, nil) do
@@ -23,8 +23,8 @@ class RevalidateEditionsSchedulerWorkerTest < ActiveSupport::TestCase
       # Flatten all batch args (each job's arg is an array of IDs)
       enqueued_ids = RevalidateEditionBatchWorker.jobs.flat_map { |job| job["args"].first }
 
-      expected_ids = [draft, submitted, rejected, published, scheduled, force_published, withdrawn].map(&:id)
-      unexpected_ids = [unpublished.id, superseded.id]
+      expected_ids = [draft, submitted, rejected, published, unpublished, scheduled, force_published, withdrawn].map(&:id)
+      unexpected_ids = [superseded.id]
 
       expected_ids.each do |id|
         assert_includes enqueued_ids, id, "Expected edition #{id} to be enqueued"

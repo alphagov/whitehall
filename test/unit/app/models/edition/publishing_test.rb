@@ -176,4 +176,16 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert_not published_edition.valid?
     assert_includes published_edition.errors[:images], "must have finished uploading"
   end
+
+  test "is valid even if unpublishing URL is invalid" do
+    edition = create(:unpublished_edition)
+    edition.unpublishing.update_column(:alternative_url, "not a URL")
+    assert edition.valid?
+  end
+
+  test "is invalid on publish if unpublishing URL is invalid" do
+    edition = create(:unpublished_edition)
+    edition.unpublishing.update_column(:alternative_url, "not a URL")
+    assert_not edition.valid?(:publish)
+  end
 end

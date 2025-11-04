@@ -21,6 +21,8 @@ en:
               inclusion: First published date must be between 1/1/1900 and the present
             html_attachments:
               missing_contact_reference: "- \"%{html_attachment_title}\" - embedded Contact (ID %{contact_id}) doesn't exist"
+            unpublishing:
+              invalid: "has an invalid redirect URL or reason"
         nation_inapplicability:
           attributes:
             alternative_url:
