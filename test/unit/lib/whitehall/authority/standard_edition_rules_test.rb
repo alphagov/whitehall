@@ -8,11 +8,8 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     test_types = {
       "test_type" => {
         "key" => @type_key,
+        "title" => "Test type",
         "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title": "Test type",
-          "type": "object",
           "properties" => {
             "test_attribute" => {
               "title" => "Test attribute",
@@ -26,11 +23,8 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
       },
       "test_type_without_orgs" => {
         "key" => @no_organisations_type_key,
+        "title" => "Test type without orgs",
         "schema" => {
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "$id": "https://www.gov.uk/schemas/test_type/v1",
-          "title": "Test type without orgs",
-          "type": "object",
           "properties" => {
             "test_attribute" => {
               "title" => "Test attribute",
