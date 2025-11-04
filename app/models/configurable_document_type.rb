@@ -38,6 +38,10 @@ class ConfigurableDocumentType
     types.keys
   end
 
+  def self.children_for(parent_key)
+    all.select { |t| t.settings["configurable_document_group"] == parent_key }
+  end
+
   def initialize(type)
     @key = type["key"]
     @title = type["title"]
