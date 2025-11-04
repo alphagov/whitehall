@@ -40,6 +40,43 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "label", "Test Type Two"
   end
 
+  view_test "GET choose_type displays only top-level and 'group' types by default" do
+    top_level_type = build_configurable_document_type("top_level_type", { "title" => "Top level type" })
+    child_type = build_configurable_document_type("child_type", { "title" => "Child type", "settings" => { "configurable_document_group" => "parent_type" } })
+    ConfigurableDocumentType.setup_test_types(top_level_type.merge(child_type))
+    get :choose_type
+    assert_response :ok
+    assert_dom "h1", "New standard document"
+    assert_dom "label", "Top level type"
+    assert_dom "label", "Parent type"
+    refute_dom "label", "Child type"
+  end
+
+  view_test "GET choose_type displays child types when a 'group' configurable_document_type parameter is provided" do
+    parent_type = build_configurable_document_type("parent_type", { "title" => "Parent Type" })
+    child_type = build_configurable_document_type("child_type", { "title" => "Child Type", "settings" => { "configurable_document_group" => "parent_type" } })
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+    get :choose_type, params: { configurable_document_type: "parent_type" }
+    assert_response :ok
+    assert_dom "h1", "New parent type"
+    refute_dom "label", "Parent Type"
+    assert_dom "label", "Child Type"
+  end
+
+  view_test "GET choose_type redirects to the new edition form when a 'groupless' configurable_document_type parameter is provided" do
+    parent_type = build_configurable_document_type("parent_type", { "title" => "Parent Type" })
+    child_type = build_configurable_document_type("child_type", { "title" => "Child Type", "settings" => { "configurable_document_group" => "parent_type" } })
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+    get :choose_type, params: { configurable_document_type: "child_type" }
+    assert_redirected_to new_admin_standard_edition_path(configurable_document_type: "child_type")
+  end
+
+  view_test "GET choose_type returns a not found response when an invalid configurable_document_type parameter is provided" do
+    get :choose_type, params: { configurable_document_type: "non_existent_type" }
+    assert_response :not_found
+    assert_template "admin/errors/not_found"
+  end
+
   view_test "GET edit renders default fields for a standard document" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
