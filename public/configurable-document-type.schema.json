@@ -118,6 +118,9 @@
         "base_path_prefix": {
           "type": "string"
         },
+        "configurable_document_group": {
+          "type": "string"
+        },
         "publishing_api_schema_name": {
           "type": "string"
         },
