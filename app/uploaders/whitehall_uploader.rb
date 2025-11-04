@@ -3,6 +3,12 @@ class WhitehallUploader < CarrierWave::Uploader::Base
     "system/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  def bitmap?(new_file)
+    return if new_file.nil?
+
+    new_file.content_type !~ /svg/
+  end
+
   # Returns path to the file, relative to the [incoming|clean] root.
   def relative_path
     store_path(File.basename(path))

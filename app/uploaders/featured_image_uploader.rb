@@ -1,9 +1,6 @@
 class FeaturedImageUploader < WhitehallUploader
+  include ImageValidator
   include CarrierWave::MiniMagick
-
-  def extension_allowlist
-    %w[jpg jpeg gif png]
-  end
 
   configure do |config|
     # This config disables the default carrierwave behaviour of deleting previous images on update.
@@ -22,7 +19,33 @@ class FeaturedImageUploader < WhitehallUploader
     end
   end
 
+  def height_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_height..model.image_kind_config.valid_height
+    end
+  end
+
+  def width_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_width..model.image_kind_config.valid_width
+    end
+  end
+
   def image_cache
     file.file.gsub("/govuk/whitehall/carrierwave-tmp/", "") if send("cache_id").present?
+  end
+
+  def check_dimensions!(new_file)
+    super
+  rescue CarrierWave::IntegrityError
+    if width_range&.begin && width < width_range.begin || height_range&.begin && height < height_range.begin
+      raise CarrierWave::IntegrityError, "is too small. Select an image that is #{model.image_kind_config.valid_width} pixels wide and #{model.image_kind_config.valid_height} pixels tall"
+    elsif width_range&.end && width > width_range.end || height_range&.end && height > height_range.end
+      raise CarrierWave::IntegrityError, "is too large. Select an image that is #{model.image_kind_config.valid_width} pixels wide and #{model.image_kind_config.valid_height} pixels tall"
+    end
   end
 end
