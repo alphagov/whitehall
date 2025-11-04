@@ -171,6 +171,22 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [edition], Admin::EditionFilter.new(Edition, @current_user, type: "test_type").editions
   end
 
+  test "should filter by news article category" do
+    news_story_document_type = build_configurable_document_type("news_story", { "settings" => { "configurable_document_group" => "news_article" } })
+    press_release_document_type = build_configurable_document_type("press_release", { "settings" => { "configurable_document_group" => "news_article" } })
+    subtypes = news_story_document_type.deep_merge(press_release_document_type)
+    ConfigurableDocumentType.setup_test_types(subtypes)
+
+    # config-driven sub-types
+    config_driven_news_article = create(:draft_standard_edition, configurable_document_type: "news_story")
+    config_driven_press_release = create(:draft_standard_edition, configurable_document_type: "press_release")
+    # legacy sub-types
+    news_story = create(:news_article, news_article_type: NewsArticleType::NewsStory)
+    press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
+
+    assert_equal [config_driven_news_article, config_driven_press_release, news_story, press_release], Admin::EditionFilter.new(Edition, @current_user, type: "news_article").editions.sort_by(&:id)
+  end
+
   test "should filter by news article sub-type" do
     _news_story   = create(:news_article, news_article_type: NewsArticleType::NewsStory)
     press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)

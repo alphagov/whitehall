@@ -55,6 +55,7 @@
       "images": ["image"]
     },
     "base_path_prefix": "/government/news",
+    "configurable_document_group": "news_article",
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "government_response",
     "rendering_app": "frontend",

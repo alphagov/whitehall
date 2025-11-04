@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::EditionActionsHelperTest < ActionView::TestCase
   setup do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("history_page", { "title" => "History page", "settings" => { "publishing_api_schema_name" => "history" } }))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("history_page", { "title" => "History page", "settings" => { "configurable_document_group" => "history" } }))
     @editions = ["Calls for evidence",
                  "Case studies",
                  "Consultations",

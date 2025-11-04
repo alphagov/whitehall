@@ -158,34 +158,47 @@ module Admin
     end
 
     def scope_by_type(editions, type)
-      type_class_name = type.sub(/_\d+$/, "").classify
-      return editions.where(type: type_class_name) if EDITION_TYPE_LOOKUP[type_class_name]
-
-      # `type` (e.g. `press_release`) is not in the EDITION_TYPE_LOOKUP, so
-      # this is either a StandardEdition type, or a "subtype" of a legacy
-      # document type. So we:
-      #
       # 1. Check `ConfigurableDocumentType` to see if the `type` is a known
       #    type of StandardEdition.
-      # 2. In addition, loop through all the legacy types:
+      # 2. In addition, check `ConfigurableDocumentType` to see if `type` is
+      #    a known 'schema' (e.g. "news_article") that maps to multiple
+      #    subtypes (which would all be in scope).
+      # 3. In addition, check if `type` matches any legacy 'standalone' types
+      #    (e.g. "CaseStudy") directly.
+      # 4. In addition, loop through all the legacy 'schema' types:
       #    NewsArticleType, PublicationType, SpeechType
       #    Dynamically check their subtypes to see if it matches the `type`.
       #
-      # We could find editions for BOTH of the above, so we can't just
-      # build on the same `edition.where` call. We need to build some
-      # OR-clauses (from a fresh base relation for the same model) and
-      # then merge that back into the incoming Relation. We do that by
-      # building predicates on the editions table only (Arel), then adding
-      # them with a single `where`.
+      # We need to build some OR-clauses (from a fresh base relation for the
+      # same model) and then merge that back into the incoming Relation so
+      # that the search is performed efficiently.
+      # We do that by building predicates on the editions table only (Arel),
+      # then adding them with a single `where`.
+
       table = Edition.arel_table
       predicates = []
 
-      # StandardEdition with configurable_document_type
+      # 1. StandardEdition with configurable_document_type
       if ConfigurableDocumentType.all_keys.include?(type)
         predicates << table[:type].eq("StandardEdition").and(table[:configurable_document_type].eq(type))
       end
 
-      # Legacy subtypes (TODO: delete this block and refactor this method when the legacy types are removed)
+      # 2. StandardEdition with schema mapping to multiple types
+      # e.g. "news_article" => ["news_story", "press_release", ...]
+      matching_types = ConfigurableDocumentType.all.select { |cdt| cdt.settings["configurable_document_group"] == type }
+      if matching_types.any?
+        predicates << table[:type].eq("StandardEdition").and(
+          table[:configurable_document_type].in(matching_types.map(&:key)),
+        )
+      end
+
+      # 3. Legacy standalone types
+      type_class_name = type.sub(/_\d+$/, "").classify
+      if EDITION_TYPE_LOOKUP[type_class_name]
+        predicates << table[:type].eq(type_class_name)
+      end
+
+      # 4. Legacy subtypes (TODO: delete this block and refactor this method when these legacy types are removed)
       %w[NewsArticle Publication Speech].each do |parent_type|
         type_class = "#{parent_type}Type".constantize
         if (subtype = type_class.all.select { |k| k.key == type }.first)

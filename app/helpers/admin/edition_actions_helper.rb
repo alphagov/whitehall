@@ -66,9 +66,9 @@ private
   end
 
   def configurable_document_type_options
-    exclude = %w[news_article speech publication]
+    exclude = %w[news_article speech publication] # these groupings are explicitly handled in `filter_edition_type_opt_groups`
     ConfigurableDocumentType.all.filter_map do |doc|
-      schema = doc.settings["publishing_api_schema_name"]
+      schema = doc.settings["configurable_document_group"]
       next if exclude.include?(schema)
 
       [doc.label.pluralize, doc.key]
