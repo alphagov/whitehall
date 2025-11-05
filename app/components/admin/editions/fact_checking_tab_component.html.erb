@@ -30,7 +30,7 @@
   <% end %>
 </section>
 
-<section class="send-request">
+<section data-ga4-section="Fact checking" class="send-request">
   <% if send_request_section %>
     <h3 class="govuk-heading-m">Send request</h3>
     <%= form_for FactCheckRequest.new, url: admin_edition_fact_check_requests_path(@edition) do |f| %>
