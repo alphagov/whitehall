@@ -14,4 +14,8 @@ module StandardEdition::DefaultLeadImage
   def non_svg_images
     images.reject(&:svg?)
   end
+
+  def placeholder_image_url
+    configurable_document_type == "world_news_story" ? "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg" : "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
+  end
 end

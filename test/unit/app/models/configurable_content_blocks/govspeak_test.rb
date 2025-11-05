@@ -12,6 +12,12 @@ class ConfigurableContentBlocks::GovspeakTest < ActiveSupport::TestCase
     assert_not doc.css("img[src=\"#{image.embed_url}\"]").empty?
     assert_match(/A paragraph followed by an image/m, doc.text)
   end
+
+  test "does not have a publishing api payload if content is nil" do
+    payload = ConfigurableContentBlocks::Govspeak.new.publishing_api_payload(nil)
+
+    assert_nil payload
+  end
 end
 
 class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase

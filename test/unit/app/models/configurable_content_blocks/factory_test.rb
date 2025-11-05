@@ -46,9 +46,11 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     page = StandardEdition.new
     img = create(:image)
     page.stubs(:default_lead_image).returns(img)
+    placeholder_image_url = "http://example.com/placeholder.jpg"
+    page.stubs(:placeholder_image_url).returns(placeholder_image_url)
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::LeadImageSelect")
-    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with(page.images, default_lead_image: img).returns(block)
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with(page.images, default_lead_image: img, placeholder_image_url:).returns(block)
     assert_equal block, factory.build("integer", "lead_image_select")
   end
 
@@ -58,9 +60,11 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     page.images = images
     default_img = create(:image)
     page.stubs(:default_lead_image).returns(default_img)
+    placeholder_image_url = "http://example.com/placeholder.jpg"
+    page.stubs(:placeholder_image_url).returns(placeholder_image_url)
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::LeadImageSelect")
-    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([images.last], default_lead_image: default_img).returns(block)
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([images.last], default_lead_image: default_img, placeholder_image_url:).returns(block)
     factory.build("integer", "lead_image_select")
   end
 
