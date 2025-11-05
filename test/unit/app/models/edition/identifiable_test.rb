@@ -97,13 +97,6 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     end
   end
 
-  test "update slug if title changes on draft edition" do
-    publication = create(:draft_publication, title: "This is my publication")
-    publication.update!(title: "Another thing")
-
-    assert_equal "another-thing", publication.document.reload.slug
-  end
-
   test "do not update slug if non-english title changes on draft edition" do
     publication = create(:draft_publication, title: "This is my publication")
     with_locale(:es) do
@@ -124,13 +117,87 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_equal "this-is-my-publication", existing_edition.document.reload.slug
   end
 
-  test "should not update slug when after an edition has been unpublished" do
+  test "update slug if title changes on draft edition" do
+    publication = create(:draft_publication, title: "This is my publication")
+    publication.update!(title: "Another thing")
+
+    assert_equal "another-thing", publication.document.reload.slug
+  end
+
+  test "can publish an edition with an updated slug" do
+    edition = create(:submitted_publication, title: "First Title")
+    edition.save_as(user = create(:user))
+
+    edition.title = "Second Title"
+    edition.save_as(user)
+    publish(edition)
+
+    assert_nil Publication.published_as("first-title")
+    assert_equal edition, Publication.published_as("second-title")
+  end
+
+  test "can update slug after an edition has been unpublished" do
+    Current.user = create(:user)
     unpublished_edition = create(:superseded_publication, title: "This is my publication")
     draft_edition = create(:draft_publication, title: "This is my publication", document: unpublished_edition.document)
 
     draft_edition.title = "New title"
+    draft_edition.should_update_document_slug = true
     draft_edition.save!
-    assert_equal "this-is-my-publication", draft_edition.document.reload.slug
+    assert_equal "new-title", draft_edition.document.reload.slug
+  end
+
+  test "should not update slug if should_update_document_slug is false on a published edition" do
+    published_edition = create(:published_publication, title: "Original title")
+    original_slug = published_edition.document.slug
+
+    draft_edition = published_edition.create_draft(create(:writer))
+    draft_edition.update!(title: "New title", should_update_document_slug: false, change_note: "Changed title")
+
+    assert_equal original_slug, draft_edition.document.reload.slug
+  end
+
+  test "should update slug if should_update_document_slug is true on a published edition" do
+    Current.user = create(:user)
+    published_edition = create(:published_publication, title: "Original title")
+
+    draft_edition = published_edition.create_draft(create(:writer))
+    draft_edition.update!(title: "New title", should_update_document_slug: true, change_note: "Changed title")
+
+    assert_equal "new-title", draft_edition.document.reload.slug
+  end
+
+  test "should create editorial remark when slug is updated" do
+    user = create(:user)
+    Current.user = user
+    published_edition = create(:published_publication, title: "Original title")
+    draft_edition = published_edition.create_draft(user)
+
+    draft_edition.update!(title: "New title", should_update_document_slug: true, change_note: "Changed title")
+    editorial_remark = draft_edition.editorial_remarks.last
+
+    assert editorial_remark.present?
+    assert_match(/Title change created new slug:/, editorial_remark.body)
+    assert_match(/new-title/, editorial_remark.body)
+    assert_equal user, editorial_remark.author
+  end
+
+  test "should not create editorial remark if slug does not change" do
+    publication = create(:draft_publication, title: "Original title")
+    initial_remark_count = publication.editorial_remarks.count
+
+    publication.should_update_document_slug = true
+    publication.update!(summary: "Updated summary")
+
+    assert_equal initial_remark_count, publication.editorial_remarks.count
+  end
+
+  test "should not create editorial remark if edition is the first draft" do
+    publication = create(:draft_publication, title: "Original title")
+    initial_remark_count = publication.editorial_remarks.count
+    publication.update!(title: "New title")
+
+    assert_equal initial_remark_count, publication.editorial_remarks.count
   end
 
   test "updating an edition updates the parent document timestamp" do

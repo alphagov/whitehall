@@ -28,6 +28,21 @@
     } %>
   </div>
 
+  <% if edition.document.ever_published_editions.present? %>
+    <%= hidden_field_tag("edition[should_update_document_slug]", 0) %>
+    <div class="js-update-document-slug-checkbox govuk-!-margin-bottom-6">
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "edition[should_update_document_slug]",
+        items: [
+          {
+            label: "Update document slug",
+            value: 1,
+          },
+        ],
+      } %>
+    </div>
+  <% end %>
+
   <% if edition.document&.slug.present? %>
     <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-6">
       <%= render "govuk_publishing_components/components/heading", {
