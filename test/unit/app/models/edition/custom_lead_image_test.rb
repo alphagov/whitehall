@@ -42,6 +42,18 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
     assert_equal jpeg_image, edition.reload.lead_image
   end
 
+  test "#update_lead_image updates the lead_image association to the oldest image that does not require cropping" do
+    large_image = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")))
+    jpeg_image = build(:image, created_at: 1.minute.ago)
+    large_image = build(:image, image_data: large_image, created_at: 2.minutes.ago)
+    edition = create(:news_article, images: [large_image, jpeg_image])
+
+    edition.update_lead_image
+
+    assert large_image.requires_crop?
+    assert_equal jpeg_image, edition.reload.lead_image
+  end
+
   test "#update_lead_image deletes the associated edition_lead_image if image_display_option is 'no_image'" do
     edition_lead_image = build(:edition_lead_image)
     edition = build(:news_article, image_display_option: "no_image", edition_lead_image:)

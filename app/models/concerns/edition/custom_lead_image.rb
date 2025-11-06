@@ -14,7 +14,7 @@ module Edition::CustomLeadImage
 
     return if lead_image.present? || images.blank?
 
-    image = oldest_non_svg_image
+    image = oldest_image_that_can_be_lead_image
 
     if image
       edition_lead_image = build_edition_lead_image(image:)
@@ -28,8 +28,8 @@ module Edition::CustomLeadImage
 
 private
 
-  def oldest_non_svg_image
-    images.includes(:image_data).detect { |image| !image.svg? }
+  def oldest_image_that_can_be_lead_image
+    images.includes(:image_data).detect { |image| !image.svg? && !image.requires_crop? }
   end
 
   def remove_lead_image
