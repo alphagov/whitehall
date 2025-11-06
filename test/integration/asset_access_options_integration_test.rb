@@ -76,9 +76,8 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         before do
           visit admin_news_article_path(edition)
           click_link "Add attachments"
-          click_link "Upload new file attachments"
-          attach_file "Select files for upload", path_to_attachment("logo.png")
-          click_button "Upload and continue"
+          page.attach_file path_to_attachment("logo.png")
+          click_button "Upload"
           fill_in "Title", with: "logo.png"
           click_button "Save"
           assert_text "Attachment 'logo.png' uploaded"
@@ -127,9 +126,8 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         before do
           visit admin_news_article_path(edition)
           click_link "Add attachments"
-          click_link "Upload new file attachments"
-          attach_file "Select files for upload", [path_to_attachment("logo.png"), path_to_attachment("greenpaper.pdf")]
-          click_button "Upload and continue"
+          page.attach_file [path_to_attachment("logo.png"), path_to_attachment("greenpaper.pdf")]
+          click_button "Upload"
           fill_in "bulk_upload[attachments][0][title]", with: "file-title"
           fill_in "bulk_upload[attachments][1][title]", with: "file-title"
           click_button "Save"
@@ -211,9 +209,8 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           visit admin_consultation_path(edition)
           click_link "Edit draft"
           click_link "Final outcome"
-          click_link "Upload new file attachments"
-          attach_file "Select files for upload", path_to_attachment("logo.png")
-          click_button "Upload and continue"
+          page.attach_file path_to_attachment("logo.png")
+          click_button "Upload"
           fill_in "Title", with: "asset-title"
           click_button "Save"
           assert_text "Attachment 'asset-title' uploaded"

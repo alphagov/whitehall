@@ -5,7 +5,11 @@
 <% elsif attachable.is_a?(PolicyGroup) %>
   <% content_for :context, "#{attachable.name}" %>
 <% end %>
-
+<% content_for :error_summary do %>
+  <% unless flash[:bulk_upload_error].blank? %>
+    <%= render("govuk_publishing_components/components/error_summary", { title: "There is a problem", items: [{ text: flash[:bulk_upload_error], href: "#bulk_upload_files" }]}) %>
+  <% end %>
+<% end %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render "components/secondary_navigation", {
@@ -13,43 +17,82 @@
       items: secondary_navigation_tabs_items(attachable, request.path),
     } %>
 
-    <%= render "govuk_publishing_components/components/inset_text", {
-      text: attachment_note(attachable_model_name),
-    } %>
+    <% other_attachments = capture do %>
+      <% attachable.allowed_attachment_types.each do |attachment_type| %>
+        <% next if attachment_type == "file" %>
+        <% attachment = attachable.attachment_for_type(attachment_type) %>
+        <li>
+          <%= link_to "Add new #{attachment.readable_type} attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), attachment]), class: "govuk-link govuk-link--no-visited-state" %>
+        </li>
+      <% end %>
+    <% end %>
 
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Add new attachment",
-      margin_bottom: 2,
-      font_size: "l",
-    } %>
-    <ul class="govuk-list">
-      <li>
-        <%= link_to "Upload new file attachments", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), BulkUpload]), class: "govuk-link govuk-link--no-visited-state" %>
-      </li>
-      <% if attachable.allows_html_attachments? %>
+    <% if other_attachments.present? %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Add new attachment",
+        margin_bottom: 4,
+        font_size: "l",
+      } %>
+    <% end %>
+
+    <%= form_for @bulk_upload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), @bulk_upload]) + "/upload_files", multipart: true do |form| %>
+
+      <% hint_text = capture do %>
+        <div class="govuk-!-margin-bottom-6">
+          <%= render "govuk_publishing_components/components/details", {
+            title: "You must upload attachments in an open standards format.",
+          } do %>
+            <p>For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.</p>
+            <p>Read more about <%= link_to "open standards formats", "https://www.gov.uk/guidance/content-design/planning-content#open-formats", class: "govuk-link govuk-link--no-visited-state" %>.</p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= render "govuk_publishing_components/components/label", {
+        heading_level: other_attachments.present? ? nil : 2,
+        heading_size: other_attachments.present? ? "m" : "l",
+        text: other_attachments.present? ? "Upload new file attachments" : "Add new attachments",
+        hint_text:,
+        hint_id: "bulk_upload_files_hint_id",
+        html_for: "bulk_upload_files",
+      } %>
+
+      <%= render "govuk_publishing_components/components/file_upload", {
+        name: "bulk_upload[files][]",
+        id: "bulk_upload_files",
+        error_message: flash[:bulk_upload_error],
+        javascript: true,
+        multiple: true,
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", { text: "Upload" } %>
+      </div>
+    <% end %>
+
+    <% other_attachments = capture do %>
+      <% attachable.allowed_attachment_types.each do |attachment_type| %>
+        <% next if attachment_type == "file" %>
+        <% attachment = attachable.attachment_for_type(attachment_type) %>
         <li>
-          <%= link_to "Add new HTML attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), HtmlAttachment]), class: "govuk-link govuk-link--no-visited-state" %>
+          <%= link_to "Add new #{attachment.readable_type} attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), attachment]), class: "govuk-link govuk-link--no-visited-state" %>
         </li>
       <% end %>
-      <% if attachable.allows_external_attachments? %>
-        <li>
-          <%= link_to "Add new external attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), ExternalAttachment]), class: "govuk-link govuk-link--no-visited-state" %>
-        </li>
-      <% end %>
-    </ul>
-    <div class="govuk-!-margin-bottom-8">
-      <%= render "govuk_publishing_components/components/details", {
-        title: "You must upload attachments in an open standards format.",
-      } do %>
-        <p>For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.</p>
-        <p>Read more about <%= link_to "open standards formats", "https://www.gov.uk/guidance/content-design/planning-content#open-formats", class: "govuk-link govuk-link--no-visited-state" %>.</p>
-      <% end %>
-    </div>
+    <% end %>
+
+    <% if other_attachments.present? %>
+      <ul class="govuk-list">
+        <%= other_attachments %>
+      </ul>
+    <% end %>
 
     <%= render "govuk_publishing_components/components/heading", {
       text: "Attachments",
       font_size: "l",
-      margin_bottom: 3,
+    } %>
+
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: attachment_note(attachable_model_name),
     } %>
 
     <%= render("attachments", attachable: attachable) if attachable.attachments.any? %>

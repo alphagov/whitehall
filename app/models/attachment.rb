@@ -32,6 +32,8 @@ class Attachment < ApplicationRecord
   scope :not_deleted, -> { where(deleted: false) }
   scope :deleted, -> { where(deleted: true) }
 
+  delegate :readable_type, to: :class
+
   class Null
     def deleted?
       false
@@ -145,7 +147,7 @@ class Attachment < ApplicationRecord
     false
   end
 
-  def readable_type
+  def self.readable_type
     ""
   end
 

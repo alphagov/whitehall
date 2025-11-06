@@ -53,6 +53,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "p.govuk-body", text: "Title: An external attachment"
   end
 
+  view_test "GET :index renders error if bulk_upload_error set in flash" do
+    get :index, params: { edition_id: @edition }, flash: { bulk_upload_error: "File upload error" }
+
+    assert_response :success
+    assert_select ".gem-c-error-summary__list-item", text: "File upload error"
+  end
+
   view_test "GET :index shows external attachments" do
     create(:external_attachment, title: "An external attachment", attachable: @edition)
 

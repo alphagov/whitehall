@@ -52,6 +52,6 @@ class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
     attachment = edition.attachments.first
 
     assert_select "li", text: %r{#{attachment.title}}
-    assert_select "input", count: 0
+    assert_select "input", count: 1 # just the input[type=file]
   end
 end
