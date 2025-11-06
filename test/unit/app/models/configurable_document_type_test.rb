@@ -11,6 +11,20 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal "No document type found for 'non_existent_type'", error.message
   end
 
+  test "#groups returns unique group keys for types that belong to a group" do
+    type_a = build_configurable_document_type(
+      "type_a",
+      { "settings" => { "configurable_document_group" => "group_1" } },
+    )
+    type_b = build_configurable_document_type(
+      "type_b",
+      { "settings" => { "configurable_document_group" => "group_2" } },
+    )
+    ConfigurableDocumentType.setup_test_types(type_a.merge(type_b))
+    groups = ConfigurableDocumentType.groups
+    assert_equal %w[group_1 group_2], groups
+  end
+
   test "#children_for returns only types that belong to the specified group" do
     type_a = build_configurable_document_type(
       "type_a",

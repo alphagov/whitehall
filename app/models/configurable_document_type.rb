@@ -38,6 +38,10 @@ class ConfigurableDocumentType
     types.keys
   end
 
+  def self.groups
+    all.map { |t| t.settings["configurable_document_group"] }.compact.uniq
+  end
+
   def self.children_for(parent_key)
     all.select { |t| t.settings["configurable_document_group"] == parent_key }
   end
