@@ -1,6 +1,6 @@
 {
   "key": "world_news_story",
-  "title": "World News Story",
+  "title": "World news story",
   "description": "Announcements specific to one or more world location. Don’t duplicate news published by another department.",
   "schema": {
     "properties": {
