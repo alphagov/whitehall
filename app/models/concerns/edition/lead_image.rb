@@ -4,6 +4,7 @@ module Edition::LeadImage
   included do
     has_one :edition_lead_image, foreign_key: :edition_id, dependent: :destroy
     has_one :lead_image, through: :edition_lead_image, source: :image
+    validate :image_dimensions, on: :publish
   end
 
   def has_lead_image?
@@ -11,7 +12,17 @@ module Edition::LeadImage
   end
 
   def has_lead_image_ready_for_publishing?
-    has_lead_image? && lead_image_has_all_assets? && !lead_image.image_data.requires_crop?
+    has_lead_image? && lead_image_has_all_assets? && is_not_too_large?
+  end
+
+  def is_not_too_large?
+    !image_data.requires_crop?
+  end
+
+  def image_dimensions
+    unless is_not_too_large?
+      errors.add(:lead_image, "is too large and requires cropping")
+    end
   end
 
   def lead_image_url

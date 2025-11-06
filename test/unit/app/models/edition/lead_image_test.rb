@@ -1,6 +1,11 @@
 require "test_helper"
 
 class Edition::LeadImageTest < ActiveSupport::TestCase
+  LeadImageTestClass = Class.new(Edition) do
+    include Edition::Images
+    include Edition::LeadImage
+  end
+
   test "should use empty string if no alt_text is provided" do
     model = stub("Target", lead_image: nil, lead_organisations: [], organisations: []).extend(Edition::LeadImage)
     file = stub("File", content_type: "image/jpg")
@@ -38,5 +43,16 @@ class Edition::LeadImageTest < ActiveSupport::TestCase
     model = stub("Target", { lead_image: image_with_missing_assets }).extend(Edition::LeadImage)
 
     assert model.lead_image_has_all_assets?
+  end
+
+  test "edition is invalid on publish if the lead image is not ready for publishing" do
+    image_data = build(:image_data, dimensions: { "height": 1000, "width": 1000 })
+    image = build(:image, image_data:)
+    edition = LeadImageTestClass.new(title: "Test", summary: "Test", body: "Test", creator: User.new, previously_published: false)
+    edition.lead_image = image
+
+    assert edition.valid?
+    assert edition.invalid?(:publish)
+    assert edition.errors.where(:lead_image).present?
   end
 end
