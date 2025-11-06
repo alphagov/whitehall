@@ -33,6 +33,20 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal %w[type_a type_b], group_1_children.map(&:key)
   end
 
+  test "#top_level returns only types that do not belong to any group" do
+    type_a = build_configurable_document_type(
+      "type_a",
+      { "settings" => { "configurable_document_group" => "group_1" } },
+    )
+    type_b = build_configurable_document_type(
+      "type_b",
+      { "settings" => {} }, # no group
+    )
+    ConfigurableDocumentType.setup_test_types(type_a.merge(type_b))
+    top_level_types = ConfigurableDocumentType.top_level
+    assert_equal %w[type_b], top_level_types.map(&:key)
+  end
+
   test ".properties_for_edit_screen returns properties for a given edit screen" do
     body_property = {
       "title" => "Body",

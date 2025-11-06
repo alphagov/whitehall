@@ -42,6 +42,10 @@ class ConfigurableDocumentType
     all.select { |t| t.settings["configurable_document_group"] == parent_key }
   end
 
+  def self.top_level
+    all.reject { |t| t.settings["configurable_document_group"].present? }
+  end
+
   def initialize(type)
     @key = type["key"]
     @title = type["title"]
