@@ -10,6 +10,10 @@ module Edition::LeadImage
     !image_data.nil?
   end
 
+  def has_lead_image_ready_for_publishing?
+    has_lead_image? && lead_image_has_all_assets? && !lead_image.image_data.requires_crop?
+  end
+
   def lead_image_url
     image_url
   end

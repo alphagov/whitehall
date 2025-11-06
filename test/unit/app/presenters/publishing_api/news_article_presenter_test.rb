@@ -169,6 +169,12 @@ module PublishingApi::NewsArticlePresenterTest
     test "auth bypass id" do
       assert_attribute :auth_bypass_ids, [news_article.auth_bypass_id]
     end
+
+    test "should omit lead image when it is too large" do
+      image_data = build(:image_data, dimensions: { "width": 1000, "height": 1000 })
+      news_article.lead_image = create(:image, image_data:)
+      assert_nil presented_news_article.content[:details][:image]
+    end
   end
 
   class WorldNewsStory < TestCase

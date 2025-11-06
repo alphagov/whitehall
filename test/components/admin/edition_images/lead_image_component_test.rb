@@ -65,6 +65,16 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-tag", text: "Processing"
   end
 
+  test "renders the cropping required tag when the image is too large" do
+    image = build_stubbed(:image, caption: nil, alt_text: nil)
+    edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
+    edition.lead_image.image_data.dimensions["width"] = 1000
+
+    render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
+
+    assert_selector ".govuk-tag", text: "Requires crop"
+  end
+
   test "does not render information on lead image if no lead image is present" do
     edition = build_stubbed(:draft_news_article)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))

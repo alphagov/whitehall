@@ -121,7 +121,7 @@ module PublishingApi
       end
 
       def call
-        return {} unless news_article.has_lead_image? && news_article.lead_image_has_all_assets?
+        return {} unless news_article.has_lead_image_ready_for_publishing?
 
         {
           image: {
