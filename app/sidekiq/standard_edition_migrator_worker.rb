@@ -17,10 +17,14 @@ class StandardEditionMigratorWorker < WorkerBase
     end
   end
 
+  def self.editions_for(document)
+    Edition.unscoped.where(document: document)
+  end
+
 private
 
   def migrate_editions!(document)
-    Edition.unscoped.where(document: document).find_each do |edition|
+    StandardEditionMigratorWorker.editions_for(document).find_each do |edition|
       ensure_payloads_remain_identical(edition) { migrate_edition!(edition) }
     end
   end

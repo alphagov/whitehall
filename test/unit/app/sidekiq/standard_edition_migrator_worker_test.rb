@@ -9,6 +9,15 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
     end
   end
 
+  describe ".editions_for" do
+    it "returns all editions for the given document" do
+      document = create(:draft_news_article).document
+      editions = StandardEditionMigratorWorker.editions_for(document)
+      assert_equal 1, editions.count
+      assert_equal document.latest_edition, editions.first
+    end
+  end
+
   describe "#perform" do
     it "finds the Document by ID and recipe by class name" do
       document = create(:published_news_article).document
