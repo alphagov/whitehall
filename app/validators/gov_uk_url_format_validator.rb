@@ -15,7 +15,7 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless self.class.matches_gov_uk?(value) || matches_allow_list?(value)
-      record.errors.add(attribute)
+      record.errors.add(attribute, "is not a GOV.UK URL")
     end
   end
 

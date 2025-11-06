@@ -62,7 +62,7 @@ class CallForEvidenceTest < ActiveSupport::TestCase
 
     edition.external_url = "bad.url"
     assert_not edition.valid?
-    assert_match %r{not valid}, edition.errors[:external_url].first
+    assert_match %r{not a valid URI}, edition.errors[:external_url].first
   end
 
   test "should be invalid if the opening time is after the closing time" do

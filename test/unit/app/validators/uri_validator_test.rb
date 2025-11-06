@@ -22,38 +22,38 @@ class UriValidatorTest < ActiveSupport::TestCase
 
   test "non-http(s) URLs are not valid" do
     feature_link = validate(PromotionalFeatureLink.new(url: "ftp://example.com"))
-    assert_equal ["is not valid. Make sure it starts with http(s)"], feature_link.errors[:url]
+    assert_equal ["is not a valid URI. Make sure it starts with http(s)"], feature_link.errors[:url]
 
     feature_link = validate(PromotionalFeatureLink.new(url: "gopher://example.com"))
-    assert_equal ["is not valid. Make sure it starts with http(s)"], feature_link.errors[:url]
+    assert_equal ["is not a valid URI. Make sure it starts with http(s)"], feature_link.errors[:url]
 
     feature_link = validate(PromotionalFeatureLink.new(url: "mailto:name@example.com"))
-    assert_equal ["is not valid. Make sure it starts with http(s)"], feature_link.errors[:url]
+    assert_equal ["is not a valid URI. Make sure it starts with http(s)"], feature_link.errors[:url]
   end
 
   test "invalid urls get an error if they aren't https/http and are poorly formatted" do
     feature_link = validate(PromotionalFeatureLink.new(url: "mailto://example.com"))
-    assert_equal ["is not valid."], feature_link.errors[:url]
+    assert_equal ["is not a valid URI."], feature_link.errors[:url]
   end
 
   test "invalid urls get an error if they include whitespace" do
     feature_link = validate(PromotionalFeatureLink.new(url: "https://example.come/guidance/inspire-index-polygons-spatial-data blah blah"))
-    assert_equal ["is not valid."], feature_link.errors[:url]
+    assert_equal ["is not a valid URI."], feature_link.errors[:url]
   end
 
   test "invalid urls get an error, without http" do
     feature_link = validate(PromotionalFeatureLink.new(url: "example.com"))
-    assert_equal ["is not valid. Make sure it starts with http(s)"], feature_link.errors[:url]
+    assert_equal ["is not a valid URI. Make sure it starts with http(s)"], feature_link.errors[:url]
   end
 
   test "invalid urls get an error, with http" do
     feature_link = validate(PromotionalFeatureLink.new(url: "http ://example.com"))
-    assert_equal ["is not valid."], feature_link.errors[:url]
+    assert_equal ["is not a valid URI."], feature_link.errors[:url]
   end
 
   test "invalid urls get an error, with http without a space" do
     feature_link = validate(PromotionalFeatureLink.new(url: "http://abc</option%3E"))
-    assert_equal ["is not valid."], feature_link.errors[:url]
+    assert_equal ["is not a valid URI."], feature_link.errors[:url]
   end
 
   test "should be valid with 255 character alternative url" do
