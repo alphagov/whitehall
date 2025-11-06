@@ -12,15 +12,15 @@ module Edition::LeadImage
   end
 
   def has_lead_image_ready_for_publishing?
-    has_lead_image? && lead_image_has_all_assets? && is_not_too_large?
+    has_lead_image? && lead_image_has_all_assets? && !is_too_large?
   end
 
-  def is_not_too_large?
-    !image_data.requires_crop?
+  def is_too_large?
+    image_data.respond_to?(:requires_crop?) && image_data.requires_crop?
   end
 
   def image_dimensions
-    unless is_not_too_large?
+    if is_too_large?
       errors.add(:lead_image, "is too large and requires cropping")
     end
   end

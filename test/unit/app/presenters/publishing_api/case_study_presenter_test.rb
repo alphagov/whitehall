@@ -134,6 +134,24 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
+  test "Adds an empty image field if the image is too large" do
+    organisation = create(:organisation)
+
+    image_data = build(:image_data, dimensions: { "height": 1000, "width": 1000 })
+    image = build(:image, alt_text: "Image alt text", caption: "A caption", image_data:)
+    case_study = create(:published_case_study, lead_organisations: [organisation], lead_image: image)
+
+    expected_hash = {
+      url: "",
+      alt_text: "",
+      caption: nil,
+    }
+    presented_item = present(case_study)
+
+    assert_valid_against_publisher_schema(presented_item.content, "case_study")
+    assert_equal expected_hash, presented_item.content[:details][:image]
+  end
+
   test "links hash includes lead and supporting organisations in correct order" do
     lead_org1 = create(:organisation)
     lead_org2 = create(:organisation)
