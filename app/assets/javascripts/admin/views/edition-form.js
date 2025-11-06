@@ -11,6 +11,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.setupWorldNewsStoryVisibilityToggle()
     this.setupSpeechSubtypeEventListeners()
     this.setupSpeechDeliverdOnWarningEventListener()
+    this.setupUpdateDocumentSlugCheckbox()
   }
 
   EditionForm.prototype.setupSubtypeFormatAdviceEventListener = function () {
@@ -238,6 +239,37 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         })
       })
     }
+
+  EditionForm.prototype.setupUpdateDocumentSlugCheckbox = function () {
+    const form = this.module
+    const titleInput = form.querySelector('#edition_title')
+    const checkboxContainer = form.querySelector(
+      '.js-update-document-slug-checkbox'
+    )
+
+    if (!titleInput || !checkboxContainer) {
+      return
+    }
+
+    checkboxContainer.classList.add(
+      'app-view-edit-edition__update-slug-checkbox--hidden'
+    )
+
+    const originalTitle = titleInput.value
+    titleInput.addEventListener('input', function () {
+      const titleHasChanged = titleInput.value !== originalTitle
+
+      if (titleHasChanged) {
+        checkboxContainer.classList.remove(
+          'app-view-edit-edition__update-slug-checkbox--hidden'
+        )
+      } else {
+        checkboxContainer.classList.add(
+          'app-view-edit-edition__update-slug-checkbox--hidden'
+        )
+      }
+    })
+  }
 
   Modules.EditionForm = EditionForm
 })(window.GOVUK.Modules)
