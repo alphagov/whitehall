@@ -44,6 +44,7 @@ class ConfigurableDocumentType
 
   def self.children_for(parent_key)
     all.select { |t| t.settings["configurable_document_group"] == parent_key }
+      .sort_by { |t| t.settings["configurable_document_group_ordering"] || Float::INFINITY }
   end
 
   def self.top_level

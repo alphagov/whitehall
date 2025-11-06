@@ -47,6 +47,20 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal %w[type_a type_b], group_1_children.map(&:key)
   end
 
+  test "#children_for returns in an order specified by 'configurable_document_group_ordering'" do
+    type_a = build_configurable_document_type(
+      "type_a",
+      { "settings" => { "configurable_document_group" => "group_1", "configurable_document_group_ordering" => 2 } },
+    )
+    type_b = build_configurable_document_type(
+      "type_b",
+      { "settings" => { "configurable_document_group" => "group_1", "configurable_document_group_ordering" => 1 } },
+    )
+    ConfigurableDocumentType.setup_test_types(type_a.merge(type_b))
+    group_1_children = ConfigurableDocumentType.children_for("group_1")
+    assert_equal %w[type_b type_a], group_1_children.map(&:key)
+  end
+
   test "#top_level returns only types that do not belong to any group" do
     type_a = build_configurable_document_type(
       "type_a",
