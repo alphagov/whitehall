@@ -13,7 +13,7 @@
         "title": "Lead image",
         "description": "Select a lead image, if required",
         "type": "integer",
-        "format": "image_select"
+        "format": "lead_image_select"
       }
     },
     "validations": {
