@@ -9,6 +9,9 @@
   - bulk_republishing
   - link_checks
   - edition_revalidation
+
+<% env = ENV["RAILS_ENV"] || ENV["RACK_ENV"] %>
+<% if env == "production" %>
 :scheduler:
   :schedule:
     revalidate_old_link_check_reports:
@@ -17,3 +20,4 @@
     revalidate_all_editions:
       cron: '45 5 * * *' # Runs at 5:45am every day
       class: RevalidateEditionsSchedulerWorker
+<% end %>
