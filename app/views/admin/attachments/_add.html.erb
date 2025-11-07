@@ -1,0 +1,58 @@
+<% additional_attachment_types = capture do %>
+  <% attachable.allowed_attachment_types.each do |attachment_type| %>
+    <% next if attachment_type == "file" %>
+    <% attachment = attachable.attachment_for_type(attachment_type) %>
+    <li>
+      <%= link_to "Add new #{attachment.readable_type} attachment", new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), attachment]), class: "govuk-link govuk-link--no-visited-state" %>
+    </li>
+  <% end %>
+<% end %>
+
+<% if additional_attachment_types.present? %>
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Add new attachment",
+    margin_bottom: 4,
+    font_size: "l",
+  } %>
+<% end %>
+
+<%= form_for BulkUpload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), BulkUpload]) + "/upload_files", multipart: true do |form| %>
+
+  <% hint_text = capture do %>
+    <div class="govuk-!-margin-bottom-6">
+      <%= render "govuk_publishing_components/components/details", {
+        title: "You must upload attachments in an open standards format.",
+      } do %>
+        <p>For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.</p>
+        <p>Read more about <%= link_to "open standards formats", "https://www.gov.uk/guidance/content-design/planning-content#open-formats", class: "govuk-link govuk-link--no-visited-state" %>.</p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/label", {
+    heading_level: additional_attachment_types.present? ? nil : 2,
+    heading_size: additional_attachment_types.present? ? "m" : "l",
+    text: additional_attachment_types.present? ? "Upload new file attachments" : "Add new attachments",
+    hint_text:,
+    hint_id: "bulk_upload_files_hint_id",
+    html_for: "bulk_upload_files",
+  } %>
+
+  <%= render "govuk_publishing_components/components/file_upload", {
+    name: "bulk_upload[files][]",
+    id: "bulk_upload_files",
+    error_message: flash[:bulk_upload_error],
+    javascript: true,
+    multiple: true,
+  } %>
+
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", { text: "Upload" } %>
+  </div>
+<% end %>
+
+<% if additional_attachment_types.present? %>
+  <ul class="govuk-list">
+    <%= additional_attachment_types %>
+  </ul>
+<% end %>

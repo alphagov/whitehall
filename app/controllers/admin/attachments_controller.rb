@@ -5,9 +5,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 
-  def index
-    @bulk_upload = BulkUpload.new(attachable)
-  end
+  def index; end
 
   def reorder; end
 
