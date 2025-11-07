@@ -41,6 +41,8 @@ class FeaturedImageUploader < WhitehallUploader
 
   def check_dimensions!(new_file)
     super
+  rescue MiniMagick::Error
+    raise CarrierWave::IntegrityError, "could not be read. The file may not be an image or may be corrupt"
   rescue CarrierWave::IntegrityError
     if width_range&.begin && width < width_range.begin || height_range&.begin && height < height_range.begin
       raise CarrierWave::IntegrityError, "is too small. Select an image that is #{model.image_kind_config.valid_width} pixels wide and #{model.image_kind_config.valid_height} pixels tall"

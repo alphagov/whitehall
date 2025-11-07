@@ -78,6 +78,8 @@ private
 
   def check_dimensions!(new_file)
     super
+  rescue MiniMagick::Error
+    raise CarrierWave::IntegrityError, "could not be read. The file may not be an image or may be corrupt"
   rescue CarrierWave::IntegrityError
     raise CarrierWave::IntegrityError, "is too small. Select an image that is at least #{width_range.begin} pixels wide and at least #{height_range.begin} pixels tall"
   end
