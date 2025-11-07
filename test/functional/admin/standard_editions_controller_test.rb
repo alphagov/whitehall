@@ -193,6 +193,23 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Worldwide organisations"
   end
 
+  view_test "GET show displays the document path in the summary list" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+    login_as :managing_editor
+    get :show, params: { id: edition.id }
+
+    assert_response :ok
+    assert_select ".govuk-summary-list__row" do
+      assert_select ".govuk-summary-list__key", text: "Path"
+      assert_select ".govuk-summary-list__value", text: edition.base_path
+    end
+  end
+
   view_test "PATCH update respects a provided safe relative redirect_to path" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
