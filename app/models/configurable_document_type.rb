@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :schema, :associations, :settings
+  attr_reader :key, :description, :schema, :associations, :settings
 
   @types_mutex = Mutex.new
 

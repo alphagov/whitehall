@@ -9,7 +9,13 @@
         heading_level: 1,
         name: "configurable_document_type",
         id: "configurable_document_type",
-        items: @permitted_configurable_document_types.map { |type| { text: type.label, value: type.key }},
+        items: @permitted_configurable_document_types.map do |type|
+          {
+            text: type.label,
+            value: type.key,
+            conditional: type.description,
+          }
+        end,
       } %>
 
       <div class="govuk-button-group">

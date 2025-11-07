@@ -12,7 +12,11 @@ class Admin::StandardEditionsController < Admin::EditionsController
       groups = ConfigurableDocumentType.groups.map do |group_id|
         # No `can?` check for groups, as the permissions are defined per-type.
         # The `can?` check happens on each sub-type when rendering the interstitial step.
-        OpenStruct.new({ key: group_id, label: group_id.humanize })
+        OpenStruct.new({
+          key: group_id,
+          label: group_id.humanize,
+          description: "This is a 'group'. You will see options for this group on the next screen.",
+        })
       end
       @permitted_configurable_document_types =
         groups + ConfigurableDocumentType.top_level.select { |t| can?(current_user, t) }
