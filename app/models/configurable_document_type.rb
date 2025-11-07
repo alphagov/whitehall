@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :schema, :associations, :settings
+  attr_reader :key, :description, :schema, :associations, :settings
 
   @types_mutex = Mutex.new
 
@@ -36,6 +36,19 @@ class ConfigurableDocumentType
 
   def self.all_keys
     types.keys
+  end
+
+  def self.groups
+    all.map { |t| t.settings["configurable_document_group"] }.compact.uniq
+  end
+
+  def self.children_for(parent_key)
+    all.select { |t| t.settings["configurable_document_group"] == parent_key }
+      .sort_by { |t| t.settings["configurable_document_group_ordering"] || Float::INFINITY }
+  end
+
+  def self.top_level
+    all.reject { |t| t.settings["configurable_document_group"].present? }
   end
 
   def initialize(type)

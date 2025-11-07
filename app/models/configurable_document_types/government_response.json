@@ -1,6 +1,6 @@
 {
   "key": "government_response",
-  "title": "Government Response",
+  "title": "Government response",
   "description": "Government statements in response to media coverage, such as rebuttals and ‘myth busters’. Do not use for: statements to Parliament. Use the “Speech” format for those.",
   "schema": {
     "properties": {
@@ -56,6 +56,7 @@
     },
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",
+    "configurable_document_group_ordering": 3,
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "government_response",
     "rendering_app": "frontend",

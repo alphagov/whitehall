@@ -1,6 +1,6 @@
 {
   "key": "world_news_story",
-  "title": "World News Story",
+  "title": "World news story",
   "description": "Announcements specific to one or more world location. Don’t duplicate news published by another department.",
   "schema": {
     "properties": {
@@ -55,6 +55,7 @@
     },
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",
+    "configurable_document_group_ordering": 4,
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "world_news_story",
     "rendering_app": "frontend",

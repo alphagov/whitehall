@@ -1,19 +1,30 @@
-<% content_for :page_title, "New standard document" %>
+<% page_heading = params[:configurable_document_type] ? "New #{params[:configurable_document_type].humanize.downcase}" : "New standard document" %>
+<% content_for :page_title, page_heading %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with method: "get", url: new_admin_standard_edition_path do %>
+    <%= form_with method: "get", url: choose_type_admin_standard_editions_path do %>
       <%= render "govuk_publishing_components/components/radio", {
-        heading: "New standard document",
+        heading: page_heading,
         heading_level: 1,
         name: "configurable_document_type",
         id: "configurable_document_type",
-        items: @permitted_configurable_document_types.map { |type| { text: type.label, value: type.key }},
+        items: @permitted_configurable_document_types.map do |type|
+          {
+            text: type.label,
+            value: type.key,
+            conditional: type.description,
+          }
+        end,
       } %>
+
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", { text: "Next" } %>
-
-        <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
+        <% if params[:configurable_document_type] %>
+          <%= link_to("Back", choose_type_admin_standard_editions_path, class: "govuk-link govuk-link--no-visited-state") %>
+        <% else %>
+          <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
+        <% end %>
       </div>
     <% end %>
   </div>
