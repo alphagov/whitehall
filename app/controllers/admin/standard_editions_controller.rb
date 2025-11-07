@@ -9,7 +9,11 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
     if !selected_key
       # Initial page: top-level types and groups
-      groups = ConfigurableDocumentType.groups.map do |group_id|
+      groups = ConfigurableDocumentType.groups.map { |group_id|
+        # return if the user has no permitted types in this group
+        children = ConfigurableDocumentType.children_for(group_id)
+        next if children.none? { |t| can?(current_user, t) }
+
         # No `can?` check for groups, as the permissions are defined per-type.
         # The `can?` check happens on each sub-type when rendering the interstitial step.
         OpenStruct.new({
@@ -17,7 +21,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
           label: group_id.humanize,
           description: "This is a 'group'. You will see options for this group on the next screen.",
         })
-      end
+      }.compact
       @permitted_configurable_document_types =
         groups + ConfigurableDocumentType.top_level.select { |t| can?(current_user, t) }
     elsif ConfigurableDocumentType.groups.include?(selected_key)

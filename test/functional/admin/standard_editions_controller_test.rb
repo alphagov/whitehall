@@ -52,6 +52,15 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "label", "Child type"
   end
 
+  view_test "GET choose_type displays only the 'group' types where are least one child type is permitted for the user" do
+    non_permitted_child_type = build_configurable_document_type("non_permitted_child_type", { "title" => "Non-permitted Child Type", "settings" => { "configurable_document_group" => "parent_type", "organisations" => [SecureRandom.uuid] } })
+    ConfigurableDocumentType.setup_test_types(non_permitted_child_type)
+    get :choose_type
+    assert_response :ok
+    assert_dom "h1", "New standard document"
+    refute_dom "label", "Parent type"
+  end
+
   view_test "GET choose_type displays child types when a 'group' configurable_document_type parameter is provided" do
     parent_type = build_configurable_document_type("parent_type", { "title" => "Parent Type" })
     child_type = build_configurable_document_type("child_type", { "title" => "Child Type", "settings" => { "configurable_document_group" => "parent_type" } })
