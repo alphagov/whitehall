@@ -68,6 +68,19 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
     assert_equal expected_government, links[:government]
   end
 
+  test "includes empty government link if the document type has it configured but no government has been set" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", {
+        "settings" => {
+          "history_mode_enabled" => true,
+        },
+      }),
+    )
+    edition = build(:standard_edition)
+    links = PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(edition)
+    assert_equal [], links[:government]
+  end
+
   test "does not include government link if the document type does not have it configured" do
     ConfigurableDocumentType.setup_test_types(
       build_configurable_document_type("test_type", {
