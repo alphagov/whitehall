@@ -62,7 +62,6 @@ module PublishingApi
     def base_details
       {
         body:,
-        emphasised_organisations:,
       }
     end
 
@@ -78,10 +77,7 @@ module PublishingApi
         .merge(PayloadBuilder::PoliticalDetails.for(news_article))
         .merge(PayloadBuilder::TagDetails.for(news_article))
         .merge(PayloadBuilder::Attachments.for(news_article))
-    end
-
-    def emphasised_organisations
-      news_article.lead_organisations.map(&:content_id)
+        .merge(PayloadBuilder::EmphasisedOrganisations.for(news_article))
     end
 
     def public_updated_at

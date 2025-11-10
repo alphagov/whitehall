@@ -62,7 +62,6 @@ module PublishingApi
       {
         body:,
         closing_date: call_for_evidence.closing_at,
-        emphasised_organisations: call_for_evidence.lead_organisations.map(&:content_id),
         opening_date: call_for_evidence.opening_at,
       }
     end
@@ -83,6 +82,7 @@ module PublishingApi
         .merge(PayloadBuilder::PoliticalDetails.for(call_for_evidence))
         .merge(PayloadBuilder::TagDetails.for(call_for_evidence))
         .merge(PayloadBuilder::Attachments.for([call_for_evidence, call_for_evidence.outcome]))
+        .merge(PayloadBuilder::EmphasisedOrganisations.for(call_for_evidence))
     end
 
     def public_updated_at

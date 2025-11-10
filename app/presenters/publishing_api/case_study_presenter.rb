@@ -49,7 +49,6 @@ module PublishingApi
       details_hash = {
         body:,
         change_history: item.change_history.as_json,
-        emphasised_organisations: item.lead_organisations.map(&:content_id),
         first_public_at:,
         format_display_type: item.display_type_key,
       }
@@ -60,6 +59,7 @@ module PublishingApi
                              end
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
+      details_hash.merge!(PayloadBuilder::EmphasisedOrganisations.for(item))
     end
 
     def first_public_at
