@@ -1,5 +1,5 @@
 <% selected_value = @edition.primary_locale || "en" %>
-<% if @edition.new_record? %>
+<% if @edition.locale_can_be_changed? %>
   <div class="govuk-!-margin-bottom-6">
     <%= hidden_field_tag "edition[create_foreign_language_only]", 1 %>
     <%= render "govuk_publishing_components/components/select_with_search", {
@@ -8,7 +8,7 @@
       label: "Language",
       heading_size: "m",
       hint_id: "edition_primary_locale_hint",
-      hint: "Warning: the language cannot be changed after this document has been saved",
+      hint: "Warning: the language cannot be changed after this document has been translated",
       full_width: true,
       options: options_for_locales(Locale.all).map do |language, value|
         {
