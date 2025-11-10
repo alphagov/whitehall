@@ -100,7 +100,12 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
   end
 
   test "update creates a translation for a new draft of a previously published edition" do
-    published_edition = create(:published_standard_edition, configurable_document_type: "test_type", title: "english-title")
+    published_edition = create(
+      :published_standard_edition,
+      configurable_document_type: "test_type",
+      title: "english-title",
+      block_content: { body: "foo" },
+    )
     draft_edition = published_edition.create_draft(@writer)
 
     put :update,

@@ -6,6 +6,26 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page.body_required?
   end
 
+  test "delegates body to block content" do
+    test_type = "test_type"
+    configurable_document_type =
+      build_configurable_document_type(
+        test_type, {
+          "schema" => {
+            "properties" => {
+              "body" => {
+                "title" => "Body attribute",
+                "type" => "string",
+              },
+            },
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { body: "FOO" } })
+    assert_equal "FOO", page.body
+  end
+
   test "it allows images if the configurable document type settings permit them" do
     test_type_with_images =
       build_configurable_document_type(
