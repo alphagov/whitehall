@@ -75,7 +75,11 @@ Locale = Struct.new(:code) do
   end
 
   def native_and_english_language_name
-    "#{native_language_name} (#{english_language_name})"
+    if english?
+      native_language_name
+    else
+      "#{native_language_name} (#{english_language_name})"
+    end
   end
 
   def rtl?

@@ -49,6 +49,6 @@ class Admin::Editions::LanguageSelectFormControlTest < ViewComponent::TestCase
     edition = create(:draft_standard_edition)
     edition.translations.create!(locale: :fr)
     render_inline(Admin::Editions::LanguageSelectFormControl.new(edition))
-    assert_selector "p", text: "English (English)"
+    assert_selector "p", text: "English"
   end
 end
