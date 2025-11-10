@@ -12,7 +12,7 @@ module PublishingApi::PayloadBuilder
     def self.government_links(item)
       return {} unless item.type_instance.settings["history_mode_enabled"]
 
-      { government: [item.government&.content_id] }.compact
+      { government: [item.government&.content_id].compact }
     end
   end
 end
