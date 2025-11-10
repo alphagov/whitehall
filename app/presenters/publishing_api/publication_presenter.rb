@@ -75,13 +75,13 @@ module PublishingApi
         document_type_label: item.display_type,
         documents:,
         featured_attachments:,
-        emphasised_organisations: item.lead_organisations.map(&:content_id),
       }
       details_hash = maybe_add_national_applicability(details_hash)
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
       details_hash.merge!(PayloadBuilder::Attachments.for(item))
+      details_hash.merge!(PayloadBuilder::EmphasisedOrganisations.for(item))
     end
 
     def body

@@ -48,12 +48,12 @@ module PublishingApi
       {
         body: govspeak_edition_to_html(item),
         change_history: item.change_history.as_json,
-        emphasised_organisations: item.lead_organisations.map(&:content_id),
       }.tap do |details_hash|
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
         details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
         details_hash.merge!(PayloadBuilder::Attachments.for(item))
         details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
+        details_hash.merge!(PayloadBuilder::EmphasisedOrganisations.for(item))
       end
     end
   end

@@ -65,7 +65,6 @@ module PublishingApi
       details_hash = {
         body:,
         change_history: item.change_history.as_json,
-        emphasised_organisations: item.lead_organisations.map(&:content_id),
         related_mainstream_content: related_mainstream_content_ids,
       }
       details_hash = maybe_add_national_applicability(details_hash)
@@ -75,6 +74,7 @@ module PublishingApi
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
       details_hash.merge!(PayloadBuilder::Attachments.for(item))
       details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
+      details_hash.merge!(PayloadBuilder::EmphasisedOrganisations.for(item))
     end
 
     def body

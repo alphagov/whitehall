@@ -62,7 +62,6 @@ module PublishingApi
       {
         body:,
         closing_date: consultation.closing_at,
-        emphasised_organisations: consultation.lead_organisations.map(&:content_id),
         opening_date: consultation.opening_at,
       }
     end
@@ -84,6 +83,7 @@ module PublishingApi
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
         .merge(PayloadBuilder::TagDetails.for(consultation))
         .merge(PayloadBuilder::Attachments.for([consultation, consultation.outcome, consultation.public_feedback]))
+        .merge(PayloadBuilder::EmphasisedOrganisations.for(consultation))
     end
 
     def public_updated_at
