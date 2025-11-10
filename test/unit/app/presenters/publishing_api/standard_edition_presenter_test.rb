@@ -306,6 +306,39 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_not content[:details].key?(:attachments)
   end
 
+  test "it includes emphasised organisations in the details if the document type has organisations association" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "associations" => [
+        { "key" => "organisations" },
+      ],
+    }))
+    organisations = create_list(:organisation, 2)
+    page = create(:standard_edition,
+                  { configurable_document_type: type_key,
+                    lead_organisations: organisations })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+    expected_emphasised_organisations = organisations.map(&:content_id)
+    assert_equal expected_emphasised_organisations, content[:details][:emphasised_organisations]
+  end
+
+  test "it does not include emphasised organisations in the details if the document type does not have organisations association" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key))
+    organisations = create_list(:organisation, 2)
+    page = create(:standard_edition,
+                  { configurable_document_type: type_key,
+                    lead_organisations: organisations })
+    page.document = Document.new
+    page.document.slug = "page-title"
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+    assert_not content[:details].key?(:emphasised_organisations)
+  end
+
   test "#links includes the required content IDs" do
     ConfigurableDocumentType.setup_test_types(
       build_configurable_document_type("test_type", {
