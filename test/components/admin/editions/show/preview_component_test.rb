@@ -80,4 +80,15 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
 
     assert page.has_content? "Preview on website - French (opens in new tab)"
   end
+
+  test "does not render the primary locale preview link twice" do
+    edition = build(:detailed_guide, id: 1, primary_locale: :fr, document: @document)
+    edition.translations.build(locale: :fr)
+    edition.translations.build(locale: :de)
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+
+    assert page.has_content? "Preview on website - French (opens in new tab)"
+    assert_not page.has_content? "Preview on website - Français (French) (opens in new tab)"
+  end
 end
