@@ -22,12 +22,6 @@
         ],
       } %>
     </div>
-
-    <% if @edition.non_english_edition? %>
-      <%= render "components/inset_prompt", {
-        description: "This document is #{@edition.primary_language_name}-only",
-      } %>
-    <% end %>
   </section>
 
   <%= render partial: "admin/editions/show/main_notices", locals: { edition: @edition } %>

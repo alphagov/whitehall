@@ -27,7 +27,7 @@ end
 When(/^I create a foreign language only document$/) do
   begin_drafting_document type: "document_collection", locale: "Cymraeg (Welsh)", title: "Foreign Language Only"
   click_button "Save and go to document summary"
-  expect(page).to have_content("This document is Welsh-only")
+  expect(page).to have_content("Primary language Cymraeg (Welsh)")
 end
 
 And(/^I return to the edit screen$/) do
@@ -52,7 +52,7 @@ Then(/^if I change the language to English$/) do
 end
 
 Then(/^the edition should return to being an English language only document$/) do
-  expect(page).to_not have_content("This document is Welsh-only")
+  expect(page).to_not have_content("Primary language Cymraeg (Welsh)")
 end
 
 And(/^the foreign translation should be deleted$/) do
