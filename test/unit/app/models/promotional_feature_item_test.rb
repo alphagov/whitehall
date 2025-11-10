@@ -23,7 +23,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
   test "validates the title url is valid if supplied" do
     item = build(:promotional_feature_item, title_url: "ftp://invalid.com")
     assert_not item.valid?
-    assert_equal ["is not valid. Make sure it starts with http(s)"], item.errors[:title_url]
+    assert_equal ["is not a valid URI. Make sure it starts with http(s)"], item.errors[:title_url]
   end
 
   test "accepts nested attributes for links" do

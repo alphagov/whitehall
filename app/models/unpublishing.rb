@@ -55,6 +55,10 @@ class Unpublishing < ApplicationRecord
     end
   end
 
+  def reason_may_require_explanation?
+    [UnpublishingReason::PublishedInError, UnpublishingReason::Withdrawn].include?(unpublishing_reason)
+  end
+
   def document_path
     edition.public_path.gsub(edition.slug, slug)
   end

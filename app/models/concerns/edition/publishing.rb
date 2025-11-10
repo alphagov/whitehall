@@ -8,6 +8,7 @@ module Edition::Publishing
     validate :change_note_present!, if: :change_note_required?
     validate :attachments_uploaded_to_asset_manager!, if: :attachments_in_asset_manager_check_required?
     validate :images_uploaded_to_asset_manager!, if: :images_in_asset_manager_check_required?
+    validates_associated :unpublishing, on: :publish
 
     scope :significant_change, -> { where(minor_change: false) }
   end

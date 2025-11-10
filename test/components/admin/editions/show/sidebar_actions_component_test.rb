@@ -215,7 +215,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "li", count: 3
     assert_selector "button", text: "Create new edition"
     assert_selector "a", text: "View unpublished edition"
-    assert_selector "a", text: "Edit unpublishing explanation"
+    assert_selector "a", text: "Edit unpublishing information"
   end
 
   test "actions for withdrawn edition as managing editor" do
@@ -226,7 +226,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "li", count: 6
     assert_selector "a", text: "Unwithdraw"
     assert_selector "a", text: "View withdrawn edition"
-    assert_selector "a", text: "Edit withdrawal explanation"
+    assert_selector "a", text: "Edit withdrawal information"
     assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
     assert_selector "a", text: "View on website (opens in new tab)"

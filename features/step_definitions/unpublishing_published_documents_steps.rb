@@ -61,9 +61,9 @@ end
 When(/^I edit the public explanation for withdrawal to "([^"]*)"$/) do |explanation|
   publication = Publication.last
   visit admin_edition_path(publication)
-  click_on "Edit withdrawal explanation"
+  click_on "Edit withdrawal information"
   fill_in "Public explanation", with: explanation
-  click_button "Update withdrawal explanation"
+  click_button "Update withdrawal information"
 end
 
 Then(/^the unpublishing should redirect to the existing edition$/) do

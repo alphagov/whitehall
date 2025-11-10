@@ -12,6 +12,6 @@ class PromotionalFeatureLinkTest < ActiveSupport::TestCase
   test "must have a valid URL" do
     link = build(:promotional_feature_link, url: "example.com")
     assert_not link.valid?
-    assert_equal ["is not valid. Make sure it starts with http(s)"], link.errors[:url]
+    assert_equal ["is not a valid URI. Make sure it starts with http(s)"], link.errors[:url]
   end
 end

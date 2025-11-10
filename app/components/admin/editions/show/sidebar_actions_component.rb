@@ -171,9 +171,9 @@ private
           href: confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
           destructive: true,
         })
-      elsif @edition.unpublishing.present? && @edition.unpublishing.explanation.present?
+      elsif @edition.unpublishing.present?
         actions << link_to(
-          "Edit #{helpers.withdrawal_or_unpublishing(@edition)} explanation",
+          "Edit #{helpers.withdrawal_or_unpublishing(@edition)} information",
           edit_admin_edition_unpublishing_path(@edition),
           class: "govuk-link",
         )

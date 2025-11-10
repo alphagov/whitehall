@@ -1,42 +1,52 @@
 <% content_for :context, @unpublishing.edition.title %>
-<% content_for :page_title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation" %>
-<% content_for :title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation" %>
+<% content_for :page_title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} information" %>
+<% content_for :title, "Edit #{withdrawal_or_unpublishing(@unpublishing.edition)} information" %>
 <% content_for :title_margin_bottom, 6 %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @unpublishing)) %>
 
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
-    <%= render "govuk_publishing_components/components/heading", {
-        text: "Reason for #{withdrawal_or_unpublishing(@unpublishing.edition)}",
-        font_size: "l",
-        margin_bottom: 3,
-    } %>
     <p class="govuk-body govuk-!-margin-bottom-6"><%= @unpublishing.unpublishing_reason.as_sentence.capitalize %></p>
 
     <%= form_for @unpublishing, url: admin_edition_unpublishing_path(@unpublishing.edition) do |f| %>
-      <%= render "components/govspeak_editor", {
-        label: {
-          heading_size: "l",
-          text: "Public explanation",
-        },
-        hint: "This is shown on the live site",
-        name: "unpublishing[explanation]",
-        id: "unpublishing_explanation",
-        value: @unpublishing.explanation,
-        data: {
-          module: "paste-html-to-govspeak",
-        },
-        error_items: errors_for(@unpublishing.errors, :explanation),
-        data_attributes: {
-          image_ids: @unpublishing.edition.images.map { |img| img[:id] }.to_json,
-          attachment_ids: @unpublishing.edition.allows_attachments? ? @unpublishing.edition.attachments.map(&:id) : [],
-          alternative_format_provider_id: (@unpublishing.edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-        },
-      } %>
+      <% if @unpublishing.reason_may_require_explanation? %>
+        <%= render "components/govspeak_editor", {
+          label: {
+            heading_size: "l",
+            text: "Public explanation",
+          },
+          hint: "This is shown on the live site",
+          name: "unpublishing[explanation]",
+          id: "unpublishing_explanation",
+          value: @unpublishing.explanation,
+          data: {
+            module: "paste-html-to-govspeak",
+          },
+          error_items: errors_for(@unpublishing.errors, :explanation),
+          data_attributes: {
+            image_ids: @unpublishing.edition.images.map { |img| img[:id] }.to_json,
+            attachment_ids: @unpublishing.edition.allows_attachments? ? @unpublishing.edition.attachments.map(&:id) : [],
+            alternative_format_provider_id: (@unpublishing.edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+          },
+        } %>
+      <% end %>
+
+      <% unless @unpublishing.withdrawn? %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            heading_size: "l",
+            text: "Alternative URL",
+          },
+          name: "unpublishing[alternative_url]",
+          id: "unpublishing_alternative_url",
+          value: @unpublishing.alternative_url,
+          error_items: errors_for(@unpublishing.errors, :alternative_url),
+        } %>
+      <% end %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
-          text: "Update #{withdrawal_or_unpublishing(@unpublishing.edition)} explanation",
+          text: "Update #{withdrawal_or_unpublishing(@unpublishing.edition)} information",
         } %>
 
         <%= link_to("Cancel", [:admin, @unpublishing.edition], class: "govuk-link govuk-link--no-visited-state") %>
