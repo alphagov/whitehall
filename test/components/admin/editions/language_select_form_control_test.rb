@@ -37,17 +37,18 @@ class Admin::Editions::LanguageSelectFormControlTest < ViewComponent::TestCase
     assert_selector "select[name=\"edition[primary_locale]\"] option[value=\"es\"][selected=\"selected\"]"
   end
 
-  test "shows a warning that the value cannot be changed after the first draft edition of the document has been saved" do
+  test "shows a warning that the value cannot be changed after a translation of the document has been created" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "translations_enabled" => true } }))
     edition = build(:draft_standard_edition)
     render_inline(Admin::Editions::LanguageSelectFormControl.new(edition))
-    assert_selector "#edition_primary_locale_hint", text: "Warning: the language cannot be changed after this document has been saved"
+    assert_selector "#edition_primary_locale_hint", text: "Warning: the language cannot be changed after this document has been translated"
   end
 
-  test "displays the selected locale as plain text once the edition has been saved" do
+  test "displays the selected locale as plain text once the edition has a translation" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "translations_enabled" => true } }))
     edition = create(:draft_standard_edition)
+    edition.translations.create!(locale: :fr)
     render_inline(Admin::Editions::LanguageSelectFormControl.new(edition))
-    assert_selector "p", text: "English (English)"
+    assert_selector "p", text: "English"
   end
 end

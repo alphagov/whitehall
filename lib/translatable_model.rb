@@ -8,7 +8,7 @@ module TranslatableModel
   end
 
   def available_in_multiple_languages?
-    non_english_translated_locale_codes.any?
+    translations.size > 1
   end
 
   def available_in_english?

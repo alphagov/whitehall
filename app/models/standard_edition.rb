@@ -45,6 +45,10 @@ class StandardEdition < Edition
     type_instance.settings["translations_enabled"]
   end
 
+  def locale_can_be_changed?
+    translatable? && translations.size <= 1
+  end
+
   def allows_image_attachments?
     type_instance.settings["images_enabled"]
   end

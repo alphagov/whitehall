@@ -1,0 +1,43 @@
+<section class="app-view-summary__section">
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Translations",
+    heading_level: 2,
+    font_size: "l",
+    margin_bottom: 3,
+  } %>
+  <% if @edition.editable? && @edition.missing_translations.any? %>
+    <p class="govuk-body">
+      <%= link_to("Add translation",
+                  new_admin_edition_translation_path(@edition.id), class: "govuk-link") %>
+    </p>
+  <% end %>
+  <% if @edition.non_primary_translations.any? %>
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Language",
+        },
+        {
+          text: "Title",
+        },
+        (@edition.editable? || @edition.can_delete?) ? {
+          text: "Actions",
+        } : nil,
+      ].compact,
+      rows: @edition.non_primary_translations.map do | translation |
+        [
+          { text: Locale.new(translation.locale).native_and_english_language_name },
+          { text: translation.title },
+          (@edition.editable? || @edition.can_delete?) ? {
+            text: raw([
+              *(link_to("Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link app-view-summary__table-link") if @edition.editable?),
+                        *(link_to("Delete", confirm_destroy_admin_edition_translation_path(@edition, translation.locale), class: "govuk-link gem-link--destructive") if @edition.can_delete?),
+            ].compact().join(" ")),
+          } : nil,
+        ].compact
+      end,
+    } %>
+  <% else %>
+    <p class="govuk-body">No translations for this document</p>
+  <% end %>
+</section>

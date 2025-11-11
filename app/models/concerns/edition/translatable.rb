@@ -64,6 +64,14 @@ module Edition::Translatable
     false
   end
 
+  def non_primary_translations
+    translations.reject { |translation| translation.locale == Locale.new(primary_locale).code }
+  end
+
+  def non_primary_translation_locales
+    non_primary_translations.map { |translation| Locale.new(translation.locale) }
+  end
+
 private
 
   def change_translations_locale_if_primary_locale_changed

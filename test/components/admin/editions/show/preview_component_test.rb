@@ -70,4 +70,25 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-details__summary-text", text: "Share document preview", count: 0
     assert_selector ".govuk-inset-text", text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
   end
+
+  test "renders the correct primary locale link text for non-English primary locale editions with translations" do
+    edition = build(:detailed_guide, id: 1, primary_locale: :fr, document: @document)
+    edition.translations.build(locale: :fr)
+    edition.translations.build(locale: :de)
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+
+    assert page.has_content? "Preview on website - French (opens in new tab)"
+  end
+
+  test "does not render the primary locale preview link twice" do
+    edition = build(:detailed_guide, id: 1, primary_locale: :fr, document: @document)
+    edition.translations.build(locale: :fr)
+    edition.translations.build(locale: :de)
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+
+    assert page.has_content? "Preview on website - French (opens in new tab)"
+    assert_not page.has_content? "Preview on website - Français (French) (opens in new tab)"
+  end
 end

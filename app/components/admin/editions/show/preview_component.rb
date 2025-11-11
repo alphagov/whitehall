@@ -28,7 +28,7 @@ private
 
   def primary_locale_link_text
     if available_in_multiple_languages
-      "Preview on website - English (opens in new tab)"
+      "Preview on website - #{Locale.new(edition.primary_locale).english_language_name} (opens in new tab)"
     else
       "Preview on website (opens in new tab)"
     end
