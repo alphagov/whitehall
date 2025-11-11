@@ -191,6 +191,21 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         assert_equal "NewsArticle", published_edition.type
         assert_equal "NewsArticle", draft_edition.type
       end
+
+      test "re-presents document to Publishing API (on bulk publishing queue)" do
+        PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(Edition.find(@draft_edition_id).document.id, true).once
+
+        Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, @recipe) }
+      end
+
+      test "doesn't re-present document to Publishing API if exception encountered during migration" do
+        PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(Edition.find(@draft_edition_id).document.id, true).never
+
+        Document.any_instance.stubs(:update_column).raises(StandardError.new("Simulated failure"))
+        assert_raises(StandardError) do
+          Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, @recipe) }
+        end
+      end
     end
 
     describe "ensure_payloads_remain_identical logic" do
