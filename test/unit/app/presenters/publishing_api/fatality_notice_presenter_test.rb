@@ -77,7 +77,6 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
       organisations: [],
       people: [],
       primary_publishing_organisation: [],
-      original_primary_publishing_organisation: [],
       roles: [],
     }
     assert expected_links, @presented_content[:links]
