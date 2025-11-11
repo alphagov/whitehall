@@ -37,7 +37,7 @@ Feature: governments
     When I close the current government
     And I create a government called "Robo-alien Overlords"
     And I appoint "Fred Fancy" as the "Minister of Crazy"
-    Then I should be able to create a news article associated with "Fred Fancy" as the "Minister of Crazy"
+    Then I should be able to create a publication associated with "Fred Fancy" as the "Minister of Crazy"
 
   Scenario: There are no governments available to view
     Given that there no governments available to view

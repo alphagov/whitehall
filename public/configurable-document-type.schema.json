@@ -139,9 +139,6 @@
         "configurable_document_group": {
           "type": "string"
         },
-        "configurable_document_group_ordering": {
-          "type": "integer"
-        },
         "publishing_api_schema_name": {
           "type": "string"
         },

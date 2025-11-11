@@ -5,33 +5,10 @@ class Admin::StandardEditionsController < Admin::EditionsController
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
   def choose_type
-    selected_key = params[:configurable_document_type].presence
+    @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
+                                                                     .select { |type| can?(current_user, type) }
 
-    if !selected_key
-      # Initial page: top-level types and groups
-      groups = ConfigurableDocumentType.groups.map { |group_id|
-        # return if the user has no permitted types in this group
-        children = ConfigurableDocumentType.children_for(group_id)
-        next if children.none? { |t| can?(current_user, t) }
-
-        # No `can?` check for groups, as the permissions are defined per-type.
-        # The `can?` check happens on each sub-type when rendering the interstitial step.
-        OpenStruct.new({
-          key: group_id,
-          label: group_id.humanize,
-          description: "This is a 'group'. You will see options for this group on the next screen.",
-        })
-      }.compact
-      @permitted_configurable_document_types =
-        groups + ConfigurableDocumentType.top_level.select { |t| can?(current_user, t) }
-    elsif ConfigurableDocumentType.groups.include?(selected_key)
-      # Interstitial step: show subtypes for the selected parent
-      children = ConfigurableDocumentType.children_for(selected_key)
-      @permitted_configurable_document_types = children.select { |t| can?(current_user, t) }
-    elsif ConfigurableDocumentType.find(selected_key)
-      # Leaf: go to new
-      redirect_to new_admin_standard_edition_path(configurable_document_type: selected_key)
-    end
+    render_not_found if @permitted_configurable_document_types.empty?
   end
 
 private
