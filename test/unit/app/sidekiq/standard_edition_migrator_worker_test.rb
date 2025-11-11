@@ -237,6 +237,37 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         end
         assert_match(/Presenter links mismatch after migration for Edition ID/, error.message)
       end
+
+      test "uses ignore_legacy_content_fields and ignore_new_content_fields hooks to filter out expected differences" do
+        @recipe = "StandardEditionMigratorWorkerTest::TestRecipeForIgnoreContentFields"
+        # stub content to be identical except for one legacy field, and one new field
+        @recipe.constantize.new.presenter.any_instance.stubs(:content).returns({ some: "content", ignore_legacy: "old_value" })
+        PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "content", ignore_new: "new_value" })
+
+        # stub links to be identical
+        @recipe.constantize.new.presenter.any_instance.stubs(:links).returns({ some: "links" })
+        PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links" })
+
+        assert_nothing_raised do
+          Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, @recipe) }
+        end
+      end
+
+      test "uses ignore_legacy_links and ignore_new_links hooks to filter out expected differences" do
+        @recipe = "StandardEditionMigratorWorkerTest::TestRecipeForIgnoreLinksFields"
+
+        # stub content to be identical
+        @recipe.constantize.new.presenter.any_instance.stubs(:content).returns({ some: "content" })
+        PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "content" })
+
+        # stub links to be identical except for one legacy field, and one new field
+        @recipe.constantize.new.presenter.any_instance.stubs(:links).returns({ some: "links", ignore_legacy: "old_value" })
+        PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links", ignore_new: "new_value" })
+
+        assert_nothing_raised do
+          Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, @recipe) }
+        end
+      end
     end
   end
 
@@ -252,6 +283,46 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
 
     def map_legacy_fields_to_block_content(_edition, translation)
       { "test_attribute" => "MODIFIED #{translation.body}" }
+    end
+
+    def ignore_legacy_content_fields(content)
+      content
+    end
+
+    def ignore_new_content_fields(content)
+      content
+    end
+
+    def ignore_legacy_links(links)
+      links
+    end
+
+    def ignore_new_links(links)
+      links
+    end
+  end
+
+  class TestRecipeForIgnoreContentFields < TestRecipe
+    def ignore_legacy_content_fields(content)
+      content.delete(:ignore_legacy)
+      content
+    end
+
+    def ignore_new_content_fields(content)
+      content.delete(:ignore_new)
+      content
+    end
+  end
+
+  class TestRecipeForIgnoreLinksFields < TestRecipe
+    def ignore_legacy_links(links)
+      links.delete(:ignore_legacy)
+      links
+    end
+
+    def ignore_new_links(links)
+      links.delete(:ignore_new)
+      links
     end
   end
 end

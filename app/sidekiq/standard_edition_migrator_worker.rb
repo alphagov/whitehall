@@ -52,16 +52,16 @@ private
     new_links = new_presenter.links
 
     diff = diff_values(
-      old_content,
-      new_content,
+      @recipe.ignore_legacy_content_fields(old_content),
+      @recipe.ignore_new_content_fields(new_content),
     )
     unless diff.to_s.empty?
       raise "Presenter content mismatch after migration for Edition ID #{edition.id}: #{diff}"
     end
 
     diff = diff_values(
-      old_links,
-      new_links,
+      @recipe.ignore_legacy_links(old_links),
+      @recipe.ignore_new_links(new_links),
     )
     unless diff.to_s.empty?
       raise "Presenter links mismatch after migration for Edition ID #{edition.id}: #{diff}"
