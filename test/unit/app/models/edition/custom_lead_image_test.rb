@@ -43,10 +43,9 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
   end
 
   test "#update_lead_image updates the lead_image association to the oldest image that does not require cropping" do
-    large_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")))
-    jpeg_image = build(:image, created_at: 1.minute.ago)
-    large_image = build(:image, image_data: large_image_data, created_at: 2.minutes.ago)
-    large_image.stubs(:requires_crop?).returns(true)
+    large_image_data = create(:image_data, file: File.open(Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")))
+    jpeg_image = create(:image, created_at: 1.minute.ago)
+    large_image = create(:image, image_data: large_image_data, created_at: 2.minutes.ago)
     edition = create(:news_article, images: [large_image, jpeg_image])
 
     edition.update_lead_image
