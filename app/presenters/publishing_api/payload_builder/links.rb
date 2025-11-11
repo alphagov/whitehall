@@ -3,7 +3,6 @@ module PublishingApi::PayloadBuilder
     LINK_NAMES_TO_METHODS_MAP = {
       organisations: :organisation_ids,
       primary_publishing_organisation: :primary_publishing_organisation_id,
-      original_primary_publishing_organisation: :original_primary_publishing_organisation_id,
       statistical_data_set_documents: :statistical_data_set_ids,
       world_locations: :world_location_ids,
       worldwide_organisations: :worldwide_organisation_ids,
@@ -21,7 +20,6 @@ module PublishingApi::PayloadBuilder
     def extract(filter_links)
       if filter_links.include?(:organisations)
         filter_links << :primary_publishing_organisation
-        filter_links << :original_primary_publishing_organisation
       end
 
       filter_links.each_with_object({}) do |link_name, links|
@@ -57,11 +55,6 @@ module PublishingApi::PayloadBuilder
     def primary_publishing_organisation_id
       lead_organisations = item.try(:lead_organisations) || []
       [lead_organisations.map(&:content_id).first].compact
-    end
-
-    def original_primary_publishing_organisation_id
-      original_lead_organisations = item.try(:document).try(:editions).try(:first).try(:lead_organisations) || []
-      [original_lead_organisations.map(&:content_id).first].compact
     end
 
     def world_location_ids

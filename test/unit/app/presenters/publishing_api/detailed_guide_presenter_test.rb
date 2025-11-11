@@ -69,9 +69,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         primary_publishing_organisation: [
           detailed_guide.lead_organisations.first.content_id,
         ],
-        original_primary_publishing_organisation: [
-          detailed_guide.document.editions.first.lead_organisations.first.content_id,
-        ],
         related_guides: [],
         related_mainstream_content: [],
         government: [government.content_id],
