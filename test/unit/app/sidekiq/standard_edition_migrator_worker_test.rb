@@ -227,6 +227,40 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         end
       end
 
+      test "does no presenter comparison on older editions" do
+        editor = create(:departmental_editor)
+        # 1. create a draft news article... ([Edition: draft])
+        superseded_edition = build(:news_article, news_article_type_id: 2, body: "This is my news article")
+        superseded_edition.save!
+        superseded_edition.first_published_at = Time.zone.now
+        superseded_edition.major_change_published_at = Time.zone.now
+        # 2. publish it and then create a new draft ([Edition: published, Edition: draft])
+        force_publish(superseded_edition)
+        published_edition = superseded_edition.create_draft(editor)
+        published_edition.body = "This is my updated body"
+        published_edition.change_note = "Superseding edition"
+        published_edition.save!
+        # 3. publish it and then create a new draft ([Edition: superseded, Edition: published, Edition: draft])
+        force_publish(published_edition)
+        draft_edition = published_edition.create_draft(editor)
+        draft_edition.body = "This is my updated body for the draft"
+        draft_edition.change_note = "Superseding edition"
+        draft_edition.save!
+
+        draft_edition_id = draft_edition.id
+        document_id = draft_edition.document.id
+
+        # Stub the StandardEditionMigratorWorker's `ensure_payloads_remain_identical` method
+        # and verify that it is only called once, with the ID of the latest edition
+        calls = []
+        StandardEditionMigratorWorker.any_instance.stubs(:ensure_payloads_remain_identical).with do |edition|
+          calls << edition.id
+          true
+        end
+        Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(document_id, @recipe) }
+        assert_equal [draft_edition_id], calls
+      end
+
       test "payload comparison passes even if the ordering is different" do
         @recipe.constantize.new.presenter.any_instance.stubs(:content).returns({ some: "content", other: "stuff" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ other: "stuff", some: "content" })
