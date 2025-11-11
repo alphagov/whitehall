@@ -11,7 +11,7 @@ Feature: Admin Dashboard
 
   Scenario: Loading the dashboard
     Given a force published document "forced document" was produced by the "MOD" organisation
-    When I draft a new news article "draft document"
+    When I draft a new publication "draft document"
     And I visit the admin dashboard
     Then I should see the draft document "draft document"
     And I should see the force published document "forced document"
