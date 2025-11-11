@@ -25,9 +25,14 @@ class StandardEditionMigratorWorker < WorkerBase
 private
 
   def migrate_editions!(document)
-    StandardEditionMigratorWorker.editions_for(document).find_each do |edition|
-      ensure_payloads_remain_identical(edition) { migrate_edition!(edition) }
-    end
+    editions_to_migrate = StandardEditionMigratorWorker.editions_for(document)
+
+    latest_edition = document.latest_edition
+    latest_edition_id = latest_edition.id # capture ID because we can't call `.reload` after updating type
+    ensure_payloads_remain_identical(latest_edition) { migrate_edition!(latest_edition) }
+
+    # Migrate any earlier editions without payload checks
+    editions_to_migrate.each { |edition| migrate_edition!(edition) unless edition.id == latest_edition_id }
   end
 
   def migrate_edition!(edition)
