@@ -28,7 +28,7 @@ Whitehall::Application.routes.draw do
           get :reorder, on: :collection
         end
         resources :file_attachments, except: %i[index show], concerns: :confirmable_destroy
-        resources :bulk_uploads, except: %i[show edit update] do
+        resources :bulk_uploads, except: %i[show edit update new] do
           post :upload_files, on: :collection
           get :set_titles, on: :member
         end

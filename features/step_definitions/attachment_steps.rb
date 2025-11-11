@@ -7,9 +7,8 @@ When(/^I start editing the attachments from the .*? page$/) do
 end
 
 When(/^I upload a file attachment with the title "(.*?)" and the file "(.*?)"$/) do |title, fixture_file_name|
-  click_link "Upload new file attachments"
-  attach_file "Select files for upload", Rails.root + "test/fixtures/#{fixture_file_name}"
-  click_button "Upload and continue"
+  page.attach_file Rails.root + "test/fixtures/#{fixture_file_name}"
+  click_button "Upload"
   fill_in "Title", with: title
   click_on "Save"
 end
@@ -44,9 +43,8 @@ end
 When(/^I try and upload an attachment but there are validation errors$/) do
   ensure_path admin_publication_path(Publication.last)
   click_on "Modify attachments"
-  click_on "Upload new file attachments"
-  attach_file "Select files for upload", Rails.root.join("test/fixtures/greenpaper.pdf")
-  click_button "Upload and continue"
+  page.attach_file Rails.root.join("test/fixtures/greenpaper.pdf")
+  click_button "Upload"
   click_on "Save"
 end
 

@@ -4,13 +4,11 @@ class Admin::BulkUploadsController < Admin::AttachmentsController
   include ActionView::Helpers::TextHelper
   attr_accessor :output_buffer
 
-  def new; end
-
   def upload_files
     @bulk_upload.build_attachments_from_files(files_params)
 
     if @bulk_upload.errors.present?
-      render :new
+      redirect_to_attachments_index(bulk_upload_error: @bulk_upload.errors.full_messages.first)
     else
       render :set_titles
     end

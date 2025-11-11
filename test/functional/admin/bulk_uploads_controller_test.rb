@@ -46,20 +46,15 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   test "Actions are unavailable on unmodifiable editions" do
     edition = create(:published_news_article)
-    get :new, params: { edition_id: edition }
+    post :create, params: { edition_id: edition, bulk_upload: valid_create_params }
     assert_response :redirect
-  end
-
-  view_test "GET :new displays a bulk upload form" do
-    get :new, params: { edition_id: @edition }
-
-    assert_response :success
-    assert_select "input[type=file]"
   end
 
   view_test "POST :upload_files with no files requests that files be specified" do
     post_to_upload_files(nil)
-    assert_select ".gem-c-error-summary__list-item", /Files not selected for upload/
+
+    assert_response :redirect
+    assert flash[:bulk_upload_error] = "Files not selected for upload"
   end
 
   view_test "POST :upload_files prompts for metadata for each file" do
@@ -81,9 +76,8 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   view_test "POST :upload_files with illegal file" do
     post_to_upload_files("two-pages.pdf", "greenpaper.pdf", "pdfinfo_dummy.sh")
-    assert_response :success
-    assert_select ".gem-c-error-summary__list-item", /Files included pdfinfo_dummy.sh: is of not allowed type "sh", allowed types: chm, csv, diff, doc, docx, dot, dxf, eps, gif, gml, ics, jpg, kml, odp, ods, odt, pdf, png, ppt, pptx, ps, rdf, ris, rtf, sch, txt, vcf, wsdl, xls, xlsm, xlsx, xlt, xml, xsd, xslt, zip/
-    assert_select "input[type=file]"
+    assert_response :redirect
+    assert flash[:bulk_upload_error] = "Files included pdfinfo_dummy.sh: is of not allowed type \"sh\", allowed types: chm, csv, diff, doc, docx, dot, dxf, eps, gif, gml, ics, jpg, kml, odp, ods, odt, pdf, png, ppt, pptx, ps, rdf, ris, rtf, sch, txt, vcf, wsdl, xls, xlsm, xlsx, xlt, xml, xsd, xslt, zip"
   end
 
   view_test "POST :create with attachment metadata saves attachments to edition" do

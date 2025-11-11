@@ -73,7 +73,7 @@ class HtmlAttachment < Attachment
     end
   end
 
-  def readable_type
+  def self.readable_type
     "HTML"
   end
 

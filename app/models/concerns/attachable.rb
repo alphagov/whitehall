@@ -10,6 +10,7 @@ module Attachable
   # Attachment is 'new' on this Edition, or if it was copied across from the
   # previous Edition of a Document (see the `changed_attachments` method).
   EDITION_CREATE_GRACE_PERIOD = 20.seconds
+  ATTACHMENT_TYPES = %w[html external file].freeze
 
   included do
     has_many :attachments,
@@ -103,6 +104,20 @@ module Attachable
 
   def allows_attachments?
     allows_file_attachments? || allows_html_attachments? || allows_external_attachments?
+  end
+
+  def allowed_attachment_types
+    ATTACHMENT_TYPES.select { |type| allows_attachment_type?(type) }
+  end
+
+  def attachment_for_type(type)
+    return unless ATTACHMENT_TYPES.include?(type)
+
+    {
+      "html": HtmlAttachment,
+      "external": ExternalAttachment,
+      "file": FileAttachment,
+    }[type.to_sym]
   end
 
   def allows_file_attachments?

@@ -36,7 +36,7 @@ class FileAttachment < Attachment
     filename
   end
 
-  def readable_type
+  def self.readable_type
     "file"
   end
 
