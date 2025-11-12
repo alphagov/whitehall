@@ -193,6 +193,21 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Worldwide organisations"
   end
 
+  view_test "GET edit renders the 'Update document slug' checkbox when editing a new draft of a published edition" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, :with_organisations)
+    draft_edition = published_edition.create_draft(published_edition.authors.first)
+
+    login_as :managing_editor
+    get :edit, params: { id: draft_edition.id }
+
+    assert_response :ok
+    assert_select "label", text: "Update document slug"
+    assert_select "input[type='checkbox'][name='edition[should_update_document_slug]']"
+  end
+
   view_test "GET show displays the document path in the summary list" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
