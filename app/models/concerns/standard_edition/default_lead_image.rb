@@ -11,8 +11,8 @@ module StandardEdition::DefaultLeadImage
     end
   end
 
-  def non_svg_images
-    images.reject(&:svg?)
+  def valid_lead_images
+    images.select(&:can_be_lead_image?)
   end
 
   def placeholder_image_url
