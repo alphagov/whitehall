@@ -242,6 +242,7 @@ private
       :all_nation_applicability,
       :speaker_radios,
       :logo_formatted_name,
+      :should_update_document_slug,
       {
         all_nation_applicability: [],
         lead_organisation_ids: [],

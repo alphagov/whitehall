@@ -15,8 +15,8 @@ And(/^I add a review date of "([^"]*)" and the email address "([^"]*)"$/) do |da
 end
 
 Then(/^I should see the review date of "([^"]*)" on the edition summary page$/) do |date|
-  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Review date"
-  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: date
+  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Review date"
+  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: date
 end
 
 Then(/^I should see the review date of "([^"]*)" on the deletion confirmation page$/) do |date|
@@ -24,8 +24,8 @@ Then(/^I should see the review date of "([^"]*)" on the deletion confirmation pa
 end
 
 Then(/^I should not see a review date on the edition summary page$/) do
-  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__key", text: "Review date"
-  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(5) .govuk-summary-list__value", text: "Not set"
+  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Review date"
+  assert_selector ".app-view-summary__section .govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: "Not set"
 end
 
 When(/^I click the button "([^"]*)" on the edition summary page for "([^"]*)"$/) do |label, title|

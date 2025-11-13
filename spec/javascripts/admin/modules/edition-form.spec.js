@@ -321,6 +321,58 @@ describe('GOVUK.Modules.EditionForm', function () {
     })
   })
 
+  describe('#setupUpdateDocumentSlugCheckbox', function () {
+    beforeEach(function () {
+      form.innerHTML = updateSlugCheckboxFields()
+      const editionForm = new GOVUK.Modules.EditionForm(form)
+      editionForm.init()
+    })
+
+    it('should hide the checkbox on page load', function () {
+      const checkboxContainer = form.querySelector(
+        '.js-update-document-slug-checkbox'
+      )
+
+      expect(checkboxContainer.classList).toContain(
+        'app-view-edit-edition__update-slug-checkbox--hidden'
+      )
+    })
+
+    it('should show the checkbox when the title input changes', function () {
+      const titleInput = form.querySelector('#edition_title')
+      const checkboxContainer = form.querySelector(
+        '.js-update-document-slug-checkbox'
+      )
+
+      titleInput.value = 'New title'
+      titleInput.dispatchEvent(new Event('input'))
+
+      expect(checkboxContainer.classList).not.toContain(
+        'app-view-edit-edition__update-slug-checkbox--hidden'
+      )
+    })
+
+    it('should hide the checkbox when the title is reverted to original value', function () {
+      const titleInput = form.querySelector('#edition_title')
+      const checkboxContainer = form.querySelector(
+        '.js-update-document-slug-checkbox'
+      )
+      const originalTitle = titleInput.value
+
+      titleInput.value = 'New title'
+      titleInput.dispatchEvent(new Event('input'))
+      expect(checkboxContainer.classList).not.toContain(
+        'app-view-edit-edition__update-slug-checkbox--hidden'
+      )
+
+      titleInput.value = originalTitle
+      titleInput.dispatchEvent(new Event('input'))
+      expect(checkboxContainer.classList).toContain(
+        'app-view-edit-edition__update-slug-checkbox--hidden'
+      )
+    })
+  })
+
   function subtypeFields() {
     return (
       '<div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="{&quot;1&quot;:&quot;\u003cp\u003eNews written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.\u003c/p\u003e&quot;,&quot;2&quot;:&quot;\u003cp\u003eUnedited press releases as sent to the media, and official statements from the organisation or a minister.\u003c/p\u003e\u003cp\u003eDo \u003cem\u003enot\u003c/em\u003e use for: statements to Parliament. Use the “Speech” format for those.\u003c/p\u003e&quot;,&quot;3&quot;:&quot;\u003cp\u003eGovernment statements in response to media coverage, such as rebuttals and ‘myth busters’.\u003c/p\u003e\u003cp\u003eDo \u003cem\u003enot\u003c/em\u003e use for: statements to Parliament. Use the “Speech” format for those.\u003c/p\u003e&quot;,&quot;4&quot;:&quot;\u003cp\u003eAnnouncements specific to one or more world location. Don’t duplicate news published by another department.\u003c/p\u003e&quot;}">' +
@@ -441,5 +493,15 @@ describe('GOVUK.Modules.EditionForm', function () {
           '<input name="edition[location]" type="text">' +
         '</div>'
       `
+  }
+
+  function updateSlugCheckboxFields() {
+    return (
+      '<textarea name="edition[title]" class="govuk-textarea govuk-js-character-count" id="edition_title" rows="1">Original title</textarea>' +
+      '<div class="js-update-document-slug-checkbox">' +
+      '<input type="checkbox" name="edition[should_update_document_slug]" value="1">' +
+      '<label>Update document slug</label>' +
+      '</div>'
+    )
   }
 })

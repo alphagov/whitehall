@@ -2,6 +2,7 @@ module Edition::Identifiable
   extend ActiveSupport::Concern
 
   included do
+    attribute :should_update_document_slug, :boolean, default: false
     belongs_to :document, touch: true
     validates :document, presence: true
     before_validation :ensure_presence_of_document, on: :create
@@ -38,7 +39,25 @@ module Edition::Identifiable
   end
 
   def update_document_slug
-    document.update_slug_if_possible(string_for_slug)
+    return unless should_update_document_slug? || document.ever_published_editions.empty?
+
+    if document.update_slug_if_possible(string_for_slug) && document.ever_published_editions.present? && should_update_document_slug?
+      create_slug_update_note(document.slug)
+    end
+  end
+
+  def clear_slug
+    document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
+  end
+
+  def create_slug_update_note(new_slug)
+    EditorialRemark.create!(
+      edition: self,
+      body: "Title change created new slug: #{new_slug}",
+      author: Current.user,
+      created_at: Time.zone.now,
+      updated_at: Time.zone.now,
+    )
   end
 
   def propagate_type_to_document

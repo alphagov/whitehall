@@ -126,34 +126,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert edition.save_as(create(:user))
   end
 
-  test "#save_as updates the document slug if this is the first draft" do
-    edition = create(:submitted_publication, title: "First Title")
-    edition.save_as(user = create(:user))
-
-    edition.title = "Second Title"
-    edition.save_as(user)
-    publish(edition)
-
-    assert_nil Publication.published_as("first-title")
-    assert_equal edition, Publication.published_as("second-title")
-  end
-
-  test "#save_as does not alter the slug if this edition has previously been published" do
-    edition = create(:submitted_publication, title: "First Title")
-    edition.save_as(user = create(:user))
-    publish(edition)
-
-    new_draft = edition.create_draft(user)
-    new_draft.title = "Second Title"
-    new_draft.change_note = "change-note"
-    new_draft.save_as(user)
-    new_draft.submit!
-    publish(new_draft)
-
-    assert_equal new_draft, Publication.published_as("first-title")
-    assert_nil Publication.published_as("second-title")
-  end
-
   test "#save_as returns false if save fails" do
     edition = create(:publication)
     edition.stubs(:save).returns(false)

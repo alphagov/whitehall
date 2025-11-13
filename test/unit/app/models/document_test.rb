@@ -312,6 +312,18 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal document.id.to_s, document.reload.slug
   end
 
+  test "#update_slug_if_possible can update the slug even if the document has ever been published" do
+    published_edition = create(:published_publication)
+    document = published_edition.document
+    original_slug = document.slug
+    new_title = "Updated title"
+
+    document.update_slug_if_possible(new_title)
+
+    assert_not_equal original_slug, document.reload.slug
+    assert_equal "updated-title", document.reload.slug
+  end
+
   ["unpublished", Edition::PUBLICLY_VISIBLE_STATES, Edition::PRE_PUBLICATION_STATES].flatten.each do |edition_state|
     test "#has_republishable_editions? returns true when there's an #{edition_state} edition" do
       document = create(:document, editions: [build(:"#{edition_state}_edition")])
