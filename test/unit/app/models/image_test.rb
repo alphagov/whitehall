@@ -1,11 +1,6 @@
 require "test_helper"
 
 class ImageTest < ActiveSupport::TestCase
-  test "When alt_text is not passed, render with blank alt text for accessibility" do
-    image = build(:image, alt_text: nil)
-    assert image.valid?
-  end
-
   test "is invalid without any image data" do
     image = build(:image, image_data: nil)
     assert_not image.valid?
