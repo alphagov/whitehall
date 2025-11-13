@@ -149,3 +149,8 @@ Then(/^the promotional features should be in the following order:$/) do |promoti
     expect(promotional_feature.title.to_s).to eq(promotion_feature_ids[index])
   end
 end
+
+def create_feature_item_for(organisation)
+  promotional_feature = create(:promotional_feature, organisation:)
+  create(:promotional_feature_item, promotional_feature:)
+end
