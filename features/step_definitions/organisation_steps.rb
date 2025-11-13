@@ -245,3 +245,8 @@ And(/^I visit the the organisation feature page for "([^"]*)"$/) do |name|
   visit admin_organisation_path(organisation)
   click_link "Features"
 end
+
+def visit_organisation_about_page(name)
+  organisation = Organisation.find_by!(name:)
+  visit organisation_corporate_information_pages_path(organisation)
+end
