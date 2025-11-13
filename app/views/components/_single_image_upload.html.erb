@@ -3,7 +3,6 @@
   page_errors ||= false
   data_attributes ||= {}
   image_src ||= nil
-  image_alt ||= nil
   image_cache ||= nil
   title ||= "Image (required)"
   alt_text_name ||= "#{name}[image_alt_text]"
@@ -11,7 +10,6 @@
   image_name ||= "#{name}[image]"
   image_id ||= "#{id}_image"
   image_cache_name ||= "#{name}[image_cache]"
-  remove_alt_text_field ||= false
   image_uploaded ||= false
   image_hint ||= nil
 
@@ -36,8 +34,8 @@
     <% if page_errors %>
       <%= hidden_field_tag image_cache_name, image_cache %>
       <p class="govuk-body"><strong>File name: </strong><%= filename %></p>
-      <% unless remove_alt_text_field %>
-        <p class="govuk-body"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+      <% if local_assigns.key?(:image_alt) %>
+        <p class="govuk-body"><strong>Alt text: </strong><%= local_assigns[:image_alt] == "" ? "None" : local_assigns[:image_alt] %></p>
       <% end %>
     <% else %>
       <div class="govuk-grid-row app-c-single-image-upload__uploaded-image">
@@ -48,9 +46,9 @@
             <span class="govuk-tag govuk-tag--green">Processing</span>
           <% end %>
         </div>
-        <% unless remove_alt_text_field %>
+        <% if local_assigns.key?(:image_alt) %>
           <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= image_alt == "" ? "None" : image_alt %></p>
+            <p class="govuk-body govuk-!-margin-0"><strong>Alt text: </strong><%= local_assigns[:image_alt] == "" ? "None" : local_assigns[:image_alt] %></p>
           </div>
         <% end %>
       </div>
@@ -77,14 +75,14 @@
     error_items: error_items,
   } %>
 
-  <% unless remove_alt_text_field %>
+  <% if local_assigns.key?(:image_alt) %>
     <%= render "govuk_publishing_components/components/input", {
       label: {
         text: "Image description (alt text)",
       },
       name: alt_text_name,
       id: alt_text_id,
-      value: image_alt,
+      value: local_assigns[:image_alt],
     } %>
   <% end %>
 <% end %>
