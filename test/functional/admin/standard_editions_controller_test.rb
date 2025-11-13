@@ -138,6 +138,29 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_dom "h1", "Preview document type change"
   end
 
+  view_test "PATCH apply_change_type succeeds if user has permission and params are valid" do
+    original_document_type = build_configurable_document_type("original_document_type")
+    new_document_type = build_configurable_document_type("new_document_type")
+    ConfigurableDocumentType.setup_test_types(original_document_type.merge(new_document_type))
+    edition = create(:draft_standard_edition, configurable_document_type: "original_document_type")
+    StandardEdition.any_instance.stubs(:update_configurable_document_type).returns(true)
+
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_document_type" }
+    assert_redirected_to admin_standard_edition_path(edition)
+    assert_equal "Document type changed successfully.", flash[:notice]
+  end
+
+  view_test "PATCH apply_change_type fails if params aren't valid" do
+    original_document_type = build_configurable_document_type("original_document_type")
+    new_document_type = build_configurable_document_type("new_document_type")
+    ConfigurableDocumentType.setup_test_types(original_document_type.merge(new_document_type))
+    edition = create(:published_standard_edition, configurable_document_type: "original_document_type")
+    edition.stubs(:update_configurable_document_type).returns(false)
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_document_type" }
+    assert_redirected_to change_type_preview_admin_standard_edition_path(edition, configurable_document_type: "new_document_type")
+    assert_equal "Could not change document type.", flash[:alert]
+  end
+
   view_test "GET edit renders default fields for a standard document" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

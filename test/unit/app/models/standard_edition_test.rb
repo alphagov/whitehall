@@ -1,6 +1,8 @@
 require "test_helper"
 
 class StandardEditionTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   test "does not require some of the standard edition fields" do
     page = StandardEdition.new
     assert_not page.body_required?
@@ -246,5 +248,121 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert page.worldwide_organisation_association_required?
     assert_not page.world_location_association_required?
     assert_not page.respond_to?(:organisation_association_required?) # ignores required value for other associations
+  end
+
+  describe "#update_configurable_document_type" do
+    it "updates the configurable document type when in draft state" do
+      initial_type = build_configurable_document_type("initial_type",
+                                                      {
+                                                        "settings" => {
+                                                          "configurable_document_group" => "test_group",
+                                                        },
+                                                      })
+      new_type = build_configurable_document_type("new_type",
+                                                  {
+                                                    "settings" => {
+                                                      "configurable_document_group" => "test_group",
+                                                    },
+                                                  })
+      ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
+      page = create(:draft_standard_edition, configurable_document_type: "initial_type")
+      assert_equal "initial_type", page.configurable_document_type
+      page.update_configurable_document_type("new_type")
+      assert_equal "new_type", page.configurable_document_type
+    end
+
+    test "avoids updating document type if not in draft state" do
+      initial_type = build_configurable_document_type("initial_type")
+      new_type = build_configurable_document_type("new_type")
+      ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
+      page = create(:published_standard_edition, configurable_document_type: "initial_type")
+      result = page.update_configurable_document_type("new_type")
+      assert_not result
+      assert_equal "initial_type", page.configurable_document_type
+    end
+
+    test "avoids updating document type if document type is invalid" do
+      test_type = build_configurable_document_type("foo")
+      ConfigurableDocumentType.setup_test_types(test_type)
+      page = create(:draft_standard_edition, configurable_document_type: "foo")
+      result = page.update_configurable_document_type("non_existent_type")
+      assert_not result
+      assert_equal "foo", page.configurable_document_type
+    end
+
+    test "avoids updating document type if it is not in the same configurable_document_group" do
+      initial_type = build_configurable_document_type(
+        "initial_type", {
+          "settings" => {
+            "configurable_document_group" => "group_1",
+          },
+        }
+      )
+      new_type = build_configurable_document_type(
+        "new_type", {
+          "settings" => {
+            "configurable_document_group" => "group_2",
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
+      page = create(:draft_standard_edition, configurable_document_type: "initial_type")
+      result = page.update_configurable_document_type("new_type")
+      assert_not result
+      assert_equal "initial_type", page.configurable_document_type
+    end
+
+    test "drops any invalid properties from block content after changing document type" do
+      initial_type = build_configurable_document_type(
+        "initial_type", {
+          "schema" => {
+            "properties" => {
+              "initial_property" => {
+                "title" => "Initial Property",
+                "type" => "string",
+              },
+              "common_property" => {
+                "title" => "Common Property",
+                "type" => "string",
+              },
+            },
+          },
+          "settings" => {
+            "configurable_document_group" => "common_group",
+          },
+        }
+      )
+      new_type = build_configurable_document_type(
+        "new_type", {
+          "schema" => {
+            "properties" => {
+              "new_property" => {
+                "title" => "New Property",
+                "type" => "string",
+              },
+              "common_property" => {
+                "title" => "Common Property",
+                "type" => "string",
+              },
+            },
+          },
+          "settings" => {
+            "configurable_document_group" => "common_group",
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
+      page = create(:draft_standard_edition,
+                    configurable_document_type: "initial_type",
+                    block_content: { initial_property: "value", common_property: "common value" })
+      page.update_configurable_document_type("new_type")
+      page = StandardEdition.find(page.id) # reload to clear any cached block_content
+      assert_equal({
+        "test_attribute" => nil, # from the factory
+        "new_property" => nil, # from the new type
+        "common_property" => "common value", # retained from previous type
+        # initial_property removed
+      }, page.block_content.to_h)
+    end
   end
 end

@@ -37,12 +37,8 @@ class Admin::StandardEditionsController < Admin::EditionsController
   def change_type
     find_edition
 
-    @available_types = []
-    if (group = ConfigurableDocumentType.find(@edition.configurable_document_type).settings["configurable_document_group"])
-      @available_types = ConfigurableDocumentType.children_for(group)
-        .reject { |type| type.key == @edition.configurable_document_type }
-        .select { |type| can?(current_user, type) }
-    end
+    @available_types = ConfigurableDocumentType.convertible_from(@edition.configurable_document_type)
+      .select { |type| can?(current_user, type) }
   end
 
   def change_type_preview
@@ -51,6 +47,17 @@ class Admin::StandardEditionsController < Admin::EditionsController
     new_type_id = params.fetch(:configurable_document_type)
     @old_type = ConfigurableDocumentType.find(@edition.configurable_document_type)
     @new_type = ConfigurableDocumentType.find(new_type_id)
+  end
+
+  def apply_change_type
+    find_edition
+    new_type_id = params.fetch(:configurable_document_type)
+
+    if @edition.update_configurable_document_type(new_type_id)
+      redirect_to admin_standard_edition_path(@edition), notice: "Document type changed successfully."
+    else
+      redirect_to change_type_preview_admin_standard_edition_path(@edition, configurable_document_type: new_type_id), alert: "Could not change document type."
+    end
   end
 
 private

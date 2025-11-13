@@ -29,6 +29,13 @@ class StandardEdition < Edition
     PublishingApi::StandardEditionPresenter
   end
 
+  def update_configurable_document_type(new_type_key)
+    return false if state != "draft" || !ConfigurableDocumentType.convertible_from(configurable_document_type).map(&:key).include?(new_type_key)
+
+    self.configurable_document_type = new_type_key
+    save!(validate: false)
+  end
+
   def body_required?
     false
   end

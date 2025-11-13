@@ -302,6 +302,7 @@ Whitehall::Application.routes.draw do
         member do
           get :change_type
           get :change_type_preview
+          patch :apply_change_type
         end
 
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do

@@ -25,7 +25,8 @@
           ),
         ) %>
 
-    <%= form_with method: "get", url: "#TODO" do %>
+    <%= form_with method: "patch", url: apply_change_type_admin_standard_edition_path(@edition) do %>
+      <%= hidden_field_tag :configurable_document_type, @new_type.key %>
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
           text: "Confirm document type change",
