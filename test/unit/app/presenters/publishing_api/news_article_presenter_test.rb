@@ -235,7 +235,6 @@ module PublishingApi::NewsArticlePresenterTest
         has_lead_image?: true,
         lead_image_url: "/foo",
         high_resolution_lead_image_url: "/foo-large",
-        lead_image_alt_text: "Bar",
         lead_image_caption: "Baz",
         images: [build(:image)],
         lead_image: build(:image),
@@ -244,13 +243,11 @@ module PublishingApi::NewsArticlePresenterTest
 
     test "image" do
       expected_image_caption = "Baz"
-      expected_image_alt_text = "Bar"
 
       expected_image = {
         high_resolution_url: "/foo-large",
         url: "/foo",
         caption: expected_image_caption,
-        alt_text: expected_image_alt_text,
       }
 
       assert_details_attribute :image, expected_image

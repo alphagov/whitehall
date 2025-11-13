@@ -141,7 +141,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal(
       {
         url: expected_image_url,
-        alt_text: "Organisation of Things",
       },
       presented_item.content[:details][:logo][:image],
     )
