@@ -12,7 +12,7 @@ Feature: Retagging documents to different organisations
     And I submit my CSV of documents to be retagged
     Then I can see a summary of the proposed changes
     And my CSV input should be in a hidden field ready to confirm retagging
-    And when I click "Publish changes" on this retagging screen
+    And when I click "Publish changes"
     Then I am redirected to the retagging index page
     And I see a confirmation message that my documents are being retagged
     And the changes should have been actioned

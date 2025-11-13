@@ -1,0 +1,76 @@
+[
+  {
+    "key": "test_type_1",
+    "title": "Test configurable document type one",
+    "description": "A test configurable document on GOV.UK",
+    "schema": {
+      "properties": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "type": "string",
+          "format": "govspeak"
+        },
+        "image": {
+          "title": "Image",
+          "description": "The image for the page",
+          "type": "integer",
+          "format": "image_select"
+        }
+      }
+    },
+    "associations": [],
+    "settings": {
+      "edit_screens": {
+        "document": ["body"],
+        "images": ["image"]
+      },
+      "base_path_prefix": "/government/test-type",
+      "publishing_api_schema_name": "test_type",
+      "publishing_api_document_type": "test_type_1",
+      "configurable_document_group": "test_group",
+      "rendering_app": "government-frontend",
+      "organisations": null,
+      "backdating_enabled": false,
+      "translations_enabled": true,
+      "images_enabled": true
+    }
+  },
+  {
+    "key": "test_type_2",
+    "title": "Test configurable document type two",
+    "description": "A test configurable document on GOV.UK",
+    "schema": {
+      "properties": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "type": "string",
+          "format": "govspeak"
+        },
+        "image": {
+          "title": "Image",
+          "description": "The image for the page",
+          "type": "integer",
+          "format": "image_select"
+        }
+      }
+    },
+    "associations": [],
+    "settings": {
+      "edit_screens": {
+        "document": ["body"],
+        "images": ["image"]
+      },
+      "base_path_prefix": "/government/test-type",
+      "publishing_api_schema_name": "test_type",
+      "publishing_api_document_type": "test_type_2",
+      "configurable_document_group": "test_group",
+      "rendering_app": "government-frontend",
+      "organisations": null,
+      "backdating_enabled": false,
+      "translations_enabled": true,
+      "images_enabled": true
+    }
+  }
+]
