@@ -84,7 +84,7 @@ module PublishingApi
           formatted_title:,
           crest:,
           image:,
-        }.compact!,
+        }.compact,
         foi_exempt:,
         ordered_corporate_information_pages: corporate_information_pages,
         secondary_corporate_information_pages:,
@@ -146,12 +146,7 @@ module PublishingApi
     end
 
     def crest
-      crest_is_publishable? ? item.organisation_logo_type.class_name : nil
-    end
-
-    def crest_is_publishable?
-      class_name = item.organisation_logo_type.class_name
-      class_name != "no-identity" && class_name != "custom"
+      item.organisation_logo_type.class_name
     end
 
     def image
