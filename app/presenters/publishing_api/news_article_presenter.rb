@@ -124,7 +124,6 @@ module PublishingApi
             high_resolution_url: news_article.high_resolution_lead_image_url,
             url: news_article.lead_image_url,
             caption: image_caption,
-            alt_text: image_alt_text,
           },
         }
       end
@@ -135,10 +134,6 @@ module PublishingApi
 
       delegate :lead_image_caption, to: :news_article
       alias_method :image_caption, :lead_image_caption
-
-      def image_alt_text
-        news_article.lead_image_alt_text.squish
-      end
     end
   end
 end
