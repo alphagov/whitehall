@@ -29,7 +29,7 @@ module Edition::CustomLeadImage
 private
 
   def oldest_image_that_can_be_lead_image
-    images.includes(:image_data).detect { |image| !image.svg? && !image.requires_crop? }
+    images.includes(:image_data).detect(&:can_be_lead_image?)
   end
 
   def remove_lead_image

@@ -38,6 +38,10 @@ class Image < ApplicationRecord
     url(variant)
   end
 
+  def can_be_lead_image?
+    !requires_crop? && bitmap?
+  end
+
 private
 
   def destroy_image_data_if_required
