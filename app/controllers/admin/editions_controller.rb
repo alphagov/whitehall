@@ -27,7 +27,7 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:see, edition_class || Edition)
     when "show"
       enforce_permission!(:see, @edition)
-    when "new", "choose_type"
+    when "new", "choose_type", "change_type"
       enforce_permission!(:create, edition_class || Edition)
     when "create"
       enforce_permission!(:create, @edition)

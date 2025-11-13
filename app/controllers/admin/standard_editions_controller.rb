@@ -34,6 +34,17 @@ class Admin::StandardEditionsController < Admin::EditionsController
     end
   end
 
+  def change_type
+    find_edition
+
+    @available_types = []
+    if (group = ConfigurableDocumentType.find(@edition.configurable_document_type).settings["configurable_document_group"])
+      @available_types = ConfigurableDocumentType.children_for(group)
+        .reject { |type| type.key == @edition.configurable_document_type }
+        .select { |type| can?(current_user, type) }
+    end
+  end
+
 private
 
   def edition_class
