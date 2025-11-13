@@ -63,13 +63,6 @@ jobs:
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
         run: bundle exec ./bin/cucumber-ci
 
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v5
-        if: failure()
-        with:
-          name: capybara-screenshots
-          path: tmp/capybara/capybara-*.png
-
   run-cucumber:
     name: Run Cucumber
     needs: feature-test-matrix
