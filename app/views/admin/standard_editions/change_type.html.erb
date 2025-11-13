@@ -34,7 +34,7 @@
   <% content_for :page_title, page_heading %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <%= form_with method: "get", url: "#TBC" do %>
+      <%= form_with method: "get", url: change_type_preview_admin_standard_edition_path(@edition) do %>
         <%= render "govuk_publishing_components/components/radio", {
           heading: page_heading,
           heading_level: 1,

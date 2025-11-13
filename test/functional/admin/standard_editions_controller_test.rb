@@ -128,6 +128,16 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_dom "p", "It is not possible to change the type of this document."
   end
 
+  view_test "GET change_type_preview shows the document type change preview" do
+    old_type = build_configurable_document_type("old_type", { "title" => "Old Type" })
+    new_type = build_configurable_document_type("new_type", { "title" => "New Type", "settings" => { "configurable_document_group" => "group_type" } })
+    ConfigurableDocumentType.setup_test_types(old_type.merge(new_type))
+    edition = create(:standard_edition, configurable_document_type: "old_type")
+    get :change_type_preview, params: { id: edition.id, configurable_document_type: "new_type" }
+    assert_response :ok
+    assert_dom "h1", "Preview document type change"
+  end
+
   view_test "GET edit renders default fields for a standard document" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

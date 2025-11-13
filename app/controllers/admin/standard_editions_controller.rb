@@ -45,6 +45,14 @@ class Admin::StandardEditionsController < Admin::EditionsController
     end
   end
 
+  def change_type_preview
+    find_edition
+
+    new_type_id = params.fetch(:configurable_document_type)
+    @old_type = ConfigurableDocumentType.find(@edition.configurable_document_type)
+    @new_type = ConfigurableDocumentType.find(new_type_id)
+  end
+
 private
 
   def edition_class
