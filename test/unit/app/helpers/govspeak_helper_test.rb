@@ -288,18 +288,18 @@ class GovspeakHelperTest < ActionView::TestCase
 
   it "adds numbers to h2 headings" do
     input = "# main\n\n## first\n\n## second"
-    output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first"> <span class="number">1. </span>first</h2> <h2 id="second"> <span class="number">2. </span>second</h2></div>'
-    assert_equivalent_html output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
+    output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first">1. first</h2> <h2 id="second">2. second</h2></div>'
+    assert_equivalent_html output, collapse_whitespace(govspeak_to_html(input, auto_numbered_headers: true))
   end
 
   it "adds sub-numbers to h3 tags" do
     input = "## first\n\n### first point one\n\n### first point two\n\n## second\n\n### second point one"
-    expected_output1 = '<h2 id="first"> <span class="number">1. </span>first</h2>'
-    expected_output_1a = '<h3 id="first-point-one"> <span class="number">1.1 </span>first point one</h3>'
-    expected_output_1b = '<h3 id="first-point-two"> <span class="number">1.2 </span>first point two</h3>'
-    expected_output2 = '<h2 id="second"> <span class="number">2. </span>second</h2>'
-    expected_output_2a = '<h3 id="second-point-one"> <span class="number">2.1 </span>second point one</h3>'
-    actual_output = collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
+    expected_output1 = '<h2 id="first">1. first</h2>'
+    expected_output_1a = '<h3 id="first-point-one">1.1 first point one</h3>'
+    expected_output_1b = '<h3 id="first-point-two">1.2 first point two</h3>'
+    expected_output2 = '<h2 id="second">2. second</h2>'
+    expected_output_2a = '<h3 id="second-point-one">2.1 second point one</h3>'
+    actual_output = collapse_whitespace(govspeak_to_html(input, auto_numbered_headers: true))
     assert_match %r{#{expected_output1}}, actual_output
     assert_match %r{#{expected_output_1a}}, actual_output
     assert_match %r{#{expected_output_1b}}, actual_output
@@ -309,13 +309,13 @@ class GovspeakHelperTest < ActionView::TestCase
 
   it "should not corrupt character encoding of numbered headings" do
     input = "# café"
-    actual_output = govspeak_to_html(input, heading_numbering: :auto)
+    actual_output = govspeak_to_html(input, auto_numbered_headers: true)
     assert actual_output.include?("café</h1>")
   end
 
   it "should not turn h4 headings into h3s" do
     input = "#### Level 4 Heading"
-    actual_output = govspeak_to_html(input, heading_numbering: :auto)
+    actual_output = govspeak_to_html(input, auto_numbered_headers: false)
     assert_equal "<div class=\"govspeak\"><h4 id=\"level-4-heading\">Level 4 Heading</h4>\n</div>", actual_output
   end
 
@@ -353,20 +353,20 @@ class GovspeakHelperTest < ActionView::TestCase
 
   it "handles leading numbers and symbols" do
     input = "## £100,000 header text here"
-    expected_output = '<div class="govspeak"><h2 id="header-text-here"><span class="number">1. </span>£100,000 header text here</h2></div>'
-    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
+    expected_output = '<div class="govspeak"><h2 id="header-text-here">1. £100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, auto_numbered_headers: true))
   end
 
   it "can manage a custom ID in the govspeak" do
     input = "## £100,000 header text here {#custom-id}"
-    expected_output = '<div class="govspeak"><h2 id="custom-id"><span class="number">1. </span>£100,000 header text here</h2></div>'
-    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
+    expected_output = '<div class="govspeak"><h2 id="custom-id">1. £100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, auto_numbered_headers: true))
   end
 
   it "can manage a custom ID with leading numbers" do
     input = "## £100,000 header text here {#10-custom-id}"
-    expected_output = '<div class="govspeak"><h2 id="custom-id"><span class="number">1. </span>£100,000 header text here</h2></div>'
-    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, heading_numbering: :auto))
+    expected_output = '<div class="govspeak"><h2 id="custom-id">1. £100,000 header text here</h2></div>'
+    assert_equivalent_html expected_output, collapse_whitespace(govspeak_to_html(input, auto_numbered_headers: true))
   end
 
   it "converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id> with defined header level" do

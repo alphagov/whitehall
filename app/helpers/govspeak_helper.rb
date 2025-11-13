@@ -8,7 +8,7 @@ module GovspeakHelper
     attachments = prepare_attachments(options[:attachments] || [])
 
     processed_govspeak = preprocess_govspeak(govspeak, attachments, options)
-    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale])
+    html = markup_to_nokogiri_doc(processed_govspeak, images, attachments, locale: options[:locale], auto_numbered_headers: options[:auto_numbered_headers])
       .to_html
 
     "<div class=\"govspeak\">#{html}</div>".html_safe
@@ -35,7 +35,7 @@ module GovspeakHelper
     locale = html_attachment.translated_locales.first
 
     options = { locale:, contact_heading_tag: "h4" }
-    options.merge!(heading_numbering: :auto) unless html_attachment.manually_numbered_headings?
+    options.merge!(auto_numbered_headers: true) unless html_attachment.manually_numbered_headings?
 
     govspeak_to_html(html_attachment.body, options.merge(images: images))
   end
@@ -90,9 +90,8 @@ module GovspeakHelper
     govspeak = ContentBlock::FindAndReplaceEmbedCodesService.call(govspeak) if options[:preview]
     govspeak = convert_attachment_syntax(govspeak, attachments)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
-    govspeak = replace_internal_admin_links(govspeak, options[:preview] == true)
-    govspeak = add_heading_numbers(govspeak) if options[:heading_numbering] == :auto
-    govspeak
+    govspeak = sanitize_custom_ids(govspeak)
+    replace_internal_admin_links(govspeak, options[:preview] == true)
   end
 
 private
@@ -104,6 +103,12 @@ private
       else
         ""
       end
+    end
+  end
+
+  def sanitize_custom_ids(govspeak)
+    govspeak.gsub(/{#\d+-?([^}]*)}/) do
+      "{\##{Regexp.last_match(1)}}"
     end
   end
 
@@ -135,35 +140,6 @@ private
     end
   end
 
-  def add_heading_numbers(govspeak)
-    h2 = 0
-    h3 = 0
-
-    govspeak.gsub(/^(##+)\s*(.+)$/) do
-      hashes = Regexp.last_match(1)
-      heading_text = Regexp.last_match(2).strip
-
-      # Heading numbers aren't applied for H4s and below, so skip replacement.
-      next "#{hashes} #{heading_text}" if hashes.length > 3
-
-      if hashes == "##"
-        h2 += 1
-        h3 = 0
-        num = "#{h2}."
-      else # "###"
-        h2 = 1 if h2.zero?
-        h3 += 1
-        num = "#{h2}.#{h3}"
-      end
-
-      custom_id_match = heading_text.match(/\{#([^}]+)\}/)
-      clean_heading_text = custom_id_match ? heading_text.gsub(/\s*\{#[^}]+\}/, "") : heading_text
-      id = (custom_id_match&.[](1) || clean_heading_text).gsub(/^[^a-zA-Z]+/, "").parameterize
-
-      "#{hashes} <span class=\"number\">#{num} </span>#{clean_heading_text} {##{id}}"
-    end
-  end
-
   def markup_to_nokogiri_doc(govspeak, images = [], attachments = [], options = {})
     govspeak = build_govspeak_document(govspeak, images, attachments, options)
     doc = Nokogiri::HTML::Document.new
@@ -192,6 +168,7 @@ private
 
   def build_govspeak_document(govspeak, images = [], attachments = [], options = {})
     locale = options[:locale]
+    auto_numbered_headers = options[:auto_numbered_headers]
 
     Govspeak::Document.new(
       govspeak,
@@ -199,6 +176,7 @@ private
       attachments:,
       document_domains: [Whitehall.admin_host, Whitehall.public_host],
       locale:,
+      auto_numbered_headers:,
     )
   end
 end

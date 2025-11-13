@@ -1,10 +1,10 @@
 module Presenters
   module PublishingApi
     module PayloadHeadingsHelper
-      def extract_headings(govspeak)
+      def extract_headings(govspeak, options = {})
         return {} unless govspeak
 
-        body_headings = Govspeak::Document.new(govspeak).structured_headers
+        body_headings = Govspeak::Document.new(govspeak, options).structured_headers
         headers = remove_empty_headers(body_headings.map(&:to_h))
 
         headers.empty? ? {} : { headers: headers }

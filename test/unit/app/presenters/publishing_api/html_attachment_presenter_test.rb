@@ -61,7 +61,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     %i[organisations parent primary_publishing_organisation government].each { |k| assert_includes(expected_content[:links].keys, k) }
   end
 
-  test "it includes headers when headers are present in body" do
+  test "it includes auto-numbered headers when headers are present in body" do
     html_attachment = create(
       :html_attachment,
       title: "Some html attachment",
@@ -72,7 +72,28 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
 
     expected_headers = [
       {
-        text: "Some header",
+        text: "1. Some header",
+        level: 2,
+        id: "some-header",
+      },
+    ]
+
+    assert_equal expected_headers, presented_html_attachment.content[:details][:headers]
+  end
+
+  test "it includes manually-numbered headers when headers are present in body and manual numbering is on" do
+    html_attachment = create(
+      :html_attachment,
+      title: "Some html attachment",
+      body: "##25. Some header\n\nSome content",
+      manually_numbered_headings: true,
+    )
+
+    presented_html_attachment = PublishingApi::HtmlAttachmentPresenter.new(html_attachment)
+
+    expected_headers = [
+      {
+        text: "25. Some header",
         level: 2,
         id: "some-header",
       },
