@@ -9,7 +9,6 @@
 
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
-    <p class="govuk-body"><strong>Alt text: </strong><%= alt_text %></p>
     <% if image.image_data&.bitmap? && image.image_data&.requires_crop? %>
       <span class="govuk-tag govuk-tag--red">Requires crop</span>
     <% else %>

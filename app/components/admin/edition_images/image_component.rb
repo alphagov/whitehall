@@ -19,10 +19,6 @@ private
     image.caption.presence || "None"
   end
 
-  def alt_text
-    image.alt_text.presence || "None"
-  end
-
   def image_markdown
     edition.images_have_unique_filenames? ? "[Image: #{image.filename}]" : "!!#{find_image_index + 1}"
   end

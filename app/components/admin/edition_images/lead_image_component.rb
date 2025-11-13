@@ -39,10 +39,6 @@ private
     lead_image.caption.presence || "None"
   end
 
-  def alt_text
-    lead_image.alt_text.presence || "None"
-  end
-
   def show_default_lead_image?
     if case_study?
       edition.emphasised_organisation_default_image_available? && [nil, "organisation_image"].include?(edition.image_display_option)

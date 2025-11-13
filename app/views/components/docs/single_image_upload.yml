@@ -26,8 +26,6 @@ examples:
     data:
       id: single-image-upload-with-title
       name: ingle-image-upload-with-title
-      alt_text_name: klass[logo_alt_text]
-      alt_text_id: klass_logo_alt_text
       image_name: klass[logo]
       image_id: klass_logo
       image_cache_name: klass[logo_cache]
@@ -42,20 +40,12 @@ examples:
       id: single-image-upload-with-image
       name: single-image-upload-with-image
       image_src: https://assets.publishing.service.gov.uk/media/11aa22bbbbbb33cccccccccc/No10DoorAjar-2.jpg
-      image_alt: Some optional text that describes the image
       image_uploaded: True if all assets have finished uploading
   with_errors_on_page:
     data:
       id: single-image-upload-with-errors-on-page
       name: single-image-upload-with-errors-on-page
-      image_alt: Some optional text that describes the image
       page_errors: true
       image_src: https://assets.publishing.service.gov.uk/media/11aa22bbbbbb33cccccccccc/No10DoorAjar-2.jpg
       filename: No10DoorAjar-2.jpg,
       image_cache: 1686052895-990540429428995-0004-6416/No10DoorAjar-2.jpg
-  with_no_alt_text_fields:
-    data:
-      id: single-image-upload-with-no-alt-text-field
-      name: single-image-upload-with-no-alt-text-field
-      image_src: https://assets.publishing.service.gov.uk/media/11aa22bbbbbb33cccccccccc/No10DoorAjar-2.jpg
-      remove_alt_text_field: true
