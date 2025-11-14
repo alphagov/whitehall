@@ -4,10 +4,11 @@
   padding: true,
 } %>
 
+<% guidance = lead_image_guidance %>
 <%= render "govuk_publishing_components/components/details", {
   title: "Using a lead image",
 } do %>
-  <% lead_image_guidance %>
+  <%= guidance %>
 <% end %>
 
 <% if lead_image.present? %>
