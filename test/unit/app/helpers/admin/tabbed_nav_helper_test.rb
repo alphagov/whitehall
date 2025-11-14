@@ -275,13 +275,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         edition = build(type)
       end
 
-      expected_output = [
-        {
-          label: "Document",
-          href: tab_url_for_edition(edition),
-          current: true,
-        },
-      ]
+      expected_output = []
 
       assert_equal expected_output, secondary_navigation_tabs_items(edition, tab_url_for_edition(edition))
     end

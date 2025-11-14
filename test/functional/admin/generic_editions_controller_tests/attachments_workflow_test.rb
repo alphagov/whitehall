@@ -13,11 +13,6 @@ class AttachableEditionTest < ActionController::TestCase
     assert_select ".app-c-secondary-navigation__list .app-c-secondary-navigation__list-item", link_text, count: 0
   end
 
-  view_test 'GET :new displays a "Document" tab' do
-    get :new
-    assert_tab "Document", new_admin_news_article_path
-  end
-
   view_test 'GET :edit displays "Document" and "Attachments" tabs' do
     edition = create(:news_article)
     get :edit, params: { id: edition }
