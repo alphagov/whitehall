@@ -15,7 +15,7 @@ module Admin::TabbedNavHelper
 
   def edition_nav_items(edition, current_path)
     nav_items = []
-    nav_items << standard_edition_nav_items(edition, current_path)
+    nav_items << standard_edition_nav_items(edition, current_path) if edition.persisted?
     nav_items << attachments_nav_items(edition, current_path) if edition.persisted? && edition.allows_attachments?
     nav_items << images_nav_items(edition, current_path) if edition.persisted? && edition.allows_image_attachments?
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
