@@ -13,17 +13,15 @@ class AttachmentData < ApplicationRecord
 
   delegate :url, :path, to: :file, allow_nil: true
 
+  before_save :create_kept_file
   before_save :update_file_attributes
 
+  validate :new_filename_blank
   validate :file_is_not_blank
   validate :file_is_not_empty
   validate :filename_is_unique
 
-  attr_accessor :attachable
-
-  belongs_to :replaced_by, class_name: "AttachmentData"
-  validate :cant_be_replaced_by_self
-  after_save :handle_to_replace_id
+  attr_accessor :attachable, :keep_or_replace, :new_filename
 
   OPENDOCUMENT_EXTENSIONS = %w[ODT ODP ODS].freeze
 
@@ -191,6 +189,14 @@ class AttachmentData < ApplicationRecord
     AssetManagerAccessLimitation.for(access_limited_object)
   end
 
+  def create_kept_file
+    if keep_or_replace == "keep" && !new_filename_blank && carrierwave_file.present?
+      new_file = CarrierWave::SanitizedFile.new(file)
+      new_file.move_to(File.join(File.dirname(new_file.file.path), new_filename))
+      self.file = new_file
+    end
+  end
+
 private
 
   def filtered_attachments(include_deleted_attachables: false)
@@ -213,7 +219,17 @@ private
     attachable && attachable.attachments.with_filename(filename).first
   end
 
+  def attachment_with_same_new_filename
+    attachable && attachable.attachments.with_filename(new_filename).first
+  end
+
   def filename_is_unique
+    return if keep_or_replace == "keep" && new_filename.present? && !attachment_with_same_new_filename
+
+    if attachment_with_same_new_filename && keep_or_replace == "keep"
+      errors.add(:file, "with name \"#{filename}\" already attached to document")
+    end
+
     if !same_filename_as_replacement? && attachment_with_same_filename && attachment_with_same_filename.attachment_data != self
       errors.add(:file, "with name \"#{filename}\" already attached to document")
     end
@@ -225,5 +241,9 @@ private
 
   def file_is_not_empty
     errors.add(:file, "is an empty file") if file.present? && file.file.zero_size?
+  end
+
+  def new_filename_blank
+    errors.add(:new_filename, :blank) if keep_or_replace == "keep" && new_filename.blank?
   end
 end

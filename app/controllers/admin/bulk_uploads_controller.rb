@@ -15,7 +15,7 @@ class Admin::BulkUploadsController < Admin::AttachmentsController
   end
 
   def create
-    @bulk_upload.build_attachments_from_params(attachments_params)
+    @bulk_upload.build_attachments_from_params(attachments_params_for_upload)
 
     if @bulk_upload.save_attachments
       @bulk_upload.attachments.each do |attachment|
@@ -58,13 +58,17 @@ private
     params.fetch(:bulk_upload, {})[:files]
   end
 
+  def attachments_params_for_upload
+    attachments_params.except(*attachments_params.keys.select { |key| attachments_params[key][:attachment_data_attributes][:keep_or_replace] == "reject" })
+  end
+
   def attachments_params
     create_params.fetch(:attachments, [])
   end
 
   def create_params
     params.fetch(:bulk_upload).permit(attachments: [
-      { attachment_data_attributes: %i[file_cache to_replace_id] },
+      { attachment_data_attributes: %i[file_cache to_replace_id keep_or_replace new_filename] },
       :id,
       :title,
       :locale,
