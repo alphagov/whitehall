@@ -1,7 +1,7 @@
 Feature: Standard Editions
 
   Scenario: Creating a new draft configurable document
-    Given I am a GDS admin
+    Given I am a writer
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined
     When I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
@@ -11,7 +11,7 @@ Feature: Standard Editions
     And the configurable fields on the Document tab are not overwritten
 
   Scenario: Force publishing an existing draft configurable document
-    Given I am a GDS admin
+    Given I am an editor
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined
     When I publish a submitted draft of a test configurable document titled "The history of GOV.UK"
@@ -19,7 +19,7 @@ Feature: Standard Editions
     And a new draft of "The history of GOV.UK" is created with the correct field values
 
   Scenario: Adding translations with all content block types
-    Given I am a GDS admin
+    Given I am a writer
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined with translations enabled
     And I have drafted an English configurable document titled "Digital transformation report"
@@ -30,7 +30,7 @@ Feature: Standard Editions
     And I should see the original English content in "original text" sections
 
   Scenario: Creating a non-English primary locale configurable document
-    Given I am a GDS admin
+    Given I am a writer
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined with translations enabled
     When I create a new "Test configurable document type" with Welsh as the primary locale titled "Strategaeth Ddigidol Cymru"

@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::NewDocumentControllerTest < ActionController::TestCase
   setup do
-    login_as :gds_editor
+    login_as :writer
   end
 
   view_test "GET #index renders the 'New Document' page with the header, all permitted radio selection options and inset text" do
@@ -14,6 +14,18 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     assert_select ".govuk-inset-text", text: "Check the content types guidance if you need more help in choosing a content type." do
       assert_select "a[href='#{Plek.website_root}/guidance/content-design/content-types']", text: "content types guidance"
     end
+  end
+
+  view_test "GET #index renders the Standard Edition option if the feature toggle is on" do
+    @test_strategy ||= Flipflop::FeatureSet.current.test!
+    @test_strategy.switch!(:configurable_document_types, true)
+
+    get :index
+
+    assert_response :success
+    assert_select "input[type=radio][name=new_document_options][value=standard_edition]"
+
+    @test_strategy.switch!(:configurable_document_types, false)
   end
 
   test "POST #new_document_options_redirect redirects legacy edition selections to their expected paths" do
