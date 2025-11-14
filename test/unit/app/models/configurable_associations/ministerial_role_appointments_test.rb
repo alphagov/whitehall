@@ -12,6 +12,23 @@ class MinisterialRoleAppointmentsTest < ActiveSupport::TestCase
     }
     assert_equal expected_links, role_appointments_association.links
   end
+
+  test "it avoids sending duplicate people in the links when more than one role appointment is held by the same person" do
+    person = create(:person)
+    role1 = create(:ministerial_role)
+    role2 = create(:ministerial_role)
+    appointment1 = create(:ministerial_role_appointment, person: person, role: role1)
+    appointment2 = create(:ministerial_role_appointment, person: person, role: role2)
+
+    edition = build(:draft_standard_edition)
+    edition.role_appointments << [appointment1, appointment2]
+    role_appointments_association = ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments)
+    expected_links = {
+      people: [person.content_id],
+      roles: [role1.content_id, role2.content_id],
+    }
+    assert_equal expected_links, role_appointments_association.links
+  end
 end
 
 class MinisterialRoleAppointmentsRenderingTest < ActionView::TestCase
