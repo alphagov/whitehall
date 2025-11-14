@@ -47,7 +47,7 @@
   "settings": {
     "edit_screens": {
       "document": ["body", "lead_paragraph"],
-      "images": ["image"]
+      "images": ["sidebar_image"]
     },
     "base_path_prefix": "/government/history",
     "publishing_api_schema_name": "history",
