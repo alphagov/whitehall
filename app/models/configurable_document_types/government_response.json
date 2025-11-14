@@ -56,7 +56,6 @@
     },
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",
-    "configurable_document_group_ordering": 3,
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "government_response",
     "rendering_app": "frontend",

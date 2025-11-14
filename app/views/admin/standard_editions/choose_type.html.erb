@@ -1,9 +1,9 @@
-<% page_heading = params[:configurable_document_type] ? "New #{params[:configurable_document_type].humanize.downcase}" : "New standard document" %>
+<% page_heading = params[:group] && params[:group] != "all" ? "New #{params[:group].humanize.downcase}" : "New standard document" %>
 <% content_for :page_title, page_heading %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with method: "get", url: choose_type_admin_standard_editions_path do %>
+    <%= form_with method: "get", url: new_admin_standard_edition_path do %>
       <%= render "govuk_publishing_components/components/radio", {
         heading: page_heading,
         heading_level: 1,
@@ -20,11 +20,9 @@
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", { text: "Next" } %>
-        <% if params[:configurable_document_type] %>
-          <%= link_to("Back", choose_type_admin_standard_editions_path, class: "govuk-link govuk-link--no-visited-state") %>
-        <% else %>
-          <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
-        <% end %>
+        <%= link_to("Back", admin_new_document_path, class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
+
       </div>
     <% end %>
   </div>

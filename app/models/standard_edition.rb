@@ -13,10 +13,6 @@ class StandardEdition < Edition
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
-  def self.choose_document_type_form_action
-    "choose_type_admin_standard_editions_path"
-  end
-
   def format_name
     type_instance.label.downcase
   end

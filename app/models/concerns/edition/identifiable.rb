@@ -20,7 +20,7 @@ module Edition::Identifiable
           }
   end
 
-  delegate :slug, :change_history, :content_id, to: :document
+  delegate :slug, :change_history, :content_id, to: :document, allow_nil: true
 
   def linkable?
     document.live? || document.published_very_soon?

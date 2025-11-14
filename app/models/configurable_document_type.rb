@@ -38,17 +38,10 @@ class ConfigurableDocumentType
     types.keys
   end
 
-  def self.groups
-    all.map { |t| t.settings["configurable_document_group"] }.compact.uniq
-  end
+  def self.where_group(group)
+    return all if group == "all"
 
-  def self.children_for(parent_key)
-    all.select { |t| t.settings["configurable_document_group"] == parent_key }
-      .sort_by { |t| t.settings["configurable_document_group_ordering"] || Float::INFINITY }
-  end
-
-  def self.top_level
-    all.reject { |t| t.settings["configurable_document_group"].present? }
+    all.filter { |t| t.settings["configurable_document_group"] == group }
   end
 
   def initialize(type)
