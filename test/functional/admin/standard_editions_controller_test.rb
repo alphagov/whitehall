@@ -86,6 +86,81 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_template "admin/errors/not_found"
   end
 
+  view_test "GET change_type shows only permitted sibling types in the same group as the current edition's type" do
+    current_type = build_configurable_document_type("current_type", { "title" => "Current Type", "settings" => { "configurable_document_group" => "group_type" } })
+    permitted_sibling_type = build_configurable_document_type("permitted_sibling_type", { "title" => "Permitted Sibling Type", "settings" => { "configurable_document_group" => "group_type", "organisations" => [@current_user.organisation.content_id] } })
+    non_permitted_sibling_type = build_configurable_document_type("non_permitted_sibling_type", { "title" => "Non-permitted Sibling Type", "settings" => { "configurable_document_group" => "group_type", "organisations" => [SecureRandom.uuid] } })
+    permitted_non_sibling_type = build_configurable_document_type("permitted_non_sibling_type", { "title" => "Permitted Non-sibling Type", "settings" => { "organisations" => [@current_user.organisation.content_id] } })
+    ConfigurableDocumentType.setup_test_types(
+      current_type.merge(permitted_sibling_type)
+        .merge(non_permitted_sibling_type)
+        .merge(permitted_non_sibling_type),
+    )
+    edition = create(:standard_edition, configurable_document_type: "current_type")
+    get :change_type, params: { id: edition.id }
+    assert_response :ok
+    assert_dom "label", permitted_sibling_type["permitted_sibling_type"]["title"]
+    refute_dom "label", current_type["current_type"]["title"]
+    refute_dom "label", non_permitted_sibling_type["non_permitted_sibling_type"]["title"]
+    refute_dom "label", permitted_non_sibling_type["permitted_non_sibling_type"]["title"]
+  end
+
+  view_test "GET change_type shows error message if the edition is not in a draft state" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    get :change_type, params: { id: edition.id }
+    assert_response :ok
+    assert_dom "h1", "Cannot change document type"
+    assert_dom "p", "You can only change the document type of draft editions."
+  end
+
+  view_test "GET change_type shows error message if the current document type cannot be changed" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    edition = create(:standard_edition, :draft, configurable_document_type: "test_type")
+
+    @controller.instance_variable_set(:@available_types, [])
+
+    get :change_type, params: { id: edition.id }
+    assert_response :ok
+    assert_dom "h1", "Cannot change document type"
+    assert_dom "p", "It is not possible to change the type of this document."
+  end
+
+  view_test "GET change_type_preview shows the document type change preview" do
+    old_type = build_configurable_document_type("old_type", { "title" => "Old Type" })
+    new_type = build_configurable_document_type("new_type", { "title" => "New Type", "settings" => { "configurable_document_group" => "group_type" } })
+    ConfigurableDocumentType.setup_test_types(old_type.merge(new_type))
+    edition = create(:standard_edition, configurable_document_type: "old_type")
+    get :change_type_preview, params: { id: edition.id, configurable_document_type: "new_type" }
+    assert_response :ok
+    assert_dom "h1", "Preview document type change"
+  end
+
+  view_test "PATCH apply_change_type succeeds if user has permission and params are valid" do
+    original_document_type = build_configurable_document_type("original_document_type")
+    new_document_type = build_configurable_document_type("new_document_type")
+    ConfigurableDocumentType.setup_test_types(original_document_type.merge(new_document_type))
+    edition = create(:draft_standard_edition, configurable_document_type: "original_document_type")
+    StandardEdition.any_instance.stubs(:update_configurable_document_type).returns(true)
+
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_document_type" }
+    assert_redirected_to admin_standard_edition_path(edition)
+    assert_equal "Document type changed successfully.", flash[:notice]
+  end
+
+  view_test "PATCH apply_change_type fails if params aren't valid" do
+    original_document_type = build_configurable_document_type("original_document_type")
+    new_document_type = build_configurable_document_type("new_document_type")
+    ConfigurableDocumentType.setup_test_types(original_document_type.merge(new_document_type))
+    edition = create(:published_standard_edition, configurable_document_type: "original_document_type")
+    edition.stubs(:update_configurable_document_type).returns(false)
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_document_type" }
+    assert_redirected_to change_type_preview_admin_standard_edition_path(edition, configurable_document_type: "new_document_type")
+    assert_equal "Could not change document type.", flash[:alert]
+  end
+
   view_test "GET edit renders default fields for a standard document" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

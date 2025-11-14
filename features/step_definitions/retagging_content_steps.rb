@@ -56,10 +56,6 @@ And("my CSV input should be in a hidden field ready to confirm retagging") do
 end
 # rubocop:enable Style/GlobalVars
 
-Then(/when I click "(.+)" on this retagging screen/) do |button_text|
-  click_button button_text
-end
-
 Then("I am redirected to the retagging index page") do
   expect(current_url).to eq(admin_retagging_index_url)
 end

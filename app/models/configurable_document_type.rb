@@ -51,6 +51,15 @@ class ConfigurableDocumentType
     all.reject { |t| t.settings["configurable_document_group"].present? }
   end
 
+  def self.convertible_from(current_type_key)
+    available_types = []
+    if (group = ConfigurableDocumentType.find(current_type_key).settings["configurable_document_group"])
+      available_types = ConfigurableDocumentType.children_for(group)
+        .reject { |type| type.key == current_type_key }
+    end
+    available_types
+  end
+
   def initialize(type)
     @key = type["key"]
     @title = type["title"]

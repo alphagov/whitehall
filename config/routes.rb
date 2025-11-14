@@ -299,6 +299,12 @@ Whitehall::Application.routes.draw do
       resources :standard_editions, path: "standard-editions", except: [:index] do
         get :choose_type, on: :collection, as: :choose_type
 
+        member do
+          get :change_type
+          get :change_type_preview
+          patch :apply_change_type
+        end
+
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do
           get :confirm_destroy, on: :member
         end

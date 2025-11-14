@@ -225,3 +225,60 @@ end
 And(/^the language of the document should be Welsh$/) do
   expect(page).to have_content("Primary language Cymraeg (Welsh)")
 end
+
+Given("the test configurable document type group is defined") do
+  type_definitions = JSON.parse(File.read(Rails.root.join("features/fixtures/test_configurable_document_type_group.json")))
+  types = {}
+  type_definitions.each do |type_definition|
+    types[type_definition["key"]] = type_definition
+  end
+  ConfigurableDocumentType.setup_test_types(types)
+end
+
+And(/^I have created a new "(.+)" draft$/) do |document_type|
+  @standard_edition = create(
+    :draft_standard_edition,
+    {
+      configurable_document_type: document_type,
+      title: "foo",
+      block_content: {
+        "body" => "Some text",
+      },
+    },
+  )
+end
+
+Then(/^I should see a '(.+)' link in the '(.+)' row$/) do |link_text, row_text|
+  edition = @standard_edition || StandardEdition.last
+  visit admin_standard_edition_path(edition)
+  within(".govuk-summary-list__row", text: row_text) do
+    expect(page).to have_link(link_text)
+    @link = page.find_link(link_text)
+  end
+end
+
+Then("clicking it should take me to a form listing the document types I can switch to") do
+  @link.click
+  expect(page).to have_content("Change document type")
+  expect(page).to have_content("Test configurable document type two")
+end
+
+Then("choosing a document type should take me to a preview page summarising the changes") do
+  choose "Test configurable document type two"
+  click_button "Next"
+  expect(page).to have_content("Preview document type change")
+  expect(page).to have_content("Document fields")
+  expect(page).to have_content("Associations")
+end
+
+Then(/when I click "(.+)"/) do |button_text|
+  click_button button_text
+end
+
+Then("the document type should have updated") do
+  within(".gem-c-success-alert") do
+    expect(page).to have_content("Document type changed successfully")
+  end
+
+  expect(page).to have_content("Type of document Standard edition: Test configurable document type two")
+end

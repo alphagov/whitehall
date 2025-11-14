@@ -37,4 +37,13 @@ Feature: Standard Editions
     Then I am on the summary page of the draft titled "Strategaeth Ddigidol Cymru"
     And the language of the document should be Welsh
 
-
+  Scenario: Changing the configurable document type
+    Given I am a GDS admin
+    And the configurable document types feature flag is enabled
+    And the test configurable document type group is defined
+    And I have created a new "test_type_1" draft
+    Then I should see a 'Change' link in the 'Type of document' row
+    And clicking it should take me to a form listing the document types I can switch to
+    And choosing a document type should take me to a preview page summarising the changes
+    And when I click "Confirm document type change"
+    Then the document type should have updated

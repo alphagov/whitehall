@@ -5,9 +5,18 @@
     </div>
 
     <div>
+      <%
+        type_of_document = {
+          field: "Type of document",
+          value: edition_type(@edition),
+        }
+        if @edition.configurable_document_type.present? && @edition.state == "draft"
+          type_of_document[:edit] = { href: change_type_admin_standard_edition_path(@edition) }
+        end
+      %>
       <%= render "govuk_publishing_components/components/summary_list", {
         items: [
-          { field: "Type of document", value: edition_type(@edition) },
+          type_of_document,
           { field: "Status", value: status_text(@edition).html_safe },
           { field: "Change type", value: @edition.minor_change? ? "Minor" : "Major" },
           *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
