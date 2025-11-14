@@ -78,9 +78,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test "returns false for can_be_lead_image? if not bitmap image" do
-    image = create(:image)
-    image_data = image.image_data
-    image_data.stubs(:bitmap?).returns(false)
+    image = create(:image, :svg)
 
     assert_not image.can_be_lead_image?
   end
@@ -88,7 +86,6 @@ class ImageTest < ActiveSupport::TestCase
   test "returns false for can_be_lead_image? if bitmap image that requires crop" do
     image = create(:image)
     image_data = image.image_data
-    image_data.stubs(:bitmap?).returns(true)
     image_data.stubs(:requires_crop?).returns(true)
 
     assert_not image.can_be_lead_image?
@@ -97,9 +94,30 @@ class ImageTest < ActiveSupport::TestCase
   test "returns true for can_be_lead_image? if bitmap image that does not require crop" do
     image = create(:image)
     image_data = image.image_data
-    image_data.stubs(:bitmap?).returns(true)
     image_data.stubs(:requires_crop?).returns(false)
 
     assert image.can_be_lead_image?
+  end
+
+  test "#can_be_used? returns false if bitmap image requires crop" do
+    image = create(:image)
+    image_data = image.image_data
+    image_data.stubs(:requires_crop?).returns(true)
+
+    assert_not image.can_be_used?
+  end
+
+  test "#can_be_used? returns true if bitmap image does not require crop" do
+    image = create(:image)
+    image_data = image.image_data
+    image_data.stubs(:requires_crop?).returns(false)
+
+    assert image.can_be_used?
+  end
+
+  test "#can_be_used? returns true if svg image" do
+    image = create(:image, :svg)
+
+    assert image.can_be_used?
   end
 end
