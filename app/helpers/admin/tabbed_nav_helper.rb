@@ -16,7 +16,8 @@ module Admin::TabbedNavHelper
   def edition_nav_items(edition, current_path)
     nav_items = []
     nav_items << standard_edition_nav_items(edition, current_path)
-    nav_items << images_nav_items(edition, current_path)
+    nav_items << attachments_nav_items(edition, current_path) if edition.persisted? && edition.allows_attachments?
+    nav_items << images_nav_items(edition, current_path) if edition.persisted? && edition.allows_image_attachments?
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
     nav_items << call_for_evidence_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(CallForEvidence)
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
@@ -32,25 +33,26 @@ module Admin::TabbedNavHelper
         href: tab_url_for_edition(edition),
         current: current_path == tab_url_for_edition(edition),
       },
-      *(if edition.persisted? && edition.allows_attachments?
-          [{
-            label: sanitize("Attachments #{tag.span(edition.attachments.count, class: 'govuk-tag govuk-tag--grey') if edition.attachments.count.positive?}"),
-            href: admin_edition_attachments_path(edition),
-            current: current_path == admin_edition_attachments_path(edition),
-          }]
-        end),
+    ]
+  end
+
+  def attachments_nav_items(edition, current_path)
+    [
+      {
+        label: sanitize("Attachments #{tag.span(edition.attachments.count, class: 'govuk-tag govuk-tag--grey') if edition.attachments.count.positive?}"),
+        href: admin_edition_attachments_path(edition),
+        current: current_path == admin_edition_attachments_path(edition),
+      },
     ]
   end
 
   def images_nav_items(edition, current_path)
     [
-      *(if edition.persisted? && edition.allows_image_attachments?
-          [{
-            label: sanitize("Images #{tag.span(edition.images.count, class: 'govuk-tag govuk-tag--grey') if edition.images.count.positive?}"),
-            href: admin_edition_images_path(edition),
-            current: current_path == admin_edition_images_path(edition),
-          }]
-        end),
+      {
+        label: sanitize("Images #{tag.span(edition.images.count, class: 'govuk-tag govuk-tag--grey') if edition.images.count.positive?}"),
+        href: admin_edition_images_path(edition),
+        current: current_path == admin_edition_images_path(edition),
+      },
     ]
   end
 
