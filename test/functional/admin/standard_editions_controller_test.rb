@@ -5,21 +5,17 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
   setup do
     @organisation = create(:organisation)
-    login_as :gds_admin, @organisation
-
-    @test_strategy ||= Flipflop::FeatureSet.current.test!
-    @test_strategy.switch!(:configurable_document_types, true)
+    login_as :writer, @organisation
   end
 
-  teardown do
-    @test_strategy.switch!(:configurable_document_types, false)
-  end
+  test "GET new with a type parameter renders correct template " do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
-  test "GET new returns a not found response when the configurable documents feature flag is disabled" do
-    @test_strategy.switch!(:configurable_document_types, false)
-    get :new
-    assert_response :not_found
-    assert_template "admin/errors/not_found"
+    get :new, params: { configurable_document_type: "test_type" }
+
+    assert_response :ok
+    assert_template "admin/editions/new"
   end
 
   test "GET new returns a not_found response when no configurable_document_type parameter is provided" do

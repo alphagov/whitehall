@@ -1,7 +1,5 @@
 # Trying to figure out how configurable document types work? Check the documentation: `docs/configurable_document_types.md`!
 class Admin::StandardEditionsController < Admin::EditionsController
-  prepend_before_action :prevent_access_when_disabled
-
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
   def choose_type
@@ -41,10 +39,6 @@ private
 
   def edition_class
     StandardEdition
-  end
-
-  def prevent_access_when_disabled
-    render_not_found unless Flipflop.configurable_document_types?
   end
 
   def new_edition_params
