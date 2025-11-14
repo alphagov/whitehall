@@ -38,9 +38,7 @@ class ImageUploader < WhitehallUploader
 
     image_kind_config.versions.each do |v|
       def crop_to_crop_data(from_version)
-        manipulate! do |_img|
-          img = MiniMagick::Image.open(url)
-
+        manipulate! do |img|
           # prevents running crop on variants
           # based on an already cropped variant
           if model.crop_data_to_params.present? && from_version.blank?
