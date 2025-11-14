@@ -54,17 +54,34 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     assert_equal block, factory.build("integer", "lead_image_select")
   end
 
-  test "it filters out svg images" do
+  test "it filters out svg images, in the lead image block" do
     page = StandardEdition.new
     images = [create(:image, :svg), create(:image)]
     page.images = images
-    default_img = create(:image)
-    page.stubs(:default_lead_image).returns(default_img)
-    placeholder_image_url = "http://example.com/placeholder.jpg"
-    page.stubs(:placeholder_image_url).returns(placeholder_image_url)
+
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::LeadImageSelect")
-    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([images.last], default_lead_image: default_img, placeholder_image_url:).returns(block)
+
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([images.last], anything, anything).returns(block)
+    factory.build("integer", "lead_image_select")
+  end
+
+  test "it filters out images that require cropping, in the image blocks" do
+    bitmap_image_that_requires_crop = create(:image)
+    bitmap_image_that_requires_crop.image_data.stubs(:requires_crop?).returns(true)
+    bitmap_image_that_does_not_requires_crop = create(:image)
+    bitmap_image_that_does_not_requires_crop.image_data.stubs(:requires_crop?).returns(false)
+    svg_image = create(:image, :svg)
+    page = StandardEdition.new
+    page.images = [bitmap_image_that_requires_crop, bitmap_image_that_does_not_requires_crop, svg_image]
+
+    factory = ConfigurableContentBlocks::Factory.new(page)
+    block = mock("ConfigurableContentBlocks::LeadImageSelect")
+
+    ConfigurableContentBlocks::ImageSelect.expects(:new).with([bitmap_image_that_does_not_requires_crop, svg_image]).returns(block)
+    factory.build("integer", "image_select")
+
+    ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([bitmap_image_that_does_not_requires_crop], anything, anything).returns(block)
     factory.build("integer", "lead_image_select")
   end
 
