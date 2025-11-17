@@ -65,7 +65,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal summary, migrator.preview
     end
 
-    test "includes deleted editions in the scope" do
+    test "excludes deleted editions from the scope" do
       editor = create(:departmental_editor)
       news_article = create(:published_news_article)
       draft = news_article.create_draft(editor)
@@ -76,7 +76,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       migrator = StandardEditionMigrator.new(scope: NewsArticle.all)
       summary = {
         unique_documents: 1,
-        total_editions: 2,
+        total_editions: 1,
       }
 
       assert_equal summary, migrator.preview
