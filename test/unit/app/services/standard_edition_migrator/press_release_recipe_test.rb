@@ -13,13 +13,12 @@ class PressReleaseRecipeTest < ActiveSupport::TestCase
   describe "running it on StandardEditionMigrator" do
     test "migrates a Press Release edition correctly" do
       ConfigurableDocumentType.setup_test_types("press_release" => JSON.parse(File.read(Rails.root.join("app/models/configurable_document_types/press_release.json"))))
-      recipe = StandardEditionMigrator::PressReleaseRecipe.to_s
+      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigrator::PressReleaseRecipe.new)
       image = build(:image, caption: "This is a caption")
       edition = create(:news_article_press_release, body: "Sample body content", images: [image], lead_image: image)
 
       migrator = StandardEditionMigrator.new(
         scope: Edition.where(id: edition.id),
-        recipe: recipe,
       )
 
       assert_nothing_raised do

@@ -7,9 +7,7 @@ class StandardEditionMigratorWorker < WorkerBase
   # and any failure is unlikely to resolve itself on a retry.
   sidekiq_options queue: "standard_edition_migration", retry: 0
 
-  def perform(document_id, recipe_class_name)
-    @recipe = recipe_class_name.constantize.new
-
+  def perform(document_id)
     ActiveRecord::Base.transaction do
       document = Document.find(document_id)
       migrate_editions!(document)
@@ -27,31 +25,35 @@ private
   def migrate_editions!(document)
     editions_to_migrate = StandardEditionMigratorWorker.editions_for(document)
 
-    latest_edition = document.latest_edition
-    latest_edition_id = latest_edition.id # capture ID because we can't call `.reload` after updating type
-    ensure_payloads_remain_identical(latest_edition) { migrate_edition!(latest_edition) }
+    editions_to_migrate.each do |edition|
+      recipe = StandardEditionMigrator.recipe_for(edition)
 
-    # Migrate any earlier editions without payload checks
-    editions_to_migrate.each { |edition| migrate_edition!(edition) unless edition.id == latest_edition_id }
+      # Skip the payload comparison for superseded or deleted editions
+      if edition.state != "superseded" && !edition.deleted?
+        ensure_payloads_remain_identical(edition, recipe) { migrate_edition!(edition, recipe) }
+      else
+        migrate_edition!(edition, recipe)
+      end
+    end
   end
 
-  def migrate_edition!(edition)
+  def migrate_edition!(edition, recipe)
     edition.update_columns(
       type: "StandardEdition",
-      configurable_document_type: @recipe.configurable_document_type,
+      configurable_document_type: recipe.configurable_document_type,
     )
     edition.translations.each do |translation|
       translation.update_columns(
-        block_content: @recipe.map_legacy_fields_to_block_content(edition, translation),
+        block_content: recipe.map_legacy_fields_to_block_content(edition, translation),
         body: nil, # only applicable to legacy document types
       )
     end
   end
 
-  def ensure_payloads_remain_identical(edition)
+  def ensure_payloads_remain_identical(edition, recipe)
     edition_id = edition.id # capture ID because we can't call `.reload` after updating type
 
-    old_presenter = @recipe.presenter.new(edition)
+    old_presenter = recipe.presenter.new(edition)
     old_content = old_presenter.content
     old_links = old_presenter.links
 
@@ -62,16 +64,16 @@ private
     new_links = new_presenter.links
 
     diff = diff_values(
-      @recipe.ignore_legacy_content_fields(old_content),
-      @recipe.ignore_new_content_fields(new_content),
+      recipe.ignore_legacy_content_fields(old_content),
+      recipe.ignore_new_content_fields(new_content),
     )
     unless diff.to_s.empty?
       raise "Presenter content mismatch after migration for Edition ID #{edition.id}: #{diff}"
     end
 
     diff = diff_values(
-      @recipe.ignore_legacy_links(old_links),
-      @recipe.ignore_new_links(new_links),
+      recipe.ignore_legacy_links(old_links),
+      recipe.ignore_new_links(new_links),
     )
     unless diff.to_s.empty?
       raise "Presenter links mismatch after migration for Edition ID #{edition.id}: #{diff}"
