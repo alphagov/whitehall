@@ -251,27 +251,33 @@ class StandardEditionTest < ActiveSupport::TestCase
   end
 
   describe "#update_configurable_document_type" do
-    it "updates the configurable document type when in draft state" do
-      initial_type = build_configurable_document_type("initial_type",
-                                                      {
-                                                        "settings" => {
-                                                          "configurable_document_group" => "test_group",
-                                                        },
-                                                      })
-      new_type = build_configurable_document_type("new_type",
-                                                  {
-                                                    "settings" => {
-                                                      "configurable_document_group" => "test_group",
-                                                    },
-                                                  })
-      ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
-      page = create(:draft_standard_edition, configurable_document_type: "initial_type")
-      assert_equal "initial_type", page.configurable_document_type
-      page.update_configurable_document_type("new_type")
-      assert_equal "new_type", page.configurable_document_type
+    [
+      { state: :draft_standard_edition },
+      { state: :submitted_standard_edition },
+      { state: :rejected_standard_edition },
+    ].each do |params|
+      it "updates the configurable document type when in #{params[:state].to_s.gsub('_standard_edition', '')} state" do
+        initial_type = build_configurable_document_type("initial_type",
+                                                        {
+                                                          "settings" => {
+                                                            "configurable_document_group" => "test_group",
+                                                          },
+                                                        })
+        new_type = build_configurable_document_type("new_type",
+                                                    {
+                                                      "settings" => {
+                                                        "configurable_document_group" => "test_group",
+                                                      },
+                                                    })
+        ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
+        page = create(params[:state], configurable_document_type: "initial_type")
+        assert_equal "initial_type", page.configurable_document_type
+        page.update_configurable_document_type("new_type")
+        assert_equal "new_type", page.configurable_document_type
+      end
     end
 
-    test "avoids updating document type if not in draft state" do
+    test "avoids updating document type if not in a convertable state" do
       initial_type = build_configurable_document_type("initial_type")
       new_type = build_configurable_document_type("new_type")
       ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
