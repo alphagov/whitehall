@@ -13,13 +13,12 @@ class NewsStoryRecipeTest < ActiveSupport::TestCase
   describe "running it on StandardEditionMigrator" do
     test "migrates a News Story edition correctly" do
       ConfigurableDocumentType.setup_test_types("news_story" => JSON.parse(File.read(Rails.root.join("app/models/configurable_document_types/news_story.json"))))
-      recipe = StandardEditionMigrator::NewsStoryRecipe.to_s
+      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigrator::NewsStoryRecipe.new)
       image = build(:image, caption: "This is a caption")
       edition = create(:published_news_story, body: "Sample body content", images: [image], lead_image: image)
 
       migrator = StandardEditionMigrator.new(
         scope: Edition.where(id: edition.id),
-        recipe: recipe,
       )
 
       assert_nothing_raised do
