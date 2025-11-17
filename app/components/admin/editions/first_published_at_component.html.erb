@@ -14,14 +14,13 @@
             label: "This document has previously been published on another website",
             value: true,
             checked: previously_published,
-            conditional: capture do
-              first_published_at_fields
-            end,
+            conditional: first_published_at_fields,
           },
         ],
       } %>
     <% end %>
   <% elsif edition.can_set_previously_published? %>
+    <% fields_html = first_published_at_fields %>
     <%= render "govuk_publishing_components/components/fieldset", {
       legend_text: "First published",
       heading_size: "l",
@@ -29,9 +28,7 @@
       id: "edition_first_published_at",
       error_message: errors_for_input(edition.errors, :first_published_at),
     } do %>
-      <% capture do %>
-        <%= first_published_at_fields %>
-      <% end %>
+        <%= fields_html %>
     <% end %>
   <% end %>
 </div>
