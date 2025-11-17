@@ -117,4 +117,33 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal({ "body" => body_property, "another_property" => another_property }, document_type.properties_for_edit_screen("document"))
     assert_equal({ "image" => image_property }, document_type.properties_for_edit_screen("images"))
   end
+
+  test ".convertible_from returns the configurable document types in the same group excluding itself" do
+    group_key = "test_group"
+    initial_type = build_configurable_document_type(
+      "initial_type", {
+        "settings" => {
+          "configurable_document_group" => group_key,
+        },
+      }
+    )
+    new_type = build_configurable_document_type(
+      "new_type", {
+        "settings" => {
+          "configurable_document_group" => group_key,
+        },
+      }
+    )
+    other_type = build_configurable_document_type(
+      "other_type", {
+        "settings" => {
+          "configurable_document_group" => "other_group",
+        },
+      }
+    )
+    ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type).merge(other_type))
+    types_we_can_convert_to = ConfigurableDocumentType.convertible_from("initial_type")
+    assert_equal 1, types_we_can_convert_to.size
+    assert_equal "new_type", types_we_can_convert_to.first.key
+  end
 end

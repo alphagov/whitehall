@@ -1,0 +1,23 @@
+<% if lost_property_items.any? || new_property_items.any? %>
+  <%= render "govuk_publishing_components/components/summary_list", {
+    title: "Document fields",
+    items: lost_property_items + new_property_items,
+  } %>
+<% else %>
+  <h3 class="govuk-heading-m">Document fields</h3>
+  <p class="govuk-body">
+    All document fields will be carried over and no additional document fields will need to be populated.
+  </p>
+<% end %>
+
+<% if lost_association_items.any? || new_association_items.any? %>
+  <%= render "govuk_publishing_components/components/summary_list", {
+    title: "Associations",
+    items: lost_association_items + new_association_items,
+  } %>
+<% else %>
+  <h3 class="govuk-heading-m">Associations</h3>
+  <p class="govuk-body">
+    All associations will be carried over and no additional associations will need to be populated.
+  </p>
+<% end %>

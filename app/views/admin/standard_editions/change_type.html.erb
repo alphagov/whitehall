@@ -1,0 +1,61 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition),
+  } %>
+<% end %>
+
+<% if @edition.state != "draft" %>
+
+  <% page_heading = "Cannot change document type" %>
+  <% content_for :page_title, page_heading %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <% content_for :title, page_heading %>
+      <% content_for :title_margin_bottom, 6 %>
+      <p class="govuk-body">You can only change the document type of draft editions.</p>
+    </div>
+  </div>
+
+<% elsif @available_types.empty? %>
+
+  <% page_heading = "Cannot change document type" %>
+  <% content_for :page_title, page_heading %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <% content_for :title, page_heading %>
+      <% content_for :title_margin_bottom, 6 %>
+      <p class="govuk-body">It is not possible to change the type of this document.</p>
+    </div>
+  </div>
+
+<% else %>
+
+  <% page_heading = "Change document type" %>
+  <% content_for :page_title, page_heading %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= form_with method: "get", url: change_type_preview_admin_standard_edition_path(@edition) do %>
+        <%= render "govuk_publishing_components/components/radio", {
+          heading: page_heading,
+          heading_level: 1,
+          name: "configurable_document_type",
+          id: "configurable_document_type",
+          description: "You can change a '#{@edition.configurable_document_type.humanize.downcase}' to one of the following:",
+          items: @available_types.map do |type|
+            {
+              text: type.label,
+              value: type.key,
+              conditional: type.description,
+            }
+          end,
+        } %>
+
+        <div class="govuk-button-group">
+          <%= render "govuk_publishing_components/components/button", { text: "Next" } %>
+          <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>
