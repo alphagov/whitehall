@@ -7,13 +7,16 @@ class StandardEditionMigratorWorker < WorkerBase
   # and any failure is unlikely to resolve itself on a retry.
   sidekiq_options queue: "standard_edition_migration", retry: 0
 
-  def perform(document_id)
+  def perform(document_id, args)
+    republish = args["republish"]
+    compare_payloads = args["compare_payloads"]
+
     ActiveRecord::Base.transaction do
       document = Document.find(document_id)
-      migrate_editions!(document)
+      migrate_editions!(document, compare_payloads)
       document.update_column(:document_type, "StandardEdition")
     end
-    PublishingApiDocumentRepublishingWorker.new.perform(document.id, true)
+    PublishingApiDocumentRepublishingWorker.new.perform(document_id, true) if republish
   end
 
   def self.editions_for(document)
@@ -22,14 +25,14 @@ class StandardEditionMigratorWorker < WorkerBase
 
 private
 
-  def migrate_editions!(document)
+  def migrate_editions!(document, compare_payloads)
     editions_to_migrate = StandardEditionMigratorWorker.editions_for(document)
 
     editions_to_migrate.each do |edition|
       recipe = StandardEditionMigrator.recipe_for(edition)
 
       # Skip the payload comparison for superseded or deleted editions
-      if edition.state != "superseded" && !edition.deleted?
+      if compare_payloads && edition.state != "superseded" && !edition.deleted?
         ensure_payloads_remain_identical(edition, recipe) { migrate_edition!(edition, recipe) }
       else
         migrate_edition!(edition, recipe)

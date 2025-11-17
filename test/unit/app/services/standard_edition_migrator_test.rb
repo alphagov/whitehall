@@ -83,6 +83,44 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#migrate!" do
+    setup do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    end
+
+    test "enqueues a migration job for each unique document in the scope" do
+      editor = create(:departmental_editor)
+      news_article1 = build(:news_article)
+      news_article1.save!
+      news_article1.first_published_at = Time.zone.now
+      news_article1.major_change_published_at = Time.zone.now
+      force_publish(news_article1)
+      news_article1.create_draft(editor)
+
+      news_article2 = build(:news_article)
+      news_article2.save!
+      news_article2.first_published_at = Time.zone.now
+      news_article2.major_change_published_at = Time.zone.now
+      force_publish(news_article2)
+
+      migrator = StandardEditionMigrator.new(scope: NewsArticle.all)
+
+      StandardEditionMigratorWorker.expects(:perform_async).with(news_article1.document.id, "republish" => true, "compare_payloads" => true).once
+      StandardEditionMigratorWorker.expects(:perform_async).with(news_article2.document.id, "republish" => true, "compare_payloads" => true).once
+
+      migrator.migrate!
+    end
+
+    test "allows republish and compare_payloads options to be passed to the worker" do
+      news_article = create(:news_article)
+
+      migrator = StandardEditionMigrator.new(scope: NewsArticle.all)
+
+      StandardEditionMigratorWorker.expects(:perform_async).with(news_article.document.id, "republish" => false, "compare_payloads" => false).once
+      migrator.migrate!(republish: false, compare_payloads: false)
+    end
+  end
+
   describe ".recipe_for" do
     test "returns the correct recipe for legacy news article news stories" do
       edition = build(:news_article_news_story)
