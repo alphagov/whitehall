@@ -17,7 +17,7 @@ class StandardEditionMigratorWorker < WorkerBase
   end
 
   def self.editions_for(document)
-    Edition.unscoped.where(document: document)
+    Edition.where(document: document)
   end
 
 private
@@ -59,7 +59,7 @@ private
 
     yield
 
-    new_presenter = PublishingApi::StandardEditionPresenter.new(Edition.unscoped.find(edition_id))
+    new_presenter = PublishingApi::StandardEditionPresenter.new(Edition.find(edition_id))
     new_content = new_presenter.content
     new_links = new_presenter.links
 
