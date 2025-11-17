@@ -4,7 +4,7 @@
   } %>
 <% end %>
 
-<% if @edition.state != "draft" %>
+<% if !@edition.is_in_valid_state_for_type_conversion? %>
 
   <% page_heading = "Cannot change document type" %>
   <% content_for :page_title, page_heading %>
@@ -12,7 +12,7 @@
     <div class="govuk-grid-column-two-thirds">
       <% content_for :title, page_heading %>
       <% content_for :title_margin_bottom, 6 %>
-      <p class="govuk-body">You can only change the document type of draft editions.</p>
+      <p class="govuk-body">You can only change the document type of draft, submitted or rejected editions.</p>
     </div>
   </div>
 

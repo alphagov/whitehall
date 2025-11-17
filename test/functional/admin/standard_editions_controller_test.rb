@@ -105,14 +105,14 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "label", permitted_non_sibling_type["permitted_non_sibling_type"]["title"]
   end
 
-  view_test "GET change_type shows error message if the edition is not in a draft state" do
+  view_test "GET change_type shows error message if the edition is not in a convertable state" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
     edition = create(:published_standard_edition, configurable_document_type: "test_type")
     get :change_type, params: { id: edition.id }
     assert_response :ok
     assert_dom "h1", "Cannot change document type"
-    assert_dom "p", "You can only change the document type of draft editions."
+    assert_dom "p", "You can only change the document type of draft, submitted or rejected editions."
   end
 
   view_test "GET change_type shows error message if the current document type cannot be changed" do
