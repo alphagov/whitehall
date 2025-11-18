@@ -47,6 +47,8 @@ module Edition::Identifiable
   end
 
   def clear_slug
+    return if document.ever_published_editions.present?
+
     document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
   end
 
