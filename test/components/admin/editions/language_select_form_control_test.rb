@@ -44,11 +44,19 @@ class Admin::Editions::LanguageSelectFormControlTest < ViewComponent::TestCase
     assert_selector "#edition_primary_locale_hint", text: "Warning: the language cannot be changed after this document has been translated"
   end
 
-  test "displays the selected locale as plain text once the edition has a translation" do
+  test "shows a hint that the shown language cannot be changed after the document has been translated" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "translations_enabled" => true } }))
     edition = create(:draft_standard_edition)
     edition.translations.create!(locale: :fr)
     render_inline(Admin::Editions::LanguageSelectFormControl.new(edition))
-    assert_selector "p", text: "English"
+    assert_selector "#edition_primary_locale_hint", text: "The language cannot be changed as this document has been translated"
+  end
+
+  test "displays the selected locale as readonly once the edition has a translation" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "translations_enabled" => true } }))
+    edition = create(:draft_standard_edition)
+    edition.translations.create!(locale: :fr)
+    render_inline(Admin::Editions::LanguageSelectFormControl.new(edition))
+    assert_selector "input[value=\"English\"][readonly=\"readonly\"]"
   end
 end

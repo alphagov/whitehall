@@ -20,6 +20,17 @@
     } %>
   </div>
 <% else %>
-  <h3 class="govuk-heading-m">Language</h3>
-  <p class="govuk-body"><%= Locale.new(@edition.primary_locale).native_and_english_language_name %></p>
+  <div class="govuk-!-margin-bottom-6">
+    <h3 class="govuk-heading-m">Language</h3>
+    <%= render "govuk_publishing_components/components/hint", {
+      id: "edition_primary_locale_hint",
+      text: "The language cannot be changed as this document has been translated",
+    } %>
+    <%= render "govuk_publishing_components/components/input", {
+      id: "edition_primary_locale",
+      name: "edition[primary_locale]",
+      value: Locale.new(@edition.primary_locale).native_and_english_language_name,
+      readonly: true,
+    } %>
+  </div>
 <% end %>
