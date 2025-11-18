@@ -22,6 +22,15 @@ class OrganisationsTest < ActiveSupport::TestCase
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     assert_equal [organisations.last.content_id], organisations_association.links[:primary_publishing_organisation]
   end
+
+  test "it sends no primary publishing organisation if there are no lead organisations" do
+    organisations = create_list(:organisation, 2)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([{ organisation: organisations.first, lead: false }, { organisation: organisations.last, lead: false }])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    assert_equal [], organisations_association.links[:primary_publishing_organisation]
+  end
 end
 
 class OrganisationsRenderingTest < ActionView::TestCase
