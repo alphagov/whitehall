@@ -35,6 +35,10 @@ module Edition::Images
     end
   end
 
+  def valid_images
+    images.select(&:can_be_used?)
+  end
+
   def allows_image_attachments?
     true
   end

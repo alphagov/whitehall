@@ -42,6 +42,10 @@ class Image < ApplicationRecord
     !requires_crop? && bitmap?
   end
 
+  def can_be_used?
+    !bitmap? || !requires_crop?
+  end
+
 private
 
   def destroy_image_data_if_required
