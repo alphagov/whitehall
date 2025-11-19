@@ -653,37 +653,4 @@ class DocumentTest < ActiveSupport::TestCase
       assert_same_elements expected_versions, actual_versions
     end
   end
-
-  describe "The new document view model" do
-    it "should include configurable document type in types hash when feature flag enabled" do
-      test_strategy = Flipflop::FeatureSet.current.test!
-
-      assert_not Document::View::New.types_hash.values.pluck("klass").include?(StandardEdition)
-      test_strategy.switch!(:configurable_document_types, true)
-
-      assert Document::View::New.types_hash.values.pluck("klass").include?(StandardEdition)
-      test_strategy.switch!(:configurable_document_types, false)
-    end
-
-    it "should scope document types to those that user can create" do
-      enforcer = Minitest::Mock.new
-      last_element = Document::View::New.types_hash.to_a.last
-      last_element_key = last_element[0]
-      last_element_klass = last_element[1]["klass"]
-      last_element_label = last_element[1]["label"]
-      last_element_hint_text = last_element[1]["hint_text"]
-      types = Document::View::New.types_hash.except(last_element_key).values.pluck("klass")
-      types.each do |type|
-        enforcer.expect(:can?, false, [:create])
-        type.stubs(:enforcer).returns(enforcer)
-      end
-      last_element_klass.stubs(:enforcer).returns(enforcer)
-      enforcer.expect(:can?, true, [:create])
-      assert_equal ({ last_element_key => { "klass" => last_element_klass, "hint_text" => last_element_hint_text, "label" => last_element_label } }), Document::View::New.types_for(enforcer)
-    end
-
-    it "should provide a redirect path helper method for a valid document type" do
-      assert_equal "new_admin_call_for_evidence_path", Document::View::New.redirect_path_helper("call_for_evidence")
-    end
-  end
 end

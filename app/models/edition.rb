@@ -101,10 +101,6 @@ class Edition < ApplicationRecord
     document&.scheduled_edition
   end
 
-  def self.choose_document_type_form_action
-    "new_admin_#{name.underscore}_path"
-  end
-
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end

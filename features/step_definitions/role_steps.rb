@@ -73,14 +73,14 @@ When(/^I appoint "(.*?)" as the "(.*?)"$/) do |person_name, role_name|
   click_on "Save"
 end
 
-Then(/^I should be able to create a news article associated with "(.*?)" as the "(.*?)"$/) do |person_name, role_name|
-  begin_drafting_news_article title: "New #{role_name}!"
+Then(/^I should be able to create a publication associated with "(.*?)" as the "(.*?)"$/) do |person_name, role_name|
+  begin_drafting_publication "New #{role_name}!"
   select "#{person_name}, #{role_name}", from: "Ministers"
 
   click_button "Save"
 
-  news = NewsArticle.find_by(title: "New #{role_name}!")
-  expect(person_name).to eq(news.role_appointments.first.person.name)
+  edition = Publication.find_by(title: "New #{role_name}!")
+  expect(person_name).to eq(edition.role_appointments.first.person.name)
 end
 
 Then(/^I should be able to appoint "([^"]*)" to the new role$/) do |person_name|
