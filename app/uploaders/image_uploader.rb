@@ -10,6 +10,10 @@ class ImageUploader < WhitehallUploader
     config.validate_integrity = true
   end
 
+  def store_dir
+    "system/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
   def downloader
     # this overloads the downloader from Carrierwave::Uploader::Base
     # so that `download!` can be used in development and test environments

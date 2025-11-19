@@ -1,5 +1,12 @@
 class Storage::PreviewableStorage < CarrierWave::Storage::Abstract
   def store!(carrierwave_file)
+    path = ::File.expand_path(uploader.store_path, uploader.root)
+    if uploader.move_to_store
+      carrierwave_file.move_to(path, uploader.permissions, uploader.directory_permissions)
+    else
+      carrierwave_file.copy_to(path, uploader.permissions, uploader.directory_permissions)
+    end
+
     original_file = carrierwave_file.to_file
     temporary_location = Whitehall::AssetManagerStorage::TempStorage.store!(original_file)
 

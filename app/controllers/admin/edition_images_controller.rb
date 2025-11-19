@@ -53,7 +53,15 @@ class Admin::EditionImagesController < Admin::BaseController
       @images.each { |image| @edition.images.delete(image) }
     end
 
-    render :index
+    if @images.many?
+      render :index
+    else
+      # @images.first.image_data.file.cache!
+      # binding.pry
+      @images.first.image_data.file.cache_stored_file!
+
+      redirect_to edit_admin_edition_image_path(@edition, @images.first.id)
+    end
   end
 
   def create_image(image)
@@ -76,14 +84,16 @@ class Admin::EditionImagesController < Admin::BaseController
 private
 
   def image_url
-    return unless image&.image_data&.original_uploaded?
-
     image_data = image.image_data
-    unless image_data.file.cached?
-      image_data.file.download! image_data.file.url
+    if image&.image_data&.original_uploaded?
+      unless image_data.file.cached?
+        image_data.file.download! image_data.file.url
+      end
+      img_data = Base64.strict_encode64(image_data.file.read)
+    else
+      image_file = CarrierWave::SanitizedFile.new(File.join(image.image_data.file.root, image.image_data.file.path))
+      img_data = Base64.strict_encode64(image_file.read)
     end
-    img_data = Base64.strict_encode64(image_data.file.read)
-
     "data:#{image_data.file.content_type};base64,#{img_data}"
   end
   helper_method :image_url
@@ -116,6 +126,10 @@ private
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
     end
+  end
+
+  def action_on_upload
+    @action_on_upload = params[:action_on_upload]
   end
 
   def images_params
