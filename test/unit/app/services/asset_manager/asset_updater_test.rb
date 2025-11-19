@@ -20,9 +20,18 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     @asset_updater.call(@asset_manager_id, { "auth_bypass_ids" => [] })
   end
 
-  test "does not update asset if no attributes are supplied" do
+  test "raises exception if no attributes are supplied" do
     assert_raises(AssetManager::AssetUpdater::AssetAttributesEmpty) do
       @asset_updater.call(@asset_manager_id, {})
+    end
+  end
+
+  test "raises exception if attempting to update a deleted asset" do
+    @asset_updater.stubs(:find_asset_by_id).with(@asset_manager_id)
+           .returns("id" => @asset_manager_id, "deleted" => true)
+
+    assert_raises(AssetManager::AssetUpdater::AssetDeleted) do
+      @asset_updater.call(@asset_manager_id, { "redirect_url" => @redirect_url })
     end
   end
 

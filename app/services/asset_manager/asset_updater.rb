@@ -7,6 +7,12 @@ class AssetManager::AssetUpdater
     end
   end
 
+  class AssetDeleted < StandardError
+    def initialize(asset_manager_id)
+      super("Attempting to update Asset with asset_manager_id: '#{asset_manager_id}' that has already been deleted")
+    end
+  end
+
   def self.call(*args)
     new.call(*args)
   end
@@ -21,6 +27,7 @@ private
     raise AssetAttributesEmpty, asset_manager_id if new_attributes.empty?
 
     attributes = find_asset_by_id(asset_manager_id)
+    raise AssetDeleted, asset_manager_id if attributes["deleted"]
 
     keys = new_attributes.keys
     unless attributes.slice(*keys) == new_attributes.slice(*keys)
