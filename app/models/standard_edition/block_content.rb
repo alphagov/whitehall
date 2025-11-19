@@ -36,6 +36,8 @@ class StandardEdition::BlockContent
     @attributes ||= attributes_class_for(@schema).new
   end
 
+  delegate :to_h, to: :attributes
+
 private
 
   def valid_instance_of_document_type_attributes
