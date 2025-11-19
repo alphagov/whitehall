@@ -24,14 +24,12 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       valid_edition_attributes.merge(
         images_attributes: [
           {
-            alt_text: "Something about this image",
             caption: "Text to be visible along with the image",
             image_data_attributes: {
               file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
             },
           },
           {
-            alt_text: "alt-text-2",
             caption: "caption-2",
             image_data_attributes: {
               file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
@@ -42,9 +40,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     )
 
     assert_equal 2, edition.images.count
-    assert_equal "Something about this image", edition.images[0].alt_text
     assert_equal "Text to be visible along with the image", edition.images[0].caption
-    assert_equal "alt-text-2", edition.images[1].alt_text
     assert_equal "caption-2", edition.images[1].caption
   end
 
@@ -66,7 +62,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
 
     new_image = draft_edition.images.last
     assert_not_equal image, new_image
-    assert_equal image.alt_text, new_image.alt_text
     assert_equal image.caption, new_image.caption
   end
 
@@ -95,7 +90,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
         images_attributes: [{
-          alt_text: "image smaller than 960x640",
           caption: "some-caption",
           image_data_attributes: {
             file: upload_fixture("horrible-image.64x96.jpg", "image/jpg"),
@@ -141,7 +135,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
         images_attributes: [{
-          alt_text: "alt-text",
           caption: "original-caption",
           image_data_attributes: {
             file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
