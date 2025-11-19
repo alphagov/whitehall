@@ -11,16 +11,8 @@ private
 
   attr_reader :edition, :image, :last_image
 
-  def preview_alt_text
-    "Image #{find_index_from_non_lead_images + 1}"
-  end
-
   def caption
     image.caption.presence || "None"
-  end
-
-  def alt_text
-    image.alt_text.presence || "None"
   end
 
   def image_markdown

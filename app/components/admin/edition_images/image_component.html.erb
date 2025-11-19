@@ -1,7 +1,7 @@
  <li class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
     <% if image.image_data&.original_uploaded? && image.thumbnail %>
-      <img src="<%= image.thumbnail %>" alt="<%= preview_alt_text %>" class="app-view-edition-resource__preview">
+      <img src="<%= image.thumbnail %>" alt="" class="app-view-edition-resource__preview">
     <% else %>
       <span class="govuk-tag govuk-tag--green">Processing</span>
     <% end %>
@@ -9,7 +9,6 @@
 
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
-    <p class="govuk-body"><strong>Alt text: </strong><%= alt_text %></p>
     <% if image.image_data&.bitmap? && image.image_data&.requires_crop? %>
       <span class="govuk-tag govuk-tag--red">Requires crop</span>
     <% else %>
