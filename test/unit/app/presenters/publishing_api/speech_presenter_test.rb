@@ -75,7 +75,6 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         assert_match("A location", details[:location])
         assert_equal("Transcript of the speech, exactly as it was delivered", details[:speech_type_explanation])
 
-        assert_equal("Tony", details[:image][:alt_text])
         assert_match(/minister-of-funk.960x640.jpg$/, details[:image][:url])
       end
     end
@@ -241,7 +240,6 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       context "with speaker with image" do
         it "presents the speaker image" do
           details = presented.content[:details]
-          assert_equal("Tony", details[:image][:alt_text])
           assert_match(/minister-of-funk.960x640.jpg$/, details[:image][:url])
         end
 

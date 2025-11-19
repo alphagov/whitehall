@@ -55,7 +55,7 @@ module PublishingApi
       details_hash[:image] = if image_available? && image_required? && item.lead_image_has_all_assets?
                                image_details
                              else
-                               { url: "", caption: nil, alt_text: "" }
+                               { url: "", caption: nil }
                              end
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
@@ -75,7 +75,6 @@ module PublishingApi
     def image_details
       {
         url: item.lead_image_url,
-        alt_text: item.lead_image_alt_text,
         caption: item.lead_image_caption,
       }
     end

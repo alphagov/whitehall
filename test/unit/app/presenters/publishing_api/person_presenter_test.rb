@@ -38,7 +38,6 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
         privy_counsellor: true,
         image: {
           url: person.image.url(:s465),
-          alt_text: "The Rt Hon Sir Winston Churchill PM",
         },
         body: [
           {

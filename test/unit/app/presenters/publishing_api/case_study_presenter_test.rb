@@ -37,7 +37,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
         image: {
           url: "",
           caption: nil,
-          alt_text: "",
         },
         first_public_at: case_study.first_public_at,
         change_history: [
@@ -72,12 +71,11 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   end
 
   test "includes details of the case study image if present" do
-    image = build(:image, alt_text: "Image alt text", caption: "A caption")
+    image = build(:image, caption: "A caption")
     case_study = build_stubbed(:published_case_study, document: build_stubbed(:document), images: [image], lead_image: image)
 
     expected_hash = {
       url: image.url(:s300),
-      alt_text: image.alt_text,
       caption: image.caption,
     }
     presented_item = present(case_study)
@@ -87,12 +85,11 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
   end
 
   test "returns case study image caption as nil (not false) when it is blank" do
-    image = build(:image, alt_text: "Image alt text", caption: "")
+    image = build(:image, caption: "")
     case_study = build_stubbed(:published_case_study, document: build_stubbed(:document), images: [image], lead_image: image)
 
     expected_hash = {
       url: image.url(:s300),
-      alt_text: image.alt_text,
       caption: nil,
     }
     presented_item = present(case_study)
@@ -109,7 +106,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       url: organisation_image.file.url(:s300),
-      alt_text: "",
       caption: nil,
     }
     presented_item = present(case_study)
@@ -125,7 +121,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       url: "",
-      alt_text: "",
       caption: nil,
     }
     presented_item = present(case_study)
