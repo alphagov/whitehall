@@ -100,7 +100,7 @@ class WorldLocation < ApplicationRecord
 
   def republish_worldwide_organisations
     worldwide_organisations.pluck(:document_id).each do |document_id|
-      PublishingApiDocumentRepublishingWorker.perform_async(document_id)
+      PublishingApiDocumentRepublishingWorker.perform_async(document_id, false)
     end
   end
 

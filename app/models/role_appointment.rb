@@ -80,7 +80,7 @@ class RoleAppointment < ApplicationRecord
 
   def republish_associated_editions_to_publishing_api
     role.edition_roles.each do |edition_role|
-      PublishingApiDocumentRepublishingWorker.perform_async(edition_role.edition.document_id)
+      PublishingApiDocumentRepublishingWorker.perform_async(edition_role.edition.document_id, false)
     end
   end
 

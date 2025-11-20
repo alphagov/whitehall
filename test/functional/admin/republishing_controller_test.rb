@@ -494,7 +494,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should be able to POST :republish_document with an existing document slug, creating a RepublishingEvent for the current user" do
     document = create(:document, slug: "an-existing-document", content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
 
-    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).once
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(document.id, false).once
 
     post :republish_document, params: { document_slug: "an-existing-document", reason: "this needs republishing" }
 
@@ -511,7 +511,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should encounter an error on POST :republish_document without a `reason` and be sent back to the confirm page" do
     document = create(:document, slug: "an-existing-document")
 
-    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).never
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(document.id, false).never
 
     post :republish_document, params: { document_slug: "an-existing-document", reason: "" }
 
@@ -520,7 +520,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_document with a nonexistent document slug" do
-    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).never
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).never
 
     post :republish_document, params: { document_slug: "not-an-existing-document" }
     assert_response :not_found
@@ -529,7 +529,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "Non-GDS Admin users should not be able to POST :republish_document" do
     document = create(:document, slug: "an-existing-document")
 
-    PublishingApiDocumentRepublishingWorker.any_instance.expects(:perform).with(document.id).never
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(document.id, false).never
 
     login_as :writer
 
