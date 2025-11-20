@@ -119,6 +119,10 @@ class Edition < ApplicationRecord
     persisted? && UNMODIFIABLE_STATES.include?(state_was)
   end
 
+  def clear_slug
+    document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
+  end
+
   def self.publicly_visible_and_available_in_english
     with_translations(:en).publicly_visible
   end

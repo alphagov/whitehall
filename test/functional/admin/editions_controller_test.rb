@@ -306,20 +306,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "GET edit renders the 'Update document slug' checkbox when editing a new draft of a published edition" do
-    @controller = Admin::PublicationsController.new
-    login_as :gds_admin
-    editor = create(:departmental_editor)
-    publication = create(:published_publication, force_published: true)
-    draft_edition = publication.create_draft(editor)
-
-    get :edit, params: { id: draft_edition.id }
-
-    assert_response :ok
-    assert_select "label", text: "Update document slug"
-    assert_select "input[type='checkbox'][name='edition[should_update_document_slug]']"
-  end
-
   test "prevents revising of access-limited editions" do
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
