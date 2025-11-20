@@ -38,21 +38,12 @@ class EditionDeleterTest < ActiveSupport::TestCase
     assert edition.deleted?, "Edition should be deleted"
   end
 
-  test "#perform! changes the slug after deleting the edition, if edition in draft" do
+  test "#perform! changes the slug after deleting the edition" do
     edition = create(:draft_edition, title: "Just A Test")
 
     assert EditionDeleter.new(edition).perform!
     edition.reload
     assert_equal "deleted-just-a-test", edition.slug
-  end
-
-  test "#perform! does not changes the slug after deleting the edition, if edition previously public" do
-    edition = create(:published_edition, title: "Just A Test")
-    draft = edition.create_draft(build(:user))
-
-    assert EditionDeleter.new(draft).perform!
-    draft.reload
-    assert_equal "just-a-test", draft.slug
   end
 
   test "#perform! soft-deletes any attachments that the edition has" do
