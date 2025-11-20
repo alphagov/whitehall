@@ -173,7 +173,7 @@ class Admin::RepublishingController < Admin::BaseController
     @republishing_event = build_republishing_event(action:, content_id: @document.content_id)
 
     if @republishing_event.save
-      PublishingApiDocumentRepublishingWorker.new.perform(@document.id)
+      PublishingApiDocumentRepublishingWorker.perform_async(@document.id, false)
       flash[:notice] = action
       redirect_to(admin_republishing_index_path)
     else

@@ -132,7 +132,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     world_location.worldwide_organisations.each do |worldwide_organisation|
       PublishingApiDocumentRepublishingWorker
         .expects(:perform_async)
-        .with(worldwide_organisation.document_id)
+        .with(worldwide_organisation.document_id, false)
     end
 
     Sidekiq::Testing.inline! do

@@ -101,7 +101,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
   test "update republishes the document" do
     login_as :gds_admin
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@second_edition.document_id)
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@second_edition.document_id, false)
 
     patch :update, params: { edition_id: @current_edition.id, id: @second_edition.id, new_change_note: "Updated second change note" }
   end
@@ -138,7 +138,7 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
   test "delete republishes the document" do
     login_as :gds_admin
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@second_edition.document_id)
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@second_edition.document_id, false)
 
     delete :destroy, params: { edition_id: @current_edition.id, id: @second_edition.id }
   end

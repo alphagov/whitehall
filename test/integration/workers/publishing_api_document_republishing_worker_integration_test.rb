@@ -23,7 +23,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(draft_edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(draft_edition.document.id, false)
 
       assert_all_requested(expected_requests)
     end
@@ -41,7 +41,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_patch_links(draft_publication_presenter.content_id, links: draft_publication_presenter.links),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(draft_edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(draft_edition.document.id, false)
       assert_all_requested(expected_requests)
     end
   end
@@ -68,7 +68,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_publish(html_attachment_presenter.content_id, locale: "en", update_type: nil),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -102,7 +102,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -127,7 +127,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_publish(html_attachment_presenter.content_id, locale: "en", update_type: nil),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -178,7 +178,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         }),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -225,7 +225,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -259,7 +259,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         }),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -297,7 +297,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_unpublish(html_attachment_presenter.content_id, body: withdrawal_content.merge(locale: "en")),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id)
+      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
       repeated_requests.each { |request| assert_requested request, times: 2 }

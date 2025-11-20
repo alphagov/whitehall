@@ -32,7 +32,7 @@ class Admin::CallForEvidenceResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid outcome params saves the outcome and redirects" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@call_for_evidence.document_id).once
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@call_for_evidence.document_id, false).once
 
     post :create, params: { call_for_evidence_id: @call_for_evidence, call_for_evidence_outcome: { summary: "Outcome summary", published_on: Time.zone.today }, type: "CallForEvidenceOutcome" }
 
@@ -48,7 +48,7 @@ class Admin::CallForEvidenceResponsesControllerTest < ActionController::TestCase
   end
 
   test "PUT :update with valid outcome params saves the changes to the outcome" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@call_for_evidence.document_id).once
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@call_for_evidence.document_id, false).once
     outcome = create_outcome
     put :update, params: { call_for_evidence_id: @call_for_evidence, call_for_evidence_outcome: { summary: "New summary", published_on: Time.zone.today }, type: "CallForEvidenceOutcome" }
     assert_response :redirect

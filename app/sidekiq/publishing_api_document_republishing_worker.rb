@@ -14,9 +14,14 @@ require "sidekiq/job_retry"
 # and sending it again after republishing. This also changes the version
 # numbering and would probably appear in the version history.
 class PublishingApiDocumentRepublishingWorker < WorkerBase
-  sidekiq_options queue: "publishing_api"
+  sidekiq_options queue: "bulk_republishing"
 
-  def perform(document_id, bulk_publishing = false)
+  def self.perform_async(document_id, bulk_publishing = true)
+    queue = bulk_publishing ? "bulk_republishing" : "publishing_api"
+    perform_async_in_queue(queue, document_id, bulk_publishing)
+  end
+
+  def perform(document_id, bulk_publishing = true)
     @document = Document.find(document_id)
     @bulk_publishing = bulk_publishing
 

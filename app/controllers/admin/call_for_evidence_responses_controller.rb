@@ -13,7 +13,7 @@ class Admin::CallForEvidenceResponsesController < Admin::BaseController
     @response = response_class.new(response_params)
     @response.call_for_evidence = @edition
     if @response.save
-      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
+      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} saved"
     else
       render :show
@@ -24,7 +24,7 @@ class Admin::CallForEvidenceResponsesController < Admin::BaseController
 
   def update
     if @response.update(response_params)
-      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id)
+      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
       render :edit

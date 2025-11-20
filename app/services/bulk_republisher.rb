@@ -82,7 +82,7 @@ class BulkRepublisher
 
   def republish_all_documents_by_ids(ids)
     ids.each do |id|
-      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", id, true)
+      PublishingApiDocumentRepublishingWorker.perform_async(id, true)
     end
   end
 

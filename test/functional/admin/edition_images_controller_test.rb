@@ -47,7 +47,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:news_article)
 
     file = upload_fixture("images/960x640_jpeg.jpg")
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id).once
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
 
     post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
 
@@ -110,7 +110,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_case_study, images: [image1, image2])
     create(:edition_lead_image, edition:, image: image1)
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id).once
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
 
     delete :destroy, params: { edition_id: edition.id, id: image1.id }
 

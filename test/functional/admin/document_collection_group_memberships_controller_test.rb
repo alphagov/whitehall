@@ -47,7 +47,7 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
 
   test "POST #create_whitehall_member adds a whitehall document to a group and redirects" do
     document = create(:publication).document
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@collection.document_id).once
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@collection.document_id, false).once
 
     assert_difference "@group.reload.documents.size" do
       post :create_whitehall_member, params: id_params.merge(document_id: document.id)
