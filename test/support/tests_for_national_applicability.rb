@@ -270,15 +270,15 @@ private
   end
 
   def assert_nation_inapplicability_fields_exist
-    assert_select "input[id='edition_nation_inapplicabilities-0'][type='checkbox'][value='all_nations']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-1'][type='checkbox'][value='england']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-2'][type='checkbox'][value='scotland']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-3'][type='checkbox'][value='wales']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities-4'][type='checkbox'][value='northern_ireland']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_0_alternative_url'][type='text']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_1_alternative_url'][type='text']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_2_alternative_url'][type='text']", count: 1
-    assert_select "input[id='edition_nation_inapplicabilities_attributes_3_alternative_url'][type='text']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities'][type='checkbox'][value='all_nations']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes-1'][type='checkbox'][value='england']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes-2'][type='checkbox'][value='scotland']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes-3'][type='checkbox'][value='wales']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes-4'][type='checkbox'][value='northern_ireland']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes_attributes_0_alternative_url'][type='text']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes_attributes_1_alternative_url'][type='text']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes_attributes_2_alternative_url'][type='text']", count: 1
+    assert_select "input[id='edition_nation_inapplicabilities_checkboxes_attributes_3_alternative_url'][type='text']", count: 1
   end
 
   def nation_inapplicabilities_attributes_for(nations_vs_urls, *existing_applicabilities)
@@ -315,7 +315,7 @@ private
   end
 
   def assert_nation_inapplicability_fields_set_as(attributes)
-    checkbox_id_fragment = "edition_nation_inapplicabilities-#{attributes[:index]}"
+    checkbox_id_fragment = attributes[:index].zero? ? "edition_nation_inapplicabilities" : "edition_nation_inapplicabilities_checkboxes-#{attributes[:index]}"
     url_name_fragment = "edition[nation_inapplicabilities_attributes][#{attributes[:index] - 1}][alternative_url]"
 
     if attributes[:checked]
