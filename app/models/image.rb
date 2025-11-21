@@ -3,7 +3,6 @@ class Image < ApplicationRecord
   belongs_to :edition
   has_one :edition_lead_image, dependent: :destroy
 
-  validates :alt_text, presence: true, allow_blank: true, length: { maximum: 255 }, unless: :skip_main_validation?
   validates :image_data, presence: { message: "must be present" }
 
   after_destroy :destroy_image_data_if_required

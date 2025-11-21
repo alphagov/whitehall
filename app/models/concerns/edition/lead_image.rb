@@ -18,14 +18,6 @@ module Edition::LeadImage
     image_data.file.url(:s960)
   end
 
-  def lead_image_alt_text
-    if lead_image.try(:alt_text)
-      lead_image.alt_text.squish
-    else
-      ""
-    end
-  end
-
   def lead_image_caption
     if lead_image
       caption = lead_image.caption && lead_image.caption.strip
