@@ -7,7 +7,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates from the GOV.UK publishing team on Whitehall Publisher, the roadmap, and getting involved
-      last_updated: Last updated 18 July 2025
+      last_updated: Last updated 21 November 2025
       introduction:
         heading: Roadmap overview
         body_govspeak: |
@@ -19,7 +19,6 @@ en:
 
           Next:
 
-          - We will revisit how "Visual editor" might improve content creation.
           - We will be considering options for improving how access and permissions work in Whitehall.
 
       upcoming_changes:
@@ -28,6 +27,22 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Some changes to news articles
+            area: Managing documents and editions
+            type: improvement
+            date: 21 November 2025
+            body_govspeak: |
+              As mentioned in the roadmap overview, we are working on the underlying technical design of Whitehall to make future development easier. As part of this work, we have made some changes to how news articles work in Whitehall.
+
+              While the changes behind the scenes are a significant step forward, publishers should notice only a few small differences when creating and managing news articles:
+
+               - The news article type is selected before drafting content.
+               - The primary language is set in the Settings section of the document.
+               - The lead image is selected using a dropdown.
+
+              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9271188619).
+
+              
           - heading: Drag and drop (bulk) image uploads in Whitehall
             area: Managing images
             type: improvement
