@@ -38,7 +38,7 @@ module PublishingApi
 
     def edition_links
       {
-        parent: parent_content_ids, # please use the breadcrumb component when migrating document_type to government-frontend
+        parent: parent_content_ids,
         organisations: (lead_org_ids + supporting_org_ids).uniq,
         primary_publishing_organisation:,
         government: government_id,

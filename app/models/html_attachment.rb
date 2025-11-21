@@ -19,7 +19,7 @@ class HtmlAttachment < Attachment
            allow_nil: true
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    Whitehall::RenderingApp::FRONTEND
   end
 
   def accessible?

@@ -305,8 +305,8 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal %w[cy], HtmlAttachment.new(locale: "cy").translated_locales
   end
 
-  test "#rendering_app returns government_frontend" do
-    assert_equal "government-frontend", HtmlAttachment.new.rendering_app
+  test "#rendering_app returns frontend" do
+    assert_equal "frontend", HtmlAttachment.new.rendering_app
   end
 
   test "component params for HTML attachment" do
