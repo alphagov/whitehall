@@ -17,7 +17,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
     }))
 
-    page = build(:standard_edition, { configurable_document_type: type_key })
+    page = create(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -44,14 +44,14 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     }))
-    page = build(:standard_edition,
-                 {
-                   configurable_document_type: type_key,
-                   block_content: {
-                     "property_one" => "Foo",
-                     "property_two" => "Bar",
-                   },
-                 })
+    page = create(:standard_edition,
+                  {
+                    configurable_document_type: type_key,
+                    block_content: {
+                      "property_one" => "Foo",
+                      "property_two" => "Bar",
+                    },
+                  })
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -63,7 +63,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it includes a title and a description" do
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key))
-    page = build(:standard_edition, {
+    page = create(:standard_edition, {
       title: "Page Title",
       summary: "Page Summary",
       configurable_document_type: type_key,
@@ -104,7 +104,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     }))
-    page = build(:standard_edition, { configurable_document_type: type_key })
+    page = create(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
     page.block_content = {
@@ -156,7 +156,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     }))
-    page = build(:standard_edition, { configurable_document_type: type_key })
+    page = create(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
     page.block_content = {
@@ -193,11 +193,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     }))
-    page = build(:standard_edition, { configurable_document_type: type_key,
-                                      block_content: {
-                                        "chunk_of_content_one" => "## Header for chunk one\nSome content",
-                                        "chunk_of_content_two" => "## Header for chunk two\nSome more content",
-                                      } })
+    page = create(:standard_edition, { configurable_document_type: type_key,
+                                       block_content: {
+                                         "chunk_of_content_one" => "## Header for chunk one\nSome content",
+                                         "chunk_of_content_two" => "## Header for chunk two\nSome more content",
+                                       } })
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -213,8 +213,8 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         "history_mode_enabled" => true,
       },
     }))
-    page = build(:standard_edition, { configurable_document_type: type_key,
-                                      political: true })
+    page = create(:standard_edition, { configurable_document_type: type_key,
+                                       political: true })
     page.document = Document.new
     page.document.slug = "page-title"
     page.expects(:political?).returns(true)
@@ -231,8 +231,8 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         "history_mode_enabled" => false,
       },
     }))
-    page = build(:standard_edition, { configurable_document_type: type_key,
-                                      political: true })
+    page = create(:standard_edition, { configurable_document_type: type_key,
+                                       political: true })
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -276,10 +276,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         "file_attachments_enabled" => true,
       },
     }))
-    page = build(:standard_edition, { configurable_document_type: type_key })
+    page = create(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
-    attachment = build(:file_attachment)
+    attachment = create(:file_attachment)
     page.stubs(attachments_ready_for_publishing: [attachment])
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
@@ -295,10 +295,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         "file_attachments_enabled" => false,
       },
     }))
-    page = build(:standard_edition, { configurable_document_type: type_key })
+    page = create(:standard_edition, { configurable_document_type: type_key })
     page.document = Document.new
     page.document.slug = "page-title"
-    attachment = build(:file_attachment)
+    attachment = create(:file_attachment)
     page.stubs(attachments_ready_for_publishing: [attachment])
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
@@ -354,9 +354,9 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     )
     world_locations = create_list(:world_location, 2, active: true)
     government = create(:government)
-    edition = build(:standard_edition,
-                    world_locations:,
-                    government_id: government.id)
+    edition = create(:standard_edition,
+                     world_locations:,
+                     government_id: government.id)
     presenter = PublishingApi::StandardEditionPresenter.new(edition)
     links = presenter.links
     expected_world_locations = world_locations.map(&:content_id)
