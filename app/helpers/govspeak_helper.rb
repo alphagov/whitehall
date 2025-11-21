@@ -177,6 +177,7 @@ private
       document_domains: [Whitehall.admin_host, Whitehall.public_host],
       locale:,
       auto_numbered_headers:,
+      auto_numbered_header_levels: [2, 3],
     )
   end
 end

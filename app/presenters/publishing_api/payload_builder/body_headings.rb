@@ -13,6 +13,7 @@ module PublishingApi
         @item = item
         @options = {
           auto_numbered_headers: options[:auto_numbered_headers] || false,
+          auto_numbered_header_levels: [2, 3],
         }
       end
 
