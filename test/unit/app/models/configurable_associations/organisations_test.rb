@@ -111,10 +111,10 @@ class OrganisationsRenderingTest < ActionView::TestCase
 
   test "it displays errors for lead organisations if there are any" do
     edition = build(:draft_standard_edition)
-    edition.errors.add(:lead_organisations, "Some error goes here")
+    edition.errors.add(:organisations, "Some error goes here")
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     render organisations_association
     assert_dom ".govuk-form-group--error"
-    assert_dom ".govuk-error-message", text: "Error: Lead organisations Some error goes here"
+    assert_dom ".govuk-error-message", text: "Error: Organisations Some error goes here"
   end
 end
