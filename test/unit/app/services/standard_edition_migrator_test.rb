@@ -10,7 +10,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
     test "takes a scope" do
       assert_nothing_raised do
-        StandardEditionMigrator.new(scope: Edition.published)
+        StandardEditionMigrator.new(scope: Document.all)
       end
     end
 
@@ -28,14 +28,14 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
     test "summarises how many documents and editions will be migrated" do
       editor = create(:departmental_editor)
-      speech = build(:speech)
-      speech.save!
-      speech.first_published_at = Time.zone.now
-      speech.major_change_published_at = Time.zone.now
-      force_publish(speech)
-      speech.create_draft(editor)
+      some_doc = build(:standard_edition)
+      some_doc.save!
+      some_doc.first_published_at = Time.zone.now
+      some_doc.major_change_published_at = Time.zone.now
+      force_publish(some_doc)
+      some_doc.create_draft(editor)
 
-      migrator = StandardEditionMigrator.new(scope: Speech.all)
+      migrator = StandardEditionMigrator.new(scope: Document.where(id: some_doc.document.id))
       summary = {
         unique_documents: 1,
         total_editions: 2,
@@ -46,17 +46,17 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
     test "includes superseded editions in the scope" do
       editor = create(:departmental_editor)
-      news_article = build(:news_article)
-      news_article.save!
-      news_article.first_published_at = Time.zone.now
-      news_article.major_change_published_at = Time.zone.now
-      force_publish(news_article)
-      draft = news_article.create_draft(editor)
+      some_doc = build(:standard_edition)
+      some_doc.save!
+      some_doc.first_published_at = Time.zone.now
+      some_doc.major_change_published_at = Time.zone.now
+      force_publish(some_doc)
+      draft = some_doc.create_draft(editor)
       draft.change_note = "Superseding edition"
       draft.save!
       force_publish(draft)
 
-      migrator = StandardEditionMigrator.new(scope: NewsArticle.all)
+      migrator = StandardEditionMigrator.new(scope: Document.where(id: some_doc.document.id))
       summary = {
         unique_documents: 1,
         total_editions: 2,
@@ -67,13 +67,13 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
     test "excludes deleted editions from the scope" do
       editor = create(:departmental_editor)
-      news_article = create(:published_news_article)
-      draft = news_article.create_draft(editor)
+      some_doc = create(:published_standard_edition)
+      draft = some_doc.create_draft(editor)
       draft.change_note = "Superseding edition"
       draft.save!
       draft.delete!(editor)
 
-      migrator = StandardEditionMigrator.new(scope: NewsArticle.all)
+      migrator = StandardEditionMigrator.new(scope: Document.where(id: some_doc.document.id))
       summary = {
         unique_documents: 1,
         total_editions: 1,
@@ -90,33 +90,33 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
     test "enqueues a migration job for each unique document in the scope" do
       editor = create(:departmental_editor)
-      news_article1 = build(:news_article)
-      news_article1.save!
-      news_article1.first_published_at = Time.zone.now
-      news_article1.major_change_published_at = Time.zone.now
-      force_publish(news_article1)
-      news_article1.create_draft(editor)
+      some_doc_1 = build(:standard_edition)
+      some_doc_1.save!
+      some_doc_1.first_published_at = Time.zone.now
+      some_doc_1.major_change_published_at = Time.zone.now
+      force_publish(some_doc_1)
+      some_doc_1.create_draft(editor)
 
-      news_article2 = build(:news_article)
-      news_article2.save!
-      news_article2.first_published_at = Time.zone.now
-      news_article2.major_change_published_at = Time.zone.now
-      force_publish(news_article2)
+      some_doc_2 = build(:standard_edition)
+      some_doc_2.save!
+      some_doc_2.first_published_at = Time.zone.now
+      some_doc_2.major_change_published_at = Time.zone.now
+      force_publish(some_doc_2)
 
-      migrator = StandardEditionMigrator.new(scope: NewsArticle.all)
+      migrator = StandardEditionMigrator.new(scope: Document.all)
 
-      StandardEditionMigratorWorker.expects(:perform_async).with(news_article1.document.id, "republish" => true, "compare_payloads" => true).once
-      StandardEditionMigratorWorker.expects(:perform_async).with(news_article2.document.id, "republish" => true, "compare_payloads" => true).once
+      StandardEditionMigratorWorker.expects(:perform_async).with(some_doc_1.document.id, "republish" => true, "compare_payloads" => true).once
+      StandardEditionMigratorWorker.expects(:perform_async).with(some_doc_2.document.id, "republish" => true, "compare_payloads" => true).once
 
       migrator.migrate!
     end
 
     test "allows republish and compare_payloads options to be passed to the worker" do
-      news_article = create(:news_article)
+      some_doc = create(:standard_edition)
 
-      migrator = StandardEditionMigrator.new(scope: NewsArticle.all)
+      migrator = StandardEditionMigrator.new(scope: Document.all)
 
-      StandardEditionMigratorWorker.expects(:perform_async).with(news_article.document.id, "republish" => false, "compare_payloads" => false).once
+      StandardEditionMigratorWorker.expects(:perform_async).with(some_doc.document.id, "republish" => false, "compare_payloads" => false).once
       migrator.migrate!(republish: false, compare_payloads: false)
     end
   end

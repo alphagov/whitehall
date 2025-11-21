@@ -19,14 +19,10 @@ class StandardEditionMigratorWorker < WorkerBase
     PublishingApiDocumentRepublishingWorker.new.perform(document_id, true) if republish
   end
 
-  def self.editions_for(document)
-    Edition.where(document: document)
-  end
-
 private
 
   def migrate_editions!(document, compare_payloads)
-    editions_to_migrate = StandardEditionMigratorWorker.editions_for(document)
+    editions_to_migrate = Edition.where(document: document)
 
     editions_to_migrate.each do |edition|
       recipe = StandardEditionMigrator.recipe_for(edition)

@@ -18,7 +18,7 @@ class NewsStoryRecipeTest < ActiveSupport::TestCase
       edition = create(:published_news_story, body: "Sample body content", images: [image], lead_image: image)
 
       migrator = StandardEditionMigrator.new(
-        scope: Edition.where(id: edition.id),
+        scope: Document.where(id: edition.document.id),
       )
 
       assert_nothing_raised do

@@ -18,7 +18,7 @@ class GovernmentResponseRecipeTest < ActiveSupport::TestCase
       edition = create(:news_article_government_response, body: "Sample body content", images: [image], lead_image: image)
 
       migrator = StandardEditionMigrator.new(
-        scope: Edition.where(id: edition.id),
+        scope: Document.where(id: edition.document.id),
       )
 
       assert_nothing_raised do

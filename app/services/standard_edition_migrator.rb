@@ -4,16 +4,16 @@ class StandardEditionMigrator
   end
 
   def preview
-    total_editions = documents.sum { |doc| StandardEditionMigratorWorker.editions_for(doc).count }
+    total_editions = @scope.sum { |doc| Edition.where(document: doc).count }
 
     {
-      unique_documents: documents.count,
+      unique_documents: @scope.count,
       total_editions: total_editions,
     }
   end
 
   def migrate!(republish: true, compare_payloads: true)
-    documents.each do |document|
+    @scope.each do |document|
       StandardEditionMigratorWorker.perform_async(document.id, { "republish" => republish, "compare_payloads" => compare_payloads })
     end
   end
@@ -36,11 +36,5 @@ class StandardEditionMigrator
     end
 
     raise "No migration recipe defined for Edition type #{edition.type}"
-  end
-
-private
-
-  def documents
-    @documents ||= @scope.map(&:document).uniq
   end
 end
