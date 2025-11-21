@@ -15,7 +15,7 @@ module ConfigurableAssociations
                                           &.organisation
       {
         organisations: @association.map { |edition_org| edition_org.organisation.content_id },
-        primary_publishing_organisation: [primary_publishing_organisation&.content_id],
+        primary_publishing_organisation: [primary_publishing_organisation&.content_id].compact,
       }
     end
 
