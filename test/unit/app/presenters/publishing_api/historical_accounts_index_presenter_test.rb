@@ -77,7 +77,6 @@ class PublishingApi::HistoricalAccountIndexPresenterTest < ActiveSupport::TestCa
           ],
           image: {
             url: person_without_historic_account.image.url,
-            alt_text: "A Person without a historic account yet",
           },
         },
       ],

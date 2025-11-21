@@ -6,13 +6,12 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
   test "renders the correct default fields" do
-    image = build_stubbed(:image, image_data: build(:image_data), caption: "caption", alt_text: "alt text")
+    image = build_stubbed(:image, image_data: build(:image_data), caption: "caption")
     edition = build_stubbed(:draft_publication, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-one-third img[alt='Image 1']"
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: caption"
-    assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(2)", text: "Alt text: alt text"
     assert_selector "input[value='[Image: minister-of-funk.960x640.jpg]']"
     assert_selector ".app-view-edition-resource__actions a[href='#{edit_admin_edition_image_path(edition, image)}']", text: "Edit details"
     assert_selector ".app-view-edition-resource__actions a[href='#{confirm_destroy_admin_edition_image_path(edition, image)}']", text: "Delete image"
@@ -21,17 +20,16 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-button", text: "Select as lead image", count: 0
   end
 
-  test "renders placeholder text for caption and alt text when none has been provided" do
-    image = build_stubbed(:image, caption: nil, alt_text: nil)
+  test "renders placeholder text for caption when none has been provided" do
+    image = build_stubbed(:image, caption: nil)
     edition = build_stubbed(:draft_publication, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: None"
-    assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(2)", text: "Alt text: None"
   end
 
   test "renders a form to the update lead image endpoint for case studies" do
-    image = build_stubbed(:image, caption: "caption", alt_text: "alt text")
+    image = build_stubbed(:image, caption: "caption")
     edition = build_stubbed(:draft_case_study, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
 
@@ -42,7 +40,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
 
   test "does not render a button to update the image to the lead image if the image is an SVG for case studies" do
     svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
-    image = build_stubbed(:image, caption: "caption", alt_text: "alt text", image_data: svg_image_data)
+    image = build_stubbed(:image, caption: "caption", image_data: svg_image_data)
     edition = build_stubbed(:draft_case_study, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
 

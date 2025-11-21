@@ -35,24 +35,22 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders the correct default fields when a lead image is present" do
-    image = build_stubbed(:image, image_data: build(:image_data), caption: "caption", alt_text: "alt text")
+    image = build_stubbed(:image, image_data: build(:image_data), caption: "caption")
     edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-one-third img[alt='Lead image']"
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: caption"
-    assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(2)", text: "Alt text: alt text"
     assert_selector ".app-view-edition-resource__actions a[href='#{edit_admin_edition_image_path(edition, image)}']", text: "Edit details"
     assert_selector ".app-view-edition-resource__actions a[href='#{confirm_destroy_admin_edition_image_path(edition, image)}']", text: "Delete image"
   end
 
-  test "renders placeholder text for caption and alt text when none has been provided" do
-    image = build_stubbed(:image, caption: nil, alt_text: nil)
+  test "renders placeholder text for caption when none has been provided" do
+    image = build_stubbed(:image, caption: nil)
     edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: None"
-    assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(2)", text: "Alt text: None"
   end
 
   test "renders a processing tag if not all lead image assets are uploaded" do
