@@ -1,0 +1,53 @@
+{
+  "key": "topical_event",
+  "title": "Topical event",
+  "description": "???",
+  "schema": {
+    "properties": {
+      "body": {
+        "title": "Body",
+        "type": "string",
+        "format": "govspeak"
+      }
+    },
+    "validations": {
+      "presence": {
+        "attributes": ["body"]
+      },
+      "length": {
+        "attributes": ["body"],
+        "maximum": 16777215
+      },
+      "safe_html": {
+        "attributes": ["body"]
+      },
+      "no_footnotes_allowed": {
+        "attributes": ["body"]
+      },
+      "embedded_contacts_exist": {
+        "attributes": ["body"]
+      }
+    }
+  },
+  "associations" : [
+    {
+      "key": "organisations"
+    }
+  ],
+  "settings": {
+    "edit_screens": {
+      "document": ["body"]
+    },
+    "base_path_prefix": "/government/topical-events",
+    "publishing_api_schema_name": "topical_event",
+    "publishing_api_document_type": "topical_event",
+    "rendering_app": "collections",
+    "images_enabled": false,
+    "send_change_history": true,
+    "file_attachments_enabled": false,
+    "organisations": null,
+    "backdating_enabled": false,
+    "history_mode_enabled": false,
+    "translations_enabled": false
+  }
+}
