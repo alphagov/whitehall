@@ -11,7 +11,8 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
 
   describe "#perform" do
     it "finds the Document by ID" do
-      document = create(:published_news_article).document
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+      document = create(:document)
       StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorWorkerTest::TestRecipe.new)
       worker = StandardEditionMigratorWorker.new
       worker.stubs(:migrate_editions!)
@@ -37,14 +38,18 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorWorkerTest::TestRecipe.new)
 
         # stub the presenters - we'll test those separately
-        TestRecipe.new.presenter.any_instance.stubs(:content).returns({ some: "content" })
+        TestPresenter.any_instance.stubs(:content).returns({ some: "content" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "content" })
-        TestRecipe.new.presenter.any_instance.stubs(:links).returns({ some: "links" })
+        TestPresenter.any_instance.stubs(:links).returns({ some: "links" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links" })
 
         editor = create(:departmental_editor)
-        # 1. create a draft news article... ([Edition: draft])
-        superseded_edition = build(:news_article, news_article_type_id: 1, body: "This is my news article")
+        # 1. create a legacy document... ([Edition: draft])
+        # TODO: it would be good to genericise this test so we don't have to update it when the
+        # document type in question gets deleted from Whitehall. But a few attempts at this were
+        # unsuccessful, so I've picked a document type that is likely to exist for a while yet.
+        organisation = create(:organisation, :with_alternative_format_contact_email)
+        superseded_edition = build(:publication, alternative_format_provider: organisation, body: "This is my legacy document type body")
         superseded_edition.save!
         superseded_edition.first_published_at = Time.zone.now
         superseded_edition.major_change_published_at = Time.zone.now
@@ -103,7 +108,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         published_edition = Edition.find(@published_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
 
-        superseded_block_content = { "test_attribute" => "MODIFIED This is my news article" }
+        superseded_block_content = { "test_attribute" => "MODIFIED This is my legacy document type body" }
         published_block_content = { "test_attribute" => "MODIFIED This is my updated body" }
         draft_block_content = { "test_attribute" => "MODIFIED This is my updated body for the draft" }
 
@@ -128,7 +133,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         image = build(:image)
         attachment = build(:file_attachment, attachable: draft_edition)
         draft_edition.images << image
-        draft_edition.attachments << attachment
+        draft_edition.attachments = [attachment]
         draft_edition.save!
 
         Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, "republish" => true, "compare_payloads" => true) }
@@ -167,9 +172,9 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
-        assert_equal "NewsArticle", superseded_edition.type
-        assert_equal "NewsArticle", published_edition.type
-        assert_equal "NewsArticle", draft_edition.type
+        assert_equal "Publication", superseded_edition.type
+        assert_equal "Publication", published_edition.type
+        assert_equal "Publication", draft_edition.type
       end
 
       test "re-presents document to Publishing API (on bulk publishing queue) when `republish => true` is passed" do
@@ -217,14 +222,15 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
       setup do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
         StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorWorkerTest::TestRecipe.new)
-        news_article = create(:published_news_article, news_article_type_id: 1, body: "This is my news article")
-        @document_id = news_article.document.id
+        document = create(:document)
+        create(:standard_edition, document: document) #  we need an edition of any type to attach to the document
+        @document_id = document.id
       end
 
       test "compares the presenter outputs on non-superseded editions, before and after migration, and passes if they're identical" do
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:content).returns({ some: "content" })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:content).returns({ some: "content" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "content" })
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:links).returns({ some: "links" })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:links).returns({ some: "links" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links" })
 
         assert_nothing_raised do
@@ -234,8 +240,9 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
 
       test "does no presenter comparison on superseded or deleted editions" do
         editor = create(:departmental_editor)
-        # 1. create a draft news article... ([Edition: draft])
-        superseded_edition = build(:news_article, news_article_type_id: 2, body: "This is my news article")
+        # 1. create a draft edition of something... ([Edition: draft])
+        document = create(:document)
+        superseded_edition = create(:standard_edition, document: document) #  we need an edition of any type to attach to the document
         superseded_edition.save!
         superseded_edition.first_published_at = Time.zone.now
         superseded_edition.major_change_published_at = Time.zone.now
@@ -273,9 +280,9 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
       end
 
       test "payload comparison passes even if the ordering is different" do
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:content).returns({ some: "content", other: "stuff" })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:content).returns({ some: "content", other: "stuff" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ other: "stuff", some: "content" })
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:links).returns({ some: "links", nested: { foo: "bar", baz: "bax" } })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:links).returns({ some: "links", nested: { foo: "bar", baz: "bax" } })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links", nested: { baz: "bax", foo: "bar" } })
 
         assert_nothing_raised do
@@ -284,9 +291,9 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
       end
 
       test "raises exception if 'content' payload differs" do
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:content).returns({ some: "content" })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:content).returns({ some: "content" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "something else" })
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:links).returns({ some: "links" })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:links).returns({ some: "links" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links" })
 
         error = assert_raises(RuntimeError) do
@@ -296,9 +303,9 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
       end
 
       test "raises exception if 'links' payload differs" do
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:content).returns({ some: "content" })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:content).returns({ some: "content" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "content" })
-        StandardEditionMigratorWorkerTest::TestRecipe.new.presenter.any_instance.stubs(:links).returns({ some: "links" })
+        StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:links).returns({ some: "links" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "something else" })
 
         error = assert_raises(RuntimeError) do
@@ -340,14 +347,19 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
     end
   end
 
+  class TestPresenter
+    def initialize(_edition); end
+    def content; end
+    def links; end
+  end
+
   class TestRecipe
     def configurable_document_type
       "test_type"
     end
 
     def presenter
-      # Picked at random
-      PublishingApi::NewsArticlePresenter
+      StandardEditionMigratorWorkerTest::TestPresenter
     end
 
     def map_legacy_fields_to_block_content(_edition, translation)
