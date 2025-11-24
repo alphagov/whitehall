@@ -73,6 +73,14 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         @document_id = draft_edition.document.id
       end
 
+      test "doesn't change the document history" do
+        change_history = Document.find(@document_id).change_history.to_json
+
+        Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, "republish" => true, "compare_payloads" => true) }
+
+        assert_equal change_history, Document.find(@document_id).change_history.to_json
+      end
+
       test "migrates all editions in the scope to the configurable_document_type variant of StandardEdition" do
         Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, "republish" => true, "compare_payloads" => true) }
         superseded_edition = Edition.find(@superseded_edition_id)
