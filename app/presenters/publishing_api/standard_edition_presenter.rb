@@ -18,7 +18,7 @@ module PublishingApi
         description: item.summary,
         details:,
         document_type: type.settings["publishing_api_document_type"],
-        public_updated_at: item.public_timestamp || item.updated_at,
+        public_updated_at: (item.public_timestamp || item.updated_at).rfc3339,
         rendering_app: type.settings["rendering_app"],
         schema_name: type.settings["publishing_api_schema_name"],
         links:,

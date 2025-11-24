@@ -9,6 +9,7 @@
   - bulk_republishing
   - link_checks
   - edition_revalidation
+  - standard_edition_migration
 
 <% env = ENV["RAILS_ENV"] || ENV["RACK_ENV"] %>
 <% if env == "production" %>
