@@ -1,0 +1,22 @@
+<% errors = errors || [] %>
+<%= render "govuk_publishing_components/components/date_input", {
+  id: path.form_control_id,
+  label: path.form_control_name,
+  legend_text: schema["title"],
+  hint: "For example, 01 08 2015",
+  items: [
+    {
+      name: path.multiparameter_form_control_name(3),
+      value: content&.day,
+    },
+    {
+      name: path.multiparameter_form_control_name(2),
+      value: content&.month,
+    },
+    {
+      name: path.multiparameter_form_control_name(1),
+      value: content&.year,
+    },
+  ],
+  error_items: errors_for(errors, path.validation_error_attribute.to_sym),
+} %>

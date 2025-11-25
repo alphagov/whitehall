@@ -20,6 +20,10 @@ module ConfigurableContentBlocks
       "edition[block_content][#{@segments.join('][')}]"
     end
 
+    def multiparameter_form_control_name(index)
+      "edition[block_content][#{@segments.join('][')}(#{index}i)]"
+    end
+
     def validation_error_attribute
       @segments.join(".")
     end
