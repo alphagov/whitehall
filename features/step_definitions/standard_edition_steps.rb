@@ -72,6 +72,9 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
     fill_in "edition_body", with: "## Some govspeak\n\nThis is the body content"
+    fill_in "edition[block_content][date_field(3i)]", with: "01"
+    fill_in "edition[block_content][date_field(2i)]", with: "11"
+    fill_in "edition[block_content][date_field(1i)]", with: "2011"
   end
   click_button "Save and go to document summary"
 end

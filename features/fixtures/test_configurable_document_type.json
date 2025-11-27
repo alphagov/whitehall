@@ -15,13 +15,18 @@
         "description": "The image for the page",
         "type": "integer",
         "format": "image_select"
+      },
+      "date_field": {
+        "title": "Date Field",
+        "description": "A date field for the page",
+        "type": "date"
       }
     }
   },
   "associations": [],
   "settings": {
     "edit_screens": {
-      "document": ["body"],
+      "document": ["body", "date_field"],
       "images": ["image"]
     },
     "base_path_prefix": "/government/test-type",

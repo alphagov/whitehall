@@ -54,6 +54,14 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     assert_equal block, factory.build("integer", "lead_image_select")
   end
 
+  test "it can build a default date block" do
+    page = StandardEdition.new
+    factory = ConfigurableContentBlocks::Factory.new(page)
+    block = mock("ConfigurableContentBlocks::DefaultDate")
+    ConfigurableContentBlocks::DefaultDate.expects(:new).returns(block)
+    assert_equal block, factory.build("date")
+  end
+
   test "it filters out svg images, in the lead image block" do
     page = StandardEdition.new
     images = [create(:image, :svg), create(:image)]
