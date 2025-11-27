@@ -10,7 +10,7 @@ class ConfigurableDocumentType
       return @types if @types
 
       @types = Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
-        data = JSON.parse(File.read(filename))
+        data = JSON.parse(File.read(filename), create_additions: true)
         hash[data["key"]] = data
       end
     end
