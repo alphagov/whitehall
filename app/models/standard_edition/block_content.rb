@@ -7,6 +7,7 @@ class StandardEdition::BlockContent
   validate :valid_nested_attributes
 
   VALIDATORS = {
+    "comparison" => ActiveModel::Validations::ComparisonValidator,
     "date" => DateValidation::DateValidator,
     "embedded_contacts_exist" => GovspeakContactEmbedValidator,
     "length" => ActiveModel::Validations::LengthValidator,
