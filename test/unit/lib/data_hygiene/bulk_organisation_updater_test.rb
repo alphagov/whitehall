@@ -55,6 +55,22 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     )
   end
 
+  test "has a `validate` method that flags any HTML attachments in the `errors` array" do
+    raw_csv = <<~CSV
+      URL,Lead organisations,Supporting organisations
+      https://www.gov.uk/government/publications/foo/bar,lead-organisation,
+    CSV
+    create(:organisation, slug: "lead-organisation")
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(
+      ["URL points to a HtmlAttachment, not a document: https://www.gov.uk/government/publications/foo/bar. HTML attachments should not be included here - they will instead inherit any changes made to their parent document."],
+      updater.errors,
+    )
+  end
+
   test "it has a `validate` method that returns empty `errors` array if no errors" do
     raw_csv = <<~CSV
       URL,Lead organisations,Supporting organisations

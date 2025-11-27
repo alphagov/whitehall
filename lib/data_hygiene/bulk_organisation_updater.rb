@@ -94,10 +94,16 @@ module DataHygiene
 
     def find_document(row)
       url = row.fetch("URL").strip
-      slug = url.split("/").last
-
+      slug = url_to_document_slug(url)
       document_type = url_to_document_type(url).name
-      document_type == "StatisticsAnnouncement" ? StatisticsAnnouncement.find_by!(slug:) : Document.find_by!(slug:, document_type:)
+      if document_type == "HtmlAttachment"
+        errors << "URL points to a HtmlAttachment, not a document: #{url}. HTML attachments should not be included here - they will instead inherit any changes made to their parent document."
+        nil
+      elsif document_type == "StatisticsAnnouncement"
+        StatisticsAnnouncement.find_by!(slug:)
+      else
+        Document.find_by!(slug:, document_type:)
+      end
     rescue ActiveRecord::RecordNotFound
       errors << "Document not found: #{url}"
       nil
