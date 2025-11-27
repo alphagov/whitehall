@@ -16,7 +16,7 @@ module DataHygiene
     end
 
     def validate
-      expected_headers = ["URL", "New lead organisations", "New supporting organisations"]
+      expected_headers = ["URL", "Lead organisations", "Supporting organisations"]
       @validated_rows = @parsed_csv.each_with_index.map do |row, index|
         if index.zero? && row.headers.compact.sort != expected_headers.sort
           errors << "Expected the following headers: #{expected_headers.join(',')}. Detected: #{row.headers.join(',')}"
@@ -115,11 +115,11 @@ module DataHygiene
     end
 
     def find_new_lead_organisations(row)
-      find_organisations(row, "New lead organisations")
+      find_organisations(row, "Lead organisations")
     end
 
     def find_new_supporting_organisations(row)
-      find_organisations(row, "New supporting organisations")
+      find_organisations(row, "Supporting organisations")
     end
 
     def update_document(document, new_lead_organisations, new_supporting_organisations)
