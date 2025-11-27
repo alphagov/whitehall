@@ -17,8 +17,20 @@ module Admin::BasePathHelper
     { "StatisticsAnnouncement" => "/government/statistics/announcements" },
   ].freeze
 
+  HTML_ATTACHMENT_PATH_REGEX = %r{
+    \A/government/
+    (?!statistics/announcements/)  # exclude /government/statistics/announcements/...
+    [^/]+                          # section (e.g. calls-for-evidence, publications, case-studies, etc.)
+    /[^/]+                         # document slug
+    /[^/]+                         # attachment slug
+    \z
+  }x
+
   def url_to_document_type(url)
     full_path = extract_path(url)
+
+    return HtmlAttachment if full_path.match?(HTML_ATTACHMENT_PATH_REGEX)
+
     path_parts = full_path.split("/")
     path_parts.pop
     prefix = path_parts.join("/")
@@ -32,6 +44,18 @@ module Admin::BasePathHelper
     return Object.const_get(matches.first.keys.first) if matches.count == 1
 
     common_superclass(matches.map(&:keys).flatten.compact.map { |klass| Object.const_get(klass) })
+  end
+
+  def url_to_document_slug(url)
+    full_path = extract_path(url)
+    document_type = url_to_document_type(url)
+    path_parts = full_path.split("/")
+
+    if document_type == HtmlAttachment
+      path_parts[-2]
+    else
+      path_parts.last
+    end
   end
 
 private
