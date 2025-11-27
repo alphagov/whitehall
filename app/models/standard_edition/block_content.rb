@@ -1,9 +1,13 @@
 class StandardEdition::BlockContent
   include ActiveModel::Validations
+  include ActiveModel::Validations::Callbacks
+  include DateValidation
+
   validate :valid_instance_of_document_type_attributes
   validate :valid_nested_attributes
 
   VALIDATORS = {
+    "date" => DateValidation::DateValidator,
     "embedded_contacts_exist" => GovspeakContactEmbedValidator,
     "length" => ActiveModel::Validations::LengthValidator,
     "no_footnotes_allowed" => NoFootnotesInGovspeakValidator,
@@ -25,6 +29,8 @@ class StandardEdition::BlockContent
         nested_attributes = self.class.new(nested_schema, @path.push(key))
         nested_attributes.assign_attributes(values[key])
         public_send(setter, nested_attributes)
+      elsif nested_schema["type"] == "date"
+        public_send(setter, pre_validate_date_attribute(key, values[key]))
       else
         public_send(setter, values[key])
       end

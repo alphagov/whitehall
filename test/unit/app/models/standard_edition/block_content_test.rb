@@ -14,6 +14,10 @@ class BlockContentTest < ActiveSupport::TestCase
           "title" => "Test attribute",
           "type" => "integer",
         },
+        "test_date_attribute" => {
+          "title" => "Test date attribute",
+          "type" => "date",
+        },
       },
     }
   end
@@ -140,5 +144,20 @@ class BlockContentTest < ActiveSupport::TestCase
     page.attributes = { "test_attribute" => "[Contact:999999999]" }
     assert_not page.valid?
     assert_not page.errors.where("test_attribute", :embedded_contact_invalid).empty?
+  end
+
+  test "maps 'date' validation to DateValidator" do
+    schema = @schema.merge({
+      "validations" => {
+        "date" => {
+          "attributes" => %w[test_date_attribute],
+        },
+      },
+    })
+    page = StandardEdition::BlockContent.new(schema)
+
+    page.attributes = { "test_date_attribute" => { "1" => "foo" } }
+    assert_not page.valid?
+    assert_not page.errors.where("test_date_attribute", :invalid_date).empty?
   end
 end
