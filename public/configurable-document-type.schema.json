@@ -17,14 +17,12 @@
               }
             }
           },
-          "required": [
-            "attributes"
-          ],
           "additionalProperties": true
         }
       },
       "propertyNames": {
         "enum": [
+          "duration",
           "embedded_contacts_exist",
           "length",
           "no_footnotes_allowed",
@@ -62,7 +60,8 @@
             "default",
             "govspeak",
             "image_select",
-            "lead_image_select"
+            "lead_image_select",
+            "wrapper"
           ]
         },
         "properties": {
