@@ -53,7 +53,10 @@ private
     @schema["validations"].each do |key, options|
       raise ArgumentError, "undefined validator type #{key}" unless VALIDATORS.key?(key)
 
-      validates_with VALIDATORS[key], options.symbolize_keys
+      opts = options.symbolize_keys
+      opts[:if] = Proc.new { byebug } #; attributes.start_date.present? } # TODO
+      byebug if key == "comparison"
+      validates_with VALIDATORS[key], opts
     end
   end
 

@@ -52,7 +52,7 @@ class TopicalEventTest < ActiveSupport::TestCase
       ),
     )
     assert topical_event.invalid?
-    assert_includes topical_event.errors.full_messages, "Duration end date must be greater than or equal to 2024-01-02"
+    assert_includes topical_event.errors.full_messages, "Start date can't be blank when end date is present"
   end
 
   test "duration is valid when end date is after start date" do

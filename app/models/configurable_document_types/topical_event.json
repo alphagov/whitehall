@@ -29,7 +29,8 @@
               "json_class": "Symbol",
               "s": "start_date"
             },
-            "allow_nil": true
+            "allow_nil": true,
+            "if_present": "start_date"
           }
         }
       }
