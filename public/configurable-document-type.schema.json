@@ -7,28 +7,36 @@
   "properties": {
     "key": {
       "type": "string",
-      "pattern": "^[a-z_]*$"
+      "pattern": "^[a-z_]*$",
+      "description": "Unique identifier for the document type. This value is stored in the edition's configurable_document_type column."
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "Human-readable name for the document type, used in the admin interface."
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "description": "A description of the document type's purpose and intended use."
     },
     "schema": {
       "type": "object",
+      "description": "Defines the content structure for the document type. Each property represents a content block.",
       "properties": {
         "properties": {
           "type": "object",
+          "description": "Fields/content blocks for the document, each with its own schema.",
           "patternProperties": {
             ".*": {
               "type": "object",
+              "description": "Schema for a single content block (field) in the document.",
               "properties": {
                 "title": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Display name for the content block."
                 },
                 "description": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Description of the content block's purpose. Usually used for hint text."
                 },
                 "type": {
                   "type": "string",
@@ -36,10 +44,12 @@
                     "string",
                     "integer",
                     "object"
-                  ]
+                  ],
+                  "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type."
                 },
                 "format": {
                   "type": "string",
+                  "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`.",
                   "enum": [
                     "default",
                     "govspeak",
@@ -55,12 +65,14 @@
         },
         "validations": {
           "type": "object",
+          "description": "List of rails validations to apply to properties, mapping to validators in the application. Keys must match available validators.",
           "patternProperties": {
             ".*": {
               "type": "object",
               "properties": {
                 "attributes": {
                   "type": "array",
+                  "description": "List of edition fields to validate, with this specific validator.",
                   "items": {
                     "type": "string"
                   }
@@ -85,6 +97,7 @@
         },
         "headings_from": {
           "type": "array",
+          "description": "Array of content block names, from which to extract headings, used to generate the table of contents for the rendered document. Headings are sent to publishing API as part of the `details` hash.",
           "items": {
             "type": "string"
           }
@@ -95,11 +108,13 @@
     },
     "associations": {
       "type": "array",
+      "description": "List of associations to other content (e.g., organisations, topical events), allowing the document to be linked to other entities.",
       "items": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
+            "description": "Type of association. Determines what kind of related content can be linked.",
             "enum": [
               "ministerial_role_appointments",
               "organisations",
@@ -114,18 +129,22 @@
     },
     "settings": {
       "type": "object",
+      "description": "A list of configurations to enable certain edition behaviours.",
       "properties": {
         "edit_screens": {
           "type": "object",
+          "description": "A list of rendered screens (tabs) for the content type. Controls which content blocks appear on which editing screens (document, images).",
           "properties": {
             "document": {
               "type": "array",
+              "description": "A list of content blocks to display on the main document editing screen. The keys must match the blocks listed as properties.",
               "items": {
                 "type": "string"
               }
             },
             "images": {
               "type": "array",
+              "description": "A list of content blocks to display on the images editing screen. The keys must match the blocks listed as properties.",
               "items": {
                 "type": "string"
               }
@@ -134,43 +153,55 @@
           "additionalProperties": false
         },
         "base_path_prefix": {
-          "type": "string"
+          "type": "string",
+          "description": "URL prefix for where documents of this type are published. E.g. /government/history."
         },
         "configurable_document_group": {
-          "type": "string"
+          "type": "string",
+          "description": "Optional grouping for document types. Used for categorisation in the admin interface. Typically matches the `publishing_api_schema_name`"
         },
         "publishing_api_schema_name": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the schema in the Publishing API for this document type. Different types might share the same schema name. For example, `news_story` and `government_response` types both use the `news_article` schema."
         },
         "publishing_api_document_type": {
-          "type": "string"
+          "type": "string",
+          "description": "Document type name in the Publishing API."
         },
         "rendering_app": {
-          "type": "string"
+          "type": "string",
+          "description": "The frontend application responsible for rendering this document type."
         },
         "images_enabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether users can upload images for this document type. When enabled, it renders the Images tab."
         },
         "send_change_history": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether to send change history to the Publishing API. The change history will allow users to see major change updates to the document. Most editionable types should have this enabled."
         },
         "organisations": {
           "type": ["array", "null"],
+          "description": "Array of organisation content IDs allowed to use this type, or null to allow all organisations.",
           "items": {
             "type": "string"
           }
         },
         "backdating_enabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether backdating is allowed for this document type. This is required for documents representing past printed papers or documents from other digital sources outside Whitehall."
         },
         "history_mode_enabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether history mode is enabled for this document type. This controls whether the document can be marked as political."
         },
         "file_attachments_enabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether file attachments are allowed for this document type. When enabled, it renders the Attachments tab."
         },
         "translations_enabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether translations are supported for this document type."
         }
       },
       "required": [
