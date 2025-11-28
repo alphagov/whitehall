@@ -160,4 +160,30 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_not page.valid?
     assert_not page.errors.where("test_date_attribute", :invalid_date).empty?
   end
+
+  test "maps 'comparison' validation to ActiveModel::Validations::ComparisonValidator" do
+    schema = @schema.merge({
+      "properties" => {
+        "test_attribute_to_compare" => {
+          "title" => "Test attribute",
+          "type" => "integer",
+        },
+        "test_attribute_to_compare_to" => {
+          "title" => "Test attribute",
+          "type" => "integer",
+        },
+      },
+      "validations" => {
+        "comparison" => {
+          "attributes" => %w[test_attribute_to_compare],
+          "less_than" => :test_attribute_to_compare_to,
+        },
+      },
+    })
+    page = StandardEdition::BlockContent.new(schema)
+
+    page.attributes = { "test_attribute_to_compare" => 1, "test_attribute_to_compare_to" => 0 }
+    assert_not page.valid?
+    assert_not page.errors.where("test_attribute_to_compare", :less_than).empty?
+  end
 end

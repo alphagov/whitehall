@@ -8,6 +8,20 @@
         "title": "Body",
         "type": "string",
         "format": "govspeak"
+      },
+      "duration": {
+        "title": "Duration",
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "title": "Start date",
+            "type": "date"
+          },
+          "end_date": {
+            "title": "End date",
+            "type": "date"
+          }
+        }
       }
     },
     "validations": {
@@ -27,16 +41,19 @@
       "embedded_contacts_exist": {
         "attributes": ["body"]
       }
-    }
+    },
+    "complex_validations": [
+      "TopicalEventDurationValidator"
+    ]
   },
-  "associations" : [
+  "associations": [
     {
       "key": "organisations"
     }
   ],
   "settings": {
     "edit_screens": {
-      "document": ["body"]
+      "document": ["body", "duration"]
     },
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",
