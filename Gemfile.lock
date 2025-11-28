@@ -744,7 +744,7 @@ GEM
     psych (5.2.6)
       date
       stringio
-    ptools (1.5.0)
+    ptools (1.5.1)
     public_suffix (6.0.2)
     puma (7.1.0)
       nio4r (~> 2.0)
