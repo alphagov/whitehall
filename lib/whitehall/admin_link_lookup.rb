@@ -16,6 +16,8 @@ module Whitehall
       return nil unless organisation
 
       organisation.corporate_information_pages.find(corporate_info_slug)
+    rescue ActiveRecord::RecordNotFound
+      nil
     end
 
     private_class_method :corporate_info_page

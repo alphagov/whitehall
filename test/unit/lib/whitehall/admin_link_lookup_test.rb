@@ -22,6 +22,11 @@ module Whitehall
       assert_equal(cip, edition)
     end
 
+    test "returns nil if no corporate information page found" do
+      organisation = create(:organisation)
+      assert_nil(AdminLinkLookup.find_edition("/government/admin/organisations/#{organisation.slug}/corporate_information_pages/12345"))
+    end
+
     test "finds edition from full URL" do
       speech = create(:published_speech)
 
