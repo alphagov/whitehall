@@ -21,17 +21,6 @@
             "title": "End date",
             "type": "date"
           }
-        },
-        "validations": {
-          "comparison": {
-            "attributes": ["end_date"],
-            "greater_than_or_equal_to": {
-              "json_class": "Symbol",
-              "s": "start_date"
-            },
-            "allow_nil": true,
-            "if_present": "start_date"
-          }
         }
       }
     },
@@ -52,7 +41,10 @@
       "embedded_contacts_exist": {
         "attributes": ["body"]
       }
-    }
+    },
+    "complex_validations": [
+      "TopicalEventDurationValidator"
+    ]
   },
   "associations": [
     {
