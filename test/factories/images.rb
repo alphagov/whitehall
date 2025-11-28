@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :generic_image, class: Image do
-    alt_text { "An accessible description of the image" }
-
     trait(:jpg) do
       image_data
     end

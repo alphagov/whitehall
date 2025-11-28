@@ -366,22 +366,9 @@ class EditionTest < ActiveSupport::TestCase
     assert_not Edition.submitted.include?(edition)
   end
 
-  test "should be valid if it has image but no alt text" do
-    article = build(:news_article, images: [build(:image, alt_text: nil)])
-    assert article.valid?
-  end
-
   test "should still be valid if has no image and no alt text" do
     article = build(:news_article, images: [])
     assert article.valid?
-  end
-
-  test "should still be supersedeable if alt text validation would normally fail" do
-    article = create(:published_news_article, images: [build(:image)])
-    article.images.first.update_column(:alt_text, nil)
-    article = NewsArticle.find(article.id)
-    article.supersede!
-    assert_equal "superseded", article.state
   end
 
   test "should be invalid without a summary" do

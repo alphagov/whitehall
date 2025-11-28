@@ -6,12 +6,12 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     stub_request(:get, %r{.*/media/.*/minister-of-funk.960x640.jpg}).to_return(status: 200, body: io_object, headers: {})
   end
 
-  view_test "edit page displays alt text input for images with alt text" do
+  view_test "edit page shows image editing form" do
     login_authorised_user
     image = build(:image)
     edition = create(:draft_publication, images: [image])
     get :edit, params: { edition_id: edition.id, id: image.id }
-    assert_select "#image_alt_text"
+    assert_select "form[action='#{admin_edition_image_path(edition, image)}'][method='post']"
   end
 
   view_test "edit page shows image if all its assets are uploaded" do
@@ -32,14 +32,6 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     get :edit, params: { edition_id: edition.id, id: image.id }
 
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
-  end
-
-  view_test "edit page does not display alt text input where it is blank" do
-    login_authorised_user
-    image = build(:image, alt_text: "")
-    edition = create(:draft_publication, images: [image])
-    get :edit, params: { edition_id: edition.id, id: image.id }
-    assert_select "#image_alt_text", count: 0
   end
 
   test "#create renders #index with a valid image upload" do
