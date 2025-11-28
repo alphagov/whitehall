@@ -1,3 +1,5 @@
+require "json/add/symbol"
+
 class ConfigurableDocumentType
   attr_reader :key, :description, :schema, :associations, :settings
 
