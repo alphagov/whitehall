@@ -19,7 +19,7 @@ jobs:
         uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
 
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           show-progress: false
 
