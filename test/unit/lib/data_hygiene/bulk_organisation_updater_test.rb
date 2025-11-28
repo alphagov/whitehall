@@ -20,12 +20,12 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
     updater.validate
     assert_equal(
-      ["Expected the following headers: URL,New lead organisations,New supporting organisations. Detected: Foo,"],
+      ["Expected the following headers: URL,Lead organisations,Supporting organisations. Detected: Foo,"],
       updater.errors,
     )
 
     raw_csv = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/government/publications/some-slug,lead-organisation,supporting-organisation,some extra data here which should trip up the validator
     CSV
     updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
@@ -38,7 +38,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it has a `validate` method that tracks invalid documents and organisations in the `errors` array" do
     raw_csv = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/government/publications/some-slug,lead-organisation,supporting-organisation
     CSV
 
@@ -55,9 +55,25 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     )
   end
 
+  test "has a `validate` method that flags any HTML attachments in the `errors` array" do
+    raw_csv = <<~CSV
+      URL,Lead organisations,Supporting organisations
+      https://www.gov.uk/government/publications/foo/bar,lead-organisation,
+    CSV
+    create(:organisation, slug: "lead-organisation")
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal(
+      ["URL points to a HtmlAttachment, not a document: https://www.gov.uk/government/publications/foo/bar. HTML attachments should not be included here - they will instead inherit any changes made to their parent document."],
+      updater.errors,
+    )
+  end
+
   test "it has a `validate` method that returns empty `errors` array if no errors" do
     raw_csv = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/guidance/some-slug,lead-organisation,supporting-organisation
     CSV
 
@@ -73,7 +89,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it has a `summarise_changes` method that returns a hash summarising the changes" do
     raw_csv = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/government/publications/some-slug,new-lead-organisation,new-supporting-organisation
       https://www.gov.uk/government/publications/another-slug,"new-lead-organisation,old-lead-organisation"
       https://www.gov.uk/government/publications/final-slug,old-lead-organisation,new-supporting-organisation
@@ -148,7 +164,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it correctly maps the slug to the document type" do
     csv_file = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/guidance/uk-ncp-complaint-handling-process,lead-organisation,
     CSV
 
@@ -173,7 +189,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it changes the lead organisations" do
     csv_file = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/government/publications/some-slug,lead-organisation,
     CSV
 
@@ -190,7 +206,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it changes the supporting organisations" do
     csv_file = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/government/publications/some-slug,"lead-organisation-1","supporting-organisation-1,supporting-organisation-2"
     CSV
 
@@ -209,7 +225,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it just updates the draft when there is not a change to the published edition" do
     csv_file = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/government/publications/some-slug,lead-organisation,
     CSV
 
@@ -236,7 +252,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
   # TODO: this one seems to pass no matter what I set at the CSV file 🤔
   test "it doesn't change a document which has already changed" do
     csv_file = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/government/publications/some-slug,,,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
     CSV
 
@@ -262,7 +278,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it processes Statistics Announcements" do
     csv_file = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       http://gov.uk/government/statistics/announcements/slug,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
     CSV
 
@@ -282,7 +298,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
   test "it doesn't change a Statistics Announcement which has already changed" do
     csv_file = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       http://gov.uk/government/statistics/announcements/slug,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
     CSV
 

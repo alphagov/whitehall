@@ -25,7 +25,7 @@ class Admin::RetaggingControllerTest < ActionController::TestCase
 
   test "Submitting a CSV with invalid data should show an error message" do
     csv_to_submit = <<~CSV
-      URL,New lead organisations,New supporting organisations
+      URL,Lead organisations,Supporting organisations
       https://www.gov.uk/guidance/made-up-slug,government-digital-service,geospatial-commission
     CSV
     post :preview, params: { csv_input: csv_to_submit }
