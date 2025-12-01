@@ -6,15 +6,21 @@
   hint: "For example, 01 08 2015",
   items: [
     {
+      label: "Day",
       name: path.multiparameter_form_control_name(3),
+      width: 2,
       value: content&.day,
     },
     {
+      label: "Month",
       name: path.multiparameter_form_control_name(2),
+      width: 2,
       value: content&.month,
     },
     {
+      label: "Year",
       name: path.multiparameter_form_control_name(1),
+      width: 4,
       value: content&.year,
     },
   ],
