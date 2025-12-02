@@ -1,4 +1,4 @@
-def create_configurable_document(title:, locale: "en", summary: nil, body: nil)
+def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil)
   image = create(:image)
   defaults = default_content_for_locale(locale)
   I18n.with_locale(locale) do
@@ -13,6 +13,7 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil)
         block_content: {
           "image" => image.image_data.id.to_s,
           "body" => body || defaults[:body],
+          "date_field" => date_field,
         },
       },
     )
@@ -26,12 +27,14 @@ def default_content_for_locale(locale)
       title: "Dogfen Cymraeg",
       summary: "Crynodeb Cymraeg o'r ddogfen.",
       body: "## Rhywfaint o Gymraeg. Dyma gynnwys y corff yn Gymraeg",
+      date_field: { "1" => "2025", "2" => "10", "3" => "2" },
     }
   else
     {
       title: "English document",
       summary: "A brief summary of the document.",
       body: "## Some English govspeak. This is the English body content",
+      date_field: { "1" => "2025", "2" => "10", "3" => "1" },
     }
   end
 end
@@ -59,9 +62,9 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
     fill_in "edition_body", with: "## Some govspeak\n\nThis is the body content"
-    fill_in "edition[block_content][date_field(3i)]", with: "01"
-    fill_in "edition[block_content][date_field(2i)]", with: "11"
-    fill_in "edition[block_content][date_field(1i)]", with: "2011"
+    fill_in "edition[block_content][date_field][3]", with: "01"
+    fill_in "edition[block_content][date_field][2]", with: "11"
+    fill_in "edition[block_content][date_field][1]", with: "2011"
   end
   click_button "Save and go to document summary"
 end
@@ -102,12 +105,15 @@ And("the configurable fields on the Document tab are not overwritten") do
   visit admin_standard_edition_path(edition)
   click_link "Edit draft"
 
-  # Check the body content is still there
+  # Check the content is still there
   expect(page).to have_field("Body", with: /This is the body content/)
+  expect(page).to have_field("Day", with: "1")
+  expect(page).to have_field("Month", with: "11")
+  expect(page).to have_field("Year", with: "2011")
 end
 
 Given(/^I have drafted an English configurable document titled "([^"]*)"$/) do |title|
-  @standard_edition = create_configurable_document(title: title, locale: "en")
+  @standard_edition = create_configurable_document(**default_content_for_locale("en").merge({ title: }))
 end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
@@ -121,6 +127,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
       block_content: {
         "image" => image.image_data.id.to_s,
         "body" => "Some text",
+        "date_field" => { "1" => "2025", "2" => "10", "3" => "1" },
       },
     },
   )
@@ -163,18 +170,16 @@ When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
     fill_in "edition_body", with: "## Some govspeak\n\nThis is the body content"
+    fill_in "edition[block_content][date_field][3]", with: "01"
+    fill_in "edition[block_content][date_field][2]", with: "11"
+    fill_in "edition[block_content][date_field][1]", with: "2011"
     select "Cymraeg (Welsh)", from: "Language"
   end
   click_button "Save and go to document summary"
 end
 
 Given(/^I have drafted a Welsh primary locale configurable document$/) do
-  @welsh_edition = create_configurable_document(
-    title: "Dogfen Cymraeg",
-    locale: "cy",
-    summary: "Crynodeb Cymraeg",
-    body: "## Govspeak Cymraeg\n\nCynnwys y corff yn Gymraeg",
-  )
+  @welsh_edition = create_configurable_document(default_content_for_locale("cy"))
 end
 
 When(/^I go to add a Welsh translation$/) do
@@ -185,10 +190,17 @@ end
 Then(/^configured content blocks should appear on the translation page$/) do
   expect(page).to have_field("Body")
   expect(page).to have_select("Image")
+  expect(page).to have_field("Day")
+  expect(page).to have_field("Month")
+  expect(page).to have_field("Year")
 end
 
 And(/^the Welsh translation fields should be pre-populated with primary locale content$/) do
-  expect(page).to have_field("Body", with: default_content_for_locale("en")[:body])
+  content = default_content_for_locale("en")
+  expect(page).to have_field("Body", with: content[:body])
+  expect(page).to have_field("Year", with: content[:date_field]["1"])
+  expect(page).to have_field("Month", with: content[:date_field]["2"])
+  expect(page).to have_field("Day", with: content[:date_field]["3"])
 end
 
 And(/^the image selections should be preserved from the primary locale$/) do
@@ -206,9 +218,13 @@ And(/^I should see the original English content in "original text" sections$/) d
 end
 
 Then(/^when I set the Welsh translations$/) do
-  fill_in "Translated title (required)", with: default_content_for_locale("cy")[:title]
-  fill_in "Translated summary (required)", with: default_content_for_locale("cy")[:summary]
-  fill_in "Body", with: default_content_for_locale("cy")[:body]
+  content = default_content_for_locale("cy")
+  fill_in "Translated title (required)", with: content[:title]
+  fill_in "Translated summary (required)", with: content[:summary]
+  fill_in "Body", with: content[:body]
+  fill_in "edition[block_content][date_field][3]", with: content[:date_field]["3"]
+  fill_in "edition[block_content][date_field][2]", with: content[:date_field]["2"]
+  fill_in "edition[block_content][date_field][1]", with: content[:date_field]["1"]
   click_button "Save"
 end
 
@@ -216,30 +232,38 @@ Then(/^the Welsh translations should have persisted$/) do
   edition = @standard_edition || StandardEdition.last
   visit edit_admin_edition_translation_path(edition, :cy)
 
-  expect(page).to have_field("Translated title (required)", with: default_content_for_locale("cy")[:title])
-  expect(page).to have_field("Translated summary (required)", with: default_content_for_locale("cy")[:summary])
-  expect(page).to have_field("Body", with: default_content_for_locale("cy")[:body])
+  content = default_content_for_locale("cy")
+  expect(page).to have_field("Translated title (required)", with: content[:title])
+  expect(page).to have_field("Translated summary (required)", with: content[:summary])
+  expect(page).to have_field("Body", with: content[:body])
+  expect(page).to have_field("Year", with: content[:date_field]["1"])
+  expect(page).to have_field("Month", with: content[:date_field]["2"])
+  expect(page).to have_field("Day", with: content[:date_field]["3"])
 end
 
 Given(/^I have published an English document with a Welsh translation$/) do
+  en_content = default_content_for_locale("en")
   @standard_edition = create(
     :published_standard_edition,
     {
       configurable_document_type: "test",
-      title: default_content_for_locale("en")[:title],
-      summary: default_content_for_locale("en")[:summary],
+      title: en_content[:title],
+      summary: en_content[:summary],
       block_content: {
-        "body" => default_content_for_locale("en")[:body],
+        "body" => en_content[:body],
+        "date_field" => en_content[:date_field],
       },
     },
   )
   I18n.with_locale("cy") do
+    cy_content = default_content_for_locale("cy")
     @standard_edition.translations.create!(
       locale: "cy",
-      title: default_content_for_locale("cy")[:title],
-      summary: default_content_for_locale("cy")[:summary],
+      title: cy_content[:title],
+      summary: cy_content[:summary],
       block_content: {
-        "body" => default_content_for_locale("cy")[:body],
+        "body" => cy_content[:body],
+        "date_field" => cy_content[:date_field],
       },
     )
   end
@@ -268,13 +292,16 @@ Given("the test configurable document type group is defined") do
 end
 
 And(/^I have created a new "(.+)" draft$/) do |document_type|
+  content = default_content_for_locale("en")
   @standard_edition = create(
     :draft_standard_edition,
     {
       configurable_document_type: document_type,
-      title: "foo",
+      title: content[:title],
+      summary: content[:summary],
       block_content: {
-        "body" => "Some text",
+        "body" => content[:body],
+        "date_field" => content[:date_field],
       },
     },
   )
