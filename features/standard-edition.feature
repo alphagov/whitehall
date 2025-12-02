@@ -23,11 +23,21 @@ Feature: Standard Editions
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined with translations enabled
     And I have drafted an English configurable document titled "Digital transformation report"
-    When I add a Welsh translation "Adroddiad trawsnewid digidol"
+    When I go to add a Welsh translation
     Then configured content blocks should appear on the translation page
     And the Welsh translation fields should be pre-populated with primary locale content
     And the image selections should be preserved from the primary locale
     And I should see the original English content in "original text" sections
+    And when I set the Welsh translations
+    Then the Welsh translations should have persisted
+
+  Scenario: Editing translations on a persisted edition
+    Given I am a writer
+    And the configurable document types feature flag is enabled
+    And the test configurable document type is defined with translations enabled
+    And I have published an English document with a Welsh translation
+    When I create a new draft and visit the Welsh translation
+    Then the Welsh translations should have persisted
 
   Scenario: Creating a non-English primary locale configurable document
     Given I am a writer

@@ -1,9 +1,5 @@
-def create_test_image
-  create(:image)
-end
-
 def create_configurable_document(title:, locale: "en", summary: nil, body: nil)
-  image = create_test_image
+  image = create(:image)
   defaults = default_content_for_locale(locale)
   I18n.with_locale(locale) do
     create(
@@ -27,26 +23,17 @@ def default_content_for_locale(locale)
   case locale
   when "cy"
     {
+      title: "Dogfen Cymraeg",
       summary: "Crynodeb Cymraeg o'r ddogfen.",
-      body: "## Rhywfaint o Gymraeg\n\nDyma gynnwys y corff yn Gymraeg",
+      body: "## Rhywfaint o Gymraeg. Dyma gynnwys y corff yn Gymraeg",
     }
   else
     {
+      title: "English document",
       summary: "A brief summary of the document.",
-      body: "## Some English govspeak\n\nThis is the English body content",
+      body: "## Some English govspeak. This is the English body content",
     }
   end
-end
-
-def add_translation(edition, language, title, summary, body)
-  visit admin_standard_edition_path(edition)
-  click_link "Add translation"
-  select language, from: "Choose language"
-  click_button "Next"
-  fill_in "Translated title (required)", with: title
-  fill_in "Translated summary (required)", with: summary
-  fill_in "Body", with: body
-  click_button "Save"
 end
 
 Given(/^the configurable document types feature flag is (enabled|disabled)$/) do |enabled|
@@ -124,7 +111,7 @@ Given(/^I have drafted an English configurable document titled "([^"]*)"$/) do |
 end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
-  image = create_test_image
+  image = create(:image)
   standard_edition = create(
     :submitted_standard_edition,
     {
@@ -190,15 +177,8 @@ Given(/^I have drafted a Welsh primary locale configurable document$/) do
   )
 end
 
-When(/^I add a Welsh translation "([^"]*)"$/) do |welsh_title|
+When(/^I go to add a Welsh translation$/) do
   edition = @standard_edition || StandardEdition.last
-  add_translation(
-    edition,
-    "Cymraeg (Welsh)",
-    welsh_title,
-    "Crynodeb Cymraeg byr o'r ddogfen.",
-    "## Rhywfaint o govspeak Cymraeg\n\nDyma gynnwys y corff yn Gymraeg",
-  )
   visit edit_admin_edition_translation_path(edition, :cy)
 end
 
@@ -208,7 +188,7 @@ Then(/^configured content blocks should appear on the translation page$/) do
 end
 
 And(/^the Welsh translation fields should be pre-populated with primary locale content$/) do
-  expect(page).to have_field("Body", with: /govspeak/)
+  expect(page).to have_field("Body", with: default_content_for_locale("en")[:body])
 end
 
 And(/^the image selections should be preserved from the primary locale$/) do
@@ -223,6 +203,55 @@ And(/^I should see the original English content in "original text" sections$/) d
   expect(page).to have_css(".app-c-govspeak-editor")
 
   expect(page).to have_css(".govuk-details", text: "Primary locale content for Body")
+end
+
+Then(/^when I set the Welsh translations$/) do
+  fill_in "Translated title (required)", with: default_content_for_locale("cy")[:title]
+  fill_in "Translated summary (required)", with: default_content_for_locale("cy")[:summary]
+  fill_in "Body", with: default_content_for_locale("cy")[:body]
+  click_button "Save"
+end
+
+Then(/^the Welsh translations should have persisted$/) do
+  edition = @standard_edition || StandardEdition.last
+  visit edit_admin_edition_translation_path(edition, :cy)
+
+  expect(page).to have_field("Translated title (required)", with: default_content_for_locale("cy")[:title])
+  expect(page).to have_field("Translated summary (required)", with: default_content_for_locale("cy")[:summary])
+  expect(page).to have_field("Body", with: default_content_for_locale("cy")[:body])
+end
+
+Given(/^I have published an English document with a Welsh translation$/) do
+  @standard_edition = create(
+    :published_standard_edition,
+    {
+      configurable_document_type: "test",
+      title: default_content_for_locale("en")[:title],
+      summary: default_content_for_locale("en")[:summary],
+      block_content: {
+        "body" => default_content_for_locale("en")[:body],
+      },
+    },
+  )
+  I18n.with_locale("cy") do
+    @standard_edition.translations.create!(
+      locale: "cy",
+      title: default_content_for_locale("cy")[:title],
+      summary: default_content_for_locale("cy")[:summary],
+      block_content: {
+        "body" => default_content_for_locale("cy")[:body],
+      },
+    )
+  end
+end
+
+When(/^I create a new draft and visit the Welsh translation$/) do
+  edition = @standard_edition || StandardEdition.last
+  visit admin_standard_edition_path(edition)
+  click_button "Create new edition"
+  choose "No – it’s a minor edit that does not change the meaning"
+  click_button "Save and go to document summary"
+  @standard_edition = StandardEdition.last # Update to the new draft edition
 end
 
 And(/^the language of the document should be Welsh$/) do
