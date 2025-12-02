@@ -145,19 +145,4 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_not page.valid?
     assert_not page.errors.where("test_attribute", :embedded_contact_invalid).empty?
   end
-
-  test "maps 'date' validation to DateValidator" do
-    schema = @schema.merge({
-      "validations" => {
-        "date" => {
-          "attributes" => %w[test_date_attribute],
-        },
-      },
-    })
-    page = StandardEdition::BlockContent.new(schema)
-
-    page.attributes = { "test_date_attribute" => { "1" => "foo" } }
-    assert_not page.valid?
-    assert_not page.errors.where("test_date_attribute", :invalid_date).empty?
-  end
 end
