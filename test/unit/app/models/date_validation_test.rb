@@ -19,8 +19,29 @@ class DateValidationTest < ActiveSupport::TestCase
     assert model.valid?
   end
 
+  test "should be valid when date attribute is a valid date with keys and values as strings" do
+    model = StubModel.new(some_date: { "1" => "2023", "2" => "9", "3" => "10" })
+    assert model.valid?
+  end
+
   test "should be valid when date attribute is a valid date with a time" do
     model = StubModel.new(some_date: { 1 => 2023, 2 => 9, 3 => 10, 4 => 0, 5 => 0 })
+    assert model.valid?
+  end
+
+  test "should be valid when date attribute is nil" do
+    model = StubModel.new({
+      some_date: { 1 => 2023, 2 => 9, 3 => 10 },
+      another_date: { 1 => nil, 2 => nil, 3 => nil },
+    })
+    assert model.valid?
+  end
+
+  test "should be valid when date attribute is empty" do
+    model = StubModel.new({
+      some_date: { 1 => 2023, 2 => 9, 3 => 10 },
+      another_date: { 1 => "", 2 => "", 3 => "" },
+    })
     assert model.valid?
   end
 
@@ -40,6 +61,9 @@ class DateValidationTest < ActiveSupport::TestCase
       { 1 => nil, 2 => 1, 3 => 1 },
       { 1 => 2023, 2 => nil, 3 => 1 },
       { 1 => 2023, 2 => 1, 3 => nil },
+      { 1 => "", 2 => 1, 3 => 1 },
+      { 1 => 2023, 2 => "", 3 => 1 },
+      { 1 => 2023, 2 => 1, 3 => "" },
     ]
     date_hashes.each do |date_hash|
       model = StubModel.new(some_date: date_hash)
