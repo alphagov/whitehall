@@ -27,26 +27,16 @@ def default_content_for_locale(locale)
   case locale
   when "cy"
     {
+      title: "Dogfen Cymraeg",
       summary: "Crynodeb Cymraeg o'r ddogfen.",
-      body: "## Rhywfaint o Gymraeg\n\nDyma gynnwys y corff yn Gymraeg",
+      body: "## Rhywfaint o Gymraeg. Dyma gynnwys y corff yn Gymraeg",
     }
   else
     {
       summary: "A brief summary of the document.",
-      body: "## Some English govspeak\n\nThis is the English body content",
+      body: "## Some English govspeak. This is the English body content",
     }
   end
-end
-
-def add_translation(edition, language, title, summary, body)
-  visit admin_standard_edition_path(edition)
-  click_link "Add translation"
-  select language, from: "Choose language"
-  click_button "Next"
-  fill_in "Translated title (required)", with: title
-  fill_in "Translated summary (required)", with: summary
-  fill_in "Body", with: body
-  click_button "Save"
 end
 
 Given(/^the configurable document types feature flag is (enabled|disabled)$/) do |enabled|
@@ -190,15 +180,8 @@ Given(/^I have drafted a Welsh primary locale configurable document$/) do
   )
 end
 
-When(/^I add a Welsh translation "([^"]*)"$/) do |welsh_title|
+When(/^I go to add a Welsh translation$/) do
   edition = @standard_edition || StandardEdition.last
-  add_translation(
-    edition,
-    "Cymraeg (Welsh)",
-    welsh_title,
-    "Crynodeb Cymraeg byr o'r ddogfen.",
-    "## Rhywfaint o govspeak Cymraeg\n\nDyma gynnwys y corff yn Gymraeg",
-  )
   visit edit_admin_edition_translation_path(edition, :cy)
 end
 
@@ -208,7 +191,7 @@ Then(/^configured content blocks should appear on the translation page$/) do
 end
 
 And(/^the Welsh translation fields should be pre-populated with primary locale content$/) do
-  expect(page).to have_field("Body", with: /govspeak/)
+  expect(page).to have_field("Body", with: default_content_for_locale("en")[:body])
 end
 
 And(/^the image selections should be preserved from the primary locale$/) do
@@ -223,6 +206,22 @@ And(/^I should see the original English content in "original text" sections$/) d
   expect(page).to have_css(".app-c-govspeak-editor")
 
   expect(page).to have_css(".govuk-details", text: "Primary locale content for Body")
+end
+
+Then(/^when I set the Welsh translations$/) do
+  fill_in "Translated title (required)", with: default_content_for_locale("cy")[:title]
+  fill_in "Translated summary (required)", with: default_content_for_locale("cy")[:summary]
+  fill_in "Body", with: default_content_for_locale("cy")[:body]
+  click_button "Save"
+end
+
+Then(/^the Welsh translations should have persisted$/) do
+  edition = @standard_edition || StandardEdition.last
+  visit edit_admin_edition_translation_path(edition, :cy)
+
+  expect(page).to have_field("Translated title (required)", with: default_content_for_locale("cy")[:title])
+  expect(page).to have_field("Translated summary (required)", with: default_content_for_locale("cy")[:summary])
+  expect(page).to have_field("Body", with: default_content_for_locale("cy")[:body])
 end
 
 And(/^the language of the document should be Welsh$/) do
