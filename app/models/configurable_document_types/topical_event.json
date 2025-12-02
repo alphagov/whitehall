@@ -8,6 +8,20 @@
         "title": "Body",
         "type": "string",
         "format": "govspeak"
+      },
+      "duration": {
+        "title": "Duration",
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "title": "Start date",
+            "type": "date"
+          },
+          "end_date": {
+            "title": "End date",
+            "type": "date"
+          }
+        }
       }
     },
     "validations": {
@@ -36,7 +50,7 @@
   ],
   "settings": {
     "edit_screens": {
-      "document": ["body"]
+      "document": ["body", "duration"]
     },
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",
