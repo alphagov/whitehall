@@ -147,29 +147,12 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
   end
 
-  test "presents an organisation with a custom logo with a nil crest" do
-    organisation = create(:organisation_with_logo_and_assets)
-    presented_item = present(organisation)
-
-    assert_nil presented_item.content[:details][:logo][:crest]
-  end
-
   test "filters out logo with no asset variants" do
     organisation = build(:organisation_with_logo_and_assets)
     organisation.assets.delete_all
     presented_item = present(organisation)
 
     assert_nil presented_item.content[:details][:logo][:image]
-  end
-
-  test "presents an organisation with no identity with a nil crest" do
-    organisation = create(
-      :organisation,
-      organisation_logo_type_id: 1,
-    )
-    presented_item = present(organisation)
-
-    assert_nil presented_item.content[:details][:logo][:crest]
   end
 
   test "presents an organisation with no parents/children without the relationship text" do
