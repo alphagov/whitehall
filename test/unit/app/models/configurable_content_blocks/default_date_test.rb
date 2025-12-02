@@ -49,9 +49,9 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
       path: Path.new.push("test_attribute"),
     }
 
-    assert_dom "input[name=\"edition[block_content][test_attribute(3i)]\"][value=\"#{@date.day}\"]"
-    assert_dom "input[name=\"edition[block_content][test_attribute(2i)]\"][value=\"#{@date.month}\"]"
-    assert_dom "input[name=\"edition[block_content][test_attribute(1i)]\"][value=\"#{@date.year}\"]"
+    assert_dom "input[name=\"edition[block_content][test_attribute][3]\"][value=\"#{@date.day}\"]"
+    assert_dom "input[name=\"edition[block_content][test_attribute][2]\"][value=\"#{@date.month}\"]"
+    assert_dom "input[name=\"edition[block_content][test_attribute][1]\"][value=\"#{@date.year}\"]"
   end
 
   test "it renders errors" do
