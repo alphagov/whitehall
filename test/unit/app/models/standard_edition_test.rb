@@ -209,6 +209,59 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_translation.translatable?
   end
 
+  test "it persists a translation's block content when creating a new draft" do
+    test_type = build_configurable_document_type("test_type", {
+      "schema" => {
+        "properties" => {
+          "test_attribute" => {
+            "title" => "Test Attribute",
+            "type" => "string",
+          },
+          "body" => {
+            "title" => "Body",
+            "type" => "string",
+          },
+          "image" => {
+            "title" => "Custom lead image",
+            "type" => "integer",
+          },
+        },
+      },
+      "settings" => { "translations_enabled" => true },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+    image = create(:image)
+    english_edition = create(:published_standard_edition,
+                             configurable_document_type: "test_type",
+                             primary_locale: "en",
+                             images: [image],
+                             block_content: {
+                               test_attribute: "Some test attribute",
+                               body: "English body content",
+                               image: image.image_data.id,
+                             })
+    welsh_block_content = {
+      test_attribute: "Rhywbeth ar gyfer y maes prawf",
+      body: "## Cynnwys y corff yn Gymraeg",
+      image: image.image_data.id,
+    }
+    I18n.with_locale("cy") do
+      english_edition.translations.create!(
+        locale: "cy",
+        title: "Welsh title",
+        summary: "Welsh summary",
+        block_content: welsh_block_content,
+      )
+    end
+
+    new_draft = english_edition.create_draft(create(:writer))
+
+    welsh_translation = new_draft.translation_for(:cy)
+    assert_equal "Welsh title", welsh_translation.title
+    assert_equal "Welsh summary", welsh_translation.summary
+    assert_equal welsh_block_content.stringify_keys, welsh_translation.block_content
+  end
+
   test "non-English documents exclude English as a translation option" do
     test_type = build_configurable_document_type("test_type", {
       "settings" => { "translations_enabled" => true },

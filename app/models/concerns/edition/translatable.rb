@@ -8,6 +8,7 @@ module Edition::Translatable
           edition.title = @edition.title
           edition.summary = @edition.summary
           edition.body = @edition.body
+          edition.block_content = @edition.block_content
         end
       end
     end
