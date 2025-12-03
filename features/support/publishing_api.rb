@@ -19,6 +19,8 @@ Before do
     .to_return(body: { links: {} }.to_json)
   stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/expanded-links})
     .to_return(body: { expanded_links: {} }.to_json)
+  # Prevent publishing API base path checks from interfering with tests
+  Whitehall::PublishingApi.stubs(:ensure_base_path_is_associated_with_this_content_id!).returns(nil)
 end
 
 World(GdsApi::TestHelpers::PublishingApi)

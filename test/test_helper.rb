@@ -76,6 +76,8 @@ class ActiveSupport::TestCase
     Services.publishing_api.stubs(:get_events_for_content_id).returns([])
     Services.stubs(:asset_manager).returns(stub_everything("asset-manager"))
     TaxonValidator.any_instance.stubs(:validate)
+    # Prevent publishing API base path checks from interfering with tests
+    Whitehall::PublishingApi.stubs(:ensure_base_path_is_associated_with_this_content_id!).returns(nil)
   end
 
   teardown do
