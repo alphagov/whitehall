@@ -20,7 +20,9 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
       },
     }
     @date = Time.zone.now
+    @translated_date = Time.zone.tomorrow
     @block_content = { "test_attribute" => @date }
+    @translated_block_content = { "test_attribute" => @translated_date }
     @block = ConfigurableContentBlocks::DefaultDate.new
   end
 
@@ -29,6 +31,7 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
       schema: @schema["properties"]["test_attribute"],
       content: @block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
+      translated_content: nil,
     }
     assert_dom "legend", text: @schema["properties"]["test_attribute"]["title"]
   end
@@ -38,6 +41,7 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
       schema: @schema["properties"]["test_attribute"],
       content: @block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
+      translated_content: nil,
     }
     assert_dom "div.gem-c-hint.govuk-hint", text: "For example, 01 08 2015"
   end
@@ -47,11 +51,25 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
       schema: @schema["properties"]["test_attribute"],
       content: @block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
+      translated_content: nil,
     }
 
     assert_dom "input[name=\"edition[block_content][test_attribute][3]\"][value=\"#{@date.day}\"]"
     assert_dom "input[name=\"edition[block_content][test_attribute][2]\"][value=\"#{@date.month}\"]"
     assert_dom "input[name=\"edition[block_content][test_attribute][1]\"][value=\"#{@date.year}\"]"
+  end
+
+  test "it renders day, month and year for translated content" do
+    render @block, {
+      schema: @schema["properties"]["test_attribute"],
+      content: @block_content["test_attribute"],
+      path: Path.new.push("test_attribute"),
+      translated_content: @translated_block_content["test_attribute"],
+    }
+
+    assert_dom "input[name=\"edition[block_content][test_attribute][3]\"][value=\"#{@translated_date.day}\"]"
+    assert_dom "input[name=\"edition[block_content][test_attribute][2]\"][value=\"#{@translated_date.month}\"]"
+    assert_dom "input[name=\"edition[block_content][test_attribute][1]\"][value=\"#{@translated_date.year}\"]"
   end
 
   test "it renders errors" do
@@ -66,6 +84,7 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
       schema: @schema["properties"]["test_attribute"],
       content: @block_content["test_attribute"],
       path: Path.new.push("test_attribute"),
+      translated_content: nil,
       errors:,
     }
     assert_dom ".govuk-error-message", "Error: #{messages.join}"
