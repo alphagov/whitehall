@@ -97,6 +97,7 @@ class Admin::EditionsController < Admin::BaseController
     @edition.destroy!
     build_edition
     build_edition_dependencies
+    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title")
     render :new
   end
 
