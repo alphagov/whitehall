@@ -69,7 +69,13 @@ module Whitehall
 
         content.merge!(bulk_publishing: true) if bulk_publishing
 
-        ensure_base_path_is_associated_with_this_content_id!(content[:base_path], model_instance.content_id)
+        base_path = if model_instance.respond_to?(:slug_without_sequence)
+                      model_instance.slug_without_sequence
+                    else
+                      content[:base_path]
+                    end
+
+        ensure_base_path_is_associated_with_this_content_id!(base_path, model_instance.content_id)
 
         Services.publishing_api.put_content(presenter.content_id, content)
       end

@@ -11,6 +11,10 @@ class DetailedGuide < Edition
   include Edition::RelatedDocuments
   include Edition::TopicalEvents
 
+  def self.base_path
+    "/guidance/"
+  end
+
   has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
 
   validate :related_mainstream_found, if: :related_mainstream_requested?
@@ -102,10 +106,6 @@ class DetailedGuide < Edition
   def all_nation_applicability_selected?
     newly_created = document.nil? || document.new_record?
     newly_created ? false : all_nation_applicability
-  end
-
-  def base_path
-    "/guidance/#{slug}"
   end
 
   def publishing_api_presenter

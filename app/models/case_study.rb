@@ -10,16 +10,16 @@ class CaseStudy < Edition
   include Edition::WorldwideOrganisations
   include Edition::LeadImage
 
+  def self.base_path
+    "/government/case-studies/"
+  end
+
   def rendering_app
     Whitehall::RenderingApp::FRONTEND
   end
 
   def translatable?
     !non_english_edition?
-  end
-
-  def base_path
-    "/government/case-studies/#{slug}"
   end
 
   def publishing_api_presenter

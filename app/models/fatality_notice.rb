@@ -25,16 +25,16 @@ class FatalityNotice < Edition
 
   add_trait CasualtiesTrait
 
+  def self.base_path
+    "/government/fatalities/"
+  end
+
   def has_operational_field?
     true
   end
 
   def rendering_app
     Whitehall::RenderingApp::FRONTEND
-  end
-
-  def base_path
-    "/government/fatalities/#{slug}"
   end
 
   def publishing_api_presenter
