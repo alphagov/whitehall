@@ -26,6 +26,13 @@ module DateValidation
     @invalid_date_attributes = Set.new if @invalid_date_attributes.nil?
     if date.is_a?(Hash)
       begin
+        return nil if date.values.all?(&:blank?)
+
+        # In cases where we are including this module in an Active Model class instead of an Active Record class
+        # we need to convert the keys and values to integers because Active Model does not handle multiparameter attributes
+        date.transform_keys!(&:to_i)
+        date.transform_values!(&:to_i)
+
         # Rails will cast the year part of the date to 0 if the year input parameter is a non-numeric string
         # This only seems to happen to the year part, other parts remain as strings
         raise TypeError if date[1].zero?

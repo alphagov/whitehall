@@ -1,6 +1,89 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://whitehall-admin.publishing.service.gov.uk/configurable-document-type.schema.json",
+  "$defs": {
+    "validations": {
+      "description": "List of rails validations to apply to properties, mapping to validators in the application. Keys must match available validators.",
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "properties": {
+            "attributes": {
+              "description": "List of edition fields to validate, with this specific validator.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "attributes"
+          ],
+          "additionalProperties": true
+        }
+      },
+      "propertyNames": {
+        "enum": [
+          "embedded_contacts_exist",
+          "length",
+          "no_footnotes_allowed",
+          "presence",
+          "safe_html",
+          "valid_internal_path_links"
+        ]
+      }
+    },
+    "schema_property": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Display name for the content block."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the content block's purpose. Usually used for hint text."
+        },
+        "type": {
+          "type": "string",
+          "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
+          "enum": [
+            "string",
+            "integer",
+            "date",
+            "object"
+          ]
+        },
+        "format": {
+          "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`.",
+          "type": "string",
+          "enum": [
+            "default",
+            "govspeak",
+            "image_select",
+            "lead_image_select"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/$defs/schema_property"
+            }
+          }
+        },
+        "validations": {
+          "$ref": "#/$defs/validations"
+        }
+      },
+      "required": [
+        "title",
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  },
   "title": "Configurable Document Type",
   "description": "Schema for a configurable document type in Whitehall",
   "type": "object",
@@ -27,73 +110,12 @@
           "description": "Fields/content blocks for the document, each with its own schema.",
           "patternProperties": {
             ".*": {
-              "type": "object",
-              "description": "Schema for a single content block (field) in the document.",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "description": "Display name for the content block."
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Description of the content block's purpose. Usually used for hint text."
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "string",
-                    "integer",
-                    "object"
-                  ],
-                  "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type."
-                },
-                "format": {
-                  "type": "string",
-                  "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`.",
-                  "enum": [
-                    "default",
-                    "govspeak",
-                    "image_select",
-                    "lead_image_select"
-                  ]
-                }
-              },
-              "required": ["title", "type"],
-              "additionalProperties": false
+              "$ref": "#/$defs/schema_property"
             }
           }
         },
         "validations": {
-          "type": "object",
-          "description": "List of rails validations to apply to properties, mapping to validators in the application. Keys must match available validators.",
-          "patternProperties": {
-            ".*": {
-              "type": "object",
-              "properties": {
-                "attributes": {
-                  "type": "array",
-                  "description": "List of edition fields to validate, with this specific validator.",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "required": [
-                "attributes"
-              ],
-              "additionalProperties": true
-            }
-          },
-          "propertyNames": {
-            "enum": [
-              "embedded_contacts_exist",
-              "length",
-              "no_footnotes_allowed",
-              "presence",
-              "safe_html",
-              "valid_internal_path_links"
-            ]
-          }
+          "$ref": "#/$defs/validations"
         },
         "headings_from": {
           "type": "array",
@@ -103,7 +125,9 @@
           }
         }
       },
-      "required": ["properties"],
+      "required": [
+        "properties"
+      ],
       "additionalProperties": false
     },
     "associations": {
@@ -124,7 +148,9 @@
             ]
           }
         },
-        "required": ["key"]
+        "required": [
+          "key"
+        ]
       }
     },
     "settings": {
@@ -219,5 +245,10 @@
       ]
     }
   },
-  "required": ["key", "schema", "associations", "settings"]
+  "required": [
+    "key",
+    "schema",
+    "associations",
+    "settings"
+  ]
 }
