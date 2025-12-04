@@ -17,8 +17,15 @@ module ConfigurableContentBlocks
         leaf_block = !%w[object array].include?(property_schema["type"])
         payload = leaf_block ? block.publishing_api_payload(content[property_key]) : block.publishing_api_payload(property_schema, content[property_key])
 
-        output.merge!({ property_key.to_sym => payload }) unless payload.nil?
+        next if payload.nil?
+
+        if property_schema["format"] == "wrapper"
+          output.merge!(payload)
+        else
+          output.merge!({ property_key.to_sym => payload })
+        end
       end
+
       output
     end
   end

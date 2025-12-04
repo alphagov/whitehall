@@ -12,6 +12,7 @@
       "duration": {
         "title": "Duration",
         "type": "object",
+        "format": "wrapper",
         "properties": {
           "start_date": {
             "title": "Start date",
@@ -20,6 +21,13 @@
           "end_date": {
             "title": "End date",
             "type": "date"
+          }
+        },
+        "validations": {
+          "duration": {
+            "start" : "start_date",
+            "end" : "end_date",
+            "within": "P1Y"
           }
         }
       }
@@ -43,7 +51,7 @@
       }
     }
   },
-  "associations" : [
+  "associations": [
     {
       "key": "organisations"
     }
