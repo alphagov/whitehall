@@ -13,8 +13,9 @@ module ConfigurableAssociations
                                           .select(&:lead?)
                                           .min_by(&:lead_ordering)
                                           &.organisation
+      sorted_orgs = @association.sort_by { |edition_org| [edition_org.lead_ordering ? 0 : 1, edition_org.lead_ordering] }
       {
-        organisations: @association.map { |edition_org| edition_org.organisation.content_id },
+        organisations: sorted_orgs.map { |edition_org| edition_org.organisation.content_id },
         primary_publishing_organisation: [primary_publishing_organisation&.content_id].compact,
       }
     end
