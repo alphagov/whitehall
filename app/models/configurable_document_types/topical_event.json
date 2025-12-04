@@ -12,6 +12,7 @@
       "duration": {
         "title": "Duration",
         "type": "object",
+        "format": "wrapper",
         "properties": {
           "start_date": {
             "title": "Start date",
