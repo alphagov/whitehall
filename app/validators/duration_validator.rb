@@ -13,7 +13,7 @@ class DurationValidator < ActiveModel::Validator
       return
     end
 
-    if start_value
+    if start_value && end_value
       duration = ActiveSupport::Duration.parse(options[:within])
       duration_range = (start_value..(start_value + duration))
 

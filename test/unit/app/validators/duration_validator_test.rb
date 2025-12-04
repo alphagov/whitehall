@@ -55,4 +55,12 @@ class DurationValidatorTest < ActiveSupport::TestCase
 
     assert_equal model.errors.full_messages, ["End date must be between 2024-01-01 and 2025-01-01"]
   end
+
+  test "duration is valid if only start date is provided, as to allow for open ended events" do
+    model = DurationValidatorTestClass.new
+    model.start_date = Date.parse("2025-01-01")
+    @validator.validate(model)
+
+    assert_empty model.errors.full_messages
+  end
 end
