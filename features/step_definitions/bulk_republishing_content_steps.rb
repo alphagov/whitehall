@@ -133,10 +133,32 @@ Given(/Case Studies exist$/) do
   2.times { create(:case_study) }
 end
 
+Given(/Case Studies exist that were updated around "^\d{4}-\d{2}-\d{2}$"$/) do |date|
+  dates = [Date.parse(date), Date.parse(date) + 2, Date.parse(date) + 1, Date.parse(date) - 5, Date.parse(date) + 2, Date.parse(date) + 3]
+  dates.map do |d|
+    create(
+      :published_case_study,
+      updated_at: d,
+    )
+  end
+end
+
 When(/^I select all of type "([^"]*)" for republishing$/) do |content_type|
   visit admin_republishing_index_path
   find("#all-by-type").click
   select content_type, from: "content_type"
+  click_button("Continue")
+  fill_in "What is the reason for republishing?", with: "It needs republishing"
+  click_button("Confirm republishing")
+end
+
+When(/^I select all of type "([^"]*)" updated since "^\d{4}-\d{2}-\d{2}$" for republishing$/) do |content_type, date|
+  visit admin_republishing_index_path
+  find("#all-by-type").click
+  select content_type, from: "content_type"
+  fill_in "Day", with: Date.parse(date).day
+  fill_in "Month", with: Date.parse(date).month
+  fill_in "Year", with: Date.parse(date).year
   click_button("Continue")
   fill_in "What is the reason for republishing?", with: "It needs republishing"
   click_button("Confirm republishing")
