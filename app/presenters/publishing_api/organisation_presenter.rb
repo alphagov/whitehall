@@ -154,7 +154,6 @@ module PublishingApi
 
       {
         url: item.logo.url,
-        alt_text: item.name,
       }
     end
 
