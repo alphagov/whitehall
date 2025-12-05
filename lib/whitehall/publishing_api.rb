@@ -69,6 +69,8 @@ module Whitehall
 
         content.merge!(bulk_publishing: true) if bulk_publishing
 
+        ensure_base_path_is_associated_with_this_content_id!(content[:base_path], model_instance.content_id)
+
         Services.publishing_api.put_content(presenter.content_id, content)
       end
     rescue GdsApi::HTTPUnprocessableEntity => e
@@ -177,6 +179,13 @@ module Whitehall
       if instance.is_a?(Edition) && !instance.publicly_visible?
         raise UnpublishableInstanceError, "#{instance.class} with ID #{instance.id} is not publishable"
       end
+    end
+
+    def self.ensure_base_path_is_associated_with_this_content_id!(base_path, content_id)
+      existing_content_id = Services.publishing_api.lookup_content_id(base_path:)
+      return if existing_content_id.nil? || existing_content_id == content_id
+
+      raise UnpublishableInstanceError, "Cannot save draft (content_id #{content_id}). There is existing content at the '#{base_path}' route, under a different content_id (#{existing_content_id}). Try changing your title to resolve the conflict."
     end
   end
 end

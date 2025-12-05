@@ -274,14 +274,44 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]["args"].first
   end
 
-  test ".save_draft publishes a draft edition" do
+  test ".save_draft publishes a draft edition if no content exists at the route yet" do
     draft_edition = create(:draft_case_study)
     payload = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_content(payload.content_id, payload.content)
+    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: draft_edition.public_path).returns(nil)
 
     Whitehall::PublishingApi.save_draft(draft_edition)
 
     assert_requested request
+  end
+
+  test ".save_draft publishes a draft edition if there is a live content item with the same base path and same content ID" do
+    draft_edition = create(:draft_case_study)
+    payload = PublishingApiPresenters.presenter_for(draft_edition)
+    request = stub_publishing_api_put_content(payload.content_id, payload.content)
+    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: draft_edition.public_path).returns(payload.content_id)
+
+    Whitehall::PublishingApi.save_draft(draft_edition)
+
+    assert_requested request
+  end
+
+  test ".save_draft raises exception if there is a live content item with the same base path but different content ID" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = create(:draft_standard_edition)
+    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: edition.public_path).returns("different-content-id")
+
+    error = assert_raises Whitehall::UnpublishableInstanceError do
+      Whitehall::PublishingApi.save_draft(edition)
+    end
+
+    assert_equal(
+      "Cannot save draft (content_id #{edition.content_id}). There is existing content at the '#{edition.public_path}' route, under a different content_id (different-content-id). Try changing your title to resolve the conflict.",
+      error.message,
+    )
   end
 
   test ".publish_redirect_async publishes a redirect to the Publishing API" do
