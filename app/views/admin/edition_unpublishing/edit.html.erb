@@ -42,6 +42,20 @@
           value: @unpublishing.alternative_url,
           error_items: errors_for(@unpublishing.errors, :alternative_url),
         } %>
+
+        <% if @unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError %>
+          <%= hidden_field_tag "unpublishing[redirect]", "0" %>
+          <%= render "govuk_publishing_components/components/checkboxes", {
+            name: "unpublishing[redirect]",
+            items: [
+              {
+                label: "Redirect to URL automatically?",
+                value: 1,
+                checked: @unpublishing.redirect,
+              },
+            ],
+          } %>
+        <% end %>
       <% end %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">

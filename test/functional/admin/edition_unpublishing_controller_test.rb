@@ -31,6 +31,18 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
     assert_dom "input[name=\"unpublishing[alternative_url]\"]"
   end
 
+  view_test "#edit loads the 'published in error' unpublishing and renders the edit form" do
+    edition = create(:edition, :published_in_error_redirect)
+    get :edit, params: { edition_id: edition.id }
+
+    assert_response :success
+    assert_template :edit
+    assert_equal edition.unpublishing, assigns(:unpublishing)
+    assert_dom "textarea[name=\"unpublishing[explanation]\"]"
+    assert_dom "input[name=\"unpublishing[alternative_url]\"]"
+    assert_dom "input[name=\"unpublishing[redirect]\"]"
+  end
+
   view_test "#edit loads the withdrawal and renders the edit form" do
     edition = create(:edition, :withdrawn)
     get :edit, params: { edition_id: edition.id }
@@ -72,12 +84,14 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
                            unpublishing: {
                              explanation: "this used to say unpublished",
                              alternative_url: "https://gov.uk/some-page",
+                             redirect: "0",
                            } }
 
     assert_redirected_to @controller.admin_edition_path(edition)
     assert_equal "The unpublishing was updated", flash[:notice]
     assert_equal "this used to say unpublished", edition.unpublishing.reload.explanation
     assert_equal "https://gov.uk/some-page", edition.unpublishing.reload.alternative_url
+    assert_equal false, edition.unpublishing.reload.redirect
   end
 
   view_test "#updating the withdrawal shows the error message if the update was not possible" do

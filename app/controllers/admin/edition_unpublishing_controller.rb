@@ -23,7 +23,7 @@ class Admin::EditionUnpublishingController < Admin::BaseController
 private
 
   def unpublishing_params
-    params.expect(unpublishing: %i[alternative_url explanation])
+    params.expect(unpublishing: %i[alternative_url explanation redirect])
   end
 
   def load_unpublishing
