@@ -49,7 +49,6 @@ module GovspeakHelper
         id: image.filename,
         image_data_id: image.image_data_id,
         edition_id: image.edition_id,
-        alt_text: image.alt_text,
         url: image.embed_url,
         caption: image.caption,
         created_at: image.created_at,

@@ -127,6 +127,6 @@ private
   end
 
   def image_params
-    params.fetch(:image, {}).except(:image_data).permit(:caption, :alt_text, image_data: %i[crop_data file image_kind])
+    params.fetch(:image, {}).except(:image_data).permit(:caption, image_data: %i[crop_data file image_kind])
   end
 end

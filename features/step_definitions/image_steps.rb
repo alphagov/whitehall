@@ -139,24 +139,22 @@ Then(/^I should get (\d+) error message$/) do |count|
   expect(page).to have_selector(".gem-c-error-summary__list-item", count:)
 end
 
-Given(/^a draft case study with images with the alt text "([^"]*)" and "([^"]*)" exists$/) do |first_alt_text, second_alt_text|
-  # Unfortunately, we have to use alt text here to distinguish between the images. The assets
-  # are overwritten and stubbed out in asset_manager_helper.rb so the filename and url are always the same.
-  images = [build(:image, alt_text: first_alt_text), build(:image, alt_text: second_alt_text)]
+Given(/^a draft case study with images with the captions "([^"]*)" and "([^"]*)" exists$/) do |first_caption, second_caption|
+  images = [build(:image, caption: first_caption), build(:image, caption: second_caption)]
   @edition = create(:draft_case_study, images:)
 end
 
-And(/^I make the image with alt text "([^"]*)" the lead image$/) do |alt_text|
-  image_container = find(".govuk-body", text: alt_text).ancestor("li")
+And(/^I make the image with caption "([^"]*)" the lead image$/) do |caption|
+  image_container = find(".govuk-body", text: caption).ancestor("li")
 
   within image_container do
     click_button "Select as lead image"
   end
 end
 
-Then(/^I can see that the image with alt text "([^"]*)" is the lead image$/) do |alt_text|
+Then(/^I can see that the image with caption "([^"]*)" is the lead image$/) do |caption|
   within ".app-c-edition-images-lead-image-component__lead_image" do
-    expect(page).to have_content alt_text
+    expect(page).to have_content caption
   end
 end
 

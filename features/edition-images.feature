@@ -35,12 +35,12 @@ Feature: Images tab on edit edition
     And I should see a button to choose to use the default image
 
   Scenario: User selects a new lead image
-    And a draft case study with images with the alt text "First image uploaded" and "Second image uploaded" exists
+    And a draft case study with images with the captions "First image uploaded" and "Second image uploaded" exists
     When I visit the images tab of the document with images
-    And I make the image with alt text "First image uploaded" the lead image
-    Then I can see that the image with alt text "First image uploaded" is the lead image
-    And I make the image with alt text "Second image uploaded" the lead image
-    Then I can see that the image with alt text "Second image uploaded" is the lead image
+    And I make the image with caption "First image uploaded" the lead image
+    Then I can see that the image with caption "First image uploaded" is the lead image
+    And I make the image with caption "Second image uploaded" the lead image
+    Then I can see that the image with caption "Second image uploaded" is the lead image
 
   Scenario: Image uploaded with no cropping required
     And I start drafting a new publication "Standard Beard Lengths"
