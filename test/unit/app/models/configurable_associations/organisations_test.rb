@@ -31,6 +31,26 @@ class OrganisationsTest < ActiveSupport::TestCase
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     assert_equal [], organisations_association.links[:primary_publishing_organisation]
   end
+
+  test "it sorts the organisaton links by lead order with supporting organisations last" do
+    organisations = create_list(:organisation, 4)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([
+      { organisation: organisations.first, lead: false },
+      { organisation: organisations.second, lead: true, lead_ordering: 1 },
+      { organisation: organisations.last, lead: true, lead_ordering: 0 },
+      { organisation: organisations.third, lead: false },
+    ])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    expected_order = [
+      organisations.last.content_id,
+      organisations.second.content_id,
+      organisations.first.content_id,
+      organisations.third.content_id,
+    ]
+    assert_equal expected_order, organisations_association.links[:organisations]
+  end
 end
 
 class OrganisationsRenderingTest < ActionView::TestCase
