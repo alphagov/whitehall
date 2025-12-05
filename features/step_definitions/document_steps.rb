@@ -47,6 +47,12 @@ Given(/^a draft publication "(.*?)" with a file attachment exists$/) do |title|
   @attachment = @edition.attachments.first
 end
 
+Given(/^a draft publication "(.*?)" with two file attachments existing$/) do |title|
+  @edition = create(:draft_publication, :with_file_attachment, title:)
+  @edition.attachments << build(:file_attachment, file: File.open(Rails.root.join("test/fixtures/two-pages.pdf")))
+  @attachment = @edition.attachments.first
+end
+
 Given(/^a force published (document|publication|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   document_type = "publication" if document_type == "document"

@@ -26,7 +26,7 @@ class BulkUpload
 
   def build_attachments_from_params(params)
     @attachments = if params.present?
-                     params.values.map(&method(:find_and_update_existing_attachment))
+                     params.values.map(&method(:create_or_update_attachment)).compact_blank
                    else
                      errors.add(:base, message: "No attachments specified")
                    end
@@ -66,7 +66,9 @@ private
     attachment = find_attachment_with_file(filename) || FileAttachment.new(attachment_data_attributes: { file: })
 
     unless attachment.new_record?
-      attachment.attachment_data_attributes = { file:, to_replace_id: attachment.attachment_data.id }
+      attachment_data = attachment.attachment_data
+      new_filename = "#{attachment_data.filename_without_extension}_1.#{attachment_data.file_extension}"
+      attachment.attachment_data_attributes = { file:, to_replace_id: attachment.attachment_data.id, keep_or_replace: "keep", new_filename: }
     end
 
     attachment.attachment_data.valid?
@@ -97,22 +99,30 @@ private
     @attachable.attachments.with_filename(filename).first
   end
 
-  def find_and_update_existing_attachment(attachment_params)
+  def create_or_update_attachment(attachment_params)
     attachment_attributes = attachment_params.except(:attachment_data_attributes)
     attachment_data_attributes = attachment_params.fetch(:attachment_data_attributes, {})
 
-    attachment = FileAttachment.find_by(id: attachment_attributes[:id]) || FileAttachment.new(attachment_params)
-    attachment.attributes = attachment_attributes.except(:id)
-
-    unless attachment.new_record?
-      attachment_data_attributes[:to_replace_id] = attachment.attachment_data.id
-    end
-
-    attachment.attachment_data = AttachmentData.new(attachment_data_attributes)
-
-    attachment.attachment_data.attachable = @attachable
+    attachment = case attachment_data_attributes[:keep_or_replace]
+                 when "keep"
+                   if attachment_data_attributes[:new_filename].present?
+                     FileAttachment.new(**attachment_attributes.except(:id), attachment_data_attributes: attachment_data_attributes.except(:to_replace_id))
+                   else
+                     attachment = FileAttachment.find_by(id: attachment_attributes[:id])
+                     attachment.assign_attributes(**attachment_attributes.except(:id), attachment_data_attributes:)
+                     attachment
+                   end
+                 when "replace"
+                   existing_attachment = FileAttachment.find_by(id: attachment_attributes[:id])
+                   existing_attachment.assign_attributes(attachment_attributes.except(:id))
+                   existing_attachment.build_attachment_data(**attachment_data_attributes, to_replace_id: existing_attachment.attachment_data.id)
+                   existing_attachment
+                 else
+                   FileAttachment.new(**attachment_attributes.except(:id), attachment_data_attributes:)
+                 end
 
     attachment.attachable = @attachable
+    attachment.attachment_data.attachable = @attachable
 
     attachment
   end
