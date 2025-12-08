@@ -91,6 +91,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       ordered_successor_organisations: [],
       ordered_ministers: [minister.content_id],
       ordered_roles: [role.content_id],
+      organisations: [organisation.content_id],
       primary_publishing_organisation: [organisation.content_id],
     }
 
