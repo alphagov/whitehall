@@ -54,7 +54,7 @@
           ]
         },
         "format": {
-          "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`.",
+          "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`. A breakdown of formats and types can be found in the configurable content blocks factory.",
           "type": "string",
           "enum": [
             "default",
@@ -183,7 +183,7 @@
         },
         "configurable_document_group": {
           "type": "string",
-          "description": "Optional grouping for document types. Used for categorisation in the admin interface. Typically matches the `publishing_api_schema_name`"
+          "description": "Optional grouping for document types. Used for categorisation in the admin interface, including search filters. Typically matches the `publishing_api_schema_name`. For example, both `news_story` and `government_response` types would have the group `news_article`."
         },
         "publishing_api_schema_name": {
           "type": "string",

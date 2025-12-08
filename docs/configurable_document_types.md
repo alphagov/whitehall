@@ -2,38 +2,92 @@
 
 Whitehall offers configurable document types. Configurable documents are editionable Whitehall documents that have their content schemas defined as JSON rather than in code. The content for an edition of a configurable document is stored in the `block_content` JSON column on the `edition_translations` table. These editions have a "type", which is stored in the `configurable_document_type` column on the editions table.
 
+## The standard type
+
+As of this writing, Whitehall has a single configurable type, the "standard" document type, represented by the [StandardEdition](../app/models/standard_edition.rb) model. The standard type is a simple document type with no phasing, chapters or routing logic, for example news articles, case studies and guidance. Other types such as "phased", "navigational" and "multi-part" content are planned for future implementation.
+
+The process of migrating existing document types to the standard type is ongoing. The migration consists of the following steps: defining the new configuration for the type, migrating the data, then deleting legacy code. Note that as of 2025 we have migrated news articles (news stories, government responses etc.) and history pages to the standard configurable document type format.
+
 ## Document Type Configuration
 
-Configurable document types are defined as JSON. The JSON files are stored in the `app/models/configurable_document_types` directory.
+Configurable document types are defined as JSON. The JSON files are stored in the [`app/models/configurable_document_types`](../app/models/configurable_document_types) directory. The types are loaded from the JSON files on the first call to the `types` method on the [configurable document type model](../app/models/configurable_document_type.rb) and cached in memory. The model provides an ergonomic way to read values from a configuration file.
 
 The JSON for each type has these top level keys:
 
 - 'key': The unique identifier for the document type. This is what will be stored in the edition's `configurable_document_type` column.
-- 'schema': The schema for the document type, defined as [JSON schema](https://json-schema.org/docs). Each schema must have a root schema of the type "object".
-- 'associations': The associations for the document type. This is a list of strings that map to a set of association objects in the Rails app.
-- 'settings': The settings for the document type.
+- 'schema': The schema for the document type. Each type must have a root schema of the type "object". This root object contains the `properties` for the document type, which map to [content blocks](#content-blocks) in the application.
+- 'associations': The associations for the document type. This is a list of strings that map to a set of association objects in the Rails app. All associations are included as concerns on the corresponding edition model (such as `StandardEdition`), and then required depending on whether they are included in the document type's configuration.
+- 'settings': A set of configurations for the content type, including edition behaviours that we want to turn on, downstream information or admin-side rendering details.
 
-These are the settings available for configurable document types. All settings are required.
+These are the settings available for configurable document types.
 
-| Key                      | Description                                                                                                                                                                         |
-|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| base_path_prefix         | The prefix for the base path at which the document will be published. E.g. /government/history for the page /government/history/10-downing-street                                   |
-| publishing_api_schema_name | The Publishing API schema name for documents of this type                                                                                                                           |
-| publishing_api_document_type | The Publishing API document type for documents of this type                                                                                                                         |
-| rendering_app            | The redering app for the document type                                                                                                                                              |
-| images_enabled           | Whether or not users should be able to upload images for this document type using the images tab on the edition form                                                                |
-| organisations            | An array of organisation content IDs. Only users from one of the listed organisations will be able to use the document type. Use "null" to allow all users to use the document type |
-
-The types are loaded from the JSON files on the first call to the `types` method on the [configurable document type model](../app/models/configurable_document_type.rb) and cached in memory. The model provides an ergonomic way to read values from a configuration file.
+| Key| Required                                                                                            | Description                                                                                                                                                                                                                                                             |
+|---|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| edit_screens | Y                                                                                                   | A list of rendered screens (tabs) for the content type. Controls which content blocks appear on which editing screens (such as the document and images tabs).                                                                                                           |
+| base_path_prefix         | Y                                                                                                   | The prefix for the base path at which the document will be published e.g. '/government/history for the page /government/history/10-downing-street'.                                                                                                                     |
+| configurable_document_group | N                                                                                                   | Optional grouping for document types. Used for categorisation in the admin interface, including search filters. Typically matches the `publishing_api_schema_name`. For example, both `news_story` and `government_response` types would have the group `news_article`. |
+| publishing_api_schema_name | Y                                                                                                   | Name of the schema in the Publishing API for this document type. Different types might share the same schema name. For example, `news_story` and `government_response` types both use the `news_article` schema.                                                        |
+| publishing_api_document_type | Y                                                                                                   | The Publishing API document type for documents of this type.                                                                                                                                                                                                            |
+| rendering_app            | Y                                                                                                   | The frontend application responsible for rendering this document type.                                                                                                                                                                                                  |
+| images_enabled           | Y  | Whether users can upload images for this document type. When enabled, it renders the Images tab.                                                                                                                                                                        |
+| send_change_history | Y                                                                                                   | Whether to send change history to the Publishing API. The change history will allow users to see major change updates to the document. Most editionable types should have this enabled.                                                                                 |
+| file_attachments_enabled | Y                                                                                                   | Whether file attachments are allowed for this document type. When enabled, it renders the Attachments tab.                                                                                                                                                              |
+| organisations            | Y                                                                                                   | An array of organisation content IDs. Only users from one of the listed organisations will be able to use the document type. Use "null" to allow all users to use the document type.                                                                                    |
+| backdating_enabled       | Y                                                                                                   | Whether backdating is allowed for this document type. This is required for documents representing past printed papers or documents from other digital sources outside Whitehall.                                                                                        |
+| history_mode_enabled     | Y                                                                                                   | Whether history mode is enabled for this document type. This controls whether the document can be marked as political.                                                                                                                                                  |
+| translations_enabled    | Y                                                                                                   | Whether translations are supported for this document type.                                                                                                                                                                                                              |
 
 ## Content Blocks
 
 Each property within a configurable document schema is represented in the application as a content block. The content block is specified via the "type" and "format" options on the property schema. Content blocks are defined in the `app/models/configurable_content_blocks` directory.
 
+NB: The `title` and `summary` attributes for standard editions are not stored in the block content, but rather as first-class attributes on the edition model itself.
+
+Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb) at the point of rendering the form or generating the Publishing API payload. The factory uses the `type` and `format` specified in the schema to determine which block class to instantiate. The block's `type` is used for automatic type casting in the [block content model](../app/models/standard_edition/block_content.rb).
+
 Each content block implements the following methods:
 
 - `publishing_api_payload(content)`: Returns the value to be sent to Publishing API for the property. This can return any type. If returning a hash, ensure you use symbols for the keys.
-- `to_partial_path`: Returns the path to the view that renders the form control for the property. 
+- `to_partial_path`: Returns the path to the view that renders the form control for the property.
+
+### Block rendering
+
+When we render the [form](../app/views/admin/standard_editions/_form.html.erb) for a standard edition, we initialise a "root" block" of type `object`. When this root block's [view](../app/views/admin/configurable_content_blocks/_default_object.html.erb) gets rendered at the view specified in the `DefaultObject`'s block `to_partial_path`, we loop through the block's schema properties and in turn initialise and render blocks matching the specified schemas. The blocks will render in the order they are defined in the schema.
+
+The default object block is a recursive block type, as it can contain other **object** blocks within its properties. This allows us to build arbitrarily deep trees of content blocks, as defined by the document type's schema. The following is an example of a simple schema with nested object properties:
+
+```json
+{
+  "root_object": {
+    "title": "Root Object",
+    "type": "object",
+    "properties": {
+      "leaf_property_one": {
+        "title": "Leaf Property One",
+        "type": "string",
+        "format": "govspeak"
+      },
+      "object_property": {
+        "properties": {
+          "leaf_property_two": {
+            "title": "Leaf Property Two",
+            "type": "string",
+            "format": "image_select"
+          }
+        }
+      }
+    }
+  }
+}
+```
+The rendering process would be as follows:
+- renders the standard edition [form](../app/views/admin/standard_editions/_form.html.erb)
+- renders `root_object` which is a `DefaultObject` block (using the `_default_object.html.erb` partial)
+- loops through the `root_object` properties:
+  - renders `leaf_property_one` which is a `Govspeak` block (using the `_govspeak.html.erb` partial)
+  - renders `object_property` which is a `DefaultObject` block (using the `_default_object.html.erb` partial)
+    - loops through the `object_property` properties:
+      - renders `leaf_property_two` which is an `ImageSelect` block (using the `_image_select.html.erb` partial)
 
 Block views use the following [partial-local](https://guides.rubyonrails.org/action_view_overview.html#passing-data-to-partials-with-locals-option) variables: 
 - The property `schema` and `content` (default `{}`) are provided for the specific part of the tree being rendered by the content block. The content is for the edition's primary locale.
@@ -44,21 +98,47 @@ Block views use the following [partial-local](https://guides.rubyonrails.org/act
 - The `translated_content` (default `nil`) attribute. If the edition is a translation, then this will be populated with the translated content. Blocks must populate their values with the translated content if it is provided, and may wish to show the content for the primary locale as an aid to the user.
 - The `errors` (default `[]`) attribute. The validation errors for the edition. Use the `errors_for` helper function and pass it both the errors and the attribute "path" to pass the attribute errors to the form control component.
 
-Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb). To add a new block type, add a new block class implementing the methods above to the `app/models/configurable_content_blocks` directory, and add the block type to the private blocks method in the factory class. The `blocks` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the configurable document edition object as its only argument. Any values from the edition object needed by the block can be passed to the block's initialize method, e.g. the Image Select block is passed the edition's images.
+### Publishing API Payload
 
-There are two potential "gotchas" in to do with block types. The first is that you can't define a numeric type. Usually, Rails is able to cast model attribute values to a number if the attribute is stored using a numeric database column. However, because we store all the edition content in a single JSON column, Rails can't do that for block content values. Therefore, we are forced to define all leaf schema properties as strings. It may be possible to implement some sort of type casting solution in future if this becomes especially painful.
+In order to compose the `details` hash for Publishing API, The `StandardEditionPresenter`calls the `DefaultObject`'s `publishing_api_payload`. This then loops through all its nested blocks, calling their `publishing_api_payload` methods respectively.
+Relevant payload settings for Publishing API are `base_path_prefix`, `publishing_api_schema_name`, and `publishing_api_document_type`, defined in the document type's [configuration](#document-type-configuration).
 
-The second "gotcha" is that you can't define nullable types, which in JSON schema is usually done by defining a type of `[string, null]`. However, Rails will typically interpret empty form input values as an empty string, rather than `nil`.
+### Create a new content block type
+
+1. Add a new block class to the [content blocks directory](../app/models/configurable_content_blocks)
+   - Implement the `publishing_api_payload` and `to_partial_path` methods.
+2. Add the block type to the [blocks factory](../app/models/configurable_content_blocks/factory.rb)
+    - The factory's `blocks` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the configurable document edition object as its only argument. Any values from the edition object needed by the block can be passed to the block's initialize method, e.g. the `ImageSelect` block is passed the edition's images.
+3. Create a view partial for the block in the `app/views/admin/configurable_content_blocks` directory
+   - The name of the partial should correspond to the block class name.
+
+### Using a content block in the schema
+To use a block, include it in the schema with the following properties:
+- `title`: Display label for the content block.
+- `description`: (Optional) Description of the content block's purpose. Usually used for hint text.
+- `type`: Data type for the content block. Should map to an active record type, with the exception of the `object` and `array` type.
+- `format`: Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. This must match one of the formats registered in the [blocks factory](../app/models/configurable_content_blocks/factory.rb).
+- `validations`: (Optional) Validations to be applied to the content block. See the [Content Block Validation](#content-block-validation) section for more details.
 
 ### Content Block Validation
 
-Rails validations can be applied to properties by adding a `validations` key to the property's object schema. The value for the `validations` key should be an object. The keys for the object must map to a validator, as defined in the ['block content' model](../app/models/standard_edition/block_content.rb). The value for each key is an object which will be passed to the validator constructor. The `attributes` must be included in that object, and must be an array of the names of the attributes to be validated. Other options may be passed depending on what arguments the validator's `initialize` method accepts.
+Rails validations can be applied to properties by adding a `validations` key to the property's object schema. The value for the `validations` key should be an object. The keys for the object must map to a validator, as defined in the ['block content' model](../app/models/standard_edition/block_content.rb). The value for each key is an object which will be passed to the validator constructor. The `attributes` represents an array of the names of the attributes to be validated, required for all but custom validators. Other options may be passed depending on what arguments the validator's `initialize` method accepts. 
+
+NB: This structure means that validations technically sit at the "parent" level, so that most schemas have validations at the root level, validating the properties immediately under, such as `body`. Any subsequent object type blocks would have validations defined for their nested attributes.
+
 Example:
+
 ```json
 {
+  "properties": {
+    "body": { },
+    "image": { }
+  },
   "validations": {
     "presence": {
-      "attributes": ["body"]
+      "attributes": [
+        "body"
+      ]
     },
     "max_file_size_custom_validator": {
       "attributes": [
@@ -68,18 +148,23 @@ Example:
     }
   }
 }
-``` 
+```
+
+For more complex validation logic, you must define your custom validators, such as the [duration for topical events](../app/models/configurable_document_types/topical_event.json). These custom validators are still decoupled from any schema and tested independently. Though they may be specific to a document type, they can be reused across multiple types if needed.
 
 ## Associations
 
-Associations can be added to configurable document types to link them to other content in Whitehall, for example, organisations or topical events. These associations are defined in the `associations` key in the document type's JSON configuration file.
+Associations can be added to configurable document types to link them to other content in Whitehall, for example, organisations or topical events. These associations are defined in the `associations` key in the document type's JSON configuration file. The associations are rendered on the document form in the order they are defined in the configuration.
 
 The available associations are:
 
-- `ministerial_role_appointments`
-- `topical_events`
-- `world_locations`
-- `organisations` (includes lead and supporting organisations)
+| Association                     | Description                                                                                                                                                                              |
+|---|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ministerial_role_appointments` | An appointment links a ‘ministerial role’ to a ‘person’ for a certain duration of time.                                                                                                  |
+| `topical_events` | Topical events are used to communicate government activity about high-profile events or in response to a major crisis. For example, a war, pandemic, the death of a royal or the Budget. |
+|`world_locations` | Here is the [canonical list](https://whitehall-admin.publishing.service.gov.uk/government/admin/world_location_news) of locations we use.                                                |
+| `worldwide_organisations` | A worldwide organisation is a British embassy, High Commission or Consulate General in a worldwide location.                                                                             |
+| `organisations` | Includes lead and supporting organisations.                                                                                                                                              |
 
 ### Architecture
 
