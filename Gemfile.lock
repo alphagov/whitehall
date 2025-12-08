@@ -251,7 +251,7 @@ GEM
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (1.2.2)
       reline
-    friendly_id (5.5.1)
+    friendly_id (5.6.0)
       activerecord (>= 4.0.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
