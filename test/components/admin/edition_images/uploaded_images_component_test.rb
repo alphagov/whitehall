@@ -10,7 +10,7 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
 
     assert_selector "img", count: 2
     assert_selector "img[alt='Lead image']"
-    assert_selector "img[alt='Image 1']"
+    assert_selector "img[alt='']"
   end
 
   test "renders correctly for publications" do
@@ -19,8 +19,7 @@ class Admin::EditionImages::UploadedImagesComponentTest < ViewComponent::TestCas
     render_inline(Admin::EditionImages::UploadedImagesComponent.new(edition:))
 
     assert_selector "img", count: 2
-    assert_selector "img[alt='Image 1']"
-    assert_selector "img[alt='Image 2']"
+    assert_selector "img[alt='']", count: 2
   end
 
   test "renders correctly when edition has no images" do

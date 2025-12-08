@@ -63,7 +63,6 @@ module PublishingApi
       if person.image&.all_asset_variants_uploaded?
         return person_attributes.merge({ image: {
           url: person.image&.url,
-          alt_text: person.name,
         } })
       end
 
