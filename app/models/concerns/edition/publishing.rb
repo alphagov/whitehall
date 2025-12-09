@@ -6,6 +6,7 @@ module Edition::Publishing
 
     validates :major_change_published_at, presence: true, if: :published?
     validate :change_note_present!, if: :change_note_required?
+    validate :base_path_is_unique!, if: :draft?
     validate :attachments_uploaded_to_asset_manager!, if: :attachments_in_asset_manager_check_required?
     validate :images_uploaded_to_asset_manager!, if: :images_in_asset_manager_check_required?
     validates_associated :unpublishing, on: :publish
@@ -56,6 +57,12 @@ module Edition::Publishing
 
   def attachments_uploaded_to_asset_manager!
     errors.add(:attachments, "must have finished uploading") unless attachments_uploaded_to_asset_manager?
+  end
+
+  def base_path_is_unique!
+    existing_content_id = Services.publishing_api.lookup_content_id(base_path: base_path + title.to_slug.normalize.to_s)
+    return if existing_content_id.nil? || existing_content_id == content_id
+    errors.add(:title, "cannot be used, an already published document of the same type has the same title.")
   end
 
   def images_in_asset_manager_check_required?
