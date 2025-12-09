@@ -45,23 +45,37 @@
         },
       } %>
 
+      <% block_content_form = @edition.type_instance.form %>
       <% root_block = ConfigurableContentBlocks::Factory.new(@translated_edition).build("object") %>
-      <%= render(root_block, {
-        schema: ConfigurableDocumentType.find(@translated_edition.configurable_document_type).schema,
-        content: @edition.block_content,
-        translated_content: @translated_edition.block_content,
-        path: ConfigurableContentBlocks::Path.new,
-        right_to_left: form.object.translation_rtl?,
-        errors: @translated_edition.errors,
-        root: true,
-      }) %>
 
-      <div class="govuk-button-group">
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Save",
-        } %>
-        <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
-      </div>
+      <% if block_content_form  %>
+        <%= render(root_block, {
+          schema: block_content_form,
+          content: @edition.block_content,
+          translated_content: @translated_edition.block_content,
+          path: ConfigurableContentBlocks::Path.new,
+          right_to_left: form.object.translation_rtl?,
+          errors: @translated_edition.errors,
+          root: true,
+        }) %>
+      <% else %>
+        <%= render(root_block, {
+          schema: ConfigurableDocumentType.find(@translated_edition.configurable_document_type).schema,
+          content: @edition.block_content,
+          translated_content: @translated_edition.block_content,
+          path: ConfigurableContentBlocks::Path.new,
+          right_to_left: form.object.translation_rtl?,
+          errors: @translated_edition.errors,
+          root: true,
+        }) %>
+      <% end %>
+
+        <div class="govuk-button-group">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Save",
+          } %>
+          <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+        </div>
     <% end %>
   </section>
   <div class="govuk-grid-column-one-third">

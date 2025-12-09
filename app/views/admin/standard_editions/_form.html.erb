@@ -62,16 +62,28 @@
     } %>
 
     <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
+    <% block_content_form = @edition.type_instance.form("documents") %>
     <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build("object") %>
-    <%= render(root_block, {
-      schema: ConfigurableDocumentType.find(@edition.configurable_document_type).schema,
-      content: @edition.block_content,
-      path: ConfigurableContentBlocks::Path.new,
-      right_to_left: @edition.rtl?,
-      errors: @edition.errors,
-      root: true,
-      visible_properties: ConfigurableDocumentType.find(edition.configurable_document_type).properties_for_edit_screen("document"),
-    }) %>
+
+    <% if block_content_form  %>
+      <%= render(root_block, {
+        schema: block_content_form,
+        content: @edition.block_content,
+        path: ConfigurableContentBlocks::Path.new,
+        right_to_left: @edition.rtl?,
+        errors: @edition.errors,
+        root: true,
+      }) %>
+    <% else %>
+      <%= render(root_block, {
+        schema: { "properties" => ConfigurableDocumentType.find(edition.configurable_document_type).properties_for_edit_screen("document") },
+        content: @edition.block_content,
+        path: ConfigurableContentBlocks::Path.new,
+        right_to_left: @edition.rtl?,
+        errors: @edition.errors,
+        root: true,
+      }) %>
+    <% end %>
 
     <%= render Admin::Editions::FirstPublishedAtComponent.new(
       edition:,

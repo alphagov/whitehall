@@ -49,6 +49,11 @@ Given(/^the test configurable document type is defined(?: with translations enab
   ConfigurableDocumentType.setup_test_types({ "test" => type_definition })
 end
 
+Given(/^the test configurable document type with forms is defined(?: with translations enabled)?$/) do
+  type_definition = JSON.parse(File.read(Rails.root.join("features/fixtures/test_configurable_document_type_with_forms.json")))
+  ConfigurableDocumentType.setup_test_types({ "test" => type_definition })
+end
+
 When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |configurable_document_type, title|
   create(:organisation) if Organisation.count.zero?
   visit admin_root_path

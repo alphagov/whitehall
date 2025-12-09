@@ -5,9 +5,10 @@ module ConfigurableContentBlocks
 
     attr_reader :images, :attachments
 
-    def initialize(images = [], attachments = [])
+    def initialize(images = [], attachments = [], form = nil)
       @images = images
       @attachments = attachments
+      @form = nil
     end
 
     def publishing_api_payload(content)
