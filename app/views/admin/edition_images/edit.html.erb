@@ -11,7 +11,7 @@
 
       <%= hidden_field_tag("image[image_data][image_kind]", image.image_data.image_kind) %>
 
-      <% if image.can_be_cropped? && image.image_data&.original_uploaded? %>
+      <% if image.can_be_cropped? && image_url %>
         <%= render "components/image_cropper", {
           name: "image[image_data][crop_data]",
           src: image_url,
