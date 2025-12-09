@@ -1,0 +1,65 @@
+{
+  "key": "test",
+  "title": "Test configurable document type",
+  "description": "A test configurable document on GOV.UK",
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "block": "govspeak"
+        },
+        "date_field": {
+          "title": "Date Field",
+          "description": "A date field for the page",
+          "block": "default_date"
+        }
+      }
+    },
+    "images": {
+      "fields": {
+        "image": {
+          "title": "Image",
+          "description": "The image for the page",
+          "block": "image_select"
+        }
+      }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "body": "govspeak",
+      "date_field": "rfc3339_date",
+      "image": "image"
+    }
+  },
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
+      },
+      "image": {
+        "type": "integer"
+      },
+      "date_field": {
+        "type": "date"
+      }
+    }
+  },
+  "associations": [],
+  "settings": {
+    "edit_screens": {
+      "document": ["body", "date_field"],
+      "images": ["image"]
+    },
+    "base_path_prefix": "/government/test-type",
+    "publishing_api_schema_name": "test_type",
+    "publishing_api_document_type": "test_type",
+    "rendering_app": "government-frontend",
+    "organisations": null,
+    "backdating_enabled": false,
+    "translations_enabled": true,
+    "images_enabled": true
+  }
+}

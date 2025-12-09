@@ -46,12 +46,7 @@
         "type": {
           "type": "string",
           "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
-          "enum": [
-            "string",
-            "integer",
-            "date",
-            "object"
-          ]
+          "enum": ["string", "integer", "date", "object"]
         },
         "format": {
           "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`. A breakdown of formats and types can be found in the configurable content blocks factory.",
@@ -76,10 +71,42 @@
           "$ref": "#/$defs/validations"
         }
       },
-      "required": [
-        "title",
-        "type"
-      ],
+      "required": ["title", "type"],
+      "additionalProperties": false
+    },
+    "form_field": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Display name for the content block."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the content block's purpose. Usually used for hint text."
+        },
+        "block": {
+          "type": "string",
+          "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
+          "enum": [
+            "default",
+            "govspeak",
+            "image_select",
+            "lead_image_select",
+            "wrapper",
+            "default_date"
+          ]
+        },
+        "fields": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/$defs/form_field"
+            }
+          }
+        }
+      },
+      "required": ["title", "block"],
       "additionalProperties": false
     }
   },
@@ -113,6 +140,24 @@
             }
           }
         },
+        "attributes": {
+          "type": "object",
+          "description": "Alternative to `properties`, defining content blocks with minimal schema information.",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
+                  "enum": ["string", "integer", "date", "object"]
+                }
+              },
+              "required": ["type"],
+              "additionalProperties": false
+            }
+          }
+        },
         "validations": {
           "$ref": "#/$defs/validations"
         },
@@ -124,10 +169,46 @@
           }
         }
       },
-      "required": [
-        "properties"
-      ],
       "additionalProperties": false
+    },
+    "forms": {
+      "type": "object",
+      "description": "Defines the content structure for the document type. Each property represents a content block.",
+      "properties": {
+        "documents": {
+          "type": "object",
+          "properties": {
+            "fields": {
+              "type": "object",
+              "description": "Fields/content blocks for the document, each with its own schema.",
+              "patternProperties": {
+                ".*": {
+                  "$ref": "#/$defs/form_field"
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "presenters": {
+      "type": "object",
+      "description": "Defines how content blocks map to publishing API presenters and formats.",
+      "properties": {
+        "publishing_api": {
+          "type": "object",
+          "description": "Mapping of content blocks to their respective publishing API presenter formats.",
+          "patternProperties": {
+            ".*": {
+              "type": "string",
+              "description": "The format to use for the content block when presenting to the Publishing API."
+            }
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["publishing_api"]
     },
     "associations": {
       "type": "array",
@@ -147,9 +228,7 @@
             ]
           }
         },
-        "required": [
-          "key"
-        ]
+        "required": ["key"]
       }
     },
     "settings": {
@@ -244,10 +323,5 @@
       ]
     }
   },
-  "required": [
-    "key",
-    "schema",
-    "associations",
-    "settings"
-  ]
+  "required": ["key", "schema", "associations", "settings"]
 }
