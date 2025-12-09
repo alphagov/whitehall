@@ -5,9 +5,14 @@ class DraftEditionUpdater < EditionService
       notify!
       true
     end
+  rescue UnpublishableInstanceError => e
+    @failure_reason = e.message
+    false
   end
 
   def failure_reason
+    return @failure_reason if @failure_reason.present?
+
     if !edition.pre_publication?
       "A #{edition.state} edition may not be updated."
     elsif should_check_current_user_will_retain_access? && access_limit_excludes_current_user?
