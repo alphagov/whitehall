@@ -23,7 +23,7 @@ class PublishingApi::HowGovernmentWorksEnableReshufflePresenterTest < ActiveSupp
     expected_hash = {
       base_path: "/government/how-government-works",
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: "government-frontend",
+      rendering_app: "frontend",
       schema_name: "how_government_works",
       document_type: "how_government_works",
       title: "How government works",
