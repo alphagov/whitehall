@@ -51,6 +51,7 @@ class StandardEditionMigrator::NewsArticleRecipe
   end
 
   def ignore_new_links(links)
+    links.delete(:emphasised_organisations)
     links
   end
 end

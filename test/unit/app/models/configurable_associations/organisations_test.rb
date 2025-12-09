@@ -1,7 +1,7 @@
 require "test_helper"
 
 class OrganisationsTest < ActiveSupport::TestCase
-  test "it presents the selected organisations and primary publishing organisation links" do
+  test "it presents the selected organisations, emphasised organisations and primary publishing organisation links" do
     organisations = create_list(:organisation, 3)
     edition = build(:draft_standard_edition)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
@@ -9,6 +9,7 @@ class OrganisationsTest < ActiveSupport::TestCase
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
     expected_links = {
       organisations: [organisations.first.content_id, organisations.last.content_id],
+      emphasised_organisations: [organisations.first.content_id],
       primary_publishing_organisation: [organisations.first.content_id],
     }
     assert_equal expected_links, organisations_association.links
@@ -50,6 +51,22 @@ class OrganisationsTest < ActiveSupport::TestCase
       organisations.third.content_id,
     ]
     assert_equal expected_order, organisations_association.links[:organisations]
+  end
+
+  test "it sorts the emphasised organisation links by lead order" do
+    organisations = create_list(:organisation, 2)
+    edition = build(:draft_standard_edition)
+    edition.edition_organisations.build([
+      { organisation: organisations.first, lead: true, lead_ordering: 1 },
+      { organisation: organisations.last, lead: true, lead_ordering: 0 },
+    ])
+
+    organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
+    expected_order = [
+      organisations.last.content_id,
+      organisations.first.content_id,
+    ]
+    assert_equal expected_order, organisations_association.links[:emphasised_organisations]
   end
 end
 
