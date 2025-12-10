@@ -1,0 +1,19 @@
+<%= render "components/summary_card", {
+  title: schema["title"] + (required ? " (required)" : ""),
+  summary_card_actions: [
+    {
+      label: "N/A",
+      href: '#',
+    },
+  ],
+  rows: [
+    {
+      key: "Image",
+      value: image_card.thumbnail_url(content),
+    },
+    {
+      key: "Caption",
+      value: image_card.caption(content),
+    }
+  ],
+} %>

@@ -30,6 +30,11 @@
             "within": "P1Y"
           }
         }
+      },
+      "hero_image": {
+        "title": "Hero image",
+        "type": "integer",
+        "format": "image_card"
       }
     },
     "validations": {
@@ -58,7 +63,8 @@
   ],
   "settings": {
     "edit_screens": {
-      "document": ["body", "duration"]
+      "document": ["body", "duration"],
+        "images": ["hero_image"]
     },
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",
