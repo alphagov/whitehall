@@ -56,6 +56,7 @@ class Admin::EditionImagesController < Admin::BaseController
     if @images.many?
       render :index
     else
+      # TODO: Potentially wait for asset manager to be ready.
       redirect_to edit_admin_edition_image_path(@edition, @edition.images.first.id)
     end
   end
