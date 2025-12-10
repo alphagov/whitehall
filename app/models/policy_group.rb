@@ -79,6 +79,10 @@ class PolicyGroup < ApplicationRecord
     "/government/groups/#{slug}"
   end
 
+  def body
+    description
+  end
+
   def public_path(options = {})
     append_url_options(base_path, options)
   end
