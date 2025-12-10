@@ -53,7 +53,11 @@ class Admin::EditionImagesController < Admin::BaseController
       @images.each { |image| @edition.images.delete(image) }
     end
 
-    render :index
+    if @images.many?
+      render :index
+    else
+      redirect_to edit_admin_edition_image_path(@edition, @edition.images.first.id)
+    end
   end
 
   def create_image(image)
