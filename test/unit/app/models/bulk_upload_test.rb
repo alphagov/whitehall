@@ -33,14 +33,17 @@ class BulkUploadTest < ActiveSupport::TestCase
     assert_equal "whitepaper.pdf", bulk_upload.attachments[1].filename
   end
 
-  test "loads attachments from the edition if filenames match" do
-    edition = create(:news_article, :with_file_attachment)
+  test "loads attachments from the edition if filenames match and adds `new_filename`" do
+    edition = create(:publication, :with_file_attachment)
     existing = edition.attachments.first
+    edition.attachments << create(:external_attachment, title: "An external attachment", attachable: edition)
+    edition.attachments << create(:html_attachment, title: "An HTML attachment", attachable: edition)
     files = ["whitepaper.pdf", existing.filename].map { |name| upload_fixture(name) }
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.build_attachments_from_files(files)
     assert bulk_upload.attachments.first.new_record?, "Attachment should be new record"
     assert_not bulk_upload.attachments.last.new_record?, "Attachment shouldn't be new record"
+    assert_equal "#{existing.attachment_data.filename_without_extension}_1.#{existing.file_extension}", bulk_upload.attachments.last.attachment_data.new_filename
   end
 
   test "always builds new AttachmentData instances from array of files" do
