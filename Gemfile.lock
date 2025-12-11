@@ -185,7 +185,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
     database_cleaner-core (2.0.1)
-    date (3.5.0)
+    date (3.5.1)
     debug_inspector (1.2.0)
     diff-lcs (1.6.2)
     diffy (3.4.4)
@@ -318,7 +318,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (62.2.1)
+    govuk_publishing_components (62.3.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -515,7 +515,7 @@ GEM
       opentelemetry-common (~> 0.21)
     opentelemetry-helpers-sql (0.3.0)
       opentelemetry-api (~> 1.7)
-    opentelemetry-helpers-sql-obfuscation (0.5.0)
+    opentelemetry-helpers-sql-processor (0.3.1)
       opentelemetry-common (~> 0.21)
     opentelemetry-instrumentation-action_mailer (0.6.1)
       opentelemetry-instrumentation-active_support (~> 0.10)
@@ -533,7 +533,7 @@ GEM
       opentelemetry-instrumentation-active_support (~> 0.10)
     opentelemetry-instrumentation-active_support (0.10.1)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-all (0.88.0)
+    opentelemetry-instrumentation-all (0.89.1)
       opentelemetry-instrumentation-active_model_serializers (~> 0.24.0)
       opentelemetry-instrumentation-anthropic (~> 0.3.0)
       opentelemetry-instrumentation-aws_lambda (~> 0.6.0)
@@ -555,10 +555,10 @@ GEM
       opentelemetry-instrumentation-koala (~> 0.23.0)
       opentelemetry-instrumentation-lmdb (~> 0.25.0)
       opentelemetry-instrumentation-mongo (~> 0.25.0)
-      opentelemetry-instrumentation-mysql2 (~> 0.31.0)
+      opentelemetry-instrumentation-mysql2 (~> 0.32.1)
       opentelemetry-instrumentation-net_http (~> 0.26.0)
-      opentelemetry-instrumentation-pg (~> 0.33.0)
-      opentelemetry-instrumentation-que (~> 0.11.1)
+      opentelemetry-instrumentation-pg (~> 0.34.1)
+      opentelemetry-instrumentation-que (~> 0.12.0)
       opentelemetry-instrumentation-racecar (~> 0.6.0)
       opentelemetry-instrumentation-rack (~> 0.29.0)
       opentelemetry-instrumentation-rails (~> 0.39.1)
@@ -568,9 +568,9 @@ GEM
       opentelemetry-instrumentation-resque (~> 0.8.0)
       opentelemetry-instrumentation-restclient (~> 0.26.0)
       opentelemetry-instrumentation-ruby_kafka (~> 0.24.0)
-      opentelemetry-instrumentation-sidekiq (~> 0.28.0)
+      opentelemetry-instrumentation-sidekiq (~> 0.28.1)
       opentelemetry-instrumentation-sinatra (~> 0.28.0)
-      opentelemetry-instrumentation-trilogy (~> 0.64.0)
+      opentelemetry-instrumentation-trilogy (~> 0.65.1)
     opentelemetry-instrumentation-anthropic (0.3.0)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-aws_lambda (0.6.0)
@@ -615,18 +615,18 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-mongo (0.25.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-mysql2 (0.31.0)
+    opentelemetry-instrumentation-mysql2 (0.32.1)
       opentelemetry-helpers-mysql
       opentelemetry-helpers-sql
-      opentelemetry-helpers-sql-obfuscation
+      opentelemetry-helpers-sql-processor
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-net_http (0.26.1)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-pg (0.33.0)
+    opentelemetry-instrumentation-pg (0.34.1)
       opentelemetry-helpers-sql
-      opentelemetry-helpers-sql-obfuscation
+      opentelemetry-helpers-sql-processor
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-que (0.11.1)
+    opentelemetry-instrumentation-que (0.12.0)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-racecar (0.6.0)
       opentelemetry-instrumentation-base (~> 0.25)
@@ -657,10 +657,10 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-sinatra (0.28.0)
       opentelemetry-instrumentation-rack (~> 0.29)
-    opentelemetry-instrumentation-trilogy (0.64.0)
+    opentelemetry-instrumentation-trilogy (0.65.1)
       opentelemetry-helpers-mysql
       opentelemetry-helpers-sql
-      opentelemetry-helpers-sql-obfuscation
+      opentelemetry-helpers-sql-processor
       opentelemetry-instrumentation-base (~> 0.25)
       opentelemetry-semantic_conventions (>= 1.8.0)
     opentelemetry-registry (0.4.0)
@@ -741,7 +741,7 @@ GEM
       pry (>= 0.13, < 0.16)
     pry-rails (0.3.11)
       pry (>= 0.13.0)
-    psych (5.2.6)
+    psych (5.3.0)
       date
       stringio
     ptools (1.5.2)
