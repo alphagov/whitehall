@@ -67,7 +67,7 @@ private
 
     unless attachment.new_record?
       attachment_data = attachment.attachment_data
-      existing_attachment_filenames = @attachable.attachments.map(&:filename).join(" ")
+      existing_attachment_filenames = @attachable.attachments.select(&:file?).map(&:filename).join(" ")
       existing_attachment_count = existing_attachment_filenames.scan(attachment_data.filename_without_extension).count
 
       new_filename = "#{attachment_data.filename_without_extension}_#{existing_attachment_count}.#{attachment_data.file_extension}"
