@@ -1,12 +1,12 @@
 require "test_helper"
 
 class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
-  test "#find raises an error if the type is not specified" do
+  test ".find raises an error if the type is not specified" do
     error = assert_raises(ConfigurableDocumentType::NotFoundError) { ConfigurableDocumentType.find(nil) }
     assert_equal "No document type specified", error.message
   end
 
-  test "#find raises an error if the type is not found" do
+  test ".find raises an error if the type is not found" do
     error = assert_raises(ConfigurableDocumentType::NotFoundError) { ConfigurableDocumentType.find("non_existent_type") }
     assert_equal "No document type found for 'non_existent_type'", error.message
   end
@@ -81,5 +81,93 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     types_we_can_convert_to = ConfigurableDocumentType.convertible_from("initial_type")
     assert_equal 1, types_we_can_convert_to.size
     assert_equal "new_type", types_we_can_convert_to.first.key
+  end
+
+  test "#form creates a flattened hash of fields if no form key is provided" do
+    configurable_document_type = build_configurable_document_type_with_forms(
+      "test_type",
+      {
+        "forms" => {
+          "test_attribute_1" => {
+            "fields" => {
+              "field_attribute_1" => {
+                "title" => "Field attribute 1",
+                "block" => "date_field",
+              },
+            },
+          },
+          "test_attribute_2" => {
+            "fields" => {
+              "field_attribute_2" => {
+                "title" => "Field attribute 2",
+                "block" => "govspeak",
+              },
+            },
+          },
+        },
+        "schema" => {
+          "attributes" => {
+            "test_attribute_1" => {
+              "type" => "date",
+            },
+            "test_attribute_2" => {
+              "type" => "date",
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert document_type.form["fields"].key?("field_attribute_1")
+    assert document_type.form["fields"].key?("field_attribute_2")
+  end
+
+  test "#form returns fields specific to a single form if its key is provided" do
+    configurable_document_type = build_configurable_document_type_with_forms(
+      "test_type",
+      {
+        "forms" => {
+          "test_attribute_1" => {
+            "fields" => {
+              "field_attribute_1" => {
+                "title" => "Field attribute 1",
+                "block" => "date_field",
+              },
+            },
+          },
+          "test_attribute_2" => {
+            "fields" => {
+              "field_attribute_2" => {
+                "title" => "Field attribute 2",
+                "block" => "govspeak",
+              },
+            },
+          },
+        },
+        "schema" => {
+          "attributes" => {
+            "test_attribute_1" => {
+              "type" => "date",
+            },
+            "test_attribute_2" => {
+              "type" => "date",
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+    expected_fields = {
+      "fields" => {
+        "field_attribute_1" => {
+          "title" => "Field attribute 1",
+          "block" => "date_field",
+        },
+      },
+    }
+    assert_equal expected_fields, document_type.form("test_attribute_1")
   end
 end
