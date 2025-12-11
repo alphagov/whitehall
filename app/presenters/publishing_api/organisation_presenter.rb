@@ -56,6 +56,8 @@ module PublishingApi
         ordered_traffic_commissioners: people_content_ids(role: "traffic_commissioner"),
         organisations: [content_id],
         primary_publishing_organisation: [content_id],
+        superseded_organisations: item.superseded_organisations.map(&:content_id),
+        superseding_organisations: item.superseding_organisations.map(&:content_id),
       }
     end
 
