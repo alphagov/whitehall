@@ -11,28 +11,37 @@ class Admin::PaginationHelperTest < ActionView::TestCase
 
   test "#pagination_hash when total pages are less than 5 it returns the correct objects" do
     expected_hash = {
-      previous_href: path_for_page(2),
-      next_href: path_for_page(4),
+      previous_page: {
+        href: path_for_page(2),
+      },
+      next_page: {
+        href: path_for_page(4),
+      },
       items: [
         {
           href: path_for_page(1),
           current: false,
+          number: 1,
         },
         {
           href: path_for_page(2),
           current: false,
+          number: 2,
         },
         {
           href: path_for_page(3),
           current: true,
+          number: 3,
         },
         {
           href: path_for_page(4),
           current: false,
+          number: 4,
         },
         {
           href: path_for_page(5),
           current: false,
+          number: 5,
         },
       ],
     }
@@ -43,44 +52,46 @@ class Admin::PaginationHelperTest < ActionView::TestCase
   [*1..3].each do |page|
     test "#pagination_hash returns the correct ouput when the current page is #{page} of 10" do
       expected_hash = {
-        previous_href: page > 1 ? path_for_page(page - 1) : nil,
-        next_href: path_for_page(page + 1),
+        next_page: {
+          href: path_for_page(page + 1),
+        },
         items: [
           {
             href: path_for_page(1),
-            label: "1",
             current: page == 1,
-            aria_label: "Page 1",
+            number: 1,
           },
           {
             href: path_for_page(2),
-            label: "2",
             current: page == 2,
-            aria_label: "Page 2",
+            number: 2,
           },
           {
             href: path_for_page(3),
-            label: "3",
             current: page == 3,
-            aria_label: "Page 3",
+            number: 3,
           },
           {
             href: path_for_page(4),
-            label: "4",
             current: false,
-            aria_label: "Page 4",
+            number: 4,
           },
           {
-            ellipses: true,
+            ellipsis: true,
           },
           {
             href: path_for_page(10),
-            label: "10",
             current: false,
-            aria_label: "Page 10",
+            number: 10,
           },
         ],
-      }
+      }.merge(
+        page > 1 ? {
+          previous_page: {
+            href: path_for_page(page - 1),
+          },
+        } : {},
+      )
 
       assert_equal expected_hash, Admin::PaginationHelper.pagination_hash(current_page: page, total_pages: 10, path: path_for_page(page))
     end
@@ -89,44 +100,43 @@ class Admin::PaginationHelperTest < ActionView::TestCase
   [*4..7].each do |page|
     test "#pagination_hash returns the correct ouput when the current page is #{page} of 10" do
       expected_hash = {
-        previous_href: path_for_page(page - 1),
-        next_href: path_for_page(page + 1),
+        previous_page: {
+          href: path_for_page(page - 1),
+        },
+        next_page: {
+          href: path_for_page(page + 1),
+        },
         items: [
           {
             href: path_for_page(1),
-            label: "1",
             current: false,
-            aria_label: "Page 1",
+            number: 1,
           },
           {
-            ellipses: true,
+            ellipsis: true,
           },
           {
             href: path_for_page(page - 1),
-            label: (page - 1).to_s,
             current: false,
-            aria_label: "Page #{page - 1}",
+            number: page - 1,
           },
           {
             href: path_for_page(page),
-            label: page.to_s,
             current: true,
-            aria_label: "Page #{page}",
+            number: page,
           },
           {
             href: path_for_page(page + 1),
-            label: (page + 1).to_s,
             current: false,
-            aria_label: "Page #{page + 1}",
+            number: page + 1,
           },
           {
-            ellipses: true,
+            ellipsis: true,
           },
           {
             href: path_for_page(10),
-            label: "10",
             current: false,
-            aria_label: "Page 10",
+            number: 10,
           },
         ],
       }
@@ -138,44 +148,46 @@ class Admin::PaginationHelperTest < ActionView::TestCase
   [*8..10].each do |page|
     test "#pagination_hash returns the correct ouput when the current page is #{page} of 10" do
       expected_hash = {
-        previous_href: path_for_page(page - 1),
-        next_href: page == 10 ? nil : path_for_page(page + 1),
+        previous_page: {
+          href: path_for_page(page - 1),
+        },
         items: [
           {
             href: path_for_page(1),
-            label: "1",
             current: false,
-            aria_label: "Page 1",
+            number: 1,
           },
           {
-            ellipses: true,
+            ellipsis: true,
           },
           {
             href: path_for_page(7),
-            label: "7",
             current: page == 7,
-            aria_label: "Page 7",
+            number: 7,
           },
           {
             href: path_for_page(8),
-            label: "8",
             current: page == 8,
-            aria_label: "Page 8",
+            number: 8,
           },
           {
             href: path_for_page(9),
-            label: "9",
             current: page == 9,
-            aria_label: "Page 9",
+            number: 9,
           },
           {
             href: path_for_page(10),
-            label: "10",
             current: page == 10,
-            aria_label: "Page 10",
+            number: 10,
           },
         ],
-      }
+      }.merge(
+        page < 10 ? {
+          next_page: {
+            href: path_for_page(page + 1),
+          },
+        } : {},
+      )
 
       assert_equal expected_hash, Admin::PaginationHelper.pagination_hash(current_page: page, total_pages: 10, path: path_for_page(page))
     end
@@ -185,16 +197,19 @@ class Admin::PaginationHelperTest < ActionView::TestCase
     path = admin_organisation_corporate_information_pages_path(@organisation)
 
     expected_hash = {
-      previous_href: nil,
-      next_href: path_for_page(2),
+      next_page: {
+        href: path_for_page(2),
+      },
       items: [
         {
           href: path_for_page(1),
           current: true,
+          number: 1,
         },
         {
           href: path_for_page(2),
           current: false,
+          number: 2,
         },
       ],
     }
@@ -206,16 +221,19 @@ class Admin::PaginationHelperTest < ActionView::TestCase
     path = admin_organisation_corporate_information_pages_path(@organisation, random_query_string: "random")
 
     expected_hash = {
-      previous_href: nil,
-      next_href: "#{path}&page=2",
+      next_page: {
+        href: "#{path}&page=2",
+      },
       items: [
         {
           href: "#{path}&page=1",
           current: true,
+          number: 1,
         },
         {
           href: "#{path}&page=2",
           current: false,
+          number: 2,
         },
       ],
     }
@@ -227,16 +245,19 @@ class Admin::PaginationHelperTest < ActionView::TestCase
     path = "#{admin_organisation_corporate_information_pages_path(@organisation)}#document_tab"
 
     expected_hash = {
-      previous_href: nil,
-      next_href: "#{path_for_page(2)}#document_tab",
+      next_page: {
+        href: "#{path_for_page(2)}#document_tab",
+      },
       items: [
         {
           href: "#{path_for_page(1)}#document_tab",
           current: true,
+          number: 1,
         },
         {
           href: "#{path_for_page(2)}#document_tab",
           current: false,
+          number: 2,
         },
       ],
     }
@@ -249,16 +270,19 @@ class Admin::PaginationHelperTest < ActionView::TestCase
     base_path = admin_organisation_corporate_information_pages_path(@organisation, random_query_string: "random")
 
     expected_hash = {
-      previous_href: nil,
-      next_href: "#{base_path}&page=2#document_tab",
+      next_page: {
+        href: "#{base_path}&page=2#document_tab",
+      },
       items: [
         {
           href: "#{base_path}&page=1#document_tab",
           current: true,
+          number: 1,
         },
         {
           href: "#{base_path}&page=2#document_tab",
           current: false,
+          number: 2,
         },
       ],
     }
