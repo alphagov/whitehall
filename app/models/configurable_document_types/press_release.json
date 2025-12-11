@@ -6,13 +6,11 @@
     "properties": {
       "body": {
         "title": "Body",
-        "type": "string",
         "format": "govspeak"
       },
       "image": {
         "title": "Lead image",
         "description": "Select a lead image, if required",
-        "type": "integer",
         "format": "lead_image_select"
       }
     },

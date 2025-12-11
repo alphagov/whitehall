@@ -17,7 +17,7 @@ class StandardEditionTest < ActiveSupport::TestCase
             "properties" => {
               "body" => {
                 "title" => "Body attribute",
-                "type" => "string",
+                "format" => "default_string",
               },
             },
           },
@@ -136,7 +136,7 @@ class StandardEditionTest < ActiveSupport::TestCase
             "properties" => {
               "test_attribute" => {
                 "title" => "Test attribute",
-                "type" => "string",
+                "format" => "default_string",
               },
             },
             "validations" => {
@@ -162,11 +162,11 @@ class StandardEditionTest < ActiveSupport::TestCase
             "properties" => {
               "test_object_attribute" => {
                 "title" => "Test object attribute",
-                "type" => "object",
+                "format" => "default_object",
                 "properties" => {
                   "test_nested_attribute" => {
                     "title" => "Test nested attribute",
-                    "type" => "string",
+                    "format" => "default_string",
                   },
                 },
                 "validations" => {
@@ -215,15 +215,15 @@ class StandardEditionTest < ActiveSupport::TestCase
         "properties" => {
           "test_attribute" => {
             "title" => "Test Attribute",
-            "type" => "string",
+            "format" => "default_string",
           },
           "body" => {
             "title" => "Body",
-            "type" => "string",
+            "format" => "default_string",
           },
           "image" => {
             "title" => "Custom lead image",
-            "type" => "integer",
+            "format" => "lead_image_select",
           },
         },
       },
@@ -378,11 +378,11 @@ class StandardEditionTest < ActiveSupport::TestCase
             "properties" => {
               "initial_property" => {
                 "title" => "Initial Property",
-                "type" => "string",
+                "format" => "default_string",
               },
               "common_property" => {
                 "title" => "Common Property",
-                "type" => "string",
+                "format" => "default_string",
               },
             },
           },
@@ -397,11 +397,11 @@ class StandardEditionTest < ActiveSupport::TestCase
             "properties" => {
               "new_property" => {
                 "title" => "New Property",
-                "type" => "string",
+                "format" => "default_string",
               },
               "common_property" => {
                 "title" => "Common Property",
-                "type" => "string",
+                "format" => "default_string",
               },
             },
           },

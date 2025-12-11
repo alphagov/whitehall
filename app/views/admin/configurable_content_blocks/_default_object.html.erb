@@ -21,7 +21,7 @@
         errors: errors,
       } %>
     <% else %>
-      <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
+      <% block = default_object.block_factory.build_block(property_schema["format"] || "default_object") %>
       <%= render block, {
         schema: property_schema,
         content: content[property_key],

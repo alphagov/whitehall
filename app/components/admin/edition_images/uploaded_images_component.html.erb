@@ -7,7 +7,7 @@
 
   <%= form_for [:admin, edition], as: :edition do |form| %>
     <%= hidden_field_tag :redirect_to, admin_edition_images_path(edition) %>
-    <% root_block = ConfigurableContentBlocks::Factory.new(edition).build("object") %>
+    <% root_block = ConfigurableContentBlocks::Factory.new(edition).build_block("default_object") %>
 
     <% block_content_form = @edition.type_instance.form("images") %>
     <% if block_content_form  %>

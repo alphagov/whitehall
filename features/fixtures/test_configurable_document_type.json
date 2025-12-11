@@ -7,19 +7,17 @@
       "body": {
         "title": "Body",
         "description": "The main content of the page",
-        "type": "string",
         "format": "govspeak"
       },
       "image": {
         "title": "Image",
         "description": "The image for the page",
-        "type": "integer",
         "format": "image_select"
       },
       "date_field": {
         "title": "Date Field",
         "description": "A date field for the page",
-        "type": "date"
+        "format": "default_date"
       }
     }
   },

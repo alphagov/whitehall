@@ -3,17 +3,16 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
   include GovspeakHelper
   test "it builds the Publishing API payload for the nested content" do
     schema = {
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
-          "type" => "string",
           "format" => "govspeak",
         },
         "test_object_attribute" => {
-          "type" => "object",
+          "format" => "default_object",
           "properties" => {
             "test_string" => {
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },
@@ -33,22 +32,20 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
   end
   test "it omits any missing block content from the Publishing API payload, unless it's lead image" do
     schema = {
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
-          "type" => "string",
           "format" => "govspeak",
         },
         "test_object_attribute" => {
-          "type" => "object",
+          "format" => "default_object",
           "properties" => {
             "test_string" => {
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },
         "test_lead_image_attribute" => {
-          "type" => "integer",
           "title" => "Test attribute",
           "description" => "A test attribute",
           "format" => "lead_image_select",
@@ -70,14 +67,13 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
 
   test "it lifts the publishing API payload from child object blocks with the 'wrapper' format" do
     schema = {
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_object_attribute" => {
-          "type" => "object",
           "format" => "wrapper",
           "properties" => {
             "test_string" => {
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },
@@ -99,11 +95,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it renders a fieldset with the schema title as the legend containing the child attributes" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "type" => "string",
+          "format" => "default_string",
         },
       },
     }
@@ -117,11 +113,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it does not render a fieldset with the schema title as the legend for the root object" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "type" => "string",
+          "format" => "default_string",
         },
       },
     }
@@ -134,11 +130,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it renders non-required child attribute" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "type" => "string",
+          "format" => "default_string",
         },
       },
     }
@@ -153,11 +149,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it applies the required attribute to any child attributes validated for presence" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "type" => "string",
+          "format" => "default_string",
         },
       },
       "validations" => {
@@ -175,11 +171,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it passes the right_to_left attribute on to child blocks" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "type" => "string",
+          "format" => "default_string",
         },
       },
     }
@@ -193,11 +189,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it passes the errors attribute on to child blocks" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "type" => "string",
+          "format" => "default_string",
         },
       },
       "validations" => {
@@ -224,11 +220,11 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it renders not-nested child attribute content" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "not_nested_attribute" => {
           "title" => "Not nested attribute",
-          "type" => "string",
+          "format" => "default_string",
         },
       },
     }
@@ -242,15 +238,15 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
   test "it renders nested child properties content" do
     schema = {
       "title" => "Test object",
-      "type" => "object",
+      "format" => "default_object",
       "properties" => {
         "test_object_attribute" => {
           "title" => "Test attribute",
-          "type" => "object",
+          "format" => "default_object",
           "properties" => {
             "nested_attribute" => {
               "title" => "Nested attribute",
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },

@@ -43,7 +43,7 @@ module PublishingApi
       details = PayloadBuilder::BlockContent.for(item)
 
       if details.empty?
-        root_block = ConfigurableContentBlocks::Factory.new(item).build("object")
+        root_block = ConfigurableContentBlocks::Factory.new(item).build_block("default_object")
         details = {
           **root_block.publishing_api_payload(type.schema, item.block_content),
         }

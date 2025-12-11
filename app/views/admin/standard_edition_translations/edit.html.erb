@@ -46,7 +46,7 @@
       } %>
 
       <% block_content_form = @edition.type_instance.form %>
-      <% root_block = ConfigurableContentBlocks::Factory.new(@translated_edition).build("object") %>
+      <% root_block = ConfigurableContentBlocks::Factory.new(@translated_edition).build_block("default_object") %>
 
       <% if block_content_form  %>
         <%= render(root_block, {

@@ -34,11 +34,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       "schema" => {
         "properties" => {
           "property_one" => {
-            "type" => "string",
+            "format" => "default_string",
             "title" => "Property One",
           },
           "property_two" => {
-            "type" => "string",
+            "format" => "default_string",
             "title" => "Property Two",
           },
         },
@@ -86,19 +86,16 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
           "chunk_of_content_one" => {
             "title" => "A govspeak block",
             "description" => "Some bit of content",
-            "type" => "string",
             "format" => "govspeak",
           },
           "string_chunk_of_content" => {
             "title" => "A string",
             "description" => "Some bit of content",
-            "type" => "string",
-            "format" => "default",
+            "format" => "default_object",
           },
           "chunk_of_content_two" => {
             "title" => "Another govspeak block",
             "description" => "Another bit of content",
-            "type" => "string",
             "format" => "govspeak",
           },
         },
@@ -144,13 +141,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
           "chunk_of_content_one" => {
             "title" => "A govspeak block",
             "description" => "Some bit of content",
-            "type" => "string",
             "format" => "govspeak",
           },
           "chunk_of_content_two" => {
             "title" => "Another govspeak block",
             "description" => "Another bit of content",
-            "type" => "string",
             "format" => "govspeak",
           },
         },
@@ -181,13 +176,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
           "chunk_of_content_one" => {
             "title" => "A govspeak block",
             "description" => "Some bit of content",
-            "type" => "string",
             "format" => "govspeak",
           },
           "chunk_of_content_two" => {
             "title" => "Another govspeak block",
             "description" => "Another bit of content",
-            "type" => "string",
             "format" => "govspeak",
           },
         },

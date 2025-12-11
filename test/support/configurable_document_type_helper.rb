@@ -8,7 +8,7 @@ module ConfigurableDocumentTypeHelper
           "properties" => {
             "test_attribute" => {
               "title" => "Test Attribute",
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },
@@ -49,7 +49,7 @@ module ConfigurableDocumentTypeHelper
         "schema" => {
           "attributes" => {
             "field_attribute" => {
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },

@@ -16,6 +16,18 @@ class StandardEdition::BlockContent
     "duration" => DurationValidator,
   }.freeze
 
+  # TODO: probably only need to define all but wrapper and default_object here
+  # Maybe move this to the factory?
+  TYPES = {
+    "default_string" => "string",
+    "govspeak" => "string",
+    "default_date" => "date",
+    "image_select" => "integer",
+    "lead_image_select" => "integer",
+    "default_object" => "object",
+    "wrapper" => "object",
+  }.freeze
+
   def initialize(schema, path = ConfigurableContentBlocks::Path.new)
     @schema = schema
     @path = path
@@ -89,11 +101,11 @@ private
       include ActiveModel::Serializers::JSON
 
       attribute_config.each do |key, property_schema|
-        case property_schema["type"]
-        when "object"
+        case property_schema["format"]
+        when "default_object"
           attribute key
         else
-          attribute key, property_schema["type"].to_sym
+          attribute key, TYPES[property_schema["format"]].to_sym
         end
       end
 

@@ -13,7 +13,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
           "properties" => {
             "test_attribute" => {
               "title" => "Test attribute",
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },
@@ -28,7 +28,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
           "properties" => {
             "test_attribute" => {
               "title" => "Test attribute",
-              "type" => "string",
+              "format" => "default_string",
             },
           },
         },

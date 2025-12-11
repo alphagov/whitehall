@@ -63,7 +63,7 @@
 
     <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
     <% block_content_form = @edition.type_instance.form("documents") %>
-    <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build("object") %>
+    <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
 
     <% if block_content_form  %>
       <%= render(root_block, {

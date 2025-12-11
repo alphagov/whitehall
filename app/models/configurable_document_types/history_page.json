@@ -7,20 +7,17 @@
       "body": {
         "title": "Body",
         "description": "The main content for the page",
-        "type": "string",
         "format": "govspeak"
       },
       "sidebar_image": {
         "title": "Sidebar image",
         "description": "Enter the markdown code for the sidebar image",
-        "type": "integer",
         "format": "image_select"
       },
       "lead_paragraph": {
         "title": "Lead paragraph",
         "description": "Optional text that appears above the main content",
-        "type": "string",
-        "format": "default"
+        "format": "default_string"
       }
     },
     "validations": {

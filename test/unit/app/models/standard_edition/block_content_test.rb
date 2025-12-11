@@ -7,16 +7,15 @@ class BlockContentTest < ActiveSupport::TestCase
       "properties" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "type" => "string",
           "format" => "govspeak",
         },
         "test_number_attribute" => {
           "title" => "Test attribute",
-          "type" => "integer",
+          "format" => "image_select",
         },
         "test_date_attribute" => {
           "title" => "Test date attribute",
-          "type" => "date",
+          "format" => "default_date",
         },
       },
     }

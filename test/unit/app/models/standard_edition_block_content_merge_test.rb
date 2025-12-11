@@ -6,9 +6,9 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
       "test_type",
       "schema" => {
         "properties" => {
-          "test_attribute" => { "title" => "Test Attribute", "type" => "string" },
-          "body" => { "title" => "Body", "type" => "string", "format" => "govspeak" },
-          "count" => { "title" => "Count", "type" => "integer" },
+          "test_attribute" => { "title" => "Test Attribute", "format" => "default_string" },
+          "body" => { "title" => "Body", "format" => "govspeak" },
+          "count" => { "title" => "Count", "format" => "image_select" },
         },
       },
     )
@@ -103,18 +103,18 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
       "nested_type",
       "schema" => {
         "properties" => {
-          "body" => { "title" => "Body", "type" => "string" },
+          "body" => { "title" => "Body", "format" => "default_string" },
           "meta" => {
             "title" => "Meta",
-            "type" => "object",
+            "format" => "default_object",
             "properties" => {
-              "summary" => { "title" => "Summary", "type" => "string" },
+              "summary" => { "title" => "Summary", "format" => "default_string" },
               "extra" => {
                 "title" => "Extra",
-                "type" => "object",
+                "format" => "default_object",
                 "properties" => {
-                  "audience" => { "title" => "Audience", "type" => "string" },
-                  "count" => { "title" => "Count", "type" => "integer" },
+                  "audience" => { "title" => "Audience", "format" => "default_string" },
+                  "count" => { "title" => "Count", "format" => "image_select" },
                 },
               },
             },
@@ -130,6 +130,7 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
       block_content: {
         "body" => "Start",
         "meta" => {
+          "format" => "default_object",
           "summary" => "old summary",
           "extra" => { "audience" => "public", "count" => 1 },
           "junk" => "should be removed", # invalid per schema
@@ -141,6 +142,7 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
     params = ActionController::Parameters.new(
       "block_content" => {
         "meta" => {
+          "format" => "default_object",
           "summary" => "new summary",            # overwrite nested valid key
           "extra" => {
             "count" => 2,                        # overwrite nested-nested valid key

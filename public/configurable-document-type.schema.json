@@ -43,11 +43,6 @@
           "type": "string",
           "description": "Description of the content block's purpose. Usually used for hint text."
         },
-        "type": {
-          "type": "string",
-          "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
-          "enum": ["string", "integer", "date", "object"]
-        },
         "format": {
           "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`. A breakdown of formats and types can be found in the configurable content blocks factory.",
           "type": "string",
@@ -71,7 +66,7 @@
           "$ref": "#/$defs/validations"
         }
       },
-      "required": ["title", "type"],
+      "required": ["title", "format"],
       "additionalProperties": false
     },
     "form_field": {
@@ -126,50 +121,6 @@
     "description": {
       "type": "string",
       "description": "A description of the document type's purpose and intended use."
-    },
-    "schema": {
-      "type": "object",
-      "description": "Defines the content structure for the document type. Each property represents a content block.",
-      "properties": {
-        "properties": {
-          "type": "object",
-          "description": "Fields/content blocks for the document, each with its own schema.",
-          "patternProperties": {
-            ".*": {
-              "$ref": "#/$defs/schema_property"
-            }
-          }
-        },
-        "attributes": {
-          "type": "object",
-          "description": "Alternative to `properties`, defining content blocks with minimal schema information.",
-          "patternProperties": {
-            ".*": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
-                  "enum": ["string", "integer", "date", "object"]
-                }
-              },
-              "required": ["type"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "validations": {
-          "$ref": "#/$defs/validations"
-        },
-        "headings_from": {
-          "type": "array",
-          "description": "Array of content block names, from which to extract headings, used to generate the table of contents for the rendered document. Headings are sent to publishing API as part of the `details` hash.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "additionalProperties": false
     },
     "forms": {
       "type": "object",
