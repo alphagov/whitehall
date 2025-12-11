@@ -12,18 +12,27 @@ module ConfigurableContentBlocks
 
     # content could be an hash with url and the caption
     def publishing_api_payload(content)
+      # Expecting content to be a hash with :image_data_id and :caption keys
       return nil if content.nil?
 
-      if (selected_image = image&.image_data&.all_asset_variants_uploaded?)
+      if image_data(content) && image_data(content).all_asset_variants_uploaded?
         {
-          url: selected_image.url,
-          caption: image_caption(selected_image),
+          url: image_data(content).file.url,
+          caption: caption(content),
         }.compact
       end
     end
 
+    def image_data(content)
+      ImageData.where(id: content[:image_data_id].to_i)&.first
+    end
+
+    def caption(content)
+      content && content[:caption]
+    end
+
     def thumbnail_url(content)
-      ImageData.find_by(id: image.id.to_i)
+      content && image_data(content)&.file.url(:s300)
     end
   end
 end
