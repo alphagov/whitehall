@@ -88,4 +88,8 @@ class StandardEdition < Edition
   def is_in_valid_state_for_type_conversion?
     %w[draft submitted rejected].include?(state)
   end
+
+  def permitted_image_kinds
+  #   TODO
+  end
 end

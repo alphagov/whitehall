@@ -308,6 +308,10 @@ Whitehall::Application.routes.draw do
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do
           get :confirm_destroy, on: :member
         end
+
+        resources :images, controller: "standard_edition_images", only: %i[create destroy edit update index] do
+          get :confirm_destroy, on: :member
+        end
       end
       resources :landing_pages, path: "landing-pages", except: [:index]
 

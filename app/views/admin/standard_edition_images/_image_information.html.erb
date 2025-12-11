@@ -1,0 +1,20 @@
+<section class="govuk-grid-column-one-third">
+  <% if image.persisted? %>
+    <% if image_url %>
+      <img src="<%= image_url %>" alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
+    <% else %>
+      <div class="govuk-!-margin-bottom-4">
+        <span class="govuk-tag govuk-tag--green">Processing</span>
+      </div>
+    <% end %>
+  <% end %>
+  <h2 class="govuk-heading-m">Image information</h2>
+  <ul class="govuk-list">
+    <% if image.bitmap? %>
+      <li><strong>Width: </strong><%= image.width %>px</li>
+      <li><strong>Height: </strong><%= image.height %>px</li>
+    <% end %>
+    <li><strong>Format: </strong><%= image.content_type %></li>
+    <li><strong>File name: </strong><%= image.filename %></li>
+  </ul>
+</section>
