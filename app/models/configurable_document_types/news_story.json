@@ -59,7 +59,9 @@
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "news_story",
     "rendering_app": "frontend",
-    "images_enabled": true,
+    "images": {
+      "enabled": true
+    },
     "send_change_history": true,
     "file_attachments_enabled": true,
     "organisations": null,

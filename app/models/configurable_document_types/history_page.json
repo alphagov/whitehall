@@ -53,7 +53,9 @@
     "publishing_api_schema_name": "history",
     "publishing_api_document_type": "history",
     "rendering_app": "frontend",
-    "images_enabled": true,
+    "images": {
+      "enabled": true
+    },
     "send_change_history": false,
     "organisations": ["af07d5a5-df63-4ddc-9383-6a666845ebe9"],
     "backdating_enabled": false,
