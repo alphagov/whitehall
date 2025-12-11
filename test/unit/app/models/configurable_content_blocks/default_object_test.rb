@@ -263,7 +263,7 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     assert_dom "input[name=?][value=?]", "edition[block_content][test_object_attribute][nested_attribute]", "foo"
   end
 
-  test "it renders nested child attribute content" do
+  test "it renders nested child attribute content - new schema with forms" do
     schema = {
       "fields" => {
         "test_object_attribute" => {
@@ -275,6 +275,22 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
               "block" => "default_string",
             },
           },
+        },
+      },
+    }
+    content = { "nested_attribute" => "foo" }
+    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
+    block = ConfigurableContentBlocks::DefaultObject.new(factory)
+    render block, { schema:, content:, path: Path.new }
+    assert_dom "input[name=?][value=?]", "edition[block_content][nested_attribute]", "foo"
+  end
+
+  test "it renders leaf block - new schema with forms" do
+    schema = {
+      "fields" => {
+        "nested_attribute" => {
+          "title" => "Nested attribute",
+          "block" => "default_string",
         },
       },
     }
