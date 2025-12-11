@@ -47,11 +47,12 @@ module Admin::TabbedNavHelper
   end
 
   def images_nav_items(edition, current_path)
+    images_path = edition.is_a?(StandardEdition) ? admin_standard_edition_images_path(edition) : admin_edition_images_path(edition)
     [
       {
         label: sanitize("Images #{tag.span(edition.images.count, class: 'govuk-tag govuk-tag--grey') if edition.images.count.positive?}"),
-        href: admin_edition_images_path(edition),
-        current: current_path == admin_edition_images_path(edition),
+        href: images_path,
+        current: current_path == images_path,
       },
     ]
   end

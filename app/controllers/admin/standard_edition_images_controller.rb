@@ -52,7 +52,7 @@ class Admin::StandardEditionImagesController < Admin::BaseController
       @images.each { |image| @edition.images.delete(image) }
     end
 
-    if @images.many?
+    if @images.many? || @images.first.id.nil?
       render :index
     else
       redirect_to edit_admin_standard_edition_image_path(@edition, @images.first.id)
