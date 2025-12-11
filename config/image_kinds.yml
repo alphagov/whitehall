@@ -115,3 +115,13 @@ topical_event_header:
     - name: hero_desktop_2x
       width: 800
       height: 800
+topical_event_logo:
+  display_name: "Logo"
+  valid_width: 800
+  valid_height: 800
+  permitted_uses:
+    - logo
+  versions:
+    - name: hero_desktop_2x
+      width: 800
+      height: 800

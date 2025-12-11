@@ -54,7 +54,7 @@ class StandardEdition < Edition
   end
 
   def allows_image_attachments?
-    type_instance.settings["images_enabled"]
+    type_instance.settings["images"]["enabled"]
   end
 
   def allows_file_attachments?
@@ -90,6 +90,8 @@ class StandardEdition < Edition
   end
 
   def permitted_image_kinds
-  #   TODO
+    return super unless type_instance.settings["images"]["permitted_image_kinds"]
+
+    Whitehall.image_kinds.values.select { _1.permitted_uses.intersect?(type_instance.settings["images"]["permitted_image_kinds"]) }
   end
 end
