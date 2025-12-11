@@ -1,6 +1,8 @@
 class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
+  include Edition::LeadImage
+  include Edition::CustomLeadImage
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::RoleAppointments
@@ -50,7 +52,12 @@ class StandardEdition < Edition
   end
 
   def locale_can_be_changed?
-    translatable? && translations.size <= 1
+    # New editions can change locale, but once persisted:
+    # - Only world news stories can change locale
+    # - Regular news stories cannot change locale
+    return true if new_record? && translatable?
+
+    translatable? && translations.size <= 1 && configurable_document_type == "world_news_story"
   end
 
   def allows_image_attachments?
@@ -63,6 +70,11 @@ class StandardEdition < Edition
 
   def can_be_marked_political?
     type_instance.settings["history_mode_enabled"]
+  end
+
+  def can_have_custom_lead_image?
+    # Check if the configurable document type supports lead image selection
+    type_instance.properties.values.any? { |property| property["format"] == "lead_image_select" }
   end
 
   def base_path

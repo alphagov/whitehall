@@ -37,7 +37,7 @@
     ],
   } %>
 
-  <% if edition.is_a?(NewsArticle) %>
+  <% if edition.is_a?(StandardEdition) && ["news_story", "press_release", "government_response", "world_news_story"].include?(edition.configurable_document_type) %>
     <p class="govuk-body govuk-!-font-weight-bold">Warning: News stories without an English version cannot have other translations.</p>
   <% end %>
 </div>

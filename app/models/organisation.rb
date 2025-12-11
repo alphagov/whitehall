@@ -246,10 +246,13 @@ class Organisation < ApplicationRecord
   end
 
   def republish_dependent_documents
-    documents = NewsArticle
-                  .in_organisation(self)
-                  .includes(:images)
-                  .where(images: { id: nil })
+    # Find StandardEdition news articles associated with this organisation that don't have their own lead image
+    documents = StandardEdition
+                  .joins(:edition_organisations)
+                  .where(edition_organisations: { organisation_id: id })
+                  .where(configurable_document_type: %w[news_story world_news_story press_release government_response])
+                  .left_joins(:edition_lead_image)
+                  .where(edition_lead_images: { id: nil })
                   .map(&:document)
                   .uniq(&:id)
     documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }

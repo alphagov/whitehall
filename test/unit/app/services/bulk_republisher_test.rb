@@ -423,15 +423,18 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     context "with a given organisation" do
       test "republishes each of the organisation's documents" do
         organisation = create(:organisation)
-        documents = create_list(:document, 3)
 
-        documents.each do |document|
-          create(:published_news_article, document:, organisations: [organisation])
-
-          PublishingApiDocumentRepublishingWorker
-            .expects(:perform_async_in_queue)
-            .with("bulk_republishing", document.id, true)
+        # Create 3 news articles associated with this organisation
+        editions = []
+        3.times do
+          editions << create(:published_news_article, organisations: [organisation])
         end
+
+        # We expect exactly 3 calls to republish documents
+        PublishingApiDocumentRepublishingWorker
+          .expects(:perform_async_in_queue)
+          .with("bulk_republishing", anything, true)
+          .times(3)
 
         BulkRepublisher.new.republish_all_documents_by_organisation(organisation)
       end
@@ -439,16 +442,16 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       test "doesn't republish editions for other organisations" do
         organisation = create(:organisation)
         other_organisation = create(:organisation)
-        documents = create_list(:document, 3)
 
-        documents.each do |document|
-          create(:published_news_article, document:, organisations: [other_organisation])
-
-          PublishingApiDocumentRepublishingWorker
-            .expects(:perform_async_in_queue)
-            .with("bulk_republishing", document.id, true)
-            .never
+        # Create documents for the other organisation
+        3.times do
+          create(:published_news_article, organisations: [other_organisation])
         end
+
+        # No calls should be made for the target organisation
+        PublishingApiDocumentRepublishingWorker
+          .expects(:perform_async_in_queue)
+          .never
 
         BulkRepublisher.new.republish_all_documents_by_organisation(organisation)
       end

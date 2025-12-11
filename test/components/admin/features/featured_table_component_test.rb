@@ -21,7 +21,7 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     render_inline(Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption", features: [feature]))
 
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "News Article (document)"
+    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Press release (document)"
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, I18n.localize(edition.major_change_published_at.to_date)
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]

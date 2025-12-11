@@ -24,7 +24,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders the correct lead image guidance for other edition types" do
-    edition = build_stubbed(:draft_news_article)
+    edition = build(:draft_news_article)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     first_para = "Any image you upload can be selected as the lead image. If you do not select a new lead image, the default image for your organisation will be used."
@@ -35,8 +35,8 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders the correct default fields when a lead image is present" do
-    image = build_stubbed(:image, image_data: build(:image_data), caption: "caption", alt_text: "alt text")
-    edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
+    image = build(:image, image_data: build(:image_data), caption: "caption", alt_text: "alt text")
+    edition = create(:draft_news_article, images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-one-third img[alt='Lead image']"
@@ -47,8 +47,8 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders placeholder text for caption and alt text when none has been provided" do
-    image = build_stubbed(:image, caption: nil, alt_text: nil)
-    edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
+    image = build(:image, caption: nil, alt_text: nil)
+    edition = create(:draft_news_article, images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: None"
@@ -56,8 +56,8 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders a processing tag if not all lead image assets are uploaded" do
-    image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
-    edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
+    image = build(:image, image_data: build(:image_data_with_no_assets))
+    edition = create(:draft_news_article, images: [image], lead_image: image)
 
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
@@ -66,7 +66,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "does not render information on lead image if no lead image is present" do
-    edition = build_stubbed(:draft_news_article)
+    edition = build(:draft_news_article)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".app-c-edition-images-lead-image-component__lead_image", count: 0
@@ -114,8 +114,8 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "other types of edition do not render image display information" do
-    image = build_stubbed(:image)
-    edition = build_stubbed(:draft_news_article, image_display_option: "custom_image", images: [image])
+    image = build(:image)
+    edition = create(:draft_news_article, image_display_option: "custom_image", images: [image])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']", count: 0

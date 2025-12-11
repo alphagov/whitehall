@@ -177,19 +177,20 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     subtypes = news_story_document_type.deep_merge(press_release_document_type)
     ConfigurableDocumentType.setup_test_types(subtypes)
 
-    # config-driven sub-types
     config_driven_news_article = create(:draft_standard_edition, configurable_document_type: "news_story")
     config_driven_press_release = create(:draft_standard_edition, configurable_document_type: "press_release")
-    # legacy sub-types
-    news_story = create(:news_article, news_article_type: NewsArticleType::NewsStory)
-    press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
 
-    assert_equal [config_driven_news_article, config_driven_press_release, news_story, press_release], Admin::EditionFilter.new(Edition, @current_user, type: "news_article").editions.sort_by(&:id)
+    assert_equal [config_driven_news_article, config_driven_press_release], Admin::EditionFilter.new(Edition, @current_user, type: "news_article").editions.sort_by(&:id)
   end
 
   test "should filter by news article sub-type" do
-    _news_story   = create(:news_article, news_article_type: NewsArticleType::NewsStory)
-    press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
+    news_story_document_type = build_configurable_document_type("news_story", { "settings" => { "configurable_document_group" => "news_article" } })
+    press_release_document_type = build_configurable_document_type("press_release", { "settings" => { "configurable_document_group" => "news_article" } })
+    subtypes = news_story_document_type.deep_merge(press_release_document_type)
+    ConfigurableDocumentType.setup_test_types(subtypes)
+
+    _news_story   = create(:draft_standard_edition, configurable_document_type: "news_story")
+    press_release = create(:draft_standard_edition, configurable_document_type: "press_release")
     assert_equal [press_release], Admin::EditionFilter.new(Edition, @current_user, type: "press_release").editions
   end
 
@@ -205,16 +206,15 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [guidance], Admin::EditionFilter.new(Edition, @current_user, type: "guidance").editions
   end
 
-  test "should match both 'StandardEdition' type and sub-type (of 'concrete' model) of the same name" do
+  test "should match StandardEdition type and sub-type filtering" do
     configurable_document_type = build_configurable_document_type("press_release")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     standard_edition = create(:draft_standard_edition, configurable_document_type: "press_release")
-    press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
 
     assert_equal(
-      [standard_edition, press_release].map(&:id).sort,
-      Admin::EditionFilter.new(Edition, @current_user, type: "press_release").editions.map(&:id).sort,
+      [standard_edition.id],
+      Admin::EditionFilter.new(Edition, @current_user, type: "press_release").editions.map(&:id),
     )
   end
 

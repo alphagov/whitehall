@@ -34,7 +34,6 @@
 } %>
 
 <%
-  # legacy, non-config-driven lead image behaviour
   unless edition.configurable_document_type.present?
 %>
   <%= render Admin::EditionImages::LeadImageComponent.new(edition: edition) %>

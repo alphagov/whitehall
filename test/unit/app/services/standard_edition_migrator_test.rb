@@ -122,28 +122,11 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
   end
 
   describe ".recipe_for" do
-    test "returns the correct recipe for legacy news article news stories" do
-      edition = build(:news_article_news_story)
-      recipe = StandardEditionMigrator.recipe_for(edition)
-      assert_instance_of StandardEditionMigrator::NewsStoryRecipe, recipe
-    end
-
-    test "returns the correct recipe for legacy news article press releases" do
-      edition = build(:news_article_press_release)
-      recipe = StandardEditionMigrator.recipe_for(edition)
-      assert_instance_of StandardEditionMigrator::PressReleaseRecipe, recipe
-    end
-
-    test "returns the correct recipe for legacy news article government responses" do
-      edition = build(:news_article_government_response)
-      recipe = StandardEditionMigrator.recipe_for(edition)
-      assert_instance_of StandardEditionMigrator::GovernmentResponseRecipe, recipe
-    end
-
-    test "returns the correct recipe for legacy news article world news stories" do
-      edition = build(:news_article_world_news_story)
-      recipe = StandardEditionMigrator.recipe_for(edition)
-      assert_instance_of StandardEditionMigrator::WorldNewsStoryRecipe, recipe
+    test "raises error for unsupported edition types as migration is complete" do
+      edition = build(:news_story)
+      assert_raises(RuntimeError, match: /No migration recipe defined/) do
+        StandardEditionMigrator.recipe_for(edition)
+      end
     end
   end
 end

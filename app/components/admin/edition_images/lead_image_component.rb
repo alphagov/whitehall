@@ -28,7 +28,8 @@ private
   end
 
   def news_article?
-    edition.type == "NewsArticle"
+    edition.is_a?(StandardEdition) &&
+      %w[news_story press_release government_response world_news_story].include?(edition.configurable_document_type)
   end
 
   def lead_image
@@ -47,7 +48,7 @@ private
     if case_study?
       edition.emphasised_organisation_default_image_available? && [nil, "organisation_image"].include?(edition.image_display_option)
     elsif news_article?
-      edition.has_lead_image?
+      edition.lead_image.nil? && edition.has_lead_image?
     end
   end
 
