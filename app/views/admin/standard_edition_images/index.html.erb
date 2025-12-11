@@ -1,0 +1,18 @@
+<% content_for :context, "#{@edition.title}" %>
+<% content_for :page_title, "Images for #{@edition.format_name}" %>
+<% content_for :title, "Images for #{@edition.format_name}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @images.flat_map { |image| image&.errors&.errors }, parent_class: "edition_images")) if @images.present? %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/secondary_navigation", {
+      aria_label: "Document navigation",
+      items: secondary_navigation_tabs_items(@edition, request.path),
+    } %>
+
+    <% @edition.permitted_image_kinds.each do |image_kind| %>
+      <%= render "image_upload", edition: @edition, image_kind: %>
+    <% end %>
+    <%= render Admin::EditionImages::UploadedImagesComponent.new(edition: @edition) %>
+  </div>
+</div>

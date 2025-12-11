@@ -105,3 +105,13 @@ hero_desktop:
       width: 1200
       height: 400
       from_version: hero_desktop_2x
+topical_event_header:
+  display_name: "Header"
+  valid_width: 800
+  valid_height: 800
+  permitted_uses:
+    - header
+  versions:
+    - name: hero_desktop_2x
+      width: 800
+      height: 800
