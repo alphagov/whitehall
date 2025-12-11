@@ -71,6 +71,19 @@
     "publishing_api_document_type": "topical_event",
     "rendering_app": "collections",
     "images_enabled": true,
+    "images": {
+      "show_file_upload_input": false,
+      "show_uploaded": false,
+      "image_upload_cards": [
+        {
+          "title": "Header"
+        },
+        {
+          "title": "Logo"
+        }
+      ],
+      "logo_block": true
+    },
     "send_change_history": true,
     "file_attachments_enabled": false,
     "organisations": null,

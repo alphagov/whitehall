@@ -57,6 +57,18 @@ class StandardEdition < Edition
     type_instance.settings["images_enabled"]
   end
 
+  def show_uploaded_image_attachments?
+    allows_image_attachments? && type_instance.settings["images"]["show_uploaded"]
+  end
+
+  def image_upload_cards
+    type_instance.settings["images"]["image_upload_cards"]
+  end
+
+  def show_file_upload_input?
+    type_instance.settings["images"]["show_file_upload_input"]
+  end
+
   def allows_file_attachments?
     type_instance.settings["file_attachments_enabled"]
   end

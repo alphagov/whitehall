@@ -1,5 +1,5 @@
 <%= render "components/summary_card", {
-  title: schema["title"] + (required ? " (required)" : ""),
+  title:,
   summary_card_actions: [
     {
       label: "N/A",
@@ -9,11 +9,11 @@
   rows: [
     {
       key: "Image",
-      value: image_card.thumbnail_url(content),
+      value: 'Placeholder',
     },
     {
       key: "Caption",
-      value: image_card.caption(content),
+      value: 'Placeholder',
     }
   ],
 } %>
