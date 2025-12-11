@@ -44,10 +44,12 @@ module PublishingApi
     end
 
     def details
-      {
+      details_hash = {
         email: item.email,
         body:,
-      }.merge(PayloadBuilder::Attachments.for(item))
+      }
+      details_hash.merge!(PayloadBuilder::Attachments.for(item))
+      details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
     end
 
     def body

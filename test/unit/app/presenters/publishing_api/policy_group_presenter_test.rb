@@ -7,7 +7,7 @@ class PublishingApi::PolicyGroupPresenterTest < ActiveSupport::TestCase
       name: "Government Digital Service",
       email: "group-1@example.com",
       summary: "This is some plaintext in the summary field",
-      description: "This is some *Govspeak* in the description field",
+      description: "This is some *Govspeak* in the description field\n\n##Heading\n\nSome more text",
     )
 
     public_path = "/government/groups/government-digital-service"
@@ -32,8 +32,15 @@ class PublishingApi::PolicyGroupPresenterTest < ActiveSupport::TestCase
       update_type: "major",
       details: {
         email: "group-1@example.com",
-        body: "<div class=\"govspeak\"><p>This is some <em>Govspeak</em> in the description field</p>\n</div>", # This is deliberately the 'wrong' way around
+        body: "<div class=\"govspeak\"><p>This is some <em>Govspeak</em> in the description field</p>\n\n<h2 id=\"heading\">Heading</h2>\n\n<p>Some more text</p>\n</div>", # This is deliberately the 'wrong' way around
         attachments: [],
+        headers: [
+          {
+            id: "heading",
+            level: 2,
+            text: "Heading",
+          },
+        ],
       },
     }
 
