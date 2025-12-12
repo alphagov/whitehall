@@ -202,7 +202,14 @@
           "patternProperties": {
             ".*": {
               "type": "string",
-              "description": "The format to use for the content block when presenting to the Publishing API."
+              "description": "The format to use for the content block when presenting to the Publishing API.",
+              "enum": [
+                "govspeak",
+                "rfc3339_date",
+                "image",
+                "lead_image",
+                "string"
+              ]
             }
           }
         }
