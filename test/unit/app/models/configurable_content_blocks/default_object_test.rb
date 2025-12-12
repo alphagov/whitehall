@@ -268,7 +268,7 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
       "fields" => {
         "test_object_attribute" => {
           "title" => "Test attribute",
-          "block" => "wrapper",
+          "block" => "default_object",
           "fields" => {
             "nested_attribute" => {
               "title" => "Nested attribute",

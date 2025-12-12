@@ -12,7 +12,7 @@
         },
         "duration": {
           "title": "Duration",
-          "block": "wrapper",
+          "block": "default_object",
           "fields": {
             "start_date": {
               "title": "Start date",

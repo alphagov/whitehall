@@ -19,8 +19,6 @@ module ConfigurableContentBlocks
         "image_select" => ->(page) { ConfigurableContentBlocks::ImageSelect.new(page.valid_images) },
         "lead_image_select" => ->(page) { ConfigurableContentBlocks::LeadImageSelect.new(page.valid_lead_images, default_lead_image: page.default_lead_image, placeholder_image_url: page.placeholder_image_url) },
         "default_object" => ->(_page) { ConfigurableContentBlocks::DefaultObject.new(self) },
-        "wrapper" => ->(_page) { ConfigurableContentBlocks::WrapperObject.new(self) },
-
       }.freeze
 
       blocks[block].call(@page)

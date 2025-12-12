@@ -89,11 +89,10 @@
           "type": "string",
           "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
           "enum": [
-            "default",
+            "default_object",
             "govspeak",
             "image_select",
             "lead_image_select",
-            "wrapper",
             "default_date"
           ]
         },
