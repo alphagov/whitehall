@@ -9,6 +9,14 @@ module PublishingApi::PayloadBuilder
       factory.configurable_associations.map(&:links).reduce({}, :merge)
     end
 
+    def self.link_set(item)
+      factory = ConfigurableAssociations::Factory.new(item)
+      association_links = factory.configurable_associations.map(&:links)
+      link_difference = factory.associations.keys.map(&:to_sym) - association_links.map(&:keys).flatten
+      association_links.concat(link_difference.map { |association| [[association, []]].to_h })
+      association_links.reduce({}, :merge)
+    end
+
     def self.government_links(item)
       return {} unless item.type_instance.settings["history_mode_enabled"]
 

@@ -84,7 +84,12 @@ module Whitehall
     def self.patch_links(model_instance, bulk_publishing: false)
       presenter = PublishingApiPresenters.presenter_for(model_instance)
 
-      links = presenter.links
+      links = if presenter.respond_to?(:link_set)
+                presenter.link_set
+              else
+                presenter.links
+              end
+
       return if links.empty?
 
       Services.publishing_api.patch_links(

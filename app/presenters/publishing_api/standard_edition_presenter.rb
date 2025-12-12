@@ -33,6 +33,10 @@ module PublishingApi
       PayloadBuilder::ConfigurableDocumentLinks.for(item)
     end
 
+    def link_set
+      PayloadBuilder::ConfigurableDocumentLinks.link_set(item)
+    end
+
     def document_type
       type.settings["publishing_api_document_type"]
     end
