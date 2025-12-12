@@ -66,14 +66,18 @@ module Admin::PaginationHelper
         items << {
           href: build_path_for(page),
           current: page == current_page,
+          number: page,
         }
       end
 
-      {
-        previous_href:,
-        next_href:,
+      hash = {
         items:,
       }
+
+      hash[:previous_page] = { href: previous_href } unless previous_href.nil?
+      hash[:next_page] = { href: next_href } unless next_href.nil?
+
+      hash
     end
 
     def large_page_number_hash
@@ -83,39 +87,38 @@ module Admin::PaginationHelper
         middle_pages_array,
         second_elipsis_hash,
         last_page_hash,
-      ]
-      .flatten
-      .compact
+      ].compact.flatten
 
-      {
-        previous_href:,
-        next_href:,
+      hash = {
         items:,
       }
+
+      hash[:previous_page] = { href: previous_href } unless previous_href.nil?
+      hash[:next_page] = { href: next_href } unless next_href.nil?
+
+      hash
     end
 
     def first_page_hash
       {
         href: build_path_for(1),
-        label: "1",
         current: current_page == 1,
-        aria_label: "Page 1",
+        number: 1,
       }
     end
 
     def first_elipsis_hash
       return unless current_page >= 4
 
-      { ellipses: true }
+      { ellipsis: true }
     end
 
     def middle_pages_array
       get_page_numbers.map do |page|
         {
           href: build_path_for(page),
-          label: page.to_s,
           current: current_page == page,
-          aria_label: "Page #{page}",
+          number: page,
         }
       end
     end
@@ -143,15 +146,14 @@ module Admin::PaginationHelper
     def second_elipsis_hash
       return unless total_pages - current_page >= 3
 
-      { ellipses: true }
+      { ellipsis: true }
     end
 
     def last_page_hash
       {
         href: build_path_for(total_pages),
-        label: total_pages.to_s,
+        number: total_pages,
         current: current_page == total_pages,
-        aria_label: "Page #{total_pages}",
       }
     end
   end
