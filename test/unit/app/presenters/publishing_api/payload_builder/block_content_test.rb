@@ -84,4 +84,107 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
     assert_nil builder.send(:image, :featured_image)
   end
+
+  test "lead image sends the custom lead image payload to publishing-api" do
+    images = [create(:image), create(:image, caption: "Example caption")]
+    @item.stubs(:valid_lead_images).returns(images)
+    @block_content.stubs(:image).returns(images[1].image_data.id)
+
+    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+    result = builder.send(:lead_image, :image)
+
+    payload = {
+      high_resolution_url: images[1].image_data.url(:s960),
+      url: images[1].image_data&.url(:s300),
+      caption: images[1].caption,
+    }
+    assert_equal payload, result
+  end
+
+  test "lead image does not send the the caption if nil" do
+    image = create(:image, caption: nil)
+    @item.stubs(:valid_lead_images).returns([image])
+    @block_content.stubs(:image).returns(image.image_data.id)
+
+    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+    result = builder.send(:lead_image, :image)
+
+    payload = {
+      high_resolution_url: image.image_data.url(:s960),
+      url: image.image_data&.url(:s300),
+    }
+    assert_equal payload, result
+  end
+
+  test "lead image sends the default lead image payload if custom lead is missing" do
+    default_lead_image = build(:featured_image_data)
+    @item.stubs(:valid_lead_images).returns([])
+    @item.stubs(:default_lead_image).returns(default_lead_image)
+    @block_content = nil
+
+    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+    result = builder.send(:lead_image, nil)
+
+    payload = {
+      high_resolution_url: default_lead_image.url(:s960),
+      url: default_lead_image.url(:s300),
+    }
+    assert_equal payload, result
+  end
+
+  test "lead image sends the placeholder image url if selected image's assets are missing" do
+    images = create_list(:image, 3)
+    images[1].image_data.assets = []
+    images[1].image_data.save!
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
+    @item.stubs(:valid_lead_images).returns(images)
+    @item.stubs(:placeholder_image_url).returns(placeholder_image_url)
+    @block_content.stubs(:image).returns(images[1].image_data.id)
+
+    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+    result = builder.send(:lead_image, :image)
+
+    payload = {
+      high_resolution_url: placeholder_image_url,
+      url: placeholder_image_url,
+    }
+    assert_equal payload, result
+  end
+
+  test "lead image sends the placeholder image url if there is no custom image and default lead image's assets are missing" do
+    default_lead_image = build(:featured_image_data)
+    default_lead_image.assets = []
+    default_lead_image.save!
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
+    @item.stubs(:valid_lead_images).returns([])
+    @item.stubs(:default_lead_image).returns(default_lead_image)
+    @item.stubs(:placeholder_image_url).returns(placeholder_image_url)
+    @block_content = nil
+
+    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+    result = builder.send(:lead_image, nil)
+
+    payload = {
+      high_resolution_url: placeholder_image_url,
+      url: placeholder_image_url,
+    }
+    assert_equal payload, result
+  end
+
+  test "lead image sends the placeholder image url if custom lead and organisation default images are missing" do
+    placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
+    @item.stubs(:valid_lead_images).returns([])
+    @item.stubs(:default_lead_image).returns(nil)
+    @item.stubs(:placeholder_image_url).returns(placeholder_image_url)
+    @block_content = nil
+
+    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+    result = builder.send(:lead_image, nil)
+
+    payload = {
+      high_resolution_url: placeholder_image_url,
+      url: placeholder_image_url,
+    }
+    assert_equal payload, result
+  end
 end
