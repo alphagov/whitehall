@@ -13,8 +13,6 @@ module ConfigurableAssociations
       end
     end
 
-  private
-
     def associations
       {
         "ministerial_role_appointments" => ->(edition) { ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments) },
