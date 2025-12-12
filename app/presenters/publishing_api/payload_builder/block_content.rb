@@ -2,6 +2,7 @@ module PublishingApi
   module PayloadBuilder
     class BlockContent
       include GovspeakHelper
+
       def self.for(item)
         new(item).call
       end
@@ -73,6 +74,10 @@ module PublishingApi
           high_resolution_url: item.placeholder_image_url,
           url: item.placeholder_image_url,
         }
+      end
+
+      def string(attribute)
+        item.block_content.public_send(attribute)
       end
     end
   end

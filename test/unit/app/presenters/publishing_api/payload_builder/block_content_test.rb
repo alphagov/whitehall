@@ -39,6 +39,16 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     assert result.key?("published_on")
   end
 
+  test "string sends the string content as-is" do
+    string_content = "foo"
+    @block_content.stubs(:string_chunk).returns(string_content)
+
+    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+    result = builder.send(:string, :string_chunk)
+
+    assert_equal string_content, result
+  end
+
   test "govspeak returns nil when content is nil" do
     @block_content.stubs(:body).returns(nil)
     @item.stubs(:images).returns([])
