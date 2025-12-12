@@ -1,4 +1,4 @@
-class Admin::EditionImagesController < Admin::BaseController
+class Admin::StandardEditionImagesController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
 
@@ -32,20 +32,19 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if image.save
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
-      redirect_to admin_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
+      redirect_to admin_standard_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
     else
       render :edit
     end
   end
 
   def create
-    @images = images_params.map { |image| create_image(image) }
+    @images = images_params.map { |image| build_image(image) }
 
     if @images.empty?
       flash.now.alert = "No images selected. Choose a valid JPEG, PNG, SVG or GIF."
     elsif @images.all?(&:valid?)
-      @images.each(&:save)
-      @edition.update_lead_image if @edition.can_have_custom_lead_image?
+      @images.each(&:save!)
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
       flash.now.notice = "Images successfully uploaded"
     else
@@ -56,11 +55,11 @@ class Admin::EditionImagesController < Admin::BaseController
     if @images.many?
       render :index
     else
-      redirect_to edit_admin_edition_image_path(@edition, @edition.images.first.id)
+      redirect_to edit_admin_standard_edition_image_path(@edition, @images.first.id)
     end
   end
 
-  def create_image(image)
+  def build_image(image)
     new_image = @edition.images.build
 
     new_image.build_image_data(image["image_data"])
@@ -107,7 +106,7 @@ private
   end
 
   def find_edition
-    edition = Edition.includes(images: :image_data).find(params[:edition_id])
+    edition = StandardEdition.includes(images: :image_data).find(params[:standard_edition_id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
   end
 
@@ -123,7 +122,7 @@ private
   end
 
   def images_params
-    params.fetch(:images, []).map { |image| image.permit(image_data: %i[file]) }
+    params.fetch(:images, []).map { |image| image.permit(image_data: %i[file image_kind]) }
   end
 
   def image_data_params
