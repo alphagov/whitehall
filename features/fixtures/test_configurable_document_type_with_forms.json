@@ -14,6 +14,23 @@
           "title": "Date Field",
           "description": "A date field for the page",
           "block": "default_date"
+        },
+        "address": {
+          "title": "Address",
+          "description": "A nested object field",
+          "block": "default_object",
+          "fields": {
+            "street": {
+              "title": "Street",
+              "description": "A default string inside the nested object",
+              "block": "default_string"
+            },
+            "city": {
+              "title": "City",
+              "description": "Another default string inside the nested object",
+              "block": "default_string"
+            }
+          }
         }
       }
     },
@@ -44,6 +61,12 @@
       },
       "date_field": {
         "type": "date"
+      },
+      "street": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
       }
     }
   },

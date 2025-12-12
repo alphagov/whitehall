@@ -17,7 +17,7 @@ module PublishingApi
 
         mapping.each_with_object({}) do |(attribute, builder), details|
           details[attribute] = send(builder, attribute)
-        end
+        end.compact
       end
 
     private
@@ -32,7 +32,9 @@ module PublishingApi
       end
 
       def rfc3339_date(attribute)
-        item.block_content.public_send(attribute).rfc3339
+        content = item.block_content.public_send(attribute) if attribute
+
+        content&.rfc3339
       end
 
       def image(attribute)

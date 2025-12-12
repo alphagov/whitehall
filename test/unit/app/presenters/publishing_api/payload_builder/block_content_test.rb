@@ -40,6 +40,9 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     assert result.key?("published_on")
   end
 
+  # TODO: Add test to cover nils -> compact
+  # TODO: Add test to cover that it ignores unknown fields?
+
   context "string payload builder" do
     test "string sends the string content as-is" do
       string_content = "foo"
@@ -90,6 +93,13 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       result = builder.send(:rfc3339_date, :published_on)
 
       assert_equal date.to_time.rfc3339, result
+    end
+
+    test "rfc3339_date returns nil if content is nil" do
+      @block_content.stubs(:published_on).returns(nil)
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      assert_nil builder.send(:rfc3339_date, nil)
     end
   end
 
