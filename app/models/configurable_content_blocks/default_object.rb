@@ -19,11 +19,7 @@ module ConfigurableContentBlocks
 
         next if payload.nil?
 
-        if property_schema["format"] == "wrapper"
-          output.merge!(payload)
-        else
-          output.merge!({ property_key.to_sym => payload })
-        end
+        output.merge!({ property_key.to_sym => payload })
       end
 
       output

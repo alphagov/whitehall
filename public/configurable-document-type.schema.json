@@ -60,8 +60,7 @@
             "default",
             "govspeak",
             "image_select",
-            "lead_image_select",
-            "wrapper"
+            "lead_image_select"
           ]
         },
         "properties": {

@@ -40,7 +40,6 @@ module ConfigurableContentBlocks
         },
         "object" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultObject.new(self) },
-          "wrapper" => ->(_page) { ConfigurableContentBlocks::WrapperObject.new(self) },
         },
         "date" => {
           "default" => ->(_page) { ConfigurableContentBlocks::DefaultDate.new },
