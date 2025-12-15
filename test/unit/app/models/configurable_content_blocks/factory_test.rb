@@ -25,14 +25,6 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     assert_equal block, factory.build("object")
   end
 
-  test "it can build a wrapper object block" do
-    page = StandardEdition.new
-    factory = ConfigurableContentBlocks::Factory.new(page)
-    block = mock("ConfigurableContentBlocks::WrapperObject")
-    ConfigurableContentBlocks::WrapperObject.expects(:new).with(factory).returns(block)
-    assert_equal block, factory.build("object", "wrapper")
-  end
-
   test "it can build a default string block" do
     page = StandardEdition.new
     factory = ConfigurableContentBlocks::Factory.new(page)

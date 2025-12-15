@@ -32,6 +32,7 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
     assert_equal(govspeak_to_html(content["test_attribute"]), payload[:test_attribute])
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
   end
+
   test "it omits any missing block content from the Publishing API payload, unless it's lead image" do
     schema = {
       "type" => "object",
@@ -67,32 +68,6 @@ class ConfigurableContentBlocks::DefaultObjectTest < ActiveSupport::TestCase
     assert_not payload.key?(:test_attribute)
     assert_equal(content["test_object_attribute"]["test_string"], payload[:test_object_attribute][:test_string])
     assert payload.key?(:test_lead_image_attribute)
-  end
-
-  test "it lifts the publishing API payload from child object blocks with the 'wrapper' format" do
-    schema = {
-      "type" => "object",
-      "properties" => {
-        "test_object_attribute" => {
-          "type" => "object",
-          "format" => "wrapper",
-          "properties" => {
-            "test_string" => {
-              "type" => "string",
-            },
-          },
-        },
-      },
-    }
-    content = {
-      "test_object_attribute" => {
-        "test_string" => "bar",
-      },
-    }
-    page = StandardEdition.new
-    factory = ConfigurableContentBlocks::Factory.new(page)
-    payload = ConfigurableContentBlocks::DefaultObject.new(factory).publishing_api_payload(schema, content)
-    assert_equal(content["test_object_attribute"]["test_string"], payload[:test_string])
   end
 end
 
