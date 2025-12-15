@@ -62,6 +62,10 @@ class ConfigurableDocumentType
     @settings = type["settings"]
   end
 
+  def -(other)
+    Diff.new(other, self)
+  end
+
   def label
     @title
   end
@@ -75,6 +79,17 @@ class ConfigurableDocumentType
     return [] unless edit_screens.key?(edit_screen)
 
     edit_screens[edit_screen].index_with { |key| properties[key] }
+  end
+
+  class Diff
+    attr_reader :added_prop_keys, :removed_prop_keys, :added_assoc_keys, :removed_assoc_keys
+
+    def initialize(type_a, type_b)
+      @removed_prop_keys = type_a.properties.keys - type_b.properties.keys
+      @added_prop_keys   = type_b.properties.keys - type_a.properties.keys
+      @removed_assoc_keys = type_a.associations.map { |a| a["key"] } - type_b.associations.map { |a| a["key"] }
+      @added_assoc_keys   = type_b.associations.map { |a| a["key"] } - type_a.associations.map { |a| a["key"] }
+    end
   end
 
   class NotFoundError < StandardError
