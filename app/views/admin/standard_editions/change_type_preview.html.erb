@@ -1,5 +1,6 @@
 <% page_heading = "Preview document type change" %>
 <% content_for :page_title, page_heading %>
+<% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
     href: change_type_admin_standard_edition_path(@edition),
