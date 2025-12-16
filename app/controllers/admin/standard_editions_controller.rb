@@ -32,8 +32,12 @@ class Admin::StandardEditionsController < Admin::EditionsController
     limit_edition_access!
 
     new_type_id = params.fetch(:configurable_document_type)
+    @old_type = ConfigurableDocumentType.find(@edition.configurable_document_type)
+    @new_type = ConfigurableDocumentType.find(new_type_id)
 
-    if @edition.update_configurable_document_type(new_type_id)
+    conversion = ConfigurableDocumentType::Conversion.new(@old_type, @new_type)
+
+    if conversion.convert(@edition)
       redirect_to admin_standard_edition_path(@edition), notice: "Document type changed successfully."
     else
       redirect_to change_type_preview_admin_standard_edition_path(@edition, configurable_document_type: new_type_id), alert: "Could not change document type."
