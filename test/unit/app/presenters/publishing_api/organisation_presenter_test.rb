@@ -93,6 +93,8 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       ordered_roles: [role.content_id],
       organisations: [organisation.content_id],
       primary_publishing_organisation: [organisation.content_id],
+      superseded_organisations: [],
+      superseding_organisations: [],
     }
 
     presented_item = present(organisation)
