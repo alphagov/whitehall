@@ -4,7 +4,7 @@
   } %>
 <% end %>
 
-<% if !@edition.is_in_valid_state_for_type_conversion? %>
+<% if !@edition.pre_publication? %>
 
   <% page_heading = "Cannot change document type" %>
   <% content_for :page_title, page_heading %>

@@ -10,7 +10,7 @@
           field: "Type of document",
           value: edition_type(@edition),
         }
-        if @edition.configurable_document_type.present? && @edition.is_in_valid_state_for_type_conversion?
+        if @edition.configurable_document_type.present? && @edition.pre_publication?
           type_of_document[:edit] = { href: change_type_admin_standard_edition_path(@edition) }
         end
       %>

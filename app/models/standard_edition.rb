@@ -26,7 +26,7 @@ class StandardEdition < Edition
   end
 
   def update_configurable_document_type(new_type_key)
-    return false if !is_in_valid_state_for_type_conversion? ||
+    return false if !pre_publication? ||
       ConfigurableDocumentType.convertible_from(configurable_document_type).none? { |type| type.key == new_type_key }
 
     self.configurable_document_type = new_type_key
@@ -83,9 +83,5 @@ class StandardEdition < Edition
 
   def world_location_association_required?
     type_instance.associations.find { |assoc| assoc["key"] == "world_locations" }&.dig("required") == true
-  end
-
-  def is_in_valid_state_for_type_conversion?
-    %w[draft submitted rejected].include?(state)
   end
 end
