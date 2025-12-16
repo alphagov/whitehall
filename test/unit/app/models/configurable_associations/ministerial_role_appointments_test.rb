@@ -48,6 +48,25 @@ class MinisterialRoleAppointmentsTest < ActiveSupport::TestCase
     }
     assert_equal expected_links, role_appointments_association.links
   end
+
+  test "it avoids sending duplicate role IDs in case there is more than one appointment for the same role - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
+    person = create(:person)
+    role = create(:ministerial_role)
+    appointment1 = create(:ministerial_role_appointment, person: person, role: role)
+    appointment2 = build(:ministerial_role_appointment, person: person, role: role)
+    appointment2.content_id = SecureRandom.uuid #  for the presenter to work
+    appointment2.save!(validate: false) # bypass 'overlap' validation
+
+    edition = create(:draft_standard_edition)
+    edition.role_appointments << [appointment1, appointment2]
+    role_appointments_association = ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments)
+    expected_links = {
+      people: [person.content_id],
+      roles: [role.content_id],
+    }
+    assert_equal expected_links, role_appointments_association.links
+  end
 end
 
 class MinisterialRoleAppointmentsRenderingTest < ActionView::TestCase

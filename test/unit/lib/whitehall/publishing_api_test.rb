@@ -314,6 +314,22 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     )
   end
 
+  test ".save_draft raises exception if there is a live content item with the same base path but different content ID - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
+    edition = create(:draft_standard_edition)
+    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: edition.public_path).returns("different-content-id")
+
+    error = assert_raises Whitehall::UnpublishableInstanceError do
+      Whitehall::PublishingApi.save_draft(edition)
+    end
+
+    assert_equal(
+      "Cannot save draft (content_id #{edition.content_id}). There is existing content at the '#{edition.public_path}' route, under a different content_id (different-content-id). Try changing your title to resolve the conflict.",
+      error.message,
+    )
+  end
+
   test ".publish_redirect_async publishes a redirect to the Publishing API" do
     document = create(:document)
     destination = "/government/people/milli-vanilli"

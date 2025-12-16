@@ -44,8 +44,22 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
     assert_equal "Test Group", pr.content_type
   end
 
+  test "#type returns group for config-driven type with group setting - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type", { "settings" => { "configurable_document_group" => "test_group" } }))
+    edition = build(:standard_edition)
+    pr = DocumentListExportPresenter.new(edition)
+    assert_equal "Test Group", pr.content_type
+  end
+
   test "#type returns 'N/A' for config-driven type with no group setting" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build(:standard_edition)
+    pr = DocumentListExportPresenter.new(edition)
+    assert_equal "N/A", pr.content_type
+  end
+
+  test "#type returns 'N/A' for config-driven type with no group setting - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
     edition = build(:standard_edition)
     pr = DocumentListExportPresenter.new(edition)
     assert_equal "N/A", pr.content_type

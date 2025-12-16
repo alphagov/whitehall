@@ -372,12 +372,37 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         end
         BulkRepublisher.new.republish_all_by_type("CaseStudy")
       end
+
+      test "republishes content for the specified type and configurable types via the PublishingApiDocumentRepublishingWorker - with forms" do
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("case_study"))
+        case_study_type = create(:published_case_study)
+        standard_edition_case_study_type = create(:published_standard_edition, :with_organisations, { configurable_document_type: "case_study" })
+        [case_study_type, standard_edition_case_study_type].each do |article|
+          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+            "bulk_republishing",
+            article.document_id,
+            true,
+          )
+        end
+        BulkRepublisher.new.republish_all_by_type("CaseStudy")
+      end
     end
 
     context "for content types that are exclusive to standard editions" do
       test "republishes content for the specified type via the PublishingApiDocumentRepublishingWorker" do
         BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[TestType])
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+        test_type = create(:published_standard_edition, { configurable_document_type: "test_type" })
+        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          test_type.document_id,
+          true,
+        )
+        BulkRepublisher.new.republish_all_by_type("TestType")
+      end
+      test "republishes content for the specified type via the PublishingApiDocumentRepublishingWorker - with forms" do
+        BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[TestType])
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
         test_type = create(:published_standard_edition, { configurable_document_type: "test_type" })
         PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
           "bulk_republishing",

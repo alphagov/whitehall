@@ -20,14 +20,40 @@
         "title": "Date Field",
         "description": "A date field for the page",
         "type": "date"
+      },
+      "address": {
+        "title": "Address",
+        "description": "A nested object field",
+        "type": "object",
+        "format": "default",
+        "properties": {
+          "street": {
+            "title": "Street",
+            "description": "A default string inside the nested object",
+            "type": "string",
+            "format": "default"
+          },
+          "city": {
+            "title": "City",
+            "description": "Another default string inside the nested object",
+            "type": "string",
+            "format": "default"
+          }
+        }
+      },
+      "lead_image": {
+        "title": "Lead Image",
+        "description": "The lead image for the page",
+        "format": "lead_image_select",
+        "type": "integer"
       }
     }
   },
   "associations": [],
   "settings": {
     "edit_screens": {
-      "document": ["body", "date_field"],
-      "images": ["image"]
+      "document": ["body", "date_field", "address"],
+      "images": ["image", "lead_image"]
     },
     "base_path_prefix": "/government/test-type",
     "publishing_api_schema_name": "test_type",

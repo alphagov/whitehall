@@ -423,5 +423,220 @@ class StandardEditionTest < ActiveSupport::TestCase
         # initial_property removed
       }, page.block_content.to_h)
     end
+
+    context "when using forms schema for configurable content blocks" do
+      test "it delegates body to block content" do
+        test_type = "test_type"
+        configurable_document_type =
+          build_configurable_document_type_with_forms(
+            test_type, {
+              "forms" => {
+                "document" => {
+                  "fields" => {
+                    "body" => {
+                      "title" => "Body attribute",
+                      "block" => "govspeak",
+                    },
+                  },
+                },
+              },
+              "schema" => {
+                "attributes" => {
+                  "body" => {
+                    "type" => "string",
+                  },
+                },
+              },
+            }
+          )
+        ConfigurableDocumentType.setup_test_types(configurable_document_type)
+        page = build(:standard_edition, { configurable_document_type: test_type, block_content: { body: "FOO" } })
+        assert_equal "FOO", page.body
+      end
+
+      test "it is invalid if the block content does not conform to the configurable document type schema validations" do
+        test_type = "test_type"
+        configurable_document_type =
+          build_configurable_document_type_with_forms(
+            test_type, {
+              "schema" => {
+                "validations" => {
+                  "presence" => {
+                    "attributes" => %w[field_attribute],
+                  },
+                },
+              },
+            }
+          )
+        ConfigurableDocumentType.setup_test_types(configurable_document_type)
+        page = build(:standard_edition, { configurable_document_type: test_type, block_content: { field_attribute: "" } })
+        assert page.invalid?
+        assert_not page.errors.where("field_attribute", :blank).empty?
+      end
+
+      test "it is invalid if the nested block content does not conform to the configurable document type schema validations" do
+        test_type = "test_type"
+        configurable_document_type =
+          build_configurable_document_type_with_forms(
+            test_type, {
+              "forms" => {
+                "documents" => {
+                  "fields" => {
+                    "test_object_attribute" => {
+                      "title" => "Test object attribute",
+                      "block" => "default_object",
+                      "fields" => {
+                        "test_nested_attribute" => {
+                          "title" => "Test nested attribute",
+                          "block" => "default_string",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              "schema" => {
+                "attributes" => {
+                  "test_nested_attribute" => {
+                    "type" => "string",
+                  },
+                },
+                "validations" => {
+                  "presence" => {
+                    "attributes" => %w[test_nested_attribute],
+                  },
+                },
+              },
+            }
+          )
+        ConfigurableDocumentType.setup_test_types(configurable_document_type)
+        page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_nested_attribute: "" } })
+        assert page.invalid?
+        assert_not page.errors.where("test_nested_attribute", :blank).empty?
+      end
+
+      test "it persists a translation's block content when creating a new draft" do
+        test_type = build_configurable_document_type_with_forms("test_type", {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "test_attribute" => {
+                  "title" => "Test Attribute",
+                  "block" => "default_string",
+                },
+                "body" => {
+                  "title" => "Body",
+                  "block" => "govspeak",
+                },
+              },
+            },
+            "images" => {
+              "fields" => {
+                "image" => {
+                  "title" => "Custom lead image",
+                  "block" => "lead_image_select",
+                },
+              },
+            },
+          },
+          "schema" => {
+            "attributes" => {
+              "test_attribute" => {
+                "type" => "string",
+              },
+              "body" => {
+                "type" => "string",
+              },
+              "image" => {
+                "type" => "integer",
+              },
+            },
+          },
+          "settings" => { "translations_enabled" => true, "images_enabled" => true },
+        })
+        ConfigurableDocumentType.setup_test_types(test_type)
+        image = create(:image)
+        english_edition = create(:published_standard_edition,
+                                 configurable_document_type: "test_type",
+                                 primary_locale: "en",
+                                 images: [image],
+                                 block_content: {
+                                   test_attribute: "Some test attribute",
+                                   body: "English body content",
+                                   image: image.image_data.id,
+                                 })
+        welsh_block_content = {
+          test_attribute: "Rhywbeth ar gyfer y maes prawf",
+          body: "## Cynnwys y corff yn Gymraeg",
+          image: image.image_data.id,
+        }
+        I18n.with_locale("cy") do
+          english_edition.translations.create!(
+            locale: "cy",
+            title: "Welsh title",
+            summary: "Welsh summary",
+            block_content: welsh_block_content,
+          )
+        end
+
+        new_draft = english_edition.create_draft(create(:writer))
+
+        welsh_translation = new_draft.translation_for(:cy)
+        assert_equal "Welsh title", welsh_translation.title
+        assert_equal "Welsh summary", welsh_translation.summary
+        assert_equal welsh_block_content.merge({ "field_attribute" => nil }).stringify_keys, welsh_translation.block_content
+      end
+
+      describe "#update_configurable_document_type" do
+        test "drops any invalid properties from block content after changing document type" do
+          initial_type = build_configurable_document_type_with_forms(
+            "initial_type", {
+              "schema" => {
+                "attributes" => {
+                  "initial_property" => {
+                    "type" => "string",
+                  },
+                  "common_property" => {
+                    "type" => "string",
+                  },
+                },
+              },
+              "settings" => {
+                "configurable_document_group" => "common_group",
+              },
+            }
+          )
+          new_type = build_configurable_document_type_with_forms(
+            "new_type", {
+              "schema" => {
+                "attributes" => {
+                  "new_property" => {
+                    "type" => "string",
+                  },
+                  "common_property" => {
+                    "type" => "string",
+                  },
+                },
+              },
+              "settings" => {
+                "configurable_document_group" => "common_group",
+              },
+            }
+          )
+          ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
+          page = create(:draft_standard_edition,
+                        configurable_document_type: "initial_type",
+                        block_content: { initial_property: "value", common_property: "common value" })
+          page.update_configurable_document_type("new_type")
+          page = StandardEdition.find(page.id) # reload to clear any cached block_content
+          assert_equal({
+            "field_attribute" => nil, # from the factory
+            "new_property" => nil, # from the new type
+            "common_property" => "common value", # retained from previous type
+            # initial_property removed
+          }, page.block_content.to_h)
+        end
+      end
+    end
   end
 end

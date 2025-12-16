@@ -11,7 +11,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
 
   describe "#perform" do
     it "finds the Document by ID" do
-      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
       document = create(:document)
       StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorWorkerTest::TestRecipe.new)
       worker = StandardEditionMigratorWorker.new
@@ -34,7 +34,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
 
     describe "#migrate_editions!" do
       setup do
-        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
         StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorWorkerTest::TestRecipe.new)
 
         # stub the presenters - we'll test those separately
@@ -115,10 +115,9 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
-
-        superseded_block_content = { "test_attribute" => "MODIFIED This is my legacy document type body" }
-        published_block_content = { "test_attribute" => "MODIFIED This is my updated body" }
-        draft_block_content = { "test_attribute" => "MODIFIED This is my updated body for the draft" }
+        superseded_block_content = { "field_attribute" => "MODIFIED This is my legacy document type body" }
+        published_block_content = { "field_attribute" => "MODIFIED This is my updated body" }
+        draft_block_content = { "field_attribute" => "MODIFIED This is my updated body for the draft" }
 
         assert_equal superseded_block_content, superseded_edition.block_content.to_h
         assert_equal published_block_content, published_edition.block_content.to_h
@@ -166,7 +165,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         with_locale(:fr) do
           assert_equal "french-title", draft_edition.title
           assert_equal "french-summary", draft_edition.summary
-          assert_equal "MODIFIED french-body", draft_edition.block_content.to_h["test_attribute"]
+          assert_equal "MODIFIED french-body", draft_edition.block_content.to_h["field_attribute"]
         end
       end
 
@@ -228,7 +227,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
 
     describe "ensure_payloads_remain_identical logic" do
       setup do
-        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
         StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorWorkerTest::TestRecipe.new)
         document = create(:document)
         create(:standard_edition, document: document) #  we need an edition of any type to attach to the document
@@ -371,7 +370,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
     end
 
     def map_legacy_fields_to_block_content(_edition, translation)
-      { "test_attribute" => "MODIFIED #{translation.body}" }
+      { "field_attribute" => "MODIFIED #{translation.body}" }
     end
 
     def ignore_legacy_content_fields(content)

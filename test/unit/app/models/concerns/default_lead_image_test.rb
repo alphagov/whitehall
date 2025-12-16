@@ -30,6 +30,13 @@ class DefaultLeadImageTest < ActiveSupport::TestCase
     assert_equal @img_three, edition.default_lead_image
   end
 
+  test "it returns the default news image from the worldwide organisations if organisations are missing - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type_with_images_and_attachments", {}))
+    edition = create(:standard_edition, configurable_document_type: "test_type_with_images_and_attachments", organisations: [])
+    edition.edition_worldwide_organisations.create([{ document: @worldwide_organisation_with_image.document }])
+    assert_equal @img_three, edition.default_lead_image
+  end
+
   test "#placeholder_image_url returns world news placeholder for world news stories" do
     edition = build(:standard_edition, configurable_document_type: "world_news_story")
     assert_equal "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg", edition.placeholder_image_url

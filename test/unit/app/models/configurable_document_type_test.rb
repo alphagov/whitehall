@@ -82,6 +82,36 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal 1, types_we_can_convert_to.size
     assert_equal "new_type", types_we_can_convert_to.first.key
   end
+
+  test ".convertible_from returns the configurable document types in the same group excluding itself - with forms" do
+    group_key = "test_group"
+    initial_type = build_configurable_document_type_with_forms(
+      "initial_type", {
+        "settings" => {
+          "configurable_document_group" => group_key,
+        },
+      }
+    )
+    new_type = build_configurable_document_type_with_forms(
+      "new_type", {
+        "settings" => {
+          "configurable_document_group" => group_key,
+        },
+      }
+    )
+    other_type = build_configurable_document_type_with_forms(
+      "other_type", {
+        "settings" => {
+          "configurable_document_group" => "other_group",
+        },
+      }
+    )
+    ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type).merge(other_type))
+    types_we_can_convert_to = ConfigurableDocumentType.convertible_from("initial_type")
+    assert_equal 1, types_we_can_convert_to.size
+    assert_equal "new_type", types_we_can_convert_to.first.key
+  end
+
   test "#form creates a flattened hash of fields if no form key is provided" do
     configurable_document_type = build_configurable_document_type_with_forms(
       "test_type",

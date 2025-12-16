@@ -89,6 +89,20 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     assert_equal "Test type", edition_type(edition)
   end
 
+  test "#edition_type returns a concatenated string where a standard edition has a group - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type", { "settings" => { "configurable_document_group" => "test_group" } }))
+    edition = build(:standard_edition)
+
+    assert_equal "Test group: Test type", edition_type(edition)
+  end
+
+  test "#edition_type returns a single string where a standard edition does not have a group - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
+    edition = build(:standard_edition)
+
+    assert_equal "Test type", edition_type(edition)
+  end
+
   test "#edition_type returns a concatenated string where an edition has a parent type" do
     news_article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
     publication = build(:publication, publication_type: PublicationType::IndependentReport)
