@@ -31,7 +31,7 @@
             text: tag.p(edition.title, class: "govuk-!-font-weight-bold govuk-!-margin-0"),
           },
           {
-            text: edition_type_title(edition),
+            text: edition.full_display_type,
           },
           {
             text: sanitize(tag.p("Updated #{time_ago_in_words edition.updated_at} ago", class: "govuk-!-margin-bottom-0 govuk-!-margin-top-0")) +

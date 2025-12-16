@@ -267,7 +267,19 @@ class Edition < ApplicationRecord
     true
   end
 
+  def full_display_type
+    return display_type unless has_parent_type?
+
+    "#{parent_display_type}: #{display_type}"
+  end
+
+  def parent_display_type
+    I18n.t("document.type.#{type.underscore}", count: 1)
+  end
+
   def display_type
+    return if respond_to?(:publication_type) && publication_type.blank?
+
     I18n.t("document.type.#{display_type_key}", count: 1)
   end
 

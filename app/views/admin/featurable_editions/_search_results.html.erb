@@ -27,7 +27,7 @@
             text: tag.p(edition.title, class: "govuk-!-margin-0 govuk-!-font-weight-bold"),
           },
           {
-            text: edition_type_title(edition),
+            text: edition.full_display_type,
           },
           {
             text: localize(edition.major_change_published_at.to_date),

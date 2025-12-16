@@ -19,6 +19,10 @@ class StatisticalDataSet < Edition
     true
   end
 
+  def has_parent_type?
+    false
+  end
+
   def display_type_key
     "statistical_data_set"
   end

@@ -72,7 +72,7 @@ class DocumentListExportPresenter
   end
 
   def content_type
-    edition_type_title(edition)
+    edition.full_display_type
   end
 
   def sub_content_type

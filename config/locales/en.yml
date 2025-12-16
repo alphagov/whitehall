@@ -185,6 +185,9 @@ en:
       corporate_report:
         one: Corporate report
         other: Corporate reports
+      corporate_information_page:
+        one: Corporate information pages
+        other: Corporate information pages
       correspondence:
         one: Correspondence
         other: Correspondences

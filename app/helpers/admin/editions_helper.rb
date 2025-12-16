@@ -13,10 +13,6 @@ module Admin::EditionsHelper
     end
   end
 
-  def edition_type_title(edition)
-    (edition.is_a?(StandardEdition) ? edition.display_type : edition.type).titleize
-  end
-
   def admin_organisation_filter_options(selected_organisation)
     organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     closed_organisations = Organisation.with_translations(:en).closed || []
