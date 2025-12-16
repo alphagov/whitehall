@@ -69,7 +69,7 @@ class ConfigurableDocumentType
   end
 
   def properties
-    @schema["properties"]
+    @schema["properties"] || @schema["attributes"] || {}
   end
 
   def form(key = nil)

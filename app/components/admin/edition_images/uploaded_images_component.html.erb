@@ -7,16 +7,32 @@
 
   <%= form_for [:admin, edition], as: :edition do |form| %>
     <%= hidden_field_tag :redirect_to, admin_edition_images_path(edition) %>
+
+    <% block_content_form = @edition.type_instance.form("images") %>
+    <% if block_content_form %>
+      <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
+      <%= render(root_block, {
+        schema: block_content_form,
+        content: edition.block_content,
+        path: ConfigurableContentBlocks::Path.new,
+        right_to_left: edition.rtl?,
+        errors: edition.errors,
+        required_attributes: @edition.type_instance.required_attributes,
+        root: true,
+      }) %>
+    <% else %>
     <% root_block = ConfigurableContentBlocks::Factory.new(edition).build("object") %>
-    <%= render(root_block, {
-      schema: ConfigurableDocumentType.find(edition.configurable_document_type).schema,
-      content: edition.block_content,
-      path: ConfigurableContentBlocks::Path.new,
-      right_to_left: edition.rtl?,
-      errors: edition.errors,
-      root: true,
-      visible_properties: ConfigurableDocumentType.find(edition.configurable_document_type).properties_for_edit_screen("images"),
-    }) %>
+      <%= render(root_block, {
+        schema: ConfigurableDocumentType.find(edition.configurable_document_type).schema,
+        content: edition.block_content,
+        path: ConfigurableContentBlocks::Path.new,
+        right_to_left: edition.rtl?,
+        errors: edition.errors,
+        root: true,
+        required_attributes: @edition.type_instance.required_attributes,
+        visible_properties: ConfigurableDocumentType.find(edition.configurable_document_type).properties_for_edit_screen("images"),
+      }) %>
+    <% end %>
 
     <div class="govuk-button-group">
       <%= render "govuk_publishing_components/components/button", {

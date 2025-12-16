@@ -63,16 +63,30 @@
     } %>
 
     <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
+    <% block_content_form = @edition.type_instance.form("documents") %>
+    <% if block_content_form %>
+    <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
+      <%= render(root_block, {
+        schema: block_content_form,
+        content: @edition.block_content,
+        path: ConfigurableContentBlocks::Path.new,
+        right_to_left: @edition.rtl?,
+        errors: @edition.errors,
+        root: true,
+        required_attributes: @edition.type_instance.required_attributes,
+      }) %>
+    <% else %>
     <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build("object") %>
-    <%= render(root_block, {
-      schema: ConfigurableDocumentType.find(@edition.configurable_document_type).schema,
-      content: @edition.block_content,
-      path: ConfigurableContentBlocks::Path.new,
-      right_to_left: @edition.rtl?,
-      errors: @edition.errors,
-      root: true,
-      visible_properties: ConfigurableDocumentType.find(edition.configurable_document_type).properties_for_edit_screen("document"),
-    }) %>
+      <%= render(root_block, {
+        schema: { "properties" => @edition.type_instance.properties_for_edit_screen("document") },
+        content: @edition.block_content,
+        path: ConfigurableContentBlocks::Path.new,
+        right_to_left: @edition.rtl?,
+        errors: @edition.errors,
+        root: true,
+        required_attributes: @edition.type_instance.required_attributes,
+      }) %>
+    <% end %>
 
     <%= render Admin::Editions::FirstPublishedAtComponent.new(
       edition:,
