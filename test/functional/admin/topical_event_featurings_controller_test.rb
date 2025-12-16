@@ -162,4 +162,19 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     assert_equal "Alt Text", topical_event_featuring.alt_text
     assert_equal "960x640_jpeg.jpg", topical_event_featuring.image.filename
   end
+
+  view_test "GET :index displays standard edition with friendly type name" do
+    setup_configurable_document_type("test_type", { "title" => "Search Test Type" })
+    organisation = create(:organisation, users: [@current_user])
+    standard_edition = create(:published_standard_edition,
+                              topical_events: [@topical_event],
+                              configurable_document_type: :test_type)
+
+    create(:edition_organisation, edition: standard_edition, organisation:)
+
+    get :index, params: { topical_event_id: @topical_event }
+
+    assert_dom ".app-view-features-search-results__table td", "Search Test Type"
+    refute_dom ".app-view-features-search-results__table td", /Standard Edition/i
+  end
 end

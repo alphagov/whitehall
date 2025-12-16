@@ -10,6 +10,7 @@ FactoryBot.define do
     factory :draft_standard_edition, parent: :standard_edition, traits: [:draft]
     factory :submitted_standard_edition, parent: :standard_edition, traits: [:submitted]
     factory :rejected_standard_edition, parent: :standard_edition, traits: [:rejected]
+    factory :force_published_standard_edition, parent: :standard_edition, traits: [:force_published]
     factory :published_standard_edition, parent: :standard_edition, traits: [:published]
     factory :deleted_standard_edition, parent: :standard_edition, traits: [:deleted]
     factory :superseded_standard_edition, parent: :standard_edition, traits: [:superseded]

@@ -24,6 +24,15 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_template "admin/errors/not_found"
   end
 
+  view_test "GET uses the correct type in page title for the configurable document" do
+    document_type_title = "Test Document Type"
+    setup_configurable_document_type("test_type", { "title" => document_type_title })
+
+    get :new, params: { configurable_document_type: "test_type" }
+
+    assert_dom "title", /#{document_type_title}/
+  end
+
   view_test "GET choose_type scopes the list of types to types that the user has permission to use" do
     configurable_document_type_user_org = build_configurable_document_type("test_type", { "title" => "Test Type One", "settings" => { "organisations" => [@current_user.organisation.content_id] } })
     configurable_document_type_other_org = build_configurable_document_type("other_type", { "title" => "Test Type Two", "settings" => { "organisations" => [SecureRandom.uuid] } })

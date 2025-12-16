@@ -17,7 +17,7 @@ class ConfigurableDocumentType
   end
 
   def self.setup_test_types(test_types)
-    @types = test_types
+    @types = (@types || {}).merge(test_types)
   end
 
   def self.find(type_key)

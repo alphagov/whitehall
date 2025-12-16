@@ -1,6 +1,7 @@
 class DocumentListExportPresenter
   include Rails.application.routes.url_helpers
   include Admin::EditionRoutesHelper
+  include Admin::EditionsHelper
 
   attr_accessor :edition
 
@@ -71,7 +72,7 @@ class DocumentListExportPresenter
   end
 
   def content_type
-    edition.type.titleize
+    edition_type_title(edition)
   end
 
   def sub_content_type

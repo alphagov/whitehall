@@ -40,7 +40,7 @@ private
     if featuring.offsite?
       "#{featuring.offsite_link.humanized_link_type} (offsite link)"
     else
-      "#{featuring.edition.type.titleize} (document)"
+      "#{helpers.edition_type_title(featuring.edition)} (document)"
     end
   end
 

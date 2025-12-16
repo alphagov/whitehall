@@ -26,6 +26,27 @@ class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponentTest < Vi
     actions_column.assert_selector "a[href='#{confirm_destroy_admin_topical_event_topical_event_featuring_path(topical_event, featuring)}']", text: "Unfeature #{title}"
   end
 
+  test "renders the correct row when the featurable is associated with a standard edition news article" do
+    setup_configurable_document_type("test_news_story", { "title" => "Test News Story" })
+    edition = build_stubbed(:published_standard_edition, { configurable_document_type: "test_news_story" })
+    topical_event = build_stubbed(:topical_event)
+    featuring = build_stubbed(:topical_event_featuring, edition:, topical_event:)
+    title = featuring.title
+
+    render_inline(Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent.new(
+                    caption: "caption",
+                    featurings: [featuring],
+                  ))
+
+    assert_equal title, page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text
+    assert_equal "Test News Story (document)", page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text
+    assert_equal I18n.localize(edition.major_change_published_at.to_date), page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text
+
+    actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
+    actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "View #{title}"
+    actions_column.assert_selector "a[href='#{confirm_destroy_admin_topical_event_topical_event_featuring_path(topical_event, featuring)}']", text: "Unfeature #{title}"
+  end
+
   test "renders the correct row when the featurable is associated with an offsite link" do
     topical_event = build_stubbed(:topical_event)
     featuring = build_stubbed(:offsite_topical_event_featuring, topical_event:)

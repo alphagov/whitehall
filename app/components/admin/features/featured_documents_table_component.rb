@@ -51,7 +51,7 @@ private
 
   def type(feature)
     if feature.document&.live_edition.present?
-      "#{feature.document.live_edition.type.titleize} (document)"
+      "#{helpers.edition_type_title(feature.document.live_edition)} (document)"
     elsif feature.topical_event.present?
       "Topical Event"
     elsif feature.offsite_link.present?

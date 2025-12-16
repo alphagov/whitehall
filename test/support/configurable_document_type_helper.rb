@@ -30,4 +30,10 @@ module ConfigurableDocumentTypeHelper
       }.deep_merge(attributes),
     }
   end
+
+  def setup_configurable_document_type(type, attributes = {})
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type(type, attributes),
+    )
+  end
 end
