@@ -110,4 +110,20 @@ namespace :data_hygiene do
 
     shell.say "Speeches reassigned to #{new_role_appointment.role_name}"
   end
+
+  desc "Remove organisation links from converted world news stories"
+  task remove_org_links_from_world_news: :environment do
+    world_news_with_orgs = StandardEdition.where(configurable_document_type: "world_news_story").joins(:organisations)
+
+    world_news_with_orgs.each do |edition|
+      if edition.worldwide_organisations.empty?
+        shell.say "Skipping #{edition.public_url} as no worldwide orgs have been assigned"
+      else
+        edition.organisations.delete_all
+        edition.configurable_document_type = "news_story"
+        Whitehall::PublishingApi.patch_links(edition)
+        shell.say "Removed organisation links from #{edition.public_url}"
+      end
+    end
+  end
 end
