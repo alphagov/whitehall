@@ -1,3 +1,4 @@
+<% edit_form = capture do %>
 <%= form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form| %>
   <div class="<%= "right-to-left" if edition.rtl? %>">
     <%= form.hidden_field :lock_version %>
@@ -109,6 +110,17 @@
       <%= render "scheduled_publication_fields", form: form, edition: @edition %>
       <%= render "review_reminder_fields", form: form, review_reminder: @edition.document.review_reminder %>
     </div>
-    <%= standard_edition_publishing_controls(form, edition) %>
+    <% if edition.editable? %>
+      <%= standard_edition_publishing_controls(form, edition) %>
+    <% end %>
   </div>
+<% end %>
+<% end %>
+
+<% if !edition.editable? %>
+  <fieldset disabled="disabled">
+    <%= edit_form %>
+  </fieldset>
+<% else %>
+  <%= edit_form %>
 <% end %>
