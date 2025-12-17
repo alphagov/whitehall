@@ -16,7 +16,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     AssetManagerAttachmentRedirectUrlUpdateWorker.new.perform(attachment.attachment_data.id)
   end
 
-  test "it updates redirect url even when attachment_data is marked deleted" do
+  test "it updates redirect url when attachment_data is marked deleted and redirect url is present" do
     edition = create(:unpublished_edition)
     attachment = create(:file_attachment, attachable: edition)
 
@@ -28,6 +28,23 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
 
     attachment.attachment_data.assets.each do |asset|
       AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash)
+    end
+
+    AssetManagerAttachmentRedirectUrlUpdateWorker.new.perform(attachment.attachment_data.id)
+  end
+
+  test "it does not update redirect url when attachment_data is marked deleted and redirect url is nil" do
+    edition = create(:published_edition)
+    attachment = create(:file_attachment, attachable: edition)
+
+    AttachmentData.any_instance.stubs(:deleted?).returns(true)
+
+    expected_attribute_hash = {
+      "redirect_url" => nil,
+    }
+
+    attachment.attachment_data.assets.each do |asset|
+      AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash).never
     end
 
     AssetManagerAttachmentRedirectUrlUpdateWorker.new.perform(attachment.attachment_data.id)
