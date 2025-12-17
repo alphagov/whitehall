@@ -1,16 +1,11 @@
 module Admin::EditionsHelper
   def edition_type(edition)
-    if edition.has_parent_type?
-      type = if edition.is_a?(Speech) && edition.speech_type.written_article?
-               edition.speech_type.singular_name
-             else
-               edition.type.underscore.humanize
-             end
-
-      [type, edition.display_type].compact.uniq.join(": ")
-    else
-      edition.display_type
-    end
+    type = if edition.is_a?(StandardEdition)
+             edition.group&.humanize
+           else
+             edition.type.underscore.humanize
+           end
+    [type, edition.display_type].compact.uniq.join(": ")
   end
 
   def admin_organisation_filter_options(selected_organisation)

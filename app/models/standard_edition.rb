@@ -73,6 +73,10 @@ class StandardEdition < Edition
     ConfigurableDocumentType.find(configurable_document_type)
   end
 
+  def group
+    type_instance.settings["configurable_document_group"]
+  end
+
   def organisation_association_enabled?
     type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
   end

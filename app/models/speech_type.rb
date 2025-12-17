@@ -48,10 +48,6 @@ class SpeechType
     [WrittenStatement, OralStatement]
   end
 
-  def written_article?
-    [AuthoredArticle].include? self
-  end
-
   def genus_key
     "speech"
   end

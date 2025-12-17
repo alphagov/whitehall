@@ -98,10 +98,6 @@ class WorldwideOrganisation < Edition
     "worldwide_organisation"
   end
 
-  def has_parent_type?
-    false
-  end
-
   def destroy_associated(locale)
     [offices.map(&:contact), pages].flatten.each do |association|
       association.remove_translations_for(locale)
