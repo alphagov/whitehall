@@ -26,9 +26,9 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     end
   end
 
-  test "raises exception if attempting to update a deleted asset" do
+  test "raises exception if attempting to update a live deleted asset" do
     @asset_updater.stubs(:find_asset_by_id).with(@asset_manager_id)
-           .returns("id" => @asset_manager_id, "deleted" => true)
+           .returns("id" => @asset_manager_id, "deleted" => true, "draft" => false)
 
     assert_raises(AssetManager::AssetUpdater::AssetDeleted) do
       @asset_updater.call(@asset_manager_id, { "redirect_url" => @redirect_url })
