@@ -105,14 +105,6 @@ module Whitehall
     %w[news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities collections supporting-pages calls-for-evidence worldwide-organisations landing-pages standard-editions]
   end
 
-  def self.analytics_format(format)
-    {
-      policy: "policy",
-      news: "news",
-      detailed_guidance: "detailed_guidance",
-    }[format]
-  end
-
   def self.search_api_work_queue_name
     "search_api-delayed-indexing"
   end
