@@ -71,19 +71,17 @@ class DocumentListExportPresenter
   end
 
   def content_type
-    edition.type.titleize
+    if edition.is_a?(StandardEdition)
+      edition.group&.titleize || "N/A"
+    else
+      edition.type.titleize
+    end
   end
 
   def sub_content_type
     case edition
-    when NewsArticle
-      edition.news_article_type.singular_name
-    when Publication
-      edition.publication_type.singular_name
-    when Speech
-      edition.speech_type.singular_name
-    when CorporateInformationPage
-      edition.corporate_information_page_type.slug.underscore.humanize
+    when NewsArticle, Publication, Speech, CorporateInformationPage
+      edition.display_type
     else
       "N/A"
     end

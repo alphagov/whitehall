@@ -13,6 +13,12 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
     assert_equal "Guidance", pr.sub_content_type
   end
 
+  test "#sub_content_type returns the correct subtype for speech" do
+    speech = build(:speech, speech_type: SpeechType::AuthoredArticle)
+    pr = DocumentListExportPresenter.new(speech)
+    assert_equal "Authored article", pr.sub_content_type
+  end
+
   test "#sub_content_type returns the correct subtype for corporate information pages" do
     cip = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::AboutUs, organisation: nil)
     pr = DocumentListExportPresenter.new(cip)
@@ -23,6 +29,26 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
     guide = build(:detailed_guide)
     pr = DocumentListExportPresenter.new(guide)
     assert_equal "N/A", pr.sub_content_type
+  end
+
+  test "#type returns class-based type for legacy types" do
+    guide = build(:detailed_guide)
+    pr = DocumentListExportPresenter.new(guide)
+    assert_equal "Detailed Guide", pr.content_type
+  end
+
+  test "#type returns group for config-driven type with group setting" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "configurable_document_group" => "test_group" } }))
+    edition = build(:standard_edition)
+    pr = DocumentListExportPresenter.new(edition)
+    assert_equal "Test Group", pr.content_type
+  end
+
+  test "#type returns 'N/A' for config-driven type with no group setting" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build(:standard_edition)
+    pr = DocumentListExportPresenter.new(edition)
+    assert_equal "N/A", pr.content_type
   end
 
   test "#attachment_types returns details of each attachment" do
