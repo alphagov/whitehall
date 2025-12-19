@@ -3,9 +3,9 @@ class MinisterialRole < Role
   include UserOrderable
 
   has_many :editions, -> { distinct }, through: :role_appointments
-  has_many :consultations, -> { where("editions.type" => "Consultation").distinct }, through: :role_appointments
-  has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments
+  has_many :consultations, -> { where("editions.type" => "Consultation").distinct }, through: :role_appointments, source: :editions
   has_many :speeches, through: :role_appointments
+  has_many :news_articles, -> { where("editions.type" => "StandardEdition").where(configurable_document_type: %w[news_story press_release government_response world_news_story]).distinct }, through: :role_appointments, source: :editions
 
   after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
 

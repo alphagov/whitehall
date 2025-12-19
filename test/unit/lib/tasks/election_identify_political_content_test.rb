@@ -27,10 +27,8 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
 
     it "marks eligible published editions of documents first published after the specified date and any associated drafts as political" do
       document = create(:document)
-      published_edition = create(:news_article, :published, document:, first_published_at: "01-01-2023")
-      draft_edition = create(:news_article, :draft, document:)
-      organisation.editions = [published_edition, draft_edition]
-      organisation.save!
+      published_edition = create(:news_article, :published, document:, first_published_at: "01-01-2023", lead_organisations: [organisation])
+      draft_edition = create(:news_article, :draft, document:, lead_organisations: [organisation])
 
       capture_io { task.invoke(organisation.slug, date) }
       assert published_edition.reload.political
@@ -39,10 +37,8 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
 
     it "does not mark editions unrelated to documents first published before the specified date as political" do
       non_political_document = create(:document)
-      published_edition = create(:news_article, :published, document: non_political_document, political: false, first_published_at: "30-12-2022")
-      draft_edition = create(:news_article, :draft, document: non_political_document, political: false)
-      organisation.editions = [published_edition, draft_edition]
-      organisation.save!
+      create(:news_article, :published, document: non_political_document, political: false, first_published_at: "30-12-2022", lead_organisations: [organisation])
+      create(:news_article, :draft, document: non_political_document, political: false, lead_organisations: [organisation])
 
       capture_io { task.invoke(organisation.slug, date) }
       assert_not non_political_document.reload.live_edition.political

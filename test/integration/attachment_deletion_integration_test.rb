@@ -6,6 +6,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "attachment deletion" do
     context "given a draft document with multiple file attachments" do
@@ -36,7 +37,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         it "deletes the corresponding asset in Asset Manager when the edition is published" do
           Services.asset_manager.expects(:delete_asset).never
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Modify attachments"
           within page.find("li", text: first_attachment.title) do
             click_link "Delete attachment"
@@ -48,7 +49,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           Services.asset_manager.expects(:update_asset).once.with(first_asset_id, has_entries({ "draft" => false, "parent_document_url" => edition.public_url(draft: false) }))
           Services.asset_manager.expects(:update_asset).once.with(second_asset_id, has_entries({ "draft" => false, "parent_document_url" => edition.public_url(draft: false) }))
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Force publish"
           assert_text "Reason for force publishing"
           fill_in "Reason for force publishing", with: "testing"
@@ -64,7 +65,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
           Services.asset_manager.expects(:delete_asset).once.with(second_asset_id)
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Delete draft"
           click_button "Delete"
 
@@ -129,7 +130,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it "deletes the corresponding asset in Asset Manager only when the new draft gets published" do
-        visit admin_news_article_path(latest_attachable)
+        visit admin_edition_path(latest_attachable)
         click_link "Modify attachments"
         within page.find("li", text: attachment.title) do
           click_link "Delete attachment"
@@ -140,7 +141,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:delete_asset).once.with(original_asset_manager_id)
         Services.asset_manager.expects(:update_asset).never
 
-        visit admin_news_article_path(latest_attachable)
+        visit admin_edition_path(latest_attachable)
         click_link "Force publish"
         assert_text "Reason for force publishing"
         fill_in "Reason for force publishing", with: "testing"
@@ -169,7 +170,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         end
 
         it "deletes the corresponding asset in Asset Manager and updates the asset to live, only when the new draft gets published" do
-          visit admin_news_article_path(latest_attachable)
+          visit admin_edition_path(latest_attachable)
           click_link "Modify attachments"
           within page.find("li", text: attachment.title) do
             click_link "Delete attachment"
@@ -180,7 +181,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           Services.asset_manager.expects(:delete_asset).once.with(replacement_asset_manager_id)
           Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entries({ "draft" => false, "parent_document_url" => latest_attachable.public_url(draft: false) }))
 
-          visit admin_news_article_path(latest_attachable)
+          visit admin_edition_path(latest_attachable)
           click_link "Force publish"
           assert_text "Reason for force publishing"
           fill_in "Reason for force publishing", with: "testing"

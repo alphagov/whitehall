@@ -6,6 +6,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "attachment draft status" do
     let(:filename) { "sample.docx" }
@@ -37,7 +38,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
           assert_sets_draft_status_in_asset_manager_to false
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           force_publish_document
 
           PublishAttachmentAssetJob.drain
@@ -51,7 +52,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
         it "does not mark attachment as draft in Asset Manager when document is unpublished" do
           stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           unpublish_document_published_in_error
           refute_sets_draft_status_in_asset_manager_to true
         end

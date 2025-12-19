@@ -42,7 +42,8 @@ class LocalisedModelTest < ActiveSupport::TestCase
   end
 
   test "ActiveRecord errors are generated in English" do
-    model = NewsArticle.new
+    ConfigurableDocumentType.setup_test_types("news_story" => JSON.parse(File.read(Rails.root.join("app/models/configurable_document_types/news_story.json"))))
+    model = StandardEdition.new(configurable_document_type: "news_story", block_content: { "body" => "" })
     localised_model = LocalisedModel.new(model, :es)
 
     assert_not localised_model.valid?

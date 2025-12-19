@@ -3,11 +3,15 @@ module Admin::EditionsHelper
     if edition.has_parent_type?
       type = if edition.is_a?(Speech) && edition.speech_type.written_article?
                edition.speech_type.singular_name
+             elsif edition.is_a?(StandardEdition)
+               edition.edition_type_for_admin
              else
                edition.type.underscore.humanize
              end
 
       [type, edition.display_type].compact.uniq.join(": ")
+    elsif edition.is_a?(StandardEdition)
+      edition.edition_type_for_admin
     else
       edition.display_type
     end
@@ -143,12 +147,8 @@ module Admin::EditionsHelper
     end
   end
 
-  def warn_about_lack_of_contacts_in_body?(edition)
-    if edition.is_a?(NewsArticle) && edition.news_article_type == NewsArticleType::PressRelease
-      Govspeak::ContactsExtractor.new(edition.body).valid_contacts.empty?
-    else
-      false
-    end
+  def warn_about_lack_of_contacts_in_body?(_edition)
+    false
   end
 
   def withdrawal_or_unpublishing(edition)

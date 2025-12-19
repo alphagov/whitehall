@@ -18,7 +18,7 @@ class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponentTest < Vi
                   ))
 
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "News Article (document)"
+    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Standard Edition (document)"
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, I18n.localize(edition.major_change_published_at.to_date)
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]

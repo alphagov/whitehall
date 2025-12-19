@@ -165,9 +165,15 @@ Then(/^I should see the conflict between the (publication|policy|news article|co
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
-  document_type = document_type.tr(" ", "_")
-  document = document_type.classify.constantize.where(title:).last
-  visit send("edit_admin_#{document_type}_path", document)
+  document_class_obj = document_class(document_type)
+  document = document_class_obj.latest_edition.where(title:).last
+  
+  if document_type == "news article"
+    visit edit_admin_standard_edition_path(document)
+  else
+    document_type_underscore = document_class_obj.name.underscore
+    visit send("edit_admin_#{document_type_underscore}_path", document)
+  end
 end
 
 When(/^I check "([^"]*)" adheres to the consultation principles$/) do |title|

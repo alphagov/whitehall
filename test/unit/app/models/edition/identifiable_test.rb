@@ -48,7 +48,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     news_article = create(:published_news_article, title: same_title)
     publication = create(:published_publication, title: same_title)
 
-    assert_equal news_article, NewsArticle.published_as(same_title)
+    assert_equal news_article, StandardEdition.published_as(same_title)
     assert_equal publication, Publication.published_as(same_title)
   end
 

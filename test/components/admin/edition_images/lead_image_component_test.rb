@@ -5,6 +5,13 @@ require "test_helper"
 class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
+  setup do
+    ConfigurableDocumentType.setup_test_types({
+      "press_release" => JSON.parse(File.read(Rails.root.join("app/models/configurable_document_types/press_release.json"))),
+      "news_story" => JSON.parse(File.read(Rails.root.join("app/models/configurable_document_types/news_story.json"))),
+    })
+  end
+
   test "doesn't render if the edition cannot have a custom lead image" do
     edition = build(:edition)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
@@ -24,7 +31,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders the correct lead image guidance for other edition types" do
-    edition = build_stubbed(:draft_news_article)
+    edition = build(:draft_news_article)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     first_para = "Any image you upload can be selected as the lead image. If you do not select a new lead image, the default image for your organisation will be used."
@@ -54,8 +61,8 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders a processing tag if not all lead image assets are uploaded" do
-    image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
-    edition = build_stubbed(:draft_news_article, images: [image], lead_image: image)
+    image = build(:image, image_data: build(:image_data_with_no_assets))
+    edition = create(:draft_news_article, images: [image], lead_image: image)
 
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
@@ -64,7 +71,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "does not render information on lead image if no lead image is present" do
-    edition = build_stubbed(:draft_news_article)
+    edition = build(:draft_news_article)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".app-c-edition-images-lead-image-component__lead_image", count: 0
@@ -112,8 +119,8 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "other types of edition do not render image display information" do
-    image = build_stubbed(:image)
-    edition = build_stubbed(:draft_news_article, image_display_option: "custom_image", images: [image])
+    image = build(:image)
+    edition = create(:draft_news_article, image_display_option: "custom_image", images: [image])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']", count: 0
@@ -151,7 +158,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
 
   test "news articles renders the organisations default_lead_image no lead image has been selected" do
     image = build(:featured_image_data)
-    organisation = build(:organisation, default_news_image: image)
+    organisation = create(:organisation, default_news_image: image)
     edition = create(:draft_news_article, lead_organisations: [organisation])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
@@ -163,7 +170,9 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
     image = build(:featured_image_data, file: upload_fixture("big-cheese.960x640.jpg", "image/jpg"))
     draft_organisation = create(:draft_worldwide_organisation, default_news_image: image)
     published_organisation = create(:published_worldwide_organisation, :with_default_news_image)
-    edition = create(:news_article_world_news_story, :draft, worldwide_organisations: [draft_organisation, published_organisation])
+    edition = create(:news_article_world_news_story, :draft)
+    edition.worldwide_organisations = [draft_organisation, published_organisation]
+    edition.save!
 
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 

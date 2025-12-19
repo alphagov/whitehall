@@ -28,7 +28,8 @@ private
   end
 
   def news_article?
-    edition.type == "NewsArticle"
+    edition.is_a?(StandardEdition) &&
+      edition.type_instance.settings["configurable_document_group"] == "news_article"
   end
 
   def lead_image
@@ -43,7 +44,7 @@ private
     if case_study?
       edition.emphasised_organisation_default_image_available? && [nil, "organisation_image"].include?(edition.image_display_option)
     elsif news_article?
-      edition.has_lead_image?
+      edition.lead_image.nil? && edition.has_default_lead_image_available?
     end
   end
 

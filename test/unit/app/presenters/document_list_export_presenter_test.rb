@@ -1,12 +1,6 @@
 require "test_helper"
 
 class DocumentListExportPresenterTest < ActiveSupport::TestCase
-  test "#sub_content_type returns the correct subtype for news articles" do
-    article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
-    pr = DocumentListExportPresenter.new(article)
-    assert_equal "Press release", pr.sub_content_type
-  end
-
   test "#sub_content_type returns the correct subtype for publications" do
     pub = build(:publication, publication_type: PublicationType::Guidance)
     pr = DocumentListExportPresenter.new(pub)

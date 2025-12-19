@@ -30,10 +30,13 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
     edition = build(:standard_edition,
                     role_appointments: ministerial_role_appointments,
                     topical_events:,
-                    world_locations:)
+                    world_locations:,
+                    create_default_organisation: false)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
     worldwide_organisations = create_list(:worldwide_organisation, 2)
     edition.edition_worldwide_organisations.build([{ document: worldwide_organisations.first.document }, { document: worldwide_organisations.last.document }])
+
+    PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(edition)
 
     links = PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(edition)
     expected_people, expected_roles = ministerial_role_appointments

@@ -225,7 +225,6 @@ private
       :previously_published,
       :roll_call_introduction,
       :operational_field_id,
-      :news_article_type_id,
       :role_appointment_id,
       :speech_type_id,
       :delivered_on,

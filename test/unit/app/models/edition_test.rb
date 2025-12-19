@@ -269,10 +269,22 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".authored_by respects chained scopes" do
+    ConfigurableDocumentType.setup_test_types(
+      "test_type" => {
+        "key" => "test_type",
+        "title" => "Test Type",
+        "schema" => { "properties" => {} },
+        "settings" => {},
+        "associations" => [],
+      },
+    )
+
     publication = create(:publication)
+    standard_edition = create(:standard_edition)
     assert Edition.authored_by(publication.creator).include?(publication)
     assert Publication.authored_by(publication.creator).include?(publication)
-    assert_not NewsArticle.authored_by(publication.creator).include?(publication)
+    assert_not StandardEdition.authored_by(publication.creator).include?(publication)
+    assert StandardEdition.authored_by(standard_edition.creator).include?(standard_edition)
   end
 
   test "#rejected_by uses information from the audit trail and returns the user who first rejected the edition" do

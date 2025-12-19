@@ -4,7 +4,7 @@ module PublishingApi
   module PayloadBuilder
     class PolymorphicPathTest < ActiveSupport::TestCase
       test "returns routes for the item" do
-        dummy_item = create(:news_article)
+        dummy_item = create(:news_article, title: "News title")
 
         expected_hash = {
           base_path: "/government/news/news-title",

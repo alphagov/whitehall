@@ -166,7 +166,7 @@ module Admin
       # 3. In addition, check if `type` matches any legacy 'standalone' types
       #    (e.g. "CaseStudy") directly.
       # 4. In addition, loop through all the legacy 'schema' types:
-      #    NewsArticleType, PublicationType, SpeechType
+      #    PublicationType, SpeechType
       #    Dynamically check their subtypes to see if it matches the `type`.
       #
       # We need to build some OR-clauses (from a fresh base relation for the
@@ -199,7 +199,7 @@ module Admin
       end
 
       # 4. Legacy subtypes (TODO: delete this block and refactor this method when these legacy types are removed)
-      %w[NewsArticle Publication Speech].each do |parent_type|
+      %w[Publication Speech].each do |parent_type|
         type_class = "#{parent_type}Type".constantize
         if (subtype = type_class.all.select { |k| k.key == type }.first)
           legacy_col = "#{type_class.new.genus_key}_type_id"

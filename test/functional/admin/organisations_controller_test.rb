@@ -7,7 +7,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   def example_organisation_attributes
-    attributes_for(:organisation).except(:logo, :analytics_identifier)
+    attributes_for(:organisation).except(:logo, :analytics_identifier, :content_id)
   end
 
   test "GET on :index assigns all organisations in alphabetical order" do

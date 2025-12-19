@@ -93,7 +93,6 @@ module Whitehall
       DocumentCollection,
       FatalityNotice,
       LandingPage,
-      NewsArticle,
       Publication,
       Speech,
       StatisticalDataSet,

@@ -6,7 +6,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
-
+  include Admin::EditionRoutesHelper
   describe "attachment link header" do
     let(:asset_manager_id) { "asset_manager_id" }
 
@@ -36,7 +36,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
                   .at_least_once
                   .with(asset_manager_id, has_entry("parent_document_url", parent_document_url))
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           force_publish_document
 
           PublishAttachmentAssetJob.drain

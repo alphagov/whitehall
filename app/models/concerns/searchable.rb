@@ -27,7 +27,6 @@ module Searchable
     logo_url
     logo_formatted_title
     metadata
-    news_article_type
     ordering
     operational_field
     organisation_brand
