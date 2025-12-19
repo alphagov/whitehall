@@ -29,10 +29,6 @@ class FatalityNotice < Edition
     true
   end
 
-  def display_type_key
-    "fatality_notice"
-  end
-
   def rendering_app
     Whitehall::RenderingApp::FRONTEND
   end

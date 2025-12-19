@@ -68,16 +68,16 @@ class PublicationType
     [OfficialStatistics, NationalStatistics]
   end
 
+  def self.genus_key
+    "publication"
+  end
+
   def slug
     plural_name.downcase.gsub(/[^a-z]+/, "-")
   end
 
   def access_limited_by_default?
     access_limited_by_default == true
-  end
-
-  def genus_key
-    "publication"
   end
 
   PolicyPaper            = create!(id: 1, key: "policy_paper", singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)

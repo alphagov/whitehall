@@ -19,10 +19,6 @@ class StatisticalDataSet < Edition
     true
   end
 
-  def display_type_key
-    "statistical_data_set"
-  end
-
   def rendering_app
     Whitehall::RenderingApp::FRONTEND
   end

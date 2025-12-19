@@ -11,10 +11,14 @@ class Speech < Edition
   validates :speech_type_id, presence: true
   validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
-  delegate :display_type_key, :explanation, to: :speech_type
+  delegate :explanation, to: :speech_type
 
   def self.by_subtype(subtype)
     where(speech_type_id: subtype.id)
+  end
+
+  def display_type_key
+    speech_type&.key || SpeechType.genus_key
   end
 
   def speech_type
@@ -27,14 +31,6 @@ class Speech < Edition
 
   def authored_article?
     speech_type == SpeechType::AuthoredArticle
-  end
-
-  def display_type
-    if speech_type.statement_to_parliament?
-      I18n.t("document.type.statement_to_parliament", count: 1)
-    else
-      I18n.t("document.type.speech", count: 1)
-    end
   end
 
   def translatable?

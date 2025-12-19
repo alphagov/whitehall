@@ -94,10 +94,6 @@ class WorldwideOrganisation < Edition
     "/world/organisations/#{slug}"
   end
 
-  def display_type_key
-    "worldwide_organisation"
-  end
-
   def destroy_associated(locale)
     [offices.map(&:contact), pages].flatten.each do |association|
       association.remove_translations_for(locale)

@@ -191,12 +191,12 @@ en:
       decision:
         one: Decision
         other: Decisions
-      detailed_guidance:
-        one: Guidance
-        other: Guidance
+      detailed_guide:
+        one: Detailed guide
+        other: Detailed guides
       document_collection:
-        one: Collection
-        other: Collections
+        one: Document collection
+        other: Document collections
       draft_text:
         one: Draft text
         other: Draft texts
@@ -350,9 +350,6 @@ en:
       standard:
         one: Standard
         other: Standards
-      statement_to_parliament:
-        one: Statement to Parliament
-        other: Statements to Parliament
       statistical_data_set:
         one: Statistical data set
         other: Statistical data sets

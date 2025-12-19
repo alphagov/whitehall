@@ -32,7 +32,7 @@ class NewsArticle < Edition
   end
 
   def display_type_key
-    news_article_type.key
+    news_article_type&.key || NewsArticleType.genus_key
   end
 
   def alternative_format_provider_required?

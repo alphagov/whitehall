@@ -97,7 +97,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal "News article: Press release", edition_type(news_article)
     assert_equal "Publication: Independent report", edition_type(publication)
-    assert_equal "Speech: Statement to Parliament", edition_type(speech)
+    assert_equal "Speech: Written statement to Parliament", edition_type(speech)
     assert_equal "Corporate information page: Publication scheme", edition_type(corporate_information_page)
   end
 
@@ -112,13 +112,11 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     ww_org = build(:worldwide_organisation)
 
     assert_equal "Worldwide organisation", edition_type(ww_org)
-    # Will be fixed in upcoming commit
-    assert_equal "Detailed guide: Guidance", edition_type(guide)
+    assert_equal "Detailed guide", edition_type(guide)
     assert_equal "Call for evidence: Open call for evidence", edition_type(call_for_evidence)
     assert_equal "Case study", edition_type(case_study)
     assert_equal "Consultation: Open consultation", edition_type(consultation)
-    # Will be fixed in upcoming commit
-    assert_equal "Document collection: Collection", edition_type(collection)
+    assert_equal "Document collection", edition_type(collection)
     assert_equal "Fatality notice", edition_type(fatality_notice)
     assert_equal "Statistical data set", edition_type(statistical_data_set)
   end

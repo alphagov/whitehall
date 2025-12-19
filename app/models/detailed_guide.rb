@@ -11,10 +11,6 @@ class DetailedGuide < Edition
   include Edition::RelatedDocuments
   include Edition::TopicalEvents
 
-  def self.format_name
-    "detailed guidance"
-  end
-
   has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
 
   validate :related_mainstream_found, if: :related_mainstream_requested?
@@ -67,10 +63,6 @@ class DetailedGuide < Edition
 
   def has_additional_related_mainstream_content?
     additional_related_mainstream_content_url.present?
-  end
-
-  def display_type_key
-    "detailed_guidance"
   end
 
   def translatable?

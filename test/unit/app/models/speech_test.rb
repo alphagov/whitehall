@@ -51,20 +51,17 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal [], speech.reload.organisations
   end
 
-  test "has statement to parliament display type if written statement" do
-    speech = build(:speech, speech_type: SpeechType::WrittenStatement)
-    assert_equal "Statement to Parliament", speech.display_type
-  end
-
-  test "has statement to parliament display type if oral statement" do
-    speech = build(:speech, speech_type: SpeechType::OralStatement)
-    assert_equal "Statement to Parliament", speech.display_type
-  end
-
-  test "has speech display type if not oral statement or written statement" do
-    (SpeechType.all - [SpeechType::WrittenStatement, SpeechType::OralStatement]).each do |type|
+  test "#display_type returns en locale values" do
+    {
+      SpeechType::Transcript => "Transcript",
+      SpeechType::DraftText => "Draft text",
+      SpeechType::SpeakingNotes => "Speaking notes",
+      SpeechType::WrittenStatement => "Written statement to Parliament",
+      SpeechType::OralStatement => "Oral statement to Parliament",
+      SpeechType::AuthoredArticle => "Authored article",
+    }.each do |type, display_type_value|
       speech = build(:speech, speech_type: type)
-      assert_equal "Speech", speech.display_type
+      assert_equal display_type_value, speech.display_type
     end
   end
 

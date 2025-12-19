@@ -85,7 +85,7 @@ class Publication < Edition
   end
 
   def display_type_key
-    publication_type.key
+    publication_type&.key || PublicationType.genus_key
   end
 
   def publication_type
