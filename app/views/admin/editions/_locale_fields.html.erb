@@ -37,7 +37,7 @@
     ],
   } %>
 
-  <% if edition.is_a?(NewsArticle) %>
+  <% if edition.is_a?(StandardEdition) && edition.type_instance.settings["configurable_document_group"] == "news_article" %>
     <p class="govuk-body govuk-!-font-weight-bold">Warning: News stories without an English version cannot have other translations.</p>
   <% end %>
 </div>

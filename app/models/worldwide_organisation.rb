@@ -189,15 +189,15 @@ class WorldwideOrganisation < Edition
   end
 
   def republish_dependent_documents
-    documents = NewsArticle
-      .joins(:edition_worldwide_organisations)
-      .where(edition_worldwide_organisations: { document: })
-      .includes(:images)
-      .where(images: { id: nil })
-      .map(&:document)
-      .uniq(&:id)
+    editions = StandardEdition
+                 .joins(:edition_worldwide_organisations)
+                 .where(edition_worldwide_organisations: { document_id: document.id })
+                 .world_news_stories
+                 .where.not(id: StandardEdition.joins(:images).select(:id))
 
-    documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
+    editions.each do |news_article|
+      Whitehall::PublishingApi.republish_document_async(news_article.document)
+    end
   end
 
   def republish_embassies_index

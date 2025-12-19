@@ -3,7 +3,7 @@ require "test_helper"
 class OrganisationsTest < ActiveSupport::TestCase
   test "it presents the selected organisations, emphasised organisations and primary publishing organisation links" do
     organisations = create_list(:organisation, 3)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
 
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
@@ -17,7 +17,7 @@ class OrganisationsTest < ActiveSupport::TestCase
 
   test "it presents the first lead organisation as the primary publishing organisation" do
     organisations = create_list(:organisation, 3)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 1 }, { organisation: organisations.last, lead: true, lead_ordering: 0 }])
 
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
@@ -26,7 +26,7 @@ class OrganisationsTest < ActiveSupport::TestCase
 
   test "it sends no primary publishing organisation if there are no lead organisations" do
     organisations = create_list(:organisation, 2)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: false }, { organisation: organisations.last, lead: false }])
 
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
@@ -35,7 +35,7 @@ class OrganisationsTest < ActiveSupport::TestCase
 
   test "it sorts the organisaton links by lead order with supporting organisations last" do
     organisations = create_list(:organisation, 4)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([
       { organisation: organisations.first, lead: false },
       { organisation: organisations.second, lead: true, lead_ordering: 1 },
@@ -55,7 +55,7 @@ class OrganisationsTest < ActiveSupport::TestCase
 
   test "it sorts the emphasised organisation links by lead order" do
     organisations = create_list(:organisation, 2)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([
       { organisation: organisations.first, lead: true, lead_ordering: 1 },
       { organisation: organisations.last, lead: true, lead_ordering: 0 },
@@ -122,7 +122,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
 
   test "it renders the lead organisation form control with pre-selected options" do
     organisations = create_list(:organisation, 3)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 3 }, { organisation: organisations.last, lead: true, lead_ordering: 1 }])
 
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
@@ -134,7 +134,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
 
   test "it renders the lead organisation form control with the default lead organisation" do
     organisations = create_list(:organisation, 2)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }])
 
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)
@@ -145,7 +145,7 @@ class OrganisationsRenderingTest < ActionView::TestCase
 
   test "it renders the supporting organisation form control with pre-selected options" do
     organisations = create_list(:organisation, 3)
-    edition = build(:draft_standard_edition)
+    edition = build(:draft_standard_edition, create_default_organisation: false)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: false }, { organisation: organisations.last, lead: false }])
 
     organisations_association = ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors)

@@ -11,7 +11,7 @@ class Person < ApplicationRecord
            -> { where(RoleAppointment::CURRENT_CONDITION).order(:ordering) },
            class_name: "RoleAppointment"
   has_many :speeches, through: :role_appointments
-  has_many :news_articles, through: :role_appointments
+  has_many :news_articles, -> { where("editions.type" => "StandardEdition").where(configurable_document_type: %w[news_story press_release government_response world_news_story]) }, through: :role_appointments, source: :editions
 
   has_many :roles, through: :role_appointments
   has_many :current_roles, class_name: "Role", through: :current_role_appointments, source: :role

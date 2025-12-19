@@ -69,7 +69,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
 
   test "image index markdown handles a lead image being present correctly" do
     images = [build_stubbed(:image), build_stubbed(:image), build_stubbed(:image)]
-    edition = build_stubbed(:draft_news_article, images:, lead_image: images.second)
+    edition = build_stubbed(:draft_case_study, images:, lead_image: images.second)
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image: images.third, last_image: false))
 
     assert_selector "input[value='!!3']"
@@ -77,7 +77,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
 
   test "renders a processing tag if not all lead image assets are uploaded" do
     image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
-    edition = build_stubbed(:draft_news_article, images: [image])
+    edition = build_stubbed(:draft_case_study, images: [image])
 
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: false))
 
@@ -87,7 +87,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
 
   test "does not render a line break if last_image parameter is true " do
     image = build_stubbed(:image)
-    edition = build_stubbed(:draft_news_article, images: [image])
+    edition = build_stubbed(:draft_case_study, images: [image])
 
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, last_image: true))
 

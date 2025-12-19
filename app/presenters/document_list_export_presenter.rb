@@ -76,8 +76,6 @@ class DocumentListExportPresenter
 
   def sub_content_type
     case edition
-    when NewsArticle
-      edition.news_article_type.singular_name
     when Publication
       edition.publication_type.singular_name
     when Speech

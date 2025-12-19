@@ -32,16 +32,6 @@ module Admin::EditionActionsHelper
         end,
       ],
       [
-        "News article sub-types",
-        NewsArticleType.all.map do |sub_type|
-          {
-            text: sub_type.plural_name,
-            value: sub_type.key,
-            selected: selected == sub_type.key,
-          }
-        end,
-      ],
-      [
         "Speech sub-types",
         SpeechType.all.map do |sub_type|
           {
@@ -78,8 +68,9 @@ private
   def combined_list_of_document_types(user)
     legacy_document_types = type_options_container(user)
     configurable_document_types = configurable_document_type_options
+    news_articles_option = ["News articles", "news_article"]
 
-    combined = legacy_document_types + configurable_document_types
+    combined = legacy_document_types + configurable_document_types + [news_articles_option]
 
     combined.sort_by { |text, _value| text.to_s.downcase }
   end

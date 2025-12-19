@@ -6,6 +6,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "attachment replacement" do
     let(:managing_editor) { create(:managing_editor) }
@@ -38,7 +39,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         before do
           Sidekiq::Job.clear_all
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Modify attachments"
           within page.find("li", text: filename) do
             click_link "Edit attachment"
@@ -70,7 +71,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         before do
           Sidekiq::Job.clear_all
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_button "Create new edition"
           click_link "Attachments 1"
           within page.find("li", text: filename) do
@@ -111,7 +112,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         end
 
         it "without pre-saving the edition - updates draft & replacement for asset in Asset Manager" do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_button "Create new edition"
 
           AssetManagerAttachmentMetadataWorker.drain

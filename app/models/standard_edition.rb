@@ -1,6 +1,8 @@
 class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
+  include Edition::LeadImage
+  include Edition::CustomLeadImage
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::RoleAppointments
@@ -13,12 +15,26 @@ class StandardEdition < Edition
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
+  scope :news_articles, -> { where(configurable_document_type: %w[news_story press_release government_response world_news_story]) }
+  scope :news_stories, -> { where(configurable_document_type: "news_story") }
+  scope :press_releases, -> { where(configurable_document_type: "press_release") }
+  scope :government_responses, -> { where(configurable_document_type: "government_response") }
+  scope :world_news_stories, -> { where(configurable_document_type: "world_news_story") }
+
   def format_name
     type_instance.label.downcase
   end
 
   def display_type
     type_instance.label
+  end
+
+  def edition_type_for_admin
+    if type_instance.settings["configurable_document_group"] == "news_article"
+      "News article"
+    else
+      display_type
+    end
   end
 
   def publishing_api_presenter
@@ -50,7 +66,9 @@ class StandardEdition < Edition
   end
 
   def locale_can_be_changed?
-    translatable? && translations.size <= 1
+    return true if new_record? && translatable?
+
+    translatable? && translations.size <= 1 && configurable_document_type == "world_news_story"
   end
 
   def allows_image_attachments?
@@ -63,6 +81,14 @@ class StandardEdition < Edition
 
   def can_be_marked_political?
     type_instance.settings["history_mode_enabled"]
+  end
+
+  def can_have_custom_lead_image?
+    type_instance.properties.values.any? { |property| property["format"] == "lead_image_select" }
+  end
+
+  def has_default_lead_image_available?
+    default_lead_image.present?
   end
 
   def base_path

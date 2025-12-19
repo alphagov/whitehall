@@ -23,17 +23,17 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert_equal "French", Edition.new(primary_locale: :fr).primary_language_name
   end
 
-  test "locale_can_be_changed? returns true for a new NewsArticle" do
-    assert NewsArticle.new.locale_can_be_changed?
+  test "locale_can_be_changed? returns true for a new StandardEdition news story" do
+    assert build(:news_article_news_story).locale_can_be_changed?
   end
 
-  test "locale_can_be_changed? returns true for an existing NewsArticleType::WorldNewsStory" do
+  test "locale_can_be_changed? returns true for an existing StandardEdition world news story" do
     world_news_story = create(:news_article_world_news_story)
     assert world_news_story.locale_can_be_changed?
   end
 
-  test "locale_can_be_changed? returns false for a persisted new NewsArticle" do
-    assert_not create(:news_article).locale_can_be_changed?
+  test "locale_can_be_changed? returns false for a persisted StandardEdition news story" do
+    assert_not create(:news_article_news_story).locale_can_be_changed?
   end
 
   test "locale_can_be_changed? returns true for new and existing DocumentCollections" do
@@ -49,7 +49,7 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
   end
 
   test "locale_can_be_changed? returns false for other edition types" do
-    Edition.concrete_descendants.reject { |k| [NewsArticle, DocumentCollection, Consultation, CallForEvidence, StandardEdition].include?(k) }.each do |klass|
+    Edition.concrete_descendants.reject { |k| [DocumentCollection, Consultation, CallForEvidence, StandardEdition].include?(k) }.each do |klass|
       assert_not klass.new.locale_can_be_changed?, "Instance of #{klass} should not allow the changing of primary locale"
     end
   end

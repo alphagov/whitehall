@@ -7,7 +7,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   test("determines ordered featured documents in different locales for editions") do
     case_study = create(:published_case_study)
     first_feature = build(:feature, document: case_study.document, ordering: 1)
-    news_article = create(:published_news_article)
+    news_article = create(:published_news_article, title: "news-title")
     second_feature = build(:feature, document: news_article.document, ordering: 2)
     featured_documents_display_limit = 5
 

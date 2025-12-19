@@ -7,6 +7,11 @@ ParameterType(
 module DocumentHelper
   def document_class(type)
     type = "edition" if type == "document"
+    
+    if type == "news article"
+      return OpenStruct.new(name: "NewsArticle", latest_edition: StandardEdition)
+    end
+    
     type.tr(" ", "_").classify.constantize
   end
 

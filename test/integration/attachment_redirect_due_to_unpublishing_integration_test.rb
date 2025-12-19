@@ -6,7 +6,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
-
+  include Admin::EditionRoutesHelper
   describe "attachment redirect due to unpublishing" do
     let(:attachable) { edition }
     let(:asset_manager_id) { "asset_manager_id" }
@@ -29,25 +29,25 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       let(:edition) { create(:published_news_article) }
 
       it "sets redirect URL for attachment in Asset Manager when document is unpublished" do
-        visit admin_news_article_path(edition)
+        visit admin_edition_path(edition)
         unpublish_document_published_in_error
         assert_sets_redirect_url_in_asset_manager_to redirect_url
       end
 
       it "sets redirect URL for attachment in Asset Manager when document is consolidated" do
-        visit admin_news_article_path(edition)
+        visit admin_edition_path(edition)
         consolidate_document
         assert_sets_redirect_url_in_asset_manager_to redirect_url
       end
 
       it "does not set a redirect URI for attachment in Asset Manager when document is withdrawn" do
-        visit admin_news_article_path(edition)
+        visit admin_edition_path(edition)
         withdraw_document
         refute_sets_redirect_url_in_asset_manager
       end
 
       it "does not redirect new attachments added after a document is unpublished" do
-        visit admin_news_article_path(edition)
+        visit admin_edition_path(edition)
         unpublish_document_published_in_error
         assert_sets_redirect_url_in_asset_manager_to redirect_url
 
@@ -64,7 +64,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       let!(:draft) { edition.create_draft(edition.creator) }
 
       it "sets redirect URL for attachment in Asset Manager when document is unpublished" do
-        visit admin_news_article_path(edition)
+        visit admin_edition_path(edition)
         unpublish_document_published_in_error
         assert_sets_redirect_url_in_asset_manager_to redirect_url
       end
@@ -148,7 +148,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       let(:edition) { create(:news_article, :published, :withdrawn) }
 
       it "resets redirect URI for attachment in Asset Manager when document is unwithdrawn" do
-        visit admin_news_article_path(edition)
+        visit admin_edition_path(edition)
         unwithdraw_document
         assert_sets_redirect_url_in_asset_manager_to nil
       end
