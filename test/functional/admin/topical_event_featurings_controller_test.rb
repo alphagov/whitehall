@@ -59,12 +59,12 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "GET :index assigns a filtered list to tagged_editions when given a document type" do
-    news_article = create(:published_news_article, topical_events: [@topical_event])
+    publication = create(:published_publication, topical_events: [@topical_event])
 
-    get :index, params: { topical_event_id: @topical_event, type: news_article.display_type_key }
+    get :index, params: { topical_event_id: @topical_event, type: publication.display_type_key }
 
     tagged_editions = assigns(:tagged_editions)
-    assert_equal [news_article], tagged_editions
+    assert_equal [publication], tagged_editions
   end
 
   view_test "GET :index contains a message when no results matching search criteria were found" do
