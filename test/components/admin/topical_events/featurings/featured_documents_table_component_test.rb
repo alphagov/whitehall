@@ -7,7 +7,7 @@ class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponentTest < Vi
   include Admin::EditionRoutesHelper
 
   test "renders the correct row when the featurable is associated with an edition" do
-    edition = build_stubbed(:news_article, :published, news_article_type: NewsArticleType::PressRelease)
+    edition = build_stubbed(:publication, :published, publication_type: PublicationType::Guidance)
     topical_event = build_stubbed(:topical_event)
     featuring = build_stubbed(:topical_event_featuring, edition:, topical_event:)
     title = featuring.title
@@ -18,7 +18,7 @@ class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponentTest < Vi
                   ))
 
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Press release (document)"
+    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Guidance (document)"
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, I18n.localize(edition.major_change_published_at.to_date)
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
