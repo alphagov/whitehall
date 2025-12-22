@@ -1,6 +1,7 @@
 require "test_helper"
 
 class RoleAppointmentTest < ActiveSupport::TestCase
+  # TODO: fix without using new factories
   test "should be invalid with no started_at" do
     role_appointment = build(:role_appointment, started_at: nil)
     assert_not role_appointment.valid?

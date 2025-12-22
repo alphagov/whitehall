@@ -4,7 +4,7 @@ class MinisterialRole < Role
 
   has_many :editions, -> { distinct }, through: :role_appointments
   has_many :consultations, -> { where("editions.type" => "Consultation").distinct }, through: :role_appointments
-  has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments
+  has_many :news_articles, -> { where("editions.type" => "StandardEdition").where("editions.configurable_document_type": ConfigurableDocumentType.where_group("news_article").map(&:key)).distinct }, through: :role_appointments, source: :editions
   has_many :speeches, through: :role_appointments
 
   after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api

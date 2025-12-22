@@ -3,6 +3,10 @@ require "test_helper"
 class PersonTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :person, :biography
 
+  setup do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("news_story"))
+  end
+  
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
     assert_not person.valid?
@@ -88,9 +92,9 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [published_speech], person.published_speeches
   end
 
-  test "can access news_articles associated with ministerial roles of a person" do
+  test "can access standard_editions associated with ministerial roles of a person" do
     person = create(:person)
-    news_articles = 2.times.map { create(:news_article) }
+    news_articles = 2.times.map { create(:standard_edition, configurable_document_type: "news_story") }
 
     create(:ministerial_role_appointment, person:).editions << news_articles[0]
     create(:ministerial_role_appointment, person:).editions << news_articles[1]
@@ -98,9 +102,9 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal news_articles, person.news_articles
   end
 
-  test "news_articles includes articles associated with a previous ministerial role" do
+  test "standard_editions includes articles associated with a previous ministerial role" do
     person = create(:person)
-    news_articles = 2.times.map { create(:news_article) }
+    news_articles = 2.times.map { create(:standard_edition, configurable_document_type: "news_story") }
 
     create(:ministerial_role_appointment, person:).editions << news_articles[0]
     create(:ministerial_role_appointment, person:, started_at: 2.days.ago, ended_at: 1.day.ago)
@@ -109,9 +113,12 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal news_articles, person.news_articles
   end
 
-  test "published_news_articles only returns published news articles" do
+  test "published_standard_editions only returns published news articles" do
     person = create(:person)
-    news_articles = [create(:published_news_article), create(:draft_news_article), create(:news_article, :withdrawn)]
+    news_articles = [
+      create(:published_standard_edition, configurable_document_type: "news_story"),
+      create(:draft_standard_edition, configurable_document_type: "news_story"),
+      create(:withdrawn_standard_edition, configurable_document_type: "news_story")]
     news_articles.each do |edition|
       create(:ministerial_role_appointment, person:).editions << edition
     end

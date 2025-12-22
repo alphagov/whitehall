@@ -14,6 +14,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal image, worldwide_organisation.default_news_image
   end
 
+  # TODO - check how config driven associations are handled in tests where they were introduced - we can make a world_news_story-standard-edition maybe?
   test "republishes news articles after commit when using default news image" do
     worldwide_organisation = create(:published_worldwide_organisation, :with_default_news_image)
     news_article = create(:news_article_world_news_story, :published, worldwide_organisations: [worldwide_organisation])

@@ -86,6 +86,7 @@ class WorldwideOrganisation < Edition
   self.analytics_prefix = "WO"
 
   delegate :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
+
   def sponsoring_organisation
     lead_organisations.first
   end
@@ -181,13 +182,14 @@ class WorldwideOrganisation < Edition
   end
 
   def republish_dependent_documents
-    documents = NewsArticle
-      .joins(:edition_worldwide_organisations)
-      .where(edition_worldwide_organisations: { document: })
-      .includes(:images)
-      .where(images: { id: nil })
-      .map(&:document)
-      .uniq(&:id)
+    documents = StandardEdition
+                  .with_news_article_document_type
+                  .joins(:edition_worldwide_organisations)
+                  .where(edition_worldwide_organisations: { document: })
+                  .includes(:images)
+                  .where(images: { id: nil })
+                  .map(&:document)
+                  .uniq(&:id)
 
     documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
   end

@@ -1,6 +1,10 @@
 require "test_helper"
 
 class MinisterialRoleTest < ActiveSupport::TestCase
+  setup do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("news_story", { title: "News Story" }))
+  end
+
   test "should set a slug from the ministerial role name" do
     role = create(:ministerial_role, name: "Prime Minister, Cabinet Office")
     assert_equal "prime-minister-cabinet-office", role.slug
@@ -12,15 +16,19 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert_equal "prime-minister-cabinet-office", role.slug
   end
 
-  test "should be able to get news_articles associated with a role" do
-    editions = [create(:published_publication), create(:published_news_article)]
+  test "should be able to get news articles associated with a role" do
+    editions = [create(:published_publication), create(:published_standard_edition, configurable_document_type: "news_story")]
     ministerial_role = create(:ministerial_role)
     create(:role_appointment, role: ministerial_role, editions:)
     assert_equal editions[1..1], ministerial_role.news_articles
   end
 
-  test "should be able to get published news_articles associated with the role" do
-    editions = [create(:draft_news_article), create(:published_news_article), create(:news_article, :withdrawn)]
+  test "should be able to get published news articles associated with the role" do
+    editions = [
+      create(:draft_standard_edition, configurable_document_type: "news_story"),
+      create(:published_standard_edition, configurable_document_type: "news_story"),
+      create(:withdrawn_standard_edition, configurable_document_type: "news_story"),
+    ]
     ministerial_role = create(:ministerial_role)
     create(:role_appointment, role: ministerial_role, editions:)
     assert_equal editions[1..1], ministerial_role.published_news_articles
@@ -30,7 +38,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     ministerial_role = create(:ministerial_role)
     appointment1 = create(:role_appointment, role: ministerial_role, started_at: 2.days.ago, ended_at: 1.day.ago)
     appointment2 = create(:role_appointment, role: ministerial_role)
-    editions = [create(:published_news_article, role_appointments: [appointment1, appointment2])]
+    editions = [create(:published_standard_edition, configurable_document_type: "news_story", role_appointments: [appointment1, appointment2])]
     assert_equal editions, ministerial_role.news_articles
   end
 

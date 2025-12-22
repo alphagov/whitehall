@@ -38,7 +38,8 @@ class Edition::WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test "copies the data sets over to a create draft" do
     published = create(:news_article_world_news_story, :published, worldwide_organisations:)
-    assert_equal worldwide_organisations, published.create_draft(create(:user)).worldwide_organisations
+    draft = published.create_draft(create(:user))
+    assert_equal worldwide_organisations.map(&:id).sort, draft.worldwide_organisations.map(&:id).sort
   end
 
   test "returns published worldwide organisations" do

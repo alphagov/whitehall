@@ -21,7 +21,7 @@ class RoleAppointment < ApplicationRecord
            through: :edition_role_appointments,
            source: :edition
   has_many :news_articles,
-           -> { where("editions.type" => "NewsArticle") },
+           -> { where("editions.type" => "StandardEdition").where("editions.configurable_document_type": ConfigurableDocumentType.where_group("news_article").map(&:key)) },
            through: :edition_role_appointments,
            source: :edition
 
