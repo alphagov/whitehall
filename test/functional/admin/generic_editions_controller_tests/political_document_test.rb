@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController::TestCase
-  tests Admin::NewsArticlesController
+  tests Admin::PublicationsController
   enable_url_helpers
 
   setup do
@@ -10,8 +10,8 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
 
   test "can mark a document as political" do
     create(:current_government)
-    published_edition = create(:published_news_article)
-    new_draft = create(:news_article, document: published_edition.document)
+    published_edition = create(:published_publication)
+    new_draft = create(:publication, document: published_edition.document)
 
     put :update, params: { id: new_draft, edition: { political: true } }
 
@@ -22,8 +22,8 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   test "can override the government associated with a political edition" do
     create(:current_government)
     previous_government = create(:previous_government)
-    published_edition = create(:published_news_article, political: true)
-    new_draft = create(:news_article, document: published_edition.document, political: true)
+    published_edition = create(:published_publication, political: true)
+    new_draft = create(:publication, document: published_edition.document, political: true)
 
     put :update, params: { id: new_draft, edition: { government_id: previous_government.id } }
 
@@ -33,8 +33,8 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
 
   view_test "displays the history mode form controls for privileged users " do
     login_as :managing_editor
-    published_edition = create(:published_news_article)
-    new_draft = create(:news_article, document: published_edition.document)
+    published_edition = create(:published_publication)
+    new_draft = create(:publication, document: published_edition.document)
     get :edit, params: { id: new_draft }
     assert_select "#edition_political"
   end
@@ -43,8 +43,8 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     create(:previous_government, name: "old")
     create(:current_government, name: "new")
 
-    published_edition = create(:published_news_article, first_published_at: 3.years.ago)
-    new_draft = create(:news_article, political: true, first_published_at: 3.years.ago, document: published_edition.document)
+    published_edition = create(:published_publication, first_published_at: 3.years.ago)
+    new_draft = create(:publication, political: true, first_published_at: 3.years.ago, document: published_edition.document)
 
     get :edit, params: { id: new_draft }
   end

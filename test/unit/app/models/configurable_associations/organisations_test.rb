@@ -1,6 +1,7 @@
 require "test_helper"
 
 class OrganisationsTest < ActiveSupport::TestCase
+  # TODO: all these pass with the old factory syntax   factory :draft_standard_edition, parent: :standard_edition, traits: [:draft]
   test "it presents the selected organisations, emphasised organisations and primary publishing organisation links" do
     organisations = create_list(:organisation, 3)
     edition = build(:draft_standard_edition)

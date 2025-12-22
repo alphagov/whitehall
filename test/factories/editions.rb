@@ -21,7 +21,7 @@ FactoryBot.define do
         if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
           edition.edition_organisations.build(
             edition:,
-            organisation: FactoryBot.build(:organisation),
+            organisation: FactoryBot.create(:organisation),
             lead_ordering: 1,
             lead: true,
           )

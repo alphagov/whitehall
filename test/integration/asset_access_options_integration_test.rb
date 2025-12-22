@@ -6,6 +6,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "attachment access options (auth_bypass_id and access_limiting)" do
     let(:organisation) { create(:organisation) }
@@ -32,7 +33,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when document is marked as access limited in Whitehall" do
         before do
-          visit edit_admin_news_article_path(edition)
+          visit edit_admin_edition_path(edition)
           check "Limit access"
           click_button "Save"
           assert_text "Your document has been saved"
@@ -74,7 +75,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when an attachment is added to the draft document" do
         before do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Add attachments"
           page.attach_file path_to_attachment("logo.png")
           click_button "Upload"
@@ -124,7 +125,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when bulk uploaded to draft document" do
         before do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Add attachments"
           page.attach_file [path_to_attachment("logo.png"), path_to_attachment("greenpaper.pdf")]
           click_button "Upload"
@@ -161,7 +162,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when document is unmarked as access limited in Whitehall" do
         before do
-          visit edit_admin_news_article_path(edition)
+          visit edit_admin_edition_path(edition)
           uncheck "Limit access"
           click_button "Save"
           assert_text "Your document has been saved"
@@ -178,7 +179,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when attachment is replaced" do
         before do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Modify attachments"
           click_link "Edit"
           attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
