@@ -13,14 +13,14 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
 
   test "renders the correct row when the feature list item belongs to a document with a live edition" do
     document = build(:document)
-    edition = build_stubbed(:news_article, :published, news_article_type: NewsArticleType::PressRelease)
+    edition = build_stubbed(:publication, :published, publication_type: PublicationType::Guidance)
     document.stubs(:live_edition).returns(edition)
     feature = build_stubbed(:feature, document:, feature_list: @feature_list)
     title = edition.title
 
     render_inline(Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption", features: [feature]))
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Press release (document)"
+    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Guidance (document)"
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, I18n.localize(edition.major_change_published_at.to_date)
 
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
