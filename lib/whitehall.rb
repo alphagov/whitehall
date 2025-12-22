@@ -93,9 +93,9 @@ module Whitehall
       DocumentCollection,
       FatalityNotice,
       LandingPage,
-      NewsArticle,
       Publication,
       Speech,
+      StandardEdition,
       StatisticalDataSet,
       WorldwideOrganisation,
     ]
