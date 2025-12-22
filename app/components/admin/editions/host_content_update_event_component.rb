@@ -31,7 +31,7 @@ private
 
   def block_url
     [
-      Plek.find("content-block-manager"),
+      Plek.external_url_for("content-block-manager"),
       "content-id",
       event.content_id,
     ].join("/")

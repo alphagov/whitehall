@@ -18,7 +18,7 @@ class Admin::Editions::HostContentUpdateEventComponentTest < ViewComponent::Test
     assert_equal page.find("h4").text, "Content block updated"
     assert_equal page.all("p")[0].text.strip, "#{document_type}: #{content_title}"
     assert_equal page.all("a")[0].native.inner_html, "[View<span class=\"govuk-visually-hidden\"> #{content_title}</span> in Content Block Manager]"
-    assert_equal page.all("a")[0].native["href"], "#{Plek.find('content-block-manager')}/content-id/#{host_content_update_event.content_id}"
+    assert_equal page.all("a")[0].native["href"], "#{Plek.external_url_for('content-block-manager')}/content-id/#{host_content_update_event.content_id}"
 
     assert_equal page.all("p")[2].text.strip, "1 January 2020 11:11am by #{user.name}"
   end
