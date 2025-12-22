@@ -9,32 +9,6 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     @user = create(:user)
   end
 
-  test "warn_about_lack_of_contacts_in_body? says no if the edition is not a news article" do
-    (Edition.descendants - [NewsArticle] - NewsArticle.descendants).each do |not_a_news_article|
-      assert_not warn_about_lack_of_contacts_in_body?(not_a_news_article.new)
-    end
-  end
-
-  test "warn_about_lack_of_contacts_in_body? says no if the edition is a news article, but is not a press release" do
-    (NewsArticleType.all - [NewsArticleType::PressRelease]).each do |not_a_press_release|
-      assert_not warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: not_a_press_release))
-    end
-  end
-
-  test "warn_about_lack_of_contacts_in_body? says no if the edition is a press release and it has at least one contact embedded in the body" do
-    contact = create(:contact)
-    assert_not warn_about_lack_of_contacts_in_body?(
-      NewsArticle.new(
-        news_article_type: NewsArticleType::PressRelease,
-        body: "[Contact:#{contact.id}]",
-      ),
-    )
-  end
-
-  test "warn_about_lack_of_contacts_in_body? says yes if the edition is a press release and it has at no contacts embedded in the body" do
-    assert warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: NewsArticleType::PressRelease))
-  end
-
   test "#admin_author_filter_options excludes disabled users" do
     current_user, _another_user = *create_list(:user, 2)
     disabled_user = create(:disabled_user)
@@ -217,6 +191,9 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     edition.unpublishing.redirect = false
     edition.unpublishing.save!
 
-    assert_equal "Unpublished (less than a minute ago) due to being published in error. User-facing reason: 'the doc was published in error'. Alternative URL displayed to user:<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
+    expected_text = "Unpublished (less than a minute ago) due to being published in error. " \
+                    "User-facing reason: 'the doc was published in error'. " \
+                    "Alternative URL displayed to user:<br><a href='#{alternative_url}'>#{alternative_url}</a>"
+    assert_equal(expected_text, status_text(edition))
   end
 end

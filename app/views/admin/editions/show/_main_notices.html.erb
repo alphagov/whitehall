@@ -63,9 +63,3 @@
     </div>
   <% end %>
 <% end %>
-
-<% if warn_about_lack_of_contacts_in_body?(edition) %>
-  <%= render "components/inset_prompt", {
-    description: "This press release has no contact information embedded in the body. You may want to edit it and add some.",
-  } %>
-<% end %>
