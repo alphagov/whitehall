@@ -13,6 +13,10 @@ class StandardEdition < Edition
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
+  def self.of_type(configurable_document_type)
+    StandardEdition.where(configurable_document_type:)
+  end
+
   def format_name
     type_instance.label.downcase
   end

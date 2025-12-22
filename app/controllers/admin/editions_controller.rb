@@ -521,6 +521,11 @@ private
   end
   helper_method :force_scheduler
 
+  def topical_events
+    TopicalEvent.order(:name).to_a + StandardEdition.of_type("topical_event").to_a
+  end
+  helper_method :topical_events
+
   def redirect_param(fallback: nil)
     url = params[:redirect_to].presence
     return url if url && URI.parse(url).host.blank? # only allow same-site paths
