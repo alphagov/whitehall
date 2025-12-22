@@ -109,9 +109,9 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::CallForEvidencePresenter, presenter.class
   end
 
-  test ".presenter_for returns a NewsArticlePresenter for a NewsArticle" do
-    presenter = PublishingApiPresenters.presenter_for(build(:news_article))
-    assert_equal PublishingApi::NewsArticlePresenter, presenter.class
+  test ".presenter_for returns a StandardEditionPresenter for a StandardEdition" do
+    presenter = PublishingApiPresenters.presenter_for(build(:standard_edition))
+    assert_equal PublishingApi::StandardEditionPresenter, presenter.class
   end
 
   test ".presenter_for returns a CorporateInformationPagePresenter for a " \
