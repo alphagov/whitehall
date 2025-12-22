@@ -70,7 +70,7 @@ module Whitehall
         content.merge!(bulk_publishing: true) if bulk_publishing
 
         base_path = if model_instance.respond_to?(:slug_without_sequence)
-                      model_instance.slug_without_sequence
+                      "#{model_instance.class.base_path}#{model_instance.slug_without_sequence}"
                     else
                       content[:base_path]
                     end
