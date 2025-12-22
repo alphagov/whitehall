@@ -11,7 +11,6 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     WorldwideOrganisation
     FatalityNotice
     LandingPage
-    NewsArticle
     Publication
     Speech
     StatisticalDataSet

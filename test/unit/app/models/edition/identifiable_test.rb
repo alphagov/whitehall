@@ -45,10 +45,11 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
   test "should return the edition of the correct type when matching slugs for other types exist" do
     same_title = "same-title"
-    news_article = create(:published_news_article, title: same_title)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    news_article = create(:published_standard_edition, title: same_title)
     publication = create(:published_publication, title: same_title)
 
-    assert_equal news_article, NewsArticle.published_as(same_title)
+    assert_equal news_article, StandardEdition.published_as(same_title)
     assert_equal publication, Publication.published_as(same_title)
   end
 
