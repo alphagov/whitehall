@@ -23,17 +23,10 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert_equal "French", Edition.new(primary_locale: :fr).primary_language_name
   end
 
-  test "locale_can_be_changed? returns true for a new NewsArticle" do
-    assert NewsArticle.new.locale_can_be_changed?
-  end
+  test "locale_can_be_changed? returns true for a StandardEdition with the translations setting enabled and no translations" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "translations_enabled" => true }}))
 
-  test "locale_can_be_changed? returns true for an existing NewsArticleType::WorldNewsStory" do
-    world_news_story = create(:news_article_world_news_story)
-    assert world_news_story.locale_can_be_changed?
-  end
-
-  test "locale_can_be_changed? returns false for a persisted new NewsArticle" do
-    assert_not create(:news_article).locale_can_be_changed?
+    assert build(:standard_edition).locale_can_be_changed?
   end
 
   test "locale_can_be_changed? returns true for new and existing DocumentCollections" do
