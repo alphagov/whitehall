@@ -202,7 +202,7 @@ module Admin
       %w[NewsArticle Publication Speech].each do |parent_type|
         type_class = "#{parent_type}Type".constantize
         if (subtype = type_class.all.select { |k| k.key == type }.first)
-          legacy_col = "#{type_class.new.genus_key}_type_id"
+          legacy_col = "#{type_class.genus_key}_type_id"
           predicates << table[:type].eq(parent_type).and(table[legacy_col].eq(subtype.id))
         end
       end

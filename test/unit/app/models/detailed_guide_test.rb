@@ -6,10 +6,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :detailed_guide, :body, :summary, :change_note
 
-  test "should use detailed guidance as its format name" do
-    assert_equal "detailed guidance", DetailedGuide.format_name
-  end
-
   test "#published_related_detailed_guides returns latest published editions of related documents" do
     published_guide = create(:published_detailed_guide)
     related_guide = create(:published_detailed_guide)

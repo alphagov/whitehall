@@ -14,10 +14,6 @@ class CaseStudy < Edition
     Whitehall::RenderingApp::FRONTEND
   end
 
-  def display_type_key
-    "case_study"
-  end
-
   def translatable?
     !non_english_edition?
   end

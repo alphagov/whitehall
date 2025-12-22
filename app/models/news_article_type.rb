@@ -26,7 +26,7 @@ class NewsArticleType
     all.map(&:slug).to_sentence
   end
 
-  def genus_key
+  def self.genus_key
     "news_article"
   end
 

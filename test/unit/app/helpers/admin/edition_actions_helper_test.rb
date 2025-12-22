@@ -7,7 +7,7 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
                  "Case studies",
                  "Consultations",
                  "Corporate information pages",
-                 "Detailed guidances",
+                 "Detailed guides",
                  "Document collections",
                  "History pages",
                  "News articles",

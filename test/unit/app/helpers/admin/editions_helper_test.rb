@@ -75,16 +75,50 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     assert_equal expected_result, reset_search_fields_query_string_params(user, admin_editions_path, "#anchor")
   end
 
-  test "#edition_type returns a concatenated string where an edition has a parent type" do
-    edition = build(:news_article)
+  test "#edition_type returns a concatenated string where a standard edition has a group" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "configurable_document_group" => "test_group" } }))
+    edition = build(:standard_edition)
 
-    assert_equal "News article: Press release", edition_type(edition)
+    assert_equal "Test group: Test type", edition_type(edition)
   end
 
-  test "#edition_type returns a single string where an edition does not have a parent type" do
-    edition = build(:worldwide_organisation)
+  test "#edition_type returns a single string where a standard edition does not have a group" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build(:standard_edition)
 
-    assert_equal "Worldwide organisation", edition_type(edition)
+    assert_equal "Test type", edition_type(edition)
+  end
+
+  test "#edition_type returns a concatenated string where an edition has a parent type" do
+    news_article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
+    publication = build(:publication, publication_type: PublicationType::IndependentReport)
+    speech = build(:speech, speech_type: SpeechType::WrittenStatement)
+    corporate_information_page = build(:publication_scheme_corporate_information_page)
+
+    assert_equal "News article: Press release", edition_type(news_article)
+    assert_equal "Publication: Independent report", edition_type(publication)
+    assert_equal "Speech: Written statement to Parliament", edition_type(speech)
+    assert_equal "Corporate information page: Publication scheme", edition_type(corporate_information_page)
+  end
+
+  test "#edition_type returns a single string or custom logic where an edition does not have a parent type" do
+    call_for_evidence = build(:open_call_for_evidence)
+    case_study = build(:case_study)
+    consultation = build(:open_consultation)
+    guide = build(:detailed_guide)
+    collection = build(:document_collection)
+    fatality_notice = build(:fatality_notice)
+    statistical_data_set = build(:statistical_data_set)
+    ww_org = build(:worldwide_organisation)
+
+    assert_equal "Worldwide organisation", edition_type(ww_org)
+    assert_equal "Detailed guide", edition_type(guide)
+    assert_equal "Call for evidence: Open call for evidence", edition_type(call_for_evidence)
+    assert_equal "Case study", edition_type(case_study)
+    assert_equal "Consultation: Open consultation", edition_type(consultation)
+    assert_equal "Document collection", edition_type(collection)
+    assert_equal "Fatality notice", edition_type(fatality_notice)
+    assert_equal "Statistical data set", edition_type(statistical_data_set)
   end
 
   test "#edition_title_link_or_edition_title returns a link to the edition with its title as the text when the edition has a public URL" do

@@ -142,7 +142,7 @@ Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
   expect(page).to_not have_css(".govuk-error-summary")
   expect(page.find("h1")).to have_content(title)
   expect(page).to have_content("Your document has been saved.")
-  expect(page).to have_content("Standard edition: Test")
+  expect(page).to have_content("Test configurable document type")
 end
 
 Then(/^I can see that the draft edition of "([^"]*)" was published successfully$/) do |title|
@@ -339,5 +339,5 @@ Then("the document type should have updated") do
     expect(page).to have_content("Document type changed successfully")
   end
 
-  expect(page).to have_content("Type of document Standard edition: Test configurable document type two")
+  expect(page).to have_content("Test configurable document type two")
 end

@@ -10,7 +10,7 @@ class SpeechType
     6 => "<p>Bylined articles written in the name of a minister or official (usually re-published from elsewhere).</p>",
   }.to_json.freeze
 
-  attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence, :use_key_as_display_key
+  attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence
 
   def self.create!(attributes)
     super({
@@ -40,24 +40,8 @@ class SpeechType
     all
   end
 
-  def statement_to_parliament?
-    SpeechType.statements.include? self
-  end
-
-  def self.statements
-    [WrittenStatement, OralStatement]
-  end
-
-  def written_article?
-    [AuthoredArticle].include? self
-  end
-
-  def genus_key
+  def self.genus_key
     "speech"
-  end
-
-  def display_type_key
-    use_key_as_display_key ? key : genus_key
   end
 
   Transcript = create!(
@@ -89,7 +73,6 @@ class SpeechType
     key: "written_statement",
     singular_name: "Written statement to Parliament",
     plural_name: "Written statements to Parliament",
-    use_key_as_display_key: true,
   )
 
   OralStatement = create!(
@@ -97,7 +80,6 @@ class SpeechType
     key: "oral_statement",
     singular_name: "Oral statement to Parliament",
     plural_name: "Oral statements to Parliament",
-    use_key_as_display_key: true,
   )
 
   AuthoredArticle = create!(
@@ -108,6 +90,5 @@ class SpeechType
     published_externally_key: "written_on",
     location_relevant: false,
     plural_name: "Authored article",
-    use_key_as_display_key: true,
   )
 end
