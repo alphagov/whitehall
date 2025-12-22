@@ -80,7 +80,7 @@ class DocumentListExportPresenter
 
   def sub_content_type
     case edition
-    when NewsArticle, Publication, Speech, CorporateInformationPage
+    when StandardEdition, Publication, Speech, CorporateInformationPage
       edition.display_type
     else
       "N/A"
