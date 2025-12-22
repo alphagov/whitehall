@@ -58,6 +58,10 @@ class Consultation < Edition
     schedule_republishing_workers
   end
 
+  def self.base_path
+    "/government/consultations/"
+  end
+
   def schedule_republishing_workers
     if opening_at.try(:future?)
       PublishingApiDocumentRepublishingWorker
@@ -143,10 +147,6 @@ class Consultation < Edition
 
   def string_for_slug
     title
-  end
-
-  def base_path
-    "/government/consultations/#{slug}"
   end
 
   def publishing_api_presenter

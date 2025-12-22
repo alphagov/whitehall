@@ -48,6 +48,10 @@ class CallForEvidence < Edition
     schedule_republishing_workers
   end
 
+  def self.base_path
+    "/government/calls-for-evidence/"
+  end
+
   def schedule_republishing_workers
     if opening_at.try(:future?)
       PublishingApiDocumentRepublishingWorker
@@ -129,10 +133,6 @@ class CallForEvidence < Edition
 
   def string_for_slug
     title
-  end
-
-  def base_path
-    "/government/calls-for-evidence/#{slug}"
   end
 
   def publishing_api_presenter
