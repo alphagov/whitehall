@@ -1,16 +1,16 @@
-Given(/^a draft (document|publication|news article|consultation|speech|call for evidence) "([^"]*)"(?: with summary "([^"]*)")? exists$/) do |document_type, title, summary|
+Given(/^a draft (document|publication|consultation|speech|call for evidence) "([^"]*)"(?: with summary "([^"]*)")? exists$/) do |document_type, title, summary|
   document_type = "publication" if document_type == "document"
   attributes = { title: }
   attributes[:summary] = summary if summary
   create("draft_#{document_class(document_type).name.underscore}".to_sym, attributes)
 end
 
-Given(/^a published (publication|news article|consultation|speech|detailed guide) "([^"]*)" exists$/) do |document_type, title|
+Given(/^a published (publication|consultation|speech|detailed guide) "([^"]*)" exists$/) do |document_type, title|
   create(:government) if Government.first.nil?
   create("published_#{document_class(document_type).name.underscore}".to_sym, title:)
 end
 
-Given(/^a published (publication|news article|consultation|speech|detailed guide) "([^"]*)" with locale "([^"]*)" exists$/) do |document_type, title, locale|
+Given(/^a published (publication|consultation|speech|detailed guide) "([^"]*)" with locale "([^"]*)" exists$/) do |document_type, title, locale|
   create(:government) if Government.first.nil?
   create("published_#{document_class(document_type).name.underscore}".to_sym, title:, translated_into: [locale.to_sym])
 end
@@ -23,16 +23,16 @@ Given(/^a document with content ID "([^"]*)" exists$/) do |content_id|
   create(:document, content_id:)
 end
 
-Given(/^a draft (publication|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
+Given(/^a draft (publication|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title:, organisations: [organisation])
 end
 
-Given(/^a submitted (publication|news article|consultation|speech|detailed guide) "([^"]*)" exists$/) do |document_type, title|
+Given(/^a submitted (publication|consultation|speech|detailed guide) "([^"]*)" exists$/) do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title:)
 end
 
-Given(/^another user edits the (publication|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/) do |_document_type, original_title, new_title|
+Given(/^another user edits the (publication|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/) do |_document_type, original_title, new_title|
   as_user(create(:writer)) do
     Capybara.using_session("another_user") do
       begin_editing_document original_title
@@ -53,7 +53,7 @@ Given(/^a draft publication "(.*?)" with two file attachments existing$/) do |ti
   @attachment = @edition.attachments.first
 end
 
-Given(/^a force published (document|publication|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
+Given(/^a force published (document|publication|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   document_type = "publication" if document_type == "document"
   edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title:, organisations: [organisation])
@@ -63,7 +63,7 @@ Given(/^a force published (document|publication|news article|consultation|speech
   publish(force: true)
 end
 
-When(/^I view the (publication|news article|consultation|speech|document) "([^"]*)"$/) do |_document_type, title|
+When(/^I view the (publication|consultation|speech|document) "([^"]*)"$/) do |_document_type, title|
   click_link title
 end
 
@@ -129,7 +129,7 @@ When("I force publish {edition}") do |edition|
   publish(force: true)
 end
 
-When(/^I save my changes to the (publication|news article|consultation|speech)$/) do |_document_type|
+When(/^I save my changes to the (publication|consultation|speech)$/) do |_document_type|
   click_button "Save"
 end
 
@@ -159,7 +159,7 @@ Then("I should see {edition} in the list of published documents") do |edition|
   expect(find(".govuk-table")).to have_content edition.title
 end
 
-Then(/^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
+Then(/^I should see the conflict between the (publication|policy|consultation|speech) titles "([^"]*)" and "([^"]*)"$/) do |_document_type, new_title, latest_title|
   expect(new_title).to eq(find(".govuk-caption-xl").text)
   expect(page).to have_selector(".conflict h2", text: latest_title)
 end

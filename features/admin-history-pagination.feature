@@ -2,9 +2,9 @@ Feature: Viewing a document's history
 
   Background:
     Given I am a writer
-    And a draft news article "Stubble to be Outlawed" exists
+    And a draft publication "Stubble to be Outlawed" exists
     And "Stubble to be Outlawed" has lots of history and internal notes
-    And I am on the edit page for news article "Stubble to be Outlawed"
+    And I am on the edit page for publication "Stubble to be Outlawed"
     And I click the "History" tab
 
   Scenario: Viewing multiple pages of history

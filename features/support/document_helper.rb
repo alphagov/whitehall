@@ -1,6 +1,6 @@
 ParameterType(
   name: "edition",
-  regexp: /the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page|call for evidence|worldwide organisation) "([^"]*)"/,
+  regexp: /the (document|publication|consultation|consultation response|speech|detailed guide|announcement|statistical data set|document collection|corporate information page|call for evidence|worldwide organisation) "([^"]*)"/,
   transformer: ->(document_type, title) { document_class(document_type).latest_edition.find_by!(title:) },
 )
 
@@ -53,11 +53,6 @@ module DocumentHelper
   def begin_editing_document(title)
     visit_edition_admin title
     click_link "Edit draft"
-  end
-
-  def begin_drafting_news_article(options)
-    begin_drafting_document(options.merge(type: "news_article", previously_published: false))
-    fill_in_news_article_fields(**options.slice(:first_published, :announcement_type))
   end
 
   def begin_drafting_consultation(options)
@@ -115,15 +110,6 @@ module DocumentHelper
   def fill_in_worldwide_organisation_fields(world_location: "United Kingdom")
     select world_location, from: "World locations"
     fill_in "Logo formatted name", with: "Logo\r\nformatted\r\nname\r\n"
-  end
-
-  def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
-    select announcement_type, from: "News article type"
-    checkbox_label = "This document has previously been published on another website"
-    check checkbox_label
-    within_conditional_reveal checkbox_label do
-      fill_in_date_fields(first_published)
-    end
   end
 
   def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
