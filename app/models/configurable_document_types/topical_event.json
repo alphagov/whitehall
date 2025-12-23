@@ -2,34 +2,41 @@
   "key": "topical_event",
   "title": "Topical event",
   "description": "???",
-  "schema": {
-    "properties": {
-      "body": {
-        "title": "Body",
-        "type": "string",
-        "format": "govspeak"
-      },
-      "duration": {
-        "title": "Duration",
-        "type": "object",
-        "format": "wrapper",
-        "properties": {
-          "start_date": {
-            "title": "Start date",
-            "type": "date"
-          },
-          "end_date": {
-            "title": "End date",
-            "type": "date"
-          }
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "block": "govspeak"
         },
-        "validations": {
-          "duration": {
-            "start" : "start_date",
-            "end" : "end_date",
-            "within": "P1Y"
+        "duration": {
+          "title": "Duration",
+          "block": "default_object",
+          "fields": {
+            "start_date": {
+              "title": "Start date",
+              "block": "default_date"
+            },
+            "end_date": {
+              "title": "End date",
+              "block": "default_date"
+            }
           }
         }
+      }
+    }
+  },
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
+      },
+      "start_date": {
+        "type": "date"
+      },
+      "end_date": {
+        "type": "date"
       }
     },
     "validations": {
@@ -48,7 +55,19 @@
       },
       "embedded_contacts_exist": {
         "attributes": ["body"]
+      },
+      "duration": {
+        "start": "start_date",
+        "end": "end_date",
+        "within": "P1Y"
       }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "body": "govspeak",
+      "start_date": "rfc3339_date",
+      "end_date": "rfc3339_date"
     }
   },
   "associations": [
@@ -57,9 +76,6 @@
     }
   ],
   "settings": {
-    "edit_screens": {
-      "document": ["body", "duration"]
-    },
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",
     "publishing_api_document_type": "topical_event",

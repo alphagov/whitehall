@@ -57,6 +57,8 @@ class ConfigurableDocumentType
     @key = type["key"]
     @title = type["title"]
     @description = type["description"]
+    @forms = type["forms"] || {}
+    @presenters = type["presenters"] || {}
     @schema = type["schema"]
     @associations = type["associations"]
     @settings = type["settings"]
@@ -67,7 +69,29 @@ class ConfigurableDocumentType
   end
 
   def properties
-    @schema["properties"]
+    @schema["properties"] || @schema["attributes"] || {}
+  end
+
+  def form(key = nil)
+    return nil if @forms.empty?
+
+    if key
+      @forms[key]
+    else
+      { "fields" =>
+      @forms.reduce({}) do |acc, (_form_key, form_value)|
+        acc.merge(form_value["fields"])
+      end }
+
+    end
+  end
+
+  def presenter(key)
+    @presenters[key]
+  end
+
+  def required_attributes
+    Array(@schema.dig("validations", "presence", "attributes"))
   end
 
   def properties_for_edit_screen(edit_screen)
