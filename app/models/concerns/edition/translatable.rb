@@ -2,13 +2,23 @@ module Edition::Translatable
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
+    def fields = %i[title summary body block_content]
+
+    def editions_supported_fields
+      @edition.translatable_fields.presence || fields
+    end
+
     def process_associations_before_save(edition)
       @edition.translations.each do |translation|
         I18n.with_locale(translation.locale) do
-          edition.title = @edition.title
-          edition.summary = @edition.summary
-          edition.body = @edition.body
-          edition.block_content = @edition.block_content
+          fields.each do |field|
+            if field.in?(editions_supported_fields)
+              value = @edition.public_send(field)
+              edition.public_send("#{field}=", value)
+            else
+              edition.public_send("#{field}=", nil)
+            end
+          end
         end
       end
     end

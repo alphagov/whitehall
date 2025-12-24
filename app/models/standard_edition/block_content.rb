@@ -99,7 +99,7 @@ private
       delegate :[], to: :attributes
 
       def to_h
-        attributes
+        attributes.compact
       end
     end
     attributes_class.set_temporary_name("Block content attributes")
