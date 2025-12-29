@@ -20,7 +20,7 @@ module PublishingApi
         details:,
         document_type:,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::FRONTEND,
         schema_name: "statistics_announcement",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
