@@ -45,8 +45,30 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     assert_equal expected_content_types, republishable_content_types
   end
 
+  test "#republishable_content_types returns a sorted list combining valid document types and other publishable content types - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms("test_type"))
+    configurable_content_types = ConfigurableDocumentType.all.map { |type| type.key.camelize }
+
+    expected_content_types = (
+      EDITIONABLE_CONTENT_TYPES + NON_EDITIONABLE_CONTENT_TYPES + configurable_content_types
+    ).sort
+
+    assert_equal expected_content_types, republishable_content_types
+  end
+
   test "#republishable_content_types removes duplicates when including configurable document types" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(EDITIONABLE_CONTENT_TYPES.first))
+    configurable_content_types = ConfigurableDocumentType.all.map { |type| type.key.camelize }
+
+    expected_content_types = (
+      EDITIONABLE_CONTENT_TYPES + NON_EDITIONABLE_CONTENT_TYPES + configurable_content_types
+    ).uniq.sort
+
+    assert_equal expected_content_types, republishable_content_types
+  end
+
+  test "#republishable_content_types removes duplicates when including configurable document types - with forms" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type_with_forms(EDITIONABLE_CONTENT_TYPES.first))
     configurable_content_types = ConfigurableDocumentType.all.map { |type| type.key.camelize }
 
     expected_content_types = (

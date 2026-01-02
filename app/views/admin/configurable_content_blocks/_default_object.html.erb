@@ -4,22 +4,36 @@
    root ||= false
    right_to_left ||= false
    errors ||= []
-   required_attributes = Array(schema.dig("validations", "presence", "attributes"))
-   properties = schema.fetch("properties", {})
-   visible_properties ||= properties %>
+   required_attributes ||= []
+   properties = schema.fetch("properties", schema.fetch("fields", {})) %>
 
 <% body = capture do %>
-  <% visible_properties.each do |property_key, property_schema| %>
-    <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
-    <%= render block, {
-      schema: property_schema,
-      content: content[property_key],
-      translated_content: translated_content[property_key],
-      path: path.push(property_key),
-      required: required_attributes.include?(property_key),
-      right_to_left: right_to_left,
-      errors: errors,
-    } %>
+  <% properties.each do |property_key, property_schema| %>
+    <% if property_schema.key?("block") %>
+      <% block = default_object.block_factory.build_block(property_schema["block"]) %>
+      <%= render block, {
+        schema: property_schema,
+        content: property_schema.key?("fields") ? content : content[property_key],
+        translated_content: property_schema.key?("fields") ? translated_content : translated_content[property_key],
+        path: ConfigurableContentBlocks::Path.new([property_key]),
+        required: required_attributes.include?(property_key),
+        required_attributes: property_schema["block"] == "default_object" ? required_attributes : [],
+        right_to_left: right_to_left,
+        errors: errors,
+      } %>
+    <% else %>
+      <% block = default_object.block_factory.build(property_schema["type"], property_schema["format"] || "default") %>
+      <%= render block, {
+        schema: property_schema,
+        content: content[property_key],
+        translated_content: translated_content[property_key],
+        path: path.push(property_key),
+        required: required_attributes.include?(property_key),
+        required_attributes: property_schema["type"] == "object" ? required_attributes : [],
+        right_to_left: right_to_left,
+        errors: errors,
+      } %>
+    <% end %>
   <% end %>
 <% end %>
 
