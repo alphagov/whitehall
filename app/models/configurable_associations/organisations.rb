@@ -6,6 +6,7 @@ module ConfigurableAssociations
     end
 
     attr_reader :errors
+    delegate :delete_all, to: :@association
 
     def links
       @association.includes(:organisation)

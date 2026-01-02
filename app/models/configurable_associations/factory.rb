@@ -4,13 +4,16 @@ module ConfigurableAssociations
       @edition = edition
     end
 
-    def configurable_associations
-      @edition.type_instance.associations.map do |association_config|
+    def configurable_associations(as_hash: false)
+      result = {}
+      @edition.type_instance.associations.each do |association_config|
         association = associations[association_config["key"]]
         raise "Undefined association: #{association_config['key']}" unless association
 
-        association.call(@edition)
+        result[association_config["key"]] = association.call(@edition)
       end
+
+      as_hash ? result : result.values
     end
 
   private
