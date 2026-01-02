@@ -64,7 +64,10 @@
     "publishing_api_schema_name": "topical_event",
     "publishing_api_document_type": "topical_event",
     "rendering_app": "collections",
-    "images_enabled": false,
+    "images": {
+      "enabled": true,
+      "permitted_image_kinds": ["header", "logo"]
+    },
     "send_change_history": true,
     "file_attachments_enabled": false,
     "organisations": null,
