@@ -101,6 +101,10 @@ class Edition < ApplicationRecord
     document&.scheduled_edition
   end
 
+  def self.base_path
+    "/government/generic-editions/"
+  end
+
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end
@@ -396,9 +400,10 @@ class Edition < ApplicationRecord
   end
 
   def base_path
-    url_slug = slug || id.to_param
-    "/government/generic-editions/#{url_slug}"
+    "#{self.class.base_path}#{url_slug}"
   end
+
+  delegate :slug_without_sequence, to: :document
 
   def public_path(options = {})
     return if base_path.nil?
@@ -441,6 +446,10 @@ class Edition < ApplicationRecord
   end
 
 private
+
+  def url_slug
+    slug || id.to_param
+  end
 
   def date_for_government
     published_edition_date = first_public_at.try(:to_date)

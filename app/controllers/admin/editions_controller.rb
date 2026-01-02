@@ -93,6 +93,9 @@ class Admin::EditionsController < Admin::BaseController
       build_edition_dependencies
       render :new
     end
+  rescue Whitehall::UnpublishableInstanceError => _e
+    construct_similar_slug_warning_error
+    render :new
   end
 
   def edit

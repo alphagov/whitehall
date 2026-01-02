@@ -22,6 +22,10 @@ class DocumentCollection < Edition
 
   add_trait ClonesGroupsTrait
 
+  def self.base_path
+    "/government/collections/"
+  end
+
   def rendering_app
     Whitehall::RenderingApp::FRONTEND
   end
@@ -32,10 +36,6 @@ class DocumentCollection < Edition
 
   def locale_can_be_changed?
     true
-  end
-
-  def base_path
-    "/government/collections/#{slug}"
   end
 
   def publishing_api_presenter
