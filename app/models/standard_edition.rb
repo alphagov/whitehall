@@ -49,6 +49,10 @@ class StandardEdition < Edition
     type_instance.settings["translations_enabled"]
   end
 
+  def translatable_fields
+    %i[title summary block_content]
+  end
+
   def locale_can_be_changed?
     translatable? && translations.size <= 1
   end
