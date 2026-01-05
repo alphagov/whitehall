@@ -20,8 +20,9 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert_not political?(statistics_publication)
   end
 
-  test "world-news-story news articles are always political" do
-    world_news_story = create(:news_article_world_news_story)
+  test "world-news-stories are always political" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("world_news_story"))
+    world_news_story = create(:standard_edition, configurable_document_type: "world_news_story")
 
     assert political?(world_news_story)
   end
@@ -29,6 +30,23 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
   test "political formats associated with a political orgs are political" do
     political_organisation = create(:organisation, :political)
     edition = create(:consultation, lead_organisations: [political_organisation])
+
+    assert political?(edition)
+  end
+
+  test "config-driven formats that can be marked as political, and associated with a political org, are political" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type(
+        "test_type",
+        {
+          "associations" => [{ "key" => "organisations" }],
+          "settings" => { "history_mode_enabled" => true },
+        },
+      ),
+    )
+    edition = build(:standard_edition)
+    edition.edition_organisations.build([{ organisation: create(:organisation, :political), lead: true }])
+    edition.save!
 
     assert political?(edition)
   end
@@ -68,7 +86,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
   end
 
   test "political formats associated with ministers are political" do
-    edition = create(:news_article, role_appointments: [create(:ministerial_role_appointment)])
+    edition = create(:publication, role_appointments: [create(:ministerial_role_appointment)])
 
     assert political?(edition)
   end
