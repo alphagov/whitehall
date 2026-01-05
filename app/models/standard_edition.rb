@@ -8,6 +8,7 @@ class StandardEdition < Edition
   include Edition::WorldLocations
   include Edition::Organisations
   include Edition::WorldwideOrganisations
+  include Edition::SocialMediaAccounts
   include HasBlockContent
   include StandardEdition::DefaultLeadImage
 
@@ -61,6 +62,11 @@ class StandardEdition < Edition
 
   def allows_file_attachments?
     type_instance.settings["file_attachments_enabled"]
+  end
+
+  def can_be_associated_with_social_media_accounts?
+    edit_screens = type_instance.settings.dig("edit_screens")
+    edit_screens&.key?("social_media_accounts")
   end
 
   def can_be_marked_political?

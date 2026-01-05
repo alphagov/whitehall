@@ -159,7 +159,7 @@
       "properties": {
         "edit_screens": {
           "type": "object",
-          "description": "A list of rendered screens (tabs) for the content type. Controls which content blocks appear on which editing screens (document, images).",
+          "description": "A list of rendered screens (tabs) for the content type. Controls which content blocks appear on which editing screens (document, images, social_media_accounts).",
           "properties": {
             "document": {
               "type": "array",
@@ -171,6 +171,13 @@
             "images": {
               "type": "array",
               "description": "A list of content blocks to display on the images editing screen. The keys must match the blocks listed as properties.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "social_media_accounts": {
+              "type": "array",
+              "description": "A list of content blocks to display on the social media accounts editing screen. Usually empty as social media accounts are managed through a separate interface.",
               "items": {
                 "type": "string"
               }

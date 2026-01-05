@@ -2,6 +2,11 @@
 class Admin::StandardEditionsController < Admin::EditionsController
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
+  def social_media_accounts
+    find_edition
+    @edition.social_media_accounts.build if @edition.social_media_accounts.empty?
+  end
+
   def choose_type
     @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
                                                                      .select { |type| can?(current_user, type) }

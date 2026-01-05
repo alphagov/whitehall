@@ -4,6 +4,7 @@ class Admin::EditionsController < Admin::BaseController
 
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
+  before_action :destroy_blank_social_media_accounts, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
   before_action :clear_response_form_file_cache, only: %i[create update]
   before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
@@ -291,6 +292,7 @@ private
         default_news_image_attributes: %i[file file_cache id],
         nation_inapplicabilities_attributes: %i[id nation_id alternative_url excluded],
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
+        social_media_accounts_attributes: %i[social_media_service_id url title _destroy id],
         document_attributes: [
           :id,
           :slug,
@@ -466,6 +468,16 @@ private
 
     if params[:review_reminder].blank? && edition_params.dig("document_attributes", "review_reminder_attributes").present?
       edition_params["document_attributes"]["review_reminder_attributes"]["_destroy"] = "1"
+    end
+  end
+
+  def destroy_blank_social_media_accounts
+    if edition_params[:social_media_accounts_attributes]
+      edition_params[:social_media_accounts_attributes].each_pair do |_key, account|
+        if account[:social_media_service_id].blank? && account[:url].blank? && account[:title].blank?
+          account[:_destroy] = "1"
+        end
+      end
     end
   end
 

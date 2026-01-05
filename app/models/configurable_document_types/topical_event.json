@@ -58,7 +58,8 @@
   ],
   "settings": {
     "edit_screens": {
-      "document": ["body", "duration"]
+      "document": ["body", "duration"],
+      "social_media_accounts": []
     },
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",

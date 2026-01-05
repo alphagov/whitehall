@@ -303,6 +303,7 @@ Whitehall::Application.routes.draw do
           get :change_type
           get :change_type_preview
           patch :apply_change_type
+          get :social_media_accounts
         end
 
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do
