@@ -82,7 +82,7 @@ module Admin::RepublishingHelper
   end
 
   def republishable_content_types
-    editionable_content_types = %w[
+    legacy_editionable_content_types = %w[
       CallForEvidence
       CaseStudy
       Consultation
@@ -92,13 +92,12 @@ module Admin::RepublishingHelper
       WorldwideOrganisation
       FatalityNotice
       LandingPage
-      NewsArticle
       Publication
       Speech
       StatisticalDataSet
     ]
 
-    (editionable_content_types | non_editionable_content_types | config_driven_content_types).sort
+    (legacy_editionable_content_types | non_editionable_content_types | config_driven_content_types).sort
   end
 
   def republishable_pages
