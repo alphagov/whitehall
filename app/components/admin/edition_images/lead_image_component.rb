@@ -27,10 +27,6 @@ private
     edition.type == "CaseStudy"
   end
 
-  def news_article?
-    edition.type == "NewsArticle"
-  end
-
   def lead_image
     @lead_image ||= edition.lead_image
   end
@@ -42,8 +38,6 @@ private
   def show_default_lead_image?
     if case_study?
       edition.emphasised_organisation_default_image_available? && [nil, "organisation_image"].include?(edition.image_display_option)
-    elsif news_article?
-      edition.has_lead_image?
     end
   end
 
