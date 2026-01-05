@@ -19,11 +19,12 @@ class StandardEdition::BlockContent
   def initialize(schema, path = ConfigurableContentBlocks::Path.new)
     @schema = schema
     @path = path
+    @attributes_config = schema["attributes"] || {}
   end
 
   def attributes=(values)
     values = values.to_h
-    @schema["properties"].each do |key, nested_schema|
+    @attributes_config.each do |key, nested_schema|
       setter = "#{key}="
       if nested_schema["type"] == "object"
         nested_attributes = self.class.new(nested_schema, @path.push(key))
@@ -39,7 +40,7 @@ class StandardEdition::BlockContent
   alias_method :assign_attributes, :attributes=
 
   def attributes
-    @attributes ||= attributes_class_for(@schema).new
+    @attributes ||= attributes_class_for(@attributes_config).new
   end
 
   delegate :to_h, to: :attributes
@@ -57,7 +58,7 @@ private
   end
 
   def valid_nested_attributes
-    @schema["properties"].each do |key, nested_schema|
+    @attributes_config.each do |key, nested_schema|
       next unless nested_schema["type"] == "object"
 
       nested_attribute_values = attributes.public_send(key)
@@ -81,13 +82,13 @@ private
     attributes.class.instance_methods.include?(method_name) || super
   end
 
-  def attributes_class_for(schema)
+  def attributes_class_for(attribute_config)
     attributes_class = Class.new do
       include ActiveModel::API
       include ActiveModel::Attributes
       include ActiveModel::Serializers::JSON
 
-      schema["properties"].each do |key, property_schema|
+      attribute_config.each do |key, property_schema|
         case property_schema["type"]
         when "object"
           attribute key

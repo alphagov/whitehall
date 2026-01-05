@@ -3,19 +3,14 @@ require "test_helper"
 class BlockContentTest < ActiveSupport::TestCase
   setup do
     @schema = {
-      "title" => "Test document type",
-      "properties" => {
+      "attributes" => {
         "test_attribute" => {
-          "title" => "Test attribute",
           "type" => "string",
-          "format" => "govspeak",
         },
         "test_number_attribute" => {
-          "title" => "Test attribute",
           "type" => "integer",
         },
         "test_date_attribute" => {
-          "title" => "Test date attribute",
           "type" => "date",
         },
       },

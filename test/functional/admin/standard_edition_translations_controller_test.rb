@@ -4,24 +4,30 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
   setup do
     @writer = login_as(:writer)
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
-      "schema" => {
-        "properties" => {
-          "body" => {
-            "title" => "Body (required)",
-            "type" => "string",
-            "format" => "govspeak",
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body (required)",
+              "block" => "govspeak",
+            },
           },
         },
       },
-      "settings" => {
-        "edit_screens" => {
-          "document" => %w[body],
+      "schema" => {
+        "attributes" => {
+          "body" => {
+            "type" => "string",
+          },
+        },
+      },
+      "presenters" => {
+        "publishing_api" => {
+          "body" => "govspeak",
         },
       },
     }))
   end
-
-  should_be_an_admin_controller
 
   view_test "edit indicates which language we are adding a translation for" do
     edition = create(:standard_edition, { configurable_document_type: "test_type", title: "english-title" })
@@ -129,10 +135,27 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
   end
 
   view_test "update renders the form again, with errors, if the translation is invalid" do
-    configurable_document_type = build_configurable_document_type("test_type", "schema" => {
-      "validations" => {
-        "presence" => {
-          "attributes" => %w[test_attribute],
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "test_attribute" => {
+              "block" => "govspeak",
+              "title" => "Test Attribute (required)",
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "test_attribute" => {
+            "type" => "string",
+          },
+        },
+        "validations" => {
+          "presence" => {
+            "attributes" => %w[test_attribute],
+          },
         },
       },
     })
@@ -184,12 +207,20 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
 
   test "should limit access to translations of editions that aren't accessible to the current user" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "block" => "govspeak",
+              "title" => "Body (required)",
+            },
+          },
+        },
+      },
       "schema" => {
-        "properties" => {
+        "attributes" => {
           "body" => {
-            "title" => "Body (required)",
             "type" => "string",
-            "format" => "govspeak",
           },
         },
       },

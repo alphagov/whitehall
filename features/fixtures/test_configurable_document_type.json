@@ -2,33 +2,84 @@
   "key": "test",
   "title": "Test configurable document type",
   "description": "A test configurable document on GOV.UK",
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "block": "govspeak"
+        },
+        "date_field": {
+          "title": "Date Field",
+          "description": "A date field for the page",
+          "block": "default_date"
+        },
+        "address": {
+          "title": "Address",
+          "description": "A nested object field",
+          "block": "default_object",
+          "fields": {
+            "street": {
+              "title": "Street",
+              "description": "A default string inside the nested object",
+              "block": "default_string"
+            },
+            "city": {
+              "title": "City",
+              "description": "Another default string inside the nested object",
+              "block": "default_string"
+            }
+          }
+        }
+      }
+    },
+    "images": {
+      "fields": {
+        "image": {
+          "title": "Image",
+          "description": "The image for the page",
+          "block": "image_select"
+        },
+        "lead_image": {
+          "title": "Lead Image",
+          "description": "The lead image for the page",
+          "block": "lead_image_select"
+        }
+      }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "body": "govspeak",
+      "date_field": "rfc3339_date",
+      "image": "image"
+    }
+  },
   "schema": {
-    "properties": {
+    "attributes": {
       "body": {
-        "title": "Body",
-        "description": "The main content of the page",
-        "type": "string",
-        "format": "govspeak"
+        "type": "string"
       },
       "image": {
-        "title": "Image",
-        "description": "The image for the page",
-        "type": "integer",
-        "format": "image_select"
+        "type": "integer"
       },
       "date_field": {
-        "title": "Date Field",
-        "description": "A date field for the page",
         "type": "date"
+      },
+      "street": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
+      },
+      "lead_image": {
+        "type": "integer"
       }
     }
   },
   "associations": [],
   "settings": {
-    "edit_screens": {
-      "document": ["body", "date_field"],
-      "images": ["image"]
-    },
     "base_path_prefix": "/government/test-type",
     "publishing_api_schema_name": "test_type",
     "publishing_api_document_type": "test_type",
