@@ -1,7 +1,7 @@
 require "test_helper"
 
 class ConfigurableAssociations::FactoryTest < ActiveSupport::TestCase
-  test "configurable_associations raises an error if the association does not exist" do
+  test "configurable_associations raises an error if the association does not exist - with forms" do
     association_config = [
       {
         "key" => "invalid_association",

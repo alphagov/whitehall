@@ -2,18 +2,33 @@
   "key": "world_news_story",
   "title": "World news story",
   "description": "Announcements specific to one or more world location. Don’t duplicate news published by another department.",
-  "schema": {
-    "properties": {
-      "body": {
+    "forms": {
+    "documents": {
+      "fields": {
+        "body": {
           "title": "Body",
-          "type": "string",
-          "format": "govspeak"
+          "description": "The main content of the page",
+          "block": "govspeak"
+        }
+      }
+    },
+    "images": {
+      "fields": {
+        "image": {
+          "title": "Custom lead image",
+          "description": "Select a lead image, if required",
+          "block": "lead_image_select"
+        }
+      }
+    }
+  },
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
       },
       "image": {
-        "title": "Custom lead image",
-        "description": "",
-        "type": "integer",
-        "format": "lead_image_select"
+        "type": "integer"
       }
     },
     "validations": {
@@ -35,6 +50,12 @@
       }
     }
   },
+  "presenters": {
+    "publishing_api": {
+      "body": "govspeak",
+      "image": "lead_image"
+    }
+  },
   "associations" : [
     {
       "key": "topical_events"
@@ -49,10 +70,6 @@
     }
   ],
   "settings": {
-    "edit_screens": {
-      "document": ["body"],
-      "images": ["image"]
-    },
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",
     "publishing_api_schema_name": "news_article",

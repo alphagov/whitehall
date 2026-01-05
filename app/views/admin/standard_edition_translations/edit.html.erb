@@ -45,14 +45,15 @@
         },
       } %>
 
-      <% root_block = ConfigurableContentBlocks::Factory.new(@translated_edition).build("object") %>
+      <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
       <%= render(root_block, {
-        schema: ConfigurableDocumentType.find(@translated_edition.configurable_document_type).schema,
+        schema: @edition.type_instance.form,
         content: @edition.block_content,
         translated_content: @translated_edition.block_content,
         path: ConfigurableContentBlocks::Path.new,
         right_to_left: form.object.translation_rtl?,
         errors: @translated_edition.errors,
+        required_attributes: @edition.type_instance.required_attributes,
         root: true,
       }) %>
 

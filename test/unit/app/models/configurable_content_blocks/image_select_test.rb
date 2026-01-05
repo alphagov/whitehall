@@ -39,27 +39,26 @@ class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
 end
 
 class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
-  test "it renders a select with the selected image filename" do
-    schema = {
-      "type" => "object",
-      "properties" => {
-        "test_attribute" => {
-          "type" => "integer",
-          "title" => "Test attribute",
-          "description" => "A test attribute",
-          "format" => "image_select",
-        },
+  setup do
+    @schema = {
+      "test_attribute" => {
+        "title" => "Test attribute",
+        "description" => "A test attribute",
+        "block" => "image_select",
       },
     }
+    @path = Path.new(%w[test_attribute])
+  end
 
+  test "it renders a select with the selected image filename" do
     images = create_list(:image, 3)
     block_content = { "test_attribute" => images.last.image_data.id.to_s }
     block = ConfigurableContentBlocks::ImageSelect.new(images)
 
     render block, {
-      schema: schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: block_content["test_attribute"],
-      path: Path.new.push("test_attribute"),
+      path: @path,
     }
 
     assert_dom "select[name=?]", "edition[block_content][test_attribute]"
@@ -70,27 +69,15 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
   end
 
   test "it uses the translated content value when provided" do
-    schema = {
-      "type" => "object",
-      "properties" => {
-        "test_attribute" => {
-          "type" => "integer",
-          "title" => "Test attribute",
-          "description" => "A test attribute",
-          "format" => "image_select",
-        },
-      },
-    }
-
     images = create_list(:image, 3)
     block_content = { "test_attribute" => images.last.image_data.id.to_s }
     block = ConfigurableContentBlocks::ImageSelect.new(images)
 
     render block, {
-      schema: schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: block_content["test_attribute"],
       translated_content: images.first.image_data.id,
-      path: Path.new.push("test_attribute"),
+      path: @path,
     }
 
     assert_dom "select[name=?]", "edition[block_content][test_attribute]"
@@ -98,23 +85,6 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
   end
 
   test "it renders any validation errors when they are present" do
-    schema = {
-      "title" => "Test object",
-      "type" => "object",
-      "properties" => {
-        "test_attribute" => {
-          "type" => "integer",
-          "title" => "Test attribute",
-          "description" => "A test attribute",
-          "format" => "image_select",
-        },
-      },
-      "validations" => {
-        "presence" => {
-          "attributes" => %w[test_attribute],
-        },
-      },
-    }
     errors = [mock("object"), mock("object")]
     messages = %w[foo bar]
     errors.each_with_index do |error, index|
@@ -122,11 +92,10 @@ class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
       error.expects(:full_message).returns(messages[index])
     end
     block = ConfigurableContentBlocks::ImageSelect.new([create(:image)])
-
     render block, {
-      schema:,
+      schema: @schema["test_attribute"],
       content: nil,
-      path: Path.new.push("test_attribute"),
+      path: @path,
       errors:,
     }
     assert_dom ".govuk-error-message", "Error: #{messages.join}"
