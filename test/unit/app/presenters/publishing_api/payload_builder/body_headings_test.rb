@@ -41,6 +41,21 @@ module PublishingApi
 
         assert_equal BodyHeadings.for(item), {}
       end
+
+      test "returns an array including level 2 headers if they are found in additional html" do
+        item = stub(body: "##Heading 2 \n\nSome stuff\n\n")
+        additional_html = "##Another Heading 2 \n\nSome stuff\n\n"
+
+        expected_headers = {
+          headers: [{
+            text: "Another Heading 2",
+            level: 2,
+            id: "another-heading-2",
+          }],
+        }
+
+        assert_equal BodyHeadings.for(item, additional_html), expected_headers
+      end
     end
   end
 end

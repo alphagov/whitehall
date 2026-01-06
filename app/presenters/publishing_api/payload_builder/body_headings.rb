@@ -3,10 +3,10 @@ module PublishingApi
     class BodyHeadings
       include Presenters::PublishingApi::PayloadHeadingsHelper
 
-      attr_reader :item, :options
+      attr_reader :item, :options, additional_html
 
-      def self.for(item, options = {})
-        new(item, options).call
+      def self.for(item, options = {}, additional_html = nil)
+        new(item, options, additional_html).call
       end
 
       def initialize(item, options)
@@ -18,7 +18,7 @@ module PublishingApi
       end
 
       def call
-        extract_headings(item.body, options)
+        additional_html.present? ? extract_headings(additional_html, options) : extract_headings(item.body, options)
       end
     end
   end
