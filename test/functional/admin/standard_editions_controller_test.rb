@@ -337,4 +337,26 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "a[href=\"#edition_test_attribute\"]", text: "Test attribute cannot be blank"
     assert_select ".govuk-error-message", text: "Error: Test attribute cannot be blank"
   end
+
+  test "destroys saved new draft edition if base path conflict with published edition" do
+    login_as create(:gds_admin)
+
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    block_content = {
+      "test_attribute" => "",
+    }
+
+    published_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      title: "Title",
+      summary: "Summary",
+    )
+
+    post :create, params: { edition: { title: published_edition.title, configurable_document_type: "test_type", block_content: } }
+
+    assert_empty StandardEdition.draft
+  end
 end

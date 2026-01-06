@@ -93,6 +93,11 @@ class Admin::EditionsController < Admin::BaseController
       build_edition_dependencies
       render :new
     end
+  rescue Whitehall::UnpublishableInstanceError => _e
+    @edition.destroy!
+    build_edition
+    build_edition_dependencies
+    render :new
   end
 
   def edit
