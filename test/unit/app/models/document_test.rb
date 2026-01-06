@@ -35,10 +35,12 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should be able to retrieve documents of many types at a particular slug" do
-    news = create(:draft_news_article)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    standard_edition = create(:standard_edition)
     speech = create(:draft_speech)
-    assert_equal news.document, Document.at_slug([news.type, speech.type], news.document.slug)
-    assert_equal speech.document, Document.at_slug([news.type, speech.type], speech.document.slug)
+
+    assert_equal standard_edition.document, Document.at_slug([standard_edition.type, standard_edition.type], standard_edition.document.slug)
+    assert_equal speech.document, Document.at_slug([speech.type, speech.type], speech.document.slug)
   end
 
   test "should be live if a published edition exists" do
@@ -192,18 +194,18 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "#similar_slug_exists? returns true if a document with a similar slug exists" do
-    _existing = create(:news_article, title: "Latest news")
-    draft = create(:news_article, title: "Latest news")
+    _existing = create(:speech, title: "Latest news")
+    draft = create(:speech, title: "Latest news")
 
     assert draft.document.similar_slug_exists?
 
-    distinct_draft = create(:news_article, title: "Latest news from the crime scene")
+    distinct_draft = create(:speech, title: "Latest news from the crime scene")
     assert_not distinct_draft.document.similar_slug_exists?
   end
 
   test "#similar_slug_exists? scopes to documents of the same type" do
-    _existing = create(:news_article, title: "UK prospers")
-    draft = create(:speech, title: "UK prospers")
+    _existing = create(:speech, title: "UK prospers")
+    draft = create(:publication, title: "UK prospers")
 
     assert_not draft.document.similar_slug_exists?
   end

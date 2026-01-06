@@ -63,9 +63,9 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
     assert edition.can_be_tagged_to_worldwide_taxonomy?
   end
 
-  # method will return `false` for all other edition types, we choose NewsArticle as example
-  test "#can_be_tagged_to_worldwide_taxonomy? is false for NewsArticle" do
-    edition = create(:news_article, organisations: [@lead_org])
+  # method will return `false` for all other edition types, we choose Speech as example
+  test "#can_be_tagged_to_worldwide_taxonomy? is false for Speech" do
+    edition = create(:speech, organisations: [@lead_org])
 
     assert_not edition.can_be_tagged_to_worldwide_taxonomy?
   end

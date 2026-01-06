@@ -60,7 +60,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   end
 
   test "#create_draft should clone the document collection and its constituent objects" do
-    doc = create(:published_news_article).document
+    doc = create(:published_speech).document
 
     original = create(
       :published_document_collection,
@@ -92,7 +92,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   end
 
   test "#content_ids returns content_ids from each group" do
-    doc = create(:published_news_article).document
+    doc = create(:published_speech).document
     non_whitehall_link = create(:document_collection_non_whitehall_link)
     groups = [
       build(:document_collection_group, documents: [doc]),

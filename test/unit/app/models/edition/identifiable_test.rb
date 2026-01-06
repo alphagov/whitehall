@@ -38,17 +38,18 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   test "should allow the same slug to be used again for another document type" do
     same_title = "same-title"
     publication = create(:publication, title: same_title)
-    news_article = create(:news_article, title: same_title)
+    another_type = create(:speech, title: same_title)
 
-    assert_equal publication.document.slug, news_article.document.slug
+    assert_equal publication.document.slug, another_type.document.slug
   end
 
   test "should return the edition of the correct type when matching slugs for other types exist" do
     same_title = "same-title"
-    news_article = create(:published_news_article, title: same_title)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    standard_edition = create(:published_standard_edition, title: same_title)
     publication = create(:published_publication, title: same_title)
 
-    assert_equal news_article, NewsArticle.published_as(same_title)
+    assert_equal standard_edition, StandardEdition.published_as(same_title)
     assert_equal publication, Publication.published_as(same_title)
   end
 

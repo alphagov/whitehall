@@ -37,8 +37,17 @@ class Edition::WorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "copies the data sets over to a create draft" do
-    published = create(:news_article_world_news_story, :published, worldwide_organisations:)
-    assert_equal worldwide_organisations, published.create_draft(create(:user)).worldwide_organisations
+    case_study = create(:published_case_study, worldwide_organisations:)
+
+    assert_equal worldwide_organisations, case_study.create_draft(create(:user)).worldwide_organisations
+  end
+
+  test "copies the data sets over to a create draft, for standard editions" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    standard_edition = create(:published_standard_edition, worldwide_organisations:)
+    draft = standard_edition.create_draft(create(:user))
+
+    assert_equal worldwide_organisations.map(&:id).sort, draft.worldwide_organisations.map(&:id).sort
   end
 
   test "returns published worldwide organisations" do

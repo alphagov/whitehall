@@ -912,7 +912,8 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation3 = create(:organisation)
     _organisation4 = create(:organisation)
 
-    create(:published_news_article, organisations: [organisation1])
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    create(:published_standard_edition, organisations: [organisation1])
     create(:published_publication, organisations: [organisation3])
 
     assert_same_elements [organisation1, organisation3], Organisation.with_published_editions
@@ -1032,17 +1033,27 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "#save triggers organisation with a changed alternative format provider to republish documents" do
-    organisation = create(:organisation)
+    organisation1 = create(:organisation)
+    organisation2 = create(:organisation)
 
-    edition_with_alternative_format_provider = create(:published_news_article, alternative_format_provider: organisation)
-    edition_without_alternative_format_provider = create(:published_news_article)
+    edition_with_alternative_format_provider = create(:published_publication, alternative_format_provider: organisation1)
+    edition_without_alternative_format_provider = create(:published_publication)
+
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    standard_edition_with_alternative_format_provider = create(:published_publication, alternative_format_provider: organisation2)
+    standard_edition_without_alternative_format_provider = create(:published_publication)
 
     Whitehall::PublishingApi.expects(:republish_document_async)
-      .with(edition_with_alternative_format_provider.document, bulk: true)
+                            .with(edition_with_alternative_format_provider.document, bulk: true)
     Whitehall::PublishingApi.expects(:republish_document_async)
-      .with(edition_without_alternative_format_provider.document, bulk: true).never
+                            .with(standard_edition_with_alternative_format_provider.document, bulk: true)
+    Whitehall::PublishingApi.expects(:republish_document_async)
+                            .with(edition_without_alternative_format_provider.document, bulk: true).never
+    Whitehall::PublishingApi.expects(:republish_document_async)
+      .with(standard_edition_without_alternative_format_provider.document, bulk: true).never
 
-    organisation.update!(alternative_format_contact_email: "test@test.com")
+    organisation1.update!(alternative_format_contact_email: "test@test.com")
+    organisation2.update!(alternative_format_contact_email: "test@test.com")
   end
 
   test "organisations have the correct path generated" do

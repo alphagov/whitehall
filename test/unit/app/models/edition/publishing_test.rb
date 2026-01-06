@@ -161,7 +161,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   end
 
   test "is valid if all image assets have been uploaded" do
-    published_edition = build(:published_news_article)
+    published_edition = build(:published_publication)
     image = build(:image)
     published_edition.images << image
 
@@ -169,7 +169,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   end
 
   test "is invalid if some image assets are missing" do
-    published_edition = build(:published_news_article)
+    published_edition = build(:published_publication)
     image = build(:image_with_no_assets)
     published_edition.images << image
 

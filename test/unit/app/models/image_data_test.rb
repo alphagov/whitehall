@@ -60,7 +60,7 @@ class ImageDataTest < ActiveSupport::TestCase
 
   test "rejects images with duplicate filename on edition" do
     image_data = build_example("960x640_jpeg.jpg")
-    edition = create(:news_article, images: [build(:image, image_data:)])
+    edition = create(:case_study, images: [build(:image, image_data:)])
     image = build(:image, image_data:, edition:)
 
     image_data.validate_on_image = image
@@ -71,7 +71,7 @@ class ImageDataTest < ActiveSupport::TestCase
 
   test "does not validate unique filename if validate_on_image is not assigned" do
     image_data = build_example("960x640_jpeg.jpg")
-    edition = create(:news_article, images: [build(:image, image_data:)])
+    edition = create(:case_study, images: [build(:image, image_data:)])
     build(:image, image_data:, edition:)
 
     assert image_data.valid?

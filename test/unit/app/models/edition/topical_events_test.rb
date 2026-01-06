@@ -8,7 +8,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
 
   test "#destroy should also remove the topical event membership relationship" do
     topical_event = create(:topical_event)
-    edition = create(:published_news_article, topical_events: [topical_event])
+    edition = create(:published_speech, topical_events: [topical_event])
     relation = edition.topical_event_memberships.first
     edition.destroy!
     assert_not TopicalEventMembership.find_by(id: relation.id)
@@ -16,7 +16,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
 
   test "new edition of document that is a member of a topical event should remain a member of that topical event" do
     topical_event = create(:topical_event)
-    edition = create(:published_news_article, topical_events: [topical_event])
+    edition = create(:published_speech, topical_events: [topical_event])
 
     new_edition = edition.create_draft(create(:writer))
     new_edition.change_note = "change-note"
@@ -39,7 +39,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
 
   test "#destroy should also remove the topical event featuring relationship" do
     topical_event = create(:topical_event)
-    edition = create(:published_news_article)
+    edition = create(:published_speech)
     _rel = topical_event.feature(edition_id: edition.id, alt_text: "Woooo", image: create(:topical_event_featuring_image_data))
     relation = edition.topical_event_featurings.first
     edition.destroy!
@@ -49,7 +49,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
   test "new edition of document featured in topical event should remain featured in that topic event with image, alt text and ordering" do
     featured_image = create(:topical_event_featuring_image_data)
     topical_event = create(:topical_event)
-    edition = create(:published_news_article)
+    edition = create(:published_speech)
     topical_event.feature(edition_id: edition.id, image: featured_image, alt_text: "alt-text", ordering: 12)
 
     new_edition = edition.create_draft(create(:writer))

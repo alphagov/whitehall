@@ -161,7 +161,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "#supersede! on a depended-upon edition destroys its dependencies" do
-    edition = create(:published_news_article)
+    edition = create(:published_speech)
     edition.depended_upon_contacts << create(:contact)
     edition.depended_upon_editions << create(:speech)
 
@@ -175,7 +175,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
     dependable_speech = create(:submitted_speech)
     dependent_article = create(
-      :published_news_article,
+      :published_speech,
       major_change_published_at: Time.zone.now,
       body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})",
     )

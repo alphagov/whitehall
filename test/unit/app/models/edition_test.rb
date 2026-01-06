@@ -232,7 +232,7 @@ class EditionTest < ActiveSupport::TestCase
     user2 = create(:user)
     edition = nil
     acting_as(user2) do
-      edition = create(:draft_news_article)
+      edition = create(:draft_edition)
     end
     assert_equal user2, edition.last_author, "creating"
 
@@ -269,10 +269,14 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".authored_by respects chained scopes" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
     publication = create(:publication)
+    standard_edition = create(:standard_edition)
     assert Edition.authored_by(publication.creator).include?(publication)
+    assert Edition.authored_by(standard_edition.creator).include?(standard_edition)
     assert Publication.authored_by(publication.creator).include?(publication)
-    assert_not NewsArticle.authored_by(publication.creator).include?(publication)
+    assert StandardEdition.authored_by(standard_edition.creator).include?(standard_edition)
+    assert_not StandardEdition.authored_by(publication.creator).include?(publication)
   end
 
   test "#rejected_by uses information from the audit trail and returns the user who first rejected the edition" do
@@ -341,7 +345,7 @@ class EditionTest < ActiveSupport::TestCase
   test ".by_major_change_published_at orders by major_change_published_at descending" do
     edition = create(:edition, major_change_published_at: 2.hours.ago)
     publication = create(:publication, major_change_published_at: 4.hours.ago)
-    article = create(:news_article, major_change_published_at: 1.hour.ago)
+    article = create(:speech, major_change_published_at: 1.hour.ago)
     assert_equal [article, edition, publication], Edition.by_major_change_published_at
   end
 
@@ -367,7 +371,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should still be valid if has no image and no alt text" do
-    article = build(:news_article, images: [])
+    article = build(:case_study, images: [])
     assert article.valid?
   end
 
@@ -826,7 +830,7 @@ class EditionTest < ActiveSupport::TestCase
   test "images_have_unique_filenames? returns true if image filenames are unique" do
     image1 = build(:image)
     image2 = build(:image, image_data: build(:image_data, file: upload_fixture("big-cheese.960x640.jpg")))
-    edition = build(:draft_news_article, images: [image1, image2])
+    edition = build(:case_study, images: [image1, image2])
 
     assert_equal true, edition.images_have_unique_filenames?
   end
@@ -834,7 +838,7 @@ class EditionTest < ActiveSupport::TestCase
   test "images_have_unique_filenames? returns false if some images have duplicate filenames" do
     image1 = build(:image)
     image2 = build(:image)
-    edition = build(:draft_news_article, images: [image1, image2])
+    edition = build(:case_study, images: [image1, image2])
 
     assert_equal false, edition.images_have_unique_filenames?
   end
