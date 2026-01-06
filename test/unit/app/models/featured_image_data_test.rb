@@ -104,28 +104,34 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
   end
 
   test "#republish_on_assets_ready should republish organisation and associations if assets are ready" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("news_story", { "settings" => { "configurable_document_group" => "news_article" } }))
+
     organisation = create(:organisation, :with_default_news_image)
-    news_article = create(:news_article, :published, organisations: [organisation])
-    create(:news_article, :draft, organisations: [organisation], document: news_article.document)
+    standard_edition = create(:published_standard_edition, configurable_document_type: "news_story", lead_organisations: [organisation])
+    create(:draft_standard_edition, configurable_document_type: "news_story", lead_organisations: [organisation], document: standard_edition.document)
 
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
-    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(standard_edition.document).once
 
     organisation.default_news_image.republish_on_assets_ready
   end
 
   test "#republish_on_assets_ready should republish worldwide organisation and associations if assets are ready" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("world_news_story", { "settings" => { "configurable_document_group" => "news_article" } }))
+
     worldwide_organisation = create(:published_worldwide_organisation, :with_default_news_image)
-    news_article = create(:news_article_world_news_story, :published, worldwide_organisations: [worldwide_organisation])
-    draft_news_article = create(:news_article_world_news_story, :draft, worldwide_organisations: [worldwide_organisation])
-    other_organisation_news_article = create(:news_article_world_news_story, :draft, worldwide_organisations: [create(:published_worldwide_organisation, :with_default_news_image)])
-    news_article_with_image = create(:news_article_world_news_story, images: [create(:image)], worldwide_organisations: [worldwide_organisation])
+    worldwide_organisations = [worldwide_organisation]
+
+    published_standard_edition = create(:published_standard_edition, configurable_document_type: "world_news_story", worldwide_organisations:)
+    draft_standard_edition = create(:draft_standard_edition, configurable_document_type: "world_news_story", worldwide_organisations:)
+    other_organisation_standard_edition = create(:draft_standard_edition, configurable_document_type: "world_news_story", worldwide_organisations: [create(:published_worldwide_organisation, :with_default_news_image)])
+    standard_edition_with_image = create(:standard_edition, configurable_document_type: "world_news_story", images: [create(:image)], worldwide_organisations:)
 
     Whitehall::PublishingApi.expects(:republish_document_async).with(worldwide_organisation.document).once
-    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article.document).once
-    Whitehall::PublishingApi.expects(:republish_document_async).with(draft_news_article.document).once
-    Whitehall::PublishingApi.expects(:republish_document_async).with(other_organisation_news_article.document).never
-    Whitehall::PublishingApi.expects(:republish_document_async).with(news_article_with_image.document).never
+    Whitehall::PublishingApi.expects(:republish_document_async).with(published_standard_edition.document).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(draft_standard_edition.document).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(other_organisation_standard_edition.document).never
+    Whitehall::PublishingApi.expects(:republish_document_async).with(standard_edition_with_image.document).never
 
     worldwide_organisation.default_news_image.republish_on_assets_ready
   end

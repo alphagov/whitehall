@@ -246,12 +246,14 @@ class Organisation < ApplicationRecord
   end
 
   def republish_dependent_documents
-    documents = NewsArticle
-                  .in_organisation(self)
-                  .includes(:images)
-                  .where(images: { id: nil })
-                  .map(&:document)
-                  .uniq(&:id)
+    documents = StandardEdition
+      .with_news_article_document_type
+      .in_organisation(self)
+      .includes(:images)
+      .where(images: { id: nil })
+      .map(&:document)
+      .uniq(&:id)
+
     documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
   end
 
