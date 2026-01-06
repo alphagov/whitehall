@@ -22,7 +22,7 @@ module PublishingApi
           access_and_opening_times:,
           services:,
           type: item.worldwide_office_type.name,
-        },
+        }.merge!(PayloadBuilder::BodyHeadings.for(item.access_and_opening_times)),
         document_type: item.class.name.underscore,
         links: edition_links,
         public_updated_at: item.updated_at,
