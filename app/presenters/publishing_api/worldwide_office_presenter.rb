@@ -21,6 +21,7 @@ module PublishingApi
         details: {
           access_and_opening_times:,
           services:,
+          headers:,
           type: item.worldwide_office_type.name,
         },
         document_type: item.class.name.underscore,
@@ -58,6 +59,10 @@ module PublishingApi
       return if item.access_and_opening_times.blank?
 
       govspeak_to_html(item.access_and_opening_times)
+    end
+
+    def headers
+      PayloadBuilder::BodyHeadings.for(item)
     end
 
     def services

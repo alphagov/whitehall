@@ -68,4 +68,35 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
 
     assert_nil presented_item.content.dig(:details, :access_and_opening_times)
   end
+
+  test "it includes headers when headers are present in body" do
+    access_and_opening_times = "<h2 id='hello'>Hello</h2> Some random text <h2 id='world'>World</h2> Some more random text"
+    worldwide_office = build(:worldwide_office, access_and_opening_times:, edition: create(:worldwide_organisation))
+
+    presented_item = present(worldwide_office)
+
+
+    expected_headers = [
+      {
+        text: "Hello",
+        level: 2,
+        id: "hello",
+      },
+      {
+        text: "World",
+        level: 2,
+        id: "world",
+      },
+    ]
+
+    assert_equal expected_headers, presented_item.content[:details][:headers]
+  end
+
+  test "it does not include headers when headers are not present in body" do
+    worldwide_office = create(:worldwide_office)
+
+    presented_item = present(worldwide_office)
+
+    assert_nil presented_item.content[:details][:headers]
+  end
 end
