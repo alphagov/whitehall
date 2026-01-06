@@ -202,7 +202,9 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for other persisted edition types with no attachments or images" do
-    %i[detailed_guide news_article publication].each do |type|
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true, "images_enabled" => true } }))
+
+    %i[detailed_guide publication standard_edition].each do |type|
       if type == :corporate_information_page
         organisation = build_stubbed(:organisation)
         edition = build_stubbed(type, organisation:)
@@ -233,7 +235,9 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for other persisted edition types with attachments and images" do
-    %i[detailed_guide news_article publication].each do |type|
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true, "images_enabled" => true } }))
+
+    %i[detailed_guide publication standard_edition].each do |type|
       if type == :corporate_information_page
         organisation = build_stubbed(:organisation)
         edition = build_stubbed(type, organisation:)
@@ -267,7 +271,9 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for non-persisted editions" do
-    %i[case_study consultation corporate_information_page detailed_guide document_collection fatality_notice news_article publication speech].each do |type|
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    %i[case_study consultation corporate_information_page detailed_guide document_collection fatality_notice publication speech standard_edition].each do |type|
       if type == :corporate_information_page
         organisation = build_stubbed(:organisation)
         edition = build(type, organisation:)
