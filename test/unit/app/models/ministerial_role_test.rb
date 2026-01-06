@@ -12,28 +12,6 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert_equal "prime-minister-cabinet-office", role.slug
   end
 
-  test "should be able to get news_articles associated with a role" do
-    editions = [create(:published_publication), create(:published_news_article)]
-    ministerial_role = create(:ministerial_role)
-    create(:role_appointment, role: ministerial_role, editions:)
-    assert_equal editions[1..1], ministerial_role.news_articles
-  end
-
-  test "should be able to get published news_articles associated with the role" do
-    editions = [create(:draft_news_article), create(:published_news_article), create(:news_article, :withdrawn)]
-    ministerial_role = create(:ministerial_role)
-    create(:role_appointment, role: ministerial_role, editions:)
-    assert_equal editions[1..1], ministerial_role.published_news_articles
-  end
-
-  test "should only ever get a news article once" do
-    ministerial_role = create(:ministerial_role)
-    appointment1 = create(:role_appointment, role: ministerial_role, started_at: 2.days.ago, ended_at: 1.day.ago)
-    appointment2 = create(:role_appointment, role: ministerial_role)
-    editions = [create(:published_news_article, role_appointments: [appointment1, appointment2])]
-    assert_equal editions, ministerial_role.news_articles
-  end
-
   test "should be able to get published speeches associated with the current appointee" do
     appointment = create(
       :ministerial_role_appointment,
