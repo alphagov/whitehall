@@ -10,7 +10,7 @@ module ServiceListeners
     class Publish < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't publish" do
         PublishingApiWorker.any_instance.expects(:perform).never
-        call(create(:published_news_article))
+        call(create(:published_speech))
       end
 
       test "with no html attachments doesn't publish" do
@@ -333,9 +333,9 @@ module ServiceListeners
 
     class UpdateDraft < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't save draft" do
-        news_article = create(:published_news_article)
+        speech = create(:published_speech)
         Whitehall::PublishingApi.expects(:save_draft).never
-        call(news_article)
+        call(speech)
       end
 
       test "with no html attachments doesn't save draft" do
@@ -640,7 +640,7 @@ module ServiceListeners
       class Withdraw < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't publish a withdrawal" do
           PublishingApiWithdrawalWorker.any_instance.expects(:perform).never
-          call(create(:published_news_article))
+          call(create(:published_speech))
         end
 
         test "for a publication with no html attachments doesn't publish a withdrawal" do
@@ -738,7 +738,7 @@ module ServiceListeners
       class Delete < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't discard any drafts" do
           PublishingApiDiscardDraftWorker.expects(:perform_async).never
-          call(create(:published_news_article))
+          call(create(:published_edition))
         end
 
         test "for a draft publication with no html attachments doesn't discard any drafts" do

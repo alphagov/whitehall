@@ -36,7 +36,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "#create renders #index with a valid image upload" do
     login_authorised_user
-    edition = create(:news_article)
+    edition = create(:draft_case_study)
 
     file = upload_fixture("images/960x640_jpeg.jpg")
     PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
@@ -49,7 +49,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "#create updates the lead_image association if edition can have a custom lead image" do
     login_authorised_user
-    edition = create(:news_article)
+    edition = create(:draft_case_study)
 
     file = upload_fixture("images/960x640_jpeg.jpg")
     post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
@@ -59,7 +59,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   view_test "#create shows a validation error if image is too small" do
     login_authorised_user
-    edition = create(:news_article)
+    edition = create(:draft_case_study)
 
     file = upload_fixture("images/50x33_gif.gif")
     post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
@@ -70,7 +70,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   view_test "#create shows a validation error if image has a duplicated filename" do
     login_authorised_user
-    edition = create(:news_article)
+    edition = create(:draft_case_study)
     file = upload_fixture("images/960x640_gif.gif")
     create(:image, edition:, image_data: build(:image_data, file:))
 
@@ -83,7 +83,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
   test "POST :create triggers a job be queued to store image and variants in Asset Manager" do
     login_authorised_user
 
-    edition = create(:news_article)
+    edition = create(:draft_case_study)
     file = upload_fixture("images/960x640_jpeg.jpg")
     model_type = ImageData.to_s
     variants = Asset.variants.values
@@ -112,7 +112,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
   end
 
   test "#create shows success message when all image assets are uploaded" do
-    edition = create(:news_article)
+    edition = create(:draft_case_study)
     filename = "big-cheese.960x640.jpg"
     Services.asset_manager.stubs(:create_asset).returns({ "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => filename })
 

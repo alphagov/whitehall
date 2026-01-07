@@ -10,8 +10,7 @@ class TopicalEventResluggerTest < ActiveSupport::TestCase
     @topical_event = FactoryBot.create(:topical_event, slug: @old_slug)
 
     @detailed_guide = FactoryBot.create(:published_detailed_guide)
-    @news_article = FactoryBot.create(:published_news_article)
-    @topical_event.expects(:editions).returns([@detailed_guide, @news_article])
+    @topical_event.expects(:editions).returns([@detailed_guide])
 
     @reslugger = DataHygiene::TopicalEventReslugger.new(@topical_event, @new_slug)
   end
