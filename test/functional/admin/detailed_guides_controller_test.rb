@@ -17,6 +17,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_creating_of :detailed_guide
   should_allow_editing_of :detailed_guide
 
+  should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled :detailed_guide
   should_allow_lead_and_supporting_organisations_for :detailed_guide
   should_allow_association_with_related_mainstream_content :detailed_guide
   should_allow_alternative_format_provider_for :detailed_guide

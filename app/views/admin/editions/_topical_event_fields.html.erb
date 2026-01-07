@@ -15,3 +15,21 @@
     multiple: true,
   } %>
 <% end %>
+<% if Flipflop.enabled?(:configurable_document_types) %>
+  <%= render "govuk_publishing_components/components/select_with_search", {
+    id: "edition_topical_event_document_ids",
+    name: "edition[topical_event_document_ids][]",
+    include_blank: true,
+    label: "Topical events (experimental)",
+    hint: "Topical events created via the documents menu will appear here",
+    heading_size: "m",
+    options: StandardEdition.where(configurable_document_type: "topical_event").order(:title).map do |topical_event|
+      {
+        text: topical_event.title,
+        value: topical_event.document_id,
+        selected: edition.topical_event_document_ids.include?(topical_event.document_id),
+      }
+    end,
+    multiple: true,
+  } %>
+<% end %>

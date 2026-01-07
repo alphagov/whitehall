@@ -25,6 +25,18 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_equal topical_event, new_edition.topical_events.first
   end
 
+  test "new edition of document that is associated with a topical event document should retain that association" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    topical_event = create(:standard_edition, configurable_document_type: "topical_event")
+    edition = create(:published_speech, topical_event_documents: [topical_event.document])
+
+    new_edition = edition.create_draft(create(:writer))
+    new_edition.change_note = "change-note"
+    force_publish(new_edition)
+
+    assert_equal topical_event.document, new_edition.topical_event_documents.first
+  end
+
   test "#destroy should also remove the topical event featuring relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_news_article)

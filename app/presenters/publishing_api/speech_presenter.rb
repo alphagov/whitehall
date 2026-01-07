@@ -62,7 +62,7 @@ module PublishingApi
         ],
       )
       links.merge!(links_for_speaker)
-      links.merge!(links_for_topical_events)
+      links.merge!(PayloadBuilder::TopicalEvents.for(item))
       links.merge!(PayloadBuilder::Roles.for(item))
       links.merge!(PayloadBuilder::People.for(item))
     end
@@ -101,10 +101,6 @@ module PublishingApi
       return {} unless speaker
 
       { speaker: [speaker.content_id] }
-    end
-
-    def links_for_topical_events
-      { topical_events: item.topical_events.pluck(:content_id) }
     end
 
     def speaker
