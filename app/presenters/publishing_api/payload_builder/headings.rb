@@ -1,6 +1,6 @@
 module PublishingApi
   module PayloadBuilder
-    class BodyHeadings
+    class Headings
       include Presenters::PublishingApi::PayloadHeadingsHelper
 
       attr_reader :govspeak, :options

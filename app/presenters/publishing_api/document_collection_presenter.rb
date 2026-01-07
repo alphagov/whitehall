@@ -64,7 +64,7 @@ module PublishingApi
       }.tap do |details_hash|
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
         details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
-        details_hash.merge!(PayloadBuilder::BodyHeadings.for(item.body))
+        details_hash.merge!(PayloadBuilder::Headings.for(item.body))
         details_hash.merge!(PayloadBuilder::EmphasisedOrganisations.for(item))
       end
     end

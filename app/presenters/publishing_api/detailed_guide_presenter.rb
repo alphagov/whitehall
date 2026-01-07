@@ -73,7 +73,7 @@ module PublishingApi
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
       details_hash.merge!(PayloadBuilder::Attachments.for(item))
-      details_hash.merge!(PayloadBuilder::BodyHeadings.for(item.body))
+      details_hash.merge!(PayloadBuilder::Headings.for(item.body))
       details_hash.merge!(PayloadBuilder::EmphasisedOrganisations.for(item))
     end
 

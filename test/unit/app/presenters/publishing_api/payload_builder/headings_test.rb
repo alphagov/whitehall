@@ -2,7 +2,7 @@ require "test_helper"
 
 module PublishingApi
   module PayloadBuilder
-    class PayloadBuilderBodyHeadingsTest < ActiveSupport::TestCase
+    class PayloadBuilderHeadingsTest < ActiveSupport::TestCase
       test "returns an array of level 2 headers if they are found in the body" do
         govspeak = "##Heading 2 \n\nSome stuff\n\n"
 
@@ -14,7 +14,7 @@ module PublishingApi
           }],
         }
 
-        assert_equal BodyHeadings.for(govspeak), expected_headers
+        assert_equal Headings.for(govspeak), expected_headers
       end
 
       test "returns an array including level 3 headers if they are found in the body" do
@@ -33,13 +33,13 @@ module PublishingApi
           }],
         }
 
-        assert_equal BodyHeadings.for(govspeak), expected_headers
+        assert_equal Headings.for(govspeak), expected_headers
       end
 
       test "returns empty map if there are no headers in the body" do
         govspeak = "Some stuff"
 
-        assert_equal BodyHeadings.for(govspeak), {}
+        assert_equal Headings.for(govspeak), {}
       end
     end
   end

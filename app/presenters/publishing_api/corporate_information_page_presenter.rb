@@ -60,7 +60,7 @@ module PublishingApi
         .merge(Organisation.for(corporate_information_page))
         .merge(PayloadBuilder::TagDetails.for(corporate_information_page))
         .merge(PayloadBuilder::Attachments.for(corporate_information_page))
-        .merge(PayloadBuilder::BodyHeadings.for(corporate_information_page.body))
+        .merge(PayloadBuilder::Headings.for(corporate_information_page.body))
     end
 
     def links_presenter

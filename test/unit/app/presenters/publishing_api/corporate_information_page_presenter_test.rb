@@ -179,7 +179,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test "headers" do
-      assert_details_payload "PublishingApi::PayloadBuilder::BodyHeadings"
+      assert_details_payload "PublishingApi::PayloadBuilder::Headings"
     end
 
     test "validity" do

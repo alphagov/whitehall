@@ -62,7 +62,7 @@ module PublishingApi
         first_published_version: first_published_version?,
         political: political?,
       }.tap do |details_hash|
-        details_hash.merge!(PayloadBuilder::BodyHeadings.for(item.body, auto_numbered_headers: !item.manually_numbered_headings?))
+        details_hash.merge!(PayloadBuilder::Headings.for(item.body, auto_numbered_headers: !item.manually_numbered_headings?))
       end
 
       maybe_add_national_applicability(details_hash)
