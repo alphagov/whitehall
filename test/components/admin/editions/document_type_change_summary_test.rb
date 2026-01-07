@@ -19,6 +19,7 @@ class Admin::Editions::DocumentTypeChangeSummaryTest < ViewComponent::TestCase
       associations: [
         { "key" => "organisations" },
         { "key" => "world_locations" },
+        { "key" => "ministerial_role_appointments" },
       ],
     )
 

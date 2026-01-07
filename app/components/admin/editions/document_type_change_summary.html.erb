@@ -13,7 +13,7 @@
 <% if lost_association_items.any? || new_association_items.any? %>
   <%= render "govuk_publishing_components/components/summary_list", {
     title: "Associations",
-    items: lost_association_items + new_association_items,
+    items: lost_association_items + new_association_items + common_association_items,
   } %>
 <% else %>
   <h3 class="govuk-heading-m">Associations</h3>
