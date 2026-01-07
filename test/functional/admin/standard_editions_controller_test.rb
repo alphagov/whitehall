@@ -113,7 +113,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     edition = create(:standard_edition, configurable_document_type: "old_type")
     get :change_type_preview, params: { id: edition.id, configurable_document_type: "new_type" }
     assert_response :ok
-    assert_dom "h1", "Preview document type change"
+    assert_dom "h1", "Review document type change"
   end
 
   view_test "PATCH apply_change_type succeeds if user has permission and params are valid" do

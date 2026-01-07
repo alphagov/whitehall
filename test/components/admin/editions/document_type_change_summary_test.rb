@@ -50,19 +50,22 @@ class Admin::Editions::DocumentTypeChangeSummaryTest < ViewComponent::TestCase
 
     # Lost field (image)
     assert_text "Custom lead image"
-    assert_text "Will be LOST - this field exists on “Old type” but not on “New type”."
+    assert_text "Will be deleted. A ‘New type’ does not have a ‘Custom lead image’ field."
 
     # New field (summary)
     assert_text "Summary"
-    assert_text "Will need POPULATING - this field exists on “New type” but not on “Old type”."
+    assert_text "Will need to be added. A ‘New type’ has a ‘Summary’ field. This field will be blank after the change."
 
     # Lost association (world_locations)
     assert_text "World locations"
-    assert_text "Will be LOST - this association exists on “Old type” but not on “New type”."
+    assert_text "Will be deleted. A ‘New type’ does not have a ‘World locations’ association."
 
     # New association (topical_events)
     assert_text "Topical events"
-    assert_text "Will need POPULATING - this association exists on “New type” but not on “Old type”."
+    assert_text "Will need to be added. A ‘New type’ has a ‘Topical events’ association. This field will be blank after the change."
+
+    assert_text "Organisations"
+    assert_text "These associations will be carried over, you will not have to fill them in again."
   end
 
   test "renders fallback messages when there are no changes" do
@@ -87,10 +90,10 @@ class Admin::Editions::DocumentTypeChangeSummaryTest < ViewComponent::TestCase
     )
 
     assert_text "Document fields"
-    assert_text "All document fields will be carried over and no additional document fields will need to be populated."
+    assert_text "All content in the document fields will be carried over. You will not have to add your content again."
 
     assert_text "Associations"
-    assert_text "All associations will be carried over and no additional associations will need to be populated."
+    assert_text "All associations will be carried over. You will not have to fill in the associations again."
   end
 
   test "handles missing properties and associations gracefully" do

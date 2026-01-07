@@ -1,7 +1,7 @@
 {
   "key": "press_release",
   "title": "Press release",
-  "description": "Unedited press releases as sent to the media, and official statements from the organisation or a minister. Do not use for: statements to Parliament. Use the “Speech” format for those.",
+  "description": "Unedited press releases as sent to the media, and official statements from the organisation or a minister. Do not use for: statements to Parliament. Use the ‘Speech’ format for those.",
   "forms": {
     "documents": {
       "fields": {

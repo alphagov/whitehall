@@ -1,7 +1,7 @@
 {
   "key": "world_news_story",
   "title": "World news story",
-  "description": "Announcements specific to one or more world location. Don’t duplicate news published by another department.",
+  "description": "Announcements specific to one or more world location. Do not duplicate news published by another department.",
     "forms": {
     "documents": {
       "fields": {

@@ -24,7 +24,7 @@ private
       schema = @old_type.properties[key]
       {
         field: schema["title"] || key.humanize,
-        value: "Will be LOST - this field exists on “#{@old_type.label}” but not on “#{@new_type.label}”.",
+        value: "Will be <strong>deleted</strong>. A ‘#{@new_type.label}’ does not have a ‘#{schema['title'] || key.humanize}’ field.".html_safe,
       }
     end
 
@@ -32,21 +32,25 @@ private
       schema = @new_type.properties[key]
       {
         field: schema["title"] || key.humanize,
-        value: "Will need POPULATING - this field exists on “#{@new_type.label}” but not on “#{@old_type.label}”. It will be blank after the change.",
+        value: "Will need to be <strong>added</strong>. A ‘#{@new_type.label}’ has a ‘#{schema['title'] || key.humanize}’ field. This field will be blank after the change.".html_safe,
       }
     end
 
     @lost_association_items = removed_assoc_keys.map do |key|
+      field = key.humanize
+      
       {
-        field: key.humanize,
-        value: "Will be LOST - this association exists on “#{@old_type.label}” but not on “#{@new_type.label}”.",
+        field:,
+        value: "Will be <strong>deleted</strong>. A ‘#{@new_type.label}’ does not have a ‘#{field}’ association.".html_safe,
       }
     end
 
     @new_association_items = added_assoc_keys.map do |key|
+      field = key.humanize
+
       {
-        field: key.humanize,
-        value: "Will need POPULATING - this association exists on “#{@new_type.label}” but not on “#{@old_type.label}”. It will be blank after the change",
+        field:,
+        value: "Will need to be <strong>added</strong>. A ‘#{@new_type.label}’ has a ‘#{field}’ association. This field will be blank after the change.".html_safe,
       }
     end
   end

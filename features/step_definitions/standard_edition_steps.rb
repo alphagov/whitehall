@@ -403,7 +403,7 @@ end
 Then("choosing a document type should take me to a preview page summarising the changes") do
   choose "Test configurable document type two"
   click_button "Next"
-  expect(page).to have_content("Preview document type change")
+  expect(page).to have_content("Review document type change")
   expect(page).to have_content("Document fields")
   expect(page).to have_content("Associations")
 end
