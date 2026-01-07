@@ -11,7 +11,7 @@ class AttachmentStorageTest < ActiveSupport::TestCase
   end
 
   test "store! stores the file in asset manager and returns a asset manager file object" do
-    edition = create(:draft_news_article, :with_file_attachment, auth_bypass_id: "test-bypass-id")
+    edition = create(:publication, :with_file_attachment, auth_bypass_id: "test-bypass-id")
     attachment = edition.attachments.first
 
     # Something has to set the transient "attachable" attribute on the data model for the uploader to work, in its current design
@@ -36,7 +36,7 @@ class AttachmentStorageTest < ActiveSupport::TestCase
   end
 
   test "retrieve! returns an asset manager file with the location of the file on disk" do
-    edition = create(:draft_news_article, :with_file_attachment)
+    edition = create(:publication, :with_file_attachment)
     attachment = edition.attachments.first
     filename = "identifier.jpg"
     uploader = AttachmentUploader.new(attachment.attachment_data)

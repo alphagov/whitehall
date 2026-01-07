@@ -4,7 +4,7 @@ class AttachmentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test ".publishing_api_details has file_attachment_asset attributes" do
-    attachment = build(:file_attachment, attachable: build(:news_article))
+    attachment = build(:file_attachment, attachable: build(:detailed_guide))
 
     output = attachment.publishing_api_details
     assert_equal output.keys,

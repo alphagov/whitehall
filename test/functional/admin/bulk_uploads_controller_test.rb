@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::BulkUploadsControllerTest < ActionController::TestCase
   setup do
-    @edition = create(:news_article)
+    @edition = create(:draft_publication, :with_alternative_format_provider, attachments: [])
     login_as :gds_editor
     @titles = []
   end
@@ -45,7 +45,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   end
 
   test "Actions are unavailable on unmodifiable editions" do
-    edition = create(:published_news_article)
+    edition = create(:published_publication)
     post :create, params: { edition_id: edition, bulk_upload: valid_create_params }
     assert_response :redirect
   end

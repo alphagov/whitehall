@@ -5,7 +5,7 @@ module ServiceListeners
     extend Minitest::Spec::DSL
 
     describe ServiceListeners::AttachmentAssetPublisher do
-      let(:edition) { create(:published_news_article) }
+      let(:edition) { create(:published_edition) }
       let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
 
       it "sets the expected attributes" do

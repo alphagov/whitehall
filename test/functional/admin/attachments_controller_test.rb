@@ -70,7 +70,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "Actions are unavailable on unmodifiable editions" do
-    edition = create(:published_news_article)
+    edition = create(:published_publication)
 
     get :index, params: { edition_id: edition }
     assert_response :redirect
