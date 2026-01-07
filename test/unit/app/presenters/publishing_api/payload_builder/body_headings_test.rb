@@ -4,7 +4,7 @@ module PublishingApi
   module PayloadBuilder
     class PayloadBuilderBodyHeadingsTest < ActiveSupport::TestCase
       test "returns an array of level 2 headers if they are found in the body" do
-        item = stub(body: "##Heading 2 \n\nSome stuff\n\n")
+        govspeak = "##Heading 2 \n\nSome stuff\n\n"
 
         expected_headers = {
           headers: [{
@@ -14,11 +14,11 @@ module PublishingApi
           }],
         }
 
-        assert_equal BodyHeadings.for(item), expected_headers
+        assert_equal BodyHeadings.for(govspeak), expected_headers
       end
 
       test "returns an array including level 3 headers if they are found in the body" do
-        item = stub(body: "##Heading 2 \n\nSome stuff\n\n###Heading 3\n\nSome stuff\n\n")
+        govspeak = "##Heading 2 \n\nSome stuff\n\n###Heading 3\n\nSome stuff\n\n"
 
         expected_headers = {
           headers: [{
@@ -33,13 +33,13 @@ module PublishingApi
           }],
         }
 
-        assert_equal BodyHeadings.for(item), expected_headers
+        assert_equal BodyHeadings.for(govspeak), expected_headers
       end
 
       test "returns empty map if there are no headers in the body" do
-        item = stub(body: "Some stuff")
+        govspeak = "Some stuff"
 
-        assert_equal BodyHeadings.for(item), {}
+        assert_equal BodyHeadings.for(govspeak), {}
       end
     end
   end

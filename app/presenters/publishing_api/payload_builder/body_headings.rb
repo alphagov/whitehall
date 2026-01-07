@@ -3,14 +3,14 @@ module PublishingApi
     class BodyHeadings
       include Presenters::PublishingApi::PayloadHeadingsHelper
 
-      attr_reader :item, :options
+      attr_reader :govspeak, :options
 
-      def self.for(item, options = {})
-        new(item, options).call
+      def self.for(govspeak, options = {})
+        new(govspeak, options).call
       end
 
-      def initialize(item, options)
-        @item = item
+      def initialize(govspeak, options)
+        @govspeak = govspeak
         @options = {
           auto_numbered_headers: options[:auto_numbered_headers] || false,
           auto_numbered_header_levels: [2, 3],
@@ -18,7 +18,7 @@ module PublishingApi
       end
 
       def call
-        extract_headings(item.body, options)
+        extract_headings(govspeak, options)
       end
     end
   end
