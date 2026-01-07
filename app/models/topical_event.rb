@@ -24,7 +24,6 @@ class TopicalEvent < ApplicationRecord
   has_many :consultations, through: :topical_event_memberships
   has_many :calls_for_evidence, through: :topical_event_memberships
   has_many :detailed_guides, through: :topical_event_memberships
-  has_many :news_articles, through: :topical_event_memberships
   has_many :publications, through: :topical_event_memberships
   has_many :speeches, through: :topical_event_memberships
 
