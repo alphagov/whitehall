@@ -12,7 +12,7 @@ object ImmediatelyPublishedDocuments {
 note right: Some content types are published\nimmediately as the user saves the changes.
 
 object EditionableDocuments {
- NewsArticle
+ StandardEdition
  Speech
  Consultation
  DetailedGuide
