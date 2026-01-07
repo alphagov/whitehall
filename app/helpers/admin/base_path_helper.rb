@@ -8,7 +8,7 @@ module Admin::BasePathHelper
     { "DetailedGuide" => "/guidance" },
     { "DocumentCollection" => "/government/collections" },
     { "FatalityNotice" => "/government/fatalities" },
-    { "NewsArticle" => "/government/news" },
+    { "StandardEdition" => "/government/news" },
     { "OperationalField" => "/government/fields-of-operation" },
     { "Publication" => "/government/publications" },
     { "Publication" => "/government/statistics" },

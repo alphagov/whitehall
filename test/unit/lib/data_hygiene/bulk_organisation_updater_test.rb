@@ -296,6 +296,30 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     assert_equal announcement.reload.organisations, [lead_organisation, supporting_organisation1, supporting_organisation2]
   end
 
+  test "it processes Standard Editions" do
+    csv_file = <<~CSV
+      URL,Lead organisations,Supporting organisations
+      https://www.gov.uk/government/news/some-slug,lead-organisation,
+    CSV
+
+    document = create(:document, slug: "some-slug")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(
+                                                "test_type", {
+                                                  "associations" => [{ "key" => "organisations" }],
+                                                  "settings" => { "base_path_prefix" => "/government/news" },
+                                                }
+                                              ))
+    standard_edition = build(:standard_edition, document:)
+    standard_edition.edition_organisations.build([{ organisation: create(:organisation), lead: true }])
+    standard_edition.save!
+
+    organisation = create(:organisation, slug: "lead-organisation")
+
+    process(csv_file)
+
+    assert_equal [organisation], standard_edition.reload.lead_organisations
+  end
+
   test "it doesn't change a Statistics Announcement which has already changed" do
     csv_file = <<~CSV
       URL,Lead organisations,Supporting organisations
