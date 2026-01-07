@@ -14,6 +14,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :speech
   should_allow_access_limiting_of :speech
   should_allow_association_with_topical_events :speech
+  should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled :speech
 
   view_test "new displays speech fields" do
     get :new

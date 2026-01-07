@@ -10,6 +10,10 @@ module Edition::TopicalEvents
       edition.topical_event_memberships = @edition.topical_event_memberships.map do |dt|
         TopicalEventMembership.new(dt.attributes.except("id"))
       end
+
+      edition.topical_event_links = @edition.topical_event_links.map do |link|
+        EditionLink.new(link.attributes.except("id"))
+      end
     end
   end
 
@@ -17,6 +21,8 @@ module Edition::TopicalEvents
     has_many :topical_event_featurings, dependent: :destroy, foreign_key: :edition_id
     has_many :topical_event_memberships, dependent: :destroy, inverse_of: :edition, foreign_key: :edition_id
     has_many :topical_events, through: :topical_event_memberships, source: :topical_event
+    has_many :topical_event_links, -> { of_type "topical_event" }, class_name: "EditionLink", dependent: :destroy, inverse_of: :edition, foreign_key: :edition_id
+    has_many :topical_event_documents, through: :topical_event_links, source: :document
 
     add_trait Trait
   end

@@ -13,6 +13,7 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
   should_allow_creating_of :call_for_evidence
   should_allow_editing_of :call_for_evidence
 
+  should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled :call_for_evidence
   should_allow_lead_and_supporting_organisations_for :call_for_evidence
   should_allow_alternative_format_provider_for :call_for_evidence
   should_allow_scheduled_publication_of :call_for_evidence
