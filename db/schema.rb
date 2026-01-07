@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_07_120715) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_07_195134) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -379,7 +379,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_07_120715) do
     t.integer "published_minor_version"
     t.integer "operational_field_id"
     t.text "roll_call_introduction", size: :medium
-    t.integer "news_article_type_id"
     t.string "person_override"
     t.boolean "external", default: false
     t.string "external_url"
