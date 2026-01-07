@@ -11,16 +11,16 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     test "#{transition}ing an edition populates its dependencies" do
       contact = create(:contact)
       speech = create(:speech)
-      news_article = create(
-        :submitted_news_article,
+      publication = create(
+        :submitted_publication,
         body: "For more information, get in touch at:
         [Contact:#{contact.id}] or read our [official statement](/government/admin/speeches/#{speech.id})",
         major_change_published_at: Time.zone.now,
       )
 
-      assert Whitehall.edition_services.send(service_name, news_article).perform!
-      assert_equal [contact], news_article.depended_upon_contacts
-      assert_equal [speech], news_article.depended_upon_editions
+      assert Whitehall.edition_services.send(service_name, publication).perform!
+      assert_equal [contact], publication.depended_upon_contacts
+      assert_equal [speech], publication.depended_upon_editions
     end
 
     test "#{transition}ing a depended-upon edition republishes the dependent edition" do
@@ -29,6 +29,8 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
         expect_publishing(dependable_speech)
         expect_republishing(dependent_article)
+        # Publications have HTML attachments that get republished too
+        expect_republishing(*dependent_article.html_attachments)
 
         dependable_speech.major_change_published_at = Time.zone.now
         assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
@@ -56,7 +58,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
   # no need to republish an unpublished edition when its dependencies change, so
   test "unpublishing a depended-upon edition destroys links with its dependencies" do
-    edition = create(:published_news_article)
+    edition = create(:published_publication)
     edition.depended_upon_contacts << create(:contact)
     edition.depended_upon_editions << create(:speech)
 
@@ -70,7 +72,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
   def create_article_dependent_on_speech
     dependable_speech = create(:submitted_speech)
     dependent_article = create(
-      :published_news_article,
+      :published_publication,
       major_change_published_at: Time.zone.now,
       body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})",
     )
