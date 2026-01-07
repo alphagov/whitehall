@@ -33,6 +33,13 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
           },
         ],
         type: worldwide_office.worldwide_office_type.name,
+        headers: [
+          {
+            text: "About us",
+            level: 2,
+            id: "about-us",
+          },
+        ],
       },
       update_type: "major",
       links: {
