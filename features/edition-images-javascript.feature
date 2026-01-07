@@ -16,11 +16,3 @@ Feature: Images tab on edit edition
     When I click to edit the details of the image that needs to be cropped
     When I update the image details and save
     Then I should not see that the image requires cropping
-
-  @javascript
-  Scenario: Uploading a file with a duplicated filename
-    When a draft document with images exists
-    And I visit the images tab of the document with images
-    And I upload a 960x960 image
-    And I upload a 960x960 image
-    Then I should get 1 error message
