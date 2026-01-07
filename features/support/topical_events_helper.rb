@@ -24,30 +24,6 @@ module TopicalEventsHelper
     stub_topical_event_in_content_store(options[:name])
   end
 
-  def create_recently_published_documents_for_topical_event(event)
-    sample_document_types_and_titles.each.with_index do |(type, title), index|
-      create(
-        :"published_#{type}",
-        title:,
-        first_published_at: index.days.ago,
-        topical_events: [event],
-      )
-    end
-  end
-
-  def sample_document_types_and_titles
-    {
-      policy_paper: "Policy on Topicals",
-      consultation: "Examination of Events",
-      news_story: "PM attends summit on topical events",
-      statistics: "Weekly topical event prices",
-    }
-  end
-
-  def search_api_response
-    File.read(Rails.root.join("features/fixtures/search_api_response.json"))
-  end
-
   def stub_topical_event_in_content_store(name)
     content_item = {
       format: "topical_event",
