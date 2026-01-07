@@ -100,7 +100,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   it "should convert single document to govspeak" do
-    document = build(:published_news_article, body: "## test")
+    document = build(:published_publication, body: "## test")
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h2"
   end
@@ -181,7 +181,7 @@ class GovspeakHelperTest < ActionView::TestCase
     image = build(:image_with_no_assets)
     image.image_data.assets = [build(:asset), build(:asset, variant: Asset.variants[:s960])]
     image.image_data.save!
-    document = build(:published_news_article, images: [image], body:)
+    document = build(:published_publication, images: [image], body:)
 
     html = govspeak_edition_to_html(document)
     refute_select_within_html html, ".image.embedded"
@@ -200,7 +200,7 @@ class GovspeakHelperTest < ActionView::TestCase
       "permitted_uses" => [],
       "versions" => [],
     )
-    document = build(:published_news_article, images: [image], body:)
+    document = build(:published_publication, images: [image], body:)
 
     html = govspeak_edition_to_html(document)
     refute_select_within_html html, ".image.embedded"
@@ -275,13 +275,13 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   it "embeds images using !!number syntax" do
-    edition = build(:published_news_article, images: [build(:image)], body: "!!1")
+    edition = build(:published_publication, images: [build(:image)], body: "!!1")
     html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
 
   it "embeds images using [Image:] syntax" do
-    edition = build(:published_news_article, images: [build(:image)], body: "[Image: minister-of-funk.960x640.jpg]")
+    edition = build(:published_publication, images: [build(:image)], body: "[Image: minister-of-funk.960x640.jpg]")
     html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
@@ -562,7 +562,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
     it "should allow attached images to be embedded in edition body" do
       image = build(:image)
-      edition = build(:published_news_article, body: "!!1", images: [image])
+      edition = build(:published_publication, body: "!!1", images: [image])
       html = govspeak_edition_to_html(edition, { preview: true })
       assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.embed_url
     end
