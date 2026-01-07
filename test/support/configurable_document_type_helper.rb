@@ -17,6 +17,7 @@ module ConfigurableDocumentTypeHelper
           "edit_screens" => {
             "document" => %w[test_attribute],
           },
+          "configurable_document_group" => "test_group",
           "base_path_prefix" => "/government/test",
           "publishing_api_schema_name" => "test_article",
           "publishing_api_document_type" => "test_story",
@@ -29,5 +30,17 @@ module ConfigurableDocumentTypeHelper
         },
       }.deep_merge(attributes),
     }
+  end
+end
+
+class ConfigurableDocumentTypes::Conversions::TestGroup
+  def initialize(old_type, new_type)
+    @old_type = old_type
+    @new_type = new_type
+  end
+
+  def convert(edition)
+    edition.configurable_document_type = @new_type.key
+    edition.save!(validate: false)
   end
 end

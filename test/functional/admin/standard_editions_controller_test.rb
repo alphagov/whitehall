@@ -30,7 +30,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     ConfigurableDocumentType.setup_test_types(configurable_document_type_user_org
                                                 .merge(configurable_document_type_other_org))
-    get :choose_type
+    get :choose_type, params: { group: "test_group" }
     assert_response :ok
     assert_dom "label", "Test Type One"
     refute_dom "label", "Test Type Two"

@@ -2,11 +2,13 @@ require "test_helper"
 
 class Admin::Editions::DocumentTypeChangeSummaryTest < ViewComponent::TestCase
   def build_type(label:, properties: {}, associations: [])
-    OpenStruct.new(
-      label: label,
-      properties: properties,
-      associations: associations,
-    )
+    ConfigurableDocumentType.new({
+      "title" => label,
+      "schema" => {
+        "properties" => properties,
+      },
+      "associations" => associations,
+    })
   end
 
   test "renders summary lists for lost and new fields and associations" do

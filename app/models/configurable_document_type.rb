@@ -62,6 +62,10 @@ class ConfigurableDocumentType
     @settings = type["settings"]
   end
 
+  def -(other)
+    Diff.new(other, self)
+  end
+
   def label
     @title
   end
@@ -70,11 +74,38 @@ class ConfigurableDocumentType
     @schema["properties"]
   end
 
+  def group
+    @settings["configurable_document_group"]
+  end
+
   def properties_for_edit_screen(edit_screen)
     edit_screens = @settings["edit_screens"] || {}
     return [] unless edit_screens.key?(edit_screen)
 
     edit_screens[edit_screen].index_with { |key| properties[key] }
+  end
+
+  class Diff
+    attr_reader :added_prop_keys, :removed_prop_keys, :added_assoc_keys, :removed_assoc_keys
+
+    def initialize(type_a, type_b)
+      @removed_prop_keys = type_a.properties.keys - type_b.properties.keys
+      @added_prop_keys   = type_b.properties.keys - type_a.properties.keys
+      @removed_assoc_keys = type_a.associations.map { |a| a["key"] } - type_b.associations.map { |a| a["key"] }
+      @added_assoc_keys   = type_b.associations.map { |a| a["key"] } - type_a.associations.map { |a| a["key"] }
+    end
+  end
+
+  class Conversion
+    def initialize(old_type, new_type)
+      raise "Unable to convert between #{old_type.label} and #{new_type.label}" unless old_type.group == new_type.group
+      @conversion = "ConfigurableDocumentTypes::Conversions::#{old_type.group.classify}".constantize.new(old_type, new_type)
+    end
+
+    def convert(edition)
+      return false unless edition.pre_publication?
+      @conversion.convert(edition)
+    end
   end
 
   class NotFoundError < StandardError

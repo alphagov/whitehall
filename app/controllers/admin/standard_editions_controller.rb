@@ -11,6 +11,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
   def change_type
     find_edition
+    limit_edition_access!
 
     @available_types = ConfigurableDocumentType.convertible_from(@edition.configurable_document_type)
       .select { |type| can?(current_user, type) }
@@ -18,6 +19,8 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
   def change_type_preview
     find_edition
+    limit_edition_access!
+    detect_other_active_editors
 
     new_type_id = params.fetch(:configurable_document_type)
     @old_type = ConfigurableDocumentType.find(@edition.configurable_document_type)
@@ -26,9 +29,15 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
   def apply_change_type
     find_edition
-    new_type_id = params.fetch(:configurable_document_type)
+    limit_edition_access!
 
-    if @edition.update_configurable_document_type(new_type_id)
+    new_type_id = params.fetch(:configurable_document_type)
+    @old_type = ConfigurableDocumentType.find(@edition.configurable_document_type)
+    @new_type = ConfigurableDocumentType.find(new_type_id)
+
+    conversion = ConfigurableDocumentType::Conversion.new(@old_type, @new_type)
+
+    if conversion.convert(@edition)
       redirect_to admin_standard_edition_path(@edition), notice: "Document type changed successfully."
     else
       redirect_to change_type_preview_admin_standard_edition_path(@edition, configurable_document_type: new_type_id), alert: "Could not change document type."
