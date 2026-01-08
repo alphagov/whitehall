@@ -156,29 +156,40 @@ class StandardEditionTest < ActiveSupport::TestCase
     configurable_document_type =
       build_configurable_document_type(
         test_type, {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "test_object_attribute" => {
+                  "title" => "Test object attribute",
+                  "block" => "default_object",
+                  "fields" => {
+                    "test_nested_attribute" => {
+                      "title" => "Test nested attribute",
+                      "block" => "default_string",
+                    },
+                  },
+                },
+              },
+            },
+          },
           "schema" => {
             "attributes" => {
-              "test_object_attribute" => {
-                "type" => "object",
-                "attributes" => {
-                  "test_nested_attribute" => {
-                    "type" => "string",
-                  },
-                },
-                "validations" => {
-                  "presence" => {
-                    "attributes" => %w[test_nested_attribute],
-                  },
-                },
+              "test_nested_attribute" => {
+                "type" => "string",
+              },
+            },
+            "validations" => {
+              "presence" => {
+                "attributes" => %w[test_nested_attribute],
               },
             },
           },
         }
       )
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
-    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_object_attribute: { test_nested_attribute: "" } } })
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_nested_attribute: "" } })
     assert page.invalid?
-    assert_not page.errors.where("test_object_attribute.test_nested_attribute", :blank).empty?
+    assert_not page.errors.where("test_nested_attribute", :blank).empty?
   end
 
   test "it allows translations if the configurable document type settings permit them" do

@@ -115,6 +115,7 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
           "body" => { "type" => "string" },
           "summary" => { "type" => "string" },
           "audience" => { "type" => "string" },
+          "meta" => { "type" => "object" },
           "count" => { "type" => "integer" },
         },
       },
@@ -128,6 +129,11 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
         "body" => "Start",
         "summary" => "old summary",
         "audience" => "public",
+        "meta" => {
+          "info" => "some info",
+          "details" => "some details",
+          "bool" => true,
+        },
         "count" => 1,
         "junk" => "should be removed", # invalid per schema
       },
@@ -137,9 +143,14 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
     params = ActionController::Parameters.new(
       "block_content" => {
         "summary" => "new summary", # overwrite nested valid key
-        "count" => 2,                        # overwrite nested-nested valid key
-        "invalid_nested" => "ignore me",     # invalid nested key
+        "count" => 2, # overwrite nested-nested valid key
+        "invalid_nested" => "ignore me", # invalid nested key
         "unknown" => "ignore me too", # invalid nested key at level 1
+        "meta" => {
+          "info" => "updated info",
+          "details" => "updated details",
+          "bool" => false,
+        },
         "not_in_schema" => "nope", # invalid top-level key
       },
     ).permit!
@@ -154,6 +165,12 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
     assert_equal "new summary", bc["summary"]
     assert_equal "public",      bc["audience"] # preserved
     assert_equal 2,             bc["count"]    # updated
+
+    assert_equal({
+      "info" => "updated info",
+      "details" => "updated details",
+      "bool" => false,
+    }, bc["meta"].to_h)
 
     # invalid keys filtered out
     assert_nil bc["junk"]
