@@ -1,20 +1,25 @@
 require "test_helper"
+require "support/concerns/admin_edition_controller/creating_tests"
+require "support/concerns/admin_edition_controller/edition_editing_tests"
+require "support/concerns/admin_edition_controller/access_limiting_tests"
+require "support/concerns/admin_edition_controller/topical_events_tests"
+require "support/concerns/admin_edition_controller/topical_event_documents_tests"
 
 class Admin::SpeechesControllerTest < ActionController::TestCase
   setup do
     login_as :writer
   end
 
-  should_be_an_admin_controller
+  include AdminEditionController::CreatingTests
+  include AdminEditionController::EditionEditingTests
+  include AdminEditionController::AccessLimitingTests
+  include AdminEditionController::TopicalEventsTests
+  include AdminEditionController::TopicalEventDocumentsTests
 
-  should_allow_creating_of :speech
-  should_allow_editing_of :speech
+  should_be_an_admin_controller
 
   should_allow_association_between_world_locations_and :speech
   should_allow_scheduled_publication_of :speech
-  should_allow_access_limiting_of :speech
-  should_allow_association_with_topical_events :speech
-  should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled :speech
 
   view_test "new displays speech fields" do
     get :new
@@ -133,6 +138,10 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   end
 
 private
+
+  def edition_type
+    :speech
+  end
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:role_appointment, :speech_type).reverse_merge(
