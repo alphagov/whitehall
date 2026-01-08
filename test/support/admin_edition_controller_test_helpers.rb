@@ -1089,6 +1089,9 @@ module AdminEditionControllerTestHelpers
       view_test "new should display topical event documents field" do
         test_strategy = Flipflop::FeatureSet.current.test!
         test_strategy.switch!(:configurable_document_types, true)
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+        first_topical_event = create(:standard_edition, configurable_document_type: "topical_event")
+        second_topical_event = create(:standard_edition, configurable_document_type: "topical_event")
         get :new
 
         assert_select "form#new_edition" do
@@ -1097,6 +1100,9 @@ module AdminEditionControllerTestHelpers
           assert_select "#edition_topical_event_document_ids" do |elements|
             assert_equal 1, elements.length
           end
+
+          assert_select "#edition_topical_event_document_ids option[value=\"#{first_topical_event.document_id}\"]", text: first_topical_event.title
+          assert_select "#edition_topical_event_document_ids option[value=\"#{second_topical_event.document_id}\"]", text: second_topical_event.title
         end
         test_strategy.switch!(:configurable_document_types, false)
       end
