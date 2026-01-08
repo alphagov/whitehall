@@ -14,7 +14,7 @@ class TopicalEventsDocumentsTest < ActiveSupport::TestCase
   end
 end
 
-class TopicalEventsRenderingTest < ActionView::TestCase
+class TopicalEventDocumentsRenderingTest < ActionView::TestCase
   setup do
     @test_strategy ||= Flipflop::FeatureSet.current.test!
     @test_strategy.switch!(:configurable_document_types, true)
