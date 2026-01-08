@@ -19,6 +19,7 @@ module ConfigurableAssociations
       {
         "ministerial_role_appointments" => ->(edition) { ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments) },
         "topical_events" => ->(edition) { ConfigurableAssociations::TopicalEvents.new(edition.topical_events) },
+        "topical_event_documents" => ->(edition) { ConfigurableAssociations::TopicalEventDocuments.new(edition.topical_event_documents) },
         "world_locations" => ->(edition) { ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors, required: edition.world_location_association_required?) },
         "organisations" => ->(edition) { ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors) },
         "worldwide_organisations" => ->(edition) { ConfigurableAssociations::WorldwideOrganisations.new(edition.edition_worldwide_organisations, edition.errors, required: edition.worldwide_organisation_association_required?) },

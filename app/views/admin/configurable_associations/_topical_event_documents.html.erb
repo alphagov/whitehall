@@ -1,0 +1,17 @@
+<% if Flipflop.enabled?(:configurable_document_types) %>
+  <%= render "govuk_publishing_components/components/select_with_search", {
+    id: "edition_topical_event_document_ids",
+    name: "edition[topical_event_document_ids][]",
+    include_blank: true,
+    label: "Topical events (experimental)",
+    heading_size: "m",
+    options: topical_event_documents.options_query.map do |topical_event|
+      {
+        text: topical_event.title,
+        value: topical_event.document.id,
+        selected: topical_event_documents.selected_ids.include?(topical_event.document.id),
+      }
+    end,
+    multiple: true,
+  } %>
+<% end %>

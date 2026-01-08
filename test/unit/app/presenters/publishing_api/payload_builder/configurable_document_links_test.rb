@@ -12,6 +12,9 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
             "key" => "topical_events",
           },
           {
+            "key" => "topical_event_documents",
+          },
+          {
             "key" => "world_locations",
           },
           {
@@ -21,15 +24,19 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
             "key" => "worldwide_organisations",
           },
         ],
-      }),
+      }).merge(
+        build_configurable_document_type("topical_event"),
+      ),
     )
     ministerial_role_appointments = create_list(:ministerial_role_appointment, 2)
     topical_events = create_list(:topical_event, 2)
+    topical_event_documents = create_list(:published_standard_edition, 2, configurable_document_type: "topical_event").map(&:document)
     world_locations = create_list(:world_location, 2, active: true)
     organisations = create_list(:organisation, 2)
     edition = build(:standard_edition,
                     role_appointments: ministerial_role_appointments,
                     topical_events:,
+                    topical_event_documents:,
                     world_locations:)
     edition.edition_organisations.build([{ organisation: organisations.first, lead: true, lead_ordering: 0 }, { organisation: organisations.last, lead: false }])
     worldwide_organisations = create_list(:worldwide_organisation, 2)
@@ -41,7 +48,7 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
                                         .transpose
     assert_equal expected_people, links[:people]
     assert_equal expected_roles, links[:roles]
-    expected_topical_events = topical_events.map(&:content_id)
+    expected_topical_events = topical_events.map(&:content_id) + topical_event_documents.map(&:content_id)
     assert_equal expected_topical_events, links[:topical_events]
     expected_world_locations = world_locations.map(&:content_id)
     assert_equal expected_world_locations, links[:world_locations]

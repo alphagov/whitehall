@@ -6,7 +6,9 @@ module PublishingApi::PayloadBuilder
 
     def self.association_links(item)
       factory = ConfigurableAssociations::Factory.new(item)
-      factory.configurable_associations.map(&:links).reduce({}, :merge)
+      factory.configurable_associations.map(&:links).reduce({}) do |acc, links|
+        acc.merge!(links) { |_key, current_links, new_links| current_links + new_links }
+      end
     end
 
     def self.government_links(item)

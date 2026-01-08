@@ -40,6 +40,9 @@
       "key": "topical_events"
     },
     {
+      "key": "topical_event_documents"
+    },
+    {
       "key": "worldwide_organisations",
       "required": true
     },

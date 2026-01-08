@@ -143,6 +143,7 @@
               "organisations",
               "worldwide_organisations",
               "topical_events",
+              "topical_event_documents",
               "world_locations"
             ]
           }

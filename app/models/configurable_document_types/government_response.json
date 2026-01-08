@@ -43,6 +43,9 @@
       "key": "topical_events"
     },
     {
+      "key": "topical_event_documents"
+    },
+    {
       "key": "world_locations"
     },
     {
