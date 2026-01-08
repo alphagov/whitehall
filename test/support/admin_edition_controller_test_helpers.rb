@@ -1089,6 +1089,8 @@ module AdminEditionControllerTestHelpers
       view_test "new should display topical event documents field" do
         test_strategy = Flipflop::FeatureSet.current.test!
         test_strategy.switch!(:configurable_document_types, true)
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+        topical_events = create_list(:published_standard_edition, 2, configurable_document_type: "topical_event")
         get :new
 
         assert_select "form#new_edition" do
@@ -1096,6 +1098,10 @@ module AdminEditionControllerTestHelpers
 
           assert_select "#edition_topical_event_document_ids" do |elements|
             assert_equal 1, elements.length
+          end
+
+          topical_events.each do |event|
+            assert_select "#edition_topical_event_document_ids option[value=\"#{event.document_id}\"]", text: event.title
           end
         end
         test_strategy.switch!(:configurable_document_types, false)
@@ -1121,7 +1127,9 @@ module AdminEditionControllerTestHelpers
       view_test "edit should display topical event documents field" do
         test_strategy = Flipflop::FeatureSet.current.test!
         test_strategy.switch!(:configurable_document_types, true)
-        edition = create("draft_#{edition_type}")
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+        topical_events = create_list(:published_standard_edition, 2, configurable_document_type: "topical_event")
+        edition = create("draft_#{edition_type}", topical_event_documents: topical_events.map(&:document))
 
         get :edit, params: { id: edition }
 
@@ -1130,6 +1138,10 @@ module AdminEditionControllerTestHelpers
 
           assert_select "#edition_topical_event_document_ids" do |elements|
             assert_equal 1, elements.length
+          end
+
+          topical_events.each do |event|
+            assert_select "#edition_topical_event_document_ids option[value=\"#{event.document_id}\"][selected=\"selected\"]", text: event.title
           end
         end
         test_strategy.switch!(:configurable_document_types, false)
