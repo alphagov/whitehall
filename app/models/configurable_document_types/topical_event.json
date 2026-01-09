@@ -73,7 +73,7 @@
   "associations": [
     {
       "key": "organisations",
-      "key": "offsite_links",
+      "key": "offsite_links"
     }
   ],
   "settings": {

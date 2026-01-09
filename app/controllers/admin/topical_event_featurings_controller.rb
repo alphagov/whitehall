@@ -17,6 +17,13 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
 
     @topical_event_featurings = @topical_event.topical_event_featurings
     @featurable_offsite_links = @topical_event.offsite_links
+    @featurable_editions = if @topical_event.is_a?(StandardEdition)
+                             @topical_event.topical_event_documents
+                                           .page(params[:page])
+                                           .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+                           else
+                             @topical_event.featurable_editions(@tagged_editions)
+                           end
   end
 
   def new
@@ -88,6 +95,8 @@ private
       @filter.editions
     elsif @topical_event.respond_to?(:topical_event_documents)
       @topical_event.topical_event_documents
+                      .page(params[:page])
+                      .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
     else
       @topical_event.editions.published
                              .with_translations

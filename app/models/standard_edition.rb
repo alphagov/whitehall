@@ -8,12 +8,16 @@ class StandardEdition < Edition
   include Edition::WorldLocations
   include Edition::Organisations
   include Edition::WorldwideOrganisations
+  include Edition::OffsiteLinks
   include HasBlockContent
   include StandardEdition::DefaultLeadImage
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
-
   scope :with_news_article_document_type, -> { where(configurable_document_type: ConfigurableDocumentType.where_group("news_article").map(&:key)) }
+
+  def name
+    title
+  end
 
   def format_name
     type_instance.label.downcase

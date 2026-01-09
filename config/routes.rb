@@ -317,6 +317,10 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
 
+        resources :offsite_links do
+          get :confirm_destroy, on: :member
+        end
+
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do
           get :confirm_destroy, on: :member
         end
