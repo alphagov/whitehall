@@ -48,6 +48,7 @@ module PublishingApi
       details.merge!(PayloadBuilder::PoliticalDetails.for(item)) if type.settings["history_mode_enabled"] == true
       details.merge!(PayloadBuilder::Attachments.for(item)) if type.settings["file_attachments_enabled"] == true
       details.merge!(PayloadBuilder::EmphasisedOrganisations.for(item)) if item.organisation_association_enabled?
+      details.merge!(PayloadBuilder::SocialMediaLinks.for(item)) if item.can_be_associated_with_social_media_accounts?
       details.merge!({ headers: }.compact) if type.schema.key? "headings_from"
       details
     end
