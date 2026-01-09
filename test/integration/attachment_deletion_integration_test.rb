@@ -6,6 +6,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "attachment deletion" do
     context "given a draft document with multiple file attachments" do
@@ -14,7 +15,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       let(:first_asset_id) { first_attachment.attachment_data.assets.first.asset_manager_id }
       let(:second_attachment) { build(:file_attachment, attachable: edition) }
       let(:second_asset_id) { second_attachment.attachment_data.assets.first.asset_manager_id }
-      let(:edition) { create(:news_article) }
+      let(:edition) { create(:detailed_guide, :with_alternative_format_provider) }
       let(:topic_taxon) { build(:taxon_hash) }
 
       before do
@@ -36,7 +37,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         it "deletes the corresponding asset in Asset Manager when the edition is published" do
           Services.asset_manager.expects(:delete_asset).never
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Modify attachments"
           within page.find("li", text: first_attachment.title) do
             click_link "Delete attachment"
@@ -48,7 +49,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           Services.asset_manager.expects(:update_asset).once.with(first_asset_id, has_entries({ "draft" => false, "parent_document_url" => edition.public_url(draft: false) }))
           Services.asset_manager.expects(:update_asset).once.with(second_asset_id, has_entries({ "draft" => false, "parent_document_url" => edition.public_url(draft: false) }))
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Force publish"
           assert_text "Reason for force publishing"
           fill_in "Reason for force publishing", with: "testing"
@@ -64,7 +65,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           Services.asset_manager.expects(:delete_asset).once.with(first_asset_id)
           Services.asset_manager.expects(:delete_asset).once.with(second_asset_id)
 
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Delete draft"
           click_button "Delete"
 
@@ -75,7 +76,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
     context "given an unpublished document, with a new draft" do
       let(:managing_editor) { create(:managing_editor) }
-      let(:earliest_attachable) { create(:unpublished_publication, :with_file_attachment) }
+      let(:earliest_attachable) { create(:detailed_guide, :unpublished, :with_file_attachment) }
       let(:latest_attachable) { earliest_attachable.reload.create_draft(managing_editor) }
       let(:attachment) { latest_attachable.attachments.first }
       let(:original_asset_manager_id) { attachment.attachment_data.assets.first.asset_manager_id }
@@ -97,7 +98,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       it "does not delete the asset when the draft is discarded, if the attachment was present on the previous edition" do
         Services.asset_manager.expects(:delete_asset).never
 
-        visit admin_publication_path(latest_attachable)
+        visit admin_detailed_guide_path(latest_attachable)
         click_link "Delete draft"
         assert_text "Are you sure you want to delete this draft?"
         click_button "Delete"
@@ -109,7 +110,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
     context "given a published document with a draft" do
       let(:managing_editor) { create(:managing_editor) }
-      let(:earliest_attachable) { create(:published_news_article, :with_file_attachment) }
+      let(:earliest_attachable) { create(:published_detailed_guide, :with_file_attachment) }
       let(:latest_attachable) { earliest_attachable.reload.create_draft(managing_editor) }
       let(:attachment) { latest_attachable.attachments.first }
       let(:original_asset_manager_id) { attachment.attachment_data.assets.first.asset_manager_id }
@@ -129,7 +130,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it "deletes the corresponding asset in Asset Manager only when the new draft gets published" do
-        visit admin_news_article_path(latest_attachable)
+        visit admin_edition_path(latest_attachable)
         click_link "Modify attachments"
         within page.find("li", text: attachment.title) do
           click_link "Delete attachment"
@@ -140,7 +141,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:delete_asset).once.with(original_asset_manager_id)
         Services.asset_manager.expects(:update_asset).never
 
-        visit admin_news_article_path(latest_attachable)
+        visit admin_edition_path(latest_attachable)
         click_link "Force publish"
         assert_text "Reason for force publishing"
         fill_in "Reason for force publishing", with: "testing"
@@ -169,7 +170,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         end
 
         it "deletes the corresponding asset in Asset Manager and updates the asset to live, only when the new draft gets published" do
-          visit admin_news_article_path(latest_attachable)
+          visit admin_edition_path(latest_attachable)
           click_link "Modify attachments"
           within page.find("li", text: attachment.title) do
             click_link "Delete attachment"
@@ -180,7 +181,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           Services.asset_manager.expects(:delete_asset).once.with(replacement_asset_manager_id)
           Services.asset_manager.expects(:update_asset).once.with(replacement_asset_manager_id, has_entries({ "draft" => false, "parent_document_url" => latest_attachable.public_url(draft: false) }))
 
-          visit admin_news_article_path(latest_attachable)
+          visit admin_edition_path(latest_attachable)
           click_link "Force publish"
           assert_text "Reason for force publishing"
           fill_in "Reason for force publishing", with: "testing"

@@ -8,7 +8,7 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
     let(:worker) { PublishAttachmentAssetJob.new }
 
     context "attachment was created on the latest edition" do
-      let(:attachable) { create(:published_news_article, title: "news-title") }
+      let(:attachable) { create(:published_publication, title: "news-title") }
       let(:attachment_data) { create(:attachment_data, attachable:) }
       let(:attachment) { create(:file_attachment, attachable:, attachment_data: attachment_data) }
 
@@ -21,22 +21,22 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
         attachment.destroy!
 
         AssetManager::AssetDeleter.expects(:call).with(asset_manager_id)
-        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/news/news-title" })
+        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
 
         worker.perform(attachment_data.id)
       end
 
       it "updates the asset if attachment data is not deleted" do
-        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/news/news-title" })
+        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
 
         worker.perform(attachment_data.id)
       end
     end
 
     context "attachment was created on the previous edition" do
-      let(:previous_attachable) { create(:superseded_news_article) }
+      let(:previous_attachable) { create(:superseded_publication) }
       let(:previous_attachment) { create(:attachment, attachable: previous_attachable, attachment_data:) }
-      let(:attachable) { create(:published_news_article, document: previous_attachable.document) }
+      let(:attachable) { create(:published_publication, document: previous_attachable.document) }
       let(:attachment_data) { create(:attachment_data, attachable:) }
       let(:attachment) { create(:file_attachment, attachable:, attachment_data:) }
 

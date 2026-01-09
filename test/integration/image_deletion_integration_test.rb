@@ -6,13 +6,14 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "image deletion" do
     context "given a draft document with images" do
       let(:managing_editor) { create(:managing_editor) }
       let(:image) { build(:image) }
       let(:first_asset_id) { image.image_data.assets.first.asset_manager_id }
-      let(:edition) { create(:news_article) }
+      let(:edition) { create(:case_study) }
 
       before do
         login_as(managing_editor)
@@ -27,7 +28,7 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when one image is deleted" do
         before do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Modify images"
           click_link "Delete image"
           click_button "Delete image"

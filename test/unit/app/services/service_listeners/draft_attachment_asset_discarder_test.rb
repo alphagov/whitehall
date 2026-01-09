@@ -5,7 +5,7 @@ module ServiceListeners
     extend Minitest::Spec::DSL
 
     describe ServiceListeners::DraftAttachmentAssetDiscarder do
-      let(:edition) { create(:draft_news_article) }
+      let(:edition) { create(:draft_edition) }
       let(:first_attachment) { create(:file_attachment, attachable: edition) }
       let(:second_attachment) { create(:csv_attachment, attachable: edition) }
       let!(:non_file_attachment) { create(:html_attachment, attachable: edition) }

@@ -42,7 +42,7 @@ class LocalisedModelTest < ActiveSupport::TestCase
   end
 
   test "ActiveRecord errors are generated in English" do
-    model = NewsArticle.new
+    model = Publication.new
     localised_model = LocalisedModel.new(model, :es)
 
     assert_not localised_model.valid?
@@ -66,7 +66,7 @@ class LocalisedModelTest < ActiveSupport::TestCase
   end
 
   test "#update_attributes with invalid attributes fails" do
-    model = create(:news_article)
+    model = create(:speech)
     localised_model = LocalisedModel.new(model, :es)
     assert_not localised_model.update(title: "")
     assert_equal ["cannot be blank"], localised_model.errors[:title]

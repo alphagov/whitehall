@@ -10,15 +10,16 @@ When("I bulk upload files and give them titles") do
   click_button "Save"
 end
 
-Then(/^I should see that the news article has attachments$/) do
+Then(/^I should see that the publication has attachments$/) do
   expect(page).to have_current_path(admin_edition_attachments_path(@edition))
+  # Publications are already built with an attachment in the factory
+  file_attachments = @edition.attachments.select { |a| a.is_a?(FileAttachment) }
+  expect(2).to eq(file_attachments.count)
 
-  expect(2).to eq(@edition.attachments.count)
-
-  expect("Two pages title").to eq(@edition.attachments[0].title)
-  expect("two-pages.pdf").to eq(@edition.attachments[0].filename)
-  expect("Greenpaper title").to eq(@edition.attachments[1].title)
-  expect("greenpaper.pdf").to eq(@edition.attachments[1].filename)
+  expect("Two pages title").to eq(file_attachments[0].title)
+  expect("two-pages.pdf").to eq(file_attachments[0].filename)
+  expect("Greenpaper title").to eq(file_attachments[1].title)
+  expect("greenpaper.pdf").to eq(file_attachments[1].filename)
 end
 
 When(/^I bulk upload files one with the same filename as an existing file$/) do
@@ -107,7 +108,7 @@ Then(/^I should see a notice of "(.*)" on the edition attachments index page$/) 
   expect(page).to have_content(notice)
 end
 
-Then(/^I should see that the news article has the new attachment and the existing attachment$/) do
+Then(/^I should see that the publication has the new attachment and the existing attachment$/) do
   expect(page).to have_current_path(admin_edition_attachments_path(@edition))
   expect(@edition.reload.attachments.count).to eq 3
   expect(@edition.attachments.first.filename).to eq(@existing_filename)
@@ -115,7 +116,7 @@ Then(/^I should see that the news article has the new attachment and the existin
   expect(@edition.attachments.last.filename).to eq(@new_kept_filename)
 end
 
-Then(/^I should see that the news article has the existing attachment with updated title and the new attachment$/) do
+Then(/^I should see that the publication has the existing attachment with updated title and the new attachment$/) do
   expect(page).to have_current_path(admin_edition_attachments_path(@edition))
   expect(@edition.reload.attachments.count).to eq 2
   expect(@edition.attachments.first.filename).to eq(@existing_filename)
@@ -123,7 +124,7 @@ Then(/^I should see that the news article has the existing attachment with updat
   expect(@edition.attachments.second.filename).to eq(@new_filename)
 end
 
-Then(/^I should see that the news article has the existing attachment with original title and the new attachment$/) do
+Then(/^I should see that the publication has the existing attachment with original title and the new attachment$/) do
   expect(page).to have_current_path(admin_edition_attachments_path(@edition))
   expect(@edition.reload.attachments.count).to eq 2
   expect(@edition.attachments.first.filename).to eq(@existing_filename)
@@ -131,7 +132,7 @@ Then(/^I should see that the news article has the existing attachment with origi
   expect(@edition.attachments.second.filename).to eq(@new_filename)
 end
 
-Then(/^I should see that the news article has the existing attachments with original titles$/) do
+Then(/^I should see that the publication has the existing attachments with original titles$/) do
   expect(page).to have_current_path(admin_edition_attachments_path(@edition))
   expect(@edition.reload.attachments.count).to eq 2
   @edition.attachments.each_with_index do |attachment, index|

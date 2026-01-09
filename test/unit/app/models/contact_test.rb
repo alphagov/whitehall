@@ -122,14 +122,14 @@ class ContactTest < ActiveSupport::TestCase
   test "republishes dependent editions after update" do
     Sidekiq::Testing.inline! do
       contact = create(:contact)
-      news_article = create(:published_news_article, body: "For more information, get in touch at: [Contact:#{contact.id}]")
+      publication = create(:published_speech, body: "For more information, get in touch at: [Contact:#{contact.id}]")
       corp_info_page = create(:published_corporate_information_page, body: "For free advice, please visit our office: [Contact:#{contact.id}]")
-      ServiceListeners::EditionDependenciesPopulator.new(news_article).populate!
+      ServiceListeners::EditionDependenciesPopulator.new(publication).populate!
       ServiceListeners::EditionDependenciesPopulator.new(corp_info_page).populate!
 
       PresentPageToPublishingApi.any_instance.stubs(:publish).with(PublishingApi::EmbassiesIndexPresenter)
       expect_publishing(contact, content_entries: { title: "Changed contact title" })
-      expect_republishing(news_article, corp_info_page)
+      expect_republishing(publication, corp_info_page)
 
       contact.update!(title: "Changed contact title")
     end

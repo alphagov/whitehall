@@ -351,8 +351,8 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_not attachment_data.deleted?
   end
 
-  test "#deleted? returns false for AttachmentData with multiple attachments, if draft off published has not been published yet" do
-    attachable = create(:published_news_article, :with_file_attachment)
+  test "#deleted? returns false for AttachmentData with multiple attachments, if the draft edition has not been published yet" do
+    attachable = create(:published_publication, :with_file_attachment)
     new_attachable = attachable.reload.create_draft(create(:gds_editor))
 
     assert_equal new_attachable.attachments.count, 1
@@ -364,7 +364,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   end
 
   test "#deleted? returns true for AttachmentData with multiple attachments, if they are all on live attachables" do
-    attachable = create(:published_news_article, :with_file_attachment)
+    attachable = create(:published_publication, :with_file_attachment)
     new_attachable = attachable.reload.create_draft(create(:gds_editor))
     attachment = new_attachable.attachments.first
     attachment.destroy!

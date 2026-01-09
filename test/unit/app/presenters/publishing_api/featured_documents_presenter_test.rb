@@ -7,8 +7,9 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   test("determines ordered featured documents in different locales for editions") do
     case_study = create(:published_case_study)
     first_feature = build(:feature, document: case_study.document, ordering: 1)
-    news_article = create(:published_news_article)
-    second_feature = build(:feature, document: news_article.document, ordering: 2)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "title" => "Featured standard edition", "settings" => { "base_path_prefix" => "/government/test" } }))
+    standard_edition = create(:published_standard_edition, title: "Standard Edition Title")
+    second_feature = build(:feature, document: standard_edition.document, ordering: 2)
     featured_documents_display_limit = 5
 
     world_location = create(:world_location)
@@ -32,15 +33,15 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
             summary: govspeak_to_html(case_study.summary),
             public_updated_at: case_study.public_timestamp,
             document_type: I18n.t("document.type.case_study.one") },
-          { title: news_article.title,
-            href: "/government/news/news-title#{locale[:suffix]}",
+          { title: standard_edition.title,
+            href: "/government/test/standard-edition-title#{locale[:suffix]}",
             image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: govspeak_to_html(news_article.summary),
-            public_updated_at: news_article.public_timestamp,
-            document_type: I18n.t("document.type.press_release.one") },
+            summary: govspeak_to_html(standard_edition.summary),
+            public_updated_at: standard_edition.public_timestamp,
+            document_type: "Featured standard edition" },
         ]
 
         assert_equal expected_ordered_featured_documents, featured_documents(world_location.world_location_news, featured_documents_display_limit)
@@ -113,7 +114,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
 
   test("caps number of documents at limit when it exceeds this") do
     first_feature = build(:feature, document: create(:published_case_study).document, ordering: 1)
-    second_feature = build(:feature, document: create(:published_news_article).document, ordering: 2)
+    second_feature = build(:feature, document: create(:published_publication).document, ordering: 2)
 
     world_location = create(:world_location)
 
@@ -128,8 +129,8 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   test("filters out featured documents if feature image assets are missing") do
     case_study = create(:published_case_study)
     first_feature = build(:feature, document: case_study.document, ordering: 1)
-    news_article = create(:published_news_article)
-    second_feature = build(:feature, document: news_article.document, ordering: 2)
+    standard_edition = create(:published_publication)
+    second_feature = build(:feature, document: standard_edition.document, ordering: 2)
     second_feature.image.assets = []
     featured_documents_display_limit = 5
 

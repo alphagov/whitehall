@@ -1,31 +1,6 @@
 module Admin::EditionRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
-  EDITION_TYPES = [CallForEvidence,
-                   Publication,
-                   NewsArticle,
-                   Consultation,
-                   Speech,
-                   DetailedGuide,
-                   CaseStudy,
-                   StatisticalDataSet,
-                   FatalityNotice,
-                   CorporateInformationPage].freeze
-
-  def self.edition_instance_route(name)
-    EDITION_TYPES.each do |type|
-      method_name = name.to_s.gsub("admin_edition", "admin_#{type.model_name.singular}")
-      class_eval <<~METHOD, __FILE__, __LINE__ + 1
-        def #{method_name}(*args)
-          #{name}(*args)
-        end
-      METHOD
-    end
-  end
-
-  edition_instance_route :admin_edition_editorial_remarks_path
-  edition_instance_route :admin_edition_fact_check_requests_path
-
   def admin_edition_path(edition, *args)
     polymorphic_path([:admin, edition], *args)
   end

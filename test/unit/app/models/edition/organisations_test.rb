@@ -12,9 +12,9 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     organisation1 = create(:organisation)
     organisation2 = create(:organisation)
     organisation3 = create(:organisation)
-    news_article = create(:published_news_article, lead_organisations: [organisation3, organisation1], supporting_organisations: [organisation2])
+    publication = create(:published_publication, lead_organisations: [organisation3, organisation1], supporting_organisations: [organisation2])
 
-    new_edition = news_article.create_draft(create(:writer))
+    new_edition = publication.create_draft(create(:writer))
     new_edition.change_note = "change-note"
     force_publish(new_edition)
 
@@ -72,7 +72,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     organisation1 = create(:organisation, name: "Ministry of Jazz")
     organisation2 = create(:organisation, name: "Free Jazz Foundation")
     organisation3 = create(:organisation, name: "Jazz Bizniz")
-    edition = create(:published_news_article, lead_organisations: [organisation3, organisation1], supporting_organisations: [organisation2])
+    edition = create(:published_publication, lead_organisations: [organisation3, organisation1], supporting_organisations: [organisation2])
 
     assert_equal [organisation2, organisation3, organisation1], edition.sorted_organisations
   end

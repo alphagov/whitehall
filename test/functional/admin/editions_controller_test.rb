@@ -230,7 +230,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   view_test "should display state information when viewing all active editions" do
     draft_edition = create(:draft_publication)
     submitted_edition = create(:submitted_publication)
-    rejected_edition = create(:rejected_news_article)
+    rejected_edition = create(:rejected_publication)
     published_edition = create(:published_consultation)
 
     get :index, params: { state: :active }

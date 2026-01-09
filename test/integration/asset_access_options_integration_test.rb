@@ -6,6 +6,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "attachment access options (auth_bypass_id and access_limiting)" do
     let(:organisation) { create(:organisation) }
@@ -23,7 +24,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given a draft document with file attachment" do
-      let(:edition) { create(:news_article, organisations: [organisation]) }
+      let(:edition) { create(:detailed_guide, organisations: [organisation]) }
 
       before do
         add_file_attachment_with_asset("sample.docx", to: edition)
@@ -32,7 +33,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when document is marked as access limited in Whitehall" do
         before do
-          visit edit_admin_news_article_path(edition)
+          visit edit_admin_edition_path(edition)
           check "Limit access"
           click_button "Save"
           assert_text "Your document has been saved"
@@ -49,10 +50,10 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given a draft document with an image attachment" do
-      let(:edition) { create(:draft_case_study) }
+      let(:edition) { create(:draft_detailed_guide) }
 
       before do
-        visit admin_case_study_path(edition)
+        visit admin_edition_path(edition)
         click_link "Edit draft"
         click_link "Images"
         attach_file "images[][image_data][file]", path_to_attachment("minister-of-funk.960x640.jpg")
@@ -70,11 +71,11 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given an access-limited draft document" do
-      let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
+      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limited: true) }
 
       context "when an attachment is added to the draft document" do
         before do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Add attachments"
           page.attach_file path_to_attachment("logo.png")
           click_button "Upload"
@@ -99,7 +100,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         let(:edition) { create(:publication, :policy_paper) }
 
         before do
-          visit admin_publication_path(edition)
+          visit admin_edition_path(edition)
           click_link "Modify attachments"
           click_link "Add new HTML attachment"
           fill_in "Title", with: "html-attachment"
@@ -124,7 +125,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when bulk uploaded to draft document" do
         before do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Add attachments"
           page.attach_file [path_to_attachment("logo.png"), path_to_attachment("greenpaper.pdf")]
           click_button "Upload"
@@ -152,7 +153,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given an access-limited draft document and a file attachment" do
-      let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
+      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limited: true) }
 
       before do
         add_file_attachment_with_asset("sample.docx", to: edition)
@@ -161,7 +162,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when document is unmarked as access limited in Whitehall" do
         before do
-          visit edit_admin_news_article_path(edition)
+          visit edit_admin_edition_path(edition)
           uncheck "Limit access"
           click_button "Save"
           assert_text "Your document has been saved"
@@ -178,7 +179,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when attachment is replaced" do
         before do
-          visit admin_news_article_path(edition)
+          visit admin_edition_path(edition)
           click_link "Modify attachments"
           click_link "Edit"
           attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
@@ -259,6 +260,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     def add_file_attachment_with_asset(filename, to:)
+      to.alternative_format_provider = create(:organisation, :with_alternative_format_contact_email) if to.respond_to?(:alternative_format_provider)
       to.attachments << FactoryBot.build(
         :file_attachment,
         title: filename,

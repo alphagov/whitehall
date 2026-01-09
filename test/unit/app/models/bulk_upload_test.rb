@@ -23,7 +23,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "builds Attachment instances for an array of files" do
-    edition = create(:news_article)
+    edition = create(:detailed_guide)
     files = %w[simple.pdf whitepaper.pdf].map { |f| upload_fixture(f) }
 
     bulk_upload = BulkUpload.new(edition)
@@ -47,7 +47,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "always builds new AttachmentData instances from array of files" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:detailed_guide, :with_file_attachment)
     existing = edition.attachments.first
     files = ["whitepaper.pdf", existing.filename].map { |name| upload_fixture(name) }
     bulk_upload = BulkUpload.new(edition)
@@ -56,7 +56,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "sets replaced_by on existing AttachmentData when file re-attached" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:detailed_guide, :with_file_attachment)
     existing = edition.attachments.first
     files = ["whitepaper.pdf", existing.filename].map { |name| upload_fixture(name) }
     bulk_upload = BulkUpload.new(edition)
@@ -68,7 +68,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "sets replaced_by on existing AttachmentData when file re-attached from attachments_attributes" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:detailed_guide, :with_file_attachment)
     existing = edition.attachments.first
     params = attachments_params(
       [{ id: existing.id, title: "Title" }, { file: upload_fixture(existing.filename), attachable: edition, keep_or_replace: "replace" }],
@@ -81,7 +81,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "#save_attachments saves new attachments to the end of the edition's existing attachments" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:detailed_guide, :with_file_attachment)
     attachment = edition.attachments.first
     params = attachments_params(
       [{ title: "Title 1" }, { file: upload_fixture("whitepaper.pdf") }],
@@ -100,7 +100,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "#save_attachments updates existing attachments if replacement selected" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:detailed_guide, :with_file_attachment)
     existing = edition.attachments.first
     new_title = "New title for existing attachment"
     params = attachments_params(
@@ -116,7 +116,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "#save_attachments creates new attachment if existing attachment found and keep both selected" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:detailed_guide, :with_file_attachment)
     existing = edition.attachments.first
     new_title = "New title for attachment"
     params = attachments_params(
@@ -133,7 +133,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "#save_attachments does not create new attachment if existing attachment found and cancel selected" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:detailed_guide, :with_file_attachment)
     existing = edition.attachments.first
     new_title = "New title for attachment"
     params = attachments_params(
@@ -149,7 +149,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "#save_attachments does not save any attachments if one is invalid" do
-    edition = create(:news_article)
+    edition = create(:detailed_guide)
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.build_attachments_from_params(invalid_new_attachments_params)
     assert_no_difference("edition.attachments.count") do
@@ -158,7 +158,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "#save_attachments adds errors when attachments are invalid" do
-    edition = create(:news_article)
+    edition = create(:detailed_guide)
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.build_attachments_from_params(invalid_new_attachments_params)
     assert_no_difference("edition.attachments.count") do

@@ -93,8 +93,8 @@ class FeatureListTest < ActiveSupport::TestCase
   test "#features should still return featured documents after republication" do
     world_location = create(:world_location)
 
-    _item_a = create(:published_news_article, world_locations: [world_location])
-    item_b = create(:published_news_article, world_locations: [world_location])
+    _item_a = create(:published_speech, world_locations: [world_location])
+    item_b = create(:published_speech, world_locations: [world_location])
 
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
     create(:feature, feature_list:, document: item_b.document)
@@ -110,8 +110,8 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "#published_features only returns features where there is a published edition" do
-    published = create(:published_news_article)
-    draft = create(:draft_news_article)
+    published = create(:published_speech)
+    draft = create(:draft_speech)
 
     feature_list = create(:feature_list, locale: :en)
     feature_list.features << build(:feature, document: published.document)
@@ -122,7 +122,7 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "#published_features only excludes features which have ended" do
-    published = create(:published_news_article)
+    published = create(:published_speech)
 
     feature_list = create(:feature_list, locale: :en)
     feature_list.features << build(:feature, document: published.document, ended_at: Time.zone.now)

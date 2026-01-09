@@ -64,12 +64,10 @@ class Admin::EditionsHelperTest < ActionView::TestCase
   end
 
   test "#edition_type returns a concatenated string where an edition has a parent type" do
-    news_article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
     publication = build(:publication, publication_type: PublicationType::IndependentReport)
     speech = build(:speech, speech_type: SpeechType::WrittenStatement)
     corporate_information_page = build(:publication_scheme_corporate_information_page)
 
-    assert_equal "News article: Press release", edition_type(news_article)
     assert_equal "Publication: Independent report", edition_type(publication)
     assert_equal "Speech: Written statement to Parliament", edition_type(speech)
     assert_equal "Corporate information page: Publication scheme", edition_type(corporate_information_page)

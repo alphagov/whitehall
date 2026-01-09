@@ -5,7 +5,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
   describe AssetManager::AttachmentUpdater do
     context "when the attachment's attachable is a draft" do
-      let(:edition) { create(:draft_news_article) }
+      let(:edition) { create(:draft_publication) }
       let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
 
       it "sets the expected attributes" do
@@ -49,7 +49,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when the attachment's attachable is a draft and is access limited" do
       it "sets the expected attributes for all assets" do
-        edition = create(:draft_news_article, :access_limited)
+        edition = create(:draft_publication, :access_limited)
         attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition))
 
         expected_attribute_hash = {
@@ -124,7 +124,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
     end
 
     context "when attachment's attachable is published" do
-      let(:edition) { create(:published_news_article) }
+      let(:edition) { create(:published_publication) }
       let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
 
       it "sets the expected attributes for a published attachable" do
@@ -143,7 +143,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
     end
 
     context "when the attachment data has been replaced" do
-      let(:edition) { create(:draft_news_article) }
+      let(:edition) { create(:draft_publication) }
       let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
 
       it "it updates attachment asset with matching variant replacement asset ID" do

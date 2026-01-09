@@ -1,7 +1,7 @@
 require "test_helper"
 
 class AttachableEditionTest < ActionController::TestCase
-  tests Admin::NewsArticlesController
+  tests Admin::PublicationsController
 
   setup { login_as :writer }
 
@@ -14,9 +14,9 @@ class AttachableEditionTest < ActionController::TestCase
   end
 
   view_test 'GET :edit displays "Document" and "Attachments" tabs' do
-    edition = create(:news_article)
+    edition = create(:draft_publication, attachments: [])
     get :edit, params: { id: edition }
-    assert_tab "Document", edit_admin_news_article_path(edition)
+    assert_tab "Document", edit_admin_publication_path(edition)
     assert_tab "Attachments", admin_edition_attachments_path(edition)
   end
 end
@@ -27,7 +27,7 @@ class AttachableEditionsWithInlineSupportTest < ActionController::TestCase
   setup { login_as :writer }
 
   view_test "GET :index lists the attachments with markdown hint for editions that support inline attachments" do
-    edition = create(:news_article, :with_file_attachment)
+    edition = create(:publication, :with_file_attachment)
     get :index, params: { edition_id: edition }
     attachment = edition.attachments.first
 

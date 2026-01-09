@@ -14,10 +14,10 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
 
   def setup_feature_list
     case_study = create(:published_case_study)
-    news_article = create(:published_news_article)
+    speech = create(:published_speech)
     create(:feature_list, featurable: @world_location_news, features:
       [
-        build(:feature, document: news_article.document, ordering: 2),
+        build(:feature, document: speech.document, ordering: 2),
         build(:feature, document: case_study.document, ordering: 1),
       ])
   end

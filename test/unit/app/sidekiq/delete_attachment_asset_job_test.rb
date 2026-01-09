@@ -4,7 +4,7 @@ class DeleteAttachmentAssetJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe DeleteAttachmentAssetJob do
-    let(:attachable) { create(:draft_news_article) }
+    let(:attachable) { create(:draft_edition) }
     let(:attachment_data) { create(:attachment_data, attachable:) }
     let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
     let(:worker) { DeleteAttachmentAssetJob.new }
