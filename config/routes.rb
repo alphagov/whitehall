@@ -212,6 +212,12 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
 
+        resources :topical_event_featurings, path: "featurings" do
+          get :reorder, on: :collection
+          put :order, on: :collection
+          get :confirm_destroy, on: :member
+        end
+
         get :edit_slug, on: :member, controller: :edition_slug
         patch :update_slug, on: :member, controller: :edition_slug
 
@@ -303,6 +309,12 @@ Whitehall::Application.routes.draw do
           get :change_type
           get :change_type_preview
           patch :apply_change_type
+        end
+
+        resources :topical_event_featurings, path: "featurings" do
+          get :reorder, on: :collection
+          put :order, on: :collection
+          get :confirm_destroy, on: :member
         end
 
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do

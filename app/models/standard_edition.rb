@@ -67,6 +67,10 @@ class StandardEdition < Edition
     type_instance.settings["file_attachments_enabled"]
   end
 
+  def allows_features?
+    type_instance.settings["features_enabled"]
+  end
+
   def can_be_marked_political?
     type_instance.settings["history_mode_enabled"]
   end

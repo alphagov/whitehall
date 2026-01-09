@@ -23,6 +23,7 @@ module ConfigurableAssociations
         "world_locations" => ->(edition) { ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors, required: edition.world_location_association_required?) },
         "organisations" => ->(edition) { ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors) },
         "worldwide_organisations" => ->(edition) { ConfigurableAssociations::WorldwideOrganisations.new(edition.edition_worldwide_organisations, edition.errors, required: edition.worldwide_organisation_association_required?) },
+        "offsite_links" => ->(edition) { ConfigurableAssociations::OffsiteLinks.new(edition.offsite_links, edition.errors, required: edition.offsite_links_association_required?) },
       }.freeze
     end
   end

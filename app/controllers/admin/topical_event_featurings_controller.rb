@@ -72,7 +72,11 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
 private
 
   def load_topical_event
-    @topical_event = TopicalEvent.find(params[:topical_event_id])
+    @topical_event = if params[:topical_event_id].present?
+                       TopicalEvent.find(params[:topical_event_id])
+                     elsif params[:standard_edition_id].present?
+                       StandardEdition.find(params[:standard_edition_id])
+                     end
   end
 
   def load_topical_event_featuring
@@ -82,12 +86,15 @@ private
   def editions_to_show
     if filter_values_set?
       @filter.editions
+    elsif @topical_event.respond_to?(:topical_event_documents)
+      @topical_event.topical_event_documents
     else
       @topical_event.editions.published
-                              .with_translations
-                              .order("editions.created_at DESC")
-                              .page(params[:page])
-                              .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+                             .with_translations
+                             .order("editions.created_at DESC")
+                             .page(params[:page])
+                             .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+
     end
   end
 
