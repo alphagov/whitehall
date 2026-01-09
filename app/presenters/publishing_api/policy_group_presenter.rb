@@ -49,7 +49,7 @@ module PublishingApi
         body:,
       }
       details_hash.merge!(PayloadBuilder::Attachments.for(item))
-      details_hash.merge!(PayloadBuilder::BodyHeadings.for(item))
+      details_hash.merge!(PayloadBuilder::Headings.for(item.body))
     end
 
     def body

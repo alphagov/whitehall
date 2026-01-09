@@ -179,7 +179,25 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test "headers" do
-      assert_details_payload "PublishingApi::PayloadBuilder::BodyHeadings"
+      corporate_information_page = create(
+        :corporate_information_page,
+        title: "Some detailed guide",
+        summary: "Some summary",
+        body: "##Some header\n\nSome content",
+      )
+
+      presented_item = PublishingApi::CorporateInformationPagePresenter.new(corporate_information_page)
+      details = presented_item.content[:details]
+
+      expected_headers = [
+        {
+          text: "Some header",
+          level: 2,
+          id: "some-header",
+        },
+      ]
+
+      assert_equal expected_headers, details[:headers]
     end
 
     test "validity" do
