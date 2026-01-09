@@ -4,7 +4,6 @@ class MinisterialRole < Role
 
   has_many :editions, -> { distinct }, through: :role_appointments
   has_many :consultations, -> { where("editions.type" => "Consultation").distinct }, through: :role_appointments
-  has_many :news_articles, -> { where("editions.type" => "NewsArticle").distinct }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 
   after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
@@ -14,13 +13,6 @@ class MinisterialRole < Role
 
   def published_speeches(options = {})
     speeches
-      .live_edition.published
-      .in_reverse_chronological_order
-      .limit(options[:limit])
-  end
-
-  def published_news_articles(options = {})
-    news_articles
       .live_edition.published
       .in_reverse_chronological_order
       .limit(options[:limit])

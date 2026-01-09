@@ -426,7 +426,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         documents = create_list(:document, 3)
 
         documents.each do |document|
-          create(:published_news_article, document:, organisations: [organisation])
+          create(:published_publication, document:, organisations: [organisation])
 
           PublishingApiDocumentRepublishingWorker
             .expects(:perform_async_in_queue)
@@ -442,7 +442,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         documents = create_list(:document, 3)
 
         documents.each do |document|
-          create(:published_news_article, document:, organisations: [other_organisation])
+          create(:published_publication, document:, organisations: [other_organisation])
 
           PublishingApiDocumentRepublishingWorker
             .expects(:perform_async_in_queue)

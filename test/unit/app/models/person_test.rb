@@ -88,37 +88,6 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [published_speech], person.published_speeches
   end
 
-  test "can access news_articles associated with ministerial roles of a person" do
-    person = create(:person)
-    news_articles = 2.times.map { create(:news_article) }
-
-    create(:ministerial_role_appointment, person:).editions << news_articles[0]
-    create(:ministerial_role_appointment, person:).editions << news_articles[1]
-
-    assert_equal news_articles, person.news_articles
-  end
-
-  test "news_articles includes articles associated with a previous ministerial role" do
-    person = create(:person)
-    news_articles = 2.times.map { create(:news_article) }
-
-    create(:ministerial_role_appointment, person:).editions << news_articles[0]
-    create(:ministerial_role_appointment, person:, started_at: 2.days.ago, ended_at: 1.day.ago)
-      .editions << news_articles[1]
-
-    assert_equal news_articles, person.news_articles
-  end
-
-  test "published_news_articles only returns published news articles" do
-    person = create(:person)
-    news_articles = [create(:published_news_article), create(:draft_news_article), create(:news_article, :withdrawn)]
-    news_articles.each do |edition|
-      create(:ministerial_role_appointment, person:).editions << edition
-    end
-
-    assert_equal news_articles[0..0], person.published_news_articles
-  end
-
   test "should not be destroyable when it has appointments" do
     person = create(:person)
     _ = create(:role_appointment, person:)

@@ -311,7 +311,6 @@ Whitehall::Application.routes.draw do
       end
       resources :landing_pages, path: "landing-pages", except: [:index]
 
-      resources :news_articles, path: "news", except: [:index]
       resources :fatality_notices, path: "fatalities", except: [:index]
       resources :consultations, except: [:index] do
         resource :outcome, controller: "consultation_responses", type: "ConsultationOutcome", except: %i[new destroy]

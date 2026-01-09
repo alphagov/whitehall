@@ -27,7 +27,6 @@ module Searchable
     logo_url
     logo_formatted_title
     metadata
-    news_article_type
     ordering
     operational_field
     organisation_brand
@@ -39,12 +38,10 @@ module Searchable
     parent_organisations
     people
     public_timestamp
-    publication_type
     release_timestamp
     roles
     search_format_types
     slug
-    speech_type
     statistics_announcement_state
     start_date
     superseded_organisations

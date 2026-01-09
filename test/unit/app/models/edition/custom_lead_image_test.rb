@@ -10,7 +10,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
     lead_file = upload_fixture("images/960x640_jpeg.jpg")
     lead_image = create(:image, image_data: build(:image_data, file: lead_file))
 
-    build(:draft_news_article, options.merge(images: [non_lead_image, lead_image], lead_image:))
+    build(:case_study, options.merge(images: [non_lead_image, lead_image], lead_image:))
   end
 
   def body_text_valid(body)
@@ -35,7 +35,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
     svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
     jpeg_image = build(:image, created_at: 1.minute.ago)
     sgv_image = build(:image, image_data: svg_image_data, created_at: 2.minutes.ago)
-    edition = create(:news_article, images: [sgv_image, jpeg_image])
+    edition = create(:case_study, images: [sgv_image, jpeg_image])
 
     edition.update_lead_image
 
@@ -46,7 +46,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
     large_image_data = create(:image_data, file: File.open(Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")))
     jpeg_image = create(:image, created_at: 1.minute.ago)
     large_image = create(:image, image_data: large_image_data, created_at: 2.minutes.ago)
-    edition = create(:news_article, images: [large_image, jpeg_image])
+    edition = create(:case_study, images: [large_image, jpeg_image])
 
     edition.update_lead_image
 
@@ -55,7 +55,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
 
   test "#update_lead_image deletes the associated edition_lead_image if image_display_option is 'no_image'" do
     edition_lead_image = build(:edition_lead_image)
-    edition = build(:news_article, image_display_option: "no_image", edition_lead_image:)
+    edition = build(:case_study, image_display_option: "no_image", edition_lead_image:)
 
     edition_lead_image
     .expects(:destroy!)
@@ -70,7 +70,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
 
   test "#update_lead_image deletes the associated edition_lead_image if image_display_option is 'organisation_image'" do
     edition_lead_image = build(:edition_lead_image)
-    edition = build(:news_article, image_display_option: "organisation_image", edition_lead_image:)
+    edition = build(:case_study, image_display_option: "organisation_image", edition_lead_image:)
 
     edition_lead_image
     .expects(:destroy!)
@@ -85,7 +85,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
 
   test "#update_lead_image returns nil if lead_image is present" do
     image = build(:image)
-    edition = build(:news_article, images: [image], lead_image: image)
+    edition = build(:case_study, images: [image], lead_image: image)
 
     edition
     .expects(:build_edition_lead_image)
@@ -95,7 +95,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
   end
 
   test "#update_lead_image returns nil if no images are present" do
-    edition = build(:news_article)
+    edition = build(:case_study)
 
     edition
     .expects(:build_edition_lead_image)
@@ -107,7 +107,7 @@ class Edition::CustomLeadImageTest < ActiveSupport::TestCase
   test "#non_lead_images returns images which are not lead images" do
     image1 = build(:image)
     image2 = build(:image)
-    edition = build(:news_article, images: [image1, image2], lead_image: image1)
+    edition = build(:case_study, images: [image1, image2], lead_image: image1)
 
     assert_equal [image2], edition.non_lead_images
   end

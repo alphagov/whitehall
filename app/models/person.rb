@@ -11,8 +11,6 @@ class Person < ApplicationRecord
            -> { where(RoleAppointment::CURRENT_CONDITION).order(:ordering) },
            class_name: "RoleAppointment"
   has_many :speeches, through: :role_appointments
-  has_many :news_articles, through: :role_appointments
-
   has_many :roles, through: :role_appointments
   has_many :current_roles, class_name: "Role", through: :current_role_appointments, source: :role
 
@@ -55,10 +53,6 @@ class Person < ApplicationRecord
 
   def published_speeches
     speeches.live_edition.published.in_reverse_chronological_order
-  end
-
-  def published_news_articles
-    news_articles.live_edition.published.in_reverse_chronological_order
   end
 
   def destroyable?

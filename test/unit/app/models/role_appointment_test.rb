@@ -311,15 +311,10 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "should be able to get editions associated with this appointment" do
-    editions = [create(:published_publication), create(:published_news_article)]
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    editions = [create(:published_publication), create(:standard_edition)]
     appointment = create(:role_appointment, editions:)
     assert_equal editions, appointment.editions
-  end
-
-  test "should be able to get news articles associated with this appointment" do
-    editions = [create(:published_publication), create(:published_news_article)]
-    appointment = create(:role_appointment, editions:)
-    assert_equal editions[1..1], appointment.news_articles
   end
 
   test "should not be destroyable when it has speeches" do

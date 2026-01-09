@@ -20,10 +20,6 @@ class RoleAppointment < ApplicationRecord
            -> { where("editions.type" => "Publication") },
            through: :edition_role_appointments,
            source: :edition
-  has_many :news_articles,
-           -> { where("editions.type" => "NewsArticle") },
-           through: :edition_role_appointments,
-           source: :edition
 
   # Speeches do not need the above nonsense because they have a singualar
   # association in the `editions` table
