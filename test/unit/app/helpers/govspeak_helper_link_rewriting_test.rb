@@ -4,8 +4,9 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   include GovspeakHelper
   include Admin::EditionRoutesHelper
 
-  Whitehall.edition_classes.each do |edition_class|
+  [*Whitehall.legacy_edition_classes, StandardEdition].each do |edition_class|
     test "should rewrite absolute path to an admin page for a published #{edition_class} as link to its public page" do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
       document = if edition_class == LandingPage
                    create(:document, slug: "/starts-with-slash")
                  else

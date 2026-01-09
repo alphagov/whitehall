@@ -23,17 +23,10 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert_equal "French", Edition.new(primary_locale: :fr).primary_language_name
   end
 
-  test "locale_can_be_changed? returns true for a new NewsArticle" do
-    assert NewsArticle.new.locale_can_be_changed?
-  end
+  test "locale_can_be_changed? returns true for a StandardEdition with the translations setting enabled and no translations" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "translations_enabled" => true } }))
 
-  test "locale_can_be_changed? returns true for an existing NewsArticleType::WorldNewsStory" do
-    world_news_story = create(:news_article_world_news_story)
-    assert world_news_story.locale_can_be_changed?
-  end
-
-  test "locale_can_be_changed? returns false for a persisted new NewsArticle" do
-    assert_not create(:news_article).locale_can_be_changed?
+    assert build(:standard_edition).locale_can_be_changed?
   end
 
   test "locale_can_be_changed? returns true for new and existing DocumentCollections" do
@@ -103,28 +96,30 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert_not french_edition.available_in_locale?(:en)
   end
 
-  test "changing primary locale of world news story updates the primary locale of the translation" do
-    world_news_story = create(
-      :news_article_world_news_story,
+  test "changing primary locale of standard edition updates the primary locale of the translation" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = create(
+      :standard_edition,
       primary_locale: "en",
     )
-    world_news_story.update!(primary_locale: "fr")
+    edition.update!(primary_locale: "fr")
 
-    assert world_news_story.available_in_locale?(:fr)
-    assert_not world_news_story.available_in_locale?(:en)
+    assert edition.available_in_locale?(:fr)
+    assert_not edition.available_in_locale?(:en)
   end
 
   test "changing primary locale of document that has lots of translations updates the primary locale of the translation but does not delete translations" do
-    world_news_story = create(
-      :news_article_world_news_story,
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = create(
+      :standard_edition,
       primary_locale: "en",
     )
-    world_news_story.translations.create!(locale: "cy")
-    world_news_story.translations.create!(locale: "fr")
-    world_news_story.update!(primary_locale: "fr")
-    world_news_story.save!
+    edition.translations.create!(locale: "cy")
+    edition.translations.create!(locale: "fr")
+    edition.update!(primary_locale: "fr")
+    edition.save!
 
-    assert_equal "fr", world_news_story.reload.primary_locale
-    assert_equal %i[en cy fr], world_news_story.reload.translations.map(&:locale)
+    assert_equal "fr", edition.reload.primary_locale
+    assert_equal %i[en cy fr], edition.reload.translations.map(&:locale)
   end
 end

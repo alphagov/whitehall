@@ -83,7 +83,7 @@ module Whitehall
     File.join(uploads_root, "asset-manager-tmp")
   end
 
-  def self.edition_classes
+  def self.legacy_edition_classes
     [
       CaseStudy,
       CallForEvidence,
@@ -93,7 +93,6 @@ module Whitehall
       DocumentCollection,
       FatalityNotice,
       LandingPage,
-      NewsArticle,
       Publication,
       Speech,
       StatisticalDataSet,

@@ -21,6 +21,7 @@ class Admin::BasePathHelperTest < ActionView::TestCase
       assert_equal Speech, url_to_document_type("/government/speeches/slug")
       assert_equal StatisticalDataSet, url_to_document_type("/government/statistical-data-sets/slug")
       assert_equal StatisticsAnnouncement, url_to_document_type("/government/statistics/announcements/slug")
+      assert_equal StandardEdition, url_to_document_type("/government/news/slug")
     end
 
     test "it raises exception if no document type found for base path" do

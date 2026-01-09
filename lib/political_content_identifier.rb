@@ -1,10 +1,9 @@
 class PoliticalContentIdentifier
-  POTENTIALLY_POLITICAL_FORMATS = [
+  LEGACY_POTENTIALLY_POLITICAL_FORMATS = [
     CallForEvidence,
     CaseStudy,
     Consultation,
     Speech,
-    NewsArticle,
   ].freeze
 
   POLITICAL_PUBLICATION_TYPES = [
@@ -47,7 +46,13 @@ private
   end
 
   def potentially_political_format?
-    potentially_political_publication? || POTENTIALLY_POLITICAL_FORMATS.include?(edition.class)
+    potentially_political_standard_edition? ||
+      potentially_political_publication? ||
+      LEGACY_POTENTIALLY_POLITICAL_FORMATS.include?(edition.class)
+  end
+
+  def potentially_political_standard_edition?
+    edition.is_a?(StandardEdition) && edition.can_be_marked_political?
   end
 
   def potentially_political_publication?
@@ -59,14 +64,10 @@ private
   end
 
   def always_political_format?
-    edition_is_a_world_news_story?
+    edition.configurable_document_type == "world_news_story"
   end
 
   def never_political_format?
     edition.is_a?(FatalityNotice) || stats_publication?
-  end
-
-  def edition_is_a_world_news_story?
-    edition.is_a?(NewsArticle) && edition.world_news_story?
   end
 end
