@@ -8,7 +8,6 @@ class Admin::EditionFeaturingsController < Admin::BaseController
                           .to_h
                           .merge(
                             state: "published",
-                            topical_event: @edition.to_param,
                             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                           )
 

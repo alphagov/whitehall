@@ -208,10 +208,10 @@
       } %>
 
       <%= link_to("Add features",
-                  admin_standard_edition_topical_event_featurings_path(@edition.id),
-                  class: "govuk-link") %>
+                  admin_standard_edition_edition_featurings_path(@edition.id),
+                  class: "govuk-link") %>      
 
-    </section>
+    </section>    
   <% end %>
 
   <%= render Admin::Editions::Show::Translations.new(@edition) %>
