@@ -303,10 +303,27 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "POST create re-renders the new edition template with the submitted block content and errors if the form is invalid" do
-    configurable_document_type = build_configurable_document_type("test_type", "schema" => {
-      "validations" => {
-        "presence" => {
-          "attributes" => %w[test_attribute],
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "test_attribute" => {
+              "title" => "Test attribute",
+              "block" => "default_string",
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "test_attribute" => {
+            "type" => "string",
+          },
+        },
+        "validations" => {
+          "presence" => {
+            "attributes" => %w[test_attribute],
+          },
         },
       },
     })

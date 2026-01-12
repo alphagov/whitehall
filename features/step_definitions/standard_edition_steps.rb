@@ -1,4 +1,4 @@
-def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil)
+def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil)
   image = create(:image)
   defaults = default_content_for_locale(locale)
   I18n.with_locale(locale) do
@@ -14,6 +14,8 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
           "image" => image.image_data.id.to_s,
           "body" => body || defaults[:body],
           "date_field" => date_field,
+          "street" => street,
+          "city" => city,
         },
       },
     )
@@ -28,6 +30,8 @@ def default_content_for_locale(locale)
       summary: "Crynodeb Cymraeg o'r ddogfen.",
       body: "## Rhywfaint o Gymraeg. Dyma gynnwys y corff yn Gymraeg",
       date_field: { "1" => "2025", "2" => "10", "3" => "2" },
+      street: "Stryd Bakers",
+      city: "Llundain",
     }
   else
     {
@@ -35,6 +39,8 @@ def default_content_for_locale(locale)
       summary: "A brief summary of the document.",
       body: "## Some English govspeak. This is the English body content",
       date_field: { "1" => "2025", "2" => "10", "3" => "1" },
+      street: "Bakers Street",
+      city: "London",
     }
   end
 end
@@ -65,6 +71,8 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
     fill_in "edition[block_content][date_field][3]", with: "01"
     fill_in "edition[block_content][date_field][2]", with: "11"
     fill_in "edition[block_content][date_field][1]", with: "2011"
+    fill_in "edition[block_content][street]", with: "Bakers Street"
+    fill_in "edition[block_content][city]", with: "London"
   end
   click_button "Save and go to document summary"
 end
@@ -72,19 +80,29 @@ end
 Then("when I switch to the Images tab to fill in the other configurable fields") do
   # Pretend we've uploaded an image already
   edition = @standard_edition || StandardEdition.last
-  image = create(:image)
-  edition.update!(images: [image])
+  images = [
+    create(:image, image_data: create(:image_data, file: File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg")))),
+    create(:image, image_data: create(:image_data, file: File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))),
+  ]
+  edition.update!(images: images)
 
   # Go to the Images tab to select the image
   click_link "Edit draft"
   click_link "Images"
 
+  # This is an image select block
   # Assert that the valueless "No image selected" option is present as the first option, and that no option has been selected yet
-  expect(page).to have_select("Image", options: ["No image selected", edition.images.first.filename])
+  expect(page).to have_select("Image", options: ["No image selected", edition.images.first.filename, edition.images.last.filename])
   expect(page).to have_select("Image", selected: nil)
+
+  # This is a lead image select block
+  # Assert that the valueless "No image selected" option is present as the first option, and that no option has been selected yet
+  expect(page).to have_select("Lead Image", options: ["No image selected", edition.images.first.filename, edition.images.last.filename])
+  expect(page).to have_select("Lead Image", selected: nil)
 
   # Now select the image and save
   select edition.images.first.filename, from: "Image"
+  select edition.images.last.filename, from: "Lead Image"
   click_button "Save"
 end
 
@@ -97,6 +115,7 @@ Then("the configurable fields on the Images tab are persisted") do
 
   # Check the select value is pre-selected
   expect(page).to have_select("Image", selected: edition.images.first.filename)
+  expect(page).to have_select("Lead Image", selected: edition.images.last.filename)
 end
 
 And("the configurable fields on the Document tab are not overwritten") do
@@ -110,6 +129,8 @@ And("the configurable fields on the Document tab are not overwritten") do
   expect(page).to have_field("Day", with: "1")
   expect(page).to have_field("Month", with: "11")
   expect(page).to have_field("Year", with: "2011")
+  expect(page).to have_field(name: "edition[block_content][city]", with: "London")
+  expect(page).to have_field(name: "edition[block_content][street]", with: "Bakers Street")
 end
 
 Given(/^I have drafted an English configurable document titled "([^"]*)"$/) do |title|
@@ -128,6 +149,8 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
         "image" => image.image_data.id.to_s,
         "body" => "Some text",
         "date_field" => { "1" => "2025", "2" => "10", "3" => "1" },
+        "street" => "Bakers Street",
+        "city" => "London",
       },
     },
   )
@@ -153,6 +176,14 @@ And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |t
   standard_edition = StandardEdition.find_by(title: title)
   visit admin_standard_edition_path(standard_edition)
   click_button "Create new edition"
+
+  expect(page).to have_field(name: "edition[block_content][body]", with: "Some text")
+  expect(page).to have_field(name: "edition[block_content][date_field][3]", with: "1")
+  expect(page).to have_field(name: "edition[block_content][date_field][2]", with: "10")
+  expect(page).to have_field(name: "edition[block_content][date_field][1]", with: "2025")
+  expect(page).to have_field(name: "edition[block_content][city]", with: "London")
+  expect(page).to have_field(name: "edition[block_content][street]", with: "Bakers Street")
+
   click_link "Images"
   expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
 end
@@ -178,10 +209,6 @@ When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)
   click_button "Save and go to document summary"
 end
 
-Given(/^I have drafted a Welsh primary locale configurable document$/) do
-  @welsh_edition = create_configurable_document(default_content_for_locale("cy"))
-end
-
 When(/^I go to add a Welsh translation$/) do
   edition = @standard_edition || StandardEdition.last
   visit edit_admin_edition_translation_path(edition, :cy)
@@ -193,6 +220,8 @@ Then(/^configured content blocks should appear on the translation page$/) do
   expect(page).to have_field("Day")
   expect(page).to have_field("Month")
   expect(page).to have_field("Year")
+  expect(page).to have_field("City")
+  expect(page).to have_field("Street")
 end
 
 And(/^the Welsh translation fields should be pre-populated with primary locale content$/) do
@@ -201,6 +230,8 @@ And(/^the Welsh translation fields should be pre-populated with primary locale c
   expect(page).to have_field("Year", with: content[:date_field]["1"])
   expect(page).to have_field("Month", with: content[:date_field]["2"])
   expect(page).to have_field("Day", with: content[:date_field]["3"])
+  expect(page).to have_field(name: "edition[block_content][city]", with: "London")
+  expect(page).to have_field(name: "edition[block_content][street]", with: "Bakers Street")
 end
 
 And(/^the image selections should be preserved from the primary locale$/) do
@@ -225,6 +256,8 @@ Then(/^when I set the Welsh translations$/) do
   fill_in "edition[block_content][date_field][3]", with: content[:date_field]["3"]
   fill_in "edition[block_content][date_field][2]", with: content[:date_field]["2"]
   fill_in "edition[block_content][date_field][1]", with: content[:date_field]["1"]
+  fill_in "edition[block_content][street]", with: content[:street]
+  fill_in "edition[block_content][city]", with: content[:city]
   click_button "Save"
 end
 
@@ -239,6 +272,8 @@ Then(/^the Welsh translations should have persisted$/) do
   expect(page).to have_field("Year", with: content[:date_field]["1"])
   expect(page).to have_field("Month", with: content[:date_field]["2"])
   expect(page).to have_field("Day", with: content[:date_field]["3"])
+  expect(page).to have_field(name: "edition[block_content][street]", with: content[:street])
+  expect(page).to have_field(name: "edition[block_content][city]", with: content[:city])
 end
 
 Given(/^I have published an English document with a Welsh translation$/) do
@@ -252,6 +287,8 @@ Given(/^I have published an English document with a Welsh translation$/) do
       block_content: {
         "body" => en_content[:body],
         "date_field" => en_content[:date_field],
+        "street" => en_content[:street],
+        "city" => en_content[:city],
       },
     },
   )
@@ -264,6 +301,8 @@ Given(/^I have published an English document with a Welsh translation$/) do
       block_content: {
         "body" => cy_content[:body],
         "date_field" => cy_content[:date_field],
+        "street" => cy_content[:street],
+        "city" => cy_content[:city],
       },
     )
   end

@@ -32,7 +32,7 @@
         ]
       }
     },
-    "schema_property": {
+    "form_field": {
       "type": "object",
       "properties": {
         "title": {
@@ -43,43 +43,28 @@
           "type": "string",
           "description": "Description of the content block's purpose. Usually used for hint text."
         },
-        "type": {
+        "block": {
           "type": "string",
-          "description": "Data type for the content block. Should map to an active record type, with the exception of the object and array type.",
+          "description": "Identifier for a content block. Maps to a specific block class.",
           "enum": [
-            "string",
-            "integer",
-            "date",
-            "object"
-          ]
-        },
-        "format": {
-          "description": "Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. For example, `image_select` blocks are of type `integer`, while `govspeak` blocks are of type `string`. A breakdown of formats and types can be found in the configurable content blocks factory.",
-          "type": "string",
-          "enum": [
-            "default",
+            "default_date",
+            "default_object",
+            "default_string",
             "govspeak",
             "image_select",
-            "lead_image_select",
-            "wrapper"
+            "lead_image_select"
           ]
         },
-        "properties": {
+        "fields": {
           "type": "object",
           "patternProperties": {
             ".*": {
-              "$ref": "#/$defs/schema_property"
+              "$ref": "#/$defs/form_field"
             }
           }
-        },
-        "validations": {
-          "$ref": "#/$defs/validations"
         }
       },
-      "required": [
-        "title",
-        "type"
-      ],
+      "required": ["title", "block"],
       "additionalProperties": false
     }
   },
@@ -104,12 +89,25 @@
       "type": "object",
       "description": "Defines the content structure for the document type. Each property represents a content block.",
       "properties": {
-        "properties": {
+        "attributes": {
           "type": "object",
-          "description": "Fields/content blocks for the document, each with its own schema.",
+          "description": "Alternative to `properties`, defining content blocks with minimal schema information.",
           "patternProperties": {
             ".*": {
-              "$ref": "#/$defs/schema_property"
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Data type for the content block. Should map to an active record type, with the exception of the object type.",
+                  "enum": [
+                    "string",
+                    "integer",
+                    "date"
+                  ]
+                }
+              },
+              "required": ["type"],
+              "additionalProperties": false
             }
           }
         },
@@ -124,10 +122,71 @@
           }
         }
       },
-      "required": [
-        "properties"
-      ],
       "additionalProperties": false
+    },
+    "forms": {
+      "type": "object",
+      "description": "Defines the content structure for the document type. Each property represents a content block.",
+      "properties": {
+        "documents": {
+          "type": "object",
+          "properties": {
+            "fields": {
+              "type": "object",
+              "description": "Fields/content blocks for the document, each with its own schema.",
+              "patternProperties": {
+                ".*": {
+                  "$ref": "#/$defs/form_field"
+                }
+              }
+            }
+          }
+        },
+        "images": {
+          "type": "object",
+          "properties": {
+            "fields": {
+              "type": "object",
+              "description": "Image-related fields/content blocks for the document, each with its own schema.",
+              "patternProperties": {
+                ".*": {
+                  "$ref": "#/$defs/form_field"
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "presenters": {
+      "type": "object",
+      "description": "Defines how content blocks map to publishing API presenters and formats.",
+      "properties": {
+        "publishing_api": {
+          "type": "object",
+          "description": "Mapping of content blocks to their respective publishing API presenter formats.",
+          "patternProperties": {
+            ".*": {
+              "type": "string",
+              "description": "The format to use for the content block when presenting to the Publishing API.",
+              "enum": [
+                "govspeak",
+                "rfc3339_date",
+                "image",
+                "lead_image",
+                "string"
+              ]
+            }
+          },
+          "propertyNames": {
+            "type": "string",
+            "description": "Attribute to be included in the presenter payload. Must match an existing attribute defined in the schema."
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["publishing_api"]
     },
     "associations": {
       "type": "array",
@@ -248,6 +307,8 @@
   "required": [
     "key",
     "schema",
+    "forms",
+    "presenters",
     "associations",
     "settings"
   ]

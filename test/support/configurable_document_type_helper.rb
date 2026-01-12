@@ -4,19 +4,30 @@ module ConfigurableDocumentTypeHelper
       type => {
         "key" => type,
         "title" => "Test type",
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "field_attribute" => {
+                "title" => "Test Attribute",
+                "block" => "govspeak",
+              },
+            },
+          },
+        },
         "schema" => {
-          "properties" => {
-            "test_attribute" => {
-              "title" => "Test Attribute",
+          "attributes" => {
+            "field_attribute" => {
               "type" => "string",
             },
           },
         },
+        "presenters" => {
+          "publishing_api" => {
+            "field_attribute" => "string",
+          },
+        },
         "associations" => [],
         "settings" => {
-          "edit_screens" => {
-            "document" => %w[test_attribute],
-          },
           "base_path_prefix" => "/government/test",
           "publishing_api_schema_name" => "test_article",
           "publishing_api_document_type" => "test_story",

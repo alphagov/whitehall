@@ -3,28 +3,44 @@
     "key": "test_type_1",
     "title": "Test configurable document type one",
     "description": "A test configurable document on GOV.UK",
+    "forms": {
+      "documents": {
+        "fields": {
+          "body": {
+            "title": "Body",
+            "description": "The main content of the page",
+            "block": "govspeak"
+          }
+        }
+      },
+      "images": {
+        "fields": {
+          "image": {
+            "title": "Image",
+            "description": "The image for the page",
+            "block": "image_select"
+          }
+        }
+      }
+    },
     "schema": {
-      "properties": {
+      "attributes": {
         "body": {
-          "title": "Body",
-          "description": "The main content of the page",
-          "type": "string",
-          "format": "govspeak"
+          "type": "string"
         },
         "image": {
-          "title": "Image",
-          "description": "The image for the page",
-          "type": "integer",
-          "format": "image_select"
+          "type": "integer"
         }
+      }
+    },
+    "presenters": {
+      "publishing_api": {
+        "body": "govspeak",
+        "image": "image"
       }
     },
     "associations": [],
     "settings": {
-      "edit_screens": {
-        "document": ["body"],
-        "images": ["image"]
-      },
       "base_path_prefix": "/government/test-type",
       "publishing_api_schema_name": "test_type",
       "publishing_api_document_type": "test_type_1",
@@ -40,28 +56,44 @@
     "key": "test_type_2",
     "title": "Test configurable document type two",
     "description": "A test configurable document on GOV.UK",
+    "forms": {
+      "documents": {
+        "fields": {
+          "body": {
+            "title": "Body",
+            "description": "The main content of the page",
+            "block": "govspeak"
+          }
+        }
+      },
+      "images": {
+        "fields": {
+          "image": {
+            "title": "Image",
+            "description": "The image for the page",
+            "block": "image_select"
+          }
+        }
+      }
+    },
     "schema": {
-      "properties": {
+      "attributes": {
         "body": {
-          "title": "Body",
-          "description": "The main content of the page",
-          "type": "string",
-          "format": "govspeak"
+          "type": "string"
         },
         "image": {
-          "title": "Image",
-          "description": "The image for the page",
-          "type": "integer",
-          "format": "image_select"
+          "type": "integer"
         }
+      }
+    },
+    "presenters": {
+      "publishing_api": {
+        "body": "govspeak",
+        "image": "image"
       }
     },
     "associations": [],
     "settings": {
-      "edit_screens": {
-        "document": ["body"],
-        "images": ["image"]
-      },
       "base_path_prefix": "/government/test-type",
       "publishing_api_schema_name": "test_type",
       "publishing_api_document_type": "test_type_2",

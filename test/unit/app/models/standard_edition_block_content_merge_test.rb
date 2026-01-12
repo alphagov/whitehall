@@ -4,11 +4,20 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
   setup do
     test_type = build_configurable_document_type(
       "test_type",
-      "schema" => {
-        "properties" => {
-          "test_attribute" => { "title" => "Test Attribute", "type" => "string" },
-          "body" => { "title" => "Body", "type" => "string", "format" => "govspeak" },
-          "count" => { "title" => "Count", "type" => "integer" },
+      {
+        "forms" => {
+          "documents" => {
+            "test_attribute" => { "title" => "Test Attribute", "block" => "default_string" },
+            "body" => { "title" => "Body", "block" => "govspeak" },
+            "count" => { "title" => "Count", "block" => "image_select" },
+          },
+        },
+        "schema" => {
+          "attributes" => {
+            "test_attribute" => { "type" => "string" },
+            "body" => { "type" => "string" },
+            "count" => { "type" => "integer" },
+          },
         },
       },
     )
@@ -102,23 +111,12 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
     nested_type = build_configurable_document_type(
       "nested_type",
       "schema" => {
-        "properties" => {
-          "body" => { "title" => "Body", "type" => "string" },
-          "meta" => {
-            "title" => "Meta",
-            "type" => "object",
-            "properties" => {
-              "summary" => { "title" => "Summary", "type" => "string" },
-              "extra" => {
-                "title" => "Extra",
-                "type" => "object",
-                "properties" => {
-                  "audience" => { "title" => "Audience", "type" => "string" },
-                  "count" => { "title" => "Count", "type" => "integer" },
-                },
-              },
-            },
-          },
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "summary" => { "type" => "string" },
+          "audience" => { "type" => "string" },
+          "meta" => { "type" => "object" },
+          "count" => { "type" => "integer" },
         },
       },
     )
@@ -129,26 +127,31 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
       configurable_document_type: "nested_type",
       block_content: {
         "body" => "Start",
+        "summary" => "old summary",
+        "audience" => "public",
         "meta" => {
-          "summary" => "old summary",
-          "extra" => { "audience" => "public", "count" => 1 },
-          "junk" => "should be removed", # invalid per schema
+          "info" => "some info",
+          "details" => "some details",
+          "bool" => true,
         },
+        "count" => 1,
+        "junk" => "should be removed", # invalid per schema
       },
     )
 
     # Simulate controller-style assignment (attributes object) rather than a plain Hash
     params = ActionController::Parameters.new(
       "block_content" => {
+        "summary" => "new summary", # overwrite nested valid key
+        "count" => 2, # overwrite nested-nested valid key
+        "invalid_nested" => "ignore me", # invalid nested key
+        "unknown" => "ignore me too", # invalid nested key at level 1
         "meta" => {
-          "summary" => "new summary",            # overwrite nested valid key
-          "extra" => {
-            "count" => 2,                        # overwrite nested-nested valid key
-            "invalid_nested" => "ignore me",     # invalid nested key
-          },
-          "unknown" => "ignore me too",          # invalid nested key at level 1
+          "info" => "updated info",
+          "details" => "updated details",
+          "bool" => false,
         },
-        "not_in_schema" => "nope",               # invalid top-level key
+        "not_in_schema" => "nope", # invalid top-level key
       },
     ).permit!
 
@@ -159,14 +162,20 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
     assert_equal "Start", bc["body"]
 
     # nested object merged
-    assert_equal "new summary", bc["meta"]["summary"]
-    assert_equal "public",      bc["meta"]["extra"]["audience"] # preserved
-    assert_equal 2,             bc["meta"]["extra"]["count"]    # updated
+    assert_equal "new summary", bc["summary"]
+    assert_equal "public",      bc["audience"] # preserved
+    assert_equal 2,             bc["count"]    # updated
+
+    assert_equal({
+      "info" => "updated info",
+      "details" => "updated details",
+      "bool" => false,
+    }, bc["meta"].to_h)
 
     # invalid keys filtered out
-    assert_nil bc["meta"]["junk"]
-    assert_nil bc["meta"]["unknown"]
-    assert_nil bc["meta"]["extra"]["invalid_nested"]
+    assert_nil bc["junk"]
+    assert_nil bc["unknown"]
+    assert_nil bc["invalid_nested"]
     assert_nil bc["not_in_schema"]
   end
 end

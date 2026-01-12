@@ -32,15 +32,19 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
       "schema" => {
-        "properties" => {
-          "property_one" => {
+        "attributes" => {
+          "attribute_one" => {
             "type" => "string",
-            "title" => "Property One",
           },
-          "property_two" => {
+          "attribute_two" => {
             "type" => "string",
-            "title" => "Property Two",
           },
+        },
+      },
+      "presenters" => {
+        "publishing_api" => {
+          "attribute_one" => "string",
+          "attribute_two" => "string",
         },
       },
     }))
@@ -48,16 +52,16 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
                   {
                     configurable_document_type: type_key,
                     block_content: {
-                      "property_one" => "Foo",
-                      "property_two" => "Bar",
+                      "attribute_one" => "Foo",
+                      "attribute_two" => "Bar",
                     },
                   })
     page.document = Document.new
     page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
-    assert_equal page.block_content["property_one"], content[:details][:property_one]
-    assert_equal page.block_content["property_two"], content[:details][:property_two]
+    assert_equal page.block_content["attribute_one"], content[:details][:attribute_one]
+    assert_equal page.block_content["attribute_two"], content[:details][:attribute_two]
   end
 
   test "it includes a title and a description" do
@@ -82,25 +86,23 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
       "schema" => {
         "headings_from" => %w[chunk_of_content_one chunk_of_content_two],
-        "properties" => {
+        "attributes" => {
           "chunk_of_content_one" => {
-            "title" => "A govspeak block",
-            "description" => "Some bit of content",
             "type" => "string",
-            "format" => "govspeak",
           },
           "string_chunk_of_content" => {
-            "title" => "A string",
-            "description" => "Some bit of content",
             "type" => "string",
-            "format" => "default",
           },
           "chunk_of_content_two" => {
-            "title" => "Another govspeak block",
-            "description" => "Another bit of content",
             "type" => "string",
-            "format" => "govspeak",
           },
+        },
+      },
+      "presenters" => {
+        "publishing_api" => {
+          "string_chunk_of_content" => "string",
+          "chunk_of_content_one" => "govspeak",
+          "chunk_of_content_two" => "govspeak",
         },
       },
     }))
@@ -109,8 +111,8 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     page.document.slug = "page-title"
     page.block_content = {
       "string_chunk_of_content" => "Head-less content",
-      "chunk_of_content_two" => "## Header for chunk two\nSome more content",
       "chunk_of_content_one" => "## Header for chunk one\nSome content",
+      "chunk_of_content_two" => "## Header for chunk two\nSome more content",
     }
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
@@ -140,19 +142,19 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
       "schema" => {
         "headings_from" => %w[chunk_of_content_one chunk_of_content_two],
-        "properties" => {
+        "attributes" => {
           "chunk_of_content_one" => {
-            "title" => "A govspeak block",
-            "description" => "Some bit of content",
             "type" => "string",
-            "format" => "govspeak",
           },
           "chunk_of_content_two" => {
-            "title" => "Another govspeak block",
-            "description" => "Another bit of content",
             "type" => "string",
-            "format" => "govspeak",
           },
+        },
+      },
+      "presenters" => {
+        "publishing_api" => {
+          "chunk_of_content_one" => "govspeak",
+          "chunk_of_content_two" => "govspeak",
         },
       },
     }))
@@ -177,19 +179,19 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     type_key = "test_type_key"
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
       "schema" => {
-        "properties" => {
+        "attributes" => {
           "chunk_of_content_one" => {
-            "title" => "A govspeak block",
-            "description" => "Some bit of content",
             "type" => "string",
-            "format" => "govspeak",
           },
           "chunk_of_content_two" => {
-            "title" => "Another govspeak block",
-            "description" => "Another bit of content",
             "type" => "string",
-            "format" => "govspeak",
           },
+        },
+      },
+      "presenters" => {
+        "publishing_api" => {
+          "chunk_of_content_one" => "govspeak",
+          "chunk_of_content_two" => "govspeak",
         },
       },
     }))

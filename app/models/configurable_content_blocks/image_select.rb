@@ -6,17 +6,6 @@ module ConfigurableContentBlocks
       @images = images
     end
 
-    def publishing_api_payload(content)
-      return nil if content.nil?
-
-      if (selected_image = images.find { |image| image.image_data.id == content })&.image_data&.all_asset_variants_uploaded?
-        {
-          url: selected_image.url,
-          caption: image_caption(selected_image),
-        }.compact
-      end
-    end
-
     def to_partial_path
       "admin/configurable_content_blocks/image_select"
     end

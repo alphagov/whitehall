@@ -2,18 +2,33 @@
   "key": "government_response",
   "title": "Government response",
   "description": "Government statements in response to media coverage, such as rebuttals and ‘myth busters’. Do not use for: statements to Parliament. Use the “Speech” format for those.",
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "block": "govspeak"
+        }
+      }
+    },
+    "images": {
+      "fields": {
+        "image": {
+          "title": "Custom lead image",
+          "description": "Select a lead image, if required",
+          "block": "lead_image_select"
+        }
+      }
+    }
+  },
   "schema": {
-    "properties": {
+    "attributes": {
       "body": {
-        "title": "Body",
-        "type": "string",
-        "format": "govspeak"
+        "type": "string"
       },
       "image": {
-        "title": "Lead image",
-        "description": "Select a lead image, if required",
-        "type": "integer",
-        "format": "lead_image_select"
+        "type": "integer"
       }
     },
     "validations": {
@@ -35,6 +50,12 @@
       }
     }
   },
+  "presenters": {
+    "publishing_api": {
+      "body": "govspeak",
+      "image": "lead_image"
+    }
+  },
   "associations" : [
     {
       "key": "ministerial_role_appointments"
@@ -53,10 +74,6 @@
     }
   ],
   "settings": {
-    "edit_screens": {
-      "document": ["body"],
-      "images": ["image"]
-    },
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",
     "publishing_api_schema_name": "news_article",

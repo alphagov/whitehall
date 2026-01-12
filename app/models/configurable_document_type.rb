@@ -57,6 +57,8 @@ class ConfigurableDocumentType
     @key = type["key"]
     @title = type["title"]
     @description = type["description"]
+    @forms = type["forms"] || {}
+    @presenters = type["presenters"] || {}
     @schema = type["schema"]
     @associations = type["associations"]
     @settings = type["settings"]
@@ -67,14 +69,32 @@ class ConfigurableDocumentType
   end
 
   def properties
-    @schema["properties"]
+    @schema["attributes"] || {}
   end
 
-  def properties_for_edit_screen(edit_screen)
-    edit_screens = @settings["edit_screens"] || {}
-    return [] unless edit_screens.key?(edit_screen)
+  def form(key = nil)
+    return nil if @forms.empty?
 
-    edit_screens[edit_screen].index_with { |key| properties[key] }
+    if key
+      @forms[key]
+    else
+      # This 'else' is for the 'translations' page where all fields are displayed together
+      # (No tabular interface)
+      fields = @forms.reduce({}) do |acc, (_form_key, form_value)|
+        acc.merge(form_value["fields"])
+      end
+      {
+        "fields" => fields,
+      }
+    end
+  end
+
+  def presenter(key)
+    @presenters[key]
+  end
+
+  def required_attributes
+    Array(@schema.dig("validations", "presence", "attributes"))
   end
 
   class NotFoundError < StandardError

@@ -1,22 +1,12 @@
 require "test_helper"
 
-class ConfigurableContentBlocks::DefaultDateTest < ActiveSupport::TestCase
-  test "it presents the content" do
-    payload = ConfigurableContentBlocks::DefaultDate.new.publishing_api_payload(Time.zone.now)
-    assert_equal(Time.zone.now.rfc3339, payload)
-  end
-end
-
 class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
   setup do
     @schema = {
-      "type" => "object",
-      "properties" => {
-        "test_attribute" => {
-          "type" => "date",
-          "title" => "Test attribute",
-          "description" => "A test attribute",
-        },
+      "test_attribute" => {
+        "block" => "default_date",
+        "title" => "Test attribute",
+        "description" => "A test attribute",
       },
     }
     @date = Time.zone.now
@@ -24,23 +14,24 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
     @block_content = { "test_attribute" => @date }
     @translated_block_content = { "test_attribute" => @translated_date }
     @block = ConfigurableContentBlocks::DefaultDate.new
+    @path = Path.new(%w[test_attribute])
   end
 
   test "it renders a default date field" do
     render @block, {
-      schema: @schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: @block_content["test_attribute"],
-      path: Path.new.push("test_attribute"),
+      path: @path,
       translated_content: nil,
     }
-    assert_dom "legend", text: @schema["properties"]["test_attribute"]["title"]
+    assert_dom "legend", text: @schema["test_attribute"]["title"]
   end
 
   test "it renders hint text" do
     render @block, {
-      schema: @schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: @block_content["test_attribute"],
-      path: Path.new.push("test_attribute"),
+      path: @path,
       translated_content: nil,
     }
     assert_dom "div.gem-c-hint.govuk-hint", text: "For example, 01 08 2015"
@@ -48,9 +39,9 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
 
   test "it renders day, month and year" do
     render @block, {
-      schema: @schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: @block_content["test_attribute"],
-      path: Path.new.push("test_attribute"),
+      path: @path,
       translated_content: nil,
     }
 
@@ -61,9 +52,9 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
 
   test "it renders day, month and year for translated content" do
     render @block, {
-      schema: @schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: @block_content["test_attribute"],
-      path: Path.new.push("test_attribute"),
+      path: @path,
       translated_content: @translated_block_content["test_attribute"],
     }
 
@@ -81,9 +72,9 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
     end
 
     render @block, {
-      schema: @schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: @block_content["test_attribute"],
-      path: Path.new.push("test_attribute"),
+      path: @path,
       translated_content: nil,
       errors:,
     }
@@ -100,9 +91,9 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
 
     params.merge!({ "edition": { "block_content": { "test_attribute": { "1": "2024", "2": "10", "3": "10" } } } })
     render @block, {
-      schema: @schema["properties"]["test_attribute"],
+      schema: @schema["test_attribute"],
       content: @block_content["test_attribute"],
-      path: Path.new.push("test_attribute"),
+      path: @path,
       translated_content: nil,
       errors:,
     }

@@ -14,9 +14,8 @@ class StandardEditionTest < ActiveSupport::TestCase
       build_configurable_document_type(
         test_type, {
           "schema" => {
-            "properties" => {
+            "attributes" => {
               "body" => {
-                "title" => "Body attribute",
                 "type" => "string",
               },
             },
@@ -133,9 +132,8 @@ class StandardEditionTest < ActiveSupport::TestCase
       build_configurable_document_type(
         test_type, {
           "schema" => {
-            "properties" => {
+            "attributes" => {
               "test_attribute" => {
-                "title" => "Test attribute",
                 "type" => "string",
               },
             },
@@ -158,31 +156,40 @@ class StandardEditionTest < ActiveSupport::TestCase
     configurable_document_type =
       build_configurable_document_type(
         test_type, {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "test_object_attribute" => {
+                  "title" => "Test object attribute",
+                  "block" => "default_object",
+                  "fields" => {
+                    "test_nested_attribute" => {
+                      "title" => "Test nested attribute",
+                      "block" => "default_string",
+                    },
+                  },
+                },
+              },
+            },
+          },
           "schema" => {
-            "properties" => {
-              "test_object_attribute" => {
-                "title" => "Test object attribute",
-                "type" => "object",
-                "properties" => {
-                  "test_nested_attribute" => {
-                    "title" => "Test nested attribute",
-                    "type" => "string",
-                  },
-                },
-                "validations" => {
-                  "presence" => {
-                    "attributes" => %w[test_nested_attribute],
-                  },
-                },
+            "attributes" => {
+              "test_nested_attribute" => {
+                "type" => "string",
+              },
+            },
+            "validations" => {
+              "presence" => {
+                "attributes" => %w[test_nested_attribute],
               },
             },
           },
         }
       )
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
-    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_object_attribute: { test_nested_attribute: "" } } })
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_nested_attribute: "" } })
     assert page.invalid?
-    assert_not page.errors.where("test_object_attribute.test_nested_attribute", :blank).empty?
+    assert_not page.errors.where("test_nested_attribute", :blank).empty?
   end
 
   test "it allows translations if the configurable document type settings permit them" do
@@ -212,17 +219,14 @@ class StandardEditionTest < ActiveSupport::TestCase
   test "it persists a translation's block content when creating a new draft" do
     test_type = build_configurable_document_type("test_type", {
       "schema" => {
-        "properties" => {
+        "attributes" => {
           "test_attribute" => {
-            "title" => "Test Attribute",
             "type" => "string",
           },
           "body" => {
-            "title" => "Body",
             "type" => "string",
           },
           "image" => {
-            "title" => "Custom lead image",
             "type" => "integer",
           },
         },
@@ -241,6 +245,7 @@ class StandardEditionTest < ActiveSupport::TestCase
                                image: image.image_data.id,
                              })
     welsh_block_content = {
+      field_attribute: nil, # from the factory
       test_attribute: "Rhywbeth ar gyfer y maes prawf",
       body: "## Cynnwys y corff yn Gymraeg",
       image: image.image_data.id,
@@ -375,13 +380,11 @@ class StandardEditionTest < ActiveSupport::TestCase
       initial_type = build_configurable_document_type(
         "initial_type", {
           "schema" => {
-            "properties" => {
+            "attributes" => {
               "initial_property" => {
-                "title" => "Initial Property",
                 "type" => "string",
               },
               "common_property" => {
-                "title" => "Common Property",
                 "type" => "string",
               },
             },
@@ -394,13 +397,11 @@ class StandardEditionTest < ActiveSupport::TestCase
       new_type = build_configurable_document_type(
         "new_type", {
           "schema" => {
-            "properties" => {
+            "attributes" => {
               "new_property" => {
-                "title" => "New Property",
                 "type" => "string",
               },
               "common_property" => {
-                "title" => "Common Property",
                 "type" => "string",
               },
             },
@@ -417,7 +418,7 @@ class StandardEditionTest < ActiveSupport::TestCase
       page.update_configurable_document_type("new_type")
       page = StandardEdition.find(page.id) # reload to clear any cached block_content
       assert_equal({
-        "test_attribute" => nil, # from the factory
+        "field_attribute" => nil, # from the factory
         "new_property" => nil, # from the new type
         "common_property" => "common value", # retained from previous type
         # initial_property removed
