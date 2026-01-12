@@ -30,6 +30,12 @@
             "within": "P1Y"
           }
         }
+      },
+      "image": {
+        "title": "Custom lead image",
+        "description": "Select a lead image, if required",
+        "type": "integer",
+        "format": "lead_image_select"
       }
     },
     "validations": {
@@ -59,13 +65,14 @@
   "settings": {
     "edit_screens": {
       "document": ["body", "duration"],
-      "social_media_accounts": []
+      "social_media_accounts": [],
+      "images": []
     },
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",
     "publishing_api_document_type": "topical_event",
     "rendering_app": "collections",
-    "images_enabled": false,
+    "images_enabled": true,
     "send_change_history": true,
     "file_attachments_enabled": false,
     "organisations": null,

@@ -10,6 +10,54 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
+    <h2 class="govuk-heading-l">Images</h2>
+    
+    <%= render "govuk_publishing_components/components/summary_card", {
+      title: "Specialised images",
+      rows: [
+        {
+          key: "Header image",
+          value: raw("<img src='https://assets.integration.publishing.service.gov.uk/media/62c2dd0f8fa8f54e8e4fdec2/p1044390.jpg' />"),
+          actions: [
+            {
+              label: "Update",
+              href: "#1"
+            },
+            {
+              label: "Remove",
+              href: "#2",
+              destructive: true
+            }
+          ]
+        },
+        {
+          key: "Logo event image",
+          value: raw("<img src='https://assets.publishing.service.gov.uk/media/5bb49afa40f0b64a4e9c71d9/s300_SDG-image.jpg' />"),
+          actions: [
+            {
+              label: "Update",
+              href: "#1"
+            },
+            {
+              label: "Remove",
+              href: "#2",
+              destructive: true
+            }
+          ]
+        },
+        {
+          key: "Some other image",
+          value: "Not set",
+          actions: [
+            {
+              label: "Add",
+              href: "#1"
+            }
+          ]
+        }
+      ]
+    } %>
+
     <%= render "image_upload", edition: @edition %>
     <%= render Admin::EditionImages::UploadedImagesComponent.new(edition: @edition) %>
   </div>
