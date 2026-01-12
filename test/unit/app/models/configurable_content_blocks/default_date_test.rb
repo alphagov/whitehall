@@ -1,12 +1,5 @@
 require "test_helper"
 
-class ConfigurableContentBlocks::DefaultDateTest < ActiveSupport::TestCase
-  test "it presents the content" do
-    payload = ConfigurableContentBlocks::DefaultDate.new.publishing_api_payload(Time.zone.now)
-    assert_equal(Time.zone.now.rfc3339, payload)
-  end
-end
-
 class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
   setup do
     @schema = {

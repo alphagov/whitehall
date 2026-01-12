@@ -10,12 +10,6 @@ module ConfigurableContentBlocks
       @attachments = attachments
     end
 
-    def publishing_api_payload(content)
-      return nil if content.nil?
-
-      govspeak_to_html(content, images: @images, attachments: @attachments)
-    end
-
     def to_partial_path
       "admin/configurable_content_blocks/govspeak"
     end

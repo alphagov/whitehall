@@ -1,43 +1,5 @@
 require "test_helper"
 
-class ConfigurableContentBlocks::ImageSelectTest < ActiveSupport::TestCase
-  test "it loads the correct image and presents the image attributes" do
-    images = [create(:image), create(:image, caption: "Example caption")]
-    payload = ConfigurableContentBlocks::ImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
-
-    assert_equal({
-      url: images[1].url,
-      caption: images[1].caption,
-    }, payload)
-  end
-
-  test "it does not send the the caption if nil" do
-    image = create(:image, caption: nil)
-    payload = ConfigurableContentBlocks::ImageSelect.new([image]).publishing_api_payload(image.image_data.id)
-
-    assert_equal({
-      url: image.url,
-    }, payload)
-  end
-
-  test "does not have a publishing api payload if content is nil" do
-    image = create(:image)
-    payload = ConfigurableContentBlocks::ImageSelect.new([image]).publishing_api_payload(nil)
-
-    assert_nil payload
-  end
-
-  test "does not have a publishing api payload if selected image's assets are not ready" do
-    images = create_list(:image, 3)
-    images[1].image_data.assets = []
-    images[1].image_data.save!
-
-    payload = ConfigurableContentBlocks::ImageSelect.new(images).publishing_api_payload(images[1].image_data.id)
-
-    assert_nil payload
-  end
-end
-
 class ConfigurableContentBlocks::ImageSelectRenderingTest < ActionView::TestCase
   setup do
     @schema = {

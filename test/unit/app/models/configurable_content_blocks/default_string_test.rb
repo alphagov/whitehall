@@ -1,12 +1,5 @@
 require "test_helper"
 
-class ConfigurableContentBlocks::DefaultStringTest < ActiveSupport::TestCase
-  test "it presents the content" do
-    payload = ConfigurableContentBlocks::DefaultString.new.publishing_api_payload("foo")
-    assert_equal("foo", payload)
-  end
-end
-
 class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCase
   setup do
     @schema = {
