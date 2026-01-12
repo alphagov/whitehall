@@ -228,7 +228,7 @@ GEM
     flipflop (2.8.0)
       activesupport (>= 4.0)
       terminal-table (>= 1.8)
-    flog (4.9.1)
+    flog (4.9.4)
       path_expander (~> 2.0)
       prism (~> 1.7)
       sexp_processor (~> 4.8)
@@ -716,7 +716,7 @@ GEM
       ast (~> 2.4.1)
       racc
     parslet (2.0.0)
-    path_expander (2.0.0)
+    path_expander (2.0.1)
     pdf-reader (2.15.0)
       Ascii85 (>= 1.0, < 3.0, != 2.0.0)
       afm (>= 0.2.1, < 2)
@@ -916,7 +916,7 @@ GEM
     sentry-sidekiq (5.28.1)
       sentry-ruby (~> 5.28.1)
       sidekiq (>= 3.0)
-    sexp_processor (4.17.4)
+    sexp_processor (4.17.5)
     sidekiq (7.3.9)
       base64
       connection_pool (>= 2.3.0)
