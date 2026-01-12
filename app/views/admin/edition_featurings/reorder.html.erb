@@ -1,0 +1,34 @@
+<% content_for :context, "Currently featured documents" %>
+<% content_for :page_title, "Reorder list" %>
+<% content_for :title, "Reorder list" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= form_with url: order_admin_topical_event_topical_event_featurings_path(@topical_event), method: :put do %>
+      <%= render "govuk_publishing_components/components/hint", {
+        text: "Use the up and down buttons to reorder pages, or select and hold on a page to reorder using drag and drop.",
+        margin_bottom: 4,
+      } %>
+
+      <%= render "govuk_publishing_components/components/reorderable_list", {
+        input_name: "topical_event_featurings[ordering]",
+        items: @topical_event.topical_event_featurings.map do |featuring|
+          {
+            id: featuring.id,
+            title: featuring.title,
+            description: featuring_published_on(featuring).present? ? "Published: #{featuring_published_on(featuring)}" : nil,
+          }
+        end,
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Update order",
+        } %>
+
+        <%= link_to("Cancel", admin_topical_event_topical_event_featurings_path(@topical_event), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

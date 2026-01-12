@@ -311,7 +311,7 @@ Whitehall::Application.routes.draw do
           patch :apply_change_type
         end
 
-        resources :topical_event_featurings, path: "featurings" do
+        resources :edition_featurings, path: "featurings" do
           get :reorder, on: :collection
           put :order, on: :collection
           get :confirm_destroy, on: :member

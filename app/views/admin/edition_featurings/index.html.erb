@@ -1,0 +1,62 @@
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_topical_events_path,
+  } %>
+<% end %>
+<% content_for :page_title, @edition.name %>
+<% content_for :title, @edition.name %>
+<% content_for :context, "Topical events" %>
+<% content_for :title_margin_bottom, 4 %>
+
+<p class="govuk-body">
+  <%= link_to "View on website", @edition.public_url({locale: params[:locale]}.merge(cachebust_url_options)), class: "govuk-link", target: "_blank", rel: "noopener" %>
+</p>
+
+<div class="govuk-!-margin-bottom-8">
+  <%= render "components/secondary_navigation", {
+    aria_label: "Document navigation",
+    items: secondary_navigation_tabs_items(@edition, request.path),
+  } %>
+</div>
+
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Features",
+  font_size: "l",
+  margin_bottom: 6,
+} %>
+
+<%= render "govuk_publishing_components/components/tabs", {
+  disable_ga4: true,
+  tabs: [
+    {
+      id: "currently_featured_tab",
+      label: "Currently featured",
+      content: render(Admin::CurrentlyFeaturedTabComponent.new(
+        featurings: @edition_featurings,
+        maximum_featured_documents: TopicalEvent::MAX_FEATURED_DOCUMENTS,
+      )),
+    },
+    {
+      id: "documents_tab",
+      label: "Documents",
+      content: render("admin/shared/featurable_editions",
+        filter: @filter,
+        paginator: @tagged_editions,
+        featurable_editions: @featurable_editions,
+        filter_by: [:title, :type, :author, :organisation],
+        anchor: "#documents_tab",
+        filter_action: admin_topical_event_topical_event_featurings_url(@edition),
+        feature_path: [:new, :admin, @edition, :topical_event_featuring],
+      ),
+    },
+    {
+      id: "non_govuk_government_links_tab",
+      label: "Non-GOV.UK government links",
+      content: render("admin/feature_lists/featureable_offsite_links",
+        model: @edition,
+        featurable_offsite_links: @featurable_offsite_links,
+        featuring_path: [:new, :admin, @edition, :topical_event_featuring],
+      ),
+    },
+  ],
+} %>
