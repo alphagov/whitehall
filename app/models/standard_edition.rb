@@ -2,6 +2,7 @@ class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
   include ::Attachable
+  include ::Featurable
   include Edition::AlternativeFormatProvider
   include Edition::RoleAppointments
   include Edition::TopicalEvents
