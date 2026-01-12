@@ -215,27 +215,6 @@
       "type": "object",
       "description": "A list of configurations to enable certain edition behaviours.",
       "properties": {
-        "edit_screens": {
-          "type": "object",
-          "description": "A list of rendered screens (tabs) for the content type. Controls which content blocks appear on which editing screens (document, images).",
-          "properties": {
-            "document": {
-              "type": "array",
-              "description": "A list of content blocks to display on the main document editing screen. The keys must match the blocks listed as properties.",
-              "items": {
-                "type": "string"
-              }
-            },
-            "images": {
-              "type": "array",
-              "description": "A list of content blocks to display on the images editing screen. The keys must match the blocks listed as properties.",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "additionalProperties": false
-        },
         "base_path_prefix": {
           "type": "string",
           "description": "URL prefix for where documents of this type are published. E.g. /government/history."
