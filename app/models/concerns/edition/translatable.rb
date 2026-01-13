@@ -5,10 +5,10 @@ module Edition::Translatable
     def process_associations_before_save(edition)
       @edition.translations.each do |translation|
         I18n.with_locale(translation.locale) do
-          edition.title = @edition.title
-          edition.summary = @edition.summary
-          edition.body = @edition.body
-          edition.block_content = @edition.block_content
+          edition.title = translation.title
+          edition.summary = translation.summary
+          edition.body = translation.body
+          edition.write_attribute(:block_content, translation.block_content)
         end
       end
     end

@@ -43,6 +43,10 @@ class StandardEdition < Edition
     block_content["body"]
   end
 
+  def body=(_)
+    nil
+  end
+
   def can_set_previously_published?
     type_instance.settings["backdating_enabled"]
   end
