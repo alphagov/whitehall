@@ -86,6 +86,6 @@
     "organisations": null,
     "backdating_enabled": false,
     "history_mode_enabled": false,
-    "translations_enabled": false
+    "translations_enabled": true
   }
 }
