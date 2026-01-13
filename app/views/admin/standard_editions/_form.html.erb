@@ -118,7 +118,7 @@
 <% end %>
 
 <% if !edition.editable? %>
-  <fieldset disabled="disabled">
+  <fieldset class="app-view-edit-edition__read-only" disabled="disabled">
     <%= edit_form %>
   </fieldset>
 <% else %>
