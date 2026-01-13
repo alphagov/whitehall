@@ -27,6 +27,43 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal "FOO", page.body
   end
 
+  test "updates the document slug if the current translation is for the primary locale" do
+    test_type =
+      build_configurable_document_type(
+        "test_type", {
+          "settings" => {
+            "translations_enabled" => true,
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(test_type)
+    I18n.with_locale(:cy) do
+      edition = create(:draft_standard_edition, configurable_document_type: "test_type", primary_locale: "cy", title: "Original Title")
+      assert_equal "original-title", edition.document.slug
+      edition.update!(title: "New title")
+      assert_equal "new-title", edition.document.slug
+    end
+  end
+
+  test "does not update the document slug if the current translation is not for the primary locale" do
+    test_type = build_configurable_document_type(
+      "test_type", {
+        "settings" => {
+          "translations_enabled" => false,
+        },
+      }
+    )
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    edition = nil
+    I18n.with_locale(:cy) do
+      edition = create(:draft_standard_edition, configurable_document_type: "test_type", primary_locale: "cy", title: "Original Title")
+    end
+    assert_equal "original-title", edition.document.slug
+    edition.update!(title: "New Title")
+    assert_equal "original-title", edition.document.slug
+  end
+
   test "it allows images if the configurable document type settings permit them" do
     test_type_with_images =
       build_configurable_document_type(
