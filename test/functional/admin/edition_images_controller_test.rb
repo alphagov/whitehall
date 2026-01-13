@@ -14,6 +14,25 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_edition_image_path(edition, image)}'][method='post']"
   end
 
+  view_test "edit page shows image editing form for each image kind" do
+    image_kinds = Whitehall::ImageKinds.build_image_kinds(
+      "test" => {
+        "display_name" => "test image kind",
+        "valid_width" => 1,
+        "valid_height" => 2,
+        "permitted_uses" => ["test_usage"],
+        "versions" => [],
+      },
+    )
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_publication, images: [image])
+    edition.stubs(:permitted_image_kinds).returns(image_kinds["test"].permitted_uses)
+    get :edit, params: { edition_id: edition.id, id: image.id }
+    assert_select "form[action='#{admin_edition_image_path(edition, image)}'][method='post']"
+    assert_select "p", text: image_kinds["test"].display_name
+  end
+
   view_test "edit page shows image if all its assets are uploaded" do
     login_authorised_user
     image = build(:image)
