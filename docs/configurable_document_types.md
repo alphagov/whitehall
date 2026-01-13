@@ -15,7 +15,9 @@ Configurable document types are defined as JSON. The JSON files are stored in th
 The JSON for each type has these top level keys:
 
 - 'key': The unique identifier for the document type. This is what will be stored in the edition's `configurable_document_type` column.
-- 'schema': The schema for the document type. Each type must have a root schema of the type "object". This root object contains the `properties` for the document type, which map to [content blocks](#content-blocks) in the application.
+- 'forms': The forms configuration for the document type. This describes how the document type's fields are presented on the UI. Each form (e.g., `documents`, `images`) contains a hash of `fields` hash whose keys should match attributes defined in `schema.attributes`. See [Block Rendering](#block-rendering) section for more details on how forms are rendered.
+- 'schema': The schema for the document type. It contains `attributes` to define the data type for each form field and `validations` to specify what validations to run against the attributes. More details about attributes in [content blocks](#content-blocks).
+- 'presenters': The presenters for the document type. This helps to define a liist of presenters that will consume the document type's content. Each presenter contains a set of schema keys (as defined in `schema.attributes`) whose values should map to their presenter's corresponding BlockContent payload builder method - see the [Publishing API Payload](#publishing-api-payload) section for more details.
 - 'associations': The associations for the document type. This is a list of strings that map to a set of association objects in the Rails app. All associations are included as concerns on the corresponding edition model (such as `StandardEdition`), and then required depending on whether they are included in the document type's configuration.
 - 'settings': A set of configurations for the content type, including edition behaviours that we want to turn on, downstream information or admin-side rendering details.
 
@@ -23,7 +25,6 @@ These are the settings available for configurable document types.
 
 | Key| Required                                                                                            | Description                                                                                                                                                                                                                                                             |
 |---|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| edit_screens | Y                                                                                                   | A list of rendered screens (tabs) for the content type. Controls which content blocks appear on which editing screens (such as the document and images tabs).                                                                                                           |
 | base_path_prefix         | Y                                                                                                   | The prefix for the base path at which the document will be published e.g. '/government/history for the page /government/history/10-downing-street'.                                                                                                                     |
 | configurable_document_group | N                                                                                                   | Optional grouping for document types. Used for categorisation in the admin interface, including search filters. Typically matches the `publishing_api_schema_name`. For example, both `news_story` and `government_response` types would have the group `news_article`. |
 | publishing_api_schema_name | Y                                                                                                   | Name of the schema in the Publishing API for this document type. Different types might share the same schema name. For example, `news_story` and `government_response` types both use the `news_article` schema.                                                        |
@@ -39,41 +40,40 @@ These are the settings available for configurable document types.
 
 ## Content Blocks
 
-Each property within a configurable document schema is represented in the application as a content block. The content block is specified via the "type" and "format" options on the property schema. Content blocks are defined in the `app/models/configurable_content_blocks` directory.
+Each attribute in `schema.attributes` holds the data type for its corresponding content block.
+Content blocks are specified via the "block" property in the forms configuration. All available content blocks are defined in the `app/models/configurable_content_blocks` directory.
 
 NB: The `title` and `summary` attributes for standard editions are not stored in the block content, but rather as first-class attributes on the edition model itself.
 
 Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb) at the point of rendering the form or generating the Publishing API payload. The factory uses the `type` and `format` specified in the schema to determine which block class to instantiate. The block's `type` is used for automatic type casting in the [block content model](../app/models/standard_edition/block_content.rb).
 
 Each content block implements the following methods:
-
-- `publishing_api_payload(content)`: Returns the value to be sent to Publishing API for the property. This can return any type. If returning a hash, ensure you use symbols for the keys.
 - `to_partial_path`: Returns the path to the view that renders the form control for the property.
 
 ### Block rendering
 
-When we render the [form](../app/views/admin/standard_editions/_form.html.erb) for a standard edition, we initialise a "root" block" of type `object`. When this root block's [view](../app/views/admin/configurable_content_blocks/_default_object.html.erb) gets rendered at the view specified in the `DefaultObject`'s block `to_partial_path`, we loop through the block's schema properties and in turn initialise and render blocks matching the specified schemas. The blocks will render in the order they are defined in the schema.
+When we render the [form](../app/views/admin/standard_editions/_form.html.erb) for a standard edition, we initialise a "root" block" of type `object`. When this root block's [view](../app/views/admin/configurable_content_blocks/_default_object.html.erb) gets rendered at the view specified in the `DefaultObject`'s block `to_partial_path`, we loop through the block's schema properties and in turn initialise and render blocks matching the specified schemas. The blocks will render in the order they are defined in the forms property.
 
-The default object block is a recursive block type, as it can contain other **object** blocks within its properties. This allows us to build arbitrarily deep trees of content blocks, as defined by the document type's schema. The following is an example of a simple schema with nested object properties:
+The default object block is a recursive block type, as it can contain other **object** blocks within its properties. This allows us to build arbitrarily deep trees of content blocks, as defined by the document type's schema. The following is an example of a forms configuration that would display two form tabs on the standard edition form (i.e "documents" and "images"). The "documents" tab contains a `Govspeak` block, and the "images" tab contains an `ImageSelect` block nested within a `DefaultObject` block.
 
 ```json
 {
-  "root_object": {
-    "title": "Root Object",
-    "type": "object",
-    "properties": {
-      "leaf_property_one": {
-        "title": "Leaf Property One",
-        "type": "string",
-        "format": "govspeak"
-      },
-      "object_property": {
-        "properties": {
-          "leaf_property_two": {
-            "title": "Leaf Property Two",
-            "type": "string",
-            "format": "image_select"
-          }
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "block": "govspeak"
+        }
+      }
+    },
+    "images": {
+      "fields": {
+        "image": {
+          "title": "Image",
+          "description": "Select an image to display on the page",
+          "block": "image_select"
         }
       }
     }
@@ -82,12 +82,10 @@ The default object block is a recursive block type, as it can contain other **ob
 ```
 The rendering process would be as follows:
 - renders the standard edition [form](../app/views/admin/standard_editions/_form.html.erb)
-- renders `root_object` which is a `DefaultObject` block (using the `_default_object.html.erb` partial)
-- loops through the `root_object` properties:
-  - renders `leaf_property_one` which is a `Govspeak` block (using the `_govspeak.html.erb` partial)
-  - renders `object_property` which is a `DefaultObject` block (using the `_default_object.html.erb` partial)
-    - loops through the `object_property` properties:
-      - renders `leaf_property_two` which is an `ImageSelect` block (using the `_image_select.html.erb` partial)
+- Loops through each form `documents` and `images`, each of which is a `DefaultObject` block (using the `_default_object.html.erb` partial)
+- loops through the `fields` properties:
+  - renders each field e.g `body` which is a `Govspeak` block (using the `_govspeak.html.erb` partial)
+
 
 Block views use the following [partial-local](https://guides.rubyonrails.org/action_view_overview.html#passing-data-to-partials-with-locals-option) variables: 
 - The property `schema` and `content` (default `{}`) are provided for the specific part of the tree being rendered by the content block. The content is for the edition's primary locale.
@@ -100,8 +98,26 @@ Block views use the following [partial-local](https://guides.rubyonrails.org/act
 
 ### Publishing API Payload
 
-In order to compose the `details` hash for Publishing API, The `StandardEditionPresenter`calls the `DefaultObject`'s `publishing_api_payload`. This then loops through all its nested blocks, calling their `publishing_api_payload` methods respectively.
-Relevant payload settings for Publishing API are `base_path_prefix`, `publishing_api_schema_name`, and `publishing_api_document_type`, defined in the document type's [configuration](#document-type-configuration).
+The `StandardEditionPresenter` uses the document type's `presenters` configuration to compose the `details` hash for Publishing API. The `presenters` hash maps each attribute (defined in `schema.attributes`) to its corresponding block content payload builder method.
+
+For example, a presenter configuration will look like:
+
+```json
+{
+  "presenters": {
+    "publishing_api": {
+      "body": "govspeak",
+      "image": "image_select"
+    }
+  }
+}
+```
+
+This instructs the presenter that the `body` attribute should use the `govspeak` payload builder and the `image` attribute should use the `image_select` payload builder. 
+
+Each block type implements its own publishing API payload method (see [app/presenters/publishing_api/payload_builder/block_content.rb](../app/presenters/publishing_api/payload_builder/block_content.rb)), which is called for the attributes configured in the presenter.
+
+This separation allows the same attribute to be presented differently in the UI (via the forms configuration) and in the Publishing API payload, providing flexibility for future changes to either without affecting the other.
 
 ### Create a new content block type
 
@@ -113,12 +129,20 @@ Relevant payload settings for Publishing API are `base_path_prefix`, `publishing
    - The name of the partial should correspond to the block class name.
 
 ### Using a content block in the schema
-To use a block, include it in the schema with the following properties:
-- `title`: Display label for the content block.
-- `description`: (Optional) Description of the content block's purpose. Usually used for hint text.
-- `type`: Data type for the content block. Should map to an active record type, with the exception of the `object` and `array` type.
-- `format`: Format for the content block, e.g., 'govspeak' for rich text, 'image_select' for image picker. Formats represent specific use cases of some of the types. This must match one of the formats registered in the [blocks factory](../app/models/configurable_content_blocks/factory.rb).
-- `validations`: (Optional) Validations to be applied to the content block. See the [Content Block Validation](#content-block-validation) section for more details.
+To use a content block, you need to define it in both the schema and forms:
+
+- Define the UI in `forms.<form_tab>.fields.<field_name>`:
+  - `title`: Display label for the field.
+  - `description`: (Optional) Help text shown to the user.
+  - `block`: Block component to use (e.g., `govspeak`, `image_select`). Must match a format registered in the [blocks factory](../app/models/configurable_content_blocks/factory.rb).
+
+- Define the data type in `schema.attributes.<field_name>`:
+  - `type`: Data type for the attribute (e.g., `string`, `integer`, `date`). Used for type casting in the [block content model](../app/models/standard_edition/block_content.rb).
+
+- Define the Publishing API mapping in `presenters.publishing_api`:
+  - Maps the attribute name to its payload builder method (e.g., `"body": "govspeak"`).
+
+- Add other presenters as needed, following the same mapping structure above.
 
 ### Content Block Validation
 
@@ -130,21 +154,23 @@ Example:
 
 ```json
 {
-  "properties": {
-    "body": { },
-    "image": { }
-  },
-  "validations": {
-    "presence": {
-      "attributes": [
-        "body"
-      ]
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
+      },
+      "image": {
+        "type": "integer"
+      }
     },
-    "max_file_size_custom_validator": {
-      "attributes": [
-        "image"
-      ],
-      "maximum_file_size": 9000
+    "validations": {
+      "presence": {
+        "attributes": ["body"]
+      },
+      "max_file_size_custom_validator": {
+        "attributes": ["image"],
+        "maximum_file_size": 9000
+      }
     }
   }
 }
