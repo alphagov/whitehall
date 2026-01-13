@@ -1,4 +1,4 @@
-<% page_heading = "Preview document type change" %>
+<% page_heading = "Review document type change" %>
 <% content_for :page_title, page_heading %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {
@@ -11,10 +11,9 @@
     <h1 class="govuk-heading-l"><%= page_heading %></h1>
 
     <p class="govuk-body">
-      You are about to change the document type of “<%= @edition.title %>”
+      You're about to change the document type of ‘<%= @edition.title %>’
       from <strong><%= @old_type.label %></strong>
-      to <strong><%= @new_type.label %></strong>. A summary of the changes is
-      shown below. Please review these carefully before proceeding.
+      to <strong><%= @new_type.label %></strong>. A summary of what this change means is shown below. Please review carefully before confirming the change.
     </p>
 
     <%= render(
