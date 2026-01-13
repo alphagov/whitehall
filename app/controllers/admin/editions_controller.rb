@@ -93,6 +93,12 @@ class Admin::EditionsController < Admin::BaseController
       build_edition_dependencies
       render :new
     end
+  rescue Whitehall::UnpublishableInstanceError => _e
+    @edition.destroy!
+    build_edition
+    build_edition_dependencies
+    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title")
+    render :new
   end
 
   def edit
