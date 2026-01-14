@@ -17,7 +17,6 @@ module DataHygiene
     end
 
     def run!
-      remove_from_search_index
       update_slug
       if organisation.is_a? Organisation
         update_users
@@ -27,10 +26,6 @@ module DataHygiene
   private
 
     attr_reader :organisation, :new_slug, :old_slug
-
-    def remove_from_search_index
-      Whitehall::SearchIndex.delete(organisation)
-    end
 
     def update_slug
       # NOTE: This will trigger calls to both search_api and the Publishing API,

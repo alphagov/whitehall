@@ -251,26 +251,6 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     end
   end
 
-  test "re-indexes the organisation after the 'About us' CIP is saved" do
-    org = create(:organisation, govuk_status: "live")
-    corp_page = create(
-      :corporate_information_page,
-      :published,
-      organisation: org,
-      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
-    )
-
-    Whitehall::SearchIndex.expects(:add).with(org).once
-    corp_page.save!
-  end
-
-  test "does not re-index organisation for other types of corporate info page" do
-    org = create(:organisation, govuk_status: "live")
-    other_page = create(:corporate_information_page, :published, organisation: org)
-    Whitehall::SearchIndex.expects(:add).with(org).never
-    other_page.save!
-  end
-
   test "republishes the 'About us' CIP if another CIP is saved" do
     org = create(:organisation, govuk_status: "live")
     about_us = create(

@@ -8,13 +8,6 @@ namespace :search do
   task index: ["search:index:detailed", "search:index:government"]
 
   namespace :index do
-    desc "indexes all organisations"
-    task organisations: :environment do
-      index = Whitehall::SearchIndex.for(:government)
-      index.add_batch(Organisation.search_index)
-      index.commit
-    end
-
     desc "indexes all published searchable content for the main government index"
     task government: :environment do
       index = Whitehall::SearchIndex.for(:government)

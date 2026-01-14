@@ -4,7 +4,6 @@ class CorporateInformationPage < Edition
 
   after_commit :republish_organisation_to_publishing_api
   after_commit :republish_about_page_to_publishing_api, unless: :about_page?
-  after_save :reindex_organisation_in_search_index, if: :about_page?
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
   has_one :organisation, -> { includes(:translations) }, through: :edition_organisation, autosave: false
@@ -42,10 +41,6 @@ class CorporateInformationPage < Edition
       about_us.document_id,
       true,
     )
-  end
-
-  def reindex_organisation_in_search_index
-    organisation.update_in_search_index
   end
 
   def body_required?

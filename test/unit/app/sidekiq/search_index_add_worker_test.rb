@@ -11,16 +11,16 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
 
   test "#perform logs a warning if the instance does not exist" do
     Sidekiq.logger.expects(:warn).once
-    SearchIndexAddWorker.new.perform("Organisation", 1)
+    SearchIndexAddWorker.new.perform("TopicalEvent", 1)
   end
 
   test "#perform indexes searchable instances" do
-    organisation = create(:organisation)
+    event = create(:topical_event)
     attributes_for_indexing_mock = mock
 
-    Organisation.any_instance.stubs(:search_index).returns(attributes_for_indexing_mock)
+    TopicalEvent.any_instance.stubs(:search_index).returns(attributes_for_indexing_mock)
     Whitehall::SearchIndex.indexer_class.any_instance.expects(:add).with(attributes_for_indexing_mock)
-    SearchIndexAddWorker.new.perform(organisation.class.name, organisation.id)
+    SearchIndexAddWorker.new.perform(event.class.name, event.id)
   end
 
   test "#perform does not index non-searchable instances and logs a warning" do

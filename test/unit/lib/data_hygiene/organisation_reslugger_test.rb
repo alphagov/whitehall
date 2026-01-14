@@ -45,16 +45,6 @@ module OrganisationResluggerTest
 
       assert_all_requested expected_publish_requests
     end
-
-    test "deletes the old slug from the search index" do
-      Whitehall::SearchIndex.expects(:delete).with { |org| org.slug == "old-slug" }
-      @reslugger.run!
-    end
-
-    test "adds the new slug from the search index" do
-      Whitehall::SearchIndex.expects(:add).with { |org| org.slug == "corrected-slug" }
-      @reslugger.run!
-    end
   end
 
   class OrganisationTest < ActiveSupport::TestCase
@@ -75,20 +65,6 @@ module OrganisationResluggerTest
 
       user.reload
       assert_equal user.organisation_slug, "corrected-slug"
-    end
-
-    test "when an organisation has child and parent organisations, it also resends these to search api" do
-      child_organisation = create(:organisation, name: "child slug")
-      parent_organisation = create(:organisation, name: "parent slug")
-      organisation = create(:organisation, name: "ye olde slug", child_organisations: [child_organisation], parent_organisations: [parent_organisation])
-      reslugger = DataHygiene::OrganisationReslugger.new(organisation, "corrected-slug")
-
-      Whitehall::SearchIndex.expects(:delete).with(organisation)
-      Whitehall::SearchIndex.expects(:add).with { |org| org.slug == "corrected-slug" }
-      Whitehall::SearchIndex.expects(:add).with(child_organisation)
-      Whitehall::SearchIndex.expects(:add).with(parent_organisation)
-
-      reslugger.run!
     end
   end
 end

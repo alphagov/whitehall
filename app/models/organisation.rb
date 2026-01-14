@@ -2,7 +2,6 @@ class Organisation < ApplicationRecord
   include DateValidation
   include PublishesToPublishingApi
   include ReshuffleMode
-  include Searchable
   include Organisation::OrganisationTypeConcern
   include UserOrderable
   include TranslatableModel
@@ -180,38 +179,13 @@ class Organisation < ApplicationRecord
 
   mount_uploader :logo, LogoUploader
 
-  searchable title: :title_for_search,
-             acronym: :acronym,
-             link: :search_link,
-             content: :indexable_content,
-             description: :description_for_search,
-             organisations: :search_parent_organisations,
-             parent_organisations: :search_parent_organisations,
-             child_organisations: :search_child_organisations,
-             superseded_organisations: :search_superseded_organisations,
-             superseding_organisations: :search_superseding_organisations,
-             boost_phrases: :acronym,
-             slug: :slug,
-             organisation_closed_state: :govuk_closed_status,
-             organisation_state: :searchable_govuk_status,
-             organisation_type: :organisation_type_key,
-             organisation_crest: :organisation_crest,
-             organisation_brand: :organisation_brand,
-             logo_formatted_title: :logo_formatted_name,
-             logo_url: :logo_url,
-             analytics_identifier: :analytics_identifier,
-             closed_at: :closed_at,
-             public_timestamp: :updated_at
-
   extend FriendlyId
   friendly_id
 
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
-  after_save :reindex_associated_organisations
   after_save :republish_how_government_works_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
   after_save :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
-  after_destroy :reindex_associated_organisations
   after_destroy :republish_organisations_index_page_to_publishing_api
   after_destroy :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
 
@@ -229,10 +203,6 @@ class Organisation < ApplicationRecord
       documents = Document.live.where(editions: { alternative_format_provider_id: self })
       documents.find_each { |d| Whitehall::PublishingApi.republish_document_async(d, bulk: true) }
     end
-  end
-
-  def reindex_associated_organisations
-    (parent_organisations + child_organisations).each(&:update_in_search_index)
   end
 
   def republish_organisations_index_page_to_publishing_api
@@ -336,14 +306,6 @@ class Organisation < ApplicationRecord
     child_organisations.where(organisation_type_key: :sub_organisation)
   end
 
-  def searchable_govuk_status
-    if closed? && devolved?
-      "devolved"
-    else
-      govuk_status
-    end
-  end
-
   def logo_url
     logo.try(:url)
   end
@@ -400,48 +362,6 @@ class Organisation < ApplicationRecord
     custom_jobs_url.presence
   end
 
-  def indexable_content
-    Govspeak::Document.new("#{summary} #{body}").to_text
-  end
-
-  def description_for_search
-    description = Govspeak::Document.new(summary).to_text
-
-    if !closed?
-      "The home of #{name} on GOV.UK. #{description}"
-    else
-      description
-    end
-  end
-
-  def title_for_search
-    if closed?
-      "Closed organisation: #{name}"
-    else
-      name
-    end
-  end
-
-  def search_link
-    base_path
-  end
-
-  def search_parent_organisations
-    parent_organisations.map(&:slug)
-  end
-
-  def search_child_organisations
-    child_organisations.map(&:slug)
-  end
-
-  def search_superseded_organisations
-    superseded_organisations.map(&:slug)
-  end
-
-  def search_superseding_organisations
-    superseding_organisations.map(&:slug)
-  end
-
   def published_speeches
     ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
   end
@@ -466,10 +386,6 @@ class Organisation < ApplicationRecord
 
   def has_published_publications_of_type?(publication_type)
     published_editions.where(publication_type_id: publication_type.id).any?
-  end
-
-  def has_scoped_search?
-    organisations_with_scoped_search.include?(slug)
   end
 
   def has_child_organisation?(child)
@@ -569,16 +485,5 @@ class Organisation < ApplicationRecord
 
   def about_us_for(state:)
     corporate_information_pages.where(state:).for_slug("about")
-  end
-
-private
-
-  def organisations_with_scoped_search
-    %w[
-      competition-and-markets-authority
-      environment-agency
-      land-registry
-      legal-aid-agency
-    ]
   end
 end
