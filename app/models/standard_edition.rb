@@ -60,7 +60,7 @@ class StandardEdition < Edition
   end
 
   def allows_image_attachments?
-    type_instance.settings["images_enabled"]
+    type_instance.settings["images"]["enabled"]
   end
 
   def allows_file_attachments?

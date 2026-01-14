@@ -69,7 +69,9 @@ class StandardEditionTest < ActiveSupport::TestCase
       build_configurable_document_type(
         "test_type_with_images", {
           "settings" => {
-            "images_enabled" => true,
+            "images" => {
+              "enabled" => true,
+            },
           },
         }
       )
@@ -77,7 +79,9 @@ class StandardEditionTest < ActiveSupport::TestCase
       build_configurable_document_type(
         "test_type_without_images", {
           "settings" => {
-            "images_enabled" => false,
+            "images" => {
+              "enabled" => false,
+            },
           },
         }
       )

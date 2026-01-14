@@ -32,7 +32,9 @@ module ConfigurableDocumentTypeHelper
           "publishing_api_schema_name" => "test_article",
           "publishing_api_document_type" => "test_story",
           "rendering_app" => "frontend",
-          "images_enabled" => false,
+          "images" => {
+            "enabled" => false,
+          },
           "organisations" => nil,
           "backdating_enabled" => false,
           "history_mode_enabled" => false,
