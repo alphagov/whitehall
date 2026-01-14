@@ -31,6 +31,16 @@
               "block": "default_string"
             }
           }
+        },
+        "list_of_foods": {
+          "title": "Food",
+          "block": "default_array",
+          "fields": {
+            "food": {
+              "title": "Name of food item",
+              "block": "default_string"
+            }
+          }
         }
       }
     },
@@ -53,7 +63,8 @@
     "publishing_api": {
       "body": "govspeak",
       "date_field": "rfc3339_date",
-      "image": "image"
+      "image": "image",
+      "list_of_foods": "TBC - probably some sort of generic array or hash method"
     }
   },
   "schema": {
@@ -75,6 +86,14 @@
       },
       "lead_image": {
         "type": "integer"
+      },
+      "list_of_foods": {
+        "type": "array",
+        "attributes": {
+          "food": {
+            "type": "string"
+          }
+        }
       }
     }
   },

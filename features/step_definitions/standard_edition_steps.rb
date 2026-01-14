@@ -1,4 +1,4 @@
-def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil)
+def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil, list_of_foods: nil)
   image = create(:image)
   defaults = default_content_for_locale(locale)
   I18n.with_locale(locale) do
@@ -16,6 +16,7 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
           "date_field" => date_field,
           "street" => street,
           "city" => city,
+          "list_of_foods" => list_of_foods,
         },
       },
     )
@@ -32,6 +33,7 @@ def default_content_for_locale(locale)
       date_field: { "1" => "2025", "2" => "10", "3" => "2" },
       street: "Stryd Bakers",
       city: "Llundain",
+      list_of_foods: %w[afal oren],
     }
   else
     {
@@ -41,6 +43,7 @@ def default_content_for_locale(locale)
       date_field: { "1" => "2025", "2" => "10", "3" => "1" },
       street: "Bakers Street",
       city: "London",
+      list_of_foods: %w[apple orange],
     }
   end
 end
@@ -174,6 +177,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
         "date_field" => { "1" => "2025", "2" => "10", "3" => "1" },
         "street" => "Bakers Street",
         "city" => "London",
+        "list_of_foods" => %w[apple orange],
       },
     },
   )
@@ -312,6 +316,7 @@ Given(/^I have published an English document with a Welsh translation$/) do
         "date_field" => en_content[:date_field],
         "street" => en_content[:street],
         "city" => en_content[:city],
+        "list_of_foods" => en_content[:list_of_foods],
       },
     },
   )
@@ -326,6 +331,7 @@ Given(/^I have published an English document with a Welsh translation$/) do
         "date_field" => cy_content[:date_field],
         "street" => cy_content[:street],
         "city" => cy_content[:city],
+        "list_of_foods" => cy_content[:list_of_foods],
       },
     )
   end
@@ -380,6 +386,9 @@ And(/^I have created a new "(.+)" draft$/) do |document_type|
       block_content: {
         "body" => content[:body],
         "date_field" => content[:date_field],
+        "street" => content[:street],
+        "city" => content[:city],
+        "list_of_foods" => content[:list_of_foods],
       },
     },
   )
