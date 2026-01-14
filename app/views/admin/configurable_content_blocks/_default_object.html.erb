@@ -5,7 +5,7 @@
    right_to_left ||= false
    errors ||= []
    required_attributes ||= []
-   properties = schema.fetch("properties", schema.fetch("fields", {})) %>
+   properties = schema.fetch("fields") %>
 
 <% body = capture do %>
   <% properties.each do |property_key, property_schema| %>

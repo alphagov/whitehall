@@ -9,9 +9,9 @@ class StandardEditionTranslationBlockContentConsistencyTest < ActiveSupport::Tes
       build_configurable_document_type(
         "test", {
           "schema" => {
-            "properties" => {
-              "body" => { "type" => "string", "format" => "govspeak", "title" => "Body" },
-              "image" => { "type" => "integer", "format" => "lead_image_select", "title" => "Lead image" },
+            "attributes" => {
+              "body" => { "type" => "string" },
+              "image" => { "type" => "integer" },
             },
           },
           "settings" => { "translations_enabled" => true },
