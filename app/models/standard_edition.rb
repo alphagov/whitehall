@@ -98,4 +98,10 @@ class StandardEdition < Edition
   def is_in_valid_state_for_type_conversion?
     %w[draft submitted rejected].include?(state)
   end
+
+private
+
+  def string_for_slug
+    title if primary_locale.to_sym == translation.locale
+  end
 end
