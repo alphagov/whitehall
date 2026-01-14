@@ -17,7 +17,7 @@ The JSON for each type has these top level keys:
 - 'key': The unique identifier for the document type. This is what will be stored in the edition's `configurable_document_type` column.
 - 'forms': The forms configuration for the document type. This describes how the document type's fields are presented on the UI. Each form (e.g., `documents`, `images`) contains a hash of `fields` hash whose keys should match attributes defined in `schema.attributes`. See [Block Rendering](#block-rendering) section for more details on how forms are rendered.
 - 'schema': The schema for the document type. It contains `attributes` to define the data type for each form field and `validations` to specify what validations to run against the attributes. More details about attributes in [content blocks](#content-blocks).
-- 'presenters': The presenters for the document type. This helps to define a liist of presenters that will consume the document type's content. Each presenter contains a set of schema keys (as defined in `schema.attributes`) whose values should map to their presenter's corresponding BlockContent payload builder method - see the [Publishing API Payload](#publishing-api-payload) section for more details.
+- 'presenters': The presenters for the document type. This helps to define a list of presenters that will consume the document type's content. Each presenter contains a hash of keys, matching model attributes defined in `schema.attributes`, whose values should map to their presenter's corresponding BlockContent payload builder method - see the [Publishing API Payload](#publishing-api-payload) section for more details.
 - 'associations': The associations for the document type. This is a list of strings that map to a set of association objects in the Rails app. All associations are included as concerns on the corresponding edition model (such as `StandardEdition`), and then required depending on whether they are included in the document type's configuration.
 - 'settings': A set of configurations for the content type, including edition behaviours that we want to turn on, downstream information or admin-side rendering details.
 
@@ -40,39 +40,56 @@ These are the settings available for configurable document types.
 
 ## Content Blocks
 
-Each attribute in `schema.attributes` holds the data type for its corresponding content block.
-Content blocks are specified via the "block" property in the forms configuration. All available content blocks are defined in the `app/models/configurable_content_blocks` directory.
+Each attribute in `schema.attributes` holds the data type for its corresponding content block. The block's `type` is used for automatic type casting in the [block content model](../app/models/standard_edition/block_content.rb).
+
+Content blocks are specified via the "block" property in the `forms` configuration. All available content blocks are defined in the `app/models/configurable_content_blocks` directory.
 
 NB: The `title` and `summary` attributes for standard editions are not stored in the block content, but rather as first-class attributes on the edition model itself.
 
-Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb) at the point of rendering the form or generating the Publishing API payload. The factory uses the `type` and `format` specified in the schema to determine which block class to instantiate. The block's `type` is used for automatic type casting in the [block content model](../app/models/standard_edition/block_content.rb).
+Content blocks are instantiated via the [content block factory](../app/models/configurable_content_blocks/factory.rb) at the point of rendering the form or generating the Publishing API payload. The factory uses a unique block identifier to determine which block class to instantiate.
 
 Each content block implements the following methods:
 - `to_partial_path`: Returns the path to the view that renders the form control for the property.
 
 ### Block rendering
 
-When we render the [form](../app/views/admin/standard_editions/_form.html.erb) for a standard edition, we initialise a "root" block" of type `object`. When this root block's [view](../app/views/admin/configurable_content_blocks/_default_object.html.erb) gets rendered at the view specified in the `DefaultObject`'s block `to_partial_path`, we loop through the block's schema properties and in turn initialise and render blocks matching the specified schemas. The blocks will render in the order they are defined in the forms property.
+Each `form` in the configuration is rendered as an object block. When we render the [form](../app/views/admin/standard_editions/_form.html.erb) for a standard edition, we initialise a `DefaultOject` block. The `schema` passed to the render method only selects the `documents` form from the configuration. This selection is not yet schema driven, but hardcoded in the standard edition view. For example, we also render images by hardcoding the `form` selection in the [images component](../app/components/admin/edition_images/uploaded_images_component.html.erb), which then renders the "Images" tab.
 
-The default object block is a recursive block type, as it can contain other **object** blocks within its properties. This allows us to build arbitrarily deep trees of content blocks, as defined by the document type's schema. The following is an example of a forms configuration that would display two form tabs on the standard edition form (i.e "documents" and "images"). The "documents" tab contains a `Govspeak` block, and the "images" tab contains an `ImageSelect` block nested within a `DefaultObject` block.
+When the default object block's [view](../app/views/admin/configurable_content_blocks/_default_object.html.erb) gets rendered at the view specified in the `DefaultObject`'s block `to_partial_path`, we loop through the corresponding form's `fields` and initialise and render blocks matching the specified schemas. The blocks will render in the order they are defined in the `fields` hash.
+
+The default object block is a recursive block type, as it can contain other **object** blocks within its properties. This allows us to build arbitrarily deep trees of content blocks, as defined in the `forms` hash. The following is an example of a configuration that would display two tabs for a standard edition. The first tab also contains nested fields.
 
 ```json
 {
   "forms": {
-    "documents": {
+    "form_corresponding_to_a_tab": {
       "fields": {
-        "body": {
-          "title": "Body",
-          "description": "The main content of the page",
+        "leaf_property_one": {
+          "title": "Leaf property one",
+          "description": "A block in a tabbed content view",
           "block": "govspeak"
+        },
+        "nested_object": {
+          "title": "Nested object",
+          "block": "default_object",
+          "fields": {
+            "leaf_property_in_nested_object_one": {
+              "title": "Nested leaf one",
+              "block": "default_date"
+            },
+            "leaf_property_in_nested_object_two": {
+              "title": "Nested leaf two",
+              "block": "default_string"
+            }
+          }
         }
       }
     },
-    "images": {
+    "another_form_corresponding_to_a_tab": {
       "fields": {
-        "image": {
-          "title": "Image",
-          "description": "Select an image to display on the page",
+        "leaf_property_two": {
+          "title": "Leaf property two",
+          "description": "A block in another tabbed content on the page",
           "block": "image_select"
         }
       }
@@ -81,17 +98,23 @@ The default object block is a recursive block type, as it can contain other **ob
 }
 ```
 The rendering process would be as follows:
-- renders the standard edition [form](../app/views/admin/standard_editions/_form.html.erb)
-- Loops through each form `documents` and `images`, each of which is a `DefaultObject` block (using the `_default_object.html.erb` partial)
-- loops through the `fields` properties:
-  - renders each field e.g `body` which is a `Govspeak` block (using the `_govspeak.html.erb` partial)
+- Renders a tab view, whose rendering is typically controller by some config-driven setting, or is always rendered, such as the edition "Documents" tab.
+- Renders a `DefaultObject` block using the `_default_object.html.erb` partial. We pass in the `forms.form_corresponding_to_a_tab` schema.
+- Loops through the `fields` properties:
+  - Renders `leaf_property_one` which is a `Govspeak` block (using the `_govspeak.html.erb` partial)
+  - Renders `nested_object`, which is another `DefaultObject` block.
+    - Loops through the `nested_object`'s `fields` properties:
+      - Renders `leaf_property_in_nested_object_one`, which is a `DefaultDate` block (using the `_default_date.html.erb` partial)
+      - Renders `leaf_property_in_nested_object_two`, which is a `DefaultString` block (using the `_default_string.html.erb` partial)
+- Renders the second tab by repeating the process for `another_form_corresponding_to_a_tab`.
 
 
 Block views use the following [partial-local](https://guides.rubyonrails.org/action_view_overview.html#passing-data-to-partials-with-locals-option) variables: 
 - The property `schema` and `content` (default `{}`) are provided for the specific part of the tree being rendered by the content block. The content is for the edition's primary locale.
 - The location in the tree is specified by the immutable [`path` object](../app/models/configurable_content_blocks/path.rb), which provides convenience methods for doing things such as building the correct name attribute for the form control. If you are rendering child properties for an "object" block, ensure that you push a new segment onto the path (see the [default object implementation](../app/models/configurable_content_blocks/default_object.rb) for an example). 
 - The `root` (default `false`) attribute, which is only set to `true` for the rendering of the original `DefaultObject` block that wraps all the other blocks in the schema. 
-- The `required` attribute. This is set to `true` if the parent object validates that the block's underlying attribute is present.
+- The `required` attribute. This is set to `true` if the model validations specify `presence` for the current block's key.
+- The `required_attributes` attribute. Includes all model attributes validated for presence. Passed down the tree to cater for deeply nested fields.
 - The `right_to_left` (default `false`) attribute. This is set to true if the locale for the edition translation is set to a language which is read from right to left.
 - The `translated_content` (default `nil`) attribute. If the edition is a translation, then this will be populated with the translated content. Blocks must populate their values with the translated content if it is provided, and may wish to show the content for the primary locale as an aid to the user.
 - The `errors` (default `[]`) attribute. The validation errors for the edition. Use the `errors_for` helper function and pass it both the errors and the attribute "path" to pass the attribute errors to the form control component.
@@ -115,18 +138,20 @@ For example, a presenter configuration will look like:
 
 This instructs the presenter that the `body` attribute should use the `govspeak` payload builder and the `image` attribute should use the `image_select` payload builder. 
 
-Each block type implements its own publishing API payload method (see [app/presenters/publishing_api/payload_builder/block_content.rb](../app/presenters/publishing_api/payload_builder/block_content.rb)), which is called for the attributes configured in the presenter.
+Each block type maps to a publishing API payload builder method (see [app/presenters/publishing_api/payload_builder/block_content.rb](../app/presenters/publishing_api/payload_builder/block_content.rb)), which is called for the attributes configured in the presenter.
 
-This separation allows the same attribute to be presented differently in the UI (via the forms configuration) and in the Publishing API payload, providing flexibility for future changes to either without affecting the other.
+This separation allows the same attribute to be presented differently in the UI (via the forms configuration) and in the Publishing API payload, providing flexibility for future changes.
 
 ### Create a new content block type
 
 1. Add a new block class to the [content blocks directory](../app/models/configurable_content_blocks)
-   - Implement the `publishing_api_payload` and `to_partial_path` methods.
+   - Implement the `to_partial_path` methods.
 2. Add the block type to the [blocks factory](../app/models/configurable_content_blocks/factory.rb)
-    - The factory's `blocks` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the configurable document edition object as its only argument. Any values from the edition object needed by the block can be passed to the block's initialize method, e.g. the `ImageSelect` block is passed the edition's images.
+    - The factory's `build_block` method returns a hash that maps each block type and format to a constructor lambda. The constructor lambda receives the configurable document edition object as its only argument. Any values from the edition object needed by the block can be passed to the block's initialize method.
 3. Create a view partial for the block in the `app/views/admin/configurable_content_blocks` directory
    - The name of the partial should correspond to the block class name.
+4. If your block must use a new data type, you might need to make changes to the [block content model](../app/models/standard_edition/block_content.rb)
+5. Ensure you can present the content managed by your block. Check the presenter level [block content abstraction](../app/presenters/publishing_api/payload_builder/block_content.rb). If you're adding a new data type, you might also need to add a new builder method. 
 
 ### Using a content block in the schema
 To use a content block, you need to define it in both the schema and forms:
@@ -146,7 +171,7 @@ To use a content block, you need to define it in both the schema and forms:
 
 ### Content Block Validation
 
-Rails validations can be applied to properties by adding a `validations` key to the property's object schema. The value for the `validations` key should be an object. The keys for the object must map to a validator, as defined in the ['block content' model](../app/models/standard_edition/block_content.rb). The value for each key is an object which will be passed to the validator constructor. The `attributes` represents an array of the names of the attributes to be validated, required for all but custom validators. Other options may be passed depending on what arguments the validator's `initialize` method accepts. 
+Rails validations can be applied to properties by adding a `validations` key to `schema`, alongside the `attributes` specification. The value for the `validations` key should be an object. The keys for the object must map to a validator, as defined in the ['block content' model](../app/models/standard_edition/block_content.rb). The value for each key is an object which will be passed to the validator constructor. The `attributes` represents an array of the names of the attributes to be validated, required for all but custom validators. Other options may be passed depending on what arguments the validator's `initialize` method accepts. 
 
 NB: This structure means that validations technically sit at the "parent" level, so that most schemas have validations at the root level, validating the properties immediately under, such as `body`. Any subsequent object type blocks would have validations defined for their nested attributes.
 
