@@ -192,7 +192,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".schedule_async for a first edition served from the content store queues jobs to push publish intents" do
     timestamp = 12.hours.from_now
-    edition   = create(:draft_publication, scheduled_publication: timestamp)
+    edition = create(:draft_publication, scheduled_publication: timestamp)
 
     I18n.with_locale(:fr) do
       edition.title = "French title"
@@ -200,7 +200,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
 
     english_path = edition.public_path
-    french_path  = edition.public_path(locale: :fr)
+    french_path = edition.public_path(locale: :fr)
 
     Whitehall::PublishingApi.schedule_async(edition)
 
@@ -274,42 +274,108 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]["args"].first
   end
 
-  test ".save_draft publishes a draft edition if no content exists at the route yet" do
-    draft_edition = create(:draft_case_study)
-    payload = PublishingApiPresenters.presenter_for(draft_edition)
-    request = stub_publishing_api_put_content(payload.content_id, payload.content)
-    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
-    Services.publishing_api.expects(:lookup_content_id).with(base_path: draft_edition.public_path).returns(nil)
+  test ".save_draft only checks base_path availability for editions" do
+    new_organisation = create(:organisation, name: "Example Organisation")
 
-    Whitehall::PublishingApi.save_draft(draft_edition)
+    Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
+    Services.publishing_api.expects(:lookup_content_id).never
 
-    assert_requested request
+    assert_nothing_raised do
+      Whitehall::PublishingApi.save_draft(new_organisation)
+    end
   end
 
-  test ".save_draft publishes a draft edition if there is a live content item with the same base path and same content ID" do
-    draft_edition = create(:draft_case_study)
-    payload = PublishingApiPresenters.presenter_for(draft_edition)
-    request = stub_publishing_api_put_content(payload.content_id, payload.content)
-    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
-    Services.publishing_api.expects(:lookup_content_id).with(base_path: draft_edition.public_path).returns(payload.content_id)
-
-    Whitehall::PublishingApi.save_draft(draft_edition)
-
-    assert_requested request
-  end
-
-  test ".save_draft raises exception if there is a live content item with the same base path but different content ID" do
+  test ".save_draft does not check base_path availability for drafts of published editions" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-    edition = create(:draft_standard_edition)
-    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
-    Services.publishing_api.expects(:lookup_content_id).with(base_path: edition.public_path).returns("different-content-id")
+    edition = create(:published_standard_edition)
+    draft = edition.create_draft(create(:user))
 
-    error = assert_raises Whitehall::UnpublishableInstanceError do
-      Whitehall::PublishingApi.save_draft(edition)
+    Services.publishing_api.expects(:lookup_content_id).never
+
+    assert_nothing_raised do
+      Whitehall::PublishingApi.save_draft(draft)
     end
 
+    payload = PublishingApiPresenters.presenter_for(draft)
+    request = stub_publishing_api_put_content(payload.content_id, payload.content)
+    assert_requested request
+  end
+
+  test ".save_draft does not check base_path availability for drafts of unpublished editions" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    unpublished_edition = create(:unpublished_standard_edition, title: "Example Document")
+    new_draft_from_unpublished = unpublished_edition.create_draft(create(:user))
+    assert_equal unpublished_edition.base_path, new_draft_from_unpublished.base_path
+
+    Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
+    Services.publishing_api.expects(:lookup_content_id).never
+
+    assert_nothing_raised do
+      Whitehall::PublishingApi.save_draft(new_draft_from_unpublished)
+    end
+
+    payload = PublishingApiPresenters.presenter_for(new_draft_from_unpublished)
+    request = stub_publishing_api_put_content(payload.content_id, payload.content)
+    assert_requested request
+  end
+
+  test ".save_draft does not raise a base_path exception if no content exists at the route yet" do
+    draft_edition = create(:draft_case_study)
+
+    Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: draft_edition.base_path_without_sequence).returns(nil)
+
+    assert_nothing_raised do
+      Whitehall::PublishingApi.save_draft(draft_edition)
+    end
+
+    payload = PublishingApiPresenters.presenter_for(draft_edition)
+    request = stub_publishing_api_put_content(payload.content_id, payload.content)
+    assert_requested request
+  end
+
+  test ".save_draft does not raise a base_path exception for existing draft title clashes" do
+    # We don't currently raise an error if we identify a clash with existing draft-only editions that were never published.
+    # The lookup_content_id only checks against live editions. This is valid behaviour.
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    original_abandoned_draft = create(:draft_standard_edition, title: "Example Document")
+    published_edition = create(:published_standard_edition, title: "Example Document")
+    new_draft_of_same_title = create(:draft_standard_edition, title: "Example Document")
+
+    assert new_draft_of_same_title.reload.base_path.starts_with?(published_edition.base_path_without_sequence)
+    assert new_draft_of_same_title.reload.base_path.ends_with?("--3")
+    assert_equal new_draft_of_same_title.base_path_without_sequence, original_abandoned_draft.base_path
+
+    # In this case we are only checking that the "original" base_path is not taken by a different content_id, which it is not.
+    Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: new_draft_of_same_title.base_path_without_sequence).returns(nil)
+
+    assert_nothing_raised do
+      Whitehall::PublishingApi.save_draft(new_draft_of_same_title)
+    end
+
+    payload = PublishingApiPresenters.presenter_for(new_draft_of_same_title)
+    request = stub_publishing_api_put_content(payload.content_id, payload.content)
+    assert_requested request
+  end
+
+  test ".save_draft raises base_path exception for first new draft, if there is a live content item with the same base path" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    published_edition = create(:published_standard_edition, title: "Original Title")
+    new_draft_edition_with_same_base_path = create(:draft_standard_edition, title: "Original Title")
+
+    assert new_draft_edition_with_same_base_path.reload.base_path.starts_with?(published_edition.base_path)
+    assert new_draft_edition_with_same_base_path.reload.base_path.ends_with?("--2")
+    assert_equal new_draft_edition_with_same_base_path.base_path_without_sequence, published_edition.base_path
+
+    Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: new_draft_edition_with_same_base_path.base_path_without_sequence).returns(published_edition.content_id)
+
+    error = assert_raises Whitehall::UnpublishableInstanceError do
+      Whitehall::PublishingApi.save_draft(new_draft_edition_with_same_base_path)
+    end
     assert_equal(
-      "Cannot save draft (content_id #{edition.content_id}). There is existing content at the '#{edition.public_path}' route, under a different content_id (different-content-id). Try changing your title to resolve the conflict.",
+      "Cannot save draft (content_id #{new_draft_edition_with_same_base_path.content_id}). There is existing content at the '#{published_edition.base_path}' route, under a different content_id (#{published_edition.content_id}). Try changing your title to resolve the conflict.",
       error.message,
     )
   end

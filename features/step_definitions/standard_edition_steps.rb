@@ -110,10 +110,10 @@ When(/^I draft a new "([^"]*)" configurable document with the same title as a pu
     fill_in "edition[block_content][date_field][2]", with: "11"
     fill_in "edition[block_content][date_field][1]", with: "2011"
   end
-  Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
+  Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
   Services.publishing_api.stubs(:lookup_content_id).returns("not a real content id")
   click_button "Save and go to document summary"
-  Whitehall::PublishingApi.stubs(:ensure_base_path_is_associated_with_this_content_id!).returns(nil)
+  Whitehall::PublishingApi.stubs(:check_first_draft_can_be_published_at_base_path!).returns(nil)
 end
 
 Then("when I switch to the Images tab to fill in the other configurable fields") do

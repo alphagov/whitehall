@@ -885,6 +885,24 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.published_at
   end
 
+  test "first_draft? returns true for the first draft of a document" do
+    draft = create(:edition)
+    assert draft.first_draft?
+  end
+
+  test "first_draft? returns false after a document has already been published" do
+    edition = create(:published_edition)
+    draft = edition.create_draft(create(:writer))
+    assert_not draft.first_draft?
+  end
+
+  Edition::PRE_PUBLICATION_STATES.each do |state|
+    test "first_draft? returns true for #{state} state" do
+      edition = create(:edition, state:)
+      assert edition.first_draft?
+    end
+  end
+
   test "should pass validation on saving of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
     attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")

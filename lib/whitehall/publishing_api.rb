@@ -69,7 +69,7 @@ module Whitehall
 
         content.merge!(bulk_publishing: true) if bulk_publishing
 
-        ensure_base_path_is_associated_with_this_content_id!(model_instance, content)
+        check_first_draft_can_be_published_at_base_path!(model_instance)
 
         Services.publishing_api.put_content(presenter.content_id, content)
       end
@@ -181,22 +181,29 @@ module Whitehall
       end
     end
 
-    def self.ensure_base_path_is_associated_with_this_content_id!(instance, content)
+    def self.check_first_draft_can_be_published_at_base_path!(instance)
+      # We only ever want to run this check for first draft editions.
+      # If the edition has been published before, there is nothing to do, we just continue publishing at the same path.
+      # If the edition is a first draft, then we should check that no existing content uses the base_path_without_sequence.
+      # Drafts with already taken slugs (used by other live documents) will have automated sequences appended to their base_paths, like '--2'.
+      # In order to identify the correct title clash, we need to look up published content at the base_path_without_sequence.
+
+      # A special case are new draft from unpublished editions.
+      # Publishing API does not allow publishing at a path that has previously belonged to an unpublished edition.
+      # So it is safe to reinstate a new draft at its original path.
+      # Whilst it might be desirable to check for title clashes, the variety of slug combinations we can encounter in the wild deems it unsafe to do so.
+      # For that reason, we do nothing if the draft is that of an unpublished edition (i.e. NOT a first_draft?).
+      return unless instance.is_a?(Edition) && instance.first_draft?
+
       content_id = instance.content_id
+      base_path_without_sequence = instance.base_path_without_sequence
 
-      base_path = if instance.respond_to?(:base_path_without_sequence)
-                    # `base_path_without_sequence` required because if an edition with the same
-                    # title exists in Whitehall then `base_path` of `instance` will have
-                    # a unique sequence identifier and the check will not work as intended
-                    instance.base_path_without_sequence
-                  else
-                    content[:base_path]
-                  end
+      # Note that the lookup_content_id call only checks for LIVE editions (published and withdrawn)
+      existing_content_id = Services.publishing_api.lookup_content_id(base_path: base_path_without_sequence)
 
-      existing_content_id = Services.publishing_api.lookup_content_id(base_path:)
-      return if existing_content_id.nil? || existing_content_id == content_id
+      return if existing_content_id.nil?
 
-      raise UnpublishableInstanceError, "Cannot save draft (content_id #{content_id}). There is existing content at the '#{base_path}' route, under a different content_id (#{existing_content_id}). Try changing your title to resolve the conflict."
+      raise UnpublishableInstanceError, "Cannot save draft (content_id #{content_id}). There is existing content at the '#{base_path_without_sequence}' route, under a different content_id (#{existing_content_id}). Try changing your title to resolve the conflict."
     end
   end
 end
