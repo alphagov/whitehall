@@ -9,7 +9,7 @@ class Image < ApplicationRecord
 
   accepts_nested_attributes_for :image_data
 
-  delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, :can_be_cropped?, :requires_crop?, to: :image_data
+  delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, :can_be_cropped?, :requires_crop?, :image_kind, to: :image_data
 
   default_scope -> { order(:id) }
 

@@ -1,9 +1,45 @@
+def upload_file(width, height, type = "govspeak_embed")
+  image_kind = Whitehall.image_kinds.values.select { |image_kind| image_kind.permitted_uses.include?(type) }.first.name
+
+  file = if width == 960 && height == 640
+           jpg_image
+         elsif width == 64 && height == 96
+           Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
+         elsif width == 960 && height == 960
+           Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")
+         end
+
+  if running_javascript?
+    attach_file file do
+      find(:label, "Upload an image").click
+    end
+  else
+    within "##{image_kind}_image_upload_form input.gem-c-file-upload" do
+      attach_file file
+    end
+  end
+
+  io_object = fixture_file_upload(file, "image/jpeg").tempfile.to_io
+  stub_request(:get, %r{.*/media/.*/.*jpg}).to_return(status: 200, body: io_object, headers: {})
+  within "##{image_kind}_image_upload_form" do
+    click_on "Upload"
+  end
+end
+
 Given("a draft document with images exists") do
   svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
   image = build(:image, image_data: svg_image_data)
   images = [build(:image), image]
 
   @edition = create(:draft_publication, body: "!!2", images:)
+end
+
+Given("a draft standard edition with images exists") do
+  svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg")))
+  image = build(:image, image_data: svg_image_data)
+  images = [build(:image), image]
+
+  @edition = create_configurable_document(**default_content_for_locale("en").merge({ title: "Title", images: }))
 end
 
 Given("a draft case study with images exists") do
@@ -26,11 +62,22 @@ When("I visit the images tab of the document with images") do
 end
 
 When(/^I visit the images tab of the document "([^"]*)"$/) do |title|
+  @edition ||= Edition.find_by(title:)
   visit admin_edition_images_path(Edition.find_by(title:))
 end
 
 Then(/^I should see a list with (\d+) image/) do |count|
-  expect(page).to have_selector(".app-view-edition-resource__preview", count:)
+  expect(page).to have_selector("ul .app-view-edition-resource__preview", count:)
+end
+
+Then(/^I should see a list with (\d+) (.*) image/) do |_count, type|
+  Whitehall.image_kinds.values.select { |image_kind| image_kind.permitted_uses.include?(type) }.first.name
+  expect(page).not_to have_selector("#topical_event_logo_image_upload_form")
+end
+
+Then(/^I should not see the form for uploading a (.*) image/) do |type|
+  image_kind = Whitehall.image_kinds.values.select { |image_kind| image_kind.permitted_uses.include?(type) }.first.name
+  expect(page).not_to have_selector("##{image_kind}_image_upload_form")
 end
 
 Then(/^I should see that the image requires cropping/) do
@@ -68,8 +115,25 @@ When("I click to edit the details of the image that needs to be cropped") do
   find_all("a", text: "Edit details").last.click
 end
 
+Then("I should see the image cropper in the following edit screen") do
+  expect(page).to have_selector(".app-c-image-cropper")
+end
+
+Then("I should not see the image cropper in the following edit screen") do
+  expect(page).not_to have_selector(".app-c-image-cropper")
+end
+
 When("I click to hide the lead image") do
   find("button", text: "Remove lead image").click
+end
+
+Then("I should see the default lead image") do
+  expect(page).to have_content("Default lead image")
+end
+
+When("I visit the images tab of the standard edition with images") do
+  @edition = StandardEdition.first
+  visit admin_edition_images_path(@edition)
 end
 
 When("I confirm the deletion") do
@@ -106,6 +170,14 @@ And "I should see a button to choose to use the default image" do
 end
 
 And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
+  upload_file(width, height)
+end
+
+And(/^I upload a (\d+)x(\d+) (.*) image$/) do |width, height, type|
+  upload_file(width, height, type)
+end
+
+And(/^I upload multiple images including a (\d+)x(\d+) image$/) do |width, height|
   file = if width == 960 && height == 640
            jpg_image
          elsif width == 64 && height == 96
@@ -114,21 +186,27 @@ And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
            Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")
          end
 
+  files = [Rails.root.join("test/fixtures/big-cheese.960x640.jpg"), file]
+
   if running_javascript?
-    attach_file file do
+    attach_file files do
       find(:label, "Upload an image").click
     end
   else
-    within "input.gem-c-file-upload" do
-      attach_file file
+    within "#default_image_upload_form input.gem-c-file-upload" do
+      attach_file files
     end
   end
 
-  click_on "Upload"
+  within "#default_image_upload_form" do
+    click_on "Upload"
+  end
 end
 
 And(/^I click upload without attaching a file$/) do
-  click_on "Upload"
+  within "#default_image_upload_form" do
+    click_on "Upload"
+  end
 end
 
 Then(/^I should get the error message "(.*?)"$/) do |error_message|
@@ -162,4 +240,8 @@ Then(/^I should see the organisations default news image$/) do
   within ".app-c-edition-images-lead-image-component__default_lead_image" do
     assert_selector "img", count: 1
   end
+end
+
+Then(/^I should see the title for uploading (?:a|an) (.*) image$/) do |image_kind|
+  expect(page).to have_content "Upload #{image_kind.titleize} image"
 end

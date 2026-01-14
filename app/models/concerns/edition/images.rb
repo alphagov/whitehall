@@ -21,7 +21,11 @@ module Edition::Images
   end
 
   included do
-    has_many :images, foreign_key: "edition_id", dependent: :destroy
+    has_many :images, foreign_key: "edition_id", dependent: :destroy do
+      def of_kind(image_kind)
+        joins(:image_data).where(image_data: { image_kind: image_kind })
+      end
+    end
 
     accepts_nested_attributes_for :images, reject_if: :no_substantive_attributes?, allow_destroy: true
 

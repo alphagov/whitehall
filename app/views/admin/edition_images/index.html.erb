@@ -10,7 +10,32 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
-    <%= render "image_upload", edition: @edition %>
-    <%= render Admin::EditionImages::UploadedImagesComponent.new(edition: @edition) %>
+    <% @edition.permitted_single_upload_image_kinds.each do |image_kind| %>
+
+      <% images_of_image_kind = @edition.images.of_kind(image_kind.name) %>
+
+      <% if images_of_image_kind.count == 0 || @edition.allows_multiple_of_image_kind?(image_kind) %>
+        <%= render "image_upload", edition: @edition, image_kind: %>
+      <% end %>
+
+      <% if images_of_image_kind.count > 0 %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Uploaded #{image_kind.display_name} images",
+          heading_level: 2,
+          font_size: "l",
+          margin_bottom: 2,
+        } %>
+        <ul id="uploaded_<%= image_kind.name %>_image_list" class="govuk-list">
+          <% images_of_image_kind.each do |image| %>
+            <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, last_image: true) %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+
+    <% (@edition.permitted_image_kinds - @edition.permitted_single_upload_image_kinds).each do |image_kind| %>
+      <%= render "image_upload", edition: @edition, image_kind: %>
+      <%= render Admin::EditionImages::UploadedImagesComponent.new(edition: @edition, image_kind:) %>
+    <% end %>
   </div>
 </div>
