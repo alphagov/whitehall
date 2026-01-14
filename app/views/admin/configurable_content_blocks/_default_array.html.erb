@@ -1,0 +1,55 @@
+<% required ||= false
+   content ||= {}
+   translated_content ||= {}
+   right_to_left ||= false
+   errors ||= []
+   required_attributes ||= []
+   element_properties = schema.fetch("fields") %>
+
+<%
+  render_fields = ->(element, index) do
+    element_fields = capture do
+      element_properties.each do |element_key, property_schema|
+        block = default_array.block_factory.build_block(property_schema["block"])
+%>
+  <%= render block, {
+    schema: property_schema,
+    content: element[element_key],
+    # TODO: support translations
+    # translated_content: element[element_key],
+    path: ConfigurableContentBlocks::Path.new([property_key, index, element_key]),
+    required: required_attributes.include?(element_key),
+    required_attributes: property_schema["block"] == "default_array" ? required_attributes : [],
+    right_to_left: right_to_left,
+    errors: errors,
+  } %>
+<%
+      end # element_properties.each loop
+    end # element_fields = capture
+  end # render_fields definition
+%>
+
+<%= render "govuk_publishing_components/components/fieldset",
+            { legend_text: "#{schema['title']}#{required ? ' (required)' : ''}",
+              heading_size: "l",
+              id: path.form_control_id } do %>
+  <%
+    items = content[property_key].map.with_index do |element, index|
+      {
+        fields: render_fields.call(element, index),
+        destroy_checkbox: render("govuk_publishing_components/components/checkboxes", {
+          name: "#{path.form_control_name}[#{index}][_destroy]",
+          items: [{ label: "Remove", value: "1" }],
+        }),
+      }
+    end
+  %>
+
+  <%= render "govuk_publishing_components/components/add_another", {
+    fieldset_legend: schema["title"],
+    add_button_text: "Add another",
+    empty_fields: true,
+    items: items,
+    empty: render_fields.call({}, items.length),
+  } %>
+<% end %>

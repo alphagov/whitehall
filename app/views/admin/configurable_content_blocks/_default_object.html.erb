@@ -12,6 +12,7 @@
     <% block = default_object.block_factory.build_block(property_schema["block"]) %>
     <%= render block, {
       schema: property_schema,
+      property_key: property_key,
       content: property_schema.key?("fields") ? content : content[property_key],
       translated_content: property_schema.key?("fields") ? translated_content : translated_content[property_key],
       path: ConfigurableContentBlocks::Path.new([property_key]),
