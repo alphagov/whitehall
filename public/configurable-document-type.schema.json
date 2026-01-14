@@ -53,7 +53,8 @@
             "default_string",
             "govspeak",
             "image_select",
-            "lead_image_select"
+            "lead_image_select",
+            "social_media_service_select"
           ]
         },
         "fields": {
@@ -201,6 +202,7 @@
                 "rfc3339_date",
                 "image",
                 "lead_image",
+                "social_media_links",
                 "string"
               ]
             }

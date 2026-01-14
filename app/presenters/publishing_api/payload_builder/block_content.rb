@@ -80,6 +80,21 @@ module PublishingApi
           url: item.placeholder_image_url,
         }
       end
+
+      def social_media_links(attribute)
+        content = item.block_content&.public_send(attribute)
+        return [] if content.blank?
+
+        content.map do |item|
+          # `item` looks something like `{"url"=>"foo", "social_media_service_id"=>"3"}`
+          service = SocialMediaService.find(item["social_media_service_id"].to_i)
+          {
+            title: service.name,
+            service_type: service.name.parameterize, # "Google Plus" => "google-plus"
+            href: item["url"],
+          }
+        end
+      end
     end
   end
 end
