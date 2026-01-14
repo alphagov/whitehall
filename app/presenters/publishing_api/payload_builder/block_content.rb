@@ -24,6 +24,10 @@ module PublishingApi
 
       attr_reader :item
 
+      def string(attribute)
+        item.block_content&.public_send(attribute)
+      end
+
       def govspeak(attribute)
         content = item.block_content&.public_send(attribute)
         return nil if content.nil?
@@ -75,10 +79,6 @@ module PublishingApi
           high_resolution_url: item.placeholder_image_url,
           url: item.placeholder_image_url,
         }
-      end
-
-      def string(attribute)
-        item.block_content&.public_send(attribute)
       end
     end
   end
