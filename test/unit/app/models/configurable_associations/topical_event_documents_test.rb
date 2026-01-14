@@ -2,7 +2,7 @@ require "test_helper"
 
 class TopicalEventsDocumentsTest < ActiveSupport::TestCase
   test "it presents the selected topical event document links" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
     topical_events = create_list(:standard_edition, 3, configurable_document_type: "topical_event")
     edition = build(:draft_standard_edition, {
       topical_event_documents: [topical_events.first.document, topical_events.last.document],
@@ -27,7 +27,7 @@ class TopicalEventDocumentsRenderingTest < ActionView::TestCase
   test "it does not render the topical events form control if configurable documents are disabled" do
     @test_strategy.switch!(:configurable_document_types, false)
 
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
     topical_events = create_list(:published_standard_edition, 3, configurable_document_type: "topical_event")
     edition = build(:draft_standard_edition, {
       topical_event_documents: [topical_events.first.document, topical_events.last.document],
@@ -42,7 +42,7 @@ class TopicalEventDocumentsRenderingTest < ActionView::TestCase
   end
 
   test "it renders topical events form control" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
     topical_events = create_list(:published_standard_edition, 3, configurable_document_type: "topical_event")
     edition = build(:draft_standard_edition, {
       topical_event_documents: [topical_events.first.document, topical_events.last.document],
@@ -57,7 +57,7 @@ class TopicalEventDocumentsRenderingTest < ActionView::TestCase
   end
 
   test "it renders topical events form control with pre-selected options" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
     topical_events = create_list(:published_standard_edition, 3, configurable_document_type: "topical_event")
     edition = build(:draft_standard_edition, {
       topical_event_documents: [topical_events.first.document],
