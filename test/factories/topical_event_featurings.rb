@@ -11,7 +11,7 @@ FactoryBot.define do
   end
 
   factory :offsite_topical_event_featuring, class: TopicalEventFeaturing do
-    offsite_link
+    offsite_link { FactoryBot.build(:offsite_link, topical_events: [topical_event]) }
     topical_event
     sequence(:ordering) { |index| index }
     edition { nil }

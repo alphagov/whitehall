@@ -7,7 +7,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
   end
 
   def create
-    @offsite_link = OffsiteLink.new(offsite_link_params.merge(parent: @parent))
+    @offsite_link = @parent.offsite_links.create(offsite_link_params)
 
     if @offsite_link.save
       flash[:notice] = "An offsite link has been created for #{@parent.name}"

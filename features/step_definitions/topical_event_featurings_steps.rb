@@ -1,5 +1,5 @@
 Given(/^the topical event has an offsite link with the title "([^"]*)"$/) do |title|
-  create(:offsite_link, parent_type: "TopicalEvent", parent: @topical_event, title:)
+  create(:offsite_link, topical_events: [@topical_event], title:)
 end
 
 When(/^I visit the topical event featuring index page$/) do
@@ -13,8 +13,8 @@ end
 
 And(/^two featurings exist for "([^"]*)"$/) do |name|
   topical_event = TopicalEvent.find_by(name:)
-  offsite_link1 = create(:offsite_link, parent_type: "TopicalEvent", parent: topical_event, title: "Featured link 1")
-  offsite_link2 = create(:offsite_link, parent_type: "TopicalEvent", parent: topical_event, title: "Featured link 2")
+  offsite_link1 = create(:offsite_link, topical_events: [topical_event], title: "Featured link 1")
+  offsite_link2 = create(:offsite_link, topical_events: [topical_event], title: "Featured link 2")
   create(:offsite_topical_event_featuring, topical_event:, offsite_link: offsite_link1)
   create(:offsite_topical_event_featuring, topical_event:, offsite_link: offsite_link2)
 end

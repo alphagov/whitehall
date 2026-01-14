@@ -16,8 +16,9 @@ class WorldLocationNews < ApplicationRecord
   delegate :slug, :slug=, to: :world_location
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
+  has_many :offsite_link_parents, as: :parent
+  has_many :offsite_links, through: :offsite_link_parents
   accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
-  has_many :offsite_links, as: :parent
   accepts_nested_attributes_for :offsite_links
 
   translates :title, :mission_statement

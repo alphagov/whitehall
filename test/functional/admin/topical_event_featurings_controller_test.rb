@@ -108,7 +108,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :new renders all fields if not featuring an edition" do
-    offsite_link = create :offsite_link
+    offsite_link = create(:offsite_link, topical_events: [@topical_event])
     get :new, params: { topical_event_id: @topical_event.id, offsite_link_id: offsite_link.id }
 
     assert_select "#topical_event_featuring_image_file"
@@ -142,8 +142,8 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the topical event featuring with image" do
-    offsite_link = create(:offsite_link)
     topical_event = create(:topical_event)
+    offsite_link = create(:offsite_link, topical_events: [topical_event])
 
     assert_difference("TopicalEventFeaturing.count") do
       post :create, params: {

@@ -109,7 +109,8 @@ class Organisation < ApplicationRecord
   has_and_belongs_to_many :superseding_organisations, class_name: "Organisation", foreign_key: :superseded_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseding_organisation_id
   has_and_belongs_to_many :superseded_organisations, class_name: "Organisation", foreign_key: :superseding_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseded_organisation_id
 
-  has_many :offsite_links, as: :parent
+  has_many :offsite_link_parents, as: :parent
+  has_many :offsite_links, through: :offsite_link_parents
 
   def featured_documents_display_limit
     return 7 if slug == "prime-ministers-office-10-downing-street"

@@ -83,11 +83,10 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   end
 
   test("determines ordered featured documents in different locales for offsite links") do
-    offsite_link = create(:offsite_link, date: 1.year.ago.to_date)
+    organisation = create(:organisation)
+    offsite_link = create(:offsite_link, organisations: [organisation], date: 1.year.ago.to_date)
     feature = build(:feature, document: nil, offsite_link:, ordering: 1)
     featured_documents_display_limit = 5
-
-    organisation = create(:organisation)
 
     locales = %i[en fr]
 

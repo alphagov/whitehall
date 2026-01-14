@@ -117,7 +117,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
   end
 
   test "#destroy also destroys 'featured offsite link' associations" do
-    offsite_link = create(:offsite_link)
+    offsite_link = create(:offsite_link, :for_organisation)
     feature = create(:feature, offsite_link:)
     feature_list = create(:feature_list, features: [feature])
 
@@ -130,10 +130,24 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert_equal 0, feature_list.features.size
   end
 
+  test "#parents returns all associated parents" do
+    offsite_link = create(:offsite_link, :for_topical_event)
+    topical_event = offsite_link.topical_events.first
+
+    assert_equal [topical_event], offsite_link.parents
+  end
+
+  test "#parent returns the only associated parent" do
+    offsite_link = create(:offsite_link, :for_organisation)
+    organisation = offsite_link.organisations.first
+
+    assert_equal organisation, offsite_link.parent
+  end
+
   test "creating an existing offsite link republishes the parent" do
     parent = create(:world_location_news, world_location: create(:world_location))
 
-    offsite_link = create(:offsite_link, parent:)
+    offsite_link = create(:offsite_link, world_location_news: [parent])
     offsite_link.title = "Updated title"
 
     Whitehall::PublishingApi.expects(:republish_async).with(parent).once
@@ -146,6 +160,6 @@ class OffsiteLinkTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:republish_async).with(parent).once
 
-    create(:offsite_link, parent:)
+    create(:offsite_link, world_location_news: [parent])
   end
 end

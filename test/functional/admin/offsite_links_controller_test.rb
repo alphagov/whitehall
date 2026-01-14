@@ -5,7 +5,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     login_as :gds_editor
     @world_location_news = build(:world_location_news)
     create(:world_location, world_location_news: @world_location_news)
-    @offsite_link = create(:offsite_link, parent_type: "WorldLocationNews", parent: @world_location_news)
+    @offsite_link = create(:offsite_link, world_location_news: [@world_location_news])
   end
 
   should_be_an_admin_controller

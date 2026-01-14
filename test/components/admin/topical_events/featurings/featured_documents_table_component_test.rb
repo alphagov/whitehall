@@ -48,8 +48,8 @@ class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponentTest < Vi
   end
 
   test "renders the correct row when the featurable is associated with an offsite link" do
-    topical_event = build_stubbed(:topical_event)
-    featuring = build_stubbed(:offsite_topical_event_featuring, topical_event:)
+    topical_event = create(:topical_event)
+    featuring = create(:offsite_topical_event_featuring, topical_event:)
     title = featuring.offsite_link.title
 
     render_inline(Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent.new(

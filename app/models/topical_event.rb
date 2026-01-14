@@ -29,7 +29,8 @@ class TopicalEvent < ApplicationRecord
 
   MAX_FEATURED_DOCUMENTS = 6
   has_many :features, inverse_of: :topical_event, dependent: :destroy
-  has_many :offsite_links, as: :parent
+  has_many :offsite_link_parents, as: :parent
+  has_many :offsite_links, through: :offsite_link_parents
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
   has_many :topical_event_organisations, -> { extending UserOrderableExtension }

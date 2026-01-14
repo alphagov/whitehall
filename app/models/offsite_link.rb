@@ -56,7 +56,11 @@ class OffsiteLink < ApplicationRecord
 
   date_attributes(:date)
 
-  belongs_to :parent, polymorphic: true
+  has_many :offsite_link_parents
+  has_many :organisations, through: :offsite_link_parents, source: :parent, source_type: "Organisation"
+  has_many :topical_events, through: :offsite_link_parents, source: :parent, source_type: "TopicalEvent"
+  has_many :world_location_news, through: :offsite_link_parents, source: :parent, source_type: "WorldLocationNews"
+
   has_many :features, inverse_of: :offsite_link, dependent: :destroy
 
   after_commit :republish_parent_to_publishing_api
@@ -64,6 +68,18 @@ class OffsiteLink < ApplicationRecord
   validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :check_url_is_allowed
   validates :link_type, presence: true, inclusion: { in: LinkTypes.all }
+
+  # We only expect one type of parent per offsite link (either organisations, or topical events, or world location news).
+  # Once topical events become editionable, the parents will return all editions associated with the offsite link.
+  def parents
+    organisations + topical_events + world_location_news
+  end
+
+  # For non-editionable parents, we are returning the last - and only - parent.
+  # Once topical events become editionable, this will return the last associated edition.
+  def parent
+    parents.last
+  end
 
   def check_url_is_allowed
     if (uri = Addressable::URI.parse(url))
