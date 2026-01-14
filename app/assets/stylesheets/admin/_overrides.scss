@@ -32,3 +32,13 @@ code {
     margin-bottom: govuk-spacing(2) !important; // stylelint-disable-line declaration-no-important
   }
 }
+
+// Hide the "Remove" checkbox input in JS mode for "Add another" fields
+// The checkbox is needed for no-JS mode to allow users to not fill in
+// the fields. Otherwise, on save, the empty fields are saved to the DB
+// and the user is presented with a second field below it. It's a bit
+// clunky, but at least users without JS can check the 'Remove' box to
+// not save the empty field.
+.js-enabled .js-add-another__fieldset .gem-c-checkboxes {
+  display: none;
+}
