@@ -70,7 +70,7 @@ Rails.application.configure do
   # them here means we don't have to explicitly set them just to run tests.
   ENV["GOVUK_APP_DOMAIN"] ||= "test.gov.uk"
   ENV["GOVUK_APP_DOMAIN_EXTERNAL"] ||= "test.gov.uk"
-  ENV["GOVUK_ASSET_ROOT"] ||= "https://static.test.gov.uk"
+
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
