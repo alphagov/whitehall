@@ -37,9 +37,17 @@ module ServiceListeners
       end
 
       handle_associated_documents(event)
+      handle_locale_change(options[:locales_history])
     end
 
   private
+
+    def handle_locale_change(locales_history)
+      return if locales_history.blank?
+
+      old_locale = locales_history["primary_locale"].first
+      api.discard_translation_async(edition, locale: old_locale)
+    end
 
     def handle_associated_documents(event)
       if edition.respond_to?(:associated_documents) || edition.respond_to?(:deleted_associated_documents)

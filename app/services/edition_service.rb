@@ -51,9 +51,14 @@ private
   end
 
   def update_publishing_api!
+    locales_history = {}
+    if edition.saved_change_to_primary_locale?
+      locales_history["primary_locale"] = edition.saved_change_to_primary_locale
+    end
+
     ServiceListeners::PublishingApiPusher
       .new(edition.reload)
-      .push(event: verb, options:)
+      .push(event: verb, options: options.merge(locales_history:))
   end
 
   def prepare_edition
