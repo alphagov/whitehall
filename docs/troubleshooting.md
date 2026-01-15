@@ -47,7 +47,7 @@ API Error
 
 Solution:
 
-[`search-api`](https://github.com/alphagov/search-api), [`static`](https://github.com/alphagov/static) are helpful to have to running in parallel (depending on what page you are on) via [govuk-docker](https://github.com/alphagov/govuk-docker). Make sure the referenced apps are up to date as well
+[`search-api`](https://github.com/alphagov/search-api) is helpful to have to running in parallel (depending on what page you are on) via [govuk-docker](https://github.com/alphagov/govuk-docker). Make sure the referenced apps are up to date as well
 
 Example:
 
