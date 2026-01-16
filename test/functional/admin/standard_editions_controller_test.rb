@@ -359,4 +359,24 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_empty StandardEdition.draft
   end
+
+  view_test "PATCH :update renders error when renaming a first draft to a title that clashes with a published edition" do
+    login_as create(:gds_admin)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    published_edition = create(:published_standard_edition, title: "Title")
+    new_draft_edition = create(:draft_standard_edition, title: "Another title")
+
+    Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: published_edition.base_path).returns(published_edition.content_id)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: "#{published_edition.base_path}--2").returns(nil) # we also check the sequenced base path
+
+    patch :update, params: {
+      id: new_draft_edition.id,
+      edition: { title: published_edition.title, summary: new_draft_edition.summary, configurable_document_type: "test_type" },
+      save: "save",
+    }
+
+    assert_template "admin/editions/edit"
+    assert_select ".govuk-error-message", text: "Error: Title has been used before on GOV.UK, although the page may no longer exist. Please use another title"
+  end
 end

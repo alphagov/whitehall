@@ -93,7 +93,7 @@ class Admin::EditionsController < Admin::BaseController
       build_edition_dependencies
       render :new
     end
-  rescue Whitehall::UnpublishableInstanceError => _e
+  rescue Whitehall::UnpublishableInstanceError
     @edition.destroy!
     build_edition
     build_edition_dependencies
@@ -129,6 +129,11 @@ class Admin::EditionsController < Admin::BaseController
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
+    render :edit
+  rescue Whitehall::UnpublishableInstanceError
+    build_edition_dependencies
+    fetch_version_and_remark_trails
+    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title")
     render :edit
   end
 
