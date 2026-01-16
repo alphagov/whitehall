@@ -52,7 +52,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       "date_attribute" => :rfc3339_date,
       "image_attribute" => :image,
       "lead_image_attribute" => :lead_image,
-      "string_attribute" => :string,
+      "string_attribute" => :raw,
     })
     @block_content.stubs(:body_attribute).returns(nil)
     @block_content.stubs(:date_attribute).returns(nil)
@@ -70,15 +70,25 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     assert_not result.key?(:string_attribute)
   end
 
-  context "string payload builder" do
-    test "string sends the string content as-is" do
+  context "raw payload builder" do
+    test "raw sends the string content as-is" do
       string_content = "foo"
       @block_content.stubs(:string_chunk).returns(string_content)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:string, :string_chunk)
+      result = builder.send(:raw, :string_chunk)
 
       assert_equal string_content, result
+    end
+
+    test "raw sends the array content as-is" do
+      array_content = [{ foo: "foo" }, { bar: "bar" }]
+      @block_content.stubs(:array_chunk).returns(array_content)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+      result = builder.send(:raw, :array_chunk)
+
+      assert_equal array_content, result
     end
   end
 

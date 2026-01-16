@@ -175,7 +175,7 @@
                 "rfc3339_date",
                 "image",
                 "lead_image",
-                "string"
+                "raw"
               ]
             }
           },

@@ -23,7 +23,7 @@ module ConfigurableDocumentTypeHelper
         },
         "presenters" => {
           "publishing_api" => {
-            "field_attribute" => "string",
+            "field_attribute" => "raw",
           },
         },
         "associations" => [],

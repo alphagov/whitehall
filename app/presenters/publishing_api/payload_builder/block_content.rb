@@ -24,7 +24,7 @@ module PublishingApi
 
       attr_reader :item
 
-      def string(attribute)
+      def raw(attribute)
         item.block_content&.public_send(attribute)
       end
 
