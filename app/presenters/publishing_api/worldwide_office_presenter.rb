@@ -26,7 +26,7 @@ module PublishingApi
         document_type: item.class.name.underscore,
         links: edition_links,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::FRONTEND,
         schema_name: "worldwide_office",
       )
 
