@@ -93,29 +93,6 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   click_button "Save and go to document summary"
 end
 
-When(/^I draft a new "([^"]*)" configurable document with the same title as a published edition$/) do |configurable_document_type|
-  create(:organisation) if Organisation.count.zero?
-  visit admin_root_path
-  find("li.app-c-sub-navigation__list-item a", text: "New document").click
-  page.choose("Standard document")
-  click_button("Next")
-  page.choose(configurable_document_type)
-  click_button("Next")
-  expect(page).to have_content("New test")
-  within "form" do
-    fill_in "edition_title", with: Edition.published.first.title
-    fill_in "edition_summary", with: "A brief summary of the document."
-    fill_in "edition_body", with: "## Some govspeak This is the body content"
-    fill_in "edition[block_content][date_field][3]", with: "01"
-    fill_in "edition[block_content][date_field][2]", with: "11"
-    fill_in "edition[block_content][date_field][1]", with: "2011"
-  end
-  Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
-  Services.publishing_api.stubs(:lookup_content_id).returns("not a real content id")
-  click_button "Save and go to document summary"
-  Whitehall::PublishingApi.stubs(:check_first_draft_can_be_published_at_base_path!).returns(nil)
-end
-
 Then("when I switch to the Images tab to fill in the other configurable fields") do
   # Pretend we've uploaded an image already
   edition = @standard_edition || StandardEdition.last
@@ -330,18 +307,6 @@ Given(/^I have published an English document with a Welsh translation$/) do
   end
 end
 
-Given(/^I have published a configurable document titled "([^"]*)"$/) do |title|
-  @standard_edition = create(
-    :published_standard_edition,
-    {
-      configurable_document_type: "test",
-      title: title || default_content_for_locale("en")[:title],
-      summary: default_content_for_locale("en")[:summary],
-      block_content: default_block_content_for_locale("en"),
-    },
-  )
-end
-
 When(/^I create a new draft and visit the Welsh translation$/) do
   edition = @standard_edition || StandardEdition.last
   visit admin_standard_edition_path(edition)
@@ -409,18 +374,4 @@ Then("the document type should have updated") do
   end
 
   expect(page).to have_content("Test configurable document type two")
-end
-
-Then(/^I should see an error of "(.*)" on the new configurable document page$/) do |error|
-  expect(page).to have_selector(".gem-c-error-summary__list-item")
-  expect(page).to have_content(error.to_s)
-end
-
-And(/^the form should retain the user input with the title "(.*)" before submit$/) do |title|
-  expect(page).to have_field("Title", with: title)
-  expect(page).to have_field("Summary", with: "A brief summary of the document.")
-  expect(page).to have_field("Body", with: "## Some govspeak This is the body content")
-  expect(page).to have_field("Day", with: "01")
-  expect(page).to have_field("Month", with: "11")
-  expect(page).to have_field("Year", with: "2011")
 end

@@ -341,23 +341,47 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   test "destroys saved new draft edition if base path conflict with published edition" do
     login_as create(:gds_admin)
 
-    configurable_document_type = build_configurable_document_type("test_type")
-    ConfigurableDocumentType.setup_test_types(configurable_document_type)
-    block_content = {
-      "test_attribute" => "",
-    }
-
-    published_edition = create(
-      :published_standard_edition,
-      :with_organisations,
-      configurable_document_type: "test_type",
-      title: "Title",
-      summary: "Summary",
-    )
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    block_content = { "test_attribute" => "" }
+    published_edition = create(:published_standard_edition)
 
     post :create, params: { edition: { title: published_edition.title, configurable_document_type: "test_type", block_content: } }
 
     assert_empty StandardEdition.draft
+  end
+
+  view_test "POST :create renders error when creating a first draft with a title that clashes with a published edition" do
+    login_as create(:gds_admin)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "schema" => {
+        "attributes" => {
+          "body" => {
+            "type" => "string",
+          },
+        },
+      },
+    }))
+    published_edition = create(:published_standard_edition)
+
+    Whitehall::PublishingApi.unstub(:check_first_draft_can_be_published_at_base_path!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: published_edition.base_path_without_sequence).returns(published_edition.content_id)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: "#{published_edition.base_path}--2").returns(nil) # we also check the sequenced base path
+
+    summary = "A valid summary"
+    body = "Body content"
+    patch :create, params: { edition: {
+      title: published_edition.title,
+      summary:,
+      configurable_document_type: "test_type",
+      block_content: { "body" => body },
+      previously_published: false,
+    } }
+
+    assert_template "admin/editions/new"
+    assert_select ".govuk-error-message", text: "Error: Title has been used before on GOV.UK, although the page may no longer exist. Please use another title"
+    assert_equal assigns(:edition).summary, summary
+    assert_equal assigns(:edition).title, published_edition.title
+    assert_equal assigns(:edition).body, body
   end
 
   view_test "PATCH :update renders error when renaming a first draft to a title that clashes with a published edition" do
