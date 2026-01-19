@@ -27,6 +27,8 @@ en:
               missing_contact_reference: "- \"%{html_attachment_title}\" - embedded Contact (ID %{contact_id}) doesn't exist"
             unpublishing:
               invalid: "has an invalid redirect URL or reason"
+          base_path:
+            base_path_clash: has been used before on GOV.UK, although the page may no longer exist. Please use another title.
         nation_inapplicability:
           attributes:
             alternative_url:

@@ -378,7 +378,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     } }
 
     assert_template "admin/editions/new"
-    assert_select ".govuk-error-message", text: "Error: Title has been used before on GOV.UK, although the page may no longer exist. Please use another title"
+    assert_select ".govuk-error-message", text: "Error: Title #{I18n.t('activerecord.errors.models.edition.base_path.base_path_clash')}"
     assert_equal assigns(:edition).summary, summary
     assert_equal assigns(:edition).title, published_edition.title
     assert_equal assigns(:edition).body, body
@@ -401,6 +401,6 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     }
 
     assert_template "admin/editions/edit"
-    assert_select ".govuk-error-message", text: "Error: Title has been used before on GOV.UK, although the page may no longer exist. Please use another title"
+    assert_select ".govuk-error-message", text: "Error: Title #{I18n.t('activerecord.errors.models.edition.base_path.base_path_clash')}"
   end
 end
