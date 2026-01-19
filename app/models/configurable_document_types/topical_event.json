@@ -85,6 +85,11 @@
         "start": "start_date",
         "end": "end_date",
         "within": "P1Y"
+      },
+      "social_media_links": {
+        "attributes": ["social_media_links"],
+        "service_field": "social_media_service_id",
+        "url_field": "url"
       }
     }
   },

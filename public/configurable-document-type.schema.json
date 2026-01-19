@@ -28,7 +28,8 @@
           "no_footnotes_allowed",
           "presence",
           "safe_html",
-          "valid_internal_path_links"
+          "valid_internal_path_links",
+          "social_media_links"
         ]
       }
     },
