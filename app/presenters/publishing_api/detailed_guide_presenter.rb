@@ -32,7 +32,13 @@ module PublishingApi
     end
 
     def links
-      {}
+      {
+        government: [],
+        organisations: [],
+        parent: [],
+        related_guides: [],
+        related_mainstream_content: [],
+      }
     end
 
     def edition_links
