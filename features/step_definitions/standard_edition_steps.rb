@@ -1,4 +1,4 @@
-def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil)
+def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil, list_of_foods: nil)
   image = create(:image)
   defaults = default_content_for_locale(locale)
   I18n.with_locale(locale) do
@@ -16,10 +16,17 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
           "date_field" => date_field,
           "street" => street,
           "city" => city,
+          "list_of_foods" => list_of_foods,
         },
       },
     )
   end
+end
+
+def default_block_content_for_locale(locale)
+  default_content_for_locale(locale)
+    .stringify_keys
+    .except("title", "summary")
 end
 
 def default_content_for_locale(locale)
@@ -32,6 +39,10 @@ def default_content_for_locale(locale)
       date_field: { "1" => "2025", "2" => "10", "3" => "2" },
       street: "Stryd Bakers",
       city: "Llundain",
+      list_of_foods: [
+        { food: "Afal" },
+        { food: "Oren" },
+      ],
     }
   else
     {
@@ -41,6 +52,10 @@ def default_content_for_locale(locale)
       date_field: { "1" => "2025", "2" => "10", "3" => "1" },
       street: "Bakers Street",
       city: "London",
+      list_of_foods: [
+        { food: "Apple" },
+        { food: "Orange" },
+      ],
     }
   end
 end
@@ -73,6 +88,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
     fill_in "edition[block_content][date_field][1]", with: "2011"
     fill_in "edition[block_content][street]", with: "Bakers Street"
     fill_in "edition[block_content][city]", with: "London"
+    fill_in "edition[block_content][list_of_foods][0][food]", with: "Apple"
   end
   click_button "Save and go to document summary"
 end
@@ -168,13 +184,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
       configurable_document_type: "test",
       images: [image],
       title: title,
-      block_content: {
-        "image" => image.image_data.id.to_s,
-        "body" => "Some text",
-        "date_field" => { "1" => "2025", "2" => "10", "3" => "1" },
-        "street" => "Bakers Street",
-        "city" => "London",
-      },
+      block_content: default_block_content_for_locale("en").merge("image" => image.image_data.id.to_s),
     },
   )
   stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
@@ -200,12 +210,13 @@ And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |t
   visit admin_standard_edition_path(standard_edition)
   click_button "Create new edition"
 
-  expect(page).to have_field(name: "edition[block_content][body]", with: "Some text")
+  expect(page).to have_field(name: "edition[block_content][body]", with: "## Some English govspeak. This is the English body content")
   expect(page).to have_field(name: "edition[block_content][date_field][3]", with: "1")
   expect(page).to have_field(name: "edition[block_content][date_field][2]", with: "10")
   expect(page).to have_field(name: "edition[block_content][date_field][1]", with: "2025")
   expect(page).to have_field(name: "edition[block_content][city]", with: "London")
   expect(page).to have_field(name: "edition[block_content][street]", with: "Bakers Street")
+  expect(page).to have_field(name: "edition[block_content][list_of_foods][0][food]", with: "Apple")
 
   click_link "Images"
   expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
@@ -300,49 +311,33 @@ Then(/^the Welsh translations should have persisted$/) do
 end
 
 Given(/^I have published an English document with a Welsh translation$/) do
-  en_content = default_content_for_locale("en")
   @standard_edition = create(
     :published_standard_edition,
     {
       configurable_document_type: "test",
-      title: en_content[:title],
-      summary: en_content[:summary],
-      block_content: {
-        "body" => en_content[:body],
-        "date_field" => en_content[:date_field],
-        "street" => en_content[:street],
-        "city" => en_content[:city],
-      },
+      title: default_content_for_locale("en")[:title],
+      summary: default_content_for_locale("en")[:summary],
+      block_content: default_block_content_for_locale("en"),
     },
   )
   I18n.with_locale("cy") do
-    cy_content = default_content_for_locale("cy")
     @standard_edition.translations.create!(
       locale: "cy",
-      title: cy_content[:title],
-      summary: cy_content[:summary],
-      block_content: {
-        "body" => cy_content[:body],
-        "date_field" => cy_content[:date_field],
-        "street" => cy_content[:street],
-        "city" => cy_content[:city],
-      },
+      title: default_content_for_locale("cy")[:title],
+      summary: default_content_for_locale("cy")[:summary],
+      block_content: default_block_content_for_locale("cy"),
     )
   end
 end
 
 Given(/^I have published a configurable document titled "([^"]*)"$/) do |title|
-  en_content = default_content_for_locale("en")
   @standard_edition = create(
     :published_standard_edition,
     {
       configurable_document_type: "test",
-      title: title || en_content[:title],
-      summary: en_content[:summary],
-      block_content: {
-        "body" => en_content[:body],
-        "date_field" => en_content[:date_field],
-      },
+      title: title || default_content_for_locale("en")[:title],
+      summary: default_content_for_locale("en")[:summary],
+      block_content: default_block_content_for_locale("en"),
     },
   )
 end
@@ -370,17 +365,13 @@ Given("the test configurable document type group is defined") do
 end
 
 And(/^I have created a new "(.+)" draft$/) do |document_type|
-  content = default_content_for_locale("en")
   @standard_edition = create(
     :draft_standard_edition,
     {
       configurable_document_type: document_type,
-      title: content[:title],
-      summary: content[:summary],
-      block_content: {
-        "body" => content[:body],
-        "date_field" => content[:date_field],
-      },
+      title: default_content_for_locale("en")[:title],
+      summary: default_content_for_locale("en")[:summary],
+      block_content: default_block_content_for_locale("en"),
     },
   )
 end

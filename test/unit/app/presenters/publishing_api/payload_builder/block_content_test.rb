@@ -52,7 +52,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       "date_attribute" => :rfc3339_date,
       "image_attribute" => :image,
       "lead_image_attribute" => :lead_image,
-      "string_attribute" => :string,
+      "string_attribute" => :raw,
     })
     @block_content.stubs(:body_attribute).returns(nil)
     @block_content.stubs(:date_attribute).returns(nil)
@@ -70,15 +70,25 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     assert_not result.key?(:string_attribute)
   end
 
-  context "string payload builder" do
-    test "string sends the string content as-is" do
+  context "raw payload builder" do
+    test "raw sends the string content as-is" do
       string_content = "foo"
       @block_content.stubs(:string_chunk).returns(string_content)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:string, :string_chunk)
+      result = builder.send(:raw, :string_chunk)
 
       assert_equal string_content, result
+    end
+
+    test "raw sends the array content as-is" do
+      array_content = [{ foo: "foo" }, { bar: "bar" }]
+      @block_content.stubs(:array_chunk).returns(array_content)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+      result = builder.send(:raw, :array_chunk)
+
+      assert_equal array_content, result
     end
   end
 
@@ -334,6 +344,41 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
         url: placeholder_image_url,
       }
       assert_equal payload, result
+    end
+  end
+
+  context "social_media_links builder" do
+    test "social_media_links returns empty array when block_content is nil" do
+      @item.stubs(:block_content).returns(nil)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      assert_equal [], builder.send(:social_media_links, :some_attribute)
+    end
+
+    test "social_media_links returns empty array when no links have been provided" do
+      @block_content.stubs(:some_attribute).returns(nil)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      assert_equal [], builder.send(:social_media_links, :some_attribute)
+    end
+
+    test "social_media_links returns array of social media links" do
+      social_media_service = create(:social_media_service)
+      value_of_links = [{ "social_media_service_id" => social_media_service.id, "url" => "https://example.com" }]
+      @block_content.stubs(:some_attribute).returns(value_of_links)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      expected_payload = [
+        {
+          title: social_media_service.name,
+          service_type: social_media_service.name.parameterize,
+          href: "https://example.com",
+        },
+      ]
+      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
     end
   end
 end

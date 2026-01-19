@@ -13,6 +13,7 @@ class StandardEdition::BlockContent
     "safe_html" => SafeHtmlValidator,
     "valid_internal_path_links" => InternalPathLinksValidator,
     "duration" => DurationValidator,
+    "social_media_links" => SocialMediaLinksValidator,
   }.freeze
 
   def initialize(schema, path = ConfigurableContentBlocks::Path.new)
@@ -27,6 +28,13 @@ class StandardEdition::BlockContent
       setter = "#{key}="
       if nested_schema["type"] == "date"
         public_send(setter, pre_validate_date_attribute(key, values[key]))
+      elsif nested_schema["type"] == "array"
+        #  Convert
+        # { "0" => { "foo" => "bar" }, "1" => { "delete_me" => "something", "_destroy" => "1" } }
+        # to
+        # [ { "foo" => "bar" } ]
+        array_elements = values[key].is_a?(Hash) ? values[key].values : values[key]
+        public_send(setter, array_elements.reject { |h| h["_destroy"] == "1" })
       else
         public_send(setter, values[key])
       end
@@ -73,6 +81,8 @@ private
       attribute_config.each do |key, property_schema|
         case property_schema["type"]
         when "object"
+          attribute key
+        when "array"
           attribute key
         else
           attribute key, property_schema["type"].to_sym

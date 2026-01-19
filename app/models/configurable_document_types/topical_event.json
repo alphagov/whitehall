@@ -23,6 +23,20 @@
               "block": "default_date"
             }
           }
+        },
+        "social_media_links": {
+          "title": "Social media accounts",
+          "block": "default_array",
+          "fields": {
+            "social_media_service_id": {
+              "title": "Service",
+              "block": "social_media_service_select"
+            },
+            "url": {
+              "title": "URL",
+              "block": "default_string"
+            }
+          }
         }
       }
     }
@@ -37,6 +51,17 @@
       },
       "end_date": {
         "type": "date"
+      },
+      "social_media_links": {
+        "type": "array",
+        "attributes": {
+          "social_media_service_id": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
       }
     },
     "validations": {
@@ -60,6 +85,11 @@
         "start": "start_date",
         "end": "end_date",
         "within": "P1Y"
+      },
+      "social_media_links": {
+        "attributes": ["social_media_links"],
+        "service_field": "social_media_service_id",
+        "url_field": "url"
       }
     }
   },
@@ -67,7 +97,8 @@
     "publishing_api": {
       "body": "govspeak",
       "start_date": "rfc3339_date",
-      "end_date": "rfc3339_date"
+      "end_date": "rfc3339_date",
+      "social_media_links": "social_media_links"
     }
   },
   "associations": [
@@ -86,6 +117,6 @@
     "organisations": null,
     "backdating_enabled": false,
     "history_mode_enabled": false,
-    "translations_enabled": false
+    "translations_enabled": true
   }
 }

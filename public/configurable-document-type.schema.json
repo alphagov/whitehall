@@ -28,7 +28,8 @@
           "no_footnotes_allowed",
           "presence",
           "safe_html",
-          "valid_internal_path_links"
+          "valid_internal_path_links",
+          "social_media_links"
         ]
       }
     },
@@ -47,12 +48,14 @@
           "type": "string",
           "description": "Identifier for a content block. Maps to a specific block class.",
           "enum": [
+            "default_array",
             "default_date",
             "default_object",
             "default_string",
             "govspeak",
             "image_select",
-            "lead_image_select"
+            "lead_image_select",
+            "social_media_service_select"
           ]
         },
         "fields": {
@@ -66,6 +69,49 @@
       },
       "required": ["title", "block"],
       "additionalProperties": false
+    },
+    "block_attributes": {
+      "type": "object",
+      "description": "Map of content block attribute definitions (minimal schema).",
+      "patternProperties": {
+        ".*": { "$ref": "#/$defs/block_attribute" }
+      },
+      "additionalProperties": false
+    },
+    "block_attribute": {
+      "type": "object",
+      "description": "Minimal schema information for a single content block attribute.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Data type for the content block. Should map to an active record type, with the exception of the object type.",
+          "enum": ["string", "integer", "date", "array"]
+        },
+        "attributes": {
+          "description": "For array types, defines the schema of each array item using the same minimal attribute format.",
+          "$ref": "#/$defs/block_attributes"
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "array" } },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "attributes": { "$ref": "#/$defs/block_attributes" }
+            }
+          },
+          "else": {
+            "not": {
+              "required": ["attributes"]
+            }
+          }
+        }
+      ]
     }
   },
   "title": "Configurable Document Type",
@@ -90,26 +136,8 @@
       "description": "Defines the content structure for the document type. Each property represents a content block.",
       "properties": {
         "attributes": {
-          "type": "object",
-          "description": "Alternative to `properties`, defining content blocks with minimal schema information.",
-          "patternProperties": {
-            ".*": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "description": "Data type for the content block. Should map to an active record type, with the exception of the object type.",
-                  "enum": [
-                    "string",
-                    "integer",
-                    "date"
-                  ]
-                }
-              },
-              "required": ["type"],
-              "additionalProperties": false
-            }
-          }
+          "$ref": "#/$defs/block_attributes",
+          "description": "Alternative to `properties`, defining content blocks with minimal schema information."
         },
         "validations": {
           "$ref": "#/$defs/validations"
@@ -175,7 +203,8 @@
                 "rfc3339_date",
                 "image",
                 "lead_image",
-                "string"
+                "raw",
+                "social_media_links"
               ]
             }
           },

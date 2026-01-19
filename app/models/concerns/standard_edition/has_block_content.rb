@@ -7,7 +7,12 @@ module StandardEdition::HasBlockContent
   def block_content=(value)
     value_to_merge = (value || {}).to_h.deep_stringify_keys
     merged_value = (self[:block_content] || {}).deep_merge(value_to_merge)
-    super(merged_value)
+
+    normalised = StandardEdition::BlockContent.new(type_instance.schema)
+    normalised.assign_attributes(merged_value)
+
+    @block_content = normalised # keep the memoized object in sync
+    super(normalised.to_h)
   end
 
   def block_content

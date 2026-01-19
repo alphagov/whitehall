@@ -43,8 +43,8 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
       "presenters" => {
         "publishing_api" => {
-          "attribute_one" => "string",
-          "attribute_two" => "string",
+          "attribute_one" => "raw",
+          "attribute_two" => "raw",
         },
       },
     }))
@@ -100,7 +100,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
       "presenters" => {
         "publishing_api" => {
-          "string_chunk_of_content" => "string",
+          "string_chunk_of_content" => "raw",
           "chunk_of_content_one" => "govspeak",
           "chunk_of_content_two" => "govspeak",
         },

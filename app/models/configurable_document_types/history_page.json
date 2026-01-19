@@ -63,7 +63,7 @@
     "publishing_api": {
       "body": "govspeak",
       "sidebar_image": "image",
-      "lead_paragraph": "string"
+      "lead_paragraph": "raw"
     }
   },
   "associations": [],

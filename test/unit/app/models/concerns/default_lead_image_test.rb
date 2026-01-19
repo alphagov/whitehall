@@ -31,11 +31,13 @@ class DefaultLeadImageTest < ActiveSupport::TestCase
   end
 
   test "#placeholder_image_url returns world news placeholder for world news stories" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("world_news_story"))
     edition = build(:standard_edition, configurable_document_type: "world_news_story")
     assert_equal "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg", edition.placeholder_image_url
   end
 
   test "#placeholder_image_url returns general placeholder for non-world news stories" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("news_article"))
     edition = build(:standard_edition, configurable_document_type: "news_article")
     assert_equal "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg", edition.placeholder_image_url
   end

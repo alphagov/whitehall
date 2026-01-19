@@ -39,20 +39,20 @@ class StandardEditionTranslationBlockContentConsistencyTest < ActiveSupport::Tes
                  "Welsh body should be in block_content.body"
   end
 
-  test "editions without images should not have image key in block_content" do
+  test "editions without images should have `nil` image key in block_content" do
     translated_edition = create_standard_edition(translate_for: %w[cy])
 
-    assert_not_includes translated_edition.translation_for(:en).block_content.keys, "image",
-                        "English translation should not have image key"
-    assert_not_includes translated_edition.translation_for(:cy).block_content.keys, "image",
-                        "Welsh translation should not have image key"
+    assert_nil translated_edition.translation_for(:en).block_content["image"],
+               "English translation should not have image key"
+    assert_nil translated_edition.translation_for(:cy).block_content["image"],
+               "Welsh translation should not have image key"
 
     new_draft = translated_edition.create_draft(create(:writer))
 
-    assert_not_includes new_draft.translation_for(:en).block_content.keys, "image",
-                        "Draft English translation should not have image key"
-    assert_not_includes new_draft.translation_for(:cy).block_content.keys, "image",
-                        "Draft Welsh translation should not have image key"
+    assert_nil new_draft.translation_for(:en).block_content["image"],
+               "Draft English translation should not have image key"
+    assert_nil new_draft.translation_for(:cy).block_content["image"],
+               "Draft Welsh translation should not have image key"
   end
 
   test "primary translation with image should not clone image to non-primary translations" do
