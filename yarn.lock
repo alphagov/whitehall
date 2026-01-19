@@ -144,6 +144,11 @@
     wrap-ansi "^8.1.0"
     wrap-ansi-cjs "npm:wrap-ansi@^7.0.0"
 
+"@jasminejs/reporters@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@jasminejs/reporters/-/reporters-1.0.0.tgz#1d06099c11ff9793544e6d84ad8fb45c37630a60"
+  integrity sha512-rM3GG4vx2H1Gp5kYCTr9aKlOEJFd43pzpiMAiy5b1+FUc2ub4e6bS6yCi/WQNDzAa5MVp9++dwcoEtcIfoEnhA==
+
 "@keyv/bigmap@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@keyv/bigmap/-/bigmap-1.3.0.tgz#f06d9bb38488a59f012cd2758e6f429dfd312fb5"
@@ -1900,7 +1905,7 @@ glob-parent@^6.0.2:
   dependencies:
     is-glob "^4.0.3"
 
-glob@^10.0.0, glob@^10.5.0, glob@^7.1.3:
+"glob@^10.2.2 || ^11.0.3 || ^12.0.0 || ^13.0.0", glob@^10.5.0, glob@^7.1.3:
   version "10.5.0"
   resolved "https://registry.yarnpkg.com/glob/-/glob-10.5.0.tgz#8ec0355919cd3338c28428a23d4f24ecc5fe738c"
   integrity sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==
@@ -2641,20 +2646,21 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-jasmine-browser-runner@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-3.0.0.tgz#544bb069bbda52cf25fa080a09c98f15153c949f"
-  integrity sha512-bLfESBhOAdd/8Lkcmi1RO3abPkYxtTMGGLs+ikX/Qv0aQMs0tw7aFWTVKEXDJ+2IEZs+qtBldaRHSA7BaMonUQ==
+jasmine-browser-runner@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-4.0.0.tgz#86724b3a6a63159e4ecc8801b93e1019f8de0583"
+  integrity sha512-npqfp7lWt5lF4UI0Xdd7sTl4tNTkcyBEY560SMzMDwecVOXCqnpUTCNLZrLThXHis2/0Nn8+fOFujNrBJ3hWog==
   dependencies:
+    "@jasminejs/reporters" "^1.0.0"
     ejs "^3.1.6"
     express "^5.0.0"
-    glob "^10.0.0"
+    glob "^10.2.2 || ^11.0.3 || ^12.0.0 || ^13.0.0"
     selenium-webdriver "^4.12.0"
 
-jasmine-core@^5.13.0:
-  version "5.13.0"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-5.13.0.tgz#3ff5765a93a23bac0728ae87ad82ce0569a5f7a8"
-  integrity sha512-vsYjfh7lyqvZX5QgqKc4YH8phs7g96Z8bsdIFNEU3VqXhlHaq+vov/Fgn/sr6MiUczdZkyXRC3TX369Ll4Nzbw==
+jasmine-core@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-6.0.0.tgz#f2ffab41ada31f232c85e4caa3e3d53e9b73e18a"
+  integrity sha512-fmBb8aruz2mEIDBUGWOGNmxhXwFJs44SSzwbMcBDqQnNChavPTq3Ra9A6WAn6WdxvxWEdakKTcEb3NzeR3yD1A==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
