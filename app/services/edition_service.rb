@@ -57,7 +57,7 @@ private
     end
 
     ServiceListeners::PublishingApiPusher
-      .new(edition.reload)
+      .new(edition)
       .push(event: verb, options: options.merge(locales_history:))
   end
 
