@@ -1,5 +1,4 @@
 class TopicalEventAboutPage < ApplicationRecord
-  include Searchable
   include PublishesToPublishingApi
 
   belongs_to :topical_event
@@ -13,19 +12,6 @@ class TopicalEventAboutPage < ApplicationRecord
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
 
   after_commit :republish_topical_event_to_publishing_api
-
-  searchable title: :name,
-             link: :search_link,
-             content: :indexable_content,
-             description: :summary
-
-  def search_link
-    base_path
-  end
-
-  def indexable_content
-    Govspeak::Document.new(body).to_text
-  end
 
   def base_path
     "/government/topical-events/#{topical_event.slug}/about"

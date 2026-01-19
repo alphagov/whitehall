@@ -9,7 +9,7 @@ class PublishingApi::TopicalEventAboutPagePresenterTest < ActiveSupport::TestCas
     topical_event_about_page = create(:topical_event_about_page)
 
     expected_hash = {
-      base_path: topical_event_about_page.search_link,
+      base_path: topical_event_about_page.base_path,
       title: topical_event_about_page.name,
       description: "Summary",
       schema_name: "topical_event_about_page",
@@ -19,7 +19,7 @@ class PublishingApi::TopicalEventAboutPagePresenterTest < ActiveSupport::TestCas
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: "frontend",
       routes: [
-        { path: topical_event_about_page.search_link, type: "exact" },
+        { path: topical_event_about_page.base_path, type: "exact" },
       ],
       redirects: [],
       update_type: "major",

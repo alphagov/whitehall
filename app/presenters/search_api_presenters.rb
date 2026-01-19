@@ -12,7 +12,6 @@ module SearchApiPresenters
 
   def self.searchable_classes
     [
-      Organisation,
       TopicalEvent,
       OperationalField,
       PolicyGroup,

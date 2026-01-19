@@ -162,16 +162,6 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert_equal [sub_organisation], parent.sub_organisations
   end
 
-  test "should index Organisations" do
-    organisation = create(:organisation)
-    assert organisation.can_index_in_search?
-  end
-
-  test "should index Courts" do
-    court = create(:court)
-    assert court.can_index_in_search?
-  end
-
   test "should publish Organisations to Publishing API" do
     organisation = create(:organisation)
     assert organisation.can_publish_to_publishing_api?
