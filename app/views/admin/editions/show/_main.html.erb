@@ -198,5 +198,21 @@
     </section>
   <% end %>
 
+  <% if @edition.is_a?(StandardEdition) && @edition.allows_features? %>
+    <section class="app-view-summary__section app-view-summary__section--attachments">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Features",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <%= link_to("Add features",
+                  admin_standard_edition_edition_featurings_path(@edition.id),
+                  class: "govuk-link") %>
+
+    </section>
+  <% end %>
+
   <%= render Admin::Editions::Show::Translations.new(@edition) %>
 </div>
