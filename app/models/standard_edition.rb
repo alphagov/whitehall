@@ -2,6 +2,7 @@ class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
   include ::Attachable
+  include Edition::Featurable
   include Edition::AlternativeFormatProvider
   include Edition::RoleAppointments
   include Edition::TopicalEvents
@@ -73,6 +74,10 @@ class StandardEdition < Edition
 
   def allows_file_attachments?
     type_instance.settings["file_attachments_enabled"]
+  end
+
+  def allows_features?
+    type_instance.settings["features_enabled"]
   end
 
   def can_be_marked_political?
