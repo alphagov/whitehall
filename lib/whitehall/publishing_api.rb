@@ -69,7 +69,7 @@ module Whitehall
 
         content.merge!(bulk_publishing: true) if bulk_publishing
 
-        ensure_base_path_is_associated_with_this_content_id!(model_instance, content)
+        ensure_base_path_is_associated_with_this_content_id!(content[:base_path], model_instance.content_id)
 
         Services.publishing_api.put_content(presenter.content_id, content)
       end
@@ -181,18 +181,7 @@ module Whitehall
       end
     end
 
-    def self.ensure_base_path_is_associated_with_this_content_id!(instance, content)
-      content_id = instance.content_id
-
-      base_path = if instance.respond_to?(:base_path_without_sequence)
-                    # `base_path_without_sequence` required because if an edition with the same
-                    # title exists in Whitehall then `base_path` of `instance` will have
-                    # a unique sequence identifier and the check will not work as intended
-                    instance.base_path_without_sequence
-                  else
-                    content[:base_path]
-                  end
-
+    def self.ensure_base_path_is_associated_with_this_content_id!(base_path, content_id)
       existing_content_id = Services.publishing_api.lookup_content_id(base_path:)
       return if existing_content_id.nil? || existing_content_id == content_id
 

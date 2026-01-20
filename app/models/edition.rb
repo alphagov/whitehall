@@ -402,10 +402,6 @@ class Edition < ApplicationRecord
     "/government/generic-editions/#{url_slug}"
   end
 
-  def base_path_without_sequence
-    base_path.split(document.sequence_separator).first
-  end
-
   def public_path(options = {})
     return if base_path.nil?
 

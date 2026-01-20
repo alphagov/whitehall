@@ -85,6 +85,7 @@ class Document < ApplicationRecord
 
   def similar_slug_exists?
     scope = Document.where(document_type:)
+    sequence_separator = friendly_id_config.sequence_separator
 
     # slug is a nullable column, so we can't assume that it exists
     return false if slug.nil?
@@ -97,8 +98,6 @@ class Document < ApplicationRecord
       "#{slug_without_sequence}#{sequence_separator}%",
     ).count > 1
   end
-
-  delegate :sequence_separator, to: :friendly_id_config
 
   def should_generate_new_friendly_id?
     sluggable_string.present?

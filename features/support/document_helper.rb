@@ -21,11 +21,6 @@ module DocumentHelper
     page.choose(options[:type].humanize)
     click_button("Next")
 
-    if options[:subtype]
-      page.choose(options[:subtype].humanize)
-      click_button("Next")
-    end
-
     if options[:locale]
       check "Create a foreign language only"
       select options[:locale], from: "Document language"
