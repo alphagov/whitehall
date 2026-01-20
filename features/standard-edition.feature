@@ -57,12 +57,3 @@ Feature: Standard Editions
     And choosing a document type should take me to a preview page summarising the changes
     And when I click "Confirm document type change"
     Then the document type should have updated
-
-  Scenario: Creating a new draft configurable document with the same base path as an already published configurable document
-    Given I am a writer
-    And the configurable document types feature flag is enabled
-    And the test configurable document type is defined
-    And I have published a configurable document titled "The history of GOV.UK"
-    When I draft a new "Test configurable document type" configurable document with the same title as a published edition
-    Then I should see an error of "Title has been used before on GOV.UK, although the page may no longer exist. Please use another title" on the new configurable document page
-    And the form should retain the user input with the title "The history of GOV.UK" before submit

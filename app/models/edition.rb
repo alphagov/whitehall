@@ -146,6 +146,10 @@ class Edition < ApplicationRecord
     PUBLICLY_VISIBLE_STATES.include?(state)
   end
 
+  def first_draft?
+    Edition::PRE_PUBLICATION_STATES.include?(state) && major_change_published_at.blank?
+  end
+
   def versioning_completed?
     return true unless change_note_required?
 

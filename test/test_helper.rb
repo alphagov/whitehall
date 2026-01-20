@@ -77,7 +77,7 @@ class ActiveSupport::TestCase
     Services.stubs(:asset_manager).returns(stub_everything("asset-manager"))
     TaxonValidator.any_instance.stubs(:validate)
     # Prevent publishing API base path checks from interfering with tests
-    Whitehall::PublishingApi.stubs(:ensure_base_path_is_associated_with_this_content_id!).returns(nil)
+    Whitehall::PublishingApi.stubs(:check_first_draft_can_be_published_at_base_path!).returns(nil)
     # Set up default test type StandardEdition
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
   end

@@ -91,7 +91,7 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
 
     get :edit, params: { id: edition_with_same_title }
 
-    assert_select ".govuk-error-summary a", text: "Title has been used before on GOV.UK, although the page may no longer exist. Please use another title", href: "#edition_title"
+    assert_select ".govuk-error-summary a", text: "Title #{I18n.t('activerecord.errors.models.edition.base_path.base_path_clash')}", href: "#edition_title"
   end
 
   view_test "GET :show renders preview link if publically visible and change note is present" do

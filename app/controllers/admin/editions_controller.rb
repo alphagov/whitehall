@@ -93,11 +93,11 @@ class Admin::EditionsController < Admin::BaseController
       build_edition_dependencies
       render :new
     end
-  rescue Whitehall::UnpublishableInstanceError => _e
+  rescue Whitehall::UnpublishableInstanceError
     @edition.destroy!
     build_edition
     build_edition_dependencies
-    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title")
+    @edition.errors.add(:title, I18n.t("activerecord.errors.models.edition.base_path.base_path_clash"))
     render :new
   end
 
@@ -129,6 +129,11 @@ class Admin::EditionsController < Admin::BaseController
     @conflicting_edition = Edition.find(params[:id])
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
+    render :edit
+  rescue Whitehall::UnpublishableInstanceError
+    build_edition_dependencies
+    fetch_version_and_remark_trails
+    @edition.errors.add(:title, I18n.t("activerecord.errors.models.edition.base_path.base_path_clash"))
     render :edit
   end
 
@@ -500,7 +505,7 @@ private
   end
 
   def construct_similar_slug_warning_error
-    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title") if show_similar_slugs_warning?(@edition)
+    @edition.errors.add(:title, I18n.t("activerecord.errors.models.edition.base_path.base_path_clash")) if show_similar_slugs_warning?(@edition)
   end
 
   def updater

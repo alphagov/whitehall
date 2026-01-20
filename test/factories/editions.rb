@@ -147,6 +147,7 @@ FactoryBot.define do
 
     trait(:unpublished) do
       state { :unpublished }
+      major_change_published_at { 2.days.ago }
       unpublishing { build(:unpublishing) }
     end
 
