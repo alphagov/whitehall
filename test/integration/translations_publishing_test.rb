@@ -16,7 +16,6 @@ class TranslationsPublishingTest < ActiveSupport::TestCase
 
     requests = [
       stub_publishing_api_put_content(draft_publication_presenter.content_id, with_locale(:en) { draft_publication_presenter.content }),
-      stub_publishing_api_patch_links(draft_publication_presenter.content_id, links: draft_publication_presenter.links),
     ]
 
     draft_edition.translations.where(locale: :es).first.destroy!
