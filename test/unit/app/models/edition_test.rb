@@ -896,6 +896,12 @@ class EditionTest < ActiveSupport::TestCase
     assert_not draft.first_draft?
   end
 
+  test "first_draft? returns false for a new draft made from unpublished" do
+    edition = create(:unpublished_edition)
+    draft = edition.create_draft(create(:writer))
+    assert_not draft.first_draft?
+  end
+
   Edition::PRE_PUBLICATION_STATES.each do |state|
     test "first_draft? returns true for #{state} state" do
       edition = create(:edition, state:)

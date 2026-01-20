@@ -185,8 +185,12 @@ module Whitehall
       # We only ever want to run this check for first draft editions.
       # If the edition has been published before, there is nothing to do, we just continue publishing at the same path.
       # If the edition is a first draft, then we should check that no existing content uses the base_path_without_sequence.
-      # Drafts with already taken slugs (used by other live documents) will have automated sequences appended to their base_paths, like '--2'.
+      # Drafts with already taken slugs in Whitehall, will have automated sequences appended to their base_paths, like '--2'.
       # In order to identify the correct title clash, we need to look up published content at the base_path_without_sequence.
+      # We nonetheless also want to check against clashes with the generated base_path (with sequence) to avoid conflicts with documents potentially created outside of Whitehall.
+
+      # Note that the lookup_content_id call only checks for LIVE editions (published and withdrawn), because we are not concerned about other states here.
+      # Publishing API does have a `with_drafts` flag that we can use if we want to expand the check to drafts in the future.
 
       # A special case are new draft from unpublished editions.
       # Publishing API does not allow publishing at a path that has previously belonged to an unpublished edition.
@@ -197,13 +201,21 @@ module Whitehall
 
       content_id = instance.content_id
       base_path_without_sequence = instance.base_path_without_sequence
+      base_path = instance.base_path
+      existing_base_path_clashes = []
 
-      # Note that the lookup_content_id call only checks for LIVE editions (published and withdrawn)
-      existing_content_id = Services.publishing_api.lookup_content_id(base_path: base_path_without_sequence)
+      base_path_without_sequence_clash = Services.publishing_api.lookup_content_id(base_path: base_path_without_sequence)
+      existing_base_path_clashes.push([base_path_without_sequence, base_path_without_sequence_clash]) if base_path_without_sequence_clash
 
-      return if existing_content_id.nil?
+      # For sequenced base_paths, also check the full base_path for external clashes
+      if base_path_without_sequence != base_path
+        base_path_clash = Services.publishing_api.lookup_content_id(base_path: base_path)
+        existing_base_path_clashes.push([base_path, base_path_clash]) if base_path_clash
+      end
 
-      raise UnpublishableInstanceError, "Cannot save draft (content_id #{content_id}). There is existing content at the '#{base_path_without_sequence}' route, under a different content_id (#{existing_content_id}). Try changing your title to resolve the conflict."
+      return if existing_base_path_clashes.empty?
+
+      raise UnpublishableInstanceError, "Cannot save draft (content_id #{content_id}). There is existing content at #{existing_base_path_clashes.map { |clash| "the '#{clash[0]}' route of content ID '#{clash[1]}'" }.join(' and ')}. Try changing your title to resolve the conflict."
     end
   end
 end
