@@ -51,14 +51,13 @@ private
   end
 
   def update_publishing_api!
-    options_for_publishing_api_pusher = options
     if edition.saved_change_to_primary_locale?
-      options_for_publishing_api_pusher[:primary_locale_before_last_save] = edition.primary_locale_before_last_save
+      Whitehall::PublishingApi.discard_translation_async(edition, locale: edition.primary_locale_before_last_save)
     end
 
     ServiceListeners::PublishingApiPusher
       .new(edition.reload)
-      .push(event: verb, options: options_for_publishing_api_pusher)
+      .push(event: verb, options:)
   end
 
   def prepare_edition
