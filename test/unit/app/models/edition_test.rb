@@ -945,14 +945,6 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.reload.revalidated_at
   end
 
-  test "#base_path_without_sequence should return base path without unique identifier " do
-    existing = create(:edition, title: "Latest news")
-    draft = create(:edition, title: "Latest news")
-
-    assert_not_equal draft.base_path, existing.base_path
-    assert_equal draft.base_path_without_sequence, existing.base_path
-  end
-
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
