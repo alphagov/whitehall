@@ -113,16 +113,17 @@
     "rendering_app": "collections",
     "images": {
       "enabled": true,
-      "permitted_image_kinds": [
-        {
-          "kind": "header",
+      "usages": {
+        "header": {
+          "kinds": ["topical_event_header"],
           "multiple": false
         },
-        {
-          "kind": "logo",
+        "logo": {
+          "label": "logo",
+          "kinds": ["topical_event_logo"],
           "multiple": false
-        }        
-      ]
+        }
+      }
     },
     "send_change_history": true,
     "file_attachments_enabled": false,

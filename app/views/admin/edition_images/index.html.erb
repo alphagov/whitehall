@@ -10,32 +10,83 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
-    <% @edition.permitted_single_upload_image_kinds.each do |image_kind| %>
+    <% @edition.permitted_image_usages.reject { |usage| usage.multiple }.each do |usage| %>
 
-      <% images_of_image_kind = @edition.images.of_kind(image_kind.name) %>
+      <% current_image = @edition.images.usable_as(usage).first %>
 
-      <% if images_of_image_kind.count == 0 || @edition.allows_multiple_of_image_kind?(image_kind) %>
-        <%= render "image_upload", edition: @edition, image_kind: %>
-      <% end %>
-
-      <% if images_of_image_kind.count > 0 %>
+      <% if current_image %>
         <%= render "govuk_publishing_components/components/heading", {
-          text: "Uploaded #{image_kind.display_name} images",
+          text: usage.label.blank? ? "Uploaded image" : "Uploaded #{usage.label} image",
           heading_level: 2,
           font_size: "l",
           margin_bottom: 2,
         } %>
-        <ul id="uploaded_<%= image_kind.name %>_image_list" class="govuk-list">
-          <% images_of_image_kind.each do |image| %>
-            <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, last_image: true) %>
-          <% end %>
-        </ul>
+        <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image, last_image: true) %>
+      <% else %>
+        <%= render "image_upload", image_usage: usage %>
       <% end %>
     <% end %>
 
-    <% (@edition.permitted_image_kinds - @edition.permitted_single_upload_image_kinds).each do |image_kind| %>
-      <%= render "image_upload", edition: @edition, image_kind: %>
-      <%= render Admin::EditionImages::UploadedImagesComponent.new(edition: @edition, image_kind:) %>
+    <% @edition.permitted_image_usages.select { |usage| usage.multiple }.each do |usage| %>
+      <%= render "image_upload", image_usage: usage %>
+
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Uploaded images",
+        font_size: "l",
+      } %>
+
+      <% if @edition.is_a? StandardEdition %>
+        <% if @edition.type_instance.form("images").present? %>
+          <%= form_for [:admin, @edition] do %>
+            <%= hidden_field_tag :redirect_to, admin_edition_images_path(@edition) %>
+
+            <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
+            <%= render(root_block, {
+              schema: @edition.type_instance.form("images"),
+              content: @edition.block_content,
+              path: ConfigurableContentBlocks::Path.new,
+              right_to_left: @edition.rtl?,
+              errors: @edition.errors,
+              required_attributes: @edition.type_instance.required_attributes,
+              root: true,
+            }) %>
+
+            <div class="govuk-button-group">
+              <%= render "govuk_publishing_components/components/button", {
+                text: "Save",
+                value: "save",
+                name: "save",
+              } %>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) %>
+      <% end %>
+
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Images available to use in document",
+        font_size: "m",
+        padding: true,
+      } %>
+
+      <% current_images = @edition.images.usable_as(usage) %>
+      <% current_images =  current_images - [@edition.lead_image].compact if @edition.can_have_custom_lead_image? %>
+
+      <% if current_images.present? %>
+        <%= render "govuk_publishing_components/components/inset_text", {
+          text: "Copy the image markdown code to add images to the document body.",
+          margin_top: 0,
+        } %>
+
+        <ul class="govuk-list">
+          <% current_images.each do |image| %>
+            <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, last_image: image == current_images.last) %>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="govuk-body">No images uploaded</p>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -108,16 +108,17 @@
     "translations_enabled": true,
     "images": {
       "enabled": true,
-      "permitted_image_kinds": [
-        {
-          "kind": "govspeak_embed",
+      "usages": {
+        "govspeak_embed": {
+          "kinds": ["default"],
           "multiple": true
         },
-        {
-          "kind": "header",
+        "header": {
+          "label": "header",
+          "kinds": ["topical_event_header"],
           "multiple": false
-        }        
-      ]
+        }
+      }
     }
   }
 }

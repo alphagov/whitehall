@@ -22,8 +22,8 @@ module Edition::Images
 
   included do
     has_many :images, foreign_key: "edition_id", dependent: :destroy do
-      def of_kind(image_kind)
-        joins(:image_data).where(image_data: { image_kind: image_kind })
+      def usable_as(usage)
+        where(usage: usage.key == "govspeak_embed" ? ["govspeak_embed", nil] : usage.key)
       end
     end
 
@@ -47,8 +47,12 @@ module Edition::Images
     true
   end
 
-  def permitted_image_kinds
-    Whitehall.image_kinds.values_at("default")
+  def permitted_image_usages
+    [ImageUsage.new(
+      key: "govspeak_embed",
+      kinds: Whitehall.image_kinds.values_at("default"),
+      multiple: true,
+    )]
   end
 
 private
