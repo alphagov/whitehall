@@ -1,0 +1,5 @@
+class AddUsageToImages < ActiveRecord::Migration[8.0]
+  def change
+    add_column :images, :usage, :string
+  end
+end
