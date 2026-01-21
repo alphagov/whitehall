@@ -86,32 +86,42 @@
 
     <%= render Admin::Editions::HistoryModeFormControls.new(@edition, current_user) %>
 
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Associations",
-      font_size: "l",
-      margin_bottom: 3,
-    } %>
-
-    <% association_factory = ConfigurableAssociations::Factory.new(@edition) %>
-    <div class="govuk-!-margin-bottom-4">
-      <% association_factory.configurable_associations.each do |association| %>
-        <%= render association %>
-      <% end %>
-    </div>
-
-    <div class="govuk-!-margin-bottom-8">
+    <%
+      # TODO: better child document check here
+      unless params[:parent_edition_id]
+    %>
       <%= render "govuk_publishing_components/components/heading", {
-        text: "Settings",
+        text: "Associations",
         font_size: "l",
-        margin_bottom: 6,
+        margin_bottom: 3,
       } %>
+      <% association_factory = ConfigurableAssociations::Factory.new(@edition) %>
+      <div class="govuk-!-margin-bottom-4">
+        <% association_factory.configurable_associations.each do |association| %>
+          <%= render association %>
+        <% end %>
+      </div>
+    <% end %>
 
-      <%= render Admin::Editions::LanguageSelectFormControl.new(@edition) %>
-      <%= render "accessible_attachment_field", form: form, edition: @edition if @edition.allows_file_attachments? %>
-      <%= render "access_limiting_fields", form: form, edition: @edition %>
-      <%= render "scheduled_publication_fields", form: form, edition: @edition %>
-      <%= render "review_reminder_fields", form: form, review_reminder: @edition.document.review_reminder %>
-    </div>
+    <%
+      # TODO: better child document check here. Plus we do need to support translations
+      unless params[:parent_edition_id]
+    %>
+      <div class="govuk-!-margin-bottom-8">
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Settings",
+          font_size: "l",
+          margin_bottom: 6,
+        } %>
+
+        <%= render Admin::Editions::LanguageSelectFormControl.new(@edition) %>
+        <%= render "accessible_attachment_field", form: form, edition: @edition if @edition.allows_file_attachments? %>
+        <%= render "access_limiting_fields", form: form, edition: @edition %>
+        <%= render "scheduled_publication_fields", form: form, edition: @edition %>
+        <%= render "review_reminder_fields", form: form, review_reminder: @edition.document.review_reminder %>
+      </div>
+    <% end %>
+
     <% if edition.editable? %>
       <%= standard_edition_publishing_controls(form, edition) %>
     <% end %>

@@ -296,6 +296,10 @@ Whitehall::Application.routes.draw do
 
       resources :publications, except: [:index]
 
+      resources :child_documents, only: [] do
+        get :choose_type, on: :collection, as: :choose_type
+      end
+
       resources :standard_editions, path: "standard-editions", except: [:index] do
         get :choose_type, on: :collection, as: :choose_type
 

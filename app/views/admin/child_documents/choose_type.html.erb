@@ -1,0 +1,30 @@
+<% page_heading = "New child document" %>
+<% content_for :page_title, page_heading %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with method: "get", url: new_admin_standard_edition_path do %>
+      <%= hidden_field_tag :parent_edition_id, params[:parent_edition_id] %>
+      <%= render "govuk_publishing_components/components/radio", {
+        heading: page_heading,
+        heading_level: 1,
+        name: "configurable_document_type",
+        id: "configurable_document_type",
+        items: @permitted_child_document_types.map do |type|
+          {
+            text: type.label,
+            value: type.key,
+            conditional: type.description,
+          }
+        end,
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", { text: "Next" } %>
+        <%= link_to("Back", admin_new_document_path, class: "govuk-link govuk-link--no-visited-state") %>
+        <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
+
+      </div>
+    <% end %>
+  </div>
+</div>
