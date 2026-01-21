@@ -165,6 +165,10 @@ class Edition < ApplicationRecord
     to_model.class.name.underscore
   end
 
+  def allows_child_documents?
+    false
+  end
+
   def has_been_tagged?
     api_response = Services.publishing_api.get_expanded_links(content_id, with_drafts: false)
 

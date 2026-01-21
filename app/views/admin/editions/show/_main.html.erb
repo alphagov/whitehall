@@ -118,6 +118,46 @@
     </section>
   <% end %>
 
+  <% if @edition.allows_child_documents? %>
+    <section class="app-view-summary__section app-view-summary__section--child_documents">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Child documents",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <% if @edition.editable? %>
+        <p class="govuk-body">
+          <%= link_to(@edition.child_documents.any? ? "Modify" : "Add" + " child documents",
+                      choose_type_admin_child_documents_path(parent_edition_id: @edition.id),
+                      class: "govuk-link") %>
+        </p>
+      <% end %>
+
+      <% if @edition.child_documents.any? %>
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: "Title",
+            },
+            {
+              text: "Type",
+            },
+          ],
+          rows: @edition.child_documents.map do | child_document |
+            [
+              { text: child_document.title },
+              { text: child_document.format_name },
+            ]
+          end,
+        } %>
+      <% else %>
+        <p class="govuk-body">No child documents for this document</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if @edition.allows_image_attachments? %>
     <section class="app-view-summary__section app-view-summary__section--attachments">
       <%= render "govuk_publishing_components/components/heading", {
