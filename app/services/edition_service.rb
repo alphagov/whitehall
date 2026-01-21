@@ -51,6 +51,10 @@ private
   end
 
   def update_publishing_api!
+    if edition.saved_change_to_primary_locale?
+      Whitehall::PublishingApi.discard_translation_async(edition, locale: edition.primary_locale_before_last_save)
+    end
+
     ServiceListeners::PublishingApiPusher
       .new(edition.reload)
       .push(event: verb, options:)
