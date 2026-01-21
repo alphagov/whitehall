@@ -1,11 +1,10 @@
 <%
-  image_kind ||= Whitehall.image_kinds.fetch("default")
-  text = image_kind.permitted_uses.include?("govspeak_embed") ? "Upload an image" : "Upload #{image_kind.display_name} image"
+  text = image_usage.label.blank? ? "Upload an image" : "Upload #{image_usage.label} image"
 %>
 
 <%= form_tag(
   admin_edition_images_path(@edition),
-  id: "#{image_kind.name}_image_upload_form",
+  id: "#{image_usage.key}_image_upload_form",
   multipart: true,
 ) do %>
   <%= render "govuk_publishing_components/components/file_upload", {
@@ -15,15 +14,21 @@
     heading_level: 2,
     heading_size: "l",
     javascript: true,
-    multiple: @edition.allows_multiple_of_image_kind?(image_kind.permitted_uses.first),
-    name: "images[][image_data][file]",
+    multiple: image_usage.multiple,
+    name: "images[][image_data_attributes][file]",
     id: "edition_images_image_data_file",
     hint: raw('Images can be JPEG, PNG, SVG or GIF files. If you are uploading more than one image, <a class="govuk-link" href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos">read the image guidance</a> on using unique file names.'),
     error_items: @new_image.present? ? errors_for(@new_image.errors, :"image_data.file") : nil,
     accept: "image/png, image/jpeg, image/gif, image/svg+xml",
   } %>
 
-  <%= hidden_field_tag("images[][image_data][image_kind]", image_kind.name) %>
+  <%= hidden_field_tag("images[][usage]", image_usage.key) %>
+
+  <% if image_usage.kinds.size > 1 %>
+    <%# TODO: add radio buttons for kind selection %>
+  <% else %>
+    <%= hidden_field_tag("images[][image_data_attributes][image_kind]", image_usage.kinds.first.name) %>
+  <% end %>
 
    <%= render "govuk_publishing_components/components/details", {
       title: "You must use an SVG for charts and diagrams",

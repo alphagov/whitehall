@@ -429,14 +429,6 @@ class Edition < ApplicationRecord
     is_a?(Edition::CustomLeadImage)
   end
 
-  def allows_multiple_of_image_kind?(image_kind)
-    image_kind == "govspeak_embed"
-  end
-
-  def permitted_single_upload_image_kinds
-    []
-  end
-
   def images_have_unique_filenames?
     names = images.map(&:filename)
     names.uniq.length == names.length

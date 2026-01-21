@@ -161,6 +161,12 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert EditionWithImages.new.allows_image_attachments?
   end
 
+  test "#usable_as(\"govspeak_embed\") should return images usable as govspeak embed and images without a specified usage" do
+    images = [create(:image), create(:image, usage: "govspeak_embed"), create(:image, usage: "header")]
+    edition = EditionWithImages.create!(valid_edition_attributes.merge(images:))
+    assert_equal [images[0], images[1]], edition.images.usable_as(ImageUsage.new(key: "govspeak_embed"))
+  end
+
 private
 
   def valid_edition_attributes

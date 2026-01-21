@@ -115,4 +115,17 @@ class ImageTest < ActiveSupport::TestCase
 
     assert image.can_be_used?
   end
+
+  test "#publishing_api_details returns a hash of image details" do
+    image = create(:image, :svg, usage: "header", caption: "An SVG image")
+
+    expected_hash = {
+      type: "header",
+      url: image.url,
+      caption: "An SVG image",
+      content_type: "image/svg+xml",
+    }
+
+    assert_equal expected_hash, image.publishing_api_details
+  end
 end

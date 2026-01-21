@@ -272,30 +272,52 @@
               "type": "boolean",
               "description": "Whether users can upload images for this document type. When enabled, it renders the Images tab."              
             },
-            "permitted_image_kinds": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "multiple": {
-                    "type": "boolean",
-                    "description": "Whether users can upload multiple images of this image kind"
-                  },
-                  "kind": {
-                    "type": "string",
-                    "enum": [
-                      "govspeak_embed",
-                      "landing_page",
-                      "hero",
-                      "header",
-                      "logo"
-                    ],
-                    "description": "The name of the permitted use of the image kind"
+            "usages": {
+              "type": "object",
+              "patternProperties": {
+                ".*": {
+                  "type": "object",
+                  "required": ["kinds", "multiple"],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "description": "The human-friendly label for the usage"
+                    },
+                    "multiple": {
+                      "type": "boolean",
+                      "description": "Whether users can upload multiple images of this image kind"
+                    },
+                    "kinds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "The name of the image kind",
+                        "enum": [
+                          "default",
+                          "topical_event_logo",
+                          "topical_event_header",
+                          "landing_page_image",
+                          "hero_desktop",
+                          "hero_tablet",
+                          "hero_mobile"
+                        ]
+                      }
+                    }
                   }
                 }
+              },
+              "propertyNames": {
+                "enum": [
+                  "govspeak_embed",
+                  "landing_page",
+                  "hero",
+                  "header",
+                  "logo"
+                ]
               }
             }
-          }
+          },
+          "additionalProperties": false
         },
         "send_change_history": {
           "type": "boolean",
@@ -340,6 +362,7 @@
       ]
     }
   },
+  "additionalProperties": false,
   "required": [
     "key",
     "schema",

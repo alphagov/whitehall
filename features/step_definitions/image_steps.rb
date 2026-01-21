@@ -1,6 +1,4 @@
-def upload_file(width, height, type = "govspeak_embed")
-  image_kind = Whitehall.image_kinds.values.select { |image_kind| image_kind.permitted_uses.include?(type) }.first.name
-
+def upload_file(width, height, image_usage_key = "govspeak_embed")
   file = if width == 960 && height == 640
            jpg_image
          elsif width == 64 && height == 96
@@ -14,14 +12,14 @@ def upload_file(width, height, type = "govspeak_embed")
       find(:label, "Upload an image").click
     end
   else
-    within "##{image_kind}_image_upload_form input.gem-c-file-upload" do
+    within "##{image_usage_key}_image_upload_form input.gem-c-file-upload" do
       attach_file file
     end
   end
 
   io_object = fixture_file_upload(file, "image/jpeg").tempfile.to_io
   stub_request(:get, %r{.*/media/.*/.*jpg}).to_return(status: 200, body: io_object, headers: {})
-  within "##{image_kind}_image_upload_form" do
+  within "##{image_usage_key}_image_upload_form" do
     click_on "Upload"
   end
 end
@@ -70,14 +68,12 @@ Then(/^I should see a list with (\d+) image/) do |count|
   expect(page).to have_selector("ul .app-view-edition-resource__preview", count:)
 end
 
-Then(/^I should see a list with (\d+) (.*) image/) do |_count, type|
-  Whitehall.image_kinds.values.select { |image_kind| image_kind.permitted_uses.include?(type) }.first.name
-  expect(page).not_to have_selector("#topical_event_logo_image_upload_form")
+Then(/^I should see a list with (\d+) (.*) image/) do |_count, image_usage_key|
+  expect(page).not_to have_selector("##{image_usage_key}_image_upload_form")
 end
 
-Then(/^I should not see the form for uploading a (.*) image/) do |type|
-  image_kind = Whitehall.image_kinds.values.select { |image_kind| image_kind.permitted_uses.include?(type) }.first.name
-  expect(page).not_to have_selector("##{image_kind}_image_upload_form")
+Then(/^I should not see the form for uploading a (.*) image/) do |image_usage_key|
+  expect(page).not_to have_selector("##{image_usage_key}_image_upload_form")
 end
 
 Then(/^I should see that the image requires cropping/) do
@@ -173,8 +169,8 @@ And(/^I upload a (\d+)x(\d+) image$/) do |width, height|
   upload_file(width, height)
 end
 
-And(/^I upload a (\d+)x(\d+) (.*) image$/) do |width, height, type|
-  upload_file(width, height, type)
+And(/^I upload a (\d+)x(\d+) (.*) image$/) do |width, height, image_usage_key|
+  upload_file(width, height, image_usage_key)
 end
 
 And(/^I upload multiple images including a (\d+)x(\d+) image$/) do |width, height|
@@ -193,18 +189,18 @@ And(/^I upload multiple images including a (\d+)x(\d+) image$/) do |width, heigh
       find(:label, "Upload an image").click
     end
   else
-    within "#default_image_upload_form input.gem-c-file-upload" do
+    within "#govspeak_embed_image_upload_form input.gem-c-file-upload" do
       attach_file files
     end
   end
 
-  within "#default_image_upload_form" do
+  within "#govspeak_embed_image_upload_form" do
     click_on "Upload"
   end
 end
 
 And(/^I click upload without attaching a file$/) do
-  within "#default_image_upload_form" do
+  within "#govspeak_embed_image_upload_form" do
     click_on "Upload"
   end
 end
@@ -242,6 +238,6 @@ Then(/^I should see the organisations default news image$/) do
   end
 end
 
-Then(/^I should see the title for uploading (?:a|an) (.*) image$/) do |image_kind|
-  expect(page).to have_content "Upload #{image_kind.titleize} image"
+Then(/^I should see the title for uploading (?:a|an) (.*) image$/) do |image_usage_key|
+  expect(page).to have_content "Upload #{image_usage_key} image"
 end

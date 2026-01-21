@@ -20,11 +20,9 @@ module PublishingApi
       end
 
       def images
-        embeddable_image_kinds = Whitehall.image_kinds.values.select { |image_kind| image_kind.permitted_uses.include?("govspeak_embed") }.map(&:name)
-
         item.images
             .usable
-            .of_kind(*(item.permitted_image_kinds.map(&:name) - embeddable_image_kinds))
+            .usable_as(*item.permitted_image_usages.reject { |usage| usage.key == "govspeak_embed" })
             .to_a
             .select { |image| image.image_data&.all_asset_variants_uploaded? }
             .map(&:publishing_api_details)

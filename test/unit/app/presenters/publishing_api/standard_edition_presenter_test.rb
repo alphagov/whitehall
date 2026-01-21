@@ -16,12 +16,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         "rendering_app" => rendering_app,
       },
     }))
-
     page = create(:standard_edition, { configurable_document_type: type_key })
-    page.document = Document.new
-    page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
+
     assert_equal "#{base_path_prefix}/#{page.document.slug}", content[:base_path]
     assert_equal schema_name, content[:schema_name]
     assert_equal document_type, content[:document_type]
@@ -29,8 +27,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it includes the block content values in the details hash" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "schema" => {
         "attributes" => {
           "attribute_one" => {
@@ -49,32 +46,23 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
     }))
     page = create(:standard_edition,
-                  {
-                    configurable_document_type: type_key,
-                    block_content: {
-                      "attribute_one" => "Foo",
-                      "attribute_two" => "Bar",
-                    },
+                  block_content: {
+                    "attribute_one" => "Foo",
+                    "attribute_two" => "Bar",
                   })
-    page.document = Document.new
-    page.document.slug = "page-title"
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
+
     assert_equal page.block_content["attribute_one"], content[:details][:attribute_one]
     assert_equal page.block_content["attribute_two"], content[:details][:attribute_two]
   end
 
   test "it includes a title and a description" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key))
-    page = create(:standard_edition, {
-      title: "Page Title",
-      summary: "Page Summary",
-      configurable_document_type: type_key,
-    })
-    page.document = Document.new(slug: "page-title")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    page = create(:standard_edition,
+                  title: "Page Title",
+                  summary: "Page Summary")
     presenter = PublishingApi::StandardEditionPresenter.new(page)
-
     content = presenter.content
 
     assert_equal page.title, content[:title]
@@ -82,8 +70,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it includes headers once, in the details, from all selected blocks, based on the schema configuration" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "schema" => {
         "headings_from" => %w[chunk_of_content_one chunk_of_content_two],
         "attributes" => {
@@ -106,16 +93,15 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     }))
-    page = create(:standard_edition, { configurable_document_type: type_key })
-    page.document = Document.new
-    page.document.slug = "page-title"
-    page.block_content = {
-      "string_chunk_of_content" => "Head-less content",
-      "chunk_of_content_one" => "## Header for chunk one\nSome content",
-      "chunk_of_content_two" => "## Header for chunk two\nSome more content",
-    }
+    page = create(:standard_edition,
+                  block_content: {
+                    "string_chunk_of_content" => "Head-less content",
+                    "chunk_of_content_one" => "## Header for chunk one\nSome content",
+                    "chunk_of_content_two" => "## Header for chunk two\nSome more content",
+                  })
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
+
     expected_details = {
       chunk_of_content_one: "<div class=\"govspeak\"><h2 id=\"header-for-chunk-one\">Header for chunk one</h2>\n<p>Some content</p>\n</div>",
       string_chunk_of_content: "Head-less content",
@@ -138,8 +124,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it omits the headers key from the payload if none are present in the selected content" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "schema" => {
         "headings_from" => %w[chunk_of_content_one chunk_of_content_two],
         "attributes" => {
@@ -158,26 +143,23 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     }))
-    page = create(:standard_edition, { configurable_document_type: type_key })
-    page.document = Document.new
-    page.document.slug = "page-title"
-    page.block_content = {
-      "chunk_of_content_two" => "Some more content",
-      "chunk_of_content_one" => "Some content",
-    }
+    page = create(:standard_edition,
+                  block_content: {
+                    "chunk_of_content_two" => "Some more content",
+                    "chunk_of_content_one" => "Some content",
+                  })
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
+
     expected_details = {
       chunk_of_content_one: "<div class=\"govspeak\"><p>Some content</p>\n</div>",
       chunk_of_content_two: "<div class=\"govspeak\"><p>Some more content</p>\n</div>",
     }
-
     assert_equal expected_details, content[:details]
   end
 
   test "it does not include a headers key in the details if the document type is not configured to send headings" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "schema" => {
         "attributes" => {
           "chunk_of_content_one" => {
@@ -195,13 +177,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
         },
       },
     }))
-    page = create(:standard_edition, { configurable_document_type: type_key,
-                                       block_content: {
-                                         "chunk_of_content_one" => "## Header for chunk one\nSome content",
-                                         "chunk_of_content_two" => "## Header for chunk two\nSome more content",
-                                       } })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    page = create(:standard_edition,
+                  block_content: {
+                    "chunk_of_content_one" => "## Header for chunk one\nSome content",
+                    "chunk_of_content_two" => "## Header for chunk two\nSome more content",
+                  })
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
@@ -209,16 +189,12 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it includes a political key in the details if history mode enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "history_mode_enabled" => true,
       },
     }))
-    page = create(:standard_edition, { configurable_document_type: type_key,
-                                       political: true })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    page = create(:standard_edition, political: true)
     page.expects(:political?).returns(true)
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
@@ -227,16 +203,12 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it does not include a political key in the details if history mode not enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "history_mode_enabled" => false,
       },
     }))
-    page = create(:standard_edition, { configurable_document_type: type_key,
-                                       political: true })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    page = create(:standard_edition, political: true)
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
@@ -244,13 +216,12 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it includes change history in the details if sending change history is enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "send_change_history" => true,
       },
     }))
-    page = create(:published_standard_edition, { configurable_document_type: type_key })
+    page = create(:published_standard_edition)
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
@@ -258,13 +229,12 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it does not include change history in the details if sending change history is not enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "send_change_history" => false,
       },
     }))
-    page = create(:published_standard_edition, { configurable_document_type: type_key })
+    page = create(:published_standard_edition)
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
@@ -272,15 +242,12 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it includes attachments in the details if file attachments are enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "file_attachments_enabled" => true,
       },
     }))
-    page = create(:standard_edition, { configurable_document_type: type_key })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    page = create(:standard_edition)
     attachment = create(:file_attachment)
     page.stubs(attachments_ready_for_publishing: [attachment])
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -291,15 +258,12 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it does not include attachments in the details if file attachments are not enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "file_attachments_enabled" => false,
       },
     }))
-    page = create(:standard_edition, { configurable_document_type: type_key })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    page = create(:standard_edition)
     attachment = create(:file_attachment)
     page.stubs(attachments_ready_for_publishing: [attachment])
     presenter = PublishingApi::StandardEditionPresenter.new(page)
@@ -309,33 +273,24 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it includes emphasised organisations in the details if the document type has organisations association" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "associations" => [
         { "key" => "organisations" },
       ],
     }))
     organisations = create_list(:organisation, 2)
-    page = create(:standard_edition,
-                  { configurable_document_type: type_key,
-                    lead_organisations: organisations })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    page = create(:standard_edition, lead_organisations: organisations)
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
     expected_emphasised_organisations = organisations.map(&:content_id)
+
     assert_equal expected_emphasised_organisations, content[:details][:emphasised_organisations]
   end
 
   test "it does not include emphasised organisations in the details if the document type does not have organisations association" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
     organisations = create_list(:organisation, 2)
-    page = create(:standard_edition,
-                  { configurable_document_type: type_key,
-                    lead_organisations: organisations })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    page = create(:standard_edition, lead_organisations: organisations)
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
     assert_not content[:details].key?(:emphasised_organisations)
@@ -367,65 +322,105 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal expected_government, links[:government]
   end
 
-  test "it includes non-embeddable images in the details if images are enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+  test "it includes non-embeddable images in the details if the config setting for 'images' is enabled" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "images" => {
           "enabled" => true,
-          "permitted_image_kinds" => [
-            {
-              "kind" => "header",
-              "multiple" => false,
-            },
-            {
-              "kind" => "govspeak_embed",
+          "usages" => {
+            "govspeak_embed" => {
+              "kinds" => %w[some_embeddable_kind],
               "multiple" => true,
             },
-          ],
+            "non_embeddable_usage" => {
+              "kinds" => %w[non_embeddable_usage_kind],
+              "multiple" => false,
+            },
+          },
         },
       },
     }))
 
-    embeddable_image = create(:image)
-    image = create(:image, caption: "image caption", image_data: create(:image_data, image_kind: "topical_event_header", file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg"))))
-
-    page = create(:standard_edition, { configurable_document_type: type_key, images: [embeddable_image, image] })
-    page.document = Document.new
-    page.document.slug = "page-title"
+    embeddable_image = create(:image, :jpg, usage: "govspeak_embed")
+    non_embeddable_image = create(:image, :svg, usage: "non_embeddable_usage", caption: "image caption")
+    page = create(:standard_edition, images: [embeddable_image, non_embeddable_image])
 
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
     assert_equal 1, content[:details][:images].length
-    assert_equal image.image_data.url, content[:details][:images].first[:url]
-    assert_equal "header", content[:details][:images].first[:type]
-    assert_equal "image caption", content[:details][:images].first[:caption]
+    assert_equal non_embeddable_image.image_data.url, content[:details][:images].first[:url]
+    assert_equal non_embeddable_image.usage, content[:details][:images].first[:type]
+    assert_equal non_embeddable_image.caption, content[:details][:images].first[:caption]
+    assert_equal non_embeddable_image.content_type, content[:details][:images].first[:content_type]
   end
 
-  test "it does not include images in the details if images are not enabled" do
-    type_key = "test_type_key"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+  test "it does not include images in the details if the config setting for 'images' is not enabled" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
         "images" => {
           "enabled" => false,
-          "permitted_image_kinds" => [
-            {
-              "kind" => "header",
+          "usages" => {
+            "some_usage" => {
+              "kinds" => %w[some_usage_kind],
               "multiple" => true,
             },
-          ],
+          },
         },
       },
     }))
 
-    page = create(:standard_edition, { configurable_document_type: type_key })
-    page.document = Document.new
-    page.document.slug = "page-title"
-
+    page = create(:standard_edition)
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
     assert_not content[:details].key?(:images)
+  end
+
+  test "it does not conflict embeddable and non-embeddable images in the payload, and can present both" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "schema" => {
+        "attributes" => {
+          "image_attribute" => {
+            "type" => "integer",
+          },
+        },
+      },
+      "presenters" => {
+        "publishing_api" => {
+          "image_attribute" => "image",
+        },
+      },
+      "settings" => {
+        "images" => {
+          "enabled" => true,
+          "usages" => {
+            "govspeak_embed" => {
+              "kinds" => %w[some_embeddable_kind],
+              "multiple" => true,
+            },
+            "non_embeddable_usage" => {
+              "kinds" => %w[non_embeddable_usage_kind],
+              "multiple" => true,
+            },
+          },
+        },
+      },
+    }))
+    embeddable_image = create(:image, :jpg, usage: "govspeak_embed")
+    non_embeddable_image = create(:image, :svg, usage: "non_embeddable_usage")
+    page = create(:standard_edition,
+                  {
+                    block_content: {
+                      "image_attribute" => embeddable_image.image_data.id.to_i,
+                    },
+                    images: [embeddable_image, non_embeddable_image],
+                  })
+
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_equal embeddable_image.url, content[:details][:image_attribute][:url]
+    assert_equal [non_embeddable_image.usage], content[:details][:images].pluck(:type)
   end
 end

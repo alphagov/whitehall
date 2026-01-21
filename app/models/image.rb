@@ -47,7 +47,7 @@ class Image < ApplicationRecord
 
   def publishing_api_details
     {
-      type: Whitehall.image_kinds.fetch(image_kind).permitted_uses.first,
+      type: usage,
       url:,
       caption:,
       content_type:,
