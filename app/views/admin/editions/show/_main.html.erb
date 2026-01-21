@@ -207,9 +207,9 @@
         margin_bottom: 3,
       } %>
 
-      <%= link_to("Add features",
-                  admin_standard_edition_edition_featurings_path(@edition.id),
-                  class: "govuk-link") %>
+  <%= link_to("Add features",
+      features_admin_standard_edition_path(@edition, locale: I18n.locale),
+      class: "govuk-link") %>
 
     </section>
   <% end %>
