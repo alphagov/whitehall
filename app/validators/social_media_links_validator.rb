@@ -25,14 +25,16 @@ private
     if service.nil?
       record.errors.add(
         attribute_name.to_sym,
-        "invalid: unknown service with ID '#{service_id}'",
+        :invalid_social_media_link,
+        message: "invalid: unknown service with ID '#{service_id}'",
       )
       return nil
     end
     if @services.include?(service_id)
       record.errors.add(
         attribute_name.to_sym,
-        "invalid: duplicate service '#{service.name}'",
+        :invalid_social_media_link,
+        message: "invalid: duplicate service '#{service.name}'",
       )
       return nil
     end
@@ -44,12 +46,14 @@ private
     if url.blank?
       record.errors.add(
         attribute_name.to_sym,
-        "invalid: no URL provided for '#{service.name}'",
+        :invalid_social_media_link,
+        message: "invalid: no URL provided for '#{service.name}'",
       )
     elsif !valid_url?(url)
       record.errors.add(
         attribute_name.to_sym,
-        "invalid: bad URL provided for '#{service.name}'",
+        :invalid_social_media_link,
+        message: "invalid: bad URL provided for '#{service.name}'",
       )
     end
   end

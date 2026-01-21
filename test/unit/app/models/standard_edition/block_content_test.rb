@@ -13,6 +13,9 @@ class BlockContentTest < ActiveSupport::TestCase
         "test_date_attribute" => {
           "type" => "date",
         },
+        "test_array_attribute" => {
+          "type" => "array",
+        },
       },
     }
   end
@@ -46,6 +49,13 @@ class BlockContentTest < ActiveSupport::TestCase
 
     page.attributes = { "test_number_attribute" => "" }
     assert_nil page.test_number_attribute
+  end
+
+  test "casts array attributes to empty array for storage if the input value is nil" do
+    page = StandardEdition::BlockContent.new(@schema)
+
+    page.attributes = { "test_array_attribute" => nil }
+    assert_equal [], page.test_array_attribute
   end
 
   test "maps 'presence' validation to ActiveModel::Validations::PresenceValidator" do
@@ -139,5 +149,22 @@ class BlockContentTest < ActiveSupport::TestCase
     page.attributes = { "test_attribute" => "[Contact:999999999]" }
     assert_not page.valid?
     assert_not page.errors.where("test_attribute", :embedded_contact_invalid).empty?
+  end
+
+  test "maps 'social_media_links' validation to SocialMediaLinksValidator" do
+    schema = @schema.merge({
+      "validations" => {
+        "social_media_links" => {
+          "attributes" => %w[test_array_attribute],
+          "service_field": "social_media_service_id",
+          "url_field": "url",
+        },
+      },
+    })
+    page = StandardEdition::BlockContent.new(schema)
+
+    page.attributes = { "test_array_attribute" => [{ "social_media_service_id" => "1", "url" => "broken url" }] }
+    assert_not page.valid?
+    assert_not page.errors.where("test_array_attribute", :invalid_social_media_link).empty?
   end
 end
