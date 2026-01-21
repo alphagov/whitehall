@@ -34,7 +34,7 @@ class StandardEdition::BlockContent
         # to
         # [ { "foo" => "bar" } ]
         array_elements = values[key].is_a?(Hash) ? values[key].values : values[key]
-        public_send(setter, array_elements.reject { |h| h["_destroy"] == "1" })
+        public_send(setter, (array_elements || []).reject { |h| h["_destroy"] == "1" })
       else
         public_send(setter, values[key])
       end
