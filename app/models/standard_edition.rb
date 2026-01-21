@@ -10,6 +10,7 @@ class StandardEdition < Edition
   include Edition::WorldwideOrganisations
   include HasBlockContent
   include StandardEdition::DefaultLeadImage
+  include StandardEdition::ChildDocuments
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
