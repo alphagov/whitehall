@@ -44,6 +44,10 @@
 
   root_classes = %w[app-c-datetime-fields govuk-form-group]
   root_classes << "govuk-form-group--error" if error_items.present?
+
+  time_select_classes = %w[govuk-select app-c-datetime-fields__date-time-input]
+  time_select_classes << "govuk-select--error" if error_items.present?
+
   data_attributes ||= {}
 %>
 <% component = capture do %>
@@ -101,7 +105,7 @@
                               },
                               {
                                 id: hour_select_id,
-                                class: "govuk-select app-c-datetime-fields__date-time-input",
+                                class: time_select_classes,
                                 "aria-describedby": "#{hour_label_id} #{time_hint_id if time_hint.present?}".strip,
                               } %>
             </div>
@@ -123,7 +127,7 @@
                                 },
                                 {
                                   id: minute_select_id,
-                                  class: "govuk-select app-c-datetime-fields__date-time-input",
+                                  class: time_select_classes,
                                   "aria-describedby": "#{minute_label_id} #{time_hint_id if time_hint.present?}".strip,
                                 } %>
             </div>
