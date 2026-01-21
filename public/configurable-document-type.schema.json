@@ -265,9 +265,38 @@
           "type": "string",
           "description": "The frontend application responsible for rendering this document type."
         },
-        "images_enabled": {
-          "type": "boolean",
-          "description": "Whether users can upload images for this document type. When enabled, it renders the Images tab."
+        "images": {
+          "type": "object",
+          "description": "Whether users can upload images for this document type. When enabled, it renders the Images tab.",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether users can upload images for this document type. When enabled, it renders the Images tab."              
+            },
+            "permitted_image_kinds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "multiple": {
+                    "type": "boolean",
+                    "description": "Whether users can upload multiple images of this image kind"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "govspeak_embed",
+                      "landing_page",
+                      "hero",
+                      "header",
+                      "logo"
+                    ],
+                    "description": "The name of the permitted use of the image kind"
+                  }
+                }
+              }
+            }
+          }
         },
         "send_change_history": {
           "type": "boolean",
@@ -302,7 +331,7 @@
         "publishing_api_schema_name",
         "publishing_api_document_type",
         "rendering_app",
-        "images_enabled",
+        "images",
         "send_change_history",
         "organisations",
         "backdating_enabled",

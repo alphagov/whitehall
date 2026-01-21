@@ -1,17 +1,20 @@
-def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil, list_of_foods: nil)
-  image = create(:image)
+def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil, images: nil, list_of_foods: nil)
+  if images.nil?
+    image = create(:image)
+    images = [image]
+  end
   defaults = default_content_for_locale(locale)
   I18n.with_locale(locale) do
     create(
       :draft_standard_edition,
       {
         configurable_document_type: "test",
-        images: [image],
+        images:,
         title: title,
         summary: summary || defaults[:summary],
         primary_locale: locale,
         block_content: {
-          "image" => image.image_data.id.to_s,
+          "image" => images.first.image_data.id.to_s,
           "body" => body || defaults[:body],
           "date_field" => date_field,
           "street" => street,
@@ -151,6 +154,10 @@ end
 
 Given(/^I have drafted an English configurable document titled "([^"]*)"$/) do |title|
   @standard_edition = create_configurable_document(**default_content_for_locale("en").merge({ title: }))
+end
+
+Given(/^a draft configurable document exists$/) do
+  @edition = create_configurable_document(**default_content_for_locale("en"))
 end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|

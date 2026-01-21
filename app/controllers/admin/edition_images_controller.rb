@@ -41,9 +41,7 @@ class Admin::EditionImagesController < Admin::BaseController
   def create
     @images = images_params.map { |image| create_image(image) }
 
-    if @images.empty?
-      flash.now.alert = "No images selected. Choose a valid JPEG, PNG, SVG or GIF."
-    elsif @images.all?(&:valid?)
+    if @images.all?(&:valid?)
       @images.each(&:save)
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
@@ -53,7 +51,11 @@ class Admin::EditionImagesController < Admin::BaseController
       @images.each { |image| @edition.images.delete(image) }
     end
 
-    render :index
+    if @images.count == 1 && @images.first.valid?
+      redirect_to edit_admin_edition_image_path(@edition, @images.first.id)
+    else
+      render :index
+    end
   end
 
   def create_image(image)
@@ -119,7 +121,7 @@ private
   end
 
   def images_params
-    params.fetch(:images, []).map { |image| image.permit(image_data: %i[file]) }
+    params.fetch(:images, []).map { |image| image.permit(image_data: %i[file image_kind]) }
   end
 
   def image_data_params

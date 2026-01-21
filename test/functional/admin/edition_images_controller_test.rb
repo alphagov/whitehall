@@ -34,7 +34,20 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
   end
 
-  test "#create renders #index with a valid image upload" do
+  test "#create renders #index with valid images uploaded" do
+    login_authorised_user
+    edition = create(:draft_case_study)
+
+    files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("minister-of-funk.960x640.jpg")]
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+
+    post :create, params: { edition_id: edition.id, images: files.map { |file| { image_data: { file: } } } }
+
+    assert_template "admin/edition_images/index"
+    assert_equal "Images successfully uploaded", flash[:notice]
+  end
+
+  test "#create redirects to #edit with valid image uploaded" do
     login_authorised_user
     edition = create(:draft_case_study)
 
@@ -43,8 +56,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
 
-    assert_template "admin/edition_images/index"
-    assert_equal "Images successfully uploaded", flash[:notice]
+    assert_redirected_to edit_admin_edition_image_path(edition, edition.images.first.id)
   end
 
   test "#create updates the lead_image association if edition can have a custom lead image" do

@@ -42,14 +42,19 @@ Feature: Images tab on edit edition
     And I make the image with caption "Second image uploaded" the lead image
     Then I can see that the image with caption "Second image uploaded" is the lead image
 
-  Scenario: Image uploaded with no cropping required
-    And I start drafting a new publication "Standard Beard Lengths"
-    When I visit the images tab of the document "Standard Beard Lengths"
-    And I upload a 960x640 image
-    Then I should see a list with 1 image
-
   Scenario: No file uploaded
     And I start drafting a new publication "Standard Beard Lengths"
     When I visit the images tab of the document "Standard Beard Lengths"
     And I click upload without attaching a file
-    Then I should get the error message "No images selected. Choose a valid JPEG, PNG, SVG or GIF."
+    Then I should get the error message "Choose a valid JPEG, PNG, SVG or GIF."
+
+Scenario: User uploads a header image
+    And the configurable document types feature flag is enabled
+    And the test configurable document type is defined
+    And I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
+    When I visit the images tab of the document "The history of GOV.UK"
+    Then I should see the title for uploading a header image
+    When I upload a 960x960 header image
+    And I update the image details and save
+    Then I should see a list with 1 header image
+    And I should not see the form for uploading a header image    

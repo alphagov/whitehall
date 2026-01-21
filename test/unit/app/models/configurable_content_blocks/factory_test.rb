@@ -90,7 +90,9 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
       build_configurable_document_type(
         "test_type_with_images_and_attachments", {
           "settings" => {
-            "images_enabled" => true,
+            "images" => {
+              "enabled" => true,
+            },
             "file_attachments_enabled" => true,
           },
         }

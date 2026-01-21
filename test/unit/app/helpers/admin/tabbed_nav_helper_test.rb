@@ -202,7 +202,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for other persisted edition types with no attachments or images" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true, "images_enabled" => true } }))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true, "images" => { "enabled" => true } } }))
 
     %i[detailed_guide publication standard_edition].each do |type|
       if type == :corporate_information_page
@@ -235,7 +235,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for other persisted edition types with attachments and images" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true, "images_enabled" => true } }))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true, "images" => { "enabled" => true } } }))
 
     %i[detailed_guide publication standard_edition].each do |type|
       if type == :corporate_information_page

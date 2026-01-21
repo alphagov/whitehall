@@ -49,7 +49,15 @@
       "organisations": null,
       "backdating_enabled": false,
       "translations_enabled": true,
-      "images_enabled": true
+      "images": {
+        "enabled": true,
+        "permitted_image_kinds": [
+          {
+            "kind": "govspeak_embed",
+            "multiple": true
+          }
+        ]
+      }
     }
   },
   {
@@ -102,7 +110,15 @@
       "organisations": null,
       "backdating_enabled": false,
       "translations_enabled": true,
-      "images_enabled": true
+      "images": {
+        "enabled": true,
+        "permitted_image_kinds": [
+          {
+            "kind": "govspeak_embed",
+            "multiple": true
+          }
+        ]
+      }
     }
   }
 ]

@@ -79,7 +79,15 @@
     "publishing_api_schema_name": "news_article",
     "publishing_api_document_type": "press_release",
     "rendering_app": "frontend",
-    "images_enabled": true,
+    "images": {
+      "enabled": true,
+      "permitted_image_kinds": [
+        {
+          "kind": "govspeak_embed",
+          "multiple": true
+        }
+      ]
+    },
     "send_change_history": true,
     "file_attachments_enabled": true,
     "organisations": null,

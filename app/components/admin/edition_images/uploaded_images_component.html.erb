@@ -1,4 +1,4 @@
-<% if edition.configurable_document_type.present? %>
+<% if edition.configurable_document_type.present? && edition.allows_lead_image? %>
   <%= render "govuk_publishing_components/components/heading", {
     text: "Select a lead image",
     font_size: "l",

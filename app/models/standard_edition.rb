@@ -43,6 +43,10 @@ class StandardEdition < Edition
     block_content["body"]
   end
 
+  def lead_image
+    block_content["image"]
+  end
+
   def body=(_)
     nil
   end
@@ -59,8 +63,22 @@ class StandardEdition < Edition
     translatable? && translations.size <= 1
   end
 
+  def allows_lead_image?
+    type_instance.form["fields"]["image"].present?
+  end
+
   def allows_image_attachments?
-    type_instance.settings["images_enabled"]
+    type_instance.settings["images"]["enabled"]
+  end
+
+  def allows_multiple_of_image_kind?(image_kind)
+    return if type_instance.settings["images"]["permitted_image_kinds"].blank?
+
+    type_instance_image_kind = type_instance.settings["images"]["permitted_image_kinds"].detect { |permitted_image_kind| permitted_image_kind["kind"] == image_kind }
+
+    return if type_instance_image_kind.blank?
+
+    type_instance_image_kind["multiple"]
   end
 
   def allows_file_attachments?
@@ -97,6 +115,16 @@ class StandardEdition < Edition
 
   def is_in_valid_state_for_type_conversion?
     %w[draft submitted rejected].include?(state)
+  end
+
+  def permitted_single_upload_image_kinds
+    Whitehall.image_kinds.values.select { _1.permitted_uses.intersect?(type_instance.settings["images"]["permitted_image_kinds"].reject { |image| image["multiple"] }.map { |image| image["kind"] }) }
+  end
+
+  def permitted_image_kinds
+    return super unless type_instance.settings["images"]["permitted_image_kinds"]
+
+    Whitehall.image_kinds.values.select { _1.permitted_uses.intersect?(type_instance.settings["images"]["permitted_image_kinds"].map { |image| image["kind"] }) }
   end
 
 private
