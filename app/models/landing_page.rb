@@ -34,13 +34,13 @@ class LandingPage < Edition
       ImageUsage.new(
         key: "hero",
         label: "hero",
-        kinds: Whitehall.image_kinds.values.select { _1.permitted_uses.include? "hero" },
+        kinds: Whitehall.image_kinds.values_at("hero_desktop", "hero_tablet", "hero_mobile"),
         multiple: true,
       ),
       ImageUsage.new(
         key: "landing_page",
         label: "landing page",
-        kinds: Whitehall.image_kinds.values.select { _1.permitted_uses.include? "landing_page" },
+        kinds: Whitehall.image_kinds.values_at("landing_page_image"),
         multiple: true,
       ),
     ]

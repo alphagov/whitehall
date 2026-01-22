@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :generic_image, class: Image do
+    usage { "govspeak_embed" }
+
     trait(:jpg) do
       image_data
     end
