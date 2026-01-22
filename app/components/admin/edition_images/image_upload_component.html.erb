@@ -21,7 +21,16 @@
   <%= hidden_field_tag("images[][usage]", image_usage.key) %>
 
   <% if image_usage.kinds.size > 1 %>
-    <%# TODO: add radio buttons for kind selection %>
+    <%= render "govuk_publishing_components/components/radio", {
+      heading: "What kind of image is this?",
+      name: "images[][image_data_attributes][image_kind]",
+      items: image_usage.kinds.map do |image_kind|
+        {
+          value: image_kind.name,
+          text: image_kind.display_name,
+        }
+      end,
+    } %>
   <% else %>
     <%= hidden_field_tag("images[][image_data_attributes][image_kind]", image_usage.kinds.first.name) %>
   <% end %>

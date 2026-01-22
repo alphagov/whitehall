@@ -35,6 +35,17 @@ class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
     assert_selector "input[name=\"images[][image_data_attributes][image_kind]\"][value=\"default\"]", visible: false
   end
 
+  test "renders radio button inputs for multiple usage" do
+    edition = build_stubbed(:draft_publication)
+    image_kinds = [Whitehall.image_kinds.fetch("default"), Whitehall.image_kinds.fetch("landing_page_image")]
+    usage = ImageUsage.new(key: "test_usage", kinds: image_kinds, multiple: true, label: "test")
+    render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, image_usage: usage))
+
+    image_kinds.each do |kind|
+      assert_selector "input[name=\"images[][image_data_attributes][image_kind]\"][value=\"#{kind.name}\"]"
+    end
+  end
+
   test "renders error items for new image" do
     edition = build_stubbed(:draft_publication)
     usage = ImageUsage.new(key: "test_usage", kinds: [Whitehall.image_kinds.fetch("default")], multiple: false, label: "test")
