@@ -486,6 +486,66 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [feb], Edition.published_after("2011-01-29").load
   end
 
+  test "updates first_published_at when date changes" do
+    original_first_published_at_datetime = Time.zone.parse("2011-01-01 22:10:00")
+    edition = create(:edition, first_published_at: original_first_published_at_datetime)
+    new_time = Date.parse("2011-01-02")
+
+    edition.first_published_at = new_time
+    edition.save!
+
+    assert_equal new_time, edition.first_published_at
+  end
+
+  test "sets first_published_at when previously blank" do
+    edition = create(:edition, first_published_at: nil)
+    new_time = Date.parse("2011-01-01")
+
+    edition.first_published_at = new_time
+    edition.save!
+
+    assert_equal new_time, edition.first_published_at
+  end
+
+  test "allows clearing first_published_at" do
+    edition = create(:edition, first_published_at: Date.parse("2011-01-01"))
+
+    edition.first_published_at = nil
+    edition.save!
+
+    assert_nil edition.first_published_at
+  end
+
+  test "allows first_published_at to be an hour before" do
+    time = 1.hour.ago
+    edition = create(:edition, first_published_at: nil)
+
+    edition.first_published_at = time
+    edition.save!
+
+    assert_equal time, edition.first_published_at
+  end
+
+  test "preserves time component of first_published_at when saving" do
+    original_datetime = Time.zone.parse("2011-01-01 22:10:00")
+    edition = create(:edition, first_published_at: original_datetime)
+
+    edition.title = "Updated title"
+    edition.save!
+    edition.reload
+
+    assert_equal 22, edition.first_published_at.hour
+    assert_equal 10, edition.first_published_at.min
+  end
+
+  test "does not allow first_published_at to be an hour in the future" do
+    time = 1.hour.from_now
+    edition = create(:edition, first_published_at: nil)
+
+    edition.first_published_at = time
+    assert_not edition.save
+  end
+
   test "should find editions with title containing keyword" do
     edition_with_first_keyword = create(:edition, title: "klingons")
     _edition_without_first_keyword = create(:edition, title: "this document is about muppets")
@@ -531,6 +591,22 @@ class EditionTest < ActiveSupport::TestCase
     )
     e.set_public_timestamp
     assert_equal 4.days.ago, e.public_timestamp
+  end
+
+  test "public_timestamp is preserved when publishing a minor update" do
+    original_datetime = Time.zone.parse("2011-01-01 22:10:00")
+    edition = create(:published_edition, first_published_at: original_datetime, major_change_published_at: original_datetime)
+
+    assert_equal original_datetime, edition.public_timestamp
+
+    new_draft = edition.create_draft(create(:writer))
+    new_draft.minor_change = true
+    new_draft.save!
+    force_publish(new_draft)
+
+    assert_equal 22, new_draft.public_timestamp.hour
+    assert_equal 10, new_draft.public_timestamp.min
+    assert_equal original_datetime, new_draft.public_timestamp
   end
 
   test "should store title in multiple languages" do

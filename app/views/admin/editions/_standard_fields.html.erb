@@ -110,4 +110,6 @@
   year: @edition_params.try(:dig, "first_published_at(1i)") || edition.first_published_at&.year,
   month: @edition_params.try(:dig, "first_published_at(2i)") || edition.first_published_at&.month,
   day: @edition_params.try(:dig, "first_published_at(3i)") || edition.first_published_at&.day,
+  hour: @edition_params.try(:dig, "first_published_at(4i)").presence&.to_i || edition.first_published_at&.hour,
+  minute: @edition_params.try(:dig, "first_published_at(5i)").presence&.to_i || edition.first_published_at&.min,
 ) %>
