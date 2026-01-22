@@ -21,17 +21,17 @@
           font_size: "l",
           margin_bottom: 2,
         } %>
-        <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image) %>
+        <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image, image_usage: usage) %>
       <% else %>
-        <%= render "image_upload", image_usage: usage %>
+        <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
       <% end %>
     <% end %>
 
     <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each do |usage| %>
-      <%= render "image_upload", image_usage: usage %>
+      <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
 
       <%= render "govuk_publishing_components/components/heading", {
-        text: "Uploaded images",
+        text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
         font_size: "l",
       } %>
 

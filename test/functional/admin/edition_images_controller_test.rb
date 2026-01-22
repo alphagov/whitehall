@@ -6,6 +6,144 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     stub_request(:get, %r{.*/media/.*/minister-of-funk.960x640.jpg}).to_return(status: 200, body: io_object, headers: {})
   end
 
+  view_test "index page renders upload form for single image usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#header_image_upload_form"
+  end
+
+  view_test "index page renders image for single image usage if present" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "header"),
+    ])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "h2", text: "Uploaded header image"
+  end
+
+  view_test "index page renders upload form and existing images for multiple image usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => true,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "govspeak_embed"),
+    ])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#header_image_upload_form"
+    assert_select "h2", text: "Uploaded header images"
+  end
+
+  view_test "index page renders upload form, embedding guidance and existing images for govspeak embed image usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "govspeak_embed" => {
+              "kinds" => %w[default],
+              "multiple" => true,
+              "embeddable" => true,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "govspeak_embed"),
+    ])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#govspeak_embed_image_upload_form"
+    assert_select "h2", text: "Uploaded images"
+    assert_select "h2", text: "Images available to use in document"
+    assert_select ".govuk-inset-text", text: "Copy the image markdown code to add images to the document body."
+  end
+
+  view_test "index page renders standard edition images form alongside govspeak embed images" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "images" => {
+          "fields" => {
+            "test_attribute" => {
+              "title" => "Test attribute",
+              "block" => "default_string",
+            },
+          },
+        },
+      },
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "govspeak_embed" => {
+              "kinds" => %w[default],
+              "multiple" => true,
+              "embeddable" => true,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "govspeak_embed"),
+    ])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#govspeak_embed_image_upload_form"
+    assert_select "label", text: "Test attribute"
+  end
+
   view_test "edit page shows image editing form" do
     login_authorised_user
     image = build(:image)
