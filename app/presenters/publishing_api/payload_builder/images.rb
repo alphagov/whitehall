@@ -22,7 +22,7 @@ module PublishingApi
       def images
         item.images
             .usable
-            .usable_as(*item.permitted_image_usages.reject { |usage| usage.key == "govspeak_embed" })
+            .usable_as(*item.permitted_image_usages.reject(&:embeddable?))
             .to_a
             .select { |image| image.image_data&.all_asset_variants_uploaded? }
             .map(&:publishing_api_details)

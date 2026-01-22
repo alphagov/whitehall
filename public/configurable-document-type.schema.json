@@ -301,9 +301,11 @@
                           "hero_tablet",
                           "hero_mobile"
                         ]
-                      }
+                      },
+                      "minLength": 1
                     }
-                  }
+                  },
+                  "required": ["multiple", "kinds"]
                 }
               },
               "propertyNames": {

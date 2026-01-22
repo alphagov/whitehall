@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Admin::EditionImages::ImageComponent < ViewComponent::Base
-  def initialize(edition:, image:, last_image:)
+  def initialize(edition:, image:, image_usage:)
     @edition = edition
     @image = image
-    @last_image = last_image
+    @image_usage = image_usage
   end
 
 private
 
-  attr_reader :edition, :image, :last_image
+  attr_reader :edition, :image, :image_usage
 
   def caption
     image.caption.presence || "None"
@@ -32,6 +32,6 @@ private
   end
 
   def can_be_custom_lead_image?
-    edition.can_have_custom_lead_image? && !image.svg? && !image.image_data.requires_crop?
+    edition.can_have_custom_lead_image? && image_usage.embeddable? && !image.svg? && !image.image_data.requires_crop?
   end
 end

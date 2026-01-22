@@ -11,7 +11,8 @@
     <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
     <% if image.image_data&.bitmap? && image.image_data&.requires_crop? %>
       <span class="govuk-tag govuk-tag--red">Requires crop</span>
-    <% else %>
+    <% end %>
+    <% if image_usage.embeddable? %>
       <%= render "govuk_publishing_components/components/copy_to_clipboard", {
         label: tag.strong("Markdown code:"),
         copyable_content: image_markdown,
@@ -35,7 +36,3 @@
     <% end %>
   </div>
 </li>
-
-<% unless last_image %>
-  <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
-<% end %>
