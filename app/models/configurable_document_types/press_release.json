@@ -84,7 +84,8 @@
       "usages": {
         "govspeak_embed": {
           "kinds": ["default"],
-          "multiple": true
+          "multiple": true,
+          "embeddable": true
         }
       }
     },

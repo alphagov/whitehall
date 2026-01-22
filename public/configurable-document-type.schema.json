@@ -287,6 +287,11 @@
                       "type": "boolean",
                       "description": "Whether users can upload multiple images of this image kind"
                     },
+                    "embeddable": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Whether users can embed the image in Govspeak content"
+                    },
                     "kinds": {
                       "type": "array",
                       "items": {
@@ -301,9 +306,11 @@
                           "hero_tablet",
                           "hero_mobile"
                         ]
-                      }
+                      },
+                      "minLength": 1
                     }
-                  }
+                  },
+                  "required": ["multiple", "kinds"]
                 }
               },
               "propertyNames": {

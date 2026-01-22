@@ -10,7 +10,7 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
-    <% @edition.permitted_image_usages.reject { |usage| usage.multiple }.each do |usage| %>
+    <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |usage| %>
 
       <% current_image = @edition.images.usable_as(usage).first %>
 
@@ -21,13 +21,13 @@
           font_size: "l",
           margin_bottom: 2,
         } %>
-        <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image, last_image: true) %>
+        <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image) %>
       <% else %>
         <%= render "image_upload", image_usage: usage %>
       <% end %>
     <% end %>
 
-    <% @edition.permitted_image_usages.select { |usage| usage.multiple }.each do |usage| %>
+    <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each do |usage| %>
       <%= render "image_upload", image_usage: usage %>
 
       <%= render "govuk_publishing_components/components/heading", {
@@ -35,53 +35,62 @@
         font_size: "l",
       } %>
 
-      <% if @edition.is_a? StandardEdition %>
-        <% if @edition.type_instance.form("images").present? %>
-          <%= form_for [:admin, @edition] do %>
-            <%= hidden_field_tag :redirect_to, admin_edition_images_path(@edition) %>
+      <% if usage.key == "govspeak_embed" %>
+        <% if @edition.is_a?(StandardEdition) %>
+          <% if @edition.type_instance.form("images").present? %>
+            <%= form_for [:admin, @edition] do %>
+              <%= hidden_field_tag :redirect_to, admin_edition_images_path(@edition) %>
 
-            <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
-            <%= render(root_block, {
-              schema: @edition.type_instance.form("images"),
-              content: @edition.block_content,
-              path: ConfigurableContentBlocks::Path.new,
-              right_to_left: @edition.rtl?,
-              errors: @edition.errors,
-              required_attributes: @edition.type_instance.required_attributes,
-              root: true,
-            }) %>
+              <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
+              <%= render(root_block, {
+                schema: @edition.type_instance.form("images"),
+                content: @edition.block_content,
+                path: ConfigurableContentBlocks::Path.new,
+                right_to_left: @edition.rtl?,
+                errors: @edition.errors,
+                required_attributes: @edition.type_instance.required_attributes,
+                root: true,
+              }) %>
 
-            <div class="govuk-button-group">
-              <%= render "govuk_publishing_components/components/button", {
-                text: "Save",
-                value: "save",
-                name: "save",
-              } %>
-            </div>
+              <div class="govuk-button-group">
+                <%= render "govuk_publishing_components/components/button", {
+                  text: "Save",
+                  value: "save",
+                  name: "save",
+                } %>
+              </div>
+            <% end %>
           <% end %>
+        <% else %>
+          <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) %>
         <% end %>
-      <% else %>
-        <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) %>
       <% end %>
 
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Images available to use in document",
-        font_size: "m",
-        padding: true,
-      } %>
+      <% if usage.embeddable? %>
+        <%= render "govuk_publishing_components/components/heading", {
+          text: "Images available to use in document",
+          font_size: "m",
+          padding: true,
+        } %>
+      <% end %>
 
       <% current_images = @edition.images.usable_as(usage) %>
       <% current_images =  current_images - [@edition.lead_image].compact if @edition.can_have_custom_lead_image? %>
 
       <% if current_images.present? %>
-        <%= render "govuk_publishing_components/components/inset_text", {
-          text: "Copy the image markdown code to add images to the document body.",
-          margin_top: 0,
-        } %>
+        <% if usage.embeddable? %>
+          <%= render "govuk_publishing_components/components/inset_text", {
+            text: "Copy the image markdown code to add images to the document body.",
+            margin_top: 0,
+          } %>
+        <% end %>
 
         <ul class="govuk-list">
-          <% current_images.each do |image| %>
-            <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, last_image: image == current_images.last) %>
+          <% current_images.each_with_index do |image, idx| %>
+            <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, image_usage: usage) %>
+            <% unless (idx + 1) == current_images.size %>
+              <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
+            <% end %>
           <% end %>
         </ul>
       <% else %>

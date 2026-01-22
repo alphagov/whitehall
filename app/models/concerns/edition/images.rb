@@ -52,6 +52,7 @@ module Edition::Images
       key: "govspeak_embed",
       kinds: Whitehall.image_kinds.values_at("default"),
       multiple: true,
+      embeddable: true,
     )]
   end
 
