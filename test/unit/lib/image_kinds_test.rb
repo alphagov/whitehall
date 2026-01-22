@@ -7,7 +7,6 @@ class ImageKindsTest < ActiveSupport::TestCase
         "display_name" => "default display name",
         "valid_width" => 1,
         "valid_height" => 2,
-        "permitted_uses" => [],
         "versions" => [
           {
             "name" => "some name",
@@ -43,7 +42,6 @@ class ImageKindsTest < ActiveSupport::TestCase
         "display_name" => "default display name",
         "valid_width" => 0,
         "valid_height" => 0,
-        "permitted_uses" => [],
         "versions" => %w[a b c d e f g].map do
           {
             "name" => _1,
@@ -55,22 +53,6 @@ class ImageKindsTest < ActiveSupport::TestCase
     )
 
     assert_equal %w[a b c d e f g], result["default"].version_names
-  end
-
-  test "#permits? checks if use cases are permitted" do
-    image_kind = Whitehall::ImageKind.new(
-      "default",
-      "display_name" => "default display name",
-      "valid_width" => 0,
-      "valid_height" => 0,
-      "permitted_uses" => %w[use_case_1 use_case_2 use_case_3],
-      "versions" => [],
-    )
-    assert_equal(true, image_kind.permits?("use_case_1"))
-    assert_equal(true, image_kind.permits?("use_case_2"))
-    assert_equal(true, image_kind.permits?("use_case_3"))
-    assert_equal(false, image_kind.permits?("use_case_4"))
-    assert_equal(false, image_kind.permits?("use_case_5"))
   end
 
   test "raises errors when given invalid config" do
@@ -90,7 +72,7 @@ class ImageKindsTest < ActiveSupport::TestCase
   end
 
   test "#display_name_without_dimensions returns display name from yaml without the dimensions" do
-    kind = Whitehall::ImageKind.new("test_kind", { "display_name" => "Test Kind (300x200)", "valid_width" => 300, "valid_height" => 200, "permitted_uses" => [], "versions" => [] })
+    kind = Whitehall::ImageKind.new("test_kind", { "display_name" => "Test Kind (300x200)", "valid_width" => 300, "valid_height" => 200, "versions" => [] })
     assert_equal "Test Kind", kind.display_name_without_dimensions
   end
 end

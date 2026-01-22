@@ -23,8 +23,7 @@ module Edition::Images
   included do
     has_many :images, foreign_key: "edition_id", dependent: :destroy do
       def usable_as(*usage)
-        # TODO: change to `usage_keys = usage.map(&:key).flatten` once the usage backfill data migration is run.
-        usage_keys = usage.map { |u| u.key == "govspeak_embed" ? ["govspeak_embed", nil] : u.key }.flatten
+        usage_keys = usage.map(&:key).flatten
         where(usage: usage_keys)
       end
 
