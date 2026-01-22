@@ -295,6 +295,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
     t.index ["edition_id"], name: "index_edition_relations_on_edition_id"
   end
 
+  create_table "edition_relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "child_edition_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "parent_edition_id", null: false
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["child_edition_id"], name: "index_edition_relationships_on_child_edition_id"
+    t.index ["parent_edition_id", "child_edition_id"], name: "idx_edrel_unique_parent_child", unique: true
+    t.index ["parent_edition_id", "position"], name: "idx_edrel_parent_position"
+    t.index ["parent_edition_id"], name: "index_edition_relationships_on_parent_edition_id"
+    t.check_constraint "`parent_edition_id` <> `child_edition_id`", name: "chk_edrel_not_self"
+  end
+
   create_table "edition_role_appointments", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "edition_id"
     t.integer "role_appointment_id"
@@ -1225,8 +1238,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
     t.datetime "updated_at", precision: nil
   end
 
-  add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "edition_relationships", "editions", column: "child_edition_id"
+  add_foreign_key "edition_relationships", "editions", column: "parent_edition_id"
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"
