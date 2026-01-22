@@ -2,6 +2,7 @@
 <%= form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form| %>
   <div class="<%= "right-to-left" if edition.rtl? %>">
     <%= form.hidden_field :lock_version %>
+    <%= hidden_field_tag(:parent_edition_id, params[:parent_edition_id]) if params[:parent_edition_id].present? %>
 
     <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
       <%= render "govuk_publishing_components/components/character_count", {
