@@ -54,7 +54,7 @@ class ImageData < ApplicationRecord
   end
 
   def original_uploaded?
-    assets.map(&:variant).map(&:to_sym).include?(:original)
+    assets.find_by(variant: "original").try(:asset_manager_id)
   end
 
   def all_asset_variants_uploaded?
