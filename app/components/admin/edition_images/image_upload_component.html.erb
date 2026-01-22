@@ -1,15 +1,11 @@
-<%
-  text = image_usage.label.blank? ? "Upload an image" : "Upload #{image_usage.label} image"
-%>
-
 <%= form_tag(
-  admin_edition_images_path(@edition),
-  id: "#{image_usage.key}_image_upload_form",
-  multipart: true,
-) do %>
+      admin_edition_images_path(edition),
+      id: "#{image_usage.key}_image_upload_form",
+      multipart: true,
+      ) do %>
   <%= render "govuk_publishing_components/components/file_upload", {
     label: {
-      text:,
+      text: image_usage.label.blank? ? "Upload an image" : "Upload #{image_usage.label} image",
     },
     heading_level: 2,
     heading_size: "l",
@@ -18,7 +14,7 @@
     name: "images[][image_data_attributes][file]",
     id: "edition_images_image_data_file",
     hint: raw('Images can be JPEG, PNG, SVG or GIF files. If you are uploading more than one image, <a class="govuk-link" href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos">read the image guidance</a> on using unique file names.'),
-    error_items: @new_image.present? ? errors_for(@new_image.errors, :"image_data.file") : nil,
+    error_items: new_image.present? ? helpers.errors_for(new_image.errors, :"image_data.file") : nil,
     accept: "image/png, image/jpeg, image/gif, image/svg+xml",
   } %>
 
@@ -30,16 +26,16 @@
     <%= hidden_field_tag("images[][image_data_attributes][image_kind]", image_usage.kinds.first.name) %>
   <% end %>
 
-   <%= render "govuk_publishing_components/components/details", {
-      title: "You must use an SVG for charts and diagrams",
-    } do %>
-      SVGs allow users to magnify images without losing quality.
-      Find out <%= link_to "how to create an SVG file (opens in new tab)",
-      "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos#creating-an-svg-file",
-      class: "govuk-link",
-      target: "_blank",
-      rel: "noopener" %>.
-    <% end %>
+  <%= render "govuk_publishing_components/components/details", {
+    title: "You must use an SVG for charts and diagrams",
+  } do %>
+    SVGs allow users to magnify images without losing quality.
+    Find out <%= link_to "how to create an SVG file (opens in new tab)",
+                         "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos#creating-an-svg-file",
+                         class: "govuk-link",
+                         target: "_blank",
+                         rel: "noopener" %>.
+  <% end %>
 
   <%= render "govuk_publishing_components/components/button", {
     text: "Upload",

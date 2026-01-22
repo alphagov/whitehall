@@ -25,12 +25,12 @@
           <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image, image_usage: usage) %>
         </ul>
       <% else %>
-        <%= render "image_upload", image_usage: usage %>
+        <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
       <% end %>
     <% end %>
 
     <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each do |usage| %>
-      <%= render "image_upload", image_usage: usage %>
+      <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
 
       <% if usage.embeddable? %>
         <% if @edition.is_a?(StandardEdition) %>
