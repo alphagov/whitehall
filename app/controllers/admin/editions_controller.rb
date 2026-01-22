@@ -87,6 +87,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if updater.can_perform? && @edition.save
+      attach_to_parent_if_requested!
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
@@ -526,5 +527,20 @@ private
     return url if url && URI.parse(url).host.blank? # only allow same-site paths
 
     fallback
+  end
+
+  def attach_to_parent_if_requested!
+    parent_id = params[:parent_edition_id].presence
+    return unless parent_id
+
+    parent = Edition.find(parent_id)
+
+    parent.with_lock do
+      EditionRelationship.create!(
+        parent_edition: parent,
+        child_edition: @edition,
+        # position: ... (if you’re creating an ordered child type)
+      )
+    end
   end
 end
