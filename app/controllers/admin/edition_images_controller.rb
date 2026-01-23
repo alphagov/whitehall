@@ -6,6 +6,8 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def confirm_destroy; end
 
+  def new; end
+
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
@@ -95,6 +97,11 @@ private
   end
   helper_method :image
 
+  def image_usage
+    @image_usage ||= @edition.permitted_image_usages.select { |image_usage| params[:image_usage] == image_usage.key }.first
+  end
+  helper_method :image_usage
+
   def find_image
     @edition.images.find(params[:id]) if params[:id]
   end
@@ -108,7 +115,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy", "create"
+    when "edit", "update", "destroy", "confirm_destroy", "create", "new"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name

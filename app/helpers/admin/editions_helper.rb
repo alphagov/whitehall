@@ -253,4 +253,8 @@ module Admin::EditionsHelper
   def edition_title_link_or_edition_title(edition)
     edition.public_url ? sanitize(link_to(edition.title, edition.public_url, { class: "govuk-link" })) : edition.title
   end
+
+  def uses_card?(image_usage)
+    %w[topical_event_header topical_event_logo].include?(image_usage.kinds.first.name)
+  end
 end

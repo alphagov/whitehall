@@ -14,15 +14,9 @@
 
       <% current_image = @edition.images.usable_as(usage).first %>
 
-      <% if current_image %>
-        <%= render "govuk_publishing_components/components/heading", {
-          text: usage.label.blank? ? "Uploaded image" : "Uploaded #{usage.label} image",
-          heading_level: 2,
-          font_size: "l",
-          margin_bottom: 2,
-        } %>
+      <% if current_image || uses_card?(usage) %>
         <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image, image_usage: usage) %>
-      <% else %>
+      <% elsif !uses_card?(usage) %>
         <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
       <% end %>
     <% end %>

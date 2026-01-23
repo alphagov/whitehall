@@ -1,0 +1,13 @@
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Add new #{image_usage.kinds.first.display_name} image" %>
+<% content_for :title, "Add new #{image_usage.kinds.first.display_name} image" %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+      <%= render Admin::EditionImages::ImageUploadComponent.new(
+          edition: @edition,
+          new_image: @new_image,
+          image_usage:
+      ) %>
+  </section>
+</div>

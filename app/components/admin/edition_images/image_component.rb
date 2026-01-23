@@ -34,4 +34,8 @@ private
   def can_be_custom_lead_image?
     edition.can_have_custom_lead_image? && image_usage.key == "govspeak_embed" && !image.svg? && !image.image_data.requires_crop?
   end
+
+  def render_card?
+    %w[topical_event_header topical_event_logo].include?(image_usage.kinds.first.name)
+  end
 end
