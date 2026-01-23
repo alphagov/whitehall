@@ -250,19 +250,40 @@
         },
         "configurable_document_group": {
           "type": "string",
-          "description": "Optional grouping for document types. Used for categorisation in the admin interface, including search filters. Typically matches the `publishing_api_schema_name`. For example, both `news_story` and `government_response` types would have the group `news_article`."
+          "description": "Optional grouping for document types. Used for categorisation in the admin interface, including search filters. Typically matches the `publishing_api_schema_name`. For example, both `news_story` and `government_response` types would have the group `news_article`.",
+          "enum": [
+            "news_article"
+          ]
         },
         "publishing_api_schema_name": {
           "type": "string",
-          "description": "Name of the schema in the Publishing API for this document type. Different types might share the same schema name. For example, `news_story` and `government_response` types both use the `news_article` schema."
+          "description": "Name of the schema in the Publishing API for this document type. Different types might share the same schema name. For example, `news_story` and `government_response` types both use the `news_article` schema.",
+          "enum": [
+            "history",
+            "topical_event",
+            "news_article"
+          ]
         },
         "publishing_api_document_type": {
           "type": "string",
-          "description": "Document type name in the Publishing API."
+          "description": "Document type name in the Publishing API.",
+          "enum": [
+            "government_response",
+            "news_story",
+            "press_release",
+            "world_news_story",
+            "history",
+            "topical_event"
+          ]          
         },
         "rendering_app": {
           "type": "string",
-          "description": "The frontend application responsible for rendering this document type."
+          "description": "The frontend application responsible for rendering this document type.",
+          "enum": [
+            "frontend",
+            "government-frontend",
+            "collections"
+          ]
         },
         "images": {
           "type": "object",
