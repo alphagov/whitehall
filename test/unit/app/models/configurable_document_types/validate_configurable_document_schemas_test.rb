@@ -41,6 +41,52 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           assert_equal validator.errors.first, "value at `/settings/#{key}` is not one of: #{enum}"
         end
       end
+
+      context "`base_path_prefix` has been set to a valid prefix" do
+        %w[
+          /government/history
+          /government/news-articles
+          /a
+          /123
+          /path-with-hyphens
+          /path.with.dots
+          /path/with/multiple/slashes
+          /UPPERCASE
+          /MixedCase
+          /path-123.abc/def
+          /government/world-location-news
+        ].each do |valid_url|
+          it "should be considered valid" do
+            document["settings"]["base_path_prefix"] = valid_url
+            assert SchemaValidator.for(document).empty?, "Schema should be valid if `settings.base_path_prefix` for valid URL `#{valid_url}`"
+          end
+        end
+
+        [
+          "government/history", # does not start with /
+          "/", # has no characters after initial /
+        ].each do |invalid_url|
+          it "is not valid" do
+            document["settings"]["base_path_prefix"] = invalid_url
+            assert_equal SchemaValidator.for(document).first, "string at `settings/base_path_prefix` is not a valid URL"
+          end
+        end
+
+        (%w[
+          _underscore
+          @email
+          ?query
+          #anchor
+          %20encoded
+          +plus
+          (bracket)
+        ] + [" space"]).each do |invalid_character|
+          it "is invalid if it contains an invalid character" do
+            document["settings"]["base_path_prefix"] += invalid_character
+            assert_equal SchemaValidator.for(document).first, "string at `settings/base_path_prefix` is not a valid URL"
+          end
+        end
+      end
     end
   end
 end

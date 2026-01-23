@@ -246,7 +246,11 @@
       "properties": {
         "base_path_prefix": {
           "type": "string",
-          "description": "URL prefix for where documents of this type are published. E.g. /government/history."
+          "description": "URL prefix for where documents of this type are published. E.g. /government/history.",
+          "pattern": "^\/[\/.a-zA-Z0-9-]+$",
+          "x-error": {
+            "pattern": "string at `settings/base_path_prefix` is not a valid URL"
+          }
         },
         "configurable_document_group": {
           "type": "string",
@@ -274,7 +278,7 @@
             "world_news_story",
             "history",
             "topical_event"
-          ]          
+          ]
         },
         "rendering_app": {
           "type": "string",
@@ -291,7 +295,7 @@
           "properties": {
             "enabled": {
               "type": "boolean",
-              "description": "Whether users can upload images for this document type. When enabled, it renders the Images tab."              
+              "description": "Whether users can upload images for this document type. When enabled, it renders the Images tab."
             },
             "usages": {
               "type": "object",
@@ -325,8 +329,7 @@
                       },
                       "minLength": 1
                     }
-                  },
-                  "required": ["multiple", "kinds"]
+                  }
                 }
               },
               "propertyNames": {
