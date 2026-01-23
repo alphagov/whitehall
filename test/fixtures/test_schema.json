@@ -1,0 +1,49 @@
+{
+  "key": "test_schema",
+  "title": "Test Schema",
+  "description": "Test schema for testing.",
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "block": "govspeak"
+        }
+      }
+    }
+  },
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
+      },
+      "image": {
+        "type": "integer"
+      }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "body": "govspeak",
+      "image": "lead_image"
+    }
+  },
+  "associations": [],
+  "settings": {
+    "base_path_prefix": "/government/news",
+    "configurable_document_group": "news_article",
+    "publishing_api_schema_name": "news_article",
+    "publishing_api_document_type": "government_response",
+    "rendering_app": "frontend",
+    "images": {
+      "enabled": false
+    },
+    "send_change_history": true,
+    "file_attachments_enabled": true,
+    "organisations": null,
+    "backdating_enabled": true,
+    "history_mode_enabled": true,
+    "translations_enabled": true
+  }
+}
