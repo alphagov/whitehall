@@ -398,5 +398,32 @@
     "settings",
     "title",
     "description"
-  ]
+  ],
+  "if": {
+    "properties": {
+      "settings": {
+        "properties": {
+          "images": {
+            "properties": {
+              "enabled": { "const": false }
+            }
+          }
+        }
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "forms": {
+        "properties": {
+          "images": {
+            "maxProperties": 0,
+            "x-error": {
+              "maxProperties": "forms/images cannot be defined if settings/images/enabled is `false`"  
+            }
+          }
+        }
+      }
+    }
+  }
 }
