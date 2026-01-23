@@ -201,7 +201,7 @@ Example:
 }
 ```
 
-For more complex validation logic, you must define your custom validators, such as the [duration for topical events](../app/models/configurable_document_types/topical_event.json). These custom validators are still decoupled from any schema and tested independently. Though they may be specific to a document type, they can be reused across multiple types if needed.
+For more complex validation logic, you must define your custom validators. These custom validators are still decoupled from any schema and tested independently. Though they may be specific to a document type, they can be reused across multiple types if needed.
 
 ## Associations
 

@@ -12,7 +12,6 @@ class StandardEdition::BlockContent
     "presence" => ActiveModel::Validations::PresenceValidator,
     "safe_html" => SafeHtmlValidator,
     "valid_internal_path_links" => InternalPathLinksValidator,
-    "duration" => DurationValidator,
     "social_media_links" => SocialMediaLinksValidator,
   }.freeze
 
