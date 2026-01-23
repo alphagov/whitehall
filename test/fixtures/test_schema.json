@@ -11,6 +11,15 @@
           "block": "govspeak"
         }
       }
+    },
+    "images": {
+      "fields": {
+        "image": {
+          "title": "Custom lead image",
+          "description": "Select a lead image, if required",
+          "block": "lead_image_select"
+        }
+      }
     }
   },
   "schema": {
@@ -37,7 +46,7 @@
     "publishing_api_document_type": "government_response",
     "rendering_app": "frontend",
     "images": {
-      "enabled": false
+      "enabled": true
     },
     "send_change_history": true,
     "file_attachments_enabled": true,

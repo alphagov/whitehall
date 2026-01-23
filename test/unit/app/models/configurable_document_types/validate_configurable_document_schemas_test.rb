@@ -87,6 +87,18 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           end
         end
       end
+
+      context "validating `images`" do
+        it "does not allow `forms.image` to be defined if `settings.images.enabled` is `false`" do
+          document["settings"]["images"]["enabled"] = false
+          assert_equal SchemaValidator.for(document).first, "forms/images cannot be defined if settings/images/enabled is `false`"
+        end
+
+        it "allows `forms.image` to be defined if `settings.images.enabled` is `true`" do
+          document["settings"]["images"]["enabled"] = true
+          assert SchemaValidator.for(document).empty?, "Schema should not fail validation if `forms.images` defined and `images` are enabled in `settings`"
+        end
+      end
     end
   end
 end
