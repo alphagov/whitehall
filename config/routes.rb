@@ -212,6 +212,12 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
 
+        resources :topical_event_featurings, path: "featurings" do
+          get :reorder, on: :collection
+          put :order, on: :collection
+          get :confirm_destroy, on: :member
+        end
+
         get :edit_slug, on: :member, controller: :edition_slug
         patch :update_slug, on: :member, controller: :edition_slug
 
@@ -303,6 +309,20 @@ Whitehall::Application.routes.draw do
           get :change_type
           get :change_type_preview
           patch :apply_change_type
+          get "/features(.:locale)", as: "features", to: "standard_editions#features", constraints: { locale: valid_locales_regex }
+        end
+
+        resources :promotional_features do
+          get :reorder, on: :collection
+          get :confirm_destroy, on: :member
+          patch :update_order, on: :collection
+          resources :promotional_feature_items, as: :items, path: "items", except: [:index] do
+            get :confirm_destroy, on: :member
+          end
+        end
+
+        resources :offsite_links do
+          get :confirm_destroy, on: :member
         end
 
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do

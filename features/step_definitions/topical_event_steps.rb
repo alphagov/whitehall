@@ -2,6 +2,37 @@ And(/^a topical event called "([^"]*)" exists$/) do |name|
   @topical_event = create(:topical_event, name:)
 end
 
+And(/^a topical event standard edition called "([^"]*)" exists$/) do |title|
+  ConfigurableDocumentType.setup_test_types({ "topical_event" => {
+    "key" => "topical_event",
+    "title" => "Test type",
+    "schema" => {
+      "properties" => {
+        "test_attribute" => {
+          "title" => "Test Attribute",
+          "type" => "string",
+        },
+      },
+    },
+    "associations" => [],
+    "settings" => {
+      "edit_screens" => {
+        "document" => %w[test_attribute],
+      },
+      "base_path_prefix" => "/government/test",
+      "publishing_api_schema_name" => "test_article",
+      "publishing_api_document_type" => "test_story",
+      "rendering_app" => "frontend",
+      "images_enabled" => false,
+      "organisations" => nil,
+      "backdating_enabled" => false,
+      "history_mode_enabled" => false,
+      "translations_enabled" => false,
+    },
+  } })
+  @topical_event = create(:standard_edition, configurable_document_type: "topical_event", title:)
+end
+
 Given(/^a topical event called "(.*?)" with summary "([^"]*)" and description "(.*?)"$/) do |name, summary, description|
   @topical_event = create(:topical_event, name:, summary:, description:)
   stub_topical_event_in_content_store(name)

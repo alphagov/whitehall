@@ -41,6 +41,7 @@ private
     @parent = WorldLocation.friendly.find(params[:world_location_news_id]).world_location_news if params[:world_location_news_id]
     @parent = Organisation.friendly.find(params[:organisation_id]) if params[:organisation_id]
     @parent = TopicalEvent.friendly.find(params[:topical_event_id]) if params[:topical_event_id]
+    @parent = StandardEdition.find(params[:standard_edition_id]) if params[:standard_edition_id]
   end
 
   def load_offsite_link

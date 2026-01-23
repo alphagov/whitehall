@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_07_195134) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_09_164506) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -273,6 +273,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_07_195134) do
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_edition_links_on_document_id"
     t.index ["edition_id"], name: "index_edition_links_on_edition_id"
+  end
+
+  create_table "edition_offsite_links", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "edition_id"
+    t.bigint "offsite_link_id"
+    t.index ["edition_id"], name: "index_edition_offsite_links_on_edition_id"
+    t.index ["offsite_link_id"], name: "index_edition_offsite_links_on_offsite_link_id"
   end
 
   create_table "edition_organisations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

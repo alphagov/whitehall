@@ -2,18 +2,23 @@ class StandardEdition < Edition
   include Edition::Identifiable
   include Edition::Images
   include ::Attachable
+  include ::Featurable
   include Edition::AlternativeFormatProvider
   include Edition::RoleAppointments
   include Edition::TopicalEvents
   include Edition::WorldLocations
   include Edition::Organisations
   include Edition::WorldwideOrganisations
+  include Edition::OffsiteLinks
   include HasBlockContent
   include StandardEdition::DefaultLeadImage
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
-
   scope :with_news_article_document_type, -> { where(configurable_document_type: ConfigurableDocumentType.where_group("news_article").map(&:key)) }
+
+  def name
+    title
+  end
 
   def format_name
     type_instance.label.downcase
@@ -83,6 +88,10 @@ class StandardEdition < Edition
 
   def allows_file_attachments?
     type_instance.settings["file_attachments_enabled"]
+  end
+
+  def allows_features?
+    type_instance.settings["features_enabled"]
   end
 
   def can_be_marked_political?

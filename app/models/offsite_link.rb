@@ -112,6 +112,10 @@ private
   end
 
   def republish_parent_to_publishing_api
-    Whitehall::PublishingApi.republish_async(parent)
+    if parent.is_a? StandardEdition
+      Whitehall::PublishingApi.republish_document_async(parent.document)
+    else
+      Whitehall::PublishingApi.republish_async(parent)
+    end
   end
 end
