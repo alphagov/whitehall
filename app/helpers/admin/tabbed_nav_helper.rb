@@ -23,6 +23,7 @@ module Admin::TabbedNavHelper
     nav_items << document_collection_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(DocumentCollection)
     nav_items << worldwide_organisation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(WorldwideOrganisation)
     nav_items << social_media_nav_items(edition, current_path) if edition.persisted? && edition.can_be_associated_with_social_media_accounts?
+    nav_items << features_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(StandardEdition) && edition.allows_features?
     nav_items.flatten
   end
 
@@ -32,6 +33,16 @@ module Admin::TabbedNavHelper
         label: "Document",
         href: tab_url_for_edition(edition),
         current: current_path == tab_url_for_edition(edition),
+      },
+    ]
+  end
+
+  def features_nav_items(edition, current_path)
+    [
+      {
+        label: "Features",
+        href: features_admin_standard_edition_path(edition, locale: I18n.locale),
+        current: current_path == features_admin_standard_edition_path(edition, locale: I18n.locale),
       },
     ]
   end
