@@ -29,7 +29,7 @@
     "jasmine-browser-runner": "^3.0.0",
     "jasmine-core": "^5.13.0",
     "postcss": "^8.5.6",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "standard": "^17.1.2",
     "stylelint": "^16.26.1",
     "stylelint-config-gds": "^2.0.0"
