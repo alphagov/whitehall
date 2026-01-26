@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_21_122256) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_21_164145) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -669,8 +669,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_21_122256) do
     t.string "summary"
     t.string "url"
     t.string "link_type"
-    t.integer "parent_id"
-    t.string "parent_type"
     t.datetime "date", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
