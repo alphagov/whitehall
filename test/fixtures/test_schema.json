@@ -29,13 +29,12 @@
       },
       "image": {
         "type": "integer"
-      }
+      }      
     }
   },
   "presenters": {
     "publishing_api": {
-      "body": "govspeak",
-      "image": "lead_image"
+      "body": "govspeak"
     }
   },
   "associations": [],

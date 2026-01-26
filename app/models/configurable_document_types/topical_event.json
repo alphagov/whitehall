@@ -32,12 +32,6 @@
       "body": {
         "type": "string"
       },
-      "start_date": {
-        "type": "date"
-      },
-      "end_date": {
-        "type": "date"
-      },
       "social_media_links": {
         "type": "array",
         "attributes": {
