@@ -453,8 +453,8 @@ GEM
       logger
     mini_mime (1.1.5)
     minitest (5.27.0)
-    minitest-fail-fast (0.1.0)
-      minitest (~> 5)
+    minitest-fail-fast (0.2.0)
+      minitest (>= 5.0, < 7)
     minitest-stub-const (0.6)
     mocha (3.0.1)
       ruby2_keywords (>= 0.0.5)
