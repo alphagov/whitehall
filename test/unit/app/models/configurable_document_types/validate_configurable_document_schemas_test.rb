@@ -100,5 +100,25 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
         end
       end
     end
+
+    context "validating `schema`" do
+      it "validates that all defined `attributes` are used within `forms`" do
+        document["schema"]["attributes"]["extra_attribute"] = {
+          "type" => "string",
+        }
+        assert_equal SchemaValidator.for(document).first, "Schema has schema attributes extra_attribute that are not used in the forms attribute"
+      end
+    end
+
+    context "validating `forms`" do
+      it "validates that all defined `fields` are also defined in `schema`" do
+        document["forms"]["documents"]["fields"]["extra_field"] = {
+          "title" => "extra field",
+          "description" => "an extra field",
+          "block" => "govspeak",
+        }
+        assert_equal SchemaValidator.for(document).first, "Schema has form fields extra_field that are not defined in schema attributes"
+      end
+    end
   end
 end
