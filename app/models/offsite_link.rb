@@ -1,4 +1,6 @@
 class OffsiteLink < ApplicationRecord
+  self.ignored_columns += %w[parent_id parent_type]
+
   include DateValidation
 
   PERMITTED_HOSTS = [
