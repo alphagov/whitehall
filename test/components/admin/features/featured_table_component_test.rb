@@ -62,7 +62,7 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
   end
 
   test "renders the correct row when the feature list item belongs to a offsite link" do
-    feature = build_stubbed(:feature, :with_offsite_link_association, feature_list: @feature_list)
+    feature = create(:feature, :with_offsite_link_association, feature_list: @feature_list)
     title = feature.offsite_link.title
 
     render_inline(Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption", features: [feature]))

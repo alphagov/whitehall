@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_07_195134) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_21_122256) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -651,6 +651,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_07_195134) do
     t.string "alternative_url"
     t.index ["edition_id"], name: "index_nation_inapplicabilities_on_edition_id"
     t.index ["nation_id"], name: "index_nation_inapplicabilities_on_nation_id"
+  end
+
+  create_table "offsite_link_parents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "offsite_link_id", null: false
+    t.string "parent_type", null: false
+    t.bigint "parent_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offsite_link_id"], name: "index_offsite_link_parents_on_offsite_link_id"
+    t.index ["parent_type", "parent_id", "offsite_link_id"], name: "idx_on_parent_type_parent_id_offsite_link_id_c4a8862347", unique: true
+    t.index ["parent_type", "parent_id"], name: "index_offsite_link_parents_on_parent"
   end
 
   create_table "offsite_links", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

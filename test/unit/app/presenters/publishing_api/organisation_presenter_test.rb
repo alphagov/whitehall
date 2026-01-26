@@ -316,7 +316,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       :court,
       name: "An organisation with offsite links",
     )
-    offsite_link = create(:offsite_link, link_type: "content_publisher_news_story")
+    offsite_link = create(:offsite_link, :for_organisation, link_type: "content_publisher_news_story")
     feature = create(:feature, document: nil, offsite_link:)
     create(:feature_list, features: [feature], featurable: organisation)
     presented_item = present(organisation)

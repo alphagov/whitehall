@@ -9,7 +9,7 @@ FactoryBot.define do
     end
 
     trait :with_offsite_link_association do
-      offsite_link
+      association :offsite_link, :for_organisation
       document { nil }
     end
   end

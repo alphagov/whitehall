@@ -130,7 +130,7 @@ Then(/^I see that "([^"]*)" has been featured$/) do |title|
 end
 
 Given(/^the world location has an offsite link with the title "([^"]*)"$/) do |title|
-  create(:offsite_link, parent_type: "WorldLocationNews", parent: @world_location_news, title:)
+  create(:offsite_link, world_location_news: [@world_location_news], title:)
 end
 
 And(/^I create a new a non-GOV.UK link with the title "([^"]*)"$/) do |title|
