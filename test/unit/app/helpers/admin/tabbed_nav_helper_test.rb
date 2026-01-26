@@ -234,6 +234,27 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     end
   end
 
+  test "#secondary_navigation_tabs_items for standard editions with features enabled" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features_enabled" => true } }))
+
+    edition = build_stubbed(:standard_edition)
+
+    expected_output = [
+      {
+        label: "Document",
+        href: tab_url_for_edition(edition),
+        current: true,
+      },
+      {
+        label: "Features",
+        href: features_admin_standard_edition_path(edition, locale: I18n.locale),
+        current: false,
+      },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(edition, tab_url_for_edition(edition))
+  end
+
   test "#secondary_navigation_tabs_items for other persisted edition types with attachments and images" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "file_attachments_enabled" => true, "images" => { "enabled" => true } } }))
 
