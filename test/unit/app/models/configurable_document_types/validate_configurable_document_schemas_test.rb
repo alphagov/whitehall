@@ -108,6 +108,15 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
         }
         assert_equal SchemaValidator.for(document).first, "Schema has schema attributes extra_attribute that are not used in the forms attribute"
       end
+
+      it "validates that `validations` only reference fields that are defined in `attributes`" do
+        document["schema"]["validations"] = {
+          "presence" => {
+            "attributes" => %w[extra_field],
+          },
+        }
+        assert_equal SchemaValidator.for(document).first, "Schema has properties extra_field in validators that are not defined in schema attributes"
+      end
     end
 
     context "validating `forms`" do
