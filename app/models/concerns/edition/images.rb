@@ -22,8 +22,13 @@ module Edition::Images
 
   included do
     has_many :images, foreign_key: "edition_id", dependent: :destroy do
-      def of_kind(image_kind)
-        joins(:image_data).where(image_data: { image_kind: image_kind })
+      def of_kind(*image_kind)
+        joins(:image_data).where(image_data: { image_kind: })
+      end
+
+      def usable
+        id = select(&:can_be_used?).pluck(:id)
+        where(id:)
       end
     end
 

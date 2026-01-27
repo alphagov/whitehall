@@ -366,4 +366,66 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     expected_government = [edition.government.content_id]
     assert_equal expected_government, links[:government]
   end
+
+  test "it includes non-embeddable images in the details if images are enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "images" => {
+          "enabled" => true,
+          "permitted_image_kinds" => [
+            {
+              "kind" => "header",
+              "multiple" => false,
+            },
+            {
+              "kind" => "govspeak_embed",
+              "multiple" => true,
+            },
+          ],
+        },
+      },
+    }))
+
+    embeddable_image = create(:image)
+    image = create(:image, caption: "image caption", image_data: create(:image_data, image_kind: "topical_event_header", file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg"))))
+
+    page = create(:standard_edition, { configurable_document_type: type_key, images: [embeddable_image, image] })
+    page.document = Document.new
+    page.document.slug = "page-title"
+
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_equal 1, content[:details][:images].length
+    assert_equal image.image_data.url, content[:details][:images].first[:url]
+    assert_equal "header", content[:details][:images].first[:type]
+    assert_equal "image caption", content[:details][:images].first[:caption]
+  end
+
+  test "it does not include images in the details if images are not enabled" do
+    type_key = "test_type_key"
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type(type_key, {
+      "settings" => {
+        "images" => {
+          "enabled" => false,
+          "permitted_image_kinds" => [
+            {
+              "kind" => "header",
+              "multiple" => true,
+            },
+          ],
+        },
+      },
+    }))
+
+    page = create(:standard_edition, { configurable_document_type: type_key })
+    page.document = Document.new
+    page.document.slug = "page-title"
+
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_not content[:details].key?(:images)
+  end
 end

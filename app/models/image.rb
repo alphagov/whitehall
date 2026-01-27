@@ -45,6 +45,15 @@ class Image < ApplicationRecord
     !bitmap? || !requires_crop?
   end
 
+  def publishing_api_details
+    {
+      type: Whitehall.image_kinds.fetch(image_kind).permitted_uses.first,
+      url:,
+      caption:,
+      content_type:,
+    }
+  end
+
 private
 
   def destroy_image_data_if_required
