@@ -28,24 +28,39 @@ class SchemaValidator
     @errors += [
       all_schema_attributes_used_in_form_fields?,
       all_form_fields_used_in_schema_attributes?,
+      all_validation_properties_defined_in_schema?,
     ].compact
   end
 
 private
 
+  def all_validation_properties_defined_in_schema?
+    no_exclusive_keys(validation_properties, schema_attributes, proc { |keys| "Schema has properties #{keys} in validators that are not defined in schema attributes" })
+  end
+
   def all_schema_attributes_used_in_form_fields?
-    message = proc { |keys| "Schema has schema attributes #{keys} that are not used in the forms attribute" }
-    no_exclusive_keys(schema_attributes, form_fields, message)
+    no_exclusive_keys(schema_attributes, form_fields, proc { |keys| "Schema has schema attributes #{keys} that are not used in the forms attribute" })
   end
 
   def all_form_fields_used_in_schema_attributes?
-    message = proc { |keys| "Schema has form fields #{keys} that are not defined in schema attributes" }
-    no_exclusive_keys(form_fields, schema_attributes, message)
+    no_exclusive_keys(form_fields, schema_attributes, proc { |keys| "Schema has form fields #{keys} that are not defined in schema attributes" })
   end
 
   def no_exclusive_keys(target_list, comparison_list, message)
     exclusive_keys = (target_list - comparison_list) + (comparison_list - target_list)
     message.call((target_list & exclusive_keys).join(", ")) if (target_list & exclusive_keys).any?
+  end
+
+  def validation_properties
+    attributes = (@document["schema"]["validations"] || {})&.values&.flat_map { |validator| validator["attributes"] }
+
+    attributes.flat_map do |attribute|
+      if !schema_attributes.include?(attribute) && @document["schema"]["validations"].dig(attribute, "fields").present?
+        @document["schema"]["validations"][attribute]["fields"].values
+      else
+        attribute
+      end
+    end
   end
 
   def schema_attributes

@@ -156,8 +156,10 @@ class BlockContentTest < ActiveSupport::TestCase
       "validations" => {
         "social_media_links" => {
           "attributes" => %w[test_array_attribute],
-          "service_field": "social_media_service_id",
-          "url_field": "url",
+          "fields" => {
+            "service_field" => "social_media_service_id",
+            "url_field" => "url",
+          },
         },
       },
     })
