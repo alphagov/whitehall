@@ -2,6 +2,17 @@ And(/^a topical event standard edition called "([^"]*)" exists$/) do |title|
   ConfigurableDocumentType.setup_test_types({ "topical_event" => {
     "key" => "topical_event",
     "title" => "Topical event",
+    "forms" => {
+      "documents" => {
+        "fields" => {
+          "body" => {
+            "title" => "Body",
+            "description" => "The main content of the page",
+            "block" => "govspeak",
+          },
+        },
+      },
+    },
     "schema" => {
       "properties" => {
         "test_attribute" => {
@@ -26,7 +37,7 @@ And(/^a topical event standard edition called "([^"]*)" exists$/) do |title|
       "backdating_enabled" => false,
       "history_mode_enabled" => false,
       "translations_enabled" => false,
-      "features_enabled": true,
+      "features_enabled" => true,
     },
   } })
   @topical_event = create(:standard_edition, configurable_document_type: "topical_event", title:)
@@ -36,16 +47,17 @@ Given(/^the topical event standard edition is linked to an edition with the titl
   create(:publication, :published, title:, topical_event_documents: [@topical_event.document])
 end
 
-When(/^I visit the standard edition featuring index page$/) do
-  visit features_admin_standard_edition_path(@topical_event)
-end
-
 And(/^two featurings exist for the edition$/) do
   topical_event_1 = create(:published_standard_edition, configurable_document_type: "topical_event", title: "Featured Topical Event 1")
   topical_event_2 = create(:published_standard_edition, configurable_document_type: "topical_event", title: "Featured Topical Event 2")
   feature_list = @topical_event.feature_lists.create!(locale: @topical_event.primary_locale)
   create(:feature, feature_list:, document: topical_event_1.document)
   create(:feature, feature_list:, document: topical_event_2.document)
+end
+
+When(/^I visit the standard edition featuring index page$/) do
+  visit edit_admin_standard_edition_path(@topical_event)
+  click_link "Features"
 end
 
 And(/^I set the order of the edition featurings to:$/) do |featurings_order|
