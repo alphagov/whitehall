@@ -19,7 +19,7 @@
           text: usage.label.blank? ? "Uploaded image" : "Uploaded #{usage.label} image",
           heading_level: 2,
           font_size: "l",
-          margin_bottom: 2,
+          padding: true,
         } %>
         <ul id="uploaded_<%= usage.label || usage.key %>_image_list" class="govuk-list">
           <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image, image_usage: usage) %>
@@ -29,7 +29,7 @@
       <% end %>
     <% end %>
 
-    <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each do |usage| %>
+    <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each_with_index do |usage, multiple_upload_section_index| %>
       <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
 
       <% if usage.embeddable? %>
@@ -79,6 +79,7 @@
         <%= render "govuk_publishing_components/components/heading", {
           text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
           font_size: "l",
+          padding: true,
         } %>
       <% end %>
 
@@ -103,6 +104,10 @@
         </ul>
       <% else %>
         <p class="govuk-body">No images uploaded</p>
+      <% end %>
+
+      <% unless multiple_upload_section_index == @edition.permitted_image_usages.select { |usage| usage.multiple? }.count - 1 %>
+        <hr aria-hidden="true" class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-6">
       <% end %>
     <% end %>
   </div>
