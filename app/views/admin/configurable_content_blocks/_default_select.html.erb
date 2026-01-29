@@ -1,0 +1,10 @@
+<% required = required || false %>
+<% errors = errors || [] %>
+<%= render "govuk_publishing_components/components/select", {
+  id: path.form_control_id,
+  label: schema["title"] + (required ? " (required)" : ""),
+  name: path.form_control_name,
+  options: [{ text: schema["blank_option_label"] || "Select an option", value: "" }] + schema["options"].map { |opt| { text: opt["label"], value: opt["value"], selected: content == opt["value"] } },
+  hint: schema["description"],
+  error_items: errors_for(errors, path.validation_error_attribute.to_sym),
+} %>
