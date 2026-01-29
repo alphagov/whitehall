@@ -123,7 +123,7 @@ module PublishingApi
     end
 
     def people_role_associations
-      people = [item.primary_role&.current_person] + [item.secondary_role&.current_person] + item.office_staff_roles.map(&:current_person)
+      people = item.primary_roles.map(&:current_person) + item.secondary_roles.map(&:current_person) + item.office_staff_roles.map(&:current_person)
       people.compact.map do |person|
         {
           person_content_id: person.content_id,
@@ -140,13 +140,13 @@ module PublishingApi
     def primary_role_person
       return [] unless item.primary_role
 
-      [item.primary_role.current_person.content_id]
+      item.primary_roles.map { |role| role.current_person.content_id }
     end
 
     def secondary_role_person
       return [] unless item.secondary_role
 
-      [item.secondary_role.current_person.content_id]
+      item.secondary_roles.map { |role| role.current_person.content_id }
     end
 
     def social_media_links

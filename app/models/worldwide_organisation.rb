@@ -144,12 +144,20 @@ class WorldwideOrganisation < Edition
     roles.occupied.find_by(type: PRIMARY_ROLES.map(&:name))
   end
 
+  def primary_roles
+    roles.occupied.where(type: PRIMARY_ROLES.map(&:name))
+  end
+
   def publishing_api_presenter
     PublishingApi::WorldwideOrganisationPresenter
   end
 
   def secondary_role
     roles.occupied.find_by(type: SECONDARY_ROLES.map(&:name))
+  end
+
+  def secondary_roles
+    roles.occupied.where(type: SECONDARY_ROLES.map(&:name))
   end
 
   def corporate_information_page_types
