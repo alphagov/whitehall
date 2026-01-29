@@ -16,7 +16,69 @@
           "fields": {
             "social_media_service_id": {
               "title": "Service",
-              "block": "social_media_service_select"
+              "block": "default_select",
+              "options": [
+                {
+                  "label": "No social media service selected",
+                  "value": ""
+                },
+                {
+                  "label": "Twitter",
+                  "value": "twitter"
+                },
+                {
+                  "label": "Facebook",
+                  "value": "facebook"
+                },
+                {
+                  "label": "YouTube",
+                  "value": "youtube"
+                },
+                {
+                  "label": "Flickr",
+                  "value": "flickr"
+                },
+                {
+                  "label": "Blog",
+                  "value": "blog"
+                },
+                {
+                  "label": "Pinterest",
+                  "value": "pinterest"
+                },
+                {
+                  "label": "LinkedIn",
+                  "value": "linkedin"
+                },
+                {
+                  "label": "Google Plus",
+                  "value": "google-plus"
+                },
+                {
+                  "label": "Foursquare",
+                  "value": "foursquare"
+                },
+                {
+                  "label": "Email",
+                  "value": "email"
+                },
+                {
+                  "label": "Other",
+                  "value": "other"
+                },
+                {
+                  "label": "Instagram",
+                  "value": "instagram"
+                },
+                {
+                  "label": "Bluesky",
+                  "value": "bluesky"
+                },
+                {
+                  "label": "Threads",
+                  "value": "threads"
+                }
+              ]
             },
             "url": {
               "title": "URL",
@@ -36,7 +98,7 @@
         "type": "array",
         "attributes": {
           "social_media_service_id": {
-            "type": "integer"
+            "type": "string"
           },
           "url": {
             "type": "string"

@@ -43,6 +43,25 @@
           "type": "string",
           "description": "Description of the content block's purpose. Usually used for hint text."
         },
+        "options": {
+          "type": "array",
+          "description": "List of options for select fields.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "value"
+            ]
+          }
+        },
         "block": {
           "type": "string",
           "description": "Identifier for a content block. Maps to a specific block class.",
@@ -54,7 +73,8 @@
             "govspeak",
             "image_select",
             "lead_image_select",
-            "social_media_service_select"
+            "social_media_service_select",
+            "default_select"
           ]
         },
         "fields": {
