@@ -7,6 +7,12 @@
                              end %>
 <% custom_lead_image_hint = "Select a lead image. #{lead_image_select.default_lead_image ? t("configurable_content_blocks.lead_image_select.custom_image_hint_for_news_image") : t("configurable_content_blocks.lead_image_select.custom_image_hint_for_placeholder")}" %>
 
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Select a lead image",
+  font_size: "l",
+  padding: true,
+} %>
+
 <% if content.blank? && lead_image_select.rendered_default_image_url %>
   <%= render "govuk_publishing_components/components/heading", {
     text: "Default lead image",

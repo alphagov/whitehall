@@ -6,6 +6,143 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     stub_request(:get, %r{.*/media/.*/minister-of-funk.960x640.jpg}).to_return(status: 200, body: io_object, headers: {})
   end
 
+  view_test "index page renders upload form for single image usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#header_image_upload_form"
+  end
+
+  view_test "index page renders image for single image usage if present" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "header"),
+    ])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "h2", text: "Uploaded header image"
+  end
+
+  view_test "index page renders upload form and existing images for multiple image usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => true,
+            },
+          },
+        },
+      },
+    }))
+    image = create(:image, usage: "header")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#header_image_upload_form"
+    assert_select "h2", text: "Uploaded header images"
+    assert_select "img[src=?]", image.thumbnail
+  end
+
+  view_test "index page renders upload form, embedding guidance and existing images for govspeak embed image usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "govspeak_embed" => {
+              "kinds" => %w[default],
+              "multiple" => true,
+            },
+          },
+        },
+      },
+    }))
+    image = create(:image, usage: "govspeak_embed")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#govspeak_embed_image_upload_form"
+    assert_select "h2", text: "Uploaded images"
+    assert_select "h2", text: "Images available to use in document"
+    assert_select ".govuk-inset-text", text: "Copy the image markdown code to add images to the document body."
+    assert_select "img[src=?]", image.thumbnail
+  end
+
+  view_test "index page renders standard edition images upload form alongside custom image block, and govspeak embed images list" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "images" => {
+          "fields" => {
+            "test_attribute" => {
+              "title" => "Test attribute",
+              "block" => "default_string",
+            },
+          },
+        },
+      },
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "govspeak_embed" => {
+              "kinds" => %w[default],
+              "multiple" => true,
+            },
+          },
+        },
+      },
+    }))
+    image = create(:image, usage: "govspeak_embed")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
+
+    get :index, params: { edition_id: edition.id }
+
+    assert_select "#govspeak_embed_image_upload_form"
+    assert_select "label", text: "Test attribute"
+    assert_select "h2", text: "Uploaded images"
+    assert_select "img[src=?]", image.thumbnail
+  end
+
   view_test "edit page shows image editing form" do
     login_authorised_user
     image = build(:image)
@@ -41,7 +178,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("minister-of-funk.960x640.jpg")]
     PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
 
-    post :create, params: { edition_id: edition.id, images: files.map { |file| { image_data: { file: } } } }
+    post :create, params: { edition_id: edition.id, images: files.map { |file| { image_data_attributes: { file: } } } }
 
     assert_template "admin/edition_images/index"
     assert_equal "Images successfully uploaded", flash[:notice]
@@ -54,7 +191,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     file = upload_fixture("images/960x640_jpeg.jpg")
     PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
 
-    post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
+    post :create, params: { edition_id: edition.id, images: [{ image_data_attributes: { file: } }] }
 
     assert_redirected_to edit_admin_edition_image_path(edition, edition.images.first.id)
   end
@@ -64,7 +201,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_case_study)
 
     file = upload_fixture("images/960x640_jpeg.jpg")
-    post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
+    post :create, params: { edition_id: edition.id, images: [{ image_data_attributes: { file: } }] }
 
     assert_equal "960x640_jpeg.jpg", edition.reload.lead_image.filename
   end
@@ -74,7 +211,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_case_study)
 
     file = upload_fixture("images/50x33_gif.gif")
-    post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
+    post :create, params: { edition_id: edition.id, images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/index"
     assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is at least 960 pixels wide and at least 640 pixels tall"
@@ -86,7 +223,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     file = upload_fixture("images/960x640_gif.gif")
     create(:image, edition:, image_data: build(:image_data, file:))
 
-    post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
+    post :create, params: { edition_id: edition.id, images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/index"
     assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
@@ -104,7 +241,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       .expects(:perform_async)
       .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything).times(7)
 
-    post :create, params: { edition_id: edition.id, images: [{ image_data: { file: } }] }
+    post :create, params: { edition_id: edition.id, images: [{ image_data_attributes: { file: } }] }
   end
 
   test "DELETE :destroy when a lead image is present it deletes the edition_lead_image and sets a new lead image" do
@@ -128,7 +265,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     filename = "big-cheese.960x640.jpg"
     Services.asset_manager.stubs(:create_asset).returns({ "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => filename })
 
-    post :create, params: { edition_id: edition.id, images: [{ image_data: { file: upload_fixture(filename, "image/jpeg") } }] }
+    post :create, params: { edition_id: edition.id, images: [{ image_data_attributes: { file: upload_fixture(filename, "image/jpeg") } }] }
     AssetManagerCreateAssetWorker.drain
 
     assert_equal "Images successfully uploaded", flash[:notice]

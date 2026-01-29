@@ -29,8 +29,21 @@ class LandingPage < Edition
     true
   end
 
-  def permitted_image_kinds
-    super + Whitehall.image_kinds.values.select { _1.permitted_uses.intersect?(%w[hero landing_page]) }
+  def permitted_image_usages
+    super + [
+      ImageUsage.new(
+        key: "hero",
+        label: "hero",
+        kinds: Whitehall.image_kinds.values.select { _1.permitted_uses.include? "hero" },
+        multiple: true,
+      ),
+      ImageUsage.new(
+        key: "landing_page",
+        label: "landing page",
+        kinds: Whitehall.image_kinds.values.select { _1.permitted_uses.include? "landing_page" },
+        multiple: true,
+      ),
+    ]
   end
 
   def landing_page_body

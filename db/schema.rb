@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_21_164145) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_26_093916) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
@@ -612,6 +612,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_21_164145) do
     t.text "caption", size: :medium
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.string "usage"
     t.index ["edition_id"], name: "index_images_on_edition_id"
     t.index ["image_data_id"], name: "index_images_on_image_data_id"
   end

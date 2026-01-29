@@ -64,21 +64,11 @@ class StandardEdition < Edition
   end
 
   def allows_lead_image?
-    type_instance.form["fields"]["image"].present?
+    type_instance.form("images").present?
   end
 
   def allows_image_attachments?
     type_instance.settings["images"]["enabled"]
-  end
-
-  def allows_multiple_of_image_kind?(image_kind)
-    return if type_instance.settings["images"]["permitted_image_kinds"].blank?
-
-    type_instance_image_kind = type_instance.settings["images"]["permitted_image_kinds"].detect { |permitted_image_kind| permitted_image_kind["kind"] == image_kind }
-
-    return if type_instance_image_kind.blank?
-
-    type_instance_image_kind["multiple"]
   end
 
   def allows_file_attachments?
@@ -117,14 +107,11 @@ class StandardEdition < Edition
     %w[draft submitted rejected].include?(state)
   end
 
-  def permitted_single_upload_image_kinds
-    Whitehall.image_kinds.values.select { _1.permitted_uses.intersect?(type_instance.settings["images"]["permitted_image_kinds"].reject { |image| image["multiple"] }.map { |image| image["kind"] }) }
-  end
-
-  def permitted_image_kinds
-    return super unless type_instance.settings["images"]["permitted_image_kinds"]
-
-    Whitehall.image_kinds.values.select { _1.permitted_uses.intersect?(type_instance.settings["images"]["permitted_image_kinds"].map { |image| image["kind"] }) }
+  def permitted_image_usages
+    type_instance.settings["images"]["usages"].each_with_object([]) do |(usage_key, config), result|
+      kinds = config["kinds"].map { |kind_name| Whitehall.image_kinds[kind_name] }
+      result << ImageUsage.new(key: usage_key, kinds:, **config.except("kinds"))
+    end
   end
 
 private

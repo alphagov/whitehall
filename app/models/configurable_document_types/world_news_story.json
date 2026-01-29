@@ -80,12 +80,12 @@
     "rendering_app": "frontend",
     "images": {
       "enabled": true,
-      "permitted_image_kinds": [
-        {
-          "kind": "govspeak_embed",
+      "usages": {
+        "govspeak_embed": {
+          "kinds": ["default"],
           "multiple": true
         }
-      ]
+      }
     },
     "send_change_history": true,
     "file_attachments_enabled": true,

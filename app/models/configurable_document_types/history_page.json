@@ -74,12 +74,12 @@
     "rendering_app": "frontend",
     "images": {
       "enabled": true,
-      "permitted_image_kinds": [
-        {
-          "kind": "govspeak_embed",
+      "usages": {
+        "govspeak_embed": {
+          "kinds": ["default"],
           "multiple": true
         }
-      ]
+      }
     },
     "send_change_history": false,
     "organisations": ["af07d5a5-df63-4ddc-9383-6a666845ebe9"],

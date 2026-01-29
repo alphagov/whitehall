@@ -39,7 +39,15 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def create
-    @images = images_params.map { |image| create_image(image) }
+    @images = images_params.map do |images_param|
+      @edition.images.build(images_param).tap do |image|
+        # so that image data can perform unique filename validation
+        image.image_data.validate_on_image = image
+
+        # so that auth_bypass_id is discoverable by AssetManagerStorage
+        image.image_data.images << image
+      end
+    end
 
     if @images.all?(&:valid?)
       @images.each(&:save)
@@ -56,19 +64,6 @@ class Admin::EditionImagesController < Admin::BaseController
     else
       render :index
     end
-  end
-
-  def create_image(image)
-    new_image = @edition.images.build
-
-    new_image.build_image_data(image["image_data"])
-
-    new_image.image_data.validate_on_image = new_image
-
-    # so that auth_bypass_id is discoverable by AssetManagerStorage
-    new_image.image_data.images << new_image
-
-    new_image
   end
 
   def edit
@@ -121,7 +116,7 @@ private
   end
 
   def images_params
-    params.fetch(:images, []).map { |image| image.permit(image_data: %i[file image_kind]) }
+    params.fetch(:images, []).map { |image| image.permit(:usage, image_data_attributes: %i[file image_kind]) }
   end
 
   def image_data_params
