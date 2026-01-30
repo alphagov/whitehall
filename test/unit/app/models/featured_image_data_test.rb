@@ -54,7 +54,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
   end
 
   test "#all_asset_variants_uploaded? returns true on update if the new assets have finished uploading" do
-    featured_image_data = create(:featured_image_data)
+    featured_image_data = create(:featured_image_data, :with_polymorphic_owner)
     Sidekiq::Job.clear_all
 
     filename = "big-cheese.960x640.jpg"
@@ -94,13 +94,6 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     AssetManagerDeleteAssetWorker.expects(:perform_async).never
 
     featured_image_data.update!(file: upload_fixture("images/960x640_jpeg.jpg"))
-  end
-
-  test "should be invalid without a featured_imageable" do
-    featured_image_data = build(:featured_image_data, featured_imageable: nil)
-
-    assert_not featured_image_data.valid?
-    assert_equal featured_image_data.errors.messages[:featured_imageable], ["cannot be blank"]
   end
 
   test "#republish_on_assets_ready should republish organisation and associations if assets are ready" do
@@ -169,7 +162,6 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:republish_async).with(featurable).once
     Whitehall::PublishingApi.expects(:republish_document_async).with(document).once
-
     feature.image.republish_on_assets_ready
   end
 

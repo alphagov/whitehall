@@ -2,14 +2,15 @@ class FeaturedImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
   include ImageKind
 
-  belongs_to :featured_imageable, polymorphic: true
+  belongs_to :featured_imageable, polymorphic: true, optional: true
+
+  has_many :features, inverse_of: :image
 
   has_many :assets,
            as: :assetable,
            inverse_of: :assetable
 
   validate :file_is_not_blank
-  validates :featured_imageable, presence: true
 
   delegate :url, to: :file
 
@@ -28,10 +29,14 @@ class FeaturedImageData < ApplicationRecord
 
   def republish_on_assets_ready
     if all_asset_variants_uploaded?
-      logger.info("FeaturedImageData #{id} (#{featured_imageable_type}:#{featured_imageable_id}) republishing after all asset variants are uploaded")
-      featured_imageable.republish_to_publishing_api_async if featured_imageable.respond_to? :republish_to_publishing_api_async
-      Whitehall::PublishingApi.republish_document_async(featured_imageable.document) if featured_imageable.is_a?(Edition)
-      featured_imageable.republish_dependent_documents if featured_imageable.respond_to? :republish_dependent_documents
+      if !featured_imageable.nil?
+        logger.info("FeaturedImageData #{id} (#{featured_imageable_type}:#{featured_imageable_id}) republishing after all asset variants are uploaded")
+        featured_imageable.republish_to_publishing_api_async if featured_imageable.respond_to? :republish_to_publishing_api_async
+        Whitehall::PublishingApi.republish_document_async(featured_imageable.document) if featured_imageable.is_a?(Edition)
+        featured_imageable.republish_dependent_documents if featured_imageable.respond_to? :republish_dependent_documents
+      else
+        features.last.republish_to_publishing_api_async
+      end
     end
   end
 

@@ -1,7 +1,11 @@
 FactoryBot.define do
   factory :featured_image_data do
     file { image_fixture_file }
-    featured_imageable { build(:topical_event) }
+    featured_imageable { nil }
+
+    trait :with_polymorphic_owner do
+      featured_imageable { build(:topical_event) }
+    end
 
     after(:build) do |featured_image_data|
       featured_image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: featured_image_data.filename)
