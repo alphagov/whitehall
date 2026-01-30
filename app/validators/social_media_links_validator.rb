@@ -1,67 +1,56 @@
 class SocialMediaLinksValidator < ActiveModel::Validator
   def initialize(opts = {})
     @attributes = opts[:attributes]
-    @service_field = opts[:fields][:service_field]
-    @url_field = opts[:fields][:url_field]
     super
   end
 
   def validate(record)
     @attributes.each do |attribute_name|
-      arr = record.send(attribute_name.to_sym) || []
-      arr.each do |social_media_service|
-        if (service = validate_social_media_service(social_media_service[@service_field], record, attribute_name))
-          validate_social_media_link(social_media_service[@url_field], service, record, attribute_name)
-        end
+      seen_services = Set.new
+
+      social_media_objects(record, attribute_name).each_with_index do |link, index|
+        validate_duplicate_service(record, link, seen_services, index)
+        validate_social_media_link(record, link, index, attribute_name)
       end
     end
   end
 
 private
 
-  def validate_social_media_service(service_id, record, attribute_name)
-    @services ||= []
-    service = SocialMediaService.find_by(id: service_id)
-    if service.nil?
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "invalid: unknown service with ID '#{service_id}'",
-      )
-      return nil
+  def validate_duplicate_service(record, link, seen_services, index)
+    return if link.social_media_service_id.blank? || link.social_media_service_id == "other"
+
+    if seen_services.include?(link.social_media_service_id)
+      error_message = "invalid: duplicate service '#{link.service_name}'"
+      record.errors.add(:base, "Social media accounts #{error_message}", target_id: "social_media_accounts_attributes_#{index}_social_media_service_id")
     end
-    if @services.include?(service_id)
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "invalid: duplicate service '#{service.name}'",
-      )
-      return nil
-    end
-    @services << service_id
-    service
+    seen_services << link.social_media_service_id
   end
 
-  def validate_social_media_link(url, service, record, attribute_name)
-    if url.blank?
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "invalid: no URL provided for '#{service.name}'",
-      )
-    elsif !valid_url?(url)
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "invalid: bad URL provided for '#{service.name}'",
-      )
+  def social_media_objects(record, attribute_name)
+    if record.respond_to?(:social_media_accounts)
+      record.social_media_accounts
+    else
+      raw_links = record.read_attribute_for_validation(attribute_name)
+      (raw_links || []).map { |data| TopicalEvent::SocialMediaLink.new(data) }
     end
   end
 
-  def valid_url?(url)
-    uri = URI.parse(url)
-    uri.is_a?(URI::HTTP) && uri.host.present?
-  rescue URI::InvalidURIError
-    false
+  def validate_social_media_link(record, link, index, attribute_name)
+    return if link.marked_for_destruction? || link.valid?
+
+    link.errors.each do |error|
+      add_error_to_record(record, error, index, attribute_name)
+    end
+  end
+
+  def add_error_to_record(record, error, index, attribute_name)
+    if error.attribute == :url
+      record.errors.add(:base, "Social media links #{error.message}", target_id: "social_media_accounts_attributes_#{index}_url")
+    elsif error.attribute == :social_media_service_id
+      record.errors.add(:base, "Social media accounts #{error.message}", target_id: "social_media_accounts_attributes_#{index}_social_media_service_id")
+    else
+      record.errors.add(attribute_name, error.message)
+    end
   end
 end

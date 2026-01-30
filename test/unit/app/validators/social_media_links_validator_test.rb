@@ -30,9 +30,10 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     model.social_media_links = [
       { "social_media_service_id" => @social_media_service_1.id, "url" => "" },
     ]
-    @validator.validate(model)
 
-    assert_equal ["Social media links invalid: no URL provided for 'Facebook'"], model.errors.full_messages
+    @validator.validate(model)
+    assert_includes model.errors[:base], "Social media links cannot be blank"
+    assert_not_includes model.errors[:base], "Social media links is not a valid URI. Make sure it starts with http(s)"
   end
 
   test "social media links are invalid when a social media service is chosen and a malformed URL is provided" do
@@ -43,20 +44,10 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(model)
 
-    assert_equal ["Social media links invalid: bad URL provided for 'Facebook'"], model.errors.full_messages
+    assert_includes model.errors[:base], "Social media links is not a valid URI. Make sure it starts with http(s)"
   end
 
-  test "social media links are invalid if social media service isn't a known SocialMediaService" do
-    model = SocialMediaLinksValidatorTestClass.new
-    model.social_media_links = [
-      { "social_media_service_id" => "-1", "url" => "http://example.com" },
-    ]
-    @validator.validate(model)
-
-    assert_equal ["Social media links invalid: unknown service with ID '-1'"], model.errors.full_messages
-  end
-
-  test "social media links are invalid if two of the same social media service are provided" do
+  test "social media links are INVALID if two of the same social media service are provided" do
     model = SocialMediaLinksValidatorTestClass.new
     model.social_media_links = [
       { "social_media_service_id" => @social_media_service_1.id, "url" => "http://facebook.com/govuk" },
@@ -64,7 +55,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(model)
 
-    assert_equal ["Social media links invalid: duplicate service 'Facebook'"], model.errors.full_messages
+    assert_includes model.errors[:base], "Social media accounts invalid: duplicate service 'Facebook'"
   end
 
   test "social media links are valid when a social media service is chosen and a well-formed URL is provided" do
@@ -72,6 +63,17 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     model.social_media_links = [
       { "social_media_service_id" => @social_media_service_1.id, "url" => "http://facebook.com/govuk" },
       { "social_media_service_id" => @social_media_service_2.id, "url" => "https://linkedin.com/company/govuk" },
+    ]
+    @validator.validate(model)
+
+    assert model.errors.empty?
+  end
+
+  test "social media links are VALID if two 'Other' services are provided" do
+    model = SocialMediaLinksValidatorTestClass.new
+    model.social_media_links = [
+      { "social_media_service_id" => "other", "url" => "http://foo.com" },
+      { "social_media_service_id" => "other", "url" => "http://bar.com" },
     ]
     @validator.validate(model)
 

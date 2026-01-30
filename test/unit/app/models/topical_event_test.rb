@@ -3,6 +3,10 @@ require "test_helper"
 class TopicalEventTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :topical_event, :name, :description
 
+  setup do
+    ConfigurableDocumentType.instance_variable_set(:@types, nil)
+  end
+
   test "should default to the 'current' state" do
     topical_event = TopicalEvent.new
     assert topical_event.current?
@@ -40,8 +44,7 @@ class TopicalEventTest < ActiveSupport::TestCase
   end
 
   test "#latest should return specified number of associated published editions in reverse chronological order" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-
+    ConfigurableDocumentType.setup_test_types(ConfigurableDocumentType.types.merge(build_configurable_document_type("test_type")))
     topical_event = create(:topical_event)
     other_topical_event = create(:topical_event)
     expected_order = [

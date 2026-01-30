@@ -79,7 +79,7 @@ class ActiveSupport::TestCase
     # Prevent publishing API base path checks from interfering with tests
     Whitehall::PublishingApi.stubs(:ensure_base_path_is_associated_with_this_content_id!).returns(nil)
     # Set up default test type StandardEdition
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    ConfigurableDocumentType.setup_test_types(REAL_CONFIGURABLE_DOCUMENT_TYPES.merge(build_configurable_document_type("test_type")))
   end
 
   teardown do
