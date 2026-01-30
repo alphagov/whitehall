@@ -4,6 +4,11 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def index; end
 
+  def new
+    @images = images_params.map { |image| create_image(image) }
+    @images.each(&:valid?)
+  end
+
   def confirm_destroy; end
 
   def destroy
@@ -53,6 +58,8 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if @images.count == 1 && @images.first.valid?
       redirect_to edit_admin_edition_image_path(@edition, @images.first.id)
+    elsif @images.first.image_kind != "default"
+      redirect_to new_admin_edition_image_path(edition_id: @edition.id, image_kind: @images.first.image_kind, images: @images.first)
     else
       render :index
     end
@@ -100,6 +107,11 @@ private
   end
   helper_method :image
 
+  def image_kind
+    @image_kind ||= Whitehall.image_kinds.fetch(params[:image_kind] || "default")
+  end
+  helper_method :image_kind
+
   def find_image
     @edition.images.find(params[:id]) if params[:id]
   end
@@ -113,7 +125,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy", "create"
+    when "edit", "update", "destroy", "confirm_destroy", "create", "new"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name

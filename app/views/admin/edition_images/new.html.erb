@@ -1,0 +1,10 @@
+<% content_for :context, "#{@edition.title}" %>
+<% content_for :page_title, "New #{image_kind.display_name} image for #{@edition.format_name}" %>
+<% content_for :title, "New #{image_kind.display_name} image for #{@edition.format_name}" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @images.flat_map { |image| image&.errors&.errors }, parent_class: "edition_images")) if @images.present? %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "image_upload", edition: @edition, image_kind: %>
+  </div>
+</div>

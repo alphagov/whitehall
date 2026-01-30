@@ -1,0 +1,31 @@
+<%= render "govuk_publishing_components/components/summary_card", {
+  id: "uploaded_#{image_kind.name}_image_list",
+  title: image_kind.display_name,
+  summary_card_actions: image.present? ? [
+    {
+      label: "Edit",
+      href: edit_admin_edition_image_path(edition, image),
+      destructive: false,
+    },
+    {
+      label: "Delete",
+      href: confirm_destroy_admin_edition_image_path(edition, image),
+      destructive: true,
+    },
+  ] : [
+    {
+      label: "Add",
+      href: new_admin_edition_image_path(edition_id: edition.id, image_kind: image_kind.name),
+    },
+  ],
+  rows: [
+    {
+      key: "Image",
+      value: image ? (image.image_data&.original_uploaded? && image.thumbnail ? (image.requires_crop? ? "<span class=\"govuk-tag govuk-tag--red\">Requires cropping</span>".html_safe : "<img style=\"width: 100%;\" src=\"#{image.thumbnail}\" alt="" class=\"app-view-edition-resource__preview\">".html_safe) : "<span class=\"govuk-tag govuk-tag--green\">Processing</span>".html_safe) : "Not set",
+    },
+    {
+      key: "Caption",
+      value: image ? image.caption : "Not set",
+    },
+  ],
+} %>
