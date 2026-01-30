@@ -1,7 +1,17 @@
 require "test_helper"
+require "support/concerns/admin_edition_controller/summary_tests"
+require "support/concerns/admin_edition_controller/creating_tests"
+require "support/concerns/admin_edition_controller/edition_editing_tests"
+require "support/concerns/admin_edition_controller/lead_and_supporting_organisations_tests"
+require "support/concerns/admin_edition_controller/role_appointments_tests"
+require "support/concerns/admin_edition_controller/first_published_at_overriding_tests"
+require "support/concerns/admin_edition_controller/access_limiting_tests"
+require "support/concerns/admin_edition_controller/govspeak_history_and_fact_checking_tabs_tests"
 
 class Admin::FatalityNoticesControllerTest < ActionController::TestCase
-  include TaxonomyHelper
+  include AdminEditionController::FirstPublishedAtOverridingTests
+  include AdminEditionController::AccessLimitingTests
+  include AdminEditionController::GovspeakHistoryAndFactCheckingTabsTests
 
   setup do
     login_as :gds_editor
@@ -10,16 +20,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
   should_require_fatality_handling_permission_to_access :fatality_notice, :new, :edit
 
-  should_allow_creating_of :fatality_notice
-  should_allow_editing_of :fatality_notice
-
-  should_allow_lead_and_supporting_organisations_for :fatality_notice
-  should_allow_role_appointments_for :fatality_notice
-  should_allow_overriding_of_first_published_at_for :fatality_notice
-  should_have_summary :fatality_notice
   should_allow_scheduled_publication_of :fatality_notice
-  should_allow_access_limiting_of :fatality_notice
-  should_render_govspeak_history_and_fact_checking_tabs_for :fatality_notice
 
   view_test "show renders the summary" do
     draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")
@@ -74,6 +75,10 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   end
 
 private
+
+  def edition_type
+    :fatality_notice
+  end
 
   def controller_attributes_for(edition_type, attributes = {})
     super.merge(operational_field_id: create(:operational_field).id)

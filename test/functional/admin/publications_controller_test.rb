@@ -1,4 +1,13 @@
 require "test_helper"
+require "support/concerns/admin_edition_controller/creating_tests"
+require "support/concerns/admin_edition_controller/edition_editing_tests"
+require "support/concerns/admin_edition_controller/statistical_data_sets_tests"
+require "support/concerns/admin_edition_controller/lead_and_supporting_organisations_tests"
+require "support/concerns/admin_edition_controller/first_published_at_overriding_tests"
+require "support/concerns/admin_edition_controller/alternative_format_provider_tests"
+require "support/concerns/admin_edition_controller/access_limiting_tests"
+require "support/concerns/admin_edition_controller/topical_event_documents_tests"
+require "support/concerns/admin_edition_controller/govspeak_history_and_fact_checking_tabs_tests"
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
   include TaxonomyHelper
@@ -10,20 +19,20 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     stub_taxonomy_with_world_taxons
   end
 
+  include AdminEditionController::CreatingTests
+  include AdminEditionController::EditionEditingTests
+  include AdminEditionController::StatisticalDataSetsTests
+  include AdminEditionController::LeadAndSupportingOrganisationsTests
+  include AdminEditionController::FirstPublishedAtOverridingTests
+  include AdminEditionController::AlternativeFormatProviderTests
+  include AdminEditionController::AccessLimitingTests
+  include AdminEditionController::TopicalEventDocumentsTests
+  include AdminEditionController::GovspeakHistoryAndFactCheckingTabsTests
+
   should_be_an_admin_controller
 
-  should_allow_creating_of :publication
-  should_allow_editing_of :publication
-
-  should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled :publication
-  should_allow_lead_and_supporting_organisations_for :publication
-  should_allow_references_to_statistical_data_sets_for :publication
   should_allow_association_between_world_locations_and :publication
-  should_allow_alternative_format_provider_for :publication
   should_allow_scheduled_publication_of :publication
-  should_allow_access_limiting_of :publication
-  should_render_govspeak_history_and_fact_checking_tabs_for :publication
-  should_allow_overriding_of_first_published_at_for :publication
 
   view_test "new displays publication fields" do
     get :new
@@ -205,6 +214,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
 private
+
+  def edition_type
+    :publication
+  end
 
   def publication_has_no_expanded_links(content_id)
     stub_publishing_api_has_expanded_links(

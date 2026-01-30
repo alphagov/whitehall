@@ -1,4 +1,11 @@
 require "test_helper"
+require "support/concerns/admin_edition_controller/creating_tests"
+require "support/concerns/admin_edition_controller/edition_editing_tests"
+require "support/concerns/admin_edition_controller/lead_and_supporting_organisations_tests"
+require "support/concerns/admin_edition_controller/alternative_format_provider_tests"
+require "support/concerns/admin_edition_controller/access_limiting_tests"
+require "support/concerns/admin_edition_controller/topical_event_documents_tests"
+require "support/concerns/admin_edition_controller/govspeak_history_and_fact_checking_tabs_tests"
 
 class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
   include TaxonomyHelper
@@ -8,17 +15,17 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
     CallForEvidenceResponseForm.any_instance.stubs(:call_for_evidence_participation).returns(stub(call_for_evidence: stub(auth_bypass_id: "auth bypass id")))
   end
 
+  include AdminEditionController::CreatingTests
+  include AdminEditionController::EditionEditingTests
+  include AdminEditionController::LeadAndSupportingOrganisationsTests
+  include AdminEditionController::AlternativeFormatProviderTests
+  include AdminEditionController::AccessLimitingTests
+  include AdminEditionController::TopicalEventDocumentsTests
+  include AdminEditionController::GovspeakHistoryAndFactCheckingTabsTests
+
   should_be_an_admin_controller
 
-  should_allow_creating_of :call_for_evidence
-  should_allow_editing_of :call_for_evidence
-
-  should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled :call_for_evidence
-  should_allow_lead_and_supporting_organisations_for :call_for_evidence
-  should_allow_alternative_format_provider_for :call_for_evidence
   should_allow_scheduled_publication_of :call_for_evidence
-  should_allow_access_limiting_of :call_for_evidence
-  should_render_govspeak_history_and_fact_checking_tabs_for :call_for_evidence
 
   view_test "new displays call for evidence fields" do
     get :new
@@ -383,6 +390,10 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
   end
 
 private
+
+  def edition_type
+    :call_for_evidence
+  end
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

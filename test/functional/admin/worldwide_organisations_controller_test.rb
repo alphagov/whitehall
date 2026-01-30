@@ -1,17 +1,21 @@
 require "test_helper"
+require "support/concerns/admin_edition_controller/creating_tests"
+require "support/concerns/admin_edition_controller/edition_editing_tests"
+require "support/concerns/admin_edition_controller/only_lead_organisations_tests"
+require "support/concerns/admin_edition_controller/access_limiting_tests"
 
 class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   setup do
     login_as :writer
   end
 
+  include AdminEditionController::CreatingTests
+  include AdminEditionController::EditionEditingTests
+  include AdminEditionController::OnlyLeadOrganisationsTests
+  include AdminEditionController::AccessLimitingTests
+
   should_be_an_admin_controller
-  should_allow_creating_of :worldwide_organisation
-  should_show_new_warning_message_for :worldwide_organisation
-  should_allow_editing_of :worldwide_organisation
-  should_allow_only_lead_organisations_for :worldwide_organisation
   should_allow_scheduled_publication_of :worldwide_organisation
-  should_allow_access_limiting_of :worldwide_organisation
   should_allow_association_between_roles_and :worldwide_organisation
   should_allow_association_between_world_locations_and :worldwide_organisation
 
@@ -86,6 +90,10 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
 private
+
+  def edition_type
+    :worldwide_organisation
+  end
 
   def controller_attributes_for(edition_type, attributes = {})
     super.merge(

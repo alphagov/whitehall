@@ -168,6 +168,8 @@ class ActiveSupport::TestCase
 
   delegate :factory_name_from_test, to: :class
 
+  delegate :class_for, to: :class
+
   def file_fixture(filename)
     File.new(Rails.root.join("test/fixtures", filename))
   end
@@ -219,7 +221,6 @@ end
 class ActionController::TestCase
   include HtmlAssertions
   include AdminControllerTestHelpers
-  include AdminEditionControllerTestHelpers
   include AdminEditionControllerScheduledPublishingTestHelpers
   include AdminEditionRolesBehaviour
   include AdminEditionWorldLocationsBehaviour

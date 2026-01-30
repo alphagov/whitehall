@@ -1,4 +1,6 @@
 require "test_helper"
+require "support/concerns/admin_edition_controller/lead_and_supporting_organisations_tests"
+require "support/concerns/admin_edition_controller/topical_event_documents_tests"
 
 class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   include TaxonomyHelper
@@ -8,9 +10,13 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     login_as :writer
   end
 
+  def edition_type
+    :document_collection
+  end
+
   should_be_an_admin_controller
-  should_allow_lead_and_supporting_organisations_for :document_collection
-  should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled :document_collection
+  include AdminEditionController::LeadAndSupportingOrganisationsTests
+  include AdminEditionController::TopicalEventDocumentsTests
 
   view_test "GET #show displays the document collection" do
     collection = create(
