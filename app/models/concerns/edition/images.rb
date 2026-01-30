@@ -23,7 +23,7 @@ module Edition::Images
   included do
     has_many :images, foreign_key: "edition_id", dependent: :destroy do
       def usable_as(*usage)
-        usage_keys = usage.map { |u| u.key == "govspeak_embed" ? ["govspeak_embed", nil] : u.key }.flatten
+        usage_keys = usage.map(&:key).flatten
         where(usage: usage_keys)
       end
 

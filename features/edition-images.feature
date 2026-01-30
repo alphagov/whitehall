@@ -58,3 +58,11 @@ Scenario: User uploads a header image
     And I update the image details and save
     Then I should see a list with 1 header image
     And I should not see the form for uploading a header image    
+
+  Scenario: User uploads multiple images for a usage
+    Given the configurable document types feature flag is enabled
+    And the test configurable document type is defined
+    And I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
+    When I visit the images tab of the document "The history of GOV.UK"
+    When I upload multiple images including a 960x960 image
+    Then I should see a list with 2 images

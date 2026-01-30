@@ -54,6 +54,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "h2", text: "Uploaded header image"
   end
 
+  # This test seems to cover our usecase but really it assumes that the images are already created so it's too late to catch the problem
   view_test "index page renders upload form and existing images for multiple image usage" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
@@ -171,6 +172,8 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
   end
 
+  # This test could at least cover the rendering of the images
+  # It would show broken images if we miss passing in the usage, but again it wont quite capture the form being broken in the first place
   test "#create renders #index with valid images uploaded" do
     login_authorised_user
     edition = create(:draft_case_study)

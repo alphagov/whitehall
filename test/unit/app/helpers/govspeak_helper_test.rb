@@ -187,23 +187,25 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, ".image.embedded"
   end
 
-  it "should ignore images with image kinds which do not permit use in govspeak embeds" do
+  it "#govspeak_edition_to_html should ignore images that can't be embedded in govspeak" do
     embed_code = "[Image: minister-of-funk.960x640.jpg]"
     body = "#Heading\n\n#{embed_code}\n\n##Subheading"
-    image = build(:image)
-    image_data = image.image_data
-    def image_data.image_kind_config = Whitehall::ImageKind.new(
-      "some name",
-      "display_name" => "some display name",
-      "valid_width" => 0,
-      "valid_height" => 0,
-      "permitted_uses" => [],
-      "versions" => [],
-    )
+    image = build(:image, usage: "header")
     document = build(:published_publication, images: [image], body:)
 
     html = govspeak_edition_to_html(document)
     refute_select_within_html html, ".image.embedded"
+  end
+
+  it "#govspeak_html_attachment_to_html should ignore images that can't be embedded in govspeak" do
+    image = build(:image, usage: "header")
+    embed_code = "[Image: minister-of-funk.960x640.jpg]"
+    body = "#Heading\n\n#{embed_code}\n\n##Subheading"
+    edition = build(:published_publication, images: [image], body:)
+    html_attachment = create(:html_attachment, attachable: edition, body:)
+
+    html = govspeak_html_attachment_to_html(html_attachment)
+    refute_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
 
   it "should not convert documents with no block attachments" do
@@ -275,13 +277,13 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   it "embeds images using !!number syntax" do
-    edition = build(:published_publication, images: [build(:image)], body: "!!1")
+    edition = create(:published_publication, images: [build(:image, usage: "govspeak_embed")], body: "!!1")
     html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
 
   it "embeds images using [Image:] syntax" do
-    edition = build(:published_publication, images: [build(:image)], body: "[Image: minister-of-funk.960x640.jpg]")
+    edition = create(:published_publication, images: [build(:image, usage: "govspeak_embed")], body: "[Image: minister-of-funk.960x640.jpg]")
     html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
   end
@@ -403,7 +405,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   it "HTML attachments inherit images from their parent edition" do
-    edition = create(:published_publication, images: [build(:image)])
+    edition = create(:published_publication, images: [build(:image, usage: "govspeak_embed")])
     body = "[Image: minister-of-funk.960x640.jpg]"
     html_attachment = create(:html_attachment, attachable: edition, body:)
     html = govspeak_html_attachment_to_html(html_attachment)
@@ -411,7 +413,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   it "HTML attachments can embed images using !!number syntax" do
-    edition = create(:published_publication, images: [build(:image)])
+    edition = create(:published_publication, images: [build(:image, usage: "govspeak_embed")])
     html_attachment = create(:html_attachment, attachable: edition, body: "!!1")
     html = govspeak_html_attachment_to_html(html_attachment)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src='#{edition.images.first.embed_url}']"
@@ -555,14 +557,14 @@ class GovspeakHelperTest < ActionView::TestCase
     end
 
     it "should allow attached images to be embedded in admin html" do
-      image = build(:image)
+      image = build(:image, usage: "govspeak_embed")
       html = govspeak_to_html("!!1", images: [image], preview: true)
       assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.embed_url
     end
 
     it "should allow attached images to be embedded in edition body" do
-      image = build(:image)
-      edition = build(:published_publication, body: "!!1", images: [image])
+      image = build(:image, usage: "govspeak_embed")
+      edition = create(:published_publication, body: "!!1", images: [image])
       html = govspeak_edition_to_html(edition, { preview: true })
       assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", image.embed_url
     end
