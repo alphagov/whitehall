@@ -4,7 +4,10 @@ class Feature < ApplicationRecord
   belongs_to :offsite_link
   belongs_to :feature_list
 
-  has_one :image, class_name: "FeaturedImageData", as: :featured_imageable, inverse_of: :featured_imageable
+  belongs_to :image,
+             class_name: "FeaturedImageData",
+             foreign_key: :featured_image_data_id
+
   accepts_nested_attributes_for :image
   validates :image, presence: true
   validates_associated :image, unless: -> { image.blank? || image.file.blank? }

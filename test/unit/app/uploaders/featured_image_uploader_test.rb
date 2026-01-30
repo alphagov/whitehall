@@ -15,7 +15,7 @@ class FeaturedImageUploaderTest < ActiveSupport::TestCase
   end
 
   test "should send correctly resized versions of a bitmap image to asset manager" do
-    uploader = FeaturedImageUploader.new(create(:featured_image_data), "mounted-as")
+    uploader = FeaturedImageUploader.new(create(:featured_image_data, :with_polymorphic_owner), "mounted-as")
     response = { "id" => "http://asset-manager/assets/asset-id", "name" => "minister-of-funk.960x640.jpg" }
     Services.asset_manager.stubs(:create_asset)
     Services.asset_manager.expects(:create_asset).with { |value|
