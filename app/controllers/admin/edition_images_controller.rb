@@ -39,6 +39,11 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def create
+    if images_params.select { |img| img.dig(:image_data_attributes, :image_kind).nil? }.any?
+      flash.now.alert = "Please select a usage for each image."
+      return render :index
+    end
+
     @images = images_params.map do |images_param|
       @edition.images.build(images_param).tap do |image|
         # so that image data can perform unique filename validation
