@@ -32,12 +32,6 @@
       "body": {
         "type": "string"
       },
-      "start_date": {
-        "type": "date"
-      },
-      "end_date": {
-        "type": "date"
-      },
       "social_media_links": {
         "type": "array",
         "attributes": {
@@ -69,8 +63,10 @@
       },
       "social_media_links": {
         "attributes": ["social_media_links"],
-        "service_field": "social_media_service_id",
-        "url_field": "url"
+        "fields": {
+          "service_field": "social_media_service_id",
+          "url_field": "url"
+        }
       }
     }
   },

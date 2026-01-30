@@ -1,8 +1,8 @@
 class SocialMediaLinksValidator < ActiveModel::Validator
   def initialize(opts = {})
     @attributes = opts[:attributes]
-    @service_field = opts[:service_field]
-    @url_field = opts[:url_field]
+    @service_field = opts[:fields][:service_field]
+    @url_field = opts[:fields][:url_field]
     super
   end
 

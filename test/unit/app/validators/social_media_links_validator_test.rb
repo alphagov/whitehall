@@ -6,8 +6,10 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     @social_media_service_2 = create(:social_media_service, name: "LinkedIn")
     @validator = SocialMediaLinksValidator.new({
       attributes: %w[social_media_links],
-      service_field: "social_media_service_id",
-      url_field: "url",
+      fields: {
+        service_field: "social_media_service_id",
+        url_field: "url",
+      },
     })
   end
 
