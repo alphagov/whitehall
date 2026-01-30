@@ -8,7 +8,9 @@ class FeatureList < ApplicationRecord
   accepts_nested_attributes_for :features
 
   def to_s
-    "#{featurable.name} (#{locale})"
+    # This supports editionable and non-editionable parents
+    display_name = featurable.respond_to?(:title) ? featurable.title : featurable.name
+    "#{display_name} (#{locale})"
   end
 
   def reorder!(new_ordering)
