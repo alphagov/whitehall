@@ -15,18 +15,31 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
                            :with_default_news_image,
                            analytics_identifier: "WO123")
 
-    primary_role = create(:ambassador_role)
+    primary_role1 = create(:ambassador_role)
+    primary_role2 = create(:governor_role)
+    primary_role3 = create(:high_commissioner_role)
     ambassador = create(:person)
-    create(:ambassador_role_appointment, role: primary_role, person: ambassador)
-    worldwide_org.roles << primary_role
+    governor = create(:person)
+    high_commissioner = create(:person)
 
-    secondary_role = create(:deputy_head_of_mission_role)
-    deputy_head_of_mission = create(:person)
-    create(:deputy_head_of_mission_role_appointment, role: secondary_role, person: deputy_head_of_mission)
-    worldwide_org.roles << secondary_role
+    create(:ambassador_role_appointment, role: primary_role1, person: ambassador)
+    create(:governor_role_appointment, role: primary_role2, person: governor)
+    create(:high_commissioner_role_appointment, role: primary_role3, person: high_commissioner)
+    worldwide_org.roles << primary_role1
+    worldwide_org.roles << primary_role2
+    worldwide_org.roles << primary_role3
+
+    secondary_role1 = create(:deputy_head_of_mission_role)
+    secondary_role2 = create(:deputy_head_of_mission_role)
+    deputy_head_of_mission1 = create(:person)
+    deputy_head_of_mission2 = create(:person)
+    create(:deputy_head_of_mission_role_appointment, role: secondary_role1, person: deputy_head_of_mission1)
+    create(:deputy_head_of_mission_role_appointment, role: secondary_role2, person: deputy_head_of_mission2)
+    worldwide_org.roles << secondary_role1
+    worldwide_org.roles << secondary_role2
 
     former_role = create(:ambassador_role)
-    create(:ambassador_role_appointment, :ended, role: former_role, person: deputy_head_of_mission)
+    create(:ambassador_role_appointment, :ended, role: former_role, person: deputy_head_of_mission1)
     worldwide_org.roles << former_role
 
     public_path = worldwide_org.public_path
@@ -86,11 +99,38 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
             ],
           },
           {
-            person_content_id: deputy_head_of_mission.content_id,
+            person_content_id: governor.content_id,
             role_appointments: [
               {
-                role_appointment_content_id: deputy_head_of_mission.roles.first.current_role_appointment.content_id,
-                role_content_id: deputy_head_of_mission.roles.first.current_role_appointment.role.content_id,
+                role_appointment_content_id: governor.roles.first.current_role_appointment.content_id,
+                role_content_id: governor.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
+          },
+          {
+            person_content_id: high_commissioner.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: high_commissioner.roles.first.current_role_appointment.content_id,
+                role_content_id: high_commissioner.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
+          },
+          {
+            person_content_id: deputy_head_of_mission1.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: deputy_head_of_mission1.roles.first.current_role_appointment.content_id,
+                role_content_id: deputy_head_of_mission1.roles.first.current_role_appointment.role.content_id,
+              },
+            ],
+          },
+          {
+            person_content_id: deputy_head_of_mission2.content_id,
+            role_appointments: [
+              {
+                role_appointment_content_id: deputy_head_of_mission2.roles.first.current_role_appointment.content_id,
+                role_content_id: deputy_head_of_mission2.roles.first.current_role_appointment.role.content_id,
               },
             ],
           },
@@ -121,16 +161,16 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
           worldwide_org.reload.home_page_offices.first.content_id,
         ],
         office_staff: worldwide_org.office_staff_roles.map(&:current_person).map(&:content_id),
-        primary_role_person: [
-          ambassador.content_id,
-        ],
+        primary_role_person: worldwide_org.primary_roles.map(&:current_person).map(&:content_id),
         role_appointments: [
-          ambassador.roles.first.current_role_appointment.content_id, deputy_head_of_mission.roles.first.current_role_appointment.content_id
+          ambassador.roles.first.current_role_appointment.content_id,
+          governor.roles.first.current_role_appointment.content_id,
+          high_commissioner.roles.first.current_role_appointment.content_id,
+          deputy_head_of_mission1.roles.first.current_role_appointment.content_id,
+          deputy_head_of_mission2.roles.first.current_role_appointment.content_id,
         ],
         roles: worldwide_org.roles.map(&:content_id),
-        secondary_role_person: [
-          deputy_head_of_mission.content_id,
-        ],
+        secondary_role_person: worldwide_org.secondary_roles.map(&:current_person).map(&:content_id),
         sponsoring_organisations: worldwide_org.organisations.map(&:content_id),
         world_locations: worldwide_org.world_locations.map(&:content_id),
         corporate_information_pages: worldwide_org.pages.map(&:content_id).sort,

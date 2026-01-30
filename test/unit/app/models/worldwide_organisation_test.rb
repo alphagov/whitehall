@@ -134,6 +134,40 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_nil worldwide_organisation.secondary_role
   end
 
+  test "primary_roles returns all primary roles" do
+    worldwide_organisation = create(:worldwide_organisation)
+    assert_equal [], worldwide_organisation.primary_roles
+
+    ambassador_role1 = create(:ambassador_role, :occupied)
+    high_commissioner_role = create(:high_commissioner_role, :occupied)
+    governor_role = create(:governor_role, :occupied)
+    ambassador_role2 = create(:ambassador_role, :occupied)
+
+    worldwide_organisation.roles << ambassador_role1
+    worldwide_organisation.roles << high_commissioner_role
+    worldwide_organisation.roles << governor_role
+    worldwide_organisation.roles << ambassador_role2
+
+    assert_equal [ambassador_role1, high_commissioner_role, governor_role, ambassador_role2], worldwide_organisation.primary_roles
+    assert_equal [], worldwide_organisation.secondary_roles
+    assert_equal [], worldwide_organisation.office_staff_roles
+  end
+
+  test "secondary_roles returns all secondary roles" do
+    worldwide_organisation = create(:worldwide_organisation)
+    assert_equal [], worldwide_organisation.secondary_roles
+
+    deputy_role1 = create(:deputy_head_of_mission_role, :occupied)
+    deputy_role2 = create(:deputy_head_of_mission_role, :occupied)
+
+    worldwide_organisation.roles << deputy_role1
+    worldwide_organisation.roles << deputy_role2
+
+    assert_equal [deputy_role1, deputy_role2], worldwide_organisation.secondary_roles
+    assert_equal [], worldwide_organisation.primary_roles
+    assert_equal [], worldwide_organisation.office_staff_roles
+  end
+
   test "primary, secondary and office staff roles return occupied roles only" do
     worldwide_organisation = create(:worldwide_organisation)
 
