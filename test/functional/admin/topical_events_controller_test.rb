@@ -3,6 +3,7 @@ require "test_helper"
 class Admin::TopicalEventsControllerTest < ActionController::TestCase
   setup do
     login_as :writer
+    create(:social_media_service, name: "Twitter", id: "twitter")
   end
 
   should_be_an_admin_controller

@@ -38,7 +38,11 @@ private
         },
       }
 
-      error_item[:href] = "##{parent_class}_#{error.attribute.to_s.gsub('.', '_')}" unless error.attribute == :base
+      if error.respond_to?(:options) && error.options[:target_id]
+        error_item[:href] = "##{parent_class}_#{error.options[:target_id]}"
+      elsif error.attribute != :base
+        error_item[:href] = "##{parent_class}_#{error.attribute.to_s.gsub('.', '_')}"
+      end
       error_item
     end
   end

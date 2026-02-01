@@ -76,16 +76,16 @@ class Admin::TopicalEventsController < Admin::BaseController
     topical_event_params = params.require(:topical_event).permit(
       :name,
       :summary,
-      :description,
+      :description, :body,
       :logo_alt_text,
       :start_date,
       :end_date,
       related_topical_event_ids: [],
       topical_event_membership_attributes: %i[id ordering],
-      social_media_accounts_attributes: %i[social_media_service_id url _destroy id],
+      social_media_accounts_attributes: %i[social_media_service_id url title _destroy id],
       featured_links_attributes: %i[title url _destroy id],
       topical_event_organisations_attributes: %i[id lead lead_ordering],
-      logo_attributes: %i[file file_cache id],
+      logo_attributes: %i[file file_cache id]
     )
 
     clear_file_cache(topical_event_params)

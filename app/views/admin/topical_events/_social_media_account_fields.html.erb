@@ -4,15 +4,15 @@
     label: "Service (required)",
     name: "topical_event[social_media_accounts_attributes][#{index}][social_media_service_id]",
     heading_size: "s",
-    options: [{ text: "", value: "" }] +
-      SocialMediaService.all.map do |social_media|
+      options: ConfigurableDocumentType.find("topical_event").form.dig("fields", "social_media_links", "fields", "social_media_service_id", "options").map do |option|
         {
-          text: social_media.name,
-          value: social_media.id,
-          selected: social_media_form.object.social_media_service_id == social_media.id,
+          text: option["label"],
+          value: option["value"],
+          selected: social_media_form.object.social_media_service_id == option["value"],
         }
       end,
     full_width: true,
+    error_items: errors_for(social_media_form.object.errors, :social_media_service_id),
   } %>
   <%= render "govuk_publishing_components/components/input", {
     label: {
