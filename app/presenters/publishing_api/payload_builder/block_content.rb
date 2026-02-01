@@ -85,15 +85,30 @@ module PublishingApi
         content = item.block_content&.public_send(attribute)
         return [] if content.blank?
 
-        content.map do |item|
-          # `item` looks something like `{"url"=>"foo", "social_media_service_id"=>"3"}`
-          service = SocialMediaService.find(item["social_media_service_id"].to_i)
+        options = social_media_service_options(attribute)
+
+        content.map do |link_data|
+          # `link_data` looks something like `{"url"=>"foo", "social_media_service_id"=>"twitter"}`
+          # Or legacy format: `{"url"=>"foo", "social_media_service_id"=>"1"}`
+          service_key = link_data["social_media_service_id"]
+
+          option = options.find { |o| o["value"] == service_key }
+          title = option ? option["label"] : service_key.humanize
+
           {
-            title: service.name,
-            service_type: service.name.parameterize, # "Google Plus" => "google-plus"
-            href: item["url"],
+            title:,
+            service_type: service_key.parameterize,
+            href: link_data["url"],
           }
         end
+      end
+
+      def social_media_service_options(attribute)
+        # We assume the attribute is defined in the 'documents' form
+        field = item.type_instance.form("documents")&.dig("fields", attribute.to_s)
+        return [] unless field
+
+        field.dig("fields", "social_media_service_id", "options") || []
       end
     end
   end

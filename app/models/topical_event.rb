@@ -3,6 +3,20 @@ class TopicalEvent < ApplicationRecord
   include PublishesToPublishingApi
   include Searchable
   include SimpleWorkflow
+  include StandardEdition::HasBlockContent
+
+  after_initialize :init_block_content
+  before_validation :sync_block_content_body
+
+  def init_block_content
+    self.block_content ||= {} if has_attribute?(:block_content)
+  end
+
+  include TopicalEvent::SocialMediaMigration
+
+  def type_instance
+    ConfigurableDocumentType.find("topical_event")
+  end
 
   date_attributes(:start_date, :end_date)
 
@@ -89,7 +103,6 @@ class TopicalEvent < ApplicationRecord
   accepts_nested_attributes_for :topical_event_memberships
   accepts_nested_attributes_for :topical_event_organisations
   accepts_nested_attributes_for :topical_event_featurings
-  accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
   extend FriendlyId
   friendly_id

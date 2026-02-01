@@ -364,18 +364,35 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       assert_equal [], builder.send(:social_media_links, :some_attribute)
     end
 
-    test "social_media_links returns array of social media links" do
-      social_media_service = create(:social_media_service)
-      value_of_links = [{ "social_media_service_id" => social_media_service.id, "url" => "https://example.com" }]
+    test "social_media_links returns array of social media links using config options" do
+      form = {
+        "fields" => {
+          "some_attribute" => {
+            "fields" => {
+              "social_media_service_id" => {
+                "options" => [
+                  { "label" => "Twitter", "value" => "twitter" },
+                  { "label" => "Facebook", "value" => "facebook" },
+                ],
+              },
+            },
+          },
+        },
+      }
+      type_instance = mock("type_instance")
+      @item.stubs(:type_instance).returns(type_instance)
+      type_instance.stubs(:form).with("documents").returns(form)
+
+      value_of_links = [{ "social_media_service_id" => "twitter", "url" => "https://twitter.com/govuk" }]
       @block_content.stubs(:some_attribute).returns(value_of_links)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
       expected_payload = [
         {
-          title: social_media_service.name,
-          service_type: social_media_service.name.parameterize,
-          href: "https://example.com",
+          title: "Twitter",
+          service_type: "twitter",
+          href: "https://twitter.com/govuk",
         },
       ]
       assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)

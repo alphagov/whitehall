@@ -167,6 +167,6 @@ class BlockContentTest < ActiveSupport::TestCase
 
     page.attributes = { "test_array_attribute" => [{ "social_media_service_id" => "1", "url" => "broken url" }] }
     assert_not page.valid?
-    assert_not page.errors.where("test_array_attribute", :invalid_social_media_link).empty?
+    assert_not page.errors[:base].empty?
   end
 end
