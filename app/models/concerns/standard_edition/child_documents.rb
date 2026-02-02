@@ -23,6 +23,10 @@ module StandardEdition::ChildDocuments
             source: :parent_edition
   end
 
+  def is_child_document?
+    parent_edition.present?
+  end
+
   def allows_child_documents?
     type_instance.child_documents
   end
