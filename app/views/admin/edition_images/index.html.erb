@@ -80,14 +80,26 @@
           } %>
         <% end %>
 
-        <ul id="uploaded_<%= usage.label || usage.key %>_image_list" class="govuk-list">
-          <% current_images.each_with_index do |image, idx| %>
-            <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, image_usage: usage) %>
-            <% unless (idx + 1) == current_images.size %>
-              <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
-            <% end %>
+        <div id="uploaded_<%= usage.label || usage.key %>_image_list" class="govuk-list">
+          <% current_images.group_by(&:image_kind).each do |kind, images| %>
+            <%= render "govuk_publishing_components/components/heading", {
+              text: Whitehall.image_kinds.fetch(kind).display_name_without_dimensions,
+              heading_level: 3,
+              font_size: "m",
+              padding: true,
+            } if usage.kinds.size > 1 %>
+            <ul id="uploaded_<%= usage.label || usage.key %>_<%= kind %>_image_list" class="govuk-list">
+              <% images.each_with_index do |image, idx| %>
+                <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, image_usage: usage) %>
+                <% unless (idx + 1) == images.size %>
+                  <li aria-hidden="true">
+                    <hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible">
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
           <% end %>
-        </ul>
+        </div>
       <% else %>
         <p class="govuk-body">No images uploaded</p>
       <% end %>

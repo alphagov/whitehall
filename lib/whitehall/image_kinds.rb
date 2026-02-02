@@ -39,6 +39,10 @@ module Whitehall
       versions.map(&:name)
     end
 
+    def display_name_without_dimensions
+      display_name.split("(").first.strip
+    end
+
     def permits?(use_case)
       permitted_uses.include?(use_case)
     end
