@@ -52,6 +52,21 @@ class FeatureList < ApplicationRecord
     end
   end
 
+  def deep_clone
+    dup.tap do |new_list|
+      new_list.features = features.map do |old_feature|
+        old_feature.dup.tap do |new_feature|
+          if old_feature.image
+            new_feature.build_image(old_feature.image.attributes.except("id", "featured_imageable_id"))
+            old_feature.image.assets.each do |old_asset|
+              new_feature.image.assets.build(old_asset.attributes.except("id", "assetable_id"))
+            end
+          end
+        end
+      end
+    end
+  end
+
 private
 
   def next_ordering
