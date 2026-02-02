@@ -142,4 +142,33 @@ class FeatureListTest < ActiveSupport::TestCase
 
     assert_equal([], feature_list.published_features.map { |f| f.document.editions })
   end
+
+  test "#deep_clone clones the feature list, its features and their image data" do
+    feature_list = create(:feature_list)
+    create(:feature, :with_image, feature_list: feature_list, ordering: 1)
+    create(:feature, :with_image, feature_list: feature_list, ordering: 2)
+
+    cloned_feature_list = feature_list.deep_clone
+    ignored_cols = %w[id created_at updated_at feature_list_id featured_imageable_id assetable_id]
+
+    assert_equal feature_list.attributes.except(*ignored_cols),
+                 cloned_feature_list.attributes.except(*ignored_cols)
+
+    feature_list.features.zip(cloned_feature_list.features).each do |original, cloned|
+      assert_not_equal original.id, cloned.id
+      assert_equal original.attributes.except(*ignored_cols),
+                   cloned.attributes.except(*ignored_cols)
+
+      assert cloned.image.present?
+      assert_not_equal original.image.id, cloned.image.id
+      assert_equal original.image.attributes.except(*ignored_cols),
+                   cloned.image.attributes.except(*ignored_cols)
+
+      original.image.assets.zip(cloned.image.assets).each do |original_asset, cloned_asset|
+        assert_not_equal original_asset.id, cloned_asset.id
+        assert_equal original_asset.attributes.except(*ignored_cols),
+                     cloned_asset.attributes.except(*ignored_cols)
+      end
+    end
+  end
 end
