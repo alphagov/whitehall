@@ -6,7 +6,7 @@
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <%= form_with url: unfeature_admin_feature_list_feature_path(@feature_list, @feature), method: :post do %>
-      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to unfeature ‘<%= @feature %>’ from ‘<%= @feature_list.featurable.name %>’?</p>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to unfeature ‘<%= @feature %>’ from ‘<%= @feature_list %>’?</p>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
