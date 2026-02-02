@@ -43,4 +43,10 @@ module StandardEdition::ChildDocuments
     rels = child_relationships.order(:position)
     Edition.where(id: rels.select(:child_edition_id))
   end
+
+  def requires_taxon?
+    return false if is_child_document?
+
+    super
+  end
 end
