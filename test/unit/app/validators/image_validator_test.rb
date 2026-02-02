@@ -3,21 +3,21 @@ require_relative "../../../../lib/whitehall/image_kinds"
 
 class ImageValidatorTest < ActiveSupport::TestCase
   def setup
-    @example_model = ImageData
+    @example_model = FeaturedImageData
   end
 
   test "should return range for bitmap image with defined config" do
     jpeg_example = build_example("960x640_jpeg.jpg")
 
-    assert_equal jpeg_example.file.height_range, (jpeg_example.image_kind_config.valid_height..)
-    assert_equal jpeg_example.file.width_range, (jpeg_example.image_kind_config.valid_width..)
+    assert_equal jpeg_example.file.height_range, (jpeg_example.image_kind_config.valid_height..jpeg_example.image_kind_config.valid_height)
+    assert_equal jpeg_example.file.width_range, (jpeg_example.image_kind_config.valid_width..jpeg_example.image_kind_config.valid_width)
   end
 
   test "should not return range for non-bitmap image with defined config" do
     svg_example = build_example("test-svg.svg")
 
-    assert_not svg_example.file.height_range, (svg_example.image_kind_config.valid_height..)
-    assert_not svg_example.file.width_range, (svg_example.image_kind_config.valid_width..)
+    assert_nil svg_example.file.height_range
+    assert_nil svg_example.file.width_range
   end
 
 private

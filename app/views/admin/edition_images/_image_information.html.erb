@@ -10,7 +10,7 @@
   <% end %>
   <h2 class="govuk-heading-m">Image information</h2>
   <ul class="govuk-list">
-    <% if image.bitmap? %>
+    <% if image.bitmap? && image.width && image.height %>
       <li><strong>Width: </strong><%= image.width %>px</li>
       <li><strong>Height: </strong><%= image.height %>px</li>
     <% end %>

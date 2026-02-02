@@ -1,5 +1,4 @@
 class ImageUploader < WhitehallUploader
-  include ImageValidator
   include CarrierWave::MiniMagick
 
   process :store_dimensions
@@ -17,7 +16,7 @@ class ImageUploader < WhitehallUploader
   end
 
   def extension_allowlist
-    super + %w[svg]
+    %w[jpg jpeg gif png svg]
   end
 
   def store_dimensions
@@ -70,15 +69,5 @@ class ImageUploader < WhitehallUploader
     # active_versions is protected, so it can only be called by subclasses
     # it returns an array of [key, value] pairs, and we want the keys
     active_versions.map(&:first)
-  end
-
-private
-
-  def check_dimensions!(new_file)
-    super
-  rescue MiniMagick::Error
-    raise CarrierWave::IntegrityError, "could not be read. The file may not be an image or may be corrupt"
-  rescue CarrierWave::IntegrityError
-    raise CarrierWave::IntegrityError, "is too small. Select an image that is at least #{width_range.begin} pixels wide and at least #{height_range.begin} pixels tall"
   end
 end

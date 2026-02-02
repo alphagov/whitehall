@@ -5,7 +5,6 @@ class ImageData < ApplicationRecord
 
   store_accessor :dimensions, %i[width height]
   store_accessor :crop_data, %i[x y width height], prefix: true
-  after_initialize :dimensions_from_config
 
   include Replaceable
   include ImageKind
@@ -20,6 +19,8 @@ class ImageData < ApplicationRecord
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
   validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." }
+  validates :image_kind, presence: true
+  validate :validate_size, if: :image_changed?
   validate :filename_is_unique
 
   delegate :url, :content_type, to: :file
@@ -37,6 +38,19 @@ class ImageData < ApplicationRecord
 
   def bitmap?
     content_type !~ /svg/
+  end
+
+  def validate_size
+    return unless bitmap? && image_kind.present?
+
+    target_width = image_kind_config.valid_width
+    target_height = image_kind_config.valid_height
+
+    too_small = width < target_width || height < target_height
+
+    return unless too_small
+
+    errors.add(:file, :too_small, message: "is too small. Select an image that is at least #{target_width} pixels wide and at least #{target_height} pixels tall")
   end
 
   def crop_data_to_params
@@ -78,17 +92,6 @@ class ImageData < ApplicationRecord
   end
 
 private
-
-  def dimensions_from_config
-    return unless bitmap? && respond_to?(:image_kind_config)
-
-    # if no saved dimensions image created when
-    # cropped images were saved with height and
-    # and width of the associated image config
-    self.height ||= image_kind_config.valid_height
-    self.width ||= image_kind_config.valid_width
-  end
-
   def filename_is_unique
     return if validate_on_image.blank? || file.blank?
 

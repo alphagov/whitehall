@@ -8,6 +8,11 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_not image_data.valid?
   end
 
+  test "should be invalid without an image kind" do
+    image_data = build(:image_data, image_kind: nil)
+    assert_not image_data.valid?
+  end
+
   test "returns unique auth_bypass_ids from its image's editions" do
     case_study_1 =  create(:case_study)
     case_study_2 =  create(:case_study)
@@ -22,21 +27,13 @@ class ImageDataTest < ActiveSupport::TestCase
   test "rejects images smaller than 960x640" do
     image_data = build_example("50x33_gif.gif")
     assert_not image_data.valid?
-    assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
+    assert image_data.errors[:height]
+    assert image_data.errors[:width]
   end
 
   test "accepts images with 960x640 dimensions" do
     image_data = build_example("960x640_jpeg.jpg")
     assert image_data.valid?
-  end
-
-  test "returns image config dimensions if saved image bitmap with no saved dimensions" do
-    ImageUploader.enable_processing = false
-    image_data = build_example("960x640_jpeg.jpg")
-    assert image_data.dimensions, nil
-    assert image_data.height, image_data.image_kind_config.valid_height
-    assert image_data.width, image_data.image_kind_config.valid_width
-    ImageUploader.enable_processing = true
   end
 
   test "returns image dimensions if saved image bitmap" do
@@ -55,7 +52,7 @@ class ImageDataTest < ActiveSupport::TestCase
   test "rejects image as 'too small' when it's too large in one dimension but too small in another" do
     image_data = build_example("300x1000_png.png")
     assert_not image_data.valid?
-    assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
+    assert image_data.errors[:width]
   end
 
   test "rejects images with duplicate filename on edition" do

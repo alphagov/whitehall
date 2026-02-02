@@ -6,7 +6,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
   test "renders the correct default fields" do
-    image = create(:image, image_data: build(:image_data), caption: "caption")
+    image = create(:image, caption: "caption")
     edition = build_stubbed(:draft_publication, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, image_usage: ImageUsage.new))
 

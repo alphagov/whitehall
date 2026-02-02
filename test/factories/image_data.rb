@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :generic_image_data, class: ImageData do
     file { image_fixture_file }
+    image_kind { "default" }
 
     trait(:jpg) do
       after(:build) do |image_data|
