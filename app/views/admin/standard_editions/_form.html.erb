@@ -89,7 +89,7 @@
 
     <%
       # TODO: better child document check here
-      unless params[:parent_edition_id]
+      unless params[:parent_edition_id] || edition.is_child_document?
     %>
       <%= render "govuk_publishing_components/components/heading", {
         text: "Associations",
@@ -106,7 +106,7 @@
 
     <%
       # TODO: better child document check here. Plus we do need to support translations
-      unless params[:parent_edition_id]
+      unless params[:parent_edition_id] || edition.is_child_document?
     %>
       <div class="govuk-!-margin-bottom-8">
         <%= render "govuk_publishing_components/components/heading", {
