@@ -43,19 +43,4 @@ module StandardEdition::ChildDocuments
     rels = child_relationships.order(:position)
     Edition.where(id: rels.select(:child_edition_id))
   end
-
-  def inherit_associations_from_parent(parent)
-    # Organisations only for now. We'll eventually want to do Worldwide Organisations.
-    #
-    # No need to inherit topic taxonomies - we don't bother with them when presenting
-    # HTML attachments and there's no suggestion we need to do that here.
-    #
-    # We may need to consider worldwide locations, ministerial role appointments etc,
-    # but there's something cleaner about only associating those with the parent doc.
-    Edition::Organisations::Trait.new(parent).process_associations_before_save(self)
-
-    # Because the edition is already saved by the time the relationship is created
-    # we must persist the new join rows explicitly.
-    save!(validate: false)
-  end
 end
