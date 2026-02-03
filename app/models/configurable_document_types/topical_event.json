@@ -73,8 +73,6 @@
   "presenters": {
     "publishing_api": {
       "body": "govspeak",
-      "start_date": "rfc3339_date",
-      "end_date": "rfc3339_date",
       "social_media_links": "social_media_links"
     }
   },
