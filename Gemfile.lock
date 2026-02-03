@@ -138,9 +138,9 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.3.6)
     connection_pool (2.5.5)
-    content_block_tools (1.8.1)
+    content_block_tools (1.8.2)
       actionview (>= 6, < 8.1.3)
-      gds-api-adapters (>= 101.0, < 101.3)
+      gds-api-adapters (>= 101.0, < 102.1)
       govspeak (>= 10.6.3)
       rails (>= 6, < 8.1.3)
       view_component (~> 4)
@@ -258,7 +258,7 @@ GEM
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (101.0.0)
+    gds-api-adapters (102.0.0)
       addressable
       link_header
       null_logger
@@ -449,7 +449,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0113)
+    mime-types-data (3.2026.0127)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
