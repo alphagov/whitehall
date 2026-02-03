@@ -59,6 +59,12 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
   end
 
+  test "alternative_url cannot link to draft stack" do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://draft-origin.publishing.service.gov.uk/guidance/document-path")
+    assert_not unpublishing.valid?
+    assert_equal ["is not a GOV.UK URL"], unpublishing.errors[:alternative_url]
+  end
+
   test "alternative_url must be internal (www.gov.uk) or present on the allowed list" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
     assert_not unpublishing.valid?
