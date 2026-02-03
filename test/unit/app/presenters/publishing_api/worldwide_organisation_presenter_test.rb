@@ -52,7 +52,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       document_type: "worldwide_organisation",
       locale: "en",
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+      rendering_app: Whitehall::RenderingApp::FRONTEND,
       public_updated_at: worldwide_org.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
