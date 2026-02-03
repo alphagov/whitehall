@@ -14,12 +14,12 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
   ].freeze
 
   def validate_each(record, attribute, value)
-    unless self.class.matches_gov_uk?(value) || matches_allow_list?(value)
+    unless self.class.can_be_converted_to_relative_path?(value) || matches_allow_list?(value)
       record.errors.add(attribute, "is not a GOV.UK URL")
     end
   end
 
-  def self.matches_gov_uk?(value)
+  def self.can_be_converted_to_relative_path?(value)
     uri = URI.parse(value)
     return false unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
 
