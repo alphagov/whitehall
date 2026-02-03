@@ -24,6 +24,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       valid_edition_attributes.merge(
         images_attributes: [
           {
+            usage: "govspeak_embed",
             caption: "Text to be visible along with the image",
             image_data_attributes: {
               image_kind: "default",
@@ -31,6 +32,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
             },
           },
           {
+            usage: "govspeak_embed",
             caption: "caption-2",
             image_data_attributes: {
               image_kind: "default",
@@ -138,6 +140,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
         images_attributes: [{
+          usage: "govspeak_embed",
           caption: "original-caption",
           image_data_attributes: {
             image_kind: "default",
@@ -165,10 +168,10 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert EditionWithImages.new.allows_image_attachments?
   end
 
-  test "#usable_as(\"govspeak_embed\") should return images usable as govspeak embed and images without a specified usage" do
-    images = [create(:image), create(:image, usage: "govspeak_embed"), create(:image, usage: "header")]
+  test "#usable_as(\"govspeak_embed\") should return images usable as govspeak embed" do
+    images = [create(:image, usage: "not_govspeak"), create(:image, usage: "govspeak_embed")]
     edition = EditionWithImages.create!(valid_edition_attributes.merge(images:))
-    assert_equal [images[0], images[1]], edition.images.usable_as(ImageUsage.new(key: "govspeak_embed"))
+    assert_equal [images[1]], edition.images.usable_as(ImageUsage.new(key: "govspeak_embed"))
   end
 
 private

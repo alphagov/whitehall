@@ -18,12 +18,12 @@
     accept: "image/png, image/jpeg, image/gif, image/svg+xml",
   } %>
 
-  <%= hidden_field_tag("images[][usage]", image_usage.key) %>
+  <%= hidden_field_tag("usage", image_usage.key) %>
 
   <% if image_usage.kinds.size > 1 %>
     <%= render "govuk_publishing_components/components/radio", {
       heading: "What kind of image is this?",
-      name: "images[][image_data_attributes][image_kind]",
+      name: "image_kind",
       items: image_usage.kinds.map do |image_kind|
         {
           value: image_kind.name,
@@ -32,7 +32,7 @@
       end,
     } %>
   <% else %>
-    <%= hidden_field_tag("images[][image_data_attributes][image_kind]", image_usage.kinds.first.name) %>
+    <%= hidden_field_tag("image_kind", image_usage.kinds.first.name) %>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {

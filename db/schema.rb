@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_26_093916) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_04_131415) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
@@ -600,7 +600,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_26_093916) do
     t.datetime "created_at", precision: nil
     t.json "crop_data"
     t.json "dimensions"
-    t.string "image_kind", default: "default", null: false
+    t.string "image_kind", null: false
     t.integer "replaced_by_id"
     t.datetime "updated_at", precision: nil
     t.index ["replaced_by_id"], name: "index_image_data_on_replaced_by_id"

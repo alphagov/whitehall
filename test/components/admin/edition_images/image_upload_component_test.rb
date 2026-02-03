@@ -24,7 +24,7 @@ class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
     usage = ImageUsage.new(key: "test_usage", kinds: [Whitehall.image_kinds.fetch("default")], multiple: true, label: "test")
     render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, image_usage: usage))
 
-    assert_selector "input[name=\"images[][usage]\"][value=\"test_usage\"]", visible: false
+    assert_selector "input[name=\"usage\"][value=\"test_usage\"]", visible: false
   end
 
   test "renders hidden image data kind input for single usage" do
@@ -32,7 +32,7 @@ class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
     usage = ImageUsage.new(key: "test_usage", kinds: [Whitehall.image_kinds.fetch("default")], multiple: false, label: "test")
     render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, image_usage: usage))
 
-    assert_selector "input[name=\"images[][image_data_attributes][image_kind]\"][value=\"default\"]", visible: false
+    assert_selector "input[name=\"image_kind\"][value=\"default\"]", visible: false
   end
 
   test "renders radio button inputs for multiple usage" do
@@ -42,7 +42,7 @@ class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
     render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, image_usage: usage))
 
     image_kinds.each do |kind|
-      assert_selector "input[name=\"images[][image_data_attributes][image_kind]\"][value=\"#{kind.name}\"]"
+      assert_selector "input[name=\"image_kind\"][value=\"#{kind.name}\"]"
     end
   end
 
