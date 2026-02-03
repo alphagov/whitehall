@@ -11,7 +11,7 @@
 </div>
 
 <%= render "govuk_publishing_components/components/heading", {
-  text: @locale.english? ? "Features" : "Features (#{@locale.native_language_name})",
+  text: @locale.english? ? "Featured" : "Featured (#{@locale.native_language_name})",
   font_size: "l",
   margin_bottom: 6,
 } %>
@@ -29,7 +29,7 @@
     },
     {
       id: "documents_tab",
-      label: "Documents",
+      label: "GOV.UK content",
       content: render("admin/shared/featurable_editions",
         filter: @filter,
         paginator: @tagged_editions,

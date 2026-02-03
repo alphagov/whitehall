@@ -246,7 +246,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
         current: true,
       },
       {
-        label: "Features",
+        label: "Featured",
         href: features_admin_standard_edition_path(edition, locale: I18n.locale),
         current: false,
       },

@@ -20,7 +20,7 @@
 </div>
 
 <%= render "govuk_publishing_components/components/heading", {
-  text: "Features (#{@locale.native_language_name})",
+  text: "Featured (#{@locale.native_language_name})",
   font_size: "l",
   margin_bottom: 6,
 } %>
@@ -38,7 +38,7 @@
     },
     {
       id: "documents_tab",
-      label: "Documents",
+      label: "GOV.UK content",
       content: render("admin/shared/featurable_editions",
         filter: @filter,
         paginator: @filter.editions(@feature_list.locale),
@@ -59,7 +59,7 @@
     },
     {
       id: "non_govuk_government_links_tab",
-      label: "Non-GOV.UK government links",
+      label: "External websites",
       content: render("admin/feature_lists/featureable_offsite_links",
         model: @world_location_news,
         featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),

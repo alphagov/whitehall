@@ -24,7 +24,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
-    assert_selector ".gem-c-inset-text", text: "A maximum of 5 documents will be featured on GOV.UK."
+    assert_selector ".gem-c-inset-text", text: "You can feature up to 5 pages"
   end
 
   test "renders link to the reorder features page if more than 1 feature_list item" do
@@ -34,7 +34,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
-    assert_selector ".govuk-link[href='#{reorder_admin_feature_list_path(feature_list)}']", text: "Reorder documents"
+    assert_selector ".govuk-link[href='#{reorder_admin_feature_list_path(feature_list)}']", text: "Reorder pages"
   end
 
   test "does not render link to the reorder page if less than 2 feature_list items" do
@@ -53,7 +53,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::Features::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(features:, caption: "#{features.count} featured documents live on GOV.UK")
+    .with(features:, caption: nil)
     .once
     .returns(table_component)
 
@@ -76,7 +76,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::Features::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(features: live_features, caption: "#{live_features.count} featured documents live on GOV.UK")
+    .with(features: live_features, caption: nil)
     .once
     .returns(table_component1)
 
@@ -87,7 +87,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::Features::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(features: [remaining_features], caption: "1 remaining featured document")
+    .with(features: [remaining_features], caption: "1 remaining featured page")
     .once
     .returns(table_component2)
 
@@ -109,7 +109,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
 
-    assert_selector ".govuk-link[href='#{reorder_admin_topical_event_topical_event_featurings_path(topical_event)}']", text: "Reorder documents"
+    assert_selector ".govuk-link[href='#{reorder_admin_topical_event_topical_event_featurings_path(topical_event)}']", text: "Reorder pages"
   end
 
   test "does not render link to the reorder page if less than 2 featurings" do
@@ -128,7 +128,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(featurings:, caption: "#{featurings.count} featured documents live on GOV.UK")
+    .with(featurings:, caption: nil)
     .once
     .returns(table_component)
 
@@ -151,7 +151,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(featurings: live_featurings, caption: "#{live_featurings.count} featured documents live on GOV.UK")
+    .with(featurings: live_featurings, caption: nil)
     .once
     .returns(table_component1)
 
@@ -162,7 +162,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(featurings: [remaining_featurings], caption: "1 remaining featured document")
+    .with(featurings: [remaining_featurings], caption: "1 remaining featured page")
     .once
     .returns(table_component2)
 

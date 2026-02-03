@@ -8,9 +8,10 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
                           .permit!
                           .to_h
                           .merge(
+                            page_title: "GOV.UK content tagged to this topical event",
+                            per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                             state: "published",
                             topical_event: @topical_event.to_param,
-                            per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                           )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)

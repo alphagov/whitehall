@@ -40,7 +40,7 @@ module Admin::TabbedNavHelper
   def features_nav_items(edition, current_path)
     [
       {
-        label: "Features",
+        label: "Featured",
         href: features_admin_standard_edition_path(edition, locale: I18n.locale),
         current: current_path == features_admin_standard_edition_path(edition, locale: I18n.locale),
       },

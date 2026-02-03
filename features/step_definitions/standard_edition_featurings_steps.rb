@@ -66,11 +66,11 @@ end
 
 When(/^I visit the standard edition featuring index page$/) do
   visit edit_admin_standard_edition_path(@featurable_edition)
-  click_link "Features"
+  click_link "Featured"
 end
 
 And(/^I set the order of the edition featurings to:$/) do |featurings_order|
-  click_link "Reorder documents"
+  click_link "Reorder pages"
 
   featurings_order.hashes.each do |hash|
     featuring = @featurable_edition.feature_lists.first.features.select { |f| f.to_s == hash[:title] }.first

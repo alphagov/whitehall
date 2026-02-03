@@ -20,7 +20,7 @@ And(/^two featurings exist for "([^"]*)"$/) do |name|
 end
 
 And(/^I set the order of the topical event featurings to:$/) do |featurings_order|
-  click_link "Reorder documents"
+  click_link "Reorder pages"
 
   featurings_order.hashes.each do |hash|
     featuring = @topical_event.topical_event_featurings.select { |f| f.title == hash[:title] }.first

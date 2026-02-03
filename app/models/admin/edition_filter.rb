@@ -37,6 +37,8 @@ module Admin
     end
 
     def page_title
+      return options[:page_title] if options[:page_title].present?
+
       "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches} #{date_range_string} #{review_reminder_string}".squeeze(" ").strip
     end
 

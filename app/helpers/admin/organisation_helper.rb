@@ -43,14 +43,14 @@ module Admin::OrganisationHelper
     end
 
     tabs << {
-      label: "Features",
+      label: "Featured",
       href: features_admin_organisation_path(organisation, locale: I18n.default_locale),
       current: current_path == features_admin_organisation_path(organisation, locale: I18n.default_locale) || current_path == features_admin_organisation_path(organisation),
     }
 
     organisation.non_english_translated_locales.each do |locale|
       tabs << {
-        label: "Features (#{locale.native_language_name})",
+        label: "Featured (#{locale.native_language_name})",
         href: features_admin_organisation_path(organisation, locale: locale.code),
         current: current_path == features_admin_organisation_path(organisation, locale: locale.code),
       }
