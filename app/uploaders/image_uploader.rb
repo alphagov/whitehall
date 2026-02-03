@@ -1,8 +1,5 @@
 class ImageUploader < WhitehallUploader
-  include ImageValidator
   include CarrierWave::MiniMagick
-
-  process :store_dimensions
 
   configure do |config|
     config.remove_previously_stored_files_after_update = false
@@ -17,18 +14,7 @@ class ImageUploader < WhitehallUploader
   end
 
   def extension_allowlist
-    super + %w[svg]
-  end
-
-  def store_dimensions
-    if file && bitmap?(file) && model
-      begin
-        image = ::MiniMagick::Image.open(file.file)
-        model.width, model.height = image.dimensions
-      rescue MiniMagick::Error, MiniMagick::Invalid
-        raise CarrierWave::IntegrityError, "could not be read. The file may not be an image or may be corrupt"
-      end
-    end
+    %w[jpg jpeg gif png svg].freeze
   end
 
   Whitehall.image_kinds.each do |image_kind, image_kind_config|
@@ -72,10 +58,32 @@ class ImageUploader < WhitehallUploader
     active_versions.map(&:first)
   end
 
+  def height_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_height..
+    else
+      0..
+    end
+  end
+
+  def width_range
+    return unless bitmap?(file)
+
+    if model.respond_to?(:image_kind_config)
+      model.image_kind_config.valid_width..
+    else
+      0..
+    end
+  end
+
 private
 
   def check_dimensions!(new_file)
     super
+  rescue ImageKind::MissingKindError
+    raise CarrierWave::IntegrityError, "does not have a selected image kind. Select an image kind for the image"
   rescue MiniMagick::Error
     raise CarrierWave::IntegrityError, "could not be read. The file may not be an image or may be corrupt"
   rescue CarrierWave::IntegrityError

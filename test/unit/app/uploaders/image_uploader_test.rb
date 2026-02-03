@@ -27,7 +27,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     images_to_upload.each do |image|
       file = upload_fixture(image)
       width, height = MiniMagick::Image.open(file.tempfile).dimensions
-      image_data = ImageData.create!(file:)
+      image_data = ImageData.create!(image_kind: "default", file:)
       assert_equal image_data.height, height
       assert_equal image_data.width, width
     end
@@ -35,7 +35,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   test "should store only original version of large image without crop data in asset manager" do
     file = upload_fixture("images/960x960_jpeg.jpg")
-    ImageData.create!(file:)
+    ImageData.create!(image_kind: "default", file:)
 
     Services.asset_manager.stubs(:create_asset).with { |params|
       assert params[:file].path.split("/").last == "960x960_jpeg.jpg"
@@ -46,7 +46,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   test "should store all variations of large image that has crop data in asset manager" do
     file = upload_fixture("images/960x960_jpeg.jpg")
-    cropped_image_data = ImageData.new(crop_data: { x: 0, y: 0, width: 960, height: 640 })
+    cropped_image_data = ImageData.new(image_kind: "default", crop_data: { x: 0, y: 0, width: 960, height: 640 })
     cropped_image_data.file = file
     cropped_image_data.save!
 
@@ -89,7 +89,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   test "should store only the original version of a svg image in asset manager" do
     svg = upload_fixture("images/test-svg.svg", "image/svg+xml")
-    ImageData.create!(file: svg)
+    ImageData.create!(image_kind: "default", file: svg)
 
     Services.asset_manager.stubs(:create_asset).with { |params|
       assert params[:file].path.split("/").last == "test-svg.svg"

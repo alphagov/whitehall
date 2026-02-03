@@ -5,7 +5,8 @@ class ImageData < ApplicationRecord
 
   store_accessor :dimensions, %i[width height]
   store_accessor :crop_data, %i[x y width height], prefix: true
-  after_initialize :dimensions_from_config
+
+  before_create :set_dimensions
 
   include Replaceable
   include ImageKind
@@ -69,7 +70,7 @@ class ImageData < ApplicationRecord
   end
 
   def too_large?
-    return unless respond_to?(:image_kind_config) && dimensions.present?
+    return if dimensions.blank?
 
     target_width = image_kind_config.valid_width
     target_height = image_kind_config.valid_height
@@ -79,14 +80,15 @@ class ImageData < ApplicationRecord
 
 private
 
-  def dimensions_from_config
-    return unless bitmap? && respond_to?(:image_kind_config)
-
-    # if no saved dimensions image created when
-    # cropped images were saved with height and
-    # and width of the associated image config
-    self.height ||= image_kind_config.valid_height
-    self.width ||= image_kind_config.valid_width
+  def set_dimensions
+    if file&.file && bitmap?
+      begin
+        self.width = file.width
+        self.height = file.height
+      rescue MiniMagick::Error, MiniMagick::Invalid
+        raise CarrierWave::IntegrityError, "could not be read. The file may not be an image or may be corrupt"
+      end
+    end
   end
 
   def filename_is_unique
@@ -98,9 +100,5 @@ private
     if edition.images.excluding(image).joins(:image_data).exists?(["image_data.carrierwave_image = ?", filename])
       errors.add(:file, message: "name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name.")
     end
-  end
-
-  def image_changed?
-    changes["carrierwave_image"].present?
   end
 end

@@ -26,12 +26,14 @@ class Edition::ImagesTest < ActiveSupport::TestCase
           {
             caption: "Text to be visible along with the image",
             image_data_attributes: {
+              image_kind: "default",
               file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
             },
           },
           {
             caption: "caption-2",
             image_data_attributes: {
+              image_kind: "default",
               file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
             },
           },
@@ -92,6 +94,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         images_attributes: [{
           caption: "some-caption",
           image_data_attributes: {
+            image_kind: "default",
             file: upload_fixture("horrible-image.64x96.jpg", "image/jpg"),
           },
         }],
@@ -137,6 +140,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         images_attributes: [{
           caption: "original-caption",
           image_data_attributes: {
+            image_kind: "default",
             file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"),
           },
         }],

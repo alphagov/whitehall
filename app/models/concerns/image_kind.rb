@@ -19,7 +19,12 @@ module ImageKind
     end
 
     def image_kind_config
+      raise MissingKindError if image_kind.nil?
+
       @image_kind_config ||= Whitehall.image_kinds.fetch(image_kind)
     end
+  end
+
+  class MissingKindError < RuntimeError
   end
 end

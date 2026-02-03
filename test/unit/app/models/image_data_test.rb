@@ -6,6 +6,14 @@ class ImageDataTest < ActiveSupport::TestCase
   test "should be invalid without a file" do
     image_data = build(:image_data, file: nil)
     assert_not image_data.valid?
+    assert image_data.errors[:file].present?
+  end
+
+  test "should be invalid when the file attribute is set without an image kind" do
+    skip "to do once the UI supports image kinds effectively as a required input for multiple file uploads"
+    image_data = build(:image_data, image_kind: nil)
+    assert_not image_data.valid?
+    assert image_data.errors[:file].present?
   end
 
   test "returns unique auth_bypass_ids from its image's editions" do
@@ -30,24 +38,16 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.valid?
   end
 
-  test "returns image config dimensions if saved image bitmap with no saved dimensions" do
-    ImageUploader.enable_processing = false
-    image_data = build_example("960x640_jpeg.jpg")
-    assert image_data.dimensions, nil
-    assert image_data.height, image_data.image_kind_config.valid_height
-    assert image_data.width, image_data.image_kind_config.valid_width
-    ImageUploader.enable_processing = true
-  end
-
   test "returns image dimensions if saved image bitmap" do
     image_data = build_example("960x960_jpeg.jpg")
+    image_data.save!
     assert image_data.height, 960
     assert image_data.width, 960
   end
 
   test "returns no image dimensions if saved image not bitmap" do
     svg = upload_fixture("images/test-svg.svg", "image/svg+xml")
-    image_data = ImageData.create!(file: svg)
+    image_data = ImageData.create!(image_kind: "default", file: svg)
     assert_nil image_data.height
     assert_nil image_data.width
   end

@@ -1,5 +1,4 @@
 class FeaturedImageUploader < WhitehallUploader
-  include ImageValidator
   include CarrierWave::MiniMagick
 
   configure do |config|
@@ -17,6 +16,10 @@ class FeaturedImageUploader < WhitehallUploader
     version v.name, from_version: v.from_version&.to_sym do
       process resize_to_fill: v.resize_to_fill
     end
+  end
+
+  def extension_allowlist
+    %w[jpg jpeg gif png].freeze
   end
 
   def height_range
