@@ -19,7 +19,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       locale: "en",
       public_updated_at: statistics_announcement.updated_at,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: "government-frontend",
+      rendering_app: Whitehall::RenderingApp::FRONTEND,
       routes: [
         { path: public_path, type: "exact" },
       ],
@@ -63,7 +63,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       locale: "en",
       public_updated_at: statistics_announcement.updated_at,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: "government-frontend",
+      rendering_app: Whitehall::RenderingApp::FRONTEND,
       routes: [
         { path: public_path, type: "exact" },
       ],
@@ -113,7 +113,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       locale: "en",
       public_updated_at: statistics_announcement.updated_at,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: "government-frontend",
+      rendering_app: Whitehall::RenderingApp::FRONTEND,
       routes: [
         { path: public_path, type: "exact" },
       ],
