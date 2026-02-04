@@ -58,11 +58,11 @@ module Whitehall
       end
 
       def add_batch(entries)
-        store.add(entries, @index_name) if store.present?
+        store.presence&.add(entries, @index_name)
       end
 
       def delete(link)
-        store.delete(link, @index_name) if store.present?
+        store.presence&.delete(link, @index_name)
       end
 
       def make_request(_method, *_args)

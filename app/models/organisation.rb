@@ -455,11 +455,11 @@ class Organisation < ApplicationRecord
   end
 
   def summary
-    about_us.summary if about_us.present?
+    about_us.presence&.summary
   end
 
   def body
-    about_us.body if about_us.present?
+    about_us.presence&.body
   end
 
   def corporate_information_page_types

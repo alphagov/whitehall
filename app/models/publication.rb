@@ -121,9 +121,7 @@ class Publication < Edition
     # be access_limited or not.  When we get a publication_type, we'll
     # sort this out.  Happily, abesence of a publication_type invalidates
     # us, so returning nil is ok even though it would break the SQL insert
-    if publication_type.present?
-      publication_type.access_limited_by_default?
-    end
+    publication_type.presence&.access_limited_by_default?
   end
 
   def translatable?
