@@ -238,6 +238,19 @@ Then(/^I should see the organisations default news image$/) do
   end
 end
 
-Then(/^I should see the title for uploading (?:a|an) (.*) image$/) do |image_usage_key|
-  expect(page).to have_content "Upload #{image_usage_key} image"
+Then(/^I should see a card associated with the (.*) image usage$/) do |image_usage_key|
+  expect(page).to have_selector(".govuk-summary-card__title", text: image_usage_key.titleize)
+  expect(page).to have_selector("a[href=\"/government/admin/editions/#{@edition.id}/images/new?image_usage=#{image_usage_key}\"]")
+end
+
+Then(/^I click to add (?:a|an) (.*) image$/) do |image_usage_key|
+  within "#uploaded_#{image_usage_key}_image_card" do
+    click_on "Add"
+  end
+end
+
+Then(/^I should see the (.*) image is uploaded$/) do |image_usage_key|
+  within "#uploaded_#{image_usage_key}_image_card" do
+    assert_selector ".app-view-edition-resource__preview", count: 1
+  end
 end

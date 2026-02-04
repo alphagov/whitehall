@@ -6,7 +6,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     stub_request(:get, %r{.*/media/.*/minister-of-funk.960x640.jpg}).to_return(status: 200, body: io_object, headers: {})
   end
 
-  view_test "index page renders upload form for single image usage" do
+  view_test "index page renders link to upload form for single image usage" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
@@ -26,7 +26,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     get :index, params: { edition_id: edition.id }
 
-    assert_select "#header_image_upload_form"
+    assert_select "#uploaded_header_image_card a[href=\"/government/admin/editions/#{edition.id}/images/new?image_usage=header\"]"
   end
 
   view_test "index page renders image for single image usage if present" do
@@ -51,7 +51,33 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     get :index, params: { edition_id: edition.id }
 
-    assert_select "h2", text: "Uploaded header image"
+    assert_select "#uploaded_header_image_card img"
+    assert_select "#uploaded_header_image_card a[href=\"/government/admin/editions/#{edition.id}/images/new?image_usage=header\"]", count: 0
+  end
+
+  view_test "redirect from new if image usage only allows single upload and an image has been uploaded" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "header"),
+    ])
+
+    get :new, params: { edition_id: edition.id, image_usage: "header" }
+
+    assert_redirected_to admin_edition_images_path(edition)
   end
 
   view_test "index page renders upload form and existing images for multiple image usage" do
@@ -206,7 +232,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_equal "960x640_jpeg.jpg", edition.reload.lead_image.filename
   end
 
-  view_test "#create shows a validation error if image is too small" do
+  view_test "#create shows a validation error if image is too small on #index" do
     login_authorised_user
     edition = create(:draft_case_study)
 
@@ -217,7 +243,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is at least 960 pixels wide and at least 640 pixels tall"
   end
 
-  view_test "#create shows a validation error if image has a duplicated filename" do
+  view_test "#create shows a validation error if image has a duplicated filename on #index" do
     login_authorised_user
     edition = create(:draft_case_study)
     file = upload_fixture("images/960x640_gif.gif")
@@ -227,6 +253,59 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     assert_template "admin/edition_images/index"
     assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+  end
+
+  view_test "#create shows a validation error if image has a duplicated filename on #new" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+
+    file = upload_fixture("images/test-svg.svg")
+    image = create(:image, usage: "header", image_data: build(:image_data, file:))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
+
+    post :create, params: { edition_id: edition.id, images: [{ usage: "header", image_data_attributes: { file:, image_kind: "topical_event_header" } }] }
+
+    assert_template "admin/edition_images/new"
+    assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+  end
+
+  view_test "#create shows a validation error if image is too small on #new" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+
+    file = upload_fixture("images/50x33_gif.gif")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+
+    post :create, params: { edition_id: edition.id, images: [{ usage: "header", image_data_attributes: { file:, image_kind: "topical_event_header" } }] }
+
+    assert_template "admin/edition_images/new"
+    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is at least 800 pixels wide and at least 800 pixels tall"
   end
 
   test "POST :create triggers a job be queued to store image and variants in Asset Manager" do

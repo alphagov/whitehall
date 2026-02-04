@@ -10,23 +10,9 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
-    <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |usage| %>
-
-      <% current_image = @edition.images.usable_as(usage).first %>
-
-      <% if current_image %>
-        <%= render "govuk_publishing_components/components/heading", {
-          text: usage.label.blank? ? "Uploaded image" : "Uploaded #{usage.label} image",
-          heading_level: 2,
-          font_size: "l",
-          padding: true,
-        } %>
-        <ul id="uploaded_<%= usage.label || usage.key %>_image_list" class="govuk-list">
-          <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: current_image, image_usage: usage) %>
-        </ul>
-      <% else %>
-        <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
-      <% end %>
+    <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |image_usage| %>
+      <% image = @edition.images.usable_as(image_usage).first %>
+      <%= render Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:) %>
     <% end %>
 
     <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each_with_index do |usage, multiple_upload_section_index| %>

@@ -4,6 +4,12 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def index; end
 
+  def new
+    if !image_usage.multiple? && @edition.images.usable_as(image_usage).any?
+      redirect_to admin_edition_images_path(@edition), alert: "#{image_usage.label.titleize} already uploaded. Delete the currently uploaded #{image_usage.label} to upload a new #{image_usage.label}."
+    end
+  end
+
   def confirm_destroy; end
 
   def destroy
@@ -61,6 +67,8 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if @images.count == 1 && @images.first.valid?
       redirect_to edit_admin_edition_image_path(@edition, @images.first.id)
+    elsif @images.first.image_kind != "default"
+      render :new
     else
       render :index
     end
@@ -95,6 +103,17 @@ private
   end
   helper_method :image
 
+  def image_usage
+    @image_usage = if image
+                     @edition.permitted_image_usages.detect { |image_usage| image_usage.key == image.usage }
+                   elsif params[:image_usage].present?
+                     @edition.permitted_image_usages.detect { |image_usage| image_usage.key == params[:image_usage] }
+                   else
+                     @edition.permitted_image_usages.first
+                   end
+  end
+  helper_method :image_usage
+
   def find_image
     @edition.images.find(params[:id]) if params[:id]
   end
@@ -108,7 +127,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy", "create"
+    when "edit", "update", "destroy", "confirm_destroy", "create", "new"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name

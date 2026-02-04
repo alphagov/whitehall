@@ -46,8 +46,11 @@
                          rel: "noopener" %>.
   <% end %>
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Upload",
-    margin_bottom: 10,
-  } %>
+  <div class="govuk-button-group govuk-!-margin-bottom-6">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Upload",
+      margin_bottom: 10,
+    } %>
+    <%= cancel_link %>
+  </div>
 <% end %>

@@ -53,8 +53,8 @@ Scenario: User uploads a header image
     And the test configurable document type is defined
     And I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     When I visit the images tab of the document "The history of GOV.UK"
-    Then I should see the title for uploading a header image
-    When I upload a 960x960 header image
+    Then I should see a card associated with the header image usage
+    When I click to add a header image
+    And I upload a 960x960 header image
     And I update the image details and save
-    Then I should see a list with 1 header image
-    And I should not see the form for uploading a header image    
+    Then I should see the header image is uploaded
