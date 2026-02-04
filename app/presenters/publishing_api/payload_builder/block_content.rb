@@ -72,12 +72,13 @@ module PublishingApi
         return [] if content.blank?
 
         content.map do |item|
-          # `item` looks something like `{"url"=>"foo", "social_media_service_id"=>"3"}`
-          service = SocialMediaService.find(item["social_media_service_id"].to_i)
+          # `item` looks something like `{"url"=>"foo", "social_media_service_name"=>"Facebook"}`
+          service_name = item["social_media_service_name"]
+          service_url = item["url"]
           {
-            title: service.name,
-            service_type: service.name.parameterize, # "Google Plus" => "google-plus"
-            href: item["url"],
+            title: service_name,
+            service_type: service_name.parameterize, # "Google Plus" => "google-plus"
+            href: service_url,
           }
         end
       end

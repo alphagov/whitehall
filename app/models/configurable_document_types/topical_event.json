@@ -1,7 +1,7 @@
 {
   "key": "topical_event",
   "title": "Topical event",
-  "description": "???",
+  "description": "Editionable topical events",
   "forms": {
     "documents": {
       "fields": {
@@ -14,9 +14,68 @@
           "title": "Social media accounts",
           "block": "default_array",
           "fields": {
-            "social_media_service_id": {
+            "social_media_service_name": {
               "title": "Service",
-              "block": "social_media_service_select"
+              "block": "default_select",
+              "blank_option_label": "No social media service selected",
+              "options": [
+                {
+                  "label": "Twitter",
+                  "value": "Twitter"
+                },
+                {
+                  "label": "Facebook",
+                  "value": "Facebook"
+                },
+                {
+                  "label": "YouTube",
+                  "value": "YouTube"
+                },
+                {
+                  "label": "Flickr",
+                  "value": "Flickr"
+                },
+                {
+                  "label": "Blog",
+                  "value": "Blog"
+                },
+                {
+                  "label": "Pinterest",
+                  "value": "Pinterest"
+                },
+                {
+                  "label": "LinkedIn",
+                  "value": "LinkedIn"
+                },
+                {
+                  "label": "Google Plus",
+                  "value": "Google Plus"
+                },
+                {
+                  "label": "Foursquare",
+                  "value": "Foursquare"
+                },
+                {
+                  "label": "Email",
+                  "value": "Email"
+                },
+                {
+                  "label": "Instagram",
+                  "value": "Instagram"
+                },
+                {
+                  "label": "Bluesky",
+                  "value": "Bluesky"
+                },
+                {
+                  "label": "Threads",
+                  "value": "Threads"
+                },
+                {
+                  "label": "Other",
+                  "value": "Other"
+                }
+              ]
             },
             "url": {
               "title": "URL",
@@ -35,8 +94,8 @@
       "social_media_links": {
         "type": "array",
         "attributes": {
-          "social_media_service_id": {
-            "type": "integer"
+          "social_media_service_name": {
+            "type": "string"
           },
           "url": {
             "type": "string"
@@ -64,7 +123,7 @@
       "social_media_links": {
         "attributes": ["social_media_links"],
         "fields": {
-          "service_field": "social_media_service_id",
+          "service_field": "social_media_service_name",
           "url_field": "url"
         }
       }
