@@ -246,6 +246,37 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Worldwide organisations"
   end
 
+  view_test "GET features renders the documents search tab with editions tagged to a featurable edition" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+      title: "Title",
+      summary: "Summary",
+    )
+
+    tagged_editions = create_list(:published_standard_edition, 2, :with_organisations, configurable_document_type: "test_type",
+                                                                                       topical_event_documents: [edition.document])
+    untagged_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: "en" }
+
+    assert_response :ok
+    tagged_editions.each do |edition|
+      assert_select "p", text: edition.title
+    end
+    refute_dom "p", text: untagged_edition.title
+  end
+
   view_test "PATCH update respects a provided safe relative redirect_to path" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

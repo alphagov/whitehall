@@ -48,6 +48,11 @@ class Admin::StandardEditionsController < Admin::EditionsController
                           )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
+    @tagged_editions = Edition.published.with_translations.joins("LEFT OUTER JOIN edition_links ON edition_links.edition_id = editions.id")
+                                      .where(edition_links: { document_id: @edition.document_id })
+                                      .order("editions.created_at DESC")
+                                      .page(params[:page])
+                                      .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
 
     render :features
   end

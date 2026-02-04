@@ -3,10 +3,6 @@
 <% content_for :context, @edition.title %>
 <% content_for :title_margin_bottom, 4 %>
 
-<p class="govuk-body">
-  <%= view_on_website_link_for @edition, url: { locale: I18n.default_locale }, class: "govuk-link" %>
-</p>
-
 <div class="govuk-!-margin-bottom-8">
   <%= render "components/secondary_navigation", {
     aria_label: "Document navigation",
@@ -36,8 +32,8 @@
       label: "Documents",
       content: render("admin/shared/featurable_editions",
         filter: @filter,
-        paginator: @filter.editions(@feature_list.locale),
-        featurable_editions: featurable_editions_for_feature_list(@filter.editions(@feature_list.locale), @feature_list),
+        paginator: @tagged_editions,
+        featurable_editions: @tagged_editions,
         filter_by: [:title, :type, :author, :organisation],
         anchor: "#documents_tab",
         filter_action: polymorphic_url([:features, :admin, @feature_list.featurable], locale: @feature_list.locale),
