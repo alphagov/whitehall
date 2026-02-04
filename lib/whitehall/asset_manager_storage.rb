@@ -52,6 +52,10 @@ class Whitehall::AssetManagerStorage
       false
     end
 
+    def bitmap?
+      content_type !~ /svg/
+    end
+
   private
 
     def get_asset

@@ -17,30 +17,14 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg].freeze
   end
 
-  Whitehall.image_kinds.each do |image_kind, image_kind_config|
-    use_versions_for_this_image_kind_proc = lambda do |uploader, opts|
-      uploader.model.image_kind == image_kind && uploader.bitmap?(opts[:file]) && !uploader.model.requires_crop?
+  Whitehall.image_kinds.values.each do |kind|
+    define_version_proc = Proc.new do |uploader, args|
+      args[:file].bitmap? && uploader.model.image_kind == kind.name && !uploader.model.requires_crop?
     end
 
-    image_kind_config.versions.each do |v|
-      def crop_to_crop_data(from_version)
-        manipulate! do |img|
-          # prevents running crop on variants
-          # based on an already cropped variant
-          if model.crop_data_to_params.present? && from_version.blank?
-            img.crop(model.crop_data_to_params)
-          end
-
-          img
-        end
-      end
-
-      version v.name, from_version: v.from_version&.to_sym, if: use_versions_for_this_image_kind_proc do
-        def crop_image?(_image)
-          !model.requires_crop?
-        end
-
-        process crop_to_crop_data: [v.from_version], if: :crop_image?
+    kind.versions.each do |v|
+      version v.name, from_version: v.from_version&.to_sym, if: define_version_proc do
+        process :crop_image, if: -> (uploader, _file) { uploader.model.crop_data.present? && v.from_version.nil? }
         process resize_to_fill: v.resize_to_fill
       end
     end
@@ -79,6 +63,12 @@ class ImageUploader < WhitehallUploader
   end
 
 private
+  def crop_image
+    manipulate! do |img|
+      img.crop("#{model.crop_data_width}x#{model.crop_data_height}+#{model.crop_data_x}+#{model.crop_data_y}")
+      img
+    end
+  end
 
   def check_dimensions!(new_file)
     super
