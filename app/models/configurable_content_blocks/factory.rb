@@ -10,6 +10,7 @@ module ConfigurableContentBlocks
         "govspeak" => ->(page) { ConfigurableContentBlocks::Govspeak.new(page.images, page.attachments) },
         "default_date" => ->(_page) { ConfigurableContentBlocks::DefaultDate.new },
         "social_media_service_select" => ->(_page) { ConfigurableContentBlocks::SocialMediaServiceSelect.new },
+        "default_select" => ->(_page) { ConfigurableContentBlocks::DefaultSelect.new },
         "lead_image_select" => ->(page) { ConfigurableContentBlocks::LeadImageSelect.new(page.valid_lead_images, default_lead_image: page.default_lead_image, placeholder_image_url: page.placeholder_image_url) },
         "default_object" => ->(_page) { ConfigurableContentBlocks::DefaultObject.new(self) },
         "default_array" => ->(_page) { ConfigurableContentBlocks::DefaultArray.new(self) },
