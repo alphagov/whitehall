@@ -95,6 +95,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         first_published_at: Time.zone.now,
         images_attributes: [{
           caption: "some-caption",
+          usage: "govspeak_embed",
           image_data_attributes: {
             image_kind: "default",
             file: upload_fixture("horrible-image.64x96.jpg", "image/jpg"),
