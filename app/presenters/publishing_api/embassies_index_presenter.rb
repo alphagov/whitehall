@@ -86,10 +86,10 @@ module PublishingApi
           ],
         )
         .map { |location|
-        # We don't want to show the UK on the embassies page.
-        next if location.name.in?(["United Kingdom"])
+          # We don't want to show the UK on the embassies page.
+          next if location.name.in?(["United Kingdom"])
 
-        Embassy.new(location)
+          Embassy.new(location)
       }.reject(&:blank?)
     end
 

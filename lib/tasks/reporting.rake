@@ -104,8 +104,8 @@ def grouped_and_sorted_invalid_editions(editions)
     .flat_map { |edition_id, _state, errors| errors.map { |error| [classify_error(error), edition_id] } }
     .group_by(&:first)
     .transform_values { |pairs|
-    ids = pairs.map(&:last).uniq
-    { ids: ids, count: ids.size }
+      ids = pairs.map(&:last).uniq
+      { ids: ids, count: ids.size }
   }
     .sort_by { |error, data| [-data[:count], error.to_s] }
 end

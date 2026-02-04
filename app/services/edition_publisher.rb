@@ -52,7 +52,7 @@ private
   end
 
   def delete_unpublishing!
-    edition.unpublishing.destroy! if edition.unpublishing.present?
+    edition.unpublishing.presence&.destroy!
   end
 
   def scheduled_for_publication?

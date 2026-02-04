@@ -45,15 +45,15 @@ module GovspeakHelper
       .select { |image| image.image_data&.image_kind_config&.permits? "govspeak_embed" }
       .select { |image| image.image_data&.all_asset_variants_uploaded? }
       .map do |image|
-      {
-        id: image.filename,
-        image_data_id: image.image_data_id,
-        edition_id: image.edition_id,
-        url: image.embed_url,
-        caption: image.caption,
-        created_at: image.created_at,
-        updated_at: image.updated_at,
-      }
+        {
+          id: image.filename,
+          image_data_id: image.image_data_id,
+          edition_id: image.edition_id,
+          url: image.embed_url,
+          caption: image.caption,
+          created_at: image.created_at,
+          updated_at: image.updated_at,
+        }
     end
   end
 

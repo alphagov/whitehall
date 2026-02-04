@@ -17,7 +17,7 @@ class Unpublishing < ApplicationRecord
   before_validation :strip_alternative_url
 
   def strip_alternative_url
-    alternative_url.strip! if alternative_url.present?
+    alternative_url.presence&.strip!
   end
 
   def self.from_slug(slug, type)
