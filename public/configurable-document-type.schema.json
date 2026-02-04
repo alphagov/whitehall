@@ -324,10 +324,12 @@
                           "landing_page_image",
                           "hero_desktop",
                           "hero_tablet",
-                          "hero_mobile"
+                          "hero_mobile",
+                          "sidebar"
                         ]
                       },
-                      "minLength": 1
+                      "minLength": 1,
+                      "additionalProperties": false
                     }
                   }
                 }
@@ -338,9 +340,12 @@
                   "landing_page",
                   "hero",
                   "header",
-                  "logo"
+                  "logo",
+                  "sidebar"
                 ]
-              }
+              },
+              "minLength": 1,
+              "additionalProperties": false
             }
           },
           "additionalProperties": false

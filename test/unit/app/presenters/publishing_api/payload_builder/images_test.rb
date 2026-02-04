@@ -29,8 +29,8 @@ module PublishingApi
         result = PayloadBuilder::Images.for(page)[:images]
 
         assert_equal 1, result.count
-        assert non_embeddable_image.can_be_used?
-        assert_equal non_embeddable_image.usage, result.first[:type]
+
+        assert_equal non_embeddable_image.publishing_api_details, result.first
       end
 
       test "allows only images with usages configured in the schema" do
@@ -55,7 +55,8 @@ module PublishingApi
         result = PayloadBuilder::Images.for(page)[:images]
 
         assert_equal 1, result.count
-        assert_equal allowed_image.usage, result.first[:type]
+
+        assert_equal allowed_image.publishing_api_details, result.first
       end
 
       test "excludes images that cannot be used due to requiring cropping or missing assets" do
@@ -155,6 +156,45 @@ module PublishingApi
         result = PayloadBuilder::Images.for(page)
 
         assert_equal({}, result)
+      end
+
+      test "returns the expected output for a sidebar image" do
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", sidebar_image_usage_test_type))
+        sidebar_image = create(:image, usage: "sidebar")
+        page = create(:standard_edition, images: [sidebar_image])
+        result = PayloadBuilder::Images.for(page)
+
+        assert_equal({ sidebar_image: {
+          url: sidebar_image.url,
+        } }, result)
+      end
+
+      test "returns the expected output for a sidebar image with a caption" do
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", sidebar_image_usage_test_type))
+        sidebar_image = create(:image, usage: "sidebar", caption: "test caption")
+        page = create(:standard_edition, images: [sidebar_image])
+        result = PayloadBuilder::Images.for(page)
+
+        assert_equal({ sidebar_image: {
+          url: sidebar_image.url,
+          caption: sidebar_image.caption,
+        } }, result)
+      end
+
+      def sidebar_image_usage_test_type
+        {
+          "settings" => {
+            "images" => {
+              "enabled" => true,
+              "usages" => {
+                "sidebar" => {
+                  "kinds" => %w[default],
+                  "multiple" => false,
+                },
+              },
+            },
+          },
+        }
       end
     end
   end

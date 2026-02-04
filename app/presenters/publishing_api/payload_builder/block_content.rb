@@ -39,20 +39,6 @@ module PublishingApi
         item.block_content&.public_send(attribute)&.rfc3339
       end
 
-      def image(attribute)
-        content = item.block_content&.public_send(attribute)
-
-        return nil if content.nil?
-
-        selected_image = item.valid_images.find { |image| image.image_data.id == content }
-        if selected_image&.image_data&.all_asset_variants_uploaded?
-          {
-            url: selected_image.url,
-            caption: selected_image.caption&.strip.presence,
-          }.compact
-        end
-      end
-
       def lead_image(attribute)
         content = item.block_content&.public_send(attribute)
 
