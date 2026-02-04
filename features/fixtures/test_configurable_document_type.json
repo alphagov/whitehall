@@ -46,11 +46,6 @@
     },
     "images": {
       "fields": {
-        "image": {
-          "title": "Image",
-          "description": "The image for the page",
-          "block": "image_select"
-        },
         "lead_image": {
           "title": "Lead Image",
           "description": "The lead image for the page",
@@ -63,7 +58,6 @@
     "publishing_api": {
       "body": "govspeak",
       "date_field": "rfc3339_date",
-      "image": "image",
       "list_of_foods": "raw"
     }
   },
@@ -71,9 +65,6 @@
     "attributes": {
       "body": {
         "type": "string"
-      },
-      "image": {
-        "type": "integer"
       },
       "date_field": {
         "type": "date"

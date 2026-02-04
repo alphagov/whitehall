@@ -25,15 +25,6 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
     assert_equal block, factory.build_block("default_string")
   end
 
-  test "it can build an image select block" do
-    page = StandardEdition.new
-    page.images = [build(:image)]
-    factory = ConfigurableContentBlocks::Factory.new(page)
-    block = mock("ConfigurableContentBlocks::ImageSelect")
-    ConfigurableContentBlocks::ImageSelect.expects(:new).with(page.images).returns(block)
-    assert_equal block, factory.build_block("image_select")
-  end
-
   test "it can build a lead image select block" do
     page = StandardEdition.new
     img = create(:image)
@@ -77,9 +68,6 @@ class ConfigurableContentBlocks::FactoryTest < ActiveSupport::TestCase
 
     factory = ConfigurableContentBlocks::Factory.new(page)
     block = mock("ConfigurableContentBlocks::LeadImageSelect")
-
-    ConfigurableContentBlocks::ImageSelect.expects(:new).with([bitmap_image_that_does_not_requires_crop, svg_image]).returns(block)
-    factory.build_block("image_select")
 
     ConfigurableContentBlocks::LeadImageSelect.expects(:new).with([bitmap_image_that_does_not_requires_crop], anything, anything).returns(block)
     factory.build_block("lead_image_select")
