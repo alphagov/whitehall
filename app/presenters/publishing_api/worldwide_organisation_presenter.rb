@@ -29,7 +29,7 @@ module PublishingApi
         document_type:,
         links: edition_links,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::FRONTEND,
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "worldwide_organisation",
         auth_bypass_ids: [item.auth_bypass_id],
       )
