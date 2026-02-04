@@ -180,7 +180,7 @@ GEM
       cucumber (>= 7, < 11)
       railties (>= 6.1, < 9)
     cucumber-tag-expressions (8.1.0)
-    dalli (4.2.0)
+    dalli (4.3.0)
       logger
     dartsass-rails (0.5.1)
       railties (>= 6.0.0)
