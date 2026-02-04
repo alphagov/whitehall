@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :generic_image_data, class: ImageData do
+    # File depends on the image kind, because carrierwave image validations which depend on image kind config run as soon
+    # as the file attribute is set. So the order of the two lines below is important
+    image_kind { "default" }
     file { image_fixture_file }
 
     trait(:jpg) do
@@ -24,9 +27,8 @@ FactoryBot.define do
   end
 
   factory :hero_image_data, class: ImageData do
-    file { image_fixture_file }
-
     image_kind { "hero_desktop" }
+    file { image_fixture_file }
 
     after(:build) do |image_data|
       image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: image_data.filename)
@@ -44,9 +46,8 @@ FactoryBot.define do
   end
 
   factory :landing_page_image_data, class: ImageData do
-    file { image_fixture_file }
-
     image_kind { "landing_page_image" }
+    file { image_fixture_file }
 
     after(:build) do |image_data|
       image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: image_data.filename)
