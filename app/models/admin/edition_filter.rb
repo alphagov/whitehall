@@ -122,6 +122,7 @@ module Admin
       editions = editions.not_validated_since(not_validated_since) if not_validated_since
       editions = editions.only_broken_links if only_broken_links
       editions = editions.review_overdue if review_overdue
+      editions = editions.linked_to_document(linked_document) if linked_document
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
       editions = editions.includes(:link_check_report) if include_link_check_report?
@@ -316,6 +317,10 @@ module Admin
 
     def include_last_author?
       options.fetch(:include_last_author, false)
+    end
+
+    def linked_document
+      options[:linked_document]
     end
   end
 end

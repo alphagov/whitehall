@@ -39,15 +39,17 @@ class Admin::StandardEditionsController < Admin::EditionsController
     @feature_list = @edition.load_or_create_feature_list(params[:locale])
     @locale = Locale.new(params[:locale] || :en)
 
-    filter_params = params.slice(:page, :type, :author, :title)
+    filter_params = params.slice(:page, :type, :author, :organisation, :title)
                           .permit!
                           .to_h
                           .merge(
                             state: "published",
+                            linked_document: @edition.document,
                             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                           )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
+    @tagged_editions = @filter.editions(@feature_list.locale)
 
     render :features
   end
