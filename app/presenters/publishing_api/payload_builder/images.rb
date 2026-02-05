@@ -12,10 +12,26 @@ module PublishingApi
       end
 
       def call
-        if images.any?
+        if images.one?
+          image
+        elsif images.any?
           { images: }
         else
           {}
+        end
+      end
+
+    private
+
+      def image
+        image = images.first
+        if image[:type].in?(%w[sidebar])
+          { "#{image[:type]}_image": {
+            url: image[:url],
+            caption: image[:caption]&.strip.presence,
+          }.compact }
+        else
+          { images: }
         end
       end
 

@@ -18,7 +18,7 @@
           "image": {
             "title": "Image",
             "description": "The image for the page",
-            "block": "image_select"
+            "block": "lead_image_select"
           }
         }
       }
@@ -79,7 +79,7 @@
           "image": {
             "title": "Image",
             "description": "The image for the page",
-            "block": "image_select"
+            "block": "lead_image_select"
           }
         }
       }

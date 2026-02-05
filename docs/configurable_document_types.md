@@ -90,7 +90,7 @@ The default object block is a recursive block type, as it can contain other **ob
         "leaf_property_two": {
           "title": "Leaf property two",
           "description": "A block in another tabbed content on the page",
-          "block": "image_select"
+          "block": "default_string"
         }
       }
     }
@@ -130,13 +130,13 @@ For example, a presenter configuration will look like:
   "presenters": {
     "publishing_api": {
       "body": "govspeak",
-      "image": "image_select"
+      "image": "lead_image_select"
     }
   }
 }
 ```
 
-This instructs the presenter that the `body` attribute should use the `govspeak` payload builder and the `image` attribute should use the `image_select` payload builder. 
+This instructs the presenter that the `body` attribute should use the `govspeak` payload builder and the `image` attribute should use the `lead_image_select` payload builder. 
 
 Each block type maps to a publishing API payload builder method (see [app/presenters/publishing_api/payload_builder/block_content.rb](../app/presenters/publishing_api/payload_builder/block_content.rb)), which is called for the attributes configured in the presenter.
 
@@ -159,7 +159,7 @@ To use a content block, you need to define it in both the schema and forms:
 - Define the UI in `forms.<form_tab>.fields.<field_name>`:
   - `title`: Display label for the field.
   - `description`: (Optional) Help text shown to the user.
-  - `block`: Block component to use (e.g., `govspeak`, `image_select`). Must match a format registered in the [blocks factory](../app/models/configurable_content_blocks/factory.rb).
+  - `block`: Block component to use (e.g., `govspeak`, `lead_image_select`). Must match a format registered in the [blocks factory](../app/models/configurable_content_blocks/factory.rb).
 
 - Define the data type in `schema.attributes.<field_name>`:
   - `type`: Data type for the attribute (e.g., `string`, `integer`, `date`). Used for type casting in the [block content model](../app/models/standard_edition/block_content.rb).

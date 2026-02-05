@@ -14,7 +14,7 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
         summary: summary || defaults[:summary],
         primary_locale: locale,
         block_content: {
-          "image" => images.first.image_data.id.to_s,
+          "lead_image" => images.first.image_data.id.to_s,
           "body" => body || defaults[:body],
           "date_field" => date_field,
           "street" => street,
@@ -109,18 +109,12 @@ Then("when I switch to the Images tab to fill in the other configurable fields")
   click_link "Edit draft"
   click_link "Images"
 
-  # This is an image select block
-  # Assert that the valueless "No image selected" option is present as the first option, and that no option has been selected yet
-  expect(page).to have_select("Image", options: ["No image selected", edition.images.first.filename, edition.images.last.filename])
-  expect(page).to have_select("Image", selected: nil)
-
   # This is a lead image select block
   # Assert that the valueless "No image selected" option is present as the first option, and that no option has been selected yet
   expect(page).to have_select("Lead Image", options: ["No image selected", edition.images.first.filename, edition.images.last.filename])
   expect(page).to have_select("Lead Image", selected: nil)
 
   # Now select the image and save
-  select edition.images.first.filename, from: "Image"
   select edition.images.last.filename, from: "Lead Image"
   click_button "Save"
 end
@@ -133,7 +127,6 @@ Then("the configurable fields on the Images tab are persisted") do
   click_link "Images"
 
   # Check the select value is pre-selected
-  expect(page).to have_select("Image", selected: edition.images.first.filename)
   expect(page).to have_select("Lead Image", selected: edition.images.last.filename)
 end
 
@@ -168,7 +161,7 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
       configurable_document_type: "test",
       images: [image],
       title: title,
-      block_content: default_block_content_for_locale("en").merge("image" => image.image_data.id.to_s),
+      block_content: default_block_content_for_locale("en").merge("lead_image" => image.image_data.id.to_s),
     },
   )
   stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
@@ -203,7 +196,7 @@ And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |t
   expect(page).to have_field(name: "edition[block_content][list_of_foods][0][food]", with: "Apple")
 
   click_link "Images"
-  expect(page).to have_select("Image", selected: standard_edition.images.first.filename)
+  expect(page).to have_select("Lead Image", selected: standard_edition.images.first.filename)
 end
 
 When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)"$/) do |configurable_document_type, title|
@@ -254,7 +247,7 @@ end
 
 And(/^the image selections should be preserved from the primary locale$/) do
   edition = @standard_edition || StandardEdition.last
-  expect(page).to have_select("Image", selected: edition.images.first.filename)
+  expect(page).to have_select("Lead Image", selected: edition.images.first.filename)
 end
 
 And(/^I should see the original English content in "original text" sections$/) do

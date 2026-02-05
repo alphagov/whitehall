@@ -9,7 +9,7 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
           "documents" => {
             "test_attribute" => { "title" => "Test Attribute", "block" => "default_string" },
             "body" => { "title" => "Body", "block" => "govspeak" },
-            "count" => { "title" => "Count", "block" => "image_select" },
+            "count" => { "title" => "Count", "block" => "lead_image_select" },
           },
         },
         "schema" => {
