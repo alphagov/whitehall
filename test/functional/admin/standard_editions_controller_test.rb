@@ -71,8 +71,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     permitted_non_sibling_type = build_configurable_document_type("permitted_non_sibling_type", { "title" => "Permitted Non-sibling Type", "settings" => { "organisations" => [@current_user.organisation.content_id] } })
     ConfigurableDocumentType.setup_test_types(
       current_type.merge(permitted_sibling_type)
-        .merge(non_permitted_sibling_type)
-        .merge(permitted_non_sibling_type),
+                  .merge(non_permitted_sibling_type)
+                  .merge(permitted_non_sibling_type),
     )
     edition = create(:standard_edition, configurable_document_type: "current_type")
     get :change_type, params: { id: edition.id }
@@ -306,6 +306,43 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_response :ok
     assert_select "#documents_tab p", text: unfeatured_edition.title
     refute_dom "#documents_tab p", text: featured_edition.title
+  end
+
+  view_test "GET features renders the documents search tab with editions that have a translation for the selected locale" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      :translated,
+      primary_locale: "en",
+      translated_into: %w[cy fr],
+      configurable_document_type: "topical_event",
+    )
+
+    tagged_edition = create(:published_standard_edition,
+                            :with_organisations,
+                            :translated,
+                            primary_locale: "en",
+                            translated_into: %w[cy],
+                            configurable_document_type: "test_type",
+                            topical_event_documents: [featuring_edition.document])
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: "cy" }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: tagged_edition.title
+
+    get :features, params: { id: featuring_edition.id, locale: "fr" }
+    assert_response :ok
+    refute_dom "#documents_tab p", text: tagged_edition.title
   end
 
   view_test "PATCH update respects a provided safe relative redirect_to path" do
