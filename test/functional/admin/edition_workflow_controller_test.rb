@@ -249,7 +249,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
       Must be a GOV.UK URL or a link ending in:
 
         .caa.co.uk
-        .gov.uk
         .independent-inquiry.uk
         .internationalaisafetyreport.org
         .judiciary.uk
