@@ -277,6 +277,37 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "p", text: untagged_edition.title
   end
 
+  view_test "GET features renders the documents search tab without editions already featured" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+      title: "Title",
+      summary: "Summary",
+    )
+
+    featured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 1", configurable_document_type: "test_type", topical_event_documents: [edition.document])
+    unfeatured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 2", configurable_document_type: "test_type",
+                                                                                  topical_event_documents: [edition.document])
+    feature_list = edition.feature_lists.create!(locale: edition.primary_locale)
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: "en" }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: unfeatured_edition.title
+    refute_dom "#documents_tab p", text: featured_edition.title
+  end
+
   view_test "PATCH update respects a provided safe relative redirect_to path" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
