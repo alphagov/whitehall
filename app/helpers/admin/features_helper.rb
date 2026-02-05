@@ -16,11 +16,11 @@ module Admin::FeaturesHelper
   end
 
   def featurable_editions_for_feature_list(editions, feature_list)
-    @featurable_editions_for_feature_list ||= editions.reject do |edition|
-      localised_edition = LocalisedModel.new(edition, feature_list.locale)
-
+    @featurable_editions_for_feature_list ||= editions
+    .map { |edition| LocalisedModel.new(edition, feature_list.locale) }
+    .reject do |edition|
       feature_list.features.current.detect do |feature|
-        feature.document == localised_edition.document
+        feature.document == edition.document
       end
     end
   end
