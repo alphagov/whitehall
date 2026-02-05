@@ -246,6 +246,75 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Worldwide organisations"
   end
 
+  view_test "GET features renders the currently featured tab with featured editions" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    featured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 1", configurable_document_type: "test_type", topical_event_documents: [edition.document])
+    unfeatured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 2", configurable_document_type: "test_type",
+                                                                                  topical_event_documents: [edition.document])
+    feature_list = edition.feature_lists.create!(locale: edition.primary_locale)
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: :en }
+
+    assert_response :ok
+    assert_select "#currently_featured_tab p", text: featured_edition.title
+    refute_dom "#currently_featured_tab p", text: unfeatured_edition.title
+  end
+
+  view_test "GET features renders the currently featured tab with editions that have a translation for the selected locale" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      :translated,
+      primary_locale: :en,
+      translated_into: %w[cy fr],
+      configurable_document_type: "topical_event",
+    )
+
+    featured_edition = create(:published_standard_edition,
+                              :with_organisations,
+                              :translated,
+                              primary_locale: :en,
+                              translated_into: %w[cy],
+                              configurable_document_type: "test_type",
+                              topical_event_documents: [featuring_edition.document])
+
+    feature_list = featuring_edition.feature_lists.create!(locale: :cy)
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :cy }
+
+    assert_response :ok
+    assert_select "#currently_featured_tab p", text: with_locale(:cy) { featured_edition.title }
+
+    get :features, params: { id: featuring_edition.id, locale: :fr }
+    assert_response :ok
+    refute_dom "#currently_featured_tab p", text: with_locale(:fr) { featured_edition.title }
+  end
+
   view_test "GET features renders the documents search tab with editions tagged to a featurable edition" do
     topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
@@ -259,8 +328,6 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       :published_standard_edition,
       :with_organisations,
       configurable_document_type: "topical_event",
-      title: "Title",
-      summary: "Summary",
     )
 
     tagged_editions = create_list(:published_standard_edition, 2, :with_organisations, configurable_document_type: "test_type",
@@ -268,7 +335,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     untagged_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
 
     login_as :managing_editor
-    get :features, params: { id: edition.id, locale: "en" }
+    get :features, params: { id: edition.id, locale: :en }
 
     assert_response :ok
     tagged_editions.each do |edition|
@@ -290,8 +357,6 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       :published_standard_edition,
       :with_organisations,
       configurable_document_type: "topical_event",
-      title: "Title",
-      summary: "Summary",
     )
 
     featured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 1", configurable_document_type: "test_type", topical_event_documents: [edition.document])
@@ -301,7 +366,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     create(:feature, feature_list:, document: featured_edition.document)
 
     login_as :managing_editor
-    get :features, params: { id: edition.id, locale: "en" }
+    get :features, params: { id: edition.id, locale: :en }
 
     assert_response :ok
     assert_select "#documents_tab p", text: unfeatured_edition.title
@@ -321,7 +386,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       :published_standard_edition,
       :with_organisations,
       :translated,
-      primary_locale: "en",
+      primary_locale: :en,
       translated_into: %w[cy fr],
       configurable_document_type: "topical_event",
     )
@@ -329,18 +394,18 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     tagged_edition = create(:published_standard_edition,
                             :with_organisations,
                             :translated,
-                            primary_locale: "en",
+                            primary_locale: :en,
                             translated_into: %w[cy],
                             configurable_document_type: "test_type",
                             topical_event_documents: [featuring_edition.document])
 
     login_as :managing_editor
-    get :features, params: { id: featuring_edition.id, locale: "cy" }
+    get :features, params: { id: featuring_edition.id, locale: :cy }
 
     assert_response :ok
     assert_select "#documents_tab p", text: tagged_edition.title
 
-    get :features, params: { id: featuring_edition.id, locale: "fr" }
+    get :features, params: { id: featuring_edition.id, locale: :fr }
     assert_response :ok
     refute_dom "#documents_tab p", text: tagged_edition.title
   end
