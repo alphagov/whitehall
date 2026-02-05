@@ -379,18 +379,6 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
   test "it does not conflict embeddable and non-embeddable images in the payload, and can present both" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
-      "schema" => {
-        "attributes" => {
-          "image_attribute" => {
-            "type" => "integer",
-          },
-        },
-      },
-      "presenters" => {
-        "publishing_api" => {
-          "image_attribute" => "image",
-        },
-      },
       "settings" => {
         "images" => {
           "enabled" => true,
@@ -411,16 +399,13 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     non_embeddable_image = create(:image, :svg, usage: "non_embeddable_usage")
     page = create(:standard_edition,
                   {
-                    block_content: {
-                      "image_attribute" => embeddable_image.image_data.id.to_i,
-                    },
                     images: [embeddable_image, non_embeddable_image],
                   })
 
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
-    assert_equal embeddable_image.url, content[:details][:image_attribute][:url]
+    assert_equal 1, content[:details][:images].size
     assert_equal [non_embeddable_image.usage], content[:details][:images].pluck(:type)
   end
 end

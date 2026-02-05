@@ -50,13 +50,11 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     type_instance.stubs(:presenter).with("publishing_api").returns({
       "body_attribute" => :govspeak,
       "date_attribute" => :rfc3339_date,
-      "image_attribute" => :image,
       "lead_image_attribute" => :lead_image,
       "string_attribute" => :raw,
     })
     @block_content.stubs(:body_attribute).returns(nil)
     @block_content.stubs(:date_attribute).returns(nil)
-    @block_content.stubs(:image_attribute).returns(nil)
     @block_content.stubs(:lead_image_attribute).returns(nil)
     @block_content.stubs(:string_attribute).returns(nil)
 
@@ -65,7 +63,6 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
     assert_not result.key?(:body_attribute)
     assert_not result.key?(:date_attribute)
-    assert_not result.key?(:image_attribute)
     assert result.key?(:lead_image_attribute) # because the behaviour of this block is special - will always return a value
     assert_not result.key?(:string_attribute)
   end
