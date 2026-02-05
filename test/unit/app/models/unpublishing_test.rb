@@ -120,6 +120,11 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal "/guidance/document-path", unpublishing.alternative_path
   end
 
+  test "alternative_path accommodates any spaces that may have slipped into the URL" do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk/guidance/document-path ")
+    assert_equal "/guidance/document-path", unpublishing.alternative_path
+  end
+
   test "alternative_path returns the full URL of alternative_url when not on GOV.UK" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.judiciary.uk/about")
     assert_equal "https://www.judiciary.uk/about", unpublishing.alternative_path

@@ -91,7 +91,7 @@ private
     @alternative_uri ||= begin
       return if alternative_url.nil?
 
-      Addressable::URI.parse(alternative_url)
+      Addressable::URI.parse(alternative_url.strip)
     rescue URI::InvalidURIError, Addressable::URI::InvalidURIError
       nil
     end
