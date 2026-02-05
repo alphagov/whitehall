@@ -403,11 +403,11 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     get :features, params: { id: featuring_edition.id, locale: :cy }
 
     assert_response :ok
-    assert_select "#documents_tab p", text: tagged_edition.title
+    assert_select "#documents_tab p", text: with_locale(:cy) { tagged_edition.title }
 
     get :features, params: { id: featuring_edition.id, locale: :fr }
     assert_response :ok
-    refute_dom "#documents_tab p", text: tagged_edition.title
+    refute_dom "#documents_tab p", text: with_locale(:fr) { tagged_edition.title }
   end
 
   view_test "PATCH update respects a provided safe relative redirect_to path" do
