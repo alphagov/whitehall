@@ -21,7 +21,7 @@
       },
     ],
     rows:
-      featurable_editions.map do |edition|
+      paginator.map do |edition|
         [
           {
             text: tag.p(edition.title, class: "govuk-!-margin-0 govuk-!-font-weight-bold"),
@@ -33,7 +33,7 @@
             text: localize(edition.major_change_published_at.to_date),
           },
           {
-            text: featurable_search_results_table_actions(edition, feature_path),
+            text: featurable_search_results_table_actions(edition, feature_path, featurable_editions),
             format: "numeric",
           },
         ]
