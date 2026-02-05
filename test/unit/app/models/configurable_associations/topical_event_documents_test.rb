@@ -68,4 +68,13 @@ class TopicalEventDocumentsRenderingTest < ActionView::TestCase
     assert_dom "option[selected]", text: topical_events.first.title
     assert_not_dom "option[selected]", text: topical_events.last.title
   end
+
+  test "it includes draft topical events in the list of options" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
+    edition = create(:draft_standard_edition, title: "Draft topical event", configurable_document_type: "topical_event")
+
+    topical_events_association = ConfigurableAssociations::TopicalEventDocuments.new(edition.topical_event_documents)
+    render topical_events_association
+    assert_dom "option", text: "Draft topical event"
+  end
 end
