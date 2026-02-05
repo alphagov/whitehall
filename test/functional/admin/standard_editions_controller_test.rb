@@ -272,9 +272,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_response :ok
     tagged_editions.each do |edition|
-      assert_select "p", text: edition.title
+      assert_select "#documents_tab p", text: edition.title
     end
-    refute_dom "p", text: untagged_edition.title
+    refute_dom "#documents_tab p", text: untagged_edition.title
   end
 
   view_test "GET features renders the documents search tab without editions already featured" do
