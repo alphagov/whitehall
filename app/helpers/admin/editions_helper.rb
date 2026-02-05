@@ -226,7 +226,11 @@ module Admin::EditionsHelper
     sanitize(actions, attributes: %w[href class data-ga4-ecommerce-content-id])
   end
 
-  def featurable_search_results_table_actions(edition, feature_path)
+  def featurable_search_results_table_actions(edition, feature_path, featurable_editions = nil)
+    if featurable_editions && !featurable_editions.include?(edition)
+      return "Already featured"
+    end
+
     content_id = edition.document.content_id
     actions = ""
     actions << link_to(
