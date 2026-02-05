@@ -23,7 +23,7 @@
     label: "Topical events (experimental)",
     hint: "Topical events created via the documents menu will appear here",
     heading_size: "m",
-    options: StandardEdition.published.where(configurable_document_type: "topical_event").order(:title).map do |topical_event|
+    options: StandardEdition.where(configurable_document_type: "topical_event").order(:title).map do |topical_event|
       {
         text: topical_event.title,
         value: topical_event.document_id,
