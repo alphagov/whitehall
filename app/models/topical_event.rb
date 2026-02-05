@@ -38,11 +38,32 @@ class TopicalEvent < ApplicationRecord
 
   has_many :topical_event_featurings,
            lambda {
-             (extending UserOrderableExtension)
-              .where("editions.state = 'published' or topical_event_featurings.edition_id is null")
-                .references(:edition)
-                .includes(edition: :translations)
-                .order("topical_event_featurings.ordering asc")
+             base = extending(UserOrderableExtension)
+
+             latest_edition_per_document = <<~SQL.squish
+               topical_event_featurings.edition_id = (
+                 SELECT MAX(tef2.edition_id)
+                 FROM topical_event_featurings tef2
+                 INNER JOIN editions e2 ON e2.id = tef2.edition_id
+                 WHERE tef2.topical_event_id = topical_event_featurings.topical_event_id
+                   AND e2.document_id = editions.document_id
+               )
+             SQL
+             excluded_states = %w[draft rejected submitted]
+             base
+               .joins("LEFT JOIN editions ON editions.id = topical_event_featurings.edition_id")
+               .where(
+                 <<~SQL.squish,
+                   topical_event_featurings.edition_id IS NULL
+                    OR (
+                      editions.state NOT IN (?)
+                      AND #{latest_edition_per_document}
+                    )
+                 SQL
+                 excluded_states,
+               )
+               .includes(edition: :translations)
+               .order("topical_event_featurings.ordering ASC")
            },
            foreign_key: :topical_event_id,
            inverse_of: :topical_event
