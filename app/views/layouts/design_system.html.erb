@@ -11,6 +11,7 @@
     <% if get_content_id(@edition) %>
       <meta name="govuk:content-id" content="<%= get_content_id(@edition) %>">
     <% end %>
+    <%= javascript_pack_tag "application" %>
     <%= javascript_include_tag "admin/domain-config" %>
     <%= javascript_include_tag "govuk_publishing_components/load-analytics" %>
   <% end %>

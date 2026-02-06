@@ -93,8 +93,17 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  # config.action_cable.mount_path = '/cable'
+  # config.action_cable.url = 'ws://whitehall-admin.dev.gov.uk/cable'
 
-  config.hosts.clear
+  config.action_cable.mount_path = "/cable"
+  config.action_cable.url = "ws://localhost:28080" # use wss:// in production
+  config.action_cable.allowed_request_origins = [%r{.*}]
+
+  # config.hosts.clear
+  config.hosts << "whitehall-admin.dev.gov.uk"
+  config.hosts << "localhost"
+  config.action_cable.allow_same_origin_as_host = true
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = false
