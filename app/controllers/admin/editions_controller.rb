@@ -494,7 +494,7 @@ private
   end
 
   def construct_similar_slug_warning_error
-    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title. If not, the URL for this project will be #{@edition.base_path}") if show_similar_slugs_warning?(@edition)
+    @edition.errors.add(:title, "has been used before on GOV.UK, although the page may no longer exist. Please use another title. If not, the URL for this #{@edition.format_name} will be #{@edition.base_path}") if show_similar_slugs_warning?(@edition)
   end
 
   def updater
