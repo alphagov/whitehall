@@ -49,8 +49,12 @@ class FeatureList < ApplicationRecord
   delegate :empty?, to: :current
 
   def republish_featurable_to_publishing_api
-    if (featurable.is_a?(Organisation) || featurable.is_a?(WorldLocationNews)) && featurable.persisted?
-      Whitehall::PublishingApi.republish_async(featurable)
+    if featurable.persisted?
+      if featurable.is_a?(Organisation) || featurable.is_a?(WorldLocationNews)
+        Whitehall::PublishingApi.republish_async(featurable)
+      else
+        Whitehall::PublishingApi.republish_document_async(featurable.document)
+      end
     end
   end
 

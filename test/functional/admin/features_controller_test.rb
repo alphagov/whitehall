@@ -16,8 +16,9 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
   end
 
   test "post :unfeature ends the feature" do
-    world_location = create(:world_location)
-    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    world_location_news = build(:world_location_news)
+    create(:world_location, world_location_news:)
+    feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
     edition = create(:published_speech)
     feature = create(:feature, document: edition.document, feature_list:)
 

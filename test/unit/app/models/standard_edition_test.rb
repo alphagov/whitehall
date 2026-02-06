@@ -386,6 +386,32 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal %w[en fr], new_edition.feature_lists.map(&:locale)
   end
 
+  test "changing the state of the StandardEdition causes a republish of any documents the StandardEdition is featured on" do
+    featuring_edition = create(:published_standard_edition)
+    feature_list = create(:feature_list, featurable: featuring_edition)
+
+    featured_edition = create(:submitted_standard_edition, major_change_published_at: 1.day.ago)
+    feature = feature_list.features.build(document: featured_edition.document, started_at: 1.day.ago)
+    feature.image = build(:featured_image_data, featured_imageable: feature)
+    feature.save!
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(featuring_edition.document)
+    featured_edition.publish!
+  end
+
+  test "changing anything else about StandardEdition does NOT cause a republish of any documents the StandardEdition is featured on" do
+    featuring_edition = create(:published_standard_edition)
+    feature_list = create(:feature_list, featurable: featuring_edition)
+
+    featured_edition = create(:submitted_standard_edition, major_change_published_at: 1.day.ago)
+    feature = feature_list.features.build(document: featured_edition.document, started_at: 1.day.ago)
+    feature.image = build(:featured_image_data, featured_imageable: feature)
+    feature.save!
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(featuring_edition.document).never
+    featured_edition.update!(title: "Foo")
+  end
+
   describe "#update_configurable_document_type" do
     [
       { state: :draft_standard_edition },

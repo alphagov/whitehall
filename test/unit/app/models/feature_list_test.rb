@@ -41,7 +41,8 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "can re-order features" do
-    feature_list = create(:feature_list, locale: :en)
+    standard_edition = create(:standard_edition)
+    feature_list = create(:feature_list, locale: :en, featurable: standard_edition)
     feature_list.features << create(:feature)
     feature_list.features << create(:feature)
 
@@ -104,12 +105,13 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "#features should still return featured documents after republication" do
-    world_location = create(:world_location)
+    world_location_news = build(:world_location_news)
+    world_location = create(:world_location, world_location_news:)
 
     _item_a = create(:published_speech, world_locations: [world_location])
     item_b = create(:published_speech, world_locations: [world_location])
 
-    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
     create(:feature, feature_list:, document: item_b.document)
 
     editor = create(:departmental_editor)

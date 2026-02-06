@@ -82,6 +82,7 @@ class Edition < ApplicationRecord
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
   after_update :republish_topical_event_to_publishing_api #  legacy
+  after_update :republish_featurable_to_publishing_api, if: :saved_change_to_state?
 
   accepts_nested_attributes_for :document
 
@@ -456,6 +457,11 @@ private
     topical_event_featurings.each do |topical_event_featuring|
       Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)
     end
+  end
+
+  def republish_featurable_to_publishing_api
+    active_features_referencing_this_document = document.features.where(ended_at: nil)
+    active_features_referencing_this_document.each(&:republish_to_publishing_api_async)
   end
 
   def update_document_edition_references

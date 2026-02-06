@@ -33,9 +33,10 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
   end
 
   test "#perform! ends any featurings associated with the document" do
-    edition     = create(:published_edition)
-    feature     = create(:feature, document: edition.document)
-    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
+    edition      = create(:published_edition)
+    feature_list = create(:feature_list, featurable: edition)
+    feature      = create(:feature, feature_list: feature_list, document: edition.document)
+    unpublisher  = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     assert unpublisher.perform!
     assert_equal Time.zone.now, feature.reload.ended_at
