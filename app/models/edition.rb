@@ -81,6 +81,7 @@ class Edition < ApplicationRecord
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
   after_update :republish_topical_event_to_publishing_api
+  after_update :republish_documents_featuring_this_document, if: :saved_change_to_state?
 
   accepts_nested_attributes_for :document
 
@@ -450,9 +451,18 @@ private
     published_edition_date || draft_edition_date
   end
 
+  # LEGACY topical events
   def republish_topical_event_to_publishing_api
     topical_event_featurings.each do |topical_event_featuring|
       Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)
+    end
+  end
+
+  def republish_documents_featuring_this_document
+    documents_featuring_this_document = document.features.where(ended_at: nil).pluck(:document_id).uniq
+    documents_featuring_this_document.each do |doc_id|
+      # Re-presents the published and draft documents (if applicable) to Publishing API
+      Whitehall::PublishingApi.republish_async(Document.find(doc_id))
     end
   end
 
