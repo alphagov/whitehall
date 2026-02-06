@@ -29,10 +29,10 @@
         module: "ga4-auto-tracker",
         ga4_auto: {
           type: "show similar slugs warning",
-          text: "This title has been used before on GOV.UK, although the page may no longer exist. Please use another title. If not, the URL for this project will be #{@edition.base_path}",
+          text: "This title has been used before on GOV.UK, although the page may no longer exist. Please use another title. If not, the URL for this #{@edition.format_name} will be #{@edition.base_path}",
         }.merge(ga4_auto_attributes).as_json,
       },
-      description: "This title has been used before on GOV.UK, although the page may no longer exist. Please use another title. If not, the URL for this project will be #{@edition.base_path}",
+      description: "This title has been used before on GOV.UK, although the page may no longer exist. Please use another title. If not, the URL for this #{@edition.format_name} will be #{@edition.base_path}",
       error: true,
     } %>
   <% end %>
