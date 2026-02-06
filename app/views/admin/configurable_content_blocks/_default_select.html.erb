@@ -1,18 +1,16 @@
 <% required = required || false %>
 <% translated_content = translated_content || nil %>
+<% errors = errors || [] %>
 <% select_options = [
-     {
-       text: "No social media service selected",
-       value: "",
-     },
-   ] + social_media_service_select.services.map do |service|
+     { text: schema["blank_option_label"] || "Select an option", value: "" },
+   ] + schema["options"].map do |opt|
   {
-    text: service.name,
-    value: service.id,
-    selected: service.id == (translated_content || content).to_i,
+    text: opt["label"],
+    value: opt["value"],
+    selected: opt["value"] == (translated_content || content),
   }
 end %>
-<% errors = errors || [] %>
+
 <%= render "govuk_publishing_components/components/select", {
   id: path.form_control_id,
   label: schema["title"] + (required ? " (required)" : ""),

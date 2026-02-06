@@ -53,7 +53,7 @@
             "default_string",
             "govspeak",
             "lead_image_select",
-            "social_media_service_select"
+            "default_select"
           ]
         },
         "fields": {
@@ -63,6 +63,26 @@
               "$ref": "#/$defs/form_field"
             }
           }
+        },
+        "options": {
+          "type": "array",
+          "description": "List of options for select inputs.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["label", "value"]
+          }
+        },
+        "blank_option_label": {
+          "type": "string",
+          "description": "Text to display for the blank/default option in a select input."
         }
       },
       "required": ["title", "block"],

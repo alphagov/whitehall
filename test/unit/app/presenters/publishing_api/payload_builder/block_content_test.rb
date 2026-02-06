@@ -293,17 +293,16 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     end
 
     test "social_media_links returns array of social media links" do
-      social_media_service = create(:social_media_service)
-      value_of_links = [{ "social_media_service_id" => social_media_service.id, "url" => "https://example.com" }]
+      value_of_links = [{ "social_media_service_name" => "twitter", "url" => "https://example.com" }]
       @block_content.stubs(:some_attribute).returns(value_of_links)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
       expected_payload = [
         {
-          title: social_media_service.name,
-          service_type: social_media_service.name.parameterize,
-          href: "https://example.com",
+          title: value_of_links.first["social_media_service_name"],
+          service_type: value_of_links.first["social_media_service_name"].parameterize,
+          href: value_of_links.first["url"],
         },
       ]
       assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
