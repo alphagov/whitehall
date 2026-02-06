@@ -1,3 +1,4 @@
+# LEGACY TOPICAL EVENTS ONLY
 class Admin::TopicalEventsController < Admin::BaseController
   before_action :load_object, only: %i[show edit confirm_destroy destroy]
   before_action :build_object, only: [:new]

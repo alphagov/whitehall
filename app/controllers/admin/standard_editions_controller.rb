@@ -37,6 +37,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
   def features
     @feature_list = @edition.load_or_create_feature_list(params[:locale])
+    # raise @feature_list.inspect
     @locale = Locale.new(params[:locale] || :en)
 
     filter_params = params.slice(:page, :type, :author, :organisation, :title)

@@ -1,3 +1,5 @@
+# Legacy: used only by Organisation / WorldLocationNews.
+# New 'featurable' behaviour used by config-driven documents use Edition::Featurable instead.
 module Featurable
   extend ActiveSupport::Concern
 

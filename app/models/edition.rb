@@ -30,7 +30,7 @@ class Edition < ApplicationRecord
   include Edition::Scopes::FilterableByInvalid
   include Edition::Scopes::FilterableByBrokenLinks
   include Edition::Scopes::FilterableByDate
-  include Edition::Scopes::FilterableByTopicalEvent
+  include Edition::Scopes::FilterableByTopicalEvent # legacy
   include Edition::Scopes::FilterableByType
   include Edition::Scopes::FilterableByWorldLocation
   include Edition::Scopes::FindableByOrganisation
@@ -451,6 +451,7 @@ private
     published_edition_date || draft_edition_date
   end
 
+  # LEGACY
   def republish_topical_event_to_publishing_api
     topical_event_featurings.each do |topical_event_featuring|
       Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)

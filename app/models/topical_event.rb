@@ -1,3 +1,4 @@
+# LEGACY TOPICAL EVENTS ONLY
 class TopicalEvent < ApplicationRecord
   include DateValidation
   include PublishesToPublishingApi
