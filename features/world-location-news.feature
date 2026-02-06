@@ -43,7 +43,7 @@ Feature: Administering world location news information
       And select the "Documents" child tab
       And search for "Documento destacado"
       Then I should be on the Spanish search results page
-      And I should see "Featured document" in the document list
+      And I should see "Documento destacado" in the document list
 
     Scenario: Featuring a topical event
       Given there is an active topical event with the name "Featured topical event"
