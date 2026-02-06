@@ -11,13 +11,8 @@ class TopicalEvent < ApplicationRecord
     state :deleted
 
     event :delete, success: ->(document) { document.remove_from_search_index if document.respond_to?(:remove_from_search_index) } do
-      transitions from: [:current], to: :deleted, guard: :destroyable?
+      transitions from: [:current], to: :deleted
     end
-  end
-
-  # TODO: remove in next commit
-  def destroyable?
-    true
   end
 
   date_attributes(:start_date, :end_date)
