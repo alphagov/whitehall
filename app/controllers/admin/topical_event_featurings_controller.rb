@@ -1,3 +1,4 @@
+# LEGACY TOPICAL EVENTS ONLY
 class Admin::TopicalEventFeaturingsController < Admin::BaseController
   before_action :load_topical_event
   before_action :load_topical_event_featuring, only: %i[confirm_destroy destroy]

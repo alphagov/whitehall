@@ -1,3 +1,4 @@
+# LEGACY TOPICAL EVENTS ONLY
 class TopicalEventFeaturing < ApplicationRecord
   belongs_to :edition, inverse_of: :topical_event_featurings
   belongs_to :offsite_link
