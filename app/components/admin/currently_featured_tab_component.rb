@@ -27,6 +27,7 @@ private
     if features.present?
       render Admin::Features::FeaturedDocumentsTableComponent.new(caption:, features: featured)
     else
+      # Legacy
       render Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent.new(caption:, featurings: featured)
     end
   end
@@ -35,6 +36,7 @@ private
     if features.present?
       reorder_admin_feature_list_path(features.first.feature_list)
     else
+      # legacy
       reorder_admin_topical_event_topical_event_featurings_path(featurings.first.topical_event)
     end
   end

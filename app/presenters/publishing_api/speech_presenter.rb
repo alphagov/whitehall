@@ -62,7 +62,7 @@ module PublishingApi
         ],
       )
       links.merge!(links_for_speaker)
-      links.merge!(PayloadBuilder::TopicalEvents.for(item))
+      links.merge!(PayloadBuilder::TopicalEvents.for(item)) # Legacy
       links.merge!(PayloadBuilder::Roles.for(item))
       links.merge!(PayloadBuilder::People.for(item))
     end

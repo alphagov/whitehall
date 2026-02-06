@@ -250,8 +250,8 @@ private
         world_location_ids: [],
         worldwide_organisation_ids: [],
         topic_ids: [],
-        topical_event_ids: [],
-        topical_event_document_ids: [],
+        topical_event_ids: [], # LEGACY
+        topical_event_document_ids: [], # New
         related_detailed_guide_ids: [],
         role_appointment_ids: [],
         statistical_data_set_document_ids: [],

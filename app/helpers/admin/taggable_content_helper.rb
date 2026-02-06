@@ -101,6 +101,7 @@ module Admin::TaggableContentHelper
   # events. This will change if any of the Topics should change or if a new
   # topic event is added.
   def taggable_topical_events_cache_digest
+    # legacy
     @taggable_topical_events_cache_digest ||= calculate_digest(TopicalEvent.order(:id), "topical-events")
   end
 

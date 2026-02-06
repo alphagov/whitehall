@@ -1,3 +1,4 @@
+# Legacy
 module PublishingApi
   class TopicalEventPresenter
     include GovspeakHelper

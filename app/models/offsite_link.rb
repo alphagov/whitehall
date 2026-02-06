@@ -60,7 +60,7 @@ class OffsiteLink < ApplicationRecord
 
   has_many :offsite_link_parents
   has_many :organisations, through: :offsite_link_parents, source: :parent, source_type: "Organisation"
-  has_many :topical_events, through: :offsite_link_parents, source: :parent, source_type: "TopicalEvent"
+  has_many :topical_events, through: :offsite_link_parents, source: :parent, source_type: "TopicalEvent" # Legacy
   has_many :world_location_news, through: :offsite_link_parents, source: :parent, source_type: "WorldLocationNews"
 
   has_many :features, inverse_of: :offsite_link, dependent: :destroy

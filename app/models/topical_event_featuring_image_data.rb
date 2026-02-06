@@ -1,3 +1,4 @@
+# Legacy
 class TopicalEventFeaturingImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
 

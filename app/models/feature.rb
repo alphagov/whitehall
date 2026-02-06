@@ -1,6 +1,6 @@
 class Feature < ApplicationRecord
   belongs_to :document
-  belongs_to :topical_event
+  belongs_to :topical_event # Legacy
   belongs_to :offsite_link
   belongs_to :feature_list
 
@@ -21,7 +21,7 @@ class Feature < ApplicationRecord
   def to_s
     if document && document.live_edition
       LocalisedModel.new(document.live_edition, locale).title
-    elsif topical_event
+    elsif topical_event # Legacy
       topical_event.name
     elsif offsite_link
       offsite_link.title
@@ -38,6 +38,7 @@ class Feature < ApplicationRecord
     joins(document: :live_edition)
   end
 
+  # Legacy
   def self.with_topical_events
     joins(:topical_event)
   end

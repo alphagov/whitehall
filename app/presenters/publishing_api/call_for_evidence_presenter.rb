@@ -47,7 +47,7 @@ module PublishingApi
         .extract(%i[organisations government])
         .merge(PayloadBuilder::People.for(call_for_evidence))
         .merge(PayloadBuilder::Roles.for(call_for_evidence))
-        .merge(PayloadBuilder::TopicalEvents.for(call_for_evidence))
+        .merge(PayloadBuilder::TopicalEvents.for(call_for_evidence)) # Legacy
     end
 
   private

@@ -1,3 +1,4 @@
+# Legacy
 module ConfigurableAssociations
   class TopicalEventDocuments
     def initialize(association)

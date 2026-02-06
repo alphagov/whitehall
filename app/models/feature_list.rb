@@ -31,6 +31,7 @@ class FeatureList < ApplicationRecord
   end
 
   def current
+    # Legacy
     features.current.includes([:topical_event, { document: :live_edition }])
   end
 
@@ -39,6 +40,7 @@ class FeatureList < ApplicationRecord
   end
 
   def topical_events
+    # Legacy
     features.current.with_topical_events
   end
 
