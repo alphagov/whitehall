@@ -44,18 +44,11 @@ class Admin::StandardEditionsController < Admin::EditionsController
                           .to_h
                           .merge(
                             state: "published",
+                            linked_document: @edition.document,
                             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                           )
 
-    @tagged_editions_query = Edition.published
-                              .with_translations(@feature_list.locale)
-                              .joins("INNER JOIN edition_links ON edition_links.edition_id = editions.id")
-                              .where(edition_links: { document_id: @edition.document_id })
-                              .reorder("editions.created_at DESC")
-                              .page(params[:page])
-                              .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
-
-    @filter = Admin::EditionFilter.new(@tagged_editions_query, current_user, filter_params)
+    @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @tagged_editions = @filter.editions(@feature_list.locale)
 
     render :features
