@@ -34,4 +34,38 @@ module Edition::TopicalEvents
   def search_index
     super.merge("topical_events" => topical_events.pluck(:slug))
   end
+
+  # WARNING:
+  # The existing associations above (topical_event_links / topical_event_documents) are OUTBOUND:
+  #   "this edition belongs to these topical event documents"
+  #
+  # The methods below are INBOUND and only make sense when this edition *is* the topical event.
+  # They deliberately raise for non-topical-event editions to avoid accidental misuse.
+
+  def topical_event_member_links
+    raise_if_doc_not_a_topical_event!
+
+    EditionLink.of_type("topical_event").where(document_id: document_id)
+  end
+
+  def topical_event_member_editions
+    raise_if_doc_not_a_topical_event!
+
+    Edition.where(id: topical_event_member_links.select(:edition_id))
+  end
+
+  def topical_event_member_documents
+    raise_if_doc_not_a_topical_event!
+
+    Document.where(id: topical_event_member_editions.select(:document_id))
+  end
+
+private
+
+  def raise_if_doc_not_a_topical_event!
+    return if respond_to?(:configurable_document_type) && configurable_document_type == "topical_event"
+
+    raise ArgumentError,
+          "Inbound topical-event lookups only valid for StandardEdition configurable_document_type='topical_event' (got #{respond_to?(:configurable_document_type) ? configurable_document_type.inspect : 'n/a'})"
+  end
 end
