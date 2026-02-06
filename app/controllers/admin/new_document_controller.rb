@@ -82,6 +82,13 @@ class Admin::NewDocumentController < Admin::BaseController
         "label" => "landing_page".humanize,
       },
     }
+    types["topical_event"] = {
+      "klass" => StandardEdition,
+      "hint_text" => "Use this to create config-driven topical events.",
+      "label" => "Topical Event (experimental)",
+      "redirect" => new_admin_standard_edition_path(configurable_document_type: "topical_event"),
+    }
+
     if Flipflop.enabled?(:configurable_document_types)
       types["standard_edition"] = {
         "klass" => StandardEdition,
