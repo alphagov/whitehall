@@ -298,6 +298,29 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [edition_with_overdue_reminder], Admin::EditionFilter.new(Edition, @current_user, review_overdue: true).editions
   end
 
+  test "should filter by linked documents" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    linked_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type", topical_event_documents: [featuring_edition.document])
+    create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+
+    filtered_editions = Admin::EditionFilter.new(Edition, @current_user, linked_document: featuring_edition.document).editions
+
+    assert_equal [linked_edition], filtered_editions
+  end
+
   test "should return the editions ordered by most recent first" do
     older_publication = create(:draft_publication, updated_at: 3.days.ago)
     newer_publication = create(:draft_publication, updated_at: 1.minute.ago)

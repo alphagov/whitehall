@@ -1,3 +1,5 @@
+require_relative "../../test/support/configurable_document_type_helper"
+
 ParameterType(
   name: "edition",
   regexp: /the (document|publication|consultation|consultation response|speech|detailed guide|announcement|statistical data set|document collection|corporate information page|call for evidence|worldwide organisation) "([^"]*)"/,
@@ -5,6 +7,8 @@ ParameterType(
 )
 
 module DocumentHelper
+  include ConfigurableDocumentTypeHelper
+
   def document_class(type)
     type = "edition" if type == "document"
     type.tr(" ", "_").classify.constantize

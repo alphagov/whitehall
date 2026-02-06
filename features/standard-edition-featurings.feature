@@ -13,6 +13,13 @@ Feature:
     When I visit the standard edition featuring index page
     And I feature "Featured edition"
     Then I see that "Featured edition" has been featured
+  
+  Scenario: Resetting the documents serach filter
+    When I visit the standard edition featuring index page
+    And I filter the documents by "Featured News Story"
+    Then I see only "Featured News Story" in the list of documents to feature
+    And I click the "Reset all fields" link
+    Then I see the full list of documents to feature
 
   Scenario: Reordering currently featured documents
     Given two featurings exist for the edition
