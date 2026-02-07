@@ -60,11 +60,10 @@
   }
 
   .app-c-secondary-navigation__list-item-link:focus {
-    @include govuk-focused-text;
-
     border-color: $govuk-focus-text-colour;
     border-left-color: transparent;
     position: relative;
+    @include govuk-focused-text;
 
     @include govuk-media-query($from: tablet) {
       box-shadow: none;
@@ -80,10 +79,9 @@
   }
 
   .app-c-secondary-navigation__list-item-link:focus {
-    @include govuk-focused-text;
-
     border-color: $govuk-focus-text-colour;
     border-left-color: transparent;
+    @include govuk-focused-text;
 
     @include govuk-media-query($from: tablet) {
       box-shadow: none;

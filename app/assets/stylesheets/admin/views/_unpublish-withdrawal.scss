@@ -1,7 +1,6 @@
 .app-view-unpublish-withdrawal__form-wrapper {
-  @include govuk-responsive-margin(9, "top");
-  @include govuk-responsive-padding(7, "top");
-
   border-top: 1px solid $govuk-border-colour;
   display: none;
+  @include govuk-responsive-margin(9, "top");
+  @include govuk-responsive-padding(7, "top");
 }

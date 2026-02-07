@@ -11,9 +11,9 @@
 }
 
 .app-view-summary__topic-tag-list {
-  @include govuk-font($size: 19);
   padding-bottom: govuk-spacing(2);
   border-bottom: 1px solid govuk-colour("light-grey");
+  @include govuk-font($size: 19);
 }
 
 .app-view-summary__topic-tag-list-item {
