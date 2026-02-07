@@ -19,6 +19,8 @@ require "whitehall/search_index"
 require "sidekiq/testing"
 require "govuk_schemas/assert_matchers"
 
+Sidekiq.logger.level = Logger::WARN
+
 if ENV["USE_I18N_COVERAGE"]
   require "i18n/coverage"
   require "i18n/coverage/printers/file_printer"

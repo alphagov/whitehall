@@ -3,6 +3,8 @@ require_relative "../../test/support/sidekiq_test_helpers"
 
 World(SidekiqTestHelpers)
 
+Sidekiq.logger.level = Logger::WARN
+
 Around("@without-delay or @not-quite-as-fake-search") do |_scenario, block|
   Sidekiq::Testing.inline! do
     block.call
