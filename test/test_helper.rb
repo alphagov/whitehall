@@ -46,11 +46,7 @@ class ActiveSupport::TestCase
   include ConfigurableDocumentTypeHelper
   extend GovspeakValidationTestHelper
 
-  if ENV["RUN_IN_PARALLEL"] == "false"
-    parallelize(workers: 1) # Run tests sequentially
-  else
-    parallelize(workers: :number_of_processors) # Run tests in parallel
-  end
+  parallelize(workers: :number_of_processors)
 
   attr_reader :feature_flags
 

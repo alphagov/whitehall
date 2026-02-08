@@ -5,9 +5,6 @@ module SidekiqTestHelpers
   def with_real_sidekiq
     Sidekiq::Testing.disable! do
       Sidekiq.configure_client do |config|
-        # The Rails built-in test parallelization doesn't make it easy to find the worker number.
-        # So here we're using the number suffixed to the Postgres database name, because that is unique for each worker.
-        parallel_test_runner_number = ActiveRecord::Base.connection.current_database.split("-").last.to_i
         config.redis = { db: parallel_test_runner_number }
       end
 
@@ -15,5 +12,18 @@ module SidekiqTestHelpers
 
       yield
     end
+  end
+
+private
+
+  def parallel_test_runner_number
+    return ENV["TEST_ENV_NUMBER"].to_i if ENV["TEST_ENV_NUMBER"].to_s.match?(/\A\d+\z/)
+    return ENV["EXECUTOR_NUMBER"].to_i if ENV["EXECUTOR_NUMBER"].to_s.match?(/\A\d+\z/)
+
+    current_database = ActiveRecord::Base.connection.current_database
+    return Regexp.last_match(1).to_i if current_database&.match(/(\d+)\z/)
+    return Regexp.last_match(1).to_i if current_database&.match(/_executor_(\d+)_/)
+
+    0
   end
 end
