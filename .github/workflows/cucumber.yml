@@ -4,12 +4,28 @@ on: workflow_call
 
 jobs:
   feature-test-matrix:
+    name: Test features / ${{ matrix.shard_group }}-${{ matrix.ci_node_index }}
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [4]
-        ci_node_index: [0, 1, 2, 3]
+        include:
+          - shard_group: non-javascript
+            cucumber_tag_expression: "not @javascript"
+            ci_node_total: 3
+            ci_node_index: 0
+          - shard_group: non-javascript
+            cucumber_tag_expression: "not @javascript"
+            ci_node_total: 3
+            ci_node_index: 1
+          - shard_group: non-javascript
+            cucumber_tag_expression: "not @javascript"
+            ci_node_total: 3
+            ci_node_index: 2
+          - shard_group: javascript
+            cucumber_tag_expression: "@javascript"
+            ci_node_total: 1
+            ci_node_index: 0
     steps:
       - name: Setup MySQL
         id: setup-mysql
@@ -32,6 +48,7 @@ jobs:
         uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
 
       - name: Cache Playwright Chromium browser
+        if: matrix.shard_group == 'javascript'
         id: playwright-cache
         uses: actions/cache@v5
         with:
@@ -39,11 +56,11 @@ jobs:
           key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
 
       - name: Install Playwright Chromium browser (with deps)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: matrix.shard_group == 'javascript' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: yarn run playwright install --with-deps chromium
 
       - name: Install Playwright Chromium browser deps
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: matrix.shard_group == 'javascript' && steps.playwright-cache.outputs.cache-hit == 'true'
         run: yarn run playwright install-deps chromium
 
       - name: Precompile assets
@@ -61,7 +78,7 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
           CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-        run: bundle exec ./bin/cucumber-ci
+        run: bundle exec ./bin/cucumber-ci --tags "${{ matrix.cucumber_tag_expression }}"
 
   run-cucumber:
     name: Run Cucumber
