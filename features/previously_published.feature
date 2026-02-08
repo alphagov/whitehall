@@ -6,7 +6,6 @@ Feature: Previously published options
     And I click save
     Then I do not see a validation error for the 'previously published' option
 
-  @javascript
   Scenario: Creating a new case study and selecting a previously published date in the future
     Given the date is 2018-06-07
     And I am a writer in the organisation "Department of Examples"
@@ -23,7 +22,6 @@ Feature: Previously published options
     And I click save
     Then I see a validation error for the missing publication date
 
-  @javascript
   Scenario: Creating a new case study with a valid previously published date
     Given the date is 2018-06-07
     And I am a writer in the organisation "Department of Examples"

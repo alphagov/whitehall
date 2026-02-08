@@ -35,7 +35,6 @@ Feature: Consultations
     And I save and publish the amended consultation
     Then I can see that the consultation has been published
 
-  @javascript
   Scenario: Associating an offsite consultation with topical events
     Given I am an editor
     And a draft consultation "Beard Length Review" exists
@@ -43,7 +42,6 @@ Feature: Consultations
     And I mark the consultation as offsite
     Then the consultation can be associated with topical events
 
-  @javascript
   Scenario: Creating a new draft consultation in another language
     Given I am a writer
     When I draft a new "Cymraeg" language consultation "Beard Length Review"
