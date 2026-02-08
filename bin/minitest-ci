@@ -2,31 +2,39 @@
 
 # This script is used during the GitHub Actions workflow
 # defined in .github/workflows/minitest.yml.
-# It splits the MiniTest suite into randomly-allocated groups
-# which are executed across multiple GitHub Actions 'matrix' nodes.
+
+ASSET_REQUIRED_PREFIXES = ["test/functional/admin/", "test/integration/"].freeze
 
 test_files = Dir["test/**/*_test.rb"]
 
-# Detect isolated test files (those with # RUN_IN_ISOLATION in the first 10 lines)
-isolated_tests, regular_tests = test_files.partition do |file|
-  File.foreach(file).first(10).grep(/# RUN_IN_ISOLATION/).any?
+mode = ENV.fetch("MINITEST_CI_MODE") do
+  abort("MINITEST_CI_MODE is required (expected: ruby-only or assets-required)")
 end
 
-# Determine which CI node is running
-node_index = ENV["CI_NODE_INDEX"].to_i
-total_nodes = ENV["CI_NODE_TOTAL"].to_i
+tests =
+  case mode
+  when "ruby-only"
+    test_files.reject { |file| file.start_with?(*ASSET_REQUIRED_PREFIXES) }
+  when "assets-required"
+    test_files.select { |file| file.start_with?(*ASSET_REQUIRED_PREFIXES) }
+  else
+    abort("Unknown MINITEST_CI_MODE '#{mode}'")
+  end
 
-if node_index == 0
-  # First CI node runs all isolated tests sequentially
-  tests = isolated_tests
-  exec({ "RUN_IN_PARALLEL" => "false" }, "bundle exec rails test #{tests.join(' ')}")
-else
-  # Other nodes distribute regular tests
-  tests = regular_tests.
-    sort.
-    shuffle(random: Random.new(ENV['GITHUB_SHA'].to_i(16))).
-    select.
-    with_index { |_, i| i % (total_nodes - 1) == (node_index - 1) }
+node_index = ENV.fetch("CI_NODE_INDEX", "0").to_i
+total_nodes = ENV.fetch("CI_NODE_TOTAL", "1").to_i
+abort("CI_NODE_TOTAL must be >= 1") if total_nodes < 1
+abort("CI_NODE_INDEX must be >= 0") if node_index.negative?
+abort("CI_NODE_INDEX must be < CI_NODE_TOTAL") if node_index >= total_nodes
 
-  exec({ "RUN_IN_PARALLEL" => "true" }, "bundle exec rails test #{tests.join(' ')}")
+tests = tests
+  .sort
+  .shuffle(random: Random.new(ENV.fetch("GITHUB_SHA", "0").to_i(16)))
+  .select.with_index { |_file, i| i % total_nodes == node_index }
+
+if tests.empty?
+  warn "No tests assigned for this run; exiting successfully."
+  exit 0
 end
+
+exec("bundle", "exec", "rails", "test", *tests)
