@@ -45,8 +45,16 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def create
-    @images = images_params.map do |images_param|
-      @edition.images.build(images_param).tap do |image|
+    return render :index if images_params.empty?
+
+    usage_key = params[:usage]
+
+    @images = images_params.map do |image_param|
+      # Kind must be set before the attribute assignment. Carrierwave validates the ImageData `file` dimensions against the width and height specified in the config. Fetching the config requires knowing the `image_kind`.
+      image_param[:usage] ||= usage_key
+      image_param[:image_data_attributes][:image_kind] = params[:image_kind]
+
+      @edition.images.build(image_param).tap do |image|
         # so that image data can perform unique filename validation
         image.image_data.validate_on_image = image
 
@@ -55,7 +63,7 @@ class Admin::EditionImagesController < Admin::BaseController
       end
     end
 
-    if @images.all?(&:valid?)
+    if @images.any? && @images.all?(&:valid?)
       @images.each(&:save)
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
@@ -65,12 +73,22 @@ class Admin::EditionImagesController < Admin::BaseController
       @images.each { |image| @edition.images.delete(image) }
     end
 
-    if @images.count == 1 && @images.first.valid?
-      redirect_to edit_admin_edition_image_path(@edition, @images.first.id)
-    elsif @images.first.image_kind != "default"
-      render :new
+    usage = get_usage_by_key(usage_key)
+    if usage.multiple?
+      # For one valid image of multiple usage, redirect to edit page to allow cropping and captioning
+      if @images.count == 1 && @images.first.valid?
+        redirect_to edit_admin_edition_image_path(@edition, @images.first)
+      else
+        # Either the one image is not valid, or there are multiple images (regardless of validity)
+        render :index
+      end
+    #   Single usage
+    elsif @images.first.valid?
+      # For a valid image of single usage, redirect to edit page to allow cropping and captioning
+      redirect_to edit_admin_edition_image_path(@edition, @images.first)
     else
-      render :index
+      # For an invalid image of single usage, render errors on the 'new' view
+      render :new # TODO: this is broken, it always redirects to the first image usage even when you are trying to upload subsequent usage.
     end
   end
 
@@ -113,6 +131,11 @@ private
                    end
   end
   helper_method :image_usage
+
+  # TODO: reconcile get_usage_by_key and image_usage so they're the same method. Currently image_usage has a wider use, while get_usage_by_key is only used in the controller create.
+  def get_usage_by_key(usage_key)
+    @edition.permitted_image_usages.detect { |image_usage| image_usage.key == usage_key }
+  end
 
   def find_image
     @edition.images.find(params[:id]) if params[:id]

@@ -4,6 +4,7 @@ class Image < ApplicationRecord
   has_one :edition_lead_image, dependent: :destroy
 
   validates :image_data, presence: { message: "must be present" }
+  validates :usage, presence: { message: "must be specified" }
 
   after_destroy :destroy_image_data_if_required
 

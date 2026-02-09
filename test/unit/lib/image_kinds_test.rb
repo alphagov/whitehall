@@ -88,4 +88,9 @@ class ImageKindsTest < ActiveSupport::TestCase
       })
     end
   end
+
+  test "#display_name_without_dimensions returns display name from yaml without the dimensions" do
+    kind = Whitehall::ImageKind.new("test_kind", { "display_name" => "Test Kind (300x200)", "valid_width" => 300, "valid_height" => 200, "permitted_uses" => [], "versions" => [] })
+    assert_equal "Test Kind", kind.display_name_without_dimensions
+  end
 end
