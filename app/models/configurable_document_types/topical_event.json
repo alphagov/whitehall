@@ -138,6 +138,9 @@
   "associations": [
     {
       "key": "organisations"
+    },
+    {
+      "key": "topical_event_documents"
     }
   ],
   "settings": {
