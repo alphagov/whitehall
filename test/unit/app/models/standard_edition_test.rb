@@ -349,6 +349,18 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page.respond_to?(:organisation_association_required?) # ignores required value for other associations
   end
 
+  test "features are copied over to new edition of document if the featurable is editionable" do
+    english = build(:feature_list, locale: :en)
+    french = build(:feature_list, locale: :fr)
+
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = create(:published_standard_edition, configurable_document_type: "test_type", feature_lists: [english, french])
+
+    new_edition = edition.create_draft(User.new)
+
+    assert_equal %w[en fr], new_edition.feature_lists.map(&:locale)
+  end
+
   describe "#update_configurable_document_type" do
     [
       { state: :draft_standard_edition },
