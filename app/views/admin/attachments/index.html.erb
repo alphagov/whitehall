@@ -6,8 +6,8 @@
   <% content_for :context, "#{attachable.name}" %>
 <% end %>
 <% content_for :error_summary do %>
-  <% unless flash[:bulk_upload_error].blank? %>
-    <%= render("govuk_publishing_components/components/error_summary", { title: "There is a problem", items: [{ text: flash[:bulk_upload_error], href: "#bulk_upload_files" }]}) %>
+  <% unless flash[:upload_error].blank? %>
+    <%= render("govuk_publishing_components/components/error_summary", { title: "There is a problem", items: [{ text: flash[:upload_error], href: "#upload_files" }]}) %>
   <% end %>
 <% end %>
 <div class="govuk-grid-row">

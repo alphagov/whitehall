@@ -1,16 +1,16 @@
 <% content_for :page_title, "Adding #{attachment.attachable_model_name} #{attachment.readable_type} attachment" %>
 <% content_for :title, "Edit file attachments" %>
 <% content_for :context, "Attachments for #{attachment.attachable_model_name}" %>
-<% content_for :error_summary, bulk_attachment_errors(@bulk_upload.attachments) %>
+<% content_for :error_summary, attachment_errors(@upload.attachments) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-!-margin-bottom-8">
-      <%= form_for @bulk_upload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), @bulk_upload]) do |form| %>
-        <% @bulk_upload.attachments.each.with_index do |attachment, i| %>
+      <%= form_for @upload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), @upload]) do |form| %>
+        <% @upload.attachments.each.with_index do |attachment, i| %>
           <%= form.fields_for :attachments, attachment do |attachment_fields| %>
 
-            <% name = "bulk_upload[attachments][#{i}]" %>
+            <% name = "upload[attachments][#{i}]" %>
 
             <%= render "govuk_publishing_components/components/fieldset", { legend_text: "File: #{attachment.new_record? && attachment.attachment_data.new_filename.present? ? attachment.attachment_data.new_filename : attachment.attachment_data.filename}", heading_level: 2, heading_size: "l" } do %>
 
@@ -53,7 +53,7 @@
                         value: "replace",
                         text: "Replace the existing file",
                       },
-                    ].concat(@bulk_upload.attachments.many? ? [
+                    ].concat(@upload.attachments.many? ? [
                       {
                         id: "#{name}_attachment_data_keep_or_replace_reject",
                         value: "reject",

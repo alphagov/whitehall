@@ -1,17 +1,17 @@
 module AttachmentsHelper
-  def bulk_attachment_errors(attachments = nil)
+  def attachment_errors(attachments = nil)
     return if attachments.blank?
 
     items = attachments.map(&:errors).flat_map.with_index do |errors, index|
       errors.map do |error|
         {
           text: text = "#{attachments[index].attachment_data.filename}: #{error.full_message.humanize}",
-          href: "#bulk_upload[attachments][#{index}]_#{error.attribute.to_s.gsub('.', '_')}",
+          href: "#upload[attachments][#{index}]_#{error.attribute.to_s.gsub('.', '_')}",
           data_attributes: {
             module: "ga4-auto-tracker",
             "ga4-auto": {
               event_name: "form_error",
-              type: "Bulk Upload File Attachment",
+              type: "Upload File Attachment",
               text:,
               section: error.attribute.to_s.humanize,
               action: "error",

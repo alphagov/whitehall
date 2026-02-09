@@ -123,14 +123,14 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
         end
       end
 
-      context "when bulk uploaded to draft document" do
+      context "when uploaded to draft document" do
         before do
           visit admin_edition_path(edition)
           click_link "Add attachments"
           page.attach_file [path_to_attachment("logo.png"), path_to_attachment("greenpaper.pdf")]
           click_button "Upload"
-          fill_in "bulk_upload[attachments][0][title]", with: "file-title"
-          fill_in "bulk_upload[attachments][1][title]", with: "file-title"
+          fill_in "upload[attachments][0][title]", with: "file-title"
+          fill_in "upload[attachments][1][title]", with: "file-title"
           click_button "Save"
           assert find("li", text: "greenpaper.pdf")
           assert find("li", text: "logo.png")

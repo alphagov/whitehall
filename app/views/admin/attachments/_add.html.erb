@@ -16,7 +16,7 @@
   } %>
 <% end %>
 
-<%= form_for BulkUpload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), BulkUpload]) + "/upload_files", multipart: true do |form| %>
+<%= form_for Upload, url: polymorphic_url([:admin, typecast_for_attachable_routing(attachable), Upload]) + "/upload_files", multipart: true do |form| %>
 
   <% hint_text = capture do %>
     <div class="govuk-!-margin-bottom-6">
@@ -34,14 +34,14 @@
     heading_size: additional_attachment_types.present? ? "m" : "l",
     text: additional_attachment_types.present? ? "Upload new file attachments" : "Add new attachments",
     hint_text:,
-    hint_id: "bulk_upload_files_hint_id",
-    html_for: "bulk_upload_files",
+    hint_id: "upload_files_hint_id",
+    html_for: "upload_files",
   } %>
 
   <%= render "govuk_publishing_components/components/file_upload", {
-    name: "bulk_upload[files][]",
-    id: "bulk_upload_files",
-    error_message: flash[:bulk_upload_error],
+    name: "upload[files][]",
+    id: "upload_files",
+    error_message: flash[:upload_error],
     javascript: true,
     multiple: true,
   } %>

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::BulkUploadsControllerTest < ActionController::TestCase
+class Admin::UploadsControllerTest < ActionController::TestCase
   setup do
     @edition = create(:draft_publication, :with_alternative_format_provider, attachments: [])
     login_as :gds_editor
@@ -18,10 +18,10 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   def valid_create_params
     files = %w[simple.pdf whitepaper.pdf].map { |f| upload_fixture(f) }
-    bulk_upload = BulkUpload.new(@edition)
-    bulk_upload.build_attachments_from_files(files)
+    upload = Upload.new(@edition)
+    upload.build_attachments_from_files(files)
     params = { attachments: {} }
-    bulk_upload.attachments.each_with_index do |attachment, i|
+    upload.attachments.each_with_index do |attachment, i|
       params[:attachments][i.to_s] = params_for_attachment(attachment, i + 1)
     end
 
@@ -37,7 +37,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   def post_to_upload_files(*files)
     params = {}
 
-    params[:bulk_upload] = {
+    params[:upload] = {
       files: files && files.map { |f| f && upload_fixture(f) },
     }
 
@@ -46,7 +46,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   test "Actions are unavailable on unmodifiable editions" do
     edition = create(:published_publication)
-    post :create, params: { edition_id: edition, bulk_upload: valid_create_params }
+    post :create, params: { edition_id: edition, upload: valid_create_params }
     assert_response :redirect
   end
 
@@ -54,14 +54,14 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     post_to_upload_files(nil)
 
     assert_response :redirect
-    assert flash[:bulk_upload_error] = "Files not selected for upload"
+    assert flash[:upload_error] = "Files not selected for upload"
   end
 
   view_test "POST :upload_files prompts for metadata for each file" do
     post_to_upload_files("two-pages.pdf", "greenpaper.pdf")
     assert_response :success
-    assert_select "input[name='bulk_upload[attachments][0][title]']"
-    assert_select "input[name='bulk_upload[attachments][1][title]']"
+    assert_select "input[name='upload[attachments][0][title]']"
+    assert_select "input[name='upload[attachments][1][title]']"
     assert_select ".govuk-fieldset__heading", /File: two-pages.pdf/
     assert_select ".govuk-fieldset__heading", /File: greenpaper.pdf/
   end
@@ -77,29 +77,29 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   view_test "POST :upload_files with illegal file" do
     post_to_upload_files("two-pages.pdf", "greenpaper.pdf", "pdfinfo_dummy.sh")
     assert_response :redirect
-    assert flash[:bulk_upload_error] = "Files included pdfinfo_dummy.sh: is of not allowed type \"sh\", allowed types: chm, csv, diff, doc, docx, dot, dxf, eps, gif, gml, ics, jpg, kml, odp, ods, odt, pdf, png, ppt, pptx, ps, rdf, ris, rtf, sch, txt, vcf, wsdl, xls, xlsm, xlsx, xlt, xml, xsd, xslt, zip"
+    assert flash[:upload_error] = "Files included pdfinfo_dummy.sh: is of not allowed type \"sh\", allowed types: chm, csv, diff, doc, docx, dot, dxf, eps, gif, gml, ics, jpg, kml, odp, ods, odt, pdf, png, ppt, pptx, ps, rdf, ris, rtf, sch, txt, vcf, wsdl, xls, xlsm, xlsx, xlt, xml, xsd, xslt, zip"
   end
 
   view_test "POST :create with attachment metadata saves attachments to edition" do
-    post :create, params: { edition_id: @edition, bulk_upload: valid_create_params }
+    post :create, params: { edition_id: @edition, upload: valid_create_params }
     assert_response :redirect
     assert_equal 2, @edition.reload.attachments.count
     assert_equal @titles[0], @edition.attachments[0].title
     assert_equal @titles[1], @edition.attachments[1].title
   end
 
-  view_test "POST :create with invalid attachments re-renders the bulk upload form" do
-    post :create, params: { edition_id: @edition, bulk_upload: invalid_create_params }
+  view_test "POST :create with invalid attachments re-renders the upload form" do
+    post :create, params: { edition_id: @edition, upload: invalid_create_params }
 
     assert_response :success
     assert_select ".gem-c-error-summary__list-item", text: /simple.pdf: Title cannot be blank/
   end
 
   test "POST :create associates the attachment's attachment_data object with the edition" do
-    post :create, params: { edition_id: @edition, bulk_upload: valid_create_params }
+    post :create, params: { edition_id: @edition, upload: valid_create_params }
 
-    bulk_upload = assigns(:bulk_upload)
-    bulk_upload.attachments.each do |attachment|
+    upload = assigns(:upload)
+    upload.attachments.each do |attachment|
       assert_equal @edition, attachment.attachment_data.attachable
     end
   end
@@ -114,7 +114,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
       .with(instance_of(FileAttachment))
       .never
 
-    post :create, params: { edition_id: @edition, bulk_upload: valid_create_params }
+    post :create, params: { edition_id: @edition, upload: valid_create_params }
   end
 
   test "POST :create triggers a job to be queued to store the attachments in Asset Manager" do
@@ -122,6 +122,6 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
     AssetManagerCreateAssetWorker.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id]).twice
 
-    post :create, params: { edition_id: @edition, bulk_upload: valid_create_params }
+    post :create, params: { edition_id: @edition, upload: valid_create_params }
   end
 end
