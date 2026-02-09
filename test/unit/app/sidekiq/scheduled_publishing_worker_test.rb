@@ -1,5 +1,3 @@
-# RUN_IN_ISOLATION
-
 require "test_helper"
 
 class ScheduledPublishingWorkerTest < ActiveSupport::TestCase

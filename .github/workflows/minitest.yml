@@ -15,12 +15,34 @@ on:
 
 jobs:
   minitest-matrix:
+    name: ${{ matrix.shard_name }}
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [4]
-        ci_node_index: [0, 1, 2, 3]
+        include:
+          # Ruby-only shards skip Node/asset setup.
+          - shard_name: ruby-only-0
+            ci_node_total: 2
+            ci_node_index: 0
+            minitest_ci_mode: ruby-only
+            setup_assets: false
+          - shard_name: ruby-only-1
+            ci_node_total: 2
+            ci_node_index: 1
+            minitest_ci_mode: ruby-only
+            setup_assets: false
+          # Assets-required shards run tests that need Node and precompiled assets.
+          - shard_name: assets-required-0
+            ci_node_total: 2
+            ci_node_index: 0
+            minitest_ci_mode: assets-required
+            setup_assets: true
+          - shard_name: assets-required-1
+            ci_node_total: 2
+            ci_node_index: 1
+            minitest_ci_mode: assets-required
+            setup_assets: true
     steps:
       - name: Setup MySQL
         id: setup-mysql
@@ -49,10 +71,12 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Setup Node
+      - name: Setup Node (asset shards only)
+        if: ${{ matrix.setup_assets }}
         uses: alphagov/govuk-infrastructure/.github/actions/setup-node@main
 
-      - name: Precompile assets
+      - name: Precompile assets (asset shards only)
+        if: ${{ matrix.setup_assets }}
         uses: alphagov/govuk-infrastructure/.github/actions/precompile-rails-assets@main
 
       - name: Initialize database
@@ -68,9 +92,9 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
           CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-        run: |
-          ./bin/minitest-ci
-          
+          MINITEST_CI_MODE: ${{ matrix.minitest_ci_mode }}
+        run: ./bin/minitest-ci
+
   run-minitest:
     name: Run Minitest
     needs: minitest-matrix
