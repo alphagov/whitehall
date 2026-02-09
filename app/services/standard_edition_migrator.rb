@@ -12,7 +12,7 @@ class StandardEditionMigrator
     }
   end
 
-  def migrate!(republish: true, compare_payloads: true)
+  def migrate!(republish: false, compare_payloads: true)
     @scope.each do |document|
       StandardEditionMigratorWorker.perform_async(document.id, { "republish" => republish, "compare_payloads" => compare_payloads })
     end

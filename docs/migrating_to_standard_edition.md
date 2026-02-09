@@ -41,7 +41,7 @@ The migrator itself offers two methods:
 - `migrate!`: to perform the actual migration. It takes two arguments:
   - `compare_payloads` (default `true`): runs the legacy content item through its Publishing API presenter and compares it with the converted content item through the StandardEdition presenter, raising an exception if the diff contains any differences not accounted for by the recipe.
     It is highly recommended to keep this on, but it does slow down the migration somewhat.
-  - `republish` (default `true`): whether or not to republish the document after it has been migrated.
+  - `republish` (default `false`): whether or not to republish the document after it has been migrated.
     This is a nice idea in theory, but in practice can cause [race conditions with document slugs being changed](https://gov-uk.atlassian.net/browse/WHIT-2766?focusedCommentId=165942), so use with caution.
 
 With that in mind, the steps for migrating a legacy content type to being config-driven is roughly as follows:
