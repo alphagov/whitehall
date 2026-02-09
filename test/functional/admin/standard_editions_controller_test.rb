@@ -438,6 +438,27 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "#documents_tab p", text: unpublished_edition.title
   end
 
+  view_test "GET features renders documents search tab with no results message when there are no tagged editions to feature" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :en }
+    assert_response :ok
+    assert_select "#documents_tab", text: /No documents found/
+  end
+
   view_test "GET features filters documents by title" do
     topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [

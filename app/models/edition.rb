@@ -34,6 +34,7 @@ class Edition < ApplicationRecord
   include Edition::Scopes::FilterableByType
   include Edition::Scopes::FilterableByWorldLocation
   include Edition::Scopes::FindableByOrganisation
+  include Edition::Scopes::FilterableByDocumentLink
 
   include Dependable
 
