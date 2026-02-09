@@ -57,6 +57,7 @@ gem "sprockets-rails"
 gem "strong_migrations"
 gem "terser"
 gem "transitions", require: ["transitions", "active_record/transitions"]
+gem "turbo-rails"
 gem "validates_email_format_of"
 gem "view_component"
 gem "whenever", require: false
@@ -105,3 +106,5 @@ group :cucumber, :test do
   gem "govuk_test"
   gem "launchy"
 end
+
+gem "shakapacker", "= 9.5"

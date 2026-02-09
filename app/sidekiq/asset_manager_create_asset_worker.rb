@@ -1,5 +1,11 @@
+require "byebug"
+require "action_cable/engine"
+
 class AssetManagerCreateAssetWorker < WorkerBase
   include AssetManager::ServiceHelper
+  include Turbo::Streams::Broadcasts
+  include Turbo::Streams::StreamName
+  include Turbo::Streams::StreamName::ClassMethods
 
   # Carrierwave runs on an after_save hook and the transaction that inserts Assetable into the database
   # might not be committed yet. This can cause a race condition where the worker runs before the assetable is readable.

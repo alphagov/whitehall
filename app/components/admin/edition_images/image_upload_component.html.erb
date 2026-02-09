@@ -2,6 +2,9 @@
       admin_edition_images_path(edition),
       id: "#{image_usage.key}_image_upload_form",
       multipart: true,
+      data: {
+        turbo: false,
+      },
       ) do %>
   <%= render "govuk_publishing_components/components/file_upload", {
     label: {

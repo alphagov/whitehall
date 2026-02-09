@@ -1,4 +1,6 @@
 class Asset < ApplicationRecord
+  include Turbo::Broadcastable
+
   belongs_to :assetable, polymorphic: true
 
   validates :asset_manager_id, presence: true
@@ -7,6 +9,14 @@ class Asset < ApplicationRecord
   validates :filename, presence: true
 
   validate :unique_variant_for_each_assetable
+
+  after_create_commit :broadcast_original_upload
+
+  def broadcast_original_upload
+    if variant == "original"
+      broadcast_update_to(assetable, :assets, target: "asset-upload-#{assetable.id}", html: "<img src=\"#{assetable.url}\" alt=\"\" class=\"app-view-edition-resource__preview\">")
+    end
+  end
 
   def unique_variant_for_each_assetable
     return unless assetable

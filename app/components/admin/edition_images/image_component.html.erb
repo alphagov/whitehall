@@ -1,9 +1,14 @@
  <li class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
+
     <% if image.image_data&.original_uploaded? && image.thumbnail %>
       <img src="<%= image.thumbnail %>" alt="" class="app-view-edition-resource__preview">
     <% else %>
-      <span class="govuk-tag govuk-tag--green">Processing</span>
+      <%= helpers.turbo_stream_from(image.image_data, :assets) %>
+
+      <div id="asset-upload-<%= image.image_data.id %>">
+        <span class="govuk-tag govuk-tag--green">Processing</span>
+      </div>
     <% end %>
   </div>
 

@@ -678,6 +678,7 @@ GEM
     opentelemetry-semantic_conventions (1.36.0)
       opentelemetry-api (~> 1.0)
     ostruct (0.6.3)
+    package_json (0.2.0)
     pact (1.67.3)
       jsonpath (~> 1.0)
       pact-mock_service (~> 3.0, >= 3.3.1)
@@ -913,6 +914,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    semantic_range (3.1.0)
     sentry-rails (6.3.0)
       railties (>= 5.2.0)
       sentry-ruby (~> 6.3.0)
@@ -923,6 +925,12 @@ GEM
       sentry-ruby (~> 6.3.0)
       sidekiq (>= 5.0)
     sexp_processor (4.17.5)
+    shakapacker (9.5.0)
+      activesupport (>= 5.2)
+      package_json
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     sidekiq (7.3.10)
       base64
       connection_pool (>= 2.3.0, < 3)
@@ -979,6 +987,9 @@ GEM
     tsort (0.2.0)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
+    turbo-rails (2.0.23)
+      actionpack (>= 7.1.0)
+      railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
@@ -1098,6 +1109,7 @@ DEPENDENCIES
   rinku
   rubocop-govuk
   sentry-sidekiq
+  shakapacker (= 9.5)
   sidekiq-scheduler
   simplecov
   sprockets-rails
@@ -1105,6 +1117,7 @@ DEPENDENCIES
   terser
   timecop
   transitions
+  turbo-rails
   validates_email_format_of
   view_component
   webmock
