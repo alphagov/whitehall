@@ -393,6 +393,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
     t.integer "role_appointment_id"
     t.text "roll_call_introduction", size: :medium
     t.datetime "scheduled_publication", precision: nil
+    t.string "slug"
     t.integer "speech_type_id"
     t.string "state", default: "draft", null: false
     t.boolean "stub", default: false
@@ -412,6 +413,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
     t.index ["public_timestamp"], name: "index_editions_on_public_timestamp"
     t.index ["publication_type_id"], name: "index_editions_on_publication_type_id"
     t.index ["role_appointment_id"], name: "index_editions_on_role_appointment_id"
+    t.index ["slug"], name: "index_editions_on_slug"
     t.index ["speech_type_id"], name: "index_editions_on_speech_type_id"
     t.index ["state", "type"], name: "index_editions_on_state_and_type"
     t.index ["state"], name: "index_editions_on_state"
