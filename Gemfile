@@ -85,7 +85,7 @@ group :test do
   gem "govuk_schemas"
   gem "i18n-coverage"
   gem "maxitest"
-  gem "minitest"
+  gem "minitest", "~> 5.0"
   gem "minitest-fail-fast"
   gem "minitest-stub-const"
   gem "mocha"
