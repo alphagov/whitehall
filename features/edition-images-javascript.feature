@@ -5,7 +5,6 @@ Feature: Images tab on edit edition
   Background:
     Given I am a writer
 
-  @javascript
   Scenario: Image uploaded with cropping required
     And a draft document with images exists
     When I visit the images tab of the document with images
@@ -30,7 +29,6 @@ Feature: Images tab on edit edition
     Then I should see a list with 4 images
     Then I should not see that the image requires cropping 
 
-  @javascript
   Scenario: Image uploaded with no cropping required
     And a draft publication "New Draft Publication" exists
     When I visit the images tab of the document "New Draft Publication"
@@ -39,7 +37,6 @@ Feature: Images tab on edit edition
     When I update the image details and save
     Then I should see a list with 1 image      
 
-  @javascript
   Scenario: Uploading a file with a duplicated filename
     When a draft document with images exists
     And I visit the images tab of the document with images

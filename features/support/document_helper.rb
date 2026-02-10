@@ -22,8 +22,11 @@ module DocumentHelper
     click_button("Next")
 
     if options[:locale]
-      check "Create a foreign language only"
-      select options[:locale], from: "Document language"
+      checkbox_label = "Create a foreign language only"
+      check checkbox_label
+      within_conditional_reveal checkbox_label do
+        select options[:locale], from: "Document language"
+      end
     end
 
     within "form" do

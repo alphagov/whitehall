@@ -55,7 +55,6 @@ Feature: Statistical release announcements
     Then I should see a warning that there are upcoming releases without a linked publication
     And I should be able to view these upcoming releases without a linked publication
 
-  @javascript
   Scenario: linking a document to a statistics announcement
     Given I am a GDS editor in the organisation "Department for Beards"
     And a draft statistics publication called "Beard statistics - January 2014"

@@ -15,8 +15,10 @@ And(/^I click confirm$/) do
 end
 
 And(/^I select a previously published date in the future$/) do
-  check "This document has previously been published on another website"
-  within "#edition_previously_published" do
+  checkbox_label = "This document has previously been published on another website"
+  check checkbox_label
+
+  within_conditional_reveal checkbox_label do
     fill_in_date_fields("1 July 2018")
   end
 end
@@ -26,8 +28,10 @@ And(/^I select that this document has been previously published$/) do
 end
 
 And(/^I select a previously published date in the past$/) do
-  check "This document has previously been published on another website"
-  within "#edition_previously_published" do
+  checkbox_label = "This document has previously been published on another website"
+  check checkbox_label
+
+  within_conditional_reveal checkbox_label do
     fill_in_date_fields("1 February 2017")
   end
 end

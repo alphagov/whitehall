@@ -11,7 +11,6 @@ Feature: Calls For Evidence
     When I submit the call for evidence "Beard Length Review"
     Then I should see the call for evidence "Beard Length Review" in the list of submitted documents
 
-  @javascript
   Scenario: Associating an offsite call for evidence with topical events
     Given I am an editor
     And a draft call for evidence "Beard Length Review" exists
