@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
+  include GovspeakHelper
+
   test "it sets the schema name, document type, base path and rendering app based on the document type settings" do
     schema_name = "test_type_schema"
     document_type = "test_type"
@@ -407,5 +409,126 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
     assert_equal 1, content[:details][:images].size
     assert_equal [non_embeddable_image.usage], content[:details][:images].pluck(:type)
+  end
+
+  test "it includes the features of the edition in the details if the document type has features enabled" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "features_enabled" => true,
+      },
+    }))
+    featuring_edition = create(:published_standard_edition)
+
+    edition_1 = create(:published_standard_edition)
+    edition_2 = create(:published_standard_edition)
+
+    first_feature = create(:feature, document: edition_1.document, ordering: 1)
+    second_feature = create(:feature, document: edition_2.document, ordering: 2)
+
+    create(:feature_list, featurable: featuring_edition, features: [first_feature, second_feature])
+    presenter = PublishingApi::StandardEditionPresenter.new(featuring_edition)
+    content = presenter.content
+
+    expected_ordered_featured_documents = [
+      {
+        title: edition_1.title,
+        href: edition_1.base_path,
+        image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
+                 medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
+                 high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
+                 alt_text: "" },
+        summary: govspeak_to_html(edition_1.summary),
+        public_updated_at: edition_1.public_timestamp,
+        document_type: "Test type",
+
+      },
+      {
+        title: edition_2.title,
+        href: edition_2.base_path,
+        image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
+                 medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
+                 high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
+                 alt_text: "" },
+        summary: govspeak_to_html(edition_2.summary),
+        public_updated_at: edition_2.public_timestamp,
+        document_type: "Test type",
+      },
+    ]
+
+    assert_equal expected_ordered_featured_documents, content[:details][:ordered_featured_documents]
+  end
+
+  test "it does not include features in the details if the document type does not have features enabled" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "features_enabled" => false,
+      },
+    }))
+    featuring_edition = create(:published_standard_edition)
+
+    edition_1 = create(:published_standard_edition)
+    edition_2 = create(:published_standard_edition)
+
+    first_feature = create(:feature, document: edition_1.document, ordering: 1)
+    second_feature = create(:feature, document: edition_2.document, ordering: 2)
+
+    create(:feature_list, featurable: featuring_edition, features: [first_feature, second_feature])
+    presenter = PublishingApi::StandardEditionPresenter.new(featuring_edition)
+    content = presenter.content
+
+    assert_not content[:details].key?(:ordered_featured_documents)
+  end
+  test "it includes the features for the correct locale when the edition has multiple locales" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "features_enabled" => true,
+      },
+    }))
+    featuring_edition = create(:published_standard_edition)
+
+    english_edition = create(:published_standard_edition, title: "English Featured")
+    welsh_edition = create(:published_standard_edition, title: "Welsh Featured")
+
+    english_feature = create(:feature, document: english_edition.document, ordering: 1)
+    welsh_feature = create(:feature, document: welsh_edition.document, ordering: 1)
+
+    create(:feature_list, featurable: featuring_edition, locale: :en, features: [english_feature])
+    create(:feature_list, featurable: featuring_edition, locale: :cy, features: [welsh_feature])
+
+    presenter = PublishingApi::StandardEditionPresenter.new(featuring_edition)
+
+    I18n.with_locale(:en) do
+      content = presenter.content
+      title = content[:details][:ordered_featured_documents].first[:title]
+      assert_equal "English Featured", title
+      assert_not_equal "Welsh Featured", title
+    end
+
+    I18n.with_locale(:cy) do
+      content = presenter.content
+      title = content[:details][:ordered_featured_documents].first[:title]
+      assert_equal "Welsh Featured", title
+      assert_not_equal "English Featured", title
+    end
+  end
+
+  test "it does not include features for a locale with no feature list" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "features_enabled" => true,
+      },
+    }))
+    featuring_edition = create(:published_standard_edition)
+
+    english_edition = create(:published_standard_edition)
+    english_feature = create(:feature, document: english_edition.document, ordering: 1)
+    create(:feature_list, featurable: featuring_edition, locale: :en, features: [english_feature])
+
+    presenter = PublishingApi::StandardEditionPresenter.new(featuring_edition)
+
+    I18n.with_locale(:cy) do
+      content = presenter.content
+      assert_equal [], content[:details][:ordered_featured_documents]
+    end
   end
 end
