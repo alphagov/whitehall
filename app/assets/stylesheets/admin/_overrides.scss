@@ -9,7 +9,9 @@
 }
 
 .govuk-tag--s {
-  @include govuk-font(14, $weight: bold, $line-height: 1);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 code {

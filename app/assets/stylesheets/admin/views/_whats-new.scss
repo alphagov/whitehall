@@ -3,10 +3,9 @@
 }
 
 .app-view-whats-new__section {
+  border-bottom: 1px solid $govuk-border-colour;
   @include govuk-responsive-padding(5, "top");
   @include govuk-responsive-padding(5, "bottom");
-
-  border-bottom: 1px solid $govuk-border-colour;
 }
 
 .app-view-whats-new__section:last-child {
@@ -32,9 +31,8 @@
 }
 
 .app-view-whats-new__update-date {
-  @include govuk-responsive-margin(4, "bottom");
-
   color: govuk-colour("dark-grey");
+  @include govuk-responsive-margin(4, "bottom");
 }
 
 .app-view-whats-new__update-type {

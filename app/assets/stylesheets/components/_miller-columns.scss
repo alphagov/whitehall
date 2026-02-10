@@ -1,6 +1,6 @@
 .miller-columns-selected {
-  @include govuk-responsive-margin(6, "bottom");
   display: block;
+  @include govuk-responsive-margin(6, "bottom");
 
   .govuk-breadcrumbs {
     display: block;
@@ -14,11 +14,11 @@
 }
 
 .miller-columns-selected__list {
-  @include govuk-font($size: 16);
-  @include govuk-text-colour;
   margin: 0;
   padding: 0;
   list-style-type: none;
+  @include govuk-font($size: 16);
+  @include govuk-text-colour;
 }
 
 .miller-columns-selected__list-item {
@@ -33,9 +33,6 @@
 }
 
 .miller-columns-selected__remove-topic {
-  @include govuk-link-common;
-  @include govuk-link-style-no-visited-state;
-  @include govuk-font($size: 16);
   position: absolute;
   top: govuk-spacing(2);
   right: 0;
@@ -44,7 +41,9 @@
   border: 0;
   color: $govuk-link-colour;
   background: transparent;
+  text-decoration: underline;
   cursor: pointer;
+  @include govuk-font($size: 16);
 
   &:focus {
     @include govuk-focused-text;
@@ -78,10 +77,10 @@ $mc-active-item-background: govuk-colour("blue");
   display: block;
   width: 100%;
   height: 100%;
-  @include govuk-responsive-margin(6, "bottom");
   outline: 0;
   font-size: 0;
   white-space: nowrap;
+  @include govuk-responsive-margin(6, "bottom");
 
   .govuk-list {
     .govuk-list {
@@ -159,11 +158,11 @@ $mc-active-item-background: govuk-colour("blue");
 }
 
 .miller-columns__column-heading {
-  @include govuk-text-colour;
-  @include govuk-font($size: 19, $weight: bold);
   margin-bottom: govuk-spacing(3);
   margin-top: 0;
   padding: 0;
+  @include govuk-text-colour;
+  @include govuk-font($size: 19, $weight: bold);
 
   @include govuk-media-query($from: tablet) {
     display: none;
@@ -198,8 +197,8 @@ $mc-active-item-background: govuk-colour("blue");
   }
 
   .govuk-checkboxes__label {
-    @include govuk-font($size: 16);
     padding: 12px 15px 10px 1px;
+    @include govuk-font($size: 16);
   }
 
   // Remove box-shadow set in govuk-frontend for govuk-checkboxes__input

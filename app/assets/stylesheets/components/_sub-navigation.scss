@@ -10,11 +10,11 @@
 }
 
 .app-c-sub-navigation__list-item {
-  @include govuk-font($size: 19);
   display: inline-block;
   font-weight: bold;
   margin-top: 0;
   padding: 0 govuk-spacing(3);
+  @include govuk-font($size: 19);
 }
 
 .app-c-sub-navigation__list-item--current {
