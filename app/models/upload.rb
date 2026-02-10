@@ -1,4 +1,4 @@
-class BulkUpload
+class Upload
   extend ActiveModel::Naming
   include ActiveModel::Validations
   include ActiveModel::Conversion

@@ -176,9 +176,9 @@ private
     redirect_to_attachments_index
   end
 
-  def redirect_to_attachments_index(bulk_upload_error: nil)
-    flash[:bulk_upload_error] = bulk_upload_error
-    redirect_to attachable_attachments_path(attachable), flash: { bulk_upload_error: }
+  def redirect_to_attachments_index(upload_error: nil)
+    flash[:upload_error] = upload_error
+    redirect_to attachable_attachments_path(attachable), flash: { upload_error: }
   end
 
   def attachable_model_name

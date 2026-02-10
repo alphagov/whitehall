@@ -1,12 +1,12 @@
-When("I bulk upload files and give them titles") do
+When("I upload files and give them titles") do
   @edition = Edition.last
   visit admin_edition_attachments_path(@edition)
 
   page.attach_file [Rails.root.join("test/fixtures/greenpaper.pdf"), Rails.root.join("test/fixtures/two-pages.pdf")]
 
   click_button "Upload"
-  fill_in "bulk_upload[attachments][0]_title", with: "Two pages title"
-  fill_in "bulk_upload[attachments][1]_title", with: "Greenpaper title"
+  fill_in "upload[attachments][0]_title", with: "Two pages title"
+  fill_in "upload[attachments][1]_title", with: "Greenpaper title"
   click_button "Save"
 end
 
@@ -22,7 +22,7 @@ Then(/^I should see that the publication has attachments$/) do
   expect("greenpaper.pdf").to eq(file_attachments[1].filename)
 end
 
-When(/^I bulk upload files one with the same filename as an existing file$/) do
+When(/^I upload files one with the same filename as an existing file$/) do
   visit admin_edition_attachments_path(@edition)
 
   @existing_attachment = @edition.attachments.first
@@ -47,18 +47,18 @@ end
 When("I reject all the existing files") do
   @edition.attachments
 
-  choose("bulk_upload[attachments][0]_attachment_data_keep_or_replace_reject")
-  choose("bulk_upload[attachments][1]_attachment_data_keep_or_replace_reject")
+  choose("upload[attachments][0]_attachment_data_keep_or_replace_reject")
+  choose("upload[attachments][1]_attachment_data_keep_or_replace_reject")
 end
 
 When("I change the title and select replace for the existing file") do
   choose("Replace the existing file")
-  fill_in "bulk_upload[attachments][1]_title", with: "Replacement Title"
+  fill_in "upload[attachments][1]_title", with: "Replacement Title"
 end
 
 When("I change the title and select reject for the existing file") do
   choose("Do not upload this file")
-  fill_in "bulk_upload[attachments][1]_title", with: "Replacement Title"
+  fill_in "upload[attachments][1]_title", with: "Replacement Title"
 end
 
 When("I select keep file for existing file") do
@@ -75,7 +75,7 @@ When("I do not enter a new file name") do
 end
 
 When("I save the files") do
-  fill_in "bulk_upload[attachments][0]_title", with: "Title"
+  fill_in "upload[attachments][0]_title", with: "Title"
   click_button "Save"
 end
 
@@ -95,7 +95,7 @@ And("I should not see an option to change Keep or Replace") do
   expect(page).not_to have_content("Matching attachment filename")
 end
 
-Then(/^I should see an error of "(.*)" on the bulk upload page$/) do |error|
+Then(/^I should see an error of "(.*)" on the upload page$/) do |error|
   expect(page).not_to have_current_path(admin_edition_attachments_path(@edition))
   expect(@edition.reload.attachments.count).to eq 1
 

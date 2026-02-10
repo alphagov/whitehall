@@ -1,14 +1,14 @@
-class Admin::BulkUploadsController < Admin::AttachmentsController
-  before_action :build_bulk_upload
+class Admin::UploadsController < Admin::AttachmentsController
+  before_action :build_upload
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::TextHelper
   attr_accessor :output_buffer
 
   def upload_files
-    @bulk_upload.build_attachments_from_files(files_params)
+    @upload.build_attachments_from_files(files_params)
 
-    if @bulk_upload.errors.present?
-      redirect_to_attachments_index(bulk_upload_error: @bulk_upload.errors.full_messages.first)
+    if @upload.errors.present?
+      redirect_to_attachments_index(upload_error: @upload.errors.full_messages.first)
     else
       render :set_titles
     end
@@ -19,10 +19,10 @@ class Admin::BulkUploadsController < Admin::AttachmentsController
       flash[:notice] = "No files uploaded"
       redirect_to_attachments_index
     else
-      @bulk_upload.build_attachments_from_params(attachments_params_for_upload)
+      @upload.build_attachments_from_params(attachments_params_for_upload)
 
-      if @bulk_upload.save_attachments
-        @bulk_upload.attachments.each do |attachment|
+      if @upload.save_attachments
+        @upload.attachments.each do |attachment|
           attachable_draft_updater
           attachment_updater(attachment.attachment_data)
         end
@@ -41,7 +41,7 @@ private
 
   def notice
     content_tag(:ul) do
-      @bulk_upload.attachments.each do |attachment|
+      @upload.attachments.each do |attachment|
         concat content_tag(
           :li,
           "Attachment '#{attachment.title}' #{attachment.attachment_data.to_replace_id.present? ? 'updated' : 'uploaded'}".html_safe,
@@ -55,12 +55,12 @@ private
     FileAttachment.new(attachable:)
   end
 
-  def build_bulk_upload
-    @bulk_upload = BulkUpload.new(attachable)
+  def build_upload
+    @upload = Upload.new(attachable)
   end
 
   def files_params
-    params.fetch(:bulk_upload, {})[:files]
+    params.fetch(:upload, {})[:files]
   end
 
   def attachments_params_for_upload
@@ -72,7 +72,7 @@ private
   end
 
   def create_params
-    params.fetch(:bulk_upload).permit(attachments: [
+    params.fetch(:upload).permit(attachments: [
       { attachment_data_attributes: %i[file_cache to_replace_id keep_or_replace new_filename] },
       :id,
       :title,
