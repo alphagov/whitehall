@@ -46,6 +46,7 @@ module PublishingApi
       details.merge!(PayloadBuilder::Attachments.for(item)) if type.settings["file_attachments_enabled"] == true
       details.merge!(PayloadBuilder::EmphasisedOrganisations.for(item)) if item.organisation_association_enabled?
       details.merge!(PayloadBuilder::Images.for(item)) if type.settings.dig("images", "enabled")
+      details.merge!(PayloadBuilder::Features.for(item)) if type.settings["features_enabled"] == true
       details.merge!({ headers: }.compact) if type.schema.key? "headings_from"
       details
     end
