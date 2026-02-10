@@ -43,6 +43,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def index
+    session[:document_filters] = params_filters
+
     if filter && filter.valid?
       session[:document_filters] = params_filters
       render :index
@@ -53,6 +55,11 @@ class Admin::EditionsController < Admin::BaseController
       display_filter_error_message
       redirect_to default_filters
     end
+
+    # respond_to do |format|
+    #   format.turbo_stream {}
+    #   format.html {}
+    # end    
   end
 
   def export

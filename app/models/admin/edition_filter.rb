@@ -3,7 +3,7 @@ module Admin
     EDITION_TYPE_LOOKUP = Whitehall.legacy_edition_classes.index_by(&:to_s)
 
     MAX_EXPORT_SIZE = 8000
-    GOVUK_DESIGN_SYSTEM_PER_PAGE = 15
+    GOVUK_DESIGN_SYSTEM_PER_PAGE = 2
 
     attr_reader :options
     attr_accessor :errors
