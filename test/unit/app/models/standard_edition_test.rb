@@ -64,6 +64,31 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal "original-title", edition.document.slug
   end
 
+  test "it allows features if the configurable document type settings permit them" do
+    test_type_with_features =
+      build_configurable_document_type(
+        "test_type_with_features", {
+          "settings" => {
+            "features_enabled" => true,
+          },
+        }
+      )
+    test_type_without_features =
+      build_configurable_document_type(
+        "test_type_without_features", {
+          "settings" => {
+            "features_enabled" => false,
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_features.merge(test_type_without_features))
+    page_with_features = StandardEdition.new(configurable_document_type: "test_type_with_features")
+    page_without_features = StandardEdition.new(configurable_document_type: "test_type_without_features")
+    assert page_with_features.allows_features?
+    assert_not page_without_features.allows_features?
+  end
+
   test "it allows images if the configurable document type settings permit them" do
     test_type_with_images =
       build_configurable_document_type(

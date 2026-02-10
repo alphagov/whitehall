@@ -162,6 +162,7 @@
     },
     "send_change_history": true,
     "file_attachments_enabled": false,
+    "features_enabled": true,
     "organisations": null,
     "backdating_enabled": false,
     "history_mode_enabled": false,
