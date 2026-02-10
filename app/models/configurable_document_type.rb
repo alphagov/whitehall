@@ -30,6 +30,10 @@ class ConfigurableDocumentType
     new(types[type_key])
   end
 
+  def self.find_by_base_path_prefix(prefix)
+    all.filter { |t| t.settings["base_path_prefix"] == prefix }
+  end
+
   def self.all
     types.values.map { |type| new(type) }
   end

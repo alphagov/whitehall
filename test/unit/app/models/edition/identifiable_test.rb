@@ -143,3 +143,116 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     end
   end
 end
+
+class Edition::SluggingTest < ActiveSupport::TestCase
+  class SluggableEdition < Edition
+    def self.create!(attributes)
+      super({
+        document: Document.new,
+        creator: User.new,
+        previously_published: Time.zone.now,
+        summary: "test",
+        body: "test",
+      }.merge(attributes))
+    end
+
+  private
+
+    def string_for_slug
+      title
+    end
+  end
+
+  setup do
+    Flipflop::FeatureSet.current.test!.switch!(:slugs_for_editions, true)
+  end
+
+  teardown do
+    Flipflop::FeatureSet.current.test!.switch!(:slugs_for_editions, false)
+  end
+
+  test "it does not update the slug if the `string_for_slug` method returns nil" do
+    slug = "test-title"
+    edition = SluggableEdition.create!(title: "Test Title", slug: slug)
+    edition.stubs(:string_for_slug).returns(nil)
+    edition.save!
+    assert_equal slug, edition.slug
+  end
+
+  test "it updates the slug when the title changes" do
+    edition = SluggableEdition.create!(title: "Original Title", slug: nil)
+    original_slug = edition.slug
+    edition.title = "New Title"
+    edition.save!
+    assert_not_equal original_slug, edition.slug
+    assert_equal "new-title", edition.slug
+  end
+
+  test "it generates a unique slug when a duplicate exists of the same edition type" do
+    first_edition = SluggableEdition.create!(title: "Same Title", slug: nil)
+    second_edition = SluggableEdition.create!(title: "Same Title", slug: nil)
+
+    assert_equal "same-title", first_edition.slug
+    assert_equal "same-title--2", second_edition.slug
+  end
+
+  test "it generates a unique slug when two duplicates exist of the same edition type" do
+    SluggableEdition.create!(title: "Same Title", slug: nil)
+    SluggableEdition.create!(title: "Same Title", slug: nil)
+    third_edition = SluggableEdition.create!(title: "Same Title", slug: nil)
+
+    assert_equal "same-title--3", third_edition.slug
+  end
+
+  test "it generates a unique slug when a duplicate exists of a configurable document type with the same base path prefix" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("type_one")
+                                                .merge(build_configurable_document_type("type_two")))
+
+    first_edition = StandardEdition.create!(title: "Shared Title", type: "StandardEdition", configurable_document_type: "type_one", document: Document.new, creator: User.new, previously_published: Time.zone.now, summary: "test", body: "test", block_content: {})
+
+    second_edition = StandardEdition.create!(title: "Shared Title", type: "StandardEdition", configurable_document_type: "type_two", document: Document.new, creator: User.new, previously_published: Time.zone.now, summary: "test", body: "test", block_content: {})
+
+    assert_equal "shared-title", first_edition.slug
+    assert_equal "shared-title--2", second_edition.slug
+  end
+
+  test "it normalizes special characters in slugs" do
+    edition = SluggableEdition.create!(title: "Title with Special! Characters & Stuff", slug: nil)
+    assert_match(/^[a-z0-9-]+$/, edition.slug)
+  end
+
+  test "it sets the slug to the document ID if the title language cannot be normalised" do
+    document = create(:document)
+    edition = SluggableEdition.create!(title: "英国驻华大使馆", slug: nil, document:)
+    assert_equal(document.id.to_s, edition.slug)
+  end
+
+  test "it truncates slugs to 150 characters" do
+    long_title = "a" * 200
+    edition = SluggableEdition.create!(title: long_title, slug: nil)
+    assert edition.slug.length <= 150
+  end
+
+  test "it allows same slug for different edition types" do
+    Edition.create!(title: "Shared Title", type: "Edition", document: Document.new, creator: User.new, previously_published: Time.zone.now, summary: "test", body: "test")
+
+    first_edition = SluggableEdition.create!(title: "Shared Title", slug: nil)
+
+    assert_equal "shared-title", first_edition.slug
+  end
+
+  test "it allows same slug for configurable document edition types with different base path prefixes" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("type_one")
+                                                .merge(build_configurable_document_type("type_two", {
+                                                  "settings" => {
+                                                    "base_path_prefix" => "/government/type_two",
+                                                  },
+                                                })))
+
+    StandardEdition.create!(title: "Shared Title", type: "StandardEdition", configurable_document_type: "type_one", document: Document.new, creator: User.new, previously_published: Time.zone.now, summary: "test", body: "test", block_content: {})
+
+    first_edition = StandardEdition.create!(title: "Shared Title", type: "StandardEdition", configurable_document_type: "type_two", document: Document.new, creator: User.new, previously_published: Time.zone.now, summary: "test", body: "test", block_content: {})
+
+    assert_equal "shared-title", first_edition.slug
+  end
+end
