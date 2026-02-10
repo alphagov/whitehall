@@ -303,6 +303,7 @@ Whitehall::Application.routes.draw do
           get :change_type
           get :change_type_preview
           patch :apply_change_type
+          get "/features(.:locale)", as: "features", to: "standard_editions#features", constraints: { locale: valid_locales_regex }
         end
 
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do
