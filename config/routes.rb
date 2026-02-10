@@ -1,4 +1,4 @@
-require "sidekiq/web"
+require "govuk_sidekiq/gds_sso_middleware"
 
 Whitehall::Application.routes.draw do
   valid_locales_regex = Regexp.compile(Locale.non_english.map(&:code).join("|"))
@@ -450,7 +450,7 @@ Whitehall::Application.routes.draw do
     match "/500", to: "admin/errors#internal_server_error"
   end
 
-  mount SidekiqGdsSsoMiddleware, at: "/sidekiq"
+  mount GovukSidekiq::GdsSsoMiddleware, at: "/sidekiq"
 
   mount Flipflop::Engine => "/flipflop"
 
