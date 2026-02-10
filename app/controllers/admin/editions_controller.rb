@@ -47,7 +47,6 @@ class Admin::EditionsController < Admin::BaseController
 
     if filter && filter.valid?
       session[:document_filters] = params_filters
-      render :index
     elsif session_filters.any?
       display_filter_error_message
       redirect_to session_filters
@@ -55,11 +54,11 @@ class Admin::EditionsController < Admin::BaseController
       display_filter_error_message
       redirect_to default_filters
     end
-
-    # respond_to do |format|
-    #   format.turbo_stream {}
-    #   format.html {}
-    # end    
+    
+    respond_to do |format|
+      format.turbo_stream { render :index }
+      format.html { render :index }
+    end
   end
 
   def export

@@ -17,3 +17,5 @@ import "@hotwired/turbo-rails"
 import * as ActionCable from '@rails/actioncable'
 
 ActionCable.logger.enabled = true
+
+Turbo.session.drive = false

@@ -8,9 +8,9 @@
   </div>
   <div class="govuk-grid-column-two-thirds">
     <div class="app-view-edition-index__table" aria-label="Search results">
-      
+      <%= turbo_frame_tag "search_results_table" do %>
         <%= render "search_results", filter: @filter, paginator: @filter.editions, show_export: true %>
-      
+      <% end %>
     </div>
   </div>
 </div>

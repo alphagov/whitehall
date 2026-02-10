@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "search_results_table" do %>
+  <%= render "search_results", filter: @filter, paginator: @filter.editions, show_export: true %>
+<% end %>

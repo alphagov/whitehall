@@ -212,14 +212,19 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
 
+
+        post :index
+
         get :edit_slug, on: :member, controller: :edition_slug
         patch :update_slug, on: :member, controller: :edition_slug
 
         collection do
+          post :index
           post :export
           get :confirm_export
         end
         member do
+          post :index
           post :submit, to: "edition_workflow#submit"
           post :revise
           get  :diff
