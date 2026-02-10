@@ -19,20 +19,19 @@ module Whitehall
   end
 
   class ImageKind
-    attr_reader :name, :display_name, :valid_width, :valid_height, :permitted_uses, :embed_version, :versions
+    attr_reader :name, :display_name, :valid_width, :valid_height, :embed_version, :versions
 
     def initialize(name, config)
       @name = name
       @display_name = config.fetch("display_name")
       @valid_width = config.fetch("valid_width")
       @valid_height = config.fetch("valid_height")
-      @permitted_uses = config.fetch("permitted_uses")
       @embed_version = config.fetch("embed_version", nil)
       @versions = config.fetch("versions").map { |version_config| ImageVersion.new(version_config) }.freeze
     end
 
     def deconstruct_keys(_keys)
-      { name:, display_name:, valid_width:, valid_height:, permitted_uses:, versions:, embed_version: }
+      { name:, display_name:, valid_width:, valid_height:, versions:, embed_version: }
     end
 
     def version_names
@@ -41,10 +40,6 @@ module Whitehall
 
     def display_name_without_dimensions
       display_name.split("(").first.strip
-    end
-
-    def permits?(use_case)
-      permitted_uses.include?(use_case)
     end
   end
 

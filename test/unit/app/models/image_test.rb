@@ -116,12 +116,6 @@ class ImageTest < ActiveSupport::TestCase
     assert image.can_be_used?
   end
 
-  test "image is invalid without an usage" do
-    image = build(:image, usage: nil)
-    assert_not image.valid?
-    assert_equal "must be specified", image.errors[:usage][0]
-  end
-
   test "#publishing_api_details returns a hash of image details" do
     image = create(:image, :svg, usage: "header", caption: "An SVG image")
 

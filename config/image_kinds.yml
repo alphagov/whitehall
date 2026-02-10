@@ -3,8 +3,6 @@ default:
   display_name: "Default (960 by 640)"
   valid_width: 960
   valid_height: 640
-  permitted_uses:
-    - govspeak_embed
   embed_version: s960
   versions:
     - name: s960
@@ -34,8 +32,6 @@ landing_page_image:
   display_name: "Landing page image (2x pixel density) (1260 by 944)"
   valid_width: 1416
   valid_height: 1062
-  permitted_uses:
-    - landing_page
   versions:
     # Note - tablet landing page images are bigger than desktop
     # because of the way they're laid out, so the tablet version
@@ -67,8 +63,6 @@ hero_mobile:
   display_name: "Mobile hero image (2x pixel density) (1280 by 960)"
   valid_width: 1280
   valid_height: 960
-  permitted_uses:
-    - hero
   versions:
     - name: hero_mobile_2x
       width: 1280
@@ -81,8 +75,6 @@ hero_tablet:
   display_name: "Tablet hero image (2x pixel density) (1536 by 1152)"
   valid_width: 1536
   valid_height: 1152
-  permitted_uses:
-    - hero
   versions:
     - name: hero_tablet_2x
       width: 1536
@@ -95,8 +87,6 @@ hero_desktop:
   display_name: "Desktop hero image (2x pixel density) (2400 by 800)"
   valid_width: 2400
   valid_height: 800
-  permitted_uses:
-    - hero
   versions:
     - name: hero_desktop_2x
       width: 2400
@@ -109,8 +99,6 @@ topical_event_header:
   display_name: "Header"
   valid_width: 800
   valid_height: 800
-  permitted_uses:
-    - header
   versions:
     - name: s800_header
       width: 800
@@ -119,8 +107,6 @@ topical_event_logo:
   display_name: "Logo"
   valid_width: 800
   valid_height: 800
-  permitted_uses:
-    - logo
   versions:
     - name: s800_logo
       width: 800
