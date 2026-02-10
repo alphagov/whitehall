@@ -24,7 +24,7 @@
       label: "Currently featured",
       content: render(Admin::CurrentlyFeaturedTabComponent.new(
         features: @feature_list.features.current,
-        maximum_featured_documents: 6,
+        maximum_featured_documents: @edition.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT,
       )),
     },
     {
