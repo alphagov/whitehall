@@ -39,6 +39,8 @@ class Admin::StandardEditionsController < Admin::EditionsController
     @feature_list = @edition.load_or_create_feature_list(params[:locale])
     @locale = Locale.new(params[:locale] || :en)
 
+    return render_not_found unless @edition.translations.pluck(:locale).include?(@locale.code.to_s)
+
     filter_params = params.slice(:page, :type, :author, :organisation, :title)
                           .permit!
                           .to_h

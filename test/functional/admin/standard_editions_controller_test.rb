@@ -313,6 +313,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     get :features, params: { id: featuring_edition.id, locale: :fr }
     assert_response :ok
     refute_dom "#currently_featured_tab p", text: with_locale(:fr) { featured_edition.title }
+
+    get :features, params: { id: featuring_edition.id, locale: :de }
+    assert_response :not_found
   end
 
   view_test "GET features renders the documents search tab with editions tagged to a featurable edition" do
