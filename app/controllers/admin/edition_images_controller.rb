@@ -47,9 +47,11 @@ class Admin::EditionImagesController < Admin::BaseController
   def create
     return render :index if images_params.empty?
 
+    return if usage_not_permitted
+
     @images = images_params.map do |image_param|
       # Kind must be set before the attribute assignment. Carrierwave validates the ImageData `file` dimensions against the width and height specified in the config. Fetching the config requires knowing the `image_kind`.
-      image_param[:usage] ||= params[:usage]
+      image_param[:usage] ||= @image_usage.key
       image_param[:image_data_attributes][:image_kind] = params[:image_kind]
 
       @edition.images.build(image_param).tap do |image|
@@ -94,6 +96,13 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
 private
+
+  def usage_not_permitted
+    return false if @image_usage.present?
+
+    render "admin/errors/unprocessable_content", status: :unprocessable_content
+    true
+  end
 
   def image_url
     return unless image&.image_data&.original_uploaded?

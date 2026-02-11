@@ -4,6 +4,7 @@ class Image < ApplicationRecord
   has_one :edition_lead_image, dependent: :destroy
 
   validates :image_data, presence: { message: "must be present" }
+  validate :permitted_usage
 
   after_destroy :destroy_image_data_if_required
 
@@ -55,6 +56,12 @@ class Image < ApplicationRecord
   end
 
 private
+
+  def permitted_usage
+    return unless edition
+
+    errors.add(:usage, "must be permitted") unless edition.permitted_image_usages.detect { |image_usage| image_usage.key == usage }
+  end
 
   def destroy_image_data_if_required
     if image_data && Image.where(image_data_id: image_data.id).empty?

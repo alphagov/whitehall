@@ -431,7 +431,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     }))
     edition = create(:draft_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
-    create(:image, edition:, image_data: build(:image_data, file:))
+    create(:image, usage: "hero", edition:, image_data: build(:image_data, file:))
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
@@ -463,6 +463,34 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_template "admin/edition_images/new"
     assert_select "label", "Upload hero image"
     assert_select ".govuk-error-summary li", /Image data file is too small/
+  end
+
+  test "POST :create returns 422 for non-permitted usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition)
+    file = upload_fixture("hero_image_mobile_2x.png")
+    unpermitted_usage = "govspeak_embed"
+
+    assert_not edition.permitted_image_usages.map(&:key).include? unpermitted_usage
+
+    post :create, params: { edition_id: edition.id, usage: unpermitted_usage, image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+
+    assert_equal 422, response.status
+    assert_template "admin/errors/unprocessable_content"
   end
 
   test "POST :create triggers a job be queued to store image and variants in Asset Manager" do
