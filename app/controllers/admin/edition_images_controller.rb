@@ -5,9 +5,7 @@ class Admin::EditionImagesController < Admin::BaseController
   def index; end
 
   def new
-    if @image_usage && !@image_usage.multiple? && @edition.images.usable_as(@image_usage).any?
-      redirect_to admin_edition_images_path(@edition), alert: "#{@image_usage.label.titleize} already uploaded. Delete the currently uploaded #{@image_usage.label} to upload a new #{@image_usage.label}."
-    end
+    nil if redirect_if_single_usage_image_exists
   end
 
   def confirm_destroy; end
@@ -48,6 +46,8 @@ class Admin::EditionImagesController < Admin::BaseController
     return render :index if images_params.empty?
 
     return if usage_not_permitted
+
+    return if redirect_if_single_usage_image_exists
 
     @images = images_params.map do |image_param|
       # Kind must be set before the attribute assignment. Carrierwave validates the ImageData `file` dimensions against the width and height specified in the config. Fetching the config requires knowing the `image_kind`.
@@ -102,6 +102,16 @@ private
 
     render "admin/errors/unprocessable_content", status: :unprocessable_content
     true
+  end
+
+  def redirect_if_single_usage_image_exists
+    if @image_usage && !@image_usage.multiple? && @edition.images.usable_as(@image_usage).any?
+      redirect_to admin_edition_images_path(@edition), alert: "#{@image_usage.label.titleize} already uploaded. Delete the currently uploaded #{@image_usage.label} to upload a new #{@image_usage.label}."
+
+      true
+    else
+      false
+    end
   end
 
   def image_url

@@ -172,7 +172,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
   end
 
-  view_test "GET :new redirects if image usage only allows single upload and an image has been uploaded" do
+  view_test "GET :new redirects for `single` usage image, if an image has already been uploaded" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
@@ -193,6 +193,32 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     ])
 
     get :new, params: { edition_id: edition.id, usage: "header" }
+
+    assert_redirected_to admin_edition_images_path(edition)
+  end
+
+  view_test "POST :create redirects for `single` usage image, if an image has already been uploaded" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile hero_desktop],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "hero"),
+    ])
+    file = upload_fixture("hero_image_mobile_2x.png")
+
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
     assert_redirected_to admin_edition_images_path(edition)
   end
@@ -349,15 +375,20 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
               "kinds" => %w[topical_event_header],
               "multiple" => false,
             },
+            "logo" => {
+              "label" => "logo",
+              "kinds" => %w[topical_event_logo],
+              "multiple" => false,
+            },
           },
         },
       },
     }))
     file = upload_fixture("images/test-svg.svg")
-    image = create(:image, usage: "header", image_data: build(:image_data, file:))
+    image = create(:image, usage: "header", image_data: build(:image_data, image_kind: "topical_event_header", file:))
     edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
 
-    post :create, params: { edition_id: edition.id, usage: "header", image_kind: "topical_event_header", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "logo", image_kind: "topical_event_logo", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/new"
     assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
