@@ -1,3 +1,11 @@
+<%
+  image_kind = image_usage.kinds.first
+
+  hint_text = ["An image can be a <strong>JPEG, PNG, SVG or GIF</strong> file"]
+  hint_text << (image_usage.kinds.one? ? " with a minimum size of <strong>#{image_kind.valid_width}x#{image_kind.valid_height}</strong>. " : ". ")
+  hint_text << "If you are uploading more than one image, <a class=\"govuk-link\" href=\"https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos\">read the image guidance</a> on using unique file names."
+%>
+
 <%= form_tag(
       admin_edition_images_path(edition),
       id: "#{image_usage.key}_image_upload_form",
@@ -6,7 +14,7 @@
   <%= render "govuk_publishing_components/components/file_upload", {
     label: {
       text: if image_usage.label.blank?
-              "Upload an image"
+              "Upload #{image_usage.multiple ? "images" : "an image"}"
             else
               "Upload #{image_usage.label} #{image_usage.multiple ? "images" : "image"}"
             end,
@@ -17,7 +25,7 @@
     multiple: image_usage.multiple,
     name: "images[][image_data_attributes][file]",
     id: "edition_images_image_data_file",
-    hint: raw('Images can be JPEG, PNG, SVG or GIF files. If you are uploading more than one image, <a class="govuk-link" href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos">read the image guidance</a> on using unique file names.'),
+    hint: raw(hint_text.join("")),
     error_items: new_image.present? ? helpers.errors_for(new_image.errors, :"image_data.file") : nil,
     accept: "image/png, image/jpeg, image/gif, image/svg+xml",
   } %>
@@ -36,7 +44,7 @@
       end,
     } %>
   <% else %>
-    <%= hidden_field_tag("image_kind", image_usage.kinds.first.name) %>
+    <%= hidden_field_tag("image_kind", image_kind.name) %>
   <% end %>
 
   <%= render "govuk_publishing_components/components/details", {

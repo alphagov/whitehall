@@ -9,7 +9,7 @@ def upload_file(width, height, image_usage_key = "govspeak_embed")
 
   if running_javascript?
     attach_file file do
-      find(:label, "Upload an image").click
+      find(:label, "Upload images").click
     end
   else
     within "##{image_usage_key}_image_upload_form input.gem-c-file-upload" do
@@ -186,7 +186,7 @@ And(/^I upload multiple images including a (\d+)x(\d+) image$/) do |width, heigh
 
   if running_javascript?
     attach_file files do
-      find(:label, "Upload an image").click
+      find(:label, "Upload images").click
     end
   else
     within "#govspeak_embed_image_upload_form input.gem-c-file-upload" do
