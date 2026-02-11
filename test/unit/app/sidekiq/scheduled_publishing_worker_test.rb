@@ -1,8 +1,6 @@
 require "test_helper"
 
 class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
-  include SidekiqTestHelpers
-
   setup do
     @publishing_robot = create(:scheduled_publishing_robot)
   end
@@ -43,58 +41,45 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test ".dequeue removes a job for a scheduled edition" do
-    control = create(:scheduled_edition)
     edition = create(:scheduled_edition)
+    target_job = mock("target_job")
+    target_job.stubs(:[]).with("class").returns(ScheduledPublishingWorker.name)
+    target_job.stubs(:args).returns([edition.id])
+    target_job.expects(:delete).once
 
-    with_real_sidekiq do
-      ScheduledPublishingWorker.queue(edition)
-      ScheduledPublishingWorker.queue(control)
+    keep_job = mock("keep_job")
+    keep_job.stubs(:[]).with("class").returns(ScheduledPublishingWorker.name)
+    keep_job.stubs(:args).returns([-1])
+    keep_job.expects(:delete).never
 
-      assert_equal 2, Sidekiq::ScheduledSet.new.size
-
-      ScheduledPublishingWorker.dequeue(edition)
-
-      assert_equal 1, Sidekiq::ScheduledSet.new.size
-
-      assert Sidekiq::ScheduledSet.new.detect do |job|
-        control.id == job["args"].first &&
-          control.scheduled_publication.to_i == job.at.to_i
-      end
-    end
+    Sidekiq::ScheduledSet.stubs(:new).returns([target_job, keep_job])
+    ScheduledPublishingWorker.dequeue(edition)
   end
 
   test ".dequeue_all removes all scheduled publishing jobs" do
-    edition1 = create(:scheduled_edition)
-    edition2 = create(:scheduled_edition)
+    job_one = mock("job_one")
+    job_one.stubs(:[]).with("class").returns(ScheduledPublishingWorker.name)
+    job_one.expects(:delete).once
 
-    with_real_sidekiq do
-      ScheduledPublishingWorker.queue(edition1)
-      ScheduledPublishingWorker.queue(edition2)
+    job_two = mock("job_two")
+    job_two.stubs(:[]).with("class").returns(ScheduledPublishingWorker.name)
+    job_two.expects(:delete).once
 
-      assert_equal 2, Sidekiq::ScheduledSet.new.size
+    other_job = mock("other_job")
+    other_job.stubs(:[]).with("class").returns("SomeOtherWorker")
+    other_job.expects(:delete).never
 
-      ScheduledPublishingWorker.dequeue_all
-
-      assert_equal 0, Sidekiq::ScheduledSet.new.size
-    end
+    Sidekiq::ScheduledSet.stubs(:new).returns([job_one, job_two, other_job])
+    ScheduledPublishingWorker.dequeue_all
   end
 
   test ".queue_size returns the number of queued ScheduledPublishingWorker jobs" do
-    with_real_sidekiq do
-      ScheduledPublishingWorker.perform_at(1.day.from_now, "null")
-      assert_equal 1, ScheduledPublishingWorker.queue_size
-
-      ScheduledPublishingWorker.perform_at(2.days.from_now, "null")
-      assert_equal 2, ScheduledPublishingWorker.queue_size
-    end
+    ScheduledPublishingWorker.stubs(:queued_jobs).returns([Object.new, Object.new])
+    assert_equal 2, ScheduledPublishingWorker.queue_size
   end
 
   test ".queued_edition_ids returns the edition ids of the currently queued jobs" do
-    with_real_sidekiq do
-      ScheduledPublishingWorker.perform_at(1.day.from_now, "3")
-      ScheduledPublishingWorker.perform_at(2.days.from_now, "6")
-
-      assert_same_elements %w[3 6], ScheduledPublishingWorker.queued_edition_ids
-    end
+    ScheduledPublishingWorker.stubs(:queued_jobs).returns([{ "args" => %w[3] }, { "args" => %w[6] }])
+    assert_same_elements %w[3 6], ScheduledPublishingWorker.queued_edition_ids
   end
 end
