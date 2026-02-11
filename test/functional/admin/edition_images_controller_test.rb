@@ -26,7 +26,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     get :index, params: { edition_id: edition.id }
 
-    assert_select "#uploaded_header_image_card a[href=\"/government/admin/editions/#{edition.id}/images/new?image_usage=header\"]"
+    assert_select "#uploaded_header_image_card a[href=\"/government/admin/editions/#{edition.id}/images/new?usage=header\"]"
   end
 
   view_test "GET :index page renders image for single image usage if present" do
@@ -192,7 +192,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       create(:image, usage: "header"),
     ])
 
-    get :new, params: { edition_id: edition.id, image_usage: "header" }
+    get :new, params: { edition_id: edition.id, usage: "header" }
 
     assert_redirected_to admin_edition_images_path(edition)
   end
@@ -437,6 +437,32 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     assert_template "admin/edition_images/index"
     assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+  end
+
+  view_test "POST :create re-renders the correct usage 'new' template on validation errors" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile hero_desktop],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition)
+    file = upload_fixture("images/960x640_jpeg.jpg")
+
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_desktop", images: [{ image_data_attributes: { file: } }] }
+
+    assert_template "admin/edition_images/new"
+    assert_select "label", "Upload hero image"
+    assert_select ".govuk-error-summary li", /Image data file is too small/
   end
 
   test "POST :create triggers a job be queued to store image and variants in Asset Manager" do
