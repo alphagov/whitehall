@@ -4,14 +4,17 @@
 # defined in .github/workflows/minitest.yml.
 
 ASSET_REQUIRED_PREFIXES = ["test/functional/admin/", "test/integration/"].freeze
-
-test_files = Dir["test/**/*_test.rb"]
+SERIAL_TEST_FILES = ["test/integration/sidekiq_scheduled_set_integration_test.rb"].freeze
 
 mode = ENV.fetch("MINITEST_CI_MODE") do
-  abort("MINITEST_CI_MODE is required (expected: ruby-only or assets-required)")
+  abort("MINITEST_CI_MODE is required (expected: ruby-only, assets-required or serial)")
 end
 
-tests =
+tests = if mode == "serial"
+  SERIAL_TEST_FILES
+else
+  test_files = Dir["test/**/*_test.rb"] - SERIAL_TEST_FILES
+
   case mode
   when "ruby-only"
     test_files.reject { |file| file.start_with?(*ASSET_REQUIRED_PREFIXES) }
@@ -20,17 +23,20 @@ tests =
   else
     abort("Unknown MINITEST_CI_MODE '#{mode}'")
   end
+end
 
-node_index = ENV.fetch("CI_NODE_INDEX", "0").to_i
-total_nodes = ENV.fetch("CI_NODE_TOTAL", "1").to_i
-abort("CI_NODE_TOTAL must be >= 1") if total_nodes < 1
-abort("CI_NODE_INDEX must be >= 0") if node_index.negative?
-abort("CI_NODE_INDEX must be < CI_NODE_TOTAL") if node_index >= total_nodes
+unless mode == "serial"
+  node_index = ENV.fetch("CI_NODE_INDEX", "0").to_i
+  total_nodes = ENV.fetch("CI_NODE_TOTAL", "1").to_i
+  abort("CI_NODE_TOTAL must be >= 1") if total_nodes < 1
+  abort("CI_NODE_INDEX must be >= 0") if node_index.negative?
+  abort("CI_NODE_INDEX must be < CI_NODE_TOTAL") if node_index >= total_nodes
 
-tests = tests
-  .sort
-  .shuffle(random: Random.new(ENV.fetch("GITHUB_SHA", "0").to_i(16)))
-  .select.with_index { |_file, i| i % total_nodes == node_index }
+  tests = tests
+    .sort
+    .shuffle(random: Random.new(ENV.fetch("GITHUB_SHA", "0").to_i(16)))
+    .select.with_index { |_file, i| i % total_nodes == node_index }
+end
 
 if tests.empty?
   abort("No tests assigned for this run; failing to avoid a false green build.")
