@@ -21,6 +21,11 @@ require "govuk_schemas/assert_matchers"
 
 Sidekiq.logger.level = Logger::WARN
 
+Minitest.after_run do
+  run_count = Minitest::Runnable.runnables.sum { |runnable| runnable.runnable_methods.size }
+  abort("Minitest reported 0 runs; failing this build.") if run_count.zero?
+end
+
 if ENV["USE_I18N_COVERAGE"]
   require "i18n/coverage"
   require "i18n/coverage/printers/file_printer"

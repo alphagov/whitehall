@@ -33,8 +33,7 @@ tests = tests
   .select.with_index { |_file, i| i % total_nodes == node_index }
 
 if tests.empty?
-  warn "No tests assigned for this run; exiting successfully."
-  exit 0
+  abort("No tests assigned for this run; failing to avoid a false green build.")
 end
 
 exec("bundle", "exec", "rails", "test", *tests)
