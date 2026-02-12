@@ -988,7 +988,7 @@ GEM
       i18n (>= 0.8.0)
       simpleidn
     version_gem (1.1.8)
-    view_component (4.2.0)
+    view_component (4.3.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
