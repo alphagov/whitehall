@@ -118,7 +118,8 @@
         "attributes": ["body"]
       },
       "embedded_contacts_exist": {
-        "attributes": ["body"]
+        "attributes": ["body"],
+        "on": "publish"
       },
       "social_media_links": {
         "attributes": ["social_media_links"],

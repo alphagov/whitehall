@@ -42,7 +42,8 @@
         "attributes": ["body"]
       },
       "embedded_contacts_exist": {
-        "attributes": ["body"]
+        "attributes": ["body"],
+        "on": "publish"
       }
     },
     "headings_from": ["body"]
