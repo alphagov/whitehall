@@ -26,7 +26,7 @@ module StandardEdition::HasBlockContent
 private
 
   def validate_block_content
-    unless block_content.valid?
+    unless block_content.valid?(validation_context)
       block_content.errors.each do |error|
         errors.import(error, { attribute: error.attribute.to_s })
       end
