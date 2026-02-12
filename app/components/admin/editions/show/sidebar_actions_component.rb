@@ -22,17 +22,15 @@ class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
       @actions = []
       add_create_action
       add_edit_action
-      unless @edition.is_child_document?
-        add_submit_action
-        add_unschedule_action
-        add_schedule_action
-        add_publish_action
-        add_reject_action
-      end
+      add_submit_action
+      add_unschedule_action
+      add_schedule_action
+      add_publish_action
+      add_reject_action
       add_destroy_action
       add_unwithdraw_action
       add_unpublish_action
-      add_review_reminder_action unless @edition.is_child_document?
+      add_review_reminder_action
       add_view_action
       add_view_on_website_action
       add_data_action
