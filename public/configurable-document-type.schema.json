@@ -15,6 +15,11 @@
               "items": {
                 "type": "string"
               }
+            },
+            "on": {
+              "description": "Validation context.",
+              "type": "string",
+              "enum": ["publish"]
             }
           },
           "additionalProperties": true
