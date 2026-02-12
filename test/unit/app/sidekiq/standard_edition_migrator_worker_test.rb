@@ -59,8 +59,14 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         published_edition.body = "This is my updated body"
         published_edition.change_note = "Superseding edition"
         published_edition.save!
-        # 3. publish it and then create a new draft ([Edition: superseded, Edition: published, Edition: draft])
+        # 3. create a new draft which we'll then delete
         force_publish(published_edition)
+        deleted_edition = published_edition.create_draft(editor)
+        deleted_edition.body = "This is my body to be deleted"
+        deleted_edition.change_note = "Deleting draft edition"
+        deleted_edition.save!
+        deleted_edition.delete!
+        # 4. publish it and then create a new draft ([Edition: superseded, Edition: published, Edition: draft])
         draft_edition = published_edition.create_draft(editor)
         draft_edition.body = "This is my updated body for the draft"
         draft_edition.change_note = "Superseding edition"
@@ -69,6 +75,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         # Calling `.reload` won't work now we've changed the type - so we'll have to re-fetch by Edition ID
         @superseded_edition_id = superseded_edition.id
         @published_edition_id = published_edition.id
+        @deleted_edition_id = deleted_edition.id
         @draft_edition_id = draft_edition.id
         @document_id = draft_edition.document.id
       end
@@ -86,6 +93,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
+        deleted_edition = Edition.unscoped.find(@deleted_edition_id)
 
         # It's a bit of a smell that we're having to set the document type at
         # both the edition and document level - a symptom of denormalisation.
@@ -94,9 +102,11 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         assert_equal "StandardEdition", superseded_edition.type
         assert_equal "StandardEdition", published_edition.type
         assert_equal "StandardEdition", draft_edition.type
+        assert_equal "StandardEdition", deleted_edition.type
         assert_equal "test_type", superseded_edition.configurable_document_type
         assert_equal "test_type", published_edition.configurable_document_type
         assert_equal "test_type", draft_edition.configurable_document_type
+        assert_equal "test_type", deleted_edition.configurable_document_type
       end
 
       test "migrates all editions in the scope and retains their original states" do
@@ -104,23 +114,28 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
+        deleted_edition = Edition.unscoped.find(@deleted_edition_id)
 
         assert_equal "superseded", superseded_edition.state
         assert_equal "published", published_edition.state
         assert_equal "draft", draft_edition.state
+        assert_equal "deleted", deleted_edition.state
       end
 
       test "defers to `map_legacy_fields_to_block_content` to set the block_content= field" do
         Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, "republish" => true, "compare_payloads" => true) }
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
+        deleted_edition = Edition.unscoped.find(@deleted_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
         superseded_block_content = { "field_attribute" => "MODIFIED This is my legacy document type body" }
         published_block_content = { "field_attribute" => "MODIFIED This is my updated body" }
+        deleted_block_content = { "field_attribute" => "MODIFIED This is my body to be deleted" }
         draft_block_content = { "field_attribute" => "MODIFIED This is my updated body for the draft" }
 
         assert_equal superseded_block_content, superseded_edition.block_content.to_h
         assert_equal published_block_content, published_edition.block_content.to_h
+        assert_equal deleted_block_content, deleted_edition.block_content.to_h
         assert_equal draft_block_content, draft_edition.block_content.to_h
       end
 
@@ -128,10 +143,12 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         Sidekiq::Testing.inline! { StandardEditionMigratorWorker.new.perform(@document_id, "republish" => true, "compare_payloads" => true) }
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
+        deleted_edition = Edition.unscoped.find(@deleted_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
 
         assert_nil superseded_edition.body
         assert_nil published_edition.body
+        assert_nil deleted_edition.body
         assert_nil draft_edition.body
       end
 
@@ -178,9 +195,11 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         end
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
+        deleted_edition = Edition.unscoped.find(@deleted_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
         assert_equal "Publication", superseded_edition.type
         assert_equal "Publication", published_edition.type
+        assert_equal "Publication", deleted_edition.type
         assert_equal "Publication", draft_edition.type
       end
 
@@ -234,7 +253,7 @@ class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
         @document_id = document.id
       end
 
-      test "compares the presenter outputs on non-superseded editions, before and after migration, and passes if they're identical" do
+      test "compares the presenter outputs on non-superseded and deleted editions, before and after migration, and passes if they're identical" do
         StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:content).returns({ some: "content" })
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "content" })
         StandardEditionMigratorWorkerTest::TestPresenter.any_instance.stubs(:links).returns({ some: "links" })

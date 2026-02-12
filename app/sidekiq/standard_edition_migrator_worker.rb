@@ -22,7 +22,7 @@ class StandardEditionMigratorWorker < WorkerBase
 private
 
   def migrate_editions!(document, compare_payloads)
-    editions_to_migrate = Edition.where(document: document)
+    editions_to_migrate = Edition.unscoped.where(document: document)
 
     editions_to_migrate.each do |edition|
       recipe = StandardEditionMigrator.recipe_for(edition)
@@ -58,7 +58,7 @@ private
 
     yield
 
-    new_presenter = PublishingApi::StandardEditionPresenter.new(Edition.find(edition_id))
+    new_presenter = PublishingApi::StandardEditionPresenter.new(Edition.unscoped.find(edition_id))
     new_content = new_presenter.content
     new_links = new_presenter.links
 
