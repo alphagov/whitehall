@@ -46,6 +46,22 @@ class TopicalEventFeaturing < ApplicationRecord
     edition.nil?
   end
 
+  def public_timestamp
+    if offsite?
+      offsite_link.date
+    else
+      edition.public_timestamp
+    end
+  end
+
+  def display_type
+    if offsite?
+      offsite_link.display_type
+    else
+      edition.display_type
+    end
+  end
+
   def republish_topical_event_to_publishing_api
     Whitehall::PublishingApi.republish_async(topical_event)
   end

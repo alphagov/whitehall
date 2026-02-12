@@ -69,6 +69,8 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
               alt_text: offsite_feature.alt_text,
             },
             summary: offsite_feature.summary,
+            public_updated_at: offsite_feature.public_timestamp,
+            document_type: offsite_feature.display_type,
           },
           {
             title: feature.title,
@@ -78,6 +80,8 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
               alt_text: feature.alt_text,
             },
             summary: feature.summary,
+            public_updated_at: feature.public_timestamp,
+            document_type: feature.display_type,
           },
         ],
         social_media_links: [

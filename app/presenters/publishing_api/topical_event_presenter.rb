@@ -76,6 +76,8 @@ module PublishingApi
               alt_text: feature.alt_text,
             },
             summary: feature.summary,
+            public_updated_at: feature.public_timestamp,
+            document_type: feature.display_type,
           }
         end
     end
