@@ -22,6 +22,7 @@ $app-cropper-point-size: 20px;
     width: $app-cropper-point-size;
     height: $app-cropper-point-size;
     opacity: 1;
+    z-index: 999999;
   }
 
   .cropper-point.point-n {
@@ -64,6 +65,17 @@ $app-cropper-point-size: 20px;
     left: calc(-1 * $app-cropper-point-size / 2);
   }
 
+  .cropper-point.point-label {
+    font-size: 16px;
+    height: 20px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    bottom: -3px;
+    left: 0;
+    color: govuk-colour("white");
+  }
+
   &:focus {
     outline: none;
 
@@ -94,10 +106,28 @@ $app-cropper-point-size: 20px;
   margin-top: 0;
 }
 
+.app-c-image-cropper__preview,
+.app-c-image-cropper__preview-js {
+  overflow: hidden;
+}
+
+.app-c-image-cropper__preview img {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  max-height: none;
+}
+
 .js-enabled {
   .app-c-image-cropper__no-js-description,
   .app-c-image-cropper__no-js-image {
     display: none;
+  }
+
+  .app-c-image-cropper__container {
+    padding: 0;
   }
 
   .app-c-image-cropper__description,

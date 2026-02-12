@@ -1,9 +1,14 @@
 <%
   x ||= 0
   y ||= 0
+  versions ||= []
+  height ||= 0
+  width ||= 0
+  target_width ||=0
+  target_height ||=0
 %>
 
-<%= tag.div class: "app-c-image-cropper", tabindex: "0", data: { module: "image-cropper", filename:, type:, width:, height:, x:, y: }, "aria-live" => "polite" do %>
+<%= tag.div class: "app-c-image-cropper", tabindex: "0", data: { module: "image-cropper", filename:, type:, width:, height:, x:, y:, versions:, target_width:, target_height: }, "aria-live" => "polite" do %>
   <input class="js-cropped-image-input" name="<%= name %>[x]" hidden value="<%= x %>">
   <input class="js-cropped-image-input" name="<%= name %>[y]" hidden value="<%= y %>">
   <input class="js-cropped-image-input" name="<%= name %>[height]" hidden value="<%= height %>">

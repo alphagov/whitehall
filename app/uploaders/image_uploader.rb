@@ -23,12 +23,12 @@ class ImageUploader < WhitehallUploader
     end
 
     image_kind_config.versions.each do |v|
-      def crop_to_crop_data(from_version)
+      def crop_to_crop_data(version)
         manipulate! do |img|
           # prevents running crop on variants
           # based on an already cropped variant
-          if model.crop_data_to_params.present? && from_version.blank?
-            img.crop(model.crop_data_to_params)
+          if model.crop_data_to_params(version.width, version.height).present? && version.from_version.blank?
+            img.crop(model.crop_data_to_params(version.width, version.height))
           end
 
           img
@@ -40,7 +40,7 @@ class ImageUploader < WhitehallUploader
           !model.requires_crop?
         end
 
-        process crop_to_crop_data: [v.from_version], if: :crop_image?
+        process crop_to_crop_data: [v], if: :crop_image?
         process resize_to_fill: v.resize_to_fill
       end
     end

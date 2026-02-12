@@ -40,10 +40,19 @@ class ImageData < ApplicationRecord
     content_type !~ /svg/
   end
 
-  def crop_data_to_params
+  def crop_data_to_params(version_width, version_height)
     return if crop_data.blank?
 
-    "#{crop_data_width}x#{crop_data_height}+#{crop_data_x}+#{crop_data_y}"
+    set_dimensions if dimensions.blank?
+
+    return if version_width == width && version_height == height
+
+    scale = crop_data_width.to_f / image_kind_config.valid_width
+
+    new_x = (crop_data_x.to_f + (crop_data_width.to_f / 2)) - ((version_width.to_f * scale) / 2)
+    new_y = (crop_data_y.to_f + (crop_data_height.to_f / 2)) - ((version_height.to_f * scale) / 2)
+
+    "#{version_width * scale}x#{version_height * scale}+#{new_x}+#{new_y}"
   end
 
   def requires_crop?
@@ -51,7 +60,7 @@ class ImageData < ApplicationRecord
   end
 
   def can_be_cropped?
-    too_large? && bitmap?
+    bitmap?
   end
 
   def original_uploaded?
