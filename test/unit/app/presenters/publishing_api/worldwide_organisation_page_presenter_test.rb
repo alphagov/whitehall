@@ -83,6 +83,28 @@ module PublishingApi::WorldwideOrganisationPagePresenterTest
           ], presented_item.content[:routes]
         end
       end
+
+      test "headers" do
+        self.page = create(
+          :worldwide_organisation_page,
+          title: "Some worldwide organisation page",
+          summary: "Some summary",
+          body: "##Some header\n\nSome content",
+        )
+
+        presented_item = PublishingApi::WorldwideOrganisationPagePresenter.new(page)
+        details = presented_item.content[:details]
+
+        expected_headers = [
+          {
+            text: "Some header",
+            level: 2,
+            id: "some-header",
+          },
+        ]
+
+        assert_equal expected_headers, details[:headers]
+      end
     end
   end
 end

@@ -25,7 +25,7 @@ module PublishingApi
             attachments: item.attachments,
             alternative_format_contact_email: item.alternative_format_contact_email,
           ),
-        },
+        }.merge!(PayloadBuilder::Headings.for(item.body)),
         description: item.summary,
         public_updated_at: item.updated_at.rfc3339,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
