@@ -4,7 +4,7 @@ class StandardEditionMigrator
   end
 
   def preview
-    total_editions = @scope.sum { |doc| Edition.where(document: doc).count }
+    total_editions = @scope.sum { |doc| Edition.unscoped.where(document: doc).count }
 
     {
       unique_documents: @scope.count,
