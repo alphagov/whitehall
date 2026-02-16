@@ -57,7 +57,12 @@
         "body": "govspeak",
         "image": "lead_image"
       },
-      "links": []
+      "links": [
+        "topical_events",
+        "world_locations",
+        "worldwide_organisations",
+        "government"
+      ]
     }
   },
   "associations" : [

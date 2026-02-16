@@ -1,19 +1,5 @@
 require "test_helper"
 
-class TopicalEventsDocumentsTest < ActiveSupport::TestCase
-  test "it presents the selected topical event document links" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
-    topical_events = create_list(:standard_edition, 3, configurable_document_type: "topical_event")
-    edition = build(:draft_standard_edition, {
-      topical_event_documents: [topical_events.first.document, topical_events.last.document],
-    })
-
-    topical_events_association = ConfigurableAssociations::TopicalEventDocuments.new(edition.topical_event_documents)
-    expected_links = { topical_events: [topical_events.first.content_id, topical_events.last.content_id] }
-    assert_equal expected_links, topical_events_association.links
-  end
-end
-
 class TopicalEventDocumentsRenderingTest < ActionView::TestCase
   setup do
     @test_strategy ||= Flipflop::FeatureSet.current.test!

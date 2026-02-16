@@ -4,16 +4,6 @@ module ConfigurableAssociations
       @association = association
     end
 
-    def links
-      @association.includes(:person, :role)
-
-      @association.each_with_object({ people: [], roles: [] }) do |role_appointment, links|
-        # Avoid duplicate people content_ids in case one person holds multiple ministerial roles
-        links[:people] << role_appointment.person.content_id unless links[:people].include?(role_appointment.person.content_id)
-        links[:roles] << role_appointment.role.content_id unless links[:roles].include?(role_appointment.role.content_id)
-      end
-    end
-
     def selected_ids
       @association.ids
     end

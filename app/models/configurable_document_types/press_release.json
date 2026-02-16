@@ -57,7 +57,13 @@
         "body": "govspeak",
         "image": "lead_image"
       },
-      "links": []
+      "links": [
+        "ministerial_role_appointments",
+        "topical_events",
+        "world_locations",
+        "organisations",
+        "government"
+      ]
     }
   },
   "associations" : [

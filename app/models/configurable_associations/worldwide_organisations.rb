@@ -10,12 +10,6 @@ module ConfigurableAssociations
       @required = required
     end
 
-    def links
-      {
-        worldwide_organisations: @association.map { |edition_worldwide_org| edition_worldwide_org.document.content_id },
-      }
-    end
-
     def options
       WorldwideOrganisation.includes(:document).latest_edition.order(:title).map do |worldwide_organisation|
         {

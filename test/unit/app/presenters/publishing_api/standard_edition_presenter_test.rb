@@ -309,13 +309,13 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "#links includes the required content IDs" do
     ConfigurableDocumentType.setup_test_types(
       build_configurable_document_type("test_type", {
-        "associations" => [
-          {
-            "key" => "world_locations",
+        "presenters" => {
+          "publishing_api" => {
+            "links" => %w[
+              government
+              world_locations
+            ],
           },
-        ],
-        "settings" => {
-          "history_mode_enabled" => true,
         },
       }),
     )

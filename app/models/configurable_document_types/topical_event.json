@@ -136,7 +136,9 @@
         "body": "govspeak",
         "social_media_links": "social_media_links"
       },
-      "links": []
+      "links": [
+        "organisations"
+      ]
     }
   },
   "associations": [

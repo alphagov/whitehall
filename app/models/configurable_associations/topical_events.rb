@@ -4,12 +4,6 @@ module ConfigurableAssociations
       @association = association
     end
 
-    def links
-      {
-        topical_events: @association.map(&:content_id),
-      }
-    end
-
     def selected_ids
       @association.ids
     end

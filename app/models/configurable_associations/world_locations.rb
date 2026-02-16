@@ -8,12 +8,6 @@ module ConfigurableAssociations
       @required = required
     end
 
-    def links
-      {
-        world_locations: @association.map(&:content_id),
-      }
-    end
-
     def selected_ids
       @association.ids
     end
