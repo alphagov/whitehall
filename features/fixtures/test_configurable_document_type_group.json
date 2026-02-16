@@ -35,8 +35,10 @@
     },
     "presenters": {
       "publishing_api": {
-        "body": "govspeak",
-        "image": "image"
+        "details": {
+          "body": "govspeak",
+          "image": "image"
+        }
       }
     },
     "associations": [],

@@ -132,8 +132,10 @@
   },
   "presenters": {
     "publishing_api": {
-      "body": "govspeak",
-      "social_media_links": "social_media_links"
+      "details": {
+        "body": "govspeak",
+        "social_media_links": "social_media_links"
+      }
     }
   },
   "associations": [

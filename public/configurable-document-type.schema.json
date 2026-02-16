@@ -216,25 +216,32 @@
       "properties": {
         "publishing_api": {
           "type": "object",
-          "description": "Mapping of content blocks to their respective publishing API presenter formats.",
-          "patternProperties": {
-            ".*": {
-              "type": "string",
-              "description": "The format to use for the content block when presenting to the Publishing API.",
-              "enum": [
-                "govspeak",
-                "rfc3339_date",
-                "image",
-                "lead_image",
-                "raw",
-                "social_media_links"
-              ]
+          "properties": {
+            "details": {
+              "type": "object",
+              "description": "Mapping of schema attributes to their respective publishing API details formats.",
+              "patternProperties": {
+                ".*": {
+                  "type": "string",
+                  "description": "The format to use for the content block when presenting to the Publishing API.",
+                  "enum": [
+                    "govspeak",
+                    "rfc3339_date",
+                    "image",
+                    "lead_image",
+                    "raw",
+                    "social_media_links"
+                  ]
+                }
+              },
+              "propertyNames": {
+                "type": "string",
+                "description": "Attribute to be included in the presenter payload. Must match an existing attribute defined in the schema."
+              }
             }
           },
-          "propertyNames": {
-            "type": "string",
-            "description": "Attribute to be included in the presenter payload. Must match an existing attribute defined in the schema."
-          }
+          "additionalProperties": false,
+          "required": ["details"]
         }
       },
       "additionalProperties": false,

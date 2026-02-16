@@ -12,7 +12,7 @@ module PublishingApi
       end
 
       def call
-        mapping = @item.type_instance.presenter("publishing_api")
+        mapping = @item.type_instance.presenter("publishing_api")["details"]
         return {} unless mapping
 
         mapping.each_with_object({}) { |(attribute, builder), details|

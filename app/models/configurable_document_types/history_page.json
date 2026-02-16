@@ -50,8 +50,10 @@
   },
   "presenters": {
     "publishing_api": {
-      "body": "govspeak",
-      "lead_paragraph": "raw"
+      "details": {
+        "body": "govspeak",
+        "lead_paragraph": "raw"
+      }
     }
   },
   "associations": [],
