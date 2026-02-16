@@ -8,4 +8,8 @@ class ImageUsage
   def embeddable?
     key == "govspeak_embed"
   end
+
+  def lead?
+    key == "lead"
+  end
 end
