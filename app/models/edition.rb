@@ -51,16 +51,18 @@ class Edition < ApplicationRecord
   has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: "Contact"
   has_many :depended_upon_editions, through: :edition_dependencies, source: :dependable, source_type: "Edition"
 
-  validates_with SafeHtmlValidator
-  validates_with NoFootnotesInGovspeakValidator, attribute: :body
-  validates_with LinkCheckReportValidator, on: :publish
-  validates_with InternalPathLinksValidator, attribute: :body, on: :publish
-  validates_with GovspeakContactEmbedValidator, attribute: :body, on: :publish
-  validates_with TaxonValidator, on: :publish, if: :requires_taxon?
+  # Add validation rules on legacy Edition content types, but opt out of them on StandardEdition
+  # types whose validation rules are configured via JSON and applied via StandardEdition::BlockContent.
+  validates_with SafeHtmlValidator, unless: ->(record) { record.is_a?(StandardEdition) }
+  validates_with NoFootnotesInGovspeakValidator, attribute: :body, unless: ->(record) { record.is_a?(StandardEdition) }
+  validates_with LinkCheckReportValidator, on: :publish # TODO: make this a configurable StandardEdition property
+  validates_with InternalPathLinksValidator, attribute: :body, on: :publish # TODO: make this a configurable StandardEdition property
+  validates_with GovspeakContactEmbedValidator, attribute: :body, on: :publish, unless: ->(record) { record.is_a?(StandardEdition) }
+  validates_with TaxonValidator, on: :publish, if: :requires_taxon? # TODO: make this a configurable StandardEdition property
 
   validates :creator, presence: true
   validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
-  validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }
+  validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }, unless: ->(record) { record.is_a?(StandardEdition) }
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
   validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }

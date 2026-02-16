@@ -37,6 +37,16 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_equal "undefined validator type made_up_validation_rule", error.message
   end
 
+  test "only runs validations for the current validation context" do
+    schema = @schema.merge({ "validations" => { "presence" => { "attributes" => %w[test_attribute], "on" => "publish" } } })
+    page = StandardEdition::BlockContent.new(schema)
+    page.attributes = { "test_attribute" => "" }
+    assert page.valid?
+    assert page.errors.where("test_attribute", :blank).empty?
+    assert_not page.valid?(:publish)
+    assert_not page.errors.where("test_attribute", :blank).empty?
+  end
+
   test "casts number attributes to a number for storage" do
     page = StandardEdition::BlockContent.new(@schema)
 

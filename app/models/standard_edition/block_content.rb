@@ -3,7 +3,7 @@ class StandardEdition::BlockContent
   include ActiveModel::Validations::Callbacks
   include DateValidation
 
-  validate :valid_instance_of_document_type_attributes
+  validate :run_schema_validations
 
   VALIDATORS = {
     "embedded_contacts_exist" => GovspeakContactEmbedValidator,
@@ -49,13 +49,17 @@ class StandardEdition::BlockContent
 
 private
 
-  def valid_instance_of_document_type_attributes
+  def run_schema_validations
     return unless @schema.key?("validations")
 
     @schema["validations"].each do |key, options|
-      raise ArgumentError, "undefined validator type #{key}" unless VALIDATORS.key?(key)
+      validator_class = VALIDATORS[key] or raise ArgumentError, "undefined validator type #{key}"
+      opts = options.symbolize_keys
 
-      validates_with VALIDATORS[key], options.symbolize_keys
+      on = opts.delete(:on) # Support config like: { ..., "on": "publish" }
+      next if on && validation_context&.to_sym != on.to_sym
+
+      validator_class.new(opts).validate(self)
     end
   end
 
