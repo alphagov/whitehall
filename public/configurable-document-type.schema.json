@@ -382,8 +382,7 @@
                           "landing_page_image",
                           "hero_desktop",
                           "hero_tablet",
-                          "hero_mobile",
-                          "sidebar"
+                          "hero_mobile"
                         ]
                       },
                       "minLength": 1,
@@ -399,7 +398,8 @@
                   "hero",
                   "header",
                   "logo",
-                  "sidebar"
+                  "sidebar",
+                  "lead"
                 ]
               },
               "minLength": 1,

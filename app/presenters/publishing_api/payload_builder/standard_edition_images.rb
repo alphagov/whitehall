@@ -12,11 +12,13 @@ module PublishingApi
       end
 
       def call
-        if images.any?
-          { images: }
-        else
-          {}
+        payload = {}
+        if (lead_image_usage = item.permitted_image_usages.find(&:lead?)).present?
+          lead_image = item.lead_image_payload(lead_image_usage)
+          payload[:image] = lead_image if lead_image.present?
         end
+        payload[:images] = images if images.any?
+        payload
       end
 
     private
@@ -24,7 +26,7 @@ module PublishingApi
       def images
         item.images
             .usable
-            .usable_as(*item.permitted_image_usages.reject(&:embeddable?))
+            .usable_as(*item.permitted_image_usages.reject { |usage| usage.embeddable? || usage.lead? })
             .to_a
             .select { |image| image.image_data&.all_asset_variants_uploaded? }
             .map(&:publishing_api_details)

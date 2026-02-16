@@ -159,6 +159,67 @@ module PublishingApi
 
         assert_equal({}, result)
       end
+
+      context "usage: lead" do
+        test "sends the custom lead image payload to publishing-api" do
+          ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+            "settings" => {
+              "images" => {
+                "enabled" => true,
+                "usages" => {
+                  "lead" => {
+                    "kinds" => %w[default],
+                    "multiple" => false,
+                  },
+                },
+              },
+            },
+          }))
+          lead_image = create(:image, usage: "lead", caption: "Lead image caption")
+          page = create(:standard_edition, images: [lead_image])
+
+          expected_payload = {
+            high_resolution_url: lead_image.url(:s960),
+            url: lead_image.url(:s300),
+            caption: lead_image.caption,
+          }
+          result = PayloadBuilder::StandardEditionImages.for(page)[:image]
+          assert_not_nil result
+          assert_equal expected_payload, result
+        end
+
+        test "allows additional non-embeddable usages alongside lead" do
+          ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+            "settings" => {
+              "images" => {
+                "enabled" => true,
+                "usages" => {
+                  "lead" => {
+                    "kinds" => %w[lead_kind],
+                    "multiple" => false,
+                  },
+                  "non_embeddable_usage" => {
+                    "kinds" => %w[non_embeddable_usage_kind],
+                    "multiple" => true,
+                  },
+                },
+              },
+            },
+          }))
+          lead_image = create(:image, usage: "lead")
+          non_embeddable_image = create(:image, usage: "non_embeddable_usage")
+          page = create(:standard_edition, images: [lead_image, non_embeddable_image])
+
+          images_result = PayloadBuilder::StandardEditionImages.for(page)[:images]
+          image_result = PayloadBuilder::StandardEditionImages.for(page)[:image]
+          assert images_result.is_a?(Array)
+          assert_equal 1, images_result.count
+          assert_equal "non_embeddable_usage", images_result.first[:type]
+          assert_not_nil image_result
+          assert_not_nil image_result[:high_resolution_url]
+          assert_not_nil image_result[:url]
+        end
+      end
     end
   end
 end
