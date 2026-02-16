@@ -113,7 +113,7 @@ module Admin
       editions = editions.in_state(state) if state
       editions = editions.authored_by(author) if author
       editions = editions.in_organisation(organisation) if organisation
-      editions = editions.with_topical_event(topical_event) if topical_event
+      editions = editions.with_topical_event(topical_event) if topical_event # Legacy
       editions = editions.with_title_containing(title) if title
       editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
       editions = editions.from_date(from_date) if from_date
@@ -122,6 +122,7 @@ module Admin
       editions = editions.not_validated_since(not_validated_since) if not_validated_since
       editions = editions.only_broken_links if only_broken_links
       editions = editions.review_overdue if review_overdue
+      editions = editions.linked_to_document(linked_document) if linked_document
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
       editions = editions.includes(:link_check_report) if include_link_check_report?
@@ -278,6 +279,7 @@ module Admin
       @errors << "The '#{field.to_s.humanize}' is incorrect. It should be dd/mm/yyyy" unless is_valid
     end
 
+    # Legacy
     def topical_event
       TopicalEvent.find(options[:topical_event]) if options[:topical_event].present?
     end
@@ -315,6 +317,10 @@ module Admin
 
     def include_last_author?
       options.fetch(:include_last_author, false)
+    end
+
+    def linked_document
+      options[:linked_document]
     end
   end
 end

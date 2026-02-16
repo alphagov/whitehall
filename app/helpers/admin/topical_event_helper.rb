@@ -1,3 +1,4 @@
+# Legacy
 module Admin::TopicalEventHelper
   def topical_event_nav_items(topical_event, current_path)
     [

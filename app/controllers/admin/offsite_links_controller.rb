@@ -40,7 +40,7 @@ private
   def load_parent
     @parent = WorldLocation.friendly.find(params[:world_location_news_id]).world_location_news if params[:world_location_news_id]
     @parent = Organisation.friendly.find(params[:organisation_id]) if params[:organisation_id]
-    @parent = TopicalEvent.friendly.find(params[:topical_event_id]) if params[:topical_event_id]
+    @parent = TopicalEvent.friendly.find(params[:topical_event_id]) if params[:topical_event_id] # Legacy
   end
 
   def load_offsite_link
@@ -48,7 +48,7 @@ private
   end
 
   def offsite_link_path(offsite_link)
-    if offsite_link.parent.is_a? TopicalEvent
+    if offsite_link.parent.is_a? TopicalEvent # legacy
       polymorphic_path([:admin, offsite_link.parent, :topical_event_featurings])
     else
       polymorphic_url([:features, :admin, offsite_link.parent])
@@ -56,7 +56,7 @@ private
   end
 
   def offsite_links_path
-    if @parent.is_a? TopicalEvent
+    if @parent.is_a? TopicalEvent #  legacy
       polymorphic_path([:admin, @parent, :topical_event_featurings], anchor: "non_govuk_government_links_tab")
     else
       polymorphic_path([:features, :admin, @parent], anchor: "non_govuk_government_links_tab")

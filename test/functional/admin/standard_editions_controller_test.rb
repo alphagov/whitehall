@@ -246,6 +246,340 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Worldwide organisations"
   end
 
+  view_test "GET features renders the currently featured tab with featured editions" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    featured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 1", configurable_document_type: "test_type", topical_event_documents: [edition.document])
+    unfeatured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 2", configurable_document_type: "test_type",
+                                                                                  topical_event_documents: [edition.document])
+    feature_list = edition.feature_lists.create!(locale: edition.primary_locale)
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: :en }
+
+    assert_response :ok
+    assert_select "#currently_featured_tab p", text: featured_edition.title
+    refute_dom "#currently_featured_tab p", text: unfeatured_edition.title
+  end
+
+  view_test "GET features renders the currently featured tab with editions that have a translation for the selected locale" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      :translated,
+      primary_locale: :en,
+      translated_into: %w[cy fr],
+      configurable_document_type: "topical_event",
+    )
+
+    featured_edition = create(:published_standard_edition,
+                              :with_organisations,
+                              :translated,
+                              primary_locale: :en,
+                              translated_into: %w[cy],
+                              configurable_document_type: "test_type",
+                              topical_event_documents: [featuring_edition.document])
+
+    feature_list = featuring_edition.feature_lists.create!(locale: :cy)
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :cy }
+
+    assert_response :ok
+    assert_select "#currently_featured_tab p", text: with_locale(:cy) { featured_edition.title }
+
+    get :features, params: { id: featuring_edition.id, locale: :fr }
+    assert_response :ok
+    refute_dom "#currently_featured_tab p", text: with_locale(:fr) { featured_edition.title }
+
+    get :features, params: { id: featuring_edition.id, locale: :de }
+    assert_response :not_found
+  end
+
+  view_test "GET features renders the documents search tab with editions tagged to a featurable edition" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    tagged_editions = create_list(:published_standard_edition, 2, :with_organisations, configurable_document_type: "test_type",
+                                                                                       topical_event_documents: [edition.document])
+    untagged_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: :en }
+
+    assert_response :ok
+    tagged_editions.each do |edition|
+      assert_select "#documents_tab p", text: edition.title
+    end
+    refute_dom "#documents_tab p", text: untagged_edition.title
+  end
+
+  view_test "GET features renders the documents search tab without editions already featured" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    featured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 1", configurable_document_type: "test_type", topical_event_documents: [edition.document])
+    unfeatured_edition = create(:published_standard_edition, :with_organisations, title: "Edition 2", configurable_document_type: "test_type",
+                                                                                  topical_event_documents: [edition.document])
+    feature_list = edition.feature_lists.create!(locale: edition.primary_locale)
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: :en }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: unfeatured_edition.title
+    refute_dom "#documents_tab p", text: featured_edition.title
+  end
+
+  view_test "GET features renders the documents search tab with editions that have a translation for the selected locale" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      :translated,
+      primary_locale: :en,
+      translated_into: %w[cy fr],
+      configurable_document_type: "topical_event",
+    )
+
+    tagged_edition = create(:published_standard_edition,
+                            :with_organisations,
+                            :translated,
+                            primary_locale: :en,
+                            translated_into: %w[cy],
+                            configurable_document_type: "test_type",
+                            topical_event_documents: [featuring_edition.document])
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :cy }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: with_locale(:cy) { tagged_edition.title }
+
+    get :features, params: { id: featuring_edition.id, locale: :fr }
+    assert_response :ok
+    refute_dom "#documents_tab p", text: with_locale(:fr) { tagged_edition.title }
+  end
+
+  view_test "GET features renders the documents search tab with only published editions tagged to the featuring edition" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    published_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type", topical_event_documents: [featuring_edition.document])
+    draft_edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", topical_event_documents: [featuring_edition.document])
+    unpublished_edition = create(:unpublished_standard_edition, :with_organisations, configurable_document_type: "test_type", topical_event_documents: [featuring_edition.document])
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :en }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: published_edition.title
+    refute_dom "#documents_tab p", text: draft_edition.title
+    refute_dom "#documents_tab p", text: unpublished_edition.title
+  end
+
+  view_test "GET features filters documents by title" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    edition_to_display = create(
+      :published_standard_edition,
+      :with_organisations,
+      title: "Test document to match",
+      configurable_document_type: "test_type",
+      topical_event_documents: [featuring_edition.document],
+    )
+
+    another_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      title: "Totally different title",
+      configurable_document_type: "test_type",
+      topical_event_documents: [featuring_edition.document],
+    )
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :en, title: "Test document" }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: edition_to_display.title
+    refute_dom "#documents_tab p", text: another_edition.title
+  end
+
+  view_test "GET features filters documents by author" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+    author = create(:user, name: "Test author")
+    edition_to_display = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      topical_event_documents: [featuring_edition.document],
+      authors: [author],
+    )
+    another_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      topical_event_documents: [featuring_edition.document],
+    )
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :en, author: author.id }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: edition_to_display.title
+    refute_dom "#documents_tab p", text: another_edition.title
+  end
+
+  view_test "GET features filters documents by organisation" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+    organisation_1 = create(:organisation, name: "Test organisation 1")
+    organisation_2 = create(:organisation, name: "Test organisation 2")
+
+    edition_to_display = create(
+      :published_standard_edition,
+      organisations: [organisation_1],
+      configurable_document_type: "test_type",
+      topical_event_documents: [featuring_edition.document],
+    )
+    another_edition = create(
+      :published_standard_edition,
+      organisations: [organisation_2],
+      configurable_document_type: "test_type",
+      topical_event_documents: [featuring_edition.document],
+    )
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :en, organisation: organisation_1.id }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: edition_to_display.title
+    refute_dom "#documents_tab p", text: another_edition.title
+  end
+
+  view_test "GET features filters documents by document type" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    featuring_edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+    publication = create(:published_publication, topical_event_documents: [featuring_edition.document])
+    call_for_evidence = create(:published_call_for_evidence, topical_event_documents: [featuring_edition.document])
+
+    login_as :managing_editor
+    get :features, params: { id: featuring_edition.id, locale: :en, type: Publication.model_name.singular }
+
+    assert_response :ok
+    assert_select "#documents_tab p", text: publication.title
+    refute_dom "#documents_tab p", text: call_for_evidence.title
+  end
+
   view_test "PATCH update respects a provided safe relative redirect_to path" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

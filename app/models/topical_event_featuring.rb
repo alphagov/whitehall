@@ -1,3 +1,4 @@
+# LEGACY TOPICAL EVENTS ONLY
 class TopicalEventFeaturing < ApplicationRecord
   belongs_to :edition, inverse_of: :topical_event_featurings
   belongs_to :offsite_link
@@ -43,6 +44,22 @@ class TopicalEventFeaturing < ApplicationRecord
 
   def offsite?
     edition.nil?
+  end
+
+  def public_timestamp
+    if offsite?
+      offsite_link.date
+    else
+      edition.public_timestamp
+    end
+  end
+
+  def display_type
+    if offsite?
+      offsite_link.display_type
+    else
+      edition.display_type
+    end
   end
 
   def republish_topical_event_to_publishing_api

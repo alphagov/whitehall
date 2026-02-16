@@ -101,6 +101,7 @@ module Admin::OrganisationHelper
     end
   end
 
+  # legacy
   def topical_event_dates_string(topical_event)
     [
       topical_event.start_date.try(:to_date),

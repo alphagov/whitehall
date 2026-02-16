@@ -1,4 +1,5 @@
 module Admin::UrlHelper
+  # legacy
   def admin_topical_events_link
     admin_link "Topical events", admin_topical_events_path
   end

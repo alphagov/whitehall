@@ -1,6 +1,19 @@
 require "test_helper"
 
 class FeatureListTest < ActiveSupport::TestCase
+  test "to_s returns name and locale for non-editionable parents (e.g. TopicalEvent)" do
+    topical_event = build(:topical_event, name: "Mars Exploration")
+    feature_list = build(:feature_list, featurable: topical_event, locale: :en)
+    assert_equal "Mars Exploration (en)", feature_list.to_s
+  end
+
+  test "to_s returns title and locale for editionable parents (e.g. StandardEdition)" do
+    edition = build(:standard_edition, title: "Mission to the Moon")
+    feature_list = build(:feature_list, featurable: edition, locale: :fr)
+
+    assert_equal "Mission to the Moon (fr)", feature_list.to_s
+  end
+
   test "features are given an ordering if none set" do
     feature_list = build(:feature_list, locale: :en)
     feature_list.features << build(:feature)
@@ -28,7 +41,8 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "can re-order features" do
-    feature_list = create(:feature_list, locale: :en)
+    standard_edition = create(:standard_edition)
+    feature_list = create(:feature_list, locale: :en, featurable: standard_edition)
     feature_list.features << create(:feature)
     feature_list.features << create(:feature)
 
@@ -91,12 +105,13 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "#features should still return featured documents after republication" do
-    world_location = create(:world_location)
+    world_location_news = build(:world_location_news)
+    world_location = create(:world_location, world_location_news:)
 
     _item_a = create(:published_speech, world_locations: [world_location])
     item_b = create(:published_speech, world_locations: [world_location])
 
-    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
     create(:feature, feature_list:, document: item_b.document)
 
     editor = create(:departmental_editor)
@@ -128,5 +143,34 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list.features << build(:feature, document: published.document, ended_at: Time.zone.now)
 
     assert_equal([], feature_list.published_features.map { |f| f.document.editions })
+  end
+
+  test "#deep_clone clones the feature list, its features and their image data" do
+    feature_list = create(:feature_list)
+    create(:feature, :with_image, feature_list: feature_list, ordering: 1)
+    create(:feature, :with_image, feature_list: feature_list, ordering: 2)
+
+    cloned_feature_list = feature_list.deep_clone
+    ignored_cols = %w[id created_at updated_at feature_list_id featured_imageable_id assetable_id]
+
+    assert_equal feature_list.attributes.except(*ignored_cols),
+                 cloned_feature_list.attributes.except(*ignored_cols)
+
+    feature_list.features.zip(cloned_feature_list.features).each do |original, cloned|
+      assert_not_equal original.id, cloned.id
+      assert_equal original.attributes.except(*ignored_cols),
+                   cloned.attributes.except(*ignored_cols)
+
+      assert cloned.image.present?
+      assert_not_equal original.image.id, cloned.image.id
+      assert_equal original.image.attributes.except(*ignored_cols),
+                   cloned.image.attributes.except(*ignored_cols)
+
+      original.image.assets.zip(cloned.image.assets).each do |original_asset, cloned_asset|
+        assert_not_equal original_asset.id, cloned_asset.id
+        assert_equal original_asset.attributes.except(*ignored_cols),
+                     cloned_asset.attributes.except(*ignored_cols)
+      end
+    end
   end
 end

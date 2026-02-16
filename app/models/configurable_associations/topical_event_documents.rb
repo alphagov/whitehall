@@ -1,3 +1,4 @@
+# Legacy
 module ConfigurableAssociations
   class TopicalEventDocuments
     def initialize(association)
@@ -15,7 +16,10 @@ module ConfigurableAssociations
     end
 
     def options_query
-      StandardEdition.published.where(configurable_document_type: "topical_event").order(:title)
+      StandardEdition
+        .latest_edition
+        .where(configurable_document_type: "topical_event")
+        .order(:title)
     end
 
     def to_partial_path

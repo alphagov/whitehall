@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Legacy
 class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent < ViewComponent::Base
   include Admin::EditionRoutesHelper
   include Admin::TopicalEventFeaturingsHelper

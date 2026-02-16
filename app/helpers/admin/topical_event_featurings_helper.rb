@@ -1,3 +1,4 @@
+# Legacy
 module Admin::TopicalEventFeaturingsHelper
   def featuring_published_on(featuring)
     if featuring.offsite?

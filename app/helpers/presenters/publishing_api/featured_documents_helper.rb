@@ -10,7 +10,7 @@ module Presenters
           .map do |feature|
             if feature.document
               featured_documents_editioned(feature)
-            elsif feature.topical_event
+            elsif feature.topical_event # legacy
               featured_documents_topical_event(feature)
             elsif feature.offsite_link
               featured_documents_offsite_link(feature)
@@ -33,6 +33,7 @@ module Presenters
         }
       end
 
+      # Legacy
       def featured_documents_topical_event(feature)
         # Topical events that have been featured
         topical_event = feature.topical_event

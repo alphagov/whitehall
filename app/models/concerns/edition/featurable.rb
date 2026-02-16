@@ -1,7 +1,11 @@
-# Legacy: used only by Organisation / WorldLocationNews.
-# New 'featurable' behaviour used by config-driven documents use Edition::Featurable instead.
-module Featurable
+module Edition::Featurable
   extend ActiveSupport::Concern
+
+  class Trait < Edition::Traits::Trait
+    def process_associations_after_save(edition)
+      edition.feature_lists = @edition.feature_lists.map(&:deep_clone)
+    end
+  end
 
   included do
     has_many :feature_lists, as: :featurable, dependent: :destroy do
@@ -9,6 +13,7 @@ module Featurable
         target.detect(-> { build(locale:) }) { |fl| locale.match?(fl.locale) }
       end
     end
+    add_trait Trait
   end
 
   def feature_list_for_locale(locale)

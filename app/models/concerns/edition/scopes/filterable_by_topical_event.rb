@@ -1,3 +1,4 @@
+# LEGACY
 module Edition::Scopes::FilterableByTopicalEvent
   extend ActiveSupport::Concern
 

@@ -46,7 +46,7 @@ module PublishingApi
           government
         ],
       ).merge(
-        PayloadBuilder::TopicalEvents.for(item),
+        PayloadBuilder::TopicalEvents.for(item), # Legacy
       ).merge(
         related_statistical_data_sets:,
       ).merge(

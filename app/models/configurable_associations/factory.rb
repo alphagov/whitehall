@@ -18,7 +18,9 @@ module ConfigurableAssociations
     def associations
       {
         "ministerial_role_appointments" => ->(edition) { ConfigurableAssociations::MinisterialRoleAppointments.new(edition.role_appointments) },
+        # Legacy
         "topical_events" => ->(edition) { ConfigurableAssociations::TopicalEvents.new(edition.topical_events) },
+        # New
         "topical_event_documents" => ->(edition) { ConfigurableAssociations::TopicalEventDocuments.new(edition.topical_event_documents) },
         "world_locations" => ->(edition) { ConfigurableAssociations::WorldLocations.new(edition.world_locations, edition.errors, required: edition.world_location_association_required?) },
         "organisations" => ->(edition) { ConfigurableAssociations::Organisations.new(edition.edition_organisations, edition.errors) },

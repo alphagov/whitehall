@@ -1,3 +1,4 @@
+# Legacy
 class TopicalEventMembership < ApplicationRecord
   belongs_to :edition
   belongs_to :topical_event, inverse_of: :topical_event_memberships

@@ -90,11 +90,11 @@ class Organisation < ApplicationRecord
            -> { extending UserOrderableExtension },
            through: :roles
 
-  has_many :topical_event_organisations,
+  has_many :topical_event_organisations, # Legacy
            -> { order("topical_event_organisations.ordering") },
            dependent: :destroy
 
-  has_many :topical_events,
+  has_many :topical_events, # Legacy
            -> { order("topical_event_organisations.ordering") },
            through: :topical_event_organisations
 

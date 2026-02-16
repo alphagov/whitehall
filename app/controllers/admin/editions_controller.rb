@@ -6,7 +6,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
   before_action :clear_response_form_file_cache, only: %i[create update]
-  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option]
+  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id update_image_display_option features]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
@@ -31,7 +31,7 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:create, edition_class || Edition)
     when "create"
       enforce_permission!(:create, @edition)
-    when "edit", "update", "revise", "diff", "update_bypass_id", "update_image_display_option"
+    when "edit", "update", "revise", "diff", "update_bypass_id", "update_image_display_option", "features"
       enforce_permission!(:update, @edition)
     when "destroy", "confirm_destroy"
       enforce_permission!(:delete, @edition)
@@ -250,8 +250,8 @@ private
         world_location_ids: [],
         worldwide_organisation_ids: [],
         topic_ids: [],
-        topical_event_ids: [],
-        topical_event_document_ids: [],
+        topical_event_ids: [], # LEGACY
+        topical_event_document_ids: [], # New
         related_detailed_guide_ids: [],
         role_appointment_ids: [],
         statistical_data_set_document_ids: [],
