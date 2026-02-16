@@ -85,6 +85,15 @@ jobs:
           TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
         run: bundle exec rails db:setup
 
+      - name: Run Sidekiq serial integration test
+        if: ${{ matrix.shard_name == 'ruby-only-0' }}
+        env:
+          RAILS_ENV: test
+          GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
+          TEST_DATABASE_URL: ${{ steps.setup-mysql.outputs.db-url }}
+          MINITEST_CI_MODE: serial
+        run: ./bin/minitest-ci
+
       - name: Run Minitest
         env:
           RAILS_ENV: test
