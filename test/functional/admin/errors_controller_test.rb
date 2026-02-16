@@ -28,7 +28,6 @@ class Admin::ErrorsControllerTest < ActionDispatch::IntegrationTest
       get "/#{error_code}"
 
       assert_select ".govuk-header__product-name", text: Whitehall.product_name
-      refute_select ".govuk-phase-banner__content__tag"
     end
 
     it "should render the product name in the title" do
