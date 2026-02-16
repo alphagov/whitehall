@@ -1,13 +1,11 @@
 class Admin::EditionImagesController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
-
+  before_action :set_image_usage, only: %i[new create confirm_destroy]
   def index; end
 
   def new
-    if !image_usage.multiple? && @edition.images.usable_as(image_usage).any?
-      redirect_to admin_edition_images_path(@edition), alert: "#{image_usage.label.titleize} already uploaded. Delete the currently uploaded #{image_usage.label} to upload a new #{image_usage.label}."
-    end
+    nil if redirect_if_single_usage_image_exists
   end
 
   def confirm_destroy; end
@@ -47,11 +45,13 @@ class Admin::EditionImagesController < Admin::BaseController
   def create
     return render :index if images_params.empty?
 
-    usage_key = params[:usage]
+    return if usage_not_permitted
+
+    return if redirect_if_single_usage_image_exists
 
     @images = images_params.map do |image_param|
       # Kind must be set before the attribute assignment. Carrierwave validates the ImageData `file` dimensions against the width and height specified in the config. Fetching the config requires knowing the `image_kind`.
-      image_param[:usage] ||= usage_key
+      image_param[:usage] ||= @image_usage.key
       image_param[:image_data_attributes][:image_kind] = params[:image_kind]
 
       @edition.images.build(image_param).tap do |image|
@@ -73,8 +73,7 @@ class Admin::EditionImagesController < Admin::BaseController
       @images.each { |image| @edition.images.delete(image) }
     end
 
-    usage = get_usage_by_key(usage_key)
-    if usage.multiple?
+    if @image_usage.multiple?
       # For one valid image of multiple usage, redirect to edit page to allow cropping and captioning
       if @images.count == 1 && @images.first.valid?
         redirect_to edit_admin_edition_image_path(@edition, @images.first)
@@ -88,7 +87,7 @@ class Admin::EditionImagesController < Admin::BaseController
       redirect_to edit_admin_edition_image_path(@edition, @images.first)
     else
       # For an invalid image of single usage, render errors on the 'new' view
-      render :new # TODO: this is broken, it always redirects to the first image usage even when you are trying to upload subsequent usage.
+      render :new
     end
   end
 
@@ -97,6 +96,23 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
 private
+
+  def usage_not_permitted
+    return false if @image_usage.present?
+
+    render "admin/errors/unprocessable_content", status: :unprocessable_content
+    true
+  end
+
+  def redirect_if_single_usage_image_exists
+    if @image_usage && !@image_usage.multiple? && @edition.images.usable_as(@image_usage).any?
+      redirect_to admin_edition_images_path(@edition), alert: "#{@image_usage.label.titleize} already uploaded. Delete the currently uploaded #{@image_usage.label} to upload a new #{@image_usage.label}."
+
+      true
+    else
+      false
+    end
+  end
 
   def image_url
     return unless image&.image_data&.original_uploaded?
@@ -121,20 +137,12 @@ private
   end
   helper_method :image
 
-  def image_usage
+  def set_image_usage
     @image_usage = if image
                      @edition.permitted_image_usages.detect { |image_usage| image_usage.key == image.usage }
-                   elsif params[:image_usage].present?
-                     @edition.permitted_image_usages.detect { |image_usage| image_usage.key == params[:image_usage] }
-                   else
-                     @edition.permitted_image_usages.first
+                   elsif params[:usage].present?
+                     @edition.permitted_image_usages.detect { |image_usage| image_usage.key == params[:usage] }
                    end
-  end
-  helper_method :image_usage
-
-  # TODO: reconcile get_usage_by_key and image_usage so they're the same method. Currently image_usage has a wider use, while get_usage_by_key is only used in the controller create.
-  def get_usage_by_key(usage_key)
-    @edition.permitted_image_usages.detect { |image_usage| image_usage.key == usage_key }
   end
 
   def find_image

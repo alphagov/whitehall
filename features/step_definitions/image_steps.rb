@@ -240,7 +240,7 @@ end
 
 Then(/^I should see a card associated with the (.*) image usage$/) do |image_usage_key|
   expect(page).to have_selector(".govuk-summary-card__title", text: image_usage_key.titleize)
-  expect(page).to have_selector("a[href=\"/government/admin/editions/#{@edition.id}/images/new?image_usage=#{image_usage_key}\"]")
+  expect(page).to have_selector("a[href=\"/government/admin/editions/#{@edition.id}/images/new?usage=#{image_usage_key}\"]")
 end
 
 Then(/^I click to add (?:a|an) (.*) image$/) do |image_usage_key|

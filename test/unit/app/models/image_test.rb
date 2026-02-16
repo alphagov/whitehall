@@ -116,6 +116,34 @@ class ImageTest < ActiveSupport::TestCase
     assert image.can_be_used?
   end
 
+  test "is invalid if usage nil" do
+    image = build(:image, usage: nil, edition: create(:draft_case_study))
+    assert_not image.valid?
+    assert_equal "must be permitted", image.errors[:usage][0]
+  end
+
+  test "is invalid if usage is not permitted in edition config" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+
+    image = build(:image, usage: "not_header", edition:)
+    assert_not image.valid?
+    assert_equal "must be permitted", image.errors[:usage][0]
+  end
+
   test "#publishing_api_details returns a hash of image details" do
     image = create(:image, :svg, usage: "header", caption: "An SVG image")
 

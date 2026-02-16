@@ -26,7 +26,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     get :index, params: { edition_id: edition.id }
 
-    assert_select "#uploaded_header_image_card a[href=\"/government/admin/editions/#{edition.id}/images/new?image_usage=header\"]"
+    assert_select "#uploaded_header_image_card a[href=\"/government/admin/editions/#{edition.id}/images/new?usage=header\"]"
   end
 
   view_test "GET :index page renders image for single image usage if present" do
@@ -172,7 +172,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
   end
 
-  view_test "GET :new redirects if image usage only allows single upload and an image has been uploaded" do
+  view_test "GET :new redirects for `single` usage image, if an image has already been uploaded" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
@@ -192,7 +192,33 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       create(:image, usage: "header"),
     ])
 
-    get :new, params: { edition_id: edition.id, image_usage: "header" }
+    get :new, params: { edition_id: edition.id, usage: "header" }
+
+    assert_redirected_to admin_edition_images_path(edition)
+  end
+
+  view_test "POST :create redirects for `single` usage image, if an image has already been uploaded" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile hero_desktop],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "hero"),
+    ])
+    file = upload_fixture("hero_image_mobile_2x.png")
+
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
     assert_redirected_to admin_edition_images_path(edition)
   end
@@ -349,15 +375,20 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
               "kinds" => %w[topical_event_header],
               "multiple" => false,
             },
+            "logo" => {
+              "label" => "logo",
+              "kinds" => %w[topical_event_logo],
+              "multiple" => false,
+            },
           },
         },
       },
     }))
     file = upload_fixture("images/test-svg.svg")
-    image = create(:image, usage: "header", image_data: build(:image_data, file:))
+    image = create(:image, usage: "header", image_data: build(:image_data, image_kind: "topical_event_header", file:))
     edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
 
-    post :create, params: { edition_id: edition.id, usage: "header", image_kind: "topical_event_header", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "logo", image_kind: "topical_event_logo", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/new"
     assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
@@ -431,12 +462,66 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     }))
     edition = create(:draft_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
-    create(:image, edition:, image_data: build(:image_data, file:))
+    create(:image, usage: "hero", edition:, image_data: build(:image_data, file:))
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/index"
     assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+  end
+
+  view_test "POST :create re-renders the correct usage 'new' template on validation errors" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile hero_desktop],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition)
+    file = upload_fixture("images/960x640_jpeg.jpg")
+
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_desktop", images: [{ image_data_attributes: { file: } }] }
+
+    assert_template "admin/edition_images/new"
+    assert_select "label", "Upload hero image"
+    assert_select ".govuk-error-summary li", /Image data file is too small/
+  end
+
+  test "POST :create returns 422 for non-permitted usage" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition)
+    file = upload_fixture("hero_image_mobile_2x.png")
+    unpermitted_usage = "govspeak_embed"
+
+    assert_not edition.permitted_image_usages.map(&:key).include? unpermitted_usage
+
+    post :create, params: { edition_id: edition.id, usage: unpermitted_usage, image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+
+    assert_equal 422, response.status
+    assert_template "admin/errors/unprocessable_content"
   end
 
   test "POST :create triggers a job be queued to store image and variants in Asset Manager" do

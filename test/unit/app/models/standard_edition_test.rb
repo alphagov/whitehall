@@ -272,7 +272,19 @@ class StandardEditionTest < ActiveSupport::TestCase
           },
         },
       },
-      "settings" => { "translations_enabled" => true },
+      "settings" => {
+        "translations_enabled" => true,
+        "images" => {
+          "enabled" => true,
+          "usages" => {
+            "govspeak_embed": {
+              "label" => "usage",
+              "kinds" => %w[default],
+              "multiple" => false,
+            },
+          },
+        },
+      },
     })
     ConfigurableDocumentType.setup_test_types(test_type)
     image = create(:image)
