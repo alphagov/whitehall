@@ -29,21 +29,20 @@
     </div>
   <% end %>
 
-  <%= render "govuk_publishing_components/components/label", {
-    heading_level: additional_attachment_types.present? ? nil : 2,
-    heading_size: additional_attachment_types.present? ? "m" : "l",
-    text: additional_attachment_types.present? ? "Upload new file attachments" : "Add new attachments",
-    hint_text:,
-    hint_id: "upload_files_hint_id",
-    html_for: "upload_files",
-  } %>
-
   <%= render "govuk_publishing_components/components/file_upload", {
     name: "upload[files][]",
     id: "upload_files",
     error_message: flash[:upload_error],
     javascript: true,
     multiple: true,
+    label: {
+      heading_level: additional_attachment_types.present? ? nil : 2,
+      heading_size: additional_attachment_types.present? ? "m" : "l",
+      text: additional_attachment_types.present? ? "Upload new file attachments" : "Add new attachments",
+      hint_text:,
+      hint_id: "upload_files_hint_id",
+      html_for: "upload_files",
+    },
   } %>
 
   <div class="govuk-button-group">
