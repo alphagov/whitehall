@@ -25,7 +25,8 @@ module ConfigurableDocumentTypeHelper
           "publishing_api" => {
             "details" => {
               "field_attribute" => "raw",
-            }
+            },
+            "links" => [],
           },
         },
         "associations" => [],

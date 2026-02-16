@@ -238,10 +238,18 @@
                 "type": "string",
                 "description": "Attribute to be included in the presenter payload. Must match an existing attribute defined in the schema."
               }
+            },
+            "links": {
+              "description": "The builder methods to use for the links object when presenting to the Publishing API.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": []
+              }
             }
           },
           "additionalProperties": false,
-          "required": ["details"]
+          "required": ["details", "links"]
         }
       },
       "additionalProperties": false,

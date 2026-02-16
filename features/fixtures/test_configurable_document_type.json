@@ -60,7 +60,8 @@
         "body": "govspeak",
         "date_field": "rfc3339_date",
         "list_of_foods": "raw"
-      }
+      },
+      "links": []
     }
   },
   "schema": {

@@ -23,7 +23,8 @@ And(/^a featurable standard edition called "([^"]*)" exists$/) do |title|
     },
     "presenters" => {
       "publishing_api" => {
-        "details" => {}
+        "details" => {},
+        "links" => [],
       },
     },
     "associations" => [],

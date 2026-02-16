@@ -36,7 +36,8 @@
     "publishing_api": {
       "details": {
         "body": "govspeak"
-      }
+      },
+      "links": []
     }
   },
   "associations": [],
