@@ -33,4 +33,7 @@ Flipflop.configure do
   feature :configurable_document_types,
           description: "Enable config driven document types",
           default: Rails.env.development?
+  feature :slugs_for_editions,
+          description: "Create slugs for editions instead of documents, allowing them to change between editions",
+          default: false
 end
