@@ -84,8 +84,8 @@ class Admin::NewDocumentController < Admin::BaseController
     }
     types["topical_event"] = {
       "klass" => StandardEdition,
-      "hint_text" => "Use this to create config-driven topical events.",
-      "label" => "Topical Event (experimental)",
+      "hint_text" => ConfigurableDocumentType.find("topical_event").description,
+      "label" => "#{ConfigurableDocumentType.find('topical_event').label} (experimental)",
       "redirect" => new_admin_standard_edition_path(configurable_document_type: "topical_event"),
     }
 
