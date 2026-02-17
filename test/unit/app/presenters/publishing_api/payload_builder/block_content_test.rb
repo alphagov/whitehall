@@ -10,22 +10,14 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     @item.stubs(:block_content).returns(@block_content)
   end
 
-  test "call returns empty hash when no presenter mapping exists" do
-    type_instance = mock("type_instance")
-    @item.stubs(:type_instance).returns(type_instance)
-    type_instance.stubs(:presenter).with("publishing_api").returns(nil)
-
-    builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-
-    assert_equal({}, builder.call)
-  end
-
   test "call builds payload from presenter mapping" do
     type_instance = mock("type_instance")
     @item.stubs(:type_instance).returns(type_instance)
     type_instance.stubs(:presenter).with("publishing_api").returns({
-      "body" => :govspeak,
-      "published_on" => :rfc3339_date,
+      "details" => {
+        "body" => :govspeak,
+        "published_on" => :rfc3339_date,
+      },
     })
 
     @block_content.stubs(:body).returns("Some govspeak")
@@ -48,10 +40,12 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     @item.stubs(:placeholder_image_url).returns(nil)
 
     type_instance.stubs(:presenter).with("publishing_api").returns({
-      "body_attribute" => :govspeak,
-      "date_attribute" => :rfc3339_date,
-      "lead_image_attribute" => :lead_image,
-      "string_attribute" => :raw,
+      "details" => {
+        "body_attribute" => :govspeak,
+        "date_attribute" => :rfc3339_date,
+        "lead_image_attribute" => :lead_image,
+        "string_attribute" => :raw,
+      },
     })
     @block_content.stubs(:body_attribute).returns(nil)
     @block_content.stubs(:date_attribute).returns(nil)

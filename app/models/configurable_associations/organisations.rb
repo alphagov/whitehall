@@ -7,22 +7,6 @@ module ConfigurableAssociations
 
     attr_reader :errors
 
-    def links
-      @association.includes(:organisation)
-      primary_publishing_organisation = @association
-                                          .select(&:lead?)
-                                          .min_by(&:lead_ordering)
-                                          &.organisation
-      sorted_orgs = @association.sort_by { |edition_org| [edition_org.lead_ordering ? 0 : 1, edition_org.lead_ordering] }
-      emphasised_organisations = sorted_orgs.filter(&:lead?)
-                                            .map { |edition_org| edition_org.organisation.content_id }
-      {
-        organisations: sorted_orgs.map { |edition_org| edition_org.organisation.content_id },
-        emphasised_organisations:,
-        primary_publishing_organisation: [primary_publishing_organisation&.content_id].compact,
-      }
-    end
-
     def selected_lead_organisation_id_at(lead_organisation_index)
       @association.select(&:lead?)
                   .sort_by(&:lead_ordering)[lead_organisation_index]

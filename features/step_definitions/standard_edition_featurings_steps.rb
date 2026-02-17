@@ -21,6 +21,12 @@ And(/^a featurable standard edition called "([^"]*)" exists$/) do |title|
         },
       },
     },
+    "presenters" => {
+      "publishing_api" => {
+        "details" => {},
+        "links" => [],
+      },
+    },
     "associations" => [],
     "settings" => {
       "edit_screens" => {

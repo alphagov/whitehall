@@ -42,8 +42,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
       "presenters" => {
         "publishing_api" => {
-          "attribute_one" => "raw",
-          "attribute_two" => "raw",
+          "details" => {
+            "attribute_one" => "raw",
+            "attribute_two" => "raw",
+          },
         },
       },
     }))
@@ -89,9 +91,11 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
       "presenters" => {
         "publishing_api" => {
-          "string_chunk_of_content" => "raw",
-          "chunk_of_content_one" => "govspeak",
-          "chunk_of_content_two" => "govspeak",
+          "details" => {
+            "string_chunk_of_content" => "raw",
+            "chunk_of_content_one" => "govspeak",
+            "chunk_of_content_two" => "govspeak",
+          },
         },
       },
     }))
@@ -140,8 +144,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
       "presenters" => {
         "publishing_api" => {
-          "chunk_of_content_one" => "govspeak",
-          "chunk_of_content_two" => "govspeak",
+          "details" => {
+            "chunk_of_content_one" => "govspeak",
+            "chunk_of_content_two" => "govspeak",
+          },
         },
       },
     }))
@@ -174,8 +180,10 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       },
       "presenters" => {
         "publishing_api" => {
-          "chunk_of_content_one" => "govspeak",
-          "chunk_of_content_two" => "govspeak",
+          "details" => {
+            "chunk_of_content_one" => "govspeak",
+            "chunk_of_content_two" => "govspeak",
+          },
         },
       },
     }))
@@ -301,13 +309,13 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "#links includes the required content IDs" do
     ConfigurableDocumentType.setup_test_types(
       build_configurable_document_type("test_type", {
-        "associations" => [
-          {
-            "key" => "world_locations",
+        "presenters" => {
+          "publishing_api" => {
+            "links" => %w[
+              government
+              world_locations
+            ],
           },
-        ],
-        "settings" => {
-          "history_mode_enabled" => true,
         },
       }),
     )

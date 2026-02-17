@@ -56,9 +56,12 @@
   },
   "presenters": {
     "publishing_api": {
-      "body": "govspeak",
-      "date_field": "rfc3339_date",
-      "list_of_foods": "raw"
+      "details": {
+        "body": "govspeak",
+        "date_field": "rfc3339_date",
+        "list_of_foods": "raw"
+      },
+      "links": []
     }
   },
   "schema": {

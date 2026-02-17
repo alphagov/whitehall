@@ -53,8 +53,16 @@
   },
   "presenters": {
     "publishing_api": {
-      "body": "govspeak",
-      "image": "lead_image"
+      "details": {
+        "body": "govspeak",
+        "image": "lead_image"
+      },
+      "links": [
+        "topical_events",
+        "world_locations",
+        "worldwide_organisations",
+        "government"
+      ]
     }
   },
   "associations" : [
