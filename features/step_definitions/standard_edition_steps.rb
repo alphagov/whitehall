@@ -8,7 +8,6 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
     create(
       :draft_standard_edition,
       {
-        configurable_document_type: "test",
         images:,
         title: title,
         summary: summary || defaults[:summary],
@@ -158,7 +157,6 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
   standard_edition = create(
     :submitted_standard_edition,
     {
-      configurable_document_type: "test",
       images: [image],
       title: title,
       block_content: default_block_content_for_locale("en").merge("lead_image" => image.image_data.id.to_s),
@@ -291,7 +289,6 @@ Given(/^I have published an English document with a Welsh translation$/) do
   @standard_edition = create(
     :published_standard_edition,
     {
-      configurable_document_type: "test",
       title: default_content_for_locale("en")[:title],
       summary: default_content_for_locale("en")[:summary],
       block_content: default_block_content_for_locale("en"),
@@ -325,6 +322,7 @@ Given("the test configurable document type group is defined") do
   types = {}
   type_definitions.each do |type_definition|
     types[type_definition["key"]] = type_definition
+    ConfigurableDocumentType.stubs(:find).returns(ConfigurableDocumentType.new(type_definition))
   end
   ConfigurableDocumentType.setup_test_types(types)
 end
