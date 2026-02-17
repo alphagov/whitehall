@@ -921,8 +921,8 @@ GEM
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
-    sentry-sidekiq (6.3.0)
-      sentry-ruby (~> 6.3.0)
+    sentry-sidekiq (6.3.1)
+      sentry-ruby (~> 6.3.1)
       sidekiq (>= 5.0)
     sexp_processor (4.17.5)
     sidekiq (7.3.10)
