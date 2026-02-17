@@ -1,5 +1,5 @@
 en:
   admin:
     maintenance_banner:
-      show_banner: true
-      message: Whitehall will be down briefly for planned maintenance between 8pm and 8.05pm tonight (Monday 16th February).
+      show_banner: false
+      message: Whitehall is down for planned maintenance.
