@@ -3,6 +3,8 @@ require "mini_magick"
 class ImageData < ApplicationRecord
   attr_accessor :image, :validate_on_image
 
+  belongs_to :image
+
   store_accessor :dimensions, %i[width height]
   store_accessor :crop_data, %i[x y width height], prefix: true
 
@@ -76,6 +78,10 @@ class ImageData < ApplicationRecord
     target_height = image_kind_config.valid_height
 
     width > target_width || height > target_height
+  end
+
+  def variant
+    read_attribute(:variant) || image_kind_config.versions.first.name 
   end
 
 private

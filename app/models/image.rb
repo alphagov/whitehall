@@ -1,5 +1,5 @@
 class Image < ApplicationRecord
-  belongs_to :image_data
+  has_many :image_data
   belongs_to :edition
   has_one :edition_lead_image, dependent: :destroy
 
@@ -53,6 +53,10 @@ class Image < ApplicationRecord
       caption:,
       content_type:,
     }
+  end
+
+  def unique_variants
+    
   end
 
 private

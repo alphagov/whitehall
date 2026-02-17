@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_17_113614) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
@@ -421,6 +421,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
     t.index ["updated_at"], name: "index_editions_on_updated_at"
   end
 
+  create_table "editions_image_usages", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "edition_id", null: false
+    t.bigint "image_usage_id", null: false
+    t.index ["edition_id", "image_usage_id"], name: "index_editions_image_usages_on_edition_id_and_image_usage_id"
+    t.index ["image_usage_id", "edition_id"], name: "index_editions_image_usages_on_image_usage_id_and_edition_id"
+  end
+
   create_table "editorial_remarks", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "author_id"
     t.text "body", size: :medium
@@ -601,11 +608,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
     t.string "carrierwave_image"
     t.datetime "created_at", precision: nil
     t.json "crop_data"
+    t.json "crop_datas"
     t.json "dimensions"
+    t.integer "image_id"
     t.string "image_kind", null: false
     t.integer "replaced_by_id"
     t.datetime "updated_at", precision: nil
+    t.string "variant"
+    t.index ["image_id"], name: "index_image_data_on_image_id"
     t.index ["replaced_by_id"], name: "index_image_data_on_replaced_by_id"
+  end
+
+  create_table "image_usages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "edition_id"
+    t.json "images"
+    t.string "key"
+    t.string "kind"
+    t.string "label"
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_image_usages_on_edition_id"
   end
 
   create_table "images", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -1228,6 +1250,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_095802) do
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "editions", "governments", on_delete: :nullify
+  add_foreign_key "image_data", "images"
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"
   add_foreign_key "related_mainstreams", "editions"
