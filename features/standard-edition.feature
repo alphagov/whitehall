@@ -3,7 +3,6 @@ Feature: Standard Editions
   Scenario: Creating a new draft configurable document
     Given I am a writer
     And the configurable document types feature flag is enabled
-    And the test configurable document type is defined
     When I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     Then I am on the summary page of the draft titled "The history of GOV.UK"
     When I upload single and multiple usage images
@@ -13,7 +12,6 @@ Feature: Standard Editions
   Scenario: Force publishing an existing draft and creating a new draft
     Given I am an editor
     And the configurable document types feature flag is enabled
-    And the test configurable document type is defined
     When I publish a submitted draft of a test configurable document titled "The history of GOV.UK"
     Then I can see that the draft edition of "The history of GOV.UK" was published successfully
     And a new draft of "The history of GOV.UK" is created with the correct field values
@@ -21,7 +19,6 @@ Feature: Standard Editions
   Scenario: Adding translations with all content block types
     Given I am a writer
     And the configurable document types feature flag is enabled
-    And the test configurable document type is defined with translations enabled
     And I have drafted an English configurable document titled "Digital transformation report"
     When I go to add a Welsh translation
     Then configured content blocks should appear on the translation page
@@ -33,7 +30,6 @@ Feature: Standard Editions
   Scenario: Editing translations on a persisted edition
     Given I am a writer
     And the configurable document types feature flag is enabled
-    And the test configurable document type is defined with translations enabled
     And I have published an English document with a Welsh translation
     When I create a new draft and visit the Welsh translation
     Then the Welsh translations should have persisted
@@ -41,7 +37,6 @@ Feature: Standard Editions
   Scenario: Creating a non-English primary locale configurable document
     Given I am a writer
     And the configurable document types feature flag is enabled
-    And the test configurable document type is defined with translations enabled
     When I create a new "Test configurable document type" with Welsh as the primary locale titled "Strategaeth Ddigidol Cymru"
     Then I am on the summary page of the draft titled "Strategaeth Ddigidol Cymru"
     And the language of the document should be Welsh
