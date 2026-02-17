@@ -444,6 +444,33 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal 3, count
   end
 
+  test "should exclude currently featured editions when exclude_featured is true" do
+    organisation = create(:organisation)
+    feature_list = organisation.feature_lists.create!(locale: :en)
+
+    featured_edition = create(:published_standard_edition, :with_organisations, title: "Featured")
+    unfeatured_edition = create(:published_standard_edition, :with_organisations, title: "Unfeatured")
+
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    filter = Admin::EditionFilter.new(Edition, build(:gds_editor), state: "published", exclude_featured: true)
+
+    assert_includes filter.editions.to_a, unfeatured_edition
+    assert_not_includes filter.editions.to_a, featured_edition
+  end
+
+  test "should not exclude featured editions when exclude_featured is not set" do
+    organisation = create(:organisation)
+    feature_list = organisation.feature_lists.create!(locale: :en)
+
+    featured_edition = create(:published_standard_edition, :with_organisations, title: "Featured")
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    filter = Admin::EditionFilter.new(Edition, build(:gds_editor), state: "published")
+
+    assert_includes filter.editions.to_a, featured_edition
+  end
+
   test "exportable? if number of editions is below threshold" do
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
     filter.stubs(:unpaginated_editions).returns(stub(count: 8000))
