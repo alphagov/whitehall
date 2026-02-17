@@ -319,6 +319,7 @@ Given("the test configurable document type group is defined") do
   types = {}
   type_definitions.each do |type_definition|
     types[type_definition["key"]] = type_definition
+    ConfigurableDocumentType.stubs(:find).returns(ConfigurableDocumentType.new(type_definition))
   end
   ConfigurableDocumentType.setup_test_types(types)
 end
