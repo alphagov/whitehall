@@ -3,6 +3,8 @@ require "test_helper"
 class Admin::NewDocumentControllerTest < ActionController::TestCase
   setup do
     login_as :writer
+
+    ConfigurableDocumentType.stubs(:find).returns(ConfigurableDocumentType.new({}))
   end
 
   view_test "GET #index renders the 'New Document' page with the header, all permitted radio selection options and inset text" do
