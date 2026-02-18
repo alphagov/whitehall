@@ -11,6 +11,15 @@ end
 require File.expand_path("../config/environment", __dir__)
 
 require "maxitest/autorun"
+# Rails 8.1 changed the test runner to load test files during Minitest.run's
+# option-parsing phase, rather than before it. This means Minitest.load_plugins
+# discovers maxitest_plugin.rb before Maxitest::ENABLE_PLUGINS is set (by
+# maxitest/autorun above), so maxitest's LineReporter never gets registered and
+# the "Focus on failing tests:" summary is lost. Explicitly loading the line
+# plugin here restores it. This can be removed if maxitest is updated to handle
+# the new Rails 8.1 plugin loading order, or if maxitest is removed.
+require "maxitest/vendor/line"
+Minitest.extensions << "line" unless Minitest.extensions.include?("line")
 require "rails/test_help"
 require "mocha/minitest"
 require "factories"
