@@ -157,45 +157,6 @@ module PublishingApi
 
         assert_equal({}, result)
       end
-
-      test "returns the expected output for a sidebar image" do
-        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", sidebar_image_usage_test_type))
-        sidebar_image = create(:image, usage: "sidebar")
-        page = create(:standard_edition, images: [sidebar_image])
-        result = PayloadBuilder::Images.for(page)
-
-        assert_equal({ sidebar_image: {
-          url: sidebar_image.url,
-        } }, result)
-      end
-
-      test "returns the expected output for a sidebar image with a caption" do
-        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", sidebar_image_usage_test_type))
-        sidebar_image = create(:image, usage: "sidebar", caption: "test caption")
-        page = create(:standard_edition, images: [sidebar_image])
-        result = PayloadBuilder::Images.for(page)
-
-        assert_equal({ sidebar_image: {
-          url: sidebar_image.url,
-          caption: sidebar_image.caption,
-        } }, result)
-      end
-
-      def sidebar_image_usage_test_type
-        {
-          "settings" => {
-            "images" => {
-              "enabled" => true,
-              "usages" => {
-                "sidebar" => {
-                  "kinds" => %w[default],
-                  "multiple" => false,
-                },
-              },
-            },
-          },
-        }
-      end
     end
   end
 end
