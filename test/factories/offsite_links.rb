@@ -17,4 +17,8 @@ FactoryBot.define do
   trait :for_organisation do
     organisations { FactoryBot.build_list(:organisation, 1) }
   end
+
+  trait :for_standard_edition do
+    editions { FactoryBot.build_list(:edition, 1) }
+  end
 end
