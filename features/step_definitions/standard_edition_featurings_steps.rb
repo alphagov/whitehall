@@ -88,3 +88,60 @@ Then(/^the edition featurings should be in the following order:$/) do |featuring
     expect(featuring.to_s).to eq(featuring_titles[index])
   end
 end
+
+Given(/^the standard edition has an external website link with the title "([^"]*)"$/) do |title|
+  create(:offsite_link, editions: [@featurable_edition], title:)
+end
+
+And(/^I create a new external website link with the title "([^"]*)"$/) do |title|
+  click_link "Add an external link"
+
+  fill_in "Title (required)", with: title
+  fill_in "Summary (required)", with: "Summary"
+  select "Alert"
+  fill_in "URL (required)", with: "https://www.gov.uk/jobsearch"
+
+  click_button "Save"
+end
+
+Then(/^I can see the external website link with the title "([^"]*)"$/) do |title|
+  within "#non_govuk_government_links_tab" do
+    expect(find("table td:first").text).to eq title
+  end
+end
+
+And(/^I update the title of an external website link from "([^"]*)" to "([^"]*)"$/) do |current_title, new_title|
+  within "#non_govuk_government_links_tab" do
+    click_link "Edit #{current_title}"
+  end
+  fill_in "Title (required)", with: new_title
+  click_button "Save"
+end
+
+And(/^I feature the external website link called "([^"]*)"$/) do |title|
+  within "#non_govuk_government_links_tab" do
+    click_link "Feature #{title}"
+  end
+
+  attach_file "Image (required)", jpg_image
+  click_button "Save"
+end
+
+Then(/^I see that the external website link called "([^"]*)" has been featured$/) do |title|
+  within "#currently_featured_tab" do
+    expect(find("table td:first").text).to eq title
+  end
+end
+
+And(/^I delete the external website link called "([^"]*)"$/) do |title|
+  within "#non_govuk_government_links_tab" do
+    click_link "Delete #{title}"
+  end
+  click_button "Delete"
+end
+
+Then(/^I can see that the external website link called "([^"]*)" has been deleted$/) do |title|
+  within "#non_govuk_government_links_tab" do
+    expect(page).not_to have_content title
+  end
+end
