@@ -1,0 +1,16 @@
+<%= render "govuk_publishing_components/components/input", {
+  id: block.path.form_control_id,
+  label: { text: block.title + (block.required ? " (required)" : "") },
+  name: block.path.form_control_name,
+  value: block.content,
+  hint: block.hint_text,
+  right_to_left: block.edition.translation_locale.rtl?,
+  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym),
+} %>
+<% if block.primary_locale_content.present? %>
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Primary locale content for #{block.title}",
+  } do %>
+    <%= block.primary_locale_content %>
+  <% end %>
+<% end %>

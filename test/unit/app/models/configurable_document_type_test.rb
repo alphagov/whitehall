@@ -124,33 +124,6 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal expected_payload, document_type.presenter("service_key")
   end
 
-  test "#required_attributes returns an array of required attributes from the schema" do
-    configurable_document_type = build_configurable_document_type(
-      "test_type",
-      {
-        "schema" => {
-          "attributes" => {
-            "field_attribute_1" => {
-              "type" => "string",
-            },
-            "field_attribute_2" => {
-              "type" => "date",
-            },
-          },
-          "validations" => {
-            "presence" => {
-              "attributes" => %w[field_attribute_1],
-            },
-          },
-        },
-      },
-    )
-    ConfigurableDocumentType.setup_test_types(configurable_document_type)
-    document_type = ConfigurableDocumentType.find("test_type")
-
-    assert_equal %w[field_attribute_1], document_type.required_attributes
-  end
-
   test "#schema" do
     configurable_document_type = build_configurable_document_type(
       "test_type",

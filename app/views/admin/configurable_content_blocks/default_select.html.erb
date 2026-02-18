@@ -1,0 +1,8 @@
+<%= render "govuk_publishing_components/components/select", {
+  id: block.path.form_control_id,
+  label: block.title + (block.required ? " (required)" : ""),
+  name: block.path.form_control_name,
+  options: block.select_options,
+  hint: block.hint_text,
+  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym),
+} %>

@@ -13,6 +13,10 @@ class PageTitleTest < ActiveSupport::TestCase
     File.expand_path(Rails.root.join("app/views/#{f}"))
   end
 
+  EXCLUDED_DIRS = %w[
+    admin/configurable_content_blocks
+  ].map { |f| File.expand_path(Rails.root.join("app/views/#{f}")) }
+
   def test_every_page_sets_a_title
     tested_templates.each do |template|
       assert_match(
@@ -36,6 +40,6 @@ private
   end
 
   def is_excluded?(template)
-    EXCLUDED_TEMPLATES.include?(template)
+    EXCLUDED_TEMPLATES.include?(template) || EXCLUDED_DIRS.any? { |dir| template.start_with? dir }
   end
 end

@@ -1,13 +1,32 @@
 module ConfigurableContentBlocks
   class DefaultObject
-    attr_reader :block_factory
+    include Renderable
+    attr_reader :edition, :path
 
-    def initialize(block_factory)
-      @block_factory = block_factory
+    def initialize(edition, config, path)
+      @edition = edition
+      @config = config
+      @path = path
     end
 
-    def to_partial_path
-      "admin/configurable_content_blocks/default_object"
+    def root?
+      @config["root"]
+    end
+
+    def title
+      @config["title"]
+    end
+
+    def fields
+      @config["fields"]
+    end
+
+    def required
+      @config["required"]
+    end
+
+    private def template_name
+      "default_object"
     end
   end
 end

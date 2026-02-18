@@ -45,6 +45,14 @@ class StandardEdition::BlockContent
     @attributes ||= attributes_class_for(@attributes_config).new
   end
 
+  def value_at(path)
+    value = attributes.dup
+    path.to_a.each do |segment|
+      value = value.public_send(segment)
+    end
+    value
+  end
+
   delegate :to_h, to: :attributes
 
 private

@@ -24,17 +24,7 @@
             <%= form_for [:admin, @edition] do %>
               <%= hidden_field_tag :redirect_to, admin_edition_images_path(@edition) %>
 
-              <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
-              <%= render(root_block, {
-                schema: @edition.type_instance.form("images"),
-                content: @edition.block_content,
-                path: ConfigurableContentBlocks::Path.new,
-                right_to_left: @edition.rtl?,
-                errors: @edition.errors,
-                required_attributes: @edition.type_instance.required_attributes,
-                root: true,
-              }) %>
-
+              <%= render ConfigurableContentBlocks::DefaultObject.new(@edition, @edition.type_instance.form("images").merge("root" => true), ConfigurableContentBlocks::Path.new) %>
               <div class="govuk-button-group">
                 <%= render "govuk_publishing_components/components/button", {
                   text: "Save",

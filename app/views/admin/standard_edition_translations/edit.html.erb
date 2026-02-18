@@ -45,17 +45,7 @@
         },
       } %>
 
-      <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
-      <%= render(root_block, {
-        schema: @edition.type_instance.form,
-        content: @edition.block_content,
-        translated_content: @translated_edition.block_content,
-        path: ConfigurableContentBlocks::Path.new,
-        right_to_left: form.object.translation_rtl?,
-        errors: @translated_edition.errors,
-        required_attributes: @edition.type_instance.required_attributes,
-        root: true,
-      }) %>
+      <%= render ConfigurableContentBlocks::DefaultObject.new(@translated_edition, @translated_edition.type_instance.form.merge("root" => true), ConfigurableContentBlocks::Path.new) %>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {

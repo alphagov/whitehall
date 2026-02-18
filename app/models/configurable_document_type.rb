@@ -97,10 +97,6 @@ class ConfigurableDocumentType
     @presenters[key]
   end
 
-  def required_attributes
-    Array(@schema.dig("validations", "presence", "attributes"))
-  end
-
   class NotFoundError < StandardError
   end
 end

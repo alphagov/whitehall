@@ -1,13 +1,34 @@
 module ConfigurableContentBlocks
   class DefaultArray
-    attr_reader :block_factory
+    include Renderable
+    attr_reader :edition, :path
 
-    def initialize(block_factory)
-      @block_factory = block_factory
+    def initialize(edition, config, path)
+      @edition = edition
+      @config = config
+      @path = path
     end
 
-    def to_partial_path
-      "admin/configurable_content_blocks/default_array"
+    def title
+      @config["title"]
+    end
+
+    def required
+      @config["required"]
+    end
+
+    def field_blocks(index)
+      @config["fields"].map do |field_key, field_config|
+        ConfigurableContentBlocks::Factory.blocks[field_config["block"]].new(@edition, field_config, @path.push(index).push(field_key))
+      end
+    end
+
+    def items
+      @edition.block_content&.value_at(@path) or []
+    end
+
+    private def template_name
+      "default_array"
     end
   end
 end
