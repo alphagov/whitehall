@@ -54,7 +54,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @tagged_editions = @filter.editions(@feature_list.locale)
-
+    @featurable_offsite_links = @edition.offsite_links
     render :features
   end
 
