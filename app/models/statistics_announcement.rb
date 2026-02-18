@@ -229,6 +229,14 @@ class StatisticsAnnouncement < ApplicationRecord
     reload_current_release_date
   end
 
+  def redirect_path
+    return if redirect_uri.nil?
+
+    path = redirect_uri.path
+    path << "##{redirect_uri.fragment}" if redirect_uri.fragment.present?
+    path
+  end
+
 private
 
   def update_associated_publication_type
@@ -272,13 +280,5 @@ private
     rescue URI::InvalidURIError
       nil
     end
-  end
-
-  def redirect_path
-    return if redirect_uri.nil?
-
-    path = redirect_uri.path
-    path << "##{redirect_uri.fragment}" if redirect_uri.fragment.present?
-    path
   end
 end
