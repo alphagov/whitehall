@@ -55,6 +55,13 @@ Feature: Bulk republishing content
     Given Case Studies exist
     When I select all of type "CaseStudy" for republishing
     Then I can see all of type "CaseStudy" have been queued for republishing
+  
+  Scenario: Republish editionable content types since specific date and time
+    Given Case Studies exist that were updated around "2024-01-10"
+    When I select all of type "CaseStudy" for republishing
+    And I input a date of "2024-01-10"
+    Then I can see all of type "CaseStudy" have been queued for republishing
+    Then I can see a date input
 
   Scenario: Republish all documents by organisation
     Given a published organisation "An Existing Organisation" exists
