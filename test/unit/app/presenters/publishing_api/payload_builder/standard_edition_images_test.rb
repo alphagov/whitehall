@@ -2,7 +2,9 @@ require "test_helper"
 
 module PublishingApi
   module PayloadBuilder
-    class ImagesTest < ActiveSupport::TestCase
+    class StandardEditionImagesTest < ActiveSupport::TestCase
+      extend Minitest::Spec::DSL
+
       test "allows only non-embeddable images" do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
           "settings" => {
@@ -26,7 +28,7 @@ module PublishingApi
         non_embeddable_image = create(:image, :svg, usage: "non_embeddable_usage", caption: "A non-embeddable image")
         page = create(:standard_edition, images: [embeddable_image, non_embeddable_image])
 
-        result = PayloadBuilder::Images.for(page)[:images]
+        result = PayloadBuilder::StandardEditionImages.for(page)[:images]
 
         assert_equal 1, result.count
 
@@ -52,7 +54,7 @@ module PublishingApi
         image_with_usage_not_allowed_in_schema = create(:image, :svg, usage: "usage_not_in_schema")
         page = create(:standard_edition, images: [allowed_image, image_with_usage_not_allowed_in_schema])
 
-        result = PayloadBuilder::Images.for(page)[:images]
+        result = PayloadBuilder::StandardEditionImages.for(page)[:images]
 
         assert_equal 1, result.count
 
@@ -79,7 +81,7 @@ module PublishingApi
         image_without_assets = create(:image, :with_no_assets, usage: "non_embeddable_usage")
         page = create(:standard_edition, images: [uncropped_image, image_without_assets])
 
-        assert_not PayloadBuilder::Images.for(page)[:images]
+        assert_not PayloadBuilder::StandardEditionImages.for(page)[:images]
       end
 
       test "allows multiple non-embeddable images, if 'multiple' is enabled for the usage" do
@@ -101,7 +103,7 @@ module PublishingApi
         another_image = create(:image, :svg, usage: "allowed_non_embeddable_usage")
         page = create(:standard_edition, images: [image, another_image])
 
-        result = PayloadBuilder::Images.for(page)[:images]
+        result = PayloadBuilder::StandardEditionImages.for(page)[:images]
 
         assert_equal 2, result.count
         assert_equal [image.usage, another_image.usage], result.pluck(:type)
@@ -132,7 +134,7 @@ module PublishingApi
         another_usage_two_image = create(:image, usage: "non_embeddable_usage_two")
         page = create(:standard_edition, images: [usage_one_image, another_usage_one_image, usage_two_image, another_usage_two_image])
 
-        result = PayloadBuilder::Images.for(page)[:images]
+        result = PayloadBuilder::StandardEditionImages.for(page)[:images]
 
         assert_equal 4, result.count
         assert_equal [usage_one_image.usage, another_usage_one_image.usage, usage_two_image.usage, another_usage_two_image.usage], result.pluck(:type)
@@ -153,7 +155,7 @@ module PublishingApi
           },
         }))
         page = create(:standard_edition, images: [create(:image, usage: "govspeak_embed")])
-        result = PayloadBuilder::Images.for(page)
+        result = PayloadBuilder::StandardEditionImages.for(page)
 
         assert_equal({}, result)
       end

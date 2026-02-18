@@ -1,6 +1,6 @@
 module PublishingApi
   module PayloadBuilder
-    class Images
+    class StandardEditionImages
       attr_reader :item
 
       def self.for(item)
