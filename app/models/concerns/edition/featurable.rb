@@ -13,6 +13,8 @@ module Edition::Featurable
         target.detect(-> { build(locale:) }) { |fl| locale.match?(fl.locale) }
       end
     end
+    has_many :offsite_link_parents, as: :parent
+    has_many :offsite_links, through: :offsite_link_parents
     add_trait Trait
   end
 

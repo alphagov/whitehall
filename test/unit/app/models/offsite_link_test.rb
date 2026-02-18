@@ -1,6 +1,10 @@
 require "test_helper"
 
 class OffsiteLinkTest < ActiveSupport::TestCase
+  setup do
+    @world_location_news = create(:world_location_news, world_location: create(:world_location))
+    @standard_edition = create(:standard_edition)
+  end
   test "should be invalid without a title" do
     offsite_link = build(:offsite_link, title: nil)
     assert_not offsite_link.valid?
@@ -131,35 +135,45 @@ class OffsiteLinkTest < ActiveSupport::TestCase
   end
 
   test "#parents returns all associated parents" do
-    offsite_link = create(:offsite_link, :for_topical_event)
-    topical_event = offsite_link.topical_events.first
+    offsite_link_for_legacy_document = create(:offsite_link, :for_topical_event)
+    topical_event = offsite_link_for_legacy_document.topical_events.first
 
-    assert_equal [topical_event], offsite_link.parents
+    offsite_link_for_standard_edition = create(:offsite_link, :for_standard_edition)
+    standard_edition = offsite_link_for_standard_edition.editions.first
+
+    assert_equal [topical_event], offsite_link_for_legacy_document.parents
+    assert_equal [standard_edition], offsite_link_for_standard_edition.parents
   end
 
   test "#parent returns the only associated parent" do
-    offsite_link = create(:offsite_link, :for_organisation)
-    organisation = offsite_link.organisations.first
+    offsite_link_for_organisation = create(:offsite_link, :for_organisation)
+    organisation = offsite_link_for_organisation.organisations.first
 
-    assert_equal organisation, offsite_link.parent
+    offsite_link_for_standard_edition = create(:offsite_link, :for_standard_edition)
+    standard_edition = offsite_link_for_standard_edition.editions.first
+
+    assert_equal organisation, offsite_link_for_organisation.parent
+    assert_equal standard_edition, offsite_link_for_standard_edition.parent
   end
 
   test "creating an existing offsite link republishes the parent" do
-    parent = create(:world_location_news, world_location: create(:world_location))
+    offsite_link_1 = create(:offsite_link, world_location_news: [@world_location_news])
+    offsite_link_2 = create(:offsite_link, editions: [@standard_edition])
 
-    offsite_link = create(:offsite_link, world_location_news: [parent])
-    offsite_link.title = "Updated title"
+    offsite_link_1.title = "Updated title"
 
-    Whitehall::PublishingApi.expects(:republish_async).with(parent).once
+    Whitehall::PublishingApi.expects(:republish_async).with(@world_location_news).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(@standard_edition.document).once
 
-    offsite_link.save!
+    offsite_link_1.save!
+    offsite_link_2.save!
   end
 
   test "updating an existing offsite link republishes the parent" do
-    parent = create(:world_location_news, world_location: create(:world_location))
+    Whitehall::PublishingApi.expects(:republish_async).with(@world_location_news).once
+    Whitehall::PublishingApi.expects(:republish_document_async).with(@standard_edition.document).once
 
-    Whitehall::PublishingApi.expects(:republish_async).with(parent).once
-
-    create(:offsite_link, world_location_news: [parent])
+    create(:offsite_link, world_location_news: [@world_location_news])
+    create(:offsite_link, editions: [@standard_edition])
   end
 end
