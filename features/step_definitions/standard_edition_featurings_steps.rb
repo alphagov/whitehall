@@ -1,52 +1,5 @@
 And(/^a featurable standard edition called "([^"]*)" exists$/) do |title|
-  ConfigurableDocumentType.setup_test_types({ "test_type" => {
-    "key" => "test_type",
-    "title" => "Test Type",
-    "forms" => {
-      "documents" => {
-        "fields" => {
-          "body" => {
-            "title" => "Body",
-            "description" => "The main content of the page",
-            "block" => "govspeak",
-          },
-        },
-      },
-    },
-    "schema" => {
-      "properties" => {
-        "test_attribute" => {
-          "title" => "Test Attribute",
-          "type" => "string",
-        },
-      },
-    },
-    "presenters" => {
-      "publishing_api" => {
-        "details" => {},
-        "links" => [],
-      },
-    },
-    "associations" => [],
-    "settings" => {
-      "edit_screens" => {
-        "document" => %w[test_attribute],
-      },
-      "base_path_prefix" => "/government/test",
-      "publishing_api_schema_name" => "test_article",
-      "publishing_api_document_type" => "test_story",
-      "rendering_app" => "frontend",
-      "images" => {
-        "enabled" => false,
-      },
-      "organisations" => nil,
-      "backdating_enabled" => false,
-      "history_mode_enabled" => false,
-      "translations_enabled" => false,
-      "features_enabled" => true,
-    },
-  } })
-  @featurable_edition = create(:standard_edition, configurable_document_type: "test_type", title:)
+  @featurable_edition = create(:standard_edition, title:)
 end
 
 Given(/^the featurable standard edition is linked to an edition with the title "([^"]*)"$/) do |title|
@@ -57,8 +10,8 @@ Given(/^the featurable standard edition is linked to an edition with the title "
 end
 
 And(/^two featurings exist for the edition$/) do
-  featured_edition_1 = create(:published_standard_edition, configurable_document_type: "test_type", title: "Featured Edition 1")
-  featured_edition_2 = create(:published_standard_edition, configurable_document_type: "test_type", title: "Featured Edition 2")
+  featured_edition_1 = create(:published_standard_edition, title: "Featured Edition 1")
+  featured_edition_2 = create(:published_standard_edition, title: "Featured Edition 2")
   feature_list = @featurable_edition.feature_lists.create!(locale: @featurable_edition.primary_locale)
   create(:feature, feature_list:, document: featured_edition_1.document)
   create(:feature, feature_list:, document: featured_edition_2.document)
