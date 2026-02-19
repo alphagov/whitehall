@@ -1,9 +1,20 @@
 # LEGACY TOPICAL EVENTS ONLY
 class TopicalEvent < ApplicationRecord
+  include ActiveRecord::Transitions
   include DateValidation
   include PublishesToPublishingApi
   include Searchable
-  include SimpleWorkflow
+
+  default_scope -> { where(arel_table[:state].not_eq("deleted")) }
+
+  state_machine auto_scopes: true, initial: :current do
+    state :current
+    state :deleted
+
+    event :delete, success: ->(document) { document.remove_from_search_index if document.respond_to?(:remove_from_search_index) } do
+      transitions from: [:current], to: :deleted
+    end
+  end
 
   date_attributes(:start_date, :end_date)
 
