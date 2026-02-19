@@ -186,6 +186,7 @@ class Organisation < ApplicationRecord
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
   after_save :republish_how_government_works_page_to_publishing_api, :republish_organisations_index_page_to_publishing_api
+  after_save :republish_parent_organisations_to_publishing_api
   after_save :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
   after_destroy :republish_organisations_index_page_to_publishing_api
   after_destroy :patch_links_ministers_index_page_to_publishing_api, if: :ministerial_department?
@@ -208,6 +209,10 @@ class Organisation < ApplicationRecord
 
   def republish_organisations_index_page_to_publishing_api
     PresentPageToPublishingApiWorker.perform_async("PublishingApi::OrganisationsIndexPresenter")
+  end
+
+  def republish_parent_organisations_to_publishing_api
+    parent_organisations.each(&:republish_to_publishing_api_async)
   end
 
   def republish_on_assets_ready
