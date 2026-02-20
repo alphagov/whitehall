@@ -424,6 +424,19 @@ class StandardEditionTest < ActiveSupport::TestCase
     featured_edition.update!(title: "Foo")
   end
 
+  test "offsite links are copied over to the new edition of a document" do
+    offsite_link_1 = build(:offsite_link, title: "Offsite link 1", url: "https://www.nhs.uk/")
+    offsite_link_2 = build(:offsite_link, title: "Offsite link 2", url: "https://www.gov.uk/")
+    edition = create(:published_standard_edition, configurable_document_type: "test_type", offsite_links: [offsite_link_1, offsite_link_2])
+
+    new_draft = edition.create_draft(create(:writer))
+    assert_equal 2, new_draft.offsite_links.size
+    assert_equal offsite_link_1.title, new_draft.offsite_links.first.title
+    assert_equal offsite_link_1.url, new_draft.offsite_links.first.url
+    assert_equal offsite_link_2.title, new_draft.offsite_links.second.title
+    assert_equal offsite_link_2.url, new_draft.offsite_links.second.url
+  end
+
   describe "#update_configurable_document_type" do
     [
       { state: :draft_standard_edition },
