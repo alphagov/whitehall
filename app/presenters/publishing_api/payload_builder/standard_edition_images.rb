@@ -1,6 +1,6 @@
 module PublishingApi
   module PayloadBuilder
-    class Images
+    class StandardEditionImages
       attr_reader :item
 
       def self.for(item)
@@ -12,11 +12,12 @@ module PublishingApi
       end
 
       def call
-        if images.any?
-          { images: }
-        else
-          {}
+        if (lead_image_usage = item.permitted_image_usages.find(&:lead?)).present?
+          lead_image = item.lead_image_payload(lead_image_usage)
         end
+
+        non_embeddable_usage_images = [lead_image, *images].compact
+        non_embeddable_usage_images.any? ? { images: non_embeddable_usage_images } : {}
       end
 
     private
@@ -24,7 +25,7 @@ module PublishingApi
       def images
         item.images
             .usable
-            .usable_as(*item.permitted_image_usages.reject(&:embeddable?))
+            .usable_as(*item.permitted_image_usages.reject { |usage| usage.embeddable? || usage.lead? })
             .to_a
             .select { |image| image.image_data&.all_asset_variants_uploaded? }
             .map(&:publishing_api_details)

@@ -11,7 +11,7 @@ class FeaturedImageData < ApplicationRecord
   validate :file_is_not_blank
   validates :featured_imageable, presence: true
 
-  delegate :url, to: :file
+  delegate :url, :content_type, to: :file
 
   def filename
     file&.file&.filename

@@ -55,4 +55,13 @@ class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
 
     assert_selector ".govuk-form-group--error input[type=\"file\"]"
   end
+
+  test "does not allow svgs if usage is 'lead'" do
+    edition = build_stubbed(:standard_edition)
+    usage = ImageUsage.new(key: "lead", kinds: [Whitehall.image_kinds.fetch("default")], multiple: false, label: "lead")
+
+    component = Admin::EditionImages::ImageUploadComponent.new(edition:, new_image: nil, image_usage: usage)
+
+    assert_equal "image/png, image/jpeg, image/gif", component.allowed_extensions
+  end
 end

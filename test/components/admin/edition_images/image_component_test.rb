@@ -82,7 +82,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     assert_selector "input[value='!!3']"
   end
 
-  test "renders a processing tag if not all lead image assets are uploaded" do
+  test "renders a processing tag if not all assets of the lead image are uploaded for legacy case studies" do
     image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
     edition = build_stubbed(:draft_case_study, images: [image])
 

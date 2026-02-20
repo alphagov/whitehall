@@ -95,6 +95,13 @@
         "govspeak_embed": {
           "kinds": ["default"],
           "multiple": true
+        },
+        "lead": {
+          "label": "lead",
+          "kinds": [
+            "default"
+          ],
+          "multiple": false
         }
       }
     },

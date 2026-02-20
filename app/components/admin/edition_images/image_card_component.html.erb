@@ -1,6 +1,13 @@
+<% if image_usage.lead? %>
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Using a lead image",
+  } do %>
+    <%= lead_image_guidance %>
+  <% end %>
+<% end %>
 <%= render "govuk_publishing_components/components/summary_card", {
   id: "uploaded_#{image_usage.key}_image_card",
-  title: image_usage.label.titleize,
+  title: image_usage.label&.titleize || image_usage.key.titleize,
   summary_card_actions: image.present? ? [
     {
       label: "Edit",

@@ -16,7 +16,7 @@ module PublishingApi
         return {} unless mapping
 
         mapping.each_with_object({}) { |(attribute, builder), details|
-          details[attribute.to_sym] = send(builder, attribute)
+          details[attribute.to_sym] = send(builder, attribute) unless attribute == "image" && builder == "lead_image" && ConfigurableDocumentType.where_group("news_article").map(&:key).include?(@item.type_instance.key)
         }.compact
       end
 

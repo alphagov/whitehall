@@ -3,7 +3,13 @@
 class Admin::EditionImages::ImageComponent < ViewComponent::Base
   def initialize(edition:, image:, image_usage:)
     @edition = edition
-    @image = image
+
+    if image_usage.lead? && edition.lead_image && image&.usage != "lead"
+      @image = Image.where(image_data_id: edition.lead_image).first
+      @image.update(usage: "lead") if @image
+    else
+      @image = image
+    end
     @image_usage = image_usage
   end
 
