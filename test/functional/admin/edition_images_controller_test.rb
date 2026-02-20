@@ -108,19 +108,9 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "img[src=?]", image.thumbnail
   end
 
-  view_test "GET :index page renders standard edition images upload form alongside custom image block, and govspeak embed images list" do
+  view_test "GET :index page renders a single usage image card alongside a multiple usage upload form and images list" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
-      "forms" => {
-        "images" => {
-          "fields" => {
-            "test_attribute" => {
-              "title" => "Test attribute",
-              "block" => "default_string",
-            },
-          },
-        },
-      },
       "settings" => {
         "images" => {
           "enabled" => "true",
@@ -129,19 +119,25 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
               "kinds" => %w[default],
               "multiple" => true,
             },
+            "lead" => {
+              "kinds" => %w[default],
+              "multiple" => false,
+            },
           },
         },
       },
     }))
-    image = create(:image, usage: "govspeak_embed")
-    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
+    embeddable_image = create(:image, usage: "govspeak_embed", image_data: build(:image_data, file: upload_fixture("images/960x640_jpeg.jpg")))
+    single_usage_image = create(:image, usage: "lead", image_data: build(:image_data, file: upload_fixture("minister-of-funk.960x640.jpg")))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [embeddable_image, single_usage_image])
 
     get :index, params: { edition_id: edition.id }
 
+    assert_select "#uploaded_lead_image_card"
+    assert_select "img[src=?]", single_usage_image.thumbnail
     assert_select "#govspeak_embed_image_upload_form"
-    assert_select "label", text: "Test attribute"
     assert_select "h2", text: "Uploaded images"
-    assert_select "img[src=?]", image.thumbnail
+    assert_select "img[src=?]", embeddable_image.thumbnail
   end
 
   view_test "GET :edit page shows image editing form" do

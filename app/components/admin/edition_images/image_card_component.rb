@@ -16,6 +16,6 @@ private
 
     return "<span class=\"govuk-tag govuk-tag--red\">Requires cropping</span>".html_safe if image.requires_crop?
 
-    "<img style=\"width: 100%;\" src=\"#{image.thumbnail}\" alt=\"\" class=\"app-view-edition-resource__preview\">".html_safe
+    sanitize("<img style=\"width: 100%;\" src=\"#{image.thumbnail}\" alt=\"\" class=\"app-view-edition-resource__preview\">")
   end
 end

@@ -1,6 +1,6 @@
-def upload_file(width, height, image_usage_key = "govspeak_embed")
+def upload_file(width, height, image_usage_key = "govspeak_embed", file_override_960_640 = nil)
   file = if width == 960 && height == 640
-           jpg_image
+           file_override_960_640 || jpg_image
          elsif width == 64 && height == 96
            Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
          elsif width == 960 && height == 960
@@ -30,14 +30,6 @@ Given("a draft document with images exists") do
   images = [build(:image), image]
 
   @edition = create(:draft_publication, body: "!!2", images:)
-end
-
-Given("a draft standard edition with images exists") do
-  svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg")))
-  image = build(:image, image_data: svg_image_data)
-  images = [build(:image), image]
-
-  @edition = create_configurable_document(**default_content_for_locale("en").merge({ title: "Title", images: }))
 end
 
 Given("a draft case study with images exists") do

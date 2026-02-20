@@ -6,11 +6,11 @@ Feature: Standard Editions
     And the test configurable document type is defined
     When I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     Then I am on the summary page of the draft titled "The history of GOV.UK"
-    And when I switch to the Images tab to fill in the other configurable fields
-    Then the configurable fields on the Images tab are persisted
+    When I upload single and multiple usage images
+    Then the images are persisted
     And the configurable fields on the Document tab are not overwritten
 
-  Scenario: Force publishing an existing draft configurable document
+  Scenario: Force publishing an existing draft and creating a new draft
     Given I am an editor
     And the configurable document types feature flag is enabled
     And the test configurable document type is defined
@@ -26,7 +26,6 @@ Feature: Standard Editions
     When I go to add a Welsh translation
     Then configured content blocks should appear on the translation page
     And the Welsh translation fields should be pre-populated with primary locale content
-    And the image selections should be preserved from the primary locale
     And I should see the original English content in "original text" sections
     And when I set the Welsh translations
     Then the Welsh translations should have persisted

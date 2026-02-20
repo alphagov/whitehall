@@ -49,16 +49,6 @@
           }
         }
       }
-    },
-    "images": {
-      "fields": {
-        "lead_image": {
-          "title": "Lead Image",
-          "description": "The lead image for the page",
-          "block": "lead_image_select",
-          "attribute_path": ["block_content", "lead_image"]
-        }
-      }
     }
   },
   "presenters": {
@@ -85,9 +75,6 @@
       "city": {
         "type": "string"
       },
-      "lead_image": {
-        "type": "integer"
-      },
       "list_of_foods": {
         "type": "array",
         "attributes": {
@@ -110,7 +97,12 @@
     "images": {
       "enabled": true,
       "usages": {
+        "lead": {
+          "kinds": ["default"],
+          "multiple": false
+        },
         "govspeak_embed": {
+          "label": "embeddable",
           "kinds": ["default"],
           "multiple": true
         },
