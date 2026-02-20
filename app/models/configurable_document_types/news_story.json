@@ -80,6 +80,7 @@
       "enabled": true,
       "usages": {
         "govspeak_embed": {
+          "label": "embeddable",
           "kinds": ["default"],
           "multiple": true
         },

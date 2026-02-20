@@ -11,12 +11,23 @@
     } %>
 
     <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |image_usage| %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: image_usage.label.blank? ? "#{image_usage.key.titleize} image" : "#{image_usage.label.titleize} image",
+        font_size: "l",
+        padding: true,
+      } if @edition.permitted_image_usages.select { |usage| usage.multiple? }.any? %>
+
       <% image = @edition.images.usable_as(image_usage).first %>
       <%= render Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:) %>
     <% end %>
 
     <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each_with_index do |usage, multiple_upload_section_index| %>
-      <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: usage.label.blank? ? "#{usage.key.titleize} images" : "#{usage.label.titleize} images",
+        font_size: "l",
+        padding: true,
+      } %>
+      <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage, heading_size: "m") %>
 
       <% if usage.embeddable? %>
         <% if @edition.is_a?(StandardEdition) %>
@@ -46,25 +57,25 @@
           <% end %>
           <%= render "govuk_publishing_components/components/heading", {
             text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
-            font_size: "l",
+            font_size: "m",
           } %>
         <% else %>
           <%= render "govuk_publishing_components/components/heading", {
             text: "Uploaded images",
-            font_size: "l",
+            font_size: "m",
           } %>
           <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) %>
         <% end %>
 
         <%= render "govuk_publishing_components/components/heading", {
           text: "Images available to use in document",
-          font_size: "m",
+          font_size: "s",
           padding: true,
         } %>
       <% else %>
         <%= render "govuk_publishing_components/components/heading", {
           text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
-          font_size: "l",
+          font_size: "m",
           padding: true,
         } %>
       <% end %>
