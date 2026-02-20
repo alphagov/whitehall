@@ -4,6 +4,9 @@ module Edition::Featurable
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       edition.feature_lists = @edition.feature_lists.map(&:deep_clone)
+      @edition.offsite_links.each do |link|
+        edition.offsite_link_parents.create!(offsite_link: link)
+      end
     end
   end
 
