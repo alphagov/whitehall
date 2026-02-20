@@ -31,30 +31,6 @@
 
       <% if usage.embeddable? %>
         <% if @edition.is_a?(StandardEdition) %>
-          <% if @edition.type_instance.form("images").present? %>
-            <%= form_for [:admin, @edition] do %>
-              <%= hidden_field_tag :redirect_to, admin_edition_images_path(@edition) %>
-
-              <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
-              <%= render(root_block, {
-                schema: @edition.type_instance.form("images"),
-                content: @edition.block_content,
-                path: ConfigurableContentBlocks::Path.new,
-                right_to_left: @edition.rtl?,
-                errors: @edition.errors,
-                required_attributes: @edition.type_instance.required_attributes,
-                root: true,
-              }) %>
-
-              <div class="govuk-button-group">
-                <%= render "govuk_publishing_components/components/button", {
-                  text: "Save",
-                  value: "save",
-                  name: "save",
-                } %>
-              </div>
-            <% end %>
-          <% end %>
           <%= render "govuk_publishing_components/components/heading", {
             text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
             font_size: "m",
