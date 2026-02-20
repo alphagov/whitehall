@@ -251,7 +251,7 @@ private
   end
 
   def redirect_not_circular
-    if redirect_url.present? && (base_path == redirect_url)
+    if redirect_url.present? && (base_path == redirect_path)
       errors.add(:redirect_url, "cannot redirect to itself")
     end
   end

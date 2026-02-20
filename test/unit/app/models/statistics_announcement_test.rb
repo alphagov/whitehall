@@ -39,6 +39,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_match %r{cannot redirect to itself}, announcement.errors[:redirect_url].first
   end
 
+  test "when unpublished, it cannot redirect to a full URL that equates to the same slug as the Statistics Announcement" do
+    announcement = build(:unpublished_statistics_announcement, slug: "dummy")
+    announcement.redirect_url = "https://www.gov.uk/government/statistics/announcements/dummy"
+    assert_not announcement.valid?
+
+    assert_match %r{cannot redirect to itself}, announcement.errors[:redirect_url].first
+  end
+
   test "when unpublished, is valid with a GOV.UK redirect_url" do
     announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics")
     assert announcement.valid?
