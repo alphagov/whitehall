@@ -704,6 +704,17 @@ class OrganisationTest < ActiveSupport::TestCase
     end
   end
 
+  test "#save republishes parent organisations to publishing api" do
+    parent_org1 = create(:organisation)
+    parent_org2 = create(:organisation)
+    child_org = build(:organisation, parent_organisations: [parent_org1, parent_org2])
+
+    Whitehall::PublishingApi.expects(:republish_async).with(parent_org1).once
+    Whitehall::PublishingApi.expects(:republish_async).with(parent_org2).once
+
+    child_org.save!
+  end
+
   test "#save does not trigger organisation with a changed chart url to republish about page if it does not exist" do
     organisation = create(
       :organisation,
