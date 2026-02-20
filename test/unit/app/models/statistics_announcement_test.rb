@@ -52,6 +52,11 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert announcement.valid?
   end
 
+  test "when unpublished, it has a `redirect_path` that is derived from the `redirect_url`" do
+    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics#test-fragment")
+    assert_equal "/government/statistics#test-fragment", announcement.redirect_path
+  end
+
   test "generates slug from its title" do
     announcement = create(:statistics_announcement, title: "Beard statistics 2015")
     assert_equal "beard-statistics-2015", announcement.slug
