@@ -78,6 +78,7 @@ module Organisation::OrganisationTypeConcern
   def supporting_bodies
     child_organisations
       .excluding_govuk_status_closed
+      .excluding_govuk_status_joining
       .excluding_courts_and_tribunals
       .excluding_sub_organisations
       .with_translations(I18n.locale)
