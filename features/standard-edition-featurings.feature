@@ -25,3 +25,26 @@ Feature:
       | title              |
       | Featured Edition 2 |
       | Featured Edition 1 |
+
+  Scenario: Featuring an external website link
+    Given the standard edition has an external website link with the title "Featured link"
+    When I visit the standard edition featuring index page
+    And I feature the external website link called "Featured link"
+    Then I see that the external website link called "Featured link" has been featured
+
+  Scenario: Creating an external website link
+    When I visit the standard edition featuring index page
+    And I create a new external website link with the title "Featured link"
+    Then I can see the external website link with the title "Featured link"
+
+  Scenario: Editing an external website link
+    Given the standard edition has an external website link with the title "Featured link"
+    When I visit the standard edition featuring index page
+    And I update the title of an external website link from "Featured link" to "New title"
+    Then I can see the external website link with the title "New title"
+
+  Scenario: Deleting an external website link
+    Given the standard edition has an external website link with the title "Featured link"
+    When I visit the standard edition featuring index page
+    And I delete the external website link called "Featured link"
+    Then I can see that the external website link called "Featured link" has been deleted

@@ -30,7 +30,11 @@ class Admin::OffsiteLinksController < Admin::BaseController
   def confirm_destroy; end
 
   def destroy
-    @offsite_link.destroy!
+    if @parent.is_a?(Edition)
+      @parent.offsite_link_parents.find_by(offsite_link: @offsite_link)&.destroy!
+    else
+      @offsite_link.destroy!
+    end
     flash[:notice] = "#{@offsite_link.title} has been deleted"
     redirect_to offsite_links_path
   end
@@ -41,6 +45,7 @@ private
     @parent = WorldLocation.friendly.find(params[:world_location_news_id]).world_location_news if params[:world_location_news_id]
     @parent = Organisation.friendly.find(params[:organisation_id]) if params[:organisation_id]
     @parent = TopicalEvent.friendly.find(params[:topical_event_id]) if params[:topical_event_id] # Legacy
+    @parent = Edition.find(params[:standard_edition_id]) if params[:standard_edition_id]
   end
 
   def load_offsite_link

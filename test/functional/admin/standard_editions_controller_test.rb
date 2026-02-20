@@ -580,6 +580,87 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "#documents_tab p", text: call_for_evidence.title
   end
 
+  view_test "GET features renders the offsite links tab with offsite links created on the edition" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+    offsite_link_1 = create(:offsite_link, :for_standard_edition, editions: [edition], title: "Offsite Link 1")
+    offsite_link_2 = create(:offsite_link, :for_standard_edition, editions: [edition], title: "Offsite Link 2")
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: :en }
+
+    assert_response :ok
+    assert_select "#non_govuk_government_links_tab p", offsite_link_1.title
+    assert_select "#non_govuk_government_links_tab p", offsite_link_2.title
+  end
+
+  view_test "GET features filters out already featured offsite links from the offsite links tab" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    featured_offsite_link = create(:offsite_link, :for_standard_edition, editions: [edition], title: "Offsite Link 1")
+    unfeatured_offsite_link = create(:offsite_link, :for_standard_edition, editions: [edition], title: "Offsite Link 2")
+    feature_list = edition.feature_lists.create!(locale: edition.primary_locale)
+    create(:feature, feature_list:, offsite_link: featured_offsite_link)
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: :en }
+
+    assert_response :ok
+    assert_select "#non_govuk_government_links_tab p", unfeatured_offsite_link.title
+    refute_dom "#non_govuk_government_links_tab p", featured_offsite_link.title
+  end
+
+  view_test "GET features renders the currently featured tab with featured offsite links" do
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+      {
+        "key" => "topical_event_documents",
+      },
+    ] })
+    ConfigurableDocumentType.setup_test_types(topical_event_type.merge(test_type_with_topical_event_association))
+
+    edition = create(
+      :published_standard_edition,
+      :with_organisations,
+      configurable_document_type: "topical_event",
+    )
+
+    featured_offsite_link = create(:offsite_link, :for_standard_edition, editions: [edition])
+    unfeatured_offsite_link = create(:offsite_link, :for_standard_edition, editions: [edition], title: "Unfeatured offsite link")
+
+    feature_list = edition.feature_lists.create!(locale: edition.primary_locale)
+    create(:feature, feature_list:, offsite_link: featured_offsite_link)
+
+    login_as :managing_editor
+    get :features, params: { id: edition.id, locale: :en }
+    assert_response :ok
+    assert_select "#currently_featured_tab p", text: featured_offsite_link.title
+    refute_dom "#currently_featured_tab p", text: unfeatured_offsite_link.title
+  end
+
   view_test "PATCH update respects a provided safe relative redirect_to path" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

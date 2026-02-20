@@ -199,6 +199,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [published_in_second_organisation], Publication.in_organisation(organisation2)
   end
 
+  test "#name returns the edition's title" do
+    edition = build(:edition, title: "My Title")
+    assert_equal "My Title", edition.name
+  end
+
   test "#first_published_version? is true if published and published_major_version is 1" do
     edition = build(:published_edition, published_major_version: 1)
     assert edition.first_published_version?
