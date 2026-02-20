@@ -11,24 +11,12 @@
           "block": "govspeak"
         }
       }
-    },
-    "images": {
-      "fields": {
-        "image": {
-          "title": "Custom lead image",
-          "description": "Select a lead image, if required",
-          "block": "lead_image_select"
-        }
-      }
     }
   },
   "schema": {
     "attributes": {
       "body": {
         "type": "string"
-      },
-      "image": {
-        "type": "integer"
       }
     },
     "validations": {
@@ -54,8 +42,7 @@
   "presenters": {
     "publishing_api": {
       "details": {
-        "body": "govspeak",
-        "image": "lead_image"
+        "body": "govspeak"
       },
       "links": [
         "ministerial_role_appointments",
@@ -95,6 +82,11 @@
         "govspeak_embed": {
           "kinds": ["default"],
           "multiple": true
+        },
+        "lead": {
+          "label": "lead",
+          "kinds": ["default"],
+          "multiple": false
         }
       }
     },
