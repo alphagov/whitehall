@@ -97,7 +97,7 @@ class Consultation < Edition
   end
 
   def can_set_previously_published?
-    false
+    true
   end
 
   def has_consultation_participation?
