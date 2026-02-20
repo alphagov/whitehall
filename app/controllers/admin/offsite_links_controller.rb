@@ -30,7 +30,11 @@ class Admin::OffsiteLinksController < Admin::BaseController
   def confirm_destroy; end
 
   def destroy
-    @offsite_link.destroy!
+    if @parent.is_a?(Edition)
+      @parent.offsite_link_parents.find_by(offsite_link: @offsite_link)&.destroy!
+    else
+      @offsite_link.destroy!
+    end
     flash[:notice] = "#{@offsite_link.title} has been deleted"
     redirect_to offsite_links_path
   end
