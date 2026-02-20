@@ -39,6 +39,7 @@ class Admin::OrganisationsController < Admin::BaseController
                           .permit!
                           .to_h
                           .merge(
+                            page_title: "GOV.UK content tagged to this organisation",
                             state: "published",
                             organisation: filtering_organisation,
                             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,

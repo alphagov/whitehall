@@ -3,27 +3,27 @@
 } %>
 
 <%= render "govuk_publishing_components/components/inset_text", {
-  text: "A maximum of #{maximum_featured_documents} documents will be featured on GOV.UK.",
+  text: "You can feature up to #{maximum_featured_documents} pages.",
 } %>
 
 <% if featured.many? %>
   <p class="govuk-body">
-    <%= link_to "Reorder documents", reorder_path, class: "govuk-link" %>
+    <%= link_to "Reorder pages", reorder_path, class: "govuk-link" %>
   </p>
 <% end %>
 
 <% if featured.present? %>
   <div class="app-view-features__table govuk-!-margin-bottom-8">
-    <%= table("#{pluralize(live.count, "featured document")} live on GOV.UK", live) %>
+    <%= table(nil, live) %>
   </div>
 <% else %>
   <p class="govuk-body">
-    There are currently no featured documents.
+    There are currently no featured pages.
   </p>
 <% end %>
 
 <% if remaining.present? %>
   <div class="app-view-features__table">
-    <%= table(pluralize(remaining.count, "remaining featured document"), remaining) %>
+    <%= table(pluralize(remaining.count, "remaining featured page"), remaining) %>
   </div>
 <% end %>

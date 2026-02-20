@@ -425,7 +425,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     create(:feature_list, locale: :en, featurable: organisation, features: [first_feature])
     get :features, params: { id: organisation }
 
-    assert_match(/A maximum of 6 documents will be featured on GOV.UK.*/, response.body)
+    assert_match(/You can feature up to [\d+] pages.*/, response.body)
   end
 
   test "POST: create - discards logo cache if file is present" do

@@ -83,7 +83,7 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)
   organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
 
-  click_link "Create new link"
+  click_link "Add an external link"
 
   fill_in "Title (required)", with: title
   select type, from: "offsite_link_link_type"
@@ -243,7 +243,7 @@ end
 And(/^I visit the the organisation feature page for "([^"]*)"$/) do |name|
   organisation = Organisation.find_by!(name:)
   visit admin_organisation_path(organisation)
-  click_link "Features"
+  click_link "Featured"
 end
 
 def visit_organisation_about_page(name)

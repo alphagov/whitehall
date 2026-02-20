@@ -40,7 +40,7 @@ end
 
 And(/^I set the order of the featured documents to:$/) do |featured_documents_order|
   visit features_admin_world_location_news_path(@world_location, locale: I18n.default_locale)
-  click_link "Reorder documents"
+  click_link "Reorder pages"
 
   featured_documents_order.hashes.each do |hash|
     feature = @feature_list.features.select { |f| f.to_s == hash[:title] }.first
@@ -68,7 +68,7 @@ end
 
 Then(/^I see that I have no featured documents$/) do
   within "#currently_featured_tab" do
-    expect(page).to have_content "There are currently no featured documents."
+    expect(page).to have_content "There are currently no featured pages."
   end
 end
 
@@ -134,7 +134,7 @@ Given(/^the world location has an offsite link with the title "([^"]*)"$/) do |t
 end
 
 And(/^I create a new a non-GOV.UK link with the title "([^"]*)"$/) do |title|
-  click_link "Create new link"
+  click_link "Add an external link"
 
   fill_in "Title (required)", with: title
   fill_in "Summary (required)", with: "Summary"

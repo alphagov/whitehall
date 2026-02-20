@@ -1,8 +1,8 @@
-<p id="js-result-count" class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "document") %></p>
+<p id="js-result-count" class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "page") %></p>
 
 <% if paginator.blank? %>
   <div class="govuk-body app-view-features-search-results__no_documents">
-    No documents found
+    No pages found
   </div>
 <% else %>
   <%= render "govuk_publishing_components/components/table", {

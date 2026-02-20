@@ -10,10 +10,6 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render "govuk_publishing_components/components/warning_text", {
-      text: "Warning: changes to features appear instantly on the live site.",
-    } %>
-
     <%= form_for @topical_event_featuring, url: [:admin, @topical_event, @topical_event_featuring], multipart: true do |form| %>
       <% if featuring_a_document? %>
         <%= form.hidden_field :edition_id %>

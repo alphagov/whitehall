@@ -75,7 +75,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     get :index, params: { topical_event_id: create(:topical_event) }
 
     assert_equal 0, assigns(:tagged_editions).count
-    assert_match "No documents found", response.body
+    assert_match "No pages found", response.body
   end
 
   test "PUT :order saves the new order of featurings" do
@@ -237,7 +237,7 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
       get :index, params: { topical_event_id: create(:topical_event) }
 
       assert_equal 0, assigns(:tagged_editions).count
-      assert_match "No documents found", response.body
+      assert_match "No pages found", response.body
     end
   end
 end
