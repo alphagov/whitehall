@@ -95,6 +95,12 @@ class Edition < ApplicationRecord
     @format_name ||= model_name.human.downcase
   end
 
+  # TODO: Either retain this method or refactor other featurables to send 'title' to offsite link views
+  # See app/views/admin/offsite_links/new.html.erb#L2 for example
+  def name
+    title
+  end
+
   def self.concrete_descendants
     descendants.reject { |model| model.descendants.any? }.sort_by(&:name)
   end
