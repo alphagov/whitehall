@@ -17,10 +17,13 @@
           src: image_url,
           filename: image.filename,
           type: image.content_type,
-          width: image_kind_config.valid_width,
-          height: image_kind_config.valid_height,
+          target_height: image.image_kind_config.valid_height,
+          target_width: image.image_kind_config.valid_width,
+          width: image.image_data.crop_data_width,
+          height: image.image_data.crop_data_height,
           x: image.image_data.crop_data_x,
           y: image.image_data.crop_data_y,
+          versions: image.image_kind_config.versions,
         } %>
       <% end %>
 

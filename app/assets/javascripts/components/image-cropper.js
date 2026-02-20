@@ -8,10 +8,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.$image = this.$imageCropper.querySelector(
       '.app-c-image-cropper__image'
     )
-    this.$targetWidth = parseInt(this.$imageCropper.dataset.width, 10)
-    this.$targetHeight = parseInt(this.$imageCropper.dataset.height, 10)
+    this.$targetWidth = parseInt(this.$imageCropper.dataset.targetWidth, 10)
+    this.$targetHeight = parseInt(this.$imageCropper.dataset.targetHeight, 10)
+    this.$croppingHeight = parseInt(this.$imageCropper.dataset.height, 10)
+    this.$croppingWidth = parseInt(this.$imageCropper.dataset.width, 10)
     this.$croppingX = parseInt(this.$imageCropper.dataset.x, 10)
     this.$croppingY = parseInt(this.$imageCropper.dataset.y, 10)
+    this.$versions = this.$imageCropper.dataset.versions
+      ? JSON.parse(this.$imageCropper.dataset.versions)
+      : []
   }
 
   ImageCropper.prototype.init = function () {
@@ -34,12 +39,21 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         this.initKeyboardControls()
         this.updateAriaLabel()
 
-        const cropBoxData = this.cropper.getCropBoxData()
+        this.cropper.setData({
+          x: this.$croppingX,
+          y: this.$croppingY,
+          width: this.$croppingWidth,
+          height: this.$croppingHeight
+        })
 
-        cropBoxData.left = this.$croppingX
-        cropBoxData.top = this.$croppingY
+        this.$cropBox = this.$imageCropper.querySelector('.cropper-crop-box')
+        this.$cropCanvas = this.$imageCropper.querySelector('.cropper-canvas')
+        this.$cropContainer =
+          this.$imageCropper.querySelector('.cropper-container')
 
-        this.cropper.setCropBoxData(cropBoxData)
+        this.previewReady = true
+
+        this.handlePreviews()
       }.bind(this)
     )
 
@@ -47,6 +61,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       'crop',
       function () {
         this.updateAriaLabel()
+        this.handlePreviews()
 
         const data = this.cropper.getData(true)
 
@@ -70,19 +85,77 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
   }
 
+  ImageCropper.prototype.handlePreviews = function () {
+    if (!this.previewReady) {
+      return
+    }
+
+    const data = this.cropper.getData(true)
+
+    const previewColours = ['#f47738', '#0f7a52', '#ca3535', '#0f7a52']
+    const outlineWidth = 3
+
+    this.$versions.forEach((version, index) => {
+      const { height, width, name } = version
+
+      if (
+        (width === this.$image.naturalWidth &&
+          height === this.$image.naturalHeight) ||
+        version.from_version
+      )
+        return
+
+      const scale = data.width / this.$targetWidth
+      const newWidth = width * scale
+      const newHeight = height * scale
+      const newX = data.x + data.width / 2 - newWidth / 2
+      const newY = data.y + data.height / 2 - newHeight / 2
+
+      if (width !== this.$targetWidth || height !== this.$targetHeight) {
+        const widthOffset =
+          this.$cropContainer.clientWidth - this.$cropCanvas.clientWidth
+        const heightOffset =
+          this.$cropContainer.clientHeight - this.$cropCanvas.clientHeight
+
+        const translateX = widthOffset / 2 + newX * this.scaledRatio
+        const translateY = heightOffset / 2 + newY * this.scaledRatio
+
+        let previewCropbox = this.$cropBox.parentNode.querySelector(
+          `#preview-${width}x${height}`
+        )
+
+        if (!previewCropbox) {
+          previewCropbox = this.$cropBox.cloneNode(false)
+          const previewCropboxPoint = this.$cropBox
+            .querySelector('.cropper-point.point-sw')
+            .cloneNode(false)
+          previewCropboxPoint.innerText = name
+          previewCropboxPoint.classList.add('point-label')
+          previewCropboxPoint.style.backgroundColor =
+            previewColours[index % previewColours.length]
+          previewCropbox.id = `preview-${width}x${height}`
+          previewCropbox.style.outline = `${outlineWidth}px dashed ${previewColours[index % previewColours.length]}`
+          previewCropbox.style.pointerEvents = 'none'
+          previewCropbox.style.zIndex = 99 - index
+          previewCropbox.appendChild(previewCropboxPoint)
+          this.$cropBox.parentNode.appendChild(previewCropbox)
+        }
+
+        previewCropbox.style.width =
+          newWidth * this.scaledRatio - outlineWidth * 2 + 'px'
+        previewCropbox.style.height =
+          newHeight * this.scaledRatio - outlineWidth * 2 + 'px'
+        previewCropbox.style.transform = `translateX(${translateX + outlineWidth}px) translateY(${translateY + outlineWidth}px)`
+      }
+    })
+  }
+
   ImageCropper.prototype.initCropper = function () {
     if (!this.$image || !this.$image.complete || this.cropper) {
       return
     }
 
-    const width = this.$image.clientWidth
-    const naturalWidth = this.$image.naturalWidth
-    const scaledRatio = width / naturalWidth
-
-    // Adjust the crop box limits to the scaled image
-    const minCropBoxWidth = Math.ceil(this.$targetWidth * scaledRatio)
-    const minCropBoxHeight = Math.ceil(this.$targetHeight * scaledRatio)
-
+    this.scaledRatio = this.$image.clientWidth / this.$image.naturalWidth
     this.cropper = new window.Cropper(this.$image, {
       // eslint-disable-line
       viewMode: 2,
@@ -92,8 +165,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       guides: false,
       zoomable: false,
       highlight: false,
-      minCropBoxWidth,
-      minCropBoxHeight,
       rotatable: false,
       scalable: false
     })
