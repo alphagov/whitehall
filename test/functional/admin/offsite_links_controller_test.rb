@@ -154,10 +154,12 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     assert_select "p", text: "Are you sure you want to delete \"#{offsite_link.title}\" from \"#{edition.title}\"?"
   end
 
-  view_test "DELETE :destroy removes offsite link for standard edition parent" do
+  view_test "DELETE :destroy removes the association between an offsite link and an edition but does not delete the offsite link" do
     edition = create(:standard_edition, :published)
     offsite_link = create(:offsite_link, editions: [edition])
-    assert_difference("OffsiteLink.count", -1) do
+
+    assert_equal [offsite_link], edition.offsite_links
+    assert_no_difference("OffsiteLink.count") do
       delete :destroy, params: {
         standard_edition_id: edition, id: offsite_link.id
       }
