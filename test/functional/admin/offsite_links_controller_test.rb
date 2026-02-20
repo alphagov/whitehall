@@ -39,7 +39,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
   view_test "GET :edit should render existing offside links form" do
     get :edit, params: { world_location_news_id: @world_location_news.slug, id: @offsite_link.id }
 
-    assert_select "h1", text: "Edit the offsite link within ‘#{@world_location_news.name}’"
+    assert_select "h1", text: "Edit the external link within '#{@world_location_news.name}'"
 
     assert_offsite_links_form(
       admin_world_location_news_offsite_link_path(id: @offsite_link.id),
