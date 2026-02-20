@@ -1,3 +1,4 @@
+# Used for 'sister' associations, e.g. Documents related to other Documents
 class EditionRelation < ApplicationRecord
   belongs_to :edition
   belongs_to :document, inverse_of: :edition_relations

@@ -16,6 +16,15 @@
         } %>
       </div>
     <% end %>
+
+    <%
+      if params[:parent_edition_id]
+        edition = StandardEdition.find(params[:parent_edition_id])
+    %>
+      <%= render "govuk_publishing_components/components/inset_text", {
+        text: "You are creating a child document for the <a href='/government/admin/editions/#{edition.id}'>#{edition.title}</a> document.".html_safe,
+      } %>
+    <% end %>
     <%= render "form", edition: @edition %>
   </div>
 

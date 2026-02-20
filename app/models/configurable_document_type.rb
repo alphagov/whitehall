@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :description, :schema, :associations, :settings
+  attr_reader :key, :description, :schema, :associations, :settings, :child_documents
 
   @types_mutex = Mutex.new
 
@@ -48,6 +48,11 @@ class ConfigurableDocumentType
     all.filter { |t| t.settings["configurable_document_group"] == group }
   end
 
+  def self.child_document_types_of(parent_edition)
+    child_documents = find(parent_edition.configurable_document_type).child_documents
+    child_documents.map { |config| find(config["document_type"]) }
+  end
+
   def self.convertible_from(current_type_key)
     available_types = []
     if (group = ConfigurableDocumentType.find(current_type_key).settings["configurable_document_group"])
@@ -64,8 +69,9 @@ class ConfigurableDocumentType
     @forms = type["forms"] || {}
     @presenters = type["presenters"] || {}
     @schema = type["schema"]
-    @associations = type["associations"]
+    @associations = type["associations"] || []
     @settings = type["settings"]
+    @child_documents = type["child_documents"] || nil
   end
 
   def label
