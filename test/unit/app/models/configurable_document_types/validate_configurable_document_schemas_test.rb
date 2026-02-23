@@ -128,6 +128,11 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
         }
         assert_equal SchemaValidator.for(document).first, "Schema has form fields extra_field that are not defined in schema attributes"
       end
+
+      it "validates that all \"required\" fields have presence validation in the schema" do
+        document["forms"]["documents"]["fields"]["body"]["required"] = true
+        assert_equal SchemaValidator.for(document).first, "Forms have required fields body that do not have presence validation defined"
+      end
     end
   end
 end
