@@ -43,7 +43,6 @@ class Admin::OrganisationsController < Admin::BaseController
                             state: "published",
                             organisation: filtering_organisation,
                             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
-                            exclude_featured: true,
                           )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)

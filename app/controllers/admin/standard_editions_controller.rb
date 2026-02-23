@@ -49,7 +49,6 @@ class Admin::StandardEditionsController < Admin::EditionsController
                             state: "published",
                             linked_document: @edition.document,
                             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
-                            exclude_featured: true,
                           )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
