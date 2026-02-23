@@ -9,7 +9,7 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
         "block" => "lead_image_select",
       },
     }
-    @path = Path.new(%w[test_attribute])
+    @path = Path.new(%w[block_content test_attribute])
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "forms" => {
         "documents" => {

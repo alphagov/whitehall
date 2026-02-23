@@ -11,8 +11,8 @@ module ConfigurableContentBlocks
     end
 
     def field_blocks(index)
-      @config["fields"].map do |field_key, field_config|
-        ConfigurableDocumentType::CONTENT_BLOCKS[field_config["block"]].new(@edition, field_config, @path.push(index).push(field_key))
+      @config["fields"].values.map do |field_config|
+        ConfigurableDocumentType::CONTENT_BLOCKS[field_config["block"]].new(@edition, field_config, @path.push([index, *field_config["attribute_path"]]))
       end
     end
 

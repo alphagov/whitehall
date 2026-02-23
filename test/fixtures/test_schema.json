@@ -8,7 +8,8 @@
         "body": {
           "title": "Body",
           "description": "The main content of the page",
-          "block": "govspeak"
+          "block": "govspeak",
+          "attribute_path": ["block_content", "body"]
         }
       }
     },
@@ -17,7 +18,8 @@
         "image": {
           "title": "Custom lead image",
           "description": "Select a lead image, if required",
-          "block": "lead_image_select"
+          "block": "lead_image_select",
+          "attribute_path": ["block_content", "image"]
         }
       }
     }
