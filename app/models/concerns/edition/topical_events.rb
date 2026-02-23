@@ -2,7 +2,7 @@ module Edition::TopicalEvents
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
+    def process_associations_before_draft_creation(edition)
       # LEGACY
       edition.topical_event_featurings = @edition.topical_event_featurings.map do |cf|
         TopicalEventFeaturing.new(cf.attributes.except("id"))

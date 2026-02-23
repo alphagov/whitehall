@@ -25,7 +25,7 @@ class CallForEvidence < Edition
   scope :awaiting_response, -> { published.closed.where.not(id: responded.pluck(:id)) }
 
   add_trait do
-    def process_associations_after_save(edition)
+    def process_associations_after_draft_creation(edition)
       if @edition.call_for_evidence_participation.present?
         attributes = @edition.call_for_evidence_participation.attributes.except("id", "edition_id")
         edition.create_call_for_evidence_participation(attributes)

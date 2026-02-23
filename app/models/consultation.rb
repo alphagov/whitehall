@@ -27,7 +27,7 @@ class Consultation < Edition
   scope :awaiting_response, -> { published.closed.where.not(id: responded.pluck(:id)) }
 
   add_trait do
-    def process_associations_after_save(edition)
+    def process_associations_after_draft_creation(edition)
       if @edition.consultation_participation.present?
         attributes = @edition.consultation_participation.attributes.except("id", "edition_id")
         edition.create_consultation_participation(attributes)

@@ -2,7 +2,7 @@ module Edition::Featurable
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
+    def process_associations_after_draft_creation(edition)
       edition.feature_lists = @edition.feature_lists.map(&:deep_clone)
     end
   end
