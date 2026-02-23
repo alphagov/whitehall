@@ -72,7 +72,6 @@ We will abide by the following principles whilst developing this config-driven a
    - We want to avoid writing feature tests, integration tests and the like, for each individual content type. Instead, we want to:
       - Test each module of behaviour in isolation, and that opting in via the config file sets the allows_x? override method as it should.
       - Have schema validation that ensures each config file is valid (i.e. has all the properties it ought to, and no unknown properties).
-      - Have a basic double-ledger test for each content type, whereby we write a test that checks the values for important properties in the config (e.g. a test that news_story.json has a property allows_file_attachments: true, if that’s deemed to be a behaviour too important not to enforce with a test).
 
 #### 4. Backwards compatibility
 
