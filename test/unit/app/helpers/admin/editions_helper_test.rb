@@ -6,14 +6,23 @@ class Admin::EditionsHelperTest < ActionView::TestCase
   end
 
   setup do
-    @user = create(:user)
+    @user = create(:user, name: "Test user")
   end
 
-  test "#admin_author_filter_options excludes disabled users" do
+  test "#admin_author_filter_options excludes users whose accounts have been disabled" do
     current_user, _another_user = *create_list(:user, 2)
     disabled_user = create(:disabled_user)
 
     assert_not_includes admin_author_filter_options(current_user), disabled_user
+  end
+
+  test "#admin_author_filter_options returns other users in alphabetical order" do
+    create(:user, name: "User A")
+    create(:user, name: "User C")
+    create(:user, name: "User B")
+    options = admin_author_filter_options(@user)
+    option_names = options.map(&:first)
+    assert_equal ["All authors", "Me (Test user)", "User A", "User B", "User C"], option_names
   end
 
   def one_hundred_thousand_words
