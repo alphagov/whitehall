@@ -34,7 +34,7 @@ class LandingPage < Edition
       ImageUsage.new(
         key: "hero",
         label: "hero",
-        kinds: Whitehall.image_kinds.values_at("hero_desktop", "hero_tablet", "hero_mobile"),
+        kinds: Whitehall.image_kinds.values_at("hero_desktop", "hero_tablet", "hero_mobile", "hero"),
         multiple: true,
       ),
       ImageUsage.new(
