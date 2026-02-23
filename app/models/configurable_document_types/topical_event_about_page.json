@@ -40,10 +40,20 @@
   },
   "presenters": {
     "publishing_api": {
-      "body": "govspeak"
+      "details": {
+        "body": "govspeak"
+      },
+      "links": [
+        "organisations"
+      ]
     }
   },
-  "NOTE: associations have been deliberately dropped as they'll be:": "$INHERITED",
+  "associations": [
+    {
+      "key": "organisations",
+      "inherited": true
+    }
+  ],
   "settings": {
     "fixed_path": "$INHERITED/about",
     "publishing_api_schema_name": "topical_event_about_page",
