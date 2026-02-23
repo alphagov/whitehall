@@ -33,4 +33,12 @@ module Edition::Featurable
   def build_feature_list_for_locale(locale)
     feature_lists.target.select { |feature_list| feature_list.locale == locale }
   end
+
+  def remove_orphaned_offsite_links
+    offsite_links_for_edition = offsite_links.to_a
+    offsite_link_parents.destroy_all
+    offsite_links_for_edition.each do |link|
+      link.destroy! if link.offsite_link_parents.reload.empty?
+    end
+  end
 end

@@ -28,5 +28,6 @@ private
     edition.clear_slug
     edition.delete_all_attachments if edition.respond_to?(:delete_all_attachments)
     edition.edition_roles.clear if edition.respond_to?(:edition_roles)
+    edition.remove_orphaned_offsite_links if edition.respond_to?(:remove_orphaned_offsite_links)
   end
 end
