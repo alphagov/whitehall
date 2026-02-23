@@ -13,7 +13,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
   view_test "GET :new should render new offsite links form" do
     get :new, params: { world_location_news_id: @world_location_news.slug }
 
-    assert_select "h1", text: "Create a non-GOV.UK government link within ‘#{@world_location_news.name}’"
+    assert_select "h1", text: "Create an external link within ‘#{@world_location_news.name}’"
 
     assert_offsite_links_form(
       admin_world_location_news_offsite_links_path,
@@ -111,7 +111,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     edition = create(:standard_edition, :published)
     get :new, params: { standard_edition_id: edition }
 
-    assert_select "h1", text: "Create a non-GOV.UK government link within ‘#{edition.title}’"
+    assert_select "h1", text: "Create an external link within ‘#{edition.title}’"
 
     assert_offsite_links_form(
       admin_standard_edition_offsite_links_path(edition),
