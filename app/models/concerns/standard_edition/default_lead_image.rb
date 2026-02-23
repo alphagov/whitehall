@@ -1,6 +1,9 @@
 module StandardEdition::DefaultLeadImage
   extend ActiveSupport::Concern
 
+  DEFAULT_PLACEHOLDER_IMAGE_URL = "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg".freeze
+  WORLD_NEWS_STORY_PLACEHOLDER_IMAGE_URL = "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg".freeze
+
   def default_lead_image
     if respond_to?(:lead_organisations) && lead_organisations.any? && lead_organisations.first.default_news_image
       lead_organisations.first.default_news_image
@@ -16,6 +19,6 @@ module StandardEdition::DefaultLeadImage
   end
 
   def placeholder_image_url
-    configurable_document_type == "world_news_story" ? "https://assets.publishing.service.gov.uk/media/5e985599d3bf7f3fc943bbd8/UK_government_logo.jpg" : "https://assets.publishing.service.gov.uk/media/5e59279b86650c53b2cefbfe/placeholder.jpg"
+    configurable_document_type == "world_news_story" ? WORLD_NEWS_STORY_PLACEHOLDER_IMAGE_URL : DEFAULT_PLACEHOLDER_IMAGE_URL
   end
 end

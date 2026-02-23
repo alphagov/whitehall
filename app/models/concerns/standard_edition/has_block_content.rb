@@ -15,11 +15,12 @@ module StandardEdition::HasBlockContent
     super(normalised.to_h)
   end
 
-  def block_content
-    return nil if super.nil?
+  def block_content(locale = nil)
+    selected_locale = locale.presence || Globalize.locale
+    return nil if super(selected_locale).nil?
 
     @block_content ||= StandardEdition::BlockContent.new(type_instance.schema)
-    @block_content.assign_attributes(super)
+    @block_content.assign_attributes(super(selected_locale))
     @block_content
   end
 

@@ -8,6 +8,7 @@
         "body": {
           "title": "Body",
           "description": "The main content of the page",
+          "required": true,
           "block": "govspeak"
         },
         "social_media_links": {

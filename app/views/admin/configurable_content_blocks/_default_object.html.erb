@@ -1,36 +1,14 @@
-<% required ||= false
-   content ||= {}
-   translated_content ||= {}
-   root ||= false
-   right_to_left ||= false
-   errors ||= []
-   required_attributes ||= []
-   properties = schema.fetch("fields") %>
-
-<% body = capture do %>
-  <% properties.each do |property_key, property_schema| %>
-    <% block = default_object.block_factory.build_block(property_schema["block"]) %>
-    <%= render block, {
-      schema: property_schema,
-      property_key: property_key,
-      content: property_schema.key?("fields") ? content : content[property_key],
-      translated_content: property_schema.key?("fields") ? translated_content : translated_content[property_key],
-      path: ConfigurableContentBlocks::Path.new([property_key]),
-      required: required_attributes.include?(property_key),
-      required_attributes: property_schema["block"] == "default_object" ? required_attributes : [],
-      right_to_left: right_to_left,
-      errors: errors,
-    } %>
+<% if block.root? %>
+  <% block.fields.each do |field_key, field_config| %>
+    <%= render ConfigurableDocumentType::CONTENT_BLOCKS[field_config["block"]].new(block.edition, field_config, ConfigurableContentBlocks::Path.new([field_key])) %>
   <% end %>
-<% end %>
-
-<% if root %>
-  <%= body %>
 <% else %>
   <%= render "govuk_publishing_components/components/fieldset",
-             { legend_text: "#{schema['title']}#{required ? ' (required)' : ''}",
+             { legend_text: "#{block.title}#{block.required ? ' (required)' : ''}",
                heading_size: "m",
-               id: path.form_control_id } do %>
-    <%= body %>
+               id: block.path.form_control_id } do %>
+    <% block.fields.each do |field_key, field_config| %>
+      <%= render ConfigurableDocumentType::CONTENT_BLOCKS[field_config["block"]].new(block.edition, field_config, ConfigurableContentBlocks::Path.new([field_key])) %>
+    <% end %>
   <% end %>
 <% end %>

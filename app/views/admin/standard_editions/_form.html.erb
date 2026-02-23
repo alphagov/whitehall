@@ -63,16 +63,7 @@
     } %>
 
     <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
-    <% root_block = ConfigurableContentBlocks::Factory.new(@edition).build_block("default_object") %>
-    <%= render(root_block, {
-      schema: @edition.type_instance.form("documents"),
-      content: @edition.block_content,
-      path: ConfigurableContentBlocks::Path.new,
-      right_to_left: @edition.rtl?,
-      errors: @edition.errors,
-      root: true,
-      required_attributes: @edition.type_instance.required_attributes,
-    }) %>
+    <%= render ConfigurableContentBlocks::DefaultObject.new(@edition, @edition.type_instance.form("documents").merge("root" => true), ConfigurableContentBlocks::Path.new) %>
 
     <%= render Admin::Editions::FirstPublishedAtComponent.new(
       edition:,

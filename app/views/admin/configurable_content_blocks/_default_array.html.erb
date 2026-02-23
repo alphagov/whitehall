@@ -1,65 +1,35 @@
-<% required ||= false
-   right_to_left ||= false
-   errors ||= []
-   required_attributes ||= []
-   element_properties = schema.fetch("fields") %>
-
-<%
-  render_fields = ->(element, index, is_translated_content) do
-    element_fields = capture do
-      element_properties.each do |element_key, property_schema|
-        block = default_array.block_factory.build_block(property_schema["block"])
-        args = {
-          schema: property_schema,
-          content: nil,
-          translated_content: nil,
-          path: ConfigurableContentBlocks::Path.new([property_key, index, element_key]),
-          required: required_attributes.include?(element_key),
-          required_attributes: property_schema["block"] == "default_array" ? required_attributes : [],
-          right_to_left: right_to_left,
-          errors: errors,
-        }
-        if is_translated_content
-          args[:translated_content] = element[element_key]
-        else
-          args[:content] = element[element_key]
-        end
-%>
-  <%= render block, args %>
-<%
-      end # element_properties.each loop
-    end # element_fields = capture
-  end # render_fields definition
-%>
-
 <%
   render_remove_checkbox = ->(index) do
     render("govuk_publishing_components/components/checkboxes", {
-      name: "#{path.form_control_name}[#{index}][_destroy]",
+      name: "#{block.path.form_control_name}[#{index}][_destroy]",
       items: [{ label: "Remove", value: "1" }],
     })
   end
 %>
 
+<%
+  render_fields = ->(index) do
+    safe_join(block.field_blocks(index).map { |field_block| render(field_block) })
+  end
+%>
+
 <%= render "govuk_publishing_components/components/fieldset",
-            { legend_text: "#{schema['title']}#{required ? ' (required)' : ''}",
+            { legend_text: "#{block.title}#{block.required ? ' (required)' : ''}",
               heading_size: "l",
-              id: path.form_control_id } do %>
+              id: block.path.form_control_id } do %>
   <%
-    is_translated_content = !!translated_content[property_key]
-    items = (translated_content[property_key] || content[property_key] || []).map.with_index do |element, index|
+    items = block.items.map.with_index do |_element, index|
       {
-        fields: render_fields.call(element, index, is_translated_content),
+        fields: render_fields.call(index),
         destroy_checkbox: render_remove_checkbox.call(index),
       }
     end
   %>
-
   <%= render "govuk_publishing_components/components/add_another", {
-    fieldset_legend: schema["title"],
+    fieldset_legend: block.title,
     add_button_text: "Add another",
     empty_fields: true,
-    items: items,
-    empty: render_remove_checkbox.call(items.length) + render_fields.call({}, items.length, false),
+    items:,
+    empty: render_remove_checkbox.call(items.length) + render_fields.call(items.length),
   } %>
 <% end %>
