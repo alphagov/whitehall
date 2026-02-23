@@ -65,4 +65,18 @@ class EditionDeleterTest < ActiveSupport::TestCase
     edition.reload
     assert edition.roles.empty?
   end
+
+  test "#perform! deletes associated offsite links" do
+    published_edition = create(:published_standard_edition)
+    offsite_link_1 = create(:offsite_link, url: "https://www.nhs.uk/", editions: [published_edition])
+    offsite_link_2 = create(:offsite_link, url: "https://www.gov.uk/", editions: [published_edition])
+
+    draft_edition = published_edition.create_draft(create(:writer))
+
+    assert_equal [offsite_link_1, offsite_link_2], draft_edition.offsite_links, "Offsite links should be copied to the new draft edition"
+
+    assert EditionDeleter.new(draft_edition).perform!
+    assert_equal [offsite_link_1, offsite_link_2], published_edition.offsite_links.reload, "Offsite links associated with the published edition should not be deleted"
+    assert_equal [], draft_edition.offsite_links.reload, "Offsite links should be unlinked from deleted draft"
+  end
 end

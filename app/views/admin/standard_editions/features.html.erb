@@ -40,5 +40,14 @@
         feature_path: [:new, :admin, @feature_list, :feature],
       ),
     },
+    {
+      id: "non_govuk_government_links_tab",
+      label: "External websites",
+      content: render("admin/feature_lists/featureable_offsite_links",
+        model: @edition,
+        featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),
+        featuring_path: [:new, :admin, @feature_list, :feature],
+      ),
+    },
   ],
 } %>

@@ -13,7 +13,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
   view_test "GET :new should render new offsite links form" do
     get :new, params: { world_location_news_id: @world_location_news.slug }
 
-    assert_select "h1", text: "Create a non-GOV.UK government link within ‘#{@world_location_news.name}’"
+    assert_select "h1", text: "Create an external link within ‘#{@world_location_news.name}’"
 
     assert_offsite_links_form(
       admin_world_location_news_offsite_links_path,
@@ -73,6 +73,97 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
       }
     end
 
+    assert_response :redirect
+  end
+
+  view_test "POST :create with valid data from standard edition should redirect to features page" do
+    edition = create(:standard_edition, :published)
+    post :create, params: {
+      standard_edition_id: edition,
+      offsite_link: {
+        title: "foo",
+        summary: "barb",
+        link_type: "blog_post",
+        url: "https://www.nhs.uk/",
+      },
+    }
+
+    assert_response :redirect
+  end
+
+  view_test "POST :create with invalid data from standard edition should render form with errors" do
+    edition = create(:standard_edition, :published)
+    post :create, params: {
+      standard_edition_id: edition,
+      offsite_link: {
+        title: "foo",
+        summary: "barb",
+        link_type: "blog_post",
+        url: "bax",
+      },
+    }
+
+    assert_response :success
+    assert_select ".govuk-error-summary__body", text: "Please enter a valid alternative URL, such as https://www.nhs.uk/"
+  end
+
+  view_test "GET :new renders form for standard edition parent" do
+    edition = create(:standard_edition, :published)
+    get :new, params: { standard_edition_id: edition }
+
+    assert_select "h1", text: "Create an external link within ‘#{edition.title}’"
+
+    assert_offsite_links_form(
+      admin_standard_edition_offsite_links_path(edition),
+    )
+  end
+
+  view_test "GET :edit renders form for standard edition parent" do
+    edition = create(:standard_edition, :published)
+    offsite_link = create(:offsite_link, editions: [edition])
+    get :edit, params: { standard_edition_id: edition, id: offsite_link.id }
+
+    assert_select "h1", text: "Edit the external link within '#{edition.title}'"
+
+    assert_offsite_links_form(
+      admin_standard_edition_offsite_link_path(edition, offsite_link),
+    )
+
+    assert_select "div input[id=offsite_link_title][value='#{offsite_link.title}']"
+  end
+
+  test "PUT :update updates current offsite link for standard edition parent" do
+    edition = create(:standard_edition, :published)
+    offsite_link = create(:offsite_link, editions: [edition])
+    form_param = { title: "Updated title" }
+
+    put :update, params: {
+      standard_edition_id: edition, id: offsite_link.id, offsite_link: form_param
+    }
+    assert_equal "Updated title", offsite_link.reload.title
+    assert_response :redirect
+  end
+
+  view_test "GET :confirm_destroy renders confirmation for standard edition parent" do
+    edition = create(:standard_edition, :published)
+    offsite_link = create(:offsite_link, editions: [edition])
+    get :confirm_destroy, params: { standard_edition_id: edition, id: offsite_link.id }
+
+    assert_response :success
+    assert_equal offsite_link, assigns(:offsite_link)
+    assert_select "p", text: "Are you sure you want to delete \"#{offsite_link.title}\" from \"#{edition.title}\"?"
+  end
+
+  view_test "DELETE :destroy removes the association between an offsite link and an edition but does not delete the offsite link" do
+    edition = create(:standard_edition, :published)
+    offsite_link = create(:offsite_link, editions: [edition])
+
+    assert_equal [offsite_link], edition.offsite_links
+    assert_no_difference("OffsiteLink.count") do
+      delete :destroy, params: {
+        standard_edition_id: edition, id: offsite_link.id
+      }
+    end
     assert_response :redirect
   end
 

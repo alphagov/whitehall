@@ -539,4 +539,37 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       assert_equal [], content[:details][:ordered_featured_documents]
     end
   end
+
+  test "it includes featured offsite links in the ordered featured documents" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "features_enabled" => true,
+      },
+    }))
+    featuring_edition = create(:published_standard_edition)
+    offsite_link = create(:offsite_link, editions: [featuring_edition])
+    feature = create(:feature, offsite_link: offsite_link, document: nil, ordering: 1)
+    create(:feature_list, featurable: featuring_edition, features: [feature])
+
+    presenter = PublishingApi::StandardEditionPresenter.new(featuring_edition)
+    content = presenter.content
+
+    expected_ordered_featured_documents = [
+      {
+        title: offsite_link.title,
+        href: offsite_link.url,
+        image: {
+          url: feature.image.url,
+          medium_resolution_url: feature.image.url(:s465),
+          high_resolution_url: feature.image.url(:s712),
+          alt_text: "",
+        },
+        summary: govspeak_to_html(offsite_link.summary),
+        public_updated_at: offsite_link.date,
+        document_type: offsite_link.display_type,
+      },
+    ]
+
+    assert_equal expected_ordered_featured_documents, content[:details][:ordered_featured_documents]
+  end
 end

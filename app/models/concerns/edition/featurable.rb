@@ -4,6 +4,9 @@ module Edition::Featurable
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       edition.feature_lists = @edition.feature_lists.map(&:deep_clone)
+      @edition.offsite_links.each do |link|
+        edition.offsite_link_parents.create!(offsite_link: link)
+      end
     end
   end
 
@@ -13,6 +16,8 @@ module Edition::Featurable
         target.detect(-> { build(locale:) }) { |fl| locale.match?(fl.locale) }
       end
     end
+    has_many :offsite_link_parents, as: :parent
+    has_many :offsite_links, through: :offsite_link_parents
     add_trait Trait
   end
 
@@ -27,5 +32,13 @@ module Edition::Featurable
 
   def build_feature_list_for_locale(locale)
     feature_lists.target.select { |feature_list| feature_list.locale == locale }
+  end
+
+  def remove_orphaned_offsite_links
+    offsite_links_for_edition = offsite_links.to_a
+    offsite_link_parents.destroy_all
+    offsite_links_for_edition.each do |link|
+      link.destroy! if link.offsite_link_parents.reload.empty?
+    end
   end
 end
