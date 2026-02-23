@@ -43,7 +43,9 @@
       "details": {
         "body": "govspeak"
       },
-      "links": []
+      "links": [
+        "parent"
+      ]
     }
   },
   "associations": [],
