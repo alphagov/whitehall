@@ -2,7 +2,7 @@ module Edition::WorldLocations
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
+    def process_associations_before_draft_creation(edition)
       @edition.edition_world_locations.each do |association|
         edition.edition_world_locations.build(association.attributes.except("id", "edition_id"))
       end
