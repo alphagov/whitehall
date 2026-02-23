@@ -48,7 +48,10 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test "when unpublished, does not validate the associated publication" do
-    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics", publication: build(:draft_statistics, scheduled_publication: 1.day.ago))
+    invalid_publication = build(:draft_statistics, scheduled_publication: 1.day.ago)
+    assert_not invalid_publication.valid?
+
+    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics", publication: invalid_publication)
     assert announcement.valid?
   end
 
