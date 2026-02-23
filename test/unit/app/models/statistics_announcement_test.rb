@@ -47,6 +47,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_match %r{cannot redirect to itself}, announcement.errors[:redirect_url].first
   end
 
+  test "when unpublished, does not validate the associated publication" do
+    invalid_publication = build(:draft_statistics, scheduled_publication: 1.day.ago)
+    assert_not invalid_publication.valid?
+
+    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics", publication: invalid_publication)
+    assert announcement.valid?
+  end
+
   test "when unpublished, is valid with a GOV.UK redirect_url" do
     announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics")
     assert announcement.valid?

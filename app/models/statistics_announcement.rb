@@ -21,7 +21,7 @@ class StatisticsAnnouncement < ApplicationRecord
   belongs_to :creator, class_name: "User"
   belongs_to :cancelled_by, class_name: "User"
   belongs_to :publication, autosave: true, validate: false
-  validates_associated :publication, if: :publication,
+  validates_associated :publication, if: -> { publication && !unpublished? },
                                      message: lambda { |_, publication|
                                        "type #{publication[:value].errors[:publication_type_id].first}"
                                      }
