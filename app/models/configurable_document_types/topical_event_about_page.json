@@ -43,17 +43,10 @@
       "details": {
         "body": "govspeak"
       },
-      "links": [
-        "organisations"
-      ]
+      "links": []
     }
   },
-  "associations": [
-    {
-      "key": "organisations",
-      "inherited": true
-    }
-  ],
+  "associations": [],
   "settings": {
     "fixed_path": "$INHERITED/about",
     "publishing_api_schema_name": "topical_event_about_page",
