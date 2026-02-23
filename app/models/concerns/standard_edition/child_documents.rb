@@ -21,6 +21,12 @@ module StandardEdition::ChildDocuments
     has_one :parent_edition,
             through: :parent_relationship,
             source: :parent_edition
+
+    after_save :copy_inherited_associations_to_children, if: :is_parent_document?
+  end
+
+  def is_parent_document?
+    children.any?
   end
 
   def is_child_document?
@@ -48,5 +54,18 @@ module StandardEdition::ChildDocuments
     return false if is_child_document?
 
     super
+  end
+
+  def copy_inherited_associations_to_children
+    children.each do |child|
+      # TODO: have this driven by `associations.inherited` in the document type definition
+      # TODO: find a better way of scaling more associations that need to be copied
+      edition_organisations.each do |association|
+        # TODO: find a more efficient way of updating child associations without having to delete and re-create them all
+        child.edition_organisations.delete_all
+        child.edition_organisations.build(association.attributes.except("id"))
+      end
+      child.save!
+    end
   end
 end
