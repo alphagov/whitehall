@@ -12,5 +12,5 @@ slugs = %w[
   uk-greenhouse-gas-emissions
 ]
 Document.where(slug: slugs).pluck(:content_id).each do |content_id|
-  PublishingApiGoneWorker.new.perform(content_id, nil, nil, :en)
+  PublishingApiGoneJob.new.perform(content_id, nil, nil, :en)
 end

@@ -25,7 +25,7 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
     assert LinkCheckerApiReport.where(edition:).count == 1
   end
 
-  test "creates a RemoveDangerousLinksWorker if dangerous links detected" do
+  test "creates a RemoveDangerousLinksJob if dangerous links detected" do
     edition = create(:publication, body: "[dangerous link](http://www.example.com)")
     report = LinkCheckerApiReport.create!(
       batch_id: 300,
@@ -44,12 +44,12 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
       ],
     ).with_indifferent_access
 
-    RemoveDangerousLinksWorker.expects(:perform_async).once
+    RemoveDangerousLinksJob.expects(:perform_async).once
 
     report.mark_report_as_completed(batch_report)
   end
 
-  test "doesn't create RemoveDangerousLinksWorker if no dangerous links are detected" do
+  test "doesn't create RemoveDangerousLinksJob if no dangerous links are detected" do
     edition = create(:publication, body: "[broken link](http://www.example.com/broken) [warning link](http://www.example.com/warning)")
     report = LinkCheckerApiReport.create!(
       batch_id: 123,
@@ -73,7 +73,7 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
       ],
     ).with_indifferent_access
 
-    RemoveDangerousLinksWorker.expects(:perform_async).never
+    RemoveDangerousLinksJob.expects(:perform_async).never
 
     report.mark_report_as_completed(batch_report)
   end

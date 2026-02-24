@@ -41,25 +41,25 @@ class RepublishHistoricallyPoliticalHtmlAttachmentsRake < ActiveSupport::TestCas
     create(:html_attachment, attachable: historical_edition)
     create(:html_attachment, attachable: unpublished_historically_political_edition)
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       historically_political_edition.document_id,
       true,
     )
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       political_edition.document_id,
       true,
     ).never
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       historical_edition.document_id,
       true,
     ).never
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       unpublished_historically_political_edition.document_id,
       true,

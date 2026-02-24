@@ -1,4 +1,4 @@
-class PublishAttachmentAssetJob < WorkerBase
+class PublishAttachmentAssetJob < JobBase
   sidekiq_options queue: "asset_manager"
 
   def perform(attachment_data_id)

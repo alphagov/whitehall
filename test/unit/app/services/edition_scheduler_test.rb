@@ -7,7 +7,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     assert EditionScheduler.new(edition).perform!
     assert edition.scheduled?
 
-    assert job = ScheduledPublishingWorker.jobs.last
+    assert job = ScheduledPublishingJob.jobs.last
     assert_equal edition.id, job["args"].first
     assert_equal edition.scheduled_publication.to_i, job["at"].to_i
   end

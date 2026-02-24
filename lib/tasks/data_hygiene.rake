@@ -73,7 +73,7 @@ namespace :data_hygiene do
 
     person_to_merge_content_id = person_to_merge.content_id
     puts "\nRedirecting the deleted person of content ID: '#{person_to_merge_content_id}' to the person to keep, at path: '/government/people/#{person_to_keep.slug}'"
-    response = PublishingApiRedirectWorker.new.perform(
+    response = PublishingApiRedirectJob.new.perform(
       person_to_merge_content_id,
       "/government/people/#{person_to_keep.slug}",
       I18n.default_locale.to_s,

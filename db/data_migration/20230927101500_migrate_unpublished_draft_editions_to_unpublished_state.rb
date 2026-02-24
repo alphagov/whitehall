@@ -9,7 +9,7 @@
 unpublished_editions = Edition.joins(:unpublishing).draft
 
 unpublished_editions.find_each(batch_size: 100) do |edition|
-  PublishingApiDiscardDraftWorker.perform_async(edition.content_id, edition.primary_locale)
+  PublishingApiDiscardDraftJob.perform_async(edition.content_id, edition.primary_locale)
 end
 
 unpublished_editions.update_all(state: "unpublished")

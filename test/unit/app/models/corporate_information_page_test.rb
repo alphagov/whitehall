@@ -264,7 +264,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       :published,
       organisation: org,
     )
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).once
     other_page.touch
   end
 
@@ -276,7 +276,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       organisation: org,
       corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
     )
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).never
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with("bulk_republishing", about_us.document_id, true).never
     about_us.touch
   end
 

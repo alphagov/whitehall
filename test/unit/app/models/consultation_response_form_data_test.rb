@@ -45,7 +45,7 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
       ),
     )
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
 
     consultation_response_form_data.reload
     assert consultation_response_form_data.all_asset_variants_uploaded?

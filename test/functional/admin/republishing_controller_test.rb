@@ -58,7 +58,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to POST :republish_page with a republishable page slug, creating a RepublishingEvent for the current user" do
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").once
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").once
 
     post :republish_page, params: { page_slug: "past-prime-ministers", reason: "this needs republishing" }
 
@@ -73,7 +73,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should encounter an error on POST :republish page without a `reason` and be sent back to the confirm page" do
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
     post :republish_page, params: { page_slug: "past-prime-ministers", reason: "" }
 
@@ -87,7 +87,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
   test "GDS Admin users should encounter an error when trying to POST :republish page with the ministers index page when in reshuffle mode" do
     enable_reshuffle_mode!
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter").never
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::MinistersIndexPresenter").never
 
     post :republish_page, params: { page_slug: "ministers", reason: "Foo" }
 
@@ -97,7 +97,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
 
   test "GDS Admin users should encounter an error when trying to POST :republish page with the 'how government works' page when in reshuffle mode" do
     enable_reshuffle_mode!
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter").never
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::HowGovernmentWorksPresenter").never
 
     post :republish_page, params: { page_slug: "how-government-works", reason: "Foo" }
 
@@ -106,14 +106,14 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_page with an unregistered page slug" do
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
     post :republish_page, params: { page_slug: "not-republishable" }
     assert_response :not_found
   end
 
   test "Non-GDS Admin users should not be able to POST :republish_page" do
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
 
     login_as :writer
 
@@ -494,7 +494,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should be able to POST :republish_document with an existing document slug, creating a RepublishingEvent for the current user" do
     document = create(:document, slug: "an-existing-document", content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(document.id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(document.id, false).once
 
     post :republish_document, params: { document_slug: "an-existing-document", reason: "this needs republishing" }
 
@@ -511,7 +511,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "GDS Admin users should encounter an error on POST :republish_document without a `reason` and be sent back to the confirm page" do
     document = create(:document, slug: "an-existing-document")
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(document.id, false).never
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(document.id, false).never
 
     post :republish_document, params: { document_slug: "an-existing-document", reason: "" }
 
@@ -520,7 +520,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should see a 404 page when trying to POST :republish_document with a nonexistent document slug" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).never
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).never
 
     post :republish_document, params: { document_slug: "not-an-existing-document" }
     assert_response :not_found
@@ -529,7 +529,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   test "Non-GDS Admin users should not be able to POST :republish_document" do
     document = create(:document, slug: "an-existing-document")
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(document.id, false).never
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(document.id, false).never
 
     login_as :writer
 

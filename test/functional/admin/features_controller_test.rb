@@ -65,7 +65,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
       alt_text: "some text",
     }
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false)
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false)
     Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 
     post :create, params: { feature_list_id: feature_list.id, feature: params }
@@ -88,7 +88,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
       alt_text: "some text",
     }
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false)
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false)
     Whitehall::PublishingApi.expects(:republish_async).with(world_location_news).once
 
     post :create, params: { feature_list_id: feature_list.id, feature: params }

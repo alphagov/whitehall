@@ -16,7 +16,7 @@ class OperationalField < ApplicationRecord
   after_commit :republish_operational_fields_index_page_to_publishing_api
 
   def republish_operational_fields_index_page_to_publishing_api
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::OperationalFieldsIndexPresenter")
+    PresentPageToPublishingApiJob.perform_async("PublishingApi::OperationalFieldsIndexPresenter")
   end
 
   def search_link

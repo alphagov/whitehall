@@ -14,10 +14,10 @@ participant "ServiceListeners::\nAttachmentUpdater" as slAttachmentUpdater
 participant AttachmentRedirectUrlUpdater
 end box
 
-box Whitehall worker (Sidekiq)
-participant AssetManagerAttachmentMetadataWorker
+box Whitehall job (Sidekiq)
+participant AssetManagerAttachmentMetadataJob
 participant "AssetManager::\nAttachmentUpdater" as amAttachmentUpdater
-participant AssetManagerAttachmentRedirectUrlUpdateWorker
+participant AssetManagerAttachmentRedirectUrlUpdateJob
 participant AssetUpdater
 end box
 
@@ -41,27 +41,27 @@ deactivate EditionUnpublisher
 EditionServices -> slAttachmentUpdater : call
 
 activate slAttachmentUpdater
-slAttachmentUpdater --> AssetManagerAttachmentMetadataWorker : Enqueue
+slAttachmentUpdater --> AssetManagerAttachmentMetadataJob : Enqueue
 deactivate
 
 group Happens once per attachment
-  AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker++
-  AssetManagerAttachmentMetadataWorker -> amAttachmentUpdater++ : call
+  AssetManagerAttachmentMetadataJob -[hidden]> AssetManagerAttachmentMetadataJob++
+  AssetManagerAttachmentMetadataJob -> amAttachmentUpdater++ : call
   amAttachmentUpdater -> AssetUpdater-- : call
   AssetUpdater -> AssetManager : update asset
-  AssetManagerAttachmentMetadataWorker -[hidden]> AssetManagerAttachmentMetadataWorker--
+  AssetManagerAttachmentMetadataJob -[hidden]> AssetManagerAttachmentMetadataJob--
 end group
 
 EditionServices -> AttachmentRedirectUrlUpdater : call
 
 activate AttachmentRedirectUrlUpdater
-AttachmentRedirectUrlUpdater --> AssetManagerAttachmentRedirectUrlUpdateWorker : Enqueue
+AttachmentRedirectUrlUpdater --> AssetManagerAttachmentRedirectUrlUpdateJob : Enqueue
 deactivate
 
 group Happens once per attachment
-  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker++
-  AssetManagerAttachmentRedirectUrlUpdateWorker -> AssetUpdater++
+  AssetManagerAttachmentRedirectUrlUpdateJob -[hidden]> AssetManagerAttachmentRedirectUrlUpdateJob++
+  AssetManagerAttachmentRedirectUrlUpdateJob -> AssetUpdater++
   AssetUpdater -> AssetManager-- : update redirect URL
-  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker--
+  AssetManagerAttachmentRedirectUrlUpdateJob -[hidden]> AssetManagerAttachmentRedirectUrlUpdateJob--
 end group
 @enduml

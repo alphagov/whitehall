@@ -526,7 +526,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     create(:edition_role, role:, edition: worldwide_organisation)
     role.reload
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id, false)
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(worldwide_organisation.document_id, false)
 
     create(:role_appointment, role:)
   end
@@ -538,7 +538,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role:)
     role.reload
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id, false)
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(worldwide_organisation.document_id, false)
 
     role_appointment.update!(ended_at: Time.zone.now)
   end
@@ -550,7 +550,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role:)
     role.reload
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id, false)
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(worldwide_organisation.document_id, false)
 
     role_appointment.destroy!
   end

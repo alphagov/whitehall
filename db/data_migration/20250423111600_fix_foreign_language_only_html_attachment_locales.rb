@@ -11,5 +11,5 @@ consultations.each do |consultation|
 end
 
 consultations.pluck(:document_id).uniq.each do |document_id|
-  PublishingApiDocumentRepublishingWorker.perform_async(document_id)
+  PublishingApiDocumentRepublishingJob.perform_async(document_id)
 end

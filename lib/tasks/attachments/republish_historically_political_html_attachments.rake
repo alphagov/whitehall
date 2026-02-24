@@ -10,7 +10,7 @@ task republish_historically_political_html_attachments: :environment do
   puts "Enqueueing #{document_ids.count} documents with historically political html attachments"
 
   document_ids.each do |document_id|
-    PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+    PublishingApiDocumentRepublishingJob.perform_async_in_queue("bulk_republishing", document_id, true)
   end
 
   puts "Finished enqueueing documents with historically political HtmlAttachments for republishing"

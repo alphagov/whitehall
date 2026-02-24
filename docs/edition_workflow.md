@@ -22,7 +22,7 @@ If a document has an edition in one of the `Edition::PUBLICLY_VISIBLE_STATES` (`
 
 If a document does not have an edition in one of these states, it will use the `Unpublishing` to determine the response. If the `Unpublishing` is a redirect, ie a `Consolidated` `Unpublishing`, it will redirect to the alternative url. Otherwise it will render the `unpublished` view.
 
-The `PublishingApiUnpublishingWorker` uses the above to decide what to do with an `Unpublishing` when sending the content to the Publishing API. It will always call the `unpublish` endpoint, with one of the following types:
+The `PublishingApiUnpublishingJob` uses the above to decide what to do with an `Unpublishing` when sending the content to the Publishing API. It will always call the `unpublish` endpoint, with one of the following types:
 
 | Unpublishing type                          | Publishing API unpublishing type |
 |--------------------------------------------|----------------------------------|

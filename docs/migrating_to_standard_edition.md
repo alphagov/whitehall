@@ -58,10 +58,10 @@ With that in mind, the steps for migrating a legacy content type to being config
    StandardEditionMigrator.new(scope: array_of_one_test_document).migrate!
    ```
 
-   If you want a clearer view of what's going on, you could call the worker directly, synchronously:
+   If you want a clearer view of what's going on, you could call the job directly, synchronously:
 
    ```ruby
-   StandardEditionMigratorWorker.new.perform(document.id, { "republish" => true, "compare_payloads" => true })
+   StandardEditionMigratorjob.new.perform(document.id, { "republish" => true, "compare_payloads" => true })
    ```
 
 4. Test the converted content item to make sure it still works as expected.
@@ -79,7 +79,7 @@ With that in mind, the steps for migrating a legacy content type to being config
 7. Come up with a plan for the handful of stragglers.
    You'll likely run into a few instances that, for whatever reason, cannot be easily auto-migrated.
    See [examples of issues we ran into with NewsArticles](https://gov-uk.atlassian.net/browse/WHIT-2487?focusedCommentId=165943).
-   Typically a little manual intervention is required, e.g. to patch up some data, before you can then invoke the `StandardEditionMigratorWorker` to complete the migration of the document.
+   Typically a little manual intervention is required, e.g. to patch up some data, before you can then invoke the `StandardEditionMigratorjob` to complete the migration of the document.
 
 8. Test running the full migration (and any manual patches) on Integration.
 

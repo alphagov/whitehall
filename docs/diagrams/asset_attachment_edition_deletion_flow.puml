@@ -14,7 +14,7 @@ participant Attachment
 participant AttachmentAssetDeleter
 end box
 
-box Whitehall worker (Sidekiq)
+box Whitehall job (Sidekiq)
 participant DeleteAttachmentAssetJob
 participant AssetDeleter
 end box

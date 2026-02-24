@@ -33,7 +33,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       let(:queried_document_id) { document.content_id }
 
       it "does not send the redirection to the Publishing API" do
-        PublishingApiRedirectWorker.any_instance.expects(:perform).never
+        PublishingApiRedirectJob.any_instance.expects(:perform).never
         capture_io { call_html_attachment_redirector }
       end
 
@@ -73,8 +73,8 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       context "the edition has been unpublished" do
         let(:queried_document_id)   { document.content_id }
 
-        it "calls the redirect worker with the HTML attachments to redirect" do
-          PublishingApiRedirectWorker
+        it "calls the redirect job with the HTML attachments to redirect" do
+          PublishingApiRedirectJob
             .any_instance
             .expects(:perform)
             .with(attachment.content_id, redirection, attachment.locale)
@@ -89,8 +89,8 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       end
 
       context "a single HTML attachment" do
-        it "calls the redirect worker" do
-          PublishingApiRedirectWorker
+        it "calls the redirect job" do
+          PublishingApiRedirectJob
             .any_instance
             .expects(:perform)
             .with(attachment.content_id, redirection, attachment.locale)

@@ -9,7 +9,7 @@ task republish_nation_inapplicable_html_attachments: :environment do
   puts "Enqueueing #{document_ids.count} documents with national inapplicabilites and html attachments"
 
   document_ids.each do |document_id|
-    PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+    PublishingApiDocumentRepublishingJob.perform_async_in_queue("bulk_republishing", document_id, true)
   end
 
   puts "Finished enqueueing documents with national inapplicabilites and html attachments for republishing"

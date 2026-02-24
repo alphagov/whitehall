@@ -35,19 +35,19 @@ class RepublishNationApplicableHtmlAttachmentsRake < ActiveSupport::TestCase
     create(:html_attachment, attachable: unpublished_consultation_with_excluded_nations)
     create(:html_attachment, attachable: published_consultation_without_excluded_nations)
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       published_consultation_with_excluded_nations.document_id,
       true,
     )
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       unpublished_consultation_with_excluded_nations.document_id,
       true,
     ).never
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       published_consultation_without_excluded_nations.document_id,
       true,

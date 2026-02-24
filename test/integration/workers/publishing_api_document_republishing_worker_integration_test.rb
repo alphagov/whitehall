@@ -1,8 +1,8 @@
 require "test_helper"
 require "gds_api/test_helpers/publishing_api"
 
-# Integration Tests to check for what actual HTTP calls are being made to Publishing API by the Document Republishing Worker
-class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::TestCase
+# Integration Tests to check for what actual HTTP calls are being made to Publishing API by the Document Republishing job
+class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include GovspeakHelper
   context "Never before published documents" do
@@ -23,7 +23,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(draft_edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(draft_edition.document.id, false)
 
       assert_all_requested(expected_requests)
     end
@@ -41,7 +41,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_patch_links(draft_publication_presenter.content_id, links: draft_publication_presenter.links),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(draft_edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(draft_edition.document.id, false)
       assert_all_requested(expected_requests)
     end
   end
@@ -68,7 +68,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_publish(html_attachment_presenter.content_id, locale: "en", update_type: nil),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -102,7 +102,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -127,7 +127,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_publish(html_attachment_presenter.content_id, locale: "en", update_type: nil),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -135,10 +135,10 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
     test "Should not retry if encountering `GdsApi::HTTPPayloadTooLarge` exception" do
       edition = create(:published_publication)
       Whitehall::PublishingApi.expects(:publish).raises(GdsApi::HTTPPayloadTooLarge.new("413 Request Entity Too Large"))
-      worker = PublishingApiDocumentRepublishingWorker.new
+      job = PublishingApiDocumentRepublishingJob.new
 
       assert_raises(Sidekiq::JobRetry::Skip) do
-        worker.perform(edition.document.id)
+        job.perform(edition.document.id)
       end
     end
   end
@@ -178,7 +178,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         }),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -225,7 +225,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -259,7 +259,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         }),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
     end
@@ -297,7 +297,7 @@ class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::Te
         stub_publishing_api_unpublish(html_attachment_presenter.content_id, body: withdrawal_content.merge(locale: "en")),
       ]
 
-      PublishingApiDocumentRepublishingWorker.new.perform(edition.document.id, false)
+      PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
       repeated_requests.each { |request| assert_requested request, times: 2 }

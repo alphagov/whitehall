@@ -17,7 +17,7 @@ class PreviewableStorageTest < ActiveSupport::TestCase
     storage = Storage::PreviewableStorage.new(uploader)
     file = CarrierWave::SanitizedFile.new(@file)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with do |actual_path, asset_params, draft, attachment_model_class, attachment_model_id, auth_bypass_ids|
+    AssetManagerCreateAssetJob.expects(:perform_async).with do |actual_path, asset_params, draft, attachment_model_class, attachment_model_id, auth_bypass_ids|
       uploaded_file_name = File.basename(@file.path)
       expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9-]+/#{uploaded_file_name}}
 

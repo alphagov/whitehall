@@ -42,7 +42,7 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [organisation.content_id]))
               .returns(@asset_manager_response)
 
-      AssetManagerCreateAssetWorker.drain
+      AssetManagerCreateAssetJob.drain
     end
   end
 

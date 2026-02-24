@@ -188,7 +188,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       Services.asset_manager.expects(:update_asset)
               .with(asset_manager_id, { "redirect_url" => redirect_url })
               .at_least_once
-      AssetManagerAttachmentRedirectUrlUpdateWorker.drain
+      AssetManagerAttachmentRedirectUrlUpdateJob.drain
     end
 
     def assert_gone_in_publishing_api(content_id, redirect_path)
@@ -222,7 +222,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       Services.asset_manager.expects(:update_asset)
               .with(asset_manager_id, { "redirect_url" => anything })
               .never
-      AssetManagerAttachmentRedirectUrlUpdateWorker.drain
+      AssetManagerAttachmentRedirectUrlUpdateJob.drain
     end
 
     def unpublish_document_published_in_error

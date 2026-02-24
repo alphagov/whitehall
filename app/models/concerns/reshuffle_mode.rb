@@ -3,14 +3,14 @@ module ReshuffleMode
 
   included do
     def patch_links_ministers_index_page_to_publishing_api
-      PatchLinksPublishingApiWorker.perform_async("PublishingApi::MinistersIndexPresenter")
+      PatchLinksPublishingApiJob.perform_async("PublishingApi::MinistersIndexPresenter")
     end
 
     def republish_how_government_works_page_to_publishing_api
       if reshuffle_in_progress?
-        PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksEnableReshufflePresenter")
+        PresentPageToPublishingApiJob.perform_async("PublishingApi::HowGovernmentWorksEnableReshufflePresenter")
       else
-        PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
+        PresentPageToPublishingApiJob.perform_async("PublishingApi::HowGovernmentWorksPresenter")
       end
     end
 

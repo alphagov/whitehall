@@ -255,7 +255,7 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
   end
 
   view_test "updating should respect the attachment_action for response forms to remove it" do
-    AssetManagerDeleteAssetWorker.stubs(:perform_async)
+    AssetManagerDeleteAssetJob.stubs(:perform_async)
 
     response_form = create(:call_for_evidence_response_form)
     participation = create(:call_for_evidence_participation, call_for_evidence_response_form: response_form)
@@ -335,8 +335,8 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
     call_for_evidence = create(:call_for_evidence, call_for_evidence_participation: participation)
     response_form_data = build(:call_for_evidence_response_form_data, file: two_pages_pdf)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
 
     put :update,
         params: { id: call_for_evidence,
@@ -363,8 +363,8 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
 
     response_form_data = build(:call_for_evidence_response_form_data, file: two_pages_pdf)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
 
     attributes = controller_attributes_for(
       :call_for_evidence,

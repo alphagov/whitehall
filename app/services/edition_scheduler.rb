@@ -35,7 +35,7 @@ private
 
   def fire_transition!
     super
-    ScheduledPublishingWorker.queue(edition)
+    ScheduledPublishingJob.queue(edition)
   end
 
   def scheduled_publication_is_not_within_cache_limit?

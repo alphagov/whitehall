@@ -17,8 +17,8 @@
   :schedule:
     revalidate_old_link_check_reports:
       cron: '0 4 * * *' # Runs at 4 a.m every day
-      class: RevalidateOldLinkCheckReportsWorker
+      class: RevalidateOldLinkCheckReportsJob
     revalidate_all_editions:
       cron: '45 5 * * *' # Runs at 5:45am every day
-      class: RevalidateEditionsSchedulerWorker
+      class: RevalidateEditionsSchedulerJob
 <% end %>

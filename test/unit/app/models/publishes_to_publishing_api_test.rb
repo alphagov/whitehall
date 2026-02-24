@@ -115,12 +115,12 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
       end
     end
 
-    test "bulk_republish_async enqueues a worker to bulk republish the document" do
+    test "bulk_republish_async enqueues a job to bulk republish the document" do
       Whitehall::PublishingApi.expects(:bulk_republish_async).with(@test_object).once
       @test_object.bulk_republish_to_publishing_api_async
     end
 
-    test "republish_async enqueues a worker to republish the document" do
+    test "republish_async enqueues a job to republish the document" do
       Whitehall::PublishingApi.expects(:republish_async).with(@test_object).once
       @test_object.republish_to_publishing_api_async
     end
@@ -138,12 +138,12 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
       end
     end
 
-    test "bulk_republish_async does not enqueue a worker to bulk republish the document" do
+    test "bulk_republish_async does not enqueue a job to bulk republish the document" do
       Whitehall::PublishingApi.expects(:bulk_republish_async).never
       @test_object.bulk_republish_to_publishing_api_async
     end
 
-    test "republish_async does not enqueue a worker to republish the document" do
+    test "republish_async does not enqueue a job to republish the document" do
       Whitehall::PublishingApi.expects(:republish_async).never
       @test_object.republish_to_publishing_api_async
     end
