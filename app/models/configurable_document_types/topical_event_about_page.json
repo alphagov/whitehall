@@ -57,7 +57,7 @@
     "images": {
       "enabled": false
     },
-    "send_change_history": true,
+    "send_change_history": false,
     "file_attachments_enabled": false,
     "organisations": null,
     "backdating_enabled": false,
