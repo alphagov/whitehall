@@ -144,7 +144,7 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal "must be permitted", image.errors[:usage][0]
   end
 
-  test "#publishing_api_details returns a hash of image details" do
+  test "#publishing_api_details returns a hash of image details for an SVG" do
     image = create(:image, :svg, usage: "header", caption: "An SVG image")
 
     expected_hash = {
@@ -152,6 +152,27 @@ class ImageTest < ActiveSupport::TestCase
       url: image.url,
       caption: "An SVG image",
       content_type: "image/svg+xml",
+    }
+
+    assert_equal expected_hash, image.publishing_api_details
+  end
+
+  test "#publishing_api_details returns a hash of image details for a bitmap" do
+    image = create(:image, usage: "header", caption: "A bitmap image")
+
+    expected_hash = {
+      type: "header",
+      url: image.url,
+      caption: "A bitmap image",
+      content_type: "image/jpeg",
+      sources: {
+        "s960" => image.url("s960"),
+        "s712" => image.url("s712"),
+        "s630" => image.url("s630"),
+        "s465" => image.url("s465"),
+        "s300" => image.url("s300"),
+        "s216" => image.url("s216"),
+      },
     }
 
     assert_equal expected_hash, image.publishing_api_details
