@@ -1,6 +1,14 @@
 module StandardEdition::ParentDocument
   extend ActiveSupport::Concern
 
+  class Trait < Edition::Traits::Trait
+    def process_associations_after_save(new_edition)
+      EditionRelationship.where(parent_edition_id: @edition.id).each do |relationship|
+        EditionRelationship.create(parent_edition_id: new_edition.id, child_edition_id: relationship.child_edition_id, position: relationship.position)
+      end
+    end
+  end
+
   included do
     has_many :child_relationships,
              class_name: "EditionRelationship",
@@ -13,6 +21,8 @@ module StandardEdition::ParentDocument
              source: :child_edition
 
     after_save :copy_inherited_associations_to_children, if: :is_parent_document?
+
+    add_trait Trait
   end
 
   def is_parent_document?
