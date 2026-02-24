@@ -27,6 +27,12 @@ module Edition::WorldwideOrganisations
   end
 
   def at_least_one_worldwide_organisation
-    errors.add(:worldwide_organisations, "at least one required") if worldwide_organisation_document_ids.empty?
+    if worldwide_organisation_document_ids.empty?
+      message = "at least one required"
+
+      # Add error to both attributes to support legacy and configurable document types
+      errors.add(:worldwide_organisations, message)
+      errors.add(:worldwide_organisation_document_ids, message)
+    end
   end
 end

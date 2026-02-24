@@ -5,6 +5,14 @@ class Edition::WorldwideOrganisationTest < ActiveSupport::TestCase
     include ::Edition::WorldwideOrganisations
   end
 
+  class EditionRequiringWorldwideOrganisations < Edition
+    include ::Edition::WorldwideOrganisations
+
+    def worldwide_organisation_association_required?
+      true
+    end
+  end
+
   include ActionDispatch::TestProcess
 
   def valid_edition_attributes
@@ -57,5 +65,12 @@ class Edition::WorldwideOrganisationTest < ActiveSupport::TestCase
     edition = EditionWithWorldwideOrganisations.create!(valid_edition_attributes.merge(worldwide_organisations: [published, draft]))
 
     assert_equal [published], edition.published_worldwide_organisations
+  end
+
+  test "validates presence of at least one worldwide organisation if worldwide organisations are required" do
+    edition = EditionRequiringWorldwideOrganisations.build(valid_edition_attributes)
+    assert_not edition.valid?
+    assert edition.errors.include?(:worldwide_organisations)
+    assert edition.errors.include?(:worldwide_organisation_document_ids)
   end
 end
