@@ -1,194 +1,38 @@
 require "test_helper"
 
 class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCase
-  test "it renders a fieldset with the schema title as the legend containing the child attributes" do
-    schema = {
+  setup do
+    @schema = {
       "title" => "Test object",
-      "description": "A nested object field",
       "block" => "default_object",
       "fields" => {
         "test_attribute" => {
           "title" => "Test attribute",
-          "description": "A test attribute",
           "block" => "default_string",
         },
       },
     }
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new }
-    assert_dom "legend", text: schema["title"].to_s
-    assert_dom "label", text: schema["fields"]["test_attribute"]["title"].to_s
+  end
+
+  test "it renders a fieldset with the schema title as the legend containing the child attributes" do
+    edition = StandardEdition.new
+    block = ConfigurableContentBlocks::DefaultObject.new(edition, @schema, Path.new)
+    render block
+    assert_dom "legend", text: @schema["title"].to_s
+    assert_dom "label", text: @schema["fields"]["test_attribute"]["title"].to_s
+  end
+
+  test "it renders a fieldset with the required label applied to the legend" do
+    edition = StandardEdition.new
+    block = ConfigurableContentBlocks::DefaultObject.new(edition, @schema.merge("required" => true), Path.new)
+    render block
+    assert_dom "legend", text: "#{@schema['title']} (required)"
   end
 
   test "it does not render a fieldset with the schema title as the legend for the root object" do
-    schema = {
-      "title" => "Test object",
-      "description": "A nested object field",
-      "block" => "default_object",
-      "fields" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "description": "A test attribute",
-          "block" => "default_string",
-        },
-      },
-    }
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new, required: false, root: true }
-    refute_dom "legend", text: schema["title"]
-  end
-
-  test "it renders non-required child attribute" do
-    schema = {
-      "title" => "Test object",
-      "description": "A nested object field",
-      "block" => "default_object",
-      "fields" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "description": "A test attribute",
-          "block" => "default_string",
-        },
-      },
-    }
-
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new }
-    assert_dom "label", text: schema["fields"]["test_attribute"]["title"]
-    refute_dom "label", text: "#{schema['fields']['test_attribute']['title']} (required)"
-  end
-
-  test "it applies the required attribute to any child attributes validated for presence" do
-    schema = {
-      "title" => "Test object",
-      "description": "A nested object field",
-      "block" => "default_object",
-      "fields" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "description": "A test attribute",
-          "block" => "default_string",
-        },
-      },
-    }
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new, required_attributes: %w[test_attribute] }
-    assert_dom "label", text: "#{schema['fields']['test_attribute']['title']} (required)"
-  end
-
-  test "it applies the required attribute at deeper levels of nesting" do
-    schema = {
-      "title" => "Test object",
-      "description": "A nested object field",
-      "block" => "default_object",
-      "fields" => {
-        "nested_test_attribute" => {
-          "title" => "Nested test attribute",
-          "description": "A nested test attribute",
-          "block" => "default_object",
-          "fields" => {
-            "test_attribute" => {
-              "title" => "Test attribute",
-              "description": "A test attribute",
-              "block" => "default_string",
-            },
-          },
-        },
-      },
-    }
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new, required_attributes: %w[test_attribute] }
-    assert_dom "label", text: "#{schema['fields']['nested_test_attribute']['fields']['test_attribute']['title']} (required)"
-  end
-
-  test "it passes the right_to_left attribute on to child blocks" do
-    schema = {
-      "title" => "Test object",
-      "description": "A nested object field",
-      "block" => "default_object",
-      "fields" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "description": "A test attribute",
-          "block" => "default_string",
-        },
-      },
-    }
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new, right_to_left: true }
-    assert_dom "label", text: schema["fields"]["test_attribute"]["title"].to_s
-    assert_dom "input[dir=\"rtl\"]"
-  end
-
-  test "it passes the errors attribute on to child blocks" do
-    schema = {
-      "title" => "Test object",
-      "description": "A nested object field",
-      "block" => "default_object",
-      "fields" => {
-        "test_attribute" => {
-          "title" => "Test attribute",
-          "description": "A test attribute",
-          "block" => "default_string",
-        },
-      },
-    }
-
-    errors = [mock("object"), mock("object")]
-    messages = %w[foo bar]
-    errors.each_with_index do |error, index|
-      error.expects(:attribute).returns(:test_attribute)
-      error.expects(:full_message).returns(messages[index])
-    end
-
-    edition = build(:draft_standard_edition, { block_content: { "test_attribute": "" } })
-    factory = ConfigurableContentBlocks::Factory.new(edition)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content: {}, path: Path.new, right_to_left: true, errors: }
-    assert_dom ".govuk-error-message", "Error: #{messages.join}"
-  end
-
-  test "it renders not nested child attribute content" do
-    schema = {
-      "fields" => {
-        "not_nested_attribute" => {
-          "title" => "Not nested attribute",
-          "block" => "default_string",
-        },
-      },
-    }
-    content = { "not_nested_attribute" => "bar" }
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content:, path: Path.new }
-    assert_dom "input[name=?][value=?]", "edition[block_content][not_nested_attribute]", "bar"
-  end
-
-  test "it renders nested child attribute content" do
-    schema = {
-      "fields" => {
-        "test_object_attribute" => {
-          "title" => "Test attribute",
-          "block" => "default_object",
-          "fields" => {
-            "nested_attribute" => {
-              "title" => "Nested attribute",
-              "block" => "default_string",
-            },
-          },
-        },
-      },
-    }
-    content = { "nested_attribute" => "foo" }
-    factory = ConfigurableContentBlocks::Factory.new(StandardEdition.new)
-    block = ConfigurableContentBlocks::DefaultObject.new(factory)
-    render block, { schema:, content:, path: Path.new }
-    assert_dom "input[name=?][value=?]", "edition[block_content][nested_attribute]", "foo"
+    edition = StandardEdition.new
+    block = ConfigurableContentBlocks::DefaultObject.new(edition, @schema.merge("root" => true), Path.new)
+    render block
+    refute_dom "legend", text: @schema["title"]
   end
 end

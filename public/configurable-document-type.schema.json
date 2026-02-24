@@ -48,6 +48,10 @@
           "type": "string",
           "description": "Description of the content block's purpose. Usually used for hint text."
         },
+        "required": {
+          "type": "boolean",
+          "description": "Whether or not the form value is required"
+        },
         "block": {
           "type": "string",
           "description": "Identifier for a content block. Maps to a specific block class.",

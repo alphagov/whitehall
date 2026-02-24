@@ -1,0 +1,23 @@
+<%= render "components/govspeak_editor", {
+  label: {
+    text: block.title + (block.required ? " (required)" : ""),
+    heading_size: "m",
+  },
+  id: block.path.form_control_id,
+  name: block.path.form_control_name,
+  value: block.content,
+  rows: 20,
+  data_attributes: {
+    attachment_ids: block.edition.attachments.map(&:id),
+    image_ids: block.edition.images.map { |img| img[:id] }.to_json,
+  },
+  right_to_left: block.edition.translation_rtl?,
+  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym),
+} %>
+<% if block.primary_locale_content.present? %>
+  <%= render "govuk_publishing_components/components/details", {
+    title: "Primary locale content for #{block.title}",
+  } do %>
+    <%= block.primary_locale_content %>
+  <% end %>
+<% end %>

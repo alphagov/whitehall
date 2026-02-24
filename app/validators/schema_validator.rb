@@ -29,6 +29,7 @@ class SchemaValidator
       all_schema_attributes_used_in_form_fields?,
       all_form_fields_used_in_schema_attributes?,
       all_validation_properties_defined_in_schema?,
+      all_required_fields_have_presence_validation?,
     ].compact
   end
 
@@ -44,6 +45,10 @@ private
 
   def all_form_fields_used_in_schema_attributes?
     no_exclusive_keys(form_fields, schema_attributes, proc { |keys| "Schema has form fields #{keys} that are not defined in schema attributes" })
+  end
+
+  def all_required_fields_have_presence_validation?
+    no_exclusive_keys(required_form_fields, presence_validation_properties, proc { |keys| "Forms have required fields #{keys} that do not have presence validation defined" })
   end
 
   def no_exclusive_keys(target_list, comparison_list, message)
@@ -63,19 +68,46 @@ private
     end
   end
 
+  def presence_validation_properties
+    (@document["schema"]["validations"] || {})
+      &.select { |key, _| key == "presence" }
+      &.values
+      &.flat_map { |validator| validator["attributes"] }
+  end
+
   def schema_attributes
     obj_dig(@document, "attributes", %w[schema])
+  end
+
+  def required_form_fields
+    required_paths = []
+    (@document["forms"] || [])&.keys&.flat_map do |key|
+      obj_dig(@document, "fields", ["forms", key]) do |parent_obj, path|
+        if parent_obj.present? && parent_obj["required"]
+          required_paths << path.last
+        end
+      end
+    end
+    required_paths
   end
 
   def form_fields
     (@document["forms"] || [])&.keys&.flat_map { |key| obj_dig(@document, "fields", ["forms", key]) }
   end
 
-  def obj_dig(obj, attr, keys)
+  def obj_dig(obj, attr, keys, &visitor)
     dig_keys = obj.dig(*keys + [attr])&.keys
 
     return keys.last if dig_keys.nil?
 
-    dig_keys.flat_map { |dig_key| obj_dig(obj, attr, keys + [attr, dig_key]) }
+    dig_keys.flat_map do |dig_key|
+      path = keys + [attr, dig_key]
+      object_node = obj.dig(*path)
+
+      # If a visitor was passed, call it with the object node and path so that it can collect information
+      visitor.presence&.call(object_node, path)
+
+      obj_dig(obj, attr, path, &visitor)
+    end
   end
 end

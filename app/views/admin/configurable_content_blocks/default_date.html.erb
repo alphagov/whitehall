@@ -1,0 +1,27 @@
+<%= render "govuk_publishing_components/components/date_input", {
+  id: block.path.form_control_id,
+  label: block.path.form_control_name,
+  legend_text: block.title,
+  hint: "For example, 01 08 2015",
+  items: [
+    {
+      label: "Day",
+      name: block.path.multiparameter_form_control_name(3),
+      width: 2,
+      value: params.dig("edition", "block_content", *block.path.to_a, "3") || block.content&.day,
+    },
+    {
+      label: "Month",
+      name: block.path.multiparameter_form_control_name(2),
+      width: 2,
+      value: params.dig("edition", "block_content", *block.path.to_a, "2") || block.content&.month,
+    },
+    {
+      label: "Year",
+      name: block.path.multiparameter_form_control_name(1),
+      width: 4,
+      value: params.dig("edition", "block_content", *block.path.to_a, "1") || block.content&.year,
+    },
+  ],
+  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym),
+} %>

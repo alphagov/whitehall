@@ -1,6 +1,16 @@
 class ConfigurableDocumentType
   attr_reader :key, :description, :schema, :associations, :settings
 
+  CONTENT_BLOCKS = {
+    "default_string" => ConfigurableContentBlocks::DefaultString,
+    "govspeak" => ConfigurableContentBlocks::Govspeak,
+    "default_date" => ConfigurableContentBlocks::DefaultDate,
+    "default_select" => ConfigurableContentBlocks::DefaultSelect,
+    "lead_image_select" => ConfigurableContentBlocks::LeadImageSelect,
+    "default_object" => ConfigurableContentBlocks::DefaultObject,
+    "default_array" => ConfigurableContentBlocks::DefaultArray,
+  }.freeze
+
   @types_mutex = Mutex.new
 
   def self.types
@@ -95,10 +105,6 @@ class ConfigurableDocumentType
 
   def presenter(key)
     @presenters[key]
-  end
-
-  def required_attributes
-    Array(@schema.dig("validations", "presence", "attributes"))
   end
 
   class NotFoundError < StandardError

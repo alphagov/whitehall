@@ -27,6 +27,29 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal "FOO", page.body
   end
 
+  test "respects the locale passed to the block content reader" do
+    test_type = "test_type"
+    configurable_document_type =
+      build_configurable_document_type(
+        test_type, {
+          "schema" => {
+            "attributes" => {
+              "body" => {
+                "type" => "string",
+              },
+            },
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { body: "primary locale body" } })
+    with_locale(:es) do
+      page.block_content = { body: "translated body" }
+      assert_equal "translated body", page.block_content.body
+      assert_equal "primary locale body", page.block_content(:en).body
+    end
+  end
+
   test "updates the document slug if the current translation is for the primary locale" do
     test_type =
       build_configurable_document_type(

@@ -1,0 +1,14 @@
+<% if block.root? %>
+  <% block.fields.each do |field_key, field_config| %>
+    <%= render ConfigurableDocumentType::CONTENT_BLOCKS[field_config["block"]].new(block.edition, field_config, ConfigurableContentBlocks::Path.new([field_key])) %>
+  <% end %>
+<% else %>
+  <%= render "govuk_publishing_components/components/fieldset",
+             { legend_text: "#{block.title}#{block.required ? ' (required)' : ''}",
+               heading_size: "m",
+               id: block.path.form_control_id } do %>
+    <% block.fields.each do |field_key, field_config| %>
+      <%= render ConfigurableDocumentType::CONTENT_BLOCKS[field_config["block"]].new(block.edition, field_config, ConfigurableContentBlocks::Path.new([field_key])) %>
+    <% end %>
+  <% end %>
+<% end %>

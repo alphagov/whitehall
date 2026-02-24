@@ -1,0 +1,35 @@
+<%
+  render_remove_checkbox = ->(index) do
+    render("govuk_publishing_components/components/checkboxes", {
+      name: "#{block.path.form_control_name}[#{index}][_destroy]",
+      items: [{ label: "Remove", value: "1" }],
+    })
+  end
+%>
+
+<%
+  render_fields = ->(index) do
+    safe_join(block.field_blocks(index).map { |field_block| render(field_block) })
+  end
+%>
+
+<%= render "govuk_publishing_components/components/fieldset",
+            { legend_text: "#{block.title}#{block.required ? ' (required)' : ''}",
+              heading_size: "l",
+              id: block.path.form_control_id } do %>
+  <%
+    items = block.items.map.with_index do |_element, index|
+      {
+        fields: render_fields.call(index),
+        destroy_checkbox: render_remove_checkbox.call(index),
+      }
+    end
+  %>
+  <%= render "govuk_publishing_components/components/add_another", {
+    fieldset_legend: block.title,
+    add_button_text: "Add another",
+    empty_fields: true,
+    items:,
+    empty: render_remove_checkbox.call(items.length) + render_fields.call(items.length),
+  } %>
+<% end %>
