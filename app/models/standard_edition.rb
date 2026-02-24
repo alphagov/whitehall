@@ -46,10 +46,6 @@ class StandardEdition < Edition
     block_content["body"]
   end
 
-  def lead_image
-    block_content["image"]
-  end
-
   def body=(_)
     nil
   end

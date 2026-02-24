@@ -35,21 +35,17 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
   test "call skips nil values in payload" do
     type_instance = mock("type_instance")
     @item.stubs(:type_instance).returns(type_instance)
-    @item.stubs(:valid_lead_images).returns([])
-    @item.stubs(:default_lead_image).returns(nil)
     @item.stubs(:placeholder_image_url).returns(nil)
 
     type_instance.stubs(:presenter).with("publishing_api").returns({
       "details" => {
         "body_attribute" => :govspeak,
         "date_attribute" => :rfc3339_date,
-        "lead_image_attribute" => :lead_image,
         "string_attribute" => :raw,
       },
     })
     @block_content.stubs(:body_attribute).returns(nil)
     @block_content.stubs(:date_attribute).returns(nil)
-    @block_content.stubs(:lead_image_attribute).returns(nil)
     @block_content.stubs(:string_attribute).returns(nil)
 
     builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
@@ -57,7 +53,6 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
     assert_not result.key?(:body_attribute)
     assert_not result.key?(:date_attribute)
-    assert result.key?(:lead_image_attribute) # because the behaviour of this block is special - will always return a value
     assert_not result.key?(:string_attribute)
   end
 
@@ -145,127 +140,6 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
       assert_nil builder.send(:rfc3339_date, :published_on)
-    end
-  end
-
-  context "lead_image payload builder" do
-    test "lead image sends the custom lead image payload to publishing-api" do
-      images = [create(:image), create(:image, caption: "Example caption")]
-      @item.stubs(:valid_lead_images).returns(images)
-      @block_content.stubs(:image).returns(images[1].image_data.id)
-
-      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:lead_image, :image)
-
-      payload = {
-        high_resolution_url: images[1].image_data.url(:s960),
-        url: images[1].image_data&.url(:s300),
-        caption: images[1].caption,
-      }
-      assert_equal payload, result
-    end
-
-    test "lead image does not send the the caption if nil" do
-      image = create(:image, caption: nil)
-      @item.stubs(:valid_lead_images).returns([image])
-      @block_content.stubs(:image).returns(image.image_data.id)
-
-      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:lead_image, :image)
-
-      payload = {
-        high_resolution_url: image.image_data.url(:s960),
-        url: image.image_data&.url(:s300),
-      }
-      assert_equal payload, result
-    end
-
-    test "lead image sends the default lead image payload if content is nil" do
-      default_lead_image = build(:featured_image_data)
-      @item.stubs(:valid_lead_images).returns([])
-      @item.stubs(:default_lead_image).returns(default_lead_image)
-      @item.stubs(:block_content).returns(nil)
-
-      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:lead_image, :lead_image_attribute)
-
-      payload = {
-        high_resolution_url: default_lead_image.url(:s960),
-        url: default_lead_image.url(:s300),
-      }
-      assert_equal payload, result
-    end
-
-    test "lead image sends the default lead image payload if content for image attribute is nil" do
-      default_lead_image = build(:featured_image_data)
-      @item.stubs(:valid_lead_images).returns([])
-      @item.stubs(:default_lead_image).returns(default_lead_image)
-      @block_content.stubs(:image).returns(nil)
-
-      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:lead_image, :image)
-
-      payload = {
-        high_resolution_url: default_lead_image.url(:s960),
-        url: default_lead_image.url(:s300),
-      }
-      assert_equal payload, result
-    end
-
-    test "lead image sends the placeholder image url if selected image's assets are missing" do
-      images = create_list(:image, 3)
-      images[1].image_data.assets = []
-      images[1].image_data.save!
-      placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
-      @item.stubs(:valid_lead_images).returns(images)
-      @item.stubs(:placeholder_image_url).returns(placeholder_image_url)
-      @block_content.stubs(:image).returns(images[1].image_data.id)
-
-      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:lead_image, :image)
-
-      payload = {
-        high_resolution_url: placeholder_image_url,
-        url: placeholder_image_url,
-      }
-      assert_equal payload, result
-    end
-
-    test "lead image sends the placeholder image url if there is no custom image and default lead image's assets are missing" do
-      default_lead_image = build(:featured_image_data)
-      default_lead_image.assets = []
-      default_lead_image.save!
-      placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
-      @item.stubs(:valid_lead_images).returns([])
-      @item.stubs(:default_lead_image).returns(default_lead_image)
-      @item.stubs(:placeholder_image_url).returns(placeholder_image_url)
-      @block_content.stubs(:image).returns(nil)
-
-      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:lead_image, :image)
-
-      payload = {
-        high_resolution_url: placeholder_image_url,
-        url: placeholder_image_url,
-      }
-      assert_equal payload, result
-    end
-
-    test "lead image sends the placeholder image url if custom lead and organisation default images are missing" do
-      placeholder_image_url = "https://assets.publishing.service.gov.uk/media/_ID_/placeholder.jpg"
-      @item.stubs(:valid_lead_images).returns([])
-      @item.stubs(:default_lead_image).returns(nil)
-      @item.stubs(:placeholder_image_url).returns(placeholder_image_url)
-      @block_content.stubs(:image).returns(nil)
-
-      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:lead_image, :image)
-
-      payload = {
-        high_resolution_url: placeholder_image_url,
-        url: placeholder_image_url,
-      }
-      assert_equal payload, result
     end
   end
 

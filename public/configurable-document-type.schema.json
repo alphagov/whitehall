@@ -68,7 +68,6 @@
             "default_object",
             "default_string",
             "govspeak",
-            "lead_image_select",
             "default_select"
           ]
         },
@@ -239,7 +238,6 @@
                     "govspeak",
                     "rfc3339_date",
                     "image",
-                    "lead_image",
                     "raw",
                     "social_media_links"
                   ]

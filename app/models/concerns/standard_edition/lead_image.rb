@@ -14,10 +14,6 @@ module StandardEdition::LeadImage
     end
   end
 
-  def valid_lead_images
-    images.select(&:can_be_lead_image?)
-  end
-
   def placeholder_image_url
     configurable_document_type == "world_news_story" ? WORLD_NEWS_STORY_PLACEHOLDER_IMAGE_URL : DEFAULT_PLACEHOLDER_IMAGE_URL
   end

@@ -117,13 +117,13 @@ For example, a presenter configuration will look like:
   "presenters": {
     "publishing_api": {
       "body": "govspeak",
-      "image": "lead_image_select"
+      "date": "rfc3339_date"
     }
   }
 }
 ```
 
-This instructs the presenter that the `body` attribute should use the `govspeak` payload builder and the `image` attribute should use the `lead_image_select` payload builder. 
+This instructs the presenter that the `body` attribute should use the `govspeak` payload builder and the `date` attribute should use the `rfc3339_date` payload builder. 
 
 Each block type maps to a publishing API payload builder method (see [app/presenters/publishing_api/payload_builder/block_content.rb](../app/presenters/publishing_api/payload_builder/block_content.rb)), which is called for the attributes configured in the presenter.
 
@@ -153,7 +153,7 @@ To use a content block, you need to define it in both the schema and forms:
   - `description`: (Optional) Help text shown to the user.
   - `required`: (Optional) Whether the form label should include the `(required)` guidance 
   - `attribute_path`: (Optional, but required for fields containing form inputs) The path of the attribute on the schema that the input controls. This will be appended to the parent attribute path, if one exists.
-  - `block`: Block component to use (e.g., `govspeak`, `lead_image_select`). Must match a format registered in the [content blocks map](../app/models/configurable_document_type.rb).
+  - `block`: Block component to use (e.g., `govspeak`, `default_date`). Must match a format registered in the [content blocks map](../app/models/configurable_document_type.rb).
 
 - Define the data type in `schema.attributes.<field_name>`:
   - `type`: Data type for the attribute (e.g., `string`, `integer`, `date`). Used for type casting in the [block content model](../app/models/standard_edition/block_content.rb).
