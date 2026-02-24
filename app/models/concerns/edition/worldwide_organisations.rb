@@ -29,4 +29,8 @@ module Edition::WorldwideOrganisations
   def at_least_one_worldwide_organisation
     errors.add(:worldwide_organisations, "at least one required") if worldwide_organisation_document_ids.empty?
   end
+
+  def error_labels
+    super.merge({ "worldwide_organisations" => "Worldwide organisations" })
+  end
 end

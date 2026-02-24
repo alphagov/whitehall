@@ -67,6 +67,13 @@ module Edition::Organisations
     true
   end
 
+  def error_labels
+    super.merge({
+                  "organisations" => "Organisations",
+                  "lead_organisations" => "Lead organisations",
+                })
+  end
+
 private
 
   def at_least_one_lead_organisation
