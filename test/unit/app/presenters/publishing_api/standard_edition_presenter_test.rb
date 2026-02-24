@@ -357,7 +357,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
     assert_equal 1, content[:details][:images].length
     assert_not content[:details][:images].first.key?(:caption)
-    assert_equal image.image_data.url, content[:details][:images].first[:url]
+    assert_equal image.image_data.url, content[:details][:images].first[:sources][:s960]
     assert_equal "header", content[:details][:images].first[:type]
   end
 
@@ -388,7 +388,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     content = presenter.content
 
     assert_equal 1, content[:details][:images].length
-    assert_equal non_embeddable_image.image_data.url, content[:details][:images].first[:url]
+    assert_equal non_embeddable_image.image_data.url, content[:details][:images].first[:sources][:s960]
     assert_equal non_embeddable_image.usage, content[:details][:images].first[:type]
     assert_equal non_embeddable_image.caption, content[:details][:images].first[:caption]
     assert_equal non_embeddable_image.content_type, content[:details][:images].first[:content_type]
