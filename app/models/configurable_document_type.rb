@@ -8,6 +8,7 @@ class ConfigurableDocumentType
     "default_select" => ConfigurableContentBlocks::DefaultSelect,
     "default_object" => ConfigurableContentBlocks::DefaultObject,
     "default_array" => ConfigurableContentBlocks::DefaultArray,
+    "select_with_search_tagging" => ConfigurableContentBlocks::SelectWithSearchTagging,
   }.freeze
 
   @types_mutex = Mutex.new

@@ -1,0 +1,10 @@
+<%= render "govuk_publishing_components/components/select_with_search", {
+  id: block.path.form_control_id,
+  name: block.path.form_control_name + "[]",
+  label: block.title + (block.required ? " (required)" : ""),
+  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym, block.title),
+  include_blank: true,
+  heading_size: "m",
+  options: block.public_send("taggable_#{block.container}_container", block.value),
+  multiple: true,
+} %>
