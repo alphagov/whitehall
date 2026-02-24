@@ -9,6 +9,7 @@ class ConfigurableDocumentType
     "lead_image_select" => ConfigurableContentBlocks::LeadImageSelect,
     "default_object" => ConfigurableContentBlocks::DefaultObject,
     "default_array" => ConfigurableContentBlocks::DefaultArray,
+    "select_with_search_tagging" => ConfigurableContentBlocks::SelectWithSearchTagging,
   }.freeze
 
   @types_mutex = Mutex.new
