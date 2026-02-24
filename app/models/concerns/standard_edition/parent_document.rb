@@ -3,7 +3,7 @@ module StandardEdition::ParentDocument
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(new_edition)
-      EditionRelationship.where(parent_edition_id: @edition.id).each do |relationship|
+      EditionRelationship.where(parent_edition_id: @edition.id).find_each do |relationship|
         EditionRelationship.create(parent_edition_id: new_edition.id, child_edition_id: relationship.child_edition_id, position: relationship.position)
       end
     end
