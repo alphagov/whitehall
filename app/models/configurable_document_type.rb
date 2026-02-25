@@ -117,6 +117,23 @@ class ConfigurableDocumentType
     end
   end
 
+  def field_paths(&block)
+    [].tap do |fields|
+      visitor = lambda do |path, field|
+        # Skip "non-leaf" fields
+        return if field["fields"]
+
+        fields << path if !block_given? || block.call(field)
+      end
+
+      visit_fields_with(visitor)
+    end
+  end
+
+  def required_field_paths
+    field_paths { |field| field["required"] == true }
+  end
+
   def presenter(key)
     @presenters[key]
   end

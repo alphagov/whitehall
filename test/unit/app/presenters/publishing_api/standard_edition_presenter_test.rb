@@ -284,9 +284,15 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
 
   test "it includes emphasised organisations in the details if the document type has organisations association" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
-      "associations" => [
-        { "key" => "organisations" },
-      ],
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "lead_organisation_ids" => {
+              "attribute_path" => %w[lead_organisation_ids],
+            },
+          },
+        },
+      },
     }))
     organisations = create_list(:organisation, 2)
     page = create(:standard_edition, lead_organisations: organisations)

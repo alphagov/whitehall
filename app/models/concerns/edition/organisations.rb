@@ -43,6 +43,10 @@ module Edition::Organisations
     lead_organisations.pluck(:id)
   end
 
+  def supporting_organisation_ids
+    supporting_organisations.pluck(:id)
+  end
+
   def lead_organisations=(new_lead_organisations)
     self.lead_organisation_ids = new_lead_organisations.map(&:id)
   end
@@ -68,17 +72,14 @@ module Edition::Organisations
   end
 
   def error_labels
-    super.merge({
-                  "organisations" => "Organisations",
-                  "lead_organisations" => "Lead organisations",
-                })
+    super.merge({ "lead_organisation_ids" => "Lead organisations" })
   end
 
 private
 
   def at_least_one_lead_organisation
     unless edition_organisations.detect(&:lead?)
-      errors.add(:lead_organisations, "at least one required")
+      errors.add(:lead_organisation_ids, "at least one required")
     end
   end
 
@@ -86,7 +87,7 @@ private
     all_organisation_ids = edition_organisations.reject(&:marked_for_destruction?).map(&:organisation_id)
 
     if all_organisation_ids.uniq.size != all_organisation_ids.size
-      errors.add(:organisations, "must be unique")
+      errors.add(:lead_organisation_ids, "and supporting organisations must be unique")
     end
   end
 

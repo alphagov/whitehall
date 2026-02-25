@@ -3,6 +3,8 @@ require "json_schemer"
 class SchemaValidator
   attr_reader :errors, :schema
 
+  NON_BLOCK_CONTENT_FIELDS = %w[ministerial_role_appointments topical_events topical_event_documents world_locations lead_organisations supporting_organisations worldwide_organisations].freeze
+
   def initialize(document)
     @document = document
 
@@ -44,11 +46,11 @@ private
   end
 
   def all_form_fields_used_in_schema_attributes?
-    no_exclusive_keys(form_fields, schema_attributes, proc { |keys| "Schema has form fields #{keys} that are not defined in schema attributes" })
+    no_exclusive_keys(form_fields.difference(NON_BLOCK_CONTENT_FIELDS), schema_attributes, proc { |keys| "Schema has form fields #{keys} that are not defined in schema attributes" })
   end
 
   def all_required_fields_have_presence_validation?
-    no_exclusive_keys(required_form_fields, presence_validation_properties, proc { |keys| "Forms have required fields #{keys} that do not have presence validation defined" })
+    no_exclusive_keys(required_form_fields.difference(NON_BLOCK_CONTENT_FIELDS), presence_validation_properties, proc { |keys| "Forms have required fields #{keys} that do not have presence validation defined" })
   end
 
   def no_exclusive_keys(target_list, comparison_list, message)
