@@ -73,6 +73,10 @@ module Edition::Translatable
     non_primary_translations.map { |translation| Locale.new(translation.locale) }
   end
 
+  def is_translation?
+    primary_locale.to_sym != translation_locale
+  end
+
 private
 
   def change_translations_locale_if_primary_locale_changed

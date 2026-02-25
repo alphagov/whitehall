@@ -1,16 +1,7 @@
 module ConfigurableContentBlocks
-  class LeadImageSelect
-    include BaseConfig
+  class LeadImageSelect < BaseConfig
     include Renderable
     include ActionView::Helpers::TranslationHelper
-
-    attr_reader :edition, :path
-
-    def initialize(edition, config, path)
-      @edition = edition
-      @config = config
-      @path = path
-    end
 
     def default_hint_text
       if !default_lead_image
@@ -26,10 +17,6 @@ module ConfigurableContentBlocks
       "Select a lead image. #{default_lead_image ? t('configurable_content_blocks.lead_image_select.custom_image_hint_for_news_image') : t('configurable_content_blocks.lead_image_select.custom_image_hint_for_placeholder')}"
     end
 
-    def content
-      @edition.block_content&.value_at(@path)
-    end
-
     def select_options
       [
         {
@@ -40,7 +27,7 @@ module ConfigurableContentBlocks
         {
           text: image.filename,
           value: image.image_data.id,
-          selected: image.image_data.id == content.to_i,
+          selected: image.image_data.id == value.to_i,
         }
       end
     end

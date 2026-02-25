@@ -7,6 +7,7 @@ class ConfigurableContentBlocks::LeadImageSelectRenderingTest < ActionView::Test
         "title" => "Test attribute",
         "description" => "A test attribute",
         "block" => "lead_image_select",
+        "attribute_path" => %w[block_content test_attribute],
       },
     }
     @path = Path.new(%w[block_content test_attribute])

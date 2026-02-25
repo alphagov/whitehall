@@ -11,6 +11,7 @@ class ConfigurableContentBlocks::DefaultSelectRenderingTest < ActionView::TestCa
           { "label" => "Option 1", "value" => "opt 1" },
           { "label" => "Option 2", "value" => "opt 2" },
         ],
+        "attribute_path" => %w[block_content test_attribute],
       },
     }
     @path = Path.new(%w[block_content test_attribute])

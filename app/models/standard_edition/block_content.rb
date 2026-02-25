@@ -45,18 +45,6 @@ class StandardEdition::BlockContent
     @attributes ||= attributes_class_for(@attributes_config).new
   end
 
-  def value_at(path)
-    value = attributes.dup
-
-    path.to_a.each do |segment|
-      next if segment == "block_content"
-
-      value = value[segment]
-      break if value.nil?
-    end
-    value
-  end
-
   delegate :to_h, to: :attributes
 
 private
