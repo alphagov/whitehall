@@ -8,7 +8,7 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
       "description" => "A test attribute",
     }
     @block_content = { "test_attribute" => "foo" }
-    @path = Path.new(%w[block_content test_attribute])
+    @path = Path.new(%w[test_attribute])
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "forms" => {
         "documents" => {

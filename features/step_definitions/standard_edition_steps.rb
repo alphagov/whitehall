@@ -85,7 +85,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   within "form" do
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
-    fill_in "edition[block_content][body]", with: "## Some govspeak\n\nThis is the body content"
+    fill_in "edition_body", with: "## Some govspeak\n\nThis is the body content"
     fill_in "edition[block_content][date_field][3]", with: "01"
     fill_in "edition[block_content][date_field][2]", with: "11"
     fill_in "edition[block_content][date_field][1]", with: "2011"
@@ -211,7 +211,7 @@ When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)
   within "form" do
     fill_in "edition_title", with: title
     fill_in "edition_summary", with: "A brief summary of the document."
-    fill_in "edition[block_content][body]", with: "## Some govspeak\n\nThis is the body content"
+    fill_in "edition_body", with: "## Some govspeak\n\nThis is the body content"
     fill_in "edition[block_content][date_field][3]", with: "01"
     fill_in "edition[block_content][date_field][2]", with: "11"
     fill_in "edition[block_content][date_field][1]", with: "2011"

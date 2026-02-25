@@ -8,10 +8,8 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
         "documents" => {
           "fields" => {
             "body" => {
-              "title" => "Body",
+              "title" => "Body (required)",
               "block" => "govspeak",
-              "required" => true,
-              "attribute_path" => %w[block_content body],
             },
           },
         },
@@ -145,9 +143,7 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
           "fields" => {
             "test_attribute" => {
               "block" => "govspeak",
-              "title" => "Test Attribute",
-              "required" => true,
-              "attribute_path" => %w[block_content test_attribute],
+              "title" => "Test Attribute (required)",
             },
           },
         },

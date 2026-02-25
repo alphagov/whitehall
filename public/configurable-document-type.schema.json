@@ -52,13 +52,6 @@
           "type": "boolean",
           "description": "Whether or not the form value is required"
         },
-        "attribute_path": {
-          "type": "array",
-          "description": "The path of the active record attribute this field controls. For JSON attributes this may have multiple items",
-          "items": {
-            "type": "string"
-          }
-        },
         "block": {
           "type": "string",
           "description": "Identifier for a content block. Maps to a specific block class.",

@@ -2,15 +2,14 @@
   "key": "world_news_story",
   "title": "World news story",
   "description": "Announcements specific to one or more world location. Do not duplicate news published by another department.",
-  "forms": {
+    "forms": {
     "documents": {
       "fields": {
         "body": {
           "title": "Body",
           "description": "The main content of the page",
           "required": true,
-          "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "block": "govspeak"
         }
       }
     },

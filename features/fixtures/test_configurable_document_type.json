@@ -8,14 +8,12 @@
         "body": {
           "title": "Body",
           "description": "The main content of the page",
-          "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "block": "govspeak"
         },
         "date_field": {
           "title": "Date Field",
           "description": "A date field for the page",
-          "block": "default_date",
-          "attribute_path": ["block_content", "date_field"]
+          "block": "default_date"
         },
         "address": {
           "title": "Address",
@@ -25,26 +23,22 @@
             "street": {
               "title": "Street",
               "description": "A default string inside the nested object",
-              "block": "default_string",
-              "attribute_path": ["block_content","street"]
+              "block": "default_string"
             },
             "city": {
               "title": "City",
               "description": "Another default string inside the nested object",
-              "block": "default_string",
-              "attribute_path": ["block_content","city"]
+              "block": "default_string"
             }
           }
         },
         "list_of_foods": {
           "title": "Food",
           "block": "default_array",
-          "attribute_path": ["block_content", "list_of_foods"],
           "fields": {
             "food": {
               "title": "Name of food item",
-              "block": "default_string",
-              "attribute_path": ["food"]
+              "block": "default_string"
             }
           }
         }
@@ -55,8 +49,7 @@
         "lead_image": {
           "title": "Lead Image",
           "description": "The lead image for the page",
-          "block": "lead_image_select",
-          "attribute_path": ["block_content", "lead_image"]
+          "block": "lead_image_select"
         }
       }
     }

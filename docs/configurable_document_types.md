@@ -152,7 +152,6 @@ To use a content block, you need to define it in both the schema and forms:
   - `title`: Display label for the field.
   - `description`: (Optional) Help text shown to the user.
   - `required`: (Optional) Whether the form label should include the `(required)` guidance 
-  - `attribute_path`: (Optional, but required for fields containing form inputs) The path of the attribute on the schema that the input controls. This will be appended to the parent attribute path, if one exists.
   - `block`: Block component to use (e.g., `govspeak`, `lead_image_select`). Must match a format registered in the [content blocks map](../app/models/configurable_document_type.rb).
 
 - Define the data type in `schema.attributes.<field_name>`:
