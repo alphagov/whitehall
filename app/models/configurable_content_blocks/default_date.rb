@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class DefaultDate < BaseConfig
+  class DefaultDate < BaseBlock
     include Renderable
 
   private

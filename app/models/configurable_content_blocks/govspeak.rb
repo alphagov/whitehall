@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class Govspeak < BaseConfig
+  class Govspeak < BaseBlock
     include Renderable
 
   private

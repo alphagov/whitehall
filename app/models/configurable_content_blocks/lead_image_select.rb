@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class LeadImageSelect < BaseConfig
+  class LeadImageSelect < BaseBlock
     include Renderable
     include ActionView::Helpers::TranslationHelper
 

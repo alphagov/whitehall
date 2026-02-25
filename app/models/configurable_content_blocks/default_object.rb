@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class DefaultObject < BaseConfig
+  class DefaultObject < BaseBlock
     include Renderable
 
     def root?

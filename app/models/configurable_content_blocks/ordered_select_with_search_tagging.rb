@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class OrderedSelectWithSearchTagging < BaseConfig
+  class OrderedSelectWithSearchTagging < BaseBlock
     include Renderable
     include Admin::TaggableContentHelper
 

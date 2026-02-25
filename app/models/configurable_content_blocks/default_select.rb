@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class DefaultSelect < BaseConfig
+  class DefaultSelect < BaseBlock
     include Renderable
 
     def select_options

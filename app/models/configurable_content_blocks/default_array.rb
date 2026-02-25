@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class DefaultArray < BaseConfig
+  class DefaultArray < BaseBlock
     include Renderable
 
     def field_blocks(index)

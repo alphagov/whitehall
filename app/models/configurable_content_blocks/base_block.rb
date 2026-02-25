@@ -1,4 +1,4 @@
-class ConfigurableContentBlocks::BaseConfig
+class ConfigurableContentBlocks::BaseBlock
   attr_reader :edition, :path
 
   def initialize(edition, config, path)

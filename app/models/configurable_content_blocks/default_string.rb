@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class DefaultString < BaseConfig
+  class DefaultString < BaseBlock
     include Renderable
 
   private
