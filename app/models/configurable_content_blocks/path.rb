@@ -1,5 +1,7 @@
 module ConfigurableContentBlocks
   class Path
+    delegate :reduce, to: :@segments
+
     def initialize(segments = [])
       @segments = segments
     end

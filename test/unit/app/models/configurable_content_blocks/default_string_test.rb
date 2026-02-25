@@ -6,6 +6,7 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
       "block" => "default_string",
       "title" => "Test attribute",
       "description" => "A test attribute",
+      "attribute_path" => %w[block_content test_attribute],
     }
     @block_content = { "test_attribute" => "foo" }
     @path = Path.new(%w[block_content test_attribute])

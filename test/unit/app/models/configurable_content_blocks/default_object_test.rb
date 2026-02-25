@@ -9,6 +9,7 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
         "test_attribute" => {
           "title" => "Test attribute",
           "block" => "default_string",
+          "attribute_path" => %w[block_content test_attribute],
         },
       },
     }

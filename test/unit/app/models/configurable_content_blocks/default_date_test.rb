@@ -7,6 +7,7 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
         "block" => "default_date",
         "title" => "Test attribute",
         "description" => "A test attribute",
+        "attribute_path" => %w[block_content test_attribute],
       },
     }
     @date = Time.zone.now

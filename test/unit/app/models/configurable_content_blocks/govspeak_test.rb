@@ -7,6 +7,7 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
         "block" => "govspeak",
         "title" => "Test attribute",
         "description" => "A test attribute",
+        "attribute_path" => %w[block_content test_attribute],
       },
     }
     @path = Path.new(%w[block_content test_attribute])
@@ -44,7 +45,7 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
   end
 
   test "it sets the direction on the textarea to right to left when the locale is set to Arabic" do
-    block = ConfigurableContentBlocks::Govspeak.new(StandardEdition.new, @fields["test_attribute"], @path)
+    block = ConfigurableContentBlocks::Govspeak.new(StandardEdition.new(configurable_document_type: "test_type"), @fields["test_attribute"], @path)
     with_locale(:ar) do
       render block
     end
@@ -66,7 +67,7 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
 
   test "it renders any validation errors when they are present" do
     messages = %w[foo bar]
-    edition = StandardEdition.new
+    edition = StandardEdition.new(configurable_document_type: "test_type")
     messages.each { |m| edition.errors.add(:test_attribute, m) }
     block = ConfigurableContentBlocks::Govspeak.new(edition, @fields["test_attribute"], @path)
     render block
