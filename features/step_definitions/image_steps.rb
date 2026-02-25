@@ -1,10 +1,12 @@
-def upload_file(width, height, image_usage_key = "govspeak_embed")
+def upload_file(width = nil, height = nil, image_usage_key = "govspeak_embed")
   file = if width == 960 && height == 640
            jpg_image
          elsif width == 64 && height == 96
            Rails.root.join("test/fixtures/horrible-image.64x96.jpg")
-         elsif width == 960 && height == 960
-           Rails.root.join("test/fixtures/images/960x960_jpeg.jpg")
+         elsif width.present? && height.present?
+           Rails.root.join("test/fixtures/images/#{width}x#{height}_jpeg.jpg")
+         else
+           Rails.root.join("test/fixtures/images/test-svg.svg")
          end
 
   if running_javascript?
@@ -17,8 +19,14 @@ def upload_file(width, height, image_usage_key = "govspeak_embed")
     end
   end
 
-  io_object = fixture_file_upload(file, "image/jpeg").tempfile.to_io
-  stub_request(:get, %r{.*/media/.*/.*jpg}).to_return(status: 200, body: io_object, headers: {})
+  if width.present? && height.present?
+    io_object = fixture_file_upload(file, "image/jpeg").tempfile.to_io
+    stub_request(:get, %r{.*/media/.*/.*jpg}).to_return(status: 200, body: io_object, headers: {})
+  else
+    io_object = fixture_file_upload(file, "image/svg+xml").tempfile.to_io
+    stub_request(:get, %r{.*/media/.*/.*svg}).to_return(status: 200, body: io_object, headers: {})
+  end
+
   within "##{image_usage_key}_image_upload_form" do
     click_on "Upload"
   end
@@ -163,6 +171,10 @@ end
 
 And "I should see a button to choose to use the default image" do
   assert_selector ".govuk-button", text: "Use default image", count: 1
+end
+
+And(/^I upload an image$/) do
+  upload_file
 end
 
 And(/^I upload a (\d+)x(\d+) image$/) do |width, height|

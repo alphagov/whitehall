@@ -97,12 +97,31 @@ hero_desktop:
       from_version: hero_desktop_2x
 topical_event_header:
   display_name: "Header"
-  valid_width: 800
-  valid_height: 800
+  valid_width: 1536
+  valid_height: 1024
   versions:
-    - name: s800_header
-      width: 800
-      height: 800
+    - name: tablet_2x
+      width: 1536
+      height: 864
+    - name: mobile_2x
+      width: 1280
+      height: 720
+      from_version: tablet_2x
+    - name: tablet
+      width: 768
+      height: 432
+      from_version: tablet_2x
+    - name: mobile
+      width: 640
+      height: 360
+      from_version: tablet_2x      
+    - name: desktop_2x
+      width: 1024
+      height: 1024
+    - name: desktop
+      width: 512
+      height: 512
+      from_version: desktop_2x
 topical_event_logo:
   display_name: "Logo"
   valid_width: 800

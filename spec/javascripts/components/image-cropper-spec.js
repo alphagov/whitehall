@@ -3,20 +3,25 @@ describe('GOVUK.Modules.ImageCropper', () => {
 
   const width = 960
   const height = 640
+  const imageWidth = width
+  const imageHeight = 660
 
   beforeEach((done) => {
     const canvas = document.createElement('canvas')
-    canvas.setAttribute('width', 960)
-    canvas.setAttribute('height', 660)
+    canvas.setAttribute('width', imageWidth)
+    canvas.setAttribute('height', imageHeight)
     const src = canvas.toDataURL('image/png')
 
     component = document.createElement('div')
     component.setAttribute('data-filename', 'icon.png')
     component.setAttribute('data-type', 'image/png')
-    component.setAttribute('data-width', width)
-    component.setAttribute('data-height', height)
+    component.setAttribute('data-width', imageWidth)
+    component.setAttribute('data-height', imageHeight)
     component.setAttribute('data-x', 0)
     component.setAttribute('data-y', 0)
+    component.setAttribute('data-target-width', width)
+    component.setAttribute('data-target-height', height)
+    component.setAttribute('data-versions', '[]')
     component.setAttribute('class', 'app-c-image-cropper')
     component.innerHTML = `
       <input class="js-cropped-image-input" name="[x]" hidden>
@@ -62,7 +67,7 @@ describe('GOVUK.Modules.ImageCropper', () => {
         '.js-cropped-image-input[name="[height]"]'
       )
       expect(inputX.value).toBe('0')
-      expect(inputY.value).toBe('0')
+      expect(inputY.value).toBe(`${(imageHeight - height) / 2}`)
       expect(inputWidth.value).toBe(`${width}`)
       expect(inputHeight.value).toBe(`${height}`)
       done()

@@ -3,15 +3,55 @@
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
+  function Cropbox(version, colour, scaledRatio) {
+    this.version = version
+    this.colour = colour
+    this.scaledRatio = scaledRatio
+
+    this.el = document.createElement('DIV')
+    this.el.classList.add('cropper-crop-box')
+    this.el.style.outline = `${this.outlineWidth}px solid ${this.colour}`
+    this.el.style.pointerEvents = 'none'
+    this.el.style.zIndex = 99
+  }
+
+  Cropbox.prototype.outlineWidth = 3
+
+  Cropbox.prototype.updatePosition = function (newHeight, newWidth, newScale) {
+    const { height, width } = this.version
+
+    const scaledWidth = Math.min(width * newScale * this.scaledRatio, newWidth)
+    const scaledHeight = Math.min(
+      height * newScale * this.scaledRatio,
+      newHeight
+    )
+
+    const translateY = (newHeight - scaledHeight) / 2 + this.outlineWidth
+    const translateX = (newWidth - scaledWidth) / 2 + this.outlineWidth
+
+    this.el.style.width =
+      Math.min(scaledWidth - this.outlineWidth * 2, newWidth) + 'px'
+    this.el.style.height =
+      Math.min(scaledHeight - this.outlineWidth * 2, newHeight) + 'px'
+    this.el.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
+  }
+
   function ImageCropper($imageCropper) {
     this.$imageCropper = $imageCropper
     this.$image = this.$imageCropper.querySelector(
       '.app-c-image-cropper__image'
     )
-    this.$targetWidth = parseInt(this.$imageCropper.dataset.width, 10)
-    this.$targetHeight = parseInt(this.$imageCropper.dataset.height, 10)
+    this.$targetWidth = parseInt(this.$imageCropper.dataset.targetWidth, 10)
+    this.$targetHeight = parseInt(this.$imageCropper.dataset.targetHeight, 10)
+    this.$croppingHeight = parseInt(this.$imageCropper.dataset.height, 10)
+    this.$croppingWidth = parseInt(this.$imageCropper.dataset.width, 10)
     this.$croppingX = parseInt(this.$imageCropper.dataset.x, 10)
     this.$croppingY = parseInt(this.$imageCropper.dataset.y, 10)
+    this.$versions = this.$imageCropper.dataset.versions
+      ? JSON.parse(this.$imageCropper.dataset.versions)
+      : []
+    this.$versions = this.$versions.filter((version) => !version.from_version)
+    this.$cropBoxes = []
   }
 
   ImageCropper.prototype.init = function () {
@@ -34,12 +74,28 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         this.initKeyboardControls()
         this.updateAriaLabel()
 
-        const cropBoxData = this.cropper.getCropBoxData()
+        this.cropper.setData({
+          x: this.$croppingX,
+          y: this.$croppingY,
+          width: this.$croppingWidth || this.$targetWidth,
+          height: this.$croppingHeight || this.$targetHeight
+        })
 
-        cropBoxData.left = this.$croppingX
-        cropBoxData.top = this.$croppingY
+        this.$cropBox = this.$imageCropper.querySelector('.cropper-crop-box')
+        this.$cropperContainer =
+          this.$imageCropper.querySelector('.cropper-container')
+        this.$imageInformation = this.$imageCropper.querySelector(
+          '.app-c-image-cropper__image-information'
+        )
 
-        this.cropper.setCropBoxData(cropBoxData)
+        this.cropBoxReady = this.$versions.length > 1
+
+        if (this.cropBoxReady) {
+          this.$imageCropper.querySelector('.cropper-view-box').style.outline =
+            `2px dashed #fd0`
+        }
+
+        this.initCropboxes()
       }.bind(this)
     )
 
@@ -49,6 +105,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         this.updateAriaLabel()
 
         const data = this.cropper.getData(true)
+
+        this.$cropBoxes.forEach((cropBox) =>
+          cropBox.updatePosition(
+            this.$cropBox.clientHeight,
+            this.$cropBox.clientWidth,
+            this.cropper.getData(true).width / this.$targetWidth
+          )
+        )
 
         Object.keys(data).forEach((attribute) => {
           const input = this.$imageCropper.querySelector(
@@ -70,19 +134,44 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
   }
 
+  ImageCropper.prototype.initCropboxes = function () {
+    if (!this.cropBoxReady) {
+      return
+    }
+
+    const cropBoxColours = ['#f47738', '#0f7a52', '#ca3535', '#0f7a52']
+
+    this.$versions.forEach((version, index) => {
+      const { name } = version
+      const colour = cropBoxColours[index % cropBoxColours.length]
+      const cropBox = new Cropbox(version, colour, this.scaledRatio)
+
+      cropBox.updatePosition(
+        this.$cropBox.clientHeight,
+        this.$cropBox.clientWidth,
+        this.cropper.getData(true).width / this.$targetWidth
+      )
+
+      this.$cropBoxes.push(cropBox)
+      this.$cropBox.appendChild(cropBox.el)
+
+      this.$imageInformation.removeAttribute('hidden')
+      const legend = document.createElement('LI')
+      legend.classList.add('app-c-image-cropper__crop-key')
+      legend.innerHTML = `
+          <span style="background:${colour};" class="app-c-image-cropper__crop-key-colour"></span>
+          ${((name.match(/.*(?=_\d+x)/) || [])[0] || name).replace('_', ' ')}
+        `
+      this.$imageInformation.querySelector('ul').appendChild(legend)
+    })
+  }
+
   ImageCropper.prototype.initCropper = function () {
     if (!this.$image || !this.$image.complete || this.cropper) {
       return
     }
 
-    const width = this.$image.clientWidth
-    const naturalWidth = this.$image.naturalWidth
-    const scaledRatio = width / naturalWidth
-
-    // Adjust the crop box limits to the scaled image
-    const minCropBoxWidth = Math.ceil(this.$targetWidth * scaledRatio)
-    const minCropBoxHeight = Math.ceil(this.$targetHeight * scaledRatio)
-
+    this.scaledRatio = this.$image.clientWidth / this.$image.naturalWidth
     this.cropper = new window.Cropper(this.$image, {
       // eslint-disable-line
       viewMode: 2,
@@ -92,8 +181,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       guides: false,
       zoomable: false,
       highlight: false,
-      minCropBoxWidth,
-      minCropBoxHeight,
       rotatable: false,
       scalable: false
     })

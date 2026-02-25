@@ -152,6 +152,7 @@ class ImageTest < ActiveSupport::TestCase
       url: image.url,
       caption: "An SVG image",
       content_type: "image/svg+xml",
+      sources: {},
     }
 
     assert_equal expected_hash, image.publishing_api_details
