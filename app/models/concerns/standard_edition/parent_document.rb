@@ -20,6 +20,7 @@ module StandardEdition::ParentDocument
              through: :child_relationships,
              source: :child_edition
 
+    # TODO: need to do this on create of child document as well.
     after_save :copy_inherited_associations_to_children, if: :is_parent_document?
 
     add_trait Trait
