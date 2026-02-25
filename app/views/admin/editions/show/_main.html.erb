@@ -149,7 +149,7 @@
             },
           ],
           rows: @edition.child_documents.map do | child_document |
-            # TODO show published child on published parent page, and draft child on draft parent page, rather than always showing the latest edition of the child document?
+            # TODO show published child on published parent page, and draft child on draft parent page, rather than always showing the latest edition of the child document?
             # Otherwise the child doc could be renamed in the draft, and we'd be surfacing the renamed title on the PUBLISHED parent
             # Doesn't affect functionality but could be confusing
             child_edition = child_document.editions.last
