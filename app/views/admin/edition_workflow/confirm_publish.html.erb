@@ -6,14 +6,23 @@
 <div class="govuk-grid-row">
   <section class="govuk-grid-column-two-thirds">
     <%= form_tag publish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "well publish-form" do %>
-      <p class="govuk-body govuk-!-margin-bottom-7">Once you publish, this document will be visible to the public</p>
-      <div class="govuk-button-group govuk-!-margin-bottom-6">
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Publish",
-        } %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Once you publish, this document will be visible to the public.</p>
 
-        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
-      </div>
+      <%= render "admin/edition_workflow/child_documents_summary" do %>
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <% if !@edition.is_parent_document? || @edition.child_documents.all? { |child| child.valid?(:publish) } %>
+            <%= render "govuk_publishing_components/components/button", {
+              text: "Publish",
+            } %>
+          <% else %>
+            <%= render "govuk_publishing_components/components/warning_text", {
+              text: "At least one child document has validation errors that need fixing before you can publish.",
+            } %>
+          <% end %>
+
+          <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
+        </div>
+      <% end %>
     <% end %>
   </section>
 </div>

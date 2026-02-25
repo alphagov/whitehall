@@ -1,0 +1,26 @@
+<% if @edition.is_parent_document? %>
+
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Child documents</h2>
+
+  <p class="govuk-body">This document has child documents. Publishing this document will also publish all of its child documents.</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <% @edition.child_documents.each do |child| %>
+      <li><%= link_to(child.title, admin_edition_path(child)) %></li>
+    <% end %>
+  </ul>
+
+  <% if @edition.child_documents.all? { |child| child.valid?(:publish) } %>
+    <%= yield %>
+  <% else %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      text: "At least one child document has validation errors that need fixing before you can publish.",
+      # id: "error_id"
+    } %>
+  <% end %>
+
+<% else %>
+
+  <%= yield %>
+
+<% end %>

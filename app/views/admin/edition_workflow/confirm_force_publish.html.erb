@@ -10,24 +10,26 @@
         text: "You should only force publish documents when no other editor is available to review and publish your work, for example out of hours or in an emergency.",
       } %>
 
-      <%= render "govuk_publishing_components/components/input", {
-        label: {
-          text: "Reason for force publishing",
-        },
-        name: "reason",
-        id: "reason",
-        heading_level: 2,
-        heading_size: "l",
-      } %>
-
-      <div class="govuk-button-group govuk-!-margin-bottom-6">
-        <%= render "govuk_publishing_components/components/button", {
-          text: "Force publish",
-          destructive: true,
+      <%= render "admin/edition_workflow/child_documents_summary" do %>
+        <%= render "govuk_publishing_components/components/input", {
+          label: {
+            text: "Reason for force publishing",
+          },
+          name: "reason",
+          id: "reason",
+          heading_level: 2,
+          heading_size: "l",
         } %>
 
-        <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
-      </div>
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Force publish",
+            destructive: true,
+          } %>
+
+          <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
+        </div>
+      <% end %>
     <% end %>
   </section>
 </div>
