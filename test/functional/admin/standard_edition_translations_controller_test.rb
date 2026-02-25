@@ -219,6 +219,7 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
             "body" => {
               "block" => "govspeak",
               "title" => "Body (required)",
+              "attribute_path" => %w[block_content body],
             },
           },
         },

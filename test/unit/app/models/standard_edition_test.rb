@@ -251,10 +251,12 @@ class StandardEditionTest < ActiveSupport::TestCase
                 "test_object_attribute" => {
                   "title" => "Test object attribute",
                   "block" => "default_object",
+                  "attribute_path" => [],
                   "fields" => {
                     "test_nested_attribute" => {
                       "title" => "Test nested attribute",
                       "block" => "default_string",
+                      "attribute_path" => %w[block_content test_nested_attribute],
                     },
                   },
                 },

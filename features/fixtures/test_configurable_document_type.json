@@ -21,6 +21,7 @@
           "title": "Address",
           "description": "A nested object field",
           "block": "default_object",
+          "attribute_path": [],
           "fields": {
             "street": {
               "title": "Street",
