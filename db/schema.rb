@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_25_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_25_090000) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
@@ -293,6 +293,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_080000) do
     t.datetime "updated_at", precision: nil
     t.index ["document_id"], name: "index_edition_relations_on_document_id"
     t.index ["edition_id"], name: "index_edition_relations_on_edition_id"
+  end
+
+  create_table "edition_relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "child_document_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "parent_edition_id", null: false
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["child_document_id"], name: "index_edition_relationships_on_child_document_id"
+    t.index ["parent_edition_id", "child_document_id"], name: "idx_edrel_unique_parent_child_document", unique: true
+    t.index ["parent_edition_id", "position"], name: "idx_edrel_parent_position"
+    t.index ["parent_edition_id"], name: "index_edition_relationships_on_parent_edition_id"
   end
 
   create_table "edition_role_appointments", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -1225,6 +1237,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_080000) do
     t.datetime "updated_at", precision: nil
   end
 
+  add_foreign_key "edition_relationships", "documents", column: "child_document_id"
+  add_foreign_key "edition_relationships", "editions", column: "parent_edition_id"
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"
