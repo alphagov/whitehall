@@ -1,5 +1,5 @@
 module ConfigurableContentBlocks
-  class SelectWithSearchTagging < BaseConfig
+  class SelectWithSearchTagging < BaseBlock
     include Renderable
     include Admin::TaggableContentHelper
 
