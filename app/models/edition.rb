@@ -261,6 +261,10 @@ class Edition < ApplicationRecord
     false
   end
 
+  def is_parent_document?
+    false
+  end
+
   def all_nation_applicability_selected?
     true
   end
