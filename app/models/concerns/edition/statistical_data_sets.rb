@@ -2,7 +2,7 @@ module Edition::StatisticalDataSets
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
+    def process_associations_before_draft_creation(edition)
       edition.statistical_data_set_documents = @edition.statistical_data_set_documents
     end
   end

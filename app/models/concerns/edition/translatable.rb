@@ -2,7 +2,7 @@ module Edition::Translatable
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
+    def process_associations_before_draft_creation(edition)
       @edition.translations.each do |translation|
         I18n.with_locale(translation.locale) do
           edition.title = translation.title
