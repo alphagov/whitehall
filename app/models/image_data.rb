@@ -40,12 +40,6 @@ class ImageData < ApplicationRecord
     content_type !~ /svg/
   end
 
-  def crop_data_to_params
-    return if crop_data.blank?
-
-    "#{crop_data_width}x#{crop_data_height}+#{crop_data_x}+#{crop_data_y}"
-  end
-
   def requires_crop?
     too_large? && crop_data.blank?
   end
