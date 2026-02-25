@@ -45,7 +45,7 @@ class ImageData < ApplicationRecord
   end
 
   def can_be_cropped?
-    too_large? && bitmap?
+    bitmap?
   end
 
   def original_uploaded?
