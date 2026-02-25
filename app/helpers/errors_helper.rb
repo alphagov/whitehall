@@ -1,10 +1,10 @@
 module ErrorsHelper
-  def errors_for_input(errors, attribute)
+  def errors_for_input(errors, attribute, message_prefix = nil)
     return nil if errors.blank?
 
     errors.filter_map { |error|
       if error.attribute == attribute
-        error.full_message
+        message_prefix.present? ? "#{message_prefix} #{error.message}" : error.full_message
       end
     }
     .join(tag.br)

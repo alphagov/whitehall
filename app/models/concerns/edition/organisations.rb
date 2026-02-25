@@ -43,6 +43,10 @@ module Edition::Organisations
     lead_organisations.pluck(:id)
   end
 
+  def supporting_organisation_ids
+    supporting_organisations.pluck(:id)
+  end
+
   def lead_organisations=(new_lead_organisations)
     self.lead_organisation_ids = new_lead_organisations.map(&:id)
   end

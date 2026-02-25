@@ -9,6 +9,7 @@ class ConfigurableDocumentType
     "lead_image_select" => ConfigurableContentBlocks::LeadImageSelect,
     "default_object" => ConfigurableContentBlocks::DefaultObject,
     "default_array" => ConfigurableContentBlocks::DefaultArray,
+    "ordered_select_with_search_tagging" => ConfigurableContentBlocks::OrderedSelectWithSearchTagging,
     "select_with_search_tagging" => ConfigurableContentBlocks::SelectWithSearchTagging,
   }.freeze
 
