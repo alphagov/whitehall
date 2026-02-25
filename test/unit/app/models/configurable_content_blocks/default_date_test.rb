@@ -31,7 +31,7 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
       configurable_document_type: "test_type",
       block_content: @block_content,
     )
-    @block = ConfigurableContentBlocks::DefaultDate.new(@edition, @schema["test_attribute"], Path.new(%w[test_attribute]))
+    @block = ConfigurableContentBlocks::DefaultDate.new(@edition, @schema["test_attribute"], Path.new(%w[block_content test_attribute]))
   end
 
   test "it renders a default date field" do

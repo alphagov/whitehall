@@ -49,6 +49,8 @@ class StandardEdition::BlockContent
     value = attributes.dup
 
     path.to_a.each do |segment|
+      next if segment == "block_content"
+
       value = value[segment]
       break if value.nil?
     end

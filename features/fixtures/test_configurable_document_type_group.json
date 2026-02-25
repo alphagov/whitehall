@@ -9,7 +9,8 @@
           "body": {
             "title": "Body",
             "description": "The main content of the page",
-            "block": "govspeak"
+            "block": "govspeak",
+            "attribute_path": ["block_content", "body"]
           }
         }
       },
@@ -18,7 +19,8 @@
           "image": {
             "title": "Image",
             "description": "The image for the page",
-            "block": "lead_image_select"
+            "block": "lead_image_select",
+            "attribute_path": ["block_content", "image"]
           }
         }
       }
@@ -73,7 +75,8 @@
           "body": {
             "title": "Body",
             "description": "The main content of the page",
-            "block": "govspeak"
+            "block": "govspeak",
+            "attribute_path": ["block_content", "body"]
           }
         }
       },
@@ -82,7 +85,8 @@
           "image": {
             "title": "Image",
             "description": "The image for the page",
-            "block": "lead_image_select"
+            "block": "lead_image_select",
+            "attribute_path": ["block_content", "image"]
           }
         }
       }

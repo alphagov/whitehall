@@ -9,12 +9,14 @@
           "title": "Body",
           "description": "The main content for the page",
           "required": true,
-          "block": "govspeak"
+          "block": "govspeak",
+          "attribute_path": ["block_content", "body"]
         },
         "lead_paragraph": {
           "title": "Lead paragraph",
           "description": "Optional text that appears above the main content",
-          "block": "default_string"
+          "block": "default_string",
+          "attribute_path": ["block_content", "lead_paragraph"]
         }
       }
     }
