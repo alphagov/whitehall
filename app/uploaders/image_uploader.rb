@@ -23,24 +23,40 @@ class ImageUploader < WhitehallUploader
     end
 
     image_kind_config.versions.each do |v|
-      def crop_to_crop_data(from_version)
-        manipulate! do |img|
-          # prevents running crop on variants
-          # based on an already cropped variant
-          if model.crop_data_to_params.present? && from_version.blank?
-            img.crop(model.crop_data_to_params)
-          end
-
-          img
+      version v.name, from_version: v.from_version&.to_sym, version: v, if: use_versions_for_this_image_kind_proc do
+        def image_kind_version
+          self.class.version_options[:version]
         end
-      end
 
-      version v.name, from_version: v.from_version&.to_sym, if: use_versions_for_this_image_kind_proc do
+        def from_version
+          self.class.version_options[:from_version]
+        end
+
+        delegate :crop, to: :model
+
         def crop_image?(_image)
           !model.requires_crop?
         end
 
-        process crop_to_crop_data: [v.from_version], if: :crop_image?
+        def crop_to_crop_data
+          manipulate! do |img|
+            # prevents running crop on variants
+            # based on an already cropped variant
+            if crop_data_to_params
+              img.crop(crop_data_to_params)
+            end
+
+            img
+          end
+        end
+
+        def crop_data_to_params
+          return unless crop.present? && from_version.blank?
+
+          "#{image_kind_version.width * crop.scale}x#{image_kind_version.height * crop.scale}+#{crop.relative_x_to_width(image_kind_version.width)}+#{crop.relative_y_to_height(image_kind_version.height)}"
+        end
+
+        process :crop_to_crop_data, if: :crop_image?
         process resize_to_fill: v.resize_to_fill
       end
     end
