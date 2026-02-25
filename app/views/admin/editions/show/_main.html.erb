@@ -149,15 +149,19 @@
             },
           ],
           rows: @edition.child_documents.map do | child_document |
+            # TODO show published child on published parent page, and draft child on draft parent page, rather than always showing the latest edition of the child document?
+            # Otherwise the child doc could be renamed in the draft, and we'd be surfacing the renamed title on the PUBLISHED parent
+            # Doesn't affect functionality but could be confusing
+            child_edition = child_document.editions.last
             [
-              { text: child_document.title },
-              { text: child_document.format_name },
+              { text: child_edition.title },
+              { text: child_edition.format_name },
               # actions for Edit and Delete
               {
                 text: raw([
-                  *(link_to("View", admin_edition_path(child_document), class: "govuk-link app-view-summary__table-link")),
-                  *(link_to("Edit", edit_admin_edition_path(child_document), class: "govuk-link app-view-summary__table-link") if child_document.editable?),
-                  *(link_to("Delete", confirm_destroy_admin_edition_path(child_document), class: "govuk-link gem-link--destructive") if child_document.can_delete?),
+                  *(link_to("View", admin_edition_path(child_edition), class: "govuk-link app-view-summary__table-link")),
+                  *(link_to("Edit", edit_admin_edition_path(child_edition), class: "govuk-link app-view-summary__table-link") if child_edition.editable?),
+                  *(link_to("Delete", confirm_destroy_admin_edition_path(child_edition), class: "govuk-link gem-link--destructive") if child_edition.can_delete?),
                 ].compact().join(" ")),
               },
             ]

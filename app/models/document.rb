@@ -12,6 +12,16 @@ class Document < ApplicationRecord
            inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
+  has_many :parent_relationships,
+           class_name: "EditionRelationship",
+           foreign_key: :child_document_id,
+           inverse_of: :child_document,
+           dependent: :restrict_with_error
+
+  has_many :parent_editions,
+           through: :parent_relationships,
+           source: :parent_edition
+
   has_one  :live_edition,
            -> { joins(:document).where("documents.live_edition_id = editions.id") },
            class_name: "Edition",

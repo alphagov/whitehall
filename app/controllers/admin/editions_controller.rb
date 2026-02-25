@@ -538,7 +538,7 @@ private
     parent.with_lock do
       EditionRelationship.create!(
         parent_edition: parent,
-        child_edition: @edition,
+        child_document: @edition.document,
         # position: ... (if you’re creating an ordered child type)
       )
     end

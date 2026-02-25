@@ -2,15 +2,11 @@ module StandardEdition::ChildDocument
   extend ActiveSupport::Concern
 
   included do
-    has_one :parent_relationship,
-            class_name: "EditionRelationship",
-            foreign_key: :child_edition_id,
-            inverse_of: :child_edition,
-            dependent: :restrict_with_error
+    delegate :parent_editions, to: :document
+  end
 
-    has_one :parent_edition,
-            through: :parent_relationship,
-            source: :parent_edition
+  def parent_edition
+    parent_editions.last
   end
 
   def is_child_document?

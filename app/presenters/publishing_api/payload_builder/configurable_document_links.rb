@@ -3,7 +3,7 @@ module PublishingApi::PayloadBuilder
     def self.for(item)
       builders = item.type_instance.presenter("publishing_api")["links"]
       builders.each_with_object({}) { |builder, details|
-        details.merge!(send(builder, item))
+        details.merge!(send(builder, item) || {})
       }.compact
     end
 
