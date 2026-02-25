@@ -11,6 +11,38 @@
           "required": true,
           "block": "govspeak",
           "attribute_path": ["block_content", "body"]
+        },
+        "ministerial_role_appointments": {
+          "title": "Ministers",
+          "block": "select_with_search_tagging",
+          "container": "ministerial_role_appointments",
+          "attribute_path": ["role_appointment_ids"]
+        },
+        "topical_events": {
+          "title": "Topical events",
+          "block": "select_with_search_tagging",
+          "container": "topical_events",
+          "attribute_path": ["topical_event_ids"]
+        },
+        "world_locations": {
+          "title": "World locations",
+          "block": "select_with_search_tagging",
+          "container": "world_locations",
+          "attribute_path": ["world_location_ids"]
+        },
+        "lead_organisations": {
+          "title": "Lead organisations",
+          "required": true,
+          "block": "ordered_select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["lead_organisation_ids"],
+          "size": 4
+        },
+        "supporting_organisations": {
+          "title": "Supporting organisations",
+          "block": "select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["supporting_organisation_ids"]
         }
       }
     },
@@ -69,23 +101,7 @@
       ]
     }
   },
-  "associations" : [
-    {
-      "key": "ministerial_role_appointments"
-    },
-    {
-      "key": "topical_events"
-    },
-    {
-      "key": "topical_event_documents"
-    },
-    {
-      "key": "world_locations"
-    },
-    {
-      "key": "organisations"
-    }
-  ],
+  "associations" : [],
   "settings": {
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",

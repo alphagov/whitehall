@@ -388,20 +388,20 @@ class StandardEditionTest < ActiveSupport::TestCase
   test "conditionally requires worldwide organisation and world location associations" do
     test_type = build_configurable_document_type(
       "test_type", {
-        "associations" => [
-          {
-            "key" => "worldwide_organisations",
-            "required" => true,
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "worldwide_organisations" => {
+                "required" => true,
+                "attribute_path" => %w[worldwide_organisation_document_ids],
+              },
+              "world_locations" => {
+                "required" => false,
+                "attribute_path" => %w[world_location_ids],
+              },
+            },
           },
-          {
-            "key" => "world_locations",
-            "required" => false,
-          },
-          {
-            "key" => "organisations",
-            "required" => true,
-          },
-        ],
+        },
       }
     )
     ConfigurableDocumentType.setup_test_types(test_type)

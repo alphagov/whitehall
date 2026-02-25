@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::TaggableContentHelperTest < ActionView::TestCase
-  test "#taggable_topical_events_container returns an array of select options for all topical events ordered by name" do
+  test "#taggable_topical_events_container returns options for all topical events ordered by name" do
     event_c = create(:topical_event, name: "event C")
     event_b = create(:topical_event, name: "event B")
     event_a = create(:topical_event, name: "event A")

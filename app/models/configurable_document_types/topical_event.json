@@ -87,6 +87,26 @@
               "attribute_path": ["url"]
             }
           }
+        },
+        "topical_event_documents": {
+          "title": "Topical events (experimental)",
+          "block": "select_with_search_tagging",
+          "container": "topical_event_documents",
+          "attribute_path": ["topical_event_document_ids"]
+        },
+        "lead_organisations": {
+          "title": "Lead organisations",
+          "required": true,
+          "block": "ordered_select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["lead_organisation_ids"],
+          "size": 4
+        },
+        "supporting_organisations": {
+          "title": "Supporting organisations",
+          "block": "select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["supporting_organisation_ids"]
         }
       }
     }
@@ -146,14 +166,7 @@
       ]
     }
   },
-  "associations": [
-    {
-      "key": "organisations"
-    },
-    {
-      "key": "topical_event_documents"
-    }
-  ],
+  "associations": [],
   "settings": {
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",

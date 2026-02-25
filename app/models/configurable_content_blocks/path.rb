@@ -1,6 +1,6 @@
 module ConfigurableContentBlocks
   class Path
-    delegate :reduce, to: :@segments
+    delegate :reduce, :each, to: :@segments
 
     def initialize(segments = [])
       @segments = segments
@@ -12,6 +12,10 @@ module ConfigurableContentBlocks
 
     def to_a
       @segments
+    end
+
+    def [](range)
+      self.class.new(@segments[range])
     end
 
     def form_control_id

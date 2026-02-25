@@ -117,7 +117,15 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
             "test_attribute" => {
               "title" => "Test attribute",
               "block" => "default_string",
+              "attribute_path" => %w[block_content test_attribute],
             },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "test_attribute" => {
+            "type" => "string",
           },
         },
       },

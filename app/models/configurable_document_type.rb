@@ -105,6 +105,21 @@ class ConfigurableDocumentType
     end
   end
 
+  def field_at(path, fields = nil)
+    fields = form["fields"] if fields.nil?
+    fields.each do |_key, field|
+      matchable_path = path[..(field["attribute_path"].size)]
+      if (field["attribute_path"] == matchable_path.to_a) || field["attribute_path"].empty?
+        if field["fields"]
+          return field_at(matchable_path, field["fields"])
+        elsif field["attribute_path"] == path.to_a
+          return field
+        end
+      end
+    end
+    nil
+  end
+
   def presenter(key)
     @presenters[key]
   end

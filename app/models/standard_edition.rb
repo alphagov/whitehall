@@ -99,15 +99,20 @@ class StandardEdition < Edition
   end
 
   def organisation_association_enabled?
-    type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
+    lead_organisations_field_path = ConfigurableContentBlocks::Path.new(%w[lead_organisation_ids])
+    type_instance.field_at(lead_organisations_field_path).present?
   end
 
   def worldwide_organisation_association_required?
-    type_instance.associations.find { |assoc| assoc["key"] == "worldwide_organisations" }&.dig("required") == true
+    worldwide_organisations_field_path = ConfigurableContentBlocks::Path.new(%w[worldwide_organisation_document_ids])
+    field = type_instance.field_at(worldwide_organisations_field_path)
+    field && field["required"] == true
   end
 
   def world_location_association_required?
-    type_instance.associations.find { |assoc| assoc["key"] == "world_locations" }&.dig("required") == true
+    world_locations_field_path = ConfigurableContentBlocks::Path.new(%w[world_location_ids])
+    field = type_instance.field_at(world_locations_field_path)
+    field && field["required"] == true
   end
 
   def is_in_valid_state_for_type_conversion?

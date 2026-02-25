@@ -4,7 +4,7 @@
   <%= render "govuk_publishing_components/components/select_with_search", {
     id: "edition_world_locations",
     name: "edition[world_location_ids][]",
-    error_items: errors_for(edition.errors, :world_locations),
+    error_items: errors_for(edition.errors, :world_location_ids, "World locations"),
     label: "World locations" + "#{' (required)' if required}",
     heading_size: "m",
     options: taggable_world_locations_container(edition.world_location_ids),

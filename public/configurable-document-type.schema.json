@@ -69,7 +69,9 @@
             "default_string",
             "govspeak",
             "lead_image_select",
-            "default_select"
+            "default_select",
+            "select_with_search_tagging",
+            "ordered_select_with_search_tagging"
           ]
         },
         "fields": {
@@ -99,6 +101,27 @@
         "blank_option_label": {
           "type": "string",
           "description": "Text to display for the blank/default option in a select input."
+        },
+        "container": {
+          "description": "The option container to be used in the select_with_search_tagging_block",
+          "type": "string",
+          "enum": [
+            "alternative_format_providers",
+            "detailed_guides",
+            "ministerial_role_appointments",
+            "organisations",
+            "role_appointments",
+            "roles",
+            "statistical_data_sets",
+            "topical_event_documents",
+            "topical_events",
+            "world_locations",
+            "worldwide_organisations"
+          ]
+        },
+        "size": {
+          "type": "number",
+          "description": "The number of items in an array field"
         }
       },
       "required": ["title", "block", "attribute_path"],

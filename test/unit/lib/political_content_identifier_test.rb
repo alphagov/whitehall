@@ -39,7 +39,15 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
       build_configurable_document_type(
         "test_type",
         {
-          "associations" => [{ "key" => "organisations" }],
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "lead_organisations" => {
+                  "attribute_path" => %w[lead_organisation_ids],
+                },
+              },
+            },
+          },
           "settings" => { "history_mode_enabled" => true },
         },
       ),

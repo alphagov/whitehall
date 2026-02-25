@@ -70,7 +70,6 @@ class Edition::WorldwideOrganisationTest < ActiveSupport::TestCase
   test "validates presence of at least one worldwide organisation if worldwide organisations are required" do
     edition = EditionRequiringWorldwideOrganisations.build(valid_edition_attributes)
     assert_not edition.valid?
-    assert edition.errors.include?(:worldwide_organisations)
     assert edition.errors.include?(:worldwide_organisation_document_ids)
   end
 end
