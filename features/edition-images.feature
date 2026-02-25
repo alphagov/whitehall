@@ -49,7 +49,7 @@ Scenario: User uploads a header image
     When I visit the images tab of the document "The history of GOV.UK"
     Then I should see a card associated with the header image usage
     When I click to add a header image
-    And I upload a 960x960 header image
+    And I upload a 1536x1024 header image
     And I update the image details and save
     Then I should see the header image is uploaded
 

@@ -32,7 +32,7 @@ Feature: Images tab on edit edition
   Scenario: Image uploaded with no cropping required
     And a draft publication "New Draft Publication" exists
     When I visit the images tab of the document "New Draft Publication"
-    And I upload a 960x640 image
+    And I upload an image
     Then I should not see the image cropper in the following edit screen
     When I update the image details and save
     Then I should see a list with 1 image      
