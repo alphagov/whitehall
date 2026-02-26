@@ -125,6 +125,7 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           "title" => "extra field",
           "description" => "an extra field",
           "block" => "govspeak",
+          "attribute_path" => %w[block_content extra_field],
         }
         assert_equal SchemaValidator.for(document).first, "Schema has form fields extra_field that are not defined in schema attributes"
       end

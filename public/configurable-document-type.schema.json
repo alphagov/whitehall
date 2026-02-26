@@ -101,7 +101,7 @@
           "description": "Text to display for the blank/default option in a select input."
         }
       },
-      "required": ["title", "block"],
+      "required": ["title", "block", "attribute_path"],
       "additionalProperties": false
     },
     "block_attributes": {
