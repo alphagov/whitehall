@@ -85,6 +85,42 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_equal 0, @edition.reload.attachments.size
   end
 
+  test "POST :create with invalid user_input validation does not save the attachment and re-renders the new template" do
+    invalid_params = valid_html_attachment_params.merge(command_paper_number: "CP1510")
+
+    post :create, params: { edition_id: @edition, attachment: invalid_params }
+
+    assert_template :new
+    assert_equal 0, @edition.reload.attachments.size
+  end
+
+  test "POST :create with invalid user_input validation does not publish draft of attachment to publishing api" do
+    invalid_params = valid_html_attachment_params.merge(command_paper_number: "CP1510")
+
+    Whitehall::PublishingApi.expects(:save_draft).with(instance_of(HtmlAttachment)).never
+    Whitehall::PublishingApi.stubs(:save_draft).with(@edition)
+
+    post :create, params: { edition_id: @edition, attachment: invalid_params }
+  end
+
+  test "PUT :update with invalid user_input validation does not save the attachment and re-renders the edit template" do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    put :update,
+        params: {
+          edition_id: @edition,
+          id: attachment.id,
+          attachment: {
+            title: attachment.title,
+            command_paper_number: "CP1510",
+            govspeak_content_attributes: { body: attachment.body, id: attachment.govspeak_content.id },
+          },
+        }
+
+    assert_template :edit
+    assert_nil attachment.reload.command_paper_number
+  end
+
   test "PUT :update for HTML attachment updates the attachment" do
     attachment = create(:html_attachment, attachable: @edition)
 
