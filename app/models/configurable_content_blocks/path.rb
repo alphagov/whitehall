@@ -1,15 +1,27 @@
 module ConfigurableContentBlocks
   class Path
+    delegate :reduce, :each, to: :@segments
+
     def initialize(segments = [])
+      segments = [segments] if segments.is_a? String
       @segments = segments
     end
 
     def push(segments = [])
+      segments = [segments] if segments.is_a? String
       self.class.new([*@segments, *segments])
     end
 
     def to_a
       @segments
+    end
+
+    def [](range)
+      self.class.new(@segments[range])
+    end
+
+    def ==(other)
+      to_a == other.to_a
     end
 
     def form_control_id

@@ -4,7 +4,7 @@
   padding: true,
 } %>
 
-<% if block.content.blank? && block.rendered_default_image_url %>
+<% if block.value.blank? && block.rendered_default_image_url %>
   <%= render "govuk_publishing_components/components/heading", {
     text: "Default lead image",
     font_size: "m",

@@ -1,14 +1,6 @@
 module ConfigurableContentBlocks
-  class DefaultSelect
-    include BaseConfig
+  class DefaultSelect < BaseBlock
     include Renderable
-    attr_reader :edition, :path
-
-    def initialize(edition, config, path)
-      @edition = edition
-      @config = config
-      @path = path
-    end
 
     def select_options
       [
@@ -17,7 +9,7 @@ module ConfigurableContentBlocks
         {
           text: opt["label"],
           value: opt["value"],
-          selected: opt["value"] == @edition.block_content&.value_at(@path),
+          selected: opt["value"] == value,
         }
       end
     end

@@ -99,15 +99,15 @@ class StandardEdition < Edition
   end
 
   def organisation_association_enabled?
-    type_instance.associations.map { |assoc| assoc["key"] }.include?("organisations")
+    type_instance.field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
   end
 
   def worldwide_organisation_association_required?
-    type_instance.associations.find { |assoc| assoc["key"] == "worldwide_organisations" }&.dig("required") == true
+    type_instance.required_field_paths.include?(ConfigurableContentBlocks::Path.new("worldwide_organisation_document_ids"))
   end
 
   def world_location_association_required?
-    type_instance.associations.find { |assoc| assoc["key"] == "world_locations" }&.dig("required") == true
+    type_instance.required_field_paths.include?(ConfigurableContentBlocks::Path.new("world_location_ids"))
   end
 
   def is_in_valid_state_for_type_conversion?
@@ -120,6 +120,8 @@ class StandardEdition < Edition
       result << ImageUsage.new(key: usage_key, kinds:, **config.except("kinds"))
     end
   end
+
+  delegate :error_labels, to: :type_instance
 
 private
 

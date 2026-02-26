@@ -1,0 +1,21 @@
+<%= render "govuk_publishing_components/components/fieldset", {
+  legend_text: block.title + (block.required ? " (required)" : ""),
+  heading_level: 3,
+  heading_size: "m",
+  id: block.path.form_control_id,
+  error_message: errors_for_input(block.edition.errors, block.path.validation_error_attribute.to_sym, block.title),
+} do %>
+  <div class="govuk-!-margin-bottom-6">
+    <% 1.upto(block.size) do |index| %>
+      <% select_label = "#{block.title.singularize} #{index}" %>
+      <%= render "govuk_publishing_components/components/select_with_search", {
+        id: "#{block.path.form_control_id}_#{index}",
+        name: block.path.form_control_name + "[]",
+        label: (index == 1 && block.required) ? (select_label + " (required)") : select_label,
+        heading_size: "s",
+        include_blank: true,
+        options: block.public_send("taggable_#{block.container}_container", [block.value[index - 1]]),
+      } %>
+    <% end %>
+  </div>
+<% end %>

@@ -11,6 +11,26 @@
           "required": true,
           "block": "govspeak",
           "attribute_path": ["block_content", "body"]
+        },
+        "topical_events": {
+          "title": "Topical Events",
+          "block": "select_with_search_tagging",
+          "container": "topical_events",
+          "attribute_path": ["topical_event_ids"]
+        },
+        "worldwide_organisations": {
+          "title": "Worldwide organisations",
+          "required": true,
+          "block": "select_with_search_tagging",
+          "container": "worldwide_organisations",
+          "attribute_path": ["worldwide_organisation_document_ids"]
+        },
+        "world_locations": {
+          "title": "World locations",
+          "required": true,
+          "block": "select_with_search_tagging",
+          "container": "world_locations",
+          "attribute_path": ["world_location_ids"]
         }
       }
     },
@@ -68,22 +88,7 @@
       ]
     }
   },
-  "associations" : [
-    {
-      "key": "topical_events"
-    },
-    {
-      "key": "topical_event_documents"
-    },
-    {
-      "key": "worldwide_organisations",
-      "required": true
-    },
-    {
-      "key": "world_locations",
-      "required": true
-    }
-  ],
+  "associations" : [],
   "settings": {
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",

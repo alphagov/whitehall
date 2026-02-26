@@ -251,10 +251,12 @@ class StandardEditionTest < ActiveSupport::TestCase
                 "test_object_attribute" => {
                   "title" => "Test object attribute",
                   "block" => "default_object",
+                  "attribute_path" => [],
                   "fields" => {
                     "test_nested_attribute" => {
                       "title" => "Test nested attribute",
                       "block" => "default_string",
+                      "attribute_path" => %w[block_content test_nested_attribute],
                     },
                   },
                 },
@@ -386,20 +388,20 @@ class StandardEditionTest < ActiveSupport::TestCase
   test "conditionally requires worldwide organisation and world location associations" do
     test_type = build_configurable_document_type(
       "test_type", {
-        "associations" => [
-          {
-            "key" => "worldwide_organisations",
-            "required" => true,
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "worldwide_organisations" => {
+                "required" => true,
+                "attribute_path" => %w[worldwide_organisation_document_ids],
+              },
+              "world_locations" => {
+                "required" => false,
+                "attribute_path" => %w[world_location_ids],
+              },
+            },
           },
-          {
-            "key" => "world_locations",
-            "required" => false,
-          },
-          {
-            "key" => "organisations",
-            "required" => true,
-          },
-        ],
+        },
       }
     )
     ConfigurableDocumentType.setup_test_types(test_type)
@@ -575,6 +577,35 @@ class StandardEditionTest < ActiveSupport::TestCase
         "common_property" => "common value", # retained from previous type
         # initial_property removed
       }, page.block_content.to_h)
+    end
+
+    test "#error_labels returns a mapping of dot-separated attribute paths to field titles" do
+      test_type = build_configurable_document_type(
+        "test_type", {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "object_attribute" => {
+                  "attribute_path" => %w[object_attribute],
+                  "fields" => {
+                    "nested_attribute" => {
+                      "attribute_path" => %w[nested_attribute],
+                      "title" => "Nested attribute",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(test_type)
+      page = StandardEdition.new(configurable_document_type: "test_type")
+
+      assert_equal({
+        "field_attribute" => "Test Attribute",
+        "object_attribute.nested_attribute" => "Nested attribute",
+      }, page.error_labels)
     end
   end
 end

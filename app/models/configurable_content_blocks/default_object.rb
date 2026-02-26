@@ -1,14 +1,6 @@
 module ConfigurableContentBlocks
-  class DefaultObject
-    include BaseConfig
+  class DefaultObject < BaseBlock
     include Renderable
-    attr_reader :edition, :path
-
-    def initialize(edition, config, path)
-      @edition = edition
-      @config = config
-      @path = path
-    end
 
     def root?
       @config["root"]
