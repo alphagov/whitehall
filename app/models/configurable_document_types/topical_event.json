@@ -2,6 +2,13 @@
   "key": "topical_event",
   "title": "Topical event",
   "description": "Editionable topical events",
+  "child_documents": [
+    {
+      "document_type": "topical_event_about_page",
+      "required": false,
+      "allow_multiple": false
+    }
+  ],
   "forms": {
     "documents": {
       "fields": {

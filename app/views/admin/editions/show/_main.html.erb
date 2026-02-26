@@ -18,17 +18,17 @@
         items: [
           type_of_document,
           { field: "Status", value: status_text(@edition).html_safe },
-          { field: "Change type", value: @edition.minor_change? ? "Minor" : "Major" },
-          *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
-          {
+          ({ field: "Change type", value: @edition.minor_change? ? "Minor" : "Major" } unless @edition.is_child_document?),
+          *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations) && !@edition.is_child_document?),
+          ({
             field: "Review date",
             value: @edition.document.review_reminder.present? ? @edition.document.review_reminder.review_at.strftime("%-d %B %Y") : "Not set",
-          },
-          {
+          } unless @edition.is_child_document?),
+          ({
             field: "Primary language",
             value: Locale.new(@edition.primary_locale || "en").native_and_english_language_name,
-          },
-        ],
+          } unless @edition.is_child_document?),
+        ].compact,
       } %>
     </div>
   </section>
@@ -58,7 +58,7 @@
     </section>
   <% end %>
 
-  <% if @edition.requires_taxon? %>
+  <% if !@edition.is_child_document? && @edition.requires_taxon? %>
     <section class="app-view-summary__section app-view-summary__taxonomy-topics">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Topic taxonomy tags",
@@ -114,6 +114,57 @@
         <% end %>
       <% else %>
         <p class="govuk-body">No worldwide related tags</p>
+      <% end %>
+    </section>
+  <% end %>
+
+  <% if @edition.allows_child_documents? %>
+    <section class="app-view-summary__section app-view-summary__section--child_documents">
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Child documents",
+        heading_level: 2,
+        font_size: "l",
+        margin_bottom: 3,
+      } %>
+
+      <% if @edition.editable? %>
+        <p class="govuk-body">
+          <%= link_to("Add child document",
+                      choose_type_admin_child_documents_path(parent_edition_id: @edition.id),
+                      class: "govuk-link") %>
+        </p>
+      <% end %>
+
+      <% if @edition.child_documents.any? %>
+        <%= render "govuk_publishing_components/components/table", {
+          head: [
+            {
+              text: "Title",
+            },
+            {
+              text: "Type",
+            },
+            {
+              text: "Actions",
+            },
+          ],
+          rows: @edition.child_documents.map do | child_document |
+            [
+              { text: child_document.title },
+              { text: child_document.format_name },
+              # actions for Edit and Delete
+              {
+                text: raw([
+                  *(link_to("View", admin_edition_path(child_document), class: "govuk-link app-view-summary__table-link")),
+                  *(link_to("Edit", edit_admin_edition_path(child_document), class: "govuk-link app-view-summary__table-link") if child_document.editable?),
+                  *(link_to("Delete", confirm_destroy_admin_edition_path(child_document), class: "govuk-link gem-link--destructive") if child_document.can_delete?),
+                ].compact().join(" ")),
+              },
+            ]
+          end,
+        } %>
+      <% else %>
+        <p class="govuk-body">No child documents for this document</p>
       <% end %>
     </section>
   <% end %>

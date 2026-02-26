@@ -170,6 +170,10 @@ class Edition < ApplicationRecord
     to_model.class.name.underscore
   end
 
+  def allows_child_documents?
+    false
+  end
+
   def has_been_tagged?
     api_response = Services.publishing_api.get_expanded_links(content_id, with_drafts: false)
 
@@ -256,6 +260,14 @@ class Edition < ApplicationRecord
 
   def is_latest_edition?
     document.latest_edition == self
+  end
+
+  def is_child_document?
+    false
+  end
+
+  def is_parent_document?
+    false
   end
 
   def all_nation_applicability_selected?

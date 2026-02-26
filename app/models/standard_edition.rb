@@ -11,6 +11,8 @@ class StandardEdition < Edition
   include Edition::WorldwideOrganisations
   include HasBlockContent
   include StandardEdition::DefaultLeadImage
+  include StandardEdition::ParentDocument
+  include StandardEdition::ChildDocument
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
@@ -87,7 +89,10 @@ class StandardEdition < Edition
   end
 
   def base_path
-    "#{type_instance.settings['base_path_prefix']}/#{slug}"
+    # Bit of a hack - would be nice to restrict all of the child document logic
+    # to the ChildDocuments concern, but we can't override base_path in there and
+    # fall back to the generic implementation here.
+    child_document_base_path_override || "#{type_instance.settings['base_path_prefix']}/#{slug}"
   end
 
   def type_instance
