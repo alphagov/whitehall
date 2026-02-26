@@ -28,13 +28,13 @@ private
   helper_method :edition_image_ids
 
   def save_attachment
-    super
+    result = super
 
-    if attachment.valid? && !attachable_is_an_edition?
+    if result && !attachable_is_an_edition?
       Whitehall::PublishingApi.save_draft(attachment)
     end
 
-    attachment.valid?
+    result
   end
 
   def build_attachment
