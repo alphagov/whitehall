@@ -28,8 +28,12 @@ module Edition::WorldLocations
 
   def at_least_one_world_location
     if world_locations.empty?
-      errors.add(:world_locations, "at least one required")
+      errors.add(:world_location_ids, "at least one required")
     end
+  end
+
+  def error_labels
+    super.merge({ "world_location_ids" => "World locations" })
   end
 
   def search_index

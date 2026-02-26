@@ -120,13 +120,26 @@ class ConfigurableDocumentType
     nil
   end
 
+  def error_labels
+    {}.tap do |labels|
+      visitor = lambda do |path, field|
+        # we only want labels for leaf fields, so do nothing if this field isn't one
+        return if field["fields"]
+
+        labels[path.validation_error_attribute] = field["title"]
+      end
+
+      visit_fields_with(visitor)
+    end
+  end
+
   def field_paths(&block)
     [].tap do |fields|
       visitor = lambda do |path, field|
         # we only want labels for leaf fields, so do nothing if this field isn't one
         return if field["fields"]
 
-        fields << path if (!block_given? || block.call(field))
+        fields << path if !block_given? || block.call(field)
       end
 
       visit_fields_with(visitor)
@@ -145,6 +158,7 @@ class ConfigurableDocumentType
   end
 
 private
+
   def visit_fields_with(visitor)
     walk_fields { |path, field| visitor.call(path, field) }
   end

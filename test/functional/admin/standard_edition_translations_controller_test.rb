@@ -145,7 +145,7 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
           "fields" => {
             "test_attribute" => {
               "block" => "govspeak",
-              "title" => "Test Attribute",
+              "title" => "Test attribute",
               "required" => true,
               "attribute_path" => %w[block_content test_attribute],
             },

@@ -578,5 +578,34 @@ class StandardEditionTest < ActiveSupport::TestCase
         # initial_property removed
       }, page.block_content.to_h)
     end
+
+    test "#error_labels returns a mapping of dot-separated attribute paths to field titles" do
+      test_type = build_configurable_document_type(
+        "test_type", {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "object_attribute" => {
+                  "attribute_path" => %w[object_attribute],
+                  "fields" => {
+                    "nested_attribute" => {
+                      "attribute_path" => %w[nested_attribute],
+                      "title" => "Nested attribute",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(test_type)
+      page = StandardEdition.new(configurable_document_type: "test_type")
+
+      assert_equal({
+        "field_attribute" => "Test Attribute",
+        "object_attribute.nested_attribute" => "Nested attribute",
+      }, page.error_labels)
+    end
   end
 end

@@ -121,6 +121,25 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal third_link.text, "Date is invalid"
     assert_equal third_link[:href], "#error_summary_test_object_date"
   end
+
+  test "applies labels to links if the object " do
+    object = LabelledErrorSummaryTestObject.new(nil, nil)
+    object.validate
+    render_inline(Admin::ErrorSummaryComponent.new(object:))
+
+    first_link = page.all(".gem-c-error-summary__list-item")[0].find("a")
+    second_link = page.all(".gem-c-error-summary__list-item")[1].find("a")
+    third_link = page.all(".gem-c-error-summary__list-item")[2].find("a")
+
+    assert_equal page.all(".gem-c-error-summary__list-item").count, 3
+    assert_equal page.all(".gem-c-error-summary__list-item a").count, 3
+    assert_equal first_link.text, "Title label cannot be blank"
+    assert_equal first_link[:href], "#labelled_error_summary_test_object_title"
+    assert_equal second_link.text, "Date label cannot be blank"
+    assert_equal second_link[:href], "#labelled_error_summary_test_object_date"
+    assert_equal third_link.text, "Date label is invalid"
+    assert_equal third_link[:href], "#labelled_error_summary_test_object_date"
+  end
 end
 
 class ErrorSummaryTestObject
@@ -137,5 +156,14 @@ class ErrorSummaryTestObject
 
   def date_is_a_date
     errors.add(:date, :invalid) unless date.is_a?(Date)
+  end
+end
+
+class LabelledErrorSummaryTestObject < ErrorSummaryTestObject
+  def error_labels
+    {
+      "title" => "Title label",
+      "date" => "Date label",
+    }
   end
 end

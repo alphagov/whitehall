@@ -121,6 +121,8 @@ class StandardEdition < Edition
     end
   end
 
+  delegate :error_labels, to: :type_instance
+
 private
 
   def string_for_slug
