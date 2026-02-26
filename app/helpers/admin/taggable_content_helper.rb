@@ -1,6 +1,30 @@
 # A bunch of helpers for efficiently generating select options for taggable
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
+  def taggable_topical_events_container(selected_ids = [])
+    TopicalEvent.order(:name).map do |topical_event|
+      {
+        text: topical_event.name,
+        value: topical_event.id,
+        selected: selected_ids.include?(topical_event.id),
+      }
+    end
+  end
+
+  def taggable_topical_event_documents_container(selected_ids = [])
+    StandardEdition
+      .latest_edition
+      .where(configurable_document_type: "topical_event")
+      .order(:title)
+      .map do |topical_event|
+        {
+          text: topical_event.title,
+          value: topical_event.document.id,
+          selected: selected_ids.include?(topical_event.document.id),
+        }
+      end
+  end
+
   def taggable_organisations_container(selected_ids = [])
     cached_taggable_organisations.map do |o|
       {
