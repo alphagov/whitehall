@@ -99,20 +99,15 @@ class StandardEdition < Edition
   end
 
   def organisation_association_enabled?
-    lead_organisations_field_path = ConfigurableContentBlocks::Path.new(%w[lead_organisation_ids])
-    type_instance.field_at(lead_organisations_field_path).present?
+    type_instance.field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
   end
 
   def worldwide_organisation_association_required?
-    worldwide_organisations_field_path = ConfigurableContentBlocks::Path.new(%w[worldwide_organisation_document_ids])
-    field = type_instance.field_at(worldwide_organisations_field_path)
-    field && field["required"] == true
+    type_instance.required_field_paths.include?(ConfigurableContentBlocks::Path.new("worldwide_organisation_document_ids"))
   end
 
   def world_location_association_required?
-    world_locations_field_path = ConfigurableContentBlocks::Path.new(%w[world_location_ids])
-    field = type_instance.field_at(world_locations_field_path)
-    field && field["required"] == true
+    type_instance.required_field_paths.include?(ConfigurableContentBlocks::Path.new("world_location_ids"))
   end
 
   def is_in_valid_state_for_type_conversion?
