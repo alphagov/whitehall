@@ -59,6 +59,32 @@ landing_page_image:
       width: 610
       height: 457
       from_version: landing_page_tablet_2x
+hero:
+  display_name: "Hero image"
+  valid_width: 2400
+  valid_height: 800
+  versions:
+    - name: desktop_2x
+      width: 2400
+      height: 800
+    - name: desktop
+      width: 1200
+      height: 400
+      from_version: desktop_2x
+    - name: tablet_2x
+      width: 1536
+      height: 1152
+    - name: tablet
+      width: 768
+      height: 576
+      from_version: tablet_2x
+    - name: mobile_2x
+      width: 1280
+      height: 960
+    - name: mobile
+      width: 640
+      height: 480
+      from_version: mobile_2x
 hero_mobile:
   display_name: "Mobile hero image (2x pixel density) (1280 by 960)"
   valid_width: 1280
@@ -114,7 +140,7 @@ topical_event_header:
     - name: mobile
       width: 640
       height: 360
-      from_version: tablet_2x      
+      from_version: tablet_2x
     - name: desktop_2x
       width: 1024
       height: 1024

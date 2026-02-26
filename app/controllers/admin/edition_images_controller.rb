@@ -24,7 +24,7 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if image_data_params["crop_data"].present?
       image_data = image.image_data
-      new_image_data = ImageData.new
+      new_image_data = ImageData.new(image_kind: image_data.image_kind)
       new_image_data.to_replace_id = image_data.id
       new_image_data.assign_attributes(image_data_params)
       new_image_data.file.download! image_data.file.url

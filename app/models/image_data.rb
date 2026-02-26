@@ -25,6 +25,53 @@ class ImageData < ApplicationRecord
 
   delegate :url, :content_type, to: :file
 
+  after_initialize do |image_data|
+    if image_data.image_kind_config.present?
+      ImageUploader.versions = {}
+
+      image_data.image_kind_config.versions.each do |version|
+        new_version = ImageUploader.version version.name, version:, from_version: version.from_version&.to_sym do
+          def image_kind_version
+            self.class.version_options[:version]
+          end
+
+          def from_version
+            self.class.version_options[:from_version]
+          end
+
+          delegate :crop, to: :model
+
+          def crop_image?(_image)
+            !model.requires_crop?
+          end
+
+          def crop_to_crop_data
+            manipulate! do |img|
+              # prevents running crop on variants
+              # based on an already cropped variant
+              if crop_data_to_params
+                img.crop(crop_data_to_params)
+              end
+
+              img
+            end
+          end
+
+          def crop_data_to_params
+            return unless crop.present? && from_version.blank?
+
+            "#{image_kind_version.width * crop.scale}x#{image_kind_version.height * crop.scale}+#{crop.relative_x_to_width(image_kind_version.width)}+#{crop.relative_y_to_height(image_kind_version.height)}"
+          end
+
+          process :crop_to_crop_data, if: :crop_image?
+          process resize_to_fill: version.resize_to_fill 
+        end
+
+        ImageUploader.versions[version.name.to_sym] = new_version
+      end
+    end
+  end
+
   def filename
     file&.file&.filename
   end
