@@ -6,7 +6,6 @@ class ConfigurableDocumentType
     "govspeak" => ConfigurableContentBlocks::Govspeak,
     "default_date" => ConfigurableContentBlocks::DefaultDate,
     "default_select" => ConfigurableContentBlocks::DefaultSelect,
-    "lead_image_select" => ConfigurableContentBlocks::LeadImageSelect,
     "default_object" => ConfigurableContentBlocks::DefaultObject,
     "default_array" => ConfigurableContentBlocks::DefaultArray,
   }.freeze

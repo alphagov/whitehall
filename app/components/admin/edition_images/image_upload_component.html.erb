@@ -27,7 +27,7 @@
     id: "edition_images_image_data_file",
     hint: raw(hint_text.join("")),
     error_items: new_image.present? ? helpers.errors_for(new_image.errors, :"image_data.file") : nil,
-    accept: "image/png, image/jpeg, image/gif, image/svg+xml",
+    accept: allowed_extensions,
   } %>
 
   <%= hidden_field_tag("usage", image_usage.key) %>

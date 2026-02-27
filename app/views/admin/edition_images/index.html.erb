@@ -12,52 +12,24 @@
 
     <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |image_usage| %>
       <% image = @edition.images.usable_as(image_usage).first %>
-      <%= render Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:) %>
+      <%= image_usage.lead? ? render(Admin::EditionImages::LeadImageCardComponent.new(edition: @edition, image:, image_usage:)) : render(Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:)) %>
     <% end %>
 
     <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each_with_index do |usage, multiple_upload_section_index| %>
       <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
 
-      <% if usage.embeddable? %>
-        <% if @edition.is_a?(StandardEdition) %>
-          <% if @edition.type_instance.form("images").present? %>
-            <%= form_for [:admin, @edition] do %>
-              <%= hidden_field_tag :redirect_to, admin_edition_images_path(@edition) %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
+        font_size: "l",
+      } %>
 
-              <%= render ConfigurableContentBlocks::DefaultObject.new(@edition, @edition.type_instance.form("images").merge("root" => true), ConfigurableContentBlocks::Path.new) %>
-              <div class="govuk-button-group">
-                <%= render "govuk_publishing_components/components/button", {
-                  text: "Save",
-                  value: "save",
-                  name: "save",
-                } %>
-              </div>
-            <% end %>
-          <% end %>
-          <%= render "govuk_publishing_components/components/heading", {
-            text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
-            font_size: "l",
-          } %>
-        <% else %>
-          <%= render "govuk_publishing_components/components/heading", {
-            text: "Uploaded images",
-            font_size: "l",
-          } %>
-          <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) %>
-        <% end %>
+      <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) if usage.embeddable? && !@edition.is_a?(StandardEdition) %>
 
-        <%= render "govuk_publishing_components/components/heading", {
-          text: "Images available to use in document",
-          font_size: "m",
-          padding: true,
-        } %>
-      <% else %>
-        <%= render "govuk_publishing_components/components/heading", {
-          text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
-          font_size: "l",
-          padding: true,
-        } %>
-      <% end %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "Images available to use in document",
+        font_size: "m",
+        padding: true,
+      } if usage.embeddable? %>
 
       <% current_images = @edition.images.usable_as(usage) %>
       <% current_images = current_images - [@edition.lead_image].compact if @edition.can_have_custom_lead_image? %>

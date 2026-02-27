@@ -13,25 +13,12 @@
           "attribute_path": ["block_content", "body"]
         }
       }
-    },
-    "images": {
-      "fields": {
-        "image": {
-          "title": "Custom lead image",
-          "description": "Select a lead image, if required",
-          "block": "lead_image_select",
-          "attribute_path": ["block_content", "image"]
-        }
-      }
     }
   },
   "schema": {
     "attributes": {
       "body": {
         "type": "string"
-      },
-      "image": {
-        "type": "integer"
       }
     },
     "validations": {
@@ -57,8 +44,7 @@
   "presenters": {
     "publishing_api": {
       "details": {
-        "body": "govspeak",
-        "image": "lead_image"
+        "body": "govspeak"
       },
       "links": [
         "topical_events",
@@ -96,6 +82,11 @@
         "govspeak_embed": {
           "kinds": ["default"],
           "multiple": true
+        },
+        "lead": {
+          "label": "lead",
+          "kinds": ["default"],
+          "multiple": false
         }
       }
     },

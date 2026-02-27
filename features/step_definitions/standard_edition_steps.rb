@@ -14,7 +14,6 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
         summary: summary || defaults[:summary],
         primary_locale: locale,
         block_content: {
-          "lead_image" => images.first.image_data.id.to_s,
           "body" => body || defaults[:body],
           "date_field" => date_field,
           "street" => street,
@@ -96,38 +95,40 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
   click_button "Save and go to document summary"
 end
 
-Then("when I switch to the Images tab to fill in the other configurable fields") do
-  # Pretend we've uploaded an image already
+When("I upload single and multiple usage images") do
   edition = @standard_edition || StandardEdition.last
-  images = [
-    create(:image, image_data: create(:image_data, file: File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg")))),
-    create(:image, image_data: create(:image_data, file: File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))),
-  ]
-  edition.update!(images: images)
-
-  # Go to the Images tab to select the image
   click_link "Edit draft"
   click_link "Images"
 
-  # This is a lead image select block
-  # Assert that the valueless "No image selected" option is present as the first option, and that no option has been selected yet
-  expect(page).to have_select("Lead Image", options: ["No image selected", edition.images.first.filename, edition.images.last.filename])
-  expect(page).to have_select("Lead Image", selected: nil)
+  # Upload a lead usage image
+  expect(page).to have_css("img[src='#{edition.placeholder_image_url}']") # Lead image shows a placeholder when there is no selection
 
-  # Now select the image and save
-  select edition.images.last.filename, from: "Lead Image"
+  within "#uploaded_lead_image_card" do
+    click_link "Add"
+  end
+
+  lead_image_file = Rails.root.join("test/fixtures/big-cheese.960x640.jpg")
+  upload_file(960, 640, "lead", lead_image_file)
   click_button "Save"
+
+  #   Also upload an embeddable image
+  embeddable_img_file = Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
+  upload_file(960, 640, "govspeak_embed", embeddable_img_file)
 end
 
-Then("the configurable fields on the Images tab are persisted") do
-  # Get back to the Images tab
+Then("the images are persisted") do
   edition = @standard_edition || StandardEdition.last
   visit admin_standard_edition_path(edition)
   click_link "Edit draft"
   click_link "Images"
 
-  # Check the select value is pre-selected
-  expect(page).to have_select("Lead Image", selected: edition.images.last.filename)
+  within "#uploaded_lead_image_card" do
+    expect(page.find("img")["src"]).to match(/s960_big-cheese.960x640.jpg/)
+  end
+
+  within "#uploaded_embeddable_image_list" do
+    expect(page.find("img")["src"]).to match(/s960_minister-of-funk.960x640.jpg/)
+  end
 end
 
 And("the configurable fields on the Document tab are not overwritten") do
@@ -154,14 +155,15 @@ Given(/^a draft configurable document exists$/) do
 end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
-  image = create(:image)
+  lead_image = create(:image, usage: "lead")
+  embeddable_image = create(:image, usage: "govspeak_embed")
   standard_edition = create(
     :submitted_standard_edition,
     {
       configurable_document_type: "test",
-      images: [image],
+      images: [lead_image, embeddable_image],
       title: title,
-      block_content: default_block_content_for_locale("en").merge("lead_image" => image.image_data.id.to_s),
+      block_content: default_block_content_for_locale("en"),
     },
   )
   stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
@@ -196,7 +198,13 @@ And(/^a new draft of "([^"]*)" is created with the correct field values$/) do |t
   expect(page).to have_field(name: "edition[block_content][list_of_foods][0][food]", with: "Apple")
 
   click_link "Images"
-  expect(page).to have_select("Lead Image", selected: standard_edition.images.first.filename)
+  within "#uploaded_lead_image_card" do
+    expect(page.find("img")["src"]).to match(standard_edition.images.detect { |i| i.usage == "lead" }.thumbnail)
+  end
+
+  within "#uploaded_embeddable_image_list" do
+    expect(page.find("img")["src"]).to match(standard_edition.images.detect { |i| i.usage == "govspeak_embed" }.thumbnail)
+  end
 end
 
 When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)"$/) do |configurable_document_type, title|
@@ -227,7 +235,6 @@ end
 
 Then(/^configured content blocks should appear on the translation page$/) do
   expect(page).to have_field("Body")
-  expect(page).to have_select("Image")
   expect(page).to have_field("Day")
   expect(page).to have_field("Month")
   expect(page).to have_field("Year")
@@ -243,11 +250,6 @@ And(/^the Welsh translation fields should be pre-populated with primary locale c
   expect(page).to have_field("Day", with: content[:date_field]["3"])
   expect(page).to have_field(name: "edition[block_content][city]", with: "London")
   expect(page).to have_field(name: "edition[block_content][street]", with: "Bakers Street")
-end
-
-And(/^the image selections should be preserved from the primary locale$/) do
-  edition = @standard_edition || StandardEdition.last
-  expect(page).to have_select("Lead Image", selected: edition.images.first.filename)
 end
 
 And(/^I should see the original English content in "original text" sections$/) do

@@ -10,7 +10,7 @@ class StandardEdition < Edition
   include Edition::Organisations
   include Edition::WorldwideOrganisations
   include HasBlockContent
-  include StandardEdition::DefaultLeadImage
+  include StandardEdition::LeadImage
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
@@ -44,10 +44,6 @@ class StandardEdition < Edition
 
   def body
     block_content["body"]
-  end
-
-  def lead_image
-    block_content["image"]
   end
 
   def body=(_)

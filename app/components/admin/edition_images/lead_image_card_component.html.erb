@@ -1,3 +1,9 @@
+<%= render "govuk_publishing_components/components/details", {
+  title: "Using a lead image",
+} do %>
+  <%= lead_image_guidance %>
+<% end %>
+
 <%= render "govuk_publishing_components/components/summary_card", {
   id: "uploaded_#{image_usage.key}_image_card",
   title: image_usage.label&.titleize || image_usage.key.titleize,

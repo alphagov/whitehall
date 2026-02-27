@@ -13,33 +13,19 @@
             "attribute_path": ["block_content", "body"]
           }
         }
-      },
-      "images": {
-        "fields": {
-          "image": {
-            "title": "Image",
-            "description": "The image for the page",
-            "block": "lead_image_select",
-            "attribute_path": ["block_content", "image"]
-          }
-        }
       }
     },
     "schema": {
       "attributes": {
         "body": {
           "type": "string"
-        },
-        "image": {
-          "type": "integer"
         }
       }
     },
     "presenters": {
       "publishing_api": {
         "details": {
-          "body": "govspeak",
-          "image": "image"
+          "body": "govspeak"
         },
         "links": []
       }
@@ -79,32 +65,18 @@
             "attribute_path": ["block_content", "body"]
           }
         }
-      },
-      "images": {
-        "fields": {
-          "image": {
-            "title": "Image",
-            "description": "The image for the page",
-            "block": "lead_image_select",
-            "attribute_path": ["block_content", "image"]
-          }
-        }
       }
     },
     "schema": {
       "attributes": {
         "body": {
           "type": "string"
-        },
-        "image": {
-          "type": "integer"
         }
       }
     },
     "presenters": {
       "publishing_api": {
-        "body": "govspeak",
-        "image": "image"
+        "body": "govspeak"
       }
     },
     "associations": [],
