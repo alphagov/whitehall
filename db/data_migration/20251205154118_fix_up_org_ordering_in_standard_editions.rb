@@ -16,7 +16,7 @@ qualifying_editions = StandardEdition
 puts "Starting publish operation for Standard Editions..."
 
 qualifying_editions.find_each do |edition|
-  PublishingApiDocumentRepublishingWorker.perform_async(edition.document_id)
+  PublishingApiDocumentRepublishingJob.perform_async(edition.document_id)
 end
 
 puts "Publish operation complete. Processed #{qualifying_editions.size} editions."

@@ -14,7 +14,7 @@ class Admin::EditionImagesController < Admin::BaseController
     filename = image.image_data.carrierwave_image
     image.destroy!
     @edition.update_lead_image if @edition.can_have_custom_lead_image?
-    PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
+    PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
 
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
   end
@@ -35,7 +35,7 @@ class Admin::EditionImagesController < Admin::BaseController
     image.image_data.validate_on_image = image
 
     if image.save
-      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
+      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
       redirect_to admin_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
     else
       render :edit
@@ -66,7 +66,7 @@ class Admin::EditionImagesController < Admin::BaseController
     if @images.any? && @images.all?(&:valid?)
       @images.each(&:save)
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
-      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
+      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
       flash.now.notice = "Images successfully uploaded"
     else
       # Remove images from @edition.images array, otherwise the view will render it in the 'Uploaded images' list

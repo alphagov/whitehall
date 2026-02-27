@@ -160,7 +160,7 @@ private
   def republish_past_prime_ministers_page_to_publishing_api
     if current_or_previous_prime_minister?
       historical_account.presence&.republish_to_publishing_api_async
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter")
+      PresentPageToPublishingApiJob.perform_async("PublishingApi::HistoricalAccountsIndexPresenter")
     end
   end
 end

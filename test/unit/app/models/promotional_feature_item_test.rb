@@ -145,7 +145,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
       ),
     )
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
 
     promotional_feature_item.reload
     assert promotional_feature_item.all_asset_variants_uploaded?

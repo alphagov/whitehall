@@ -16,7 +16,7 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
         render :edit
       else
         @edition.save!
-        PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
+        PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
 
         EditorialRemark.create!(
           edition: @edition,

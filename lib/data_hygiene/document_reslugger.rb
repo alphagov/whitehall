@@ -47,7 +47,7 @@ module DataHygiene
     end
 
     def republish_document
-      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+      PublishingApiDocumentRepublishingJob.new.perform(document.id)
     end
 
     def create_editorial_remark

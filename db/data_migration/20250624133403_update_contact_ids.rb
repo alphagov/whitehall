@@ -822,7 +822,7 @@ html_attachments_with_missing_contacts.each do |html_attachment_id|
 end
 
 editions_to_process.uniq.each do |edition_id|
-  FindAndReplaceWorker.perform_async(
+  FindAndReplaceJob.perform_async(
     "edition_id" => edition_id,
     "replacements" => find_and_replace_mapping,
     "changenote" => "Automatically republished Edition (and any of its HTML attachments) with fixed Contact embed code",

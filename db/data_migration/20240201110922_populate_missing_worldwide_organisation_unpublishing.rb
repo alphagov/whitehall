@@ -12,5 +12,5 @@ unpublished_cips.each do |cip|
     unpublished_at: cip.versions.where(state: "unpublished").last.created_at,
   )
 
-  PublishingApiDocumentRepublishingWorker.perform_async(cip.document_id)
+  PublishingApiDocumentRepublishingJob.perform_async(cip.document_id)
 end

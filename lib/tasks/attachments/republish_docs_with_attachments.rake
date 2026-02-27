@@ -10,7 +10,7 @@ task repubish_docs_with_attachments: :environment do
     )
     puts "Enqueueing #{editions_with_attachments.count} editions with attachments for #{org.slug}"
     editions_with_attachments.joins(:document).distinct.pluck("documents.id").each do |document_id|
-      PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+      PublishingApiDocumentRepublishingJob.perform_async_in_queue("bulk_republishing", document_id, true)
     end
     puts "Finished enqueueing items for #{org.slug}"
   end

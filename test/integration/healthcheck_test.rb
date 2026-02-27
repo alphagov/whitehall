@@ -13,7 +13,7 @@ class HealthcheckTest < ActionDispatch::IntegrationTest
   end
 
   test "GET /healthcheck/unenqueued_scheduled_editions shows number of scheduled editions without a scheduled job" do
-    ScheduledPublishingWorker.stubs(:queue_size).returns(1)
+    ScheduledPublishingJob.stubs(:queue_size).returns(1)
     create_list(:scheduled_edition, 2)
 
     get "/healthcheck/unenqueued_scheduled_editions"

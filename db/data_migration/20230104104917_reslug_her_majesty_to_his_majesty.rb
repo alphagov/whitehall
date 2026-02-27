@@ -41,7 +41,7 @@ csv.each do |row|
     Whitehall::SearchIndex.delete(edition)
 
     # send edition to publishing api
-    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    PublishingApiDocumentRepublishingJob.new.perform(document.id)
 
     # add edition to search index
     Whitehall::SearchIndex.add(edition)

@@ -59,7 +59,7 @@ Uploads and republishing actions are managed asynchronously in the background by
 
 Asset Manager supports "replacing" existing assets with a new one. Replacement is essentially a special type of redirect for asset-to-asset redirects (as opposed to the general redirect URL attribute supported by Asset Manager, which redirects assets to non-asset URLs). Replacement is necessary to ensure that bookmarks and links to existing attachment assets still work even if the binary asset file has changed.
 
-When a new asset is uploaded as a replacement for the previous one, the flow is identical to the upload flow, but the `AssetManagerAttachmentMetadataWorker` also sends a request to Asset Manager to mark the previous asset as replaced based off the handling of replaced_by id when saving `AttachmentData`. Note that the replacement does not take effect until the new asset is no longer flagged as a draft. This occurs when the edition is published.
+When a new asset is uploaded as a replacement for the previous one, the flow is identical to the upload flow, but the `AssetManagerAttachmentMetadataJob` also sends a request to Asset Manager to mark the previous asset as replaced based off the handling of replaced_by id when saving `AttachmentData`. Note that the replacement does not take effect until the new asset is no longer flagged as a draft. This occurs when the edition is published.
 
 ![Attachment Replacement Flow](diagrams/asset_attachment_replacement_flow.png)
 

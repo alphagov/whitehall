@@ -28,7 +28,7 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   test "deleting a page discards the draft page" do
     worldwide_organisation = create(:worldwide_organisation)
     page = create(:worldwide_organisation_page, edition: worldwide_organisation)
-    PublishingApiDiscardDraftWorker.expects(:perform_async).with(page.content_id, "en").once
+    PublishingApiDiscardDraftJob.expects(:perform_async).with(page.content_id, "en").once
     page.destroy!
   end
 

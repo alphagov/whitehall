@@ -45,7 +45,7 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
       ),
     )
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
 
     call_for_evidence_response_form_data.reload
     assert call_for_evidence_response_form_data.all_asset_variants_uploaded?

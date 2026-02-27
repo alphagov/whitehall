@@ -58,8 +58,8 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
     if @worldwide_office.destroy
       if @worldwide_office.edition
-        PublishingApiDiscardDraftWorker.perform_async(@worldwide_office.content_id, I18n.default_locale.to_s)
-        PublishingApiDiscardDraftWorker.perform_async(@worldwide_office.contact.content_id, I18n.default_locale.to_s)
+        PublishingApiDiscardDraftJob.perform_async(@worldwide_office.content_id, I18n.default_locale.to_s)
+        PublishingApiDiscardDraftJob.perform_async(@worldwide_office.contact.content_id, I18n.default_locale.to_s)
       end
 
       republish_draft_worldwide_organisation

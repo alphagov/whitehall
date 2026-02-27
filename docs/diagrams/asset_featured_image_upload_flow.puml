@@ -7,14 +7,14 @@ skinparam ParticipantPadding 10
 box "Whitehall" #f2fef8
 actor publisher
 participant Controller
-participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
+participant "AssetManager\nCreateAssetJob" as AssetManagerCreateAssetJob
 participant Person
 participant FeaturedImageData
 participant "AssetManager\nStorage" as AssetManagerStorage
 end box
 
 box Whitehall-background-jobs
-participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
+participant "AssetManager\nCreateAssetJob" as AssetManagerCreateAssetJob
 participant Asset as bgAsset
 participant FeaturedImageData as bgFeaturedImageData
 participant Person as bgPerson
@@ -33,14 +33,14 @@ Controller -> Person : Save
 Person -> PublishingApi : Update content, patch links and republish
 Person -> FeaturedImageData : Save
 FeaturedImageData -> AssetManagerStorage : Carrierwave invokes store!
-AssetManagerStorage --> AssetManagerCreateAssetWorker : Enqueue 7 times
+AssetManagerStorage --> AssetManagerCreateAssetJob : Enqueue 7 times
 Controller -> publisher-- : Show person
 
 group 7 times, once per image variant
-  activate AssetManagerCreateAssetWorker
-  AssetManagerCreateAssetWorker -> AssetManager : Upload the image version to Asset Manager
-  AssetManagerCreateAssetWorker -> bgAsset: Save
-  AssetManagerCreateAssetWorker -> bgFeaturedImageData : Republish
+  activate AssetManagerCreateAssetJob
+  AssetManagerCreateAssetJob -> AssetManager : Upload the image version to Asset Manager
+  AssetManagerCreateAssetJob -> bgAsset: Save
+  AssetManagerCreateAssetJob -> bgFeaturedImageData : Republish
   bgFeaturedImageData -> bgPerson : Republish
   bgPerson -> PublishingApi-- : Update content, patch links and republish
 end group

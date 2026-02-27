@@ -48,7 +48,7 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid outcome params saves the outcome and redirects" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@consultation.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(@consultation.document_id, false).once
 
     post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: "Outcome summary", published_on: Time.zone.today }, type: "ConsultationOutcome" }
 
@@ -58,7 +58,7 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid feedback params saves the feedback and redirects" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@consultation.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(@consultation.document_id, false).once
 
     post :create, params: { consultation_id: @consultation, consultation_public_feedback: { summary: "Feedback summary", published_on: Time.zone.today }, type: "ConsultationPublicFeedback" }
 
@@ -80,7 +80,7 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
   end
 
   test "PUT :update with valid outcome params saves the changes to the outcome" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@consultation.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(@consultation.document_id, false).once
     outcome = create_outcome
 
     put :update, params: { consultation_id: @consultation, consultation_outcome: { summary: "New summary", published_on: Time.zone.today }, type: "ConsultationOutcome" }
@@ -91,7 +91,7 @@ class Admin::ConsultationResponsesControllerTest < ActionController::TestCase
 
   test "PUT :update with valid feedback params saves the changes to the feedback" do
     feedback = create_feedback
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@consultation.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(@consultation.document_id, false).once
 
     put :update, params: { consultation_id: @consultation, consultation_public_feedback: { summary: "New summary", published_on: Time.zone.today }, type: "ConsultationPublicFeedback" }
 

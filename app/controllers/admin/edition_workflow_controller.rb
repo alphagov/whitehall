@@ -126,7 +126,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def schedule
-    # This will enqueue a `ScheduledPublishingWorker`
+    # This will enqueue a `ScheduledPublishingJob`
     edition_scheduler = Whitehall.edition_services.scheduler(@edition)
     if edition_scheduler.perform!
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"

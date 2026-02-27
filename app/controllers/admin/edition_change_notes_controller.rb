@@ -33,7 +33,7 @@ class Admin::EditionChangeNotesController < Admin::BaseController
       updated_at: Time.zone.now,
     )
 
-    PublishingApiDocumentRepublishingWorker.perform_async(edition_to_change.document.id, false)
+    PublishingApiDocumentRepublishingJob.perform_async(edition_to_change.document.id, false)
 
     flash[:notice] = "Change note updated"
     redirect_to(admin_edition_change_notes_path)
@@ -60,7 +60,7 @@ class Admin::EditionChangeNotesController < Admin::BaseController
       updated_at: Time.zone.now,
     )
 
-    PublishingApiDocumentRepublishingWorker.perform_async(edition_to_change.document.id, false)
+    PublishingApiDocumentRepublishingJob.perform_async(edition_to_change.document.id, false)
 
     flash[:notice] = "Change note deleted"
     redirect_to(admin_edition_change_notes_path)

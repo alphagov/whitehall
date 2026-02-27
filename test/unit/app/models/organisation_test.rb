@@ -684,7 +684,7 @@ class OrganisationTest < ActiveSupport::TestCase
       organisation:,
     )
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_async)
       .with(about_page.document.id)
 
@@ -721,7 +721,7 @@ class OrganisationTest < ActiveSupport::TestCase
       organisation_chart_url: "http://www.example.com/path/to/chart",
     )
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_async)
       .never
 

@@ -9,7 +9,7 @@ module Whitehall
       searchable_thing = stub(class: SearchableClass, id: "id", locked?: false)
 
       SearchIndex.add(searchable_thing)
-      job = SearchIndexAddWorker.jobs.last
+      job = SearchIndexAddJob.jobs.last
 
       assert_equal %w[SearchableClass id], job["args"].take(2)
       assert_equal 10.seconds.from_now.to_i, job["at"]
@@ -19,7 +19,7 @@ module Whitehall
       searchable_thing = stub(search_index: { "link" => "full_slug" }, search_api_index: :index_name)
 
       SearchIndex.delete(searchable_thing)
-      args = SearchIndexDeleteWorker.jobs.last["args"]
+      args = SearchIndexDeleteJob.jobs.last["args"]
 
       assert_equal "full_slug", args[0]
       assert_equal "index_name", args[1]

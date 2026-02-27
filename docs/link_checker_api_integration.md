@@ -14,8 +14,8 @@ These are saved as `LinkCheckerApiReportLinks`. These contain [information](http
 
 The `LinkCheckerApiReport` is displayed on the admin page with a list of the broken links found on the edition.
 
-## Workers
+## jobs
 
-The `CheckAllOrganisationsLinksWorker` is a scheduled worker that runs nightly at 2 a.m. it queues up individual link checking tasks for each organisation using `CheckOrganisationLinksWorker`
+The `CheckAllOrganisationsLinksjob` is a scheduled job that runs nightly at 2 a.m. it queues up individual link checking tasks for each organisation using `CheckOrganisationLinksjob`
 
-`CheckOrganisationLinksWorker` uses the [LinkCheckerApiService#check_links](https://github.com/alphagov/whitehall/blob/master/app/services/link_checker_api_service.rb#L10) calls the [`create batch endpoint`](https://github.com/alphagov/link-checker-api/blob/master/docs/api.md#post-batch) in the LinkCheckerApi. The callback and the subsequent link check report creation happen as per the on-demand check.
+`CheckOrganisationLinksjob` uses the [LinkCheckerApiService#check_links](https://github.com/alphagov/whitehall/blob/master/app/services/link_checker_api_service.rb#L10) calls the [`create batch endpoint`](https://github.com/alphagov/link-checker-api/blob/master/docs/api.md#post-batch) in the LinkCheckerApi. The callback and the subsequent link check report creation happen as per the on-demand check.

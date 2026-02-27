@@ -11,8 +11,8 @@ class DocumentResluggerTest < ActiveSupport::TestCase
   test "updates the slug to the new slug, updated the publishing API, reindexes the slug on search index and creates an EditorialRemark" do
     reslugger = DataHygiene::DocumentReslugger.new(@document, @published_edition, @user, "new-slug")
 
-    PublishingApiDocumentRepublishingWorker.expects(:new).returns(worker = mock)
-    worker.expects(:perform).with(@document.id)
+    PublishingApiDocumentRepublishingJob.expects(:new).returns(job = mock)
+    job.expects(:perform).with(@document.id)
 
     reslugger.run!
 

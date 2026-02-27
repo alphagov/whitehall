@@ -8,7 +8,7 @@ class Admin::FeaturesController < Admin::BaseController
   def create
     if @feature.save
       @feature.republish_featurable_to_publishing_api
-      PublishingApiDocumentRepublishingWorker.perform_async(@feature.document_id, false) if @feature.document_id.present?
+      PublishingApiDocumentRepublishingJob.perform_async(@feature.document_id, false) if @feature.document_id.present?
       redirect_to admin_feature_list_path(@feature_list), notice: "The document has been saved"
     else
       flash.now[:alert] = "Unable to create feature"

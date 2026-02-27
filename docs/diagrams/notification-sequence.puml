@@ -6,34 +6,34 @@ title The sequence of events that cause email notifications to be sent for White
 actor editor
 editor -> controller : publish
 controller -> edition_services : send publish event
-edition_services -> publishing_api_worker : enqueue job with edition id
+edition_services -> publishing_api_job : enqueue job with edition id
 database mysql
 participant publishing_api
 database rabbitmq
 participant "email-alert-service" as emailalertservice
 participant "email-alert-api" as emailalertapi
-participant notification_worker
+participant notification_job
 database postgres
 controller -> editor : render page
 
 group sidekiq
-  publishing_api_worker -> mysql : edition id
-  mysql -> publishing_api_worker : edition
-  publishing_api_worker -> "publishing-api" as publishing_api : publish
+  publishing_api_job -> mysql : edition id
+  mysql -> publishing_api_job : edition
+  publishing_api_job -> "publishing-api" as publishing_api : publish
   publishing_api -> rabbitmq : publish event
 end group
 
 group consumer
   emailalertservice -> rabbitmq : read
   emailalertservice -> emailalertapi : notify with edition
-  emailalertapi -> notification_worker : enqueue job
+  emailalertapi -> notification_job : enqueue job
 end group
 
 group sidekiq
-  notification_worker -> postgres : links hash
-  postgres -> notification_worker : govdelivery topics
-  notification_worker -> postgres : log notification
-  notification_worker -> govdelivery : send email to topics
+  notification_job -> postgres : links hash
+  postgres -> notification_job : govdelivery topics
+  notification_job -> postgres : log notification
+  notification_job -> govdelivery : send email to topics
 end group
 
 @enduml

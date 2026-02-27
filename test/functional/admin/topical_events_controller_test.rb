@@ -65,8 +65,8 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
   test "POST :create discards the file cache if file is present" do
     cached_logo = build(:featured_image_data, file: upload_fixture("images/960x640_jpeg.jpg"))
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/960x640_jpeg.jpg/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/big-cheese.960x640.jpg/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/960x640_jpeg.jpg/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/big-cheese.960x640.jpg/), anything, anything, anything, anything, anything).times(7)
 
     post :create, params: {
       topical_event: {
@@ -154,8 +154,8 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     topical_event = create(:topical_event, :with_logo)
     cached_logo = build(:featured_image_data, file: upload_fixture("images/960x640_jpeg.jpg"))
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/960x640_jpeg.jpg/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/big-cheese.960x640.jpg/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/960x640_jpeg.jpg/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/big-cheese.960x640.jpg/), anything, anything, anything, anything, anything).times(7)
 
     put :update, params: {
       id: topical_event,

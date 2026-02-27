@@ -443,7 +443,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
                            ),
          }
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
 
     assert_equal 1, Organisation.last.assets.size
     assert_equal filename, Organisation.last.assets.first.filename
@@ -463,8 +463,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       logo: upload_fixture(cached_filename, "image/png"),
     )
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(1)
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(1)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
 
     put :update,
         params: { id: organisation.id,
@@ -474,7 +474,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
                     logo_cache: cached_organisation.logo_cache,
                   } }
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
 
     assert_equal 1, Organisation.last.assets.size
     assert_equal replacement_filename, Organisation.last.assets.first.filename
@@ -484,8 +484,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     filename = "big-cheese.960x640.jpg"
     cached_default_news_image = build(:featured_image_data)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
 
     post :create,
          params: example_organisation_attributes.merge({
@@ -509,8 +509,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     cached_filename = "big-cheese.960x640.jpg"
     cached_default_news_image = build(:featured_image_data, file: upload_fixture(cached_filename, "image/png"))
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
 
     put :update,
         params: {

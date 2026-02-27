@@ -316,7 +316,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "passes raw JSON to the export worker" do
+  test "passes raw JSON to the export job" do
     login_as :gds_editor
     Admin::EditionFilter.any_instance.stubs(exportable?: true)
 
@@ -324,7 +324,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       assert_not params.instance_of?(ActiveSupport::HashWithIndifferentAccess)
     end
 
-    DocumentListExportWorker.stub :perform_async, stub do
+    DocumentListExportJob.stub :perform_async, stub do
       post :export,
            params: {
              include_last_author: true,

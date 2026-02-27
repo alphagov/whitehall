@@ -13,5 +13,5 @@ StandardEdition.where(configurable_document_type: "history_page", state: "publis
   translation.update_column(:block_content, new_block_content)
 
   # Republish the edition to ensure update payload is sent to Publishing API. We don't actually expect that the payload would be different, except for captions being dropped when blank.
-  PublishingApiDocumentRepublishingWorker.perform_async(edition.document.id, false)
+  PublishingApiDocumentRepublishingJob.perform_async(edition.document.id, false)
 end

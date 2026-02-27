@@ -130,7 +130,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "republishes associated Worldwide Organisation pages on update of world location" do
     world_location = create(:world_location, :with_worldwide_organisations)
     world_location.worldwide_organisations.each do |worldwide_organisation|
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async)
         .with(worldwide_organisation.document_id, false)
     end

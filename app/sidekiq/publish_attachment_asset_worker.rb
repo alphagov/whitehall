@@ -1,0 +1,1 @@
+PublishAttachmentAssetWorker = PublishAttachmentAssetJob

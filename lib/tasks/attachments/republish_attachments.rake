@@ -18,6 +18,6 @@ task :republish_attachments, %i[content_type weeks_ago state] => :environment do
   puts "#{document_ids.length} items to republish"
 
   document_ids.each do |document_id|
-    PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+    PublishingApiDocumentRepublishingJob.perform_async_in_queue("bulk_republishing", document_id, true)
   end
 end

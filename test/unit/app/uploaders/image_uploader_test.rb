@@ -41,7 +41,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
       assert params[:file].path.split("/").last == "960x960_jpeg.jpg"
     }.once.returns("id" => "http://asset-manager/assets/some-id", "name" => "test-svg.svg")
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
   end
 
   test "should store all variations of large image that has crop data in asset manager" do
@@ -54,7 +54,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
       assert params[:file].path.split("/").last.match("960x960_jpeg.jpg")
     }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "960x960_jpeg.jpg")
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
   end
 
   test "should send correctly resized versions of a bitmap image to asset manager" do
@@ -65,7 +65,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
       assert_image_has_correct_size image_path
     }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "minister-of-funk.960x640.jpg")
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
   end
 
   test "should store uploads in a directory that persists across deploys" do
@@ -84,7 +84,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
       assert expected_file_names.include?(file)
     }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "minister-of-funk.960x640.jpg")
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
   end
 
   test "should store only the original version of a svg image in asset manager" do
@@ -95,7 +95,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
       assert params[:file].path.split("/").last == "test-svg.svg"
     }.once.returns("id" => "http://asset-manager/assets/some-id", "name" => "test-svg.svg")
 
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
   end
 
 private

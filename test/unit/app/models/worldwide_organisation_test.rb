@@ -37,7 +37,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     test "republishes embassies index page when the worldwide organisation is #{post_publication_state}" do
       worldwide_organisation = create(:draft_worldwide_organisation)
 
-      PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::EmbassiesIndexPresenter").once
+      PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::EmbassiesIndexPresenter").once
 
       worldwide_organisation.update!(state: post_publication_state)
     end
@@ -46,7 +46,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test "does not republish the embassies index page when editing a draft" do
     worldwide_organisation = create(:draft_worldwide_organisation)
 
-    PresentPageToPublishingApiWorker.expects(:perform_async).with("PublishingApi::EmbassiesIndexPresenter").never
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::EmbassiesIndexPresenter").never
 
     worldwide_organisation.update!(title: "New title")
   end

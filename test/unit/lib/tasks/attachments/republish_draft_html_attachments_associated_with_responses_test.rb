@@ -19,25 +19,25 @@ class RepublishDraftHtmlAttachmentsWithAssociatedResponsesRake < ActiveSupport::
     published_feedback = create(:consultation_public_feedback, consultation: published_consultation_with_public_feedback)
     create(:html_attachment, attachable: published_feedback)
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       draft_consultation_with_outcome.document_id,
       true,
     )
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       draft_consultation_with_public_feedback.document_id,
       true,
     )
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       published_consultation_with_outcome.document_id,
       true,
     ).never
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       published_consultation_with_public_feedback.document_id,
       true,
