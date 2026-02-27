@@ -51,6 +51,7 @@ class Image < ApplicationRecord
       type: usage,
       url:,
       caption:,
+      sources: image_data.image_kind_config.versions.reduce({}) { |sources, version| url(version.name) ? sources.merge({ version.name.to_s => url(version.name) }) : sources },
       content_type:,
     }
   end

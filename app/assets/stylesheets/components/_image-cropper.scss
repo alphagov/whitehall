@@ -22,6 +22,7 @@ $app-cropper-point-size: 20px;
     width: $app-cropper-point-size;
     height: $app-cropper-point-size;
     opacity: 1;
+    z-index: 999999;
   }
 
   .cropper-point.point-n {
@@ -94,10 +95,27 @@ $app-cropper-point-size: 20px;
   margin-top: 0;
 }
 
+.app-c-image-cropper__crop-key {
+  text-transform: capitalize;
+  padding-bottom: 5px;
+}
+
+.app-c-image-cropper__crop-key-colour {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 5px;
+}
+
 .js-enabled {
   .app-c-image-cropper__no-js-description,
   .app-c-image-cropper__no-js-image {
     display: none;
+  }
+
+  .app-c-image-cropper__container {
+    padding: 0;
   }
 
   .app-c-image-cropper__description,
