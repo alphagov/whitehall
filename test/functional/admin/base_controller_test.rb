@@ -3,6 +3,10 @@ require "test_helper"
 class Admin::BaseControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
+  setup do
+    ConfigurableDocumentType.stubs(:find).returns(ConfigurableDocumentType.new({}))
+  end
+
   view_test "renders header component with correct links" do
     login_as :gds_editor, create(:organisation, name: "my-test-org")
     @controller = Admin::NewDocumentController.new
