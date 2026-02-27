@@ -11,7 +11,7 @@ class FeaturedImageData < ApplicationRecord
   validate :file_is_not_blank
   validates :featured_imageable, presence: true
 
-  delegate :url, to: :file
+  delegate :url, :content_type, to: :file
 
   def filename
     file&.file&.filename
@@ -24,6 +24,13 @@ class FeaturedImageData < ApplicationRecord
     return false if (required_variants - asset_variants).any?
 
     assets_match_updated_image_filename
+  end
+
+  def publishing_api_details
+    {
+      sources: image_kind_config.versions.reduce({}) { |sources, version| url(version.name) ? sources.merge({ version.name.to_s => url(version.name) }) : sources },
+      content_type:,
+    }.compact
   end
 
   def republish_on_assets_ready
