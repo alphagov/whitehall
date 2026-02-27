@@ -132,48 +132,68 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_match "There is already an active rejected edition for this document", flash[:alert]
   end
 
+  test "cookie for filters should expire after 30 minutes" do
+    get :index, params: { state: :draft, type: :publication }
+    Timecop.travel 31.minutes.from_now do
+      get :index
+      assert_nil cookies.encrypted[:document_filters]
+    end
+  end
+
   test "should remember standard filter options" do
     get :index, params: { state: :draft, type: "consultation" }
-    assert_equal "consultation", session[:document_filters]["type"]
+    assert_equal "consultation", cookies.encrypted[:document_filters]["type"]
   end
 
   test "should remember author filter options" do
     get :index, params: { state: :draft, author: current_user }
-    assert_equal current_user.to_param, session[:document_filters]["author"]
+    assert_equal current_user.to_param, cookies.encrypted[:document_filters]["author"]
   end
 
   test "should remember organisation filter options" do
     organisation = create(:organisation)
     get :index, params: { state: :draft, organisation: }
-    assert_equal organisation.to_param, session[:document_filters]["organisation"]
+    assert_equal organisation.to_param, cookies.encrypted[:document_filters]["organisation"]
   end
 
   test "should remember state filter options" do
     get :index, params: { state: :draft }
-    assert_equal "draft", session[:document_filters]["state"]
+    assert_equal "draft", cookies.encrypted[:document_filters]["state"]
   end
 
   test "should remember title filter options" do
     get :index, params: { title: "test" }
-    assert_equal "test", session[:document_filters]["title"]
+    assert_equal "test", cookies.encrypted[:document_filters]["title"]
   end
 
   test "should remember 'only invalid editions' option" do
     get :index, params: { only_invalid_editions: "1" }
-    assert_equal "1", session[:document_filters]["only_invalid_editions"]
+    assert_equal "1", cookies.encrypted[:document_filters]["only_invalid_editions"]
   end
 
   test "index should redirect to remembered filtered options if available" do
     organisation = create(:organisation)
-    get :index, params: { organisation:, state: :submitted }
+    cookies.encrypted[:document_filters] = {
+      value: {
+        "state" => "submitted",
+        "author" => current_user.to_param,
+        "organisation" => organisation.to_param,
+      },
+    }
 
     get :index
-    assert_redirected_to admin_editions_path(state: :submitted, organisation:)
+    assert_redirected_to admin_editions_path(state: :submitted, author: current_user.to_param, organisation:)
   end
 
   test "index should redirect to remembered filtered options if selected filter is invalid" do
     organisation = create(:organisation)
-    session[:document_filters] = { "state" => "submitted", "author" => current_user.to_param, "organisation" => organisation.to_param }
+    cookies.encrypted[:document_filters] = {
+      value: {
+        "state" => "submitted",
+        "author" => current_user.to_param,
+        "organisation" => organisation.to_param,
+      },
+    }
     get :index, params: { author: "invalid" }
     assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation:)
     assert_equal "Author not found", flash[:alert]
