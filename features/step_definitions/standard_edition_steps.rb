@@ -8,7 +8,6 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
     create(
       :draft_standard_edition,
       {
-        configurable_document_type: "test",
         images:,
         title: title,
         summary: summary || defaults[:summary],
@@ -65,11 +64,6 @@ end
 Given(/^the configurable document types feature flag is (enabled|disabled)$/) do |enabled|
   @test_strategy ||= Flipflop::FeatureSet.current.test!
   @test_strategy.switch!(:configurable_document_types, enabled == "enabled")
-end
-
-Given(/^the test configurable document type is defined(?: with translations enabled)?$/) do
-  type_definition = JSON.parse(File.read(Rails.root.join("features/fixtures/test_configurable_document_type.json")))
-  ConfigurableDocumentType.setup_test_types({ "test" => type_definition })
 end
 
 When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |configurable_document_type, title|
@@ -160,7 +154,6 @@ When(/^I publish a submitted draft of a test configurable document titled "([^"]
   standard_edition = create(
     :submitted_standard_edition,
     {
-      configurable_document_type: "test",
       images: [lead_image, embeddable_image],
       title: title,
       block_content: default_block_content_for_locale("en"),
@@ -293,7 +286,6 @@ Given(/^I have published an English document with a Welsh translation$/) do
   @standard_edition = create(
     :published_standard_edition,
     {
-      configurable_document_type: "test",
       title: default_content_for_locale("en")[:title],
       summary: default_content_for_locale("en")[:summary],
       block_content: default_block_content_for_locale("en"),

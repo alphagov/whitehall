@@ -1,5 +1,5 @@
 {
-  "key": "test",
+  "key": "test_type",
   "title": "Test configurable document type",
   "description": "A test configurable document on GOV.UK",
   "forms": {
@@ -94,6 +94,7 @@
     "organisations": null,
     "backdating_enabled": false,
     "translations_enabled": true,
+    "features_enabled": true,
     "images": {
       "enabled": true,
       "usages": {

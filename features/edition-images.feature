@@ -44,7 +44,6 @@ Feature: Images tab on edit edition
 
 Scenario: User uploads a header image
     And the configurable document types feature flag is enabled
-    And the test configurable document type is defined
     And I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     When I visit the images tab of the document "The history of GOV.UK"
     Then I should see a card associated with the header image usage
@@ -55,7 +54,6 @@ Scenario: User uploads a header image
 
   Scenario: User uploads multiple images for a usage
     Given the configurable document types feature flag is enabled
-    And the test configurable document type is defined
     And I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     When I visit the images tab of the document "The history of GOV.UK"
     When I upload multiple images including a 960x960 image
