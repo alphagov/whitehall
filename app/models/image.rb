@@ -47,15 +47,23 @@ class Image < ApplicationRecord
   end
 
   def publishing_api_details
-    {
+    details = {
       type: usage,
       url:,
-      caption:,
       content_type:,
     }
+    details[:caption] = caption if caption_enabled?
+    details
   end
 
 private
+
+  def caption_enabled?
+    return true unless edition
+
+    image_usage = edition.permitted_image_usages.detect { |iu| iu.key == usage }
+    image_usage.nil? || image_usage.caption_enabled?
+  end
 
   def permitted_usage
     return unless edition
