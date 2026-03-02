@@ -11,10 +11,6 @@ Feature: Creating and publishing topical events
     When I create a new topical event "An Event" with summary "A topical event" and description "About this topical event"
     Then I should see the topical event "An Event" in the admin interface
 
-  Scenario: Archiving a new topical event
-    When I create a new topical event "An Event" with summary "A topical event", description "About this topical event" and it ends today
-    Then I should see the topical event "An Event" in the admin interface
-
   Scenario: Adding more information about the event
     Given I'm administering a topical event
     And I add a page of information about the event

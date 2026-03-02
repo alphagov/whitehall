@@ -96,14 +96,6 @@ class TopicalEvent < ApplicationRecord
 
   alias_method :display_name, :to_s
 
-  def archived?
-    if end_date && end_date <= Time.zone.today
-      true
-    else
-      false
-    end
-  end
-
   def search_link
     base_path
   end

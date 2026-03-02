@@ -146,12 +146,6 @@ class TopicalEventTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :description
 
-  test "supersede topical event when it ends" do
-    topical_event = create(:topical_event, start_date: 1.year.ago.to_date, end_date: 1.day.ago.to_date)
-    assert topical_event.archived?
-    assert_equal 0, TopicalEvent.active.count
-  end
-
   test "should include slug in search_index data" do
     topical_event = create(:topical_event, name: "mazzops 2013")
     assert_equal "mazzops-2013", topical_event.search_index["slug"]
