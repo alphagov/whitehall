@@ -82,6 +82,14 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     assert_selector "input[value='!!3']"
   end
 
+  test "does not render caption when caption_enabled is false" do
+    image = create(:image, image_data: build(:image_data), caption: "caption")
+    edition = build_stubbed(:draft_publication, images: [image])
+    render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, image_usage: ImageUsage.new(caption_enabled: false)))
+
+    assert_no_selector ".govuk-body", text: "Caption:"
+  end
+
   test "renders a processing tag if not all assets of the lead image are uploaded for legacy case studies" do
     image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
     edition = build_stubbed(:draft_case_study, images: [image])
