@@ -29,9 +29,9 @@
       key: "Image",
       value: thumbnail,
     },
-    {
+    image_usage.caption_enabled? ? {
       key: "Caption",
       value: caption,
-    },
-  ],
+    } : nil,
+  ].compact,
 } %>

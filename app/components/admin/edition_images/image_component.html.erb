@@ -8,7 +8,9 @@
   </div>
 
   <div class="govuk-grid-column-two-thirds">
-    <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
+    <% if image_usage.caption_enabled? %>
+      <p class="govuk-body"><strong>Caption: </strong><%= caption %></p>
+    <% end %>
     <% if image.image_data&.bitmap? && image.image_data&.requires_crop? %>
       <span class="govuk-tag govuk-tag--red">Requires crop</span>
     <% elsif image_usage.embeddable? %>

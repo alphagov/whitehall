@@ -47,6 +47,16 @@ class Admin::EditionImages::ImageCardComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Image\")) .govuk-summary-list__value", text: "Requires crop"
   end
 
+  test "does not render caption row when caption_enabled is false" do
+    image = build_stubbed(:image, caption: "Test caption")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:standard_edition, images: [image])
+
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage", caption_enabled: false)))
+
+    assert_no_selector ".govuk-summary-list__key", text: "Caption"
+  end
+
   test "renders the thumbnail for an image" do
     image_data = create(:image_data, image_kind: "default")
     image = build_stubbed(:image, image_data:)
