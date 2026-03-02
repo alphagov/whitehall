@@ -5,7 +5,7 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
 
   describe PublishAttachmentAssetJob do
     let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
-    let(:worker) { PublishAttachmentAssetJob.new }
+    let(:job) { PublishAttachmentAssetJob.new }
 
     context "attachment was created on the latest edition" do
       let(:attachable) { create(:published_publication, title: "news-title") }
@@ -23,13 +23,13 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
         AssetManager::AssetDeleter.expects(:call).with(asset_manager_id)
         AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
 
-        worker.perform(attachment_data.id)
+        job.perform(attachment_data.id)
       end
 
       it "updates the asset if attachment data is not deleted" do
         AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
 
-        worker.perform(attachment_data.id)
+        job.perform(attachment_data.id)
       end
     end
 
@@ -50,13 +50,13 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
 
         AssetManager::AssetDeleter.expects(:call).with(asset_manager_id)
 
-        worker.perform(attachment_data.id)
+        job.perform(attachment_data.id)
       end
 
       it "does not update the asset" do
         AssetManager::AssetUpdater.expects(:call).never
 
-        worker.perform(attachment_data.id)
+        job.perform(attachment_data.id)
       end
     end
   end

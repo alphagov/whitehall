@@ -66,7 +66,7 @@ class ScheduledPublishingJobTest < ActiveSupport::TestCase
     job_two.expects(:delete).once
 
     other_job = mock("other_job")
-    other_job.stubs(:[]).with("class").returns("SomeOtherWorker")
+    other_job.stubs(:[]).with("class").returns("SomeOtherjob")
     other_job.expects(:delete).never
 
     Sidekiq::ScheduledSet.stubs(:new).returns([job_one, job_two, other_job])

@@ -355,9 +355,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".unpublish_sync immediately runs a PublishingApiUnpublishingJob job for the unpublishing" do
     unpublishing = build(:unpublishing, id: 1)
-    stubbed_worker = stub("worker", perform: nil)
-    PublishingApiUnpublishingJob.expects(:new).returns(stubbed_worker)
-    stubbed_worker.expects(:perform).with(1)
+    stubbed_job = stub("job", perform: nil)
+    PublishingApiUnpublishingJob.expects(:new).returns(stubbed_job)
+    stubbed_job.expects(:perform).with(1)
     Whitehall::PublishingApi.unpublish_sync(unpublishing)
   end
 
@@ -367,9 +367,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     unpublished_at = Time.zone.now
     locale = "en"
 
-    stubbed_worker = stub("worker", perform: nil)
-    PublishingApiWithdrawalJob.expects(:new).returns(stubbed_worker)
-    stubbed_worker.expects(:perform).with(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
+    stubbed_job = stub("job", perform: nil)
+    PublishingApiWithdrawalJob.expects(:new).returns(stubbed_job)
+    stubbed_job.expects(:perform).with(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
 
     Whitehall::PublishingApi.publish_withdrawal_sync(document_content_id, explanation, unpublished_at, locale)
   end

@@ -6,12 +6,12 @@ class AssetManagerAttachmentMetadataJobTest < ActiveSupport::TestCase
   describe AssetManagerAttachmentMetadataJob do
     let(:edition) { create(:draft_publication) }
     let(:attachment_data) { create(:attachment_data, attachable: edition) }
-    let(:worker) { AssetManagerAttachmentMetadataJob.new }
+    let(:job) { AssetManagerAttachmentMetadataJob.new }
 
     it "calls updater" do
       AssetManager::AttachmentUpdater.expects(:call).with(attachment_data)
 
-      worker.perform(attachment_data.id)
+      job.perform(attachment_data.id)
     end
 
     context "attachment data has missing assets" do
@@ -20,7 +20,7 @@ class AssetManagerAttachmentMetadataJobTest < ActiveSupport::TestCase
       it "does not call updater" do
         AssetManager::AttachmentUpdater.expects(:call).never
 
-        worker.perform(attachment_data.id)
+        job.perform(attachment_data.id)
       end
     end
   end

@@ -1,7 +1,7 @@
 require "test_helper"
 require "gds_api/test_helpers/publishing_api"
 
-# Integration Tests to check for what actual HTTP calls are being made to Publishing API by the Document Republishing Worker
+# Integration Tests to check for what actual HTTP calls are being made to Publishing API by the DocumentRepublishingJob
 class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include GovspeakHelper
@@ -135,10 +135,10 @@ class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestC
     test "Should not retry if encountering `GdsApi::HTTPPayloadTooLarge` exception" do
       edition = create(:published_publication)
       Whitehall::PublishingApi.expects(:publish).raises(GdsApi::HTTPPayloadTooLarge.new("413 Request Entity Too Large"))
-      worker = PublishingApiDocumentRepublishingJob.new
+      job = PublishingApiDocumentRepublishingJob.new
 
       assert_raises(Sidekiq::JobRetry::Skip) do
-        worker.perform(edition.document.id)
+        job.perform(edition.document.id)
       end
     end
   end

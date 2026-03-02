@@ -14,11 +14,11 @@ namespace :publishing do
       # Consultations and Calls for Evidence work slightly different to scheduled editions
       puts "Queuing Consultation jobs"
       Consultation.open.or(Consultation.upcoming)
-        .find_each(&:schedule_republishing_workers)
+        .find_each(&:schedule_republishing_jobs)
 
       puts "Queuing CallForEvidence jobs"
       CallForEvidence.open.or(CallForEvidence.upcoming)
-        .find_each(&:schedule_republishing_workers)
+        .find_each(&:schedule_republishing_jobs)
     end
   end
 end

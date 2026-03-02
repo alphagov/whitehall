@@ -111,7 +111,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       migrator.migrate!
     end
 
-    test "allows republish and compare_payloads options to be passed to the worker" do
+    test "allows republish and compare_payloads options to be passed to the job" do
       some_doc = create(:standard_edition)
 
       migrator = StandardEditionMigrator.new(scope: Document.all)

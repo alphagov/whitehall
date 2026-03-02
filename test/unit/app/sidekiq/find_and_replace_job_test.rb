@@ -68,9 +68,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         params            = valid_params.merge("edition_id" => published_edition.id)
 
         expected_msg = "Aborting: Edition #{published_edition.id} was passed, but there is a more recent Edition (#{new_draft.id})."
-        worker = FindAndReplaceJob.new
-        worker.expects(:log).with(expected_msg)
-        worker.perform(params)
+        job = FindAndReplaceJob.new
+        job.expects(:log).with(expected_msg)
+        job.perform(params)
       end
 
       it "logs but avoids processing cases where the passed Edition is 'unpublished' or 'withdrawn'" do
@@ -78,9 +78,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         params              = valid_params.merge("edition_id" => unpublished_edition.id)
 
         expected_msg = "Aborting: Edition #{unpublished_edition.id} was passed, but is in state 'unpublished' and cannot be acted on."
-        worker = FindAndReplaceJob.new
-        worker.expects(:log).with(expected_msg)
-        worker.perform(params)
+        job = FindAndReplaceJob.new
+        job.expects(:log).with(expected_msg)
+        job.perform(params)
       end
 
       it "logs but avoids processing cases where the passed Edition and its HTML attachments would be unchanged by the find-and-replace" do
@@ -88,9 +88,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         params = valid_params.merge("edition_id" => published_edition.id)
 
         expected_msg = "Skipping: Edition #{published_edition.id}. Neither it nor its HTML attachments need changing."
-        worker = FindAndReplaceJob.new
-        worker.expects(:log).with(expected_msg)
-        worker.perform(params)
+        job = FindAndReplaceJob.new
+        job.expects(:log).with(expected_msg)
+        job.perform(params)
         assert_equal published_edition.reload.document.latest_edition.id, published_edition.id # no draft edition created
         assert_equal published_edition.reload.body, "something safe"
       end
@@ -106,9 +106,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
           }
 
           expected_msg = "Success: performed find-and-replace on edition #{draft_edition.id} and saved the draft."
-          worker = FindAndReplaceJob.new
-          worker.expects(:log).with(expected_msg)
-          worker.perform(params)
+          job = FindAndReplaceJob.new
+          job.expects(:log).with(expected_msg)
+          job.perform(params)
 
           assert_equal "draft", draft_edition.reload.state
           assert_includes draft_edition.reload.body, "bar"
@@ -124,9 +124,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             "replacements" => [{ "find" => "foo", "replace" => "bar" }],
           }
 
-          worker = FindAndReplaceJob.new
-          worker.expects(:log).with("Success: performed find-and-replace on edition #{draft_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
-          worker.perform(params)
+          job = FindAndReplaceJob.new
+          job.expects(:log).with("Success: performed find-and-replace on edition #{draft_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
+          job.perform(params)
 
           assert_equal "draft", draft_edition.reload.state
           assert_equal draft_edition.reload.body, "lorem ipsum"
@@ -141,9 +141,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
           }
 
           expected_msg = "Success: performed find-and-replace on edition #{scheduled_edition.id} and saved the draft."
-          worker = FindAndReplaceJob.new
-          worker.expects(:log).with(expected_msg)
-          worker.perform(params)
+          job = FindAndReplaceJob.new
+          job.expects(:log).with(expected_msg)
+          job.perform(params)
 
           assert_equal "scheduled", scheduled_edition.reload.state
           assert_includes scheduled_edition.reload.body, "bar"
@@ -159,9 +159,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             "replacements" => [{ "find" => "foo", "replace" => "bar" }],
           }
 
-          worker = FindAndReplaceJob.new
-          worker.expects(:log).with("Success: performed find-and-replace on edition #{force_scheduled_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
-          worker.perform(params)
+          job = FindAndReplaceJob.new
+          job.expects(:log).with("Success: performed find-and-replace on edition #{force_scheduled_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
+          job.perform(params)
 
           assert_equal "scheduled", force_scheduled_edition.reload.state
           assert_equal force_scheduled_edition.reload.body, "lorem ipsum"
@@ -194,9 +194,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             "A new (draft) edition should be created and then published",
           ) do
             expected_msg = /Success: performed find-and-replace on edition #{published_edition.id}, saving and publishing this as new edition \d+\./
-            worker = FindAndReplaceJob.new
-            worker.expects(:log).with(regexp_matches(expected_msg))
-            worker.perform(params)
+            job = FindAndReplaceJob.new
+            job.expects(:log).with(regexp_matches(expected_msg))
+            job.perform(params)
           end
 
           latest = published_edition.document.reload.latest_edition
@@ -219,9 +219,9 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             +1,
             "A new (draft) edition should be created and then published",
           ) do
-            worker = FindAndReplaceJob.new
-            worker.expects(:log).with("Success: performed find-and-replace on edition #{published_edition.id} and its HTML attachments (#{attachment.slug}), saving and publishing this as new edition #{published_edition.id + 1}.")
-            worker.perform(params)
+            job = FindAndReplaceJob.new
+            job.expects(:log).with("Success: performed find-and-replace on edition #{published_edition.id} and its HTML attachments (#{attachment.slug}), saving and publishing this as new edition #{published_edition.id + 1}.")
+            job.perform(params)
           end
 
           latest = published_edition.document.reload.latest_edition

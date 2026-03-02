@@ -3,7 +3,7 @@ require "test_helper"
 class DocumentListExportJobTest < ActiveSupport::TestCase
   setup do
     @user = create(:user)
-    @worker = DocumentListExportJob.new
+    @job = DocumentListExportJob.new
 
     setup_fog_mock
   end
@@ -14,28 +14,28 @@ class DocumentListExportJobTest < ActiveSupport::TestCase
 
   test "instantiates an EditionFilter with passed options converted to symbols" do
     Admin::EditionFilter.expects(:new).with(Edition, @user, { state: "draft", include_unpublishing: true })
-    @worker.stubs(generate_csv: "")
-    @worker.stubs(:send_mail)
-    @worker.perform({ "state" => "draft" }, @user.id)
+    @job.stubs(generate_csv: "")
+    @job.stubs(:send_mail)
+    @job.perform({ "state" => "draft" }, @user.id)
   end
 
   test "generate_csv calls presenter once for each edition" do
     filter = mock
     filter.expects(:each_edition_for_csv).multiple_yields(1, 2, 3)
-    @worker.stubs(:create_filter).returns(filter)
-    @worker.stubs(:send_mail)
+    @job.stubs(:create_filter).returns(filter)
+    @job.stubs(:send_mail)
     DocumentListExportPresenter.expects(:new).returns(stub(row: [])).times(3)
-    @worker.perform({ "state" => "draft" }, @user.id)
+    @job.perform({ "state" => "draft" }, @user.id)
   end
 
   test "uploads csv to s3" do
     csv = "this|is|my|csv"
     title = "Everyone's editions"
-    @worker.stubs(:create_filter).returns(stub(page_title: title))
-    @worker.stubs(generate_csv: csv)
-    @worker.stubs(:send_mail)
+    @job.stubs(:create_filter).returns(stub(page_title: title))
+    @job.stubs(generate_csv: csv)
+    @job.stubs(:send_mail)
 
-    @worker.perform({ "state" => "draft" }, @user.id)
+    @job.perform({ "state" => "draft" }, @user.id)
 
     assert_equal 1, @directory.files.length
     file = @directory.files[0]
@@ -47,10 +47,10 @@ class DocumentListExportJobTest < ActiveSupport::TestCase
   test "sends mail with CSV link to user" do
     csv = "this|is|my|csv"
     title = "Everyone's editions"
-    @worker.stubs(:create_filter).returns(stub(page_title: title))
-    @worker.stubs(generate_csv: csv)
+    @job.stubs(:create_filter).returns(stub(page_title: title))
+    @job.stubs(generate_csv: csv)
     MailNotifications.expects(:document_list).with(regexp_matches(%r{^https://whitehall-admin\.test\.gov\.uk/export/documents/[a-f0-9-]{36}$}), @user.email, title).returns(stub(deliver_now: nil))
-    @worker.perform({ "state" => "draft" }, @user.id)
+    @job.perform({ "state" => "draft" }, @user.id)
   end
 
   test "does not raise an error if an email cannot be sent via notify" do
@@ -67,10 +67,10 @@ class DocumentListExportJobTest < ActiveSupport::TestCase
 
       csv = "this|is|my|csv"
       title = "Everyone's editions"
-      @worker.stubs(:create_filter).returns(stub(page_title: title))
-      @worker.stubs(generate_csv: csv)
+      @job.stubs(:create_filter).returns(stub(page_title: title))
+      @job.stubs(generate_csv: csv)
       assert_nothing_raised do
-        @worker.perform({ "state" => "draft" }, @user.id)
+        @job.perform({ "state" => "draft" }, @user.id)
       end
     end
   end
@@ -89,11 +89,11 @@ class DocumentListExportJobTest < ActiveSupport::TestCase
 
       csv = "this|is|my|csv"
       title = "Everyone's editions"
-      @worker.stubs(:create_filter).returns(stub(page_title: title))
-      @worker.stubs(generate_csv: csv)
+      @job.stubs(:create_filter).returns(stub(page_title: title))
+      @job.stubs(generate_csv: csv)
 
       assert_raises Notifications::Client::BadRequestError do
-        @worker.perform({ "state" => "draft" }, @user.id)
+        @job.perform({ "state" => "draft" }, @user.id)
       end
     end
   end

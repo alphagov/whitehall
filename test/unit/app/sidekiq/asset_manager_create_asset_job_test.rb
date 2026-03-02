@@ -3,7 +3,7 @@ require "test_helper"
 class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   setup do
     @file = Tempfile.new("asset", Dir.mktmpdir)
-    @worker = AssetManagerCreateAssetJob.new
+    @job = AssetManagerCreateAssetJob.new
     @asset_manager_id = "asset_manager_id"
     @organisation = FactoryBot.create(:organisation)
     @attachable = create(:draft_publication)
@@ -24,26 +24,26 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
       args[:file].path == @file.path
     }.returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
+    @job.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
   end
 
   test "marks the asset as draft if instructed" do
     Services.asset_manager.expects(:create_asset).with(has_entry(draft: true)).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, @attachable.class.to_s, @attachable.id)
+    @job.perform(@file.path, @asset_params, true, @attachable.class.to_s, @attachable.id)
   end
 
   test "removes the local temp file after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
+    @job.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
     assert_not File.exist?(@file.path)
   end
 
   test "removes the local temp directory after the file has been successfully uploaded" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
+    @job.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
     assert_not Dir.exist?(File.dirname(@file))
   end
 
@@ -54,7 +54,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "marks attachments belonging to consultation responses as access limited" do
@@ -65,7 +65,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "does not mark attachments belonging to policy groups as access limited" do
@@ -75,7 +75,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(Not(has_key(:access_limited))).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
+    @job.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "sends auth bypass ids to asset manager when these are passed through in the params" do
@@ -86,7 +86,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).with(has_entry(auth_bypass_ids: [consultation.auth_bypass_id])).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id, [consultation.auth_bypass_id])
   end
 
   test "doesn't run if the file is missing (e.g. job ran twice)" do
@@ -95,13 +95,13 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.asset_manager.expects(:create_asset).never
 
-    @worker.perform(path, @asset_params)
+    @job.perform(path, @asset_params)
   end
 
   test "stores corresponding asset_manager_id and filename for current file attachment" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    @worker.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
+    @job.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
 
     assert_equal 1, Asset.where(asset_manager_id: @asset_manager_id, variant: Asset.variants[:original], filename: File.basename(@file)).count
   end
@@ -115,7 +115,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     ServiceListeners::AttachmentUpdater.expects(:call).with(attachable: consultation).once
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
 
     PublishingApiDraftUpdateJob.drain
   end
@@ -127,7 +127,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     AssetManagerAttachmentMetadataJob.expects(:perform_async).with(@model_without_assets.id).once
 
-    @worker.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
+    @job.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "triggers an update to publishing api after asset has been saved" do
@@ -136,7 +136,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     PublishingApiDraftUpdateJob.expects(:perform_async).with(consultation.class.to_s, consultation.id)
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "does not trigger an update to publishing api if attachable is not an edition" do
@@ -145,7 +145,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.publishing_api.stubs(:put_content).never
 
-    @worker.perform(@file.path, @asset_params, true, consultation_outcome.class.to_s, consultation_outcome.id)
+    @job.perform(@file.path, @asset_params, true, consultation_outcome.class.to_s, consultation_outcome.id)
   end
 
   test "updates existing asset of same variant if it already exists" do
@@ -164,7 +164,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     asset_manager_response_with_new_id = { "id" => "http://asset-manager/assets/#{new_asset_manager_id}", "name" => File.basename(@file) }
     Services.asset_manager.stubs(:create_asset).returns(asset_manager_response_with_new_id)
 
-    @worker.perform(@file.path, update_asset_args, true)
+    @job.perform(@file.path, update_asset_args, true)
 
     assets = Asset.where(assetable_id: organisation.id)
     assert_equal 1, assets.count
@@ -179,7 +179,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     Services.publishing_api.expects(:put_content).never
     Sidekiq.logger.expects(:info).once
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
   test "should enqueue republishing of assetable" do
@@ -198,7 +198,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     FeaturedImageData.any_instance.expects(:republish_on_assets_ready).once
 
-    @worker.perform(@file.path, asset_params, true, nil, nil)
+    @job.perform(@file.path, asset_params, true, nil, nil)
   end
 
   test "should not process the file if the attachable has been deleted" do
@@ -209,6 +209,6 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     Sidekiq.logger.expects(:info).once
     Services.asset_manager.expects(:create_asset).never
 
-    @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 end

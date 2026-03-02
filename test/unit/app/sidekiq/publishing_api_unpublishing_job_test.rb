@@ -11,10 +11,10 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       :published_in_error_no_redirect,
     )
 
-    PublishingApiGoneJob.expects(:new).returns(gone_worker = mock)
+    PublishingApiGoneJob.expects(:new).returns(gone_job = mock)
     unpublishing = unpublished_edition.unpublishing
 
-    gone_worker.expects(:perform).with(
+    gone_job.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
       unpublishing.explanation,
@@ -32,10 +32,10 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       :published_in_error_redirect,
     )
 
-    PublishingApiRedirectJob.expects(:new).returns(redirect_worker = mock)
+    PublishingApiRedirectJob.expects(:new).returns(redirect_job = mock)
     unpublishing = unpublished_edition.unpublishing
 
-    redirect_worker.expects(:perform).with(
+    redirect_job.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
       "en",
@@ -52,10 +52,10 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       :consolidated_redirect,
     )
 
-    PublishingApiRedirectJob.expects(:new).returns(redirect_worker = mock)
+    PublishingApiRedirectJob.expects(:new).returns(redirect_job = mock)
     unpublishing = unpublished_edition.unpublishing
 
-    redirect_worker.expects(:perform).with(
+    redirect_job.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
       "en",
@@ -71,10 +71,10 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       :withdrawn_edition,
     )
 
-    PublishingApiWithdrawalJob.expects(:new).returns(withdrawal_worker = mock)
+    PublishingApiWithdrawalJob.expects(:new).returns(withdrawal_job = mock)
     unpublishing = unpublished_edition.unpublishing
 
-    withdrawal_worker.expects(:perform).with(
+    withdrawal_job.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.explanation,
       "en",
@@ -90,10 +90,10 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       :withdrawn_edition,
     )
 
-    PublishingApiWithdrawalJob.expects(:new).returns(withdrawal_worker = mock)
+    PublishingApiWithdrawalJob.expects(:new).returns(withdrawal_job = mock)
     unpublishing = unpublished_edition.unpublishing
 
-    withdrawal_worker.expects(:perform).with(
+    withdrawal_job.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.explanation,
       "en",

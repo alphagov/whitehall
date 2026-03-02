@@ -45,10 +45,10 @@ class CallForEvidence < Edition
   # closes. We need to republish the call_for_evidence at these times to ensure
   # changes are reflected in any external systems.
   after_save do
-    schedule_republishing_workers
+    schedule_republishing_jobs
   end
 
-  def schedule_republishing_workers
+  def schedule_republishing_jobs
     if opening_at.try(:future?)
       PublishingApiDocumentRepublishingJob
         .perform_at(opening_at, document.id)

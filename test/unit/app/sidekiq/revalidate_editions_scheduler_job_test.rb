@@ -3,7 +3,7 @@ require "test_helper"
 class RevalidateEditionsSchedulerJobTest < ActiveSupport::TestCase
   test "enqueues RevalidateEditionBatchJob for editions that haven't been revalidated and aren't unpublished, superseded or deleted" do
     Sidekiq::Testing.fake! do
-      # Editions that SHOULD trigger a worker
+      # Editions that SHOULD trigger a job
       draft = create(:draft_edition, title: "Draft")
       submitted = create(:submitted_edition, title: "Submitted")
       rejected = create(:rejected_edition, title: "Rejected")
@@ -13,7 +13,7 @@ class RevalidateEditionsSchedulerJobTest < ActiveSupport::TestCase
       withdrawn = create(:withdrawn_edition, title: "Withdrawn")
       unpublished = create(:unpublished_edition, title: "Unpublished")
 
-      # Editions that SHOULD NOT trigger a worker
+      # Editions that SHOULD NOT trigger a job
       superseded = create(:superseded_edition, title: "Superseded")
 
       Sidekiq.logger.stub(:info, nil) do

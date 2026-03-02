@@ -336,7 +336,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "passes raw JSON to the export worker" do
+  test "passes raw JSON to the export job" do
     login_as :gds_editor
     Admin::EditionFilter.any_instance.stubs(exportable?: true)
 

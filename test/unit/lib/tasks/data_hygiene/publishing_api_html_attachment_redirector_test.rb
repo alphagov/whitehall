@@ -73,7 +73,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       context "the edition has been unpublished" do
         let(:queried_document_id)   { document.content_id }
 
-        it "calls the redirect worker with the HTML attachments to redirect" do
+        it "calls the redirect job with the HTML attachments to redirect" do
           PublishingApiRedirectJob
             .any_instance
             .expects(:perform)
@@ -89,7 +89,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       end
 
       context "a single HTML attachment" do
-        it "calls the redirect worker" do
+        it "calls the redirect job" do
           PublishingApiRedirectJob
             .any_instance
             .expects(:perform)

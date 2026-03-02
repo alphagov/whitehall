@@ -76,7 +76,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       service.call
     end
 
-    test "does not attempt to update html attachments via the update whitehall asset worker" do
+    test "does not attempt to update html attachments via the update whitehall asset job" do
       edition = create(:draft_edition)
       create(:html_attachment, attachable: edition)
 

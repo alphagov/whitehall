@@ -14,10 +14,10 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
       document = create(:document)
       StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new)
-      worker = StandardEditionMigratorJob.new
-      worker.stubs(:migrate_editions!)
+      job = StandardEditionMigratorJob.new
+      job.stubs(:migrate_editions!)
       assert_nothing_raised do
-        worker.perform(document.id, "republish" => true, "compare_payloads" => true)
+        job.perform(document.id, "republish" => true, "compare_payloads" => true)
       end
     end
 
@@ -25,10 +25,10 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       invalid_document_id = 0
       StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new)
 
-      worker = StandardEditionMigratorJob.new
+      job = StandardEditionMigratorJob.new
 
       assert_raises(ActiveRecord::RecordNotFound) do
-        worker.perform(invalid_document_id, "republish" => true, "compare_payloads" => true)
+        job.perform(invalid_document_id, "republish" => true, "compare_payloads" => true)
       end
     end
 
