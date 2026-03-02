@@ -109,14 +109,6 @@ class TopicalEvent < ApplicationRecord
     base_path
   end
 
-  def self.grouped_by_type
-    Rails.cache.fetch("filter_options/topics", expires_in: 30.minutes) do
-      {
-        "Topical events" => TopicalEvent.active.order_by_start_date.map { |o| [o.name, o.slug] },
-      }
-    end
-  end
-
   def published_editions
     editions.published
   end
