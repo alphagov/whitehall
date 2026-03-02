@@ -75,7 +75,6 @@ class TopicalEvent < ApplicationRecord
 
   scope :active, -> { where("end_date > ?", Time.zone.today) }
   scope :alphabetical, -> { order("name ASC") }
-  scope :order_by_start_date, -> { order("start_date DESC") }
   scope :for_edition, ->(id) { joins(:topical_event_memberships).where(topical_event_memberships: { edition_id: id }) }
 
   validates_with SafeHtmlValidator
