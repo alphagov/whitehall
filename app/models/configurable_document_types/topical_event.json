@@ -165,12 +165,14 @@
         "header": {
           "label": "header",
           "kinds": ["topical_event_header"],
-          "multiple": false
+          "multiple": false,
+          "caption_enabled": false
         },
         "logo": {
           "label": "logo",
           "kinds": ["topical_event_logo"],
-          "multiple": false
+          "multiple": false,
+          "caption_enabled": false
         }
       }
     },

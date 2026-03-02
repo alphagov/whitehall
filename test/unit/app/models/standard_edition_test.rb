@@ -577,4 +577,34 @@ class StandardEditionTest < ActiveSupport::TestCase
       }, page.block_content.to_h)
     end
   end
+
+  test "permitted_image_usages passes caption_enabled through from config" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => true,
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+              "caption_enabled" => false,
+            },
+            "logo" => {
+              "label" => "logo",
+              "kinds" => %w[topical_event_logo],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = build(:standard_edition, configurable_document_type: "test_type")
+
+    header_usage = edition.permitted_image_usages.find { |u| u.key == "header" }
+    logo_usage = edition.permitted_image_usages.find { |u| u.key == "logo" }
+
+    assert_not header_usage.caption_enabled?
+    assert logo_usage.caption_enabled?
+  end
 end
