@@ -1,4 +1,4 @@
-class WorkerBase
+class JobBase
   include Sidekiq::Job
 
   def self.perform_async_in_queue(queue, *args)
