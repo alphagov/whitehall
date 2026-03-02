@@ -25,9 +25,6 @@
     { field: "Summary", value: @topical_event.summary },
     { field: "Description", value: govspeak_to_html(@topical_event.description) },
     { field: "Details", value: topical_event_contents_breakdown(@topical_event) },
-    { field: "Duration",
-      value: ("#{@topical_event.start_date} to #{@topical_event.end_date}" if @topical_event.start_date && @topical_event.end_date),
-    },
   ],
   edit: {
     href: [:edit, :admin, @topical_event],

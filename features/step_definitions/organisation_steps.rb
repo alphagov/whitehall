@@ -234,8 +234,7 @@ Then(/^the roles should be in the following order:$/) do |roles|
 end
 
 Given(/^an active topical event called "([^"]*)" exists$/) do |name|
-  ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
-  @topical_event = create(:published_standard_edition, configurable_document_type: "topical_event", title: name, lead_organisations: [@organisation])
+  @topical_event = create(:topical_event, name:)
 end
 
 Given(/^a config-driven topical event called "([^"]*)" exists$/) do |name|

@@ -108,7 +108,7 @@ Then(/^I should see "([^"]*)" in the document list$/) do |document_title|
 end
 
 Given(/^there is an active topical event with the name "([^"]*)"$/) do |name|
-  create(:topical_event, :active, name:)
+  create(:topical_event, name:)
 end
 
 Given(/^there is a config-driven topical event with the name "([^"]*)"$/) do |name|

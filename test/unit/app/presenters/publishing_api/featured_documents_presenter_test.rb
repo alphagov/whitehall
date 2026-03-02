@@ -50,7 +50,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   end
 
   test("determines ordered featured documents in different locales for topical events") do
-    topical_event = create(:topical_event, name: "topical_event_1", start_date: 1.year.ago.to_date)
+    topical_event = create(:topical_event, name: "topical_event_1")
     feature = build(:feature, document: nil, topical_event:, ordering: 1)
     featured_documents_display_limit = 5
 
@@ -73,7 +73,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
             summary: govspeak_to_html(topical_event.summary),
-            public_updated_at: topical_event.start_date,
+            public_updated_at: Time.zone.now, # Temporary change to get rid of duration fields - we're about to delete this method anyway.
             document_type: nil },
         ]
 

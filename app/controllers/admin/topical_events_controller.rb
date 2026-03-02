@@ -67,8 +67,6 @@ class Admin::TopicalEventsController < Admin::BaseController
       :summary,
       :description,
       :logo_alt_text,
-      :start_date,
-      :end_date,
       related_topical_event_ids: [],
       topical_event_membership_attributes: %i[id ordering],
       featured_links_attributes: %i[title url _destroy id],

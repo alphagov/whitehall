@@ -848,7 +848,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "republishes a linked Topical Event when the edition is changed" do
     edition = create(:edition, :draft)
-    topical_event = create(:topical_event, :active)
+    topical_event = create(:topical_event)
     create(:topical_event_featuring, topical_event:, edition:)
 
     Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once

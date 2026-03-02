@@ -15,9 +15,6 @@
           text: "Title",
         },
         {
-          text: "Published/duration",
-        },
-        {
           text: tag.span("Actions", class: "govuk-visually-hidden"),
         },
       ],
@@ -25,9 +22,6 @@
         [
           {
             text: tag.p(topical_event.name, class: "govuk-!-margin-0 govuk-!-font-weight-bold"),
-          },
-          {
-            text: "#{l(topical_event.start_date.to_date)} to #{l(topical_event.end_date.to_date)}",
           },
           {
             text: link_to(sanitize("Edit #{tag.span(topical_event.name, class: "govuk-visually-hidden")}"), polymorphic_url([:edit, :admin, topical_event]), class: "govuk-link") +

@@ -6,7 +6,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     topical_event = create(
       :topical_event,
       :with_logo,
-      :active,
       name: "Humans going to Mars",
       description: "A topical event description with [a link](http://www.gov.uk)",
     )
@@ -54,8 +53,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
           high_resolution_url: topical_event.logo.file.url(:s960),
           alt_text: topical_event.logo_alt_text,
         },
-        start_date: topical_event.start_date.rfc3339,
-        end_date: topical_event.end_date.rfc3339,
         ordered_featured_documents: [
           {
             title: offsite_feature.title,
@@ -130,23 +127,8 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     assert_valid_against_links_schema({ links: presenter.links }, "topical_event")
   end
 
-  test "handles topical events without an end_date" do
-    topical_event = create(:topical_event, start_date: Time.zone.today)
-
-    presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
-
-    assert_equal({
-      body: govspeak_to_html(topical_event.description),
-      start_date: Time.zone.today.rfc3339,
-      emphasised_organisations: [],
-      ordered_featured_documents: [],
-    }, presenter.content[:details])
-    assert_valid_against_publisher_schema(presenter.content, "topical_event")
-    assert_valid_against_links_schema({ links: presenter.links }, "topical_event")
-  end
-
   test "it limits the number of featured items" do
-    topical_event = create(:topical_event, start_date: Time.zone.today)
+    topical_event = create(:topical_event)
     create_list(:topical_event_featuring, TopicalEvent::MAX_FEATURED_DOCUMENTS + 1, topical_event:)
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)

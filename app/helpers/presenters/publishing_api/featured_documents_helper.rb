@@ -42,7 +42,7 @@ module Presenters
           href: topical_event.public_path(locale: feature.feature_list.locale),
           image: get_image(feature),
           summary: govspeak_to_html(topical_event.summary),
-          public_updated_at: topical_event.start_date,
+          public_updated_at: Time.zone.now, # Temporary change to get rid of duration fields - we're about to delete this method anyway.
           document_type: nil, # We don't want a type for topical events
         }
       end
