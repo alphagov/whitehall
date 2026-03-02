@@ -135,29 +135,6 @@
     <% end %>
   </div>
 
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Social media accounts",
-    heading_size: "l",
-    data_attributes: {
-      ga4_section: "Social media accounts",
-    },
-  } do %>
-    <%= render "govuk_publishing_components/components/add_another", {
-      fieldset_legend: "Account",
-      add_button_text: "Add account",
-      items: form.object.social_media_accounts.each_with_index.map do  |social_media_account, index|
-        {
-          fields: render(partial: "admin/topical_events/social_media_account_fields", locals: { form:, social_media_account:, index: }),
-          destroy_checkbox: render("govuk_publishing_components/components/checkboxes", { name: "topical_event[social_media_accounts_attributes][#{index}][_destroy]", items: [{label: "Delete", value: "1" }]}),
-        }
-      end,
-      empty: render(partial: "admin/topical_events/social_media_account_fields", locals: { form:, social_media_account: SocialMediaAccount.new, index: form.object.social_media_accounts.length }),
-      data_attributes: {
-        ga4_start_index: 0,
-      },
-    } %>
-  <% end %>
-
   <div class="govuk-button-group govuk-!-margin-top-8">
     <%= render "govuk_publishing_components/components/button", {
       text: "Save",

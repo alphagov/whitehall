@@ -27,7 +27,6 @@ class TopicalEvent < ApplicationRecord
   has_many :features, inverse_of: :topical_event, dependent: :destroy
   has_many :offsite_link_parents, as: :parent
   has_many :offsite_links, through: :offsite_link_parents
-  has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
   has_many :topical_event_organisations, -> { extending UserOrderableExtension }
   has_many :organisations, through: :topical_event_organisations
@@ -70,7 +69,6 @@ class TopicalEvent < ApplicationRecord
   accepts_nested_attributes_for :topical_event_memberships
   accepts_nested_attributes_for :topical_event_organisations
   accepts_nested_attributes_for :topical_event_featurings
-  accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
   extend FriendlyId
   friendly_id

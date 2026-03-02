@@ -22,10 +22,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
     feature = create(:topical_event_featuring, topical_event:, ordering: 1)
     offsite_feature = create(:offsite_topical_event_featuring, topical_event:, ordering: 0)
 
-    social_media_service = create(:social_media_service, name: "Facebook")
-    social_media_account = create(:social_media_account, social_media_service:)
-    topical_event.social_media_accounts = [social_media_account]
-
     expected_hash = {
       base_path: public_path,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
@@ -84,13 +80,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
             document_type: feature.display_type,
           },
         ],
-        social_media_links: [
-          {
-            href: social_media_account.url,
-            service_type: social_media_account.service_name.parameterize,
-            title: social_media_account.display_name,
-          },
-        ],
       },
     }
 
@@ -131,7 +120,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
         body: govspeak_to_html(topical_event.description),
         emphasised_organisations: [],
         ordered_featured_documents: [],
-        social_media_links: [],
       },
     }
 
@@ -152,7 +140,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       start_date: Time.zone.today.rfc3339,
       emphasised_organisations: [],
       ordered_featured_documents: [],
-      social_media_links: [],
     }, presenter.content[:details])
     assert_valid_against_publisher_schema(presenter.content, "topical_event")
     assert_valid_against_links_schema({ links: presenter.links }, "topical_event")

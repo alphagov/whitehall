@@ -59,7 +59,6 @@ class Admin::TopicalEventsController < Admin::BaseController
   end
 
   def build_associated_objects
-    @topical_event.social_media_accounts.build if @topical_event.social_media_accounts.blank?
     @topical_event.build_logo if @topical_event.logo.blank?
   end
 
@@ -83,7 +82,6 @@ class Admin::TopicalEventsController < Admin::BaseController
       :end_date,
       related_topical_event_ids: [],
       topical_event_membership_attributes: %i[id ordering],
-      social_media_accounts_attributes: %i[social_media_service_id url _destroy id],
       featured_links_attributes: %i[title url _destroy id],
       topical_event_organisations_attributes: %i[id lead lead_ordering],
       logo_attributes: %i[file file_cache id],

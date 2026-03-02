@@ -182,14 +182,12 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy deletes the topical event but keeps the logo image as some other pages might depend on it" do
-    topical_event = create(:topical_event, :with_logo, :with_social_media_accounts)
+    topical_event = create(:topical_event, :with_logo)
     logo = topical_event.logo
-    social_media_account = topical_event.social_media_accounts.first
     delete :destroy, params: { id: topical_event }
 
     assert_response :redirect
     assert_nil TopicalEvent.find_by(id: topical_event.id)
-    assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
     assert FeaturedImageData.find_by(id: logo.id)
   end
 end
