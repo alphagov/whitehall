@@ -107,10 +107,6 @@ Then(/^I should see "([^"]*)" in the document list$/) do |document_title|
   expect(first_search_result).to have_content(document_title)
 end
 
-Given(/^there is an active topical event with the name "([^"]*)"$/) do |name|
-  create(:topical_event, :active, name:)
-end
-
 And(/^filter documents by all organisations$/) do
   select "All locations"
   click_button "Search"

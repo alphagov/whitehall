@@ -101,14 +101,6 @@ module Admin::OrganisationHelper
     end
   end
 
-  # legacy
-  def topical_event_dates_string(topical_event)
-    [
-      topical_event.start_date.try(:to_date),
-      topical_event.end_date.try(:to_date),
-    ].compact.map { |date| l(date) }.join(" to ")
-  end
-
   def organisation_context_block(current_user, organisation)
     name = organisation.class.name.underscore.humanize
     current_user.organisation == organisation ? "My #{name.downcase}" : name

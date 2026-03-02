@@ -3,8 +3,6 @@ require "test_helper"
 class PageTitleTest < ActiveSupport::TestCase
   EXCLUDED_TEMPLATES = %w[
     authentications/failure.html.erb
-    admin/topical_event_about_pages/edit.html.erb
-    admin/topical_event_about_pages/new.html.erb
     admin/edition_audit_trail/index.html.erb
     admin/preview/preview.html.erb
     layouts/home.html.erb

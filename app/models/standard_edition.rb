@@ -79,10 +79,7 @@ class StandardEdition < Edition
   end
 
   def can_be_associated_with_topical_events?
-    [
-      ConfigurableContentBlocks::Path.new("topical_event_ids"), # Legacy: delete when topical events migrated
-      ConfigurableContentBlocks::Path.new("topical_event_document_ids"),
-    ].any? { |path| field_paths.include?(path) }
+    field_paths.include?(ConfigurableContentBlocks::Path.new("topical_event_document_ids"))
   end
 
   def can_be_marked_political?

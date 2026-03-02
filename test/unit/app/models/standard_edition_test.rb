@@ -459,32 +459,6 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not StandardEdition.new(configurable_document_type: "test_type_without_topical_events").can_be_associated_with_topical_events?
   end
 
-  # Legacy: delete when topical events have been migrated
-  test "it allows topical event associations if the configurable document type configuration references legacy topical events" do
-    test_type_with_legacy_topical_events =
-      build_configurable_document_type(
-        "test_type_with_legacy_topical_events", {
-          "forms" => {
-            "documents" => {
-              "fields" => {
-                "topical_events" => {
-                  "title" => "Topical events",
-                  "block" => "select_with_search_tagging",
-                  "container" => "topical_events",
-                  "attribute_path" => %w[topical_event_ids],
-                  "translatable" => false,
-                },
-              },
-            },
-          },
-        }
-      )
-
-    ConfigurableDocumentType.setup_test_types(test_type_with_legacy_topical_events)
-
-    assert StandardEdition.new(configurable_document_type: "test_type_with_legacy_topical_events").can_be_associated_with_topical_events?
-  end
-
   test "conditionally requires worldwide organisation and world location associations" do
     test_type = build_configurable_document_type(
       "test_type", {

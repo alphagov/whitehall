@@ -45,13 +45,6 @@ Feature: Administering world location news information
       Then I should be on the Spanish search results page
       And I should see "Documento destacado" in the document list
 
-    # Delete when we've migrated legacy topical events
-    Scenario: Featuring a (legacy) topical event
-      Given there is an active topical event with the name "Featured topical event"
-      When I visit the world location news page
-      And I feature "Featured topical event"
-      Then I see that "Featured topical event" has been featured
-
     Scenario: Featuring a non-GOV.UK link
       Given the world location has an offsite link with the title "Featured link"
       When I visit the world location news page

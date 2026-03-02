@@ -69,11 +69,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::PolicyGroupPresenter, presenter.class
   end
 
-  test ".presenter_for returns TopicalEvent placeholder for a TopicalEvent" do
-    presenter = PublishingApiPresenters.presenter_for(TopicalEvent.new)
-    assert_equal PublishingApi::TopicalEventPresenter, presenter.class
-  end
-
   test ".presenter_for returns a HtmlAttachment presenter for `HtmlAttachment`" do
     presenter = PublishingApiPresenters.presenter_for(build(:html_attachment))
     assert_equal PublishingApi::HtmlAttachmentPresenter, presenter.class

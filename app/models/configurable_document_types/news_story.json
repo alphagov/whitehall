@@ -20,20 +20,12 @@
           "attribute_path": ["role_appointment_ids"],
           "translatable": false
         },
-        "topical_events": {
-          "title": "Topical events",
-          "block": "select_with_search_tagging",
-          "container": "topical_events",
-          "attribute_path": ["topical_event_ids"],
-          "translatable": false
-        },
         "topical_event_documents": {
-          "title": "Topical events (experimental)",
+          "title": "Topical events",
           "block": "select_with_search_tagging",
           "container": "topical_event_documents",
           "attribute_path": ["topical_event_document_ids"],
-          "translatable": false,
-          "experimental": true
+          "translatable": false
         },
         "world_locations": {
           "title": "World locations",
