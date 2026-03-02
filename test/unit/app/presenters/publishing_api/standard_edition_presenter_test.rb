@@ -332,6 +332,35 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal expected_government, links[:government]
   end
 
+  test "it omits caption from non-embeddable image details when caption_enabled is false" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => true,
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+              "caption_enabled" => false,
+            },
+          },
+        },
+      },
+    }))
+
+    image = create(:image, :svg, usage: "header", caption: "Should be omitted")
+    page = create(:standard_edition, images: [image])
+
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+    content = presenter.content
+
+    assert_equal 1, content[:details][:images].length
+    assert_not content[:details][:images].first.key?(:caption)
+    assert_equal image.image_data.url, content[:details][:images].first[:url]
+    assert_equal "header", content[:details][:images].first[:type]
+  end
+
   test "it includes non-embeddable images in the details if the config setting for 'images' is enabled" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
