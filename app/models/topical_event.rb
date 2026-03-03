@@ -2,15 +2,12 @@
 class TopicalEvent < ApplicationRecord
   include PublishesToPublishingApi
 
-  after_commit :republish_feature_organisations_to_publishing_api, if: :features?
-
   has_one :topical_event_about_page
 
   has_many :topical_event_memberships, inverse_of: :topical_event
   has_many :editions, through: :topical_event_memberships
 
   MAX_FEATURED_DOCUMENTS = 6
-  has_many :features, inverse_of: :topical_event, dependent: :destroy
   has_many :offsite_link_parents, as: :parent
   has_many :offsite_links, through: :offsite_link_parents
 
@@ -124,14 +121,5 @@ class TopicalEvent < ApplicationRecord
 
   def publishing_api_presenter
     PublishingApi::TopicalEventPresenter
-  end
-
-private
-
-  delegate :any?, to: :features
-  alias_method :features?, :any?
-
-  def republish_feature_organisations_to_publishing_api
-    features.map(&:republish_featurable_to_publishing_api)
   end
 end
