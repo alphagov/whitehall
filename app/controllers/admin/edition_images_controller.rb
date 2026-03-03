@@ -63,7 +63,7 @@ class Admin::EditionImagesController < Admin::BaseController
       end
     end
 
-    if @images.any? && @images.all?(&:valid?)
+    if @images.any? && @images.map(&:valid?).all?
       @images.each(&:save)
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
