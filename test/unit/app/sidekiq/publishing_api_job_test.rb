@@ -14,7 +14,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
     ]
 
-    PublishingApiWorker.new.perform(edition.class.name, edition.id)
+    PublishingApiJob.new.perform(edition.class.name, edition.id)
 
     assert_all_requested(requests)
   end
@@ -28,7 +28,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
     ]
 
-    PublishingApiWorker.new.perform(edition.class.name, edition.id)
+    PublishingApiJob.new.perform(edition.class.name, edition.id)
 
     requests.each { |request| assert_requested request }
   end
@@ -44,7 +44,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
         stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
       ]
 
-      PublishingApiWorker.new.perform(organisation.class.name, organisation.id)
+      PublishingApiJob.new.perform(organisation.class.name, organisation.id)
 
       requests.each { |request| assert_requested request }
     end
@@ -52,7 +52,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
 
   test "fails silently if the model cannot be found" do
     non_existent_id = 12
-    assert_nil PublishingApiWorker.new.perform("Edition", non_existent_id)
+    assert_nil PublishingApiJob.new.perform("Edition", non_existent_id)
   end
 
   test "passes the update_type option to the presenter" do
@@ -67,7 +67,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
     ]
 
-    PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
+    PublishingApiJob.new.perform(edition.class.name, edition.id, update_type)
 
     assert_all_requested requests
   end
@@ -88,7 +88,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
         ]
       end
 
-      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, "es")
+      PublishingApiJob.new.perform(organisation.class.name, organisation.id, nil, "es")
 
       assert_all_requested requests
     end
@@ -100,7 +100,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
     stub_any_publishing_api_put_content.and_raise(GdsApi::HTTPServerError.new(500))
 
     assert_raises(GdsApi::HTTPServerError) do
-      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, "en")
+      PublishingApiJob.new.perform(organisation.class.name, organisation.id, nil, "en")
     end
   end
 
@@ -112,6 +112,6 @@ class PublishingApiJobTest < ActiveSupport::TestCase
 
     GovukError.expects(:notify)
       .with(error, extra: { explanation: "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried." })
-    PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, "en")
+    PublishingApiJob.new.perform(organisation.class.name, organisation.id, nil, "en")
   end
 end

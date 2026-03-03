@@ -58,11 +58,11 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
   end
 
   test "govuk_request_id is not passed downstream if the job pre-dates request tracing (e.g. scheduled publishing jobs)" do
-    PublishingApiWorker.perform_async(@draft_edition.class.name, @draft_edition.id)
-    PublishingApiWorker.jobs.first["args"].delete("request_id" => nil)
+    PublishingApiJob.perform_async(@draft_edition.class.name, @draft_edition.id)
+    PublishingApiJob.jobs.first["args"].delete("request_id" => nil)
 
     GdsApi::GovukHeaders.set_header(:govuk_request_id, @govuk_request_id)
-    PublishingApiWorker.perform_one
+    PublishingApiJob.perform_one
 
     content_id = @draft_edition.content_id
 

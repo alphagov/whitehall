@@ -344,7 +344,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
       assert_not params.instance_of?(ActiveSupport::HashWithIndifferentAccess)
     end
 
-    DocumentListExportWorker.stub :perform_async, stub do
+    DocumentListExportJob.stub :perform_async, stub do
       post :export,
            params: {
              include_last_author: true,

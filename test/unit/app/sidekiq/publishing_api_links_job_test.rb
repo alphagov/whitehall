@@ -9,6 +9,6 @@ class PublishingApiLinksJobTest < ActiveSupport::TestCase
             links: PublishingApiPresenters.presenter_for(publication).links,
             bulk_publishing: true)
 
-    PublishingApiLinksWorker.new.perform(publication.id)
+    PublishingApiLinksJob.new.perform(publication.id)
   end
 end

@@ -11,8 +11,8 @@ class AssetManagerUpdateAssetJobTest < ActiveSupport::TestCase
   test "updates a file attachment's original asset" do
     AssetManager::AssetUpdater.expects(:call).with("asset_manager_id", auth_bypass_id_attributes)
 
-    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
-    AssetManagerUpdateAssetWorker.drain
+    AssetManagerUpdateAssetJob.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
+    AssetManagerUpdateAssetJob.drain
   end
 
   test "ignores missing assets in Asset Manager" do
@@ -20,8 +20,8 @@ class AssetManagerUpdateAssetJobTest < ActiveSupport::TestCase
     AssetManager::AssetUpdater.expects(:call).once.raises(expected_error)
     Logger.any_instance.stubs(:error).with(includes(expected_error.message)).once
 
-    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
-    AssetManagerUpdateAssetWorker.drain
+    AssetManagerUpdateAssetJob.perform_async_in_queue("asset_manager_updater", "AttachmentData", attachment_data.id, auth_bypass_id_attributes)
+    AssetManagerUpdateAssetJob.drain
   end
 
   test "updates an image and its resized versions" do
@@ -38,8 +38,8 @@ class AssetManagerUpdateAssetJobTest < ActiveSupport::TestCase
       AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, @auth_bypass_id_attributes).once
     end
 
-    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_id_original", "ImageData", image_data.id, @auth_bypass_id_attributes)
-    AssetManagerUpdateAssetWorker.drain
+    AssetManagerUpdateAssetJob.perform_async_in_queue("asset_manager_id_original", "ImageData", image_data.id, @auth_bypass_id_attributes)
+    AssetManagerUpdateAssetJob.drain
   end
 
   test "updates the consultation response form variant" do
@@ -48,7 +48,7 @@ class AssetManagerUpdateAssetJobTest < ActiveSupport::TestCase
 
     AssetManager::AssetUpdater.expects(:call).with("asset_manager_id_original", @auth_bypass_id_attributes)
 
-    AssetManagerUpdateAssetWorker.perform_async_in_queue("asset_manager_updater", "ConsultationResponseFormData", form_data.id, @auth_bypass_id_attributes)
-    AssetManagerUpdateAssetWorker.drain
+    AssetManagerUpdateAssetJob.perform_async_in_queue("asset_manager_updater", "ConsultationResponseFormData", form_data.id, @auth_bypass_id_attributes)
+    AssetManagerUpdateAssetJob.drain
   end
 end

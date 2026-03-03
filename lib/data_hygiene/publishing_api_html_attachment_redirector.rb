@@ -52,7 +52,7 @@ module DataHygiene
 
     def send_redirects_to_publishing_api
       html_attachments.each do |attachment|
-        PublishingApiRedirectWorker.new.perform(
+        PublishingApiRedirectJob.new.perform(
           attachment.content_id,
           destination,
           attachment.locale || I18n.default_locale.to_s,

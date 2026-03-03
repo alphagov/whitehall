@@ -57,9 +57,9 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
                   .at_least_once
                   .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
 
-          AssetManagerCreateAssetWorker.drain
-          PublishingApiDraftUpdateWorker.drain
-          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerCreateAssetJob.drain
+          PublishingApiDraftUpdateJob.drain
+          AssetManagerAttachmentMetadataJob.drain
         end
       end
     end
@@ -86,13 +86,13 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         # asset is marked as replaced, because the replacement is not yet
         # visible to the user.
         it "updates replacement_id for attachment in Asset Manager" do
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAssetJob.drain
 
           Services.asset_manager.expects(:update_asset)
                   .at_least_once
                   .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
 
-          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerAttachmentMetadataJob.drain
         end
       end
 
@@ -115,10 +115,10 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           visit admin_edition_path(edition)
           click_button "Create new edition"
 
-          AssetManagerAttachmentMetadataWorker.drain
-          AssetManagerCreateAssetWorker.drain
-          PublishingApiDraftUpdateWorker.drain
-          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerAttachmentMetadataJob.drain
+          AssetManagerCreateAssetJob.drain
+          PublishingApiDraftUpdateJob.drain
+          AssetManagerAttachmentMetadataJob.drain
 
           Services.asset_manager.expects(:update_asset)
                   .with(asset_manager_id, { "replacement_id" => replacement_asset_manager_id })
@@ -135,10 +135,10 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           click_button "Save"
           assert_text "Attachment 'attachment-title' updated"
 
-          AssetManagerAttachmentMetadataWorker.drain
-          AssetManagerCreateAssetWorker.drain
-          PublishingApiDraftUpdateWorker.drain
-          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerAttachmentMetadataJob.drain
+          AssetManagerCreateAssetJob.drain
+          PublishingApiDraftUpdateJob.drain
+          AssetManagerAttachmentMetadataJob.drain
 
           Services.asset_manager.expects(:update_asset)
                   .with(replacement_asset_manager_id, { "replacement_id" => double_replacement_asset_manager_id })
@@ -154,10 +154,10 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           click_button "Save"
           assert_text "Attachment 'attachment-title' updated"
 
-          AssetManagerAttachmentMetadataWorker.drain
-          AssetManagerCreateAssetWorker.drain
-          PublishingApiDraftUpdateWorker.drain
-          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerAttachmentMetadataJob.drain
+          AssetManagerCreateAssetJob.drain
+          PublishingApiDraftUpdateJob.drain
+          AssetManagerAttachmentMetadataJob.drain
         end
       end
     end

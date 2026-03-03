@@ -11,6 +11,6 @@ class AuthorNotifierJobTest < ActiveSupport::TestCase
       .expects(:call)
       .with(@edition, @user)
 
-    AuthorNotifierWorker.new.perform(@edition.id, @user.id)
+    AuthorNotifierJob.new.perform(@edition.id, @user.id)
   end
 end

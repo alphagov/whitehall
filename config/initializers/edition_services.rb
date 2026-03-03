@@ -34,7 +34,7 @@ Whitehall::Application.config.to_prepare do
         .new(edition)
         .clear!
 
-      AuthorNotifierWorker.perform_async(edition.id, *[options[:user]&.id].compact)
+      AuthorNotifierJob.perform_async(edition.id, *[options[:user]&.id].compact)
 
       # Update attachment redirect urls
       ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)

@@ -10,7 +10,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       2.times do
         document = create(:document)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", document.id, true)
           .in_sequence(queue_sequence)
@@ -41,7 +41,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         "PublishingApi::WorldIndexPresenter",
         "PublishingApi::OrganisationsIndexPresenter",
       ].each do |presenter|
-        PresentPageToPublishingApiWorker
+        PresentPageToPublishingApiJob
           .expects(:perform_async)
           .with(presenter)
           .never
@@ -58,7 +58,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       2.times do
         document_with_pre_publication_edition = create(:document, editions: [build(:published_edition), build(:draft_edition)])
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", document_with_pre_publication_edition.id, true)
           .in_sequence(queue_sequence)
@@ -70,7 +70,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     test "doesn't queue documents without pre-publication editions for republishing" do
       document = create(:document, editions: [build(:published_edition)])
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", document.id, true)
         .never
@@ -88,7 +88,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         document = create(:document, editions: [build(:published_edition), draft_edition])
         create(:html_attachment, attachable_type: "Edition", attachable_id: draft_edition.id)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", document.id, true)
           .in_sequence(queue_sequence)
@@ -101,7 +101,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       document = create(:document, editions: [build(:published_edition)])
       create(:html_attachment, attachable_type: "Edition", attachable_id: document.live_edition_id)
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", document.id, true)
         .never
@@ -112,7 +112,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     test "doesn't queue documents republishing when there are pre-publication editions but none have HTML attachments" do
       document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", document.id, true)
         .never
@@ -129,7 +129,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
         create(:attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", document.id, true)
           .in_sequence(queue_sequence)
@@ -143,7 +143,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       document = create(:document, editions: [draft_edition])
       create(:attachment, attachable_type: "Edition", attachable_id: draft_edition.id)
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", document.id, true)
         .never
@@ -154,7 +154,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     test "doesn't queue documents republishing when there are publicly-visible editions but none have attachments" do
       document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", document.id, true)
         .never
@@ -171,7 +171,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
         create(:html_attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", document.id, true)
           .in_sequence(queue_sequence)
@@ -185,7 +185,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       document = create(:document, editions: [draft_edition])
       create(:html_attachment, attachable_type: "Edition", attachable_id: draft_edition.id)
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", document.id, true)
         .never
@@ -196,7 +196,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     test "doesn't queue documents republishing when there are publicly-visible editions but none have HTML attachments" do
       document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", document.id, true)
         .never
@@ -218,7 +218,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         "PublishingApi::WorldIndexPresenter",
         "PublishingApi::OrganisationsIndexPresenter",
       ].each do |presenter|
-        PresentPageToPublishingApiWorker
+        PresentPageToPublishingApiJob
           .expects(:perform_async)
           .with(presenter)
           .in_sequence(queue_sequence)
@@ -231,7 +231,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       2.times do
         document = create(:document)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", document.id, true)
           .never
@@ -270,7 +270,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       2.times do
         document = create(:document)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", document.id, true)
           .never
@@ -289,7 +289,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         "PublishingApi::WorldIndexPresenter",
         "PublishingApi::OrganisationsIndexPresenter",
       ].each do |presenter|
-        PresentPageToPublishingApiWorker
+        PresentPageToPublishingApiJob
           .expects(:perform_async)
           .with(presenter)
           .never
@@ -306,7 +306,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       2.times do
         about_us_page = create(:about_corporate_information_page)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", about_us_page.document_id, true)
           .in_sequence(queue_sequence)
@@ -318,7 +318,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     test "doesn't queue draft organisation 'About us' pages for republishing" do
       about_us_page = create(:draft_about_corporate_information_page)
 
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .expects(:perform_async_in_queue)
         .with("bulk_republishing", about_us_page.document_id, true)
         .never
@@ -334,10 +334,10 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     end
 
     context "for editionable content types, like CaseStudy" do
-      test "republishes all content of the specified type via the PublishingApiDocumentRepublishingWorker" do
+      test "republishes all content of the specified type via the PublishingApiDocumentRepublishingJob" do
         2.times do
           case_study = create(:case_study)
-          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
             "bulk_republishing",
             case_study.document_id,
             true,
@@ -349,7 +349,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       test "only republishes each document once even if the document has multiple editions" do
         case_study = create(:published_case_study)
         create(:draft_case_study, document: case_study.document)
-        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).once.with(
+        PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).once.with(
           "bulk_republishing",
           case_study.document_id,
           true,
@@ -359,12 +359,12 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     end
 
     context "for editionable content types that also have configurable document types" do
-      test "republishes content for the specified type and configurable types via the PublishingApiDocumentRepublishingWorker" do
+      test "republishes content for the specified type and configurable types via the PublishingApiDocumentRepublishingJob" do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("case_study"))
         case_study_type = create(:published_case_study)
         standard_edition_case_study_type = create(:published_standard_edition, :with_organisations, { configurable_document_type: "case_study" })
         [case_study_type, standard_edition_case_study_type].each do |article|
-          PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+          PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
             "bulk_republishing",
             article.document_id,
             true,
@@ -375,11 +375,11 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     end
 
     context "for content types that are exclusive to standard editions" do
-      test "republishes content for the specified type via the PublishingApiDocumentRepublishingWorker" do
+      test "republishes content for the specified type via the PublishingApiDocumentRepublishingJob" do
         BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[TestType])
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
         test_type = create(:published_standard_edition, { configurable_document_type: "test_type" })
-        PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+        PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
           "bulk_republishing",
           test_type.document_id,
           true,
@@ -428,7 +428,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         documents.each do |document|
           create(:published_publication, document:, organisations: [organisation])
 
-          PublishingApiDocumentRepublishingWorker
+          PublishingApiDocumentRepublishingJob
             .expects(:perform_async_in_queue)
             .with("bulk_republishing", document.id, true)
         end
@@ -444,7 +444,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
         documents.each do |document|
           create(:published_publication, document:, organisations: [other_organisation])
 
-          PublishingApiDocumentRepublishingWorker
+          PublishingApiDocumentRepublishingJob
             .expects(:perform_async_in_queue)
             .with("bulk_republishing", document.id, true)
             .never
@@ -472,7 +472,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       ids.each do |id|
         create(:document, id:)
 
-        PublishingApiDocumentRepublishingWorker
+        PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
           .with("bulk_republishing", id, true)
           .once

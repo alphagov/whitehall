@@ -15,7 +15,7 @@ class PublishingApiScheduleJobTest < ActiveSupport::TestCase
     }
     expected_request = stub_publishing_api_put_intent(base_path, expected_payload)
 
-    PublishingApiScheduleWorker.new.perform(base_path, publish_time.as_json)
+    PublishingApiScheduleJob.new.perform(base_path, publish_time.as_json)
 
     assert_requested expected_request
   end

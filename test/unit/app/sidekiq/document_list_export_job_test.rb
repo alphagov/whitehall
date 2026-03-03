@@ -3,7 +3,7 @@ require "test_helper"
 class DocumentListExportJobTest < ActiveSupport::TestCase
   setup do
     @user = create(:user)
-    @worker = DocumentListExportWorker.new
+    @worker = DocumentListExportJob.new
 
     setup_fog_mock
   end

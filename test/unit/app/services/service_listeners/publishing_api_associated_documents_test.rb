@@ -9,12 +9,12 @@ module ServiceListeners
 
     class Publish < PublishingApiAssociatedDocumentsTest
       test "for something that can't have html attachments doesn't publish" do
-        PublishingApiWorker.any_instance.expects(:perform).never
+        PublishingApiJob.any_instance.expects(:perform).never
         call(create(:published_speech))
       end
 
       test "with no html attachments doesn't publish" do
-        PublishingApiWorker.any_instance.expects(:perform).never
+        PublishingApiJob.any_instance.expects(:perform).never
         publication = create(:published_publication, :with_external_attachment)
         call(publication)
       end
@@ -22,7 +22,7 @@ module ServiceListeners
       test "with an html attachment on a new document publishes the attachment" do
         publication = create(:published_publication)
         attachment = publication.html_attachments.first
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "major",
@@ -35,7 +35,7 @@ module ServiceListeners
         consultation = create(:consultation_with_outcome_html_attachment, :published)
         attachment = consultation.outcome.html_attachments.first
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "major",
@@ -49,7 +49,7 @@ module ServiceListeners
         consultation = create(:consultation_with_public_feedback_html_attachment, :published)
         attachment = consultation.public_feedback.html_attachments.first
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "major",
@@ -73,7 +73,7 @@ module ServiceListeners
         attachments = [outcome, public_feedback, consultation].flat_map(&:html_attachments)
 
         attachments.each do |attachment|
-          PublishingApiWorker.any_instance.expects(:perform).with(
+          PublishingApiJob.any_instance.expects(:perform).with(
             "HtmlAttachment",
             attachment.id,
             "major",
@@ -94,7 +94,7 @@ module ServiceListeners
 
         attachment = new_edition.html_attachments.first
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "minor",
@@ -114,7 +114,7 @@ module ServiceListeners
 
         attachment = new_edition.html_attachments.first
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "minor",
@@ -133,7 +133,7 @@ module ServiceListeners
         new_edition.publish!
 
         old_attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           old_attachment.content_id,
           new_edition.base_path,
           "en",
@@ -152,7 +152,7 @@ module ServiceListeners
         new_edition.publish!
 
         new_attachment = new_edition.html_attachments.first
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           new_attachment.id,
           "minor",
@@ -160,7 +160,7 @@ module ServiceListeners
         )
 
         old_attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           old_attachment.content_id,
           new_edition.base_path,
           "en",
@@ -189,14 +189,14 @@ module ServiceListeners
         new_edition.submit!
         new_edition.publish!
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           new_attachment.id,
           "minor",
           "en",
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           deleted_attachment.content_id,
           new_edition.base_path,
           "en",
@@ -209,14 +209,14 @@ module ServiceListeners
         worldwide_organisation = create(:worldwide_organisation, :with_translated_page, translated_into: :fr)
         page = worldwide_organisation.pages.first
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "WorldwideOrganisationPage",
           page.id,
           "major",
           "en",
         )
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "WorldwideOrganisationPage",
           page.id,
           "major",
@@ -229,21 +229,21 @@ module ServiceListeners
       test "with an office on a new worldwide organisation publishes the office, it's contact and it's page" do
         worldwide_organisation = create(:worldwide_organisation, :with_main_office, :with_page)
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "WorldwideOffice",
           worldwide_organisation.main_office.id,
           "major",
           "en",
         )
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "Contact",
           worldwide_organisation.main_office.contact.id,
           "major",
           "en",
         )
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "WorldwideOrganisationPage",
           worldwide_organisation.pages.first.id,
           "major",
@@ -262,7 +262,7 @@ module ServiceListeners
         new_edition.submit!
         new_edition.publish!
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           new_edition.main_office.content_id,
           new_edition.base_path,
           "en",
@@ -280,7 +280,7 @@ module ServiceListeners
         new_edition.submit!
         new_edition.publish!
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           new_edition.main_office.contact.content_id,
           nil,
           nil,
@@ -300,7 +300,7 @@ module ServiceListeners
 
         old_office = worldwide_organisation.main_office
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           old_office.contact.content_id,
           nil,
           nil,
@@ -321,7 +321,7 @@ module ServiceListeners
 
         old_page = worldwide_organisation.pages.first
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           old_page.content_id,
           new_edition.base_path,
           "en",
@@ -397,7 +397,7 @@ module ServiceListeners
         attachment = publication.html_attachments.first
         attachment.destroy!
 
-        PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
+        PublishingApiDiscardDraftJob.any_instance.expects(:perform).with(
           attachment.content_id,
           "en",
         )
@@ -434,7 +434,7 @@ module ServiceListeners
       test "for a publication that has been consolidated publishes a redirect to the alternative url" do
         publication = create(:unpublished_publication_consolidated)
         attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           attachment.content_id,
           "/government/another/page",
           "en",
@@ -447,14 +447,14 @@ module ServiceListeners
         worldwide_organisation = create(:unpublished_worldwide_organisation, :with_translated_page, translated_into: :fr)
         page = worldwide_organisation.pages.first
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           page.content_id,
           "/world/organisations/worldwide-organisation-title",
           "en",
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           page.content_id,
           "/world/organisations/worldwide-organisation-title",
           "fr",
@@ -468,7 +468,7 @@ module ServiceListeners
         worldwide_organisation = create(:unpublished_worldwide_organisation, :with_translated_main_office, translated_into: :fr)
         office = worldwide_organisation.main_office
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           office.contact.content_id,
           nil,
           nil,
@@ -476,7 +476,7 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           office.contact.content_id,
           nil,
           nil,
@@ -492,14 +492,14 @@ module ServiceListeners
         office = worldwide_organisation.main_office
         page = worldwide_organisation.pages.first
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           office.content_id,
           "/government/another/page",
           "en",
           false,
         )
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           office.contact.content_id,
           nil,
           nil,
@@ -507,7 +507,7 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           page.content_id,
           "/government/another/page",
           "en",
@@ -520,7 +520,7 @@ module ServiceListeners
       test "for a publication that has been unpublished with a redirect publishes a redirect to the alternative url" do
         publication = create(:unpublished_publication_in_error_redirect)
         attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           attachment.content_id,
           "/government/another/page",
           "en",
@@ -533,14 +533,14 @@ module ServiceListeners
         worldwide_organisation = create(:unpublished_worldwide_organisation_in_error_redirect, :with_main_office)
         office = worldwide_organisation.main_office
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           office.content_id,
           "/government/another/page",
           "en",
           false,
         )
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           office.contact.content_id,
           nil,
           nil,
@@ -555,7 +555,7 @@ module ServiceListeners
         external_url = "https://test.ukri.org/some-page"
         publication = create(:unpublished_publication, { unpublishing: build(:unpublishing, { redirect: true, alternative_url: external_url }) })
         attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           attachment.content_id,
           external_url,
           "en",
@@ -570,14 +570,14 @@ module ServiceListeners
         office = worldwide_organisation.main_office
         page = worldwide_organisation.pages.first
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           office.content_id,
           external_url,
           "en",
           false,
         )
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           office.contact.content_id,
           nil,
           nil,
@@ -585,7 +585,7 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           page.content_id,
           external_url,
           "en",
@@ -598,7 +598,7 @@ module ServiceListeners
       test "for a publication that has been unpublished without a redirect publishes a redirect to the parent document" do
         publication = create(:unpublished_publication_in_error_no_redirect)
         attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           attachment.content_id,
           publication.base_path,
           "en",
@@ -612,14 +612,14 @@ module ServiceListeners
         office = worldwide_organisation.main_office
         page = worldwide_organisation.pages.first
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           office.content_id,
           worldwide_organisation.base_path,
           "en",
           false,
         )
 
-        PublishingApiGoneWorker.any_instance.expects(:perform).with(
+        PublishingApiGoneJob.any_instance.expects(:perform).with(
           office.contact.content_id,
           nil,
           nil,
@@ -627,7 +627,7 @@ module ServiceListeners
           false,
         )
 
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           page.content_id,
           worldwide_organisation.base_path,
           "en",
@@ -639,12 +639,12 @@ module ServiceListeners
 
       class Withdraw < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't publish a withdrawal" do
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).never
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).never
           call(create(:published_speech))
         end
 
         test "for a publication with no html attachments doesn't publish a withdrawal" do
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).never
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).never
           publication = create(:withdrawn_publication, :with_external_attachment)
           call(publication)
         end
@@ -652,7 +652,7 @@ module ServiceListeners
         test "for a publication that has been withdrawn publishes a withdrawal" do
           publication = create(:withdrawn_publication)
           attachment = publication.html_attachments.first
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
             attachment.content_id,
             "content was withdrawn",
             "en",
@@ -666,7 +666,7 @@ module ServiceListeners
           worldwide_organisation = create(:withdrawn_worldwide_organisation, :with_main_office, :with_page)
           page = worldwide_organisation.pages.first
 
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
             worldwide_organisation.main_office.content_id,
             "content was withdrawn",
             "en",
@@ -674,7 +674,7 @@ module ServiceListeners
             worldwide_organisation.unpublishing.unpublished_at.to_s,
           )
 
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
             worldwide_organisation.main_office.contact.content_id,
             "content was withdrawn",
             "en",
@@ -682,7 +682,7 @@ module ServiceListeners
             worldwide_organisation.unpublishing.unpublished_at.to_s,
           )
 
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
             page.content_id,
             "content was withdrawn",
             "en",
@@ -697,7 +697,7 @@ module ServiceListeners
           worldwide_organisation = create(:withdrawn_worldwide_organisation, :with_translated_page, translated_into: :fr)
           page = worldwide_organisation.pages.first
 
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
             page.content_id,
             "content was withdrawn",
             "en",
@@ -705,7 +705,7 @@ module ServiceListeners
             worldwide_organisation.unpublishing.unpublished_at.to_s,
           )
 
-          PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+          PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
             page.content_id,
             "content was withdrawn",
             "fr",
@@ -723,7 +723,7 @@ module ServiceListeners
           publication = create(:withdrawn_publication, attachments:)
 
           attachments.each do |attachment|
-            PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+            PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
               attachment.content_id,
               "content was withdrawn",
               attachment.locale || I18n.default_locale.to_s,
@@ -737,20 +737,20 @@ module ServiceListeners
 
       class Delete < PublishingApiAssociatedDocumentsTest
         test "for something that can't have html attachments doesn't discard any drafts" do
-          PublishingApiDiscardDraftWorker.expects(:perform_async).never
+          PublishingApiDiscardDraftJob.expects(:perform_async).never
           call(create(:published_edition))
         end
 
         test "for a draft publication with no html attachments doesn't discard any drafts" do
           publication = create(:draft_publication, :with_external_attachment)
-          PublishingApiDiscardDraftWorker.expects(:perform_async).never
+          PublishingApiDiscardDraftJob.expects(:perform_async).never
           call(publication)
         end
 
         test "for a draft publication with html attachments discards the draft" do
           publication = create(:draft_publication)
           attachment = publication.html_attachments.first
-          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+          PublishingApiDiscardDraftJob.expects(:perform_async).with(
             attachment.content_id,
             "en",
           )
@@ -760,17 +760,17 @@ module ServiceListeners
         test "for a draft worldwide organisation with offices and pages discards the draft" do
           worldwide_organisation = create(:draft_worldwide_organisation, :with_main_office, :with_page)
 
-          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+          PublishingApiDiscardDraftJob.expects(:perform_async).with(
             worldwide_organisation.main_office.content_id,
             "en",
           )
 
-          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+          PublishingApiDiscardDraftJob.expects(:perform_async).with(
             worldwide_organisation.main_office.contact.content_id,
             "en",
           )
 
-          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+          PublishingApiDiscardDraftJob.expects(:perform_async).with(
             worldwide_organisation.pages.first.content_id,
             "en",
           )
@@ -782,12 +782,12 @@ module ServiceListeners
           worldwide_organisation = create(:draft_worldwide_organisation, :with_translated_page, translated_into: :fr)
           page = worldwide_organisation.pages.first
 
-          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+          PublishingApiDiscardDraftJob.expects(:perform_async).with(
             page.content_id,
             "en",
           )
 
-          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+          PublishingApiDiscardDraftJob.expects(:perform_async).with(
             page.content_id,
             "fr",
           )
@@ -800,7 +800,7 @@ module ServiceListeners
           attachment = publication.html_attachments.first
           attachment.destroy!
 
-          PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+          PublishingApiDiscardDraftJob.expects(:perform_async).with(
             attachment.content_id,
             "en",
           )
@@ -844,7 +844,7 @@ module ServiceListeners
       test "for a published publication with an attachment publishes the attachment" do
         publication = create(:published_publication)
         attachment = publication.html_attachments.first
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "republish",
@@ -856,21 +856,21 @@ module ServiceListeners
       test "for a published worldwide organisation with an office and page publishes the office and page" do
         worldwide_organisation = create(:published_worldwide_organisation, :with_main_office, :with_page)
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "WorldwideOffice",
           worldwide_organisation.main_office.id,
           "republish",
           "en",
         )
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "Contact",
           worldwide_organisation.main_office.contact.id,
           "republish",
           "en",
         )
 
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "WorldwideOrganisationPage",
           worldwide_organisation.pages.first.id,
           "republish",
@@ -884,7 +884,7 @@ module ServiceListeners
         publication = create(:published_publication)
         attachment = publication.html_attachments.first
         attachment.destroy!
-        PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
+        PublishingApiDiscardDraftJob.any_instance.expects(:perform).with(
           attachment.content_id,
           "en",
         )
@@ -896,13 +896,13 @@ module ServiceListeners
       test "for a withdrawn publication with an attachment withdraws the attachment" do
         publication = create(:withdrawn_publication)
         attachment = publication.html_attachments.first
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "republish",
           "en",
         )
-        PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+        PublishingApiWithdrawalJob.any_instance.expects(:perform).with(
           attachment.content_id,
           "content was withdrawn",
           "en",
@@ -915,7 +915,7 @@ module ServiceListeners
       test "for a publication that has been consolidated publishes a redirect to the alternative url" do
         publication = create(:unpublished_publication_consolidated)
         attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           attachment.content_id,
           "/government/another/page",
           "en",
@@ -927,7 +927,7 @@ module ServiceListeners
       test "for a publication that has been unpublished with a redirect publishes a redirect to the alternative url" do
         publication = create(:unpublished_publication_in_error_redirect)
         attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           attachment.content_id,
           "/government/another/page",
           "en",
@@ -939,7 +939,7 @@ module ServiceListeners
       test "for a publication that has been unpublished without a redirect publishes a redirect to the parent document" do
         publication = create(:unpublished_publication_in_error_no_redirect)
         attachment = publication.html_attachments.first
-        PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        PublishingApiRedirectJob.any_instance.expects(:perform).with(
           attachment.content_id,
           publication.base_path,
           "en",
@@ -950,7 +950,7 @@ module ServiceListeners
 
       test "for a publication that has been unpublished does not publish the attachment in order to unpublish again" do
         publication = create(:unpublished_publication_in_error_no_redirect)
-        PublishingApiWorker.any_instance.expects(:perform).never
+        PublishingApiJob.any_instance.expects(:perform).never
         call(publication)
       end
     end
@@ -959,7 +959,7 @@ module ServiceListeners
       test "with an html attachment on a new document publishes the attachment" do
         publication = create(:published_publication)
         attachment = publication.html_attachments.first
-        PublishingApiWorker.any_instance.expects(:perform).with(
+        PublishingApiJob.any_instance.expects(:perform).with(
           "HtmlAttachment",
           attachment.id,
           "major",

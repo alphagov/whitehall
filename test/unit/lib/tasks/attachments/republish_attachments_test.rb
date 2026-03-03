@@ -44,7 +44,7 @@ class RepublishAttachmentsRake < ActiveSupport::TestCase
   end
 
   def expect_pdf_attachment
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       @edition_with_pdf_attachment.document_id,
       true,
@@ -52,7 +52,7 @@ class RepublishAttachmentsRake < ActiveSupport::TestCase
   end
 
   def expect_csv_attachment
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       @edition_with_csv_attachment.document_id,
       true,
@@ -60,7 +60,7 @@ class RepublishAttachmentsRake < ActiveSupport::TestCase
   end
 
   def expect_old_csv_edition
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async_in_queue).with(
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
       @old_edition.document_id,
       true,

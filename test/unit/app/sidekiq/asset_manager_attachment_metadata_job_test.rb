@@ -3,10 +3,10 @@ require "test_helper"
 class AssetManagerAttachmentMetadataJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  describe AssetManagerAttachmentMetadataWorker do
+  describe AssetManagerAttachmentMetadataJob do
     let(:edition) { create(:draft_publication) }
     let(:attachment_data) { create(:attachment_data, attachable: edition) }
-    let(:worker) { AssetManagerAttachmentMetadataWorker.new }
+    let(:worker) { AssetManagerAttachmentMetadataJob.new }
 
     it "calls updater" do
       AssetManager::AttachmentUpdater.expects(:call).with(attachment_data)

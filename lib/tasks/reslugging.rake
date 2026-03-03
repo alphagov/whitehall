@@ -76,7 +76,7 @@ namespace :reslug do
     Whitehall::PublishingApi.republish_async(html_attachment)
 
     # send edition to publishing api
-    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    PublishingApiDocumentRepublishingJob.new.perform(document.id)
   end
 
   desc "Change the slug of a PolicyGroup"

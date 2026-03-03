@@ -60,7 +60,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
   end
 
   test "should allow deletion of response form via nested attributes" do
-    AssetManagerDeleteAssetWorker.stubs(:perform_async)
+    AssetManagerDeleteAssetJob.stubs(:perform_async)
 
     form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: form)
@@ -72,7 +72,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
   end
 
   test "destroys attached form when no editions are associated" do
-    AssetManagerDeleteAssetWorker.stubs(:perform_async)
+    AssetManagerDeleteAssetJob.stubs(:perform_async)
 
     participation = create(:consultation_participation)
     form = create(:consultation_response_form, consultation_participation: participation)

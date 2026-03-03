@@ -4,7 +4,7 @@ module ServiceListeners
       Attachment.where(attachable: attachable.attachables).find_each do |attachment|
         next unless attachment.attachment_data
 
-        AssetManagerAttachmentRedirectUrlUpdateWorker.perform_async(attachment.attachment_data.id)
+        AssetManagerAttachmentRedirectUrlUpdateJob.perform_async(attachment.attachment_data.id)
       end
     end
   end

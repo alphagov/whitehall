@@ -7,6 +7,6 @@ class RevalidateEditionBatchJobTest < ActiveSupport::TestCase
 
     Edition.any_instance.expects(:valid?).with(:publish).twice
 
-    RevalidateEditionBatchWorker.new.perform([edition1.id, edition2.id])
+    RevalidateEditionBatchJob.new.perform([edition1.id, edition2.id])
   end
 end

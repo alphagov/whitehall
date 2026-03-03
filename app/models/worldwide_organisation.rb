@@ -203,7 +203,7 @@ class WorldwideOrganisation < Edition
 
   def republish_embassies_index
     if Edition::POST_PUBLICATION_STATES.include?(state)
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
+      PresentPageToPublishingApiJob.perform_async("PublishingApi::EmbassiesIndexPresenter")
     end
   end
 

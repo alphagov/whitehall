@@ -7,6 +7,6 @@ class PatchLinksPublishingApiJobTest < ActiveSupport::TestCase
 
     service.expects(:patch_links).with(PublishingApi::HowGovernmentWorksPresenter)
 
-    PatchLinksPublishingApiWorker.new.perform("PublishingApi::HowGovernmentWorksPresenter")
+    PatchLinksPublishingApiJob.new.perform("PublishingApi::HowGovernmentWorksPresenter")
   end
 end

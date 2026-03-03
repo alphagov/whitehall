@@ -38,7 +38,7 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
         it "deletes the corresponding asset in asset manager" do
           Services.asset_manager.expects(:delete_asset).times(7).with(regexp_matches(/asset_manager_id.*/))
 
-          AssetManagerDeleteAssetWorker.drain
+          AssetManagerDeleteAssetJob.drain
         end
       end
     end

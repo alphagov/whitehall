@@ -276,7 +276,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test "updating should respect the attachment_action for response forms to remove it" do
-    AssetManagerDeleteAssetWorker.stubs(:perform_async)
+    AssetManagerDeleteAssetJob.stubs(:perform_async)
 
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
@@ -347,8 +347,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation = create(:consultation, consultation_participation: participation)
     response_form_data = build(:consultation_response_form_data, file: two_pages_pdf)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
 
     put :update,
         params: { id: consultation,
@@ -375,8 +375,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     response_form_data = build(:consultation_response_form_data, file: two_pages_pdf)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/two-pages/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/greenpaper/), anything, anything, anything, anything, anything).times(1)
 
     attributes = controller_attributes_for(
       :consultation,

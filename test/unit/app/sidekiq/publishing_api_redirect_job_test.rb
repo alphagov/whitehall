@@ -23,7 +23,7 @@ class PublishingApiRedirectJobTest < ActiveSupport::TestCase
       },
     )
 
-    PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr")
+    PublishingApiRedirectJob.new.perform(@uuid, @destination, "fr")
 
     assert_requested request
   end
@@ -39,7 +39,7 @@ class PublishingApiRedirectJobTest < ActiveSupport::TestCase
       },
     )
 
-    PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)
+    PublishingApiRedirectJob.new.perform(@uuid, @destination, "fr", true)
 
     assert_requested request
   end
@@ -56,7 +56,7 @@ class PublishingApiRedirectJobTest < ActiveSupport::TestCase
       },
     )
 
-    PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)
+    PublishingApiRedirectJob.new.perform(@uuid, @destination, "fr", true)
 
     assert_requested request
   end
@@ -69,7 +69,7 @@ class PublishingApiRedirectJobTest < ActiveSupport::TestCase
 
     Services.stub :publishing_api, publishing_api do
       assert_raises(GdsApi::HTTPUnprocessableEntity) do
-        PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)
+        PublishingApiRedirectJob.new.perform(@uuid, @destination, "fr", true)
       end
     end
   end

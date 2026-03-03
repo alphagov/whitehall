@@ -4,7 +4,7 @@ class AssetManagerDeleteAssetJobTest < ActiveSupport::TestCase
   setup do
     @asset = create(:image_data).assets.first
     @asset_manager_id = @asset.asset_manager_id
-    @worker = AssetManagerDeleteAssetWorker.new
+    @worker = AssetManagerDeleteAssetJob.new
   end
 
   test "it calls AssetManager::AssetDeleter" do

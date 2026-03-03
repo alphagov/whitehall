@@ -19,7 +19,7 @@ class PublishingApiWithdrawalJobTest < ActiveSupport::TestCase
       },
     )
 
-    PublishingApiWithdrawalWorker.new.perform(
+    PublishingApiWithdrawalJob.new.perform(
       publication.document.content_id, "*why?*", "en", false, unpublished_at.to_s
     )
 

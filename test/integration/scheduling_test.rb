@@ -111,6 +111,6 @@ private
   def stub_legacy_sidekiq_scheduling
     # Scheduling an item will enqueue the publish action, and queued actions
     # are performed immediately in test, which will fail: so stub the worker.
-    ScheduledPublishingWorker.stubs(:queue)
+    ScheduledPublishingJob.stubs(:queue)
   end
 end

@@ -8,6 +8,6 @@ class PublishingApiDraftUpdateJobTest < ActiveSupport::TestCase
       .expects(:save_draft)
       .with(consultation)
 
-    PublishingApiDraftUpdateWorker.new.perform(consultation.class.name, consultation.id)
+    PublishingApiDraftUpdateJob.new.perform(consultation.class.name, consultation.id)
   end
 end

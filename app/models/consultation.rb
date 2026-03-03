@@ -60,12 +60,12 @@ class Consultation < Edition
 
   def schedule_republishing_workers
     if opening_at.try(:future?)
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .perform_at(opening_at, document.id)
     end
 
     if closing_at.try(:future?)
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .perform_at(closing_at, document.id)
     end
   end

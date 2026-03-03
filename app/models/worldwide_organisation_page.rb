@@ -68,7 +68,7 @@ private
   end
 
   def discard_draft
-    PublishingApiDiscardDraftWorker.perform_async(content_id, I18n.default_locale.to_s)
+    PublishingApiDiscardDraftJob.perform_async(content_id, I18n.default_locale.to_s)
   end
 
   def unique_worldwide_organisation_and_page_type

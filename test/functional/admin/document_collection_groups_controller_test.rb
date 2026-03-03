@@ -57,7 +57,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   end
 
   test "POST #create creates a new group from valid data and redirects" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@collection.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(@collection.document_id, false).once
     assert_difference("@collection.groups.count") do
       post_create(heading: "New group", body: "Group body")
     end
@@ -83,7 +83,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   end
 
   test "PUT #update modifies the group and redirects" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@collection.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(@collection.document_id, false).once
     put_update(heading: "New heading", body: "New body")
     @group.reload
     assert_equal "New heading", @group.heading
@@ -110,7 +110,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   end
 
   test "DELETE #destroy deletes group and redirects" do
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(@collection.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(@collection.document_id, false).once
     assert_difference "@collection.groups.count", -1 do
       delete :destroy, params: { document_collection_id: @collection, id: @group }
     end

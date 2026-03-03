@@ -7,6 +7,6 @@ class PresentPageToPublishingApiJobTest < ActiveSupport::TestCase
 
     service.expects(:publish).with(PublishingApi::HowGovernmentWorksPresenter)
 
-    PresentPageToPublishingApiWorker.new.perform("PublishingApi::HowGovernmentWorksPresenter")
+    PresentPageToPublishingApiJob.new.perform("PublishingApi::HowGovernmentWorksPresenter")
   end
 end

@@ -5,7 +5,7 @@ class EditionForceSchedulerTest < ActiveSupport::TestCase
     edition   = create(:draft_edition, scheduled_publication: 1.day.from_now)
     scheduler = EditionForceScheduler.new(edition)
 
-    ScheduledPublishingWorker.expects(:queue).with(edition)
+    ScheduledPublishingJob.expects(:queue).with(edition)
     assert scheduler.perform!, scheduler.failure_reason
     assert edition.force_published?
     assert edition.scheduled?
@@ -15,7 +15,7 @@ class EditionForceSchedulerTest < ActiveSupport::TestCase
     edition   = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     scheduler = EditionForceScheduler.new(edition)
 
-    ScheduledPublishingWorker.expects(:queue).with(edition)
+    ScheduledPublishingJob.expects(:queue).with(edition)
     assert scheduler.perform!, scheduler.failure_reason
     assert edition.force_published?
     assert edition.scheduled?

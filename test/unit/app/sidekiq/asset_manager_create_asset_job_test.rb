@@ -3,7 +3,7 @@ require "test_helper"
 class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   setup do
     @file = Tempfile.new("asset", Dir.mktmpdir)
-    @worker = AssetManagerCreateAssetWorker.new
+    @worker = AssetManagerCreateAssetJob.new
     @asset_manager_id = "asset_manager_id"
     @organisation = FactoryBot.create(:organisation)
     @attachable = create(:draft_publication)
@@ -117,7 +117,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
 
-    PublishingApiDraftUpdateWorker.drain
+    PublishingApiDraftUpdateJob.drain
   end
 
   test "triggers an update to asset-manager for policy group" do
@@ -125,7 +125,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    AssetManagerAttachmentMetadataWorker.expects(:perform_async).with(@model_without_assets.id).once
+    AssetManagerAttachmentMetadataJob.expects(:perform_async).with(@model_without_assets.id).once
 
     @worker.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
   end
@@ -134,7 +134,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     consultation = FactoryBot.create(:consultation)
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    PublishingApiDraftUpdateWorker.expects(:perform_async).with(consultation.class.to_s, consultation.id)
+    PublishingApiDraftUpdateJob.expects(:perform_async).with(consultation.class.to_s, consultation.id)
 
     @worker.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end

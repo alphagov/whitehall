@@ -5,13 +5,13 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   # UnpublishingReason: 1 - in error
-  test "runs PublishingApiGoneWorker with path and explanation when redirect is false" do
+  test "runs PublishingApiGoneJob with path and explanation when redirect is false" do
     unpublished_edition = create(
       :unpublished_edition,
       :published_in_error_no_redirect,
     )
 
-    PublishingApiGoneWorker.expects(:new).returns(gone_worker = mock)
+    PublishingApiGoneJob.expects(:new).returns(gone_worker = mock)
     unpublishing = unpublished_edition.unpublishing
 
     gone_worker.expects(:perform).with(
@@ -22,17 +22,17 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       false,
     )
 
-    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
+    PublishingApiUnpublishingJob.new.perform(unpublished_edition.unpublishing.id)
   end
 
   # UnpublishingReason: 1 - in error, redirect: true
-  test "runs PublishingApiGoneWorker with path when redirect is true" do
+  test "runs PublishingApiGoneJob with path when redirect is true" do
     unpublished_edition = create(
       :unpublished_edition,
       :published_in_error_redirect,
     )
 
-    PublishingApiRedirectWorker.expects(:new).returns(redirect_worker = mock)
+    PublishingApiRedirectJob.expects(:new).returns(redirect_worker = mock)
     unpublishing = unpublished_edition.unpublishing
 
     redirect_worker.expects(:perform).with(
@@ -42,17 +42,17 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       false,
     )
 
-    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
+    PublishingApiUnpublishingJob.new.perform(unpublished_edition.unpublishing.id)
   end
 
   # UnpublishingReason: 4 - consolidated
-  test "runs PublishingApiRedirectWorker with alternative path" do
+  test "runs PublishingApiRedirectJob with alternative path" do
     unpublished_edition = create(
       :unpublished_edition,
       :consolidated_redirect,
     )
 
-    PublishingApiRedirectWorker.expects(:new).returns(redirect_worker = mock)
+    PublishingApiRedirectJob.expects(:new).returns(redirect_worker = mock)
     unpublishing = unpublished_edition.unpublishing
 
     redirect_worker.expects(:perform).with(
@@ -62,16 +62,16 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       false,
     )
 
-    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
+    PublishingApiUnpublishingJob.new.perform(unpublished_edition.unpublishing.id)
   end
 
   # UnpublishingReason: 5 - withdrawn
-  test "runs PublishingApiWithdrawalWorker with alternative path" do
+  test "runs PublishingApiWithdrawalJob with alternative path" do
     unpublished_edition = create(
       :withdrawn_edition,
     )
 
-    PublishingApiWithdrawalWorker.expects(:new).returns(withdrawal_worker = mock)
+    PublishingApiWithdrawalJob.expects(:new).returns(withdrawal_worker = mock)
     unpublishing = unpublished_edition.unpublishing
 
     withdrawal_worker.expects(:perform).with(
@@ -82,7 +82,7 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       unpublishing.unpublished_at.to_s,
     )
 
-    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
+    PublishingApiUnpublishingJob.new.perform(unpublished_edition.unpublishing.id)
   end
 
   test "passes allow_draft if supplied" do
@@ -90,7 +90,7 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       :withdrawn_edition,
     )
 
-    PublishingApiWithdrawalWorker.expects(:new).returns(withdrawal_worker = mock)
+    PublishingApiWithdrawalJob.expects(:new).returns(withdrawal_worker = mock)
     unpublishing = unpublished_edition.unpublishing
 
     withdrawal_worker.expects(:perform).with(
@@ -101,6 +101,6 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
       unpublishing.unpublished_at.to_s,
     )
 
-    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id, true)
+    PublishingApiUnpublishingJob.new.perform(unpublished_edition.unpublishing.id, true)
   end
 end

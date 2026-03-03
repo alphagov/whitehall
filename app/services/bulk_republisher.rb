@@ -45,7 +45,7 @@ class BulkRepublisher
 
   def republish_all_individual_pages
     republishable_pages.each do |page|
-      PresentPageToPublishingApiWorker.perform_async(page[:presenter])
+      PresentPageToPublishingApiJob.perform_async(page[:presenter])
     end
   end
 
@@ -82,7 +82,7 @@ class BulkRepublisher
 
   def republish_all_documents_by_ids(ids)
     ids.each do |id|
-      PublishingApiDocumentRepublishingWorker.perform_async(id, true)
+      PublishingApiDocumentRepublishingJob.perform_async(id, true)
     end
   end
 

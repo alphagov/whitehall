@@ -15,7 +15,7 @@ class ReviewReminderNotifierJobTest < ActiveSupport::TestCase
 
     # Freeze time so we can assert against the current time without it changing
     Timecop.freeze do
-      ReviewReminderNotifierWorker.new.perform(reminder.id)
+      ReviewReminderNotifierJob.new.perform(reminder.id)
 
       assert_equal Time.zone.now, reminder.reload.reminder_sent_at
     end
@@ -25,9 +25,9 @@ class ReviewReminderNotifierJobTest < ActiveSupport::TestCase
     MailNotifications.expects(:review_reminder).never
 
     not_due_yet = create(:review_reminder, :not_due_yet)
-    ReviewReminderNotifierWorker.new.perform(not_due_yet.id)
+    ReviewReminderNotifierJob.new.perform(not_due_yet.id)
 
     already_sent = create(:review_reminder, :reminder_due, :reminder_sent)
-    ReviewReminderNotifierWorker.new.perform(already_sent.id)
+    ReviewReminderNotifierJob.new.perform(already_sent.id)
   end
 end

@@ -22,21 +22,21 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
       it "raises an ArgumentError if edition_id is missing" do
         params = valid_params.except("edition_id")
 
-        error = assert_raises(ArgumentError) { FindAndReplaceWorker.new.perform(params) }
+        error = assert_raises(ArgumentError) { FindAndReplaceJob.new.perform(params) }
         assert_equal "Error: missing keyword argument(s): edition_id", error.message
       end
 
       it "raises ActiveRecord::RecordNotFound if the Edition doesn't exist" do
         params = valid_params.merge("edition_id" => -1)
 
-        error = assert_raises(ActiveRecord::RecordNotFound) { FindAndReplaceWorker.new.perform(params) }
+        error = assert_raises(ActiveRecord::RecordNotFound) { FindAndReplaceJob.new.perform(params) }
         assert_match(/Couldn't find Edition with 'id'=-?1/, error.message)
       end
 
       it "raises an ArgumentError if replacements is missing" do
         params = valid_params.except("replacements")
 
-        error = assert_raises(ArgumentError) { FindAndReplaceWorker.new.perform(params) }
+        error = assert_raises(ArgumentError) { FindAndReplaceJob.new.perform(params) }
         assert_equal "Error: missing keyword argument(s): replacements", error.message
       end
 
@@ -55,7 +55,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         invalid_inputs.each do |bad_input|
           params = valid_params.merge("replacements" => bad_input)
 
-          error = assert_raises(ArgumentError) { FindAndReplaceWorker.new.perform(params) }
+          error = assert_raises(ArgumentError) { FindAndReplaceJob.new.perform(params) }
           assert_match(/invalid 'replacements' argument/, error.message)
         end
       end
@@ -68,7 +68,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         params            = valid_params.merge("edition_id" => published_edition.id)
 
         expected_msg = "Aborting: Edition #{published_edition.id} was passed, but there is a more recent Edition (#{new_draft.id})."
-        worker = FindAndReplaceWorker.new
+        worker = FindAndReplaceJob.new
         worker.expects(:log).with(expected_msg)
         worker.perform(params)
       end
@@ -78,7 +78,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         params              = valid_params.merge("edition_id" => unpublished_edition.id)
 
         expected_msg = "Aborting: Edition #{unpublished_edition.id} was passed, but is in state 'unpublished' and cannot be acted on."
-        worker = FindAndReplaceWorker.new
+        worker = FindAndReplaceJob.new
         worker.expects(:log).with(expected_msg)
         worker.perform(params)
       end
@@ -88,7 +88,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         params = valid_params.merge("edition_id" => published_edition.id)
 
         expected_msg = "Skipping: Edition #{published_edition.id}. Neither it nor its HTML attachments need changing."
-        worker = FindAndReplaceWorker.new
+        worker = FindAndReplaceJob.new
         worker.expects(:log).with(expected_msg)
         worker.perform(params)
         assert_equal published_edition.reload.document.latest_edition.id, published_edition.id # no draft edition created
@@ -106,7 +106,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
           }
 
           expected_msg = "Success: performed find-and-replace on edition #{draft_edition.id} and saved the draft."
-          worker = FindAndReplaceWorker.new
+          worker = FindAndReplaceJob.new
           worker.expects(:log).with(expected_msg)
           worker.perform(params)
 
@@ -124,7 +124,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             "replacements" => [{ "find" => "foo", "replace" => "bar" }],
           }
 
-          worker = FindAndReplaceWorker.new
+          worker = FindAndReplaceJob.new
           worker.expects(:log).with("Success: performed find-and-replace on edition #{draft_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
           worker.perform(params)
 
@@ -141,7 +141,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
           }
 
           expected_msg = "Success: performed find-and-replace on edition #{scheduled_edition.id} and saved the draft."
-          worker = FindAndReplaceWorker.new
+          worker = FindAndReplaceJob.new
           worker.expects(:log).with(expected_msg)
           worker.perform(params)
 
@@ -159,7 +159,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             "replacements" => [{ "find" => "foo", "replace" => "bar" }],
           }
 
-          worker = FindAndReplaceWorker.new
+          worker = FindAndReplaceJob.new
           worker.expects(:log).with("Success: performed find-and-replace on edition #{force_scheduled_edition.id} and its HTML attachments (#{attachment.slug}) and saved the draft.")
           worker.perform(params)
 
@@ -171,7 +171,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         it "logs the action against the automated user" do
           published_edition = create(:published_edition, body: "foo")
           params            = valid_params.merge("edition_id" => published_edition.id)
-          FindAndReplaceWorker.new.perform(params)
+          FindAndReplaceJob.new.perform(params)
 
           assert_equal(
             User.find_by(name: "Scheduled Publishing Robot").id,
@@ -194,7 +194,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             "A new (draft) edition should be created and then published",
           ) do
             expected_msg = /Success: performed find-and-replace on edition #{published_edition.id}, saving and publishing this as new edition \d+\./
-            worker = FindAndReplaceWorker.new
+            worker = FindAndReplaceJob.new
             worker.expects(:log).with(regexp_matches(expected_msg))
             worker.perform(params)
           end
@@ -219,7 +219,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
             +1,
             "A new (draft) edition should be created and then published",
           ) do
-            worker = FindAndReplaceWorker.new
+            worker = FindAndReplaceJob.new
             worker.expects(:log).with("Success: performed find-and-replace on edition #{published_edition.id} and its HTML attachments (#{attachment.slug}), saving and publishing this as new edition #{published_edition.id + 1}.")
             worker.perform(params)
           end
@@ -233,7 +233,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         it "saves an internal changenote against the new edition" do
           published_edition = create(:published_edition, body: "foo")
           params            = valid_params.merge("edition_id" => published_edition.id)
-          FindAndReplaceWorker.new.perform(params)
+          FindAndReplaceJob.new.perform(params)
 
           assert_equal(
             "Automatically republished content with some body changes",
@@ -244,7 +244,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         it "saves a custom internal changenote against the new edition, if provided" do
           published_edition = create(:published_edition, body: "foo")
           params            = valid_params.merge("edition_id" => published_edition.id, "changenote" => "Replaced foo with bar")
-          FindAndReplaceWorker.new.perform(**params)
+          FindAndReplaceJob.new.perform(**params)
 
           assert_equal(
             "Replaced foo with bar",
@@ -255,7 +255,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         it "logs the action against the automated user" do
           published_edition = create(:published_edition, body: "foo")
           params            = valid_params.merge("edition_id" => published_edition.id)
-          FindAndReplaceWorker.new.perform(params)
+          FindAndReplaceJob.new.perform(params)
 
           assert_equal(
             User.find_by(name: "Scheduled Publishing Robot").id,
@@ -273,7 +273,7 @@ class FindAndReplaceJobTest < ActiveSupport::TestCase
         log_io = StringIO.new
         custom_logger = Logger.new(log_io)
         Rails.stub(:logger, custom_logger) do
-          FindAndReplaceWorker.new.perform(params)
+          FindAndReplaceJob.new.perform(params)
         end
 
         assert_match "[MyFindAndReplaceScript] Success: performed find-and-replace on edition #{edition.id} and saved the draft.", log_io.string

@@ -17,11 +17,11 @@ class RevalidateEditionsSchedulerJobTest < ActiveSupport::TestCase
       superseded = create(:superseded_edition, title: "Superseded")
 
       Sidekiq.logger.stub(:info, nil) do
-        RevalidateEditionsSchedulerWorker.new.perform
+        RevalidateEditionsSchedulerJob.new.perform
       end
 
       # Flatten all batch args (each job's arg is an array of IDs)
-      enqueued_ids = RevalidateEditionBatchWorker.jobs.flat_map { |job| job["args"].first }
+      enqueued_ids = RevalidateEditionBatchJob.jobs.flat_map { |job| job["args"].first }
 
       expected_ids = [draft, submitted, rejected, published, unpublished, scheduled, force_published, withdrawn].map(&:id)
       unexpected_ids = [superseded.id]

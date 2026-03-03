@@ -6,6 +6,6 @@ class SearchIndexDeleteJobTest < ActiveSupport::TestCase
     index.expects(:delete).with("woo")
     Whitehall::SearchIndex.expects(:for).with(:government, anything).returns(index)
 
-    SearchIndexDeleteWorker.new.perform("woo", "government")
+    SearchIndexDeleteJob.new.perform("woo", "government")
   end
 end

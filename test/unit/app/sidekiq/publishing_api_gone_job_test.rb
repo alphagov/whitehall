@@ -21,7 +21,7 @@ class PublishingApiGoneJobTest < ActiveSupport::TestCase
       },
     )
 
-    PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de")
+    PublishingApiGoneJob.new.perform(@uuid, "alternative_path", "*why?*", "de")
 
     assert_requested request
   end
@@ -38,7 +38,7 @@ class PublishingApiGoneJobTest < ActiveSupport::TestCase
       },
     )
 
-    PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de", true)
+    PublishingApiGoneJob.new.perform(@uuid, "alternative_path", "*why?*", "de", true)
 
     assert_requested request
   end
@@ -56,7 +56,7 @@ class PublishingApiGoneJobTest < ActiveSupport::TestCase
     )
 
     alternative_path_with_trailing_space = "alternative_path "
-    PublishingApiGoneWorker.new.perform(@uuid, alternative_path_with_trailing_space, "*why?*", "de", true)
+    PublishingApiGoneJob.new.perform(@uuid, alternative_path_with_trailing_space, "*why?*", "de", true)
 
     assert_requested request
   end
@@ -69,7 +69,7 @@ class PublishingApiGoneJobTest < ActiveSupport::TestCase
 
     Services.stub :publishing_api, publishing_api do
       assert_raises(GdsApi::HTTPUnprocessableEntity) do
-        PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de")
+        PublishingApiGoneJob.new.perform(@uuid, "alternative_path", "*why?*", "de")
       end
     end
   end

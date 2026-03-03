@@ -7,7 +7,7 @@ class PublishingApiUnscheduleJobTest < ActiveSupport::TestCase
     base_path = "/base_path/for/content.fr"
     expected_request = stub_publishing_api_destroy_intent(base_path)
 
-    PublishingApiUnscheduleWorker.new.perform(base_path)
+    PublishingApiUnscheduleJob.new.perform(base_path)
 
     assert_requested expected_request
   end

@@ -22,7 +22,7 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
       it "creates and publishes a new edition" do
         published_edition = create(:publication, :published, body: @dangerous_body)
         create_danger_link_check_report(published_edition)
-        RemoveDangerousLinksWorker.new.perform(published_edition.id)
+        RemoveDangerousLinksJob.new.perform(published_edition.id)
 
         assert_not_equal(published_edition.id, published_edition.document.live_edition.id)
         assert_equal(User.find_by(name: "Scheduled Publishing Robot").id, published_edition.versions.last.whodunnit.to_i)
@@ -39,7 +39,7 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
 
         published_edition = create(:publication, :published, body: @dangerous_body)
         create_danger_link_check_report(published_edition)
-        RemoveDangerousLinksWorker.new.perform(published_edition.id)
+        RemoveDangerousLinksJob.new.perform(published_edition.id)
 
         assert_equal(sterilised_body, published_edition.document.live_edition.body)
       end
@@ -47,7 +47,7 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
       it "saves an internal changenote against the new edition" do
         published_edition = create(:publication, :published, body: @dangerous_body)
         create_danger_link_check_report(published_edition)
-        RemoveDangerousLinksWorker.new.perform(published_edition.id)
+        RemoveDangerousLinksJob.new.perform(published_edition.id)
 
         assert_equal(
           "Dangerous links automatically removed: http://www.example.com",
@@ -61,7 +61,7 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
         published_edition = create(:publication, :published, body: "harmless body")
         create_danger_link_check_report(published_edition)
 
-        RemoveDangerousLinksWorker.new.perform(published_edition.id)
+        RemoveDangerousLinksJob.new.perform(published_edition.id)
 
         latest_edition = published_edition.document.reload.latest_edition
         assert_equal published_edition.id, latest_edition.id
@@ -74,7 +74,7 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
         create_danger_link_check_report(withdrawn_edition)
 
         assert_logged "Aborting: Edition #{withdrawn_edition.id} was passed, but is in state 'withdrawn' and cannot be acted on." do
-          RemoveDangerousLinksWorker.new.perform(withdrawn_edition.id)
+          RemoveDangerousLinksJob.new.perform(withdrawn_edition.id)
         end
       end
 
@@ -82,8 +82,8 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
         published_edition = create(:publication, :published)
         create_happy_link_check_report(published_edition)
 
-        FindAndReplaceWorker.expects(:new).never
-        RemoveDangerousLinksWorker.new.perform(published_edition.id)
+        FindAndReplaceJob.expects(:new).never
+        RemoveDangerousLinksJob.new.perform(published_edition.id)
       end
     end
   end

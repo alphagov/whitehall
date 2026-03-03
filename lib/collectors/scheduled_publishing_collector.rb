@@ -9,7 +9,7 @@ module Collectors
       whitehall_scheduled_publishing_overdue.observe(Edition.due_for_publication.count)
 
       whitehall_unenqueued_scheduled_publications = PrometheusExporter::Metric::Gauge.new("whitehall_unenqueued_scheduled_publications", "Unenqueued scheduled publications")
-      whitehall_unenqueued_scheduled_publications.observe(Edition.future_scheduled_editions.count - ScheduledPublishingWorker.queue_size)
+      whitehall_unenqueued_scheduled_publications.observe(Edition.future_scheduled_editions.count - ScheduledPublishingJob.queue_size)
 
       [
         whitehall_scheduled_publishing_overdue,
