@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManagerCreateAssetWorkerTest < ActiveSupport::TestCase
+class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   setup do
     @file = Tempfile.new("asset", Dir.mktmpdir)
     @worker = AssetManagerCreateAssetWorker.new

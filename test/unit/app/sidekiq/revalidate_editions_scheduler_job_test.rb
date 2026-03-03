@@ -1,7 +1,7 @@
 require "test_helper"
 
-class RevalidateEditionsSchedulerWorkerTest < ActiveSupport::TestCase
-  test "enqueues RevalidateEditionBatchWorker for editions that haven't been revalidated and aren't unpublished, superseded or deleted" do
+class RevalidateEditionsSchedulerJobTest < ActiveSupport::TestCase
+  test "enqueues RevalidateEditionBatchJob for editions that haven't been revalidated and aren't unpublished, superseded or deleted" do
     Sidekiq::Testing.fake! do
       # Editions that SHOULD trigger a worker
       draft = create(:draft_edition, title: "Draft")

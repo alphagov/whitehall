@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ReviewReminderNotifierWorkerTest < ActiveSupport::TestCase
+class ReviewReminderNotifierJobTest < ActiveSupport::TestCase
   test "calls MailNotifications#review_reminder and updates reminder_sent_at" do
     reminder = create(:review_reminder, :reminder_due)
     edition = reminder.document.latest_edition

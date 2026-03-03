@@ -1,6 +1,6 @@
 require "test_helper"
 
-class StandardEditionMigratorWorkerTest < ActiveSupport::TestCase
+class StandardEditionMigratorJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe "sidekiq_options" do

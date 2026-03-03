@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
+class ScheduledPublishingJobTest < ActiveSupport::TestCase
   setup do
     @publishing_robot = create(:scheduled_publishing_robot)
   end

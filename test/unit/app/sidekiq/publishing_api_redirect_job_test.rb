@@ -1,7 +1,7 @@
 require "test_helper"
 require "gds_api/test_helpers/publishing_api"
 
-class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
+class PublishingApiRedirectJobTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   setup do

@@ -1,7 +1,7 @@
 require "test_helper"
 require "gds_api/test_helpers/link_checker_api"
 
-class RevalidateOldLinkCheckReportsWorkerTest < ActiveSupport::TestCase
+class RevalidateOldLinkCheckReportsJobTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::LinkCheckerApi
 
   enable_url_helpers

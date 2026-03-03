@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublishingApiUnscheduleWorkerTest < ActiveSupport::TestCase
+class PublishingApiUnscheduleJobTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   test "removes a publish intent when performed" do

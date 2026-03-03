@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManagerAttachmentMetadataWorkerTest < ActiveSupport::TestCase
+class AssetManagerAttachmentMetadataJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   describe AssetManagerAttachmentMetadataWorker do

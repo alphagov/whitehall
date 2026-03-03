@@ -1,7 +1,7 @@
 require "test_helper"
 require "gds_api/test_helpers/publishing_api"
 
-class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
+class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   # UnpublishingReason: 1 - in error

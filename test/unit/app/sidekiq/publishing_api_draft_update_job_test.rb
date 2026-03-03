@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublishingApiDraftUpdateWorkerTest < ActiveSupport::TestCase
+class PublishingApiDraftUpdateJobTest < ActiveSupport::TestCase
   test "should perform a draft update of an edition to publishing api" do
     consultation = FactoryBot.create(:consultation)
 

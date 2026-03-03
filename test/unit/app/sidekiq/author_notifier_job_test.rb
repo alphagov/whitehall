@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AuthorNotifierWorkerTest < ActiveSupport::TestCase
+class AuthorNotifierJobTest < ActiveSupport::TestCase
   setup do
     @user = create(:user)
     @edition = create(:edition)

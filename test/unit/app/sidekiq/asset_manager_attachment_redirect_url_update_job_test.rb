@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCase
+class AssetManagerAttachmentRedirectUrlUpdateJobTest < ActiveSupport::TestCase
   test "it updates redirect url for all assets" do
     edition = create(:unpublished_edition)
     attachment = create(:file_attachment, attachable: edition)

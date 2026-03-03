@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PatchLinksPublishingApiWorkerTest < ActiveSupport::TestCase
+class PatchLinksPublishingApiJobTest < ActiveSupport::TestCase
   test "instantiates an instance of PresentPageToPublishingApi and calls #patch_links" do
     service = mock
     PresentPageToPublishingApi.expects(:new).returns(service)

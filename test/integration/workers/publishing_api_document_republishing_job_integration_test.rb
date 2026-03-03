@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api"
 
 # Integration Tests to check for what actual HTTP calls are being made to Publishing API by the Document Republishing Worker
-class PublishingApiDocumentRepublishingWorkerIntegrationTest < ActiveSupport::TestCase
+class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include GovspeakHelper
   context "Never before published documents" do

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SearchIndexAddWorkerTest < ActiveSupport::TestCase
+class SearchIndexAddJobTest < ActiveSupport::TestCase
   test "#perform raises an exception if the class is not searchable" do
     Object.stub_const("NonSearchableClass", Class.new) do
       worker = SearchIndexAddWorker.new

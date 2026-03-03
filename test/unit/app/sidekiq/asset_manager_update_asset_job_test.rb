@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
+class AssetManagerUpdateAssetJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let(:auth_bypass_id_attributes) do

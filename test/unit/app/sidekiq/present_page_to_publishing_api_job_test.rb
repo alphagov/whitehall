@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PresentPageToPublishingApiWorkerTest < ActiveSupport::TestCase
+class PresentPageToPublishingApiJobTest < ActiveSupport::TestCase
   test "instantiates an instance of PresentPageToPublishingApi and calls #publish" do
     service = mock
     PresentPageToPublishingApi.expects(:new).returns(service)

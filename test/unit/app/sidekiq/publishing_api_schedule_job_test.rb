@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
+class PublishingApiScheduleJobTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   test "publishes a publish intent for the base path and publish time" do

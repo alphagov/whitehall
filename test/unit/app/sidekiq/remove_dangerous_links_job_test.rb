@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RemoveDangerousLinksWorkerTest < ActiveSupport::TestCase
+class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   before do

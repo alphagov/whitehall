@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RevalidateEditionBatchWorkerTest < ActiveSupport::TestCase
+class RevalidateEditionBatchJobTest < ActiveSupport::TestCase
   test "calls `valid?(:publish)` on the given editions" do
     edition1 = create(:edition)
     edition2 = create(:edition)

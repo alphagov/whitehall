@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublishingApiLinksWorkerTest < ActiveSupport::TestCase
+class PublishingApiLinksJobTest < ActiveSupport::TestCase
   test "#perform sends a patch links request to Publishing API" do
     publication = create(:publication)
     Services.publishing_api

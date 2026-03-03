@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DocumentListExportWorkerTest < ActiveSupport::TestCase
+class DocumentListExportJobTest < ActiveSupport::TestCase
   setup do
     @user = create(:user)
     @worker = DocumentListExportWorker.new

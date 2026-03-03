@@ -1,6 +1,6 @@
 require "test_helper"
 
-class FindAndReplaceWorkerTest < ActiveSupport::TestCase
+class FindAndReplaceJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   before do
