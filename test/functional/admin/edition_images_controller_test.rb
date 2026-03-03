@@ -524,6 +524,31 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select ".govuk-error-summary li", "Image data file \"hero_image_mobile_2x.png\" name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
   end
 
+  view_test "POST :create with multiple invalid files shows each filename in error summary" do
+    login_authorised_user
+    edition = create(:draft_case_study)
+    files = [upload_fixture("images/50x33_gif.gif"), upload_fixture("horrible-image.64x96.jpg")]
+
+    post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
+
+    assert_template "admin/edition_images/index"
+    assert_select ".govuk-error-summary li", /"50x33_gif.gif" is too small/
+    assert_select ".govuk-error-summary li", /"horrible-image.64x96.jpg" is too small/
+  end
+
+  view_test "POST :create with mix of valid and invalid files shows only the failing filename in error summary" do
+    login_authorised_user
+    edition = create(:draft_case_study)
+    files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("images/50x33_gif.gif")]
+
+    post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
+
+    assert_template "admin/edition_images/index"
+    assert_select ".govuk-error-summary li", /"50x33_gif.gif" is too small/
+    assert_select ".govuk-error-summary li", { text: /960x640_jpeg.jpg/, count: 0 }
+    assert_select ".gem-c-error-message"
+  end
+
   view_test "POST :create re-renders the correct usage 'new' template on validation errors" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
