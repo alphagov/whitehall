@@ -7,14 +7,6 @@ module Admin::FeaturesHelper
     end
   end
 
-  def featurable_topical_events_for_feature_list(featurable_topical_events, feature_list)
-    @featurable_topical_events_for_feature_list ||= featurable_topical_events.reject do |topical_event|
-      feature_list.features.current.detect do |feature|
-        feature.topical_event == topical_event
-      end
-    end
-  end
-
   def featurable_editions_for_feature_list(editions, feature_list)
     @featurable_editions_for_feature_list ||= editions
                                                 .select { |ed| feature_list.features.current.none? { |f| f.document == ed.document } }
