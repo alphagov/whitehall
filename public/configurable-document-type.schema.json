@@ -83,6 +83,10 @@
           "description": "Determines whether or not the field's value can be translated for different locales",
           "type": "boolean"
         },
+        "experimental": {
+          "description": "When true, only renders the field if the configurable_document_types feature flag is enabled",
+          "type": "boolean"
+        },
         "options": {
           "type": "array",
           "description": "List of options for select inputs.",

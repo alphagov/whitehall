@@ -42,6 +42,8 @@ class ConfigurableContentBlocks::BaseBlock
   def render_in(view_context)
     return "" if @edition.is_translation? && @config["translatable"] == false
 
+    return "" if !Flipflop.enabled?(:configurable_document_types) && @config["experimental"] == true
+
     view_context.render template: "admin/configurable_content_blocks/#{template_name}", locals: { block: self }
   end
 

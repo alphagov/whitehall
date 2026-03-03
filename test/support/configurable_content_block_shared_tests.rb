@@ -7,4 +7,11 @@ module ConfigurableContentBlockSharedTests
     end
     @field["translatable"] = true
   end
+
+  def test_it_does_not_render_if_the_configurable_document_types_feature_flag_is_disabled_and_the_field_is_experimental
+    @field["experimental"] = true
+    html = render @block
+    assert_empty html
+    @field["experimental"] = false
+  end
 end
