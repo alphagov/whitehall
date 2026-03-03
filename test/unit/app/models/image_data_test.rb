@@ -34,6 +34,13 @@ class ImageDataTest < ActiveSupport::TestCase
            "Expected error to include filename, got: #{image_data.errors[:file]}"
   end
 
+  test "does not show redundant presence error when CarrierWave integrity error exists" do
+    image_data = build_example("50x33_gif.gif")
+    assert_not image_data.valid?
+    assert_not image_data.errors[:file].any? { |msg| msg.include?("cannot be uploaded") },
+               "Expected presence error to be suppressed when integrity error exists, got: #{image_data.errors[:file]}"
+  end
+
   test "accepts images with 960x640 dimensions" do
     image_data = build_example("960x640_jpeg.jpg")
     assert image_data.valid?
