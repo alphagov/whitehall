@@ -23,8 +23,4 @@ module Edition::TopicalEvents
   def can_be_associated_with_topical_events?
     true
   end
-
-  def search_index
-    super.merge("topical_events" => topical_events.pluck(:slug))
-  end
 end
