@@ -444,6 +444,60 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal 3, count
   end
 
+  test "should exclude editions featured on the given feature list" do
+    org = create(:organisation)
+    feature_list = org.load_or_create_feature_list(:en)
+
+    featured_edition = create(:published_standard_edition, :with_organisations)
+    unfeatured_edition = create(:published_standard_edition, :with_organisations)
+
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    filter = Admin::EditionFilter.new(Edition, build(:gds_editor), state: "published", feature_list:)
+
+    assert_includes filter.editions.to_a, unfeatured_edition
+    assert_not_includes filter.editions.to_a, featured_edition
+  end
+
+  test "should not exclude editions featured on a different organisation's feature list" do
+    org_a = create(:organisation)
+    org_b = create(:organisation)
+    feature_list_a = org_a.load_or_create_feature_list(:en)
+    feature_list_b = org_b.load_or_create_feature_list(:en)
+
+    edition = create(:published_standard_edition, :with_organisations)
+    create(:feature, feature_list: feature_list_a, document: edition.document)
+
+    filter = Admin::EditionFilter.new(Edition, build(:gds_editor), state: "published", feature_list: feature_list_b)
+
+    assert_includes filter.editions.to_a, edition
+  end
+
+  test "should not exclude editions featured on a different locale's feature list for the same organisation" do
+    org = create(:organisation)
+    english_feature_list = org.load_or_create_feature_list(:en)
+    welsh_feature_list = org.load_or_create_feature_list(:cy)
+
+    edition = create(:published_standard_edition, :with_organisations)
+    create(:feature, feature_list: english_feature_list, document: edition.document)
+
+    filter = Admin::EditionFilter.new(Edition, build(:gds_editor), state: "published", feature_list: welsh_feature_list)
+
+    assert_includes filter.editions.to_a, edition
+  end
+
+  test "should not exclude featured editions when no feature_list is provided" do
+    org = create(:organisation)
+    feature_list = org.load_or_create_feature_list(:en)
+
+    featured_edition = create(:published_standard_edition, :with_organisations)
+    create(:feature, feature_list:, document: featured_edition.document)
+
+    filter = Admin::EditionFilter.new(Edition, build(:gds_editor), state: "published")
+
+    assert_includes filter.editions.to_a, featured_edition
+  end
+
   test "exportable? if number of editions is below threshold" do
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
     filter.stubs(:unpaginated_editions).returns(stub(count: 8000))

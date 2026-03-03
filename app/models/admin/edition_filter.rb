@@ -125,6 +125,7 @@ module Admin
       editions = editions.only_broken_links if only_broken_links
       editions = editions.review_overdue if review_overdue
       editions = editions.linked_to_document(linked_document) if linked_document
+      editions = editions.excluding_featured_on(feature_list) if feature_list
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
       editions = editions.includes(:link_check_report) if include_link_check_report?
@@ -323,6 +324,10 @@ module Admin
 
     def linked_document
       options[:linked_document]
+    end
+
+    def feature_list
+      options[:feature_list]
     end
   end
 end
