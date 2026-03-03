@@ -1,7 +1,6 @@
 # LEGACY TOPICAL EVENTS ONLY
 class TopicalEvent < ApplicationRecord
   include PublishesToPublishingApi
-  include SimpleWorkflow
 
   after_commit :republish_feature_organisations_to_publishing_api, if: :features?
 
