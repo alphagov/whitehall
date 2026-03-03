@@ -102,10 +102,6 @@ class TopicalEvent < ApplicationRecord
     topical_event_organisations.where(lead: true).order("topical_event_organisations.lead_ordering")
   end
 
-  def importance_ordered_organisations
-    organisations.reorder("topical_event_organisations.lead DESC, topical_event_organisations.lead_ordering")
-  end
-
   def latest(limit = 3)
     published_editions.in_reverse_chronological_order.includes(:translations).limit(limit)
   end
