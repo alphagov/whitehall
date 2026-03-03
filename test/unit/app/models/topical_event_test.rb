@@ -181,14 +181,6 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert_not topical_event.valid?
   end
 
-  test "for edition returns topical events related to supplied edition" do
-    topical_event = create(:topical_event)
-    publication = build(:publication)
-    topical_event.publications << publication
-    topical_event.save!
-    assert_equal [topical_event], TopicalEvent.for_edition(publication.id)
-  end
-
   test "start and end dates are considered indexable for search" do
     start_date = Date.new(2016, 1, 1)
     end_date = Date.new(2017, 1, 1)
