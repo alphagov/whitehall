@@ -22,6 +22,7 @@ class ImageData < ApplicationRecord
 
   validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." }
   validate :filename_is_unique
+  after_validation :prepend_filename_to_errors
 
   delegate :url, :content_type, to: :file
 
@@ -93,6 +94,23 @@ private
 
     if edition.images.excluding(image).joins(:image_data).exists?(["image_data.carrierwave_image = ?", filename])
       errors.add(:file, message: "name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name.")
+    end
+  end
+
+  def prepend_filename_to_errors
+    name = filename.presence || carrierwave_image
+    return if name.blank?
+
+    file_errors = errors.where(:file).map(&:dup)
+    return if file_errors.empty?
+
+    errors.delete(:file)
+    file_errors.each do |error|
+      message = error.message
+      unless message.start_with?("\"")
+        message = "\"#{name}\" #{message}"
+      end
+      errors.add(:file, message:)
     end
   end
 end
