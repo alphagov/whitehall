@@ -23,9 +23,6 @@
         text: "Summary",
       },
       {
-        text: "Published guides",
-      },
-      {
         text: tag.span("Actions", class: "govuk-visually-hidden"),
       },
     ],
@@ -36,9 +33,6 @@
         },
         {
           text: truncate(event.summary, length: 130, separator: " "),
-        },
-        {
-          text: event.published_detailed_guides.count,
         },
         {
           text: link_to(sanitize("View #{tag.span(event.name, class: 'govuk-visually-hidden')}"), [:admin, event], class: "govuk-link") +

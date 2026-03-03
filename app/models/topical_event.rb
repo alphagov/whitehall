@@ -72,14 +72,6 @@ class TopicalEvent < ApplicationRecord
     base_path
   end
 
-  def published_editions
-    editions.published
-  end
-
-  def published_detailed_guides
-    published_editions.detailed_guides
-  end
-
   def lead_organisations
     organisations.where(topical_event_organisations: { lead: true }).reorder("topical_event_organisations.lead_ordering")
   end
@@ -89,7 +81,7 @@ class TopicalEvent < ApplicationRecord
   end
 
   def latest(limit = 3)
-    published_editions.in_reverse_chronological_order.includes(:translations).limit(limit)
+    editions.published.in_reverse_chronological_order.includes(:translations).limit(limit)
   end
 
   def description_without_markup
