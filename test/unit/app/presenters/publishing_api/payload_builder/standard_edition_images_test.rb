@@ -160,6 +160,58 @@ module PublishingApi
         assert_equal({}, result)
       end
 
+      test "omits caption from image payload when caption_enabled is false" do
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+          "settings" => {
+            "images" => {
+              "enabled" => true,
+              "usages" => {
+                "header" => {
+                  "label" => "header",
+                  "kinds" => %w[topical_event_header],
+                  "multiple" => false,
+                  "caption_enabled" => false,
+                },
+              },
+            },
+          },
+        }))
+
+        image = create(:image, :svg, usage: "header", caption: "Should be omitted")
+        page = create(:standard_edition, images: [image])
+
+        result = PayloadBuilder::StandardEditionImages.for(page)[:images]
+
+        assert_equal 1, result.count
+        assert_not result.first.key?(:caption)
+        assert_equal "header", result.first[:type]
+      end
+
+      test "includes caption in image payload when caption_enabled is true" do
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+          "settings" => {
+            "images" => {
+              "enabled" => true,
+              "usages" => {
+                "non_embeddable_usage" => {
+                  "kinds" => %w[non_embeddable_usage_kind],
+                  "multiple" => false,
+                  "caption_enabled" => true,
+                },
+              },
+            },
+          },
+        }))
+
+        image = create(:image, :svg, usage: "non_embeddable_usage", caption: "Should be included")
+        page = create(:standard_edition, images: [image])
+
+        result = PayloadBuilder::StandardEditionImages.for(page)[:images]
+
+        assert_equal 1, result.count
+        assert_equal "Should be included", result.first[:caption]
+      end
+
       context "usage: lead" do
         test "sends the custom lead image payload to publishing-api" do
           ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {

@@ -148,6 +148,45 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_edition_image_path(edition, image)}'][method='post']"
   end
 
+  view_test "GET :edit page shows caption field by default" do
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_publication, images: [image])
+    get :edit, params: { edition_id: edition.id, id: image.id }
+    assert_select "textarea[name='image[caption]']"
+    assert_select "p.govuk-body-lead", text: "You can leave any image detail blank if you do not need it."
+    assert_select "a[href='https://www.gov.uk/guidance/content-design/images']", text: "Using informative and decorative images on GOV.UK (opens in new tab)"
+  end
+
+  view_test "GET :edit page hides caption field when caption_enabled is false" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+              "caption_enabled" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [
+      create(:image, usage: "header"),
+    ])
+
+    get :edit, params: { edition_id: edition.id, id: edition.images.first.id }
+
+    assert_select "textarea[name='image[caption]']", count: 0
+    assert_select "p.govuk-body-lead", text: "You can leave any image detail blank if you do not need it.", count: 0
+    assert_select "p.govuk-body", text: "Captions are not supported on this type of image. Select Save to continue."
+    assert_select "a[href='https://www.gov.uk/guidance/content-design/images']", text: "Using informative and decorative images on GOV.UK (opens in new tab)", count: 0
+  end
+
   view_test "GET: edit page shows image if all its assets are uploaded" do
     login_authorised_user
     image = build(:image)

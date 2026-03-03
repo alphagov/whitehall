@@ -156,4 +156,32 @@ class ImageTest < ActiveSupport::TestCase
 
     assert_equal expected_hash, image.publishing_api_details
   end
+
+  test "#publishing_api_details omits caption when caption_enabled is false on the image usage" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => true,
+          "usages" => {
+            "header" => {
+              "label" => "header",
+              "kinds" => %w[topical_event_header],
+              "multiple" => false,
+              "caption_enabled" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    image = create(:image, :svg, usage: "header", caption: "Should be omitted", edition:)
+
+    expected_hash = {
+      type: "header",
+      url: image.url,
+      content_type: "image/svg+xml",
+    }
+
+    assert_equal expected_hash, image.publishing_api_details
+  end
 end

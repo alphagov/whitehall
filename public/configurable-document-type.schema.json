@@ -368,6 +368,10 @@
                       "type": "boolean",
                       "description": "Whether users can upload multiple images of this image kind"
                     },
+                    "caption_enabled": {
+                      "type": "boolean",
+                      "description": "Whether the caption field is shown for this image usage. Defaults to true if not specified."
+                    },
                     "kinds": {
                       "type": "array",
                       "items": {

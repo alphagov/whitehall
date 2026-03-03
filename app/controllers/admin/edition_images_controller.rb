@@ -1,7 +1,7 @@
 class Admin::EditionImagesController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
-  before_action :set_image_usage, only: %i[new create confirm_destroy]
+  before_action :set_image_usage, only: %i[new create confirm_destroy edit update]
   def index; end
 
   def new

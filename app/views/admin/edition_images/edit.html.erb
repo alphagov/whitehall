@@ -7,7 +7,9 @@
 
   <section class="govuk-grid-column-two-thirds">
     <%= form_tag [:admin, :edition, :image], id: image, multipart: true, method: :patch do %>
-      <p class="govuk-body-lead">You can leave any image detail blank if you do not need it.</p>
+      <% if @image_usage.caption_enabled? %>
+        <p class="govuk-body-lead">You can leave any image detail blank if you do not need it.</p>
+      <% end %>
 
       <%= hidden_field_tag("image[image_data][image_kind]", image.image_data.image_kind) %>
 
@@ -24,20 +26,24 @@
         } %>
       <% end %>
 
-      <%= render "govuk_publishing_components/components/textarea", {
-        label: {
-          text: "Caption and credit",
-          heading_size: "l",
-        },
-        name: "image[caption]",
-        textarea_id: "image_caption",
-        value: image.caption,
-        rows: 2,
-        hint: raw("Name a person in a photo or add image credit. <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/images'>Read the image copyright standards</a>. The text appears next to the image."),
-        margin_bottom: 4,
-      } %>
+      <% if @image_usage.caption_enabled? %>
+        <%= render "govuk_publishing_components/components/textarea", {
+          label: {
+            text: "Caption and credit",
+            heading_size: "l",
+          },
+          name: "image[caption]",
+          textarea_id: "image_caption",
+          value: image.caption,
+          rows: 2,
+          hint: raw("Name a person in a photo or add image credit. <a class='govuk-link' href='https://www.gov.uk/guidance/content-design/images'>Read the image copyright standards</a>. The text appears next to the image."),
+          margin_bottom: 4,
+        } %>
 
-      <p class="govuk-body"><a href="https://www.gov.uk/guidance/content-design/images" class="govuk-link" target="_blank">Using informative and decorative images on GOV.UK (opens in new tab)</a></p>
+        <p class="govuk-body"><a href="https://www.gov.uk/guidance/content-design/images" class="govuk-link" target="_blank">Using informative and decorative images on GOV.UK (opens in new tab)</a></p>
+      <% else %>
+        <p class="govuk-body">Captions are not supported on this type of image. Select Save to continue.</p>
+      <% end %>
 
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= render "govuk_publishing_components/components/button", {
