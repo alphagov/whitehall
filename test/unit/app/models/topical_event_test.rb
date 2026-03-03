@@ -136,11 +136,6 @@ class TopicalEventTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :description
 
-  test "should include slug in search_index data" do
-    topical_event = create(:topical_event, name: "mazzops 2013")
-    assert_equal "mazzops-2013", topical_event.search_index["slug"]
-  end
-
   test "#destroy also destroys 'featured topical event' associations" do
     topical_event = create(:topical_event)
     feature = create(:feature, topical_event:)

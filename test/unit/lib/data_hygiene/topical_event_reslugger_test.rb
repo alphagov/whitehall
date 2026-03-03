@@ -1,9 +1,6 @@
 require "test_helper"
-require "gds_api/test_helpers/search"
 
 class TopicalEventResluggerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::Search
-
   setup do
     @old_slug = "old-slug"
     @new_slug = "new-slug"
@@ -23,18 +20,6 @@ class TopicalEventResluggerTest < ActiveSupport::TestCase
 
   test "republishes the topical_event to Publishing API" do
     Whitehall::PublishingApi.expects(:republish_async).with(@topical_event)
-
-    @reslugger.run!
-  end
-
-  test "reindexes the topical_event" do
-    [@topical_event].each do |object|
-      object.stubs(:remove_from_search_index)
-      object.stubs(:update_in_search_index)
-
-      object.expects(:remove_from_search_index)
-      object.expects(:update_in_search_index)
-    end
 
     @reslugger.run!
   end

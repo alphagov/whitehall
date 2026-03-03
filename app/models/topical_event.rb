@@ -1,15 +1,7 @@
 # LEGACY TOPICAL EVENTS ONLY
 class TopicalEvent < ApplicationRecord
   include PublishesToPublishingApi
-  include Searchable
   include SimpleWorkflow
-
-  searchable title: :name,
-             link: :search_link,
-             content: :description,
-             format: "topical_event",
-             description: :description_without_markup,
-             slug: :slug
 
   after_commit :republish_feature_organisations_to_publishing_api, if: :features?
 
@@ -68,10 +60,6 @@ class TopicalEvent < ApplicationRecord
 
   alias_method :display_name, :to_s
 
-  def search_link
-    base_path
-  end
-
   def lead_organisations
     organisations.where(topical_event_organisations: { lead: true }).reorder("topical_event_organisations.lead_ordering")
   end
@@ -82,10 +70,6 @@ class TopicalEvent < ApplicationRecord
 
   def latest(limit = 3)
     editions.published.in_reverse_chronological_order.includes(:translations).limit(limit)
-  end
-
-  def description_without_markup
-    Govspeak::Document.new(description).to_text
   end
 
   def featured?(edition)

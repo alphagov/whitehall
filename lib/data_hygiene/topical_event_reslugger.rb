@@ -8,10 +8,8 @@ module DataHygiene
     end
 
     def run!
-      delete_from_search_index
       update_slug
       republish
-      add_to_search_index
       update_atom_feed_url
     end
 
@@ -19,20 +17,12 @@ module DataHygiene
 
     attr_reader :topical_event, :new_slug, :old_slug, :editions
 
-    def delete_from_search_index
-      topical_event.remove_from_search_index
-    end
-
     def update_slug
       topical_event.update!(slug: new_slug)
     end
 
     def republish
       Whitehall::PublishingApi.republish_async(topical_event)
-    end
-
-    def add_to_search_index
-      topical_event.update_in_search_index
     end
 
     def update_atom_feed_url
