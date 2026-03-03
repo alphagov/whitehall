@@ -7,7 +7,7 @@
 
   <section class="govuk-grid-column-two-thirds">
     <%= form_tag [:admin, :edition, :image], id: image, multipart: true, method: :patch do %>
-      <% if @image_usage.nil? || @image_usage.caption_enabled? %>
+      <% if @image_usage.caption_enabled? %>
         <p class="govuk-body-lead">You can leave any image detail blank if you do not need it.</p>
       <% end %>
 
@@ -26,7 +26,7 @@
         } %>
       <% end %>
 
-      <% if @image_usage.nil? || @image_usage.caption_enabled? %>
+      <% if @image_usage.caption_enabled? %>
         <%= render "govuk_publishing_components/components/textarea", {
           label: {
             text: "Caption and credit",
