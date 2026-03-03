@@ -14,8 +14,8 @@ en:
           Now:
 
           - We continue to work on the support and feature request backlog. 
-          - We are refactoring some of Whitehall's underlying technical design to make future development of content types easier.
-          - We are exploring how Whitehall might support new layouts for some pages.
+          - We are working on some of Whitehall's underlying technical design to make future development of content types easier.
+          - We are exploring how Whitehall might support new layouts for some pages and how images are uploaded and used on those pages.
 
           Next:
 
@@ -27,6 +27,58 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Changes to lead images on news articles
+            area: Managing documents and editions
+            type: improvement
+            date: 2 March 2026
+            body_govspeak: |
+              The workflow for the lead image on news articles is changing.
+
+              You will see a "card" for the Lead image at the top of the images tab. As previously, the image defaults to the publisher's organisation lead image, or a placeholder if no lead image is associated with the organisation.
+
+               - You can change the image to a custom image, if required, by clicking on the "Add" button.
+               - As before, you can crop images and add captions.
+               - To change the custom lead image, you can delete the existing image and upload a new one. 
+              
+              In a future iteration we will be offering the option to remove the lead image when it isn't required.
+
+              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9633083274).
+          - heading: Search resets after 30 minutes
+            area: Managing documents
+            type: improvement
+            date: 2 March 2026
+            body_govspeak: |
+              If you search for documents on Whitehall using filters, these will now clear after a period of 30 minutes of inactivity.
+
+              Previously, document search filters (e.g. title, state, author) persisted indefinitely.
+
+              User feedback and analytics data suggested that retained filters are generally helpful within the same session, but persisting search filters after longer gaps was unhelpful and frustrating for publishers.
+
+              This change should speed up the process of finding documents when returning to Whitehall after a break, and reduce the risk of confusion and mistakes caused by filters being applied unexpectedly.
+
+              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9633749279).
+
+          - heading: Number formatting in HTML publications
+            area: Publishing HTML attachments
+            type: bug fix
+            date: 2 March 2026
+            body_govspeak: |
+              Until now, any number at the start of a heading on an HTML attachment was appearing as if it was a "numbered heading" on the contents list.
+
+              This was a bug in the system that limited people writing headings if they wanted them to appear correctly in the contents list. 
+              
+              This has now been fixed.
+
+              However, from now on HTML publications with manually numbered headings will only appear as numbered items on the contents list if they are correctly formatted with a full stop after the number.
+              
+              If your HTML attachment uses numbered chapter headings without full stops, you'll need to add a full stop after the number:
+
+              ```
+                 ## 1 Introduction becomes ## 1. Introduction
+              ```
+              
+              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9633519850).
+
           - heading: Some changes to news articles
             area: Managing documents and editions
             type: improvement
