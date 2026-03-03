@@ -8,10 +8,13 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test "publish publishes the given edition on behalf of the current user and redirects back to filtered search view" do
-    session[:document_filters] = session_filters = {
+    session_filters = {
       "type" => "publication",
       "state" => "submitted",
       "page" => "3",
+    }
+    cookies.encrypted[:document_filters] = {
+      value: session_filters,
     }
 
     stub_publishing_api_registration_for(submitted_edition)

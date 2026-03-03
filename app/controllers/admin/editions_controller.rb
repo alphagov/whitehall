@@ -44,7 +44,10 @@ class Admin::EditionsController < Admin::BaseController
 
   def index
     if filter && filter.valid?
-      session[:document_filters] = params_filters
+      cookies.encrypted[:document_filters] = {
+        value: params_filters,
+        expires: 30.minutes,
+      }
       render :index
     elsif session_filters.any?
       display_filter_error_message
@@ -412,7 +415,7 @@ private
   end
 
   def session_filters
-    (session[:document_filters] || {}).to_h
+    (cookies.encrypted[:document_filters] || {}).to_h
   end
 
   def params_filters

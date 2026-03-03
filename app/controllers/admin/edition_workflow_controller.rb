@@ -298,6 +298,6 @@ private
   end
 
   def session_filters
-    (session[:document_filters] || {}).to_h
+    (cookies.encrypted[:document_filters] || {}).to_h
   end
 end
