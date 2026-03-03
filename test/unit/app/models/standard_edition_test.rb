@@ -50,6 +50,29 @@ class StandardEditionTest < ActiveSupport::TestCase
     end
   end
 
+  test "backfills missing attributes with primary locale content for translations" do
+    test_type = "test_type"
+    configurable_document_type =
+      build_configurable_document_type(
+        test_type, {
+          "schema" => {
+            "attributes" => {
+              "test_attribute" => {
+                "type" => "string",
+              },
+            },
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    test_attribute_value = "primary locale value"
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_attribute: test_attribute_value } })
+    with_locale(:es) do
+      page.block_content = {}
+      assert_equal test_attribute_value, page.block_content.test_attribute
+    end
+  end
+
   test "updates the document slug if the current translation is for the primary locale" do
     test_type =
       build_configurable_document_type(

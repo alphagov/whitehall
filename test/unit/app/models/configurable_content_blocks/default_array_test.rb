@@ -1,10 +1,28 @@
 require "test_helper"
 
 class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCase
+  include ConfigurableContentBlockSharedTests
+
+  setup do
+    @field = {
+      "title" => "List of foods",
+      "block" => "default_array",
+      "fields" => {
+        "food" => {
+          "title" => "Name of food",
+          "block" => "default_string",
+          "attribute_path" => %w[food],
+        },
+      },
+    }
+    @path = Path.new(%w[block_content list_of_foods])
+    @edition = StandardEdition.new(configurable_document_type: "array_type")
+    setup_type("list_of_foods", @field)
+    @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
+  end
+
   test "it renders a fieldset with the schema title as the main legend, followed by a secondary legend for each item" do
-    setup_type("list_of_foods", default_field_config)
-    block = ConfigurableContentBlocks::DefaultArray.new(StandardEdition.new, default_field_config, Path.new(%w[block_content list_of_foods]))
-    render block
+    render @block
     assert_dom "legend.govuk-fieldset__legend--l", text: "List of foods"
     assert_dom "legend.govuk-fieldset__legend--m", text: "List of foods 1"
     assert_dom "label[for=edition_block_content_list_of_foods_0_food]", text: "Name of food"
@@ -12,56 +30,44 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
   end
 
   test "it includes a 'Remove' checkbox for the first empty item, so that noJS users can 'remove' the empty element before submitting the form" do
-    setup_type("list_of_foods", default_field_config)
-    block = ConfigurableContentBlocks::DefaultArray.new(StandardEdition.new, default_field_config, Path.new(%w[block_content list_of_foods]))
-    render block
+    render @block
     assert_dom "input[type=checkbox][name='edition[block_content][list_of_foods][0][_destroy]']"
     assert_dom "label.govuk-checkboxes__label", text: "Remove"
   end
 
   test "it prepopulates existing items and includes an 'empty' item at the end" do
-    setup_type("list_of_foods", default_field_config)
-    edition = StandardEdition.new(
-      configurable_document_type: "array_type",
-      block_content: {
-        "list_of_foods" => [
-          { "food" => "Apples" },
-          { "food" => "Bananas" },
-        ],
-      },
-    )
-    block = ConfigurableContentBlocks::DefaultArray.new(edition, default_field_config, Path.new(%w[block_content list_of_foods]))
-    render block
+    @edition.block_content = {
+      "list_of_foods" => [
+        { "food" => "Apples" },
+        { "food" => "Bananas" },
+      ],
+    }
+    render @block
     assert_dom "input#edition_block_content_list_of_foods_0_food[value='Apples']"
     assert_dom "input#edition_block_content_list_of_foods_1_food[value='Bananas']"
     assert_dom "input#edition_block_content_list_of_foods_2_food", text: ""
   end
 
   test "it renders translated content" do
-    setup_type("list_of_foods", default_field_config)
-    edition = StandardEdition.new(
-      configurable_document_type: "array_type",
-      block_content: {
-        "list_of_foods" => [
-          { "food" => "Apples" },
-        ],
-      },
-    )
+    @edition.block_content = {
+      "list_of_foods" => [
+        { "food" => "Apples" },
+      ],
+    }
     with_locale(:es) do
-      edition.block_content = {
+      @edition.block_content = {
         "list_of_foods" => [
           { "food" => "Manzanas" },
         ],
       }
-      block = ConfigurableContentBlocks::DefaultArray.new(edition, default_field_config, Path.new(%w[block_content list_of_foods]))
-      render block
+      render @block
     end
     assert_dom "input#edition_block_content_list_of_foods_0_food[value='Manzanas']"
     refute_dom "input#edition_block_content_list_of_foods_0_food[value='Apples']"
   end
 
   test "it renders whatever field type is specified in the schema for each item" do
-    schema = {
+    @field = {
       "title" => "List of publish dates",
       "block" => "default_array",
       "fields" => {
@@ -72,9 +78,10 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
         },
       },
     }
-    setup_type("list_of_publish_dates", schema)
-    block = ConfigurableContentBlocks::DefaultArray.new(StandardEdition.new, schema, Path.new(%w[block_content list_of_publish_dates]))
-    render block
+    @path = Path.new(%w[block_content list_of_publish_dates])
+    setup_type("list_of_publish_dates", @field)
+    @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
+    render @block
     assert_dom "legend.govuk-fieldset__legend--l", text: "List of publish dates"
     assert_dom "legend.govuk-fieldset__legend--m", text: "List of publish dates 1"
     assert_dom ".govuk-hint", text: "For example, 01 08 2015"
@@ -113,19 +120,5 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
         },
       },
     }))
-  end
-
-  def default_field_config
-    {
-      "title" => "List of foods",
-      "block" => "default_array",
-      "fields" => {
-        "food" => {
-          "title" => "Name of food",
-          "block" => "default_string",
-          "attribute_path" => %w[food],
-        },
-      },
-    }
   end
 end

@@ -1,7 +1,5 @@
 module ConfigurableContentBlocks
   class DefaultString < BaseBlock
-    include Renderable
-
   private
 
     def template_name

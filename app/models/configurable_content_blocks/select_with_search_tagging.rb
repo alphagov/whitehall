@@ -1,6 +1,5 @@
 module ConfigurableContentBlocks
   class SelectWithSearchTagging < BaseBlock
-    include Renderable
     include Admin::TaggableContentHelper
 
     def container

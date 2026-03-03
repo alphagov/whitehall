@@ -1,6 +1,8 @@
 require "test_helper"
 
 class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCase
+  include ConfigurableContentBlockSharedTests
+
   setup do
     @field = {
       "block" => "default_string",
@@ -8,7 +10,6 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
       "description" => "A test attribute",
       "attribute_path" => %w[block_content test_attribute],
     }
-    @block_content = { "test_attribute" => "foo" }
     @path = Path.new(%w[block_content test_attribute])
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "forms" => {
@@ -26,8 +27,10 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
         },
       },
     }))
-    @edition = StandardEdition.new(configurable_document_type: "test_type", block_content: @block_content)
-
+    @edition = StandardEdition.new(
+      configurable_document_type: "test_type",
+      block_content: { "test_attribute" => "foo" },
+    )
     @block = ConfigurableContentBlocks::DefaultString.new(@edition, @field, @path)
   end
 
@@ -40,7 +43,6 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
     @field["required"] = true
     render @block
     assert_dom "label", text: "#{@field['title']} (required)"
-    @field["required"] = nil
   end
 
   test "it sets the input name correctly" do
@@ -50,7 +52,7 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
 
   test "it sets the input value based on the content" do
     render @block
-    assert_dom "input[value=?]", @block_content["test_attribute"]
+    assert_dom "input[value=?]", @edition.block_content["test_attribute"]
   end
 
   test "it sets the hint text based on the description" do
@@ -70,7 +72,7 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
       render @block
     end
 
-    assert_dom ".govuk-details__text", text: @block_content["test_attribute"]
+    assert_dom ".govuk-details__text", text: @edition.block_content["test_attribute"]
   end
 
   test "it renders any validation errors when they are present" do
@@ -79,6 +81,5 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
 
     render @block
     assert_dom ".govuk-error-message", "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
-    @edition.errors.clear
   end
 end

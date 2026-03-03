@@ -79,6 +79,10 @@
             }
           }
         },
+        "translatable": {
+          "description": "Determines whether or not the field's value can be translated for different locales",
+          "type": "boolean"
+        },
         "options": {
           "type": "array",
           "description": "List of options for select inputs.",

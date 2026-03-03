@@ -1,7 +1,5 @@
 module ConfigurableContentBlocks
   class DefaultSelect < BaseBlock
-    include Renderable
-
     def select_options
       [
         { text: @config["blank_option_label"] || "Select an option", value: "" },

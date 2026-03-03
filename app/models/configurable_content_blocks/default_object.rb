@@ -1,7 +1,5 @@
 module ConfigurableContentBlocks
   class DefaultObject < BaseBlock
-    include Renderable
-
     def root?
       @config["root"]
     end
