@@ -170,7 +170,6 @@
       ]
     }
   },
-  "associations": [],
   "settings": {
     "base_path_prefix": "/government/topical-events",
     "publishing_api_schema_name": "topical_event",

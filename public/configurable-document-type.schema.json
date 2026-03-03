@@ -303,30 +303,6 @@
       "additionalProperties": false,
       "required": ["publishing_api"]
     },
-    "associations": {
-      "type": "array",
-      "description": "List of associations to other content (e.g., organisations, topical events), allowing the document to be linked to other entities.",
-      "items": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Type of association. Determines what kind of related content can be linked.",
-            "enum": [
-              "ministerial_role_appointments",
-              "organisations",
-              "worldwide_organisations",
-              "topical_events",
-              "topical_event_documents",
-              "world_locations"
-            ]
-          }
-        },
-        "required": [
-          "key"
-        ]
-      }
-    },
     "settings": {
       "type": "object",
       "description": "A list of configurations to enable certain edition behaviours.",
@@ -490,7 +466,6 @@
     "schema",
     "forms",
     "presenters",
-    "associations",
     "settings",
     "title",
     "description"

@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :description, :schema, :associations, :settings
+  attr_reader :key, :description, :schema, :settings
 
   CONTENT_BLOCKS = {
     "default_string" => ConfigurableContentBlocks::DefaultString,
@@ -75,7 +75,6 @@ class ConfigurableDocumentType
     @forms = type["forms"] || {}
     @presenters = type["presenters"] || {}
     @schema = type["schema"]
-    @associations = type["associations"]
     @settings = type["settings"]
   end
 
