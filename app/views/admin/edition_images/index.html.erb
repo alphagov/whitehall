@@ -16,7 +16,7 @@
     <% end %>
 
     <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each_with_index do |usage, multiple_upload_section_index| %>
-      <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: usage) %>
+      <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, failed_images: @failed_images, image_usage: usage) %>
 
       <%= render "govuk_publishing_components/components/heading", {
         text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",

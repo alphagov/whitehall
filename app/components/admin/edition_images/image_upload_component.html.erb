@@ -26,7 +26,7 @@
     name: "images[][image_data_attributes][file]",
     id: "edition_images_image_data_file",
     hint: raw(hint_text.join("")),
-    error_items: new_image.present? ? helpers.errors_for(new_image.errors, :"image_data.file") : nil,
+    error_items: error_items,
     accept: allowed_extensions,
   } %>
 

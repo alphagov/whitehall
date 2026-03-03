@@ -1,11 +1,17 @@
 class Admin::EditionImages::ImageUploadComponent < ViewComponent::Base
-  attr_reader :edition, :new_image, :image_usage, :cancel_link
+  attr_reader :edition, :failed_images, :image_usage, :cancel_link
 
-  def initialize(edition:, image_usage:, new_image: nil, cancel_link: nil)
+  def initialize(edition:, image_usage:, failed_images: [], cancel_link: nil)
     @edition = edition
-    @new_image = new_image
+    @failed_images = Array(failed_images)
     @image_usage = image_usage
     @cancel_link = cancel_link
+  end
+
+  def error_items
+    return if failed_images.empty?
+
+    failed_images.flat_map { |image| helpers.errors_for(image.errors, :"image_data.file") }.compact.presence
   end
 
   def allowed_extensions
