@@ -62,7 +62,6 @@ class TopicalEvent < ApplicationRecord
   accepts_nested_attributes_for :logo, reject_if: :all_blank
 
   scope :active, -> { where("end_date > ?", Time.zone.today) }
-  scope :alphabetical, -> { order("name ASC") }
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
