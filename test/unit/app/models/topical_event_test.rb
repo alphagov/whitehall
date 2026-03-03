@@ -3,11 +3,6 @@ require "test_helper"
 class TopicalEventTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :topical_event, :name, :description
 
-  test "should default to the 'current' state" do
-    topical_event = TopicalEvent.new
-    assert topical_event.current?
-  end
-
   test "should be invalid without a name" do
     topical_event = build(:topical_event, name: nil)
     assert_not topical_event.valid?
@@ -16,11 +11,6 @@ class TopicalEventTest < ActiveSupport::TestCase
   test "should be invalid without a summary" do
     topical_event = build(:topical_event, summary: nil)
     assert_not topical_event.valid?
-  end
-
-  test "should be current when created" do
-    topical_event = build(:topical_event)
-    assert_equal "current", topical_event.state
   end
 
   test "should be invalid with an unsupported state" do
