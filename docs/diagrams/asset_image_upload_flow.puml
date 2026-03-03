@@ -12,7 +12,7 @@ participant "AssetManager\nStorage" as AssetManagerStorage
 end box
 
 box Whitehall-background-jobs
-participant "AssetManager\nCreateAssetWorker" as AssetManagerCreateAssetWorker
+participant "AssetManager\nCreateAssetJob" as AssetManagerCreateAssetJob
 participant Asset
 end box
 
@@ -27,12 +27,12 @@ end box
 publisher -> Controller++ : upload an image
 Controller -> ImageData : Save
 ImageData -> AssetManagerStorage : Carrierwave invokes store!
-AssetManagerStorage --> AssetManagerCreateAssetWorker++ : Enqueue 7 times
+AssetManagerStorage --> AssetManagerCreateAssetJob++ : Enqueue 7 times
 Controller -> publisher-- : Show images
 
 group 7 times, once per image variant
-  AssetManagerCreateAssetWorker -> AssetManager : Upload the image variant to Asset Manager
-  AssetManagerCreateAssetWorker -> Asset--: Save
+  AssetManagerCreateAssetJob -> AssetManager : Upload the image variant to Asset Manager
+  AssetManagerCreateAssetJob -> Asset--: Save
 end group
 
 publisher -> Controller++ : publish edition

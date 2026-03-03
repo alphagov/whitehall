@@ -72,7 +72,7 @@ STDOUT, and a `bulk_load` script in search_api which accepts that data on STDIN
 and loads it into search_api.
 
 The `bulk_load` script also takes care of constructing the new offline index,
-locking the index for writes (so that index write workers queue up waiting for
+locking the index for writes (so that index write jobs queue up waiting for
 the new index to come online during indexing, avoiding data loss during
 reindex), and seamlessly switching to the new index on completion.
 
