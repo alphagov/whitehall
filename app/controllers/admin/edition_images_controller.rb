@@ -71,6 +71,7 @@ class Admin::EditionImagesController < Admin::BaseController
     else
       # Remove images from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
       @images.each { |image| @edition.images.delete(image) }
+      @failed_images = @images.select { |image| image.errors.any? }
     end
 
     if @image_usage.multiple?
