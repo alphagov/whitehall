@@ -53,18 +53,6 @@ class TopicalEvent < ApplicationRecord
            through: :topical_event_featurings,
            source: :edition
 
-  has_many :published_publications,
-           -> { where("editions.state" => "published") },
-           through: :topical_event_memberships,
-           class_name: "Publication",
-           source: :publication
-
-  has_many :published_consultations,
-           -> { where("editions.state" => "published") },
-           through: :topical_event_memberships,
-           class_name: "Consultation",
-           source: :consultation
-
   has_many :editions,
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
@@ -104,24 +92,8 @@ class TopicalEvent < ApplicationRecord
     editions.published
   end
 
-  def scheduled_editions
-    editions.scheduled.order("scheduled_publication ASC")
-  end
-
-  def published_consultations
-    published_editions.consultations
-  end
-
   def published_detailed_guides
     published_editions.detailed_guides
-  end
-
-  def published_non_statistics_publications
-    published_editions.non_statistical_publications
-  end
-
-  def published_statistics_publications
-    published_editions.statistical_publications
   end
 
   def lead_organisations
