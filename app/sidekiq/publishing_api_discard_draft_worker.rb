@@ -1,1 +1,0 @@
-PublishingApiDiscardDraftWorker = PublishingApiDiscardDraftJob
