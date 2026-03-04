@@ -1,6 +1,8 @@
 # A bunch of helpers for efficiently generating select options for taggable
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
+  include ActionView::Helpers::TranslationHelper
+
   def taggable_organisations_container(selected_ids = [])
     cached_taggable_organisations.map do |o|
       {
