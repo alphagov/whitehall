@@ -275,11 +275,13 @@ class StandardEditionTest < ActiveSupport::TestCase
                   "title" => "Test object attribute",
                   "block" => "default_object",
                   "attribute_path" => [],
+                  "translatable" => true,
                   "fields" => {
                     "test_nested_attribute" => {
                       "title" => "Test nested attribute",
                       "block" => "default_string",
                       "attribute_path" => %w[block_content test_nested_attribute],
+                      "translatable" => true,
                     },
                   },
                 },
@@ -417,10 +419,12 @@ class StandardEditionTest < ActiveSupport::TestCase
               "worldwide_organisations" => {
                 "required" => true,
                 "attribute_path" => %w[worldwide_organisation_document_ids],
+                "translatable" => true,
               },
               "world_locations" => {
                 "required" => false,
                 "attribute_path" => %w[world_location_ids],
+                "translatable" => true,
               },
             },
           },
@@ -610,9 +614,11 @@ class StandardEditionTest < ActiveSupport::TestCase
               "fields" => {
                 "object_attribute" => {
                   "attribute_path" => %w[object_attribute],
+                  "translatable" => true,
                   "fields" => {
                     "nested_attribute" => {
                       "attribute_path" => %w[nested_attribute],
+                      "translatable" => true,
                       "title" => "Nested attribute",
                     },
                   },

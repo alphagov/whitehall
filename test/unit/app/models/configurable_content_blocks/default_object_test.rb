@@ -7,11 +7,13 @@ class ConfigurableContentBlocks::DefaultObjectRenderingTest < ActionView::TestCa
     @field = {
       "title" => "Test object",
       "block" => "default_object",
+      "translatable" => true,
       "fields" => {
         "test_attribute" => {
           "title" => "Test attribute",
           "block" => "default_string",
           "attribute_path" => %w[block_content test_attribute],
+          "translatable" => true,
         },
       },
     }

@@ -7,9 +7,9 @@ class StandardEditionBlockContentMergeTest < ActiveSupport::TestCase
       {
         "forms" => {
           "documents" => {
-            "test_attribute" => { "title" => "Test Attribute", "block" => "default_string" },
-            "body" => { "title" => "Body", "block" => "govspeak" },
-            "count" => { "title" => "Count", "block" => "default_select" },
+            "test_attribute" => { "title" => "Test Attribute", "block" => "default_string", "translatable" => true },
+            "body" => { "title" => "Body", "block" => "govspeak", "translatable" => true },
+            "count" => { "title" => "Count", "block" => "default_select", "translatable" => true },
           },
         },
         "schema" => {

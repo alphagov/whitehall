@@ -10,18 +10,21 @@
           "description": "The main content of the page",
           "required": true,
           "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
         },
         "social_media_links": {
           "title": "Social media accounts",
           "block": "default_array",
           "attribute_path": ["block_content", "social_media_links"],
+          "translatable": true,
           "fields": {
             "social_media_service_name": {
               "title": "Service",
               "block": "default_select",
               "attribute_path": ["social_media_service_name"],
               "blank_option_label": "No social media service selected",
+              "translatable": true,
               "options": [
                 {
                   "label": "Twitter",
@@ -84,7 +87,8 @@
             "url": {
               "title": "URL",
               "block": "default_string",
-              "attribute_path": ["url"]
+              "attribute_path": ["url"],
+              "translatable": true
             }
           }
         },

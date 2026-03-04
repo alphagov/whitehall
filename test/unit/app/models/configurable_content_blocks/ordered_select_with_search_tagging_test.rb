@@ -10,6 +10,7 @@ class ConfigurableContentBlocks::OrderedSelectWithSearchTaggingTest < ActionView
       "required" => true,
       "block" => "ordered_select_with_search_tagging",
       "attribute_path" => %w[world_location_ids],
+      "translatable" => true,
       "container" => "world_locations",
       "size" => 4,
     }

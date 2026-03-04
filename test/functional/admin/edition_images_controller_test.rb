@@ -118,6 +118,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
               "title" => "Test attribute",
               "block" => "default_string",
               "attribute_path" => %w[block_content test_attribute],
+              "translatable" => true,
             },
           },
         },

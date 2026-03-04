@@ -10,6 +10,7 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
       "required" => true,
       "block" => "select_with_search_tagging",
       "attribute_path" => %w[worldwide_organisation_document_ids],
+      "translatable" => true,
       "container" => "worldwide_organisations",
     }
     @path = Path.new(%w[worldwide_organisation_document_ids])

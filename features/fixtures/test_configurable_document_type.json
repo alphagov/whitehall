@@ -9,31 +9,36 @@
           "title": "Body",
           "description": "The main content of the page",
           "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
         },
         "date_field": {
           "title": "Date Field",
           "description": "A date field for the page",
           "block": "default_date",
-          "attribute_path": ["block_content", "date_field"]
+          "attribute_path": ["block_content", "date_field"],
+          "translatable": true
         },
         "address": {
           "title": "Address",
           "description": "A nested object field",
           "block": "default_object",
           "attribute_path": [],
+          "translatable": true,
           "fields": {
             "street": {
               "title": "Street",
               "description": "A default string inside the nested object",
               "block": "default_string",
-              "attribute_path": ["block_content","street"]
+              "attribute_path": ["block_content","street"],
+              "translatable": true
             },
             "city": {
               "title": "City",
               "description": "Another default string inside the nested object",
               "block": "default_string",
-              "attribute_path": ["block_content","city"]
+              "attribute_path": ["block_content","city"],
+              "translatable": true
             }
           }
         },
@@ -41,11 +46,13 @@
           "title": "Food",
           "block": "default_array",
           "attribute_path": ["block_content", "list_of_foods"],
+          "translatable": true,
           "fields": {
             "food": {
               "title": "Name of food item",
               "block": "default_string",
-              "attribute_path": ["food"]
+              "attribute_path": ["food"],
+              "translatable": true
             }
           }
         }

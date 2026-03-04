@@ -9,6 +9,7 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
       "title" => "Test attribute",
       "description" => "A test attribute",
       "attribute_path" => %w[block_content test_attribute],
+      "translatable" => true,
     }
     @path = Path.new(%w[block_content test_attribute])
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {

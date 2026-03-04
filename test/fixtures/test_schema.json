@@ -9,7 +9,8 @@
           "title": "Body",
           "description": "The main content of the page",
           "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
         }
       }
     }

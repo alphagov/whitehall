@@ -8,6 +8,7 @@ class ConfigurableContentBlocks::DefaultSelectRenderingTest < ActionView::TestCa
       "title" => "Test attribute",
       "description" => "A test attribute",
       "block" => "default_select",
+      "translatable" => true,
       "options" => [
         { "label" => "Option 1", "value" => "opt 1" },
         { "label" => "Option 2", "value" => "opt 2" },

@@ -7,11 +7,13 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     @field = {
       "title" => "List of foods",
       "block" => "default_array",
+      "translatable" => true,
       "fields" => {
         "food" => {
           "title" => "Name of food",
           "block" => "default_string",
           "attribute_path" => %w[food],
+          "translatable" => true,
         },
       },
     }
@@ -70,11 +72,13 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     @field = {
       "title" => "List of publish dates",
       "block" => "default_array",
+      "translatable" => true,
       "fields" => {
         "publish_date" => {
           "title" => "Publish date",
           "block" => "default_date",
           "attribute_path" => %w[publish_date],
+          "translatable" => true,
         },
       },
     }

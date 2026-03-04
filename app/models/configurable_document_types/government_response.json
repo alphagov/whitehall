@@ -10,7 +10,8 @@
           "description": "The main content of the page",
           "required": true,
           "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
         },
         "ministerial_role_appointments": {
           "title": "Ministers",

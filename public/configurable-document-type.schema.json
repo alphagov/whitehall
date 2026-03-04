@@ -131,7 +131,7 @@
           "description": "The number of items in an array field"
         }
       },
-      "required": ["title", "block", "attribute_path"],
+      "required": ["title", "block", "attribute_path", "translatable"],
       "additionalProperties": false
     },
     "block_attributes": {
