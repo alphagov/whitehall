@@ -107,6 +107,32 @@ class ConfigurableDocumentType
     @presenters[key]
   end
 
+  def dynamic_tabs
+    @dynamic_tabs ||= @forms.filter_map do |id, form|
+      { "id" => id, "label" => form["label"] } if form["dynamic"]
+    end
+  end
+
+  def schema_for_fields(field_keys)
+    field_keys = field_keys.map(&:to_s)
+
+    {
+      "attributes" => (@schema["attributes"] || {}).slice(*field_keys),
+      "validations" => validations_for_fields(field_keys),
+    }
+  end
+
   class NotFoundError < StandardError
+  end
+
+private
+
+  def validations_for_fields(field_keys)
+    (@schema["validations"] || {}).each_with_object({}) do |(validation_name, options), result|
+      matching_attributes = Array(options["attributes"]) & field_keys
+      next if matching_attributes.empty?
+
+      result[validation_name] = options.merge("attributes" => matching_attributes)
+    end
   end
 end
