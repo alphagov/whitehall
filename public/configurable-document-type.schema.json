@@ -436,6 +436,23 @@
         "translations_enabled": {
           "type": "boolean",
           "description": "Whether translations are supported for this document type."
+        },
+        "tabs": {
+          "type": "object",
+          "description": "Tabs to display as navigation in the admin interface. Each key must match a form key in the `forms` object.",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "required": ["label"],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "description": "Label to display on the tab."
+                }
+              },
+              "additionalProperties": false
+            }
+          }
         }
       },
       "required": [

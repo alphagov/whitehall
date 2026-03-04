@@ -30,6 +30,7 @@ class SchemaValidator
       all_form_fields_used_in_schema_attributes?,
       all_validation_properties_defined_in_schema?,
       all_required_fields_have_presence_validation?,
+      all_tab_keys_reference_existing_forms?,
     ].compact
   end
 
@@ -49,6 +50,13 @@ private
 
   def all_required_fields_have_presence_validation?
     no_exclusive_keys(required_form_fields, presence_validation_properties, proc { |keys| "Forms have required fields #{keys} that do not have presence validation defined" })
+  end
+
+  def all_tab_keys_reference_existing_forms?
+    tab_keys = (@document.dig("settings", "tabs") || {}).keys
+    form_keys = (@document["forms"] || {}).keys
+    unknown_keys = tab_keys - form_keys
+    "Tabs reference unknown forms: #{unknown_keys.join(', ')}" if unknown_keys.any?
   end
 
   def no_exclusive_keys(target_list, comparison_list, message)

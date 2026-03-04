@@ -107,6 +107,18 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
       end
     end
 
+    context "validating `tabs`" do
+      it "validates that all tab keys reference existing forms" do
+        document["settings"]["tabs"] = { "nonexistent_form" => { "label" => "Missing" } }
+        assert_equal "Tabs reference unknown forms: nonexistent_form", SchemaValidator.for(document).first
+      end
+
+      it "passes validation when all tab keys match form keys" do
+        document["settings"]["tabs"] = { "documents" => { "label" => "Document" } }
+        assert SchemaValidator.for(document).empty?, "Schema should be valid when tab keys match form keys"
+      end
+    end
+
     context "validating `forms`" do
       it "validates that all defined `fields` are also defined in `schema`" do
         document["forms"]["documents"]["fields"]["extra_field"] = {
