@@ -517,6 +517,37 @@ class StandardEditionTest < ActiveSupport::TestCase
 
       assert_not edition.valid_tab_key?("documents")
     end
+
+    it "runs full validation when current_tab_context is nil" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil })
+      edition.current_tab_context = nil
+
+      assert edition.invalid?
+      assert_not edition.errors.where("body", :blank).empty?
+    end
+
+    it "scopes validation when current_tab_context is set to a different tab" do
+      # body: nil would fail full validation, but scoped to social_media_accounts tab we only validate social_media_links
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil, social_media_links: "valid" })
+      edition.current_tab_context = "social_media_accounts"
+
+      assert edition.valid?
+    end
+
+    it "catches errors on the active tab" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil })
+      edition.current_tab_context = "documents"
+
+      assert edition.invalid?
+      assert_not edition.errors.where("body", :blank).empty?
+    end
+
+    it "raises an error when current_tab_context is an unknown form" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil })
+      edition.current_tab_context = "nonexistent"
+
+      assert_raises(ArgumentError) { edition.invalid? }
+    end
   end
 
   describe "#update_configurable_document_type" do
