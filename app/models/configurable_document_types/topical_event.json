@@ -4,6 +4,8 @@
   "description": "Editionable topical events",
   "forms": {
     "documents": {
+      "dynamic": true,
+      "label": "Document",
       "fields": {
         "body": {
           "title": "Body",
@@ -11,7 +13,13 @@
           "required": true,
           "block": "govspeak",
           "attribute_path": ["block_content", "body"]
-        },
+        }
+      }
+    },
+    "social_media_accounts": {
+      "dynamic": true,
+      "label": "Social media accounts",
+      "fields": {
         "social_media_links": {
           "title": "Social media accounts",
           "block": "default_array",
