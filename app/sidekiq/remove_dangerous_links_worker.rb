@@ -1,1 +1,0 @@
-RemoveDangerousLinksWorker = RemoveDangerousLinksJob

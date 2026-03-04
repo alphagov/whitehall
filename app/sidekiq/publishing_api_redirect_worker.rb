@@ -1,1 +1,0 @@
-PublishingApiRedirectWorker = PublishingApiRedirectJob

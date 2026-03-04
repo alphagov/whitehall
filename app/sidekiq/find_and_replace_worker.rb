@@ -1,1 +1,0 @@
-FindAndReplaceWorker = FindAndReplaceJob

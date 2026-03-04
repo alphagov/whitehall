@@ -1,1 +1,0 @@
-PublishingApiUnpublishingWorker = PublishingApiUnpublishingJob

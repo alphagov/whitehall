@@ -1,1 +1,0 @@
-AssetManagerUpdateAssetWorker = AssetManagerUpdateAssetJob
