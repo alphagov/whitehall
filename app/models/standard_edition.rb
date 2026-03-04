@@ -14,6 +14,8 @@ class StandardEdition < Edition
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
+  attr_accessor :current_tab_context
+
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
   scope :with_news_article_document_type, -> { where(configurable_document_type: ConfigurableDocumentType.where_group("news_article").map(&:key)) }
