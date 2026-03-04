@@ -149,11 +149,11 @@ When(/^I visit the organisation admin page for "([^"]*)"$/) do |organisation_nam
 end
 
 When(/^I add a new contact "([^"]*)" with address "([^"]*)"$/) do |contact_description, address|
-  @organisation = Organisation.last
+  organisation = Organisation.last
   click_link "Contacts"
   click_link "Add"
 
-  if admin_organisation_path(@organisation).present?
+  if admin_organisation_path(organisation).present?
     fill_in_contact_details_for_organisation(title: contact_description, street_address: address)
   else
     fill_in_contact_details(title: contact_description, street_address: address)

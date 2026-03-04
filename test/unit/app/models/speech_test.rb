@@ -111,11 +111,21 @@ class SpeechTest < ActiveSupport::TestCase
     assert_not build(:speech, role_appointment: build(:board_member_role_appointment)).delivered_by_minister?
   end
 
-  test "can associate a speech with a topical event" do
+  test "can associate a speech with a (legacy) topical event" do
     speech = create(:speech)
     speech.topical_events << TopicalEvent.new(name: "foo", description: "bar", summary: "test")
     assert speech.can_be_associated_with_topical_events?
     assert_equal 1, speech.topical_events.size
+  end
+
+  test "can associate publications with topical events" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    speech = create(:speech)
+    topical_event = create(:standard_edition, configurable_document_type: "topical_event")
+    assert speech.can_be_associated_with_topical_events?
+    speech.topical_event_document_ids = [topical_event.document_id]
+    speech.save!
+    assert_equal [topical_event.document], speech.topical_event_documents
   end
 
   test "should be translatable" do
