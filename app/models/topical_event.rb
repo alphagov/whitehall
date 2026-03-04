@@ -40,13 +40,6 @@ class TopicalEvent < ApplicationRecord
 
   scope :active, -> { where("1=1") } # Temporary change - treat all topical events as active.
 
-  validates_with SafeHtmlValidator
-  validates_with NoFootnotesInGovspeakValidator, attribute: :description
-
-  validates :name, presence: true, uniqueness: { case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
-  validates :description, presence: true
-  validates :summary, presence: true
-
   accepts_nested_attributes_for :topical_event_memberships
   accepts_nested_attributes_for :topical_event_organisations
   accepts_nested_attributes_for :topical_event_featurings
