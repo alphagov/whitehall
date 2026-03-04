@@ -11,7 +11,11 @@
           "required": true,
           "block": "govspeak",
           "attribute_path": ["block_content", "body"]
-        },
+        }
+      }
+    },
+    "social_media_accounts": {
+      "fields": {
         "social_media_links": {
           "title": "Social media accounts",
           "block": "default_array",
@@ -182,6 +186,14 @@
     "organisations": null,
     "backdating_enabled": false,
     "history_mode_enabled": false,
-    "translations_enabled": true
+    "translations_enabled": true,
+    "tabs": {
+      "documents": {
+        "label": "Document"
+      },
+      "social_media_accounts": {
+        "label": "Social media accounts"
+      }
+    }
   }
 }
