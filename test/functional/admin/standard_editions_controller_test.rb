@@ -156,6 +156,52 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "Review date"
   end
 
+  view_test "GET edit renders only the fields for the selected tab" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+      },
+      "settings" => {
+        "tabs" => {
+          "documents" => { "label" => "Document" },
+          "extra_fields" => { "label" => "Extra fields" },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type")
+
+    get :edit, params: { id: edition, current_tab: "extra_fields" }
+
+    assert_response :ok
+    assert_select "label", text: "Sidebar"
+    refute_select "label", text: "Body"
+  end
+
   view_test "GET edit renders previously published form controls if backdating is enabled" do
     configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "backdating_enabled" => true } })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
@@ -715,6 +761,172 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     }
 
     assert_redirected_to fallback_path
+  end
+
+  view_test "PATCH update redirects back to the same tab when saving from a non-default tab" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+      },
+      "settings" => {
+        "tabs" => {
+          "documents" => { "label" => "Document" },
+          "extra_fields" => { "label" => "Extra fields" },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(
+      :draft_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      title: "Title",
+      summary: "Summary",
+    )
+
+    @controller.stubs(:updater).returns(stub(can_perform?: true, perform!: true, failure_reason: nil))
+    StandardEdition.any_instance.stubs(:save_as).with(current_user).returns(true)
+
+    patch :update, params: {
+      id: edition.id,
+      edition: { title: edition.title, summary: edition.summary, configurable_document_type: "test_type" },
+      current_tab: "extra_fields",
+      save: "save",
+    }
+
+    assert_redirected_to edit_admin_standard_edition_path(edition, current_tab: "extra_fields")
+  end
+
+  view_test "PATCH update preserves the current tab when re-rendering after validation failure" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+      },
+      "settings" => {
+        "tabs" => {
+          "documents" => { "label" => "Document" },
+          "extra_fields" => { "label" => "Extra fields" },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(
+      :draft_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      title: "Title",
+      summary: "Summary",
+    )
+
+    patch :update, params: {
+      id: edition.id,
+      edition: {
+        title: "",
+        summary: edition.summary,
+        configurable_document_type: "test_type",
+        block_content: { sidebar: "My sidebar content" },
+      },
+      current_tab: "extra_fields",
+      save: "save",
+    }
+
+    assert_template :edit
+    assert_select "input[type=hidden][name=current_tab][value=extra_fields]"
+    assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
+  end
+
+  view_test "GET edit renders hidden current_tab field for the default tab when document type defines tabs" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+      },
+      "settings" => {
+        "tabs" => {
+          "documents" => { "label" => "Document" },
+          "extra_fields" => { "label" => "Extra fields" },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type")
+
+    # Visit the edit page without a current_tab param (i.e. the default tab)
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=hidden][name=current_tab][value=documents]"
   end
 
   view_test "POST create re-renders the new edition template with the submitted block content and errors if the form is invalid" do
