@@ -348,7 +348,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
 
-    assert_template "admin/edition_images/index"
+    assert_redirected_to admin_edition_images_path(edition)
     assert_equal "Images successfully uploaded", flash[:notice]
   end
 
@@ -376,7 +376,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: files.map { |file| { image_data_attributes: { file: } } } }
 
-    assert_template "admin/edition_images/index"
+    assert_redirected_to admin_edition_images_path(edition)
     assert_equal "Images successfully uploaded", flash[:notice]
   end
 
