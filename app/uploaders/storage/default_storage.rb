@@ -5,7 +5,7 @@ class Storage::DefaultStorage < CarrierWave::Storage::Abstract
 
     logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model.id}")
 
-    AssetManagerCreateAssetWorker.perform_async(temporary_location, uploader.asset_params)
+    AssetManagerCreateAssetJob.perform_async(temporary_location, uploader.asset_params)
 
     Whitehall::AssetManagerStorage::File.new(uploader.store_path(::File.basename(original_file)), uploader.model, uploader.version_name)
   end

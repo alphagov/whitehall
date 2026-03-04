@@ -6,7 +6,7 @@ class Admin::EditionLeadImagesController < Admin::BaseController
     edition_lead_image.assign_attributes(edition_lead_image_params)
 
     if @edition.valid? && edition_lead_image.save!
-      PublishingApiDocumentRepublishingWorker.perform_async(@edition.document_id, false)
+      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
       redirect_to admin_edition_images_path(@edition), notice: "Lead image updated to #{@image.image_data.carrierwave_image}"
     else
       redirect_to admin_edition_images_path(@edition), alert: "This edition is invalid: #{@edition.errors.full_messages.to_sentence}"

@@ -44,7 +44,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
                   .expects(:update_asset)
                   .at_least_once.with(asset_manager_id, has_entry("access_limited_organisation_ids", [organisation.content_id]))
 
-          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerAttachmentMetadataJob.drain
         end
       end
     end
@@ -66,7 +66,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
         ).returns(asset_manager_response)
 
-        AssetManagerCreateAssetWorker.drain
+        AssetManagerCreateAssetJob.drain
       end
     end
 
@@ -92,7 +92,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
             ),
           ).returns(asset_manager_response)
 
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAssetJob.drain
         end
       end
 
@@ -147,7 +147,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
                     ),
                   ).returns(asset_manager_response)
 
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAssetJob.drain
         end
       end
     end
@@ -173,7 +173,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
                   .expects(:update_asset)
                   .at_least_once.with(asset_manager_id, has_entry("access_limited_organisation_ids", []))
 
-          AssetManagerAttachmentMetadataWorker.drain
+          AssetManagerAttachmentMetadataJob.drain
         end
       end
 
@@ -194,7 +194,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               params[:auth_bypass_ids] == [edition.auth_bypass_id]
           }.returns(asset_manager_response)
 
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAssetJob.drain
         end
       end
     end
@@ -224,7 +224,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
               auth_bypass_ids: [edition.auth_bypass_id],
             ),
           ).returns(asset_manager_response)
-          AssetManagerCreateAssetWorker.drain
+          AssetManagerCreateAssetJob.drain
         end
       end
 
@@ -242,7 +242,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           args[:auth_bypass_ids] == [edition.auth_bypass_id]
         }.returns(asset_manager_response)
 
-        AssetManagerCreateAssetWorker.drain
+        AssetManagerCreateAssetJob.drain
       end
     end
 

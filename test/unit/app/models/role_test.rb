@@ -244,7 +244,7 @@ class RoleTest < ActiveSupport::TestCase
     create(:edition_role, role:, edition: worldwide_organisation)
     role.reload
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id, false)
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(worldwide_organisation.document_id, false)
 
     role.update!(name: "New role name")
   end
@@ -254,7 +254,7 @@ class RoleTest < ActiveSupport::TestCase
     role = create(:role_without_organisations)
     create(:edition_role, role:, edition: worldwide_organisation)
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(worldwide_organisation.document_id, false).never
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(worldwide_organisation.document_id, false).never
 
     role.update!(name: "New role name")
   end

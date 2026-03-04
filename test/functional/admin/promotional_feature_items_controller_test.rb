@@ -86,7 +86,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
 
     # We prefer to keep the image so that published docs can render it in case something goes wrong with the republishing.
-    AssetManagerDeleteAssetWorker.expects(:perform_async).never
+    AssetManagerDeleteAssetJob.expects(:perform_async).never
 
     put :update,
         params: { organisation_id: @organisation,
@@ -112,7 +112,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
     # We prefer to keep the image assets in asset-manager so that published docs can render them,
     # in case the republishing is slow or unsuccessful.
-    AssetManagerDeleteAssetWorker.expects(:perform_async).never
+    AssetManagerDeleteAssetJob.expects(:perform_async).never
 
     put :update,
         params: { organisation_id: @organisation,
@@ -140,7 +140,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
 
     promotional_feature_item.assets.each do |asset|
-      AssetManagerDeleteAssetWorker.expects(:perform_async).with(asset.asset_manager_id)
+      AssetManagerDeleteAssetJob.expects(:perform_async).with(asset.asset_manager_id)
     end
 
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
@@ -162,8 +162,8 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     filename = "big-cheese.960x640.jpg"
     cached_promotional_feature_item = build(:promotional_feature_item)
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/minister-of-funk.960x640/), anything, anything, anything, anything, anything).never
 
     post :create,
          params: {
@@ -186,8 +186,8 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     cached_filename = "example_fatality_notice_image.jpg"
     cached_promotional_feature_item = build(:promotional_feature_item, image: upload_fixture(cached_filename, "image/png"))
 
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
-    AssetManagerCreateAssetWorker.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{replacement_filename}/), anything, anything, anything, anything, anything).times(7)
+    AssetManagerCreateAssetJob.expects(:perform_async).with(regexp_matches(/#{cached_filename}/), anything, anything, anything, anything, anything).never
 
     put :update, params: {
       organisation_id: @organisation,

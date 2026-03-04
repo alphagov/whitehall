@@ -100,13 +100,13 @@ class WorldLocation < ApplicationRecord
 
   def republish_worldwide_organisations
     worldwide_organisations.pluck(:document_id).each do |document_id|
-      PublishingApiDocumentRepublishingWorker.perform_async(document_id, false)
+      PublishingApiDocumentRepublishingJob.perform_async(document_id, false)
     end
   end
 
   def republish_index_pages_to_publishing_api
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::WorldIndexPresenter") if I18n.locale == :en
+    PresentPageToPublishingApiJob.perform_async("PublishingApi::EmbassiesIndexPresenter")
+    PresentPageToPublishingApiJob.perform_async("PublishingApi::WorldIndexPresenter") if I18n.locale == :en
   end
 
   def publishing_api_presenter

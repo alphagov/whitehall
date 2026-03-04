@@ -173,7 +173,7 @@ class Document < ApplicationRecord
   def republishing_actions
     # Returns a list of actions required to republish the document. The
     # implementation logic for these is the responsibility of the
-    # `PublishingApiDocumentRepublishingWorker`
+    # `PublishingApiDocumentRepublishingJob`
 
     return [] unless has_republishable_editions?
 

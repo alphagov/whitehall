@@ -36,7 +36,7 @@ class CorporateInformationPage < Edition
                end
     return unless about_us
 
-    PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
+    PublishingApiDocumentRepublishingJob.perform_async_in_queue(
       "bulk_republishing",
       about_us.document_id,
       true,

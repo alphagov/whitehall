@@ -153,7 +153,7 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:publish).with(new_edition)
 
       pusher = mock
-      PublishingApiGoneWorker
+      PublishingApiGoneJob
         .expects(:new)
         .returns(pusher)
 
@@ -177,7 +177,7 @@ module ServiceListeners
 
       Services.publishing_api.expects(:patch_links).once
       Services.publishing_api.expects(:put_content).twice
-      PublishingApiGoneWorker.expects(:new).never
+      PublishingApiGoneJob.expects(:new).never
 
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(new_edition).push(event: "update_draft")

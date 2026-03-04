@@ -23,7 +23,7 @@ class Whitehall::AssetManagerStorage
     def delete
       asset = get_asset
       if asset
-        AssetManagerDeleteAssetWorker.perform_async(asset.asset_manager_id)
+        AssetManagerDeleteAssetJob.perform_async(asset.asset_manager_id)
       end
     end
 

@@ -200,8 +200,8 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     process(csv_file)
 
     assert_equal [organisation], edition.reload.lead_organisations
-    assert_equal 1, PublishingApiDocumentRepublishingWorker.jobs.size
-    assert_equal document.id, PublishingApiDocumentRepublishingWorker.jobs.first["args"].first
+    assert_equal 1, PublishingApiDocumentRepublishingJob.jobs.size
+    assert_equal document.id, PublishingApiDocumentRepublishingJob.jobs.first["args"].first
   end
 
   test "it changes the supporting organisations" do
@@ -219,8 +219,8 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     process(csv_file)
 
     assert_equal [organisation1, organisation2], edition.reload.supporting_organisations
-    assert_equal 1, PublishingApiDocumentRepublishingWorker.jobs.size
-    assert_equal document.id, PublishingApiDocumentRepublishingWorker.jobs.first["args"].first
+    assert_equal 1, PublishingApiDocumentRepublishingJob.jobs.size
+    assert_equal document.id, PublishingApiDocumentRepublishingJob.jobs.first["args"].first
   end
 
   test "it just updates the draft when there is not a change to the published edition" do
@@ -246,7 +246,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     process(csv_file)
 
     assert_equal [organisation], draft_edition.reload.lead_organisations
-    assert_equal 0, PublishingApiDocumentRepublishingWorker.jobs.size
+    assert_equal 0, PublishingApiDocumentRepublishingJob.jobs.size
   end
 
   # TODO: this one seems to pass no matter what I set at the CSV file 🤔
@@ -273,7 +273,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       process(csv_file)
     end
 
-    assert_equal 0, PublishingApiDocumentRepublishingWorker.jobs.size
+    assert_equal 0, PublishingApiDocumentRepublishingJob.jobs.size
   end
 
   test "it processes Statistics Announcements" do

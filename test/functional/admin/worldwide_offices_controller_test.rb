@@ -519,8 +519,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   test "DELETE :destroy for an office discards draft of the office and the contact" do
     office = create(:worldwide_office, edition: create(:draft_worldwide_organisation))
 
-    PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.content_id, "en")
-    PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(office.contact.content_id, "en")
+    PublishingApiDiscardDraftJob.any_instance.expects(:perform).with(office.content_id, "en")
+    PublishingApiDiscardDraftJob.any_instance.expects(:perform).with(office.contact.content_id, "en")
 
     Sidekiq::Testing.inline! do
       delete :destroy,

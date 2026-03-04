@@ -35,15 +35,15 @@ class SitewideSetting < ApplicationRecord
       #
       # Finally, we'll republish the How Government Works page, to remove the number of ministers
       # section. There's no need to maintain separate draft/live versions of this page, so we
-      # can just use the normal worker.
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksEnableReshufflePresenter")
+      # can just use the normal job.
+      PresentPageToPublishingApiJob.perform_async("PublishingApi::HowGovernmentWorksEnableReshufflePresenter")
     else
       # Whatever is on the draft stack, let's publish to the live stack
       Services.publishing_api.publish(ministers_index.content_id, nil, locale: ministers_index.content[:locale])
 
       # Republish How Government Works page (needs link patching, putting to draft and promoting
-      # to live, so use the worker)
-      PresentPageToPublishingApiWorker.perform_async("PublishingApi::HowGovernmentWorksPresenter")
+      # to live, so use the job)
+      PresentPageToPublishingApiJob.perform_async("PublishingApi::HowGovernmentWorksPresenter")
     end
   end
 end

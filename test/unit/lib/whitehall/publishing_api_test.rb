@@ -160,7 +160,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".bulk_republish_async queues the job on the bulk_republishing queue" do
     non_translatable_non_editionable_model = create(:policy_group)
-    PublishingApiWorker.expects(:perform_async_in_queue)
+    PublishingApiJob.expects(:perform_async_in_queue)
       .with(
         "bulk_republishing",
         "PolicyGroup",
@@ -204,8 +204,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.schedule_async(edition)
 
-    first_job = PublishingApiScheduleWorker.jobs[0]["args"]
-    second_job = PublishingApiScheduleWorker.jobs[1]["args"]
+    first_job = PublishingApiScheduleJob.jobs[0]["args"]
+    second_job = PublishingApiScheduleJob.jobs[1]["args"]
 
     assert_equal english_path, first_job[0]
     assert_equal timestamp, first_job[1]
@@ -229,8 +229,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.schedule_async(updated_edition)
 
-    first_job = PublishingApiScheduleWorker.jobs[0]["args"]
-    second_job = PublishingApiScheduleWorker.jobs[1]["args"]
+    first_job = PublishingApiScheduleJob.jobs[0]["args"]
+    second_job = PublishingApiScheduleJob.jobs[1]["args"]
 
     assert_equal english_path, first_job[0]
     assert_equal timestamp, first_job[1]
@@ -252,8 +252,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.unschedule_async(edition)
 
-    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]["args"].first
-    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]["args"].first
+    assert_equal german_path, PublishingApiUnscheduleJob.jobs[0]["args"].first
+    assert_equal english_path, PublishingApiUnscheduleJob.jobs[1]["args"].first
   end
 
   test ".unschedule_async for a subsequent edition served from the content store queues jobs to remove publish intents" do
@@ -270,8 +270,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.unschedule_async(updated_edition)
 
-    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]["args"].first
-    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]["args"].first
+    assert_equal german_path, PublishingApiUnscheduleJob.jobs[0]["args"].first
+    assert_equal english_path, PublishingApiUnscheduleJob.jobs[1]["args"].first
   end
 
   test ".save_draft publishes a draft edition if no content exists at the route yet" do
@@ -353,23 +353,23 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested gone_request
   end
 
-  test ".unpublish_sync immediately runs a PublishingApiUnpublishingWorker job for the unpublishing" do
+  test ".unpublish_sync immediately runs a PublishingApiUnpublishingJob job for the unpublishing" do
     unpublishing = build(:unpublishing, id: 1)
-    stubbed_worker = stub("worker", perform: nil)
-    PublishingApiUnpublishingWorker.expects(:new).returns(stubbed_worker)
-    stubbed_worker.expects(:perform).with(1)
+    stubbed_job = stub("job", perform: nil)
+    PublishingApiUnpublishingJob.expects(:new).returns(stubbed_job)
+    stubbed_job.expects(:perform).with(1)
     Whitehall::PublishingApi.unpublish_sync(unpublishing)
   end
 
-  test ".publish_withdrawal_sync immediately runs a PublishingApiWithdrawalWorker job for the withdrawal" do
+  test ".publish_withdrawal_sync immediately runs a PublishingApiWithdrawalJob job for the withdrawal" do
     document_content_id = "12345"
     explanation = "This document has been withdrawn"
     unpublished_at = Time.zone.now
     locale = "en"
 
-    stubbed_worker = stub("worker", perform: nil)
-    PublishingApiWithdrawalWorker.expects(:new).returns(stubbed_worker)
-    stubbed_worker.expects(:perform).with(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
+    stubbed_job = stub("job", perform: nil)
+    PublishingApiWithdrawalJob.expects(:new).returns(stubbed_job)
+    stubbed_job.expects(:perform).with(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
 
     Whitehall::PublishingApi.publish_withdrawal_sync(document_content_id, explanation, unpublished_at, locale)
   end

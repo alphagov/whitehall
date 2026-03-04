@@ -327,12 +327,12 @@ class CallForEvidenceTest < ActiveSupport::TestCase
 
     call_for_evidence = create(:call_for_evidence, opening_at:, closing_at:)
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(opening_at, call_for_evidence.document.id)
       .once
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(closing_at, call_for_evidence.document.id)
       .once
@@ -346,12 +346,12 @@ class CallForEvidenceTest < ActiveSupport::TestCase
 
     call_for_evidence = create(:call_for_evidence, opening_at:, closing_at:)
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(opening_at, call_for_evidence.document.id)
       .never
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(closing_at, call_for_evidence.document.id)
       .once

@@ -2,7 +2,7 @@ module Whitehall
   # Whitehall-specific interface for accessing the Publishing API.
   #
   # This should be used in preference to accessing the API adapter or
-  # PublishingApiWorkers directly when publishing or republishing models to the
+  # PublishingApiJobs directly when publishing or republishing models to the
   # Publishing API.
   #
   # publish and republish raise UnpublishableInstanceError if the model instance
@@ -113,7 +113,7 @@ module Whitehall
     # Synchronise the published and/or draft documents in publishing-api with
     # the contents of Whitehall's database.
     def self.republish_document_async(document, bulk: false)
-      PublishingApiDocumentRepublishingWorker.perform_async(
+      PublishingApiDocumentRepublishingJob.perform_async(
         document.id,
         bulk,
       )
@@ -123,41 +123,41 @@ module Whitehall
       publish_timestamp = edition.scheduled_publication.as_json
       locales_for(edition).each do |locale|
         base_path = edition.public_path(locale:)
-        PublishingApiScheduleWorker.perform_async(base_path, publish_timestamp)
+        PublishingApiScheduleJob.perform_async(base_path, publish_timestamp)
       end
     end
 
     def self.unschedule_async(edition)
       locales_for(edition).each do |locale|
         base_path = edition.public_path(locale:)
-        PublishingApiUnscheduleWorker.perform_async(base_path)
+        PublishingApiUnscheduleJob.perform_async(base_path)
       end
     end
 
     def self.publish_redirect_async(content_id, destination, locale = I18n.default_locale.to_s)
-      PublishingApiRedirectWorker.perform_async(content_id, destination, locale.to_s)
+      PublishingApiRedirectJob.perform_async(content_id, destination, locale.to_s)
     end
 
     def self.publish_gone_async(content_id, alternative_path, explanation, locale = I18n.default_locale.to_s)
-      PublishingApiGoneWorker.perform_async(content_id, alternative_path, explanation, locale.to_s)
+      PublishingApiGoneJob.perform_async(content_id, alternative_path, explanation, locale.to_s)
     end
 
     def self.publish_withdrawal_sync(document_content_id, explanation, unpublished_at, locale = I18n.default_locale.to_s)
-      PublishingApiWithdrawalWorker.new.perform(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
+      PublishingApiWithdrawalJob.new.perform(document_content_id, explanation, locale.to_s, false, unpublished_at.to_s)
     end
 
     def self.unpublish_sync(unpublishing)
-      PublishingApiUnpublishingWorker.new.perform(unpublishing.id)
+      PublishingApiUnpublishingJob.new.perform(unpublishing.id)
     end
 
     def self.discard_draft_async(edition)
       locales_for(edition).each do |locale|
-        PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale.to_s)
+        PublishingApiDiscardDraftJob.perform_async(edition.content_id, locale.to_s)
       end
     end
 
     def self.discard_translation_async(edition, locale:)
-      PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale.to_s)
+      PublishingApiDiscardDraftJob.perform_async(edition.content_id, locale.to_s)
     end
 
     def self.locales_for(model_instance)
@@ -171,7 +171,7 @@ module Whitehall
     def self.push_live(model_instance, update_type_override = nil, queue_override = nil)
       assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
-        PublishingApiWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale.to_s)
+        PublishingApiJob.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale.to_s)
       end
     end
 

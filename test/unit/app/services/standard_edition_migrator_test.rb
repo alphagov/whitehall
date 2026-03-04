@@ -105,18 +105,18 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       migrator = StandardEditionMigrator.new(scope: Document.all)
 
-      StandardEditionMigratorWorker.expects(:perform_async).with(some_doc_1.document.id, { "republish" => false, "compare_payloads" => true }).once
-      StandardEditionMigratorWorker.expects(:perform_async).with(some_doc_2.document.id, { "republish" => false, "compare_payloads" => true }).once
+      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_1.document.id, { "republish" => false, "compare_payloads" => true }).once
+      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_2.document.id, { "republish" => false, "compare_payloads" => true }).once
 
       migrator.migrate!
     end
 
-    test "allows republish and compare_payloads options to be passed to the worker" do
+    test "allows republish and compare_payloads options to be passed to the job" do
       some_doc = create(:standard_edition)
 
       migrator = StandardEditionMigrator.new(scope: Document.all)
 
-      StandardEditionMigratorWorker.expects(:perform_async).with(some_doc.document.id, { "republish" => true, "compare_payloads" => false }).once
+      StandardEditionMigratorJob.expects(:perform_async).with(some_doc.document.id, { "republish" => true, "compare_payloads" => false }).once
       migrator.migrate!(republish: true, compare_payloads: false)
     end
   end

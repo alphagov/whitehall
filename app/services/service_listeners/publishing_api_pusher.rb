@@ -54,7 +54,7 @@ module ServiceListeners
         edition_url = edition.public_url
         removed_locales = previous_edition.translations.map(&:locale) - edition.translations.map(&:locale)
         removed_locales.each do |locale|
-          PublishingApiGoneWorker.new.perform(
+          PublishingApiGoneJob.new.perform(
             edition.content_id,
             "",
             "This translation is no longer available. You can find the original version of this content at [#{edition_url}](#{edition_url})",

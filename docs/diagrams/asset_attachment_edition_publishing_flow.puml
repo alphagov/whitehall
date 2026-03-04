@@ -17,7 +17,7 @@ end box
 
 box Whitehall worker (Sidekiq)
 participant PublishAttachmentAssetJob
-participant AssetManagerAttachmentRedirectUrlUpdateWorker
+participant AssetManagerAttachmentRedirectUrlUpdateJob
 participant AssetDeleter
 participant AssetUpdater
 end box
@@ -60,14 +60,14 @@ end group
 EditionServices -> AttachmentRedirectUrlUpdater : call
 
 activate AttachmentRedirectUrlUpdater
-AttachmentRedirectUrlUpdater --> AssetManagerAttachmentRedirectUrlUpdateWorker : Enqueue
+AttachmentRedirectUrlUpdater --> AssetManagerAttachmentRedirectUrlUpdateJob : Enqueue
 deactivate
 
 group Happens once per attachment
-  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker++
-  AssetManagerAttachmentRedirectUrlUpdateWorker -> AssetUpdater++
+  AssetManagerAttachmentRedirectUrlUpdateJob -[hidden]> AssetManagerAttachmentRedirectUrlUpdateJob++
+  AssetManagerAttachmentRedirectUrlUpdateJob -> AssetUpdater++
   AssetUpdater -> AssetManager-- : update redirect URL
-  AssetManagerAttachmentRedirectUrlUpdateWorker -[hidden]> AssetManagerAttachmentRedirectUrlUpdateWorker--
+  AssetManagerAttachmentRedirectUrlUpdateJob -[hidden]> AssetManagerAttachmentRedirectUrlUpdateJob--
 end group
 
 @enduml

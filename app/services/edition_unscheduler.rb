@@ -20,6 +20,6 @@ private
 
   def fire_transition!
     super
-    ScheduledPublishingWorker.dequeue(edition)
+    ScheduledPublishingJob.dequeue(edition)
   end
 end

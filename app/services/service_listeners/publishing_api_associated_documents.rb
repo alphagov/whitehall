@@ -64,14 +64,14 @@ module ServiceListeners
 
         locales_to_unpublish.each do |locale|
           if associated_document.respond_to?(:base_path)
-            PublishingApiRedirectWorker.new.perform(
+            PublishingApiRedirectJob.new.perform(
               associated_document.content_id,
               destination,
               locale,
               allow_draft,
             )
           else
-            PublishingApiGoneWorker.new.perform(
+            PublishingApiGoneJob.new.perform(
               associated_document.content_id,
               nil,
               nil,
@@ -87,7 +87,7 @@ module ServiceListeners
       current_associated_documents.each do |associated_document|
         if associated_document.respond_to?(:translations)
           associated_document.translations.each do |translation|
-            PublishingApiWithdrawalWorker.new.perform(
+            PublishingApiWithdrawalJob.new.perform(
               associated_document.content_id,
               edition.unpublishing.explanation,
               translation.locale.to_s,
@@ -96,7 +96,7 @@ module ServiceListeners
             )
           end
         else
-          PublishingApiWithdrawalWorker.new.perform(
+          PublishingApiWithdrawalJob.new.perform(
             associated_document.content_id,
             edition.unpublishing.explanation,
             locale_for_document(associated_document).to_s,
@@ -125,13 +125,13 @@ module ServiceListeners
       associated_documents.each do |associated_document|
         if associated_document.respond_to?(:translations)
           associated_document.translations.each do |translation|
-            PublishingApiDiscardDraftWorker.perform_async(
+            PublishingApiDiscardDraftJob.perform_async(
               associated_document.content_id,
               translation.locale.to_s,
             )
           end
         else
-          PublishingApiDiscardDraftWorker.perform_async(
+          PublishingApiDiscardDraftJob.perform_async(
             associated_document.content_id,
             locale_for_document(associated_document).to_s,
           )
@@ -179,13 +179,13 @@ module ServiceListeners
       edition.translations.each do |translation|
         documents_to_remove.each do |document|
           if document.respond_to?(:base_path) && document.base_path.present?
-            PublishingApiRedirectWorker.new.perform(
+            PublishingApiRedirectJob.new.perform(
               document.content_id,
               edition.public_path,
               translation.locale.to_s,
             )
           else
-            PublishingApiGoneWorker.new.perform(
+            PublishingApiGoneJob.new.perform(
               document.content_id,
               nil,
               nil,
@@ -198,7 +198,7 @@ module ServiceListeners
       current_associated_documents.each do |associated_document|
         if associated_document.respond_to?(:translations)
           associated_document.translations.each do |translation|
-            PublishingApiWorker.new.perform(
+            PublishingApiJob.new.perform(
               associated_document.class.name,
               associated_document.id,
               update_type,
@@ -206,7 +206,7 @@ module ServiceListeners
             )
           end
         else
-          PublishingApiWorker.new.perform(
+          PublishingApiJob.new.perform(
             associated_document.class.name,
             associated_document.id,
             update_type,

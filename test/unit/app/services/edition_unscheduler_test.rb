@@ -16,7 +16,7 @@ class EditionUnschedulerTest < ActiveSupport::TestCase
     edition     = create(:scheduled_edition)
     unscheduler = EditionUnscheduler.new(edition)
 
-    ScheduledPublishingWorker.expects(:dequeue).with(edition)
+    ScheduledPublishingJob.expects(:dequeue).with(edition)
     assert unscheduler.perform!
     assert edition.submitted?
   end
@@ -25,7 +25,7 @@ class EditionUnschedulerTest < ActiveSupport::TestCase
     edition     = create(:scheduled_edition, force_published: true)
     unscheduler = EditionUnscheduler.new(edition)
 
-    ScheduledPublishingWorker.expects(:dequeue).with(edition)
+    ScheduledPublishingJob.expects(:dequeue).with(edition)
     assert unscheduler.perform!
     assert edition.submitted?
     assert_not edition.force_published?

@@ -76,7 +76,7 @@ class RoleAppointment < ApplicationRecord
 
   def republish_associated_editions_to_publishing_api
     role.edition_roles.each do |edition_role|
-      PublishingApiDocumentRepublishingWorker.perform_async(edition_role.edition.document_id, false)
+      PublishingApiDocumentRepublishingJob.perform_async(edition_role.edition.document_id, false)
     end
   end
 
@@ -87,7 +87,7 @@ class RoleAppointment < ApplicationRecord
   end
 
   def republish_prime_ministers_index_page_to_publishing_api
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::HistoricalAccountsIndexPresenter") unless current? || role.slug != "prime-minister" || has_historical_account?
+    PresentPageToPublishingApiJob.perform_async("PublishingApi::HistoricalAccountsIndexPresenter") unless current? || role.slug != "prime-minister" || has_historical_account?
   end
 
   def republish_role_to_publishing_api

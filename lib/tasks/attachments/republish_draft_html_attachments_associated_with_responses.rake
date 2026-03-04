@@ -13,7 +13,7 @@ task republish_draft_html_attachments_associated_with_responses: :environment do
   puts "Enqueueing #{document_ids.count} documents with `Responses` for republishing"
 
   document_ids.each do |document_id|
-    PublishingApiDocumentRepublishingWorker.perform_async_in_queue("bulk_republishing", document_id, true)
+    PublishingApiDocumentRepublishingJob.perform_async_in_queue("bulk_republishing", document_id, true)
   end
 
   puts "Finished enqueueing documents with `Responses` for republishing"

@@ -7,7 +7,7 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     image = build(:image)
     edition = create(:draft_case_study, images: [image])
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
     get :update, params: { edition_id: edition.id, id: image.id }
 

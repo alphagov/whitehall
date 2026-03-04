@@ -163,7 +163,7 @@ module DataHygiene
           bulk_publishing: true,
         )
       else
-        PublishingApiDocumentRepublishingWorker.perform_async(
+        PublishingApiDocumentRepublishingJob.perform_async(
           document.id,
           true, # bulk publishing
         )

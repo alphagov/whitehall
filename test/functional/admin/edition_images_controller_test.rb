@@ -277,7 +277,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
@@ -289,7 +289,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_case_study)
     file = upload_fixture("images/960x640_jpeg.jpg")
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
@@ -314,7 +314,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     }))
     edition = create(:draft_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
@@ -325,7 +325,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     login_authorised_user
     edition = create(:draft_case_study)
     files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("minister-of-funk.960x640.jpg")]
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
 
@@ -353,7 +353,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     # Both these images' size is valid for hero_mobile kind.
     files = [upload_fixture("hero_image_mobile_2x.png"), upload_fixture("hero_image_tablet_2x.png")]
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: files.map { |file| { image_data_attributes: { file: } } } }
 
@@ -566,7 +566,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     model_type = ImageData.to_s
     variants = Asset.variants.values
 
-    AssetManagerCreateAssetWorker
+    AssetManagerCreateAssetJob
       .expects(:perform_async)
       .with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => any_of(*variants), "assetable_type" => model_type), anything, anything, anything, anything).times(7)
 
@@ -589,7 +589,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     Services.asset_manager.stubs(:create_asset).returns({ "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => filename })
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: upload_fixture(filename, "image/jpeg") } }] }
-    AssetManagerCreateAssetWorker.drain
+    AssetManagerCreateAssetJob.drain
 
     assert_equal "Images successfully uploaded", flash[:notice]
   end
@@ -601,7 +601,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_case_study, images: [image1, image2])
     create(:edition_lead_image, edition:, image: image1)
 
-    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id, false).once
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
     delete :destroy, params: { edition_id: edition.id, id: image1.id }
 

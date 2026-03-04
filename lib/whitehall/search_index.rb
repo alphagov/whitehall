@@ -9,12 +9,12 @@ module Whitehall
       # EditionPublishingWorker publishes scheduled editions in a transaction
       # and we want to ensure that transaction is complete before we attempt to
       # index the edition, otherwise the edition may still be in a "scheduled"
-      # state, and SearchIndexAddWorker will not index a non-"published" edition.
-      SearchIndexAddWorker.perform_in(10.seconds, instance.class.name, instance.id)
+      # state, and SearchIndexAddJob will not index a non-"published" edition.
+      SearchIndexAddJob.perform_in(10.seconds, instance.class.name, instance.id)
     end
 
     def self.delete(instance)
-      SearchIndexDeleteWorker.perform_async(instance.search_index["link"], instance.search_api_index.to_s)
+      SearchIndexDeleteJob.perform_async(instance.search_index["link"], instance.search_api_index.to_s)
     end
 
     def self.for(type, options = {})

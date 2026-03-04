@@ -43,7 +43,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "AttachmentData",
         file_attachment.attachment_data.id,
@@ -66,7 +66,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "ImageData",
         image.image_data.id,
@@ -76,7 +76,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       service.call
     end
 
-    test "does not attempt to update html attachments via the update whitehall asset worker" do
+    test "does not attempt to update html attachments via the update whitehall asset job" do
       edition = create(:draft_edition)
       create(:html_attachment, attachable: edition)
 
@@ -88,7 +88,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).never
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).never
 
       service.call
     end
@@ -108,7 +108,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "ConsultationResponseFormData",
         consultation_response_form.consultation_response_form_data.id,
@@ -132,7 +132,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "AttachmentData",
         file_attachment.attachment_data.id,
@@ -156,7 +156,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
         updater:,
       )
 
-      AssetManagerUpdateAssetWorker.expects(:perform_async_in_queue).with(
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "AttachmentData",
         file_attachment.attachment_data.id,

@@ -195,7 +195,7 @@ class Organisation < ApplicationRecord
     # If the organisation has an about us page and the chart URL changes we need
     # to republish the about us page as it contains the chart URL.
     if saved_change_to_organisation_chart_url? && about_us.present?
-      PublishingApiDocumentRepublishingWorker
+      PublishingApiDocumentRepublishingJob
         .perform_async(about_us.document_id)
     end
 
@@ -208,7 +208,7 @@ class Organisation < ApplicationRecord
   end
 
   def republish_organisations_index_page_to_publishing_api
-    PresentPageToPublishingApiWorker.perform_async("PublishingApi::OrganisationsIndexPresenter")
+    PresentPageToPublishingApiJob.perform_async("PublishingApi::OrganisationsIndexPresenter")
   end
 
   def republish_parent_organisations_to_publishing_api

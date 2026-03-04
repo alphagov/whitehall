@@ -367,12 +367,12 @@ class ConsultationTest < ActiveSupport::TestCase
 
     consultation = create(:consultation, opening_at:, closing_at:)
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(opening_at, consultation.document.id)
       .once
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(closing_at, consultation.document.id)
       .once
@@ -386,12 +386,12 @@ class ConsultationTest < ActiveSupport::TestCase
 
     consultation = create(:consultation, opening_at:, closing_at:)
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(opening_at, consultation.document.id)
       .never
 
-    PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingJob
       .expects(:perform_at)
       .with(closing_at, consultation.document.id)
       .once
