@@ -26,15 +26,12 @@ Given(/^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/) 
 end
 
 When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
-  create(:topical_event, name: "Jazz Bizniz")
-
   visit new_admin_organisation_path
 
   fill_in "Name", with: organisation_name
   fill_in "Acronym", with: organisation_name.split(" ").collect { |word| word.chars.first }.join
   fill_in "Logo formatted name", with: organisation_name
   select "Ministerial department", from: "Organisation type"
-  select "Jazz Bizniz", from: "organisation_topical_event_ids_0"
   selector = ".app-view-organisation__featured_links .js-add-another__fieldset"
   within selector, match: :first do
     expect(page).to_not have_content("English:")
@@ -237,7 +234,11 @@ Then(/^the roles should be in the following order:$/) do |roles|
 end
 
 Given(/^an active topical event called "([^"]*)" exists$/) do |name|
-  @topical_event = create(:topical_event, :active, name:)
+  create(:topical_event, :active, name:)
+end
+
+Given(/^a config-driven document called "([^"]*)" exists$/) do |name|
+  create(:published_standard_edition, configurable_document_type: "test_type", title: name, lead_organisations: [@organisation])
 end
 
 And(/^I visit the the organisation feature page for "([^"]*)"$/) do |name|
