@@ -13,6 +13,36 @@
           "attribute_path": ["block_content", "body"],
           "translatable": true
         },
+        "topical_event_documents": {
+          "title": "Topical events (experimental)",
+          "block": "select_with_search_tagging",
+          "container": "topical_event_documents",
+          "attribute_path": ["topical_event_document_ids"],
+          "translatable": false,
+          "experimental": true
+        },
+        "lead_organisations": {
+          "title": "Lead organisations",
+          "required": true,
+          "block": "ordered_select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["lead_organisation_ids"],
+          "size": 4,
+          "translatable": false
+        },
+        "supporting_organisations": {
+          "title": "Supporting organisations",
+          "block": "select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["supporting_organisation_ids"],
+          "translatable": false
+        }
+      }
+    },
+    "social_media_accounts": {
+      "dynamic": true,
+      "label": "Social media accounts",
+      "fields": {
         "social_media_links": {
           "title": "Social media accounts",
           "block": "default_array",
@@ -91,30 +121,6 @@
               "translatable": true
             }
           }
-        },
-        "topical_event_documents": {
-          "title": "Topical events (experimental)",
-          "block": "select_with_search_tagging",
-          "container": "topical_event_documents",
-          "attribute_path": ["topical_event_document_ids"],
-          "translatable": false,
-          "experimental": true
-        },
-        "lead_organisations": {
-          "title": "Lead organisations",
-          "required": true,
-          "block": "ordered_select_with_search_tagging",
-          "container": "organisations",
-          "attribute_path": ["lead_organisation_ids"],
-          "size": 4,
-          "translatable": false
-        },
-        "supporting_organisations": {
-          "title": "Supporting organisations",
-          "block": "select_with_search_tagging",
-          "container": "organisations",
-          "attribute_path": ["supporting_organisation_ids"],
-          "translatable": false
         }
       }
     }
