@@ -460,6 +460,100 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal offsite_link_2.url, new_draft.offsite_links.second.url
   end
 
+  describe "tabbed form behaviour" do
+    setup do
+      @tabbed_type = build_configurable_document_type(
+        "tabbed_type", {
+          "settings" => {
+            "tabs" => {
+              "documents" => { "label" => "Document" },
+              "social_media_accounts" => { "label" => "Social media accounts" },
+              "related_content" => { "label" => "Related content" },
+            },
+          },
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "body" => { "title" => "Body", "block" => "govspeak" },
+              },
+            },
+            "social_media_accounts" => {
+              "fields" => {
+                "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+              },
+            },
+            "related_content" => {
+              "fields" => {
+                "related_links" => { "title" => "Related links", "block" => "default_string" },
+              },
+            },
+          },
+          "schema" => {
+            "attributes" => {
+              "body" => { "type" => "string" },
+              "social_media_links" => { "type" => "string" },
+              "related_links" => { "type" => "string" },
+            },
+            "validations" => {
+              "presence" => { "attributes" => %w[body social_media_links related_links] },
+            },
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(@tabbed_type)
+    end
+
+    it "valid_tab_key? returns true for a known tab key" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type")
+
+      assert edition.valid_tab_key?("social_media_accounts")
+    end
+
+    it "valid_tab_key? returns false for an unknown tab key" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type")
+
+      assert_not edition.valid_tab_key?("nonexistent")
+    end
+
+    it "valid_tab_key? returns false when no tabs are defined" do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+      edition = build(:standard_edition)
+
+      assert_not edition.valid_tab_key?("documents")
+    end
+
+    it "runs full validation when current_tab_context is nil" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil })
+      edition.current_tab_context = nil
+
+      assert edition.invalid?
+      assert_not edition.errors.where("body", :blank).empty?
+    end
+
+    it "scopes validation when current_tab_context is set to a different tab" do
+      # body: nil would fail full validation, but scoped to social_media_accounts tab we only validate social_media_links
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil, social_media_links: "valid" })
+      edition.current_tab_context = "social_media_accounts"
+
+      assert edition.valid?
+    end
+
+    it "catches errors on the active tab" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil })
+      edition.current_tab_context = "documents"
+
+      assert edition.invalid?
+      assert_not edition.errors.where("body", :blank).empty?
+    end
+
+    it "raises an error when current_tab_context is an unknown form" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type", block_content: { body: nil })
+      edition.current_tab_context = "nonexistent"
+
+      assert_raises(ArgumentError) { edition.invalid? }
+    end
+  end
+
   describe "#update_configurable_document_type" do
     [
       { state: :draft_standard_edition },

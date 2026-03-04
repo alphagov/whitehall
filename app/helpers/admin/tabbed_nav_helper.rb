@@ -1,9 +1,9 @@
 module Admin::TabbedNavHelper
   include Admin::EditionsHelper
 
-  def secondary_navigation_tabs_items(model, current_path)
+  def secondary_navigation_tabs_items(model, current_path, current_tab = nil)
     if model.is_a?(Edition)
-      edition_nav_items(model, current_path)
+      edition_nav_items(model, current_path, current_tab)
     elsif model.respond_to? :consultation
       edition_nav_items(model.consultation, current_path)
     elsif model.respond_to? :call_for_evidence
@@ -13,9 +13,9 @@ module Admin::TabbedNavHelper
     end
   end
 
-  def edition_nav_items(edition, current_path)
+  def edition_nav_items(edition, current_path, current_tab = nil)
     nav_items = []
-    nav_items << standard_edition_nav_items(edition, current_path) if edition.persisted?
+    nav_items << standard_edition_nav_items(edition, current_path, current_tab) if edition.persisted?
     nav_items << attachments_nav_items(edition, current_path) if edition.persisted? && edition.allows_attachments?
     nav_items << images_nav_items(edition, current_path) if edition.persisted? && edition.allows_image_attachments?
     nav_items << consultation_nav_items(edition, current_path) if edition.persisted? && edition.is_a?(Consultation)
@@ -27,14 +27,33 @@ module Admin::TabbedNavHelper
     nav_items.flatten
   end
 
-  def standard_edition_nav_items(edition, current_path)
-    [
+  def standard_edition_nav_items(edition, current_path, current_tab)
+    # Build up the tabs defined in config.
+    return config_driven_nav_items(edition, current_tab) if edition.is_a?(StandardEdition) && edition.defines_tabs?
+
+    # Fallback to the documents tab here to ensure backwards compatibility.
+    legacy_document_nav_items(edition, current_path)
+  end
+
+  def legacy_document_nav_items(edition, current_path)
+    base_url = tab_url_for_edition(edition)
+
+    [{ label: "Document", href: base_url, current: current_path == base_url }]
+  end
+
+  def config_driven_nav_items(edition, current_tab)
+    base_url = tab_url_for_edition(edition)
+    default_tab = edition.tabs.first&.dig("id")
+
+    edition.tabs.map do |tab|
+      form_key = tab["id"] == default_tab ? nil : tab["id"]
+
       {
-        label: "Document",
-        href: tab_url_for_edition(edition),
-        current: current_path == tab_url_for_edition(edition),
-      },
-    ]
+        label: tab["label"],
+        href: form_key ? "#{base_url}?current_tab=#{form_key}" : base_url,
+        current: current_tab == form_key,
+      }
+    end
   end
 
   def features_nav_items(edition, current_path)

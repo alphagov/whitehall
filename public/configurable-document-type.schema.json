@@ -188,37 +188,22 @@
     "forms": {
       "type": "object",
       "description": "Defines the content structure for the document type. Each property represents a content block.",
-      "properties": {
-        "documents": {
-          "type": "object",
-          "properties": {
-            "fields": {
-              "type": "object",
-              "description": "Fields/content blocks for the document, each with its own schema.",
-              "patternProperties": {
-                ".*": {
-                  "$ref": "#/$defs/form_field"
-                }
-              }
-            }
-          }
-        },
-        "images": {
-          "type": "object",
-          "properties": {
-            "fields": {
-              "type": "object",
-              "description": "Image-related fields/content blocks for the document, each with its own schema.",
-              "patternProperties": {
-                ".*": {
-                  "$ref": "#/$defs/form_field"
-                }
+      "additionalProperties": {
+        "type": "object",
+        "required": ["fields"],
+        "description": "Definition of a group of form fields to group.",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "description": "Fields/content blocks for this form, each with its own schema.",
+            "patternProperties": {
+              ".*": {
+                "$ref": "#/$defs/form_field"
               }
             }
           }
         }
-      },
-      "additionalProperties": false
+      }
     },
     "presenters": {
       "type": "object",
@@ -436,6 +421,23 @@
         "translations_enabled": {
           "type": "boolean",
           "description": "Whether translations are supported for this document type."
+        },
+        "tabs": {
+          "type": "object",
+          "description": "Tabs to display as navigation in the admin interface. Each key must match a form key in the `forms` object.",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "required": ["label"],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "description": "Label to display on the tab."
+                }
+              },
+              "additionalProperties": false
+            }
+          }
         }
       },
       "required": [

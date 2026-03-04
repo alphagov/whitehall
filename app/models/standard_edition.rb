@@ -14,6 +14,8 @@ class StandardEdition < Edition
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 
+  attr_accessor :current_tab_context
+
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
 
   scope :with_news_article_document_type, -> { where(configurable_document_type: ConfigurableDocumentType.where_group("news_article").map(&:key)) }
@@ -108,6 +110,22 @@ class StandardEdition < Edition
 
   def is_in_valid_state_for_type_conversion?
     %w[draft submitted rejected].include?(state)
+  end
+
+  def defines_tabs?
+    tabs.any?
+  end
+
+  def valid_tab_key?(key)
+    type_instance.settings["tabs"]&.key?(key)
+  end
+
+  def tabs
+    @tabs ||= type_instance.tabs
+  end
+
+  def default_tab
+    @default_tab ||= tabs.first&.dig("id") || "documents"
   end
 
   def permitted_image_usages
