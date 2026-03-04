@@ -6,6 +6,7 @@ module ConfigurableDocumentTypeHelper
         "title" => "Test type",
         "forms" => {
           "documents" => {
+            "label" => "Document",
             "fields" => {
               "field_attribute" => {
                 "title" => "Test Attribute",

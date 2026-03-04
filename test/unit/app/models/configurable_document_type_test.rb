@@ -124,6 +124,110 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal expected_payload, document_type.presenter("service_key")
   end
 
+  test "#tabs returns tab hashes with id and label from config" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "dynamic" => true,
+            "fields" => {
+              "body" => { "title" => "Body", "block" => "govspeak" },
+            },
+          },
+          "social_media_accounts" => {
+            "label" => "Social media accounts",
+            "dynamic" => true,
+            "fields" => {
+              "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal [
+      { "id" => "documents", "label" => "Document" },
+      { "id" => "social_media_accounts", "label" => "Social media accounts" },
+    ], document_type.tabs
+  end
+
+  test "#tabs returns empty array when no forms defined as dynamic" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "dynamic" => false,
+          },
+          "social_media_accounts" => {
+            "label" => "Social media accounts",
+            "dynamic" => false,
+            "fields" => {
+              "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal [], document_type.tabs
+  end
+
+  test "#schema_for_fields returns only the specified fields attributes and validations" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "schema" => {
+          "attributes" => {
+            "body" => { "type" => "string" },
+            "social_media_links" => { "type" => "string" },
+          },
+          "validations" => {
+            "presence" => { "attributes" => %w[body] },
+            "length" => { "attributes" => %w[social_media_links] },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    result = document_type.schema_for_fields(%w[body])
+
+    assert_equal({ "body" => { "type" => "string" } }, result["attributes"])
+    assert_equal({ "presence" => { "attributes" => %w[body] } }, result["validations"])
+    assert_not result["attributes"].key?("social_media_links")
+    assert_not result["validations"].key?("length")
+  end
+
+  test "#schema_for_fields filters the attributes array within a shared validation" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "schema" => {
+          "attributes" => {
+            "field_a" => { "type" => "string" },
+            "field_b" => { "type" => "string" },
+          },
+          "validations" => {
+            "presence" => { "attributes" => %w[field_a field_b] },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    result = document_type.schema_for_fields(%w[field_a])
+
+    assert_equal %w[field_a], result["validations"]["presence"]["attributes"]
+  end
+
   test "#schema" do
     configurable_document_type = build_configurable_document_type(
       "test_type",

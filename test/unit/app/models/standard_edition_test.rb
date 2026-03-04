@@ -460,6 +460,65 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal offsite_link_2.url, new_draft.offsite_links.second.url
   end
 
+  describe "tabbed form behaviour" do
+    setup do
+      @tabbed_type = build_configurable_document_type(
+        "tabbed_type", {
+          "forms" => {
+            "documents" => {
+              "dynamic" => true,
+              "fields" => {
+                "body" => { "title" => "Body", "block" => "govspeak" },
+              },
+            },
+            "social_media_accounts" => {
+              "dynamic" => true,
+              "fields" => {
+                "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+              },
+            },
+            "related_content" => {
+              "dynamic" => true,
+              "fields" => {
+                "related_links" => { "title" => "Related links", "block" => "default_string" },
+              },
+            },
+          },
+          "schema" => {
+            "attributes" => {
+              "body" => { "type" => "string" },
+              "social_media_links" => { "type" => "string" },
+              "related_links" => { "type" => "string" },
+            },
+            "validations" => {
+              "presence" => { "attributes" => %w[body social_media_links related_links] },
+            },
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(@tabbed_type)
+    end
+
+    it "valid_tab_key? returns true for a known tab key" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type")
+
+      assert edition.valid_tab_key?("social_media_accounts")
+    end
+
+    it "valid_tab_key? returns false for an unknown tab key" do
+      edition = build(:standard_edition, configurable_document_type: "tabbed_type")
+
+      assert_not edition.valid_tab_key?("nonexistent")
+    end
+
+    it "valid_tab_key? returns false when no tabs are defined" do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+      edition = build(:standard_edition)
+
+      assert_not edition.valid_tab_key?("documents")
+    end
+  end
+
   describe "#update_configurable_document_type" do
     [
       { state: :draft_standard_edition },

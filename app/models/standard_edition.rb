@@ -110,6 +110,22 @@ class StandardEdition < Edition
     %w[draft submitted rejected].include?(state)
   end
 
+  def defines_tabs?
+    tabs.any?
+  end
+
+  def valid_tab_key?(key)
+    tabs&.any? { |tab| tab["id"] == key }
+  end
+
+  def tabs
+    @tabs ||= type_instance.tabs
+  end
+
+  def default_tab
+    @default_tab ||= tabs.first&.dig("id") || "documents"
+  end
+
   def permitted_image_usages
     type_instance.settings["images"]["usages"].each_with_object([]) do |(usage_key, config), result|
       kinds = config["kinds"].map { |kind_name| Whitehall.image_kinds[kind_name] }
