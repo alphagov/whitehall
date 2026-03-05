@@ -193,6 +193,14 @@
         "required": ["fields"],
         "description": "Definition of a group of form fields to group.",
         "properties": {
+          "dynamic": {
+            "type": "boolean",
+            "description": "Determines if the field should have a tab generated dynamically"
+          },
+          "label": {
+            "type": "string",
+            "description": "Text to display as the label for the group of fields. Shown on the tab in the admin interface."
+          },
           "fields": {
             "type": "object",
             "description": "Fields/content blocks for this form, each with its own schema.",
