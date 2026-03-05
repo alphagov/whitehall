@@ -425,6 +425,42 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     assert_equal expected_output, secondary_navigation_tabs_items(edition, edit_admin_worldwide_organisation_path(edition))
   end
 
+  test "#secondary_navigation_tabs_items for StandardEdition with tabs does not highlight any config-driven tab when on
+  a legacy tab" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "images" => { "enabled" => true }, "features_enabled" => true },
+      "forms" => {
+        "documents" => {
+          "dynamic" => true,
+          "fields" => {
+            "body" => { "title" => "Body", "block" => "govspeak" },
+          },
+        },
+        "social_media_accounts" => {
+          "dynamic" => true,
+          "label" => "Social media accounts",
+          "fields" => {
+            "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+          },
+        },
+      },
+    }))
+
+    edition = build_stubbed(:standard_edition)
+    images_path = admin_edition_images_path(edition)
+
+    # User is on the Images tab — no current_tab param, path is the images page
+    result = secondary_navigation_tabs_items(edition, images_path)
+
+    document_tab = result.find { |item| item[:label] == "Document" }
+    social_media_tab = result.find { |item| item[:label] == "Social media accounts" }
+    images_tab = result.find { |item| item[:label].include?("Images") }
+
+    assert_not document_tab[:current], "Document tab should not be highlighted when on Images page"
+    assert_not social_media_tab[:current], "Social media tab should not be highlighted when on Images page"
+    assert images_tab[:current], "Images tab should be highlighted when on Images page"
+  end
+
   test "#secondary_navigation_tabs_items for worldwide organisation pages" do
     page = build_stubbed(:worldwide_organisation_page)
 
@@ -442,5 +478,94 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     ]
 
     assert_equal expected_output, secondary_navigation_tabs_items(page, edit_admin_worldwide_organisation_page_path(page.edition, page))
+  end
+
+  test "#secondary_navigation_tabs_items for StandardEdition with tabs generates config-driven nav items" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "dynamic" => true,
+          "fields" => {
+            "body" => { "title" => "Body", "block" => "govspeak" },
+          },
+        },
+        "social_media_accounts" => {
+          "label" => "Social media accounts",
+          "dynamic" => true,
+          "fields" => {
+            "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+          },
+        },
+        "related_content" => {
+          "label" => "Related content",
+          "dynamic" => true,
+          "fields" => {
+            "related_links" => { "title" => "Related links", "block" => "default_string" },
+          },
+        },
+      },
+    }))
+
+    edition = build_stubbed(:standard_edition)
+    base_url = tab_url_for_edition(edition)
+
+    expected_output = [
+      { label: "Document", href: base_url, current: true },
+      { label: "Social media accounts", href: "#{base_url}?current_tab=social_media_accounts", current: false },
+      { label: "Related content", href: "#{base_url}?current_tab=related_content", current: false },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(edition, base_url)
+  end
+
+  test "#secondary_navigation_tabs_items for StandardEdition with tabs marks the correct tab as current" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "dynamic" => true,
+          "fields" => {
+            "body" => { "title" => "Body", "block" => "govspeak" },
+          },
+        },
+        "social_media_accounts" => {
+          "dynamic" => true,
+          "label" => "Social media accounts",
+          "fields" => {
+            "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+          },
+        },
+        "related_content" => {
+          "dynamic" => true,
+          "label" => "Related content",
+          "fields" => {
+            "related_links" => { "title" => "Related links", "block" => "default_string" },
+          },
+        },
+      },
+    }))
+
+    edition = build_stubbed(:standard_edition)
+    base_url = tab_url_for_edition(edition)
+
+    expected_output = [
+      { label: "Document", href: base_url, current: false },
+      { label: "Social media accounts", href: "#{base_url}?current_tab=social_media_accounts", current: true },
+      { label: "Related content", href: "#{base_url}?current_tab=related_content", current: false },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(edition, base_url, "social_media_accounts")
+  end
+
+  test "#secondary_navigation_tabs_items for StandardEdition without tabs falls back to legacy Document tab" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    edition = build_stubbed(:standard_edition)
+    base_url = tab_url_for_edition(edition)
+
+    expected_output = [
+      { label: "Document", href: base_url, current: true },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(edition, base_url)
   end
 end
