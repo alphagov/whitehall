@@ -24,14 +24,20 @@ private
 
   def error_items
     errors.map do |error|
+      message = error.full_message
+
+      if object.respond_to?(:error_labels) && object.error_labels.key?(error.attribute.to_s)
+        message = "#{object.error_labels[error.attribute.to_s]} #{error.message}"
+      end
+
       error_item = {
-        text: error.full_message,
+        text: message,
         data_attributes: {
           module: "ga4-auto-tracker",
           "ga4-auto": {
             event_name: "form_error",
             type: ga4_title,
-            text: error.full_message.to_s.humanize,
+            text: message.to_s.humanize,
             section: error.attribute.to_s.humanize,
             action: "error",
           }.to_json,

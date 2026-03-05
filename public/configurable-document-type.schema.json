@@ -68,7 +68,9 @@
             "default_object",
             "default_string",
             "govspeak",
-            "default_select"
+            "default_select",
+            "select_with_search_tagging",
+            "ordered_select_with_search_tagging"
           ]
         },
         "fields": {
@@ -78,6 +80,14 @@
               "$ref": "#/$defs/form_field"
             }
           }
+        },
+        "translatable": {
+          "description": "Determines whether or not the field's value can be translated for different locales",
+          "type": "boolean"
+        },
+        "experimental": {
+          "description": "When true, only renders the field if the configurable_document_types feature flag is enabled",
+          "type": "boolean"
         },
         "options": {
           "type": "array",
@@ -98,9 +108,30 @@
         "blank_option_label": {
           "type": "string",
           "description": "Text to display for the blank/default option in a select input."
+        },
+        "container": {
+          "description": "The option container to be used in the select_with_search_tagging_block",
+          "type": "string",
+          "enum": [
+            "alternative_format_providers",
+            "detailed_guides",
+            "ministerial_role_appointments",
+            "organisations",
+            "role_appointments",
+            "roles",
+            "statistical_data_sets",
+            "topical_event_documents",
+            "topical_events",
+            "world_locations",
+            "worldwide_organisations"
+          ]
+        },
+        "size": {
+          "type": "number",
+          "description": "The number of items in an array field"
         }
       },
-      "required": ["title", "block", "attribute_path"],
+      "required": ["title", "block", "attribute_path", "translatable"],
       "additionalProperties": false
     },
     "block_attributes": {
@@ -272,30 +303,6 @@
       "additionalProperties": false,
       "required": ["publishing_api"]
     },
-    "associations": {
-      "type": "array",
-      "description": "List of associations to other content (e.g., organisations, topical events), allowing the document to be linked to other entities.",
-      "items": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Type of association. Determines what kind of related content can be linked.",
-            "enum": [
-              "ministerial_role_appointments",
-              "organisations",
-              "worldwide_organisations",
-              "topical_events",
-              "topical_event_documents",
-              "world_locations"
-            ]
-          }
-        },
-        "required": [
-          "key"
-        ]
-      }
-    },
     "settings": {
       "type": "object",
       "description": "A list of configurations to enable certain edition behaviours.",
@@ -459,7 +466,6 @@
     "schema",
     "forms",
     "presenters",
-    "associations",
     "settings",
     "title",
     "description"

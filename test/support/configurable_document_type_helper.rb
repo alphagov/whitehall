@@ -10,6 +10,8 @@ module ConfigurableDocumentTypeHelper
               "field_attribute" => {
                 "title" => "Test Attribute",
                 "block" => "govspeak",
+                "attribute_path" => %w[block_content field_attribute],
+                "translatable" => true,
               },
             },
           },

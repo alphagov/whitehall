@@ -10,7 +10,8 @@
             "title": "Body",
             "description": "The main content of the page",
             "block": "govspeak",
-            "attribute_path": ["block_content", "body"]
+            "attribute_path": ["block_content", "body"],
+            "translatable": true
           }
         }
       }
@@ -30,7 +31,6 @@
         "links": []
       }
     },
-    "associations": [],
     "settings": {
       "base_path_prefix": "/government/test-type",
       "publishing_api_schema_name": "test_type",
@@ -62,7 +62,8 @@
             "title": "Body",
             "description": "The main content of the page",
             "block": "govspeak",
-            "attribute_path": ["block_content", "body"]
+            "attribute_path": ["block_content", "body"],
+            "translatable": true
           }
         }
       }

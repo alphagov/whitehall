@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :description, :schema, :associations, :settings
+  attr_reader :key, :description, :schema, :settings
 
   CONTENT_BLOCKS = {
     "default_string" => ConfigurableContentBlocks::DefaultString,
@@ -8,6 +8,8 @@ class ConfigurableDocumentType
     "default_select" => ConfigurableContentBlocks::DefaultSelect,
     "default_object" => ConfigurableContentBlocks::DefaultObject,
     "default_array" => ConfigurableContentBlocks::DefaultArray,
+    "ordered_select_with_search_tagging" => ConfigurableContentBlocks::OrderedSelectWithSearchTagging,
+    "select_with_search_tagging" => ConfigurableContentBlocks::SelectWithSearchTagging,
   }.freeze
 
   @types_mutex = Mutex.new
@@ -73,7 +75,6 @@ class ConfigurableDocumentType
     @forms = type["forms"] || {}
     @presenters = type["presenters"] || {}
     @schema = type["schema"]
-    @associations = type["associations"]
     @settings = type["settings"]
   end
 
@@ -102,10 +103,58 @@ class ConfigurableDocumentType
     end
   end
 
+  def error_labels
+    {}.tap do |labels|
+      visitor = lambda do |path, field|
+        # we only want labels for leaf fields, so do nothing if this field isn't one
+        return if field["fields"]
+
+        labels[path.validation_error_attribute] = field["title"]
+      end
+
+      visit_fields_with(visitor)
+    end
+  end
+
+  def field_paths(&block)
+    [].tap do |fields|
+      visitor = lambda do |path, field|
+        # Skip "non-leaf" fields
+        return if field["fields"]
+
+        fields << path if !block_given? || block.call(field)
+      end
+
+      visit_fields_with(visitor)
+    end
+  end
+
+  def required_field_paths
+    field_paths { |field| field["required"] == true }
+  end
+
   def presenter(key)
     @presenters[key]
   end
 
   class NotFoundError < StandardError
+  end
+
+private
+
+  def visit_fields_with(visitor)
+    walk_fields { |path, field| visitor.call(path, field) }
+  end
+
+  def walk_fields(fields = nil, path = ConfigurableContentBlocks::Path.new, &block)
+    fields ||= form["fields"]
+
+    fields.each do |_key, field|
+      current_path = path.push(field["attribute_path"])
+      yield(current_path, field)
+      if field["fields"]
+        walk_fields(field["fields"], current_path, &block)
+      end
+    end
   end
 end

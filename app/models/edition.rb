@@ -453,6 +453,10 @@ class Edition < ApplicationRecord
     []
   end
 
+  def error_labels
+    {}
+  end
+
 private
 
   def date_for_government

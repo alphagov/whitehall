@@ -4,7 +4,7 @@
     heading_level: 3,
     heading_size: "m",
     id: "edition_organisations",
-    error_message: errors_for_input(edition.errors, :organisations),
+    error_message: errors_for_input(edition.errors, :lead_organisation_ids, "Organisations"),
     } do %>
     <div class="govuk-!-margin-bottom-6">
       <% 0.upto(3) do |index| %>

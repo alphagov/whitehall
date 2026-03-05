@@ -50,6 +50,7 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
               "field_attribute_1" => {
                 "title" => "Field attribute 1",
                 "block" => "date_field",
+                "translatable" => true,
               },
             },
           },
@@ -58,6 +59,7 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
               "field_attribute_2" => {
                 "title" => "Field attribute 2",
                 "block" => "govspeak",
+                "translatable" => true,
               },
             },
           },
@@ -81,6 +83,7 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
               "field_attribute_1" => {
                 "title" => "Field attribute 1",
                 "block" => "date_field",
+                "translatable" => true,
               },
             },
           },
@@ -89,6 +92,7 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
               "field_attribute_2" => {
                 "title" => "Field attribute 2",
                 "block" => "govspeak",
+                "translatable" => true,
               },
             },
           },
@@ -102,6 +106,7 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
         "field_attribute_1" => {
           "title" => "Field attribute 1",
           "block" => "date_field",
+          "translatable" => true,
         },
       },
     }

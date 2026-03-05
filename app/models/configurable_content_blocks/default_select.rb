@@ -1,15 +1,5 @@
 module ConfigurableContentBlocks
-  class DefaultSelect
-    include BaseConfig
-    include Renderable
-    attr_reader :edition, :path
-
-    def initialize(edition, config, path)
-      @edition = edition
-      @config = config
-      @path = path
-    end
-
+  class DefaultSelect < BaseBlock
     def select_options
       [
         { text: @config["blank_option_label"] || "Select an option", value: "" },
@@ -17,7 +7,7 @@ module ConfigurableContentBlocks
         {
           text: opt["label"],
           value: opt["value"],
-          selected: opt["value"] == @edition.block_content&.value_at(@path),
+          selected: opt["value"] == value,
         }
       end
     end

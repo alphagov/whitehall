@@ -10,7 +10,39 @@
           "description": "The main content of the page",
           "required": true,
           "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
+        },
+        "topical_events": {
+          "title": "Topical Events",
+          "block": "select_with_search_tagging",
+          "container": "topical_events",
+          "attribute_path": ["topical_event_ids"],
+          "translatable": false
+        },
+        "topical_event_documents": {
+          "title": "Topical Events (experimental)",
+          "block": "select_with_search_tagging",
+          "container": "topical_event_documents",
+          "attribute_path": ["topical_event_document_ids"],
+          "translatable": false,
+          "experimental": true
+        },
+        "worldwide_organisations": {
+          "title": "Worldwide organisations",
+          "required": true,
+          "block": "select_with_search_tagging",
+          "container": "worldwide_organisations",
+          "attribute_path": ["worldwide_organisation_document_ids"],
+          "translatable": false
+        },
+        "world_locations": {
+          "title": "World locations",
+          "required": true,
+          "block": "select_with_search_tagging",
+          "container": "world_locations",
+          "attribute_path": ["world_location_ids"],
+          "translatable": false
         }
       }
     }
@@ -54,22 +86,6 @@
       ]
     }
   },
-  "associations" : [
-    {
-      "key": "topical_events"
-    },
-    {
-      "key": "topical_event_documents"
-    },
-    {
-      "key": "worldwide_organisations",
-      "required": true
-    },
-    {
-      "key": "world_locations",
-      "required": true
-    }
-  ],
   "settings": {
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",

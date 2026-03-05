@@ -5,7 +5,7 @@
   },
   id: block.path.form_control_id,
   name: block.path.form_control_name,
-  value: block.content,
+  value: block.value,
   rows: 20,
   data_attributes: {
     attachment_ids: block.edition.attachments.map(&:id),
@@ -14,10 +14,10 @@
   right_to_left: block.edition.translation_rtl?,
   error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym),
 } %>
-<% if block.primary_locale_content.present? %>
+<% if block.primary_locale_value.present? %>
   <%= render "govuk_publishing_components/components/details", {
     title: "Primary locale content for #{block.title}",
   } do %>
-    <%= block.primary_locale_content %>
+    <%= block.primary_locale_value %>
   <% end %>
 <% end %>

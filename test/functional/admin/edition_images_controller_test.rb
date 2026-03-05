@@ -111,6 +111,25 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
   view_test "GET :index page renders a single usage image card alongside a multiple usage upload form and images list" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "images" => {
+          "fields" => {
+            "test_attribute" => {
+              "title" => "Test attribute",
+              "block" => "default_string",
+              "attribute_path" => %w[block_content test_attribute],
+              "translatable" => true,
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "test_attribute" => {
+            "type" => "string",
+          },
+        },
+      },
       "settings" => {
         "images" => {
           "enabled" => "true",

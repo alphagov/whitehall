@@ -1,22 +1,22 @@
 require "test_helper"
 
 class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
+  include ConfigurableContentBlockSharedTests
+
   setup do
-    @schema = {
-      "test_attribute" => {
-        "block" => "default_date",
-        "title" => "Test attribute",
-        "description" => "A test attribute",
-      },
+    @field = {
+      "block" => "default_date",
+      "title" => "Test attribute",
+      "description" => "A test attribute",
+      "attribute_path" => %w[block_content test_attribute],
+      "translatable" => true,
     }
+    @path = Path.new(%w[block_content test_attribute])
     @date = Time.zone.now
-    @translated_date = Time.zone.tomorrow
-    @block_content = { "test_attribute" => @date }
-    @translated_block_content = { "test_attribute" => @translated_date }
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "forms" => {
         "documents" => {
-          "fields" => @schema,
+          "fields" => { "test_attribute" => @field },
         },
       },
       "schema" => {
@@ -29,14 +29,14 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
     }))
     @edition = StandardEdition.new(
       configurable_document_type: "test_type",
-      block_content: @block_content,
+      block_content: { "test_attribute" => @date },
     )
-    @block = ConfigurableContentBlocks::DefaultDate.new(@edition, @schema["test_attribute"], Path.new(%w[block_content test_attribute]))
+    @block = ConfigurableContentBlocks::DefaultDate.new(@edition, @field, @path)
   end
 
   test "it renders a default date field" do
     render @block
-    assert_dom "legend", text: @schema["test_attribute"]["title"]
+    assert_dom "legend", text: @field["title"]
   end
 
   test "it renders hint text" do

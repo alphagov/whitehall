@@ -50,6 +50,29 @@ class StandardEditionTest < ActiveSupport::TestCase
     end
   end
 
+  test "backfills missing attributes with primary locale content for translations" do
+    test_type = "test_type"
+    configurable_document_type =
+      build_configurable_document_type(
+        test_type, {
+          "schema" => {
+            "attributes" => {
+              "test_attribute" => {
+                "type" => "string",
+              },
+            },
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    test_attribute_value = "primary locale value"
+    page = build(:standard_edition, { configurable_document_type: test_type, block_content: { test_attribute: test_attribute_value } })
+    with_locale(:es) do
+      page.block_content = {}
+      assert_equal test_attribute_value, page.block_content.test_attribute
+    end
+  end
+
   test "updates the document slug if the current translation is for the primary locale" do
     test_type =
       build_configurable_document_type(
@@ -251,10 +274,14 @@ class StandardEditionTest < ActiveSupport::TestCase
                 "test_object_attribute" => {
                   "title" => "Test object attribute",
                   "block" => "default_object",
+                  "attribute_path" => [],
+                  "translatable" => true,
                   "fields" => {
                     "test_nested_attribute" => {
                       "title" => "Test nested attribute",
                       "block" => "default_string",
+                      "attribute_path" => %w[block_content test_nested_attribute],
+                      "translatable" => true,
                     },
                   },
                 },
@@ -386,20 +413,22 @@ class StandardEditionTest < ActiveSupport::TestCase
   test "conditionally requires worldwide organisation and world location associations" do
     test_type = build_configurable_document_type(
       "test_type", {
-        "associations" => [
-          {
-            "key" => "worldwide_organisations",
-            "required" => true,
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "worldwide_organisations" => {
+                "required" => true,
+                "attribute_path" => %w[worldwide_organisation_document_ids],
+                "translatable" => true,
+              },
+              "world_locations" => {
+                "required" => false,
+                "attribute_path" => %w[world_location_ids],
+                "translatable" => true,
+              },
+            },
           },
-          {
-            "key" => "world_locations",
-            "required" => false,
-          },
-          {
-            "key" => "organisations",
-            "required" => true,
-          },
-        ],
+        },
       }
     )
     ConfigurableDocumentType.setup_test_types(test_type)
@@ -575,6 +604,37 @@ class StandardEditionTest < ActiveSupport::TestCase
         "common_property" => "common value", # retained from previous type
         # initial_property removed
       }, page.block_content.to_h)
+    end
+
+    test "#error_labels returns a mapping of dot-separated attribute paths to field titles" do
+      test_type = build_configurable_document_type(
+        "test_type", {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "object_attribute" => {
+                  "attribute_path" => %w[object_attribute],
+                  "translatable" => true,
+                  "fields" => {
+                    "nested_attribute" => {
+                      "attribute_path" => %w[nested_attribute],
+                      "translatable" => true,
+                      "title" => "Nested attribute",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(test_type)
+      page = StandardEdition.new(configurable_document_type: "test_type")
+
+      assert_equal({
+        "field_attribute" => "Test Attribute",
+        "object_attribute.nested_attribute" => "Nested attribute",
+      }, page.error_labels)
     end
   end
 

@@ -12,6 +12,7 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
               "block" => "govspeak",
               "required" => true,
               "attribute_path" => %w[block_content body],
+              "translatable" => true,
             },
           },
         },
@@ -145,9 +146,10 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
           "fields" => {
             "test_attribute" => {
               "block" => "govspeak",
-              "title" => "Test Attribute",
+              "title" => "Test attribute",
               "required" => true,
               "attribute_path" => %w[block_content test_attribute],
+              "translatable" => true,
             },
           },
         },
@@ -219,6 +221,8 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
             "body" => {
               "block" => "govspeak",
               "title" => "Body (required)",
+              "attribute_path" => %w[block_content body],
+              "translatable" => true,
             },
           },
         },

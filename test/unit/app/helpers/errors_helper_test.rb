@@ -42,6 +42,10 @@ class ErrorsHelperTest < ActionView::TestCase
     assert_nil errors_for(@object_with_unrelated_errors.errors, :title)
   end
 
+  test "#errors_for supports providing an optional custom message prefix" do
+    assert_equal errors_for(@object_with_errors.errors, :title, "Edition title"), [{ text: "Edition title cannot be blank" }]
+  end
+
   test "#errors_from_flash returns nil if flash has no errors" do
     assert_nil errors_from_flash(@flash)
   end

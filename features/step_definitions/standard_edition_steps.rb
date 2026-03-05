@@ -355,7 +355,6 @@ Then("choosing a document type should take me to a preview page summarising the 
   click_button "Next"
   expect(page).to have_content("Review document type change")
   expect(page).to have_content("Document fields")
-  expect(page).to have_content("Associations")
 end
 
 Then(/when I click "(.+)"/) do |button_text|

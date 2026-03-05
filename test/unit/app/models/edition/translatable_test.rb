@@ -122,4 +122,23 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert_equal "fr", edition.reload.primary_locale
     assert_equal %i[en cy fr], edition.reload.translations.map(&:locale)
   end
+
+  test "is_translation? evaluates to true when the primary locale and the translation locale differ" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = create(
+      :standard_edition,
+      primary_locale: "en",
+    )
+    with_locale(:cy) do
+      assert edition.is_translation?
+    end
+  end
+
+  test "is_translation? evaluates to false when the primary locale and the translation locale are the same" do
+    edition = create(
+      :standard_edition,
+      primary_locale: "en",
+    )
+    assert_not edition.is_translation?
+  end
 end

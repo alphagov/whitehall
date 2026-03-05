@@ -9,7 +9,8 @@
           "title": "Body",
           "description": "The main content of the page",
           "block": "govspeak",
-          "attribute_path": ["block_content", "body"]
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
         }
       }
     }
@@ -29,7 +30,6 @@
       "links": ["government"]
     }
   },
-  "associations": [],
   "settings": {
     "base_path_prefix": "/government/news",
     "configurable_document_group": "news_article",

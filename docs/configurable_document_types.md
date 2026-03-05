@@ -18,7 +18,6 @@ The JSON for each type has these top level keys:
 - 'forms': The forms configuration for the document type. This describes how the document type's fields are presented on the UI. Each form (e.g., `documents`, `images`) contains a hash of `fields` hash whose keys should match attributes defined in `schema.attributes`. See [Block Rendering](#block-rendering) section for more details on how forms are rendered.
 - 'schema': The schema for the document type. It contains `attributes` to define the data type for each form field and `validations` to specify what validations to run against the attributes. More details about attributes in [content blocks](#content-blocks).
 - 'presenters': The presenters for the document type. This helps to define a list of presenters that will consume the document type's content. Each presenter contains a hash of keys, matching model attributes defined in `schema.attributes`, whose values should map to their presenter's corresponding BlockContent payload builder method - see the [Publishing API Payload](#publishing-api-payload) section for more details.
-- 'associations': The associations for the document type. This is a list of strings that map to a set of association objects in the Rails app. All associations are included as concerns on the corresponding edition model (such as `StandardEdition`), and then required depending on whether they are included in the document type's configuration.
 - 'settings': A set of configurations for the content type, including edition behaviours that we want to turn on, downstream information or admin-side rendering details.
 
 These are the settings available for configurable document types.
@@ -154,6 +153,8 @@ To use a content block, you need to define it in both the schema and forms:
   - `required`: (Optional) Whether the form label should include the `(required)` guidance 
   - `attribute_path`: (Optional, but required for fields containing form inputs) The path of the attribute on the schema that the input controls. This will be appended to the parent attribute path, if one exists.
   - `block`: Block component to use (e.g., `govspeak`, `default_date`). Must match a format registered in the [content blocks map](../app/models/configurable_document_type.rb).
+  - `translatable`: Whether or not the field should be rendered when editing a translation
+  - `experimental`: If "true", prevents rendering of the field unless the configurable document types feature flag is enabled
 
 - Define the data type in `schema.attributes.<field_name>`:
   - `type`: Data type for the attribute (e.g., `string`, `integer`, `date`). Used for type casting in the [block content model](../app/models/standard_edition/block_content.rb).
@@ -196,20 +197,6 @@ Example:
 ```
 
 For more complex validation logic, you must define your custom validators. These custom validators are still decoupled from any schema and tested independently. Though they may be specific to a document type, they can be reused across multiple types if needed.
-
-## Associations
-
-Associations can be added to configurable document types to link them to other content in Whitehall, for example, organisations or topical events. These associations are defined in the `associations` key in the document type's JSON configuration file. The associations are rendered on the document form in the order they are defined in the configuration.
-
-The available associations are:
-
-| Association                     | Description                                                                                                                                                                              |
-|---|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ministerial_role_appointments` | An appointment links a ‘ministerial role’ to a ‘person’ for a certain duration of time.                                                                                                  |
-| `topical_events` | Topical events are used to communicate government activity about high-profile events or in response to a major crisis. For example, a war, pandemic, the death of a royal or the Budget. |
-|`world_locations` | Here is the [canonical list](https://whitehall-admin.publishing.service.gov.uk/government/admin/world_location_news) of locations we use.                                                |
-| `worldwide_organisations` | A worldwide organisation is a British embassy, High Commission or Consulate General in a worldwide location.                                                                             |
-| `organisations` | Includes lead and supporting organisations.                                                                                                                                              |
 
 ### Architecture
 
