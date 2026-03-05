@@ -11,10 +11,6 @@ When(/^I create a new topical event "([^"]*)" with summary "([^"]*)" and descrip
   create_topical_event_and_stub_in_content_store(name:, summary:, description:)
 end
 
-When(/^I create a new topical event "([^"]*)" with summary "([^"]*)", description "([^"]*)" and it ends today$/) do |name, summary, description|
-  create_topical_event_and_stub_in_content_store(name:, summary:, description:, start_date: 2.months.ago.to_date.to_s, end_date: Time.zone.today.to_s)
-end
-
 Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_events_path(topical_event)

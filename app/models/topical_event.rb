@@ -53,18 +53,6 @@ class TopicalEvent < ApplicationRecord
            through: :topical_event_featurings,
            source: :edition
 
-  has_many :published_publications,
-           -> { where("editions.state" => "published") },
-           through: :topical_event_memberships,
-           class_name: "Publication",
-           source: :publication
-
-  has_many :published_consultations,
-           -> { where("editions.state" => "published") },
-           through: :topical_event_memberships,
-           class_name: "Consultation",
-           source: :consultation
-
   has_many :editions,
            -> { where("editions.state" => "published") },
            through: :topical_event_memberships
@@ -74,9 +62,6 @@ class TopicalEvent < ApplicationRecord
   accepts_nested_attributes_for :logo, reject_if: :all_blank
 
   scope :active, -> { where("end_date > ?", Time.zone.today) }
-  scope :alphabetical, -> { order("name ASC") }
-  scope :order_by_start_date, -> { order("start_date DESC") }
-  scope :for_edition, ->(id) { joins(:topical_event_memberships).where(topical_event_memberships: { edition_id: id }) }
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
@@ -97,48 +82,16 @@ class TopicalEvent < ApplicationRecord
 
   alias_method :display_name, :to_s
 
-  def archived?
-    if end_date && end_date <= Time.zone.today
-      true
-    else
-      false
-    end
-  end
-
   def search_link
     base_path
-  end
-
-  def self.grouped_by_type
-    Rails.cache.fetch("filter_options/topics", expires_in: 30.minutes) do
-      {
-        "Topical events" => TopicalEvent.active.order_by_start_date.map { |o| [o.name, o.slug] },
-      }
-    end
   end
 
   def published_editions
     editions.published
   end
 
-  def scheduled_editions
-    editions.scheduled.order("scheduled_publication ASC")
-  end
-
-  def published_consultations
-    published_editions.consultations
-  end
-
   def published_detailed_guides
     published_editions.detailed_guides
-  end
-
-  def published_non_statistics_publications
-    published_editions.non_statistical_publications
-  end
-
-  def published_statistics_publications
-    published_editions.statistical_publications
   end
 
   def lead_organisations
@@ -147,10 +100,6 @@ class TopicalEvent < ApplicationRecord
 
   def lead_topical_event_organisations
     topical_event_organisations.where(lead: true).order("topical_event_organisations.lead_ordering")
-  end
-
-  def importance_ordered_organisations
-    organisations.reorder("topical_event_organisations.lead DESC, topical_event_organisations.lead_ordering")
   end
 
   def latest(limit = 3)

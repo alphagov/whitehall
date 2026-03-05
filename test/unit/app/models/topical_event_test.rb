@@ -3,11 +3,6 @@ require "test_helper"
 class TopicalEventTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :topical_event, :name, :description
 
-  test "should default to the 'current' state" do
-    topical_event = TopicalEvent.new
-    assert topical_event.current?
-  end
-
   test "should be invalid without a name" do
     topical_event = build(:topical_event, name: nil)
     assert_not topical_event.valid?
@@ -16,11 +11,6 @@ class TopicalEventTest < ActiveSupport::TestCase
   test "should be invalid without a summary" do
     topical_event = build(:topical_event, summary: nil)
     assert_not topical_event.valid?
-  end
-
-  test "should be current when created" do
-    topical_event = build(:topical_event)
-    assert_equal "current", topical_event.state
   end
 
   test "should be invalid with an unsupported state" do
@@ -146,12 +136,6 @@ class TopicalEventTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :description
 
-  test "supersede topical event when it ends" do
-    topical_event = create(:topical_event, start_date: 1.year.ago.to_date, end_date: 1.day.ago.to_date)
-    assert topical_event.archived?
-    assert_equal 0, TopicalEvent.active.count
-  end
-
   test "should include slug in search_index data" do
     topical_event = create(:topical_event, name: "mazzops 2013")
     assert_equal "mazzops-2013", topical_event.search_index["slug"]
@@ -185,14 +169,6 @@ class TopicalEventTest < ActiveSupport::TestCase
   test "should be longer than a day" do
     topical_event = build(:topical_event, start_date: Time.zone.today, end_date: Time.zone.today)
     assert_not topical_event.valid?
-  end
-
-  test "for edition returns topical events related to supplied edition" do
-    topical_event = create(:topical_event)
-    publication = build(:publication)
-    topical_event.publications << publication
-    topical_event.save!
-    assert_equal [topical_event], TopicalEvent.for_edition(publication.id)
   end
 
   test "start and end dates are considered indexable for search" do
