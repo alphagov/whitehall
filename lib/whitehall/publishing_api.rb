@@ -182,6 +182,8 @@ module Whitehall
     end
 
     def self.ensure_base_path_is_associated_with_this_content_id!(base_path, content_id)
+      return if base_path.nil?
+
       existing_content_id = Services.publishing_api.lookup_content_id(base_path:)
       return if existing_content_id.nil? || existing_content_id == content_id
 

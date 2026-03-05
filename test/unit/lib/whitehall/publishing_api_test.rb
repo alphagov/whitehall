@@ -314,6 +314,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     )
   end
 
+  test "#ensure_base_path_is_associated_with_this_content_id! skips Publishing API lookup if no base_path provided" do
+    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
+
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: nil).never
+
+    Whitehall::PublishingApi.ensure_base_path_is_associated_with_this_content_id!(nil, "any-content-id")
+  end
+
   test ".publish_redirect_async publishes a redirect to the Publishing API" do
     document = create(:document)
     destination = "/government/people/milli-vanilli"
