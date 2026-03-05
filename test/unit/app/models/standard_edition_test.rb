@@ -420,11 +420,13 @@ class StandardEditionTest < ActiveSupport::TestCase
                 "required" => true,
                 "attribute_path" => %w[worldwide_organisation_document_ids],
                 "translatable" => true,
+                "block" => "select_with_search_tagging",
               },
               "world_locations" => {
                 "required" => false,
                 "attribute_path" => %w[world_location_ids],
                 "translatable" => true,
+                "block" => "select_with_search_tagging",
               },
             },
           },
