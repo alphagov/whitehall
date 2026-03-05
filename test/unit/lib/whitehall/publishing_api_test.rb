@@ -314,6 +314,15 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     )
   end
 
+  test ".save_draft does not raise exception if there is a live content item with the same base path but different content ID, if the base path indicates it is a topical event. This is a temporary loophole to allow both legacy and config-driven topical events to co-exist, which will de-risk the migration, as we will be able to trivially publish either version as needed." do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event", { "settings" => { "base_path_prefix" => "/government/topical-events" } }))
+    edition = create(:draft_standard_edition, configurable_document_type: "topical_event", slug: "slug-for-topical-event")
+    Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
+    Services.publishing_api.expects(:lookup_content_id).with(base_path: edition.public_path).never
+
+    Whitehall::PublishingApi.save_draft(edition)
+  end
+
   test ".publish_redirect_async publishes a redirect to the Publishing API" do
     document = create(:document)
     destination = "/government/people/milli-vanilli"
