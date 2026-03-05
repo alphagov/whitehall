@@ -63,7 +63,7 @@
     } %>
 
     <%= form.hidden_field :configurable_document_type, value: @edition.configurable_document_type %>
-    <%= render ConfigurableContentBlocks::DefaultObject.new(@edition, @edition.type_instance.form("documents").merge("root" => true), ConfigurableContentBlocks::Path.new) %>
+    <%= render @edition.root_block("documents") %>
 
     <%= render Admin::Editions::FirstPublishedAtComponent.new(
       edition:,

@@ -45,7 +45,7 @@
         },
       } %>
 
-      <%= render ConfigurableContentBlocks::DefaultObject.new(@translated_edition, @translated_edition.type_instance.form.merge("root" => true), ConfigurableContentBlocks::Path.new) %>
+      <%= render @translated_edition.root_block %>
 
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", {
