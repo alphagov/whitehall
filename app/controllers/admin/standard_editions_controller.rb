@@ -2,6 +2,8 @@
 class Admin::StandardEditionsController < Admin::EditionsController
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
+  before_action :set_current_tab_context, only: %i[edit update]
+
   def choose_type
     @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
                                                                      .select { |type| can?(current_user, type) }
@@ -33,6 +35,11 @@ class Admin::StandardEditionsController < Admin::EditionsController
     else
       redirect_to change_type_preview_admin_standard_edition_path(@edition, configurable_document_type: new_type_id), alert: "Could not change document type."
     end
+  end
+
+  def update
+    @edition.current_tab_context = @current_tab_context
+    super
   end
 
   def features
@@ -67,6 +74,19 @@ private
   def new_edition_params
     # Set the configurable document type for new editions based on the value from the query parameter submitted with the 'choose_type' form
     super[:configurable_document_type].blank? ? super.merge(configurable_document_type: params[:configurable_document_type]) : super
+  end
+
+  def set_current_tab_context
+    tab_key = params[:current_tab].presence
+    @current_tab_context = tab_key if @edition.valid_tab_key?(tab_key)
+  end
+
+  def show_or_edit_path
+    if params[:save].present? && @current_tab_context.present?
+      edit_admin_standard_edition_path(@edition, current_tab: @current_tab_context)
+    else
+      super
+    end
   end
 
   def render_not_found
