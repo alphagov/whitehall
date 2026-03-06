@@ -77,7 +77,8 @@
         "sidebar": {
           "label": "sidebar",
           "kinds": ["default"],
-          "multiple": false
+          "multiple": false,
+          "caption_enabled": false
         }
       }
     },
