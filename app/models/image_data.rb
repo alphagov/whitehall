@@ -18,12 +18,14 @@ class ImageData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
-
   validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." }
   validate :filename_is_unique
 
   delegate :url, :content_type, to: :file
+
+  after_initialize do |image_data|
+    image_data.class.mount_uploader(:file, Whitehall.image_uploaders[image_data.image_kind], mount_on: :carrierwave_image)
+  end
 
   def filename
     file&.file&.filename

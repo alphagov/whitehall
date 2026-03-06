@@ -6,6 +6,9 @@ module ImageKind
       # It's important that the image_kind attribute is assigned first, as it is intended to be used by
       # carrierwave uploaders when they are mounted to work out which image versions to use.
       image_kind = attributes.delete(:image_kind)
+
+      self.class.mount_uploader(:file, Whitehall.image_uploaders[image_kind], mount_on: :carrierwave_image)
+
       ordered_attributes = if image_kind.present?
                              { image_kind:, **attributes }
                            else
