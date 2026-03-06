@@ -47,7 +47,7 @@ module PublishingApi
         .extract(%i[organisations government])
         .merge(PayloadBuilder::People.for(consultation))
         .merge(PayloadBuilder::Roles.for(consultation))
-        .merge(PayloadBuilder::TopicalEvents.for(consultation)) # Legacy
+        .merge(PayloadBuilder::TopicalEvents.for(consultation)) # NOT LEGACY - needed because Consultations are not config driven and so don't get the ConfigurableAssociations payload. So this is a medium term workaround, to pull in the 'new way' of doing config-driven topical events. We ought to add a payload / presenter test for this and any other presenters that lack a topical_events links test.
     end
 
   private

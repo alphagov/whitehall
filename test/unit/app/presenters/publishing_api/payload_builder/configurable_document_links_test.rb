@@ -119,17 +119,13 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
   end
 
   test "it presents the selected topical event links" do
-    topical_events = create_list(:topical_event, 3)
     topical_event_documents = create_list(:standard_edition, 3, configurable_document_type: "topical_event")
     edition = create(:draft_standard_edition, {
-      topical_events: [topical_events.first, topical_events.last],
       topical_event_documents: [topical_event_documents.first.document, topical_event_documents.last.document],
     })
 
     links = PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(edition)
     expected_links = [
-      topical_events.first.content_id,
-      topical_events.last.content_id,
       topical_event_documents.first.document.content_id,
       topical_event_documents.last.document.content_id,
     ]

@@ -147,15 +147,6 @@ class PublicationTest < ActiveSupport::TestCase
     assert_not build(:publication, primary_locale: :es).translatable?
   end
 
-  # To be deleted after legacy topical events have been migrated.
-  # It has a config-driven equivalent test below it which should be kept.
-  test "can associate publications with (legacy) topical events" do
-    publication = create(:publication)
-    assert publication.can_be_associated_with_topical_events?
-    assert topical_event = publication.topical_events.create!(name: "Test", description: "Test", summary: "Test")
-    assert_equal [topical_event], publication.reload.topical_events
-  end
-
   test "can associate publications with topical events" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
     publication = create(:publication)

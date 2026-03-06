@@ -47,7 +47,6 @@ class Admin::OrganisationsController < Admin::BaseController
                           )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
-    @featurable_topical_events = TopicalEvent.active #  legacy
     @featurable_offsite_links = @organisation.offsite_links
 
     render :features
@@ -56,7 +55,6 @@ class Admin::OrganisationsController < Admin::BaseController
   def edit; end
 
   def update
-    delete_absent_topical_event_organisations
     if @organisation.update(organisation_params)
       redirect_to admin_organisation_path(@organisation), notice: "Organisation updated successfully."
     else
@@ -116,30 +114,8 @@ private
       default_news_image_attributes: %i[file file_cache id],
       organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
-      topical_event_organisations_attributes: %i[topical_event_id ordering id _destroy],
       featured_links_attributes: %i[title url _destroy id],
     )
-  end
-
-  def build_topical_event_organisations
-    n = @organisation.topical_event_organisations.count
-    @organisation.topical_event_organisations.each.with_index do |ot, i|
-      ot.ordering = i
-    end
-    (n...13).each do |i|
-      @organisation.topical_event_organisations.build(ordering: i)
-    end
-  end
-
-  def delete_absent_topical_event_organisations
-    return unless organisation_params &&
-      organisation_params[:topical_event_organisations_attributes]
-
-    organisation_params[:topical_event_organisations_attributes].each do |p|
-      if p[:topical_event_id].blank?
-        p["_destroy"] = true
-      end
-    end
   end
 
   def build_organisation
@@ -151,7 +127,6 @@ private
   end
 
   def build_dependencies
-    build_topical_event_organisations
     @organisation.build_default_news_image if @organisation.default_news_image.blank?
     @organisation.featured_links.build if @organisation.featured_links.blank?
   end

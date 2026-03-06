@@ -34,10 +34,8 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     )
 
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
-    topical_event = create(:topical_event) # Delete when legacy topical events have been migrated
     topical_event_document = create(:standard_edition, configurable_document_type: "topical_event").document
 
-    detailed_guide.topical_event_memberships.create!(topical_event_id: topical_event.id) # Delete when legacy topical events have been migrated
     detailed_guide.topical_event_documents << topical_event_document
 
     public_path = detailed_guide.public_path
@@ -77,7 +75,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         related_mainstream_content: [],
         government: [government.content_id],
         topical_events: [
-          topical_event.content_id, # Delete when legacy topical events have been migrated
           topical_event_document.content_id,
         ],
       },

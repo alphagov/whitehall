@@ -12,7 +12,6 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @feature, url: [:admin, @featurable, @feature_list, @feature], multipart: true do |form| %>
       <%= form.hidden_field :document_id %>
-      <%= form.hidden_field :topical_event_id %>
       <%= form.hidden_field :offsite_link_id %>
 
       <input type="hidden" name="feature[image_attributes][file]">

@@ -545,7 +545,6 @@ module PublishingApi::CallForEvidencePresenterTest
       self.call_for_evidence = create(
         :call_for_evidence,
         role_appointments: create_list(:ministerial_role_appointment, 2),
-        topical_events: create_list(:topical_event, 2),
       )
     end
 
@@ -567,15 +566,6 @@ module PublishingApi::CallForEvidencePresenterTest
 
       assert expected_content_ids.present?
       assert_equal expected_content_ids, presented_links[:roles]
-    end
-
-    test "topical events" do
-      expected_content_ids = call_for_evidence
-        .topical_events
-        .map(&:content_id)
-
-      assert expected_content_ids.present?
-      assert_equal expected_content_ids, presented_links[:topical_events]
     end
   end
 end

@@ -1,7 +1,7 @@
 class Admin::FeaturesController < Admin::BaseController
   before_action :find_feature_list
   before_action :build_feature, only: %i[new create]
-  before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
+  before_action :find_edition, :find_offsite_link, only: [:new]
 
   def new; end
 
@@ -47,7 +47,6 @@ private
     params.fetch(:feature, {}).permit(
       :alt_text,
       :document_id,
-      :topical_event_id, # LEGACY
       :offsite_link_id,
       image_attributes: %i[file],
     )
@@ -55,11 +54,6 @@ private
 
   def find_edition
     @feature.document = Edition.find(params[:edition_id]).document if params[:edition_id]
-  end
-
-  # LEGACY
-  def find_topical_event
-    @feature.topical_event = TopicalEvent.find(params[:topical_event_id]) if params[:topical_event_id]
   end
 
   def find_offsite_link

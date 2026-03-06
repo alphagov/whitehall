@@ -121,7 +121,6 @@
             "roles",
             "statistical_data_sets",
             "topical_event_documents",
-            "topical_events",
             "world_locations",
             "worldwide_organisations"
           ]
@@ -287,7 +286,6 @@
                 "description": "The builder methods to use for populating the links object when presenting to the Publishing API.",
                 "enum": [
                   "ministerial_role_appointments",
-                  "topical_events",
                   "world_locations",
                   "organisations",
                   "worldwide_organisations",

@@ -15,10 +15,11 @@ class SearchIndexAddJobTest < ActiveSupport::TestCase
   end
 
   test "#perform indexes searchable instances" do
-    event = create(:topical_event)
+    event = create(:operational_field)
     attributes_for_indexing_mock = mock
 
-    TopicalEvent.any_instance.stubs(:search_index).returns(attributes_for_indexing_mock)
+    OperationalField.any_instance.stubs(:search_index).returns(attributes_for_indexing_mock)
+
     Whitehall::SearchIndex.indexer_class.any_instance.expects(:add).with(attributes_for_indexing_mock)
     SearchIndexAddJob.new.perform(event.class.name, event.id)
   end

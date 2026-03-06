@@ -222,15 +222,6 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [newer_publication], Admin::EditionFilter.new(Edition, @current_user, from_date: 2.days.ago.to_date.to_fs(:short)).editions
   end
 
-  test "can filter by topical_events" do
-    topical_event = create(:topical_event)
-    tagged_news   = create(:published_publication, topical_events: [topical_event])
-    _not_tagged   = create(:published_publication)
-    filter        = Admin::EditionFilter.new(Edition, @current_user, topical_event: topical_event.to_param)
-
-    assert_equal [tagged_news], filter.editions
-  end
-
   test "should filter by invalid, non-superseded editions" do
     # rubocop:disable Lint/UselessAssignment
     valid_draft_edition = create(:draft_edition, revalidated_at: Time.zone.now)

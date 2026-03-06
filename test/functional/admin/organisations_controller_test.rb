@@ -68,8 +68,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisations_path
     assert_equal "Organisation created successfully.", flash[:notice]
     assert organisation = Organisation.last
-    assert organisation.topical_event_organisations.map(&:ordering).all?(&:present?), "no ordering"
-    assert_equal organisation.topical_event_organisations.map(&:ordering).sort, organisation.topical_event_organisations.map(&:ordering).uniq.sort
     assert organisation_top_task = organisation.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_top_task.url
     assert_equal "Something on mainstream", organisation_top_task.title
@@ -300,34 +298,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal "New title", featured_link.reload.title
   end
 
-  test "PUT on :update handles adding and removing topical event attributes" do
-    topical_event_one = create(:topical_event)
-    organisation = create(:organisation, topical_events: [topical_event_one])
-    topical_event_two = create(:topical_event)
-
-    put :update,
-        params: {
-          id: organisation,
-          organisation: {
-            topical_event_organisations_attributes: [
-              {
-                topical_event_id: topical_event_one.id,
-                ordering: 0,
-                id: organisation.topical_event_organisations.first.id,
-                _destroy: "true",
-              },
-              {
-                topical_event_id: topical_event_two.id,
-                ordering: 1,
-              },
-            ],
-          },
-        }
-
-    assert_response :redirect
-    assert_equal [topical_event_two], organisation.reload.topical_events
-  end
-
   test "GET on :show displays 'image is being processed' flash notice when not all image assets are uploaded" do
     organisation = build(:organisation, :with_default_news_image)
     organisation.default_news_image.assets = []
@@ -371,22 +341,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     organisation2.parent_organisations << organisation1
     get :edit, params: { id: organisation2 }
-    assert_response :success
-  end
-
-  view_test "GET :features copes with topical events that have no dates" do
-    topical_event = create(:topical_event)
-    organisation = create(:organisation)
-    feature_list = organisation.load_or_create_feature_list("en")
-    feature_list.features.create!(
-      topical_event:,
-      image_attributes: {
-        file: image_fixture_file,
-      },
-      alt_text: "Image alternative text",
-    )
-
-    get :features, params: { id: organisation, locale: "en" }
     assert_response :success
   end
 

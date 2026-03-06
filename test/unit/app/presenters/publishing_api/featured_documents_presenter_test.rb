@@ -49,39 +49,6 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
     end
   end
 
-  test("determines ordered featured documents in different locales for topical events") do
-    topical_event = create(:topical_event, name: "topical_event_1", start_date: 1.year.ago.to_date)
-    feature = build(:feature, document: nil, topical_event:, ordering: 1)
-    featured_documents_display_limit = 5
-
-    organisation = create(:organisation)
-
-    locales = [
-      { code: "en", suffix: "" },
-      { code: "fr", suffix: ".fr" },
-    ]
-
-    locales.each do |locale|
-      I18n.with_locale(locale[:code]) do
-        create(:feature_list, locale: locale[:code], featurable: organisation, features: [feature])
-
-        expected_ordered_featured_documents = [
-          { title: topical_event.name,
-            href: "/government/topical-events/topical_event_1#{locale[:suffix]}",
-            image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
-                     medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
-                     high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
-                     alt_text: "" },
-            summary: govspeak_to_html(topical_event.summary),
-            public_updated_at: topical_event.start_date,
-            document_type: nil },
-        ]
-
-        assert_equal expected_ordered_featured_documents, featured_documents(organisation, featured_documents_display_limit)
-      end
-    end
-  end
-
   test("determines ordered featured documents in different locales for offsite links") do
     organisation = create(:organisation)
     offsite_link = create(:offsite_link, organisations: [organisation], date: 1.year.ago.to_date)

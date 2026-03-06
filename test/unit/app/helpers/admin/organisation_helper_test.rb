@@ -1,24 +1,6 @@
 require "test_helper"
 
 class Admin::OrganisationHelperTest < ActionView::TestCase
-  test "#topical_event_dates_string handles a topical event with a start date but no end date" do
-    topical_event = create(:topical_event, start_date: Time.zone.today)
-
-    assert_equal "11 November 2011", topical_event_dates_string(topical_event)
-  end
-
-  test "#topical_event_dates_string handles a topical event with start and end dates" do
-    topical_event = create(:topical_event, start_date: Time.zone.today, end_date: Time.zone.today + 1.week)
-
-    assert_equal "11 November 2011 to 18 November 2011", topical_event_dates_string(topical_event)
-  end
-
-  test "#topical_event_dates_string handles a topical event with no dates" do
-    topical_event = create(:topical_event)
-
-    assert_equal "", topical_event_dates_string(topical_event)
-  end
-
   test "#organisation_nav_items when organisation doesn't have a translation" do
     organisation = build_stubbed(:organisation)
     current_path = admin_organisation_corporate_information_pages_path(organisation)

@@ -34,16 +34,11 @@ class FeatureList < ApplicationRecord
 
   def current
     # Legacy
-    features.current.includes([:topical_event, { document: :live_edition }])
+    features.current.includes([{ document: :live_edition }])
   end
 
   def published_features
     features.current.with_published_edition
-  end
-
-  def topical_events
-    # Legacy
-    features.current.with_topical_events
   end
 
   delegate :empty?, to: :current

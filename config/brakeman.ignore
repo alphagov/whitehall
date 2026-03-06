@@ -83,40 +83,6 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "350182256fb694cc2d01dd7ef57fb80d62ed9a456d33d673eed24b02739f4b56",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/admin/topical_event_featurings/index.html.erb",
-      "line": 12,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"View on website\", TopicalEvent.find(params[:topical_event_id]).public_url({ :locale => params[:locale] }.merge(cachebust_url_options)), :class => \"govuk-link\", :target => \"_blank\", :rel => \"noopener\")",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::TopicalEventFeaturingsController",
-          "method": "index",
-          "line": 21,
-          "file": "app/controllers/admin/topical_event_featurings_controller.rb",
-          "rendered": {
-            "name": "admin/topical_event_featurings/index",
-            "file": "app/views/admin/topical_event_featurings/index.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/topical_event_featurings/index"
-      },
-      "user_input": "TopicalEvent.find(params[:topical_event_id]).public_url({ :locale => params[:locale] }.merge(cachebust_url_options))",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
       "fingerprint": "6424c67cb57b3d28c1ee036f0240b73ab2bf3738f929c9f77614964e58d405e1",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
