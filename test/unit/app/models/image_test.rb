@@ -218,4 +218,40 @@ class ImageTest < ActiveSupport::TestCase
 
     assert_equal expected_hash, image.publishing_api_details
   end
+
+  test "#publishing_api_details includes nil caption when caption_enabled is true on the image usage" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => true,
+          "usages" => {
+            "lead" => {
+              "label" => "lead",
+              "kinds" => %w[default],
+              "multiple" => false,
+              "caption_enabled" => true,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    image = create(:image, usage: "lead", caption: nil, edition:)
+
+    expected_hash = {
+      type: "lead",
+      caption: nil,
+      sources: {
+        s960: image.url(:s960),
+        s712: image.url(:s712),
+        s630: image.url(:s630),
+        s465: image.url(:s465),
+        s300: image.url(:s300),
+        s216: image.url(:s216),
+      },
+      content_type: "image/jpeg",
+    }
+
+    assert_equal expected_hash, image.publishing_api_details
+  end
 end
