@@ -107,10 +107,6 @@ Then(/^I should see "([^"]*)" in the document list$/) do |document_title|
   expect(first_search_result).to have_content(document_title)
 end
 
-Given(/^there is an active topical event with the name "([^"]*)"$/) do |name|
-  create(:topical_event, name:)
-end
-
 Given(/^there is a config-driven topical event with the name "([^"]*)"$/) do |name|
   ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
   @topical_event = create(:published_standard_edition, configurable_document_type: "topical_event", title: name)

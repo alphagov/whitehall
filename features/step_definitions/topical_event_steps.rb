@@ -1,22 +1,3 @@
-And(/^a topical event called "([^"]*)" exists$/) do |name|
-  @topical_event = create(:topical_event, name:)
-end
-
-Given(/^a topical event called "(.*?)" with summary "([^"]*)" and description "(.*?)"$/) do |name, summary, description|
-  @topical_event = create(:topical_event, name:, summary:, description:)
-  stub_topical_event_in_content_store(name)
-end
-
-When(/^I create a new topical event "([^"]*)" with summary "([^"]*)" and description "([^"]*)"$/) do |name, summary, description|
-  create_topical_event_and_stub_in_content_store(name:, summary:, description:)
-end
-
-Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
-  topical_event = TopicalEvent.find_by!(name: topical_event_name)
-  visit admin_topical_events_path(topical_event)
-  expect(page).to have_selector(".govuk-table__cell", text: topical_event)
-end
-
 Given(/^I'm administering a topical event$/) do
   event = create(:topical_event, name: "Name of event")
   stub_topical_event_in_content_store("Name of event")
@@ -41,11 +22,4 @@ end
 
 Then(/^I should see the about page is updated$/) do
   expect(page).to have_text("About page saved")
-end
-
-Then(/^I should be able to delete the topical event "([^"]*)"$/) do |name|
-  visit admin_topical_events_path
-  click_link "Delete #{name}"
-
-  expect { click_button "Delete" }.to change(TopicalEvent, :count).by(-1)
 end
