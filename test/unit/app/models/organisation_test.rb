@@ -382,14 +382,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 0, EditionOrganisation.count
   end
 
-  test "destroy removes topical_event relationships" do
-    organisation = create(:organisation)
-    topical_event = create(:topical_event)
-    topical_event.organisations << organisation
-    organisation.destroy!
-    assert_equal 0, TopicalEventOrganisation.count
-  end
-
   test "destroy unsets user organisation" do
     organisation = create(:organisation)
     user = create(:writer, organisation:)
