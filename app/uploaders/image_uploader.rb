@@ -17,18 +17,6 @@ class ImageUploader < WhitehallUploader
     %w[jpg jpeg gif png svg].freeze
   end
 
-  def crop_to_crop_data(version)
-    manipulate! do |img|
-      # prevents running crop on variants
-      # based on an already cropped variant
-      if model.crop_data_to_params(version.width, version.height).present? && version.from_version.blank?
-        img.crop(model.crop_data_to_params(version.width, version.height))
-      end
-
-      img
-    end
-  end
-
   def image_cache
     if send("cache_id").present?
       file.file.gsub("/govuk/whitehall/carrierwave-tmp/", "")

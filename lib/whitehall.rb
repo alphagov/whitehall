@@ -121,6 +121,61 @@ module Whitehall
     @image_kinds ||= ImageKinds.build_image_kinds(YAML.load_file(Rails.root.join("config/image_kinds.yml")))
   end
 
+  def self.image_uploaders
+    uploaders = image_kinds.values.map do |image_kind|
+      uploader_class_name = image_kind.name.split("_").collect(&:capitalize).join
+
+      next if Object.const_defined?("ImageUploader#{uploader_class_name}")
+
+      klass = Class.new(ImageUploader) { include CarrierWave::MiniMagick }
+
+      image_kind.versions.each do |version|
+        new_version = ImageUploader.version version.name, version:, from_version: version.from_version&.to_sym do
+          def image_kind_version
+            self.class.version_options[:version]
+          end
+
+          def from_version
+            self.class.version_options[:from_version]
+          end
+
+          delegate :crop, to: :model
+
+          def crop_image?(_image)
+            !model.requires_crop?
+          end
+
+          def crop_to_crop_data
+            manipulate! do |img|
+              # prevents running crop on variants
+              # based on an already cropped variant
+              if crop_data_to_params
+                img.crop(crop_data_to_params)
+              end
+
+              img
+            end
+          end
+
+          def crop_data_to_params
+            return unless crop.present? && from_version.blank?
+
+            "#{image_kind_version.width * crop.scale}x#{image_kind_version.height * crop.scale}+#{crop.relative_x_to_width(image_kind_version.width)}+#{crop.relative_y_to_height(image_kind_version.height)}"
+          end
+
+          process :crop_to_crop_data, if: :crop_image?
+          process resize_to_fill: version.resize_to_fill
+        end
+
+        klass.versions[version.name.to_sym] = new_version
+      end
+
+      Object.const_set "ImageUploader#{uploader_class_name}", klass
+    end
+
+    @image_uploaders ||= Hash[image_kinds.values.map(&:name).zip(uploaders)]
+  end
+
   def self.integration_or_staging?
     website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")
     %w[integration staging].any? { |environment| website_root.include?(environment) }

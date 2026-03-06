@@ -18,58 +18,13 @@ class ImageData < ApplicationRecord
            as: :assetable,
            inverse_of: :assetable
 
-  mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
-
   validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." }
   validate :filename_is_unique
 
   delegate :url, :content_type, to: :file
 
   after_initialize do |image_data|
-    if image_data.image_kind.present?
-      ImageUploader.versions = {}
-
-      image_data.image_kind_config.versions.each do |version|
-        new_version = ImageUploader.version version.name, version:, from_version: version.from_version&.to_sym do
-          def image_kind_version
-            self.class.version_options[:version]
-          end
-
-          def from_version
-            self.class.version_options[:from_version]
-          end
-
-          delegate :crop, to: :model
-
-          def crop_image?(_image)
-            !model.requires_crop?
-          end
-
-          def crop_to_crop_data
-            manipulate! do |img|
-              # prevents running crop on variants
-              # based on an already cropped variant
-              if crop_data_to_params
-                img.crop(crop_data_to_params)
-              end
-
-              img
-            end
-          end
-
-          def crop_data_to_params
-            return unless crop.present? && from_version.blank?
-
-            "#{image_kind_version.width * crop.scale}x#{image_kind_version.height * crop.scale}+#{crop.relative_x_to_width(image_kind_version.width)}+#{crop.relative_y_to_height(image_kind_version.height)}"
-          end
-
-          process :crop_to_crop_data, if: :crop_image?
-          process resize_to_fill: version.resize_to_fill
-        end
-
-        ImageUploader.versions[version.name.to_sym] = new_version
-      end
-    end
+    image_data.class.mount_uploader(:file, Whitehall.image_uploaders[image_data.image_kind], mount_on: :carrierwave_image)
   end
 
   def filename

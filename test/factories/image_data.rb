@@ -5,6 +5,8 @@ FactoryBot.define do
     image_kind { "default" }
     file { image_fixture_file }
 
+    initialize_with { new(attributes.merge(image_kind: "default", file: image_fixture_file)) }
+
     trait(:jpg) do
       after(:build) do |image_data|
         image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: image_data.filename)
@@ -20,6 +22,8 @@ FactoryBot.define do
     trait(:svg) do
       file { File.open(Rails.root.join("test/fixtures/images/test-svg.svg")) }
 
+      initialize_with { new(attributes.merge(image_kind: "default", file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))) }
+
       after(:build) do |image_data|
         image_data.assets << build(:asset, asset_manager_id: "asset_manager_id", variant: Asset.variants[:original], filename: image_data.filename)
       end
@@ -29,6 +33,8 @@ FactoryBot.define do
   factory :hero_image_data, class: ImageData do
     image_kind { "hero_desktop" }
     file { image_fixture_file }
+
+    initialize_with { new(attributes.merge(image_kind: "hero_desktop", file: image_fixture_file)) }
 
     after(:build) do |image_data|
       image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: image_data.filename)
@@ -48,6 +54,8 @@ FactoryBot.define do
   factory :landing_page_image_data, class: ImageData do
     image_kind { "landing_page_image" }
     file { image_fixture_file }
+
+    initialize_with { new(attributes.merge(image_kind: "landing_page_image", file: image_fixture_file)) }
 
     after(:build) do |image_data|
       image_data.assets << build(:asset, asset_manager_id: "asset_manager_id_original", variant: Asset.variants[:original], filename: image_data.filename)
