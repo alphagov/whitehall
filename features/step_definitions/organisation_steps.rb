@@ -26,15 +26,12 @@ Given(/^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/) 
 end
 
 When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
-  create(:topical_event, name: "Jazz Bizniz")
-
   visit new_admin_organisation_path
 
   fill_in "Name", with: organisation_name
   fill_in "Acronym", with: organisation_name.split(" ").collect { |word| word.chars.first }.join
   fill_in "Logo formatted name", with: organisation_name
   select "Ministerial department", from: "Organisation type"
-  select "Jazz Bizniz", from: "organisation_topical_event_ids_0"
   selector = ".app-view-organisation__featured_links .js-add-another__fieldset"
   within selector, match: :first do
     expect(page).to_not have_content("English:")
@@ -149,11 +146,11 @@ When(/^I visit the organisation admin page for "([^"]*)"$/) do |organisation_nam
 end
 
 When(/^I add a new contact "([^"]*)" with address "([^"]*)"$/) do |contact_description, address|
-  @organisation = Organisation.last
+  organisation = Organisation.last
   click_link "Contacts"
   click_link "Add"
 
-  if admin_organisation_path(@organisation).present?
+  if admin_organisation_path(organisation).present?
     fill_in_contact_details_for_organisation(title: contact_description, street_address: address)
   else
     fill_in_contact_details(title: contact_description, street_address: address)
@@ -238,6 +235,11 @@ end
 
 Given(/^an active topical event called "([^"]*)" exists$/) do |name|
   @topical_event = create(:topical_event, :active, name:)
+end
+
+Given(/^a config-driven topical event called "([^"]*)" exists$/) do |name|
+  ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+  @topical_event = create(:published_standard_edition, configurable_document_type: "topical_event", title: name, lead_organisations: [@organisation])
 end
 
 And(/^I visit the the organisation feature page for "([^"]*)"$/) do |name|

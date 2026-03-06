@@ -111,6 +111,11 @@ Given(/^there is an active topical event with the name "([^"]*)"$/) do |name|
   create(:topical_event, :active, name:)
 end
 
+Given(/^there is a config-driven topical event with the name "([^"]*)"$/) do |name|
+  ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+  @topical_event = create(:published_standard_edition, configurable_document_type: "topical_event", title: name)
+end
+
 And(/^filter documents by all organisations$/) do
   select "All locations"
   click_button "Search"

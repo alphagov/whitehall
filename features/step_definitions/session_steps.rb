@@ -20,16 +20,16 @@ Given(/^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managin
 end
 
 Given(/^I am (?:an?) (admin|writer|editor|GDS editor) in the organisation "([^"]*)"$/) do |role, organisation_name|
-  organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
+  @organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   @user = case role
           when "admin"
-            create(:user, organisation:)
+            create(:user, organisation: @organisation)
           when "writer"
-            create(:writer, name: "Wally Writer", organisation:)
+            create(:writer, name: "Wally Writer", organisation: @organisation)
           when "editor"
-            create(:departmental_editor, name: "Eddie Depteditor", organisation:)
+            create(:departmental_editor, name: "Eddie Depteditor", organisation: @organisation)
           when "GDS editor"
-            create(:gds_editor, organisation:)
+            create(:gds_editor, organisation: @organisation)
           end
   login_as @user
 end
