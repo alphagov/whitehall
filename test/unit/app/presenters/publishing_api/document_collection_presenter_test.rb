@@ -303,10 +303,8 @@ class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest 
     document_collection = create(:document_collection)
 
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
-    @topical_event = create(:topical_event) # Delete when legacy topical events have been migrated
     @topical_event_document = create(:standard_edition, configurable_document_type: "topical_event").document
 
-    document_collection.topical_event_memberships.create!(topical_event_id: @topical_event.id) # Delete when legacy topical events have been migrated
     document_collection.topical_event_documents << @topical_event_document
 
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
@@ -315,7 +313,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest 
   test "it presents the topical events as links, topical_events" do
     assert_equal(
       [
-        @topical_event.content_id, # Delete when legacy topical events have been migrated
         @topical_event_document.content_id,
       ],
       @presented_document_collection.links[:topical_events],
@@ -325,7 +322,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest 
   test "it presents the topical events as content, links, topical_events" do
     assert_equal(
       [
-        @topical_event.content_id, # Delete when legacy topical events have been migrated
         @topical_event_document.content_id,
       ],
       @presented_document_collection.content[:links][:topical_events],

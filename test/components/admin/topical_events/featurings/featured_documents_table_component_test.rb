@@ -6,6 +6,7 @@ class Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponentTest < Vi
   include Rails.application.routes.url_helpers
   include Admin::EditionRoutesHelper
 
+  # TODO: - CHRIS UPDATE TEST
   test "renders the correct row when the featurable is associated with an edition" do
     edition = build_stubbed(:publication, :published, publication_type: PublicationType::Guidance)
     topical_event = build_stubbed(:topical_event)

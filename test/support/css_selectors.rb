@@ -49,10 +49,6 @@ module CssSelectors
     "select[name='organisation[organisation_type_id]']"
   end
 
-  def organisation_topics_list_selector
-    "select[name='organisation[topical_event_organisations_attributes][][topical_event_id]']"
-  end
-
   def organisation_govuk_status_selector
     "select[name='organisation[govuk_status]']"
   end

@@ -32,7 +32,6 @@ class Admin::WorldLocationNewsController < Admin::BaseController
     )
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
-    @featurable_topical_events = TopicalEvent.active
     @featurable_offsite_links = @world_location.world_location_news.offsite_links
 
     if request.xhr?

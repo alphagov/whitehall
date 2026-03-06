@@ -3,16 +3,6 @@
 module Admin::TaggableContentHelper
   include ActionView::Helpers::TranslationHelper
 
-  def taggable_topical_events_container(selected_ids = [])
-    TopicalEvent.order(:name).map do |topical_event|
-      {
-        text: topical_event.name,
-        value: topical_event.id,
-        selected: selected_ids.include?(topical_event.id),
-      }
-    end
-  end
-
   def taggable_topical_event_documents_container(selected_ids = [])
     StandardEdition
       .latest_edition
@@ -121,14 +111,6 @@ module Admin::TaggableContentHelper
     Rails.cache.fetch(taggable_organisations_cache_digest, expires_in: 1.day) do
       Organisation.with_translations.order("organisation_translations.name")
     end
-  end
-
-  # Returns an MD5 digest representing the current set of taggable topical
-  # events. This will change if any of the Topics should change or if a new
-  # topic event is added.
-  def taggable_topical_events_cache_digest
-    # legacy
-    @taggable_topical_events_cache_digest ||= calculate_digest(TopicalEvent.order(:id), "topical-events")
   end
 
   # Returns an MD5 digest representing the current set of taggable

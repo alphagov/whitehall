@@ -846,15 +846,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [], non_attachable_edition.attachables
   end
 
-  test "republishes a linked Topical Event when the edition is changed" do
-    edition = create(:edition, :draft)
-    topical_event = create(:topical_event)
-    create(:topical_event_featuring, topical_event:, edition:)
-
-    Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
-    edition.update!(title: "some updated title")
-  end
-
   test "#versioning_completed? returns true if change note is not required" do
     edition = build(:edition, change_note: nil, minor_change: false)
     edition.stubs(:change_note_required?).returns(false)

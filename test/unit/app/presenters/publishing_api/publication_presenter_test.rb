@@ -55,9 +55,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     }
 
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
-    topical_event = create(:topical_event) # Delete when legacy topical events have been migrated
     topical_event_document = create(:standard_edition, configurable_document_type: "topical_event").document
-    publication.topical_event_memberships.create!(topical_event_id: topical_event.id) # Delete when legacy topical events have been migrated
     publication.topical_event_documents << topical_event_document
     expected_links = {
       government: [publication.government.content_id],
@@ -66,7 +64,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
       topical_events: [
-        topical_event.content_id, # Delete when legacy topical events have been migrated
         topical_event_document.content_id,
       ],
       roles: publication.role_appointments.map(&:role).collect(&:content_id),

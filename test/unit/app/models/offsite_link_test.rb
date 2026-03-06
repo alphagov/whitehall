@@ -135,13 +135,9 @@ class OffsiteLinkTest < ActiveSupport::TestCase
   end
 
   test "#parents returns all associated parents" do
-    offsite_link_for_legacy_document = create(:offsite_link, :for_topical_event)
-    topical_event = offsite_link_for_legacy_document.topical_events.first
-
     offsite_link_for_standard_edition = create(:offsite_link, :for_standard_edition)
     standard_edition = offsite_link_for_standard_edition.editions.first
 
-    assert_equal [topical_event], offsite_link_for_legacy_document.parents
     assert_equal [standard_edition], offsite_link_for_standard_edition.parents
   end
 

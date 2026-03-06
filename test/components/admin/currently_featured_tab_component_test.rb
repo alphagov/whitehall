@@ -2,6 +2,7 @@
 
 require "test_helper"
 
+# TODO: CHRIS - tweak these tests
 class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
   include Admin::EditionRoutesHelper

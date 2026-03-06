@@ -252,36 +252,6 @@
                 end,
       multiple: true,
     } %>
-
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Topical events",
-      font_size: "m",
-      margin_bottom: 3,
-    } %>
-
-    <% form.object.topical_event_organisations.each do |topical_event_organisation| %>
-      <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][ordering]", topical_event_organisation.ordering %>
-      <%= hidden_field_tag "organisation[topical_event_organisations_attributes][][id]", topical_event_organisation.id %>
-
-      <%= render "govuk_publishing_components/components/select_with_search", {
-        label: "Topical Event #{topical_event_organisation.ordering + 1}",
-        name: "organisation[topical_event_organisations_attributes][][topical_event_id]",
-        id: "organisation_topical_event_ids_#{topical_event_organisation.ordering}",
-        heading_size: "s",
-        include_blank: true,
-        ga_data: {
-          document_type: "#{action_name}-#{controller_name}",
-          section: "Topical Event #{topical_event_organisation.ordering + 1}",
-        },
-        options: TopicalEvent.all.map do |topical_event|
-          {
-            text: topical_event.name,
-            value: topical_event.id,
-            selected: topical_event.id == topical_event_organisation.topical_event_id,
-          }
-        end,
-      } %>
-    <% end %>
   <% end %>
 
   <% if can?(:manage_featured_links, @organisation) %>

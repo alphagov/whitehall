@@ -477,15 +477,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "FOO123", organisation.reload.analytics_identifier
   end
 
-  test "topical_events are explicitly ordered" do
-    topical_events = [create(:topical_event), create(:topical_event)]
-    organisation = create(:organisation)
-    organisation.topical_event_organisations.create!(topical_event_id: topical_events[0].id, ordering: 2)
-    organisation.topical_event_organisations.create!(topical_event_id: topical_events[1].id, ordering: 1)
-    assert_match %r{order by}i, organisation.topical_events.to_sql
-    assert_equal [topical_events[1], topical_events[0]], organisation.topical_events
-  end
-
   test "destroy deletes related contacts" do
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation)

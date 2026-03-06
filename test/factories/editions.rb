@@ -44,17 +44,6 @@ FactoryBot.define do
       end
     end
 
-    trait(:with_topical_events) do
-      after :build do |edition, evaluator|
-        if evaluator.topical_events.empty?
-          edition.topical_event_memberships.build(
-            edition:,
-            topical_event: build(:topical_event),
-          )
-        end
-      end
-    end
-
     trait(:draft) { state { "draft" } }
 
     trait(:submitted) do
