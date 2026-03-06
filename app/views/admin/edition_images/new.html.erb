@@ -6,6 +6,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% cancel_link = link_to("Cancel", admin_edition_images_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
-    <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, new_image: @new_image, image_usage: @image_usage, cancel_link:) %>
+    <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, failed_images: @failed_images, image_usage: @image_usage, cancel_link:) %>
   </div>
 </div>
