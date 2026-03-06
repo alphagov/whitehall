@@ -12,13 +12,11 @@ module PublishingApi
       end
 
       def call
-        payload = {}
-        if (lead_image_usage = item.permitted_image_usages.find(&:lead?)).present?
-          lead_image = item.lead_image_payload(lead_image_usage)
-          payload[:image] = lead_image if lead_image.present?
-        end
-        payload[:images] = images if images.any?
-        payload
+        lead_usage = item.permitted_image_usages.find(&:lead?)
+        lead_image = lead_usage && item.lead_image_payload(lead_usage)
+        all_images = [lead_image, *images].compact
+
+        all_images.any? ? { images: all_images } : {}
       end
 
     private
