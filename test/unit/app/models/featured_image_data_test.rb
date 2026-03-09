@@ -11,33 +11,33 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
   test "rejects non-image file uploads" do
     non_image_file = File.open(Rails.root.join("test/fixtures/folders.zip"))
-    topical_event_featuring_image_data = build(:featured_image_data, file: non_image_file)
+    featuring_image_data = build(:featured_image_data, file: non_image_file)
 
-    assert_not topical_event_featuring_image_data.valid?
-    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File is of not allowed type \"zip\", allowed types: jpg, jpeg, gif, png"
+    assert_not featuring_image_data.valid?
+    assert_includes featuring_image_data.errors.map(&:full_message), "File is of not allowed type \"zip\", allowed types: jpg, jpeg, gif, png"
   end
 
   test "should ensure that file is present" do
-    topical_event_featuring_image_data = build(:featured_image_data, file: nil)
+    featuring_image_data = build(:featured_image_data, file: nil)
 
-    assert_not topical_event_featuring_image_data.valid?
-    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File cannot be blank"
+    assert_not featuring_image_data.valid?
+    assert_includes featuring_image_data.errors.map(&:full_message), "File cannot be blank"
   end
 
   test "accepts valid image uploads" do
     jpg_image = File.open(Rails.root.join("test/fixtures/big-cheese.960x640.jpg"))
-    topical_event_featuring_image_data = build(:featured_image_data, file: jpg_image)
+    featuring_image_data = build(:featured_image_data, file: jpg_image)
 
-    assert topical_event_featuring_image_data
-    assert_empty topical_event_featuring_image_data.errors
+    assert featuring_image_data
+    assert_empty featuring_image_data.errors
   end
 
   test "should ensure the image size to be 960x640" do
     image = File.open(Rails.root.join("test/fixtures/images/50x33_gif.gif"))
-    topical_event_featuring_image_data = build(:featured_image_data, file: image)
+    featuring_image_data = build(:featured_image_data, file: image)
 
-    assert_not topical_event_featuring_image_data.valid?
-    assert_includes topical_event_featuring_image_data.errors.map(&:full_message), "File is too small. Select an image that is 960 pixels wide and 640 pixels tall"
+    assert_not featuring_image_data.valid?
+    assert_includes featuring_image_data.errors.map(&:full_message), "File is too small. Select an image that is 960 pixels wide and 640 pixels tall"
   end
 
   test "#all_asset_variants_uploaded? returns true if all assets present" do
@@ -136,12 +136,12 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     worldwide_organisation.default_news_image.republish_on_assets_ready
   end
 
-  test "#republish_on_assets_ready should republish topical event if assets are ready" do
-    topical_event = create(:topical_event, :with_logo)
+  test "#republish_on_assets_ready should republish the featurable if assets are ready" do
+    organisation = create(:organisation, :with_default_news_image)
 
-    Whitehall::PublishingApi.expects(:republish_async).with(topical_event).once
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 
-    topical_event.logo.republish_on_assets_ready
+    organisation.default_news_image.republish_on_assets_ready
   end
 
   test "#republish_on_assets_ready should republish person and associations if assets are ready" do

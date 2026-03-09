@@ -22,11 +22,6 @@ class TopicalEvent < ApplicationRecord
 
   has_many :topical_event_memberships, inverse_of: :topical_event
   has_many :editions, through: :topical_event_memberships
-  has_many :consultations, through: :topical_event_memberships
-  has_many :calls_for_evidence, through: :topical_event_memberships
-  has_many :detailed_guides, through: :topical_event_memberships
-  has_many :publications, through: :topical_event_memberships
-  has_many :speeches, through: :topical_event_memberships
 
   MAX_FEATURED_DOCUMENTS = 6
   has_many :features, inverse_of: :topical_event, dependent: :destroy

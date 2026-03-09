@@ -540,12 +540,11 @@ module PublishingApi::CallForEvidencePresenterTest
     end
   end
 
-  class CallForEvidenceithMinisterialRoleAppointments < TestCase
+  class CallForEvidenceWithMinisterialRoleAppointments < TestCase
     setup do
       self.call_for_evidence = create(
         :call_for_evidence,
         role_appointments: create_list(:ministerial_role_appointment, 2),
-        topical_events: create_list(:topical_event, 2),
       )
     end
 
@@ -568,13 +567,26 @@ module PublishingApi::CallForEvidencePresenterTest
       assert expected_content_ids.present?
       assert_equal expected_content_ids, presented_links[:roles]
     end
+  end
 
-    test "topical events" do
-      expected_content_ids = call_for_evidence
-        .topical_events
-        .map(&:content_id)
+  class CallForEvidenceWithTopicalEvents < TestCase
+    test "topical events are presented" do
+      self.call_for_evidence = create(
+        :call_for_evidence,
+      )
 
-      assert expected_content_ids.present?
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+      topical_event = create(:topical_event) # Delete when legacy topical events have been migrated
+      topical_event_document = create(:standard_edition, configurable_document_type: "topical_event").document
+
+      call_for_evidence.topical_event_memberships.create!(topical_event_id: topical_event.id) # Delete when legacy topical events have been migrated
+      call_for_evidence.topical_event_documents << topical_event_document
+
+      expected_content_ids = [
+        topical_event.content_id, # Delete when legacy topical events have been migrated
+        topical_event_document.content_id,
+      ]
+
       assert_equal expected_content_ids, presented_links[:topical_events]
     end
   end

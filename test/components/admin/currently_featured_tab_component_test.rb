@@ -102,7 +102,8 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
                   ))
   end
 
-  test "renders link to the reorder featurings page if more than 1 feature_list item" do
+  # Delete when legacy topical events are removed.
+  test "renders link to the reorder legacy topical event featurings page if more than 1 feature_list item" do
     topical_event = build_stubbed(:topical_event)
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
                     featurings: build_stubbed_list(:topical_event_featuring, 2, topical_event:),
@@ -112,7 +113,8 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-link[href='#{reorder_admin_topical_event_topical_event_featurings_path(topical_event)}']", text: "Reorder pages"
   end
 
-  test "does not render link to the reorder page if less than 2 featurings" do
+  # Delete when legacy topical events are removed.
+  test "does not render link to the reorder legacy topical event featurings page if less than 2 featurings" do
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
                     featurings: [build_stubbed(:topical_event_featuring)],
                     maximum_featured_documents: @maximum_featured_documents,
@@ -121,7 +123,8 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-link", text: "Reorder documents", count: 0
   end
 
-  test "makes one call to the featurings FeaturedDocumentsTableComponent when featurings count is <= to maximum_featured_documents" do
+  # Delete when legacy topical events are removed.
+  test "makes one call to the featurings FeaturedDocumentsTableComponent when legacy topical event featurings count is <= to maximum_featured_documents" do
     topical_event = build_stubbed(:topical_event)
     featurings = build_stubbed_list(:topical_event_featuring, @maximum_featured_documents, topical_event:)
     table_component = Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent.new(caption: "caption", featurings: [])
@@ -142,7 +145,8 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
                   ))
   end
 
-  test "makes two calls to the featurings FeaturedDocumentsTableComponent when featurings count is greater than maximum_featured_documents" do
+  # Delete when legacy topical events are removed.
+  test "makes two calls to the featurings FeaturedDocumentsTableComponent when legacy topical event featurings count is greater than maximum_featured_documents" do
     topical_event = build_stubbed(:topical_event)
     live_featurings = build_stubbed_list(:topical_event_featuring, @maximum_featured_documents, topical_event:)
     remaining_featurings = build_stubbed(:topical_event_featuring, topical_event:)

@@ -47,7 +47,7 @@ module PublishingApi
         .extract(%i[organisations government])
         .merge(PayloadBuilder::People.for(consultation))
         .merge(PayloadBuilder::Roles.for(consultation))
-        .merge(PayloadBuilder::TopicalEvents.for(consultation)) # Legacy
+        .merge(PayloadBuilder::TopicalEvents.for(consultation))
     end
 
   private

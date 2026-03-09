@@ -147,11 +147,23 @@ class PublicationTest < ActiveSupport::TestCase
     assert_not build(:publication, primary_locale: :es).translatable?
   end
 
-  test "can associate publications with topical events" do
+  # To be deleted after legacy topical events have been migrated.
+  # It has a config-driven equivalent test below it which should be kept.
+  test "can associate publications with (legacy) topical events" do
     publication = create(:publication)
     assert publication.can_be_associated_with_topical_events?
     assert topical_event = publication.topical_events.create!(name: "Test", description: "Test", summary: "Test")
-    assert_equal [publication], topical_event.publications
+    assert_equal [topical_event], publication.reload.topical_events
+  end
+
+  test "can associate publications with topical events" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    publication = create(:publication)
+    topical_event = create(:standard_edition, configurable_document_type: "topical_event")
+    assert publication.can_be_associated_with_topical_events?
+    publication.topical_event_document_ids = [topical_event.document_id]
+    publication.save!
+    assert_equal [topical_event.document], publication.topical_event_documents
   end
 
   test "#has_changed_publication_type? false if no previous edition" do

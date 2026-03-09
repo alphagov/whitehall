@@ -1,10 +1,10 @@
 require "test_helper"
 
 class FeatureListTest < ActiveSupport::TestCase
-  test "to_s returns name and locale for non-editionable parents (e.g. TopicalEvent)" do
-    topical_event = build(:topical_event, name: "Mars Exploration")
-    feature_list = build(:feature_list, featurable: topical_event, locale: :en)
-    assert_equal "Mars Exploration (en)", feature_list.to_s
+  test "to_s returns name and locale for non-editionable parents (e.g. Organisation)" do
+    organisation = build(:organisation, name: "Some org")
+    feature_list = build(:feature_list, featurable: organisation, locale: :en)
+    assert_equal "Some org (en)", feature_list.to_s
   end
 
   test "to_s returns title and locale for editionable parents (e.g. StandardEdition)" do
