@@ -290,6 +290,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
             "lead_organisation_ids" => {
               "attribute_path" => %w[lead_organisation_ids],
               "translatable" => true,
+              "block" => "select_with_search_tagging",
             },
           },
         },

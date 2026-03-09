@@ -45,6 +45,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
                 "lead_organisations" => {
                   "attribute_path" => %w[lead_organisation_ids],
                   "translatable" => true,
+                  "block" => "ordered_select_with_search_tagging",
                 },
               },
             },

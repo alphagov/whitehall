@@ -95,15 +95,15 @@ class StandardEdition < Edition
   end
 
   def organisation_association_enabled?
-    type_instance.field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
+    field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
   end
 
   def worldwide_organisation_association_required?
-    type_instance.required_field_paths.include?(ConfigurableContentBlocks::Path.new("worldwide_organisation_document_ids"))
+    required_field_paths.include?(ConfigurableContentBlocks::Path.new("worldwide_organisation_document_ids"))
   end
 
   def world_location_association_required?
-    type_instance.required_field_paths.include?(ConfigurableContentBlocks::Path.new("world_location_ids"))
+    required_field_paths.include?(ConfigurableContentBlocks::Path.new("world_location_ids"))
   end
 
   def is_in_valid_state_for_type_conversion?
@@ -117,9 +117,33 @@ class StandardEdition < Edition
     end
   end
 
-  delegate :error_labels, to: :type_instance
+  def error_labels
+    {}.tap do |labels|
+      ConfigurableContentBlocks::DefaultObject.root_block_for(self, "documents").each do |block|
+        # we only want labels for leaf fields, so do nothing if this field isn't one
+        next if block.respond_to? :field_blocks
+
+        labels[block.path.validation_error_attribute] = block.title
+      end
+    end
+  end
 
 private
+
+  def field_paths(&block)
+    [].tap do |paths|
+      ConfigurableContentBlocks::DefaultObject.root_block_for(self, "documents").each do |field|
+        # we only want paths for leaf fields, so do nothing if this field isn't one
+        next if field.respond_to? :field_blocks
+
+        paths << field.path if !block_given? || block.call(field)
+      end
+    end
+  end
+
+  def required_field_paths
+    field_paths { |field| field.required == true }
+  end
 
   def string_for_slug
     title if primary_locale.to_sym == translation.locale
