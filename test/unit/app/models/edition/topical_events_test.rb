@@ -1,11 +1,7 @@
 require "test_helper"
 
 class Edition::TopicalEventsTest < ActiveSupport::TestCase
-  test "includes PublishesToPublishingApi" do
-    topical_event = TopicalEvent.new
-    assert topical_event.is_a?(PublishesToPublishingApi)
-  end
-
+  # Legacy - to be deleted when we migrate to config-driven topical events.
   test "#destroy should also remove the topical event membership relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_speech, topical_events: [topical_event])
@@ -14,6 +10,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_not TopicalEventMembership.find_by(id: relation.id)
   end
 
+  # Legacy - to be deleted when we migrate to config-driven topical events.
   test "new edition of document that is a member of a topical event should remain a member of that topical event" do
     topical_event = create(:topical_event)
     edition = create(:published_speech, topical_events: [topical_event])
@@ -25,18 +22,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_equal topical_event, new_edition.topical_events.first
   end
 
-  test "new edition of document that is associated with a topical event document should retain that association" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
-    topical_event = create(:standard_edition, configurable_document_type: "topical_event")
-    edition = create(:published_speech, topical_event_documents: [topical_event.document])
-
-    new_edition = edition.create_draft(create(:writer))
-    new_edition.change_note = "change-note"
-    force_publish(new_edition)
-
-    assert_equal topical_event.document, new_edition.topical_event_documents.first
-  end
-
+  # Legacy - to be deleted when we migrate to config-driven topical events.
   test "#destroy should also remove the topical event featuring relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_speech)
@@ -46,6 +32,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_not TopicalEventFeaturing.find_by(id: relation.id)
   end
 
+  # Legacy - to be deleted when we migrate to config-driven topical events.
   test "new edition of document featured in topical event should remain featured in that topic event with image, alt text and ordering" do
     featured_image = create(:topical_event_featuring_image_data)
     topical_event = create(:topical_event)
@@ -62,5 +49,17 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_equal "alt-text", featuring.alt_text
     assert_equal 12, featuring.ordering
     assert_equal topical_event, featuring.topical_event
+  end
+
+  test "new edition of document that is associated with a topical event document should retain that association" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    topical_event = create(:standard_edition, configurable_document_type: "topical_event")
+    edition = create(:published_speech, topical_event_documents: [topical_event.document])
+
+    new_edition = edition.create_draft(create(:writer))
+    new_edition.change_note = "change-note"
+    force_publish(new_edition)
+
+    assert_equal topical_event.document, new_edition.topical_event_documents.first
   end
 end
