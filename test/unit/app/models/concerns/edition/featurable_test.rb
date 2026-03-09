@@ -49,4 +49,47 @@ class Edition::FeaturableTest < ActiveSupport::TestCase
     edition.reload
     assert_equal %w[fr], edition.feature_lists.map(&:locale)
   end
+
+  test "#update_featured_offsite_links correctly repoints features from old offsite links to new ones" do
+    edition = FeaturableTestEdition.new
+    edition.document = Document.new(content_id: SecureRandom.uuid)
+    edition.document.save!(validate: false)
+    edition.save!(validate: false)
+
+    old_link_1 = create(:offsite_link)
+    old_link_2 = create(:offsite_link)
+
+    new_link_1 = create(:offsite_link)
+    new_link_2 = create(:offsite_link)
+
+    feature_list = create(:feature_list, featurable: edition, locale: :en)
+    feature_1 = create(:feature, :with_image, feature_list: feature_list, offsite_link: old_link_1, document: edition.document, ordering: 1)
+    feature_2 = create(:feature, :with_image, feature_list: feature_list, offsite_link: old_link_2, document: edition.document, ordering: 2)
+
+    edition.update_featured_offsite_links({ old_link_1.id => new_link_1, old_link_2.id => new_link_2 })
+
+    assert_equal new_link_1, feature_1.reload.offsite_link
+    assert_equal new_link_2, feature_2.reload.offsite_link
+  end
+
+  test "#update_featured_offsite_links does not change features if there are no matching offsite links" do
+    edition = FeaturableTestEdition.new
+    edition.document = Document.new(content_id: SecureRandom.uuid)
+    edition.document.save!(validate: false)
+    edition.save!(validate: false)
+
+    old_link_1 = create(:offsite_link)
+    old_link_2 = create(:offsite_link)
+
+    other_link = create(:offsite_link)
+
+    feature_list = create(:feature_list, featurable: edition, locale: :en)
+    feature_1 = create(:feature, :with_image, feature_list: feature_list, offsite_link: old_link_1, document: edition.document, ordering: 1)
+    feature_2 = create(:feature, :with_image, feature_list: feature_list, offsite_link: old_link_2, document: edition.document, ordering: 2)
+
+    edition.update_featured_offsite_links({ other_link.id => create(:offsite_link) })
+
+    assert_equal old_link_1, feature_1.reload.offsite_link
+    assert_equal old_link_2, feature_2.reload.offsite_link
+  end
 end
