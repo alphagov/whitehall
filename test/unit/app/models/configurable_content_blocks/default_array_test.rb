@@ -27,8 +27,8 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     render @block
     assert_dom "legend.govuk-fieldset__legend--l", text: "List of foods"
     assert_dom "legend.govuk-fieldset__legend--m", text: "List of foods 1"
-    assert_dom "label[for=edition_block_content_list_of_foods_0_food]", text: "Name of food"
-    assert_dom "input#edition_block_content_list_of_foods_0_food"
+    assert_dom "label[for=edition_list_of_foods_0_food]", text: "Name of food"
+    assert_dom "input#edition_list_of_foods_0_food"
   end
 
   test "it includes a 'Remove' checkbox for the first empty item, so that noJS users can 'remove' the empty element before submitting the form" do
@@ -45,9 +45,9 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
       ],
     }
     render @block
-    assert_dom "input#edition_block_content_list_of_foods_0_food[value='Apples']"
-    assert_dom "input#edition_block_content_list_of_foods_1_food[value='Bananas']"
-    assert_dom "input#edition_block_content_list_of_foods_2_food", text: ""
+    assert_dom "input#edition_list_of_foods_0_food[value='Apples']"
+    assert_dom "input#edition_list_of_foods_1_food[value='Bananas']"
+    assert_dom "input#edition_list_of_foods_2_food", text: ""
   end
 
   test "it renders translated content" do
@@ -64,8 +64,8 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
       }
       render @block
     end
-    assert_dom "input#edition_block_content_list_of_foods_0_food[value='Manzanas']"
-    refute_dom "input#edition_block_content_list_of_foods_0_food[value='Apples']"
+    assert_dom "input#edition_list_of_foods_0_food[value='Manzanas']"
+    refute_dom "input#edition_list_of_foods_0_food[value='Apples']"
   end
 
   test "it renders whatever field type is specified in the schema for each item" do

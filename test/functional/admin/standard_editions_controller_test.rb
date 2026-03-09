@@ -716,6 +716,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     }
     post :create, params: { edition: { configurable_document_type: "test_type", block_content: } }
     assert_template "admin/editions/new"
+    assert_select "input#edition_test_attribute"
     assert_select "a[href=\"#edition_test_attribute\"]", text: "Test attribute cannot be blank"
     assert_select ".govuk-error-message", text: "Error: Test attribute cannot be blank"
   end

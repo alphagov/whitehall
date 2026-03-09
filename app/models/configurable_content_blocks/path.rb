@@ -25,7 +25,11 @@ module ConfigurableContentBlocks
     end
 
     def form_control_id
-      "edition_#{@segments.join('_')}"
+      if @segments.first == "block_content"
+        "edition_#{@segments[1..].join("_")}"
+      else
+        "edition_#{@segments.join("_")}"
+      end
     end
 
     def form_control_name
