@@ -410,6 +410,37 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not_includes missing_translations, :en
   end
 
+  test "it allows topical event associations if the configurable document type configuration references it" do
+    test_type_without_topical_events =
+      build_configurable_document_type(
+        "test_type_without_topical_events", {
+          "presenters" => {
+            "publishing_api" => {
+              "links" => [],
+            },
+          },
+        }
+      )
+    test_type_with_topical_events =
+      build_configurable_document_type(
+        "test_type_with_topical_events", {
+          "presenters" => {
+            "publishing_api" => {
+              "links" => %w[
+                topical_events
+              ],
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_topical_events.merge(test_type_without_topical_events))
+    page_with_topical_events = StandardEdition.new(configurable_document_type: "test_type_with_topical_events")
+    page_without_topical_events = StandardEdition.new(configurable_document_type: "test_type_without_topical_events")
+    assert page_with_topical_events.can_be_associated_with_topical_events?
+    assert_not page_without_topical_events.can_be_associated_with_topical_events?
+  end
+
   test "conditionally requires worldwide organisation and world location associations" do
     test_type = build_configurable_document_type(
       "test_type", {

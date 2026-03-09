@@ -78,6 +78,12 @@ class StandardEdition < Edition
     type_instance.settings["features_enabled"]
   end
 
+  def can_be_associated_with_topical_events?
+    return false unless type_instance.raw_config.dig("presenters", "publishing_api", "links")
+
+    type_instance.raw_config["presenters"]["publishing_api"]["links"].include?("topical_events")
+  end
+
   def can_be_marked_political?
     type_instance.settings["history_mode_enabled"]
   end

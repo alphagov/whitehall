@@ -62,4 +62,26 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
 
     assert_equal topical_event.document, new_edition.topical_event_documents.first
   end
+
+  test "can_be_associated_with_topical_events? returns true for legacy content types that include the module" do
+    self.class.const_set("DummyLegacyEdition", Class.new(Edition) do
+      include Edition::TopicalEvents
+    end)
+
+    edition = DummyLegacyEdition.new
+    assert edition.can_be_associated_with_topical_events?
+  end
+
+  test "can_be_associated_with_topical_events? can be overridden by the class that includes it (e.g. to make its return value config-driven)" do
+    self.class.const_set("DummyStandardEdition", Class.new(Edition) do
+      include Edition::TopicalEvents
+
+      def can_be_associated_with_topical_events?
+        false
+      end
+    end)
+
+    edition = DummyStandardEdition.new
+    assert_not edition.can_be_associated_with_topical_events?
+  end
 end
