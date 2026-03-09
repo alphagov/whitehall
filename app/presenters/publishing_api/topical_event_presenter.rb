@@ -23,7 +23,7 @@ module PublishingApi
         details:,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::FRONTEND,
         schema_name: "topical_event",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item, additional_routes: %w[atom]))
