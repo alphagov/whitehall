@@ -26,10 +26,19 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_equal [case_study_1.auth_bypass_id, case_study_2.auth_bypass_id], image_data.auth_bypass_ids
   end
 
-  test "rejects images smaller than 960x640" do
+  test "rejects images smaller than 960x640 with filename in error" do
     image_data = build_example("50x33_gif.gif")
     assert_not image_data.valid?
     assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
+    assert image_data.errors[:file].any? { |msg| msg.start_with?("\"50x33_gif.gif\"") },
+           "Expected error to include filename, got: #{image_data.errors[:file]}"
+  end
+
+  test "does not show redundant presence error when CarrierWave integrity error exists" do
+    image_data = build_example("50x33_gif.gif")
+    assert_not image_data.valid?
+    assert_not image_data.errors[:file].any? { |msg| msg.include?("cannot be uploaded") },
+               "Expected presence error to be suppressed when integrity error exists, got: #{image_data.errors[:file]}"
   end
 
   test "accepts images with 960x640 dimensions" do
@@ -51,10 +60,12 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_nil image_data.width
   end
 
-  test "rejects image as 'too small' when it's too large in one dimension but too small in another" do
+  test "rejects image as 'too small' when it's too large in one dimension but too small in another, with filename in error" do
     image_data = build_example("300x1000_png.png")
     assert_not image_data.valid?
     assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
+    assert image_data.errors[:file].any? { |msg| msg.start_with?("\"300x1000_png.png\"") },
+           "Expected error to include filename, got: #{image_data.errors[:file]}"
   end
 
   test "rejects images with duplicate filename on edition" do
@@ -65,7 +76,7 @@ class ImageDataTest < ActiveSupport::TestCase
     image_data.validate_on_image = image
 
     assert_not image_data.valid?
-    assert_equal ["name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."], image_data.errors[:file]
+    assert_equal ["\"960x640_jpeg.jpg\" name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."], image_data.errors[:file]
   end
 
   test "does not validate unique filename if validate_on_image is not assigned" do

@@ -348,7 +348,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
 
-    assert_template "admin/edition_images/index"
+    assert_redirected_to admin_edition_images_path(edition)
     assert_equal "Images successfully uploaded", flash[:notice]
   end
 
@@ -376,7 +376,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: files.map { |file| { image_data_attributes: { file: } } } }
 
-    assert_template "admin/edition_images/index"
+    assert_redirected_to admin_edition_images_path(edition)
     assert_equal "Images successfully uploaded", flash[:notice]
   end
 
@@ -414,7 +414,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     topical_event_header_kind = Whitehall.image_kinds.fetch("topical_event_header")
     assert_template "admin/edition_images/new"
-    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is at least #{topical_event_header_kind.valid_width} pixels wide and at least #{topical_event_header_kind.valid_height} pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file \"50x33_gif.gif\" is too small. Select an image that is at least #{topical_event_header_kind.valid_width} pixels wide and at least #{topical_event_header_kind.valid_height} pixels tall"
   end
 
   view_test "POST :create shows a validation error if one 'single' usage image has a duplicated filename, using the 'new' template" do
@@ -445,7 +445,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     post :create, params: { edition_id: edition.id, usage: "logo", image_kind: "topical_event_logo", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/new"
-    assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+    assert_select ".govuk-error-summary li", "Image data file \"test-svg.svg\" name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage embeddable image is too small, using the 'index' template" do
@@ -457,7 +457,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     default_kind = Whitehall.image_kinds.fetch("default")
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is at least #{default_kind.valid_width} pixels wide and at least #{default_kind.valid_height} pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file \"50x33_gif.gif\" is too small. Select an image that is at least #{default_kind.valid_width} pixels wide and at least #{default_kind.valid_height} pixels tall"
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage embeddable image has a duplicated filename, using the 'index' template" do
@@ -469,7 +469,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+    assert_select ".govuk-error-summary li", "Image data file \"960x640_gif.gif\" name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage non-embeddable image is too small, using the 'index' template" do
@@ -495,7 +495,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     hero_desktop_kind = Whitehall.image_kinds.fetch("hero_desktop")
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file \"hero_image_mobile_2x.png\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall"
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage non-embeddable image has a duplicated filename, using the 'index' template" do
@@ -521,7 +521,32 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+    assert_select ".govuk-error-summary li", "Image data file \"hero_image_mobile_2x.png\" name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+  end
+
+  view_test "POST :create with multiple invalid files shows each filename in error summary" do
+    login_authorised_user
+    edition = create(:draft_case_study)
+    files = [upload_fixture("images/50x33_gif.gif"), upload_fixture("horrible-image.64x96.jpg")]
+
+    post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
+
+    assert_template "admin/edition_images/index"
+    assert_select ".govuk-error-summary li", /"50x33_gif.gif" is too small/
+    assert_select ".govuk-error-summary li", /"horrible-image.64x96.jpg" is too small/
+  end
+
+  view_test "POST :create with mix of valid and invalid files shows only the failing filename in error summary" do
+    login_authorised_user
+    edition = create(:draft_case_study)
+    files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("images/50x33_gif.gif")]
+
+    post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
+
+    assert_template "admin/edition_images/index"
+    assert_select ".govuk-error-summary li", /"50x33_gif.gif" is too small/
+    assert_select ".govuk-error-summary li", { text: /960x640_jpeg.jpg/, count: 0 }
+    assert_select ".gem-c-error-message"
   end
 
   view_test "POST :create re-renders the correct usage 'new' template on validation errors" do
@@ -545,9 +570,10 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_desktop", images: [{ image_data_attributes: { file: } }] }
 
+    hero_desktop_kind = Whitehall.image_kinds.fetch("hero_desktop")
     assert_template "admin/edition_images/new"
     assert_select "label", "Upload hero image"
-    assert_select ".govuk-error-summary li", /Image data file is too small/
+    assert_select ".govuk-error-summary li", "Image data file \"960x640_jpeg.jpg\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall"
   end
 
   test "POST :create returns 422 for non-permitted usage" do

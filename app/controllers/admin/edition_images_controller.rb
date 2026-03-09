@@ -63,22 +63,24 @@ class Admin::EditionImagesController < Admin::BaseController
       end
     end
 
-    if @images.any? && @images.all?(&:valid?)
+    if @images.any? && @images.map(&:valid?).all?
       @images.each(&:save)
       @edition.update_lead_image if @edition.can_have_custom_lead_image?
       PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
-      flash.now.notice = "Images successfully uploaded"
+      flash.notice = "Images successfully uploaded"
     else
       # Remove images from @edition.images array, otherwise the view will render it in the 'Uploaded images' list
       @images.each { |image| @edition.images.delete(image) }
+      @failed_images = @images.select { |image| image.errors.any? }
     end
 
     if @image_usage.multiple?
       # For one valid image of multiple usage, redirect to edit page to allow cropping and captioning
       if @images.count == 1 && @images.first.valid?
         redirect_to edit_admin_edition_image_path(@edition, @images.first)
+      elsif @images.map(&:valid?).all?
+        redirect_to admin_edition_images_path(@edition)
       else
-        # Either the one image is not valid, or there are multiple images (regardless of validity)
         render :index
       end
     #   Single usage
