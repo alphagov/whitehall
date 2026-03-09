@@ -31,7 +31,7 @@ Flipflop.configure do
           description: "Use embed codes with friendly IDs in Content Block Manager",
           default: Whitehall.integration_or_staging? || !Rails.env.production?
   feature :configurable_document_types,
-          description: "Enable config driven document types",
+          description: "Enable 'in development' config-driven document types (alongside the 'live' ones)",
           default: Rails.env.development?
   feature :slugs_for_editions,
           description: "Create slugs for editions instead of documents, allowing them to change between editions",
