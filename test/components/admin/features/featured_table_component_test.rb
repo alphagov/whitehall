@@ -46,6 +46,7 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Unfeature #{title}"
   end
 
+  # Delete when legacy topical events are removed.
   test "renders the correct row when the feature list item belongs to a topical event" do
     feature = build_stubbed(:feature, :with_topical_event_association, feature_list: @feature_list)
     title = feature.topical_event.name
