@@ -1,5 +1,5 @@
 class ConfigurableDocumentType
-  attr_reader :key, :description, :schema, :settings
+  attr_reader :raw_config, :key, :description, :schema, :settings
 
   CONTENT_BLOCKS = {
     "default_string" => ConfigurableContentBlocks::DefaultString,
@@ -69,6 +69,7 @@ class ConfigurableDocumentType
   end
 
   def initialize(type)
+    @raw_config = self.class.types[type["key"]]
     @key = type["key"]
     @title = type["title"]
     @description = type["description"]

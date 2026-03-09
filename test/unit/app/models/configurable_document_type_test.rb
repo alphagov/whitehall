@@ -163,4 +163,13 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     }
     assert_equal expected_schema, document_type.schema
   end
+
+  test "#raw_config returns a hash of all the document type's configuration" do
+    test_types = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_types)
+
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal test_types["test_type"], document_type.raw_config
+  end
 end
