@@ -16,6 +16,7 @@
 <%= render "govuk_publishing_components/components/fieldset",
             { legend_text: "#{block.title}#{block.required ? ' (required)' : ''}",
               heading_size: "l",
+              error_message: errors_for_input(block.edition.errors, block.path.validation_error_attribute.to_sym),
               id: block.path.form_control_id } do %>
   <%
     items = block.items.map.with_index do |_element, index|

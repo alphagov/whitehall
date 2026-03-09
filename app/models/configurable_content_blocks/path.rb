@@ -26,9 +26,9 @@ module ConfigurableContentBlocks
 
     def form_control_id
       if @segments.first == "block_content"
-        "edition_#{@segments[1..].join("_")}"
+        "edition_#{@segments[1..].join('_')}"
       else
-        "edition_#{@segments.join("_")}"
+        "edition_#{@segments.join('_')}"
       end
     end
 

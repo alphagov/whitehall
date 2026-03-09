@@ -8,6 +8,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
       "title" => "List of foods",
       "block" => "default_array",
       "translatable" => true,
+      "attribute_path" => %w[list_of_foods],
       "fields" => {
         "food" => {
           "title" => "Name of food",
@@ -48,6 +49,13 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     assert_dom "input#edition_list_of_foods_0_food[value='Apples']"
     assert_dom "input#edition_list_of_foods_1_food[value='Bananas']"
     assert_dom "input#edition_list_of_foods_2_food", text: ""
+  end
+
+  test "it renders an error message if there are validation errors" do
+    @edition.errors.add(:list_of_foods, "invalid")
+    render @block
+    assert_dom ".govuk-error-message", "Error: List of foods invalid"
+    @edition.errors.clear
   end
 
   test "it renders translated content" do
