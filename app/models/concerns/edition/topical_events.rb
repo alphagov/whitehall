@@ -32,6 +32,8 @@ module Edition::TopicalEvents
     add_trait Trait
   end
 
+  # This method can be deleted when all legacy content types have been migrated to
+  # being config-driven (which has its own implementation of the method).
   def can_be_associated_with_topical_events?
     true
   end

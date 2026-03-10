@@ -3,6 +3,11 @@ require "test_helper"
 class TopicalEventTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :topical_event, :name, :description
 
+  test "includes PublishesToPublishingApi" do
+    topical_event = TopicalEvent.new
+    assert topical_event.is_a?(PublishesToPublishingApi)
+  end
+
   test "should be invalid without a name" do
     topical_event = build(:topical_event, name: nil)
     assert_not topical_event.valid?
