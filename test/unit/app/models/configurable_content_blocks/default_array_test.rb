@@ -27,7 +27,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
   test "it renders a fieldset with the schema title as the main legend, followed by a secondary legend for each item" do
     render @block
     assert_dom "legend.govuk-fieldset__legend--l", text: "List of foods"
-    assert_dom "legend.govuk-fieldset__legend--m", text: "List of foods 1"
+    assert_dom "legend.govuk-fieldset__legend--m", text: "List of food 1"
     assert_dom "label[for=edition_list_of_foods_0_food]", text: "Name of food"
     assert_dom "input#edition_list_of_foods_0_food"
   end
@@ -95,7 +95,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
     render @block
     assert_dom "legend.govuk-fieldset__legend--l", text: "List of publish dates"
-    assert_dom "legend.govuk-fieldset__legend--m", text: "List of publish dates 1"
+    assert_dom "legend.govuk-fieldset__legend--m", text: "List of publish date 1"
     assert_dom ".govuk-hint", text: "For example, 01 08 2015"
     assert_dom "input[name='edition[block_content][list_of_publish_dates][0][publish_date][3]']" # Day
     assert_dom "input[name='edition[block_content][list_of_publish_dates][0][publish_date][2]']" # Month
