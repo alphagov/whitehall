@@ -5,6 +5,29 @@ require "test_helper"
 class Admin::EditionImages::LeadImageCardComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
+  test "Summary card actions contains Edit and Delete options if image present" do
+    image_data = create(:image_data, image_kind: "default")
+    image = build_stubbed(:image, usage: "lead", image_data:)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
+    edition = build_stubbed(:standard_edition, images: [image])
+    lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
+
+    render_inline(Admin::EditionImages::LeadImageCardComponent.new(edition:, image:, image_usage: lead_usage))
+
+    assert_selector ".govuk-link[href='#{edit_admin_edition_image_path(edition, image)}']", text: "Edit"
+    assert_selector ".govuk-link[href='#{confirm_destroy_admin_edition_image_path(edition, image)}']", text: "Delete"
+  end
+
+  test "Summary card actions contains Replace option if image not present" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
+    edition = build_stubbed(:standard_edition)
+    lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
+
+    render_inline(Admin::EditionImages::LeadImageCardComponent.new(edition:, image: nil, image_usage: lead_usage))
+
+    assert_selector ".govuk-link[href='#{new_admin_edition_image_path(edition_id: edition.id, usage: lead_usage.key)}']", text: "Replace"
+  end
+
   test "renders lead image guidance" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
     edition = build_stubbed(:standard_edition)
