@@ -10,6 +10,18 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def confirm_destroy; end
 
+  def confirm_toggle_default_lead_image_behaviour; end
+
+  def toggle_default_lead_image_behaviour
+    if @edition.update(image_display_option: params[:image_display_option])
+      notice = @edition.image_display_option == "no_image" ? "Lead image removed." : "Now using the default lead image."
+      redirect_to admin_edition_images_path(@edition), notice: notice
+    else
+      flash.now[:alert] = "Failed to update the lead image behaviour"
+      render :confirm_toggle_default_lead_image_behaviour
+    end
+  end
+
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
@@ -160,7 +172,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy", "create", "new"
+    when "edit", "update", "destroy", "confirm_destroy", "create", "new", "confirm_toggle_default_lead_image_behaviour", "toggle_default_lead_image_behaviour"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
