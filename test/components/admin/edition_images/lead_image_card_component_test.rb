@@ -18,7 +18,7 @@ class Admin::EditionImages::LeadImageCardComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-link[href='#{confirm_destroy_admin_edition_image_path(edition, image)}']", text: "Delete"
   end
 
-  test "summary card actions contains Replace option if image not present" do
+  test "summary card actions contains Replace and Delete options if image and fallback not present" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
     edition = build_stubbed(:draft_standard_edition)
     lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
@@ -26,6 +26,7 @@ class Admin::EditionImages::LeadImageCardComponentTest < ViewComponent::TestCase
     render_inline(Admin::EditionImages::LeadImageCardComponent.new(edition:, image: nil, image_usage: lead_usage))
 
     assert_selector ".govuk-link[href='#{new_admin_edition_image_path(edition_id: edition.id, usage: lead_usage.key)}']", text: "Replace"
+    assert_selector ".govuk-link[href='#{confirm_toggle_default_lead_image_behaviour_admin_edition_images_path(edition)}']", text: "Delete"
   end
 
   test "there are no summary card actions if the edition isn't editable" do

@@ -25,6 +25,11 @@ private
           label: "Replace",
           href: new_admin_edition_image_path(edition_id: edition.id, usage: image_usage.key),
         },
+        {
+          label: "Delete",
+          href: confirm_toggle_default_lead_image_behaviour_admin_edition_images_path(edition),
+          destructive: true,
+        },
       ]
     end
   end

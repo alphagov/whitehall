@@ -726,6 +726,68 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  view_test "GET :confirm_toggle_default_lead_image_behaviour asks for confirmation before removing default lead image when default lead image has not yet been opted out of" do
+    login_authorised_user
+    edition = create(:draft_standard_edition, image_display_option: nil)
+
+    get :confirm_toggle_default_lead_image_behaviour, params: { edition_id: edition.id }
+
+    assert_select "h1", text: "Update lead image default"
+    assert_select "p", text: "Are you sure you want to remove the default lead image?"
+  end
+
+  view_test "GET :confirm_toggle_default_lead_image_behaviour asks for confirmation before removing default lead image when default lead image has been explicitly opted into" do
+    login_authorised_user
+    edition = create(:draft_standard_edition, image_display_option: "organisation_image")
+
+    get :confirm_toggle_default_lead_image_behaviour, params: { edition_id: edition.id }
+
+    assert_select "h1", text: "Update lead image default"
+    assert_select "p", text: "Are you sure you want to remove the default lead image?"
+  end
+
+  view_test "GET :confirm_toggle_default_lead_image_behaviour asks for confirmation before adding default lead image when default lead image has been explicitly opted out of" do
+    login_authorised_user
+    edition = create(:draft_standard_edition, image_display_option: "no_image")
+
+    get :confirm_toggle_default_lead_image_behaviour, params: { edition_id: edition.id }
+
+    assert_select "h1", text: "Update lead image default"
+    assert_select "p", text: "Are you sure you want to use the organisation default lead image?"
+  end
+
+  # TODO: add unit test for checking preview thumbnail is rendered
+
+  view_test "PATCH :toggle_default_lead_image_behaviour toggles from explicitly using default lead image to not using it" do
+    login_authorised_user
+    edition = create(:draft_standard_edition, image_display_option: "organisation_image")
+
+    patch :toggle_default_lead_image_behaviour, params: { edition_id: edition.id, image_display_option: "no_image" }
+
+    assert_equal "no_image", edition.reload.image_display_option
+    assert_redirected_to admin_edition_images_path(edition)
+  end
+
+  view_test "PATCH :toggle_default_lead_image_behaviour toggles from implicitly using default lead image to not using it" do
+    login_authorised_user
+    edition = create(:draft_standard_edition, image_display_option: nil)
+
+    patch :toggle_default_lead_image_behaviour, params: { edition_id: edition.id, image_display_option: "no_image" }
+
+    assert_equal "no_image", edition.reload.image_display_option
+    assert_redirected_to admin_edition_images_path(edition)
+  end
+
+  view_test "PATCH :toggle_default_lead_image_behaviour toggles from not using default lead image to using it" do
+    login_authorised_user
+    edition = create(:draft_standard_edition, image_display_option: "no_image")
+
+    patch :toggle_default_lead_image_behaviour, params: { edition_id: edition.id, image_display_option: "organisation_image" }
+
+    assert_equal "organisation_image", edition.reload.image_display_option
+    assert_redirected_to admin_edition_images_path(edition)
+  end
+
   def login_authorised_user
     user = create(:gds_editor)
     login_as user
