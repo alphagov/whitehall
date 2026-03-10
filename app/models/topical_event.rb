@@ -1,20 +1,6 @@
 # LEGACY TOPICAL EVENTS ONLY
 class TopicalEvent < ApplicationRecord
-  include DateValidation
   include PublishesToPublishingApi
-  include Searchable
-  include SimpleWorkflow
-
-  date_attributes(:start_date, :end_date)
-
-  searchable title: :name,
-             link: :search_link,
-             content: :description,
-             format: "topical_event",
-             description: :description_without_markup,
-             slug: :slug,
-             start_date: :start_date,
-             end_date: :end_date
 
   after_commit :republish_feature_organisations_to_publishing_api, if: :features?
 
@@ -27,7 +13,6 @@ class TopicalEvent < ApplicationRecord
   has_many :features, inverse_of: :topical_event, dependent: :destroy
   has_many :offsite_link_parents, as: :parent
   has_many :offsite_links, through: :offsite_link_parents
-  has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
   has_many :topical_event_organisations, -> { extending UserOrderableExtension }
   has_many :organisations, through: :topical_event_organisations
@@ -56,7 +41,7 @@ class TopicalEvent < ApplicationRecord
 
   accepts_nested_attributes_for :logo, reject_if: :all_blank
 
-  scope :active, -> { where("end_date > ?", Time.zone.today) }
+  scope :active, -> { where("1=1") } # Temporary change - treat all topical events as active.
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
@@ -64,30 +49,15 @@ class TopicalEvent < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :description, presence: true
   validates :summary, presence: true
-  validate :start_and_end_dates
-  validates :start_date, presence: true, if: ->(topical_event) { topical_event.end_date }
 
   accepts_nested_attributes_for :topical_event_memberships
   accepts_nested_attributes_for :topical_event_organisations
   accepts_nested_attributes_for :topical_event_featurings
-  accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
   extend FriendlyId
   friendly_id
 
   alias_method :display_name, :to_s
-
-  def search_link
-    base_path
-  end
-
-  def published_editions
-    editions.published
-  end
-
-  def published_detailed_guides
-    published_editions.detailed_guides
-  end
 
   def lead_organisations
     organisations.where(topical_event_organisations: { lead: true }).reorder("topical_event_organisations.lead_ordering")
@@ -98,11 +68,7 @@ class TopicalEvent < ApplicationRecord
   end
 
   def latest(limit = 3)
-    published_editions.in_reverse_chronological_order.includes(:translations).limit(limit)
-  end
-
-  def description_without_markup
-    Govspeak::Document.new(description).to_text
+    editions.published.in_reverse_chronological_order.includes(:translations).limit(limit)
   end
 
   def featured?(edition)
@@ -167,20 +133,5 @@ private
 
   def republish_feature_organisations_to_publishing_api
     features.map(&:republish_featurable_to_publishing_api)
-  end
-
-  def start_and_end_dates
-    if start_date && end_date
-      if more_than_a_year(start_date, end_date)
-        errors.add(:base, "cannot be longer than a year")
-      end
-      if start_date >= end_date
-        errors.add(:end_date, "cannot be before or equal to the start_date")
-      end
-    end
-  end
-
-  def more_than_a_year(from_time, to_time = 0)
-    to_time > from_time + 1.year + 1.day # allow 1 day's leeway
   end
 end

@@ -30,7 +30,6 @@ class Edition < ApplicationRecord
   include Edition::Scopes::FilterableByInvalid
   include Edition::Scopes::FilterableByBrokenLinks
   include Edition::Scopes::FilterableByDate
-  include Edition::Scopes::FilterableByTopicalEvent # legacy
   include Edition::Scopes::FilterableByType
   include Edition::Scopes::FilterableByWorldLocation
   include Edition::Scopes::FindableByOrganisation
@@ -46,7 +45,6 @@ class Edition < ApplicationRecord
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
-  has_many :topical_event_featurings, inverse_of: :edition # legacy
   has_one :link_check_report, class_name: "LinkCheckerApiReport", dependent: :destroy
 
   has_many :edition_dependencies, dependent: :destroy
@@ -84,7 +82,6 @@ class Edition < ApplicationRecord
   after_create :update_document_edition_references
   after_update :update_document_edition_references, if: :saved_change_to_state?
 
-  after_update :republish_topical_event_to_publishing_api #  legacy
   after_update :republish_featurable_to_publishing_api, if: :saved_change_to_state?
 
   accepts_nested_attributes_for :document
@@ -463,13 +460,6 @@ private
     published_edition_date = first_public_at.try(:to_date)
     draft_edition_date = updated_at.try(:to_date)
     published_edition_date || draft_edition_date
-  end
-
-  # legacy
-  def republish_topical_event_to_publishing_api
-    topical_event_featurings.each do |topical_event_featuring|
-      Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)
-    end
   end
 
   def republish_featurable_to_publishing_api

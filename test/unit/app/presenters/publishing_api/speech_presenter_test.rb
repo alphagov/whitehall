@@ -93,13 +93,11 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
     describe "links" do
       let(:policy_content_id) { SecureRandom.uuid }
-      let(:topical_event) { create(:topical_event) } # Delete when legacy topical events have been migrated
       let(:world_location) { create(:world_location) }
       let(:topical_event_document) { create(:standard_edition, configurable_document_type: "topical_event").document }
 
       before do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
-        speech.topical_events << topical_event # Delete when legacy topical events have been migrated
         speech.topical_event_documents << topical_event_document
         speech.world_locations << world_location
       end
@@ -107,7 +105,6 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       it "contains the expected keys and values" do
         assert_includes(presented.links.keys, :organisations)
         assert_includes(presented.links.keys, :speaker)
-        assert_includes(presented.links.keys, :topical_events)
         assert_includes(presented.links.keys, :people)
         assert_includes(presented.links.keys, :roles)
         assert_includes(presented.links.keys, :world_locations)
@@ -115,7 +112,6 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
         assert_includes(presented.links[:organisations], speech.organisations.first.content_id)
         assert_includes(presented.links[:speaker], person.content_id)
-        assert_includes(presented.links[:topical_events], topical_event.content_id) # Delete when legacy topical events have been migrated
         assert_includes(presented.links[:topical_events], topical_event_document.content_id)
         assert_includes(presented.links[:roles], speech.role_appointment.role.content_id)
         assert_includes(presented.links[:people], person.content_id)

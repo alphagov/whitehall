@@ -306,15 +306,6 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     assert_equal "Call for evidence outcome", call_for_evidence.display_type
   end
 
-  # To be deleted after legacy topical events have been migrated.
-  # It has a config-driven equivalent test below it which should be kept.
-  test "can associate calls for evidence with (legacy) topical events" do
-    call_for_evidence = create(:call_for_evidence)
-    assert call_for_evidence.can_be_associated_with_topical_events?
-    assert topical_event = call_for_evidence.topical_events.create!(name: "Test", description: "Test", summary: "Test")
-    assert_equal [topical_event], call_for_evidence.reload.topical_events
-  end
-
   test "can associate calls for evidence with topical events" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
     call_for_evidence = create(:call_for_evidence)

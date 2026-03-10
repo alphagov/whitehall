@@ -1011,81 +1011,8 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_topical_events(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test "new should display topical events field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "label[for=edition_topical_event_ids]", text: "Topical events"
-
-          assert_select "#edition_topical_event_ids" do |elements|
-            assert_equal 1, elements.length
-          end
-        end
-      end
-
-      test "create should associate topical events with the edition" do
-        first_topical_event = create(:topical_event)
-        second_topical_event = create(:topical_event)
-        attributes = controller_attributes_for(edition_type)
-
-        post :create,
-             params: {
-               edition: attributes.merge(
-                 topical_event_ids: [first_topical_event.id, second_topical_event.id],
-               ),
-             }
-
-        edition = edition_class.last!
-        assert_equal [first_topical_event, second_topical_event], edition.topical_events
-      end
-
-      view_test "edit should display topical events field" do
-        edition = create("draft_#{edition_type}")
-
-        get :edit, params: { id: edition }
-
-        assert_select "form#edit_edition" do
-          assert_select "label[for=edition_topical_event_ids]", text: "Topical events"
-
-          assert_select "#edition_topical_event_ids" do |elements|
-            assert_equal 1, elements.length
-          end
-        end
-      end
-
-      test "update should associate topical events with the edition" do
-        first_topical_event = create(:topical_event)
-        second_topical_event = create(:topical_event)
-
-        edition = create("draft_#{edition_type}", topical_events: [first_topical_event])
-
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                topical_event_ids: [second_topical_event.id],
-              },
-            }
-
-        edition.reload
-        assert_equal [second_topical_event], edition.topical_events
-      end
-    end
-
     def should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled(edition_type)
       edition_class = class_for(edition_type)
-      view_test "new should not display topical event documents field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events (experimental)", count: 0
-          assert_select "#edition_topical_event_document_ids", count: 0
-        end
-      end
-
       view_test "new should display topical event documents field" do
         test_strategy = Flipflop::FeatureSet.current.test!
         test_strategy.switch!(:configurable_document_types, true)
@@ -1094,7 +1021,7 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events (experimental)"
+          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events"
 
           assert_select "#edition_topical_event_document_ids" do |elements|
             assert_equal 1, elements.length
@@ -1134,7 +1061,7 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events (experimental)"
+          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events"
 
           assert_select "#edition_topical_event_document_ids" do |elements|
             assert_equal 1, elements.length

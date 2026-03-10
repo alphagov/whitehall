@@ -60,7 +60,6 @@ class OffsiteLink < ApplicationRecord
 
   has_many :offsite_link_parents
   has_many :organisations, through: :offsite_link_parents, source: :parent, source_type: "Organisation"
-  has_many :topical_events, through: :offsite_link_parents, source: :parent, source_type: "TopicalEvent" # Legacy
   has_many :world_location_news, through: :offsite_link_parents, source: :parent, source_type: "WorldLocationNews"
   has_many :editions, through: :offsite_link_parents, source: :parent, source_type: "Edition"
 
@@ -75,7 +74,7 @@ class OffsiteLink < ApplicationRecord
   # We only expect one type of parent per offsite link (either organisations, or topical events, or world location news).
   # Once topical events become editionable, the parents will return all editions associated with the offsite link.
   def parents
-    organisations + topical_events + world_location_news + editions
+    organisations + world_location_news + editions
   end
 
   # For non-editionable parents, we are returning the last - and only - parent.
