@@ -2,7 +2,7 @@ module Edition::RelatedDocuments
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
+    def process_associations_after_draft_creation(edition)
       edition.related_documents = @edition.related_documents
     end
   end
