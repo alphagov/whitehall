@@ -54,8 +54,8 @@ private
   end
 
   def lead_image_guidance
-    tag.p("The lead image appears at the top of the document. The same image should not be used in the body text.", class: "govuk-body") +
-      tag.p("Uploading your own lead image is optional. If a custom lead image is not uploaded then the default image for your organisation will be used. If neither is available, a placeholder will appear.", class: "govuk-body")
+    tag.p("Using a lead image is optional. To use a lead image either select the default image for your organisation or upload an image and select it as the lead image.", class: "govuk-body") +
+      tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
   end
 
   def show_fallback_image?
