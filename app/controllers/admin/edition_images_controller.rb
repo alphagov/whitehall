@@ -10,6 +10,20 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def confirm_destroy; end
 
+  def confirm_update_default_lead_image_behaviour
+    require_behaviour_param!
+  end
+
+  def update_default_lead_image_behaviour
+    require_behaviour_param!
+    if @edition.update(image_display_option: @behaviour)
+      redirect_to admin_edition_images_path(@edition)
+    else
+      flash.now[:alert] = "Fail"
+      render :confirm_update_default_lead_image_behaviour
+    end
+  end
+
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
@@ -160,7 +174,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy", "create", "new"
+    when "edit", "update", "destroy", "confirm_destroy", "create", "new", "confirm_update_default_lead_image_behaviour", "update_default_lead_image_behaviour"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
@@ -177,5 +191,12 @@ private
 
   def image_params
     params.fetch(:image, {}).except(:image_data).permit(:caption, image_data: %i[crop_data file image_kind])
+  end
+
+  def require_behaviour_param!
+    # TODO: better guardrails than this
+    raise "behaviour URL param missing" unless params[:behaviour].in?(%w[no_image organisation_image])
+
+    @behaviour = params[:behaviour]
   end
 end

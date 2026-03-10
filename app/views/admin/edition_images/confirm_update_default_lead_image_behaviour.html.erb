@@ -1,0 +1,26 @@
+<%
+  action_label = @behaviour == "no_image" ? "Remove lead image" : "Use organisation default"
+%>
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Update lead image default" %>
+<% content_for :title, "Update lead image default" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to remove the default lead image?</p>
+
+    <%= form_with(url: update_default_lead_image_behaviour_admin_edition_images_path(@edition), method: :patch, data: { ga4_form_no_answer_undefined: action_label }) do |form| %>
+      <%= hidden_field_tag "behaviour", @behaviour %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: action_label,
+          secondary_solid: true,
+        } %>
+
+        <%= link_to("Cancel", admin_edition_images_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>
