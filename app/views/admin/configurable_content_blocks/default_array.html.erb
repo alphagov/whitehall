@@ -27,7 +27,7 @@
     end
   %>
   <%= render "govuk_publishing_components/components/add_another", {
-    fieldset_legend: block.title,
+    fieldset_legend: block.title.singularize,
     add_button_text: "Add another",
     empty_fields: true,
     items:,
