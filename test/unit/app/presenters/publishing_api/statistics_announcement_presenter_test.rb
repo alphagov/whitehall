@@ -30,6 +30,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
         format_sub_type: "official",
+        release_timestamp: statistics_announcement.release_date,
       },
     }
 
@@ -77,6 +78,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         format_sub_type: "official",
         cancelled_at: statistics_announcement.cancelled_at,
         cancellation_reason: "Cancelled for a reason",
+        release_timestamp: statistics_announcement.release_date,
       },
     }
 
@@ -128,6 +130,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         latest_change_note: "Reasons",
         state: statistics_announcement.state,
         format_sub_type: "official",
+        release_timestamp: statistics_announcement.release_date,
       },
     }
 

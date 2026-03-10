@@ -246,6 +246,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     announcement_presenter = PublishingApiPresenters.presenter_for(announcement)
     announcement_details = announcement_presenter.content[:details].merge(
+      document_type_label: "Official Statistics",
       format_sub_type: "official",
     )
     announcement_content = announcement_presenter.content.merge(

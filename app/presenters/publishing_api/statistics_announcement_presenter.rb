@@ -40,6 +40,7 @@ module PublishingApi
       {
         display_date: item.current_release_date.display_date,
         document_type_label: item.display_type,
+        release_timestamp: item.release_date,
         state: item.state,
         format_sub_type:,
       }.tap do |d|
