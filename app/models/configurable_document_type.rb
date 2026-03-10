@@ -20,8 +20,12 @@ class ConfigurableDocumentType
     @types_mutex.synchronize do
       return @types if @types
 
-      @types = Dir.glob("app/models/configurable_document_types/*.json").each_with_object({}) do |filename, hash|
-        data = JSON.parse(File.read(filename))
+      @types = Dir.glob("app/models/configurable_document_types/*").each_with_object({}) do |filename, hash|
+        data = if filename.end_with?(".json")
+                 JSON.parse(File.read(filename))
+               else
+                 "ConfigurableDocumentTypes::#{File.basename(filename.split('.')[0]).classify}".constantize
+               end
         hash[data["key"]] = data
       end
     end
