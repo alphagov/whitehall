@@ -43,7 +43,7 @@ class StandardEdition < Edition
   end
 
   def body
-    block_content["body"]
+    block_content.respond_to?(:body) ? block_content.body : block_content["body"]
   end
 
   def body=(_)
