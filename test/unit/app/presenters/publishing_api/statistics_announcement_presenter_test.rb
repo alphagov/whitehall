@@ -26,6 +26,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       redirects: [],
       update_type: "minor",
       details: {
+        document_type_label: I18n.t("document.type.#{statistics_announcement.display_type_key}", count: 1),
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
         format_sub_type: "official",
@@ -70,6 +71,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       redirects: [],
       update_type: "minor",
       details: {
+        document_type_label: I18n.t("document.type.#{statistics_announcement.display_type_key}", count: 1),
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
         format_sub_type: "official",
@@ -120,6 +122,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       redirects: [],
       update_type: "minor",
       details: {
+        document_type_label: I18n.t("document.type.#{statistics_announcement.display_type_key}", count: 1),
         display_date: statistics_announcement.current_release_date.display_date,
         previous_display_date: 7.days.from_now.to_fs(:date_with_time),
         latest_change_note: "Reasons",
