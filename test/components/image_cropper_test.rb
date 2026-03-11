@@ -14,11 +14,11 @@ class ImagecropperComponentTest < ComponentTestCase
   test "renders the basic component" do
     render_component({
       name: "name",
-      src: "src",
       filename: "filename",
       type: "type",
       width: 960,
       height: 640,
+      image: build(:image),
     })
 
     assert_select ".app-c-image-cropper"
