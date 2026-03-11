@@ -3,6 +3,30 @@
 class Admin::EditionImages::ImageCardComponent < Admin::EditionImages::ImageComponent
 private
 
+  def summary_card_actions
+    if image.present?
+      [
+        {
+          label: "Edit",
+          href: edit_admin_edition_image_path(edition, image),
+          destructive: false,
+        },
+        {
+          label: "Delete",
+          href: confirm_destroy_admin_edition_image_path(edition, image),
+          destructive: true,
+        },
+      ]
+    else
+      [
+        {
+          label: "Add",
+          href: new_admin_edition_image_path(edition_id: edition.id, usage: image_usage.key),
+        },
+      ]
+    end
+  end
+
   def caption
     return "Not set" if image.blank?
 
