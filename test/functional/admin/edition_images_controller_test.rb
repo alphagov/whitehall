@@ -213,7 +213,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: edition.id, id: image.id }
 
-    assert_select "img:match('src',?)", image.image_data.url
+    assert_select "img:match('src',?)", /.*data:image.*/
   end
 
   view_test "GET: edit page shows processing label if some of the image assets haven't finished processing" do

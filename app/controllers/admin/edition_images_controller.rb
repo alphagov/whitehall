@@ -116,6 +116,19 @@ private
     end
   end
 
+  def image_url
+    return unless image&.image_data&.original_uploaded?
+
+    image_data = image.image_data
+    unless image_data.file.cached?
+      image_data.file.download! image_data.file.url
+    end
+    img_data = Base64.strict_encode64(image_data.file.read)
+
+    "data:#{image_data.file.content_type};base64,#{img_data}"
+  end
+  helper_method :image_url
+
   def image_kind_config
     image.image_data.image_kind_config
   end
