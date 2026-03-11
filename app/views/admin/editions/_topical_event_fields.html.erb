@@ -1,5 +1,4 @@
 <% if edition.can_be_associated_with_topical_events? %>
-  <h2 class="govuk-heading-m">Topical events</h2>
   <% cache_if edition.topical_event_ids.empty?, "#{taggable_topical_events_cache_digest}-design-system" do %>
     <%= render "govuk_publishing_components/components/select_with_search", {
       id: "edition_topical_event_ids",
