@@ -23,7 +23,7 @@ class ImageUploader < WhitehallUploader
     end
 
     image_kind_config.versions.each do |v|
-      version v.name, from_version: v.from_version&.to_sym, version: v, if: use_versions_for_this_image_kind_proc do
+      version v.prefixed_name, from_version: v.prefixed_from_version&.to_sym, version: v, if: use_versions_for_this_image_kind_proc do
         def image_kind_version
           self.class.version_options[:version]
         end
