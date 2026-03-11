@@ -19,7 +19,7 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
 
   test "GET :new raises an exception with an unknown parent type" do
     assert_raise(ActiveRecord::RecordNotFound) do
-      get :new, params: { edition_id: 123 }
+      get :new, params: { edition_id: Edition.maximum(:id).to_i + 1 }
     end
   end
 
