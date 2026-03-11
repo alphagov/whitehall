@@ -219,9 +219,11 @@
     "forms": {
       "type": "object",
       "description": "Defines the content structure for the document type. Each property represents a content block.",
+      "required": ["documents"],
       "properties": {
         "documents": {
           "type": "object",
+          "additionalProperties": false,
           "properties": {
             "fields": {
               "type": "object",
@@ -233,23 +235,32 @@
               }
             }
           }
-        },
-        "images": {
-          "type": "object",
-          "properties": {
-            "fields": {
-              "type": "object",
-              "description": "Image-related fields/content blocks for the document, each with its own schema.",
-              "patternProperties": {
-                ".*": {
-                  "$ref": "#/$defs/form_field"
-                }
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["fields"],
+        "description": "Definition of a group of form fields to group.",
+        "properties": {
+          "dynamic": {
+            "type": "boolean",
+            "description": "Determines if the field should have a tab generated dynamically"
+          },
+          "label": {
+            "type": "string",
+            "description": "Text to display as the label for the group of fields. Shown on the tab in the admin interface."
+          },
+          "fields": {
+            "type": "object",
+            "description": "Fields/content blocks for this form, each with its own schema.",
+            "patternProperties": {
+              ".*": {
+                "$ref": "#/$defs/form_field"
               }
             }
           }
         }
-      },
-      "additionalProperties": false
+      }
     },
     "presenters": {
       "type": "object",

@@ -27,10 +27,24 @@ module StandardEdition::HasBlockContent
 private
 
   def validate_block_content
-    unless block_content.valid?(validation_context)
-      block_content.errors.each do |error|
-        errors.import(error, { attribute: error.attribute.to_s })
+    content_for_validation = current_tab_context.present? ? scoped_block_content : block_content
+
+    unless content_for_validation.valid?(validation_context)
+      content_for_validation.errors.each do |error|
+        errors.import(error, attribute: error.attribute.to_s)
       end
+    end
+  end
+
+  def scoped_block_content
+    form_config = type_instance.form(current_tab_context)
+    raise ArgumentError, "Unknown tab key '#{current_tab_context}'" unless form_config
+
+    field_keys = form_config["fields"]&.keys || []
+    schema = type_instance.schema_for_fields(field_keys)
+
+    StandardEdition::BlockContent.new(schema).tap do |block_content|
+      block_content.assign_attributes(self[:block_content] || {})
     end
   end
 end
