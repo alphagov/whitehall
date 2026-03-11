@@ -9,9 +9,9 @@ class SocialMediaLinksValidator < ActiveModel::Validator
   def validate(record)
     @attributes.each do |attribute_name|
       arr = record.send(attribute_name.to_sym) || []
-      arr.each do |social_media_service|
+      arr.each_with_index do |social_media_service, index|
         service_name = social_media_service[@service_field]
-        if validate_social_media_service(service_name, record, attribute_name)
+        if validate_social_media_service(service_name, record, attribute_name, index)
           validate_social_media_link(social_media_service[@url_field], service_name, record, attribute_name)
         end
       end
@@ -20,8 +20,18 @@ class SocialMediaLinksValidator < ActiveModel::Validator
 
 private
 
-  def validate_social_media_service(service_name, record, attribute_name)
+  def validate_social_media_service(service_name, record, attribute_name, index)
     @services ||= []
+
+    if service_name.blank?
+      record.errors.add(
+        attribute_name.to_sym,
+        :invalid_social_media_link,
+        message: "invalid: no service provided for 'Social media account #{index + 1}'",
+      )
+      return false
+    end
+
     if service_name != "Other" && @services.include?(service_name)
       record.errors.add(
         attribute_name.to_sym,
