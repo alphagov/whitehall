@@ -176,4 +176,14 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     create(:offsite_link, world_location_news: [@world_location_news])
     create(:offsite_link, editions: [@standard_edition])
   end
+
+  test "destroying an offsite link republishes the parent if it has one" do
+    offsite_link_with_parent = create(:offsite_link, editions: [@standard_edition])
+    offsite_link_without_parent = create(:offsite_link)
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(@standard_edition.document).once
+
+    offsite_link_with_parent.destroy!
+    offsite_link_without_parent.destroy!
+  end
 end

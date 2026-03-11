@@ -131,6 +131,8 @@ private
   end
 
   def republish_parent_to_publishing_api
+    return unless parent
+
     if parent.is_a?(Edition)
       Whitehall::PublishingApi.republish_document_async(parent.document)
     else

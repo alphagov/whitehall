@@ -4,9 +4,8 @@ module Edition::Featurable
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       edition.feature_lists = @edition.feature_lists.map(&:deep_clone)
-      @edition.offsite_links.each do |link|
-        edition.offsite_link_parents.create!(offsite_link: link)
-      end
+      link_mapping = @edition.clone_offsite_links_to(edition)
+      edition.update_featured_offsite_links(link_mapping)
     end
   end
 
@@ -32,6 +31,25 @@ module Edition::Featurable
 
   def build_feature_list_for_locale(locale)
     feature_lists.target.select { |feature_list| feature_list.locale == locale }
+  end
+
+  def clone_offsite_links_to(new_edition)
+    link_mapping = {}
+    offsite_links.each do |old_link|
+      new_link = old_link.dup
+      new_edition.offsite_link_parents.create!(offsite_link: new_link)
+      link_mapping[old_link.id] = new_link
+    end
+    link_mapping
+  end
+
+  def update_featured_offsite_links(link_mapping)
+    feature_lists.each do |feature_list|
+      feature_list.features.each do |feature|
+        new_link = link_mapping[feature.offsite_link_id]
+        feature.update!(offsite_link: new_link) if new_link
+      end
+    end
   end
 
   def remove_orphaned_offsite_links

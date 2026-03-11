@@ -557,13 +557,24 @@ class StandardEditionTest < ActiveSupport::TestCase
     offsite_link_1 = build(:offsite_link, title: "Offsite link 1", url: "https://www.nhs.uk/")
     offsite_link_2 = build(:offsite_link, title: "Offsite link 2", url: "https://www.gov.uk/")
     edition = create(:published_standard_edition, configurable_document_type: "test_type", offsite_links: [offsite_link_1, offsite_link_2])
-
     new_draft = edition.create_draft(create(:writer))
     assert_equal 2, new_draft.offsite_links.size
+    assert_not_equal offsite_link_1.id, new_draft.offsite_links.first.id
+    assert_not_equal offsite_link_2.id, new_draft.offsite_links.second.id
     assert_equal offsite_link_1.title, new_draft.offsite_links.first.title
     assert_equal offsite_link_1.url, new_draft.offsite_links.first.url
     assert_equal offsite_link_2.title, new_draft.offsite_links.second.title
     assert_equal offsite_link_2.url, new_draft.offsite_links.second.url
+  end
+
+  test "editing an offsite link on a new edition does not alter the offsite links on the previous edition" do
+    offsite_link = build(:offsite_link, title: "Offsite link", url: "https://www.nhs.uk/")
+    edition = create(:published_standard_edition, configurable_document_type: "test_type", offsite_links: [offsite_link])
+    new_draft = edition.create_draft(create(:writer))
+    new_draft.offsite_links.first.update!(title: "Updated offsite link", url: "https://www.gov.uk/")
+
+    assert_equal "Updated offsite link", new_draft.reload.offsite_links.first.title
+    assert_equal "Offsite link", edition.reload.offsite_links.first.title
   end
 
   describe "tabbed form behaviour" do
