@@ -49,7 +49,7 @@ class Image < ApplicationRecord
   def publishing_api_details
     details = {
       type: usage,
-      sources: image_data.image_kind_config.versions.reduce({}) { |sources, version| url(version.name) ? sources.merge({ version.name.to_sym => url(version.name) }) : sources.merge({ version.name.to_sym => url }) },
+      sources: image_data.image_kind_config.versions.reduce({}) { |sources, version| url(version.prefixed_name) ? sources.merge({ version.name.to_sym => url(version.prefixed_name) }) : sources.merge({ version.name.to_sym => url }) },
       content_type:,
     }
     details[:caption] = caption if caption_enabled?
