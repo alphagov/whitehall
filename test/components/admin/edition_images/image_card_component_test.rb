@@ -28,6 +28,16 @@ class Admin::EditionImages::ImageCardComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-link[href='#{new_admin_edition_image_path(edition_id: edition.id, usage: usage.key)}']", text: "Add"
   end
 
+  test "there are no summary card actions if the edition isn't editable" do
+    image = build_stubbed(:image, caption: "Test caption")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:published_standard_edition, images: [image])
+
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage")))
+
+    assert_selector ".govuk-link", count: 0
+  end
+
   test "renders caption" do
     image = build_stubbed(:image, caption: "Test caption")
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))

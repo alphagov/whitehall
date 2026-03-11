@@ -4,6 +4,8 @@ class Admin::EditionImages::LeadImageCardComponent < Admin::EditionImages::Image
 private
 
   def summary_card_actions
+    return [] unless edition.editable?
+
     if image.present?
       [
         {
