@@ -167,14 +167,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       statistics_announcement.reload
       date_change.save!
 
-      expected = {
-        details: {
-          display_date: date_change.display_date,
-          state: "confirmed",
-          format_sub_type: "official",
-        },
-      }
-
       expected_intent = PublishingApi::PublishIntentPresenter.new(
         statistics_announcement.base_path,
         statistics_announcement.statistics_announcement_dates.last.release_date,
@@ -182,7 +174,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
       assert_publishing_api_put_content(
         statistics_announcement.content_id,
-        request_json_includes(expected),
+        PublishingApiPresenters.presenter_for(statistics_announcement).content,
       )
       assert_publishing_api_publish(
         statistics_announcement.content_id,
