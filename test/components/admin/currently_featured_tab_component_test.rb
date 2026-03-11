@@ -53,7 +53,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::Features::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(features:, caption: nil)
+    .with(features:, caption: nil, read_only: false)
     .once
     .returns(table_component)
 
@@ -76,7 +76,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::Features::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(features: live_features, caption: nil)
+    .with(features: live_features, caption: nil, read_only: false)
     .once
     .returns(table_component1)
 
@@ -87,7 +87,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::Features::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(features: [remaining_features], caption: "1 remaining featured page")
+    .with(features: [remaining_features], caption: "1 remaining featured page", read_only: false)
     .once
     .returns(table_component2)
 

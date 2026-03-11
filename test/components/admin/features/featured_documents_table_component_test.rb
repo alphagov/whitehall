@@ -87,4 +87,21 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, ""
     assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3].text, ""
   end
+
+  test "renders no action when `read_only: true` is passed" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:published_standard_edition)
+    document = build(:document)
+    document.stubs(:live_edition).returns(edition)
+    feature = build_stubbed(:feature, document:, feature_list: @feature_list)
+    title = edition.title
+
+    render_inline(Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption", features: [feature], read_only: true))
+    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
+    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Test type (document)"
+    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, I18n.localize(edition.major_change_published_at.to_date)
+
+    actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
+    assert_equal actions_column.text, ""
+  end
 end

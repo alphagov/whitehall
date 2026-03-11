@@ -1,3 +1,4 @@
+<% read_only ||= false %>
 <%= render "govuk_publishing_components/components/heading", {
   text: "External website links",
   margin_bottom: 6,
@@ -9,12 +10,14 @@
   } %>
 <% end %>
 
-<p class="govuk-body">
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Add an external link",
-    href: [:new, :admin, model, :offsite_link],
-  } %>
-</p>
+<% unless read_only %>
+  <p class="govuk-body">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Add an external link",
+      href: [:new, :admin, model, :offsite_link],
+    } %>
+  </p>
+<% end %>
 
 <% if featurable_offsite_links.any? %>
   <p class="govuk-heading-s govuk-!-margin-bottom-3">
@@ -42,7 +45,7 @@
           {
             text: offsite_link.humanized_link_type,
           },
-          {
+          read_only ? { text: "" } : {
             text: link_to(sanitize("Edit #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:edit, :admin, offsite_link.parent, offsite_link]), class: "govuk-link") +
               link_to(sanitize("Feature #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url(featuring_path, offsite_link_id: offsite_link.id), class: "govuk-link govuk-!-margin-left-2") +
               link_to(sanitize("Delete #{tag.span(offsite_link.title, class: "govuk-visually-hidden")}"), polymorphic_url([:confirm_destroy, :admin, offsite_link.parent, offsite_link]), class: "govuk-link govuk-!-margin-left-2 gem-link--destructive"),
