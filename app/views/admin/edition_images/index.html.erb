@@ -10,6 +10,10 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
+    <% unless @edition.editable? %>
+      <%= render "admin/shared/read_only_notice", { edition: @edition } %>
+    <% end %>
+
     <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |image_usage| %>
       <% image = @edition.images.usable_as(image_usage).first %>
       <%= image_usage.lead? ? render(Admin::EditionImages::LeadImageCardComponent.new(edition: @edition, image:, image_usage:)) : render(Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:)) %>

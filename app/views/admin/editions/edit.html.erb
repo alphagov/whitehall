@@ -38,9 +38,7 @@
       } if @edition.editable? %>
 
       <% unless @edition.editable? %>
-        <%= render "govuk_publishing_components/components/inset_text", {} do %>
-          This is a read-only view of the current (<%= @edition.state %>) edition. To edit, please return to the summary page and choose ‘Create new edition’.
-        <% end %>
+        <%= render "admin/shared/read_only_notice", { edition: @edition } %>
       <% end %>
 
       <%= render "form", edition: @edition %>

@@ -10,6 +10,10 @@
   } %>
 </div>
 
+<% unless @edition.editable? %>
+  <%= render "admin/shared/read_only_notice", { edition: @edition } %>
+<% end %>
+
 <%= render "govuk_publishing_components/components/heading", {
   text: @locale.english? ? "Featured" : "Featured (#{@locale.native_language_name})",
   font_size: "l",
