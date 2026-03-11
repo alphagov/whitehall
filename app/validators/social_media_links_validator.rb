@@ -22,7 +22,7 @@ private
 
   def validate_social_media_service(service_name, record, attribute_name)
     @services ||= []
-    if @services.include?(service_name)
+    if service_name != "Other" && @services.include?(service_name)
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,

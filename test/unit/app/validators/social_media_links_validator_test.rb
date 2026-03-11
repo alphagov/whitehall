@@ -57,6 +57,17 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     assert_equal ["Social media links invalid: duplicate service 'Facebook'"], block_content.errors.full_messages
   end
 
+  test "social media links are valid when multiple 'Other' services are provided with different URLs" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Other", "url" => "http://example.com/one" },
+      { "social_media_service_name" => "Other", "url" => "http://example.com/two" },
+    ]
+    @validator.validate(block_content)
+
+    assert block_content.errors.empty?
+  end
+
   test "social media links are valid when a social media service is chosen and a well-formed URL is provided" do
     block_content = SocialMediaLinksValidatorTestClass.new
     block_content.social_media_links = [
