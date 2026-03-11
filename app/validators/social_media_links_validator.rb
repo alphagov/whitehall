@@ -29,6 +29,12 @@ private
         message: "invalid: duplicate service '#{service_name}'",
       )
       return nil
+    elsif @services.blank?
+      record.errors.add(
+        attribute_name.to_sym,
+        :invalid_social_media_link,
+        message: "invalid: no social media service selected for 'https://facebook.com'",
+      )
     end
     @services << service_name
   end

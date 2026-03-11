@@ -25,6 +25,16 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     assert block_content.errors.empty?
   end
 
+  test "social media links are invalid when no social media service is chosen" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "", "url" => "https://facebook.com" },
+    ]
+    @validator.validate(block_content)
+
+    assert_equal ["Social media links invalid: no social media service selected for 'https://facebook.com'"], block_content.errors.full_messages
+  end
+
   test "social media links are invalid when a social media service is chosen but no URL is provided" do
     block_content = SocialMediaLinksValidatorTestClass.new
     block_content.social_media_links = [
