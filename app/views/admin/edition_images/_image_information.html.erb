@@ -1,10 +1,12 @@
 <section class="govuk-grid-column-one-third">
-  <% if image.image_data.original_uploaded? %>
-    <img src="<%= image.image_data.url %>" alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
-  <% else %>
-    <div class="govuk-!-margin-bottom-4">
-      <span class="govuk-tag govuk-tag--green">Processing</span>
-    </div>
+  <% if image.persisted? %>
+    <% if image_url %>
+      <img src="<%= image_url %>" alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
+    <% else %>
+      <div class="govuk-!-margin-bottom-4">
+        <span class="govuk-tag govuk-tag--green">Processing</span>
+      </div>
+    <% end %>
   <% end %>
   <h2 class="govuk-heading-m">Image information</h2>
   <ul class="govuk-list">

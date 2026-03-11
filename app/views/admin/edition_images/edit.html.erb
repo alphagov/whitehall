@@ -18,6 +18,7 @@
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
           <%= render "components/image_cropper", {
             name: "image[image_data][crop_data]",
+            src: image_url,
             filename: image.filename,
             type: image.content_type,
             target_height: image_kind_config.valid_height,
@@ -28,6 +29,7 @@
             y: image.image_data.crop_data_y,
             versions: image_kind_config.versions,
             image:,
+            image_url:,
           } %>
         </div>
       <% end %>

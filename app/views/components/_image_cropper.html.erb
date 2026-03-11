@@ -7,6 +7,7 @@
   target_width ||= 0
   target_height ||= 0
   image ||= nil
+  image_url ||= nil
 %>
 
 <%= tag.div class: "app-c-image-cropper govuk-grid-column-row", tabindex: "0", data: { module: "image-cropper", filename:, type:, width:, height:, x:, y:, versions:, target_width:, target_height: }, "aria-live" => "polite" do %>
@@ -15,10 +16,11 @@
     <input class="js-cropped-image-input" name="<%= name %>[y]" hidden value="<%= y %>">
     <input class="js-cropped-image-input" name="<%= name %>[height]" hidden value="<%= height %>">
     <input class="js-cropped-image-input" name="<%= name %>[width]" hidden value="<%= width %>">
-    <%= tag.img class: "app-c-image-cropper__image", src: image.image_data.url %>
+    <%= tag.img class: "app-c-image-cropper__image",
+      src: src %>
   <% end %>
 
   <% if image.present? %>
-    <%= render "admin/edition_images/image_information", image: %>
+    <%= render "admin/edition_images/image_information", image:, image_url: %>
   <% end %>
 <% end %>
