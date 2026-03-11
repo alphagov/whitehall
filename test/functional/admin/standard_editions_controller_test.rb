@@ -199,6 +199,96 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_select "label", text: "Body"
   end
 
+  view_test "GET edit renders change notes on the documents tab" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "label" => "Document",
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "dynamic" => true,
+          "label" => "Extra fields",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", document: published_edition.document)
+
+    assert edition.change_note_required?, "Expected change_note_required? to be true for this test"
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "legend", text: "Do users have to know the content has changed?"
+  end
+
+  view_test "GET edit does not render change notes on a dynamic tab" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "label" => "Document",
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "dynamic" => true,
+          "label" => "Extra fields",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", document: published_edition.document)
+
+    assert edition.change_note_required?, "Expected change_note_required? to be true for this test"
+
+    get :edit, params: { id: edition, current_tab: "extra_fields" }
+
+    assert_response :ok
+    refute_select "legend", text: "Do users have to know the content has changed?"
+  end
+
   view_test "GET edit renders previously published form controls if backdating is enabled" do
     configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "backdating_enabled" => true } })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
