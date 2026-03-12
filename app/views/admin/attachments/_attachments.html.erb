@@ -16,7 +16,7 @@
         <p class="govuk-body">
           <strong>Attachment: </strong><%= link_to_attachment(attachment, preview: true, full_url: true, class: "govuk-link govuk-link--no-visited-state") %>
         </p>
-        <% if attachable.allows_inline_attachments? %>
+        <% if attachable.allows_inline_attachments? && attachment.is_a?(FileAttachment) %>
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {
             label: tag.strong("Link to this attachment:"),
             copyable_content: "[AttachmentLink: #{attachment.filename}]",
