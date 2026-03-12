@@ -96,4 +96,28 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     assert_equal edition.document_id, Feature.last.document_id
     assert_equal "960x640_gif.gif", Feature.last.image.filename
   end
+
+  test "post :feature fails to save if the featurable is in a non-draft state" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    feature_list = build(:feature_list, locale: :en)
+    _featurable_edition = create(:published_standard_edition, configurable_document_type: "test_type", feature_lists: [feature_list])
+    edition_to_feature = create(:call_for_evidence)
+
+    post :create, params: { feature_list_id: feature_list.id, feature: { document_id: edition_to_feature.document_id } }
+
+    assert_response :forbidden
+  end
+
+  test "post :unfeature fails to save if the featurable is in a non-draft state" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    feature_list = build(:feature_list, locale: :en)
+    _featurable_edition = create(:published_standard_edition, configurable_document_type: "test_type", feature_lists: [feature_list])
+    featured_edition = create(:call_for_evidence)
+
+    feature = create(:feature, document: featured_edition.document, feature_list:)
+
+    post :unfeature, params: { feature_list_id: feature_list.id, id: feature }
+
+    assert_response :forbidden
+  end
 end
