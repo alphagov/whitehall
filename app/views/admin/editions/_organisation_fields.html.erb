@@ -32,6 +32,7 @@
       heading_size: "m",
       options: taggable_organisations_container(edition.edition_organisations.reject(&:lead?).map(&:organisation_id)),
       multiple: true,
+      error_message: errors_for_input(edition.errors, :supporting_organisation_ids, "Supporting organisations"),
     } %>
   <% end %>
 <% end %>
