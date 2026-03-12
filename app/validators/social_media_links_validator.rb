@@ -38,7 +38,7 @@ private
         :invalid_social_media_link,
         message: "invalid: duplicate service '#{service_name}'",
       )
-      return nil
+      return false
     end
     @services << service_name
   end
