@@ -2,7 +2,14 @@
 <% content_for :title, "Edit external attachment" %>
 <% content_for :context, "Attachments for #{attachment.attachable_model_name}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: attachment, parent_class: "attachment")) %>
+<% if @read_only %>
+  <% content_for :back_link do %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: admin_edition_attachments_path(attachable),
+    } %>
+  <% end %>
+<% end %>
 
 <div class="govuk-grid-row">
-  <%= render "admin/shared/attachments/form", attachable:, attachment: %>
+  <%= render "admin/shared/attachments/form", attachable:, attachment:, read_only: @read_only %>
 </div>
