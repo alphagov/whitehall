@@ -68,6 +68,23 @@ class ImageUploaderTest < ActiveSupport::TestCase
     AssetManagerCreateAssetJob.drain
   end
 
+  test "should show an error when the file could not be read" do
+    file = upload_fixture("images/not_an_image.jpg")
+    image_data = ImageData.new(image_kind: "default", file:)
+
+    assert_not image_data.valid?
+    assert_includes image_data.errors.map(&:full_message), "File \"not_an_image.jpg\" could not be read. The file may not be an image or may be corrupt"
+  end
+
+  test "should show an error when no image kind is selected" do
+    file = upload_fixture("images/960x640_jpeg.jpg")
+    image_data = ImageData.new(file:)
+    image_data.write_attribute("image_kind", nil)
+
+    assert_not image_data.valid?
+    assert_includes image_data.errors.map(&:full_message), "File \"960x640_jpeg.jpg\" does not have a selected image kind. Select an image kind for the image"
+  end
+
   test "should store uploads in a directory that persists across deploys" do
     image_data = build(:image_data)
     @uploader = ImageUploader.new(image_data, "mounted-as")
