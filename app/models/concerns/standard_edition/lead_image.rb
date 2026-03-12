@@ -27,22 +27,17 @@ module StandardEdition::LeadImage
                    .first
     if lead_image
       if lead_image.image_data&.all_asset_variants_uploaded?
-        return {
-          high_resolution_url: lead_image.image_data.url(:s960),
-          url: lead_image.image_data&.url(:s300),
-          caption: lead_image.caption&.strip&.presence,
-        }.compact
+        return lead_image.publishing_api_details
       end
     elsif default_lead_image&.all_asset_variants_uploaded?
-      return {
-        high_resolution_url: default_lead_image.url(:s960),
-        url: default_lead_image.url(:s300),
-      }
+      return default_lead_image.publishing_api_details.merge(type: lead_image_usage.key, caption: nil)
     end
 
     {
-      high_resolution_url: placeholder_image_url,
-      url: placeholder_image_url,
+      sources: Whitehall.image_kinds.fetch("default").versions.map { |v| [v.name.to_sym, placeholder_image_url] }.to_h,
+      content_type: "image/jpeg",
+      type: lead_image_usage.key,
+      caption: nil,
     }
   end
 end

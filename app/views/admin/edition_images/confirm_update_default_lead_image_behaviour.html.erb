@@ -1,0 +1,49 @@
+<% content_for :context, @edition.title %>
+<% content_for :page_title, "Update lead image default" %>
+<% content_for :title, "Update lead image default" %>
+<% content_for :title_margin_bottom, 6 %>
+
+<div class="govuk-grid-row">
+  <section class="govuk-grid-column-two-thirds">
+    <%
+      if @behaviour == "no_image" # the behaviour we're changing to
+        action_label = "Remove lead image"
+    %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to remove the default lead image?</p>
+    <%
+      else
+        action_label = "Use organisation default"
+    %>
+      <p class="govuk-body govuk-!-margin-bottom-7">Are you sure you want to use the organisation default lead image?</p>
+
+      <%
+        # TODO: pull this out into a helper (or Payload builder?) to be used here and in the lead image card component
+        def thumbnail
+          if @edition.default_lead_image&.all_asset_variants_uploaded?
+            return sanitize("<img width=\"300\" src=\"#{@edition.default_lead_image.url(:s300)}\" alt=\"\"")
+          else
+            return "<img src=\"#{@edition.placeholder_image_url}\" alt=\"\">".html_safe
+          end
+        end
+      %>
+      <div class="govuk-!-margin-bottom-7">
+        <%= thumbnail %>
+      </div>
+    <%
+      end
+    %>
+
+    <%= form_with(url: update_default_lead_image_behaviour_admin_edition_images_path(@edition), method: :patch, data: { ga4_form_no_answer_undefined: action_label }) do |form| %>
+      <%= hidden_field_tag "behaviour", @behaviour %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: action_label,
+          secondary_solid: true,
+        } %>
+
+        <%= link_to("Cancel", admin_edition_images_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </section>
+</div>
