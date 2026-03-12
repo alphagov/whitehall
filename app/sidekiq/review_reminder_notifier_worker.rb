@@ -1,1 +1,0 @@
-ReviewReminderNotifierWorker = ReviewReminderNotifierJob
