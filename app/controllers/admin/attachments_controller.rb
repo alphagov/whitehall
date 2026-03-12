@@ -135,6 +135,10 @@ private
 
   def determine_if_read_only
     @read_only = attachable_is_an_edition? && !attachable.editable?
+
+    if @read_only && action_name.in?(%w[create update destroy order])
+      raise Whitehall::Authority::Errors::PermissionDenied.new(action_name, attachable)
+    end
   end
 
   def limit_attachable_access

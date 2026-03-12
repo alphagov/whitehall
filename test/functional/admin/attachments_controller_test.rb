@@ -108,4 +108,61 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal admin_consultation_outcome_path(response.consultation),
                  @controller.polymorphic_path(controller.attachable_attachments_path(response))
   end
+
+  # We've deliberately covered all four Edition::POST_PUBLICATION_STATES in the tests
+  # below. Ideally we'd test all of the states against all of the write-actions, but
+  # that would be unnecessarily expensive to run (and read).
+  test "PUT :order fails to save if the attachable is in a non-draft state" do
+    @edition = create(:published_standard_edition)
+    a, b, c = 3.times.map { |n| create(:html_attachment, attachable: @edition, ordering: n) }
+
+    put :order,
+        params: { edition_id: @edition,
+                  ordering: { a.id.to_s => "1",
+                              b.id.to_s => "2",
+                              c.id.to_s => "0" } }
+
+    assert_response :forbidden
+  end
+
+  test "POST :create fails to save if the attachable is in a non-draft state" do
+    @edition = create(:superseded_standard_edition)
+
+    post :create,
+         params: {
+           edition_id: @edition,
+           attachment: attributes_for(:html_attachment),
+         }
+
+    assert_response :forbidden
+  end
+
+  test "PATCH :update fails to save if the attachable is in a non-draft state" do
+    @edition = create(:withdrawn_standard_edition)
+    attachment = create(:html_attachment, attachable: @edition)
+
+    patch :update,
+          params: {
+            edition_id: @edition,
+            id: attachment,
+            attachment: {
+              title: "Updated title",
+            },
+          }
+
+    assert_response :forbidden
+  end
+
+  test "DELETE :destroy fails to save if the attachable is in a non-draft state" do
+    @edition = create(:unpublished_standard_edition)
+    attachment = create(:html_attachment, attachable: @edition)
+
+    delete :destroy,
+           params: {
+             edition_id: @edition,
+             id: attachment,
+           }
+
+    assert_response :forbidden
+  end
 end
