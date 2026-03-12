@@ -17,7 +17,13 @@
       items: secondary_navigation_tabs_items(attachable, request.path),
     } %>
 
-    <%= render("add", attachable:) %>
+    <% if @read_only %>
+      <%= render "admin/shared/read_only_notice", { edition: @edition } %>
+    <% end %>
+
+    <% unless @read_only %>
+      <%= render("add", attachable:) %>
+    <% end %>
 
     <%= render "govuk_publishing_components/components/heading", {
       text: "Attachments",
@@ -28,6 +34,6 @@
       text: attachment_note(attachable_model_name),
     } %>
 
-    <%= render("attachments", attachable: attachable) if attachable.attachments.any? %>
+    <%= render("attachments", attachable: attachable, read_only: @read_only) if attachable.attachments.any? %>
   </div>
 </div>

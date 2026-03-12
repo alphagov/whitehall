@@ -69,13 +69,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "p.govuk-body", text: "Title: An external attachment"
   end
 
-  test "Actions are unavailable on unmodifiable editions" do
-    edition = create(:published_publication)
-
-    get :index, params: { edition_id: edition }
-    assert_response :redirect
-  end
-
   test "PUT :order saves the new order of attachments" do
     a, b, c = 3.times.map { |n| create(:html_attachment, attachable: @edition, ordering: n) }
 

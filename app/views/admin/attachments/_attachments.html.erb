@@ -1,4 +1,5 @@
-<% if attachable.can_order_attachments? && attachable.attachments.many? %>
+<% read_only ||= false %>
+<% if !read_only && attachable.can_order_attachments? && attachable.attachments.many? %>
 <p class="govuk-body"><%= link_to "Reorder attachments", [:reorder, :admin, typecast_for_attachable_routing(attachable), Attachment], class: "govuk-link govuk-link--no-visited-state" %></p>
 <% end %>
 
@@ -30,10 +31,16 @@
           </div>
         <% end %>
       </div>
-      <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
-        <%= link_to("Edit attachment", [:edit, :admin, typecast_for_attachable_routing(attachable), attachment], class: "govuk-link govuk-link--no-visited-state", "aria-label": "Edit attachment: #{attachment.title}") %>
-        <%= link_to("Delete attachment", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment], class: "govuk-link govuk-link--no-visited-state gem-link--destructive", "aria-label": "Delete attachment: #{attachment.title}") %>
-      </div>
+      <% if read_only %>
+        <div class="app-view-edition-resource__actions govuk-grid-column-full">
+          <%= link_to("View attachment", [:edit, :admin, typecast_for_attachable_routing(attachable), attachment], class: "govuk-link govuk-link--no-visited-state", "aria-label": "View attachment: #{attachment.title}") %>
+        </div>
+      <% else %>
+        <div class="app-view-edition-resource__actions govuk-grid-column-full govuk-button-group">
+          <%= link_to("Edit attachment", [:edit, :admin, typecast_for_attachable_routing(attachable), attachment], class: "govuk-link govuk-link--no-visited-state", "aria-label": "Edit attachment: #{attachment.title}") %>
+          <%= link_to("Delete attachment", [:confirm_destroy, :admin, typecast_for_attachable_routing(attachable), attachment], class: "govuk-link govuk-link--no-visited-state gem-link--destructive", "aria-label": "Delete attachment: #{attachment.title}") %>
+        </div>
+      <% end %>
     </li>
     <% if attachment != attachable.attachments.includes(:attachment_data).last %>
       <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
