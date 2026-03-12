@@ -36,6 +36,7 @@ if Organisation.where(name: "Test Organisation").blank?
     acronym: "TO",
     organisation_type_key: :other,
     logo_formatted_name: "Test",
+    alternative_format_contact_email: "a@a.gov.uk",
   )
 end
 
