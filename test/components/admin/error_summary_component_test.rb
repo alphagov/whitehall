@@ -122,6 +122,19 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal third_link[:href], "#error_summary_test_object_date"
   end
 
+  test "sorts errors by error_field_order when the object implements it" do
+    object = ErrorSummaryTestObject.new(nil, nil)
+    object.validate
+    object.define_singleton_method(:error_field_order) { %w[date title] }
+    render_inline(Admin::ErrorSummaryComponent.new(object:))
+
+    error_texts = page.all(".gem-c-error-summary__list-item").map { |item| item.text.strip }
+
+    assert_equal "Date cannot be blank", error_texts[0]
+    assert_equal "Date is invalid", error_texts[1]
+    assert_equal "Title cannot be blank", error_texts[2]
+  end
+
   test "applies labels to links if the object implements the error_labels method" do
     object = LabelledErrorSummaryTestObject.new(nil, nil)
     object.validate

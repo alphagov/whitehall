@@ -810,6 +810,36 @@ class StandardEditionTest < ActiveSupport::TestCase
         "object_attribute.nested_attribute" => "Nested attribute",
       }, page.error_labels)
     end
+
+    test "#error_field_order returns title, summary, then config fields in order" do
+      test_type = build_configurable_document_type(
+        "test_type", {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "object_attribute" => {
+                  "attribute_path" => %w[object_attribute],
+                  "translatable" => true,
+                  "block" => "default_object",
+                  "fields" => {
+                    "nested_attribute" => {
+                      "attribute_path" => %w[nested_attribute],
+                      "translatable" => true,
+                      "title" => "Nested attribute",
+                      "block" => "default_string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(test_type)
+      page = StandardEdition.new(configurable_document_type: "test_type")
+
+      assert_equal %w[title summary field_attribute object_attribute.nested_attribute], page.error_field_order
+    end
   end
 
   test "permitted_image_usages passes caption_enabled through from config" do

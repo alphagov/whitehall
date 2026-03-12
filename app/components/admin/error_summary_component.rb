@@ -23,7 +23,7 @@ private
   end
 
   def error_items
-    errors.map do |error|
+    sorted_errors.map do |error|
       message = error.full_message
 
       if object.respond_to?(:error_labels) && object.error_labels.key?(error.attribute.to_s)
@@ -46,6 +46,15 @@ private
 
       error_item[:href] = "##{parent_class}_#{error.attribute.to_s.gsub('.', '_')}" unless error.attribute == :base
       error_item
+    end
+  end
+
+  def sorted_errors
+    return errors unless object.respond_to?(:error_field_order)
+
+    field_order = object.error_field_order
+    errors.sort_by do |error|
+      field_order.index(error.attribute.to_s) || field_order.length
     end
   end
 
