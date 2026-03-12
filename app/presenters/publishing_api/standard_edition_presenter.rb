@@ -30,7 +30,7 @@ module PublishingApi
     end
 
     def links
-      PayloadBuilder::ConfigurableDocumentLinks.for(item)
+      presenter ? presenter.links(item) : PayloadBuilder::ConfigurableDocumentLinks.for(item)
     end
 
     def document_type
@@ -40,14 +40,14 @@ module PublishingApi
   private
 
     def details
-      details = PayloadBuilder::BlockContent.for(item)
+      details = presenter ? presenter.details(item) : PayloadBuilder::BlockContent.for(item)
       details.merge!(PayloadBuilder::ChangeHistory.for(item)) if type.settings["send_change_history"] == true
       details.merge!(PayloadBuilder::PoliticalDetails.for(item)) if type.settings["history_mode_enabled"] == true
       details.merge!(PayloadBuilder::Attachments.for(item)) if type.settings["file_attachments_enabled"] == true
       details.merge!(PayloadBuilder::EmphasisedOrganisations.for(item)) if item.organisation_association_enabled?
       details.merge!(PayloadBuilder::StandardEditionImages.for(item)) if type.settings.dig("images", "enabled")
       details.merge!(PayloadBuilder::Features.for(item)) if type.settings["features_enabled"] == true
-      details.merge!({ headers: }.compact) if type.schema.key? "headings_from"
+      details.merge!({ headers: }.compact) if type.schema.respond_to?(:key) && type.schema.key?("headings_from")
       details
     end
 
@@ -60,6 +60,13 @@ module PublishingApi
 
     def type
       item.type_instance
+    end
+
+    def presenter
+      presenter = type.presenter("publishing_api")
+      if presenter.is_a?(ConfigurableDocumentTypeConfig::PublishingApiPresenter)
+        presenter
+      end
     end
   end
 end
