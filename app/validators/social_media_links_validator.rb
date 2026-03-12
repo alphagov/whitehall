@@ -56,6 +56,14 @@ private
         :invalid_social_media_link,
         message: "invalid: bad URL provided for '#{service_name}'",
       )
+    elsif record.social_media_links.pluck("url").count(url) > 1
+      unless record.errors.messages[attribute_name.to_sym].include?("already has a service with a URL of \"#{url}\"")
+        record.errors.add(
+          attribute_name.to_sym,
+          :invalid_social_media_link,
+          message: "already has a service with a URL of \"#{url}\"",
+        )
+      end
     end
   end
 
