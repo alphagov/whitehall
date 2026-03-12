@@ -1,4 +1,5 @@
 <% active_tab = @current_tab_context || edition.default_tab %>
+<% allow_change_note = active_tab == edition.default_tab %>
 
 <% edit_form = capture do %>
   <%= form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form| %>
@@ -18,7 +19,7 @@
       <% end %>
 
       <% if edition.editable? %>
-        <%= standard_edition_publishing_controls(form, edition) %>
+        <%= standard_edition_publishing_controls(form, edition, allow_change_note:) %>
       <% end %>
     </div>
   <% end %>

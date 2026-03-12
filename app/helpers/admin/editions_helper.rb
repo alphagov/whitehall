@@ -128,9 +128,9 @@ module Admin::EditionsHelper
     end
   end
 
-  def standard_edition_publishing_controls(form, edition)
+  def standard_edition_publishing_controls(form, edition, allow_change_note: true)
     tag.div(class: "publishing-controls") do
-      if edition.change_note_required?
+      if edition.change_note_required? && allow_change_note
         concat render("change_notes", form:, edition:)
       end
 
