@@ -47,8 +47,6 @@ class OffsiteLinkTest < ActiveSupport::TestCase
 
   test "should be valid with permitted urls" do
     permitted_urls = [
-      "http://www.flu-lab-net.eu",
-      "http://www.tse-lab-net.eu",
       "http://beisgovuk.citizenspace.com",
       "http://www.nhs.uk",
       "http://www.royal.uk",

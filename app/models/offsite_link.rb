@@ -8,8 +8,6 @@ class OffsiteLink < ApplicationRecord
     "royal.uk",
     "victimandwitnessinformation.org.uk",
     "beisgovuk.citizenspace.com",
-    "flu-lab-net.eu",
-    "tse-lab-net.eu",
   ].freeze
 
   module LinkTypes

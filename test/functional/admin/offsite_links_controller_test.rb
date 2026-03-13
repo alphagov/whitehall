@@ -19,7 +19,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
       admin_world_location_news_offsite_links_path,
     )
 
-    assert_select "label[for='offsite_link_url'] + .govuk-hint", text: "Must be a GOV.UK URL or a link ending in: - nhs.uk- royal.uk- victimandwitnessinformation.org.uk- beisgovuk.citizenspace.com- flu-lab-net.eu- tse-lab-net.eu"
+    assert_select "label[for='offsite_link_url'] + .govuk-hint", text: "Must be a GOV.UK URL or a link ending in: - nhs.uk- royal.uk- victimandwitnessinformation.org.uk- beisgovuk.citizenspace.com"
   end
 
   view_test "POST :create with bad data should show flash message" do
