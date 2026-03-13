@@ -47,9 +47,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
 
   test "should be valid with permitted urls" do
     permitted_urls = [
-      "http://www.flu-lab-net.eu",
-      "http://www.tse-lab-net.eu",
-      "http://beisgovuk.citizenspace.com",
+      "http://energygovuk.citizenspace.com",
       "http://www.nhs.uk",
       "http://www.royal.uk",
     ]
@@ -62,7 +60,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     permitted_urls = [
       "http://someotherflu-lab-net.eu",
       "http://a.n.othertse-lab-net.eu",
-      "http://almostbeisgovuk.citizenspace.com",
+      "http://almostenergygovuk.citizenspace.com",
       "http://notthenhs.uk",
     ]
     permitted_urls.each do |url|
