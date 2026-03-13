@@ -1,12 +1,14 @@
 module Whitehall
   class ImageVersion
-    attr_reader :name, :width, :height, :from_version
+    attr_reader :name, :width, :height, :from_version, :prefixed_name, :prefixed_from_version
 
-    def initialize(version_config)
+    def initialize(version_config, version_prefix: nil)
       @name = version_config.fetch("name")
       @width = version_config.fetch("width")
       @height = version_config.fetch("height")
       @from_version = version_config.fetch("from_version", nil)
+      @prefixed_name = version_prefix ? "#{version_prefix}_#{@name}" : @name
+      @prefixed_from_version = @from_version && version_prefix ? "#{version_prefix}_#{@from_version}" : @from_version
     end
 
     def deconstruct_keys(_keys)
@@ -27,7 +29,8 @@ module Whitehall
       @valid_width = config.fetch("valid_width")
       @valid_height = config.fetch("valid_height")
       @embed_version = config.fetch("embed_version", nil)
-      @versions = config.fetch("versions").map { |version_config| ImageVersion.new(version_config) }.freeze
+      version_prefix = config.fetch("version_prefix", false) ? name : nil
+      @versions = config.fetch("versions").map { |version_config| ImageVersion.new(version_config, version_prefix:) }.freeze
     end
 
     def deconstruct_keys(_keys)
@@ -35,7 +38,7 @@ module Whitehall
     end
 
     def version_names
-      versions.map(&:name)
+      versions.map(&:prefixed_name)
     end
 
     def display_name_without_dimensions

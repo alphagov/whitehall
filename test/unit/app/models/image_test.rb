@@ -254,4 +254,31 @@ class ImageTest < ActiveSupport::TestCase
 
     assert_equal expected_hash, image.publishing_api_details
   end
+
+  test "#publishing_api_details uses unprefixed version names as source keys for prefixed image kinds" do
+    result = Whitehall::ImageKinds.build_image_kinds(
+      "my_prefix" => {
+        "display_name" => "Test",
+        "valid_width" => 100,
+        "valid_height" => 100,
+        "version_prefix" => true,
+        "versions" => [
+          { "name" => "desktop_2x", "width" => 100, "height" => 100 },
+          { "name" => "tablet", "width" => 50, "height" => 50, "from_version" => "desktop_2x" },
+        ],
+      },
+    )
+    mock_kind = result["my_prefix"]
+
+    image_data = build(:generic_image_data, :svg)
+    image_data.stubs(:image_kind_config).returns(mock_kind)
+    image_data.stubs(:file_url).returns("http://example.com/image.jpg")
+    image = build(:image, image_data:)
+
+    source_keys = image.publishing_api_details[:sources].keys
+
+    assert_includes source_keys, :desktop_2x
+    assert_includes source_keys, :tablet
+    assert_not(source_keys.any? { |k| k.to_s.start_with?("my_prefix_") })
+  end
 end

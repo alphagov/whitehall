@@ -99,6 +99,7 @@ topical_event_header:
   display_name: "Header"
   valid_width: 1536
   valid_height: 1024
+  version_prefix: true
   versions:
     - name: desktop_2x
       width: 1024
@@ -124,9 +125,30 @@ topical_event_header:
       from_version: tablet_2x
 topical_event_logo:
   display_name: "Logo"
-  valid_width: 800
-  valid_height: 800
+  valid_width: 1506
+  valid_height: 1004
+  version_prefix: true
   versions:
-    - name: s800_logo
-      width: 800
-      height: 800
+    - name: tablet_2x
+      width: 1506
+      height: 1004
+    - name: tablet
+      width: 738
+      height: 492
+      from_version: tablet_2x
+    - name: mobile_2x
+      width: 1250
+      height: 834
+      from_version: tablet_2x
+    - name: mobile
+      width: 610
+      height: 407
+      from_version: mobile_2x
+    - name: desktop_2x
+      width: 994
+      height: 663
+      from_version: tablet_2x
+    - name: desktop
+      width: 482
+      height: 321
+      from_version: desktop_2x
