@@ -50,9 +50,17 @@ class StandardEdition::LeadImageTest < ActiveSupport::TestCase
     lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
 
     expected_payload = {
-      high_resolution_url: lead_image.image_data.url(:s960),
-      url: lead_image.image_data.url(:s300),
+      sources: {
+        s960: lead_image.url("s960"),
+        s712: lead_image.url("s712"),
+        s630: lead_image.url("s630"),
+        s465: lead_image.url("s465"),
+        s300: lead_image.url("s300"),
+        s216: lead_image.url("s216"),
+      },
       caption: lead_image.caption,
+      content_type: lead_image.content_type,
+      type: "lead",
     }
     assert_equal expected_payload, edition.lead_image_payload(lead_usage)
   end
@@ -64,21 +72,17 @@ class StandardEdition::LeadImageTest < ActiveSupport::TestCase
     lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
 
     expected_payload = {
-      high_resolution_url: edition.placeholder_image_url,
-      url: edition.placeholder_image_url,
-    }
-    assert_equal expected_payload, edition.lead_image_payload(lead_usage)
-  end
-
-  test "#lead_image_payload does not include a caption, if caption is nil" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
-    lead_image = create(:image, usage: "lead", caption: nil)
-    edition = create(:standard_edition, images: [lead_image])
-    lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
-
-    expected_payload = {
-      high_resolution_url: lead_image.image_data.url(:s960),
-      url: lead_image.image_data.url(:s300),
+      sources: {
+        s960: edition.placeholder_image_url,
+        s712: edition.placeholder_image_url,
+        s630: edition.placeholder_image_url,
+        s465: edition.placeholder_image_url,
+        s300: edition.placeholder_image_url,
+        s216: edition.placeholder_image_url,
+      },
+      content_type: "image/jpeg",
+      type: "lead",
+      caption: nil,
     }
     assert_equal expected_payload, edition.lead_image_payload(lead_usage)
   end
@@ -90,8 +94,17 @@ class StandardEdition::LeadImageTest < ActiveSupport::TestCase
     lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
 
     expected_payload = {
-      high_resolution_url: default_lead_image.url(:s960),
-      url: default_lead_image.url(:s300),
+      sources: {
+        s960: default_lead_image.url("s960"),
+        s712: default_lead_image.url("s712"),
+        s630: default_lead_image.url("s630"),
+        s465: default_lead_image.url("s465"),
+        s300: default_lead_image.url("s300"),
+        s216: default_lead_image.url("s216"),
+      },
+      content_type: default_lead_image.content_type,
+      type: "lead",
+      caption: nil,
     }
     assert_equal expected_payload, edition.lead_image_payload(lead_usage)
   end
@@ -106,8 +119,17 @@ class StandardEdition::LeadImageTest < ActiveSupport::TestCase
     lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
 
     expected_payload = {
-      high_resolution_url: edition.placeholder_image_url,
-      url: edition.placeholder_image_url,
+      sources: {
+        s960: edition.placeholder_image_url,
+        s712: edition.placeholder_image_url,
+        s630: edition.placeholder_image_url,
+        s465: edition.placeholder_image_url,
+        s300: edition.placeholder_image_url,
+        s216: edition.placeholder_image_url,
+      },
+      content_type: "image/jpeg",
+      type: "lead",
+      caption: nil,
     }
     assert_equal expected_payload, edition.lead_image_payload(lead_usage)
   end
@@ -121,8 +143,17 @@ class StandardEdition::LeadImageTest < ActiveSupport::TestCase
     lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
 
     expected_payload = {
-      high_resolution_url: edition.placeholder_image_url,
-      url: edition.placeholder_image_url,
+      sources: {
+        s960: edition.placeholder_image_url,
+        s712: edition.placeholder_image_url,
+        s630: edition.placeholder_image_url,
+        s465: edition.placeholder_image_url,
+        s300: edition.placeholder_image_url,
+        s216: edition.placeholder_image_url,
+      },
+      content_type: "image/jpeg",
+      type: "lead",
+      caption: nil,
     }
     assert_equal expected_payload, edition.lead_image_payload(lead_usage)
   end
@@ -133,8 +164,17 @@ class StandardEdition::LeadImageTest < ActiveSupport::TestCase
     lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
 
     expected_payload = {
-      high_resolution_url: edition.placeholder_image_url,
-      url: edition.placeholder_image_url,
+      sources: {
+        s960: edition.placeholder_image_url,
+        s712: edition.placeholder_image_url,
+        s630: edition.placeholder_image_url,
+        s465: edition.placeholder_image_url,
+        s300: edition.placeholder_image_url,
+        s216: edition.placeholder_image_url,
+      },
+      content_type: "image/jpeg",
+      type: "lead",
+      caption: nil,
     }
     assert_equal expected_payload, edition.lead_image_payload(lead_usage)
   end

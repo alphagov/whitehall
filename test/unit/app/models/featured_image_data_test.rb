@@ -218,4 +218,22 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
     person.image.republish_on_assets_ready
   end
+
+  test "#publishing_api_payload returns image sources and content type" do
+    featured_image_data = create(:featured_image_data)
+
+    expected_payload = {
+      sources: {
+        s960: featured_image_data.url("s960"),
+        s712: featured_image_data.url("s712"),
+        s630: featured_image_data.url("s630"),
+        s465: featured_image_data.url("s465"),
+        s300: featured_image_data.url("s300"),
+        s216: featured_image_data.url("s216"),
+      },
+      content_type: featured_image_data.content_type,
+    }
+
+    assert_equal expected_payload, featured_image_data.publishing_api_details
+  end
 end
