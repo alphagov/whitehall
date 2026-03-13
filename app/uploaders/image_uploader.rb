@@ -99,10 +99,10 @@ private
   def check_dimensions!(new_file)
     super
   rescue ImageKind::MissingKindError
-    raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" does not have a selected image kind. Select an image kind for the image"
+    raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" does not have a selected image kind. Select an image kind for the image."
   rescue MiniMagick::Error
-    raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" could not be read. The file may not be an image or may be corrupt"
+    raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" could not be read. The file may not be an image or may be corrupt."
   rescue CarrierWave::IntegrityError
-    raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" is too small. Select an image that is at least #{width_range.begin} pixels wide and at least #{height_range.begin} pixels tall"
+    raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" is too small. Select an image that is at least #{width_range.begin} pixels wide and at least #{height_range.begin} pixels tall."
   end
 end

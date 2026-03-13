@@ -414,7 +414,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     topical_event_header_kind = Whitehall.image_kinds.fetch("topical_event_header")
     assert_template "admin/edition_images/new"
-    assert_select ".govuk-error-summary li", "Image data file \"50x33_gif.gif\" is too small. Select an image that is at least #{topical_event_header_kind.valid_width} pixels wide and at least #{topical_event_header_kind.valid_height} pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file \"50x33_gif.gif\" is too small. Select an image that is at least #{topical_event_header_kind.valid_width} pixels wide and at least #{topical_event_header_kind.valid_height} pixels tall."
   end
 
   view_test "POST :create shows a validation error if one 'single' usage image has a duplicated filename, using the 'new' template" do
@@ -457,7 +457,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     default_kind = Whitehall.image_kinds.fetch("default")
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file \"50x33_gif.gif\" is too small. Select an image that is at least #{default_kind.valid_width} pixels wide and at least #{default_kind.valid_height} pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file \"50x33_gif.gif\" is too small. Select an image that is at least #{default_kind.valid_width} pixels wide and at least #{default_kind.valid_height} pixels tall."
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage embeddable image has a duplicated filename, using the 'index' template" do
@@ -495,7 +495,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     hero_desktop_kind = Whitehall.image_kinds.fetch("hero_desktop")
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image data file \"hero_image_mobile_2x.png\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file \"hero_image_mobile_2x.png\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall."
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage non-embeddable image has a duplicated filename, using the 'index' template" do
@@ -573,7 +573,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     hero_desktop_kind = Whitehall.image_kinds.fetch("hero_desktop")
     assert_template "admin/edition_images/new"
     assert_select "label", "Upload hero image"
-    assert_select ".govuk-error-summary li", "Image data file \"960x640_jpeg.jpg\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall"
+    assert_select ".govuk-error-summary li", "Image data file \"960x640_jpeg.jpg\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall."
   end
 
   test "POST :create returns 422 for non-permitted usage" do

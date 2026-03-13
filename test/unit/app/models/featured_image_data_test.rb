@@ -37,7 +37,23 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
     featuring_image_data = build(:featured_image_data, file: image)
 
     assert_not featuring_image_data.valid?
-    assert_includes featuring_image_data.errors.map(&:full_message), "File is too small. Select an image that is 960 pixels wide and 640 pixels tall"
+    assert_includes featuring_image_data.errors.map(&:full_message), "File is too small. Select an image that is 960 pixels wide and 640 pixels tall."
+  end
+
+  test "should show an error when the image is too large" do
+    image = File.open(Rails.root.join("test/fixtures/images/1536x1024_jpeg.jpg"))
+    featuring_image_data = build(:featured_image_data, file: image)
+
+    assert_not featuring_image_data.valid?
+    assert_includes featuring_image_data.errors.map(&:full_message), "File is too large. Select an image that is 960 pixels wide and 640 pixels tall."
+  end
+
+  test "should show an error when the file could not be read" do
+    image = File.open(Rails.root.join("test/fixtures/images/not_an_image.jpg"))
+    featuring_image_data = build(:featured_image_data, file: image)
+
+    assert_not featuring_image_data.valid?
+    assert_includes featuring_image_data.errors.map(&:full_message), "File could not be read. The file may not be an image or may be corrupt."
   end
 
   test "#all_asset_variants_uploaded? returns true if all assets present" do
