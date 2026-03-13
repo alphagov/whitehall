@@ -15,7 +15,7 @@
     <input class="js-cropped-image-input" name="<%= name %>[y]" hidden value="<%= y %>">
     <input class="js-cropped-image-input" name="<%= name %>[height]" hidden value="<%= height %>">
     <input class="js-cropped-image-input" name="<%= name %>[width]" hidden value="<%= width %>">
-    <%= tag.img class: "app-c-image-cropper__image", src: image.image_data.url, crossorigin: "anonymous" %>
+    <%= tag.img class: "app-c-image-cropper__image", src: image.image_data.url %>
   <% end %>
 
   <% if image.present? %>
