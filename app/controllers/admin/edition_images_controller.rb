@@ -165,6 +165,10 @@ private
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
     end
+
+    if !@edition.editable? && action_name.in?(%w[create update destroy])
+      raise Whitehall::Authority::Errors::PermissionDenied.new(action_name, @edition)
+    end
   end
 
   def images_params

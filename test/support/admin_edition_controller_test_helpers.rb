@@ -203,9 +203,6 @@ module AdminEditionControllerTestHelpers
           assert_select "textarea[name='edition[summary]']", published_edition.summary
         end
 
-        # no tabs for Attachments, Images etc, as we don't yet have read-only equivalents of those forms
-        refute_select ".app-c-secondary-navigation"
-
         # normal Edit form has a 'Cancel' link at the bottom of the form. It makes more
         # sense here to have a standard 'Back' link breadcrumb
         assert_select ".govuk-back-link", text: "Back"

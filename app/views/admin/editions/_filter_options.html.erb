@@ -1,4 +1,5 @@
 <%
+  read_only ||= false
   filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_invalid_editions, :only_broken_links, :review_overdue]
   anchor ||= anchor || ""
   raise "filter action required" unless defined?(filter_action)
@@ -6,6 +7,8 @@
 
 <div class="app-view-filter govuk-!-margin-right-5 govuk-!-padding-5">
   <%= form_with url: filter_action + anchor, method: :get, data: { module: "ga4-finder-tracker", ga4_section: "Filter by" } do |form| %>
+    <% if read_only %><fieldset disabled><% end %>
+
     <%= render "govuk_publishing_components/components/heading", {
       text: "Filter by",
       margin_bottom: 4,
@@ -212,12 +215,15 @@
       } %>
     <% end %>
 
-    <%= render "govuk_publishing_components/components/button", {
-      text: "Search",
-      margin_bottom: 4,
-    } %>
+    <% if read_only %>
+      </fieldset>
+    <% else %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Search",
+        margin_bottom: 4,
+      } %>
 
-    <p class="govuk-body">
-    <%= link_to "Reset all fields", reset_search_fields_query_string_params(current_user, filter_action, anchor), class: "govuk-link", data: { ga4_link: { action: "remove", event_name: "select_content", type: controller_name }.to_json } %></p>
+      <p class="govuk-body"><%= link_to "Reset all fields", reset_search_fields_query_string_params(current_user, filter_action, anchor), class: "govuk-link", data: { ga4_link: { action: "remove", event_name: "select_content", type: controller_name }.to_json } %></p>
+    <% end %>
   <% end %>
 </div>

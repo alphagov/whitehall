@@ -47,7 +47,7 @@ class Admin::UploadsControllerTest < ActionController::TestCase
   test "Actions are unavailable on unmodifiable editions" do
     edition = create(:published_publication)
     post :create, params: { edition_id: edition, upload: valid_create_params }
-    assert_response :redirect
+    assert_response :forbidden
   end
 
   view_test "POST :upload_files with no files requests that files be specified" do

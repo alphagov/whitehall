@@ -5,6 +5,39 @@ require "test_helper"
 class Admin::EditionImages::ImageCardComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
+  test "summary card actions contains Edit and Delete options if image present" do
+    image = build_stubbed(:image, caption: "Test caption")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    edition = build_stubbed(:draft_standard_edition, images: [image])
+
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage")))
+
+    assert_selector ".govuk-link[href='#{edit_admin_edition_image_path(edition, image)}']", text: "Edit"
+    assert_selector ".govuk-link[href='#{confirm_destroy_admin_edition_image_path(edition, image)}']", text: "Delete"
+  end
+
+  test "summary card actions contains Add option if image not present" do
+    image = build_stubbed(:image, caption: "Test caption")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:draft_standard_edition, images: [image])
+    usage = ImageUsage.new(key: "test_usage", label: "Test usage")
+
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image: nil, image_usage: usage))
+
+    assert_selector ".govuk-link[href='#{new_admin_edition_image_path(edition_id: edition.id, usage: usage.key)}']", text: "Add"
+  end
+
+  test "there are no summary card actions if the edition isn't editable" do
+    image = build_stubbed(:image, caption: "Test caption")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:published_standard_edition, images: [image])
+
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage")))
+
+    assert_selector ".govuk-link", count: 0
+  end
+
   test "renders caption" do
     image = build_stubbed(:image, caption: "Test caption")
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))

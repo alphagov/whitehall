@@ -655,6 +655,77 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_redirected_to admin_edition_images_path(edition)
   end
 
+  test "POST :create fails to save if the edition is in a non-draft state" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:published_standard_edition)
+    file = upload_fixture("hero_image_mobile_2x.png")
+
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+
+    assert_response :forbidden
+  end
+
+  test "POST :update fails to save if the edition is in a non-draft state" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+
+    image = build(:image)
+    edition = create(:superseded_standard_edition, images: [image])
+    file = upload_fixture("hero_image_mobile_2x.png")
+
+    post :update,
+         params: {
+           edition_id: edition.id,
+           id: image.id,
+           usage: "hero",
+           image_kind: "hero_mobile",
+           image: {
+             image_data_attributes: { file: file },
+           },
+         }
+
+    assert_response :forbidden
+  end
+
+  test "DELETE :destroy fails to save if the edition is in a non-draft state" do
+    login_authorised_user
+    image1 = build(:image)
+    image2 = build(:image)
+    edition = create(:unpublished_standard_edition, images: [image1, image2])
+    create(:edition_lead_image, edition:, image: image1)
+
+    delete :destroy, params: { edition_id: edition.id, id: image1.id }
+
+    assert_response :forbidden
+  end
+
   def login_authorised_user
     user = create(:gds_editor)
     login_as user

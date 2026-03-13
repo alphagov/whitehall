@@ -57,6 +57,91 @@
           }
         }
       }
+    },
+    "social_media_accounts": {
+      "dynamic": true,
+      "label": "Social media accounts",
+      "fields": {
+        "social_media_links": {
+          "title": "Social media accounts",
+          "block": "default_array",
+          "attribute_path": ["block_content", "social_media_links"],
+          "translatable": true,
+          "fields": {
+            "social_media_service_name": {
+              "title": "Service",
+              "block": "default_select",
+              "attribute_path": ["social_media_service_name"],
+              "blank_option_label": "No social media service selected",
+              "translatable": true,
+              "options": [
+                {
+                  "label": "Twitter",
+                  "value": "Twitter"
+                },
+                {
+                  "label": "Facebook",
+                  "value": "Facebook"
+                },
+                {
+                  "label": "YouTube",
+                  "value": "YouTube"
+                },
+                {
+                  "label": "Flickr",
+                  "value": "Flickr"
+                },
+                {
+                  "label": "Blog",
+                  "value": "Blog"
+                },
+                {
+                  "label": "Pinterest",
+                  "value": "Pinterest"
+                },
+                {
+                  "label": "LinkedIn",
+                  "value": "LinkedIn"
+                },
+                {
+                  "label": "Google Plus",
+                  "value": "Google Plus"
+                },
+                {
+                  "label": "Foursquare",
+                  "value": "Foursquare"
+                },
+                {
+                  "label": "Email",
+                  "value": "Email"
+                },
+                {
+                  "label": "Instagram",
+                  "value": "Instagram"
+                },
+                {
+                  "label": "Bluesky",
+                  "value": "Bluesky"
+                },
+                {
+                  "label": "Threads",
+                  "value": "Threads"
+                },
+                {
+                  "label": "Other",
+                  "value": "Other"
+                }
+              ]
+            },
+            "url": {
+              "title": "URL",
+              "block": "default_string",
+              "attribute_path": ["url"],
+              "translatable": true
+            }
+          }
+        }
+      }
     }
   },
   "presenters": {
@@ -90,6 +175,17 @@
             "type": "string"
           }
         }
+      },
+      "social_media_links": {
+        "type": "array",
+        "attributes": {
+          "social_media_service_name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
       }
     }
   },
@@ -101,6 +197,7 @@
     "organisations": null,
     "backdating_enabled": false,
     "translations_enabled": true,
+    "file_attachments_enabled": true,
     "features_enabled": true,
     "images": {
       "enabled": true,

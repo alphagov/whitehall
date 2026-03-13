@@ -1,4 +1,5 @@
 class Admin::AttachmentsController < Admin::BaseController
+  before_action :determine_if_read_only
   before_action :limit_attachable_access, if: :attachable_is_an_edition?
   before_action :check_attachable_allows_attachment_type, only: %i[create new update edit]
   before_action :update_attachment_params, only: :update
@@ -132,12 +133,19 @@ private
     attachable_class == Edition
   end
 
+  def determine_if_read_only
+    @read_only = attachable_is_an_edition? && !attachable.editable?
+
+    if @read_only && action_name.in?(%w[create update destroy order])
+      raise Whitehall::Authority::Errors::PermissionDenied.new(action_name, attachable)
+    end
+  end
+
   def limit_attachable_access
     enforce_permission!(:see, attachable)
     enforce_permission!(:update, attachable)
 
     @edition = attachable
-    prevent_modification_of_unmodifiable_edition
   end
 
   def handle_duplicate_key_errors_caused_by_double_create_requests(exception)

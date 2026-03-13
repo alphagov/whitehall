@@ -5,11 +5,12 @@ class Admin::Features::FeaturedDocumentsTableComponent < ViewComponent::Base
   include Admin::OrganisationHelper
   include Admin::FeaturesHelper
 
-  attr_reader :caption, :features
+  attr_reader :caption, :features, :read_only
 
-  def initialize(caption:, features:)
+  def initialize(caption:, features:, read_only: false)
     @caption = caption
     @features = features
+    @read_only = read_only
   end
 
 private
@@ -68,6 +69,8 @@ private
   end
 
   def actions_row(feature)
+    return { text: "" } if read_only
+
     {
       text: sanitize(edit_link(feature) + unfeature_link(feature)),
     }

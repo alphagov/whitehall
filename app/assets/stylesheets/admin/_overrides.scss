@@ -44,3 +44,16 @@ code {
 .js-enabled .js-add-another__fieldset .gem-c-checkboxes {
   display: none;
 }
+
+// Overrides to hide/disable form elements when viewing forms in 'read only' mode
+// (e.g. when viewing the Attachments screen on a superseded Edition
+.read-only {
+  .gem-c-reorderable-list {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .gem-c-reorderable-list__actions {
+    display: none;
+  }
+}

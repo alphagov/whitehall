@@ -2,6 +2,13 @@
 <% content_for :page_title, "Images for #{@edition.format_name}" %>
 <% content_for :title, "Images for #{@edition.format_name}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @images.flat_map { |image| image&.errors&.errors }, parent_class: "edition_images")) if @images.present? %>
+<% unless @edition.editable? %>
+  <% content_for :back_link do %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: admin_edition_path(@edition),
+    } %>
+  <% end %>
+<% end %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -10,13 +17,19 @@
       items: secondary_navigation_tabs_items(@edition, request.path),
     } %>
 
+    <% unless @edition.editable? %>
+      <%= render "admin/shared/read_only_notice", { edition: @edition } %>
+    <% end %>
+
     <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |image_usage| %>
       <% image = @edition.images.usable_as(image_usage).first %>
       <%= image_usage.lead? ? render(Admin::EditionImages::LeadImageCardComponent.new(edition: @edition, image:, image_usage:)) : render(Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:)) %>
     <% end %>
 
     <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each_with_index do |usage, multiple_upload_section_index| %>
-      <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, failed_images: @failed_images, image_usage: usage) %>
+      <% if @edition.editable? %>
+        <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, failed_images: @failed_images, image_usage: usage) %>
+      <% end %>
 
       <%= render "govuk_publishing_components/components/heading", {
         text: usage.label.blank? ? "Uploaded images" : "Uploaded #{usage.label} images",
