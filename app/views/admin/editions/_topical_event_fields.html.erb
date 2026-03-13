@@ -6,13 +6,7 @@
       include_blank: true,
       label: "Topical events",
       heading_size: "m",
-      options: TopicalEvent.order(:name).map do |topical_event|
-        {
-          text: topical_event.name,
-          value: topical_event.id,
-          selected: edition.topical_event_ids.include?(topical_event.id),
-        }
-      end,
+      options: taggable_topical_events_container(edition.topical_event_ids),
       multiple: true,
     } %>
   <% end %>
