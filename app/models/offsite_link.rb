@@ -7,7 +7,7 @@ class OffsiteLink < ApplicationRecord
     "nhs.uk",
     "royal.uk",
     "victimandwitnessinformation.org.uk",
-    "beisgovuk.citizenspace.com",
+    "energygovuk.citizenspace.com",
   ].freeze
 
   module LinkTypes
