@@ -237,7 +237,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   test "#secondary_navigation_tabs_items for standard editions with features enabled" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features_enabled" => true } }))
 
-    edition = build_stubbed(:standard_edition)
+    edition = build_stubbed(:standard_edition, primary_locale: "cy")
 
     expected_output = [
       {
@@ -247,7 +247,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
       {
         label: "Featured",
-        href: features_admin_standard_edition_path(edition, locale: I18n.locale),
+        href: features_admin_standard_edition_path(edition, locale: "cy"),
         current: false,
       },
     ]
