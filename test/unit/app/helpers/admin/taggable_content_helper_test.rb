@@ -14,18 +14,28 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
                  taggable_topical_events_container([event_b.id])
   end
 
-  test "#taggable_topical_event_documents_container returns an array of select options for all topical event documents" do
+  test "#taggable_topical_event_documents_container returns one document per topical event, using the latest edition title, ordered alphabetically" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
-    event_c = create(:standard_edition, title: "event C", configurable_document_type: "topical_event")
-    event_b = create(:standard_edition, title: "event B", configurable_document_type: "topical_event")
-    event_a = create(:standard_edition, title: "event A", configurable_document_type: "topical_event")
+
+    document_b = create(:document)
+    create(:standard_edition, :published, configurable_document_type: "topical_event", title: "Original B", document: document_b)
+    updated_b = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "B Event", document: document_b)
+    document_b.update!(latest_edition: updated_b)
+
+    document_c = create(:document)
+    edition_c = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "C Event", document: document_c)
+    document_c.update!(latest_edition: edition_c)
+
+    document_a = create(:document)
+    edition_a = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "A Event", document: document_a)
+    document_a.update!(latest_edition: edition_a)
 
     assert_equal [
-      { text: "event A", value: event_a.document.id, selected: false },
-      { text: "event B", value: event_b.document.id, selected: true },
-      { text: "event C", value: event_c.document.id, selected: false },
+      { text: "A Event", value: document_a.id, selected: false },
+      { text: "B Event", value: document_b.id, selected: false },
+      { text: "C Event", value: document_c.id, selected: true },
     ],
-                 taggable_topical_event_documents_container([event_b.document.id])
+                 taggable_topical_event_documents_container([edition_c.document.id])
   end
 
   test "#taggable_organisations_container returns an array of select_name/ID pairs for all Organisations" do
