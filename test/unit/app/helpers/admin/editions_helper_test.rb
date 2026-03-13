@@ -203,4 +203,51 @@ class Admin::EditionsHelperTest < ActionView::TestCase
                     "Alternative URL displayed to user:<br><a href='#{alternative_url}'>#{alternative_url}</a>"
     assert_equal(expected_text, status_text(edition))
   end
+
+  test "#topical_event_documents returns only one document per topical event, regardless of number of editions" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("topical_event"),
+    )
+
+    document = create(:document)
+    create(:standard_edition, :published, configurable_document_type: "topical_event", title: "Original", document: document)
+    second_edition = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "Updated", document: document)
+    document.update!(latest_edition: second_edition)
+
+    assert_equal 1, topical_event_documents.count
+    assert_equal document.id, topical_event_documents.first.id
+  end
+
+  test "#topical_event_documents returns the latest edition title for each topical event" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("topical_event"),
+    )
+
+    document = create(:document)
+    create(:standard_edition, :published, configurable_document_type: "topical_event", title: "Original", document: document)
+    second_edition = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "Updated", document: document)
+    document.update!(latest_edition: second_edition)
+
+    assert_equal "Updated", topical_event_documents.first.latest_edition.title
+  end
+
+  test "#topical_event_documents orders topical events alphabetically by title" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("topical_event"),
+    )
+
+    document_a = create(:document)
+    edition_a = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "A Event", document: document_a)
+    document_a.update!(latest_edition: edition_a)
+
+    document_z = create(:document)
+    edition_z = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "Z Event", document: document_z)
+    document_z.update!(latest_edition: edition_z)
+
+    document_m = create(:document)
+    edition_m = create(:standard_edition, :draft, configurable_document_type: "topical_event", title: "M Event", document: document_m)
+    document_m.update!(latest_edition: edition_m)
+
+    assert_equal(["A Event", "M Event", "Z Event"], topical_event_documents.map { |doc| doc.latest_edition.title })
+  end
 end
