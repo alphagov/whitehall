@@ -10,6 +10,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   teardown do
     ImageUploader.enable_processing = false
+    FileUtils.remove_dir(Whitehall.asset_manager_tmp_dir, true)
   end
 
   test "uses the previewable asset manager storage engine" do
@@ -40,6 +41,8 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.stubs(:create_asset).with { |params|
       assert params[:file].path.split("/").last == "960x960_jpeg.jpg"
     }.once.returns("id" => "http://asset-manager/assets/some-id", "name" => "test-svg.svg")
+    FileUtils.stubs(:rm)
+    FileUtils.stubs(:rmdir)
 
     AssetManagerCreateAssetJob.drain
   end
@@ -53,6 +56,8 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.stubs(:create_asset).with { |params|
       assert params[:file].path.split("/").last.match("960x960_jpeg.jpg")
     }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "960x960_jpeg.jpg")
+    FileUtils.stubs(:rm)
+    FileUtils.stubs(:rmdir)
 
     AssetManagerCreateAssetJob.drain
   end
@@ -64,6 +69,8 @@ class ImageUploaderTest < ActiveSupport::TestCase
       image_path = value[:file].path
       assert_image_has_correct_size image_path
     }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "minister-of-funk.960x640.jpg")
+    FileUtils.stubs(:rm)
+    FileUtils.stubs(:rmdir)
 
     AssetManagerCreateAssetJob.drain
   end
@@ -83,6 +90,8 @@ class ImageUploaderTest < ActiveSupport::TestCase
       file = params[:file].path.split("/").last
       assert expected_file_names.include?(file)
     }.times(7).returns("id" => "http://asset-manager/assets/some-id", "name" => "minister-of-funk.960x640.jpg")
+    FileUtils.stubs(:rm)
+    FileUtils.stubs(:rmdir)
 
     AssetManagerCreateAssetJob.drain
   end
@@ -94,6 +103,8 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.stubs(:create_asset).with { |params|
       assert params[:file].path.split("/").last == "test-svg.svg"
     }.once.returns("id" => "http://asset-manager/assets/some-id", "name" => "test-svg.svg")
+    FileUtils.stubs(:rm)
+    FileUtils.stubs(:rmdir)
 
     AssetManagerCreateAssetJob.drain
   end

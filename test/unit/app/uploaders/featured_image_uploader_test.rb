@@ -2,8 +2,14 @@ require "test_helper"
 
 class FeaturedImageUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
-  setup { FeaturedImageUploader.enable_processing = true }
-  teardown { FeaturedImageUploader.enable_processing = false }
+  setup do
+    FeaturedImageUploader.enable_processing = true
+  end
+
+  teardown do
+    FeaturedImageUploader.enable_processing = false
+    FileUtils.remove_dir(Whitehall.asset_manager_tmp_dir, true)
+  end
 
   test "uses the default asset manager storage engine" do
     assert_equal Storage::DefaultStorage, FeaturedImageUploader.storage
@@ -22,6 +28,8 @@ class FeaturedImageUploaderTest < ActiveSupport::TestCase
       image_path = value[:file].path
       assert_image_has_correct_size(image_path)
     }.returns(response).times(7)
+    FileUtils.stubs(:rm)
+    FileUtils.stubs(:rmdir)
 
     Sidekiq::Testing.inline! do
       uploader.store!(upload_fixture("minister-of-funk.960x640.jpg", "image/jpg"))
