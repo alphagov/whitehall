@@ -26,10 +26,23 @@ module Edition::TopicalEvents
     has_many :topical_event_memberships, dependent: :destroy, inverse_of: :edition, foreign_key: :edition_id
     has_many :topical_events, through: :topical_event_memberships, source: :topical_event
     # NEW
-    has_many :topical_event_links, -> { of_type "topical_event" }, class_name: "EditionLink", dependent: :destroy, inverse_of: :edition, foreign_key: :edition_id
+    has_many :topical_event_links, -> { of_type "topical_event" }, class_name: "EditionLink", dependent: :destroy, inverse_of: :edition, foreign_key: :edition_id, validate: false
     has_many :topical_event_documents, through: :topical_event_links, source: :document
 
+    validates_associated :topical_event_links
+    after_validation :replace_edition_link_errors
+
     add_trait Trait
+  end
+
+  def replace_edition_link_errors
+    return unless errors[:topical_event_links]
+
+    errors.delete(:topical_event_links)
+
+    topical_event_links.each do |topical_event_link|
+      errors.add(:topical_event_document_ids, topical_event_link.errors.full_messages.join(",")) if topical_event_link.errors.present?
+    end
   end
 
   # This method can be deleted when all legacy content types have been migrated to
