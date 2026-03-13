@@ -38,6 +38,27 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
                  taggable_topical_event_documents_container([edition_c.document.id])
   end
 
+  test "#taggable_topical_event_documents_container returns each document only once when the latest edition has multiple translations" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+
+    document = create(:document)
+    edition = build(
+      :standard_edition,
+      :draft,
+      configurable_document_type: "topical_event",
+      title: "B Event",
+      document: document,
+    )
+    with_locale(:es) { edition.title = "Spanish B Event" }
+    edition.save!
+    document.update!(latest_edition: edition)
+
+    assert_equal [
+      { text: "B Event", value: document.id, selected: true },
+    ],
+                 taggable_topical_event_documents_container([document.id])
+  end
+
   test "#taggable_organisations_container returns an array of select_name/ID pairs for all Organisations" do
     organisation_c = create(:organisation, name: "Organisation C", acronym: "OC")
     organisation_b = create(:organisation, name: "Organisation B", acronym: "OB")

@@ -19,6 +19,7 @@ module Admin::TaggableContentHelper
       .where(editions: { configurable_document_type: "topical_event" })
       .preload(latest_edition: :translations)
       .order("edition_translations.title")
+      .uniq
       .map do |topical_event_document|
         {
           text: topical_event_document.latest_edition.title,
