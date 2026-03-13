@@ -32,7 +32,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_equal ["Social media links invalid: no service provided for 'Social media account 1'"], block_content.errors.full_messages
+    assert_equal ["Social media links contains an account (\"Social media account 1\") without a service selected."], block_content.errors.full_messages
   end
 
   test "social media links are invalid when no social media service is chosen and a URL is provided" do
@@ -42,7 +42,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_equal ["Social media links invalid: no service provided for 'Social media account 1'"], block_content.errors.full_messages
+    assert_equal ["Social media links contains an account (\"Social media account 1\") without a service selected."], block_content.errors.full_messages
   end
 
   test "social media links are invalid when a social media service is chosen but no URL is provided" do
@@ -52,7 +52,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_equal ["Social media links invalid: no URL provided for 'Facebook'"], block_content.errors.full_messages
+    assert_equal ["Social media links contains a \"Facebook\" account without a URL."], block_content.errors.full_messages
   end
 
   test "social media links are invalid when a social media service is chosen and a malformed URL is provided" do
@@ -63,7 +63,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_equal ["Social media links invalid: bad URL provided for 'Facebook'"], block_content.errors.full_messages
+    assert_equal ["Social media links contains a \"Facebook\" account with an invalid URL."], block_content.errors.full_messages
   end
 
   test "social media links are invalid if two of the same social media service are provided" do
@@ -74,7 +74,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_equal ["Social media links invalid: duplicate service 'Facebook'"], block_content.errors.full_messages
+    assert_equal ["Social media links contains another account with a service of \"Facebook\"."], block_content.errors.full_messages
   end
 
   test "social media links are invalid if two services have the same URL" do
@@ -85,7 +85,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_equal ["Social media links already has a service with a URL of \"http://facebook.com/govuk\""], block_content.errors.full_messages
+    assert_equal ["Social media links already has an account with a URL of \"http://facebook.com/govuk\"."], block_content.errors.full_messages
   end
 
   test "social media links are valid when multiple 'Other' services are provided with different URLs" do

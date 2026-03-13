@@ -27,7 +27,7 @@ private
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "invalid: no service provided for 'Social media account #{index + 1}'",
+        message: "contains an account (\"Social media account #{index + 1}\") without a service selected.",
       )
       return false
     end
@@ -36,7 +36,7 @@ private
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "invalid: duplicate service '#{service_name}'",
+        message: "contains another account with a service of \"#{service_name}\".",
       )
       return false
     end
@@ -48,20 +48,20 @@ private
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "invalid: no URL provided for '#{service_name}'",
+        message: "contains a \"#{service_name}\" account without a URL.",
       )
     elsif !valid_url?(url)
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "invalid: bad URL provided for '#{service_name}'",
+        message: "contains a \"#{service_name}\" account with an invalid URL.",
       )
     elsif record.social_media_links.pluck("url").count(url) > 1
-      unless record.errors.messages[attribute_name.to_sym].include?("already has a service with a URL of \"#{url}\"")
+      unless record.errors.messages[attribute_name.to_sym].include?("already has an account with a URL of \"#{url}\".")
         record.errors.add(
           attribute_name.to_sym,
           :invalid_social_media_link,
-          message: "already has a service with a URL of \"#{url}\"",
+          message: "already has an account with a URL of \"#{url}\".",
         )
       end
     end
