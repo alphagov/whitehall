@@ -149,6 +149,13 @@ class StandardEdition < Edition
     end
   end
 
+  def error_field_order
+    %w[title summary] + ConfigurableContentBlocks::DefaultObject
+                          .root_block_for(self, "documents")
+                          .each_leaf
+                          .map { |block| block.path.validation_error_attribute }
+  end
+
 private
 
   def field_paths(&block)
