@@ -98,7 +98,7 @@ When("I upload single and multiple usage images") do
   expect(page).to have_css("img[src='#{edition.placeholder_image_url}']") # Lead image shows a placeholder when there is no selection
 
   within "#uploaded_lead_image_card" do
-    click_link "Add"
+    click_link "Replace"
   end
 
   lead_image_file = Rails.root.join("test/fixtures/big-cheese.960x640.jpg")

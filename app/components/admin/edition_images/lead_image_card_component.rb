@@ -22,7 +22,7 @@ private
     else
       [
         {
-          label: "Add",
+          label: "Replace",
           href: new_admin_edition_image_path(edition_id: edition.id, usage: image_usage.key),
         },
       ]
