@@ -92,6 +92,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
       supporting_organisations: [organisation1],
     )
     assert_not edition.valid?
+    assert edition.errors[:lead_organisation_ids].any?
+    assert edition.errors[:supporting_organisation_ids].any?
   end
 
   test "should be invalid when it duplicates organisations via lead and supporting on save" do
@@ -104,6 +106,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition.lead_organisations = [organisation1]
     edition.supporting_organisations = [organisation1]
     assert_not edition.valid?
+    assert edition.errors[:lead_organisation_ids].any?
+    assert edition.errors[:supporting_organisation_ids].any?
   end
 
   test "should be invalid when it duplicates organisations via edition organisations directly on create" do
@@ -115,6 +119,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
                               build(:edition_organisation, organisation: organisation1, lead: false)],
     )
     assert_not edition.valid?
+    assert edition.errors[:lead_organisation_ids].any?
+    assert edition.errors[:supporting_organisation_ids].any?
   end
 
   test "should be invalid when it duplicates organisations via edition organisations directly on save" do
@@ -126,6 +132,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     )
     edition.edition_organisations.build(organisation: organisation1, lead: false)
     assert_not edition.valid?
+    assert edition.errors[:lead_organisation_ids].any?
+    assert edition.errors[:supporting_organisation_ids].any?
   end
 
   test "should be invalid when it duplicates support organisations on create" do

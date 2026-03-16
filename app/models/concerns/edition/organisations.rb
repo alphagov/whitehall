@@ -72,7 +72,10 @@ module Edition::Organisations
   end
 
   def error_labels
-    super.merge({ "lead_organisation_ids" => "Lead organisations" })
+    super.merge({
+      "lead_organisation_ids" => "Lead organisations",
+      "supporting_organisation_ids" => "Supporting organisations",
+    })
   end
 
 private
@@ -87,7 +90,8 @@ private
     all_organisation_ids = edition_organisations.reject(&:marked_for_destruction?).map(&:organisation_id)
 
     if all_organisation_ids.uniq.size != all_organisation_ids.size
-      errors.add(:lead_organisation_ids, "and supporting organisations must be unique")
+      errors.add(:lead_organisation_ids, "must be unique")
+      errors.add(:supporting_organisation_ids, "must be unique")
     end
   end
 
