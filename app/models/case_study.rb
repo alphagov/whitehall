@@ -7,8 +7,10 @@ class CaseStudy < Edition
   include Edition::TaggableOrganisations
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
-  include Edition::LeadImage
   include GovspeakHelper
+
+  has_one :edition_lead_image, foreign_key: :edition_id, dependent: :destroy
+  has_one :lead_image, through: :edition_lead_image, source: :image
 
   validate :body_does_not_contain_lead_image
 
@@ -32,6 +34,29 @@ class CaseStudy < Edition
     lead_organisations.first&.default_news_image.present?
   end
 
+  def has_lead_image?
+    !image_data.nil?
+  end
+
+  def lead_image_url
+    image_url
+  end
+
+  def high_resolution_lead_image_url
+    image_data.file.url(:s960)
+  end
+
+  def lead_image_caption
+    if lead_image
+      caption = lead_image.caption && lead_image.caption.strip
+      caption.presence
+    end
+  end
+
+  def lead_image_has_all_assets?
+    image_data.all_asset_variants_uploaded?
+  end
+
   def update_lead_image
     if %w[no_image organisation_image].include?(image_display_option)
       remove_lead_image
@@ -53,6 +78,30 @@ class CaseStudy < Edition
   end
 
 private
+
+  def image_url
+    image_data.file.url(:s300)
+  end
+
+  def image_data
+    if lead_image
+      lead_image.image_data
+    elsif lead_organisations.any? && lead_organisations.first.default_news_image
+      lead_organisations.first.default_news_image
+    elsif organisations.any? && organisations.first.default_news_image
+      organisations.first.default_news_image
+    elsif respond_to?(:worldwide_organisations) && published_worldwide_organisations.any? && published_worldwide_organisations.first.default_news_image
+      published_worldwide_organisations.first.default_news_image
+    end
+  end
+
+  def uploader
+    image_data.file
+  end
+
+  def file
+    uploader.file
+  end
 
   def oldest_image_that_can_be_lead_image
     images.includes(:image_data).detect(&:can_be_lead_image?)
