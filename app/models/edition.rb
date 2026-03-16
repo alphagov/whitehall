@@ -436,12 +436,6 @@ class Edition < ApplicationRecord
     force_published? && state == "scheduled"
   end
 
-  # Legacy - CaseStudy only - can be deleted when CaseStudy has been
-  # migrated to StandardEdition.
-  def can_have_custom_lead_image?
-    false
-  end
-
   def images_have_unique_filenames?
     names = images.map(&:filename)
     names.uniq.length == names.length

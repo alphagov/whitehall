@@ -7,12 +7,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     def previously_published
       false
     end
-
-    def lead_image; end
-
-    def build_edition_lead_image(args)
-      EditionLeadImage.new(edition: self, **args)
-    end
   end
 
   include ActionDispatch::TestProcess
@@ -110,20 +104,22 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert_equal new_draft.images.first.image_data, published_edition.images.first.image_data
   end
 
-  test "#create_draft should create a new edition_lead_image correctly when a lead image is present on the published_edition" do
+  # TODO: delete this when CaseStudy has been migrated to StandardEdition.
+  test "#create_draft should create a new edition_lead_image correctly when a lead image is present on the published case study" do
     image1 = create(:image)
     image2 = create(:image)
 
-    published_edition = EditionWithImages.create!(
+    published_edition = CaseStudy.create!(
       valid_edition_attributes.merge(
         state: "published",
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
+        previously_published: false,
         images: [image1, image2],
+        lead_organisations: [create(:organisation)],
       ),
     )
     published_edition.stubs(:lead_image).returns(image2)
-    published_edition.stubs(:can_have_custom_lead_image?).returns(true)
 
     draft_edition = published_edition.create_draft(build(:user))
     edition_lead_image = EditionLeadImage.find_by!(edition_id: draft_edition.id)

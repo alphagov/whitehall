@@ -31,7 +31,7 @@ private
     edition.images.find_index(image)
   end
 
-  def can_be_custom_lead_image?
-    edition.can_have_custom_lead_image? && image_usage.embeddable? && !image.svg? && !image.image_data.requires_crop?
+  def can_be_used_as_case_study_lead_image?
+    edition.is_a?(CaseStudy) && image_usage.embeddable? && !image.svg? && !image.image_data.requires_crop?
   end
 end

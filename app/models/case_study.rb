@@ -32,10 +32,6 @@ class CaseStudy < Edition
     lead_organisations.first&.default_news_image.present?
   end
 
-  def can_have_custom_lead_image?
-    true
-  end
-
   def update_lead_image
     if %w[no_image organisation_image].include?(image_display_option)
       remove_lead_image
