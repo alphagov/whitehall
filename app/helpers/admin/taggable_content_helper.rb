@@ -3,6 +3,7 @@
 module Admin::TaggableContentHelper
   include ActionView::Helpers::TranslationHelper
 
+  # Legacy: to be removed when topical events have been migrated
   def taggable_topical_events_container(selected_ids = [])
     TopicalEvent.order(:name).map do |topical_event|
       {
