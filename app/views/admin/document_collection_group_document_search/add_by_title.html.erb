@@ -32,6 +32,17 @@
         <div class="govuk-table--with-actions app-view-document-collection-document-search-results__table">
           <%= render "govuk_publishing_components/components/table",
                      {
+                      head: [
+                        {
+                          text: "Title",
+                        },
+                        {
+                          text: "State",
+                        },
+                        {
+                          text: tag.span("Actions", class: "govuk-visually-hidden"),
+                        },
+                      ],
                        rows: @editions.map do |edition|
                          title_span = tag.span(index_table_title_row(edition), class: "govuk-!-font-weight-bold")
                          view_link = link_to(sanitize("View #{tag.span(edition.title, class: "govuk-visually-hidden")}"), edition.public_url, class: "govuk-link",data: { "ga4-ecommerce-content-id": edition.document.content_id })
@@ -48,7 +59,7 @@
                            )
                          end
 
-                         [{ text: title_span }, { text: view_link + add_button }]
+                         [{ text: title_span }, { text: edition.state.humanize }, { text: view_link + add_button }]
                        end,
                      } %>
         </div>
