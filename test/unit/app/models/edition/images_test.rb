@@ -13,8 +13,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     def build_edition_lead_image(args)
       EditionLeadImage.new(edition: self, **args)
     end
-
-    def can_have_custom_lead_image?; end
   end
 
   include ActionDispatch::TestProcess

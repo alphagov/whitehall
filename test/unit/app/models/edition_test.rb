@@ -898,16 +898,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.force_scheduled?
   end
 
-  test "#can_have_custom_lead_image? returns true if CustomLeadImage module is included" do
-    edition = build(:case_study)
-    assert edition.can_have_custom_lead_image?
-  end
-
-  test "#can_have_custom_lead_image? returns true if CustomLeadImage module is not included" do
-    edition = build(:edition)
-    assert_not edition.can_have_custom_lead_image?
-  end
-
   test "images_have_unique_filenames? returns true if image filenames are unique" do
     image1 = build(:image)
     image2 = build(:image, image_data: build(:image_data, file: upload_fixture("big-cheese.960x640.jpg")))
