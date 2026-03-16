@@ -42,14 +42,6 @@ module ModelHelpers
       end
     end
 
-    def should_have_custom_lead_image
-      test "should include the CustomLeadImage module" do
-        # *NOTE*. The Edition::CustomLeadImage module is tested separately so it
-        # should be enough to just test its inclusion here.
-        assert class_from_test_name.ancestors.include?(Edition::CustomLeadImage)
-      end
-    end
-
     def should_be_attachable
       test "should include the Attachable behaviour module" do
         # *NOTE*. The ::Attachable module is tested separately so it

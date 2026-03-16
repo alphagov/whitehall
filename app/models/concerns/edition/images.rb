@@ -10,9 +10,8 @@ module Edition::Images
         end
         image.save!(validate: false)
 
-        next unless @edition.can_have_custom_lead_image?
-
-        if @edition.lead_image == a
+        # LEGACY: delete when CaseStudy has been migrated to StandardEdition.
+        if @edition.is_a?(CaseStudy) && @edition.lead_image == a
           edition_lead_image = edition.build_edition_lead_image(image:)
           edition_lead_image.save!
         end

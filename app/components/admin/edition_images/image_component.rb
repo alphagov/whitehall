@@ -19,19 +19,11 @@ private
     edition.images_have_unique_filenames? ? "[Image: #{image.filename}]" : "!!#{find_image_index + 1}"
   end
 
-  def find_index_from_non_lead_images
-    if edition.respond_to?(:non_lead_images)
-      edition.non_lead_images.find_index(image)
-    else
-      edition.images.find_index(image)
-    end
-  end
-
   def find_image_index
     edition.images.find_index(image)
   end
 
-  def can_be_custom_lead_image?
-    edition.can_have_custom_lead_image? && image_usage.embeddable? && !image.svg? && !image.image_data.requires_crop?
+  def can_be_used_as_case_study_lead_image?
+    edition.is_a?(CaseStudy) && image_usage.embeddable? && !image.svg? && !image.image_data.requires_crop?
   end
 end

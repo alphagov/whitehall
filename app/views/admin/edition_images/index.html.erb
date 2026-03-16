@@ -36,6 +36,7 @@
         font_size: "l",
       } %>
 
+      <%# Legacy (CaseStudy only) - remove when CaseStudy migrated to StandardEdition %>
       <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) if usage.embeddable? && !@edition.is_a?(StandardEdition) %>
 
       <%= render "govuk_publishing_components/components/heading", {
@@ -45,7 +46,7 @@
       } if usage.embeddable? %>
 
       <% current_images = @edition.images.usable_as(usage) %>
-      <% current_images = current_images - [@edition.lead_image].compact if @edition.can_have_custom_lead_image? %>
+      <% current_images = current_images - [@edition.lead_image].compact if @edition.is_a?(CaseStudy) %>
 
       <% if current_images.present? %>
         <% if usage.embeddable? %>

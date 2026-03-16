@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+# Legacy class, used by CaseStudy only. Remove when CaseStudy migrated to StandardEdition.
 class Admin::EditionImages::LeadImageComponent < ViewComponent::Base
   def initialize(edition:)
     @edition = edition
   end
 
   def render?
-    edition.can_have_custom_lead_image?
+    edition.is_a?(CaseStudy)
   end
 
 private
@@ -18,6 +19,8 @@ private
       tag.p("Using a lead image is optional. To use a lead image either select the default image for your organisation or upload an image and select it as the lead image.", class: "govuk-body") +
         tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
     else
+      #  This is likely not displayed anymore. News article lead images have moved to
+      # the StandardEdition::LeadImage concern and the LeadImageCardComponent.
       tag.p("Any image you upload can be selected as the lead image. If you do not select a new lead image, the default image for your organisation will be used.", class: "govuk-body") +
         tag.p("The lead image appears at the top of the document. The same image cannot be used in the body text.", class: "govuk-body")
     end

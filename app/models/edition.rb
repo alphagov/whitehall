@@ -436,10 +436,6 @@ class Edition < ApplicationRecord
     force_published? && state == "scheduled"
   end
 
-  def can_have_custom_lead_image?
-    is_a?(Edition::CustomLeadImage)
-  end
-
   def images_have_unique_filenames?
     names = images.map(&:filename)
     names.uniq.length == names.length
