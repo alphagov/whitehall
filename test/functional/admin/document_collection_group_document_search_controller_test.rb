@@ -104,17 +104,26 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_select "nav.govuk-pagination", count: 0
   end
 
-  # TODO: research into whether we should be able to search published and unpublished editions
-  view_test "GET :add_by_title with search value only returns published and unpublished editions" do
+  view_test "GET :add_by_title with search value only returns editions in the expected states" do
+    create(:draft_edition, title: "Something draft")
+    create(:rejected_edition, title: "Something rejected")
+    create(:submitted_edition, title: "Something submitted")
+    create(:scheduled_edition, title: "Something scheduled")
     create(:published_edition, title: "Something published")
-    create(:edition, title: "Something unpublished")
+    create(:unpublished_edition, title: "Something unpublished")
+    create(:withdrawn_edition, title: "Something withdrawn")
     create(:superseded_edition, title: "Something superseded")
     @request_params[:title] = "Something "
 
     get :add_by_title, params: @request_params
-    assert_select ".govuk-heading-s", "2 documents"
+    assert_select ".govuk-heading-s", "7 documents"
+    assert_select ".govuk-table tbody tr", text: /Something draft/
+    assert_select ".govuk-table tbody tr", text: /Something rejected/
+    assert_select ".govuk-table tbody tr", text: /Something submitted/
+    assert_select ".govuk-table tbody tr", text: /Something scheduled/
     assert_select ".govuk-table tbody tr", text: /Something published/
     assert_select ".govuk-table tbody tr", text: /Something unpublished/
+    assert_select ".govuk-table tbody tr", text: /Something withdrawn/
   end
 
   view_test "GET :add_by_title with search value does not show Add button for unpublished and withdrawn editions" do
