@@ -18,6 +18,36 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_template "admin/editions/new"
   end
 
+  view_test "visiting a 'new edition' page when no Organisation set on the current user" do
+    login_as create(:user, organisation: nil)
+
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "lead_organisations" => {
+                "title" => "Lead organisations",
+                "required" => true,
+                "block" => "ordered_select_with_search_tagging",
+                "container" => "organisations",
+                "attribute_path" => %w[lead_organisation_ids],
+                "size" => 4,
+                "translatable" => false,
+              },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    get :new, params: { configurable_document_type: "test_type" }
+
+    assert_response :success
+  end
+
   test "GET new returns a not_found response when no configurable_document_type parameter is provided" do
     get :new
     assert_response :not_found
