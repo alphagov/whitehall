@@ -116,4 +116,21 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_select ".govuk-table tr", text: /Something published/
     assert_select ".govuk-table tr", text: /Something unpublished/
   end
+
+  view_test "GET :add_by_title with search value does not show Add button for unpublished and withdrawn editions" do
+    create(:draft_edition, title: "Something draft")
+    create(:rejected_edition, title: "Something rejected")
+    create(:submitted_edition, title: "Something submitted")
+    create(:scheduled_edition, title: "Something scheduled")
+    create(:published_edition, title: "Something published")
+    create(:unpublished_edition, title: "Something unpublished")
+    create(:withdrawn_edition, title: "Something withdrawn")
+    create(:superseded_edition, title: "Something superseded") # Should not be shown in search results at all
+    @request_params[:title] = "Something "
+
+    get :add_by_title, params: @request_params
+
+    assert_select ".govuk-table tr", count: 7
+    assert_select "button", text: "Add", count: 5
+  end
 end
