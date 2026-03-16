@@ -58,8 +58,8 @@ module Admin::TabbedNavHelper
     [
       {
         label: "Featured",
-        href: features_admin_standard_edition_path(edition, locale: I18n.locale),
-        current: current_path == features_admin_standard_edition_path(edition, locale: I18n.locale),
+        href: features_admin_standard_edition_path(edition, locale: edition.primary_locale),
+        current: current_path == features_admin_standard_edition_path(edition, locale: edition.primary_locale),
       },
     ]
   end

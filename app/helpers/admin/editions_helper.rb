@@ -253,12 +253,4 @@ module Admin::EditionsHelper
   def edition_title_link_or_edition_title(edition)
     edition.public_url ? sanitize(link_to(edition.title, edition.public_url, { class: "govuk-link" })) : edition.title
   end
-
-  def topical_event_documents
-    Document
-      .joins(latest_edition: :translations)
-      .where(editions: { configurable_document_type: "topical_event" })
-      .preload(latest_edition: :translations)
-      .order("edition_translations.title")
-  end
 end
