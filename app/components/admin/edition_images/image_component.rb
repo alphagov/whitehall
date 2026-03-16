@@ -19,14 +19,6 @@ private
     edition.images_have_unique_filenames? ? "[Image: #{image.filename}]" : "!!#{find_image_index + 1}"
   end
 
-  def find_index_from_non_lead_images
-    if edition.respond_to?(:non_lead_images)
-      edition.non_lead_images.find_index(image)
-    else
-      edition.images.find_index(image)
-    end
-  end
-
   def find_image_index
     edition.images.find_index(image)
   end
