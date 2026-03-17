@@ -140,14 +140,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
   end
 
-  test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
+  test ".bulk_republish_async publishes to the Publishing API as a 'republish' " do
     non_translatable_non_editionable_model = create(:policy_group)
     presenter = PublishingApiPresenters.presenter_for(non_translatable_non_editionable_model, update_type: "republish")
     WebMock.reset!
 
     requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_put_content(presenter.content_id, { **presenter.content, bulk_publishing: true }),
+      stub_publishing_api_patch_links(presenter.content_id, { links: presenter.links, bulk_publishing: true }),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
     ]
 
@@ -167,6 +167,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
         non_translatable_non_editionable_model.id,
         "republish",
         "en",
+        true,
       )
     Whitehall::PublishingApi.bulk_republish_async(non_translatable_non_editionable_model)
   end
