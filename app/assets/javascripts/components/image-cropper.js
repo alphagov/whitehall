@@ -217,7 +217,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       zoomable: false,
       highlight: false,
       rotatable: false,
-      scalable: false
+      scalable: false,
+      checkOrientation: false,
+      checkCrossOrigin: false
     })
   }
 
