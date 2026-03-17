@@ -14,7 +14,10 @@ module PublishingApi
       end
 
       def call
-        { ordered_featured_documents: featured_documents(item, StandardEdition::FEATURED_DOCUMENTS_DISPLAY_LIMIT) }
+        { ordered_featured_documents: featured_documents(item, StandardEdition::FEATURED_DOCUMENTS_DISPLAY_LIMIT).map do |doc|
+          doc[:summary] = ActionView::Base.full_sanitizer.sanitize(doc[:summary]).strip
+          doc
+        end }
       end
     end
   end

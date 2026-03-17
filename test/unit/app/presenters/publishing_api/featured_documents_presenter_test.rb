@@ -30,7 +30,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: case_study.summary,
+            summary: govspeak_to_html(case_study.summary),
             public_updated_at: case_study.public_timestamp,
             document_type: I18n.t("document.type.case_study.one") },
           { title: standard_edition.title,
@@ -39,11 +39,10 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: standard_edition.summary,
+            summary: govspeak_to_html(standard_edition.summary),
             public_updated_at: standard_edition.public_timestamp,
             document_type: "Featured standard edition" },
         ]
-
         assert_equal expected_ordered_featured_documents, featured_documents(world_location.world_location_news, featured_documents_display_limit)
       end
     end
@@ -72,7 +71,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: topical_event.summary,
+            summary: govspeak_to_html(topical_event.summary),
             public_updated_at: topical_event.start_date,
             document_type: nil },
         ]
@@ -101,7 +100,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: offsite_link.summary,
+            summary: govspeak_to_html(offsite_link.summary),
             public_updated_at: offsite_link.date,
             document_type: offsite_link.display_type },
         ]
@@ -145,7 +144,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
                  medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                  high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                  alt_text: "" },
-        summary: case_study.summary,
+        summary: govspeak_to_html(case_study.summary),
         public_updated_at: case_study.public_timestamp,
         document_type: I18n.t("document.type.case_study.one"),
       },
