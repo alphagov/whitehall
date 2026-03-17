@@ -81,6 +81,12 @@ class Admin::NewDocumentController < Admin::BaseController
         "hint_text" => "EXPERIMENTAL Use this to create landing pages.",
         "label" => "landing_page".humanize,
       },
+      "topical_event" => {
+        "klass" => StandardEdition,
+        "hint_text" => "Use this to create configurable topical events.",
+        "label" => "Topical event (experimental)",
+        "redirect" => new_admin_standard_edition_path(configurable_document_type: "topical_event"),
+      },
     }
     if Flipflop.enabled?(:configurable_document_types)
       types["standard_edition"] = {

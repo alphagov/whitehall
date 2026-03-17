@@ -25,8 +25,7 @@
           "block": "select_with_search_tagging",
           "container": "topical_event_documents",
           "attribute_path": ["topical_event_document_ids"],
-          "translatable": false,
-          "experimental": true
+          "translatable": false
         },
         "worldwide_organisations": {
           "title": "Worldwide organisations",

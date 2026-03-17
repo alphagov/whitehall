@@ -1074,18 +1074,7 @@ module AdminEditionControllerTestHelpers
 
     def should_allow_association_with_topical_event_documents_when_configurable_document_types_enabled(edition_type)
       edition_class = class_for(edition_type)
-      view_test "new should not display topical event documents field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events (experimental)", count: 0
-          assert_select "#edition_topical_event_document_ids", count: 0
-        end
-      end
-
       view_test "new should display topical event documents field" do
-        test_strategy = Flipflop::FeatureSet.current.test!
-        test_strategy.switch!(:configurable_document_types, true)
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
         topical_events = create_list(:published_standard_edition, 2, configurable_document_type: "topical_event")
         get :new
@@ -1101,7 +1090,6 @@ module AdminEditionControllerTestHelpers
             assert_select "#edition_topical_event_document_ids option[value=\"#{event.document_id}\"]", text: event.title
           end
         end
-        test_strategy.switch!(:configurable_document_types, false)
       end
 
       test "create should associate topical event documents with the edition" do
@@ -1122,8 +1110,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display topical event documents field" do
-        test_strategy = Flipflop::FeatureSet.current.test!
-        test_strategy.switch!(:configurable_document_types, true)
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
         topical_events = create_list(:published_standard_edition, 2, configurable_document_type: "topical_event")
         edition = create("draft_#{edition_type}", topical_event_documents: topical_events.map(&:document))
@@ -1141,7 +1127,6 @@ module AdminEditionControllerTestHelpers
             assert_select "#edition_topical_event_document_ids option[value=\"#{event.document_id}\"][selected=\"selected\"]", text: event.title
           end
         end
-        test_strategy.switch!(:configurable_document_types, false)
       end
 
       test "update should associate topical event documents with the edition" do

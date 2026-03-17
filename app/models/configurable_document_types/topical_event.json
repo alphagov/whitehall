@@ -13,6 +13,13 @@
           "attribute_path": ["block_content", "body"],
           "translatable": true
         },
+        "topical_event_documents": {
+          "title": "Topical events (experimental)",
+          "block": "select_with_search_tagging",
+          "container": "topical_event_documents",
+          "attribute_path": ["topical_event_document_ids"],
+          "translatable": false
+        },
         "lead_organisations": {
           "title": "Lead organisations",
           "required": true,

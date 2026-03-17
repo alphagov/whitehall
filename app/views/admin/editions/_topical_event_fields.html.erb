@@ -10,16 +10,14 @@
       multiple: true,
     } %>
   <% end %>
-  <% if Flipflop.enabled?(:configurable_document_types) %>
-    <%= render "govuk_publishing_components/components/select_with_search", {
-      id: "edition_topical_event_document_ids",
-      name: "edition[topical_event_document_ids][]",
-      include_blank: true,
-      label: "Topical events (experimental)",
-      hint: "Topical events created via the documents menu will appear here",
-      heading_size: "m",
-      options: taggable_topical_event_documents_container(edition.topical_event_document_ids),
-      multiple: true,
-    } %>
-  <% end %>
+  <%= render "govuk_publishing_components/components/select_with_search", {
+    id: "edition_topical_event_document_ids",
+    name: "edition[topical_event_document_ids][]",
+    include_blank: true,
+    label: "Topical events (experimental)",
+    hint: "Topical events created via the documents menu will appear here",
+    heading_size: "m",
+    options: taggable_topical_event_documents_container(edition.topical_event_document_ids),
+    multiple: true,
+  } %>
 <% end %>
