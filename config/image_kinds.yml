@@ -102,11 +102,11 @@ topical_event_header:
   version_prefix: true
   versions:
     - name: desktop_2x
-      width: 1024
-      height: 1024
+      width: 990
+      height: 990
     - name: desktop
-      width: 512
-      height: 512
+      width: 495
+      height: 495
       from_version: desktop_2x
     - name: tablet_2x
       width: 1536
