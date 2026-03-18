@@ -35,8 +35,4 @@ module Edition::WorldLocations
   def error_labels
     super.merge({ "world_location_ids" => "World locations" })
   end
-
-  def search_index
-    super.merge("world_locations" => world_locations.map(&:slug))
-  end
 end

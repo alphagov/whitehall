@@ -19,21 +19,6 @@ class SimpleWorkflowTest < ActiveSupport::TestCase
     assert_equal :current, topic.current_state
   end
 
-  test "should remove from search index on delete if Searchable is included" do
-    topic = create(:topical_event)
-    Whitehall::SearchIndex.expects(:delete).with(topic)
-    topic.delete!
-    assert_equal :deleted, topic.current_state
-  end
-
-  test "should not call search_api if Searchable is not included" do
-    topic = create(:topical_event)
-    TopicalEvent.any_instance.stubs(:remove_from_search_index).returns(NameError)
-    Whitehall::SearchIndex.expects(:delete).never
-    topic.delete!
-    assert_equal :deleted, topic.current_state
-  end
-
   test "should exclude deleted topics by default" do
     current_topic = create(:topical_event)
     create(:topical_event, state: "deleted")

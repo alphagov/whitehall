@@ -11,7 +11,6 @@ Feature: Consultations
     When I submit the consultation "Beard Length Review"
     Then I should see the consultation "Beard Length Review" in the list of submitted documents
 
-  @not-quite-as-fake-search
   Scenario: Publishing a submitted consultation
     Given I am an editor
     And a submitted consultation "Beard Length Review" exists

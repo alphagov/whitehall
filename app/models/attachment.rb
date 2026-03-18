@@ -74,10 +74,6 @@ class Attachment < ApplicationRecord
     Locale.new(locale).rtl?
   end
 
-  def search_index
-    publishing_api_details
-  end
-
   def publishing_api_details
     # fields in common across "file_attachment_asset",
     # "html_attachment_asset", "external_attachment_asset" schemas

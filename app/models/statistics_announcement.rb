@@ -12,7 +12,6 @@ class StatisticsAnnouncement < ApplicationRecord
   extend FriendlyId
   friendly_id :title
   include PublishesToPublishingApi
-  include Searchable
 
   def can_publish_to_publishing_api?
     super && !publication_has_been_published? && !unpublished?
@@ -69,21 +68,6 @@ class StatisticsAnnouncement < ApplicationRecord
 
   default_scope { published }
 
-  searchable  only: :without_published_publication,
-              title: :title,
-              link: :base_path,
-              description: :summary,
-              display_date: :display_date,
-              display_type: :display_type,
-              slug: :slug,
-              organisations: :organisations_slugs,
-              public_timestamp: :updated_at,
-              release_timestamp: :release_date,
-              statistics_announcement_state: :state,
-              metadata: :search_metadata,
-              index_after: [],
-              unindex_after: []
-
   delegate :release_date,
            :display_date,
            :confirmed?,
@@ -97,12 +81,10 @@ class StatisticsAnnouncement < ApplicationRecord
 
   def notify_unpublished
     publish_redirect_to_redirect_url
-    remove_from_search_index
     update_publish_intent
   end
 
   def after_publish
-    update_in_search_index
     update_publish_intent
   end
 
@@ -160,21 +142,8 @@ class StatisticsAnnouncement < ApplicationRecord
     Plek.website_root + public_path(options)
   end
 
-  alias_method :search_link, :base_path
-
   def organisations_slugs
     organisations.map(&:slug)
-  end
-
-  def search_metadata
-    {
-      confirmed: confirmed?,
-      display_date:,
-      change_note: last_change_note,
-      previous_display_date:,
-      cancelled_at:,
-      cancellation_reason:,
-    }
   end
 
   def build_statistics_announcement_date_change(attributes = {})

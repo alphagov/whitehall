@@ -83,12 +83,9 @@ namespace :reslug do
   task :policy_group, %i[old_slug new_slug] => :environment do |_task, args|
     policy_group = PolicyGroup.find_by!(slug: args.old_slug)
 
-    Whitehall::SearchIndex.delete(policy_group)
-
     policy_group.update!(slug: args.new_slug)
 
     Whitehall::PublishingApi.republish_async(policy_group)
-    Whitehall::SearchIndex.add(policy_group)
   end
 
   desc "Change the slug of a WorldLocation"
@@ -114,8 +111,6 @@ namespace :reslug do
   desc "Change the slug of a StatisticsAnnouncement"
   task :statistics_annoucement, %i[old_slug new_slug] => :environment do |_task, args|
     statistics_announcement = StatisticsAnnouncement.find_by!(slug: args.old_slug)
-    Whitehall::SearchIndex.delete(statistics_announcement)
     statistics_announcement.update!(slug: args.new_slug)
-    Whitehall::SearchIndex.add(statistics_announcement)
   end
 end

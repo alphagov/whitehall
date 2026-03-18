@@ -2,7 +2,6 @@ class WorldLocationNews < ApplicationRecord
   include Featurable
   include TranslatableModel
   include PublishesToPublishingApi
-  include Searchable
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 5
 
@@ -23,29 +22,10 @@ class WorldLocationNews < ApplicationRecord
 
   translates :title, :mission_statement
 
-  searchable title: :title,
-             link: :search_link,
-             format: "world_location_news",
-             description: :search_description,
-             only: :active,
-             indexable_content: :search_description
-
   validates :title, presence: true
-
-  def search_description
-    I18n.t("world_news.uk_updates_in_country", country: name)
-  end
 
   def self.active
     includes(:world_location).references(:world_locations).where("world_locations.active = ?", true)
-  end
-
-  def search_link
-    if world_location.world_location?
-      public_path
-    elsif world_location.international_delegation?
-      world_location.public_path
-    end
   end
 
   def contacts

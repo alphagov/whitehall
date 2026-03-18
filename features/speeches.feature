@@ -40,7 +40,6 @@ Feature: Speeches
     And I should be able to choose the date it was written on
     But I cannot choose a location for the article
 
-  @not-quite-as-fake-search
   Scenario: Publishing a submitted speech
     Given I am an editor
     And a submitted speech "Stubble to be Outlawed" exists

@@ -173,10 +173,6 @@ module Attachable
     attachments.any?(&:is_act_paper?)
   end
 
-  def search_index
-    super.merge("attachments" => attachments.map(&:search_index))
-  end
-
   def next_ordering
     max = Attachment.where(attachable_id: id, attachable_type: self.class.base_class.to_s).maximum(:ordering)
     max ? max + 1 : 0

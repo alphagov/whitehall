@@ -70,37 +70,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "beard-statistics-2015", announcement.slug
   end
 
-  test "is search indexable" do
-    announcement = create_announcement_with_changes
-    expected_indexed_content = {
-      "content_id" => announcement.content_id,
-      "title" => announcement.title,
-      "link" => announcement.base_path,
-      "format" => "statistics_announcement",
-      "description" => announcement.summary,
-      "organisations" => announcement.organisations.map(&:slug),
-      "public_timestamp" => announcement.updated_at,
-      "display_date" => announcement.display_date,
-      "display_type" => announcement.display_type,
-      "slug" => announcement.slug,
-      "release_timestamp" => announcement.release_date,
-      "statistics_announcement_state" => announcement.state,
-      "metadata" => {
-        # TODO: the "confirmed" metadata becomes redundant once all entries are
-        # updated with a "statistics_announcement_state". Get rid.
-        confirmed: announcement.confirmed?,
-        display_date: announcement.display_date,
-        change_note: announcement.last_change_note,
-        previous_display_date: announcement.previous_display_date,
-        cancelled_at: announcement.cancelled_at,
-        cancellation_reason: announcement.cancellation_reason,
-      },
-    }
-
-    assert announcement.can_index_in_search?
-    assert_equal expected_indexed_content, announcement.search_index
-  end
-
   test ".with_title_containing returns statistics announcements matching provided title" do
     match = create(:statistics_announcement, title: "MQ5 statistics")
     create(:statistics_announcement, title: "PQ6 statistics")
@@ -186,18 +155,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     assert_not announcement.cancel!("", announcement.creator)
     assert_match %r{must be provided when cancelling an announcement}, announcement.errors[:cancellation_reason].first
-  end
-
-  test "an announcement that has a publiction that is post-publishing is not indexable in search" do
-    announcement = create(:statistics_announcement, publication: create(:published_statistics))
-
-    Whitehall::SearchIndex.expects(:add).never
-    announcement.update_in_search_index
-
-    announcement.publication.supersede!
-
-    Whitehall::SearchIndex.expects(:add).never
-    announcement.update_in_search_index
   end
 
   test "#organisations returns organisations associated with the statistics announcement" do
