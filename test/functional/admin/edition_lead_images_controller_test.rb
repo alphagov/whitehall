@@ -6,7 +6,7 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     login_as :writer
 
     image = build(:image)
-    edition = create(:draft_case_study, images: [image])
+    edition = create(:draft_case_study, image_display_option: nil, images: [image])
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
