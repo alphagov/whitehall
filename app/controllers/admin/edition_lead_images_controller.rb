@@ -1,3 +1,4 @@
+# Legacy - delete when CaseStudy migrated to StandardEdition
 class Admin::EditionLeadImagesController < Admin::BaseController
   before_action :find_edition, :find_image, :enforce_permissions!
 

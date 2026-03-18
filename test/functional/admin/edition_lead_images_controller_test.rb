@@ -1,5 +1,6 @@
 require "test_helper"
 
+# Legacy - delete when CaseStudy migrated to StandardEdition
 class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
   test "PATCH :update successfully updates the lead image and republishes the draft edition" do
     login_as :writer
