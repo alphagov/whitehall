@@ -25,7 +25,7 @@ class Admin::EditionImagesController < Admin::BaseController
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
-    @edition.update_lead_image if @edition.is_a?(CaseStudy)
+    @edition.update_lead_image if @edition.is_a?(CaseStudy) # Legacy: remove when CaseStudy migrated to StandardEdition
     PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
 
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
@@ -77,7 +77,8 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if @images.any? && @images.map(&:valid?).all?
       @images.each(&:save)
-      @edition.update_lead_image if @edition.is_a?(CaseStudy)
+      @edition.update_lead_image if @edition.is_a?(CaseStudy) # Legacy: remove when CaseStudy migrated to StandardEdition
+      @edition.update!(image_display_option: nil) if @image_usage.key == "lead"
       PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
       flash.notice = "Images successfully uploaded"
     else

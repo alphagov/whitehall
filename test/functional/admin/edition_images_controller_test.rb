@@ -303,6 +303,32 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_redirected_to edit_admin_edition_image_path(edition, edition.images.first.id)
   end
 
+  test "POST :create upload of 'lead' image usage clears any previous image_display_option" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "lead" => {
+              "label" => "lead",
+              "kinds" => %w[default],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition, image_display_option: "no_image")
+    file = upload_fixture("minister-of-funk.960x640.jpg")
+
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
+
+    post :create, params: { edition_id: edition.id, usage: "lead", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
+
+    assert_nil edition.reload.image_display_option
+  end
+
   test "POST :create uploads one valid 'multiple' usage embeddable image, and redirect to 'edit'" do
     login_authorised_user
     edition = create(:draft_case_study)
