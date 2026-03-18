@@ -137,6 +137,17 @@ class Admin::EditionImages::LeadImageCardComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-summary-list__row .govuk-summary-list__value", text: "Caption Value"
   end
 
+  test "does not render caption when placeholder image is used" do
+    default_lead_image = build(:featured_image_data)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
+    edition = create(:standard_edition, images: [], organisations: [create(:organisation, default_news_image: default_lead_image)])
+    lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
+
+    render_inline(Admin::EditionImages::LeadImageCardComponent.new(edition:, image: nil, image_usage: lead_usage))
+
+    assert_no_selector ".govuk-summary-list__row .govuk-summary-list__key", text: "Caption"
+  end
+
   test "does not render caption when caption_enabled is false for custom image" do
     image = create(:image, image_data: build(:image_data), caption: "caption")
     edition = build_stubbed(:draft_publication, images: [image])
