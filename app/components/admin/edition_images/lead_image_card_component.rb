@@ -31,11 +31,7 @@ private
 
   def thumbnail
     if image.blank?
-      if edition.default_lead_image&.all_asset_variants_uploaded?
-        return sanitize("<img style=\"width: 100%;\" src=\"#{edition.default_lead_image.url(:s300)}\" alt=\"\" class=\"app-view-edition-resource__preview\">")
-      else
-        return "<img style=\"width: 100%;\" src=\"#{edition.placeholder_image_url}\" alt=\"\" class=\"app-view-edition-resource__preview\">".html_safe
-      end
+      return helpers.lead_image_fallback_thumbnail(edition)
     end
 
     super
