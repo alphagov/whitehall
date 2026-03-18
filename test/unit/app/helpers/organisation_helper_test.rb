@@ -107,6 +107,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_definite_article_skipped "Civil Service Resourcing"
     assert_definite_article_skipped "HM Treasury"
     assert_definite_article_skipped "Ordnance Survey"
+    assert_definite_article_skipped "Homes England"
   end
 
   test 'definite article skipped if name starts with "The"' do
