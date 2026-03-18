@@ -1,4 +1,3 @@
-# Expects Searchable to be included and destroyable? defined.
 module SimpleWorkflow
   extend ActiveSupport::Concern
 
@@ -11,7 +10,7 @@ module SimpleWorkflow
       state :current
       state :deleted
 
-      event :delete, success: ->(document) { document.remove_from_search_index if document.respond_to?(:remove_from_search_index) } do
+      event :delete do
         transitions from: [:current], to: :deleted, guard: :destroyable?
       end
     end

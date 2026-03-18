@@ -1,14 +1,9 @@
 class OperationalField < ApplicationRecord
   include PublishesToPublishingApi
-  include Searchable
 
   validates :name, presence: true, uniqueness: { case_sensitive: false } # rubocop:disable Rails/UniqueValidationWithoutIndex
 
   has_many :fatality_notices
-
-  searchable title: :name,
-             link: :search_link,
-             content: :description_without_markup
 
   extend FriendlyId
   friendly_id
@@ -17,10 +12,6 @@ class OperationalField < ApplicationRecord
 
   def republish_operational_fields_index_page_to_publishing_api
     PresentPageToPublishingApiJob.perform_async("PublishingApi::OperationalFieldsIndexPresenter")
-  end
-
-  def search_link
-    public_path
   end
 
   def description_without_markup

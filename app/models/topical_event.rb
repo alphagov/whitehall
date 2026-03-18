@@ -2,20 +2,9 @@
 class TopicalEvent < ApplicationRecord
   include DateValidation
   include PublishesToPublishingApi
-  include Searchable
   include SimpleWorkflow
 
   date_attributes(:start_date, :end_date)
-
-  searchable title: :name,
-             link: :search_link,
-             content: :description,
-             format: "topical_event",
-             description: :description_without_markup,
-             slug: :slug,
-             start_date: :start_date,
-             end_date: :end_date
-
   after_commit :republish_feature_organisations_to_publishing_api, if: :features?
 
   has_one :topical_event_about_page
@@ -76,10 +65,6 @@ class TopicalEvent < ApplicationRecord
   friendly_id
 
   alias_method :display_name, :to_s
-
-  def search_link
-    base_path
-  end
 
   def published_editions
     editions.published

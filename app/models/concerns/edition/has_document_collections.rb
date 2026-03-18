@@ -18,10 +18,6 @@ module Edition::HasDocumentCollections
     published_document_collections.any?
   end
 
-  def search_index
-    super.merge("document_collections" => published_document_collections.map(&:slug))
-  end
-
   # We allow document collection groups to be assigned directly on an
   # edition for speed tagging
   def document_collection_group_ids=(ids)

@@ -6,7 +6,6 @@ Feature: Unpublishing published documents
   Background:
     Given I am a managing editor
 
-  @not-quite-as-fake-search
   Scenario: Unpublishing a published document
     Given a published document "Published by accident" exists
     When I unpublish the document because it was published in error

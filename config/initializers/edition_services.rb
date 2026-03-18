@@ -30,10 +30,6 @@ Whitehall::Application.config.to_prepare do
       # handling edition's dependency on other content
       edition.republish_dependent_editions
 
-      ServiceListeners::AnnouncementClearer
-        .new(edition)
-        .clear!
-
       AuthorNotifierJob.perform_async(edition.id, *[options[:user]&.id].compact)
 
       # Update attachment redirect urls

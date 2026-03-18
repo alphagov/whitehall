@@ -22,7 +22,6 @@ Feature: Publications
     When I submit the publication "Britain's Hairiest Ministers"
     Then I should not be able to publish the publication "Britain's Hairiest Ministers"
 
-  @not-quite-as-fake-search
   Scenario: Publishing an edition I created but did not submit
     Given I am an editor
     And there is a user called "Beardy"

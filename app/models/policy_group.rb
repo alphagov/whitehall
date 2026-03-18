@@ -1,5 +1,4 @@
 class PolicyGroup < ApplicationRecord
-  include Searchable
   include ::Attachable
   include PublishesToPublishingApi
 
@@ -97,11 +96,6 @@ class PolicyGroup < ApplicationRecord
   def summary_or_name
     summary.presence || name
   end
-
-  searchable title: :name,
-             link: :public_path,
-             content: :summary_or_name,
-             description: :summary
 
   def publishing_api_presenter
     PublishingApi::PolicyGroupPresenter

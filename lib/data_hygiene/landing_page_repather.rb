@@ -14,10 +14,6 @@ module DataHygiene
   class LandingPageRepather < DocumentReslugger
   private
 
-    def remove_from_search_index; end
-
-    def add_to_search_index; end
-
     def add_errors_if_invalid
       document.errors.add(:slug, "is blank") and return if new_slug.blank?
 

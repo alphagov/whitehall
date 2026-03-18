@@ -24,7 +24,6 @@ require "rails/test_help"
 require "mocha/minitest"
 require "factories"
 require "webmock/minitest"
-require "whitehall/search_index"
 require "sidekiq/testing"
 require "govuk_schemas/assert_matchers"
 

@@ -1,1 +1,0 @@
-SearchIndexAddWorker = SearchIndexAddJob

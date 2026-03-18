@@ -4,8 +4,7 @@
 
 Data migrations are generally used for code we want to run at or just after
 deploy-time which either:
-* requires interacting with another system, such as publishing-api or the search
-  index
+* requires interacting with another system, such as publishing-api
 * depends on specific data being present in the database - for example, a third
   party running our code won't have access to a copy of our production data
 * is a long-running data change which you want the flexibility to be able to run

@@ -20,15 +20,4 @@ module Edition::Appointment
       role_appointment.person
     end
   end
-
-  def search_index
-    if person_override?
-      super
-    else
-      super.merge({
-        "people" => [person.slug],
-        "roles" => is_associated_with_a_minister? ? [role.slug] : nil,
-      }.compact)
-    end
-  end
 end

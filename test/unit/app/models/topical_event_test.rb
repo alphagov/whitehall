@@ -141,11 +141,6 @@ class TopicalEventTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :description
 
-  test "should include slug in search_index data" do
-    topical_event = create(:topical_event, name: "mazzops 2013")
-    assert_equal "mazzops-2013", topical_event.search_index["slug"]
-  end
-
   test "should not last more than a year" do
     topical_event = build(:topical_event, start_date: 3.days.ago.to_date, end_date: (Time.zone.today + 1.year))
     assert_not topical_event.valid?
@@ -174,16 +169,6 @@ class TopicalEventTest < ActiveSupport::TestCase
   test "should be longer than a day" do
     topical_event = build(:topical_event, start_date: Time.zone.today, end_date: Time.zone.today)
     assert_not topical_event.valid?
-  end
-
-  test "start and end dates are considered indexable for search" do
-    start_date = Date.new(2016, 1, 1)
-    end_date = Date.new(2017, 1, 1)
-    topical_event = create(:topical_event, start_date:, end_date:)
-    search_api_payload = topical_event.search_index
-
-    assert_equal start_date, search_api_payload["start_date"]
-    assert_equal end_date, search_api_payload["end_date"]
   end
 
   test "#destroy also destroys 'featured topical event' associations" do

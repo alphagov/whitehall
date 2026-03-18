@@ -38,7 +38,6 @@ See the [`docs/`](docs/) directory.
 - [Edition workflow](docs/edition_workflow.md)
 - [Internationalisation](docs/internationalisation_guide.md)
 - [JavaScript](docs/javascript.md)
-- [Search Indexing](docs/search_indexing.md)
 - [Timestamps](docs/timestamps.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Adding a data migration](db/data_migration/README.md)

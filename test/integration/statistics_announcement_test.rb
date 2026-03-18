@@ -125,38 +125,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     end
   end
 
-  test "it is added to the search index when created" do
-    Whitehall::SearchIndex.stubs(:add)
-    statistics_announcement = build(:statistics_announcement)
-    Whitehall::SearchIndex.expects(:add).with(statistics_announcement)
-
-    statistics_announcement.save!
-  end
-
-  test "it is added to the search index when updated" do
-    Whitehall::SearchIndex.stubs(:add)
-    Whitehall::SearchIndex.expects(:add).with do |instance|
-      instance.is_a?(StatisticsAnnouncement) &&
-        instance.title == "updated title"
-    end
-
-    statistics_announcement = create(:statistics_announcement)
-    statistics_announcement.title = "updated title"
-    statistics_announcement.save!
-  end
-
-  test "it is removed from the search index when unpublished" do
-    Whitehall::SearchIndex.stubs(:add)
-    Whitehall::SearchIndex.stubs(:delete)
-    statistics_announcement = create(
-      :statistics_announcement,
-      redirect_url: "https://www.test.gov.uk/example",
-    )
-
-    Whitehall::SearchIndex.expects(:delete).with(statistics_announcement)
-    statistics_announcement.update!(publishing_state: "unpublished")
-  end
-
   test "it is republished when the date is changed" do
     Sidekiq::Testing.inline! do
       Timecop.return

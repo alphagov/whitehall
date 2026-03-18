@@ -2,8 +2,6 @@ require "test_helper"
 require "gds_api/test_helpers/search"
 
 class PersonSlugChangerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::Search
-
   setup do
     stub_any_publishing_api_call
     @person = create(:person, forename: "old", surname: "slug", biography: "Biog")
