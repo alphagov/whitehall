@@ -63,6 +63,6 @@ private
   end
 
   def show_fallback_image?
-    edition.image_display_option.nil? || edition.image_display_option == "organisation_image"
+    edition.image_display_option.nil?
   end
 end

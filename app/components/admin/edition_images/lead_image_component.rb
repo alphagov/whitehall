@@ -40,12 +40,12 @@ private
 
   def show_default_lead_image?
     if case_study?
-      edition.emphasised_organisation_default_image_available? && [nil, "organisation_image"].include?(edition.image_display_option)
+      edition.emphasised_organisation_default_image_available? && edition.image_display_option.nil?
     end
   end
 
   def new_image_display_option
-    @new_image_display_option ||= image_display_option_is_no_image? ? "organisation_image" : "no_image"
+    @new_image_display_option ||= image_display_option_is_no_image? ? nil : "no_image"
   end
 
   def image_display_option_is_no_image?

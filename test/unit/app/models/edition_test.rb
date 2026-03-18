@@ -1017,10 +1017,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "validates `image_display_option` value" do
-    edition = build(:edition, image_display_option: "organisation_image")
-    assert edition.valid?
-
-    edition.image_display_option = "no_image"
+    edition = build(:edition, image_display_option: "no_image")
     assert edition.valid?
 
     edition.image_display_option = nil

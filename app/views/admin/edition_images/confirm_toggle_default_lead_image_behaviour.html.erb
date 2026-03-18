@@ -1,6 +1,6 @@
 <%
   # This is the behaviour we're changing to, rather than current behaviour.
-  @image_display_option = @edition.image_display_option == "no_image" ? "organisation_image" : "no_image"
+  @image_display_option = @edition.image_display_option == "no_image" ? nil : "no_image"
 %>
 <% content_for :context, @edition.title %>
 <% content_for :page_title, "Update lead image default" %>
