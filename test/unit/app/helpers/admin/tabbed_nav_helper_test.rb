@@ -207,9 +207,9 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     %i[detailed_guide publication standard_edition].each do |type|
       if type == :corporate_information_page
         organisation = build_stubbed(:organisation)
-        edition = build_stubbed(type, organisation:)
+        edition = build_stubbed(type, organisation:, document: build_stubbed(:document))
       else
-        edition = build_stubbed(type)
+        edition = build_stubbed(type, document: build_stubbed(:document))
       end
 
       expected_output = [
@@ -237,7 +237,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   test "#secondary_navigation_tabs_items for standard editions with features enabled" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features_enabled" => true } }))
 
-    edition = build_stubbed(:standard_edition, primary_locale: "cy")
+    edition = build_stubbed(:standard_edition, primary_locale: "cy", document: build_stubbed(:document))
 
     expected_output = [
       {
@@ -261,9 +261,9 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     %i[detailed_guide publication standard_edition].each do |type|
       if type == :corporate_information_page
         organisation = build_stubbed(:organisation)
-        edition = build_stubbed(type, organisation:)
+        edition = build_stubbed(type, organisation:, document: build_stubbed(:document))
       else
-        edition = build_stubbed(type)
+        edition = build_stubbed(type, document: build_stubbed(:document))
       end
 
       edition.stubs(:attachments).returns([build_stubbed(:file_attachment), build_stubbed(:file_attachment)])
@@ -444,7 +444,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     }))
 
-    edition = build_stubbed(:standard_edition)
+    edition = build_stubbed(:standard_edition, document: build_stubbed(:document))
     images_path = admin_edition_images_path(edition)
 
     # User is on the Images tab — no current_tab param, path is the images page
@@ -503,7 +503,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
       },
     }))
 
-    edition = build_stubbed(:standard_edition)
+    edition = build_stubbed(:standard_edition, document: build_stubbed(:document))
     base_url = tab_url_for_edition(edition)
 
     expected_output = [
@@ -515,7 +515,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     assert_equal expected_output, secondary_navigation_tabs_items(edition, base_url)
   end
 
-  test "#secondary_navigation_tabs_items for StandardEdition with tabs marks the correct tab as current" do
+  test "#secondary_navigation_tabs_items for StandardEdition with tabs marks the correct dynamic tab as current" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "forms" => {
         "documents" => {
@@ -555,7 +555,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   test "#secondary_navigation_tabs_items for StandardEdition without tabs falls back to legacy Document tab" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
 
-    edition = build_stubbed(:standard_edition)
+    edition = build_stubbed(:standard_edition, document: build_stubbed(:document))
     base_url = tab_url_for_edition(edition)
 
     expected_output = [
@@ -563,5 +563,61 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
     ]
 
     assert_equal expected_output, secondary_navigation_tabs_items(edition, base_url)
+  end
+
+  test "#secondary_navigation_tabs_items for StandardEdition does not render dynamic tabs for previously published draft with missing change note, on current 'Documents' tab" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => { "title" => "Body", "block" => "govspeak" },
+          },
+        },
+        "related_content" => {
+          "dynamic" => true,
+          "label" => "Related content",
+          "fields" => {
+            "related_links" => { "title" => "Related links", "block" => "default_string" },
+          },
+        },
+      },
+    }))
+    edition = create(:published_standard_edition)
+    draft = edition.create_draft(edition.authors.first)
+
+    base_url = tab_url_for_edition(draft)
+    expected_output = [
+      { label: "Document", href: base_url, current: true },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(draft, base_url)
+  end
+
+  test "#secondary_navigation_tabs_items for StandardEdition renders dynamic tabs for first draft edition, on current 'Documents' tab" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => { "title" => "Body", "block" => "govspeak" },
+          },
+        },
+        "related_content" => {
+          "dynamic" => true,
+          "label" => "Related content",
+          "fields" => {
+            "related_links" => { "title" => "Related links", "block" => "default_string" },
+          },
+        },
+      },
+    }))
+    first_draft = build_stubbed(:standard_edition, document: build_stubbed(:document))
+
+    base_url = tab_url_for_edition(first_draft)
+    expected_output = [
+      { label: "Document", href: base_url, current: true },
+      { label: "Related content", href: "#{base_url}?current_tab=related_content", current: false },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(first_draft, base_url)
   end
 end
