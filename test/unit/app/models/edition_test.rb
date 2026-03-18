@@ -1016,6 +1016,20 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.reload.revalidated_at
   end
 
+  test "validates `image_display_option` value" do
+    edition = build(:edition, image_display_option: "organisation_image")
+    assert edition.valid?
+
+    edition.image_display_option = "no_image"
+    assert edition.valid?
+
+    edition.image_display_option = nil
+    assert edition.valid?
+
+    edition.image_display_option = "invalid_option"
+    assert_not edition.valid?
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

@@ -71,6 +71,7 @@ class Edition < ApplicationRecord
   validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: :draft?, allow_blank: true
   validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
   validates :political, inclusion: { in: [true, false] }
+  validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", nil] }
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
