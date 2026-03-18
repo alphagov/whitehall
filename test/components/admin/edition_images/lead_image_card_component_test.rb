@@ -124,6 +124,36 @@ class Admin::EditionImages::LeadImageCardComponentTest < ViewComponent::TestCase
     assert_selector "img[src='#{placeholder_image_url}']"
   end
 
+  test "renders the caption if provided" do
+    image_data = create(:image_data, image_kind: "default")
+    image = build_stubbed(:image, usage: "lead", image_data:, caption: "Caption Value")
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
+    edition = build_stubbed(:standard_edition, images: [image])
+    lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
+
+    render_inline(Admin::EditionImages::LeadImageCardComponent.new(edition:, image:, image_usage: lead_usage))
+
+    assert_selector ".govuk-summary-list__row .govuk-summary-list__key", text: "Caption"
+    assert_selector ".govuk-summary-list__row .govuk-summary-list__value", text: "Caption Value"
+  end
+
+  test "does not render caption when caption_enabled is false for custom image" do
+    image = create(:image, image_data: build(:image_data), caption: "caption")
+    edition = build_stubbed(:draft_publication, images: [image])
+    render_inline(Admin::EditionImages::LeadImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "lead", caption_enabled: false)))
+
+    assert_no_selector ".govuk-summary-list__row .govuk-summary-list__key", text: "Caption"
+  end
+
+  test "renders placeholder text for caption when none has been provided for custom image" do
+    image = build_stubbed(:image, caption: nil)
+    edition = build_stubbed(:draft_publication, images: [image])
+    render_inline(Admin::EditionImages::LeadImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "lead", caption_enabled: true)))
+
+    assert_selector ".govuk-summary-list__row .govuk-summary-list__key", text: "Caption"
+    assert_selector ".govuk-summary-list__row .govuk-summary-list__value", text: "Not set"
+  end
+
   def lead_image_usage_test_type
     {
       "settings" => {
