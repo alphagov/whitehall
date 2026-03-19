@@ -11,6 +11,6 @@ examples:
   default:
     data:
       name: inputname,
-      src: https://www.gov.uk/assets/government-frontend/history/buildings/larry-the-cat-12a0929c06ef6fe7045460346724cec8fc6eeda45dd96f87d7c6e638fb714ccf.jpg,
+      src: https://assets.publishing.service.gov.uk/media/68b08e903ef8543881a4f1af/s960_larry-the-cat.jpg,
       filename: example.jpg,
       type: image/jpeg
