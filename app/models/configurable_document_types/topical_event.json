@@ -42,10 +42,10 @@
           "translatable": true,
           "fields": {
             "social_media_service_name": {
-              "title": "Service",
+              "title": "Channel",
               "block": "default_select",
               "attribute_path": ["social_media_service_name"],
-              "blank_option_label": "No social media service selected",
+              "blank_option_label": "Select channel",
               "translatable": true,
               "options": [
                 {
