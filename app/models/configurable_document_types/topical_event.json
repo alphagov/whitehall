@@ -181,13 +181,13 @@
       "enabled": true,
       "usages": {
         "header": {
-          "label": "header",
+          "label": "header image",
           "kinds": ["topical_event_header"],
           "multiple": false,
           "caption_enabled": false
         },
         "logo": {
-          "label": "logo",
+          "label": "event logo",
           "kinds": ["topical_event_logo"],
           "multiple": false,
           "caption_enabled": false
