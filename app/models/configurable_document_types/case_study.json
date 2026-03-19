@@ -1,0 +1,114 @@
+{
+  "key": "case_study",
+  "title": "Case Study",
+  "description": "Use this to share real examples that help users understand a process or an important aspect of government policy covered on GOV.UK.",
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "required": true,
+          "block": "govspeak",
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
+        },
+        "worldwide_organisations": {
+          "title": "Worldwide organisations",
+          "block": "select_with_search_tagging",
+          "container": "worldwide_organisations",
+          "attribute_path": ["worldwide_organisation_document_ids"],
+          "translatable": false
+        },
+        "world_locations": {
+          "title": "World locations",
+          "block": "select_with_search_tagging",
+          "container": "world_locations",
+          "attribute_path": ["world_location_ids"],
+          "translatable": false
+        },
+        "lead_organisations": {
+          "title": "Lead organisations",
+          "required": true,
+          "block": "ordered_select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["lead_organisation_ids"],
+          "size": 4,
+          "translatable": false
+        },
+        "supporting_organisations": {
+          "title": "Supporting organisations",
+          "block": "select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["supporting_organisation_ids"],
+          "translatable": false
+        }
+      }
+    }
+  },
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
+      }
+    },
+    "validations": {
+      "presence": {
+        "attributes": ["body"]
+      },
+      "length": {
+        "attributes": ["body"],
+        "maximum": 16777215
+      },
+      "safe_html": {
+        "attributes": ["body"]
+      },
+      "no_footnotes_allowed": {
+        "attributes": ["body"]
+      },
+      "embedded_contacts_exist": {
+        "attributes": ["body"],
+        "on": "publish"
+      }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "details": {
+        "body": "govspeak"
+      },
+      "links": [
+        "world_locations",
+        "organisations",
+        "worldwide_organisations",
+        "government"
+      ]
+    }
+  },
+  "settings": {
+    "base_path_prefix": "/government/case-studies",
+    "publishing_api_schema_name": "case_study",
+    "publishing_api_document_type": "case_study",
+    "rendering_app": "frontend",
+    "images": {
+      "enabled": true,
+      "usages": {
+        "govspeak_embed": {
+          "kinds": ["default"],
+          "multiple": true
+        },        
+        "lead": {
+          "label": "lead",
+          "kinds": ["default"],
+          "multiple": false
+        }
+      }
+    },
+    "send_change_history": true,
+    "file_attachments_enabled": true,
+    "organisations": null,
+    "backdating_enabled": true,
+    "history_mode_enabled": true,
+    "translations_enabled": true
+  }
+}
