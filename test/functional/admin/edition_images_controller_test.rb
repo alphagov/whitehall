@@ -598,7 +598,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     hero_desktop_kind = Whitehall.image_kinds.fetch("hero_desktop")
     assert_template "admin/edition_images/new"
-    assert_select "label", "Upload hero image"
+    assert_select "label", "Upload image"
     assert_select ".govuk-error-summary li", "Image data file \"960x640_jpeg.jpg\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall."
   end
 
