@@ -2,6 +2,11 @@
 <% content_for :title_margin_bottom, 8 %>
 <% content_for :page_class, "document-collection-email-groups edit" %>
 <% errors = errors_from_flash(flash) %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@collection),
+  } %>
+<% end %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
