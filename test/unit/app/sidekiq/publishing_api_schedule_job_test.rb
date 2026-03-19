@@ -10,7 +10,7 @@ class PublishingApiScheduleJobTest < ActiveSupport::TestCase
     expected_payload = {
       publish_time:,
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
-      rendering_app: "government-frontend",
+      rendering_app: "frontend",
       routes: [{ path: base_path, type: "exact" }],
     }
     expected_request = stub_publishing_api_put_intent(base_path, expected_payload)

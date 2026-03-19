@@ -359,7 +359,6 @@
           "description": "The frontend application responsible for rendering this document type.",
           "enum": [
             "frontend",
-            "government-frontend",
             "collections"
           ]
         },
@@ -501,7 +500,7 @@
           "images": {
             "maxProperties": 0,
             "x-error": {
-              "maxProperties": "forms/images cannot be defined if settings/images/enabled is `false`"  
+              "maxProperties": "forms/images cannot be defined if settings/images/enabled is `false`"
             }
           }
         }

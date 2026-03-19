@@ -10,7 +10,7 @@ module PublishingApi
       {
         publish_time: @publish_timestamp,
         publishing_app: @publishing_app,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::FRONTEND,
         routes: [{ path: @base_path, type: "exact" }],
       }
     end
