@@ -1,3 +1,9 @@
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Content",
+  font_size: "l",
+  margin_bottom: 3,
+} %>
+
 <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
   <%= render "govuk_publishing_components/components/character_count", {
     textarea: {
@@ -50,12 +56,6 @@
     } %>
   </div>
 <% end %>
-
-<%= render "govuk_publishing_components/components/heading", {
-  text: "Content",
-  font_size: "l",
-  margin_bottom: 3,
-} %>
 
 <%= render ConfigurableContentBlocks::DefaultObject.root_block_for(edition, "documents") %>
 
