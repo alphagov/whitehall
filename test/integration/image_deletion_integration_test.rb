@@ -29,7 +29,7 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
       context "when one image is deleted" do
         before do
           visit admin_edition_path(edition)
-          click_link "Modify images"
+          click_link "Edit images"
           click_link "Delete image"
           click_button "Delete image"
           assert_text "minister-of-funk.960x640.jpg has been deleted"

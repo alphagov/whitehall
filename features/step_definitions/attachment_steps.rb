@@ -42,7 +42,7 @@ end
 
 When(/^I try and upload an attachment but there are validation errors$/) do
   ensure_path admin_publication_path(Publication.last)
-  click_on "Modify attachments"
+  click_on "Edit attachments"
   page.attach_file Rails.root.join("test/fixtures/greenpaper.pdf")
   click_button "Upload"
   click_on "Save"

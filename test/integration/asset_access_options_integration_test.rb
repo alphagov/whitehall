@@ -101,7 +101,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
         before do
           visit admin_edition_path(edition)
-          click_link "Modify attachments"
+          click_link "Edit attachments"
           click_link "Add new HTML attachment"
           fill_in "Title", with: "html-attachment"
           fill_in "Body", with: "some html content"
@@ -180,7 +180,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       context "when attachment is replaced" do
         before do
           visit admin_edition_path(edition)
-          click_link "Modify attachments"
+          click_link "Edit attachments"
           click_link "Edit"
           attach_file "Replace file", path_to_attachment("big-cheese.960x640.jpg")
           click_button "Save"
