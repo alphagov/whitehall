@@ -1,11 +1,12 @@
 require "test_helper"
 
+# Legacy - delete when CaseStudy migrated to StandardEdition
 class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
   test "PATCH :update successfully updates the lead image and republishes the draft edition" do
     login_as :writer
 
     image = build(:image)
-    edition = create(:draft_case_study, images: [image])
+    edition = create(:draft_case_study, image_display_option: nil, images: [image])
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 

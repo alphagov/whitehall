@@ -19,6 +19,8 @@ module StandardEdition::LeadImage
   end
 
   def lead_image_payload(lead_image_usage)
+    return if image_display_option == "no_image"
+
     lead_image = images
                    .usable
                    .usable_as(*lead_image_usage)

@@ -179,6 +179,14 @@ class StandardEdition::LeadImageTest < ActiveSupport::TestCase
     assert_equal expected_payload, edition.lead_image_payload(lead_usage)
   end
 
+  test "#lead_image_payload returns nil if image display option is set to no_image" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", lead_image_usage_test_type))
+    edition = create(:standard_edition, images: [create(:image, usage: "lead")], image_display_option: "no_image")
+    lead_usage = edition.permitted_image_usages.find { |usage| usage.key == "lead" }
+
+    assert_nil edition.lead_image_payload(lead_usage)
+  end
+
   def lead_image_usage_test_type
     {
       "settings" => {

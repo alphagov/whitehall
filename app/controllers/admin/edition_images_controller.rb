@@ -10,10 +10,22 @@ class Admin::EditionImagesController < Admin::BaseController
 
   def confirm_destroy; end
 
+  def confirm_toggle_default_lead_image_behaviour; end
+
+  def toggle_default_lead_image_behaviour
+    if @edition.update(image_display_option: params[:image_display_option])
+      notice = @edition.image_display_option == "no_image" ? "Lead image removed." : "Now using the default lead image."
+      redirect_to admin_edition_images_path(@edition), notice: notice
+    else
+      flash.now[:alert] = "Failed to update the lead image behaviour"
+      render :confirm_toggle_default_lead_image_behaviour
+    end
+  end
+
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
-    @edition.update_lead_image if @edition.is_a?(CaseStudy)
+    @edition.update_lead_image if @edition.is_a?(CaseStudy) # Legacy: remove when CaseStudy migrated to StandardEdition
     PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
 
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
@@ -65,7 +77,8 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if @images.any? && @images.map(&:valid?).all?
       @images.each(&:save)
-      @edition.update_lead_image if @edition.is_a?(CaseStudy)
+      @edition.update_lead_image if @edition.is_a?(CaseStudy) # Legacy: remove when CaseStudy migrated to StandardEdition
+      @edition.update!(image_display_option: nil) if @image_usage.key == "lead"
       PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
       flash.notice = "Images successfully uploaded"
     else
@@ -147,7 +160,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy", "create", "new"
+    when "edit", "update", "destroy", "confirm_destroy", "create", "new", "confirm_toggle_default_lead_image_behaviour", "toggle_default_lead_image_behaviour"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name

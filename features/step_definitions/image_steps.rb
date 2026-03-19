@@ -219,7 +219,7 @@ end
 
 Given(/^a draft case study with images with the captions "([^"]*)" and "([^"]*)" exists$/) do |first_caption, second_caption|
   images = [build(:image, caption: first_caption), build(:image, caption: second_caption)]
-  @edition = create(:draft_case_study, images:)
+  @edition = create(:draft_case_study, image_display_option: nil, images:)
 end
 
 And(/^I make the image with caption "([^"]*)" the lead image$/) do |caption|
