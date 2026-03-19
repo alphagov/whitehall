@@ -1,11 +1,11 @@
-class DocumentCollectionNonWhitehallLink::GovukUrl
+class DocumentCollectionNonWhitehallLink::GovukURL
   include ActiveModel::Validations
 
   attr_reader :url, :document_collection_group
 
   validates :url, presence: true
   validates :document_collection_group, presence: true
-  validates_with GovUkUrlValidator
+  validates_with GovUkURLValidator
 
   def initialize(url:, document_collection_group:)
     @url = url

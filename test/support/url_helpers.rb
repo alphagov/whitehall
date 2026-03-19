@@ -1,6 +1,6 @@
 # rubocop:disable Lint/NestedMethodDefinition
 
-module UrlHelpers
+module URLHelpers
   extend ActiveSupport::Concern
 
   class_methods do

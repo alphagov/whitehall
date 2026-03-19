@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::Editions::Show::PreviewComponent < ViewComponent::Base
-  include Admin::UrlOptionsHelper
+  include Admin::URLOptionsHelper
 
   def initialize(edition:)
     @edition = edition

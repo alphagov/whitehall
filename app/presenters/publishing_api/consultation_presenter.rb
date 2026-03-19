@@ -74,7 +74,7 @@ module PublishingApi
       base_details
         .merge(PayloadBuilder::ChangeHistory.for(consultation))
         .merge(PayloadBuilder::Documents.for(consultation))
-        .merge(PayloadBuilder::ExternalUrl.for(consultation))
+        .merge(PayloadBuilder::ExternalURL.for(consultation))
         .merge(FinalOutcome.for(consultation))
         .merge(PayloadBuilder::NationalApplicability.for(consultation))
         .merge(PublicFeedback.for(consultation))
