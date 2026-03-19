@@ -3,7 +3,9 @@
 
   hint_text = ["An image can be a <strong>JPEG, PNG, SVG or GIF</strong> file"]
   hint_text << (image_usage.kinds.one? ? " with a minimum size of <strong>#{image_kind.valid_width}x#{image_kind.valid_height}</strong>. " : ". ")
-  hint_text << "If you are uploading more than one image, <a class=\"govuk-link\" href=\"https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos\">read the image guidance</a> on using unique file names."
+  unless image_usage.multiple
+    hint_text << "If you are uploading more than one image, <a class=\"govuk-link\" href=\"https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos\">read the image guidance</a> on using unique file names."
+  end
 %>
 
 <%= form_tag(
