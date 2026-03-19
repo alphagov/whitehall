@@ -19,7 +19,7 @@ module PublishingApi
         details:,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::FRONTEND,
         schema_name:,
       ).merge(
         PayloadBuilder::Routes.for(base_path),
