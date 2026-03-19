@@ -6,7 +6,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it sets the schema name, document type, base path and rendering app based on the document type settings" do
     schema_name = "test_type_schema"
     document_type = "test_type"
-    rendering_app = "government-frontend"
+    rendering_app = "frontend"
     base_path_prefix = "/government/history"
     type_key = "test_type_key"
 
