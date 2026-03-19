@@ -94,7 +94,7 @@ private
     edition = validate_on_image.edition
 
     if edition.images.excluding(image).joins(:image_data).exists?(["image_data.carrierwave_image = ?", filename])
-      errors.add(:file, message: "name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name.")
+      errors.add(:file, message: "is not unique. All your file names must be different. Do not use special characters to create another version of the same file name.")
     end
   end
 
