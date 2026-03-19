@@ -13,11 +13,7 @@
       ) do %>
   <%= render "govuk_publishing_components/components/file_upload", {
     label: {
-      text: if image_usage.label.blank?
-              "Upload #{image_usage.multiple ? "images" : "an image"}"
-            else
-              "Upload #{image_usage.label} #{image_usage.multiple ? "images" : "image"}"
-            end,
+      text: "Upload #{image_usage.multiple ? "images" : "image"}",
     },
     heading_level: 2,
     heading_size: "l",
