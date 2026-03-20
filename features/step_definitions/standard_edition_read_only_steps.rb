@@ -127,6 +127,6 @@ Then("there is a back button taking me to the document summary screen") do
 end
 
 Then("I can see the currently featured items") do
-  assert_selector ".govuk-table__cell", text: "Generic edition (document)"
-  assert_selector ".govuk-table__cell", text: "Alert (offsite link)"
+  assert_selector ".govuk-table__cell", text: "Generic edition"
+  assert_selector ".govuk-table__cell", text: "Alert (external link)"
 end
