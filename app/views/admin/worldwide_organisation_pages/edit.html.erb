@@ -4,6 +4,11 @@
     <% content_for :title, "Edit page details" %>
     <% content_for :context, @worldwide_organisation.title %>
     <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @worldwide_organisation_page)) %>
+    <% content_for :back_link do %>
+      <%= render "govuk_publishing_components/components/back_link", {
+        href: admin_worldwide_organisation_pages_path(@worldwide_organisation),
+      } %>
+    <% end %>
 
     <%= render "components/secondary_navigation", {
       aria_label: "Worldwide organisation page navigation",

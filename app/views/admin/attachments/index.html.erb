@@ -10,8 +10,12 @@
     <%= render("govuk_publishing_components/components/error_summary", { title: "There is a problem", items: [{ text: flash[:upload_error], href: "#upload_files" }]}) %>
   <% end %>
 <% end %>
-<% if @read_only %>
-  <% content_for :back_link do %>
+<% content_for :back_link do %>
+  <% if attachable.is_a?(WorldwideOrganisationPage) %>
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: edit_admin_worldwide_organisation_page_path(attachable.edition, attachable),
+    } %>
+  <% else %>
     <%= render "govuk_publishing_components/components/back_link", {
       href: polymorphic_path([:admin, attachable]),
     } %>

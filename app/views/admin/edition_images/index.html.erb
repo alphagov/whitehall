@@ -2,12 +2,10 @@
 <% content_for :page_title, "Images for #{@edition.format_name}" %>
 <% content_for :title, "Images for #{@edition.format_name}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @images.flat_map { |image| image&.errors&.errors }, parent_class: "edition_images")) if @images.present? %>
-<% unless @edition.editable? %>
-  <% content_for :back_link do %>
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: admin_edition_path(@edition),
-    } %>
-  <% end %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition),
+  } %>
 <% end %>
 
 <div class="govuk-grid-row">

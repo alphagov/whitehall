@@ -2,12 +2,10 @@
 <% content_for :title, @edition.title %>
 <% content_for :context, @edition.title %>
 <% content_for :title_margin_bottom, 4 %>
-<% unless @edition.editable? %>
-  <% content_for :back_link do %>
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: admin_edition_path(@edition),
-    } %>
-  <% end %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition),
+  } %>
 <% end %>
 
 <div class="govuk-!-margin-bottom-8">

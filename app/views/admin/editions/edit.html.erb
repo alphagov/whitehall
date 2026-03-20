@@ -4,12 +4,10 @@
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @edition, parent_class: "edition")) %>
 <% content_for :banner, render("recent_openings", edition: @edition, recent_openings: @recent_openings) %>
 
-<% unless @edition.editable? %>
-  <% content_for :back_link do %>
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: admin_edition_path(@edition),
-    } %>
-  <% end %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: admin_edition_path(@edition),
+  } %>
 <% end %>
 
 <% if @conflicting_edition %>
