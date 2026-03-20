@@ -39,9 +39,9 @@ private
 
   def type(featuring)
     if featuring.offsite?
-      "#{featuring.offsite_link.humanized_link_type} (offsite link)"
+      "#{featuring.offsite_link.humanized_link_type} (external link)"
     else
-      "#{featuring.edition.display_type} (document)"
+      featuring.edition.display_type.to_s
     end
   end
 

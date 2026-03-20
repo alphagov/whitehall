@@ -52,11 +52,11 @@ private
 
   def type(feature)
     if feature.document&.live_edition.present?
-      "#{feature.document.live_edition.display_type} (document)"
+      feature.document.live_edition.display_type.to_s
     elsif feature.topical_event.present?
       "Topical Event"
     elsif feature.offsite_link.present?
-      "#{feature.offsite_link.humanized_link_type} (offsite link)"
+      "#{feature.offsite_link.humanized_link_type} (external link)"
     else
       ""
     end
