@@ -1,10 +1,10 @@
 Given(/^I have drafted a translatable document "([^"]*)"$/) do |title|
-  begin_drafting_document type: "case_study", title:, previously_published: false
+  begin_drafting_document type: "detailed_guide", title:, previously_published: false, all_nation_applicability: true
   click_button "Save"
 end
 
 Given(/^I have drafted a translatable document "([^"]*)" with a french translation with the title "([^"]*)"$/) do |title, translation_title|
-  create(:draft_case_study, title:, translated_into: [:fr])
+  create(:draft_detailed_guide, title:, translated_into: [:fr])
   edition = Edition.find_by!(title:)
   I18n.with_locale :fr do
     edition.title = translation_title

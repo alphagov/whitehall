@@ -26,9 +26,10 @@ class Admin::NewDocumentController < Admin::BaseController
         "label" => "call_for_evidence".humanize,
       },
       "case_study" => {
-        "klass" => CaseStudy,
+        "klass" => StandardEdition,
         "hint_text" => "Use this to share real examples that help users understand a process or an important aspect of government policy covered on GOV.UK.",
         "label" => "case_study".humanize,
+        "redirect" => new_admin_standard_edition_path(configurable_document_type: "case_study"),
       },
       "consultation" => {
         "klass" => Consultation,

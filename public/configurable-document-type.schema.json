@@ -339,7 +339,8 @@
           "enum": [
             "history",
             "topical_event",
-            "news_article"
+            "news_article",
+            "case_study"
           ]
         },
         "publishing_api_document_type": {
@@ -351,7 +352,8 @@
             "press_release",
             "world_news_story",
             "history",
-            "topical_event"
+            "topical_event",
+            "case_study"
           ]
         },
         "rendering_app": {
