@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Edition::UrlsTest < ActiveSupport::TestCase
+class Edition::URLsTest < ActiveSupport::TestCase
   def edition
     @edition ||= create(:published_publication, title: "Price of steel")
   end

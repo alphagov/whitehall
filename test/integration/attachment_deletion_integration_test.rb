@@ -38,7 +38,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           Services.asset_manager.expects(:delete_asset).never
 
           visit admin_edition_path(edition)
-          click_link "Modify attachments"
+          click_link "Edit attachments"
           within page.find("li", text: first_attachment.title) do
             click_link "Delete attachment"
           end
@@ -131,7 +131,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
       it "deletes the corresponding asset in Asset Manager only when the new draft gets published" do
         visit admin_edition_path(latest_attachable)
-        click_link "Modify attachments"
+        click_link "Edit attachments"
         within page.find("li", text: attachment.title) do
           click_link "Delete attachment"
         end
@@ -171,7 +171,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
         it "deletes the corresponding asset in Asset Manager and updates the asset to live, only when the new draft gets published" do
           visit admin_edition_path(latest_attachable)
-          click_link "Modify attachments"
+          click_link "Edit attachments"
           within page.find("li", text: attachment.title) do
             click_link "Delete attachment"
           end

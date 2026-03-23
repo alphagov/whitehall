@@ -83,7 +83,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params.merge(redirect: true))
 
     assert_not unpublisher.can_perform?
-    assert_equal "Alternative url must be provided to redirect the document", unpublisher.failure_reason
+    assert_equal "Alternative URL must be provided to redirect the document", unpublisher.failure_reason
   end
 
 private

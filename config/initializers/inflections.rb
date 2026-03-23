@@ -10,6 +10,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   #   inflect.uncountable %w( fish sheep )
   inflect.acronym "FOI"
   inflect.acronym "BSL"
+  inflect.acronym "NHS"
+  inflect.acronym "URL"
   inflect.plural %r{^(Minister)}, '\0s'
   inflect.plural %r{^Chancellor}, '\0s'
   inflect.plural %r{\A(call)(.*evidence)\z}i, '\1s\2'

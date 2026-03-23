@@ -42,13 +42,13 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
   test "should be invalid without a url" do
     account = build(:social_media_account, url: nil)
     assert_not account.valid?
-    assert_includes account.errors.full_messages, "Url cannot be blank"
+    assert_includes account.errors.full_messages, "URL cannot be blank"
   end
 
   test "should be invalid with a malformed url" do
     account = build(:social_media_account, url: "invalid-url", social_media_service: create(:social_media_service))
     assert_not account.valid?
-    assert_includes account.errors.full_messages, "Url is not a valid URI. Make sure it starts with http(s)"
+    assert_includes account.errors.full_messages, "URL is not a valid URI. Make sure it starts with http(s)"
   end
 
   test "should be valid with a url with HTTP protocol" do

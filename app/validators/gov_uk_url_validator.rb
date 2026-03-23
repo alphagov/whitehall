@@ -1,4 +1,4 @@
-class GovUkUrlValidator < ActiveModel::Validator
+class GovUkURLValidator < ActiveModel::Validator
   def validate(record)
     return if record.url.blank?
 

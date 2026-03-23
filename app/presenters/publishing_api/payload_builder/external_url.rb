@@ -1,6 +1,6 @@
 module PublishingApi
   module PayloadBuilder
-    class ExternalUrl
+    class ExternalURL
       def self.for(document)
         new(document).call
       end

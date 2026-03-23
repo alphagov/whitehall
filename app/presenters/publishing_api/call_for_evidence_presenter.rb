@@ -74,7 +74,7 @@ module PublishingApi
       base_details
         .merge(PayloadBuilder::ChangeHistory.for(call_for_evidence))
         .merge(PayloadBuilder::Documents.for(call_for_evidence))
-        .merge(PayloadBuilder::ExternalUrl.for(call_for_evidence))
+        .merge(PayloadBuilder::ExternalURL.for(call_for_evidence))
         .merge(Outcome.for(call_for_evidence))
         .merge(PayloadBuilder::NationalApplicability.for(call_for_evidence))
         .merge(WaysToRespond.for(call_for_evidence))
