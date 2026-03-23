@@ -1,5 +1,5 @@
 # Accepts options[:message] and options[:allowed_protocols]
-class GovUkURLFormatValidator < ActiveModel::EachValidator
+class GovUkUrlFormatValidator < ActiveModel::EachValidator
   EXTERNAL_HOST_ALLOW_LIST = %w[
     .caa.co.uk
     .independent-inquiry.uk

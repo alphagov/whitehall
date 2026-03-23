@@ -42,10 +42,10 @@
           "translatable": true,
           "fields": {
             "social_media_service_name": {
-              "title": "Channel",
+              "title": "Service",
               "block": "default_select",
               "attribute_path": ["social_media_service_name"],
-              "blank_option_label": "Select channel",
+              "blank_option_label": "No social media service selected",
               "translatable": true,
               "options": [
                 {
@@ -181,13 +181,13 @@
       "enabled": true,
       "usages": {
         "header": {
-          "label": "header image",
+          "label": "header",
           "kinds": ["topical_event_header"],
           "multiple": false,
           "caption_enabled": false
         },
         "logo": {
-          "label": "event logo",
+          "label": "logo",
           "kinds": ["topical_event_logo"],
           "multiple": false,
           "caption_enabled": false

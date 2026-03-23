@@ -73,7 +73,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     image_data = ImageData.new(image_kind: "default", file:)
 
     assert_not image_data.valid?
-    assert_includes image_data.errors.map(&:full_message), "Image \"not_an_image.jpg\" could not be read. The file may not be an image or may be corrupt."
+    assert_includes image_data.errors.map(&:full_message), "File \"not_an_image.jpg\" could not be read. The file may not be an image or may be corrupt."
   end
 
   test "should show an error when no image kind is selected" do
@@ -82,7 +82,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     image_data.write_attribute("image_kind", nil)
 
     assert_not image_data.valid?
-    assert_includes image_data.errors.map(&:full_message), "Image \"960x640_jpeg.jpg\" does not have a selected image kind. Select an image kind for the image."
+    assert_includes image_data.errors.map(&:full_message), "File \"960x640_jpeg.jpg\" does not have a selected image kind. Select an image kind for the image."
   end
 
   test "should store uploads in a directory that persists across deploys" do

@@ -68,7 +68,7 @@
       } %>
 
       <p class="govuk-body">
-        <%= link_to(@edition_taxons.any? ? "Edit tags" : "Add tags",
+        <%= link_to(@edition_taxons.any? ? "Change tags" : "Add tags",
                     edit_admin_edition_tags_path(@edition.id), class: "govuk-link") %>
       </p>
 
@@ -99,7 +99,7 @@
       } %>
 
       <p class="govuk-body">
-        <%= link_to(@edition_world_taxons.map(&:full_path).any? ? "Edit tags" : "Add tags", edit_admin_edition_world_tags_path(@edition.id), class: "govuk-link") %>
+        <%= link_to(@edition_world_taxons.map(&:full_path).any? ? "Change tags" : "Add tags", edit_admin_edition_world_tags_path(@edition.id), class: "govuk-link") %>
       </p>
 
       <% if @edition_world_taxons.map(&:full_path).any? %>
@@ -129,7 +129,7 @@
 
       <% if @edition.editable? %>
         <p class="govuk-body">
-          <%= link_to("#{@edition.images.any? ? "Edit" : "Add"} images",
+          <%= link_to("#{@edition.images.any? ? "Modify" : "Add"} images",
                       admin_edition_images_path(@edition.id),
                       class: "govuk-link") %>
         </p>
@@ -165,7 +165,7 @@
 
       <% if @edition.editable? %>
         <p class="govuk-body">
-          <%= link_to("#{@edition.attachments.any? ? "Edit" : "Add"} attachments",
+          <%= link_to("#{@edition.attachments.any? ? "Modify" : "Add"} attachments",
                       admin_edition_attachments_path(@edition.id),
                       class: "govuk-link") %>
         </p>

@@ -57,7 +57,7 @@ class ActiveSupport::TestCase
   include I18nHelpers
   include PublishingApiTestHelpers
   include GovukSchemas::AssertMatchers
-  include URLHelpers
+  include UrlHelpers
   include ConfigurableDocumentTypeHelper
   extend GovspeakValidationTestHelper
 
@@ -148,7 +148,7 @@ class ActiveSupport::TestCase
   end
 
   def routes_helper
-    @routes_helper ||= Whitehall::URLMaker.new
+    @routes_helper ||= Whitehall::UrlMaker.new
   end
 
   def self.disable_database_queries
@@ -304,7 +304,7 @@ class ActionDispatch::IntegrationTest
 end
 
 class ActionMailer::TestCase
-  include URLHelpers
+  include UrlHelpers
 end
 
 class ActionView::TestCase

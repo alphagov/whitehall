@@ -177,7 +177,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Edit tags"
+    assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Change tags"
     assert_select ".app-view-summary__taxonomy-topics .app-view-summary__topic-tag-list-item", "Education, Training and Skills"
     assert_select ".app-view-summary__taxonomy-topics .app-view-summary__topic-tag-list-item", "Primary Education"
     assert_select ".app-view-summary__world-taxonomy .govuk-link", "Add tags"
@@ -198,7 +198,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    assert_select ".app-view-summary__world-taxonomy .govuk-link", "Edit tags"
+    assert_select ".app-view-summary__world-taxonomy .govuk-link", "Change tags"
     assert_select ".app-view-summary__world-taxonomy .app-view-summary__topic-tag-list-item", "World Child Taxon"
     assert_select ".app-view-summary__world-taxonomy .app-view-summary__topic-tag-list-item", "World Grandchild Taxon"
     assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Add tags"
