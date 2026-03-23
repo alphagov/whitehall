@@ -13,7 +13,6 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
 
     # This list includes all the "high-level" types, either stand-alone types, or a "group" with subtypes (such as Publication)
     @types = ["Calls for evidence",
-              "Case studies",
               "Consultations",
               "Corporate information pages",
               "Detailed guides",
