@@ -15,7 +15,7 @@ Whitehall::Application.config.to_prepare do
       edition.edition_dependencies.destroy_all
 
       # Update attachment redirect urls
-      ServiceListeners::AttachmentRedirectURLUpdater.call(attachable: edition)
+      ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
     end
 
     coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, options|
@@ -33,7 +33,7 @@ Whitehall::Application.config.to_prepare do
       AuthorNotifierJob.perform_async(edition.id, *[options[:user]&.id].compact)
 
       # Update attachment redirect urls
-      ServiceListeners::AttachmentRedirectURLUpdater.call(attachable: edition)
+      ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
     end
 
     coordinator.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) do |_event, edition, options|

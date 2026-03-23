@@ -24,6 +24,6 @@
 
 <% if remaining.present? %>
   <div class="app-view-features__table">
-    <%= table("Other pages featured but not shown on the page", remaining) %>
+    <%= table(pluralize(remaining.count, "remaining featured page"), remaining) %>
   </div>
 <% end %>

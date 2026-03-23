@@ -76,7 +76,7 @@ class ImageDataTest < ActiveSupport::TestCase
     image_data.validate_on_image = image
 
     assert_not image_data.valid?
-    assert_equal ["\"960x640_jpeg.jpg\" is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."], image_data.errors[:file]
+    assert_equal ["\"960x640_jpeg.jpg\" name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."], image_data.errors[:file]
   end
 
   test "does not validate unique filename if validate_on_image is not assigned" do

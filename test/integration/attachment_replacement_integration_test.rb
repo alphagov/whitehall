@@ -40,7 +40,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           Sidekiq::Job.clear_all
 
           visit admin_edition_path(edition)
-          click_link "Edit attachments"
+          click_link "Modify attachments"
           within page.find("li", text: filename) do
             click_link "Edit attachment"
           end

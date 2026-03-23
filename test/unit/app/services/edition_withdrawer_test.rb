@@ -87,7 +87,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     unpublisher = EditionWithdrawer.new(edition)
 
     assert_not unpublisher.can_perform?
-    assert_equal "Alternative URL must be provided to redirect the document", unpublisher.failure_reason
+    assert_equal "Alternative url must be provided to redirect the document", unpublisher.failure_reason
   end
 
   test "copies the date & explanation from a previous withdrawal if one is given" do

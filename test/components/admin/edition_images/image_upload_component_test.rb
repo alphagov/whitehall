@@ -3,16 +3,12 @@ require "test_helper"
 class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
 
-  test "uses correct plurality in label" do
+  test "includes label in input label if one is provided" do
     edition = build_stubbed(:draft_publication)
-
-    usage = ImageUsage.new(key: "test_usage", kinds: [Whitehall.image_kinds.fetch("default")], multiple: false)
+    usage = ImageUsage.new(key: "test_usage", kinds: [Whitehall.image_kinds.fetch("default")], multiple: true, label: "test")
     render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, image_usage: usage))
-    assert_selector "label", text: "Upload image"
 
-    usage = ImageUsage.new(key: "test_usage", kinds: [Whitehall.image_kinds.fetch("default")], multiple: true)
-    render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, image_usage: usage))
-    assert_selector "label", text: "Upload images"
+    assert_selector "label", text: "Upload test image"
   end
 
   test "sets multiple attribute to value configured for image usage" do

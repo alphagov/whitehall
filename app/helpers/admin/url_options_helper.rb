@@ -1,4 +1,4 @@
-module Admin::URLOptionsHelper
+module Admin::UrlOptionsHelper
   def public_url_options
     { host: Whitehall.public_host, protocol: Whitehall.public_protocol }
   end

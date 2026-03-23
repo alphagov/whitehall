@@ -87,7 +87,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::Features::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(features: [remaining_features], caption: "Other pages featured but not shown on the page", read_only: false)
+    .with(features: [remaining_features], caption: "1 remaining featured page", read_only: false)
     .once
     .returns(table_component2)
 
@@ -166,7 +166,7 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
 
     Admin::TopicalEvents::Featurings::FeaturedDocumentsTableComponent
     .expects(:new)
-    .with(featurings: [remaining_featurings], caption: "Other pages featured but not shown on the page")
+    .with(featurings: [remaining_featurings], caption: "1 remaining featured page")
     .once
     .returns(table_component2)
 

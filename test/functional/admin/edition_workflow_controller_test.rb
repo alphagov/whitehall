@@ -382,7 +382,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :confirm_unpublish
     assert_nil flash[:alert]
-    assert_equal "Alternative URL must be provided to redirect the document", assigns(:unpublishing).errors.full_messages.to_sentence
+    assert_equal "Alternative url must be provided to redirect the document", assigns(:unpublishing).errors.full_messages.to_sentence
     assert published_edition.reload.published?
   end
 

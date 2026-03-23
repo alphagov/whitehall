@@ -21,7 +21,7 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   end
 
   def create_member_by_govuk_url
-    govuk_link = DocumentCollectionNonWhitehallLink::GovukURL.new(
+    govuk_link = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: params[:document_url],
       document_collection_group: @group,
     )
