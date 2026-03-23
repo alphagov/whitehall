@@ -871,4 +871,15 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not header_usage.caption_enabled?
     assert logo_usage.caption_enabled?
   end
+
+  test "change_note_required? returns false if the `send_change_history` setting has the value `false`" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "send_change_history" => false,
+      },
+    }))
+    edition = create(:published_standard_edition, configurable_document_type: "test_type", document: create(:document)).create_draft(build_stubbed(:user))
+
+    assert_not edition.change_note_required?
+  end
 end

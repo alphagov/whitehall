@@ -199,6 +199,7 @@
     "translations_enabled": true,
     "file_attachments_enabled": true,
     "features_enabled": true,
+    "send_change_history": true,
     "images": {
       "enabled": true,
       "usages": {

@@ -44,6 +44,7 @@ module ConfigurableDocumentTypeHelper
           "backdating_enabled" => false,
           "history_mode_enabled" => false,
           "translations_enabled" => false,
+          "send_change_history" => true,
         },
       }.deep_merge(attributes),
     }

@@ -194,7 +194,7 @@
         }
       }
     },
-    "send_change_history": true,
+    "send_change_history": false,
     "file_attachments_enabled": false,
     "features_enabled": true,
     "organisations": null,
