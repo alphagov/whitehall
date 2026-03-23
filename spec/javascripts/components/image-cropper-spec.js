@@ -141,9 +141,10 @@ describe('GOVUK.Modules.ImageCropper', () => {
     })
 
     it('should display legend for each cropbox', (done) => {
-      const cropKeys = document.querySelectorAll(
-        '.app-c-image-cropper__crop-key'
+      const cropKeys = Array.from(
+        document.querySelectorAll('.app-c-image-cropper__crop-key')
       )
+      cropKeys.shift()
       expect(cropKeys.length).toBe(versions.length)
       cropKeys.forEach((cropKey, index) => {
         const keyColour = cropKey.querySelector(
@@ -153,11 +154,51 @@ describe('GOVUK.Modules.ImageCropper', () => {
           `#cropbox-${cropKey.dataset.cropBox}`
         )
 
-        expect(cropKey.innerText.toLowerCase()).toBe(
+        expect(cropKey.innerText.replaceAll(' ', '').toLowerCase()).toBe(
           versions[index].name.toLowerCase()
         )
         expect(cropBox.style.outlineColor).toBe(keyColour.style.borderColor)
         expect(cropBox.style.outlineStyle).toBe(keyColour.style.borderStyle)
+      })
+
+      done()
+    })
+
+    it('the visibility of each cropbox should be togglable', (done) => {
+      const cropKeys = Array.from(
+        document.querySelectorAll('.app-c-image-cropper__crop-key')
+      )
+      const showAll = cropKeys.shift()
+      const showAllCheckbox = showAll.querySelector('input')
+
+      showAllCheckbox.click()
+      expect(
+        document.querySelectorAll(
+          '.app-c-image-cropper__crop-key input:checked'
+        ).length
+      ).toBe(0)
+      showAllCheckbox.click()
+      expect(
+        document.querySelectorAll(
+          '.app-c-image-cropper__crop-key input:checked'
+        ).length
+      ).toBe(cropKeys.length + 1)
+
+      cropKeys.forEach((cropKey) => {
+        const cropBox = document.querySelector(
+          `#cropbox-${cropKey.dataset.cropBox}`
+        )
+
+        const keyCheckbox = cropKey.querySelector('input')
+
+        keyCheckbox.click()
+
+        expect(cropBox.hasAttribute('hidden')).toBeTrue()
+
+        keyCheckbox.click()
+        keyCheckbox.dispatchEvent(new Event('click'))
+
+        expect(cropBox.hasAttribute('hidden')).not.toBeTrue()
       })
 
       done()
