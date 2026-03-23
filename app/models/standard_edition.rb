@@ -91,6 +91,12 @@ class StandardEdition < Edition
     type_instance.settings["history_mode_enabled"]
   end
 
+  def change_note_required?
+    return false unless type_instance.settings["send_change_history"]
+
+    super
+  end
+
   def base_path
     "#{type_instance.settings['base_path_prefix']}/#{slug}"
   end
