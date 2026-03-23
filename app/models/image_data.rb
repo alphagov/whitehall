@@ -20,7 +20,7 @@ class ImageData < ApplicationRecord
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
-  validates :file, presence: { message: "cannot be uploaded. Choose a valid JPEG, PNG, SVG or GIF." },
+  validates :file, presence: { message: "cannot be uploaded. Images can be JPEG, PNG, SVG or GIF files." },
                    unless: -> { file_integrity_errors.any? }
   validate :filename_is_unique
   after_validation :prepend_filename_to_errors
@@ -94,7 +94,7 @@ private
     edition = validate_on_image.edition
 
     if edition.images.excluding(image).joins(:image_data).exists?(["image_data.carrierwave_image = ?", filename])
-      errors.add(:file, message: "name is not unique. All your file names must be different. Do not use special characters to create another version of the same file name.")
+      errors.add(:file, message: "is not unique. All your file names must be different. Do not use special characters to create another version of the same file name.")
     end
   end
 
