@@ -9,6 +9,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.style = style
     this.outlineWidth = outlineWidth
     this.scaledRatio = scaledRatio
+    this.dragging = false
 
     this.el = document.createElement('DIV')
     this.el.id = `cropbox-${version.name}`
@@ -244,6 +245,36 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
             input.value = data[attribute]
           }
         })
+
+        this.updateAriaLabel()
+      }.bind(this)
+    )
+
+    this.$imageCropper.addEventListener(
+      'cropmove',
+      function (e) {
+        this.dragging = true
+      }.bind(this)
+    )
+
+    this.$imageCropper.addEventListener(
+      'cropend',
+      function (e) {
+        if (!this.dragging) {
+          const { clientX, clientY } = e.detail.originalEvent
+          const container =
+            this.$imageCropper.querySelector('.cropper-container')
+          const { top, left } = container.getBoundingClientRect()
+          const containerTop = window.scrollY + top
+          const containerLeft = window.scrollX + left
+
+          this.cropper.setCropBoxData({
+            top: clientY - containerTop,
+            left: clientX - containerLeft
+          })
+        }
+
+        this.dragging = false
       }.bind(this)
     )
 
@@ -332,13 +363,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       minCropBoxHeight: this.$targetHeight * 0.25,
       autoCrop: true,
       autoCropArea: 1,
+      dragMode: 'move',
       guides: false,
       zoomable: false,
       highlight: false,
       rotatable: false,
       scalable: false,
       checkOrientation: false,
-      checkCrossOrigin: false
+      checkCrossOrigin: false,
+      toggleDragModeOnDblclick: false
     })
   }
 
