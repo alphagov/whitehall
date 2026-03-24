@@ -87,7 +87,7 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_template "document_collection_group_document_search/add_by_title"
     assert_select "input[name='title']"
     assert_select ".govuk-heading-s", "16 documents"
-    assert_select ".govuk-table tr", count: 15
+    assert_select ".govuk-table tbody tr", count: 15
     assert_select "nav.govuk-pagination"
   end
 
@@ -100,20 +100,61 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_template "document_collection_group_document_search/add_by_title"
     assert_select "input[name='title']"
     assert_select ".govuk-heading-s", "15 documents"
-    assert_select ".govuk-table tr", count: 15
+    assert_select ".govuk-table tbody tr", count: 15
     assert_select "nav.govuk-pagination", count: 0
   end
 
-  # TODO: research into whether we should be able to search published and unpublished editions
-  view_test "GET :add_by_title with search value only returns published and unpublished editions" do
+  view_test "GET :add_by_title with search value only returns editions in the expected states" do
+    create(:draft_edition, title: "Something draft")
+    create(:rejected_edition, title: "Something rejected")
+    create(:submitted_edition, title: "Something submitted")
+    create(:scheduled_edition, title: "Something scheduled")
     create(:published_edition, title: "Something published")
-    create(:edition, title: "Something unpublished")
+    create(:unpublished_edition, title: "Something unpublished")
+    create(:withdrawn_edition, title: "Something withdrawn")
     create(:superseded_edition, title: "Something superseded")
     @request_params[:title] = "Something "
 
     get :add_by_title, params: @request_params
-    assert_select ".govuk-heading-s", "2 documents"
-    assert_select ".govuk-table tr", text: /Something published/
-    assert_select ".govuk-table tr", text: /Something unpublished/
+    assert_select ".govuk-heading-s", "7 documents"
+    assert_select ".govuk-table tbody tr", text: /Something draft/
+    assert_select ".govuk-table tbody tr", text: /Something rejected/
+    assert_select ".govuk-table tbody tr", text: /Something submitted/
+    assert_select ".govuk-table tbody tr", text: /Something scheduled/
+    assert_select ".govuk-table tbody tr", text: /Something published/
+    assert_select ".govuk-table tbody tr", text: /Something unpublished/
+    assert_select ".govuk-table tbody tr", text: /Something withdrawn/
+  end
+
+  view_test "GET :add_by_title with search value does not show Add button for unpublished and withdrawn editions" do
+    create(:draft_edition, title: "Something draft")
+    create(:rejected_edition, title: "Something rejected")
+    create(:submitted_edition, title: "Something submitted")
+    create(:scheduled_edition, title: "Something scheduled")
+    create(:published_edition, title: "Something published")
+    create(:unpublished_edition, title: "Something unpublished")
+    create(:withdrawn_edition, title: "Something withdrawn")
+    create(:superseded_edition, title: "Something superseded") # Should not be shown in search results at all
+    @request_params[:title] = "Something "
+
+    get :add_by_title, params: @request_params
+
+    assert_select ".govuk-table tbody tr", count: 7
+    assert_select "button", text: "Add", count: 5
+  end
+
+  view_test "GET :add_by_title shows the state of each edition" do
+    create(:published_edition, title: "Something published")
+    create(:unpublished_edition, title: "Something unpublished")
+    create(:draft_edition, title: "Something draft")
+    create(:superseded_edition, title: "Something superseded")
+    @request_params[:title] = "Something "
+
+    get :add_by_title, params: @request_params
+
+    assert_select ".govuk-table tbody tr", count: 3
+    assert_select ".govuk-table tbody tr", text: /Published/
+    assert_select ".govuk-table tbody tr", text: /Unpublished/
+    assert_select ".govuk-table tbody tr", text: /Draft/
   end
 end
