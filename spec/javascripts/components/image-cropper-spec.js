@@ -116,6 +116,9 @@ describe('GOVUK.Modules.ImageCropper', () => {
       initCropperHTML()
       component.innerHTML += `
         <div class="app-c-image-cropper__image-information" hidden>
+          <div class="app-c-image-cropper__controls-container" hidden>
+            <h2 class="govuk-heading-m">Crop controls</h2>
+          </div>
           <h2 class="govuk-heading-m">Crop boxes</h2>
           <ul class="govuk-list">
             <template id="crop-checkbox">
@@ -208,6 +211,87 @@ describe('GOVUK.Modules.ImageCropper', () => {
         keyCheckbox.click()
 
         expect(cropBox.hasAttribute('hidden')).not.toBeTrue()
+      })
+
+      done()
+    })
+
+    it('should be controllable by crop control buttons', (done) => {
+      const directions = [
+        {
+          action: 'up',
+          top: -10
+        },
+        {
+          action: 'down',
+          top: 10
+        },
+        {
+          action: 'left',
+          left: -10
+        },
+        {
+          action: 'right',
+          left: 10
+        }
+      ]
+
+      const dimensions = [
+        {
+          action: 'increase',
+          scale: 1.05
+        },
+        {
+          action: 'decrease',
+          scale: 0.95
+        }
+      ]
+
+      const image = document.querySelector('.app-c-image-cropper__image')
+      const imageCropper = image.cropper
+
+      // ensure that the crop box is small enough to be adjusted
+      const initialCropBox = {
+        top: width / 4,
+        left: height / 4,
+        width: width / 3,
+        height: height / 3
+      }
+
+      dimensions.forEach(({ action, scale }) => {
+        imageCropper.setCropBoxData(initialCropBox)
+
+        const button = document.querySelector(
+          `.app-c-image-cropper__crop-button--${action}`
+        )
+
+        button.click()
+
+        const newCropBoxData = imageCropper.getCropBoxData()
+
+        if (scale > 1) {
+          expect(newCropBoxData.left > initialCropBox.left)
+          expect(newCropBoxData.top > initialCropBox.top)
+        } else if (scale < 1) {
+          expect(newCropBoxData.left < initialCropBox.left)
+          expect(newCropBoxData.top < initialCropBox.top)
+        }
+      })
+
+      directions.forEach(({ action, top, left }) => {
+        imageCropper.setCropBoxData(initialCropBox)
+
+        const originalCropBox = imageCropper.getCropBoxData()
+        const button = document.querySelector(
+          `.app-c-image-cropper__crop-button--${action}`
+        )
+
+        button.click()
+
+        originalCropBox.top += top || 0
+        originalCropBox.left += left || 0
+
+        expect(imageCropper.getCropBoxData()).toEqual(originalCropBox)
       })
 
       done()
