@@ -28,4 +28,20 @@ module AttachmentsHelper
       items:,
     }
   end
+
+  def upload_success_notice_message(attachments)
+    if attachments.size > 5
+      content_tag(:p, "#{attachments.size} attachments successfully saved", class: "govuk-notification-banner__heading")
+    else
+      content_tag(:ul) do
+        attachments.each do |attachment|
+          concat content_tag(
+            :li,
+            "Attachment '#{attachment.title}' #{attachment.attachment_data.to_replace_id.present? ? 'updated' : 'uploaded'}".html_safe,
+            class: "govuk-notification-banner__heading",
+          )
+        end
+      end
+    end
+  end
 end

@@ -2,6 +2,7 @@ class Admin::UploadsController < Admin::AttachmentsController
   before_action :build_upload
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::TextHelper
+  include AttachmentsHelper
   attr_accessor :output_buffer
 
   def upload_files
@@ -27,7 +28,7 @@ class Admin::UploadsController < Admin::AttachmentsController
           attachment_updater(attachment.attachment_data)
         end
 
-        flash[:notice] = notice
+        flash[:notice] = upload_success_notice_message(@upload.attachments)
         flash[:html_safe] = true
 
         redirect_to_attachments_index
@@ -38,18 +39,6 @@ class Admin::UploadsController < Admin::AttachmentsController
   end
 
 private
-
-  def notice
-    content_tag(:ul) do
-      @upload.attachments.each do |attachment|
-        concat content_tag(
-          :li,
-          "Attachment '#{attachment.title}' #{attachment.attachment_data.to_replace_id.present? ? 'updated' : 'uploaded'}".html_safe,
-          class: "govuk-notification-banner__heading",
-        )
-      end
-    end
-  end
 
   def build_attachment
     FileAttachment.new(attachable:)
