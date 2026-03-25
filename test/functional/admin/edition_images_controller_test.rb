@@ -202,7 +202,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     assert_select "textarea[name='image[caption]']", count: 0
     assert_select "p.govuk-body-lead", text: "You can leave any image detail blank if you do not need it.", count: 0
-    assert_select "p.govuk-body", text: "Captions are not supported on this type of image. Select Save to continue."
+    assert_select "p.govuk-body", text: "Select ‘Save’ to continue."
     assert_select "a[href='https://www.gov.uk/guidance/content-design/images']", text: "Using informative and decorative images on GOV.UK (opens in new tab)", count: 0
   end
 
