@@ -14,7 +14,7 @@ class ImageUploader < WhitehallUploader
   end
 
   def extension_allowlist
-    %w[jpg jpeg gif png svg].freeze
+    model.image_kind_config.allowed_formats
   end
 
   Whitehall.image_kinds.each do |image_kind, image_kind_config|
@@ -98,8 +98,6 @@ private
 
   def check_dimensions!(new_file)
     super
-  rescue ImageKind::MissingKindError
-    raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" does not have a selected image kind. Select an image kind for the image."
   rescue MiniMagick::Error
     raise CarrierWave::IntegrityError, "\"#{new_file.filename}\" could not be read. The file may not be an image or may be corrupt."
   rescue CarrierWave::IntegrityError

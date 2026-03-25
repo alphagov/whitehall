@@ -7,6 +7,7 @@ class ImageKindsTest < ActiveSupport::TestCase
         "display_name" => "default display name",
         "valid_width" => 1,
         "valid_height" => 2,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => [
           {
             "name" => "some name",
@@ -24,6 +25,7 @@ class ImageKindsTest < ActiveSupport::TestCase
         display_name: "default display name",
         valid_width: 1,
         valid_height: 2,
+        allowed_formats: %w[jpg jpeg gif png svg],
         versions: [
           {
             name: "some name",
@@ -42,6 +44,7 @@ class ImageKindsTest < ActiveSupport::TestCase
         "display_name" => "default display name",
         "valid_width" => 0,
         "valid_height" => 0,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => %w[a b c d e f g].map do
           {
             "name" => _1,
@@ -55,6 +58,19 @@ class ImageKindsTest < ActiveSupport::TestCase
     assert_equal %w[a b c d e f g], result["default"].version_names
   end
 
+  test "#allowed_formats returns allowed formats for the image kind" do
+    result = Whitehall::ImageKinds.build_image_kinds(
+      "default" => {
+        "display_name" => "default display name",
+        "valid_width" => 0,
+        "valid_height" => 0,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
+        "versions" => [],
+      },
+    )
+    assert_equal %w[jpg jpeg gif png svg], result["default"].allowed_formats
+  end
+
   test "#version_names returns prefixed names for kinds with 'version_prefix' true" do
     result = Whitehall::ImageKinds.build_image_kinds(
       "topical_event_logo" => {
@@ -62,6 +78,7 @@ class ImageKindsTest < ActiveSupport::TestCase
         "valid_width" => 1506,
         "valid_height" => 1004,
         "version_prefix" => true,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => [
           { "name" => "tablet_2x", "width" => 1506, "height" => 1004 },
           { "name" => "desktop", "width" => 482, "height" => 321, "from_version" => "tablet_2x" },
@@ -81,6 +98,7 @@ class ImageKindsTest < ActiveSupport::TestCase
       Whitehall::ImageKinds.build_image_kinds("default" => {
         "valid_width" => 0,
         "valid_height" => 0,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => [
           {},
         ],
@@ -94,6 +112,7 @@ class ImageKindsTest < ActiveSupport::TestCase
         "display_name" => "Test Kind (300x200)",
         "valid_width" => 300,
         "valid_height" => 200,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => [],
       },
     )
@@ -108,6 +127,7 @@ class ImageKindsTest < ActiveSupport::TestCase
         "valid_width" => 1506,
         "valid_height" => 1004,
         "version_prefix" => true,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => [
           { "name" => "tablet_2x", "width" => 1506, "height" => 1004 },
           { "name" => "tablet", "width" => 738, "height" => 492, "from_version" => "tablet_2x" },
@@ -127,6 +147,7 @@ class ImageKindsTest < ActiveSupport::TestCase
         "display_name" => "Default",
         "valid_width" => 960,
         "valid_height" => 640,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => [
           { "name" => "s960", "width" => 960, "height" => 640 },
         ],
