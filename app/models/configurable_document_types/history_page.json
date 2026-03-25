@@ -72,7 +72,8 @@
       "usages": {
         "govspeak_embed": {
           "kinds": ["default"],
-          "multiple": true
+          "multiple": true,
+          "caption_enabled": true
         },
         "sidebar": {
           "label": "sidebar",

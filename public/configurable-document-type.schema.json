@@ -377,7 +377,7 @@
               "patternProperties": {
                 ".*": {
                   "type": "object",
-                  "required": ["kinds", "multiple"],
+                  "required": ["kinds", "multiple", "caption_enabled"],
                   "properties": {
                     "label": {
                       "type": "string",
