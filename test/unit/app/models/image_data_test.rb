@@ -7,12 +7,25 @@ class ImageDataTest < ActiveSupport::TestCase
     image_data = build(:image_data, file: nil)
     assert_not image_data.valid?
     assert image_data.errors[:file].present?
+
+    assert_includes image_data.errors[:file],
+                    "cannot be uploaded. Images can be JPEG, PNG, SVG or GIF files."
+  end
+
+  test "should raise validation error if not of expected type" do
+    image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/empty_file.txt")))
+
+    assert_not image_data.valid?
+    assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
+    assert(image_data.errors[:file].any? { |msg| msg == "is of not allowed type \"txt\", allowed types: jpg, jpeg, gif, png, svg" })
   end
 
   test "should be invalid when the file attribute is set without an image kind" do
     image_data = build(:image_data, image_kind: nil)
     assert_not image_data.valid?
     assert image_data.errors[:file].present?
+    assert(image_data.errors[:file].any? { |msg| msg.include?("does not have a selected image kind. Select an image kind for the image") },
+    "Expected error to indicate missing image kind, got: #{image_data.errors[:file]}")
   end
 
   test "returns unique auth_bypass_ids from its image's editions" do
