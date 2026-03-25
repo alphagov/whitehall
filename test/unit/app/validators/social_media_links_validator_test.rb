@@ -63,7 +63,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_equal ["Social media links contains a \"Facebook\" account with an invalid URL."], block_content.errors.full_messages
+    assert_equal ["Social media links contains a \"Facebook\" account with an invalid URL - use the full URL, including https://"], block_content.errors.full_messages
   end
 
   test "social media links are invalid if two of the same social media service are provided" do
