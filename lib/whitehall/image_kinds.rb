@@ -21,20 +21,21 @@ module Whitehall
   end
 
   class ImageKind
-    attr_reader :name, :display_name, :valid_width, :valid_height, :embed_version, :versions
+    attr_reader :name, :display_name, :valid_width, :valid_height, :allowed_formats, :embed_version, :versions
 
     def initialize(name, config)
       @name = name
       @display_name = config.fetch("display_name")
       @valid_width = config.fetch("valid_width")
       @valid_height = config.fetch("valid_height")
+      @allowed_formats = config.fetch("allowed_formats")
       @embed_version = config.fetch("embed_version", nil)
       version_prefix = config.fetch("version_prefix", false) ? name : nil
       @versions = config.fetch("versions").map { |version_config| ImageVersion.new(version_config, version_prefix:) }.freeze
     end
 
     def deconstruct_keys(_keys)
-      { name:, display_name:, valid_width:, valid_height:, versions:, embed_version: }
+      { name:, display_name:, valid_width:, valid_height:, allowed_formats:, embed_version:, versions: }
     end
 
     def version_names

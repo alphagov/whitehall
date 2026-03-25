@@ -262,6 +262,7 @@ class ImageTest < ActiveSupport::TestCase
         "valid_width" => 100,
         "valid_height" => 100,
         "version_prefix" => true,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
         "versions" => [
           { "name" => "desktop_2x", "width" => 100, "height" => 100 },
           { "name" => "tablet", "width" => 50, "height" => 50, "from_version" => "desktop_2x" },
