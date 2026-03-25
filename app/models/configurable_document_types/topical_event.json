@@ -184,7 +184,7 @@
           "label": "header image",
           "kinds": ["topical_event_header"],
           "multiple": false,
-          "caption_enabled": false
+          "caption_enabled": true
         },
         "logo": {
           "label": "event logo",
