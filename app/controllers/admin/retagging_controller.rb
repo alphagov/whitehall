@@ -7,7 +7,12 @@ class Admin::RetaggingController < Admin::BaseController
   def index; end
 
   def preview
-    updater = DataHygiene::BulkOrganisationUpdater.new(params[:csv_input])
+    begin
+      updater = DataHygiene::BulkOrganisationUpdater.new(params[:csv_input])
+    rescue CSV::MalformedCSVError
+      set_flash_alert(["Malformed CSV, check for extra spaces or quotation marks"])
+      return render :index
+    end
     updater.validate
 
     if updater.errors.any?

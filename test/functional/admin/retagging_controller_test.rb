@@ -34,4 +34,16 @@ class Admin::RetaggingControllerTest < ActionController::TestCase
     assert_template :index
     assert_equal flash[:alert], "Errors with CSV input: <br>Document not found: https://www.gov.uk/guidance/made-up-slug<br>Organisation not found: government-digital-service<br>Organisation not found: geospatial-commission"
   end
+
+  test "Submitting a malformed CSV with an extra space outside of quote marks should show an error message" do
+    csv_to_submit = <<~CSV
+      URL,Lead Organisations,Supporting Organisations
+      https://www.gov.uk/government/publications/carbon-reduction-policy,"crown-commercial-service", "government-commercial-agency"
+    CSV
+    post :preview, params: { csv_input: csv_to_submit }
+
+    assert_response :ok
+    assert_template :index
+    assert_equal flash[:alert], "Errors with CSV input: <br>Malformed CSV, check for extra spaces or quotation marks"
+  end
 end
