@@ -20,8 +20,14 @@ class ImageData < ApplicationRecord
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
-  validates :file, presence: { message: "cannot be uploaded. Images can be JPEG, PNG, SVG or GIF files." },
-                   unless: -> { file_integrity_errors.any? }
+  validates :file,
+            presence: {
+              message: lambda do |object, _data|
+                formats = object.image_kind_config.allowed_formats.map(&:upcase).to_sentence(last_word_connector: " or ")
+                "cannot be uploaded. Images can be #{formats} files."
+              end,
+            },
+            unless: -> { file_integrity_errors.any? }
   validate :filename_is_unique
   after_validation :prepend_filename_to_errors
 

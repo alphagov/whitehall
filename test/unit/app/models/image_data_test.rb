@@ -3,13 +3,13 @@ require "test_helper"
 class ImageDataTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "should be invalid without a file" do
-    image_data = build(:image_data, file: nil)
+  test "should be invalid without a file and show only the valid image types for the image kind" do
+    image_data = build(:image_data, file: nil, image_kind: "topical_event_header")
     assert_not image_data.valid?
     assert image_data.errors[:file].present?
 
     assert_includes image_data.errors[:file],
-                    "cannot be uploaded. Images can be JPEG, PNG, SVG or GIF files."
+                    "cannot be uploaded. Images can be JPG, JPEG, GIF or PNG files."
   end
 
   test "should raise validation error if not of expected type" do
@@ -20,12 +20,19 @@ class ImageDataTest < ActiveSupport::TestCase
     assert(image_data.errors[:file].any? { |msg| msg == "is of not allowed type \"txt\", allowed types: jpg, jpeg, gif, png, svg" })
   end
 
-  test "should be invalid when the file attribute is set without an image kind" do
-    image_data = build(:image_data, image_kind: nil)
+  test "should raise validation error with custom allowed types allowlist dependent on image kind" do
+    image_data = build(:image_data, image_kind: "topical_event_header", file: File.open(Rails.root.join("test/fixtures/empty_file.txt")))
+
     assert_not image_data.valid?
-    assert image_data.errors[:file].present?
-    assert(image_data.errors[:file].any? { |msg| msg.include?("does not have a selected image kind. Select an image kind for the image") },
-    "Expected error to indicate missing image kind, got: #{image_data.errors[:file]}")
+    assert image_data.errors.of_kind?(:file, :carrierwave_integrity_error)
+    assert(image_data.errors[:file].any? { |msg| msg == "is of not allowed type \"txt\", allowed types: jpg, jpeg, gif, png" },
+           "Expected error to show all image types except SVG, got: #{image_data.errors[:file]}")
+  end
+
+  test "should raise exception when the file attribute is set without an image kind" do
+    assert_raises ImageKind::MissingKindError do
+      build(:image_data, image_kind: nil)
+    end
   end
 
   test "returns unique auth_bypass_ids from its image's editions" do

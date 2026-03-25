@@ -53,7 +53,7 @@ class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
   test "renders inline errors for failed images" do
     edition = build_stubbed(:draft_publication)
     usage = ImageUsage.new(key: "test_usage", kinds: [Whitehall.image_kinds.fetch("default")], multiple: false, label: "test")
-    failed_image = build(:image, image_data: ImageData.new)
+    failed_image = build(:image, image_data: ImageData.new(image_kind: "default", file: nil))
     failed_image.valid?
     render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, failed_images: [failed_image], image_usage: usage))
 

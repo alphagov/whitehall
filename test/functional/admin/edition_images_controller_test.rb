@@ -464,14 +464,14 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
         },
       },
     }))
-    file = upload_fixture("images/test-svg.svg")
+    file = upload_fixture("images/1536x1024_jpeg.jpg")
     image = create(:image, usage: "header", image_data: build(:image_data, image_kind: "topical_event_header", file:))
     edition = create(:draft_standard_edition, configurable_document_type: "test_type", images: [image])
 
     post :create, params: { edition_id: edition.id, usage: "logo", image_kind: "topical_event_logo", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/new"
-    assert_select ".govuk-error-summary li", "Image \"test-svg.svg\" is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
+    assert_select ".govuk-error-summary li", "Image \"1536x1024_jpeg.jpg\" is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage embeddable image is too small, using the 'index' template" do

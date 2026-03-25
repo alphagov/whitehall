@@ -16,9 +16,11 @@ class ImageUploaderTest < ActiveSupport::TestCase
     assert_equal Storage::PreviewableStorage, ImageUploader.storage
   end
 
-  test "should only allow JPG, GIF, PNG or SVG images" do
-    uploader = ImageUploader.new
-    assert_equal %w[jpg jpeg gif png svg], uploader.extension_allowlist
+  test "should only allow the image file types configured for the image kind" do
+    image_data = build(:image_data, image_kind: "topical_event_header")
+    uploader = ImageUploader.new(image_data, "mounted-as")
+
+    assert_equal %w[jpg jpeg gif png], uploader.extension_allowlist
   end
 
   test "should save uploaded image with correct dimensions" do
@@ -74,15 +76,6 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
     assert_not image_data.valid?
     assert_includes image_data.errors.map(&:full_message), "Image \"not_an_image.jpg\" could not be read. The file may not be an image or may be corrupt."
-  end
-
-  test "should show an error when no image kind is selected" do
-    file = upload_fixture("images/960x640_jpeg.jpg")
-    image_data = ImageData.new(file:)
-    image_data.write_attribute("image_kind", nil)
-
-    assert_not image_data.valid?
-    assert_includes image_data.errors.map(&:full_message), "Image \"960x640_jpeg.jpg\" does not have a selected image kind. Select an image kind for the image."
   end
 
   test "should store uploads in a directory that persists across deploys" do
