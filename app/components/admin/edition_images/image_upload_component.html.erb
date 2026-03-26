@@ -42,17 +42,17 @@
     } %>
   <% else %>
     <%= hidden_field_tag("image_kind", image_kind.name) %>
-  <% end %>
 
-  <%= render "govuk_publishing_components/components/details", {
-    title: "You must use an SVG for charts and diagrams",
-  } do %>
-    SVGs allow users to magnify images without losing quality.
-    Find out <%= link_to "how to create an SVG file (opens in new tab)",
-                         "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos#creating-an-svg-file",
-                         class: "govuk-link",
-                         target: "_blank",
-                         rel: "noopener" %>.
+    <%= render "govuk_publishing_components/components/details", {
+      title: "You must use an SVG for charts and diagrams",
+    } do %>
+      SVGs allow users to magnify images without losing quality.
+      Find out <%= link_to "how to create an SVG file (opens in new tab)",
+                          "https://www.gov.uk/guidance/how-to-publish-on-gov-uk/images-and-videos#creating-an-svg-file",
+                          class: "govuk-link",
+                          target: "_blank",
+                          rel: "noopener" %>.
+    <% end %>
   <% end %>
 
   <div class="govuk-button-group govuk-!-margin-bottom-6">
