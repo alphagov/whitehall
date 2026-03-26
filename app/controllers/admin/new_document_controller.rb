@@ -83,12 +83,14 @@ class Admin::NewDocumentController < Admin::BaseController
         "label" => "landing_page".humanize,
       },
     }
-    types["topical_event"] = {
-      "klass" => StandardEdition,
-      "hint_text" => ConfigurableDocumentType.find("topical_event").description,
-      "label" => "#{ConfigurableDocumentType.find('topical_event').label} (experimental)",
-      "redirect" => new_admin_standard_edition_path(configurable_document_type: "topical_event"),
-    }
+    if can?(current_user, ConfigurableDocumentType.find("topical_event"))
+      types["topical_event"] = {
+        "klass" => StandardEdition,
+        "hint_text" => ConfigurableDocumentType.find("topical_event").description,
+        "label" => "#{ConfigurableDocumentType.find('topical_event').label} (experimental)",
+        "redirect" => new_admin_standard_edition_path(configurable_document_type: "topical_event"),
+      }
+    end
 
     if Flipflop.enabled?(:configurable_document_types)
       types["standard_edition"] = {

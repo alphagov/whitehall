@@ -30,6 +30,17 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     @test_strategy.switch!(:configurable_document_types, false)
   end
 
+  view_test "GET #index does not render the topical event radio button for users outside the specified organisation" do
+    organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
+    login_as(:writer, organisation)
+    ConfigurableDocumentType.stubs(:find).with("topical_event").returns(ConfigurableDocumentType.new({ "settings" => { "organisations" => [create(:organisation).content_id] } }))
+
+    get :index
+
+    assert_response :success
+    assert_select "input[type=radio][name=new_document_options][value=topical_event]", count: 0
+  end
+
   test "POST #new_document_options_redirect redirects legacy edition selections to their expected paths" do
     request_params = {
       "new_document_options": "consultation",
