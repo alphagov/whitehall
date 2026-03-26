@@ -54,7 +54,7 @@ private
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "contains a \"#{service_name}\" account with an invalid URL.",
+        message: "contains a \"#{service_name}\" account with an invalid URL - use the full URL, including https://",
       )
     elsif record.social_media_links.pluck("url").count(url) > 1
       unless record.errors.messages[attribute_name.to_sym].include?("already has an account with a URL of \"#{url}\".")
