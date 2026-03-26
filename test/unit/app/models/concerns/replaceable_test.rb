@@ -18,6 +18,14 @@ class ReplaceableTest < ActiveSupport::TestCase
     assert replacement_attachment_data.same_filename_as_replacement?
   end
 
+  test "same_filename_as_replacement? returns true if replacement has same filename as self with different casing" do
+    attachment_data = create(:attachment_data, attachable: build(:draft_publication, id: 1))
+    replacement_attachment_data = create(:attachment_data, to_replace_id: attachment_data.id, attachable: build(:draft_publication, id: 1))
+    replacement_attachment_data.stubs(:filename).returns("GreenPaper.pdf")
+
+    assert replacement_attachment_data.same_filename_as_replacement?
+  end
+
   test "replace_with! updates replaced_by_id of replaced" do
     attachment_data = create(:attachment_data, attachable: build(:draft_publication, id: 1))
     replacement_attachment_data = create(:attachment_data, attachable: build(:draft_publication, id: 1))

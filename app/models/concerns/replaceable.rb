@@ -40,7 +40,6 @@ module Replaceable
     return if to_replace_id.blank?
 
     to_replace = self.class.find(to_replace_id)
-
-    to_replace && to_replace.filename == filename
+    to_replace && to_replace.filename.downcase == filename.downcase
   end
 end
