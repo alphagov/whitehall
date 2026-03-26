@@ -11,8 +11,12 @@ class SocialMediaLinksValidator < ActiveModel::Validator
       arr = record.send(attribute_name.to_sym) || []
       arr.each_with_index do |social_media_service, index|
         service_name = social_media_service[@service_field]
+        url = social_media_service[@url_field]
+
+        next if service_name.blank? && url.blank?
+
         if validate_social_media_service(service_name, record, attribute_name, index)
-          validate_social_media_link(social_media_service[@url_field], service_name, record, attribute_name)
+          validate_social_media_link(url, service_name, record, attribute_name)
         end
       end
     end
@@ -27,7 +31,7 @@ private
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "contains an account (\"Social media account #{index + 1}\") without a service selected.",
+        message: "- account #{index + 1} must have a service selected.",
       )
       return false
     end
@@ -36,7 +40,7 @@ private
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "contains another account with a service of \"#{service_name}\".",
+        message: "- you cannot add more than one \"#{service_name}\" account.",
       )
       return false
     end
@@ -48,20 +52,20 @@ private
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "contains a \"#{service_name}\" account without a URL.",
+        message: "- the \"#{service_name}\" account must have a URL.",
       )
     elsif !valid_url?(url)
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "contains a \"#{service_name}\" account with an invalid URL - use the full URL, including https://",
+        message: "- the \"#{service_name}\" account has an invalid URL. Use the full URL, including https://",
       )
     elsif record.social_media_links.pluck("url").count(url) > 1
-      unless record.errors.messages[attribute_name.to_sym].include?("already has an account with a URL of \"#{url}\".")
+      unless record.errors.messages[attribute_name.to_sym].include?("- you cannot add more than one account with the URL \"#{url}\".")
         record.errors.add(
           attribute_name.to_sym,
           :invalid_social_media_link,
-          message: "already has an account with a URL of \"#{url}\".",
+          message: "- you cannot add more than one account with the URL \"#{url}\".",
         )
       end
     end
