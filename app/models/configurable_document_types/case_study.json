@@ -95,12 +95,14 @@
       "usages": {
         "govspeak_embed": {
           "kinds": ["default"],
-          "multiple": true
+          "multiple": true,
+          "caption_enabled": true
         },        
         "lead": {
           "label": "lead",
           "kinds": ["default"],
-          "multiple": false
+          "multiple": false,
+          "caption_enabled": true
         }
       }
     },
