@@ -6,7 +6,7 @@ module Whitehall::Authority::Rules
     end
 
     def can?(_action)
-      permitted_organisations = subject.settings["organisations"]
+      permitted_organisations = subject.settings && subject.settings["organisations"]
       permitted_organisations.nil? || permitted_organisations.include?(actor.organisation.content_id)
     end
 
