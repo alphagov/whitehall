@@ -15,7 +15,6 @@
         },
         "lead_organisations": {
           "title": "Lead organisations",
-          "required": true,
           "block": "ordered_select_with_search_tagging",
           "container": "organisations",
           "attribute_path": ["lead_organisation_ids"],
