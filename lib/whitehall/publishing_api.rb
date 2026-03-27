@@ -182,6 +182,10 @@ module Whitehall
     end
 
     def self.ensure_base_path_is_associated_with_this_content_id!(base_path, content_id)
+      # Temporary hack to allow both legacy and config-driven topical events to co-exist,
+      # to aid in the migration. This early return should be removed once the migration is finished.
+      return if base_path.nil? || base_path.match?(%r{^/government/topical-events/})
+
       existing_content_id = Services.publishing_api.lookup_content_id(base_path:)
       return if existing_content_id.nil? || existing_content_id == content_id
 
