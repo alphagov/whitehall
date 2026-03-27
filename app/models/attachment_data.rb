@@ -25,7 +25,7 @@ class AttachmentData < ApplicationRecord
   OPENDOCUMENT_EXTENSIONS = %w[ODT ODP ODS].freeze
 
   def filename
-    file.present? && file.file.filename
+    file&.file&.filename
   end
 
   def filename_without_extension
