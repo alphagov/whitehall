@@ -15,6 +15,12 @@
       <% end %>
 
       <% if image.can_be_cropped? && image.image_data&.original_uploaded? %>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body-lead">
+            To crop the image, select the area you would like to show. Ensure the main focus of the image is in the centre.
+          </p>
+        </div>
+
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
           <%= render "components/image_cropper", {
             name: "image[image_data][crop_data]",
