@@ -2,7 +2,7 @@ module Edition::SocialMediaAccounts
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
+    def process_associations_after_draft_creation(edition)
       @edition.social_media_accounts.each do |association|
         new_social_media_account = edition.social_media_accounts.create!(association.attributes.except("id", "socialable_id", "socialable_type"))
 
