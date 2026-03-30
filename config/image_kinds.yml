@@ -128,7 +128,7 @@ hero_desktop:
 topical_event_header:
   display_name: "Header"
   valid_width: 1536
-  valid_height: 1024
+  valid_height: 990
   version_prefix: true
   versions:
     - name: desktop_2x
