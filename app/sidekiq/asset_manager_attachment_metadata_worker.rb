@@ -1,1 +1,0 @@
-AssetManagerAttachmentMetadataWorker = AssetManagerAttachmentMetadataJob
