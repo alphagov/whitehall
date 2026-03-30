@@ -1,1 +1,0 @@
-PublishingApiUnscheduleWorker = PublishingApiUnscheduleJob

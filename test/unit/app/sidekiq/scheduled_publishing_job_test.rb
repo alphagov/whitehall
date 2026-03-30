@@ -78,18 +78,6 @@ class ScheduledPublishingJobTest < ActiveSupport::TestCase
     assert_equal 2, ScheduledPublishingJob.queue_size
   end
 
-  test ".queue_size should include both '_Job' and '_Worker'" do
-    job_one = mock("ScheduledPublishingJob")
-    job_one.stubs(:[]).with("class").returns(ScheduledPublishingJob.name)
-
-    job_two = mock("ScheduledPublishingWorker")
-    job_two.stubs(:[]).with("class").returns(ScheduledPublishingWorker.name)
-
-    Sidekiq::ScheduledSet.stubs(:new).returns([job_one, job_two])
-
-    assert_equal 2, ScheduledPublishingJob.queue_size
-  end
-
   test ".queued_edition_ids returns the edition ids of the currently queued jobs" do
     ScheduledPublishingJob.stubs(:queued_jobs).returns([{ "args" => %w[3] }, { "args" => %w[6] }])
     assert_same_elements %w[3 6], ScheduledPublishingJob.queued_edition_ids

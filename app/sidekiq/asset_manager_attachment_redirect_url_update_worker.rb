@@ -1,1 +1,0 @@
-AssetManagerAttachmentRedirectUrlUpdateWorker = AssetManagerAttachmentRedirectUrlUpdateJob
