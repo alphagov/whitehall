@@ -7,7 +7,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates from the GOV.UK publishing team on Whitehall Publisher, the roadmap, and getting involved
-      last_updated: Last updated 21 November 2025
+      last_updated: Last updated 31 March 2026
       introduction:
         heading: Roadmap overview
         body_govspeak: |
@@ -15,7 +15,7 @@ en:
 
           - We continue to work on the support and feature request backlog. 
           - We are working on some of Whitehall's underlying technical design to make future development of content types easier.
-          - We are exploring how Whitehall might support new layouts for some pages and how images are uploaded and used on those pages.
+          - We are releasing a new way of making topical events and looking at how that may be used for other related content types.
 
           Next:
 
@@ -27,6 +27,13 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Lead images optional on news articles
+            area: Managing documents and editions
+            type: improvement
+            date: 31 March 2026
+            body_govspeak: |
+              As mentioned below, Lead images can now be removed from news articles when they aren't required. 
+
           - heading: Changes to lead images on news articles
             area: Managing documents and editions
             type: improvement
