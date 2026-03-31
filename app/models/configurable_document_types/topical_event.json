@@ -1,7 +1,7 @@
 {
   "key": "topical_event",
   "title": "Topical event",
-  "description": "Editionable topical events",
+  "description": "Do not create topical events without consulting GDS",
   "forms": {
     "documents": {
       "fields": {
