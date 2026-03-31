@@ -110,6 +110,12 @@
               "block": "default_string",
               "attribute_path": ["url"],
               "translatable": true
+            },
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "translatable": true
             }
           }
         }
@@ -128,6 +134,9 @@
             "type": "string"
           },
           "url": {
+            "type": "string"
+          },
+          "title": {
             "type": "string"
           }
         }
@@ -155,7 +164,8 @@
         "attributes": ["social_media_links"],
         "fields": {
           "service_field": "social_media_service_name",
-          "url_field": "url"
+          "url_field": "url",
+          "title_field": "title"
         }
       }
     }
