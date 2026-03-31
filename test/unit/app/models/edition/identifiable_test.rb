@@ -179,6 +179,16 @@ class Edition::SluggingTest < ActiveSupport::TestCase
     assert_equal slug, edition.slug
   end
 
+  test "it does not update the slug if the `keep_slug` attribute has the value `true`" do
+    edition = SluggableEdition.create!(title: "Original Title", slug: nil)
+    original_slug = edition.slug
+    edition.title = "New Title"
+    edition.keep_slug = true
+    edition.save!
+    assert_equal original_slug, edition.slug
+    assert_equal "original-title", edition.slug
+  end
+
   test "it updates the slug when the title changes" do
     edition = SluggableEdition.create!(title: "Original Title", slug: nil)
     original_slug = edition.slug

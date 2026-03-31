@@ -23,6 +23,37 @@
   } %>
 </div>
 
+<% if edition.document&.slug.present? %>
+  <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-4">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Live page address",
+      heading_level: 3,
+      font_size: "m",
+      margin_bottom: 2,
+    } %>
+
+    <%= render "govuk_publishing_components/components/hint", {
+      text: edition.public_url,
+    } %>
+  </div>
+
+  <div class="js-keep-slug-form-group govuk-!-margin-bottom-6">
+    <%= render "govuk_publishing_components/components/hint", {
+      text: "You've changed the title of this document. Check the box below to keep the existing URL, or leave it unchecked to update the URL fo this page to match the new title when you publish this edition.",
+    } %>
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: "edition[keep_slug]",
+      items: [
+        {
+          label: "Keep the current page URL",
+          value: true,
+        },
+      ],
+      description: "You've changed the title of this document. Check the box below to keep the existing URL, or leave it unchecked to update the URL fo this page to match the new title when you publish this edition.",
+    } %>
+  </div>
+<% end %>
+
 <div class="govuk-!-margin-bottom-6 js-locale-switcher-field">
   <%= render "govuk_publishing_components/components/character_count", {
     textarea: {
@@ -41,21 +72,6 @@
     maxlength: MaxLengths::SUMMARY,
   } %>
 </div>
-
-<% if edition.document&.slug.present? %>
-  <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-6">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Page address",
-      heading_level: 3,
-      font_size: "m",
-      margin_bottom: 2,
-    } %>
-
-    <%= render "govuk_publishing_components/components/hint", {
-      text: edition.public_url,
-    } %>
-  </div>
-<% end %>
 
 <%= render ConfigurableContentBlocks::DefaultObject.root_block_for(edition, "documents") %>
 

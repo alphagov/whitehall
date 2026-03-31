@@ -176,6 +176,51 @@ describe('GOVUK.Modules.EditionForm', function () {
     })
   })
 
+  describe('#setupTitleInputEventListener', function () {
+    beforeEach(function () {
+      form.innerHTML = titleAndAddressFields()
+      const editionForm = new GOVUK.Modules.EditionForm(form)
+      editionForm.init()
+    })
+
+    it('hides the checkbox on page load', function () {
+      const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+
+      expect(checkboxContainer.hidden).toEqual(true)
+    })
+
+    it('reveals the checkbox when the title changes', function () {
+      const titleInput = form.querySelector('#edition_title')
+      const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+
+      expect(checkboxContainer.hidden).toEqual(true)
+
+      titleInput.value = 'New title'
+      titleInput.dispatchEvent(new Event('input'))
+
+      expect(checkboxContainer.hidden).toEqual(false)
+    })
+
+    it('hides the checkbox when the title is set back to its original value', function () {
+      const titleInput = form.querySelector('#edition_title')
+      const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+
+      const originalValue = titleInput.value
+
+      expect(checkboxContainer.hidden).toEqual(true)
+
+      titleInput.value = 'New title'
+      titleInput.dispatchEvent(new Event('input'))
+
+      expect(checkboxContainer.hidden).toEqual(false)
+
+      titleInput.value = originalValue
+      titleInput.dispatchEvent(new Event('input'))
+
+      expect(checkboxContainer.hidden).toEqual(true)
+    })
+  })
+
   function subtypeFields() {
     return (
       '<div class="app-view-edition-form__subtype-fields js-app-view-edition-form__subtype-fields" data-format-advice="{&quot;1&quot;:&quot;\u003cp\u003eNews written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.\u003c/p\u003e&quot;,&quot;2&quot;:&quot;\u003cp\u003eUnedited press releases as sent to the media, and official statements from the organisation or a minister.\u003c/p\u003e\u003cp\u003eDo \u003cem\u003enot\u003c/em\u003e use for: statements to Parliament. Use the ‘Speech’ format for those.\u003c/p\u003e&quot;,&quot;3&quot;:&quot;\u003cp\u003eGovernment statements in response to media coverage, such as rebuttals and ‘myth busters’.\u003c/p\u003e\u003cp\u003eDo \u003cem\u003enot\u003c/em\u003e use for: statements to Parliament. Use the \'Speech\' format for those.\u003c/p\u003e&quot;,&quot;4&quot;:&quot;\u003cp\u003eAnnouncements specific to one or more world location. Do not duplicate news published by another department.\u003c/p\u003e&quot;}">' +
@@ -280,5 +325,23 @@ describe('GOVUK.Modules.EditionForm', function () {
           '<input name="edition[location]" type="text">' +
         '</div>'
       `
+  }
+
+  function titleAndAddressFields() {
+    return `<div class="gem-c-textarea govuk-form-group govuk-!-margin-bottom-1">    
+              <label for="edition_title" class="gem-c-label govuk-label govuk-label--m">Title (required)</label>
+              <textarea name="edition[title]" class="govuk-textarea govuk-js-character-count" id="edition_title" rows="1" spellcheck="true" data-ga4-index-section="2" data-ga4-index="{&quot;index_section&quot;:2,&quot;index_section_count&quot;:29}">Test Document</textarea>
+            </div>
+            <div class="govuk-!-margin-bottom-6">
+              <div class="gem-c-heading govuk-!-margin-bottom-2">
+                <h3 class="gem-c-heading__text govuk-heading-m">Page address</h3>
+              </div>
+            </div>
+            <div id="hint-f0e80744" class="gem-c-hint govuk-hint">http://www.dev.gov.uk/guidance/test-document</div>
+            <div id="checkboxes-ab8fa8f0" data-module="gem-checkboxes govuk-checkboxes" class="gem-c-checkboxes govuk-form-group js-keep-slug-form-group">
+              <div class="govuk-checkboxes__item">
+                <input type="checkbox" name="keep_slug" id="checkboxes-ab8fa8f0-0" value="true" class="govuk-checkboxes__input"><label for="checkboxes-ab8fa8f0-0" class="govuk-label govuk-checkboxes__label">Keep current page URL</label>
+              </div>
+            </div>`
   }
 })

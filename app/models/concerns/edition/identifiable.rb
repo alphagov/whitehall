@@ -18,6 +18,8 @@ module Edition::Identifiable
               .where(document: { review_reminders: { review_at: ..Time.zone.today } })
               .where.not(first_published_at: nil)
           }
+
+    attribute :keep_slug, :boolean, default: false
   end
 
   delegate :change_history, :content_id, to: :document, allow_nil: true
@@ -28,7 +30,8 @@ module Edition::Identifiable
 
   def set_slug
     # Translations return nil from `string_to_slug`, in which case we return early as we should not set the slug based on a translation title
-    return if string_for_slug.nil?
+    # Publishers may choose to preserve the existing slug by checking the "keep_slug" input
+    return if string_for_slug.nil? || keep_slug == true
 
     # Generate a default slug using the babosa gem's to_slug and normalize methods
     # We truncate the slug to 150 bytes to keep base_path values to less than 256 bytes,
