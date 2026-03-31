@@ -71,6 +71,7 @@
             "social_media_service_name": {
               "title": "Service",
               "block": "default_select",
+              "required": true,
               "attribute_path": ["social_media_service_name"],
               "blank_option_label": "No social media service selected",
               "translatable": true,
@@ -136,6 +137,7 @@
             "url": {
               "title": "URL",
               "block": "default_string",
+              "required": true,
               "attribute_path": ["url"],
               "translatable": true
             },
