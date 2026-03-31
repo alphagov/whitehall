@@ -28,20 +28,7 @@
     } %>
   </div>
 
-  <% if edition.document&.slug.present? %>
-    <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-6">
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Page address",
-        heading_level: 3,
-        font_size: "m",
-        margin_bottom: 2,
-      } %>
-
-      <%= render "govuk_publishing_components/components/hint", {
-        text: edition.public_url,
-      } %>
-    </div>
-  <% end %>
+  <%= render "page_address_controls", edition: %>
 
   <div class="js-locale-switcher-field">
     <%= render "govuk_publishing_components/components/character_count", {
