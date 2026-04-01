@@ -23,7 +23,7 @@
   } %>
 </div>
 
-<% if edition.document&.slug.present? %>
+<% if edition.document&.live_edition.present? %>
   <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-4">
     <%= render "govuk_publishing_components/components/heading", {
       text: "Live page address",
@@ -33,7 +33,7 @@
     } %>
 
     <%= render "govuk_publishing_components/components/hint", {
-      text: edition.public_url,
+      text: edition.document&.live_edition.public_url,
     } %>
   </div>
 
