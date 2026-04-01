@@ -56,6 +56,10 @@ When("I opt out of updating the slug") do
   check "Keep the current page URL"
 end
 
+Then("I cannot opt out of updating the slug") do
+  expect(page).not_to have_selector("label", text: "Keep the current page URL")
+end
+
 When("I save the edition and go to the document summary") do
   fill_in_change_note_if_required
   click_button "Save and go to document summary"

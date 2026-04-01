@@ -42,21 +42,23 @@
       } %>
     </div>
 
-    <div class="js-keep-slug-form-group govuk-!-margin-bottom-6">
-      <%= render "govuk_publishing_components/components/hint", {
-        text: "You've changed the title of this document. Check the box below to keep the existing URL, or leave it unchecked to update the URL fo this page to match the new title when you publish this edition.",
-      } %>
-      <%= render "govuk_publishing_components/components/checkboxes", {
-        name: "edition[keep_slug]",
-        items: [
-          {
-            label: "Keep the current page URL",
-            value: true,
-          },
-        ],
-        description: "You've changed the title of this document. Check the box below to keep the existing URL, or leave it unchecked to update the URL of this page to match the new title when you publish this edition.",
-      } %>
-    </div>
+    <% if Flipflop.slugs_for_editions? %>
+      <div class="js-keep-slug-form-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/hint", {
+          text: "You've changed the title of this document. Check the box below to keep the existing URL, or leave it unchecked to update the URL fo this page to match the new title when you publish this edition.",
+        } %>
+        <%= render "govuk_publishing_components/components/checkboxes", {
+          name: "edition[keep_slug]",
+          items: [
+            {
+              label: "Keep the current page URL",
+              value: true,
+            },
+          ],
+          description: "You've changed the title of this document. Check the box below to keep the existing URL, or leave it unchecked to update the URL of this page to match the new title when you publish this edition.",
+        } %>
+      </div>
+    <% end %>
   <% end %>
 
   <div class="js-locale-switcher-field">

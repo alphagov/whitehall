@@ -33,3 +33,12 @@ Feature: Edition update slug
     And I opt out of updating the slug
     And I save the edition and go to the document summary
     Then I can see the preview URL of the publication "Ten facts that will shock you" contains "you-will-never-guess"
+
+  @javascript
+  Scenario: Writer updates the title of a document and slugs for editions feature is disabled
+    Given I am a writer
+    And the slugs for editions feature flag is disabled
+    And a published publication "You will never guess" exists
+    When I edit the publication "You will never guess"
+    And I change the title to "Ten facts that will shock you"
+    Then I cannot opt out of updating the slug
