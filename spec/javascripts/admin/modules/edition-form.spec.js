@@ -176,9 +176,10 @@ describe('GOVUK.Modules.EditionForm', function () {
     })
   })
 
-  describe('#setupTitleInputEventListener', function () {
+  describe('#setupTitleInputEventListener without new edition title for draft', function () {
+    const editionTitle = 'Edition title'
     beforeEach(function () {
-      form.innerHTML = titleAndAddressFields()
+      form.innerHTML = titleAndAddressFields(editionTitle, editionTitle)
       const editionForm = new GOVUK.Modules.EditionForm(form)
       editionForm.init()
     })
@@ -193,28 +194,34 @@ describe('GOVUK.Modules.EditionForm', function () {
       const titleInput = form.querySelector('#edition_title')
       const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
 
-      expect(checkboxContainer.hidden).toEqual(true)
-
       titleInput.value = 'New title'
       titleInput.dispatchEvent(new Event('input'))
 
       expect(checkboxContainer.hidden).toEqual(false)
     })
+  })
 
-    it('hides the checkbox when the title is set back to its original value', function () {
+  describe('#setupTitleInputEventListener with new edition title for draft', function () {
+    const liveEditionTitle = 'Live edition title'
+    const newEditionTitle = 'New edition title'
+
+    beforeEach(function () {
+      form.innerHTML = titleAndAddressFields(liveEditionTitle, newEditionTitle)
+      const editionForm = new GOVUK.Modules.EditionForm(form)
+      editionForm.init()
+    })
+
+    it('does not hide the checkbox on page load', function () {
+      const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+
+      expect(checkboxContainer.hidden).toEqual(false)
+    })
+
+    it('hides the checkbox when the title is set to the same value as the live title', function () {
       const titleInput = form.querySelector('#edition_title')
       const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
 
-      const originalValue = titleInput.value
-
-      expect(checkboxContainer.hidden).toEqual(true)
-
-      titleInput.value = 'New title'
-      titleInput.dispatchEvent(new Event('input'))
-
-      expect(checkboxContainer.hidden).toEqual(false)
-
-      titleInput.value = originalValue
+      titleInput.value = liveEditionTitle
       titleInput.dispatchEvent(new Event('input'))
 
       expect(checkboxContainer.hidden).toEqual(true)
@@ -327,10 +334,10 @@ describe('GOVUK.Modules.EditionForm', function () {
       `
   }
 
-  function titleAndAddressFields() {
+  function titleAndAddressFields(liveEditionTitle, draftEditionTitle) {
     return `<div class="gem-c-textarea govuk-form-group govuk-!-margin-bottom-1">    
               <label for="edition_title" class="gem-c-label govuk-label govuk-label--m">Title (required)</label>
-              <textarea name="edition[title]" class="govuk-textarea govuk-js-character-count" id="edition_title" rows="1" spellcheck="true" data-ga4-index-section="2" data-ga4-index="{&quot;index_section&quot;:2,&quot;index_section_count&quot;:29}">Test Document</textarea>
+              <textarea name="edition[title]" class="govuk-textarea govuk-js-character-count" id="edition_title" rows="1" spellcheck="true" data-ga4-index-section="2" data-ga4-index="{&quot;index_section&quot;:2,&quot;index_section_count&quot;:29}">${draftEditionTitle}</textarea>
             </div>
             <div class="govuk-!-margin-bottom-6">
               <div class="gem-c-heading govuk-!-margin-bottom-2">
@@ -338,7 +345,7 @@ describe('GOVUK.Modules.EditionForm', function () {
               </div>
             </div>
             <div id="hint-f0e80744" class="gem-c-hint govuk-hint">http://www.dev.gov.uk/guidance/test-document</div>
-            <div id="checkboxes-ab8fa8f0" data-module="gem-checkboxes govuk-checkboxes" class="gem-c-checkboxes govuk-form-group js-keep-slug-form-group">
+            <div id="checkboxes-ab8fa8f0" data-module="gem-checkboxes govuk-checkboxes" data-live-edition-title="${liveEditionTitle}" class="gem-c-checkboxes govuk-form-group js-keep-slug-form-group">
               <div class="govuk-checkboxes__item">
                 <input type="checkbox" name="keep_slug" id="checkboxes-ab8fa8f0-0" value="true" class="govuk-checkboxes__input"><label for="checkboxes-ab8fa8f0-0" class="govuk-label govuk-checkboxes__label">Keep current page URL</label>
               </div>

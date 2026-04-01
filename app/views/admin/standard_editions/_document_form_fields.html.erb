@@ -38,7 +38,7 @@
   </div>
 
   <% if Flipflop.slugs_for_editions? %>
-    <div class="js-keep-slug-form-group govuk-!-margin-bottom-6">
+    <div data-live-edition-title="<%= edition.document.live_edition.title %>" class="js-keep-slug-form-group govuk-!-margin-bottom-6">
       <%= render "govuk_publishing_components/components/hint", {
         text: "You've changed the title of this document. Check the box below to keep the existing URL, or leave it unchecked to update the URL fo this page to match the new title when you publish this edition.",
       } %>

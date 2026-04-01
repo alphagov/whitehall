@@ -168,17 +168,19 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       return
     }
 
-    checkboxContainer.setAttribute('hidden', 'hidden')
+    const liveEditionTitle = checkboxContainer.dataset.liveEditionTitle
 
-    const originalTitle = titleInput.value
-    titleInput.addEventListener('input', function () {
-      const titleHasChanged = titleInput.value !== originalTitle
+    const setCheckboxVisibility = () => {
+      const titleHasChanged = liveEditionTitle !== titleInput.value
       if (titleHasChanged) {
         checkboxContainer.removeAttribute('hidden')
       } else {
         checkboxContainer.setAttribute('hidden', 'hidden')
       }
-    })
+    }
+
+    titleInput.addEventListener('input', () => setCheckboxVisibility())
+    setCheckboxVisibility()
   }
 
   Modules.EditionForm = EditionForm
