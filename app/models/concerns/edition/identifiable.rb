@@ -29,9 +29,14 @@ module Edition::Identifiable
   end
 
   def set_slug
+    # Publishers may choose to preserve the live edition slug by checking the "keep_slug" input
+    if keep_slug
+      self[:slug] = document.live_edition.slug
+      return
+    end
+
     # Translations return nil from `string_to_slug`, in which case we return early as we should not set the slug based on a translation title
-    # Publishers may choose to preserve the existing slug by checking the "keep_slug" input
-    return if string_for_slug.nil? || keep_slug == true
+    return if string_for_slug.nil?
 
     # Generate a default slug using the babosa gem's to_slug and normalize methods
     # We truncate the slug to 150 bytes to keep base_path values to less than 256 bytes,

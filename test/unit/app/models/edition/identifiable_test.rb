@@ -156,6 +156,14 @@ class Edition::SluggingTest < ActiveSupport::TestCase
       }.merge(attributes))
     end
 
+    def self.create_published!(attributes)
+      create!({
+        state: "published",
+        major_change_published_at: 1.day.ago,
+        change_note: "Important change",
+      }.merge(attributes))
+    end
+
   private
 
     def string_for_slug
@@ -179,14 +187,16 @@ class Edition::SluggingTest < ActiveSupport::TestCase
     assert_equal slug, edition.slug
   end
 
-  test "it does not update the slug if the `keep_slug` attribute has the value `true`" do
-    edition = SluggableEdition.create!(title: "Original Title", slug: nil)
-    original_slug = edition.slug
-    edition.title = "New Title"
-    edition.keep_slug = true
-    edition.save!
-    assert_equal original_slug, edition.slug
-    assert_equal "original-title", edition.slug
+  test "it sets the slug to match the live_edition slug if the `keep_slug` attribute has the value `true`" do
+    first_edition = SluggableEdition.create_published!(title: "Original Title", slug: "original-title")
+    second_edition = SluggableEdition.create!(title: "Draft Title", slug: "draft-title", document: first_edition.document)
+
+    second_edition.title = "New Title"
+    second_edition.keep_slug = true
+    second_edition.change_note = "New edition"
+    second_edition.save!
+    assert_equal first_edition.slug, second_edition.slug
+    assert_equal "original-title", second_edition.slug
   end
 
   test "it updates the slug when the title changes" do
