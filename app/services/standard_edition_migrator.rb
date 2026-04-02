@@ -19,6 +19,10 @@ class StandardEditionMigrator
   end
 
   def self.recipe_for(edition)
+    if edition.type == "CaseStudy"
+      return StandardEditionMigrator::CaseStudyRecipe.new
+    end
+
     raise "No migration recipe defined for Edition type #{edition.type}"
   end
 end

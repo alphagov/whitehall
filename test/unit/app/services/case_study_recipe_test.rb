@@ -6,7 +6,6 @@ class CaseStudyRecipeTest < ActiveSupport::TestCase
   describe "running it on StandardEditionMigrator" do
     test "migrates a Case Study edition correctly" do
       ConfigurableDocumentType.setup_test_types("case_study" => JSON.parse(File.read(Rails.root.join("app/models/configurable_document_types/case_study.json"))))
-      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigrator::CaseStudyRecipe.new)
       image = build(:image, caption: "This is a caption", usage: "lead")
       edition = create(:published_case_study, body: "Sample body content", images: [image])
 
