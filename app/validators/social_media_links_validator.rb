@@ -1,7 +1,7 @@
 class SocialMediaLinksValidator < ActiveModel::Validator
   def initialize(opts = {})
     @attributes = opts[:attributes]
-    @service_field = opts[:fields]["service_field"]
+    @channel_field = opts[:fields]["service_field"]
     @url_field = opts[:fields]["url_field"]
     super
   end
@@ -9,52 +9,60 @@ class SocialMediaLinksValidator < ActiveModel::Validator
   def validate(record)
     @attributes.each do |attribute_name|
       arr = record.send(attribute_name.to_sym) || []
-      arr.each_with_index do |social_media_service, index|
-        service_name = social_media_service[@service_field]
-        if validate_social_media_service(service_name, record, attribute_name, index)
-          validate_social_media_link(social_media_service[@url_field], service_name, record, attribute_name)
-        end
+      arr.each_with_index do |social_media_account, index|
+        channel_name = social_media_account[@channel_field]
+        url = social_media_account[@url_field]
+
+        channel_valid = validate_channel(channel_name, url, record, attribute_name, index)
+        validate_social_media_link(url, channel_name, index, record, attribute_name) if channel_valid
       end
     end
   end
 
 private
 
-  def validate_social_media_service(service_name, record, attribute_name, index)
-    @services ||= []
+  def validate_channel(channel_name, url, record, attribute_name, index)
+    @channels ||= []
 
-    if service_name.blank?
+    if channel_name.blank?
       record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "contains an account (\"Social media account #{index + 1}\") without a service selected.",
+        :"#{attribute_name}.#{index}.#{@channel_field}",
+        :blank,
+        message: "cannot be blank (account #{index + 1})",
       )
+      if url.blank?
+        record.errors.add(
+          :"#{attribute_name}.#{index}.#{@url_field}",
+          :blank,
+          message: "cannot be blank (account #{index + 1})",
+        )
+      end
       return false
     end
 
-    if service_name != "Other" && @services.include?(service_name)
+    if channel_name != "Other" && @channels.include?(channel_name)
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "contains another account with a service of \"#{service_name}\".",
+        message: "contains another account with a channel of \"#{channel_name}\".",
       )
       return false
     end
-    @services << service_name
+    @channels << channel_name
   end
 
-  def validate_social_media_link(url, service_name, record, attribute_name)
+  def validate_social_media_link(url, channel_name, index, record, attribute_name)
     if url.blank?
       record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "contains a \"#{service_name}\" account without a URL.",
+        :"#{attribute_name}.#{index}.#{@url_field}",
+        :blank,
+        message: "cannot be blank (account #{index + 1})",
       )
     elsif !valid_url?(url)
       record.errors.add(
         attribute_name.to_sym,
         :invalid_social_media_link,
-        message: "contains a \"#{service_name}\" account with an invalid URL - use the full URL, including https://",
+        message: "contains a \"#{channel_name}\" account with an invalid URL - use the full URL, including https://",
       )
     elsif record.social_media_links.pluck("url").count(url) > 1
       unless record.errors.messages[attribute_name.to_sym].include?("already has an account with a URL of \"#{url}\".")
