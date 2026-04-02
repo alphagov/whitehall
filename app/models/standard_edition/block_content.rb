@@ -64,7 +64,13 @@ private
   end
 
   def method_missing(symbol, *args)
-    if attributes.class.instance_methods.include?(symbol)
+    # Errors on array item fields use dotted attribute names like
+    # :"social_media_links.0.url" so they can be targeted inline per
+    # field. Rails calls these as methods during error processing;
+    # returning nil here prevents a NoMethodError.
+    if symbol.to_s.include?(".")
+      nil
+    elsif attributes.class.instance_methods.include?(symbol)
       attributes.public_send(symbol, *args)
     else
       super
@@ -72,7 +78,7 @@ private
   end
 
   def respond_to_missing?(method_name, _include_all)
-    attributes.class.instance_methods.include?(method_name) || super
+    method_name.to_s.include?(".") || attributes.class.instance_methods.include?(method_name) || super
   end
 
   def attributes_class_for(attribute_config)
