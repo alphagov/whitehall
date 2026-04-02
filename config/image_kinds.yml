@@ -138,13 +138,13 @@ topical_event_header:
       width: 495
       height: 495
       from_version: desktop_2x
-    - name: tablet_2x
-      width: 1536
-      height: 864
     - name: mobile_2x
       width: 1280
       height: 720
-      from_version: tablet_2x
+      from_version: tablet_2x      
+    - name: tablet_2x
+      width: 1536
+      height: 864
     - name: tablet
       width: 768
       height: 432

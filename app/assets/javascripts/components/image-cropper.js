@@ -37,6 +37,97 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.el.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
   }
 
+  Cropbox.prototype.toggleVisibility = function (visibility) {
+    if (!visibility) {
+      this.el.setAttribute('hidden', true)
+    } else {
+      this.el.removeAttribute('hidden')
+    }
+  }
+
+  class CropInformation {
+    constructor($root, colours, styles) {
+      this.$root = $root
+      this.colours = colours
+      this.styles = styles
+      this.cropKeys = []
+      this.init()
+    }
+
+    init() {
+      this.$root.removeAttribute('hidden')
+      this.showAll = this.createCheckbox('Show all', 'show-all', (e) =>
+        this.toggleAll(e)
+      )
+      this.$root.querySelector('ul').appendChild(this.showAll)
+    }
+
+    toggleAll(visibility) {
+      this.cropKeys.forEach((cropKey) => {
+        const input = cropKey.querySelector('input')
+        if (input) {
+          cropKey.querySelector('input').checked = visibility
+          cropKey.dispatchEvent(new Event('click'))
+        }
+      })
+    }
+
+    createCheckbox(legendKey, versionName, onClick, style, colour) {
+      const checkboxTemplate = this.$root.querySelector('#crop-checkbox')
+
+      if (!checkboxTemplate) return
+
+      const checkboxEl = document.importNode(
+        checkboxTemplate.content,
+        true
+      ).firstElementChild
+      checkboxEl.dataset.cropBox = versionName
+
+      const checkBoxInput = checkboxEl.querySelector('input')
+      checkBoxInput.id = versionName
+      checkBoxInput.name = versionName
+
+      const checkBoxLabel = checkboxEl.querySelector('label')
+      checkBoxLabel.setAttribute('for', versionName)
+
+      if (style && colour) {
+        const legendKey = document.createElement('span')
+        legendKey.style.borderWidth = '5px'
+        legendKey.style.borderStyle = style
+        legendKey.style.borderColor = colour
+        legendKey.classList.add('app-c-image-cropper__crop-key-colour')
+        checkBoxLabel.appendChild(legendKey)
+      }
+
+      checkBoxLabel.innerHTML += legendKey
+
+      checkboxEl.addEventListener('click', () => {
+        onClick(checkBoxInput.checked)
+        this.showAll.querySelector('input').checked =
+          this.$root.querySelectorAll('input:checked:not([name=show-all])')
+            .length === this.cropKeys.length
+      })
+
+      return checkboxEl
+    }
+
+    addCropKey(legendKey, versionName, onClick) {
+      const index = this.cropKeys.length
+      this.cropKeys.push(
+        this.createCheckbox(
+          legendKey,
+          versionName,
+          onClick,
+          this.styles[index],
+          this.colours[index]
+        )
+      )
+      this.$root
+        .querySelector('ul')
+        .appendChild(this.cropKeys[this.cropKeys.length - 1])
+    }
+  }
+
   function ImageCropper($imageCropper) {
     this.$imageCropper = $imageCropper
     this.$image = this.$imageCropper.querySelector(
@@ -87,9 +178,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         this.$cropBox = this.$imageCropper.querySelector('.cropper-crop-box')
         this.$cropperContainer =
           this.$imageCropper.querySelector('.cropper-container')
-        this.$imageInformation = this.$imageCropper.querySelector(
-          '.app-c-image-cropper__image-information'
-        )
 
         this.cropBoxReady = this.$uniqueVersions.length > 1
 
@@ -146,6 +234,14 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     const cropBoxStyles = ['dotted', 'dashed', 'solid']
     const cropBoxOutlineWidth = [8, 4, 4]
 
+    this.$imageInformation = new CropInformation(
+      this.$imageCropper.querySelector(
+        '.app-c-image-cropper__image-information'
+      ),
+      cropBoxColours,
+      cropBoxStyles
+    )
+
     this.$uniqueVersions.forEach((version, index) => {
       const { name } = version
       const colour = cropBoxColours[index % cropBoxColours.length]
@@ -184,18 +280,9 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
 
       this.$cropBoxes.push(cropBox)
       this.$cropBox.prepend(cropBox.el)
-
-      if (this.$imageInformation) {
-        this.$imageInformation.removeAttribute('hidden')
-        const legend = document.createElement('LI')
-        legend.classList.add('app-c-image-cropper__crop-key')
-        legend.dataset.cropBox = `${version.name}`
-        legend.innerHTML = `
-            <span style="border: 5px ${style} ${colour}" class="app-c-image-cropper__crop-key-colour"></span>
-            ${legendKey}
-          `
-        this.$imageInformation.querySelector('ul').appendChild(legend)
-      }
+      this.$imageInformation.addCropKey(legendKey, name, (checked) =>
+        cropBox.toggleVisibility(checked)
+      )
     })
   }
 
