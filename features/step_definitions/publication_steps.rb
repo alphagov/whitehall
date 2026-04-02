@@ -43,6 +43,28 @@ When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/)
   add_external_attachment
 end
 
+When(/^I edit the publication "([^"]*)"$/) do |title|
+  visit admin_edition_path(Publication.find_by!(title: title))
+  click_button "Create new edition"
+end
+
+When(/^I change the title to "([^"]*)"$/) do |new_title|
+  fill_in "Title", with: new_title
+end
+
+When("I opt out of updating the slug") do
+  check "Keep the current page URL"
+end
+
+Then("I cannot opt out of updating the slug") do
+  expect(page).not_to have_selector("label", text: "Keep the current page URL")
+end
+
+When("I save the edition and go to the document summary") do
+  fill_in_change_note_if_required
+  click_button "Save and go to document summary"
+end
+
 Then(/^I should see a link to the PDF attachment$/) do
   expect(page).to have_selector("a[href*='#{@attachment.url}']")
 end

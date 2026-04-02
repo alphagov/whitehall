@@ -18,6 +18,8 @@ module Edition::Identifiable
               .where(document: { review_reminders: { review_at: ..Time.zone.today } })
               .where.not(first_published_at: nil)
           }
+
+    attribute :keep_slug, :boolean, default: false
   end
 
   delegate :change_history, :content_id, to: :document, allow_nil: true
@@ -27,6 +29,12 @@ module Edition::Identifiable
   end
 
   def set_slug
+    # Publishers may choose to preserve the live edition slug by checking the "keep_slug" input
+    if keep_slug
+      self[:slug] = document.live_edition.slug
+      return
+    end
+
     # Translations return nil from `string_to_slug`, in which case we return early as we should not set the slug based on a translation title
     return if string_for_slug.nil?
 

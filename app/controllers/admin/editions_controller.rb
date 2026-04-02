@@ -213,6 +213,7 @@ private
   def permitted_edition_attributes
     [
       :title,
+      :keep_slug,
       :body,
       :change_note,
       :summary,
