@@ -9,6 +9,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.style = style
     this.outlineWidth = outlineWidth
     this.scaledRatio = scaledRatio
+    this.dragging = false
 
     this.el = document.createElement('DIV')
     this.el.id = `cropbox-${version.name}`
@@ -128,10 +129,46 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     }
   }
 
+  class CropControls {
+    constructor($root, controls, action) {
+      this.$root = $root
+      this.controls = controls
+      this.action = action
+      this.el = document.createElement('div')
+      this.el.classList.add('app-c-image-cropper__crop-button-container')
+
+      this.init()
+    }
+
+    init() {
+      this.controls.forEach(({ className, cropBox, title }) => {
+        const button = document.createElement('button')
+        button.title = title
+        button.classList.add('govuk-button', 'app-c-image-cropper__crop-button')
+        button.classList.add(`app-c-image-cropper__crop-button--${className}`)
+
+        button.addEventListener('click', (e) => {
+          e.preventDefault()
+          this.action(cropBox)
+        })
+
+        this.el.appendChild(button)
+      })
+
+      this.$root.appendChild(this.el)
+    }
+  }
+
   function ImageCropper($imageCropper) {
     this.$imageCropper = $imageCropper
     this.$image = this.$imageCropper.querySelector(
       '.app-c-image-cropper__image'
+    )
+    this.imageInformationContainer = this.$imageCropper.querySelector(
+      '.app-c-image-cropper__image-information'
+    )
+    this.controlsContainer = this.$imageCropper.querySelector(
+      '.app-c-image-cropper__controls-container'
     )
     this.$targetWidth = parseInt(this.$imageCropper.dataset.targetWidth, 10)
     this.$targetHeight = parseInt(this.$imageCropper.dataset.targetHeight, 10)
@@ -166,6 +203,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       'ready',
       function () {
         this.initKeyboardControls()
+        this.initButtonControls()
         this.updateAriaLabel()
 
         this.cropper.setData({
@@ -191,10 +229,15 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     )
 
     this.$image.addEventListener(
-      'crop',
-      function () {
+      'cropend',
+      function (e) {
         this.updateAriaLabel()
+      }.bind(this)
+    )
 
+    this.$image.addEventListener(
+      'crop',
+      function (e) {
         const data = this.cropper.getData(true)
 
         this.$cropBoxes.forEach((cropBox) =>
@@ -214,13 +257,45 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
             input.value = data[attribute]
           }
         })
+
+        this.updateAriaLabel()
+      }.bind(this)
+    )
+
+    this.$imageCropper.addEventListener(
+      'cropmove',
+      function (e) {
+        this.dragging = true
+      }.bind(this)
+    )
+
+    this.$imageCropper.addEventListener(
+      'cropend',
+      function (e) {
+        if (!this.dragging) {
+          const { clientX, clientY } = e.detail.originalEvent
+          const container =
+            this.$imageCropper.querySelector('.cropper-container')
+          const { top, left } = container.getBoundingClientRect()
+          const containerTop = window.scrollY + top
+          const containerLeft = window.scrollX + left
+
+          this.cropper.setCropBoxData({
+            top: clientY - containerTop,
+            left: clientX - containerLeft
+          })
+        }
+
+        this.dragging = false
       }.bind(this)
     )
 
     this.$imageCropper.addEventListener(
       'click',
-      function () {
-        this.$imageCropper.focus()
+      function (e) {
+        if (e.target.closest('.cropper-crop-box')) {
+          this.$imageCropper.focus()
+        }
       }.bind(this)
     )
   }
@@ -300,14 +375,96 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
       minCropBoxHeight: this.$targetHeight * 0.25,
       autoCrop: true,
       autoCropArea: 1,
+      dragMode: 'move',
       guides: false,
       zoomable: false,
       highlight: false,
       rotatable: false,
       scalable: false,
       checkOrientation: false,
-      checkCrossOrigin: false
+      checkCrossOrigin: false,
+      toggleDragModeOnDblclick: false
     })
+  }
+
+  ImageCropper.prototype.initButtonControls = function () {
+    if (!this.controlsContainer) return
+
+    this.controlsContainer.removeAttribute('hidden')
+
+    const buttonsContainer = document.createElement('div')
+    buttonsContainer.classList.add(
+      'app-c-image-cropper__control-buttons-container'
+    )
+    this.controlsContainer.appendChild(buttonsContainer)
+
+    const directions = [
+      {
+        label: 'Up',
+        className: 'up',
+        title: 'Move cropbox up',
+        cropBox: {
+          top: (value) => value - 10
+        }
+      },
+      {
+        label: 'Left',
+        className: 'left',
+        title: 'Move cropbox left',
+        cropBox: {
+          left: (value) => value - 10
+        }
+      },
+      {
+        label: 'Down',
+        className: 'down',
+        title: 'Move cropbox down',
+        cropBox: {
+          top: (value) => value + 10
+        }
+      },
+      {
+        label: 'Right',
+        className: 'right',
+        title: 'Move cropbox right',
+        cropBox: {
+          left: (value) => value + 10
+        }
+      }
+    ]
+
+    const scales = [
+      {
+        label: 'Increase',
+        className: 'increase',
+        title: 'Increase size of the cropbox',
+        cropBox: {
+          width: (value) => (value *= 1.05),
+          height: (value) => (value *= 1.05)
+        }
+      },
+      {
+        label: 'Decrease',
+        className: 'decrease',
+        title: 'Decrease size of the cropbox',
+        cropBox: {
+          width: (value) => (value /= 1.05),
+          height: (value) => (value /= 1.05)
+        }
+      }
+    ]
+
+    const changeCropBox = (change) => {
+      const cropBoxData = this.cropper.getCropBoxData()
+      Object.keys(change).forEach((key) => {
+        cropBoxData[key] = change[key](cropBoxData[key])
+      })
+      this.cropper.setCropBoxData(cropBoxData)
+    }
+
+    /* eslint-disable no-new */
+    new CropControls(buttonsContainer, directions, changeCropBox)
+    new CropControls(buttonsContainer, scales, changeCropBox)
   }
 
   ImageCropper.prototype.initKeyboardControls = function () {

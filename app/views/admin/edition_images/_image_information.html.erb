@@ -1,20 +1,7 @@
 <section class="govuk-grid-column-one-third">
-  <% if image.image_data.original_uploaded? %>
-    <img src="<%= image.image_data.url %>" alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
-  <% else %>
-    <div class="govuk-!-margin-bottom-4">
-      <span class="govuk-tag govuk-tag--green">Processing</span>
-    </div>
-  <% end %>
-  <h2 class="govuk-heading-m">Image information</h2>
-  <ul class="govuk-list">
-    <% if image.bitmap? && image.image_data.dimensions.present? %>
-      <li><strong>Width: </strong><%= image.width %>px</li>
-      <li><strong>Height: </strong><%= image.height %>px</li>
-    <% end %>
-    <li><strong>Format: </strong><%= image.content_type %></li>
-    <li><strong>File name: </strong><%= image.filename %></li>
-  </ul>
+  <div class="app-c-image-cropper__controls-container" hidden>
+    <h2 class="govuk-heading-m">Crop controls</h2>
+  </div>
   <div class="app-c-image-cropper__image-information" hidden>
     <h2 class="govuk-heading-m">Crop outlines</h2>
     <ul class="govuk-list">
@@ -29,4 +16,24 @@
       </template>
     </ul>
   </div>
+  <h2 class="govuk-heading-m">Image information</h2>
+
+  <% if image.image_data.original_uploaded? %>
+    <% unless image.can_be_cropped? %>
+      <img src="<%= image.image_data.url %>" alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
+    <% end %>
+  <% else %>
+    <div class="govuk-!-margin-bottom-4">
+      <span class="govuk-tag govuk-tag--green">Processing</span>
+    </div>
+  <% end %>
+
+  <ul class="govuk-list">
+    <% if image.bitmap? && image.image_data.dimensions.present? %>
+      <li><strong>Width: </strong><%= image.width %>px</li>
+      <li><strong>Height: </strong><%= image.height %>px</li>
+    <% end %>
+    <li><strong>Format: </strong><%= image.content_type %></li>
+    <li><strong>File name: </strong><%= image.filename %></li>
+  </ul>
 </section>
