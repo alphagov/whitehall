@@ -109,4 +109,61 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
 
     assert block_content.errors.empty?
   end
+
+  test "social media links are valid when titles are unique" do
+    validator_with_title = SocialMediaLinksValidator.new({
+      attributes: %w[social_media_links],
+      fields: {
+        "service_field" => "social_media_service_name",
+        "url_field" => "url",
+        "title_field" => "title",
+      },
+    })
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk", "title" => "GOV.UK on Facebook" },
+      { "social_media_service_name" => "Twitter", "url" => "http://twitter.com/govuk", "title" => "GOV.UK on Twitter" },
+    ]
+    validator_with_title.validate(block_content)
+
+    assert block_content.errors.empty?
+  end
+
+  test "social media links are valid when titles are blank" do
+    validator_with_title = SocialMediaLinksValidator.new({
+      attributes: %w[social_media_links],
+      fields: {
+        "service_field" => "social_media_service_name",
+        "url_field" => "url",
+        "title_field" => "title",
+      },
+    })
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk", "title" => "" },
+      { "social_media_service_name" => "Twitter", "url" => "http://twitter.com/govuk", "title" => "" },
+    ]
+    validator_with_title.validate(block_content)
+
+    assert block_content.errors.empty?
+  end
+
+  test "social media links are invalid when two accounts have the same title" do
+    validator_with_title = SocialMediaLinksValidator.new({
+      attributes: %w[social_media_links],
+      fields: {
+        "service_field" => "social_media_service_name",
+        "url_field" => "url",
+        "title_field" => "title",
+      },
+    })
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk", "title" => "Our updates" },
+      { "social_media_service_name" => "Twitter", "url" => "http://twitter.com/govuk", "title" => "Our updates" },
+    ]
+    validator_with_title.validate(block_content)
+
+    assert_equal ["Social media links already has an account with a title of \"Our updates\"."], block_content.errors.full_messages
+  end
 end
