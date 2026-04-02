@@ -1,1 +1,0 @@
-ScheduledPublishingWorker = ScheduledPublishingJob

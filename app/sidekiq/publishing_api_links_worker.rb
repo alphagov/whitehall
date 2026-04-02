@@ -1,1 +1,0 @@
-PublishingApiLinksWorker = PublishingApiLinksJob
