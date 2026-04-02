@@ -1,1 +1,0 @@
-RevalidateOldLinkCheckReportsWorker = RevalidateOldLinkCheckReportsJob

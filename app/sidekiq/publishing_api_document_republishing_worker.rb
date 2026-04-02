@@ -1,1 +1,0 @@
-PublishingApiDocumentRepublishingWorker = PublishingApiDocumentRepublishingJob
