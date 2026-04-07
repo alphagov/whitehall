@@ -37,6 +37,7 @@
         "social_media_links": {
           "title": "Social media accounts",
           "block": "default_array",
+          "add_another_button_text": "Add a social media account", 
           "attribute_path": ["block_content", "social_media_links"],
           "translatable": true,
           "fields": {
