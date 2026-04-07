@@ -28,7 +28,7 @@
   %>
   <%= render "govuk_publishing_components/components/add_another", {
     fieldset_legend: block.title.singularize,
-    add_button_text: "Add another",
+    add_button_text: block.add_another_button_text,
     empty_fields: true,
     items:,
     empty: render_remove_checkbox.call(items.length) + render_fields.call(items.length),

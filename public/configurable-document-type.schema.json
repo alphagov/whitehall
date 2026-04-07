@@ -129,6 +129,10 @@
         "size": {
           "type": "number",
           "description": "The number of items in an array field"
+        },
+        "add_another_button_text": {
+          "type": "string",
+          "description": "Text to display for the 'Add another' button in default_array block. If empty, it defaults to 'Add another'."
         }
       },
       "required": ["title", "block", "attribute_path", "translatable"],

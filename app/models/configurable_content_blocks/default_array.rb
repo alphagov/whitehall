@@ -8,6 +8,10 @@ module ConfigurableContentBlocks
       end
     end
 
+    def add_another_button_text
+      @config["add_another_button_text"] || "Add another"
+    end
+
     def items
       value || []
     end
