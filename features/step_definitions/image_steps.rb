@@ -209,6 +209,10 @@ And(/^I click upload without attaching a file$/) do
   end
 end
 
+And(/^I click upload without attaching an image$/) do
+  click_on "Upload"
+end
+
 Then(/^I should get the error message "(.*?)"$/) do |error_message|
   expect(page).to have_content(error_message)
 end

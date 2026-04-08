@@ -24,7 +24,7 @@ class ImageData < ApplicationRecord
             presence: {
               message: lambda do |object, _data|
                 formats = object.image_kind_config.allowed_formats.map(&:upcase).to_sentence(last_word_connector: " or ")
-                "cannot be uploaded. Images can be #{formats} files."
+                "not provided. Images can be #{formats} files."
               end,
             },
             unless: -> { file_integrity_errors.any? }

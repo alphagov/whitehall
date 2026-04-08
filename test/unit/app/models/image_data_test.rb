@@ -9,7 +9,7 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.errors[:file].present?
 
     assert_includes image_data.errors[:file],
-                    "cannot be uploaded. Images can be JPG, JPEG, GIF or PNG files."
+                    "not provided. Images can be JPG, JPEG, GIF or PNG files."
   end
 
   test "should raise validation error if not of expected type" do
