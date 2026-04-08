@@ -102,6 +102,33 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     assert_dom "input[name='edition[block_content][list_of_publish_dates][0][publish_date][1]']" # Year
   end
 
+  test "it renders the default 'Add another' button label when no custom label is provided" do
+    render @block
+    assert_dom "[data-add-button-text='Add another']"
+  end
+
+  test "it renders a custom label for 'Add another' button if provided" do
+    @field = {
+      "title" => "List of publish dates",
+      "block" => "default_array",
+      "translatable" => true,
+      "add_another_button_text" => "Click to add another",
+      "fields" => {
+        "publish_date" => {
+          "title" => "Publish date",
+          "block" => "default_date",
+          "attribute_path" => %w[publish_date],
+          "translatable" => true,
+        },
+      },
+    }
+    @path = Path.new(%w[block_content list_of_publish_dates])
+    setup_type("list_of_publish_dates", @field)
+    @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
+    render @block
+    assert_dom "[data-add-button-text='Click to add another']"
+  end
+
   def setup_type(key, field)
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("array_type", {
       "forms" => {
