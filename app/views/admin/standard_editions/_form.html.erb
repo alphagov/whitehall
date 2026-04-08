@@ -1,5 +1,5 @@
 <% active_tab = @current_tab_context || edition.default_tab %>
-<% on_document_tab = active_tab == edition.default_tab %>
+<% on_document_tab = local_assigns.fetch(:on_document_tab, true) %>
 
 <%= form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition), multipart: true }, data: { module: "EditionForm LocaleSwitcher", "rtl-locales": Locale.right_to_left.collect(&:to_param) } do |form| %>
   <% if !edition.editable? %>
