@@ -10,6 +10,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.setupSubtypeFormatAdviceEventListener()
     this.setupSpeechSubtypeEventListeners()
     this.setupSpeechDeliverdOnWarningEventListener()
+    this.setupTitleInputEventListener()
   }
 
   EditionForm.prototype.setupSubtypeFormatAdviceEventListener = function () {
@@ -157,6 +158,30 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         })
       })
     }
+
+  EditionForm.prototype.setupTitleInputEventListener = function () {
+    const form = this.module
+    const titleInput = form.querySelector('#edition_title')
+    const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+
+    if (!titleInput || !checkboxContainer) {
+      return
+    }
+
+    const originalTitle = titleInput.value
+
+    const setCheckboxVisibility = () => {
+      const titleHasChanged = originalTitle !== titleInput.value
+      if (titleHasChanged) {
+        checkboxContainer.removeAttribute('hidden')
+      } else {
+        checkboxContainer.setAttribute('hidden', 'hidden')
+      }
+    }
+
+    titleInput.addEventListener('input', () => setCheckboxVisibility())
+    setCheckboxVisibility()
+  }
 
   Modules.EditionForm = EditionForm
 })(window.GOVUK.Modules)

@@ -67,7 +67,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET #edit renders the edit form for the document collection" do
-    document_collection = create(:document_collection)
+    document_collection = create(:published_document_collection)
 
     get :edit, params: { id: document_collection }
 
