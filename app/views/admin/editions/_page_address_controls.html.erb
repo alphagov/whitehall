@@ -12,22 +12,20 @@
     } %>
   </div>
 
-  <% if Flipflop.slugs_for_editions? %>
-    <div class="<%= (edition.document.live_edition.slug == edition.slug_from_title) && "js-keep-slug-form-group" %> govuk-!-margin-bottom-6">
-      <%= render "govuk_publishing_components/components/hint", {
-        text: "The title of this document has changed since the page URL was generated. Check the box below to keep the existing URL, or leave it unchecked to update the URL for this page to match the new title when you publish this edition.",
-      } %>
-      <%= hidden_field(:edition, :slug_override, value: "") %>
-      <%= render "govuk_publishing_components/components/checkboxes", {
-        name: "edition[slug_override]",
-        items: [
-          {
-            label: "Keep the current page URL",
-            value: edition.document.live_edition.slug,
-            checked: edition.slug_override.present?,
-          },
-        ],
-      } %>
-    </div>
-  <% end %>
+  <div class="<%= (edition.document.live_edition.slug == edition.slug_from_title) && "js-keep-slug-form-group" %> govuk-!-margin-bottom-6">
+    <%= render "govuk_publishing_components/components/hint", {
+      text: "The title of this document has changed since the page URL was generated. Check the box below to keep the existing URL, or leave it unchecked to update the URL for this page to match the new title when you publish this edition.",
+    } %>
+    <%= hidden_field(:edition, :slug_override, value: "") %>
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: "edition[slug_override]",
+      items: [
+        {
+          label: "Keep the current page URL",
+          value: edition.document.live_edition.slug,
+          checked: edition.slug_override.present?,
+        },
+      ],
+    } %>
+  </div>
 <% end %>

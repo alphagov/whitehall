@@ -90,14 +90,6 @@ class Edition::SluggingTest < ActiveSupport::TestCase
     end
   end
 
-  setup do
-    Flipflop::FeatureSet.current.test!.switch!(:slugs_for_editions, true)
-  end
-
-  teardown do
-    Flipflop::FeatureSet.current.test!.switch!(:slugs_for_editions, false)
-  end
-
   test "it does not update the slug if the `string_for_slug` method returns nil" do
     slug = "test-title"
     edition = SluggableEdition.create!(title: "Test Title", slug: slug)

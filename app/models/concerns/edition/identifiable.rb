@@ -22,8 +22,6 @@ module Edition::Identifiable
   delegate :change_history, :content_id, to: :document, allow_nil: true
 
   def slug
-    return document.slug unless Flipflop.slugs_for_editions?
-
     slug_override.presence || super
   end
 
