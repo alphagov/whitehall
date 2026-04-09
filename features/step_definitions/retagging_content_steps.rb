@@ -11,20 +11,18 @@ Given("the documents and organisations I am retagging exist") do
   co_org = create(:organisation, slug: "cabinet-office")
   some_other_org = create(:organisation, slug: "some-other-org")
 
-  doc1 = create(:document, slug: "linked-identifier-schemes-best-practice-guide")
   create(
     :publication,
     :published,
-    document: doc1,
+    title: "Linked identifier schemes best practice guide",
     lead_organisations: [some_other_org],
     supporting_organisations: [],
   )
 
-  doc2 = create(:document, slug: "search-engine-optimisation-for-publishers-best-practice-guide")
   create(
     :publication,
     :published,
-    document: doc2,
+    title: "Search engine optimisation for publishers best practice guide",
     lead_organisations: [co_org],
     supporting_organisations: [some_other_org],
   )
@@ -65,8 +63,8 @@ Then("I see a confirmation message that my documents are being retagged") do
 end
 
 And("the changes should have been actioned") do
-  doc1 = Document.find_by(slug: "linked-identifier-schemes-best-practice-guide")
-  doc2 = Document.find_by(slug: "search-engine-optimisation-for-publishers-best-practice-guide")
+  doc1 = Edition.find_by!(slug: "linked-identifier-schemes-best-practice-guide").document
+  doc2 = Edition.find_by!(slug: "search-engine-optimisation-for-publishers-best-practice-guide").document
 
   expect(doc1.latest_edition.lead_organisations.map(&:slug)).to eq(%w[cabinet-office government-digital-service])
   expect(doc1.latest_edition.supporting_organisations.map(&:slug)).to eq(%w[geospatial-commission])

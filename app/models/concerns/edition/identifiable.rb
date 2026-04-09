@@ -5,7 +5,6 @@ module Edition::Identifiable
     belongs_to :document, touch: true
     validates :document, presence: true
     before_validation :ensure_presence_of_document, on: :create
-    before_validation :update_document_slug, on: :update
     before_validation :propagate_type_to_document
     before_save :set_slug, if: :title_changed?
 
@@ -76,17 +75,11 @@ module Edition::Identifiable
   def ensure_presence_of_document
     if document.blank?
       self.document = Document.new(
-        sluggable_string: string_for_slug,
         content_id: SecureRandom.uuid,
       )
     elsif document.new_record?
-      document.sluggable_string = string_for_slug if document.slug.blank?
       document.content_id = SecureRandom.uuid if document.content_id.blank?
     end
-  end
-
-  def update_document_slug
-    document.update_slug_if_possible(string_for_slug)
   end
 
   def propagate_type_to_document
@@ -96,15 +89,6 @@ module Edition::Identifiable
   module ClassMethods
     def document_type
       sti_name
-    end
-
-    def published_as(slug, locale = I18n.default_locale)
-      document = Document.at_slug(document_type, slug)
-      if document.present?
-        live_edition = document.live_edition
-        return live_edition if live_edition.present? && live_edition.available_in_locale?(locale)
-      end
-      nil
     end
 
     def where_base_path_prefix_matches(edition)

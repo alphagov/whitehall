@@ -34,7 +34,7 @@ class Admin::ReviewRemindersController < Admin::BaseController
 private
 
   def load_document
-    @document = Document.friendly.find(params[:document_id])
+    @document = Document.find(params[:document_id])
   end
 
   def load_review_reminder

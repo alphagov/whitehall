@@ -212,9 +212,6 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
 
-        get :edit_slug, on: :member, controller: :edition_slug
-        patch :update_slug, on: :member, controller: :edition_slug
-
         collection do
           post :export
           get :confirm_export

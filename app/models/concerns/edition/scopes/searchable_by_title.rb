@@ -10,7 +10,7 @@ module Edition::Scopes::SearchableByTitle
             scope = in_default_locale.includes(:document)
             scope
               .where("edition_translations.title LIKE :like_clause", like_clause:)
-              .or(scope.where(document: { slug: keywords }))
+              .or(scope.where(slug: keywords))
           }
   end
 end

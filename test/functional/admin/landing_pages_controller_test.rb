@@ -22,9 +22,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
     landing_page_attrs = attributes_for(:landing_page, title: "Hello there", summary: "Landing page summary", body:)
                              .merge(
                                lead_organisation_ids: [@organisation.id],
-                               document_attributes: {
-                                 slug: "/landing-page/test",
-                               },
+                               slug_override: "/landing-page/test",
                              )
 
     post :create, params: { edition: landing_page_attrs }
@@ -48,8 +46,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
   end
 
   test "GET :edit fetches the supplied instance" do
-    document = create(:document, slug: "/some-slug-starting-with-slash")
-    page = create(:landing_page, organisations: [@organisation], document:)
+    page = create(:landing_page, organisations: [@organisation], slug_override: "/some-slug-starting-with-slash")
 
     get :edit, params: { id: page }
 
@@ -60,8 +57,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
 
   test "PUT :update changes the supplied instance with the supplied params" do
     attrs = attributes_for(:landing_page, title: "Hello there")
-    document = create(:document, slug: "/some-slug-starting-with-slash")
-    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", document:)
+    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", slug_override: "/some-slug-starting-with-slash")
 
     post :update, params: {
       id: page,
@@ -75,8 +71,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
 
   test "PUT :update doesn't save the new instance when the supplied params are invalid" do
     attrs = attributes_for(:landing_page, title: "")
-    document = create(:document, slug: "/some-slug-starting-with-slash")
-    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", document:)
+    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", slug_override: "/some-slug-starting-with-slash")
 
     post :update, params: { id: page, edition: attrs }
 

@@ -35,7 +35,7 @@ module DataHygiene
     def summarise_changes
       @validated_rows.map do |hash|
         {
-          slug: hash[:document].slug,
+          slug: hash[:document].live_edition.slug,
           lead_orgs_summary: diff_orgs(
             hash[:document].latest_edition.lead_organisations.map(&:slug),
             hash[:lead_orgs].map(&:slug),
@@ -102,7 +102,7 @@ module DataHygiene
       elsif document_type == "StatisticsAnnouncement"
         StatisticsAnnouncement.find_by!(slug:)
       else
-        Document.find_by!(slug:, document_type:)
+        Edition.find_by!(slug:, type: document_type).document
       end
     rescue ActiveRecord::RecordNotFound
       errors << "Document not found: #{url}"

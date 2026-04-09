@@ -400,7 +400,7 @@ class CallForEvidenceTest < ActiveSupport::TestCase
     cy_call_for_evidence = create(:call_for_evidence, primary_locale: "cy", title: "title-cy")
 
     [en_call_for_evidence, cy_call_for_evidence].each do |call_for_evidence|
-      assert_equal call_for_evidence.document.slug, call_for_evidence.title
+      assert_equal call_for_evidence.slug, call_for_evidence.title
     end
   end
 

@@ -8,12 +8,6 @@ module ModelStubbingHelpers
     result
   end
 
-  def stub_edition(type, options = {})
-    document = stub_record(:document)
-    document.stubs(:to_param).returns(document.slug)
-    stub_record(type, options.merge(document:))
-  end
-
   def stub_translatable_record(type, options = {})
     translations = []
     Mocha::Configuration.override(stubbing_non_existent_method: :allow) do

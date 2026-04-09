@@ -73,17 +73,6 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert_equal params[:explanation], unpublishing.explanation
   end
 
-  test ".unpublished_as returns the unpublishing if the edition has been unpublished" do
-    publication = create(:unpublished_publication)
-    unpublishing = publication.unpublishing
-    assert_equal unpublishing, Publication.unpublished_as(publication.document.to_param)
-  end
-
-  test ".unpublished_as returns nil if the edition does not have an unpublishing" do
-    publication = create(:draft_publication)
-    assert_nil Publication.unpublished_as(publication.document.to_param)
-  end
-
   test "a draft edition has no published version number" do
     draft_edition = create(:draft_edition)
     assert_nil draft_edition.published_version

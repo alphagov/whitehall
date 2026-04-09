@@ -139,11 +139,9 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:other_location) { create(:world_location) }
 
     before do
-      document = create(:document, slug: "org-slug")
       organisation = create(:published_worldwide_organisation,
                             world_locations: [world_location],
-                            title: "org-name",
-                            document:)
+                            title: "org name")
       contact = create(:contact_with_country, country: other_location)
       create(:worldwide_office,
              contact:,
@@ -165,9 +163,9 @@ class EmbassyTest < ActiveSupport::TestCase
 
     it "returns #remote_office" do
       expected = Embassy::RemoteOffice.new(
-        name: "org-name",
+        name: "org name",
         location: other_location.name,
-        path: "/world/organisations/org-slug",
+        path: "/world/organisations/org-name",
       )
       assert_equal expected, embassy.remote_office
     end
@@ -177,11 +175,9 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:other_location) { create(:world_location) }
 
     before do
-      document = create(:document, slug: "org-slug")
       organisation = create(:published_worldwide_organisation,
                             world_locations: [world_location],
-                            title: "org-name",
-                            document:)
+                            title: "org-name")
       remote_office_contact = create(:contact_with_country, country: other_location)
       unknown_location_contact = create(:contact, country: nil)
       create(:worldwide_office,
@@ -198,7 +194,7 @@ class EmbassyTest < ActiveSupport::TestCase
       expected = Embassy::RemoteOffice.new(
         name: "org-name",
         location: other_location.name,
-        path: "/world/organisations/org-slug",
+        path: "/world/organisations/org-name",
       )
       assert_equal expected, embassy.remote_office
     end
@@ -209,11 +205,9 @@ class EmbassyTest < ActiveSupport::TestCase
     let(:third_location) { create(:world_location) }
 
     before do
-      document = create(:document, slug: "org-slug")
       organisation = create(:published_worldwide_organisation,
                             world_locations: [world_location],
-                            title: "org-name",
-                            document:)
+                            title: "org-name")
       second_location_contact = create(:contact_with_country, country: second_location)
       third_location_contact = create(:contact_with_country, country: third_location)
       create(:worldwide_office,
@@ -230,7 +224,7 @@ class EmbassyTest < ActiveSupport::TestCase
       expected = Embassy::RemoteOffice.new(
         name: "org-name",
         location: third_location.name,
-        path: "/world/organisations/org-slug",
+        path: "/world/organisations/org-name",
       )
       assert_equal expected, embassy.remote_office
     end

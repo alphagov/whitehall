@@ -447,7 +447,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to POST :search_document with an existing document slug" do
-    create(:document, slug: "an-existing-document")
+    create(:edition, title: "an existing document")
 
     post :search_document, params: { document_slug: "an-existing-document" }
 
@@ -462,8 +462,6 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "Non-GDS Admin users should not be able to POST :search_document" do
-    create(:document, slug: "an-existing-document")
-
     login_as :writer
 
     post :search_document, params: { document_slug: "an-existing-document" }
@@ -471,7 +469,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to GET :confirm_document with an existing document slug" do
-    create(:document, slug: "an-existing-document")
+    create(:edition, title: "an existing document")
 
     get :confirm_document, params: { document_slug: "an-existing-document" }
     assert_response :ok
@@ -483,7 +481,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "Non-GDS Admin users should not be able to GET :confirm_document" do
-    create(:document, slug: "an-existing-document")
+    create(:edition, slug: "an existing document")
 
     login_as :writer
 
@@ -492,7 +490,8 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should be able to POST :republish_document with an existing document slug, creating a RepublishingEvent for the current user" do
-    document = create(:document, slug: "an-existing-document", content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
+    document = create(:document, content_id: "6de2fd22-4a87-49b7-be49-915f12dfe6fe")
+    document.latest_edition = create(:edition, title: "An existing document")
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(document.id, false).once
 
@@ -509,7 +508,7 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "GDS Admin users should encounter an error on POST :republish_document without a `reason` and be sent back to the confirm page" do
-    document = create(:document, slug: "an-existing-document")
+    document = create(:edition, title: "an existing document")
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(document.id, false).never
 
@@ -527,7 +526,8 @@ class Admin::RepublishingControllerTest < ActionController::TestCase
   end
 
   test "Non-GDS Admin users should not be able to POST :republish_document" do
-    document = create(:document, slug: "an-existing-document")
+    document = create(:document)
+    document.latest_edition = create(:edition, title: "an existing document")
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(document.id, false).never
 
