@@ -28,6 +28,7 @@
     </div>
   </div>
 <% else %>
+  <% on_document_tab = @current_tab_context.blank? || @current_tab_context == "documents" %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <%= render "components/secondary_navigation", {
@@ -39,41 +40,43 @@
         <%= render "admin/shared/read_only_notice", { edition: @edition } %>
       <% end %>
 
-      <%= render "form", edition: @edition %>
+      <%= render "form", edition: @edition, on_document_tab: %>
     </div>
 
-    <div class="govuk-grid-column-one-third">
-      <%= render "govuk_publishing_components/components/tabs", {
-       disable_ga4: true,
-       tabs: [
-         {
-           id: "govspeak_tab",
-           label: "Help",
-           content: simple_formatting_sidebar(
-             hide_inline_attachments_help: !@edition.allows_inline_attachments?,
-             show_attachments_tab_help: true,
-             link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_report : nil,
-           ),
-         },
-         {
-           id: "history_tab",
-           label: "History",
-           content: tag.div(
-             render(Admin::Editions::DocumentHistoryTabComponent.new(
-               edition: @edition,
-               document_history: @document_history,
-               editing: true,
-             )),
-             data: { module: "document-history-paginator" },
-           ),
-         },
-         *([{
-           id: "fact_checking_tab",
-           label: "Fact checking",
-           content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition)),
-         }] if @edition.can_be_fact_checked?),
-       ],
-      } %>
-    </div>
+    <% if on_document_tab %>
+      <div class="govuk-grid-column-one-third">
+        <%= render "govuk_publishing_components/components/tabs", {
+         disable_ga4: true,
+         tabs: [
+           {
+             id: "govspeak_tab",
+             label: "Help",
+             content: simple_formatting_sidebar(
+               hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+               show_attachments_tab_help: true,
+               link_check_report: LinkCheckerApiService.has_links?(@edition, convert_admin_links: false) ? @edition.link_check_report : nil,
+             ),
+           },
+           {
+             id: "history_tab",
+             label: "History",
+             content: tag.div(
+               render(Admin::Editions::DocumentHistoryTabComponent.new(
+                 edition: @edition,
+                 document_history: @document_history,
+                 editing: true,
+               )),
+               data: { module: "document-history-paginator" },
+             ),
+           },
+           *([{
+             id: "fact_checking_tab",
+             label: "Fact checking",
+             content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition)),
+           }] if @edition.can_be_fact_checked?),
+         ],
+        } %>
+      </div>
+    <% end %>
   </div>
 <% end %>
