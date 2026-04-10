@@ -34,7 +34,7 @@ class ScheduledPublishingJob < JobBase
   private
 
     def queued_jobs
-      Sidekiq::ScheduledSet.new.select { |job| %w[ScheduledPublishingJob ScheduledPublishingWorker].include?(job["class"]) }
+      Sidekiq::ScheduledSet.new.select { |job| job["class"] == name }
     end
   end
 

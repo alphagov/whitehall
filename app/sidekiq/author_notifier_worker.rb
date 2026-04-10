@@ -1,1 +1,0 @@
-AuthorNotifierWorker = AuthorNotifierJob
