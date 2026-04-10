@@ -55,7 +55,20 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
   def create
-    return render :index if images_params.empty?
+    if images_params.empty?
+      empty_image = Image.new
+      empty_image.build_image_data(image_kind: "default")
+      empty_image.valid?
+
+      @images = [empty_image]
+      @failed_images = [empty_image]
+
+      if @image_usage.multiple?
+        return render :index
+      else
+        return render :new
+      end
+    end
 
     return if usage_not_permitted
 
