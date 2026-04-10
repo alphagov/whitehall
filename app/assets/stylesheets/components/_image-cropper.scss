@@ -123,3 +123,69 @@ $app-cropper-point-size: 20px;
     display: block;
   }
 }
+
+.app-c-image-cropper__control-buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.app-c-image-cropper__crop-button {
+  margin-bottom: 10px;
+}
+
+.app-c-image-cropper__crop-button::after {
+  display: block;
+}
+
+.app-c-image-cropper__crop-button--right::after,
+.app-c-image-cropper__crop-button--left::after,
+.app-c-image-cropper__crop-button--down::after,
+.app-c-image-cropper__crop-button--up::after {
+  content: "\21E7";
+}
+
+.app-c-image-cropper__crop-button--increase,
+.app-c-image-cropper__crop-button--decrease {
+  display: block;
+}
+
+.app-c-image-cropper__crop-button--up {
+  display: block;
+  margin-left: 53px;
+}
+
+.app-c-image-cropper__crop-button--down,
+.app-c-image-cropper__crop-button--right,
+.app-c-image-cropper__crop-button--left {
+  display: inline-block;
+}
+
+.app-c-image-cropper__crop-button--right {
+  margin-left: 10px;
+}
+
+.app-c-image-cropper__crop-button--left {
+  margin-right: 10px;
+}
+
+.app-c-image-cropper__crop-button--increase::after {
+  content: "\002B";
+}
+
+.app-c-image-cropper__crop-button--decrease::after {
+  content: "\2212";
+}
+
+.app-c-image-cropper__crop-button--right::after {
+  rotate: 90deg;
+}
+
+.app-c-image-cropper__crop-button--left::after {
+  rotate: 270deg;
+}
+
+.app-c-image-cropper__crop-button--down::after {
+  rotate: 180deg;
+}
