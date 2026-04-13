@@ -169,9 +169,16 @@ module Admin::EditionsHelper
     if edition.unpublishing.present?
       summary = "#{edition.state.capitalize} (#{time_ago_in_words(edition.unpublishing.created_at)} ago)"
       consolidated = edition.unpublishing.unpublishing_reason_id == UnpublishingReason::CONSOLIDATED_ID
+      archived = edition.unpublishing.unpublishing_reason_id == UnpublishingReason::ARCHIVED_ID
 
       if edition.state == "unpublished"
-        reason = consolidated ? "being consolidated into another page" : "being published in error"
+        reason = if consolidated
+                   "being consolidated into another page"
+                 elsif archived
+                   "being archived via the National Archives"
+                 else
+                   "being published in error"
+                 end
         details = ""
         if consolidated || edition.unpublishing.redirect
           details = " User is redirected from<br><a href='#{Whitehall.public_root}#{edition.base_path}'>#{Whitehall.public_root}#{edition.base_path}</a><br>to<br><a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>"

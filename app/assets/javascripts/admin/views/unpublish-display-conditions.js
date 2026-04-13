@@ -11,7 +11,8 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     this.unpublishReasonIds = {
       PublishedInError: 1,
       Consolidated: 4,
-      Withdrawn: 5
+      Withdrawn: 5,
+      Archived: 6
     }
   }
 
@@ -68,7 +69,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     unpublishingReasonId
   ) {
     const showSection = function (selectedSectionId) {
-      const sections = ['withdrawal', 'published-in-error', 'consolidated']
+      const sections = [
+        'withdrawal',
+        'published-in-error',
+        'consolidated',
+        'archived'
+      ]
 
       sections.forEach(
         function (sectionId) {
@@ -91,6 +97,10 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
         break
       case this.unpublishReasonIds.Consolidated:
         showSection('consolidated')
+
+        break
+      case this.unpublishReasonIds.Archived:
+        showSection('archived')
 
         break
     }

@@ -20,6 +20,11 @@
       value: UnpublishingReason::Consolidated,
       label: "Unpublish: consolidated into another GOV.UK page",
     },
+    archived: {
+      id: UnpublishingReason::Archived.id,
+      value: UnpublishingReason::Archived,
+      label: "Unpublish: archived via the National Archives",
+    },
   }
 
   withdrawal_public_explanation_field = render("components/govspeak_editor", {
@@ -57,11 +62,16 @@
           text: unpublish_reasons[:consolidated][:label],
           checked: @unpublishing.unpublishing_reason == unpublish_reasons[:consolidated][:value],
         },
-        :or,
         {
           value: unpublish_reasons[:withdrawn][:id],
           text: unpublish_reasons[:withdrawn][:label],
           checked: @unpublishing.unpublishing_reason == unpublish_reasons[:withdrawn][:value],
+        },
+        :or,
+        {
+          value: unpublish_reasons[:archived][:id],
+          text: unpublish_reasons[:archived][:label],
+          checked: @unpublishing.unpublishing_reason == unpublish_reasons[:archived][:value],
         },
       ],
     } %>
@@ -188,6 +198,25 @@
           error_items: errors_for(@unpublishing.errors, :alternative_url),
         } %>
         <%= render "alternative_url_constraints" %>
+
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <%= render "govuk_publishing_components/components/button", {
+            text: "Unpublish",
+            destructive: true,
+          } %>
+
+          <%= link_to("Cancel", [:admin, @edition], class: "govuk-link govuk-link--no-visited-state") %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__archived">
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
+        <%= hidden_field_tag "unpublishing[unpublishing_reason_id]", unpublish_reasons[:archived][:id] %>
+
+        <p class="govuk-body">
+          This document <a class="govuk-link" href="https://https://www.webarchive.nationalarchives.gov.uk/<%= @unpublishing.archived_url %>">must be live on the National Archives website</a> to select this reason. The URL to the National Archives website will be determined automatically based on the URL of the document.
+        </p>
 
         <div class="govuk-button-group govuk-!-margin-bottom-6">
           <%= render "govuk_publishing_components/components/button", {
