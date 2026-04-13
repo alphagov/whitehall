@@ -1,10 +1,5 @@
-# All {Edition}s have one document, this model contains the slug and
-# handles the logic for slug regeneration.
 class Document < ApplicationRecord
-  extend FriendlyId
-
-  friendly_id :sluggable_string, use: :scoped, scope: :document_type
-
+  self.ignored_columns += [:slug]
   after_destroy :destroy_all_editions
 
   has_many :editions,
@@ -43,19 +38,10 @@ class Document < ApplicationRecord
 
   validates :content_id, presence: true
 
-  after_create :ensure_document_has_a_slug
-
   accepts_nested_attributes_for :review_reminder, allow_destroy: true
-
-  attr_accessor :sluggable_string
 
   def self.live
     joins(:live_edition)
-  end
-
-  def self.at_slug(document_types, slug)
-    document_types = Array(document_types).map(&:to_s)
-    find_by(document_type: document_types, slug:)
   end
 
   def remarks_by_ids(remark_ids)
@@ -81,40 +67,6 @@ class Document < ApplicationRecord
 
   def first_edition_id
     @first_edition_id ||= editions.pick(:id)
-  end
-
-  def similar_slug_exists?
-    scope = Document.where(document_type:)
-    sequence_separator = friendly_id_config.sequence_separator
-
-    # slug is a nullable column, so we can't assume that it exists
-    return false if slug.nil?
-
-    slug_without_sequence = slug.split(sequence_separator).first
-
-    scope.where(
-      "slug IN (?) OR slug LIKE ?",
-      [slug, slug_without_sequence].uniq,
-      "#{slug_without_sequence}#{sequence_separator}%",
-    ).count > 1
-  end
-
-  def should_generate_new_friendly_id?
-    sluggable_string.present?
-  end
-
-  def update_slug_if_possible(new_title)
-    return if ever_published_editions.present? || invalid?
-
-    candidate_slug = normalize_friendly_id(new_title)
-    unless candidate_slug == slug
-      update!(sluggable_string: new_title)
-      # when special characters or scipts are used from the non-latin alphabets
-      # friendly_id sets the documents slug to nil. This ensures that it
-      # retains the default behaviour id of the document as the slug rather than being nil
-      # as implemented in the #ensure_document_has_a_slug after_create callback
-      ensure_document_has_a_slug
-    end
   end
 
   def live?
@@ -221,11 +173,5 @@ private
 
   def destroy_all_editions
     Edition.unscoped.where(document_id: id).destroy_all
-  end
-
-  def ensure_document_has_a_slug
-    if slug.blank?
-      update_column(:slug, id.to_s)
-    end
   end
 end

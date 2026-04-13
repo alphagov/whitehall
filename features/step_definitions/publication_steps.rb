@@ -110,6 +110,6 @@ Then(/^I should see a link to the public version of the publication "([^"]*)"$/)
   publication = Publication.published.find_by!(title: publication_title)
   visit admin_edition_path(publication)
   expect(find("a.govuk-link[target='_blank']")[:href]).to eq(
-    "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications/#{publication.document.slug}",
+    "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications/#{publication.slug}",
   )
 end

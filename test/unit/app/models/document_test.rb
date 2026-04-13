@@ -29,20 +29,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal published_publication, document.reload.live_edition
   end
 
-  test "should be able to retrieve documents of a certain type at a particular slug" do
-    publication = create(:draft_publication)
-    assert_equal publication.document, Document.at_slug(publication.type, publication.document.slug)
-  end
-
-  test "should be able to retrieve documents of many types at a particular slug" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-    standard_edition = create(:standard_edition)
-    speech = create(:draft_speech)
-
-    assert_equal standard_edition.document, Document.at_slug([standard_edition.type, standard_edition.type], standard_edition.document.slug)
-    assert_equal speech.document, Document.at_slug([speech.type, speech.type], speech.document.slug)
-  end
-
   test "should be live if a published edition exists" do
     published_publication = create(:published_publication)
     assert published_publication.document.live?
@@ -193,23 +179,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal "document collection", build(:document, document_type: "DocumentCollection").humanized_document_type
   end
 
-  test "#similar_slug_exists? returns true if a document with a similar slug exists" do
-    _existing = create(:speech, title: "Latest news")
-    draft = create(:speech, title: "Latest news")
-
-    assert draft.document.similar_slug_exists?
-
-    distinct_draft = create(:speech, title: "Latest news from the crime scene")
-    assert_not distinct_draft.document.similar_slug_exists?
-  end
-
-  test "#similar_slug_exists? scopes to documents of the same type" do
-    _existing = create(:speech, title: "UK prospers")
-    draft = create(:publication, title: "UK prospers")
-
-    assert_not draft.document.similar_slug_exists?
-  end
-
   test "#withdrawals returns withdrawals that have happened on editions of the document" do
     document = create(:document)
     create_list(:withdrawn_edition, 3, document:)
@@ -288,30 +257,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal withdrawn, withdrawn.document.live_edition
     assert_nil unpublished.document.live_edition
     assert_nil draft.document.live_edition
-  end
-
-  test "#update_slug_if_possible updates the slug to the title passed maps to a diffrent slug" do
-    document = build(:document)
-    new_slug = "new_slug"
-    document.expects(:update!).with(sluggable_string: new_slug).once
-
-    document.update_slug_if_possible(new_slug)
-  end
-
-  test "#update_slug_if_possible does nothing to the slug if the title passed in maps to the current slug" do
-    document = build_stubbed(:document)
-    document.expects(:update!).never
-
-    document.update_slug_if_possible(document.slug)
-  end
-
-  test "#update_slug_if_possible ensures that the slug is set to the documents id if the new title contains special characters" do
-    document = create(:document, slug: nil)
-    slug_with_special_characters = "首次中英高级别安全"
-
-    document.update_slug_if_possible(slug_with_special_characters)
-
-    assert_equal document.id.to_s, document.reload.slug
   end
 
   ["unpublished", Edition::PUBLICLY_VISIBLE_STATES, Edition::PRE_PUBLICATION_STATES].flatten.each do |edition_state|

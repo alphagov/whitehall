@@ -82,26 +82,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal document, edition.document
   end
 
-  test ".published_as returns edition if edition is published" do
-    edition = create(:published_publication)
-    assert_equal edition, Publication.published_as(edition.document.to_param)
-  end
-
-  test ".published_as returns latest published edition if several editions are part of the same document" do
-    edition = create(:published_publication)
-    _new_draft = create(:draft_publication, document: edition.document)
-    assert_equal edition, Publication.published_as(edition.document.to_param)
-  end
-
-  test ".published_as returns nil if edition is not published" do
-    edition = create(:submitted_edition)
-    assert_nil Edition.published_as(edition.document.to_param)
-  end
-
-  test ".published_as returns nil if document is unknown" do
-    assert_nil Edition.published_as("unknown")
-  end
-
   test ".latest_edition includes first edition of any edition" do
     edition = create(:published_edition)
     assert Edition.latest_edition.include?(edition)
@@ -169,22 +149,6 @@ class EditionTest < ActiveSupport::TestCase
     due_in_two_days = create(:edition, :scheduled, scheduled_publication: 2.days.from_now)
     assert_equal [due_in_one_day], Edition.due_for_publication(1.day)
     assert_equal [due_in_one_day, due_in_two_days], Edition.due_for_publication(2.days)
-  end
-
-  test ".scheduled_for_publication_as returns edition if edition is scheduled" do
-    edition = build(:scheduled_publication, scheduled_publication: 1.day.from_now)
-    edition.previously_published = false
-    edition.save!
-    assert_equal edition, Publication.scheduled_for_publication_as(edition.document.to_param)
-  end
-
-  test ".scheduled_for_publication_as returns nil if edition is not scheduled" do
-    edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
-    assert_nil Edition.scheduled_for_publication_as(edition.document.to_param)
-  end
-
-  test ".scheduled_for_publication_as returns nil if document is unknown" do
-    assert_nil Edition.scheduled_for_publication_as("unknown")
   end
 
   test "should return a list of editions in an organisation" do
@@ -397,21 +361,6 @@ class EditionTest < ActiveSupport::TestCase
   test "generate title for a published edition" do
     published_edition = create(:published_edition, title: "Dog Eyes")
     assert_equal "Dog Eyes (published)", published_edition.reload.title_with_state
-  end
-
-  test "should use the edition title as the basis for the document's slug" do
-    edition = create(:edition, title: "My Publication Title")
-    assert_equal "my-publication-title", edition.document.slug
-  end
-
-  test "should not include apostrophes in slug" do
-    edition = create(:edition, title: "Bob's bike")
-    assert_equal "bobs-bike", edition.document.slug
-  end
-
-  test "should not include ellipsis in the slug" do
-    edition = create(:edition, title: "Something… going on")
-    assert_equal "something-going-on", edition.document.slug
   end
 
   test "#destroy should also remove the relationship to any authors" do

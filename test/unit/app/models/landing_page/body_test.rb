@@ -71,7 +71,7 @@ class LandingPageBodyTest < ActiveSupport::TestCase
   end
 
   test "extends a document which does exist" do
-    edition = create(:edition, body: "navigation_groups: []")
+    edition = create(:edition, type: "LandingPage", body: "navigation_groups: []", slug_override: "/some-slug")
     subject = LandingPage::Body.new(<<~YAML, EMPTY_IMAGES)
       extends: #{edition.slug}
       blocks:

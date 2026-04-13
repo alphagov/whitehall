@@ -4,7 +4,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
   setup do
     @landing_page = create(
       :landing_page,
-      document: create(:document, id: 12_345, slug: "/landing-page/test"),
+      slug_override: "/landing-page/test",
       title: "Landing Page title",
       summary: "Landing Page summary",
       attachments: [create(:file_attachment)],
@@ -85,7 +85,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
   test "it merges its data with a document using extends:" do
     create(
       :landing_page,
-      document: create(:document, id: 12_346, slug: "/landing-page/parent"),
+      slug_override: "/landing-page/parent",
       body: "menu: my-menu-data\nblocks:\n- type: govspeak\n  content: goodbye!",
       title: "Landing Page Parent title",
       summary: "Landing Page Parent summary",
@@ -95,7 +95,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
     landing_page = create(
       :landing_page,
-      document: create(:document, id: 12_347, slug: "/landing-page/extends-test"),
+      slug_override: "/landing-page/extends-test",
       body: "extends: /landing-page/parent\nblocks:\n- type: govspeak\n  content: hello!",
       title: "Landing Page title",
       summary: "Landing Page summary",
@@ -150,7 +150,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
     landing_page = create(
       :landing_page,
-      document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
+      slug_override: "/landing-page/with-images",
       body:,
       title: "Landing Page title",
       summary: "Landing Page summary",
@@ -237,9 +237,10 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
     landing_page = build(
       :landing_page,
-      document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
+      document: create(:document, id: 12_346),
       body:,
       title: "Landing Page title",
+      slug_override: "/landing-page/with-images",
       summary: "Landing Page summary",
       first_published_at: @first_published_at = Time.zone.now,
       updated_at: 1.year.ago,
@@ -268,9 +269,10 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
 
     landing_page = build(
       :landing_page,
-      document: create(:document, id: 12_346, slug: "/landing-page/with-images"),
+      document: create(:document, id: 12_346),
       body:,
       title: "Landing Page title",
+      slug_override: "/landing-page/with-images",
       summary: "Landing Page summary",
       first_published_at: @first_published_at = Time.zone.now,
       updated_at: 1.year.ago,

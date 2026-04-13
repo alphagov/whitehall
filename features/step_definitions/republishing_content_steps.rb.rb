@@ -65,8 +65,7 @@ Then(/^I can see the "An Existing Role" role has been republished/) do
 end
 
 Given(/^a document with slug "an-existing-document" exists$/) do
-  edition = build(:published_edition)
-  create(:document, slug: "an-existing-document", editions: [edition])
+  create(:published_edition, title: "An existing document")
 end
 
 When(/^I request a republish of the "an-existing-document" document's editions$/) do

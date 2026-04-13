@@ -51,8 +51,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "alternative_url cannot be the same url as the edition" do
-    document = create(:document, slug: "document-path")
-    edition = create(:detailed_guide, document:)
+    edition = create(:detailed_guide, title: "Document path")
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk/guidance/document-path", edition:)
 
     assert_not unpublishing.valid?

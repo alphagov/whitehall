@@ -52,7 +52,7 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     assert_selector "a", text: "View published edition"
     assert_selector "a", text: "Set review date"
     assert_selector "a", text: "View data about page"
-    assert_selector "a[href='https://www.test.gov.uk/government/generic-editions/#{edition.document.id}.cy']", text: "View on website (opens in new tab)"
+    assert_selector "a[href='https://www.test.gov.uk/government/generic-editions/#{edition.document_id}.cy']", text: "View on website (opens in new tab)"
   end
 
   test "actions for submitted edition" do

@@ -77,7 +77,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       https://www.gov.uk/guidance/some-slug,lead-organisation,supporting-organisation
     CSV
 
-    create(:document, document_type: "DetailedGuide", slug: "some-slug")
+    create(:detailed_guide, title: "Some slug")
     create(:organisation, slug: "lead-organisation")
     create(:organisation, slug: "supporting-organisation")
 
@@ -100,27 +100,24 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     create(:organisation, slug: "new-supporting-organisation")
     old_supporting_org = create(:organisation, slug: "old-supporting-organisation")
 
-    doc1 = create(:document, slug: "some-slug")
     create(
       :publication,
       :published,
-      document: doc1,
+      title: "Some slug",
       lead_organisations: [old_lead_org],
       supporting_organisations: [old_supporting_org],
     )
-    doc2 = create(:document, slug: "another-slug")
     create(
       :publication,
       :published,
-      document: doc2,
+      title: "Another slug",
       lead_organisations: [old_lead_org, new_lead_org],
       supporting_organisations: [old_supporting_org],
     )
-    doc3 = create(:document, slug: "final-slug")
     create(
       :publication,
       :published,
-      document: doc3,
+      title: "Final slug",
       lead_organisations: [old_lead_org],
       supporting_organisations: [],
     )
@@ -168,17 +165,8 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       https://www.gov.uk/guidance/uk-ncp-complaint-handling-process,lead-organisation,
     CSV
 
-    slug = "uk-ncp-complaint-handling-process"
-    create(
-      :document,
-      document_type: "DetailedGuide",
-      slug:,
-    )
-    create(
-      :document,
-      document_type: "Publication",
-      slug:,
-    )
+    create(:detailed_guide, title: "UK NCP complaint handling process")
+    create(:publication)
     create(:organisation, slug: "lead-organisation")
 
     updater = process(csv_file)
@@ -193,15 +181,14 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       https://www.gov.uk/government/publications/some-slug,lead-organisation,
     CSV
 
-    document = create(:document, slug: "some-slug")
-    edition = create(:published_publication, document:)
+    edition = create(:published_publication, title: "Some slug")
     organisation = create(:organisation, slug: "lead-organisation")
 
     process(csv_file)
 
     assert_equal [organisation], edition.reload.lead_organisations
     assert_equal 1, PublishingApiDocumentRepublishingJob.jobs.size
-    assert_equal document.id, PublishingApiDocumentRepublishingJob.jobs.first["args"].first
+    assert_equal edition.document.id, PublishingApiDocumentRepublishingJob.jobs.first["args"].first
   end
 
   test "it changes the supporting organisations" do
@@ -210,8 +197,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       https://www.gov.uk/government/publications/some-slug,"lead-organisation-1","supporting-organisation-1,supporting-organisation-2"
     CSV
 
-    document = create(:document, slug: "some-slug")
-    edition = create(:published_publication, document:)
+    edition = create(:published_publication, title: "Some slug")
     create(:organisation, slug: "lead-organisation-1")
     organisation1 = create(:organisation, slug: "supporting-organisation-1")
     organisation2 = create(:organisation, slug: "supporting-organisation-2")
@@ -220,7 +206,7 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
 
     assert_equal [organisation1, organisation2], edition.reload.supporting_organisations
     assert_equal 1, PublishingApiDocumentRepublishingJob.jobs.size
-    assert_equal document.id, PublishingApiDocumentRepublishingJob.jobs.first["args"].first
+    assert_equal edition.document.id, PublishingApiDocumentRepublishingJob.jobs.first["args"].first
   end
 
   test "it just updates the draft when there is not a change to the published edition" do
@@ -229,16 +215,18 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       https://www.gov.uk/government/publications/some-slug,lead-organisation,
     CSV
 
-    document = create(:document, slug: "some-slug")
+    document = create(:document)
     organisation = create(:organisation, slug: "lead-organisation")
     create(
       :published_publication,
       document:,
+      title: "Some slug",
       lead_organisations: [organisation],
     )
     draft_edition = create(
       :draft_publication,
       document:,
+      title: "Some slug",
     )
 
     Whitehall::PublishingApi.expects(:save_draft).once
@@ -249,29 +237,23 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     assert_equal 0, PublishingApiDocumentRepublishingJob.jobs.size
   end
 
-  # TODO: this one seems to pass no matter what I set at the CSV file 🤔
-  test "it doesn't change a document which has already changed" do
+  test "it doesn't change a document which already matches the state of the CSV" do
     csv_file = <<~CSV
       URL,Lead organisations,Supporting organisations
-      https://www.gov.uk/government/publications/some-slug,,,lead-organisation,"supporting-organisation-1,supporting-organisation-2"
+      https://www.gov.uk/government/publications/some-slug,"lead-organisation","supporting-organisation-1,supporting-organisation-2"
     CSV
 
     lead_organisation = create(:organisation, slug: "lead-organisation")
     supporting_organisation1 = create(:organisation, slug: "supporting-organisation-1")
     supporting_organisation2 = create(:organisation, slug: "supporting-organisation-2")
-    document = create(:document, slug: "some-slug")
     create(
-      :publication,
-      document:,
+      :published_publication,
+      title: "Some slug",
       lead_organisations: [lead_organisation],
       supporting_organisations: [supporting_organisation1, supporting_organisation2],
     )
 
-    document_stub = Minitest::Mock.new
-    document_stub.expect(:update, nil) { raise "update was called when it shouldn't have been!" }
-    document.stub(:update, document_stub) do
-      process(csv_file)
-    end
+    process(csv_file)
 
     assert_equal 0, PublishingApiDocumentRepublishingJob.jobs.size
   end
@@ -302,14 +284,13 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
       https://www.gov.uk/government/news/some-slug,lead-organisation,
     CSV
 
-    document = create(:document, slug: "some-slug")
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type(
                                                 "test_type", {
                                                   "associations" => [{ "key" => "organisations" }],
                                                   "settings" => { "base_path_prefix" => "/government/news" },
                                                 }
                                               ))
-    standard_edition = build(:standard_edition, document:)
+    standard_edition = build(:standard_edition, title: "Some slug")
     standard_edition.edition_organisations.build([{ organisation: create(:organisation), lead: true }])
     standard_edition.save!
 

@@ -85,9 +85,9 @@ class StandardEditionTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(test_type)
     I18n.with_locale(:cy) do
       edition = create(:draft_standard_edition, configurable_document_type: "test_type", primary_locale: "cy", title: "Original Title")
-      assert_equal "original-title", edition.document.slug
+      assert_equal "original-title", edition.slug
       edition.update!(title: "New title")
-      assert_equal "new-title", edition.document.slug
+      assert_equal "new-title", edition.slug
     end
   end
 
@@ -105,9 +105,9 @@ class StandardEditionTest < ActiveSupport::TestCase
     I18n.with_locale(:cy) do
       edition = create(:draft_standard_edition, configurable_document_type: "test_type", primary_locale: "cy", title: "Original Title")
     end
-    assert_equal "original-title", edition.document.slug
+    assert_equal "original-title", edition.slug
     edition.update!(title: "New Title")
-    assert_equal "original-title", edition.document.slug
+    assert_equal "original-title", edition.slug
   end
 
   test "it allows features if the configurable document type settings permit them" do

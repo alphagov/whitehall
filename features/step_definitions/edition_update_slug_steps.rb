@@ -1,8 +1,3 @@
-Given(/^the slugs for editions feature flag is (enabled|disabled)$/) do |enabled|
-  @test_strategy ||= Flipflop::FeatureSet.current.test!
-  @test_strategy.switch!(:slugs_for_editions, enabled == "enabled")
-end
-
 And(/^I visit the edit slug page for "([^"]*)"$/) do |edition_title|
   @edition = Edition.find_by!(title: edition_title)
   visit edit_slug_admin_edition_path(@edition)

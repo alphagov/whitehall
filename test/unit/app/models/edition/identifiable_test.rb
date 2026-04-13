@@ -20,55 +20,10 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   end
 
   test "should generate a content_id and slug on a document when present" do
-    document = build(:document, content_id: nil, slug: nil)
+    document = build(:document, content_id: nil)
     publication = build(:publication, document:)
     publication.valid?
     assert publication.document.content_id.present?
-    assert publication.document.slug.present?
-  end
-
-  test "should not allow the same slug to be used again for the same document type" do
-    same_title = "same-title"
-    publication1 = create(:publication, title: same_title)
-    publication2 = create(:publication, title: same_title)
-
-    assert_not_equal publication1.document.slug, publication2.document.slug
-  end
-
-  test "should allow the same slug to be used again for another document type" do
-    same_title = "same-title"
-    publication = create(:publication, title: same_title)
-    another_type = create(:speech, title: same_title)
-
-    assert_equal publication.document.slug, another_type.document.slug
-  end
-
-  test "should return the edition of the correct type when matching slugs for other types exist" do
-    same_title = "same-title"
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-    standard_edition = create(:published_standard_edition, title: same_title)
-    publication = create(:published_publication, title: same_title)
-
-    assert_equal standard_edition, StandardEdition.published_as(same_title)
-    assert_equal publication, Publication.published_as(same_title)
-  end
-
-  test "should return nil if the edition isn't translated into the supplied locale" do
-    publication = create(:published_publication, translated_into: "fr")
-
-    assert_nil Publication.published_as(publication.slug, "zh")
-  end
-
-  test "should return the edition if it is translated into the supplied locale" do
-    publication = create(:published_publication, translated_into: "fr")
-
-    assert_equal publication, Publication.published_as(publication.slug, "fr")
-  end
-
-  test "should return the edition if it is translated into the default locale when none is specified" do
-    publication = create(:published_publication, translated_into: I18n.default_locale)
-
-    assert_equal publication, Publication.published_as(publication.slug)
   end
 
   test "should be linkable when draft if document is published" do
@@ -96,42 +51,6 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     Timecop.freeze(date - 5.seconds) do
       assert publication.linkable?
     end
-  end
-
-  test "update slug if title changes on draft edition" do
-    publication = create(:draft_publication, title: "This is my publication")
-    publication.update!(title: "Another thing")
-
-    assert_equal "another-thing", publication.document.reload.slug
-  end
-
-  test "do not update slug if non-english title changes on draft edition" do
-    publication = create(:draft_publication, title: "This is my publication")
-    with_locale(:es) do
-      publication.update!(title: "Spanish thing", summary: "Avoid validation error", body: "Avoid validation error")
-    end
-
-    assert_equal "this-is-my-publication", publication.document.reload.slug
-  end
-
-  test "should not update the slug of an existing edition when saved in the presence of a new edition with the same title" do
-    existing_edition = create(:draft_publication, title: "This is my publication")
-    assert_equal "this-is-my-publication", existing_edition.document.reload.slug
-
-    new_edition_with_same_title = create(:draft_publication, title: "This is my publication")
-    assert_equal "this-is-my-publication--2", new_edition_with_same_title.document.reload.slug
-
-    existing_edition.save!
-    assert_equal "this-is-my-publication", existing_edition.document.reload.slug
-  end
-
-  test "should not update slug when after an edition has been unpublished" do
-    unpublished_edition = create(:superseded_publication, title: "This is my publication")
-    draft_edition = create(:draft_publication, title: "This is my publication", document: unpublished_edition.document)
-
-    draft_edition.title = "New title"
-    draft_edition.save!
-    assert_equal "this-is-my-publication", draft_edition.document.reload.slug
   end
 
   test "updating an edition updates the parent document timestamp" do
@@ -169,14 +88,6 @@ class Edition::SluggingTest < ActiveSupport::TestCase
     def string_for_slug
       title
     end
-  end
-
-  setup do
-    Flipflop::FeatureSet.current.test!.switch!(:slugs_for_editions, true)
-  end
-
-  teardown do
-    Flipflop::FeatureSet.current.test!.switch!(:slugs_for_editions, false)
   end
 
   test "it does not update the slug if the `string_for_slug` method returns nil" do

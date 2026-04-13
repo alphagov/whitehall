@@ -3,7 +3,6 @@ class LandingPage < Edition
   include Edition::Organisations
   include Edition::Images
 
-  skip_callback :validation, :before, :update_document_slug
   validates :base_path, presence: true, format: { with: /\A\/.*\z/, message: "must start with a slash (/)" }
   validate :base_path_must_not_be_taken
   validate do
@@ -57,6 +56,6 @@ class LandingPage < Edition
 private
 
   def base_path_must_not_be_taken
-    errors.add(:base_path, " is already taken") if Document.where(slug:).where.not(id: document.id).exists?
+    errors.add(:base_path, " is already taken") if LandingPage.where(slug_override:).where.not(document_id: document_id).exists?
   end
 end

@@ -21,7 +21,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     html_attachment.govspeak_content.update!(body: "[Image: minister-of-funk.960x640.jpg]")
 
     expected_hash = {
-      base_path: "/government/publications/#{edition.document.slug}/#{html_attachment.slug}",
+      base_path: "/government/publications/#{edition.slug}/#{html_attachment.slug}",
       title: html_attachment.title,
       description: nil,
       schema_name: "html_publication",

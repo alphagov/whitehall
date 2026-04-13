@@ -150,7 +150,7 @@ class Admin::RepublishingController < Admin::BaseController
   def find_document; end
 
   def search_document
-    unless Document.find_by(slug: params[:document_slug])
+    unless Edition.find_by(slug: params[:document_slug])
       flash[:alert] = "Document with slug '#{params[:document_slug]}' not found"
       return redirect_to(admin_republishing_document_find_path)
     end
@@ -159,17 +159,17 @@ class Admin::RepublishingController < Admin::BaseController
   end
 
   def confirm_document
-    @document = Document.find_by(slug: params[:document_slug])
+    @document = Edition.find_by(slug: params[:document_slug])&.document
     render "admin/errors/not_found", status: :not_found unless @document
 
     @republishing_event = RepublishingEvent.new
   end
 
   def republish_document
-    @document = Document.find_by(slug: params[:document_slug])
+    @document = Edition.find_by(slug: params[:document_slug])&.document
     return render "admin/errors/not_found", status: :not_found unless @document
 
-    action = "Editions for the document with slug '#{@document.slug}' have been republished"
+    action = "Editions for the document with slug '#{params[:document_slug]}' have been republished"
     @republishing_event = build_republishing_event(action:, content_id: @document.content_id)
 
     if @republishing_event.save

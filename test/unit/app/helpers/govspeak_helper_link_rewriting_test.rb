@@ -7,12 +7,11 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   [*Whitehall.legacy_edition_classes, StandardEdition].each do |edition_class|
     test "should rewrite absolute path to an admin page for a published #{edition_class} as link to its public page" do
       ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-      document = if edition_class == LandingPage
-                   create(:document, slug: "/starts-with-slash")
-                 else
-                   create(:document)
-                 end
-      edition = create("published_#{edition_class.name.underscore}", document:)
+      edition = if edition_class == LandingPage
+                  create("published_#{edition_class.name.underscore}", slug_override: "/test-slug")
+                else
+                  create("published_#{edition_class.name.underscore}")
+                end
       assert_rewrites_link(from: admin_edition_path(edition), to: edition.public_url)
     end
   end

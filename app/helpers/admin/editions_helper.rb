@@ -143,7 +143,7 @@ module Admin::EditionsHelper
   end
 
   def show_similar_slugs_warning?(edition)
-    !edition.document.live? && edition.document.similar_slug_exists?
+    !edition.document.live? && edition.slug =~ /--\d*\z/
   end
 
   def edition_is_a_novel?(edition)

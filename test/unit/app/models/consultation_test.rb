@@ -458,7 +458,7 @@ class ConsultationTest < ActiveSupport::TestCase
     cy_consultation = create(:consultation, primary_locale: "cy", title: "title-cy")
 
     [en_consultation, cy_consultation].each do |consultation|
-      assert_equal consultation.document.slug, consultation.title
+      assert_equal consultation.slug, consultation.title
     end
   end
 

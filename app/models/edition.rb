@@ -110,11 +110,6 @@ class Edition < ApplicationRecord
     Whitehall::Authority::Enforcer.new(user, self)
   end
 
-  def self.scheduled_for_publication_as(slug)
-    document = Document.at_slug(document_type, slug)
-    document&.scheduled_edition
-  end
-
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end
@@ -131,10 +126,6 @@ class Edition < ApplicationRecord
 
   def unmodifiable?
     persisted? && UNMODIFIABLE_STATES.include?(state_was)
-  end
-
-  def clear_slug
-    document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
   end
 
   def self.publicly_visible_and_available_in_english
@@ -410,7 +401,7 @@ class Edition < ApplicationRecord
   end
 
   def base_path
-    url_slug = slug || id.to_param
+    url_slug = slug || document_id.to_param
     "/government/generic-editions/#{url_slug}"
   end
 

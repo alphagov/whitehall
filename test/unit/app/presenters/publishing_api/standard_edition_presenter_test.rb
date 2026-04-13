@@ -22,7 +22,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     presenter = PublishingApi::StandardEditionPresenter.new(page)
     content = presenter.content
 
-    assert_equal "#{base_path_prefix}/#{page.document.slug}", content[:base_path]
+    assert_equal "#{base_path_prefix}/#{page.slug}", content[:base_path]
     assert_equal schema_name, content[:schema_name]
     assert_equal document_type, content[:document_type]
     assert_equal rendering_app, content[:rendering_app]

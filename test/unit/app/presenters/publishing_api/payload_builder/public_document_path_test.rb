@@ -4,8 +4,7 @@ module PublishingApi
   module PayloadBuilder
     class PublicDocumentPathTest < ActiveSupport::TestCase
       test "returns path for the document" do
-        document = create(:document, slug: "some-news")
-        edition = create(:edition, document:)
+        edition = create(:edition, title: "Some news")
 
         expected_hash = {
           base_path: "/government/generic-editions/some-news",
