@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_01_151804) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_13_155934) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
@@ -232,13 +232,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_151804) do
     t.string "document_type"
     t.integer "latest_edition_id"
     t.integer "live_edition_id"
-    t.string "slug"
     t.datetime "updated_at", precision: nil
     t.index ["content_id"], name: "index_documents_on_content_id"
     t.index ["document_type"], name: "index_documents_on_document_type"
     t.index ["latest_edition_id"], name: "index_documents_on_latest_edition_id"
     t.index ["live_edition_id"], name: "index_documents_on_live_edition_id"
-    t.index ["slug", "document_type"], name: "index_documents_on_slug_and_document_type", unique: true
   end
 
   create_table "edition_authors", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
