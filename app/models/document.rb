@@ -1,5 +1,4 @@
 class Document < ApplicationRecord
-  self.ignored_columns += [:slug]
   after_destroy :destroy_all_editions
 
   has_many :editions,
