@@ -106,13 +106,14 @@ class Edition::SluggingTest < ActiveSupport::TestCase
     assert_equal "original-title", second_edition.slug
   end
 
-  test "it updates the slug when the title changes" do
+  test "it updates the slug and slug_from_title when the title changes" do
     edition = SluggableEdition.create!(title: "Original Title", slug: nil)
     original_slug = edition.slug
     edition.title = "New Title"
     edition.save!
     assert_not_equal original_slug, edition.slug
     assert_equal "new-title", edition.slug
+    assert_equal "new-title", edition.slug_from_title
   end
 
   test "it generates a unique slug when a duplicate exists of the same edition type" do
