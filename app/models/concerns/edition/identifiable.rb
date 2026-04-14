@@ -42,6 +42,7 @@ module Edition::Identifiable
     # when the to_ascii option is used. In this case we fall back to the document ID as the slug
     if default_slug.blank?
       self[:slug] = document_id
+      self[:slug_from_title] = document_id
       return
     end
 
@@ -62,6 +63,7 @@ module Edition::Identifiable
       else
         candidate_slug_is_a_duplicate = false
         self[:slug] = candidate_slug
+        self[:slug_from_title] = candidate_slug
       end
     end
   end

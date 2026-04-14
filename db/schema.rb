@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_13_155934) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_14_101848) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
@@ -392,6 +392,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_13_155934) do
     t.text "roll_call_introduction", size: :medium
     t.datetime "scheduled_publication", precision: nil
     t.string "slug"
+    t.string "slug_from_title"
     t.string "slug_override"
     t.integer "speech_type_id"
     t.string "state", default: "draft", null: false
