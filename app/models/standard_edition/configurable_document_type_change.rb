@@ -6,23 +6,35 @@ class StandardEdition::ConfigurableDocumentTypeChange
   end
 
   def apply
-    @conversion.prepare
+    result = false
+    begin
+      @conversion.prepare
+      update_publishing_api
+      @conversion.convert
+      result = true
+      update_publishing_api
+    rescue
+      Rails.logger.log(:error, "Configurable document type conversion failed for edition #{@conversion.edition.content_id}. It is likely that Whitehall and Publishing API are out of sync.")
+    ensure
+      return result
+    end
+  end
 
-    @client.put_content(
-      @presenter.content_id,
-      @presenter.content,
-    )
+private
+
+  def update_publishing_api
+    @conversion.edition.available_locales.each do |locale|
+      I18n.with_locale(locale) do
+        @client.put_content(
+          @presenter.content_id,
+          @presenter.content,
+          )
+      end
+    end
 
     @client.patch_links(
       @presenter.content_id,
       @presenter.links,
-    )
-
-    @conversion.convert
-
-    @client.patch_links(
-      @presenter.content_id,
-      @presenter.links,
-    )
+      )
   end
 end

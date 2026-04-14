@@ -30,7 +30,13 @@ class Admin::StandardEditionsController < Admin::EditionsController
     find_edition
     new_type_id = params.fetch(:configurable_document_type)
 
-    if @edition.update_configurable_document_type(new_type_id)
+    @old_type = ConfigurableDocumentType.find(@edition.configurable_document_type)
+    @new_type = ConfigurableDocumentType.find(new_type_id)
+
+    type_conversion = ConfigurableDocumentTypeConversionRegistry.find(@old_type, @new_type)
+    type_change = StandardEdition::ConfigurableDocumentTypeChange.new(type_conversion, Services.publishing_api)
+
+    if type_change.apply
       redirect_to admin_standard_edition_path(@edition), notice: "Document type changed successfully."
     else
       redirect_to change_type_preview_admin_standard_edition_path(@edition, configurable_document_type: new_type_id), alert: "Could not change document type."
