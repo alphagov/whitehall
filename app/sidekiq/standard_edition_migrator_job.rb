@@ -43,7 +43,7 @@ private
     )
     edition.translations.each do |translation|
       translation.update_columns(
-        block_content: recipe.map_legacy_fields_to_block_content(edition, translation),
+        block_content: recipe.map_legacy_fields_to_block_content(translation),
         body: nil, # only applicable to legacy document types
       )
     end
