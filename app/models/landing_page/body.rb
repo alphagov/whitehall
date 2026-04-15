@@ -52,7 +52,7 @@ class LandingPage::Body
     @body_to_extend ||= begin
       return if extends.blank?
 
-      edition = LandingPage.find_by(slug_override: extends)
+      edition = LandingPage.where(slug_override: extends).last
       return if edition.nil?
 
       parsed_body = begin
