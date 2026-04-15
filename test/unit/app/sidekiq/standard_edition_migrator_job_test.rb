@@ -388,7 +388,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       StandardEditionMigratorJobTest::TestPresenter
     end
 
-    def map_legacy_fields_to_block_content(_edition, translation)
+    def map_legacy_fields_to_block_content(translation)
       { "field_attribute" => "MODIFIED #{translation.body}" }
     end
 
