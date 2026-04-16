@@ -1,7 +1,6 @@
 module PublishingApi
   module PayloadBuilder
     class Documents
-      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(document)
         new(document).call
       end
@@ -14,7 +13,6 @@ module PublishingApi
         return {} if document.attachments.blank?
 
         {
-          documents:,
           featured_attachments:,
         }
       end
@@ -22,10 +20,6 @@ module PublishingApi
     private
 
       attr_accessor :document
-
-      def documents
-        render_attachments(document.attachments)
-      end
 
       def featured_attachments
         document.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }

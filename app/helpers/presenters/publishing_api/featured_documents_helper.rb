@@ -1,7 +1,6 @@
 module Presenters
   module PublishingApi
     module FeaturedDocumentsHelper
-      include RenderedAttachmentsHelper
       include GovspeakHelper
       def featured_documents(featurable_item, document_limit)
         featurable_item

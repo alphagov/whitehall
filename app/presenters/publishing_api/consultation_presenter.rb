@@ -1,7 +1,6 @@
 module PublishingApi
   class ConsultationPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     include GovspeakHelper
 
     SCHEMA_NAME = "consultation".freeze
@@ -93,7 +92,6 @@ module PublishingApi
 
     class FinalOutcome
       include GovspeakHelper
-      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(consultation)
         new(consultation).call
       end
@@ -107,7 +105,6 @@ module PublishingApi
 
         {
           final_outcome_detail:,
-          final_outcome_documents:,
           final_outcome_attachments:,
         }.compact
       end
@@ -122,12 +119,6 @@ module PublishingApi
         govspeak_to_html(outcome.summary)
       end
 
-      def final_outcome_documents
-        return if outcome.attachments.blank?
-
-        render_attachments(outcome.attachments)
-      end
-
       def final_outcome_attachments
         outcome.attachments_ready_for_publishing.map { |a| a.publishing_api_details[:id] }
       end
@@ -135,7 +126,6 @@ module PublishingApi
 
     class PublicFeedback
       include GovspeakHelper
-      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(consultation)
         new(consultation).call
       end
@@ -150,7 +140,6 @@ module PublishingApi
 
         {
           public_feedback_detail: detail,
-          public_feedback_documents: documents,
           public_feedback_attachments: attachments,
           public_feedback_publication_date: publication_date,
         }.compact
@@ -166,12 +155,6 @@ module PublishingApi
         return if public_feedback.summary.blank?
 
         govspeak_to_html(public_feedback.summary)
-      end
-
-      def documents
-        return if public_feedback.attachments.blank?
-
-        render_attachments(public_feedback.attachments)
       end
 
       def attachments

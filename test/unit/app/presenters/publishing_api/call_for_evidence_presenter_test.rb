@@ -322,7 +322,6 @@ module PublishingApi::CallForEvidencePresenterTest
 
   class ClosedCallForEvidenceWithOutcomeTest < TestCase
     include GovspeakHelper
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.call_for_evidence = create(:call_for_evidence_with_outcome_file_attachment)
     end
@@ -343,7 +342,6 @@ module PublishingApi::CallForEvidencePresenterTest
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
 
-      assert_details_attribute :outcome_documents, render_attachments(call_for_evidence.outcome.attachments)
       assert_details_attribute(:outcome_attachments,
                                call_for_evidence.outcome.attachments.map { |a| a.publishing_api_details[:id] })
     end
@@ -365,7 +363,6 @@ module PublishingApi::CallForEvidencePresenterTest
   end
 
   class CallForEvidenceWithFileAttachments < TestCase
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.call_for_evidence = create(:call_for_evidence, :with_html_attachment)
     end
@@ -373,7 +370,6 @@ module PublishingApi::CallForEvidencePresenterTest
     test "documents" do
       PublishingApi::CallForEvidencePresenter.any_instance.stubs(:body)
 
-      assert_details_attribute :documents, render_attachments(call_for_evidence.attachments)
       assert_details_attribute(:featured_attachments,
                                call_for_evidence.attachments.map { |a| a.publishing_api_details[:id] })
     end
