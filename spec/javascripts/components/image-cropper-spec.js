@@ -26,12 +26,7 @@ describe('GOVUK.Modules.ImageCropper', () => {
     }
   ]
 
-  const initCropperHTML = () => {
-    const canvas = document.createElement('canvas')
-    canvas.setAttribute('width', imageWidth)
-    canvas.setAttribute('height', imageHeight)
-    const src = canvas.toDataURL('image/png')
-
+  const initCropperHTML = (imageOnLoad = true) => {
     component = document.createElement('div')
     component.setAttribute('data-filename', 'icon.png')
     component.setAttribute('data-type', 'image/png')
@@ -48,15 +43,56 @@ describe('GOVUK.Modules.ImageCropper', () => {
       <input class="js-cropped-image-input" name="[y]" hidden>
       <input class="js-cropped-image-input" name="[height]" hidden>
       <input class="js-cropped-image-input" name="[width]" hidden>
-      <div style="position: relative; width: 1920px; height: 1280px;">
-        <img class="app-c-image-cropper__image" src="${src}"/>
-      </div>
+      <div class="js-cropped-image-img-container" style="position: relative; width: 1920px; height: 1280px;"></div>
     `
+
+    if (imageOnLoad) {
+      const canvas = document.createElement('canvas')
+      canvas.setAttribute('width', imageWidth)
+      canvas.setAttribute('height', imageHeight)
+      const src = canvas.toDataURL('image/png')
+
+      component.querySelector('.js-cropped-image-img-container').innerHTML = `
+        <img class="app-c-image-cropper__image" src="${src}"/>
+      `
+    }
 
     form = document.createElement('form')
     form.appendChild(component)
     document.body.append(form)
   }
+
+  describe('without image on initial load', () => {
+    beforeEach(() => {
+      initCropperHTML(false)
+      window.setTimeout(() => {
+        module = new GOVUK.Modules.ImageCropper(component)
+        module.init()
+      }, 1)
+    })
+
+    afterEach(() => form.remove())
+
+    it('should init the cropper when an image is provided', (done) => {
+      const canvas = document.createElement('canvas')
+      canvas.setAttribute('width', imageWidth)
+      canvas.setAttribute('height', imageHeight)
+      const src = canvas.toDataURL('image/png')
+
+      expect(document.querySelector('.app-c-image-cropper__image')).toBe(null)
+
+      component.querySelector('.js-cropped-image-img-container').innerHTML = `
+        <img class="app-c-image-cropper__image" src="${src}"/>
+      `
+      const image = document.querySelector('.app-c-image-cropper__image')
+
+      image.addEventListener('ready', () => {
+        const imageCropper = image.cropper
+        expect(imageCropper.getCropBoxData()).toBeTruthy()
+        done()
+      })
+    })
+  })
 
   describe('without versions', () => {
     beforeEach((done) => {

@@ -127,10 +127,6 @@ class Admin::EditionImagesController < Admin::BaseController
     end
   end
 
-  def edit
-    flash.now.notice = "The image is being processed. Try refreshing the page." unless image&.image_data&.original_uploaded?
-  end
-
 private
 
   def usage_not_permitted

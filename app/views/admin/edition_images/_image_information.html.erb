@@ -1,4 +1,11 @@
-<section class="govuk-grid-column-one-third">
+<section data-module="image-processing-checker" data-image-link="<%= admin_edition_image_path(edition, image) %>" class="govuk-grid-column-one-third">
+
+  <template id="image-preview">
+    <% if !image.bitmap? %>
+      <img alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
+    <% end %>
+  </template>
+
   <div class="app-c-image-cropper__controls-container" hidden>
     <h2 class="govuk-heading-m">Crop controls</h2>
   </div>
@@ -16,14 +23,11 @@
       </template>
     </ul>
   </div>
+
   <h2 class="govuk-heading-m">Image information</h2>
 
-  <% if image.image_data.original_uploaded? %>
-    <% unless image.can_be_cropped? %>
-      <img src="<%= image.image_data.url %>" alt="Image preview" class="app-view-edition-resource__preview govuk-!-margin-bottom-4">
-    <% end %>
-  <% else %>
-    <div class="govuk-!-margin-bottom-4">
+  <% unless image.image_data&.original_uploaded? %>
+    <div class="govuk-!-margin-bottom-4 js-image-processing-status">
       <span class="govuk-tag govuk-tag--green">Processing</span>
     </div>
   <% end %>

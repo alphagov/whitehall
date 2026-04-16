@@ -184,6 +184,34 @@
   }
 
   ImageCropper.prototype.init = function () {
+    if (this.$imageCropper.querySelector('img')) {
+      this.start()
+    } else {
+      this.$imageCropper.ariaLabel = 'The image cropper is loading.'
+      // The image is still processing, start the
+      // cropping tool when the image is ready to be cropped
+      const callback = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+          if (mutation.type === 'childList') {
+            if (!this.$image) {
+              observer.disconnect()
+              this.$imageCropper.ariaLabel = 'The image cropper is now ready.'
+              this.start()
+            }
+          }
+        }
+      }
+
+      const observer = new MutationObserver(callback)
+      observer.observe(this.$imageCropper, { childList: true, subtree: true })
+    }
+  }
+
+  ImageCropper.prototype.start = function () {
+    this.$image = this.$imageCropper.querySelector(
+      '.app-c-image-cropper__image'
+    )
+
     // This only runs if the image isn't cached
     this.$image.addEventListener(
       'load',

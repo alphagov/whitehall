@@ -116,20 +116,24 @@ When("I click to edit the details of the image that needs to be cropped") do
   find_all("a", text: "Edit details").last.click
 end
 
-Then("I should see the image cropper in the following edit screen") do
-  expect(page).to have_selector(".app-c-image-cropper")
-end
-
-Then("I should not see the image cropper in the following edit screen") do
-  expect(page).not_to have_selector(".app-c-image-cropper")
-end
-
 Then("I should I see the processing status tag") do
   expect(page).to have_selector(".govuk-tag--green")
 end
 
 Then("I should I see the image thumbnail") do
   expect(page).to have_selector(".app-view-edition-resource__preview")
+end
+
+Then("I should see the spinner in the following edit screen") do
+  expect(page).to have_selector(".hods-loading-spinner")
+end
+
+Then("I should see the image cropper in the following edit screen") do
+  expect(page).to have_selector(".app-c-image-cropper")
+end
+
+Then("I should not see the image cropper in the following edit screen") do
+  expect(page).not_to have_selector(".app-c-image-cropper")
 end
 
 When("the image is ready") do
@@ -139,6 +143,10 @@ When("the image is ready") do
   image_data = build(:image_data)
   image.image_data.stubs(:assets).returns(image_data.assets)
   Admin::EditionImagesController.any_instance.stubs(:find_image).returns(image)
+end
+
+Then("I should see the image cropper image in the edit screen") do
+  expect(page).to have_selector(".app-c-image-cropper__image")
 end
 
 When("I click to hide the lead image") do

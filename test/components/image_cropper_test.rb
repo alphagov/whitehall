@@ -18,7 +18,8 @@ class ImagecropperComponentTest < ComponentTestCase
       type: "type",
       width: 960,
       height: 640,
-      image: build(:image),
+      image: create(:image),
+      edition: create(:edition),
     })
 
     assert_select ".app-c-image-cropper"

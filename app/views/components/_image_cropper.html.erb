@@ -7,6 +7,7 @@
   target_width ||= 0
   target_height ||= 0
   image ||= nil
+  edition ||= nil
 %>
 
 <%= tag.div class: "app-c-image-cropper govuk-grid-column-row", tabindex: "0", data: { module: "image-cropper", filename:, type:, width:, height:, x:, y:, versions:, target_width:, target_height: }, "aria-live" => "polite" do %>
@@ -15,10 +16,24 @@
     <input class="js-cropped-image-input" name="<%= name %>[y]" hidden value="<%= y %>">
     <input class="js-cropped-image-input" name="<%= name %>[height]" hidden value="<%= height %>">
     <input class="js-cropped-image-input" name="<%= name %>[width]" hidden value="<%= width %>">
-    <%= tag.img class: "app-c-image-cropper__image", src: image.image_data.url %>
+    <% if image.image_data&.original_uploaded? %>
+      <%= tag.img class: "app-c-image-cropper__image", src: image.image_data.url %>
+    <% else %>
+      <div data-module="image-processing-checker" data-image-link="<%= admin_edition_image_path(edition, image) %>">
+        <template class="js-image-preview">
+          <%= tag.img class: "app-c-image-cropper__image" %>
+        </template>
+        <template class="js-image-preview-failure">
+          <span class="govuk-tag govuk-tag--red">
+            Failed to load image. Please refresh the page.
+          </span>
+        </template>
+        <div class="js-image-processing-status">
+          <%= render "/components/loading_spinner", content: "Loading image for cropping..." %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 
-  <% if image.present? %>
-    <%= render "admin/edition_images/image_information", image: %>
-  <% end %>
+  <%= render "admin/edition_images/image_information", image:, edition: %>
 <% end %>
