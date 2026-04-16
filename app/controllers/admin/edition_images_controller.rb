@@ -1,8 +1,16 @@
 class Admin::EditionImagesController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
-  before_action :set_image_usage, only: %i[new create confirm_destroy edit update]
+  before_action :set_image_usage, only: %i[new create confirm_destroy edit update end show]
   def index; end
+
+  def show
+    json = image.as_json(include: { image_data: { include: :assets } })
+    json["image_data"]["all_assets_uploaded"] = image.image_data.all_asset_variants_uploaded?
+    json["image_data"]["assets"] = json["image_data"]["assets"].map { |asset| asset.merge({ "url" => asset["variant"] != "original" ? image.image_data.url(asset["variant"]) : image.image_data.url }) }
+
+    render json: json.to_json
+  end
 
   def new
     nil if redirect_if_single_usage_image_exists
@@ -173,7 +181,7 @@ private
     case action_name
     when "index"
       enforce_permission!(:see, @edition)
-    when "edit", "update", "destroy", "confirm_destroy", "create", "new", "confirm_toggle_default_lead_image_behaviour", "toggle_default_lead_image_behaviour"
+    when "edit", "update", "destroy", "confirm_destroy", "create", "new", "confirm_toggle_default_lead_image_behaviour", "toggle_default_lead_image_behaviour", "show"
       enforce_permission!(:update, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction, action_name
