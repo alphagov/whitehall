@@ -44,3 +44,11 @@ Feature: Images tab on edit edition
     When I update the image details and save
     And I upload a 960x960 image
     Then I should get 1 error message
+
+  @javascript
+  Scenario: User goes to index page before an image has finished processing
+    When a draft document with images exists including an image that is not yet ready
+    When I visit the images tab of the document with images
+    Then I should I see the processing status tag
+    When the image is ready
+    Then I should I see the image thumbnail    

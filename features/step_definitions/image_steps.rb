@@ -40,6 +40,11 @@ Given("a draft document with images exists") do
   @edition = create(:draft_publication, body: "!!2", images:)
 end
 
+Given("a draft document with images exists including an image that is not yet ready") do
+  @edition = create(:draft_publication, body: "!!2", images: [build(:image_with_no_assets)])
+  @edition.images.first.image_data.assets.destroy_all
+end
+
 Given("a draft case study with images exists") do
   images = [build(:image), build(:image)]
   @edition = create(:draft_case_study, body: "!!2", images:, lead_image: images.first)
@@ -117,6 +122,23 @@ end
 
 Then("I should not see the image cropper in the following edit screen") do
   expect(page).not_to have_selector(".app-c-image-cropper")
+end
+
+Then("I should I see the processing status tag") do
+  expect(page).to have_selector(".govuk-tag--green")
+end
+
+Then("I should I see the image thumbnail") do
+  expect(page).to have_selector(".app-view-edition-resource__preview")
+end
+
+When("the image is ready") do
+  image = @edition.images.reload.last
+  image.image_data.stubs(:all_asset_variants_uploaded?).returns(true)
+  image.image_data.stubs(:original_uploaded?).returns(true)
+  image_data = build(:image_data)
+  image.image_data.stubs(:assets).returns(image_data.assets)
+  Admin::EditionImagesController.any_instance.stubs(:find_image).returns(image)
 end
 
 When("I click to hide the lead image") do
