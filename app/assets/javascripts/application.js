@@ -31,6 +31,7 @@
 //= require admin/modules/navbar-toggle
 //= require admin/modules/paste-html-to-govspeak
 //= require admin/modules/prevent-multiple-form-submissions
+//= require admin/modules/image-processing-checker
 
 //= require admin/views/broken-links-report
 //= require admin/views/edition-form
