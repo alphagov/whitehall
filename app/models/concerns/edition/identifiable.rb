@@ -31,6 +31,7 @@ module Edition::Identifiable
 
   def set_slug
     # Translations return nil from `string_to_slug`, in which case we return early as we should not set the slug based on a translation title
+    # Corporate information pages also return nil from `string_to_slug`, because their slugs are set based on document type.
     return if string_for_slug.nil?
 
     # Generate a default slug using the babosa gem's to_slug and normalize methods
