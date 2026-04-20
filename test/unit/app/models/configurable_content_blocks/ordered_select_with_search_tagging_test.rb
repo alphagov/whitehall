@@ -30,7 +30,7 @@ class ConfigurableContentBlocks::OrderedSelectWithSearchTaggingTest < ActionView
     options = 1.upto(3).map { |index| build(:world_location, id: index) }
 
     @edition.world_locations = [options.first, options.last]
-    @block.stubs("cached_taggable_world_locations").returns(options)
+    WorldLocation.stubs(:ordered_by_name).returns(stub(where: options))
 
     render @block
 
