@@ -61,14 +61,14 @@ class Admin::SocialMediaAccounts::Index::SummaryCardComponentTest < ViewComponen
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__value", text: english_social_media_account.url
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{english_social_media_account.url}']", text: "View English"
     assert_selector ".govuk-summary-list__row:nth-child(1) .govuk-summary-list__actions a[href='#{edit_polymorphic_path([:admin, socialable, english_social_media_account], locale: :en)}']", text: "Edit English account"
-    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "Spanish"
-    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: english_social_media_account.url
-    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{english_social_media_account.url}']", text: "View Spanish"
-    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{edit_polymorphic_path([:admin, socialable, english_social_media_account], locale: :es)}']", text: "Edit Spanish account"
-    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "French"
-    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: french_social_media_account_translation.title
-    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{french_social_media_account_translation.url}']", text: "View French"
-    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{edit_polymorphic_path([:admin, socialable, english_social_media_account], locale: :fr)}']", text: "Edit French account"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__key", text: "French"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__value", text: french_social_media_account_translation.title
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{french_social_media_account_translation.url}']", text: "View French"
+    assert_selector ".govuk-summary-list__row:nth-child(2) .govuk-summary-list__actions a[href='#{edit_polymorphic_path([:admin, socialable, english_social_media_account], locale: :fr)}']", text: "Edit French account"
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__key", text: "Spanish"
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__value", text: english_social_media_account.url
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{english_social_media_account.url}']", text: "View Spanish"
+    assert_selector ".govuk-summary-list__row:nth-child(3) .govuk-summary-list__actions a[href='#{edit_polymorphic_path([:admin, socialable, english_social_media_account], locale: :es)}']", text: "Edit Spanish account"
   end
 
   test "omits the edit link if the user does not have permission to edit the social media account" do

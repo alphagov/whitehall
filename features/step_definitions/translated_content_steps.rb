@@ -25,9 +25,9 @@ Then(/^English should not appear on the list of language choices$/) do
 end
 
 When(/^I create a foreign language only document$/) do
-  begin_drafting_document type: "document_collection", locale: "Cymraeg (Welsh)", title: "Foreign Language Only"
+  begin_drafting_document type: "document_collection", locale: "Welsh (Cymraeg)", title: "Foreign Language Only"
   click_button "Save and go to document summary"
-  expect(page).to have_content("Primary language Cymraeg (Welsh)")
+  expect(page).to have_content("Primary language Welsh (Cymraeg)")
 end
 
 And(/^I return to the edit screen$/) do

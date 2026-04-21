@@ -37,7 +37,7 @@ class Admin::WorldwideOrganisationPages::Index::SummaryCardComponentTest < ViewC
 
     render_inline(Admin::WorldwideOrganisationPages::Index::SummaryCardComponent.new(page: french_translation, worldwide_organisation: page.edition))
 
-    assert_selector ".govuk-summary-card__title", text: "Publication scheme - Français (French)"
+    assert_selector ".govuk-summary-card__title", text: "Publication scheme - French (Français)"
     assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(1) a[href='#{edit_admin_worldwide_organisation_page_translation_path(page.edition, page, french_translation.translation_locale)}']"
     assert_selector ".govuk-summary-card__actions .govuk-summary-card__action:nth-child(2) a[href='#{confirm_destroy_admin_worldwide_organisation_page_translation_path(page.edition, page, french_translation.translation_locale)}']"
 

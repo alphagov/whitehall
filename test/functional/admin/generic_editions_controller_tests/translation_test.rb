@@ -63,7 +63,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, params: { id: edition }
 
-    assert_select ".govuk-table__cell", text: "Français (French)"
+    assert_select ".govuk-table__cell", text: "French (Français)"
   end
 
   view_test "show omits the link to edit an existing translation unless the edition is editable" do

@@ -47,7 +47,7 @@ When(/^I add a translation for an organisation called "([^"]*)"$/) do |organisat
 
   click_link "Translations"
 
-  select "Cymraeg (Welsh)", from: "Language"
+  select "Welsh (Cymraeg)", from: "Language"
   click_button "Create new translation"
 
   fill_in "Name", with: "Organisation Name in another language"

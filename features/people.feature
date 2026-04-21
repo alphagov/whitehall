@@ -19,10 +19,10 @@ Feature: Managing a person
 
   Scenario: Adding a new translation
     Given a person called "Amanda Appleford" exists with the biography "She was born. She lived. She died."
-    When I add a new "Français" translation to the person "Amanda Appleford" setting biography to "Ca va"
-    Then I should see the translation "Français" and body text "Ca va"
+    When I add a new "French (Français)" translation to the person "Amanda Appleford" setting biography to "Ca va"
+    Then I should see the translation "French (Français)" and body text "Ca va"
 
   Scenario: Editing an existing translation
-    Given a person called "Amanda Appleford" exists with a translation for the locale "Français"
-    When I edit the "Français" translation for the person "Amanda Appleford" updating the biography to "Ca va bien"
-    Then I should see the translation "Français" and body text "Ca va bien"
+    Given a person called "Amanda Appleford" exists with a translation for the locale "French (Français)"
+    When I edit the "French (Français)" translation for the person "Amanda Appleford" updating the biography to "Ca va bien"
+    Then I should see the translation "French (Français)" and body text "Ca va bien"

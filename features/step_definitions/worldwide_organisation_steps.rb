@@ -184,7 +184,7 @@ end
 And(/^I add a Welsh translation of the worldwide organisation "([^"]*)" named "([^"]*)"$/) do |title, translated_title|
   visit_edition_admin(title)
   click_link "Add translation"
-  select "Cymraeg (Welsh)", from: "Choose language"
+  select "Welsh (Cymraeg)", from: "Choose language"
   click_button "Next"
   fill_in "Translated title (required)", with: translated_title
   click_button "Save"
