@@ -146,23 +146,26 @@ class StandardEdition < Edition
 
   def error_labels
     {}.tap do |labels|
-      ConfigurableContentBlocks::DefaultObject.root_block_for(self, "documents").each do |block|
-        # we only want labels for leaf fields, so do nothing if this field isn't one
-        next if block.respond_to? :field_blocks
-
+      all_leaf_blocks.each do |block|
         labels[block.path.validation_error_attribute] = block.title
       end
     end
   end
 
   def error_field_order
-    %w[title summary] + ConfigurableContentBlocks::DefaultObject
-                          .root_block_for(self, "documents")
-                          .each_leaf
-                          .map { |block| block.path.validation_error_attribute }
+    %w[title summary] + all_leaf_blocks.map { |block| block.path.validation_error_attribute }
   end
 
 private
+
+  def all_leaf_blocks
+    type_instance.dynamic_tabs
+      .map { |tab| tab["id"] }
+      .prepend("documents")
+      .flat_map do |tab_key|
+        ConfigurableContentBlocks::DefaultObject.root_block_for(self, tab_key).each_leaf.to_a
+      end
+  end
 
   def field_paths(&block)
     [].tap do |paths|

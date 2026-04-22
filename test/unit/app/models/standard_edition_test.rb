@@ -840,6 +840,58 @@ class StandardEditionTest < ActiveSupport::TestCase
 
       assert_equal %w[title summary field_attribute object_attribute.nested_attribute], page.error_field_order
     end
+
+    test "validation errors on list row fields use the field title, not the internal field path" do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+        "forms" => {
+          "social_media_accounts" => {
+            "dynamic" => true,
+            "fields" => {
+              "links" => {
+                "title" => "Social media links",
+                "block" => "default_array",
+                "attribute_path" => %w[block_content links],
+                "fields" => {
+                  "channel" => { "title" => "Channel", "block" => "default_string", "attribute_path" => %w[channel] },
+                  "url" => { "title" => "URL", "block" => "default_string", "attribute_path" => %w[url] },
+                },
+              },
+            },
+          },
+        },
+        "schema" => {
+          "attributes" => {
+            "links" => {
+              "type" => "array",
+              "attributes" => {
+                "channel" => { "type" => "string" },
+                "url" => { "type" => "string" },
+              },
+              "validations" => {
+                "presence" => { "attributes" => %w[channel] },
+                "uri" => { "attributes" => %w[url] },
+              },
+            },
+          },
+        },
+      }))
+      page = StandardEdition.new(
+        configurable_document_type: "test_type",
+        block_content: { "links" => [{ "channel" => "", "url" => "not-a-url" }] },
+      )
+      page.valid?
+
+      labels = page.error_labels
+      messages = page.errors.map { |error|
+        next unless labels.key?(error.attribute.to_s)
+
+        "#{labels[error.attribute.to_s]} #{error.message}"
+      }.compact
+
+      assert_includes messages, "Channel cannot be blank"
+      assert_includes messages, "URL is not a valid URI. Make sure it starts with http(s)"
+      assert messages.none? { |m| m.match?(/links \d/i) }, "error messages should not contain internal field paths, got: #{messages}"
+    end
   end
 
   test "permitted_image_usages passes caption_enabled through from config" do

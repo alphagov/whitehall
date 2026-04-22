@@ -29,6 +29,20 @@ module ConfigurableContentBlocks
       end
     end
 
+    def each_leaf(&block)
+      return enum_for(:each_leaf) unless block_given?
+
+      items.each_with_index do |_item, index|
+        field_blocks(index).each do |field_block|
+          if field_block.respond_to? :each_leaf
+            field_block.each_leaf(&block)
+          else
+            block.call(field_block)
+          end
+        end
+      end
+    end
+
   private
 
     def template_name
