@@ -3,8 +3,7 @@ module Edition::Scopes::SearchableByTitle
 
   included do
     scope :with_title_containing, lambda { |keywords|
-      escaped_like_expression = keywords.gsub(/([%_])/, "%" => '\\%', "_" => '\\_')
-      like_clause = "%#{escaped_like_expression}%"
+      like_clause = "%#{sanitize_sql_like(keywords)}%"
 
       if keywords.match?(/\A[a-z0-9]+(-[a-z0-9]+)+\z/)
         where(slug: keywords)
