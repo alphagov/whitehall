@@ -1,7 +1,6 @@
 module PublishingApi
   class CallForEvidencePresenter
     include Presenters::PublishingApi::UpdateTypeHelper
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     include GovspeakHelper
 
     SCHEMA_NAME = "call_for_evidence".freeze
@@ -92,7 +91,6 @@ module PublishingApi
 
     class Outcome
       include GovspeakHelper
-      include Presenters::PublishingApi::RenderedAttachmentsHelper
       def self.for(call_for_evidence)
         new(call_for_evidence).call
       end
@@ -106,7 +104,6 @@ module PublishingApi
 
         {
           outcome_detail:,
-          outcome_documents:,
           outcome_attachments:,
         }.compact
       end
@@ -119,12 +116,6 @@ module PublishingApi
 
       def outcome_detail
         govspeak_to_html(outcome.summary)
-      end
-
-      def outcome_documents
-        return if outcome.attachments.blank?
-
-        render_attachments(outcome.attachments)
       end
 
       def outcome_attachments

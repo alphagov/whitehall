@@ -1,7 +1,6 @@
 require "test_helper"
 
 class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
-  include Presenters::PublishingApi::RenderedAttachmentsHelper
   def present(edition)
     edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
     PublishingApi::PublicationPresenter.new(edition)
@@ -42,7 +41,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
           browse_pages: [],
         },
         document_type_label: "Policy paper",
-        documents: render_attachments(publication.attachments),
         first_public_at: publication.first_public_at,
         change_history: [
           { public_timestamp: publication.public_timestamp, note: "change-note" }.as_json,
@@ -140,14 +138,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal [location.content_id], presented_item.content[:links][:world_locations]
   end
 
-  test "documents include the alternative format contact email" do
-    publication = create(:publication, :with_command_paper)
-    presented_item = present(publication)
-    document = presented_item.content[:details][:documents].first
-    assert document.include?("This file may not be suitable for users of assistive technology.")
-    assert document.include?("mailto:#{publication.alternative_format_provider.alternative_format_contact_email}")
-  end
-
   test "it uses the PayloadBuilder::FirstPublishedAt helper" do
     publication = create(:publication)
     PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns(first_published_at: "test")
@@ -188,9 +178,9 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
 
     I18n.with_locale(:cy) do
-      document_elements = presented_publication.content[:details][:documents]
+      document_elements = presented_publication.content[:details][:attachments]
       assert_equal 1, document_elements.count
-      assert document_elements.first =~ /welsh one/
+      assert document_elements.first[:title] =~ /welsh one/
     end
   end
 
@@ -204,7 +194,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
 
     I18n.with_locale(:en) do
-      document_elements = presented_publication.content[:details][:documents]
+      document_elements = presented_publication.content[:details][:attachments]
       assert_equal 0, document_elements.count
     end
   end
@@ -219,15 +209,15 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
 
     I18n.with_locale(:cy) do
-      document_elements = presented_publication.content[:details][:documents]
+      document_elements = presented_publication.content[:details][:attachments]
       assert_equal 1, document_elements.length
-      assert_match(/nil one/, document_elements.first)
+      assert document_elements.first[:title] =~ /nil one/
     end
 
     I18n.with_locale(:en) do
-      document_elements = presented_publication.content[:details][:documents]
+      document_elements = presented_publication.content[:details][:attachments]
       assert_equal 1, document_elements.length
-      assert_match(/nil one/, document_elements.first)
+      assert document_elements.first[:title] =~ /nil one/
     end
   end
 
@@ -244,17 +234,17 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
 
     I18n.with_locale(:cy) do
-      document_elements = presented_publication.content[:details][:documents]
+      document_elements = presented_publication.content[:details][:attachments]
       assert_equal 2, document_elements.length
-      assert_match(/cy one/, document_elements.first)
-      assert_match(/nil one/, document_elements.last)
+      assert document_elements.first[:title] =~ /cy one/
+      assert document_elements.last[:title] =~ /nil one/
     end
 
     I18n.with_locale(:en) do
-      document_elements = presented_publication.content[:details][:documents]
+      document_elements = presented_publication.content[:details][:attachments]
       assert_equal 2, document_elements.length
-      assert_match(/en one/, document_elements.first)
-      assert_match(/nil one/, document_elements.last)
+      assert document_elements.first[:title] =~ /en one/
+      assert document_elements.last[:title] =~ /nil one/
     end
   end
 

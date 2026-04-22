@@ -1,7 +1,6 @@
 module PublishingApi
   class PublicationPresenter
     include Presenters::PublishingApi::UpdateTypeHelper
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     include GovspeakHelper
 
     attr_accessor :item, :update_type
@@ -73,7 +72,6 @@ module PublishingApi
         body:,
         change_history: item.change_history.as_json,
         document_type_label: item.display_type,
-        documents:,
         featured_attachments:,
       }
       details_hash = maybe_add_national_applicability(details_hash)
@@ -86,12 +84,6 @@ module PublishingApi
 
     def body
       govspeak_edition_to_html(item)
-    end
-
-    def documents
-      return [] unless item.attachments.any?
-
-      render_attachments(attachments_for_current_locale)
     end
 
     def featured_attachments

@@ -19,7 +19,10 @@ module PublishingApi
       def attachments
         items.flat_map do |item|
           if item
-            item.attachments_ready_for_publishing.map(&:publishing_api_details)
+            attachments = item.attachments_ready_for_publishing
+            # nil/"" locale should always be returned
+            locales_that_match = [I18n.locale.to_s, ""]
+            attachments.to_a.select { |attachment| locales_that_match.include?(attachment.locale.to_s) }.map(&:publishing_api_details)
           else
             []
           end

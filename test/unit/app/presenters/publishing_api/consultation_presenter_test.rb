@@ -321,7 +321,6 @@ module PublishingApi::ConsultationPresenterTest
 
   class ClosedConsultationWithFeedbackTest < TestCase
     include GovspeakHelper
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.consultation = create(:closed_consultation)
 
@@ -350,7 +349,6 @@ module PublishingApi::ConsultationPresenterTest
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
-      assert_details_attribute :public_feedback_documents, render_attachments(consultation.public_feedback.attachments)
       assert_details_attribute(:public_feedback_attachments,
                                consultation.public_feedback.attachments.map { |a| a.publishing_api_details[:id] })
     end
@@ -368,7 +366,6 @@ module PublishingApi::ConsultationPresenterTest
 
   class ClosedConsultationWithOutcomeTest < TestCase
     include GovspeakHelper
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.consultation = create(:consultation_with_outcome_file_attachment)
     end
@@ -390,7 +387,6 @@ module PublishingApi::ConsultationPresenterTest
       PublishingApi::PayloadBuilder::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
-      assert_details_attribute :final_outcome_documents, render_attachments(consultation.outcome.attachments)
       assert_details_attribute(:final_outcome_attachments,
                                consultation.outcome.attachments.map { |a| a.publishing_api_details[:id] })
     end
@@ -412,7 +408,6 @@ module PublishingApi::ConsultationPresenterTest
   end
 
   class ConsultationWithFileAttachments < TestCase
-    include Presenters::PublishingApi::RenderedAttachmentsHelper
     setup do
       self.consultation = create(:consultation, :with_html_attachment)
     end
@@ -422,7 +417,6 @@ module PublishingApi::ConsultationPresenterTest
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
-      assert_details_attribute :documents, render_attachments(consultation.attachments)
       assert_details_attribute(:featured_attachments,
                                consultation.attachments.map { |a| a.publishing_api_details[:id] })
     end
