@@ -22,7 +22,7 @@ module PublishingApi
           document_type:,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
-          schema_name: "landing_page",
+          schema_name: "plan_for_change_landing_page",
           details:,
           links: edition_links,
           auth_bypass_ids: [item.auth_bypass_id],
@@ -41,7 +41,7 @@ module PublishingApi
     end
 
     def document_type
-      "landing_page"
+      "plan_for_change_landing_page"
     end
 
   private

@@ -18,7 +18,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents a valid landing_page content item" do
-    assert_valid_against_publisher_schema @presented_content, "landing_page"
+    assert_valid_against_publisher_schema @presented_content, "plan_for_change_landing_page"
     assert_valid_against_links_schema({ links: @presented_links }, "landing_page")
   end
 
@@ -52,12 +52,12 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     assert_equal "frontend", @presented_content[:rendering_app]
   end
 
-  test "it presents the schema_name as landing_page" do
-    assert_equal "landing_page", @presented_content[:schema_name]
+  test "it presents the schema_name as plan_for_change_landing_page" do
+    assert_equal "plan_for_change_landing_page", @presented_content[:schema_name]
   end
 
-  test "it presents the document type as landing_page" do
-    assert_equal "landing_page", @presented_content[:document_type]
+  test "it presents the document type as plan_for_change_landing_page" do
+    assert_equal "plan_for_change_landing_page", @presented_content[:document_type]
   end
 
   test "it presents the global process wide locale as the locale of the landing_page" do
