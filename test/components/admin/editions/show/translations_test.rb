@@ -29,8 +29,8 @@ class Admin::Editions::Show::TranslationsTest < ViewComponent::TestCase
     edition.translations.build(locale: "es")
     render_inline(Admin::Editions::Show::Translations.new(edition))
 
-    assert page.has_content? "Deutsch (German)"
-    assert page.has_content? "Español (Spanish)"
-    assert_not page.has_content? "Français (French)"
+    assert page.has_content? "German (Deutsch)"
+    assert page.has_content? "Spanish (Español)"
+    assert_not page.has_content? "French (Français)"
   end
 end

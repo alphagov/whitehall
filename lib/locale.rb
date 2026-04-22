@@ -36,7 +36,7 @@ Locale = Struct.new(:code) do
   end
 
   def self.non_english
-    all.reject(&:english?)
+    all.reject(&:english?).sort_by(&:english_language_name)
   end
 
   def self.right_to_left
@@ -78,7 +78,7 @@ Locale = Struct.new(:code) do
     if english?
       native_language_name
     else
-      "#{native_language_name} (#{english_language_name})"
+      "#{english_language_name} (#{native_language_name})"
     end
   end
 

@@ -40,8 +40,8 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
     assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website - English (opens in new tab)"
-    assert_selector "a[href='#{edition.public_url(locale: 'fr', draft: true)}']", visible: false, text: "Preview on website - Français (French) (opens in new tab)"
-    assert_selector "a[href='#{edition.public_url(locale: 'es', draft: true)}']", visible: false, text: "Preview on website - Español (Spanish) (opens in new tab)"
+    assert_selector "a[href='#{edition.public_url(locale: 'fr', draft: true)}']", visible: false, text: "Preview on website - French (Français) (opens in new tab)"
+    assert_selector "a[href='#{edition.public_url(locale: 'es', draft: true)}']", visible: false, text: "Preview on website - Spanish (Español) (opens in new tab)"
   end
 
   test "renders sharable preview functionality when edition is a pre-publication state" do

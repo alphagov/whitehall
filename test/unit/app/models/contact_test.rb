@@ -115,7 +115,7 @@ class ContactTest < ActiveSupport::TestCase
     organisation = create(:organisation, translated_into: %i[de es fr])
     contact = create(:contact, contactable: organisation, translated_into: [:es])
 
-    expected_locales = %i[de fr].map { |l| Locale.new(l) }
+    expected_locales = %i[fr de].map { |l| Locale.new(l) }
     assert_equal expected_locales, contact.missing_translations
   end
 
@@ -232,6 +232,6 @@ class ContactTest < ActiveSupport::TestCase
     contact = create(:contact, contactable: office, translated_into: %i[cy es-419])
 
     assert_not contact.valid?
-    assert contact.errors[:base].include?("Translations 'cy, es-419' do not exist for this worldwide organisation")
+    assert contact.errors[:base].include?("Translations 'es-419, cy' do not exist for this worldwide organisation")
   end
 end

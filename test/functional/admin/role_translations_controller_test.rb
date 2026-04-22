@@ -16,8 +16,8 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     translations_path = admin_role_translations_path(@role)
     assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
-        assert_select "option[value=fr]", text: "Français (French)"
-        assert_select "option[value=es]", text: "Español (Spanish)"
+        assert_select "option[value=fr]", text: "French (Français)"
+        assert_select "option[value=es]", text: "Spanish (Español)"
       end
 
       assert_select "button[type=submit]"
@@ -50,8 +50,8 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     edit_translation_path = edit_admin_role_translation_path(role, "fr")
     confirm_destroy_url = confirm_destroy_admin_role_translation_path(role, "fr")
 
-    assert_select "a[href=?]", edit_translation_path, text: "Edit Français (French)"
-    assert_select "a[href=?]", confirm_destroy_url, text: "Delete Français (French)"
+    assert_select "a[href=?]", edit_translation_path, text: "Edit French (Français)"
+    assert_select "a[href=?]", confirm_destroy_url, text: "Delete French (Français)"
   end
 
   view_test "index does not list the english translation" do

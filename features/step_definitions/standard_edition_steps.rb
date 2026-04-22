@@ -216,7 +216,7 @@ When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)
     fill_in "edition[block_content][date_field][3]", with: "01"
     fill_in "edition[block_content][date_field][2]", with: "11"
     fill_in "edition[block_content][date_field][1]", with: "2011"
-    select "Cymraeg (Welsh)", from: "Language"
+    select "Welsh (Cymraeg)", from: "Language"
   end
   click_button "Save and go to document summary"
 end
@@ -311,7 +311,7 @@ When(/^I create a new draft and visit the Welsh translation$/) do
 end
 
 And(/^the language of the document should be Welsh$/) do
-  expect(page).to have_content("Primary language Cymraeg (Welsh)")
+  expect(page).to have_content("Primary language Welsh (Cymraeg)")
 end
 
 Given("the test configurable document type group is defined") do

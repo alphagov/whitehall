@@ -33,7 +33,7 @@ module TranslatableModel
   end
 
   def non_english_translated_locales
-    non_english_translated_locale_codes.map { |l| Locale.new(l) }
+    non_english_translated_locale_codes.map { |l| Locale.new(l) }.sort_by(&:english_language_name)
   end
 
   def missing_translations

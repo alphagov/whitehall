@@ -16,8 +16,8 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     translations_path = admin_person_translations_path(@person)
     assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
-        assert_select "option[value=fr]", text: "Français (French)"
-        assert_select "option[value=es]", text: "Español (Spanish)"
+        assert_select "option[value=fr]", text: "French (Français)"
+        assert_select "option[value=es]", text: "Spanish (Español)"
       end
 
       assert_select "button[type=submit]"
@@ -77,9 +77,9 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     edit_translation_path = edit_admin_person_translation_path(person, "fr")
     view_person_path = person.public_url(locale: :fr)
     confirm_destroy_url = confirm_destroy_admin_person_translation_path(person, :fr)
-    assert_select "a[href=?]", edit_translation_path, text: "Edit Français (French)"
-    assert_select "a[href=?]", view_person_path, text: "View Français (French)"
-    assert_select "a[href=?]", confirm_destroy_url, text: "Delete Français (French)"
+    assert_select "a[href=?]", edit_translation_path, text: "Edit French (Français)"
+    assert_select "a[href=?]", view_person_path, text: "View French (Français)"
+    assert_select "a[href=?]", confirm_destroy_url, text: "Delete French (Français)"
   end
 
   view_test "index does not list the english translation" do

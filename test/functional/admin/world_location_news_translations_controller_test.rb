@@ -18,8 +18,8 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
     translations_path = admin_world_location_news_translations_path(@world_location)
     assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
-        assert_select "option[value=fr]", text: "Français (French)"
-        assert_select "option[value=es]", text: "Español (Spanish)"
+        assert_select "option[value=fr]", text: "French (Français)"
+        assert_select "option[value=es]", text: "Spanish (Español)"
       end
 
       assert_select "button[type=submit]"
