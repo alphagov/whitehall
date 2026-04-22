@@ -4,5 +4,5 @@
   name: block.path.form_control_name,
   options: block.select_options,
   hint: block.hint_text,
-  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym),
+  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym, block.title),
 } %>

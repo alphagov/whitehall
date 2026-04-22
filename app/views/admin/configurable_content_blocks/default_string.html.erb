@@ -5,7 +5,7 @@
   value: block.value,
   hint: block.hint_text,
   right_to_left: block.edition.translation_locale.rtl?,
-  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym),
+  error_items: errors_for(block.edition.errors, block.path.validation_error_attribute.to_sym, block.title),
 } %>
 <% if block.primary_locale_value.present? %>
   <%= render "govuk_publishing_components/components/details", {

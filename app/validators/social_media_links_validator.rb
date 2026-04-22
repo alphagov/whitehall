@@ -9,68 +9,25 @@ class SocialMediaLinksValidator < ActiveModel::Validator
   def validate(record)
     @attributes.each do |attribute_name|
       arr = record.send(attribute_name.to_sym) || []
-      arr.each_with_index do |social_media_service, index|
-        service_name = social_media_service[@channel_field]
-        if validate_social_media_service(service_name, record, attribute_name, index)
-          validate_social_media_link(social_media_service[@url_field], service_name, record, attribute_name)
-        end
+
+      duplicate_values(arr, @channel_field, exclude: "Other").each do |channel|
+        record.errors.add(attribute_name.to_sym, :taken, message: "already has an account with a channel of \"#{channel}\"")
+      end
+
+      duplicate_values(arr, @url_field).each do |url|
+        record.errors.add(attribute_name.to_sym, :taken, message: "already has an account with a URL of \"#{url}\"")
       end
     end
   end
 
 private
 
-  def validate_social_media_service(service_name, record, attribute_name, index)
-    @services ||= []
-
-    if service_name.blank?
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "contains an account (\"Social media account #{index + 1}\") without a service selected.",
-      )
-      return false
-    end
-
-    if service_name != "Other" && @services.include?(service_name)
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "contains another account with a service of \"#{service_name}\".",
-      )
-      return false
-    end
-    @services << service_name
-  end
-
-  def validate_social_media_link(url, service_name, record, attribute_name)
-    if url.blank?
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "contains a \"#{service_name}\" account without a URL.",
-      )
-    elsif !valid_url?(url)
-      record.errors.add(
-        attribute_name.to_sym,
-        :invalid_social_media_link,
-        message: "contains a \"#{service_name}\" account with an invalid URL - use the full URL, including https://",
-      )
-    elsif record.social_media_links.pluck("url").count(url) > 1
-      unless record.errors.messages[attribute_name.to_sym].include?("already has an account with a URL of \"#{url}\".")
-        record.errors.add(
-          attribute_name.to_sym,
-          :invalid_social_media_link,
-          message: "already has an account with a URL of \"#{url}\".",
-        )
-      end
-    end
-  end
-
-  def valid_url?(url)
-    uri = URI.parse(url)
-    uri.is_a?(URI::HTTP) && uri.host.present?
-  rescue URI::InvalidURIError
-    false
+  def duplicate_values(arr, field, exclude: nil)
+    arr.map { |item| item[field] }
+       .select(&:present?)
+       .reject { |v| v == exclude }
+       .group_by { |v| v }
+       .select { |_, occurrences| occurrences.size > 1 }
+       .keys
   end
 end
