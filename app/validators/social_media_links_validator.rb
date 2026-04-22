@@ -1,7 +1,7 @@
 class SocialMediaLinksValidator < ActiveModel::Validator
   def initialize(opts = {})
     @attributes = opts[:attributes]
-    @service_field = opts[:fields]["service_field"]
+    @channel_field = opts[:fields]["service_field"]
     @url_field = opts[:fields]["url_field"]
     super
   end
@@ -10,7 +10,7 @@ class SocialMediaLinksValidator < ActiveModel::Validator
     @attributes.each do |attribute_name|
       arr = record.send(attribute_name.to_sym) || []
       arr.each_with_index do |social_media_service, index|
-        service_name = social_media_service[@service_field]
+        service_name = social_media_service[@channel_field]
         if validate_social_media_service(service_name, record, attribute_name, index)
           validate_social_media_link(social_media_service[@url_field], service_name, record, attribute_name)
         end
