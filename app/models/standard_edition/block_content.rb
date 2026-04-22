@@ -50,9 +50,7 @@ class StandardEdition::BlockContent
 private
 
   def run_schema_validations
-    return unless @schema.key?("validations")
-
-    @schema["validations"].each do |key, options|
+    @schema["validations"]&.each do |key, options|
       validator_class = VALIDATORS[key] or raise ArgumentError, "undefined validator type #{key}"
       opts = options.symbolize_keys
 
@@ -60,6 +58,20 @@ private
       next if on && validation_context&.to_sym != on.to_sym
 
       validator_class.new(opts).validate(self)
+    end
+
+    @schema["attributes"]&.each do |attr_name, attr_schema|
+      next unless attr_schema["attributes"]
+
+      item_class = attributes_class_for(attr_schema["attributes"], attr_schema["validations"])
+      (send(attr_name.to_sym) || []).each_with_index do |item, index|
+        item_instance = item_class.new(item)
+        next if item_instance.valid?
+
+        item_instance.errors.each do |error|
+          errors.import(error, attribute: "#{attr_name}.#{index}.#{error.attribute}".to_sym)
+        end
+      end
     end
   end
 
@@ -75,7 +87,7 @@ private
     attributes.class.instance_methods.include?(method_name) || super
   end
 
-  def attributes_class_for(attribute_config)
+  def attributes_class_for(attribute_config, validations_config = nil)
     attributes_class = Class.new do
       include ActiveModel::API
       include ActiveModel::Attributes
@@ -98,6 +110,12 @@ private
         attributes
       end
     end
+
+    validations_config&.each do |validator_key, options|
+      attrs = Array(options["attributes"]).map(&:to_sym)
+      attributes_class.validates(*attrs, validator_key.to_sym => true)
+    end
+
     attributes_class.set_temporary_name("Block content attributes")
     attributes_class
   end

@@ -175,8 +175,32 @@ class BlockContentTest < ActiveSupport::TestCase
     })
     page = StandardEdition::BlockContent.new(schema)
 
-    page.attributes = { "test_array_attribute" => [{ "social_media_service_id" => "1", "url" => "broken url" }] }
+    page.attributes = { "test_array_attribute" => [{ "social_media_service_id" => "Facebook", "url" => "http://facebook.com" }, { "social_media_service_id" => "Facebook", "url" => "http://facebook.com/other" }] }
     assert_not page.valid?
-    assert_not page.errors.where("test_array_attribute", :invalid_social_media_link).empty?
+    assert_not page.errors.where(:test_array_attribute, :taken).empty?
+  end
+
+  test "runs per-item validations for array attributes with sub-field validations" do
+    schema = @schema.deep_merge({
+      "attributes" => {
+        "test_array_attribute" => {
+          "type" => "array",
+          "attributes" => {
+            "social_media_service_id" => { "type" => "string" },
+            "url" => { "type" => "string" },
+          },
+          "validations" => {
+            "presence" => { "attributes" => %w[social_media_service_id] },
+            "uri" => { "attributes" => %w[url] },
+          },
+        },
+      },
+    })
+    page = StandardEdition::BlockContent.new(schema)
+
+    page.attributes = { "test_array_attribute" => [{ "social_media_service_id" => "", "url" => "not-a-url" }] }
+    assert_not page.valid?
+    assert page.errors[:"test_array_attribute.0.social_media_service_id"].any?
+    assert page.errors[:"test_array_attribute.0.url"].any?
   end
 end
