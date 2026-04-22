@@ -33,6 +33,7 @@
           "presence",
           "safe_html",
           "valid_internal_path_links",
+          "uri",
           "social_media_links"
         ]
       }
@@ -158,6 +159,10 @@
         "attributes": {
           "description": "For array types, defines the schema of each array item using the same minimal attribute format.",
           "$ref": "#/$defs/block_attributes"
+        },
+        "validations": {
+          "description": "For array types, defines validations to run against each item in the array.",
+          "$ref": "#/$defs/validations"
         }
       },
       "required": ["type"],
