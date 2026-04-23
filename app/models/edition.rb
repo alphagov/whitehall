@@ -73,6 +73,8 @@ class Edition < ApplicationRecord
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
 
+  validate :first_published_preceeds_change_notes, if: :draft?
+
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
   PRE_PUBLICATION_STATES = %w[draft submitted rejected scheduled].freeze
@@ -443,6 +445,19 @@ class Edition < ApplicationRecord
 
   def error_labels
     {}
+  end
+
+  def first_published_preceeds_change_notes
+    return if first_published_at.blank?
+    return if other_editions.empty?
+
+    change_note_dates = other_editions.pluck(:major_change_published_at).compact.sort
+
+    return if change_note_dates.empty?
+
+    if first_published_at > change_note_dates.first
+      errors.add(:first_published_at, :after_change_notes, latest: change_note_dates.first.strftime("%d/%m/%Y %H:%M"))
+    end
   end
 
 private
