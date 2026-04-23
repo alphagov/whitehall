@@ -703,6 +703,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
+  test "first_published_at cannot be after the date of the first change note" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 1.day.ago)
+
+    assert edition.invalid?
+    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
+  end
+
   test "#government returns the associated government when the edition has a specific government_id" do
     create(:current_government)
     previous_government = create(:previous_government)
@@ -1010,6 +1018,51 @@ class EditionTest < ActiveSupport::TestCase
   test "#invalid_tab_reasons returns an empty array" do
     publication = create(:publication)
     assert_equal [], publication.invalid_tab_messages
+  end
+
+  test "#other_editions returns an empty array if there is no associated document" do
+    edition = build(:edition)
+
+    assert_equal edition.other_editions, []
+  end
+
+  test "first_published_at cannot be at the (same) time of the first change note" do
+    change_note_date = 3.days.ago
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: change_note_date)
+    edition = build(:edition, document: edition_with_change_note.document, first_published_at: change_note_date)
+    assert edition.invalid?
+  end
+
+  test "first_published_at can be after the date of the first change note" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 3.days.ago)
+    edition = create(:edition, document: edition_with_change_note.document, first_published_at: 4.days.ago)
+
+    assert edition.valid?
+  end
+
+  test "a first edition with no related editions can have the first published at date changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = 2.days.ago
+
+    assert edition.valid?
+  end
+
+  test "edition with many related editions with change notes chooses oldest change note for first published at validation" do
+    edition_with_oldest_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 10.days.ago) # 01/11/2011
+    create(:edition, :published, document: edition_with_oldest_change_note.document, change_note: "changed", major_change_published_at: 9.days.ago)
+    edition = build(:edition, document: edition_with_oldest_change_note.document, first_published_at: 1.day.ago)
+
+    assert edition.invalid?
+    assert edition.errors.full_messages.first == "First published date must be before the first change note (01/11/2011 11:11)"
+  end
+
+  test "edition with many related editions without change notes can have first published at changed" do
+    first_edition = create(:edition_with_document, :published, minor_change: true)
+    create(:edition, :published, document: first_edition.document, minor_change: true)
+    edition = create(:edition, document: first_edition.document, first_published_at: 2.days.ago)
+    edition.first_published_at = 3.days.ago
+
+    assert edition.valid?
   end
 
   def decoded_token_payload(token)
