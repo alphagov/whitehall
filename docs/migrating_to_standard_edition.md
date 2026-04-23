@@ -89,4 +89,32 @@ With that in mind, the steps for migrating a legacy content type to being config
 
 ### The legacy content type does not use the Edition model
 
-You'll need to perform a bespoke migration.
+If the legacy content type doesn't use the Edition model (e.g. `TopicalEvent`), you can still use the `StandardEditionMigrator` — just pass a scope of the legacy records directly rather than a `Document` scope.
+
+For each record in scope, the migrator creates a brand new `Document` and `StandardEdition`, preserving the original record's `content_id` on the new document. Note that for the base path overwrite to work in Publishing API you'll need to do the groundwork described in [#11210](https://github.com/alphagov/whitehall/pull/11210) — this lets you interchangeably publish either the legacy content item or the new `StandardEdition` at the same path for testing purposes. The original record is left untouched, so you can remove it manually afterwards (or leave the two co-existing for a while if that's useful).
+
+The recipe works the same way as for editionable content types, with two differences:
+
+- Use the same `StandardEditionMigrator.recipe_for` method (it accepts any model, not just editions)
+- Add `title(record_translation)` and `summary(record_translation)` methods — these are called once per source record translation, so if the record has multiple locales, each gets its own edition translation. The argument is the Globalize translation object, so you can read locale-specific attributes directly from it (e.g. `record_translation.name`).
+
+`map_legacy_fields_to_block_content` takes `(record, record_translation)` — the first argument is your record (for any non-translated data) and the second is the source translation being processed. Everything else — `presenter`, `configurable_document_type`, and the `ignore_*` methods — works identically to the editionable recipe.
+
+The steps from there are the same as above. To preview:
+
+```ruby
+StandardEditionMigrator.new(scope: TopicalEvent.all).preview
+```
+
+To migrate a handful locally first:
+
+```ruby
+StandardEditionMigrator.new(scope: TopicalEvent.first(5)).migrate!(compare_payloads: true, republish: false)
+```
+
+Or to call the job directly for a single record:
+
+```ruby
+StandardEditionMigratorJob.new.perform(topical_event.id, { "model_class" => "TopicalEvent", "republish" => false, "compare_payloads" => true })
+```
+
