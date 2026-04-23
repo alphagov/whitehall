@@ -70,6 +70,7 @@ class Edition < ApplicationRecord
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
 
   validate :first_published_precedes_change_notes, if: :draft?
+  validate :first_published_within_current_govt, if: :draft?
   validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
   validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: -> { draft? && errors.attribute_names.exclude?(:first_published_at) }, allow_blank: true
 
@@ -465,6 +466,18 @@ class Edition < ApplicationRecord
 
     if first_published_at >= change_note_dates.first
       errors.add(:first_published_at, :after_change_notes, latest: change_note_dates.first.strftime("%d/%m/%Y %H:%M"))
+    end
+  end
+
+  def first_published_within_current_govt
+    current_govt = Government.current
+
+    return if first_published_at.blank?
+    return if current_govt.blank?
+    return if political?
+
+    if first_published_at.to_date <= current_govt.start_date
+      errors.add(:first_published_at, :before_current_govt, earliest: current_govt.start_date.strftime("%d/%m/%Y"))
     end
   end
 
