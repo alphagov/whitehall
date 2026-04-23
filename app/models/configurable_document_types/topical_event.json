@@ -197,7 +197,7 @@
     "send_change_history": false,
     "file_attachments_enabled": false,
     "features_enabled": true,
-    "organisations": ["ae9ef2e1-9de0-4ff8-b560-e6ac28a6205c", "af07d5a5-df63-4ddc-9383-6a666845ebe9"],
+    "organisations": null,
     "backdating_enabled": false,
     "history_mode_enabled": false,
     "translations_enabled": false
