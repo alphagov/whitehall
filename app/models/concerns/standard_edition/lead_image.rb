@@ -11,6 +11,8 @@ module StandardEdition::LeadImage
       organisations.first.default_news_image
     elsif respond_to?(:worldwide_organisations) && published_worldwide_organisations.any? && published_worldwide_organisations.first.default_news_image
       published_worldwide_organisations.first.default_news_image
+    elsif Speech
+      # speaker's image
     end
   end
 
