@@ -74,6 +74,7 @@ class Edition < ApplicationRecord
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
 
   validate :first_published_preceeds_change_notes, if: :draft?
+  validate :first_published_within_current_govt, if: :draft?
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
@@ -459,6 +460,16 @@ class Edition < ApplicationRecord
 
     if first_published_at > change_note_dates.first
       errors.add(:first_published_at, :after_change_notes, latest: change_note_dates.first.strftime("%d/%m/%Y %H:%M"))
+    end
+  end
+
+  def first_published_within_current_govt
+    return if first_published_at.blank?
+    return if Government.current.blank?
+    return if political? || historic?
+
+    if first_published_at.to_date < Government.current.start_date
+      errors.add(:first_published_at, :before_current_govt, earliest: Government.current.start_date.strftime("%d/%m/%Y"))
     end
   end
 

@@ -24,6 +24,7 @@ en:
               blank: Enter a first published date
               inclusion: First published date must be between 1/1/1900 and the present
               after_change_notes: "First published date must be before the first change note (%{latest})"
+              before_current_govt: "First published date must be after the start of the current government (%{earliest})"
             html_attachments:
               missing_contact_reference: "- \"%{html_attachment_title}\" - embedded Contact (ID %{contact_id}) doesn't exist"
             unpublishing:
