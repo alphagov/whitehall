@@ -68,7 +68,7 @@ class Edition < ApplicationRecord
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
   validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
-  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: :draft?, allow_blank: true
+  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: -> { draft? && other_editions.empty? }, allow_blank: true
   validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }

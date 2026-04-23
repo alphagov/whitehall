@@ -692,6 +692,15 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
   end
 
+  test "after_change_notes' error message takes priority if multiple validation errors on first_published_at" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 10.years.from_now)
+    edition.validate
+
+    assert_equal 1, edition.errors.size
+    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
+  end
+
   test "#government returns the associated government when the edition has a specific government_id" do
     create(:current_government)
     previous_government = create(:previous_government)
