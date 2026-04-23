@@ -2,15 +2,14 @@
 <% content_for :title, "Topical events" %>
 <% content_for :title_margin_bottom, 4 %>
 
-<%= render "govuk_publishing_components/components/warning_text", {
-  text: "Do not create topical events without consulting GDS. New documents will be live immediately on selecting save.",
-} %>
+<div class="format-advice">
+  <p class="govuk-body">You can create a new topical event in the 'New document' tab.</p>
 
-<%= render "govuk_publishing_components/components/button", {
-  text: "Create topical event",
-  href: [:new, :admin, :topical_event],
-  margin_bottom: 8,
+  <%= render "govuk_publishing_components/components/warning_text", {
+  text: "Changes to old topical events will be live immediately when you select ‘Save’.",
 } %>
+</div>
+
 <div class="app-view-topical-events-index__table govuk-table--with-actions app-c-govuk-table--filterable">
   <%= render "govuk_publishing_components/components/table", {
     filterable: true,
