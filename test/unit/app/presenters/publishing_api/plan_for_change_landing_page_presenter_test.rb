@@ -1,9 +1,9 @@
 require "test_helper"
 
-class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
+class PublishingApi::PlanForChangeLandingPagePresenterTest < ActiveSupport::TestCase
   setup do
-    @landing_page = create(
-      :landing_page,
+    @plan_for_change_landing_page = create(
+      :plan_for_change_landing_page,
       slug_override: "/landing-page/test",
       title: "Landing Page title",
       summary: "Landing Page summary",
@@ -12,18 +12,18 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
       updated_at: 1.year.ago,
     )
 
-    @presented_landing_page = PublishingApi::LandingPagePresenter.new(@landing_page)
+    @presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(@plan_for_change_landing_page)
     @presented_content = I18n.with_locale("en") { @presented_landing_page.content }
     @presented_links = I18n.with_locale("en") { @presented_landing_page.links }
   end
 
-  test "it presents a valid landing_page content item" do
+  test "it presents a valid plan_for_change_landing_page content item" do
     assert_valid_against_publisher_schema @presented_content, "plan_for_change_landing_page"
-    assert_valid_against_links_schema({ links: @presented_links }, "landing_page")
+    assert_valid_against_links_schema({ links: @presented_links }, "plan_for_change_landing_page")
   end
 
   test "it delegates the content id" do
-    assert_equal @landing_page.content_id, @presented_landing_page.content_id
+    assert_equal @plan_for_change_landing_page.content_id, @presented_landing_page.content_id
   end
 
   test "it presents the title" do
@@ -39,9 +39,9 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents updated_at if public_timestamp is nil" do
-    @landing_page.update_columns(public_timestamp: nil)
+    @plan_for_change_landing_page.update_columns(public_timestamp: nil)
     @presented_content = I18n.with_locale("de") { @presented_landing_page.content }
-    assert_equal @landing_page.updated_at, @presented_content[:public_updated_at]
+    assert_equal @plan_for_change_landing_page.updated_at, @presented_content[:public_updated_at]
   end
 
   test "it presents the publishing_app as whitehall" do
@@ -60,7 +60,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
     assert_equal "plan_for_change_landing_page", @presented_content[:document_type]
   end
 
-  test "it presents the global process wide locale as the locale of the landing_page" do
+  test "it presents the global process wide locale as the locale of the plan_for_change_landing_page" do
     assert_equal "en", @presented_content[:locale]
   end
 
@@ -69,7 +69,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the auth bypass id" do
-    assert_equal [@landing_page.auth_bypass_id], @presented_content[:auth_bypass_ids]
+    assert_equal [@plan_for_change_landing_page.auth_bypass_id], @presented_content[:auth_bypass_ids]
   end
 
   test "it presents edition links" do
@@ -78,13 +78,13 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents attachments" do
-    attachment = @landing_page.attachments.first
+    attachment = @plan_for_change_landing_page.attachments.first
     assert_equal attachment.id.to_s, @presented_content.dig(:details, :attachments, 0, :id)
   end
 
   test "it merges its data with a document using extends:" do
     create(
-      :landing_page,
+      :plan_for_change_landing_page,
       slug_override: "/landing-page/parent",
       body: "menu: my-menu-data\nblocks:\n- type: govspeak\n  content: goodbye!",
       title: "Landing Page Parent title",
@@ -93,8 +93,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
       updated_at: 1.year.ago,
     )
 
-    landing_page = create(
-      :landing_page,
+    plan_for_change_landing_page = create(
+      :plan_for_change_landing_page,
       slug_override: "/landing-page/extends-test",
       body: "extends: /landing-page/parent\nblocks:\n- type: govspeak\n  content: hello!",
       title: "Landing Page title",
@@ -103,7 +103,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
       updated_at: 1.year.ago,
     )
 
-    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
     presented_content = I18n.with_locale("en") { presented_landing_page.content }
 
     expected_details = {
@@ -148,8 +148,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
                   mobile: "[Image: landing_page_image.png]"
     YAML
 
-    landing_page = create(
-      :landing_page,
+    plan_for_change_landing_page = create(
+      :plan_for_change_landing_page,
       slug_override: "/landing-page/with-images",
       body:,
       title: "Landing Page title",
@@ -164,7 +164,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
       ],
     )
 
-    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
     presented_content = I18n.with_locale("en") { presented_landing_page.content }
 
     assert_pattern do
@@ -235,8 +235,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
           - type: some-block-type
     YAML
 
-    landing_page = build(
-      :landing_page,
+    plan_for_change_landing_page = build(
+      :plan_for_change_landing_page,
       document: create(:document, id: 12_346),
       body:,
       title: "Landing Page title",
@@ -247,7 +247,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
       images: [],
     )
 
-    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
     assert_raises(StandardError, match: /cannot present invalid body/) do
       I18n.with_locale("en") { presented_landing_page.content }
     end
@@ -267,8 +267,8 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
           - type: some-block-type
     YAML
 
-    landing_page = build(
-      :landing_page,
+    plan_for_change_landing_page = build(
+      :plan_for_change_landing_page,
       document: create(:document, id: 12_346),
       body:,
       title: "Landing Page title",
@@ -283,7 +283,7 @@ class PublishingApi::LandingPagePresenterTest < ActiveSupport::TestCase
       ],
     )
 
-    presented_landing_page = PublishingApi::LandingPagePresenter.new(landing_page)
+    presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
     assert_raises(StandardError, match: /cannot present invalid body/) do
       I18n.with_locale("en") { presented_landing_page.content }
     end

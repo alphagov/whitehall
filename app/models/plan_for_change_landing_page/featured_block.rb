@@ -1,9 +1,9 @@
-class LandingPage::ImageBlock < LandingPage::BaseBlock
+class PlanForChangeLandingPage::FeaturedBlock < PlanForChangeLandingPage::CompoundBlock
   include ActiveModel::API
-  include LandingPageImageBlock
+  include PlanForChangeLandingPageImageBlock
 
   def initialize(source, images)
-    super(source, images)
+    super(source, images, "featured_content")
 
     image_sources = @source.dig("image", "sources") || {}
     @desktop_image = find_image(image_sources["desktop"])

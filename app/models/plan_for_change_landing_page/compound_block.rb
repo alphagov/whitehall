@@ -13,7 +13,7 @@
 #
 # Compound blocks have an extra key above the blocks (hero_content, featured_content, card_content etc.)
 # This is referred to here as the "content_block_key"
-class LandingPage::CompoundBlock < LandingPage::BaseBlock
+class PlanForChangeLandingPage::CompoundBlock < PlanForChangeLandingPage::BaseBlock
   include ActiveModel::API
 
   attr_reader :content_blocks, :content_block_key
@@ -26,7 +26,7 @@ class LandingPage::CompoundBlock < LandingPage::BaseBlock
     super(source, images)
     @content_block_key = content_block_key
     content_blocks = source.dig(content_block_key, "blocks")
-    @content_blocks = LandingPage::BlockFactory.build_all(content_blocks, images)
+    @content_blocks = PlanForChangeLandingPage::BlockFactory.build_all(content_blocks, images)
   end
 
   def present_for_publishing_api

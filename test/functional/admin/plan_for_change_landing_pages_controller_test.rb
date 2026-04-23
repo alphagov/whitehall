@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Admin::LandingPagesControllerTest < ActionController::TestCase
+class Admin::PlanForChangeLandingPagesControllerTest < ActionController::TestCase
   setup do
     @organisation = create(:organisation)
     login_as(:gds_admin, @organisation)
@@ -11,7 +11,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
   test "GET :new prepares an unsaved instance" do
     get :new
 
-    assert assigns(:edition).is_a? LandingPage
+    assert assigns(:edition).is_a? PlanForChangeLandingPage
     assert_not assigns(:edition).persisted?
     assert_response :success
     assert_template "new"
@@ -19,7 +19,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
 
   test "POST :create saves a new instance with the supplied valid params" do
     body = "blocks: [{ type: some-type }]"
-    landing_page_attrs = attributes_for(:landing_page, title: "Hello there", summary: "Landing page summary", body:)
+    landing_page_attrs = attributes_for(:plan_for_change_landing_page, title: "Hello there", summary: "Landing page summary", body:)
                              .merge(
                                lead_organisation_ids: [@organisation.id],
                                slug_override: "/landing-page/test",
@@ -32,11 +32,11 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
     assert_equal "Landing page summary", assigns(:edition).summary
     assert_equal body, assigns(:edition).body
     assert_equal "/landing-page/test", assigns(:edition).base_path
-    assert_redirected_to admin_landing_page_path(assigns(:edition))
+    assert_redirected_to admin_plan_for_change_landing_page_path(assigns(:edition))
   end
 
   test "POST :create doesn't save the new instance when the supplied params are invalid" do
-    attrs = attributes_for(:landing_page, title: "", lead_organisation_ids: [@organisation.id])
+    attrs = attributes_for(:plan_for_change_landing_page, title: "", lead_organisation_ids: [@organisation.id])
 
     post :create, params: { edition: attrs }
 
@@ -46,7 +46,7 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
   end
 
   test "GET :edit fetches the supplied instance" do
-    page = create(:landing_page, organisations: [@organisation], slug_override: "/some-slug-starting-with-slash")
+    page = create(:plan_for_change_landing_page, organisations: [@organisation], slug_override: "/some-slug-starting-with-slash")
 
     get :edit, params: { id: page }
 
@@ -56,8 +56,8 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
   end
 
   test "PUT :update changes the supplied instance with the supplied params" do
-    attrs = attributes_for(:landing_page, title: "Hello there")
-    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", slug_override: "/some-slug-starting-with-slash")
+    attrs = attributes_for(:plan_for_change_landing_page, title: "Hello there")
+    page = create(:plan_for_change_landing_page, organisations: [@organisation], title: "Goodbye", slug_override: "/some-slug-starting-with-slash")
 
     post :update, params: {
       id: page,
@@ -66,12 +66,12 @@ class Admin::LandingPagesControllerTest < ActionController::TestCase
 
     assert_equal page, assigns(:edition)
     assert_equal "Hello there", page.reload.title
-    assert_redirected_to admin_landing_page_path(page)
+    assert_redirected_to admin_plan_for_change_landing_page_path(page)
   end
 
   test "PUT :update doesn't save the new instance when the supplied params are invalid" do
-    attrs = attributes_for(:landing_page, title: "")
-    page = create(:landing_page, organisations: [@organisation], title: "Goodbye", slug_override: "/some-slug-starting-with-slash")
+    attrs = attributes_for(:plan_for_change_landing_page, title: "")
+    page = create(:plan_for_change_landing_page, organisations: [@organisation], title: "Goodbye", slug_override: "/some-slug-starting-with-slash")
 
     post :update, params: { id: page, edition: attrs }
 

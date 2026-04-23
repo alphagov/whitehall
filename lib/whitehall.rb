@@ -92,7 +92,7 @@ module Whitehall
       DetailedGuide,
       DocumentCollection,
       FatalityNotice,
-      LandingPage,
+      PlanForChangeLandingPage,
       Publication,
       Speech,
       StatisticalDataSet,
@@ -101,7 +101,7 @@ module Whitehall
   end
 
   def self.edition_route_path_segments
-    %w[speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities collections supporting-pages calls-for-evidence worldwide-organisations landing-pages standard-editions]
+    %w[speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities collections supporting-pages calls-for-evidence worldwide-organisations plan-for-change-landing-pages standard-editions]
   end
 
   def self.search_api_work_queue_name

@@ -12,7 +12,7 @@ class CompoundBlockTest < ActiveSupport::TestCase
   end
 
   test "valid when given correct params" do
-    subject = LandingPage::CompoundBlock.new(
+    subject = PlanForChangeLandingPage::CompoundBlock.new(
       @valid_block_config,
       EMPTY_IMAGES,
       "compound_block_content",
@@ -21,7 +21,7 @@ class CompoundBlockTest < ActiveSupport::TestCase
   end
 
   test "presents compound blocks to publishing api" do
-    subject = LandingPage::CompoundBlock.new(
+    subject = PlanForChangeLandingPage::CompoundBlock.new(
       @valid_block_config,
       EMPTY_IMAGES,
       "compound_block_content",
@@ -36,7 +36,7 @@ class CompoundBlockTest < ActiveSupport::TestCase
   end
 
   test "valid when missing content blocks" do
-    subject = LandingPage::CompoundBlock.new(
+    subject = PlanForChangeLandingPage::CompoundBlock.new(
       @valid_block_config.except("compound_block_content"),
       EMPTY_IMAGES,
       "compound_block_content",
@@ -45,7 +45,7 @@ class CompoundBlockTest < ActiveSupport::TestCase
   end
 
   test "presents without missing content blocks" do
-    subject = LandingPage::CompoundBlock.new(
+    subject = PlanForChangeLandingPage::CompoundBlock.new(
       @valid_block_config.except("compound_block_content"),
       EMPTY_IMAGES,
       "compound_block_content",
@@ -55,7 +55,7 @@ class CompoundBlockTest < ActiveSupport::TestCase
 
   test "invalid when content blocks are invalid" do
     invalid_blocks_config = [{ "invalid" => "because I do not have a type" }]
-    subject = LandingPage::CompoundBlock.new(
+    subject = PlanForChangeLandingPage::CompoundBlock.new(
       @valid_block_config.merge("compound_block_content" => { "blocks" => invalid_blocks_config }),
       EMPTY_IMAGES,
       "compound_block_content",

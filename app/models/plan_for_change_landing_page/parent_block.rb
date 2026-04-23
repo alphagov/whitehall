@@ -1,4 +1,4 @@
-class LandingPage::ParentBlock < LandingPage::BaseBlock
+class PlanForChangeLandingPage::ParentBlock < PlanForChangeLandingPage::BaseBlock
   attr_reader :blocks
 
   validate do
@@ -8,7 +8,7 @@ class LandingPage::ParentBlock < LandingPage::BaseBlock
   def initialize(source, images)
     super(source, images)
 
-    @blocks = LandingPage::BlockFactory.build_all(source["blocks"], images)
+    @blocks = PlanForChangeLandingPage::BlockFactory.build_all(source["blocks"], images)
   end
 
   def present_for_publishing_api

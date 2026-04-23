@@ -10,7 +10,7 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     DocumentCollection
     WorldwideOrganisation
     FatalityNotice
-    LandingPage
+    PlanForChangeLandingPage
     Publication
     Speech
     StatisticalDataSet

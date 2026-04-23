@@ -1,4 +1,4 @@
-class LandingPage::BaseBlock
+class PlanForChangeLandingPage::BaseBlock
   include ActiveModel::API
 
   attr_reader :type, :images

@@ -1,4 +1,4 @@
-class LandingPage < Edition
+class PlanForChangeLandingPage < Edition
   include ::Attachable
   include Edition::Organisations
   include Edition::Images
@@ -13,7 +13,7 @@ class LandingPage < Edition
   end
 
   def publishing_api_presenter
-    PublishingApi::LandingPagePresenter
+    PublishingApi::PlanForChangeLandingPagePresenter
   end
 
   def rendering_app
@@ -37,7 +37,7 @@ class LandingPage < Edition
         multiple: true,
       ),
       ImageUsage.new(
-        key: "landing_page",
+        key: "plan_for_change_landing_page",
         label: "landing page",
         kinds: Whitehall.image_kinds.values_at("landing_page_image"),
         multiple: true,
@@ -49,13 +49,13 @@ class LandingPage < Edition
     if @landing_page_body&.raw_body == body
       @landing_page_body
     else
-      @landing_page_body = LandingPage::Body.new(body, images)
+      @landing_page_body = PlanForChangeLandingPage::Body.new(body, images)
     end
   end
 
 private
 
   def base_path_must_not_be_taken
-    errors.add(:base_path, " is already taken") if LandingPage.where(slug_override:).where.not(document_id: document_id).exists?
+    errors.add(:base_path, " is already taken") if PlanForChangeLandingPage.where(slug_override:).where.not(document_id: document_id).exists?
   end
 end
