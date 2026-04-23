@@ -65,13 +65,13 @@ class Edition < ApplicationRecord
   validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }, unless: ->(record) { record.is_a?(StandardEdition) }
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
-  validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
-  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: :draft?, allow_blank: true
   validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
 
   validate :first_published_precedes_change_notes, if: :draft?
+  validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
+  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: -> { draft? && errors.attribute_names.exclude?(:first_published_at) }, allow_blank: true
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
