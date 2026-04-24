@@ -18,10 +18,14 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
                 <input type="radio" name="unpublishing_reason" id="radio-published-consolidated" value="4" class="govuk-radios__input">
                 <label for="radio-published-consolidated" class="gem-c-label govuk-label govuk-radios__label">Unpublish: consolidated into another GOV.UK page</label>
               </div>
-              <div class="govuk-radios__divider">or</div>
               <div class="gem-c-radio govuk-radios__item">
                 <input type="radio" name="unpublishing_reason" id="radio-withdraw" value="5" class="govuk-radios__input">
                 <label for="radio-withdraw" class="gem-c-label govuk-label govuk-radios__label">Withdraw: no longer current government policy/activity</label>
+              </div>      
+              <div class="govuk-radios__divider">or</div>
+              <div class="gem-c-radio govuk-radios__item">
+                <input type="radio" name="unpublishing_reason" id="radio-archived" value="6" class="govuk-radios__input">
+                <label for="radio-archived" class="gem-c-label govuk-label govuk-radios__label">Archived: via the National Archives</label>
               </div>
             </div>
           </fieldset>
@@ -44,6 +48,9 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
         <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__consolidated">
           this is the consolidated section
         </div>
+        <div class="app-view-unpublish-withdrawal__form-wrapper js-app-view-unpublish-withdraw-form__archived">
+          this is the archived section
+        </div>      
       </div>
     `
     const checkbox = body.querySelector(
@@ -69,6 +76,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
       body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
         .style.display
     ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__archived').style
+        .display
+    ).not.toEqual('block')
   })
 
   it('should only show publish in error section when selecting unpublish: published in error', function () {
@@ -88,6 +99,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     expect(
       body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
         .style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__archived').style
+        .display
     ).not.toEqual('block')
   })
 
@@ -109,6 +124,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
       body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
         .style.display
     ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__archived').style
+        .display
+    ).not.toEqual('block')
   })
 
   it('should only show withdrawal section when selecting withdrawal', function () {
@@ -129,6 +148,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
       body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
         .style.display
     ).toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__archived').style
+        .display
+    ).not.toEqual('block')
   })
 
   it('should show last chosen option if user changes their selected option', function () {
@@ -149,6 +172,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
       body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
         .style.display
     ).toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__archived').style
+        .display
+    ).not.toEqual('block')
 
     const radio2 = body.querySelector('#radio-published-consolidated')
     radio2.checked = true
@@ -166,6 +193,10 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
     expect(
       body.querySelector('.js-app-view-unpublish-withdraw-form__withdrawal')
         .style.display
+    ).not.toEqual('block')
+    expect(
+      body.querySelector('.js-app-view-unpublish-withdraw-form__archived').style
+        .display
     ).not.toEqual('block')
   })
 

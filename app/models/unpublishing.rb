@@ -9,6 +9,7 @@ class Unpublishing < ApplicationRecord
   validates :alternative_url, uri: true, allow_blank: true
   validates :alternative_url, gov_uk_url_format: true, allow_blank: true
   validate :redirect_not_circular
+  validate :live_archived_url, if: :archived?
 
   after_initialize :ensure_presence_of_content_id
 
@@ -32,6 +33,10 @@ class Unpublishing < ApplicationRecord
     unpublishing_reason == UnpublishingReason::Withdrawn
   end
 
+  def archived?
+    unpublishing_reason == UnpublishingReason::Archived
+  end
+
   def unpublishing_reason
     UnpublishingReason.find_by_id unpublishing_reason_id
   end
@@ -52,6 +57,8 @@ class Unpublishing < ApplicationRecord
       "consolidated"
     when UnpublishingReason::Withdrawn
       "withdrawn"
+    when UnpublishingReason::Archived
+      "archived"
     end
   end
 
@@ -67,6 +74,12 @@ class Unpublishing < ApplicationRecord
     edition.public_url.gsub(edition.slug, slug)
   end
 
+  def archived_url
+    full_address = "https://www.gov.uk#{edition.base_path}"
+
+    "https://webarchive.nationalarchives.gov.uk/ukgwa/3000/#{full_address}"
+  end
+
   # Because the edition may have been deleted, we need to find it unscoped to
   # get around the default scope.
   def edition
@@ -76,6 +89,8 @@ class Unpublishing < ApplicationRecord
   delegate :translated_locales, to: :edition
 
   def alternative_path
+    return archived_url if archived?
+
     return if alternative_uri.nil?
 
     return alternative_uri.to_s unless GovUkUrlFormatValidator.can_be_converted_to_relative_path?(alternative_uri)
@@ -95,6 +110,15 @@ private
     rescue URI::InvalidURIError, Addressable::URI::InvalidURIError
       nil
     end
+  end
+
+  def live_archived_url
+    url = URI.parse(archived_url)
+    req = Net::HTTP.new(url.host, url.port)
+    req.use_ssl = true
+    res = req.request_head(url.path)
+
+    errors.add(:unpublishing_reason, "cannot be \"Archived\" if page has not been archived by the National Archives (\"https://www.webarchive.nationalarchives.gov.uk\")") unless res.code == "200"
   end
 
   def redirect_not_circular

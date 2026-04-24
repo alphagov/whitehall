@@ -41,6 +41,14 @@ class PublishingApiUnpublishingJob < JobBase
           allow_draft,
           unpublishing.unpublished_at.to_s,
         )
+      when UnpublishingReason::ARCHIVED_ID
+        PublishingApiGoneJob.new.perform(
+          content_id,
+          unpublishing.alternative_path,
+          unpublishing.explanation,
+          locale.to_s,
+          allow_draft,
+        )
       end
     end
   end

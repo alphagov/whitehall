@@ -172,6 +172,25 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal ["must be provided to redirect the document"], unpublishing.errors[:alternative_url]
   end
 
+  test "unpublishing_reason is invalid if the reason is Archived and document has not been archived by the National Archives" do
+    unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Archived)
+
+    stub_request(:head, unpublishing.archived_url)
+      .to_return(status: 404, body: "", headers: {})
+
+    assert_not unpublishing.valid?
+    assert_equal ["cannot be \"Archived\" if page has not been archived by the National Archives (\"https://www.webarchive.nationalarchives.gov.uk\")"], unpublishing.errors[:unpublishing_reason]
+  end
+
+  test "unpublishing_reason is valid if the reason is Archived and document has been archived by the National Archives" do
+    unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Archived)
+
+    stub_request(:head, unpublishing.archived_url)
+      .to_return(status: 200, body: "", headers: {})
+
+    assert unpublishing.valid?
+  end
+
   test "always redirects if the reason is Consolidated" do
     unpublishing = Unpublishing.new(unpublishing_reason: UnpublishingReason::Consolidated)
     assert unpublishing.redirect?
