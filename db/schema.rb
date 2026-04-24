@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_14_101848) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_24_093745) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
@@ -414,6 +414,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_14_101848) do
     t.index ["publication_type_id"], name: "index_editions_on_publication_type_id"
     t.index ["role_appointment_id"], name: "index_editions_on_role_appointment_id"
     t.index ["slug"], name: "index_editions_on_slug"
+    t.index ["slug_override"], name: "index_editions_on_slug_override"
     t.index ["speech_type_id"], name: "index_editions_on_speech_type_id"
     t.index ["state", "type"], name: "index_editions_on_state_and_type"
     t.index ["state"], name: "index_editions_on_state"
