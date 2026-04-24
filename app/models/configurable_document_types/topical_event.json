@@ -181,7 +181,6 @@
       "enabled": true,
       "usages": {
         "header": {
-          "label": "header image",
           "kinds": ["topical_event_header"],
           "multiple": false,
           "caption_enabled": true

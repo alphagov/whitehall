@@ -100,7 +100,6 @@
           "caption_enabled": true
         },
         "lead": {
-          "label": "lead",
           "kinds": ["default"],
           "multiple": false,
           "caption_enabled": true

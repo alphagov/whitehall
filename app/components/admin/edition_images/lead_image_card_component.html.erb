@@ -6,7 +6,7 @@
 
 <%= render "govuk_publishing_components/components/summary_card", {
   id: "uploaded_#{image_usage.key}_image_card",
-  title: image_usage.label&.titleize || image_usage.key.titleize,
+  title: image_usage.title.upcase_first,
   summary_card_actions: summary_card_actions,
   rows: [
     {

@@ -21,4 +21,10 @@ class ImageUsage
   def lead?
     key == "lead"
   end
+
+  def title
+    return "image" if embeddable?
+
+    label || "#{key} image"
+  end
 end

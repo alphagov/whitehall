@@ -1,6 +1,6 @@
 <% content_for :context, "#{@edition.title}" %>
-<% content_for :page_title, "New #{@image_usage.label} image for #{@edition.format_name}" %>
-<% content_for :title, "New #{@image_usage.label} image for #{@edition.format_name}" %>
+<% content_for :page_title, "New #{@image_usage.title} for #{@edition.format_name}" %>
+<% content_for :title, "New #{@image_usage.title} for #{@edition.format_name}" %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @images.flat_map { |image| image&.errors&.errors }, parent_class: "edition_images")) if @images.present? %>
 
 <div class="govuk-grid-row">
