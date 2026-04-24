@@ -7,10 +7,6 @@ Given(/^a topical event called "(.*?)" with summary "([^"]*)" and description "(
   stub_topical_event_in_content_store(name)
 end
 
-When(/^I create a new topical event "([^"]*)" with summary "([^"]*)" and description "([^"]*)"$/) do |name, summary, description|
-  create_topical_event_and_stub_in_content_store(name:, summary:, description:)
-end
-
 Then(/^I should see the topical event "([^"]*)" in the admin interface$/) do |topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_events_path(topical_event)
