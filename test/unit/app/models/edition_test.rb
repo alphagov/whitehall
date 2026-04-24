@@ -512,6 +512,12 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons-rule")
   end
 
+  test "should find editions with slug_override containing keyword" do
+    edition_with_slug_override = create(:edition, title: "klingons rule", slug_override: "another-slug")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+    assert_equal [edition_with_slug_override], Edition.with_title_containing("another-slug")
+  end
+
   test "should find editions with title containing regular expression characters" do
     edition_with_nasty_characters = create(:edition, title: "title with [stuff in brackets]")
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
