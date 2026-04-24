@@ -6,7 +6,7 @@ module Edition::Scopes::SearchableByTitle
       like_clause = "%#{sanitize_sql_like(keywords)}%"
 
       if keywords.match?(/\A[a-z0-9]+(-[a-z0-9]+)+\z/)
-        where(slug: keywords)
+        where(slug: keywords).or(where(slug_override: keywords))
       else
         in_default_locale
           .includes(:document)
