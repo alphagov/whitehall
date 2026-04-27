@@ -112,11 +112,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
                     "details" => { "visible_to_departmental_editors" => true },
                     "links" => {
                       "parent_taxons" => [
-                        "title" => "Education, training and skills",
-                        "content_id" => "cccc",
-                        "base_path" => "/i-am-a-grand-parent-taxon",
-                        "details" => { "visible_to_departmental_editors" => true },
-                        "links" => {},
+                        {
+                          "title" => "Education, training and skills",
+                          "content_id" => "cccc",
+                          "base_path" => "/i-am-a-grand-parent-taxon",
+                          "details" => { "visible_to_departmental_editors" => true },
+                          "links" => {},
+                        },
                       ],
                     },
                   },

@@ -12,7 +12,7 @@ class RemoveLinkReportableFieldsFromLinkCheckerApiReports < ActiveRecord::Migrat
     add_index :link_checker_api_reports, %i[link_reportable_type link_reportable_id], name: "index_link_checker_api_reportable"
 
     # Restore data
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE link_checker_api_reports
       SET link_reportable_type = 'Edition', link_reportable_id = edition_id
       WHERE edition_id IS NOT NULL

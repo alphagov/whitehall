@@ -15,7 +15,7 @@ class RevalidateEditionsSchedulerJob
          .limit(BATCH_SIZE * MAX_BATCHES)
          .pluck(:id)
          .each_slice(BATCH_SIZE) do |ids|
-           RevalidateEditionBatchJob.perform_async(ids)
+      RevalidateEditionBatchJob.perform_async(ids)
     end
   end
 end

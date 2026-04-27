@@ -200,17 +200,21 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       {
         title: promotional_feature1.title,
         items: [
-          summary: promotional_feature_item1.summary,
-          image: { url: promotional_feature_item1.image.url, alt_text: promotional_feature_item1.image_alt_text },
-          links: promotional_feature_item2.links,
+          {
+            summary: promotional_feature_item1.summary,
+            image: { url: promotional_feature_item1.image.url, alt_text: promotional_feature_item1.image_alt_text },
+            links: promotional_feature_item2.links,
+          },
         ],
       },
       {
         title: promotional_feature2.title,
         items: [
-          summary: promotional_feature_item2.summary,
-          youtube_video: { id: promotional_feature_item2.youtube_video_id, alt_text: promotional_feature_item2.youtube_video_alt_text },
-          links: promotional_feature_item2.links,
+          {
+            summary: promotional_feature_item2.summary,
+            youtube_video: { id: promotional_feature_item2.youtube_video_id, alt_text: promotional_feature_item2.youtube_video_alt_text },
+            links: promotional_feature_item2.links,
+          },
         ],
       },
     ]
@@ -236,12 +240,14 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       {
         title: promotional_feature.title,
         items: [
-          summary: promotional_feature_item_with_assets.summary,
-          image: {
-            url: promotional_feature_item_with_assets.image.url,
-            alt_text: promotional_feature_item_with_assets.image_alt_text,
+          {
+            summary: promotional_feature_item_with_assets.summary,
+            image: {
+              url: promotional_feature_item_with_assets.image.url,
+              alt_text: promotional_feature_item_with_assets.image_alt_text,
+            },
+            links: promotional_feature_item_with_assets.links,
           },
-          links: promotional_feature_item_with_assets.links,
         ],
       },
     ]

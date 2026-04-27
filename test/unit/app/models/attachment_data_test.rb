@@ -151,7 +151,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     second_attempt_attachment = build(:attachment_data_with_no_assets, file: nil, file_cache: attachment.file_cache, attachable:)
 
     Services.asset_manager.expects(:create_asset).once.with { |value|
-      (value[:file].path.ends_with? "greenpaper.pdf")
+      value[:file].path.ends_with? "greenpaper.pdf"
     }.returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => "greenpaper.pdf")
 
     assert second_attempt_attachment.save
