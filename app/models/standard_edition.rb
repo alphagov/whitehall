@@ -37,7 +37,11 @@ class StandardEdition < Edition
       ConfigurableDocumentType.convertible_from(configurable_document_type).none? { |type| type.key == new_type_key }
 
     self.configurable_document_type = new_type_key
-    save!(validate: false)
+    if save(validate: false)
+      StandardEdition::HygieneEnforcer.new(self).cleanup!
+      return true
+    end
+    false
   end
 
   def body_required?
