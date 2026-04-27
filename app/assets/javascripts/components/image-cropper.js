@@ -1,7 +1,5 @@
 //= require cropperjs/dist/cropper.js
 'use strict'
-window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
   function Cropbox(version, colour, style, outlineWidth, scaledRatio) {
     this.version = version
