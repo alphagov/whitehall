@@ -37,5 +37,28 @@ class StandardEdition::HygieneEnforcerTest < ActiveSupport::TestCase
         assert edition.organisations.empty?
       end
     end
+
+    context "cleaning up a document that has been converted from a world news story into another news article subtype" do
+      test "removes worldwide organisation associations and patches links with explicit empty arrays" do
+        edition = create(
+          :standard_edition,
+          configurable_document_type: "news_story",
+          lead_organisations: [create(:organisation)],
+          block_content: { body: "foo" },
+          # these aren't usually set on anything other than World News Stories
+          worldwide_organisations: [create(:worldwide_organisation)],
+        )
+
+        Services.publishing_api.expects(:patch_links).with(
+          edition.document.content_id,
+          links: has_entries(
+            worldwide_organisations: [],
+          ),
+          bulk_publishing: false,
+        )
+        StandardEdition::HygieneEnforcer.new(edition).cleanup!
+        assert edition.worldwide_organisations.empty?
+      end
+    end
   end
 end

@@ -51,14 +51,30 @@ class StandardEdition::HygieneEnforcer
   end
 
   def cleanup!
-    if (edition.configurable_document_type == "world_news_story") && edition.organisations.any?
+    if dirty_world_news_story?(edition)
       edition.organisations.delete_all
-      # Temporarily pretend this is still a news story, so that we send the correct
-      # associations (empty 'organisations' array) as links to Publishing API.
-      # The change below isn't persisted. The patch_links method acts on the instance,
-      # so the change is only in-memory and only for the duration of this method call.
-      edition.configurable_document_type = "news_story"
-      Whitehall::PublishingApi.patch_links(edition)
+      patch_links_as_document_type(edition, "news_story")
+    elsif dirty_other_news_article_subtype?(edition)
+      edition.worldwide_organisation_documents.delete_all
+      patch_links_as_document_type(edition, "world_news_story")
     end
+  end
+
+private
+
+  def dirty_world_news_story?(edition)
+    edition.configurable_document_type == "world_news_story" && edition.organisations.any?
+  end
+
+  def dirty_other_news_article_subtype?(edition)
+    edition.configurable_document_type.in?(%w[news_story press_release government_response]) && edition.worldwide_organisations.any?
+  end
+
+  def patch_links_as_document_type(edition, document_type)
+    # Temporarily pretend this document if of document type 'document_type', so that we send the correct
+    # associations (e.g. empty 'worldwide_organisations' and 'world_locations' arrays for a doc that has
+    # been converted from a "world_news_story") as links to Publishing API.
+    edition.configurable_document_type = document_type
+    Whitehall::PublishingApi.patch_links(edition)
   end
 end
