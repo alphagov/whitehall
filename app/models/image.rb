@@ -31,6 +31,10 @@ class Image < ApplicationRecord
   def thumbnail
     return image_data.file_url unless bitmap? && !requires_crop?
 
+    if image_data.respond_to?(:image_kind_config) && image_data.image_kind_config.embed_version
+      return url(image_data.image_kind_config.embed_version.to_sym)
+    end
+
     variant = image_data.assets.find { |asset| asset.variant != "original" }&.variant&.to_sym
 
     return if variant.blank?
