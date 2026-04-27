@@ -12,10 +12,12 @@ class Admin::MillerColumnsHelperTest < ActionView::TestCase
           value: "2",
           checked: false,
           items: [
-            label: "Grandchild",
-            value: "3",
-            items: [],
-            checked: false,
+            {
+              label: "Grandchild",
+              value: "3",
+              items: [],
+              checked: false,
+            },
           ],
         },
       ],
@@ -35,10 +37,12 @@ class Admin::MillerColumnsHelperTest < ActionView::TestCase
           value: "2",
           checked: true,
           items: [
-            label: "Grandchild",
-            value: "3",
-            items: [],
-            checked: false,
+            {
+              label: "Grandchild",
+              value: "3",
+              items: [],
+              checked: false,
+            },
           ],
         },
       ],
@@ -58,10 +62,12 @@ class Admin::MillerColumnsHelperTest < ActionView::TestCase
           value: "2",
           checked: false,
           items: [
-            label: "Grandchild",
-            value: "3",
-            items: [],
-            checked: true,
+            {
+              label: "Grandchild",
+              value: "3",
+              items: [],
+              checked: true,
+            },
           ],
 
         },
@@ -82,10 +88,12 @@ class Admin::MillerColumnsHelperTest < ActionView::TestCase
           value: "2",
           checked: false,
           items: [
-            label: "Grandchild",
-            value: "3",
-            items: [],
-            checked: false,
+            {
+              label: "Grandchild",
+              value: "3",
+              items: [],
+              checked: false,
+            },
           ],
         },
       ],
