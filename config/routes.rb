@@ -313,7 +313,7 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
       end
-      resources :landing_pages, path: "landing-pages", except: [:index]
+      resources :plan_for_change_landing_pages, path: "plan-for-change-landing-pages", except: [:index]
 
       resources :fatality_notices, path: "fatalities", except: [:index]
       resources :consultations, except: [:index] do

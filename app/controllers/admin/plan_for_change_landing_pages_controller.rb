@@ -1,10 +1,10 @@
-class Admin::LandingPagesController < Admin::EditionsController
+class Admin::PlanForChangeLandingPagesController < Admin::EditionsController
   before_action :enforce_edition_permissions!
 
 private
 
   def edition_class
-    LandingPage
+    PlanForChangeLandingPage
   end
 
   def enforce_edition_permissions!

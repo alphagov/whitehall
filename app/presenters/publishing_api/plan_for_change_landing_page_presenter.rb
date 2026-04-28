@@ -1,5 +1,5 @@
 module PublishingApi
-  class LandingPagePresenter
+  class PlanForChangeLandingPagePresenter
     include Presenters::PublishingApi::UpdateTypeHelper
 
     attr_reader :update_type

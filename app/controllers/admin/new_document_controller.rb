@@ -77,10 +77,10 @@ class Admin::NewDocumentController < Admin::BaseController
         "hint_text" => "Use this to create a new worldwide organisation page. Do not create a worldwide organisation unless you have permission from your managing editor or GOV.UK department lead.",
         "label" => "worldwide_organisation".humanize,
       },
-      "landing_page" => {
-        "klass" => LandingPage,
+      "plan_for_change_landing_page" => {
+        "klass" => PlanForChangeLandingPage,
         "hint_text" => "EXPERIMENTAL Use this to create landing pages.",
-        "label" => "landing_page".humanize,
+        "label" => "plan_for_change_landing_page".humanize,
       },
     }
     if can?(current_user, ConfigurableDocumentType.find("topical_event"))

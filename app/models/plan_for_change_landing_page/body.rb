@@ -1,4 +1,4 @@
-class LandingPage::Body
+class PlanForChangeLandingPage::Body
   include ActiveModel::API
 
   attr_reader :raw_body, :body, :extends, :breadcrumbs, :navigation_groups, :blocks
@@ -35,7 +35,7 @@ class LandingPage::Body
     extend_body
     @breadcrumbs = body["breadcrumbs"]
     @navigation_groups = body["navigation_groups"]
-    @blocks = LandingPage::BlockFactory.build_all(body["blocks"], images)
+    @blocks = PlanForChangeLandingPage::BlockFactory.build_all(body["blocks"], images)
   end
 
   def present_for_publishing_api
@@ -52,7 +52,7 @@ class LandingPage::Body
     @body_to_extend ||= begin
       return if extends.blank?
 
-      edition = LandingPage.where(slug_override: extends).last
+      edition = PlanForChangeLandingPage.where(slug_override: extends).last
       return if edition.nil?
 
       parsed_body = begin

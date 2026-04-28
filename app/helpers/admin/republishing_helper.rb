@@ -91,7 +91,7 @@ module Admin::RepublishingHelper
       DocumentCollection
       WorldwideOrganisation
       FatalityNotice
-      LandingPage
+      PlanForChangeLandingPage
       Publication
       Speech
       StatisticalDataSet

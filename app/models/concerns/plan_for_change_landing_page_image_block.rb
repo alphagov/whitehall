@@ -1,4 +1,4 @@
-module LandingPageImageBlock
+module PlanForChangeLandingPageImageBlock
   extend ActiveSupport::Concern
 
   IMAGE_PATTERN = /^\[Image:\s*(.*?)\s*\]/
