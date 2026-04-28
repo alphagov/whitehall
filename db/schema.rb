@@ -1239,6 +1239,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_24_093745) do
     t.datetime "updated_at", precision: nil
   end
 
+  add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "edition_relationships", "editions", column: "child_edition_id"
   add_foreign_key "edition_relationships", "editions", column: "parent_edition_id"
   add_foreign_key "editions", "governments", on_delete: :nullify
