@@ -996,6 +996,12 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test "#other_editions returns an empty array if there is no associated document" do
+    edition = build(:edition)
+
+    assert_equal edition.other_editions, []
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
