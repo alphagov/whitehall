@@ -58,6 +58,10 @@
           "translatable": false
         }
       }
+    },
+    "attachments": {
+      "label": "Attachments",
+      "linked_to": "edition_attachments"
     }
   },
   "schema": {
@@ -122,7 +126,6 @@
       }
     },
     "send_change_history": true,
-    "file_attachments_enabled": true,
     "organisations": null,
     "backdating_enabled": true,
     "history_mode_enabled": true,

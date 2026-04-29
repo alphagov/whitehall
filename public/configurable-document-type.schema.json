@@ -243,7 +243,6 @@
       },
       "additionalProperties": {
         "type": "object",
-        "required": ["fields"],
         "description": "Definition of a group of form fields to group.",
         "properties": {
           "dynamic": {
@@ -262,8 +261,21 @@
                 "$ref": "#/$defs/form_field"
               }
             }
+          },
+          "linked_to": {
+            "type": "string",
+            "description": "Named route this tab links to. Mutually exclusive with fields. Used for tabs whose UI is owned by an existing controller (attachments, features, images).",
+            "enum": [
+              "edition_attachments",
+              "edition_features",
+              "edition_images"
+            ]
           }
-        }
+        },
+        "oneOf": [
+          { "required": ["fields"] },
+          { "required": ["linked_to"] }
+        ]
       }
     },
     "presenters": {
@@ -471,7 +483,6 @@
         "organisations",
         "backdating_enabled",
         "history_mode_enabled",
-        "file_attachments_enabled",
         "translations_enabled"
       ]
     }

@@ -113,6 +113,16 @@ class ConfigurableDocumentType
     end
   end
 
+  def linked_tabs
+    @linked_tabs ||= @forms.filter_map do |id, form|
+      { "id" => id, "label" => form["label"], "linked_to" => form["linked_to"] } if form["linked_to"]
+    end
+  end
+
+  def has_linked_tab?(tab_key)
+    linked_tabs.any? { |tab| tab["linked_to"] == tab_key }
+  end
+
   def schema_for_fields(field_keys)
     field_keys = field_keys.map(&:to_s)
 
