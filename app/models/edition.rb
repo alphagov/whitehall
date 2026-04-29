@@ -238,6 +238,8 @@ class Edition < ApplicationRecord
   end
 
   def other_editions
+    return [] if document.nil?
+
     if persisted?
       document.editions.where(self.class.arel_table[:id].not_eq(id))
     else
