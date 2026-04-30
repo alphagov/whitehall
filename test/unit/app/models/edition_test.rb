@@ -684,6 +684,23 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
+  test "first_published_at cannot be after the date of the first change note" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 1.day.ago)
+
+    assert edition.invalid?
+    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
+  end
+
+  test "after_change_notes' error message takes priority if multiple validation errors on first_published_at" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 10.years.from_now)
+    edition.validate
+
+    assert_equal 1, edition.errors.size
+    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
+  end
+
   test "#government returns the associated government when the edition has a specific government_id" do
     create(:current_government)
     previous_government = create(:previous_government)
@@ -986,6 +1003,12 @@ class EditionTest < ActiveSupport::TestCase
 
     edition.image_display_option = "invalid_option"
     assert_not edition.valid?
+  end
+
+  test "#other_editions returns an empty array if there is no associated document" do
+    edition = build(:edition)
+
+    assert_equal edition.other_editions, []
   end
 
   def decoded_token_payload(token)
