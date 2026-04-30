@@ -8,9 +8,6 @@
  ** - Wrap fields to display RTL languages with `js-locale-switcher-field`
  ** - Add to any custom elements the class `js-locale-switcher-custom`
  */
-
-window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
   function LocaleSwitcher(module) {
     this.module = module

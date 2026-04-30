@@ -1,6 +1,4 @@
 'use strict'
-window.GOVUK = window.GOVUK || {}
-window.GOVUK.vars = window.GOVUK.vars || {}
 window.GOVUK.vars.extraDomains = [
   {
     name: 'production',

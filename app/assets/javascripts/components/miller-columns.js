@@ -1,8 +1,6 @@
 //= require choices.js/public/assets/scripts/choices.min.js
 //= require vendor/miller-columns
 'use strict'
-window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
   function MillerColumns(module) {
     this.module = module

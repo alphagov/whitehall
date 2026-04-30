@@ -3,9 +3,6 @@
 // esm.sh solves this problem nicely, but does introduce a dependency on the esm.sh CDN being up and available.
 import * as monaco from 'https://esm.sh/monaco-editor@0.52.0'
 import workerFactory from 'https://esm.sh/monaco-editor/esm/vs/editor/editor.worker?worker'
-
-window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
   function YamlEditor(module) {
     this.module = module

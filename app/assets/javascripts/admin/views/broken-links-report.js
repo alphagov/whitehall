@@ -1,6 +1,4 @@
 'use strict'
-window.GOVUK = window.GOVUK || {}
-window.GOVUK.Modules = window.GOVUK.Modules || {}
 ;(function (Modules) {
   function BrokenLinksReport(module) {
     this.module = module
