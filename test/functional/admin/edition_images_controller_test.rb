@@ -550,6 +550,32 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select ".govuk-error-summary li", "Image \"hero_image_mobile_2x.png\" is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
   end
 
+  view_test "POST :create shows a validation error if 'mulitple' of image usage is `false` and another image of same image usage is uploaded" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {
+            "hero" => {
+              "label" => "hero",
+              "kinds" => %w[hero_mobile],
+              "multiple" => false,
+            },
+          },
+        },
+      },
+    }))
+    edition = create(:draft_standard_edition)
+    file = upload_fixture("hero_image_mobile_2x.png")
+    create(:image, usage: "hero", edition:, image_data: build(:image_data, file:))
+
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+
+    assert_redirected_to admin_edition_images_path(edition)
+    assert_equal "Hero already uploaded. Delete the currently uploaded hero to upload a new hero.", flash[:alert]
+  end
+
   view_test "POST :create with multiple invalid files shows each filename in error summary" do
     login_authorised_user
     edition = create(:draft_case_study)
