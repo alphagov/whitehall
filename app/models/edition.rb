@@ -68,12 +68,10 @@ class Edition < ApplicationRecord
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
   validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
-  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: -> { draft? && other_editions.empty? }, allow_blank: true
+  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: :draft?, allow_blank: true
   validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
-
-  validate :first_published_preceeds_change_notes, if: :draft?
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
@@ -238,8 +236,6 @@ class Edition < ApplicationRecord
   end
 
   def other_editions
-    return [] if document.nil?
-
     if persisted?
       document.editions.where(self.class.arel_table[:id].not_eq(id))
     else
@@ -447,19 +443,6 @@ class Edition < ApplicationRecord
 
   def error_labels
     {}
-  end
-
-  def first_published_preceeds_change_notes
-    return if first_published_at.blank?
-    return if other_editions.empty?
-
-    change_note_dates = other_editions.pluck(:major_change_published_at).compact.sort
-
-    return if change_note_dates.empty?
-
-    if first_published_at > change_note_dates.first
-      errors.add(:first_published_at, :after_change_notes, latest: change_note_dates.first.strftime("%d/%m/%Y %H:%M"))
-    end
   end
 
 private
