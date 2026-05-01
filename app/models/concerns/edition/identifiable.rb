@@ -6,7 +6,8 @@ module Edition::Identifiable
     validates :document, presence: true
     before_validation :ensure_presence_of_document, on: :create
     before_validation :propagate_type_to_document
-    before_save :set_slug, if: :title_changed?
+    before_save :set_slug_from_title, if: -> { title_changed? }
+    before_save :set_slug, if: -> { slug_from_title_changed? || slug_override_changed? }
 
     scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
     scope :live_edition, -> { joins(:document).where("documents.live_edition_id = editions.id") }
@@ -21,15 +22,7 @@ module Edition::Identifiable
 
   delegate :change_history, :content_id, to: :document, allow_nil: true
 
-  def slug
-    slug_override.presence || super
-  end
-
-  def slug_from_title
-    self[:slug]
-  end
-
-  def set_slug
+  def set_slug_from_title
     # Translations return nil from `string_to_slug`, in which case we return early as we should not set the slug based on a translation title
     # Corporate information pages also return nil from `string_to_slug`, because their slugs are set based on document type.
     return if string_for_slug.nil?
@@ -42,7 +35,6 @@ module Edition::Identifiable
     # For languages the babosa gem does not support, its `normalize` method will return an empty string
     # when the to_ascii option is used. In this case we fall back to the document ID as the slug
     if default_slug.blank?
-      self[:slug] = document_id
       self[:slug_from_title] = document_id
       return
     end
@@ -63,10 +55,13 @@ module Edition::Identifiable
         attempt += 1
       else
         candidate_slug_is_a_duplicate = false
-        self[:slug] = candidate_slug
         self[:slug_from_title] = candidate_slug
       end
     end
+  end
+
+  def set_slug
+    self[:slug] = slug_override.presence || slug_from_title
   end
 
   def linkable?

@@ -6,21 +6,35 @@ class PlanForChangeLandingPageTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :plan_for_change_landing_page, :body
 
   test "landing-page base_path is not overwritten from title" do
-    plan_for_change_landing_page = build(:plan_for_change_landing_page, slug_override: "/landing-page/test")
+    plan_for_change_landing_page = create(:plan_for_change_landing_page, title: "New title", slug_override: "/landing-page/test")
+
+    assert_equal plan_for_change_landing_page.slug, "/landing-page/test"
     assert_equal plan_for_change_landing_page.base_path, "/landing-page/test"
   end
 
-  test "landing-page is not valid if base_path is already in use" do
-    create(:plan_for_change_landing_page, slug_override: "/landing-page/test")
+  test "landing-page slug gets set to the value of the slug_override" do
+    plan_for_change_landing_page = create(:plan_for_change_landing_page, slug_override: "/landing-page/test")
 
-    plan_for_change_landing_page = build(:plan_for_change_landing_page, slug_override: "/landing-page/test")
-    assert_not plan_for_change_landing_page.valid?
-    assert_equal :base_path, plan_for_change_landing_page.errors.first.attribute
+    assert_equal plan_for_change_landing_page.slug, "/landing-page/test"
   end
 
-  test "landing-page is not valid if base_path does not start with a slash" do
-    plan_for_change_landing_page = build(:plan_for_change_landing_page, body: "blocks: []", slug_override: "/landing-page/test")
+  test "landing-page is not valid if slug_override is nil" do
+    plan_for_change_landing_page = build(:plan_for_change_landing_page, slug_override: nil)
     assert_not plan_for_change_landing_page.valid?
+    assert_equal "cannot be blank", plan_for_change_landing_page.errors[:slug_override].first
+  end
+
+  test "landing-page is not valid if slug_override is already in use" do
+    create(:plan_for_change_landing_page, slug_override: "/landing-page/test")
+    plan_for_change_landing_page = build(:plan_for_change_landing_page, slug_override: "/landing-page/test")
+    assert_not plan_for_change_landing_page.valid?
+    assert_equal "is already taken", plan_for_change_landing_page.errors[:slug_override].first
+  end
+
+  test "landing-page is not valid if slug_override does not start with a slash" do
+    plan_for_change_landing_page = build(:plan_for_change_landing_page, slug_override: "landing-page/test")
+    assert_not plan_for_change_landing_page.valid?
+    assert_equal "must start with a slash (/)", plan_for_change_landing_page.errors[:slug_override].first
   end
 
   test "landing-page is valid if body is YAML with at least one block" do
