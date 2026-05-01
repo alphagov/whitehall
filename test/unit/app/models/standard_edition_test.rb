@@ -778,6 +778,17 @@ class StandardEditionTest < ActiveSupport::TestCase
       }, page.block_content.to_h)
     end
 
+    test "calls StandardEdition::HygieneEnforcer to drop invalid associations after changing document type" do
+      initial_type = build_configurable_document_type("initial_type", "settings" => { "configurable_document_group" => "test_group" })
+      new_type = build_configurable_document_type("new_type", "settings" => { "configurable_document_group" => "test_group" })
+      ConfigurableDocumentType.setup_test_types(initial_type.merge(new_type))
+      edition = create(:draft_standard_edition, configurable_document_type: "initial_type")
+
+      StandardEdition::HygieneEnforcer.expects(:new).with(edition).returns(stub(cleanup!: true))
+
+      edition.update_configurable_document_type("new_type")
+    end
+
     test "#error_labels returns a mapping of dot-separated attribute paths to field titles" do
       test_type = build_configurable_document_type(
         "test_type", {
