@@ -3,10 +3,10 @@
     label: {
       text: "Base Path",
     },
-    name: "edition[document_attributes][slug]",
-    id: "edition_document_slug",
+    name: "edition[slug_override]",
+    id: "edition_slug_override",
     heading_size: "m",
-    value: edition.slug,
-    error_items: errors_for(edition.document.errors, :slug),
+    value: edition.slug_override,
+    error_items: errors_for(edition.errors, :slug_override),
   } %>
 <% end %>

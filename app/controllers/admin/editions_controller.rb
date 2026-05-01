@@ -299,7 +299,6 @@ private
         fatality_notice_casualties_attributes: %i[id personal_details _destroy],
         document_attributes: [
           :id,
-          :slug,
           {
             review_reminder_attributes: %i[
               id
