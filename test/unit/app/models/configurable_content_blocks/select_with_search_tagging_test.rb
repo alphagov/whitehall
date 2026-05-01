@@ -30,7 +30,7 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
     options.each_with_index { |wo, index| wo.document = build(:document, id: index) }
 
     @edition.worldwide_organisation_documents = [options.first.document, options.last.document]
-    @block.stubs("cached_taggable_worldwide_organisations").returns(options)
+    WorldwideOrganisation.stubs(:with_translations).returns(stub(latest_edition: options))
 
     render @block
 

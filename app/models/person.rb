@@ -36,7 +36,7 @@ class Person < ApplicationRecord
   translates :biography
 
   before_destroy :prevent_destruction_if_appointed
-  after_update :touch_role_appointments, :republish_past_prime_ministers_page_to_publishing_api
+  after_update :republish_past_prime_ministers_page_to_publishing_api
   after_update :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, if: :has_ministerial_appointments?
 
   def biography_without_markup
@@ -140,13 +140,6 @@ private
 
   def prevent_destruction_if_appointed
     throw :abort unless destroyable?
-  end
-
-  # Whenever a person is updated, we want touch the updated_at timestamps of
-  # any associated role appointments so that the cache digest for the
-  # taggable_ministerial_role_appointments_container gets invalidated.
-  def touch_role_appointments
-    role_appointments.update_all updated_at: Time.zone.now
   end
 
   def truncated_biography

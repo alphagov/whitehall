@@ -9,16 +9,14 @@
     <div class="govuk-!-margin-bottom-6">
       <% 0.upto(3) do |index| %>
         <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
-        <% cache_if lead_organisation_id.nil?, "#{taggable_organisations_cache_digest}-lead" do %>
-          <%= render "govuk_publishing_components/components/select_with_search", {
-              id: "edition_lead_organisation_ids_#{index + 1}",
-              name: "edition[lead_organisation_ids][]",
-              label: "Lead organisation #{index + 1}",
-              heading_size: "s",
-              include_blank: true,
-              options: taggable_organisations_container([lead_organisation_id]),
-          } %>
-        <% end %>
+        <%= render "govuk_publishing_components/components/select_with_search", {
+            id: "edition_lead_organisation_ids_#{index + 1}",
+            name: "edition[lead_organisation_ids][]",
+            label: "Lead organisation #{index + 1}",
+            heading_size: "s",
+            include_blank: true,
+            options: taggable_organisations_container([lead_organisation_id]),
+        } %>
       <% end %>
     </div>
   <% end %>

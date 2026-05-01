@@ -216,17 +216,6 @@ class RoleTest < ActiveSupport::TestCase
     assert_nil create(:role, name: "Another role").historic_param
   end
 
-  test "touches any role appointments after being updated" do
-    role = create(:role)
-    role_appointment = create(:role_appointment, role:)
-
-    Timecop.freeze 1.month do
-      role.update!(name: "Name change")
-
-      assert_equal Time.zone.now, role_appointment.reload.updated_at
-    end
-  end
-
   test "republishes an organisation when a role is linked or unlinked" do
     stub_any_publishing_api_call
     organisation = create(:organisation)

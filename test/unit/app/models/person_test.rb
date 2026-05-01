@@ -165,17 +165,6 @@ class PersonTest < ActiveSupport::TestCase
            person.name_with_disambiguator
   end
 
-  test "touches any person appointments after being updated" do
-    person = create(:person)
-    role_appointment = create(:role_appointment, person:)
-
-    Timecop.freeze 1.month do
-      person.update!(surname: "Smith")
-
-      assert_equal Time.zone.now, role_appointment.reload.updated_at
-    end
-  end
-
   test "#current_or_previous_prime_minister returns true when the persons ministerial_roles includes Prime Minister" do
     person = build(:person)
     prime_minister_role = build(:ministerial_role, slug: "prime-minister")
