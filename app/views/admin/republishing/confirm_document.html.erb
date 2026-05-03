@@ -33,7 +33,7 @@
     } %>
     <%= render partial: "shared/republishing_form", locals: {
       republishing_event: @republishing_event,
-      republishing_path: admin_republishing_document_republish_path(@document.live_edition.slug_from_title),
+      republishing_path: admin_republishing_document_republish_path(@document.live_edition.slug),
     } %>
   </section>
 </div>
