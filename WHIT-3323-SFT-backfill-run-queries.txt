@@ -1,0 +1,215 @@
+# totals
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+);
+=> 431093
+
+Edition total in live states:
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished');
+431,129
+
+# SO null only
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (slug_override IS NULL OR slug_override = '');
+=> 429445
+
+# SO not null and not blank? - should be 100
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND slug_override IS NOT NULL AND slug_override != '';
+=> 1684
+
+# what is the earliest edition with a slug override?
+these are first set rather recently rather than historically.
+SELECT MIN(ID)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND slug_override IS NOT NULL AND slug_override != '';
+=> 1279446
+
+SELECT MAX(ID)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND slug_override IS NOT NULL AND slug_override != '';
+=>
+
+# slug != SO only
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override;
+=> 1648
+most of them
+
+# leaves 40 or so where we expect the SFT to be set because if slug=SO it must have been in previous migration
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND slug_override IS NOT NULL AND slug_override != '' AND slug = slug_override;
+=> 36
+
+# are all SFTs set for all the 36?
+SELECT slug, slug_from_title, type
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND slug_override IS NOT NULL AND slug_override != '' AND slug = slug_override;
+=> all set minus LP
+
+
+---------
+# drafts checks
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> 29
+
+# what do they look like?
+SELECT slug, slug_from_title, type
+FROM editions
+WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> all CIPs fine
+
+----------------
+After checks:
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> 27
+
+SELECT slug, slug_from_title, type
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> All CIPs
+
+---------------
+global query:
+TODO
+SELECT COUNT(*)
+FROM editions
+WHERE state NOT IN ('superseded', 'deleted')
+AND slug_from_title IS NULL;
+=> 63
+
+SELECT state, type, slug, slug_from_title
+FROM editions
+WHERE state NOT IN ('superseded', 'deleted')
+AND slug_from_title IS NULL;
+=> all LP & CI
+
+=======================================================================
+prod run
+
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> 427607
+
+# SO null
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (slug_override IS NULL OR slug_override = '')
+AND slug_from_title IS NULL;
+=> 426249
+
+# SO not null and not blank, but slug! = SO
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+AND slug_from_title IS NULL;
+=> 1358
+
+# created post migration
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (slug_override IS NOT NULL AND slug_override != '')
+AND slug != slug_override
+AND slug_from_title IS NOT NULL;
+=> 301
+
+# touched in the migration and published since
+SELECT id, type, slug, slug_override, slug_from_title
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (slug_override IS NOT NULL AND slug_override != '')
+AND slug = slug_override
+AND slug_from_title IS NOT NULL;
+=> 27
+
+
+output:
+I, [2026-05-06T15:44:47.991811 #21119]  INFO -- : Running 1 data migrations...
+I, [2026-05-06T15:44:48.033106 #21119]  INFO -- : =============================================
+I, [2026-05-06T15:44:48.033226 #21119]  INFO -- : Running data migration 20260505152712: Backfill slug from title on post publication editions
+Updated slug_from_title for 427605 editions
+I, [2026-05-06T15:44:58.789224 #21119]  INFO -- : Migration complete
+I, [2026-05-06T15:44:58.789284 #21119]  INFO -- : =============================================
+I, [2026-05-06T15:44:58.789295 #21119]  INFO -- :
+
+
+------
+After checks:
+SELECT COUNT(*)
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> 27
+
+SELECT slug, slug_from_title, type
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> All CIPs
+

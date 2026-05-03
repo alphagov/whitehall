@@ -1,0 +1,283 @@
+******************************************************************************************
+Summary
+******************************************************************************************
+Legend: SO = slug override; SFT = slug from title; CIP = Corporate Information Page; LP = Landing Page; WNS = World News Story
+
+The latest migration(s) we ran populated the SFT column with a title-based slug, but also set the slug, for all pre-publication editions. This was slightly overzealous, as at this point in time the code does not (correctly) set the slug column for new editions, just the SFT.
+
+Because this change did more than what we bargained for, but at a point in time where the code wasn't ready to handle it, we took a step back to validate some special cases, just to ensure that the migration did not cause any damage, and to understand the landscape of the data a bit better before we move forward with any further changes.
+
+There are so many moving factors here: 3 columns about slugs, two readers (slug and slug_from_title) changing what is returned in the code, the checkbox flipping values, under certain conditions, and all of that compounded by the editionable flow. On top of this there are special slug cases:
+- CIPs - have their own slug definition, and exit early in the set_slug method.
+- non-en primary locale editions - have different slug behaviours; these behaviours are even different between regular editions and config-driven editions. WNSs in particular had unexpected slugs set, and the checkbox behaviour was tricky to understand for these.
+- suffixed slugs seemed potentially problematic
+- Landing pages - TBC
+
+Overall, understanding what also makes sense from a data integrity perspective was also necessary. Leaving the slug columns with very inconsistent values, across different states and types, is not ideal, especially as we migrate types to config-driven. We hoped that understanding the data would help make better calls about the logic we want to implement, and the migrations we want to run, going forward. Overall adding a third column (i.e. slug_from_title) will allow us to manage the behaviours better, and manipulate the checkbox rendering.
+
+For context, the history of these changes is:
+- add slug column to editions
+- backfill slug column from document ID
+- add slug_override column to editions
+- set slug_override where edition slug was different from the document slug
+- remove document slug column
+- add a slug_from_title column to editions
+- run migration to backfill slug_from_title from title (where we also set slug to the value of either override or SFT)
+
+******************************************************************************************
+Validate as is - any weird behaviours from setting slug too early in the migration?
+******************************************************************************************
+
+SO present and slug = SO -> means there is no way to correctly fetch the slug from title where needed, as the SFT reader returns the override.
+Draft editions:
+- on a draft edition with an override, the checkbox should show (title is different from live) but in this case it does not (in fact, it displays for a split second and then hides)
+- the user is not getting the option to use SFT, effectively reverting to default behaviour we had previously, i.e. using live slug.
+- the document.live_edition slug = override via the slug reader for the live edition, and draft SFT = slug override (fetches the slug column which is SO) -> these are equal so the checkbox is not displayed
+
+SCOPE:
+select id, state, type, slug, slug_from_title, slug_override from editions
+where slug = slug_override
+and slug_override is NOT NULL
+and slug_override != ''
+AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+AND type NOT IN ('CorporateInformationPage');
+=> 8 + 3 PlanForChangeLandingPage
+
+Live editions
+- the only possible editions here are the ones in draft during migration
+Edition ID: 1783810 now published
+| id | slug | slug_from_title | slug_override |
+| 1783810 | register-to-vote-if-youre-in-the-armed-forces | register-to-vote-as-a-member-of-the-armed-forces-paper-form | register-to-vote-if-youre-in-the-armed-forces |
+live edition slug = override
+New draft from published:
+| 1786716 | register-to-vote-as-a-member-of-the-armed-forces-paper-form | register-to-vote-as-a-member-of-the-armed-forces-paper-form | register-to-vote-if-youre-in-the-armed-forces |
+sets SFT to title based, slug = sft and SO stays as it was ->  since SFT (i.e. slug) != live slug, it shows checkbox, and checkbox is checked.
+-> works as expected
+
+Scope:
+select id, state, type, slug, slug_from_title, slug_override from editions
+where slug = slug_override
+and slug_override is NOT NULL
+and slug_override != ''
+AND state IN ('published','withdrawn', 'unpublished')
+AND type NOT IN ('CorporateInformationPage');
+=> 29 + 7 PlanForChangeLandingPage
+
+******************************************************************************************
+Findings and considerations
+******************************************************************************************
+Refer to the query section below for explanations.
+
+###################################################
+1. Live editions (published, withdrawn, unpublished)
+###################################################
+- There are post-pub states where SFT and SO are not set, as expected since they were not included in migration, but slug is present in those cases, so all good.
+- Where SO missing, slug = SFT always, as expected
+- Where SO has been set, we have both cases of slug = SO or slug = SFT. Where slug = SO, SFT is also set, meaning these were in draft during migration. ALL OK
+
+TODO: **Implications**:
+- As-is: We expect live editions to be currently working as expected, when redrafted. The ones published since migration are also working as expected.
+- TODO: Investigate implications for not setting slug to SO when override is present.
+- Unsure if we need to set SFT for published editions pre-migration. TODO: any downsides to it not being set?
+- Although we already set the slug to the "accurate" value for some editions that were in draft during migration (and are now published), editions created and published since migration would not have the slug set, we need to TODO: include them in an additional migration. Since the slug_from_title should now hold the title-based slug (post migration), we should be able to just set the slug column to the value of either slug_override or slug_from_title, depending on which one is present. This can now be a more efficient SQL query.
+
+###################################################
+2. Do we care about superseded and deleted?
+###################################################
+No, we don't want to touch them as they are "correct" for that point in time
+
+**Implications**:
+Though it would be nice to have consistent values for all SFTs etc., and some not NULL constraints on SFT, we will be leaving these states out of future backfills. It is unlikely we will be setting SFT for all types anyway, so not a big deal to have some NULLs.
+
+#################################################################
+3. Pre publication states (draft, submitted, rejected, scheduled)
+#################################################################
+- SFT set for all, as the migration did not error for any editions
+- slug = SO or SFT for all, the way the migration intended
+- Where there is an override, slug = override for all editions prior to migration. After migration the code doesn't yet set the slug to the correct value.
+
+**Implications**:
+- Nothing alarming, bar some types where although the slug = SFT, they are both odd values (not title based). More below in non-en primary locale section.
+TODO: For editions created since migration, the slug column is not accurately set, but SFT is set to a title based slug. We just need to backfill slug to the value of either SO or SFT depending on which one is present.
+
+3.1. Special case - scheduled
+- Editions get scheduled with their ID as a job arg. If an edition was scheduled prior to migration, to run after migration, with the setting to use a title based slug, and a different slug was generated by our migration (it runs the set_slug callback without a title change), then would the scheduled job use the new slug? Yes it would, since the job only has the edition ID. Nonetheless, I am fairly confident that the slug crash is not possible because the slug candidate generator checks by document ID. Running the set_slug is fairly idempotent.
+
+3.2. Translations
+- Proper translations of another primary locale don't get custom slugs. This is the same regardless of the type (edition, standard edition).
+
+#################################################################
+4. Non-en primary locale
+#################################################################
+Background:
+- config driven editions (mostly wns but allowed for any) as well as consultations, collections and CFE allow setting a non-en primary - and set the slug based on title where locale supported. For non-supported locales, they set the slug to doc ID.
+- other editions exit the slug setting if primary is foreign -> seems mosty intentional since primary is likely not allowed for them (so the set slug code won't actually run for them)
+
+In current data, only StandardEdition, DocumentCollection, CFE and consultation have non en primaries.
+In the current data, no editions with non-en primary has a slug overrides set (not published, not pre-pub).
+
+Summary/stats of editions where primary locale is not en:
+Pre-publication:
+    - 140 total, out of which
+    - 116 WNS where slug = SFT = DOC ID
+    - remaining 24 where slug = title based slugs => 18 (collections, cons) + 6 WNS  => all babosa supported locales - either reslugged manually or created after migrating to config driven (roughly)
+Live with document ID slugs (out of ~1600 total where slug was either title based or doc ID):
+    - 1400 total, out of which
+    - 1398 WNS where slug = SFT = DOC ID
+    - remaining 2 are Document Collections where slug = SFT = DOC ID (not babosa supported)
+    - because they are published, SFT is not set
+    - again, many babosa supported languages, so they should have title based slugs in the future
+- Most foreign primaries are Standard editions (WNS + 2 news stories), and some collections. Foreign primaries also allowed for CFE and consultations, but none live atm -> out of these, WNS take the majority with document ID based slugs. Some collections using non supported language also have doc ID.
+- Only draft editions with doc IDs are WNS: they now have the slug and the SFT set to doc ID, even for supported languages, due to their history (as plain editions)
+- WNS have doc ID slugs because they used to be legacy editions, so their slugs were set to doc ID if the primary was foreign; all identified editions are prior to migrating news articles to config driven (before 2015).
+- Since the migration to config driven, new WNS can set title based slugs for babosa supported languages. Q: TODO: for wns - it would be interesting to note what the rules were for News article before.
+
+What did the migration set for WNS?
+- when we run the migration, the contextual locale is :en so the string_for_slug is nil for wns, so we exit the set_slug
+- Then the slug and slug_from_title readers return the DB value of slug, so we set SFT and slug to the value of slug from the db. If previous slugs were title based, that slug value is set for slug and SFT. If previous slugs were doc based, that doc ID gets set for slug and SFT.
+- This is how we end up with slug=SFT=DOC ID for most WNS. But some that are title based too.
+TODO: THIS - means it was safe what we ran and there are no issues with the as is! We basically just re-set slug to what it was and SFT to slug.
+
+What did the migration set for other types that support a foreign primary (not babosa supported) e.g. collection/CFE/cons in draft,  where slug was doc ID before?
+- when running set_slug, string_for_slug would be title, but babosa would not be able to produce a slug, the slug and SFT would be set to doc ID in memory, then the update_columns would set both slug and SFT to doc iD, which matches the live slug if present
+- if the locale is supported, they would just use title based slugs
+-> also safe, no change to the as is
+-> the checkbox would not show either way (AS IS)
+
+TODO Data clean up
+- Even if they work as expected, the numerical doc ID feels misleading, primarily because of babosa supported editions where it should just have title based. Babosa support -> not supported or only partially supported: es-419es (not a standard locale), zh-tw (babosa supports zh, not specifically zh-tw) -> Arabic is apparently supported. TODO: Possible Fix: regenerate the slugs and republish for what is now supported, including live ones, so they can have nice title based slugs.
+- For non supported languages we will still have to use DOC ID slug TODO -> needs a decision on whether this is best set as override or kept as is, if it's not causing issues (but data confusing).
+AI recomm: preserve the URL by moving the value into slug_override and regenerating slug_from_title from the title (see step 7b). Published URL stays document_id-based; data becomes self-describing; the keep-URL checkbox predicate works correctly on subsequent new editions of those documents -> step 7b.
+
+
+TODO: Possible code clean up
+- Don't use two different methods to define string_for_slug between legacy editions and config driven. We can allow title based slugs for regular editions if locale supported. We already do this for collections and consultations and CFE. I guess the other editions are not allowed to have foreign primaries. This should be a setting perhaps, and then the method called would take the setting into consideration. TODO: make a card and add it to the translations KR.
+- There are no other types that support foreign primaries outside the identifies ones. TODO Can we find a clearer way to specify which types are being considered in this set slug?  -> use the locale_can_be_changed?
+- Whereas before the slug was set to doc ID when we exited set_slug (there was a method on document model that set it to doc ID), what do we do now if we cannot set it? -> does it just 500? -> NO, it just saves since there is no not null constraint. Then the base_path method on edition eventually returns the document ID anyway when calling base_path for this edition. TODO: -> Should we set not null constraint on slug? Make it clearer
+
+Behaviour implications for wns:
+The exiting draft states:
+- when saved without title change, continues with old DOC id url, because set_slug does not run again
+- when saved with title change, if baboba supported, will generate title based language now
+- when saved with title change, if not babosa supported (no supported characters), it will MISLEADINGLY SHOW THE BOX - but still saves with DOC ID. TODO: BUGGY
+
+Published editions redrafted:
+-->if babosa supported (this includes titles with ANY characters that are supported alongside not supported ones eg 365196)
+- set slug runs, you see checkbox, SFT gets generated ok
+- you get the option to keep old url or new url -> OK for now, the slug WOULD change but in a good way, to title based for supported languages
+--> if not babosa supported:
+- no checkbox shown when edition is redrafted from published, saves with doc ID
+- when title changes on draft (with no babobsa supported characters at all), it will MISLEADINGLY SHOW THE BOX - but still saves with DOC ID. BUGGY
+
+
+TODO: map this out to understand what should live in our three slug columns to best support this. It seems we need to change how the checkbox renders anyway, as it is confusing for foreign.
+(AI suggestion) Also Known UX issue: for rows where sft resolves to document_id via the babosa-empty fallback, the keep-URL checkbox is a false choice. See cross-cutting 9. (when you modify the title but it's foreign)
+See CC7
+
+######################
+4. Suffixed slugs
+######################
+- Types with suffixes - Standard editions, consultations, publications, doc collection
+- The slug candidate generator checks by document ID, so fairly idempotent to rerun set_slug. There should be no issue with suffixed slugs.
+- Tested creating a new same title edition (goes at suffix +1) and then rerunning set slug -> same slug
+- The generated title based slugs are very incremented, but all slugs match SFT at least, and the user has the option to keep live slug.
+- Looked into some suffixed some slugs, and also checked them against the live edition slugs:
+    - no draft edition slugs (that have suffixes) correspond to live editions with slug overrides (though some cases look like they should, because the titles do not match the slug on the live)
+    - where slug overrides are set on the drafts, the slug = SO
+    - where slug override is not set - it is likely that the user changed the title and opted to use the new slug (even if it's suffixed).
+
+TODO **Implications**:
+When creating new drafts in this scenario - I did not see that alert about slug clashes. It put me on --2 but no alert. Some cases were unpublished editions.
+TODO: feels like a little card to look into whether alert correctly shows for unpublished states.
+
+######################
+5. Slug is NULL
+######################
+- Cases where all three columns are NULL or '', i.e. no slug column set. Only types are CIP some deleted editions, which is OK because CIPs set their own slugs, and we do not care about deleted.
+All good.
+
+
+########################
+6. Blank slug overrides
+########################
+SO gets set to '' when you unselect the override. This can be a SO set in the current draft or inherited from previous published edition.
+This is not an issue because the presence check in slug reader returns the SFT if SO is NULL or ''.
+
+TODO **Implication for future**:
+We need to make sure that when we set slug in the future - we still check for both NULL and '' on the SO.
+We should also maybe fix this is it's always NULL when saved.
+
+
+########################
+7. CIPs
+########################
+- There are no CIPs where locale != en
+- No blank SO
+- No SO at all for any state
+- No foreign primaries
+
+NULL slugs:
+=> 54 rows, including drafts, published etc. ALL slug columns are NULL where the slug is null.
+=> these are coincidentally all from early 2026 indicating that it's related to the fact that we don't set slugs from doc ID anymore (there used to be a ensure_slug method on document) -> I believe slugs should always be null now for all new CIPs - unless touched by migration, but there are some post migration - in draft - where the slug = DOC ID. I validated that a new one would get NULL slug in integration.
+
+Live ones:
+- Most published CIPs have a document ID slug and no SFT set -> except for 8 or so that were touched by migration where slug = hardcoded and SFT is doc id
+
+Pre-pub:
+- slug = hardcoded and SFT = doc ID (except for 6 where SFT is null, and slug = doc ID created after migration)
+- what migration did:
+    - set slug to hardcoded value (slug returns CIP type - hardcoded)
+    - SFT set to doc ID (previous db slug)
+- this mixed bag of slug settings does not affect behaviour, since their slugs still get set correctly due the methods inside the class
+
+What did the migration do for CIPs? - where slug was doc id
+- In the UI, it would persist slug as doc id on the new draft, and sft reader would just return the doc id, slug returns hardcoded slug, edition published ok.
+- But if we play the migration:
+    - set_slug => exits, nothing set
+    - update_column => slug reader returns hardcoded, sft returns returns doc id -> slug set to hardcoded, SFT set to doc id -> which is what we saw in the data
+
+Why they could have been a problem? I thought the check that hides the box would fail - i.e. live_edition.slug == edition.slug_from_title. In most cases that is actually true after migration (slug = hardcoded, SFT = DOC ID), thus allowing the box to render, and the user to change the slug. Nonetheless, none of these are an issue since we do not render the title at all for CIPs, so the checkbox is not an issue. Nonetheless, a call needs to be made to keep them in a good state for migrating to config driven.
+
+Implications: they are fine, we can clean them up but they really are not affected by anything atm. As long as we call slug in the important places. And they never render the checkbox so not an issue atm.
+TODO: In the future we need to make a call about where the slug should live - is it an override, or just slug? When migrating to config driven, they will need a way to say "using override", do not display title.
+-> should this pattern match the LP pattern?
+We can also set all to NULL for these. Add manages_own_slug? predicate and skip both callbacks. (AI suggestion)
+TODO: should we always set a slug rather than keep it null? Esp if we add not null constraint -> this would also ensure the slug is set for these, and we don't need delegates etc.
+They need to be tested when we make the changes just in case.
+
+
+
+########################
+13. LPs
+########################
+
+SFT has not been set for published ones, but is being set for drafts, but not really correctly (missing some paths) - but that's ok, that's why the override is there.
+As long as we keep setting an override for them, and that's what gets surfaced as the slug, they're  fine.
+The current overrides were probably set in the migration that backfilled overrides from document slugs.
+TODO: validate that the override is always set in code?
+TODO: would new editions set the override correctly in current code on main? Likely not, there is no way to do so. But their set slug would likely be correct? No idea.
+TODO: Implications: they need to be considered as a special case and validated. We can try to always set override for them (AI suggestion) or maybe do a manages_own_slug? option set for LP and CIP where all columns are null.
+
+
+******************************************************************************************
+Next steps
+******************************************************************************************
+Manual tests - what did we cover (as is)
+- e2e edition flow for existing draft and draft from published + migration
+- WNS flow
+- test CIPs and LPs
+- what about the wwo cips?
+
+Known issues:
+- the preview bug - what does the preview button use? Is that an issue we can ever fix in draft?
+- check behaviour for alerting on slug when creating a new draft? I did not see it (maybe it never shows on draft). But I saw it on some suffixes, when the title diverged, we got --2 but there was no alert.
+
+UI fixes:
+- the checkbox is confusing - we should tell you what the proposed url is!!
+- keep the current page URL is confusing! it sounds like you shoud keep the current title (slug from title) not the override
+- also very misleading for doc id based slugs! (esp WNS)
+
+Other:
+- have we completely removed the reslug view? Why? Will the title based reslug be enough? Would we ever need to reslug published things more programatically?
+-> we should probably reenable this and allow changing the override instead - we currently have no way to change the override unless it's with a title based slug.
+ be a bit different as we want to change what slug columns we use + other changes in search etc

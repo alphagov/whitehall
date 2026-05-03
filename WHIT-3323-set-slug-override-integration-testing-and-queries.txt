@@ -1,0 +1,416 @@
+******************************************************************************************
+Query breakdown
+******************************************************************************************
+# check how many impacted rows where slug will be overwritten with slug_override
+  SELECT count(*)
+  FROM editions e
+  WHERE e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override
+  AND e.state NOT IN ('deleted', 'superseded');
+  => 1694
+
+# number of nulls
+  SELECT count(*)
+  FROM editions e
+  WHERE e.slug_override IS NOT NULL
+  AND e.slug != e.slug_override
+  AND e.state NOT IN ('deleted', 'superseded');
+ => 4618
+
+# number of blanks
+  SELECT count(*)
+  FROM editions e
+  WHERE e.slug_override = ''
+  AND e.slug != e.slug_override
+  AND e.state NOT IN ('deleted', 'superseded');
+=> 2924
+
+# earlist where slug_override is blank
+  SELECT min(updated_at)
+  FROM editions e
+  WHERE e.slug_override = ''
+    AND e.slug != e.slug_override
+    AND e.state NOT IN ('deleted', 'superseded');
+=> 2026-04-09 14:10:06
+
+ #number of post-publiction impacted
+   SELECT count(*)
+   FROM editions e
+   WHERE state IN ('published','withdrawn', 'unpublished')
+   AND e.slug_override IS NOT NULL
+   AND e.slug_override != ''
+   AND e.slug != e.slug_override;
+=> 1647
+
+#number of pre-publiction impacted
+  SELECT count(*)
+  FROM editions e
+  WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override;
+=> 47
+
+#number of landing pages impacted
+  SELECT id, state, slug, slug_from_title, slug_override
+  FROM editions e
+  WHERE e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override
+  AND e.type = 'PlanForChangeLandingPage'
+  AND e.state NOT IN ('deleted', 'superseded');
+=> 2
+
+#number of non-english primaries with an SO
+  SELECT count(*)
+  FROM editions e
+  WHERE e.primary_locale != 'en'
+  AND e.slug_override IS NOT NULL
+  AND e.slug_override != '';
+=> 0
+
+#number of non-english primaries where slug doesn't match SO
+  SELECT count(*)
+  FROM editions e
+  WHERE e.primary_locale != 'en'
+  AND e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override;
+=> 0
+
+#slugs that use document id's and SO is different
+  SELECT count(*)
+  FROM editions e
+    WHERE e.slug_override IS NOT NULL
+    AND e.slug_override != ''
+    AND slug != slug_override
+    AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci;
+ => 0
+
+# non-english primaries with SO blank
+SELECT state, type, primary_locale
+FROM editions e
+WHERE e.primary_locale != 'en' AND e.slug_override = '';
+
+ +-----------+--------------------+----------------+
+ | state     | type               | primary_locale |
+ +-----------+--------------------+----------------+
+ | published | DocumentCollection | cy             |
+ | published | DocumentCollection | cy             |
+ | published | Consultation       | cy             |
+ | published | Consultation       | cy             |
+ | deleted   | Consultation       | cy             |
+ | published | Consultation       | cy             |
+ | published | StandardEdition    | zh-tw          |
+ | draft     | StandardEdition    | zh-tw          |
+ +-----------+--------------------+----------------+
+
+******************************************************************************************
+Integration tests in preparation for prod run
+******************************************************************************************
+
+Basic tests (deep coverage):
+
+1. Published and SO = null (10208) -> slug is title based
+- Republish OK
+- Make new draft from live
+- Does checkbox look correct? (yes, no checkbox, as no override) OK
+- Save with "keep live slug" checked; preview OK
+- Save with "keep new slug" checked; preview OK
+- Revert to previous checkbox option and save; preview OK
+- Publish; preview OK
+- Unpublish/Withdraw; preview OK
+
+2. Published with SO set (1776529)
+- Republish - updated at changed, no slug change OK
+- Make new draft from live
+- Does checkbox look correct? -> shows checked box OK
+- Save with "keep live slug" checked; preview OK
+- Save with "keep new slug" checked; preview OK
+- Revert to previous checkbox option and save; preview -> 🥁 issue with caching but preview is actually ok.
+- Publish; preview OK
+- Unpublish/Withdraw; preview OK
+
+3. Published SO null, but slug not title based (9055)
+- Republish OK
+- Make new draft from live
+- Does checkbox look correct? - we get an unchecked checkbox OK
+- Save with "keep live slug" checked; preview  OK
+- Save with "keep new slug" checked; preview OK
+- Revert to previous checkbox option and save; preview OK
+- Publish; preview OK
+- Unpublish/Withdraw; preview SKIP
+
+4. Draft from published with SO present (1727382)
+- Change title, save, preview
+- Change title, save, preview
+- Does checkbox look correct? -> ok checked
+- Save with "keep live slug" checked; preview  OK
+- Save with "keep new slug" checked; preview OK
+- Revert to previous checkbox option and save; preview OK
+- Publish OK
+
+5. Draft from published with no SO (1788567) - translations here!
+- Change title, save, preview
+- Does checkbox look correct? -> no box OK
+- Change title and save, preview OK
+- Save with "keep live slug" checked; preview  OK
+- Save with "keep new slug" checked; preview OK
+- Publish OK
+
+6. Withdrawn with no SO (1788492)
+- Republish OK
+- Unwithdraw -> published, OK
+- Redraft
+- Does checkbox look correct? -> no box, OK
+- Change title and save, preview OK
+- Save with "keep new slug" checked; preview OK
+- Save with "keep live slug" checked; preview
+- Revert to previous checkbox option and save; preview
+- Publish; preview SKIP
+- Unpublish/Withdraw; preview SKIP
+
+7. Withdrawn with SO set (1782658)
+- Republish OK
+- Unwithdraw -> published at SO slug, OK
+- Redraft
+- Does checkbox look correct? -> checked checkbox, OK
+- Save with "keep new slug" checked; preview OK
+- Save with "keep live slug" checked; preview OK
+- Save with "keep new slug" checked; preview OK
+- Change title -> save, preview OK, checkbox behaves OK
+
+8. Withdrawn with no SO but slug not title based (1774976) --2
+- Republish SKIP
+- Unwithdraw -> keeps the suffixes slug
+- Redraft ->
+- Does checkbox look correct? -> checkbox does not show, because live slug is --2 but current SFT is alsi generated with a --2 OK
+- Change title
+- Save with "keep live slug" checked; preview OK
+- Save with "keep new slug" checked; preview OK
+
+✅ This only worked on unwithdraw because the slug and SFT still generate the same slug as the live when redrafted and published.
+
+9. Withdrawn with no SO but slug not title based (781768) --4
+- when unwithdrawn gets published onto latest slug, but the latest slug is usually favourable if suffixed
+And the --4 redirects to the --2 so it doesn't actually break for anyone ✅
+🥁 The issue is with slugs where the live slug is basically an override - be it because of changes in the library that generates the slug or historical reslugs -> they would get published at new slug.
+This is not an issue for published data, just withdrawn -> unwithdrawn.
+TODO: run the query to identify any live states with divergence, but no suffixes.
+
+10. Unpublished and no SO (178837)
+- Make new draft from live
+- Does checkbox look correct? -> no checkbox because there is no live url so the code doesn't even render anything -> edition will behave like a first ever draft
+- Change title -> still no checkbox -> because no live edition slug
+- Publish; preview -> does publish at existing slug in this case, rather than redirecting away (was previously redirected)
+
+🥁 If by any chance the new slug differs from what was live, it would save to a new slug and there is no indication of that?
+🥁 What happens when we redraft unpublished and there is clash -> we don't show the clash error on drafts from live? This feels a bit like a mismatch in behaviour.
+
+11. Unpublished with slug that is not title based (8413)
+Previous link was deleted-
+- Make new draft from live
+- Does checkbox look correct? No checkbox as no live edition
+- Save -> Preview ->  does not show deleted in slug
+- Change title -> still no checkbox showing
+- Publish; preview -> published at link without "deleted"
+
+🤔 Again behaves like a new draft. Confirms the above, even a genuine slug would get overwritten.
+
+12. Unpublished with an SO - no such data in the DB
+
+Made a new News article to test this:
+- Make new draft from live
+-> does not show page address
+-> does not show checkbox as no live edition
+-> save -> preview -> keeps the override
+- Publish -> goes to correct override slug
+-> redraft -> shows checked checkbox.
+
+🥁 Unpublished view for StandardEdition doesn't seem to have a preview link at all? I thought this was important to see.
+
+13. Scheduled with an override (1787915)
+-> Preview -> shows override slug OK
+-> Force schedule -> goes to override OK
+
+14. Published with blank SO (1788658)
+- Make new draft from live
+- Does checkbox look correct? -> no checkbox, because SO is technically null and live slug = SFT
+- Change title -> save > preview OK
+OK behaves like SO is null.
+
+
+15. Translations - published with an override (1780028)
+There are 245 of these editions with SO and non en translations.
+- Make new draft from live
+- Does checkbox look correct? -> shows checked checkbox OK
+- Save with "keep live slug" checked; preview -> OK for both translations
+- Save with "keep new slug" checked; preview -> OK for both translations
+- Change title -> save, preview -> OK for both
+
+
+16. A config-driven edition with an override - basic flow (1780658)
+Make new draft from live
+- Does checkbox look correct? -> shows checked checkbox OK
+- Save with keep title based slug -> preview OK
+- Switch back to live slug -> preview OK
+
+
+17. WNS with non supported non-en primary, published (SO null, since SO is never set for the current data)
+ tw-zh 1788640
+
+live slug is document id
+- Make new draft from live
+-> see live page address
+- Does checkbox look correct? because the SFT is still generate as a document ID for non suppported OK
+- Change title -> see a checkbox
+- keep the title based url - save - preview -> still shows the document ID slug (the fake box issue) 🥁
+    - when editing the draft again - the live and current SFT are still the same so no checkbox - 🥁
+    - if you further edited the title -> checkbox shows and unchecked
+- keep title changed but select keep live slug -> save - preview -> still shows the doc ID (slug = sft = so = doc ID)
+    -> when editing again - still shows no box because the live and SFT are still the same
+    -> if you change the title again, you get a checked checkbox because you now have an override
+
+🥁
+The second you add any supported characters when changing the title:
+-> you then get a checkbox (unchecked if no SO)
+-> save - preview -> new slug look like [character or whatever latin](--4 optional).zh-tw
+-> if reverting to live slug -> preview OK (live)
+-> subsequent edits -> no checkbox but there is an override
+
+
+18. WNS with supported non-en primary, published (SO null, since SO is never set for the current data)
+currently it is live with a doc ID, but redrafting puts it on a title based slug
+
+(italian primary, 1738161)
+- Make new draft from live
+-> Does checkbox look correct? unchecked checkbox because no SO but SFT is now generated as title based OK
+-> Select Use title based slug - save preview - italian slug OK
+-> Select live slug -> save - preview -> keeps doc based slug OK
+
+✅ Conclusion: for these the user has the option to start using a title based slug once they redraft.
+
+
+19. Doc collection with supported non-en primary (cy) with SO blank
+- Make new draft from live
+- Does checkbox look correct? -> no checkbox, same as live OK
+- Change title - Shows checkbox, save, preview OK
+- Opt to keep live url -> preview OK
+- opted to keep title based -> preview OK
+
+20. Doc collection with non-supported non-en primary (1607226)
+- Make new draft from live
+- Does checkbox look correct? -> no checkbox, same as live OK
+- Change title - Shows unchecked checkbox,
+ - select new title (unchecked) save preview ->  still uses doc ID
+- select live slug -> save - preview -> keeps doc based slug OK
+
+🥁 SAME SAME AS WNS
+
+21. CIPs
+Any published CIP
+-> title never shows, no checkbox
+-> save - preview - publish all OK
+
+
+22. LP published
+Strong foundations:
+-> make new draft
+- Does checkbox look correct? -> shows checked checkbox OK as expected because we use SO
+- change title and select use new title
+    -> get an error because you cannot NOT have an SO for these ones 🥁 there is no way to use title based slug which is intentional but confusing in the UI atm
+- choose to use live slug -> save -> preview OK
+
+
+23. Create a new LP
+- with a nested path /blah/whatever
+-save - preview - published - slug OK
+
+
+24. Create a new config driven (NewsStory) - se if we can break it
+- keep changing title -> no checkbox
+- publish
+- redraft -> no checkbox
+- change tile
+-> keep the live slug -> check box
+    -> preview ok
+-> keep local slug -> preview ok
+-> keep the live slug - publish
+new draft from override
+-> checkbox shows as checked
+-> uncheck box -> publish
+-> redraft -> no checkbox
+
+
+25. Create a new edition consultation with non-en primary - see if we can break it
+- doc id in preview
+- change title while in first draft - no checkbox
+- publish - doc id slug
+- redraft
+- checkbox does not show because live and SFT same
+- change title with characters
+   -> keep local title has no effect (fake box) 🥁
+
+Same as previous tests.
+
+
+---------------------
+ Found issues:
+ - unpublished -> redraft - no checkbox due to lack of live edition 🤔
+ - withdrawn edition -> when we unwithdraw - it goes live at the slug value (title based) if slug is not SFT based and no SO / legacy data 🤔
+ - FLow: use live slug -> use title based -> use live slug -> preview link correct indicating live slug, but in draft it still redirects to the title based; this is a caching issue, not pub api issue; if cachebusted it works -> needs a fix as it can be very confusing for users 🥁
+ - The preview on the form does not update when you use the checkbox - not until you save it
+ - Identified LP issue with image usage not permitted
+ - Document updates showing twice? (monitoring this)
+
+- when unwithdrawn gets published onto latest slug, but the latest slug is usually favourable if suffixed
+And the --4 redirects to the --2 so it doesn't actually break for anyone ✅
+🥁 The issue is with slugs where the live slug is basically an override - be it because of changes in the library that generates the slug or historical reslugs -> they would get published at new slug.
+This is not an issue for published data, just withdrawn -> unwithdrawn.
+TODO: run the query to identify any live states with divergence, but no suffixes.
+
+Unpublished:
+🥁 If by any chance the new slug differs from what was live, it would save to a new slug and there is no indication of that?
+🥁 What happens when we redraft unpublished and there is clash -> we don't show the clash error on drafts from live? This feels a bit like a mismatch in behaviour.
+11. Unpublished with slug that is not title based (8413) - 🤔 Again behaves like a new draft. Confirms the above, even a genuine slug would get overwritten.
+🥁 Unpublished view for StandardEdition doesn't seem to have a preview link at all? I thought this was important to see.
+- Summary page also misses a link??
+
+WNS with non supp primaries / same for doc collections / anything new with non supported primaries
+- Does checkbox look correct? because the SFT is still generate as a document ID for non suppported OK
+- Change title -> see a checkbox
+- keep the title based url - save - preview -> still shows the document ID slug (the fake box issue) 🥁
+    - when editing the draft again - the live and current SFT are still the same so no checkbox - 🥁
+🥁
+The second you add any supported characters when changing the title:
+-> you then get a checkbox (unchecked if no SO)
+-> save - preview -> new slug look like [character or whatever latin](--4 optional).zh-tw
+
+WNS with supported primaries
+✅ Conclusion: for these the user has the option to start using a title based slug once they redraft.
+
+
+LPs
+- change title and select use new title
+    -> get an error because you cannot NOT have an SO for these ones 🥁 there is no way to use title based slug which is intentional but confusing in the UI atm
+
+
+----------------------------
+Other observations on title with spaces:
+🥁 When adding blank spaces to a title and selecting use title based slug
+- it strips the blank space when you come back to view it
+- no checkbox
+
+🥁 When adding blank spaces to a title and selecting use override
+- no checkbox because the values match
+- but we have now saved an override that matches the title....
+
+🥁 Make a decision on whether blanks being stored as null and '' as well makes sense
+
+
+****************
+Must fix (soon, but not blocking):
+***************
+- the preview link when there are multiple redirects when switching between SFT and SO.
+- withdrawn?

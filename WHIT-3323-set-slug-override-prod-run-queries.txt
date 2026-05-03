@@ -1,0 +1,103 @@
+# SFT CHECK
+SELECT id, type, slug, slug_override, slug_from_title
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> 28
+
+# totals
+  SELECT count(*)
+  FROM editions e
+  WHERE e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override
+  AND e.state NOT IN ('deleted', 'superseded');
+  => 1717
+
+# number of nulls
+  SELECT count(*)
+  FROM editions e
+  WHERE e.slug_override IS NOT NULL
+  AND e.slug != e.slug_override
+  AND e.state NOT IN ('deleted', 'superseded');
+ => 5054
+
+# number of blanks
+  SELECT count(*)
+  FROM editions e
+  WHERE e.slug_override = ''
+  AND e.slug != e.slug_override
+  AND e.state NOT IN ('deleted', 'superseded');
+=> 3337
+
+ #number of post-publiction impacted
+   SELECT count(*)
+   FROM editions e
+   WHERE state IN ('published','withdrawn', 'unpublished')
+   AND e.slug_override IS NOT NULL
+   AND e.slug_override != ''
+   AND e.slug != e.slug_override;
+=> 1661
+
+#number of pre-publiction impacted
+  SELECT count(*)
+  FROM editions e
+  WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override;
+=> 56
+
+
+#number of landing pages impacted
+  SELECT id, state, slug, slug_from_title, slug_override
+  FROM editions e
+  WHERE e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override
+  AND e.type = 'PlanForChangeLandingPage'
+  AND e.state NOT IN ('deleted', 'superseded');
+=> 1
+
+
+#number of non-english primaries with an SO
+  SELECT count(*)
+  FROM editions e
+  WHERE e.primary_locale != 'en'
+  AND e.slug_override IS NOT NULL
+  AND e.slug_override != '';
+=> 0
+
+# non-english primaries with SO blank
+SELECT state, type, primary_locale, slug, slug_override, slug_from_title
+FROM editions e
+WHERE e.primary_locale != 'en' AND e.slug_override = '';
+
+------------------------
+After check
+-------------------------
+
+SELECT id, type, slug, slug_override, slug_from_title
+FROM editions
+WHERE state IN ('published', 'withdrawn', 'unpublished')
+AND (
+  (slug_override IS NULL OR slug_override = '')
+  OR
+  (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
+)
+AND slug_from_title IS NULL;
+=> 28
+
+  SELECT count(*)
+  FROM editions e
+  WHERE e.slug_override IS NOT NULL
+  AND e.slug_override != ''
+  AND e.slug != e.slug_override
+  AND e.state NOT IN ('deleted', 'superseded');
+  => 0
+

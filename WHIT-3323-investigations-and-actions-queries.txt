@@ -1,0 +1,563 @@
+******************************************************************************************
+Query breakdown
+******************************************************************************************
+---------------------------------------------
+Published (published, withdrawn, unpublished)
+---------------------------------------------
+# Is slug correctly set to either SO or SFT?
+# If SO is set, then slug = SO? NO because we did not run the migration for live editions, OK
+SELECT id, updated_at, slug, slug_from_title, slug_override
+FROM editions
+  WHERE state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug_override IS NOT NULL AND slug_override != ''
+  AND slug != slug_override
+  ORDER BY updated_at DESC;
+  => 1.638k
+
+# WHERE SFT IS NULL
+SELECT id, updated_at, slug, slug_from_title, slug_override
+FROM editions
+  WHERE state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug_override IS NOT NULL AND slug_override != ''
+  AND slug != slug_override
+  AND slug_from_title IS NULL
+  ORDER BY updated_at DESC;
+=> 1390
+
+# Where SFT is set
+SELECT id, updated_at, slug, slug_from_title, slug_override
+FROM editions
+  WHERE state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug_override IS NOT NULL AND slug_override != ''
+  AND slug != slug_override
+  AND slug_from_title IS NOT NULL AND slug_from_title != ''
+  ORDER BY updated_at DESC;
+=> 248 -> all post migration drafts that have since been published
+
+# If both SFT and SO are set, does slug = SO? -> few, expected, OK
+SELECT id, created_at, updated_at
+FROM editions
+  WHERE state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug_override IS NOT NULL AND slug_override != ''
+  AND slug_from_title IS NOT NULL AND slug_from_title != ''
+  AND slug = slug_override
+  ORDER BY updated_at DESC;
+=> 29 - items that must have been in draft during migration, potentially redrafted and republished after - proven by the fact they all have SFT set. updated_at are after migration run.
+
+# All live not touched by migration (no SFT) where SO is set, is the slug != SO? yes, as it should, because we did not run the migration for live editions, OK
+SELECT id, created_at, updated_at
+FROM editions
+  WHERE state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug_from_title IS NULL
+  AND slug_override IS NOT NULL AND slug_override != ''
+  AND slug = slug_override;
+=> empty
+
+--------------------------------------------------------------
+Pre publication states (draft, submitted, rejected, scheduled)
+--------------------------------------------------------------
+# Is SFT set for all pre-pub states? YES, as expected (the migration did not error for any editions) OK
+SELECT id, slug, slug_from_title, slug_override
+FROM editions
+  WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND (slug_from_title IS NULL OR slug_from_title = '');
+=> empty
+
+# Is slug = SO or SFT for all, the way the migration intended? YES, as expected OK
+SELECT id, slug, slug_from_title, slug_override
+FROM editions
+  WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug_override IS NOT NULL AND slug_override != ''
+  AND slug != slug_override
+  AND slug = slug_from_title;
+=> 80
+
+# And specifically, if there is an override, is slug = override? Yes
+-> YES all up to and including migration time (SFT is set) - all slugs should be set to SO if SO is present.
+-> after migration you can have SFT and SO set, but slug not correctly set (no set_slug to accurate value in code)
+SELECT id, created_at, updated_at
+FROM editions
+  WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND (slug_from_title IS NOT NULL AND slug_from_title != '')
+  AND slug_override IS NOT NULL AND slug_override != ''
+  AND slug != slug_override
+  ORDER BY updated_at DESC;
+=> 75 rows; all updated at are post migration
+
+# And specifically, if there is NO override, is slug = SFT? Yes, always  OK
+SELECT id, created_at, slug, slug_from_title, slug_override
+FROM editions
+  WHERE state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND (slug_override IS NULL OR slug_override = '')
+  AND slug != slug_from_title;
+=> empty
+
+--------------------------------------------------------------
+Non-en primary locale
+--------------------------------------------------------------
+Everything that was valid for published and pre-pub states is also valid for non-en primary locale (so basically all OK), but we want to specifically check the WNS cases, as they were the ones that had the most unexpected values set.
+
+# Total non-en primaries
+SELECT id
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state NOT IN ('superseded', 'deleted')
+  AND type NOT IN ('CorporateInformationPage','LandingPage');
+=> 1799
+
+# by type
+SELECT id, type, configurable_document_type, COUNT(*)
+FROM editions
+WHERE primary_locale != 'en'
+AND type NOT IN ('CorporateInformationPage','LandingPage')
+GROUP BY type, configurable_document_type;
+
++---------+--------------------+----------------------------+----------+
+| id      | type               | configurable_document_type | COUNT(*) |
++---------+--------------------+----------------------------+----------+
+|  204704 | StandardEdition    | world_news_story           |     2324 |
+| 1161389 | DocumentCollection | NULL                       |      389 |
+| 1173669 | Consultation       | NULL                       |      191 |
+| 1654550 | CallForEvidence    | NULL                       |       10 |
+| 1758348 | StandardEdition    | press_release              |        1 |
+| 1770261 | StandardEdition    | news_story                 |        4 |
++---------+--------------------+----------------------------+----------+
+# locales of non wns?
+SELECT DISTINCT primary_locale
+FROM editions
+WHERE primary_locale != 'en'
+AND state NOT IN ('superseded', 'deleted')
+AND type NOT IN ('CorporateInformationPage','LandingPage')
+AND configurable_document_type != 'world_news_story';
+=> es-419, cy
+-> actually es-419 is meant to not be supported... -> just 1 news story, unpublished, of locale es-419, with title based slug
+
+----------------pre-publication non en primary locale editions
+# How many pre pub editions of non en primary are there?
+SELECT COUNT(*)
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND type NOT IN ('CorporateInformationPage','LandingPage');
+=> 140
+
+# Are there any pre-pub non-en editions with slug override?
+SELECT COUNT(*)
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug_override IS NOT NULL AND slug_override != '';
+=> 0
+
+# How many pre pub editions of non en primary have a slug that is different from slug from title? None, as expected.
+  SELECT id, slug, slug_from_title, slug_override
+  FROM editions
+    WHERE primary_locale != 'en'
+    AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+    AND type NOT IN ('CorporateInformationPage','LandingPage')
+    AND slug != slug_from_title;
+=> 0
+
+# How many of these have a doc id as slug?
+  SELECT id, created_at, updated_at, type, slug, slug_from_title, slug_override, configurable_document_type
+  FROM editions
+    WHERE primary_locale != 'en'
+    AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+    AND type NOT IN ('CorporateInformationPage','LandingPage')
+    AND slug = slug_from_title
+    AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+    ORDER BY updated_at DESC;
+=> 116 editions, ALL WNS
+
+# Deeper look - since config driven WNSs should set title based slugs, are these ones created/updated prior to migrating news articles to config driven? likely so
+-> we know the recent data migration doesn't correctly set the slug because the context locale in the migration is en; otherwise it would likely set a title based slug for these now.
+  SELECT id, created_at, updated_at
+  FROM editions
+    WHERE primary_locale != 'en'
+    AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+    AND type NOT IN ('CorporateInformationPage','LandingPage')
+    AND slug = slug_from_title
+    AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+    ORDER BY updated_at DESC;
+=> all created or updated before July 2025 ??
+
+# How many of these have a slug that is NOT doc ID, and what types are they? Were they updated prior to migration?
+  SELECT id, primary_locale, updated_at, type, slug, slug_from_title, slug_override, configurable_document_type
+  FROM editions
+    WHERE primary_locale != 'en'
+    AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+    AND type NOT IN ('CorporateInformationPage','LandingPage')
+    AND slug != CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci;
+=> 18 Document collection + consultation
++ 6 WNS that do have title based slugs
+=> all babosa supported locales - either reslugged manually or created after migrating to config driven
+
+# What sort of locales do the doc ID WNS have?
+SELECT DISTINCT primary_locale
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('draft', 'submitted', 'rejected', 'scheduled')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci;
+=> it    pt    es-419es    zh-tw lt    ja    ar    fr    ro    cs    zh    el    th
+-> actually most of these are babosa supported languages
+-> Not supported or only partially supported: es-419es (not a standard locale), zh-tw (babosa supports zh, not specifically zh-tw)
+
+----------------published non en primary locale editions
+# What about **published** non-en primary locale editions? Which ones have slugs as doc ID?
+SELECT id, primary_locale, type, slug, slug_from_title, slug_override, configurable_document_type, COUNT(*)
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+  GROUP BY type, configurable_document_type;
+=> returns 1398 WNS and 2 DocumentCollections, mixed locales, supported ones too.
+
+# Deeper look:
+SELECT id, primary_locale, type, slug, slug_from_title, slug_override
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci;
+
+
+# How many in total where slug is title based?
+SELECT id, primary_locale, type, slug, slug_from_title, slug_override
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('published','withdrawn', 'unpublished')
+  AND slug != CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+  AND type NOT IN ('CorporateInformationPage','LandingPage');
+=> 260
+
+# Are there any with a slug override? No.
+SELECT id, primary_locale, type, slug, slug_from_title, slug_override
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+  AND slug_override IS NOT NULL AND slug_override != '';
+=> empty
+
+# do any of them have SFT? No.
+SELECT id, state, primary_locale, created_at type, slug, slug_from_title
+FROM editions
+    WHERE primary_locale != 'en'
+    AND state IN ('published','withdrawn', 'unpublished')
+    AND type NOT IN ('CorporateInformationPage','LandingPage')
+    AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+    AND slug_from_title IS NOT NULL AND slug_from_title != ''
+    ORDER BY created_at DESC;
+=> empty
+
+# What sort of locales do live ones have?
+SELECT DISTINCT primary_locale
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci;
+=> pl el it fr de pt es-419 ja ur lt uk ru fa zh-tw cs he bg th ko sr az zh ro hi hu kk sk fi
+-> not supported es-419 (not a standard locale); zh-tw (babosa supports zh, not specifically zh-tw)
+
+# deeper look into published non en primaries with doc id slugs
+SELECT id, primary_locale, type, slug, slug_from_title, slug_override
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+  LIMIT 2;
++--------+----------------+-----------------+--------+-----------------+---------------+
+| id     | primary_locale | type            | slug   | slug_from_title | slug_override |
++--------+----------------+-----------------+--------+-----------------+---------------+
+| 204864 | pl             | StandardEdition | 171176 | NULL            | NULL          |
+| 205325 | el             | StandardEdition | 171317 | NULL            | NULL          |
++--------+----------------+-----------------+--------+-----------------+---------------+
+=> because they are published, there is no SFT.
+=> again, babosa supported languages, so they should have SFTs in the future.
+
+# Deeper look - since config driven WNSs should set title based slugs, are these ones crated/published prior to migrating news articles to config driven?
+SELECT id, state, primary_locale, created_at, first_published_at, slug, slug_from_title
+FROM editions
+    WHERE primary_locale != 'en'
+    AND state IN ('published','withdrawn', 'unpublished')
+    AND type NOT IN ('CorporateInformationPage','LandingPage')
+    AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+    AND configurable_document_type = 'world_news_story'
+    ORDER BY created_at DESC;
+=>1398
+-> most are from before 2025 - 2026 ones are in unsupported locales
+and one finnish one which may have been some import from content publisher as it looks odd
++---------+-------------+----------------+---------------------+---------------------+--------+-----------------+
+| id      | state       | primary_locale | created_at          | first_published_at  | slug   | slug_from_title |
++---------+-------------+----------------+---------------------+---------------------+--------+-----------------+
+| 1781362 | published   | zh-tw          | 2026-04-08 08:28:55 | 2026-04-08 08:34:18 | 614360 | NULL            |
+| 1776401 | published   | zh-tw          | 2026-03-24 06:53:10 | 2026-03-19 08:42:00 | 612186 | NULL            |
+| 1776400 | published   | zh-tw          | 2026-03-24 01:55:50 | 2026-03-24 02:51:00 | 612969 | NULL            |
+| 1760315 | published   | fi             | 2026-02-03 08:53:13 | 2025-02-13 00:00:00 | 577746 | NULL            |
+| 1743008 | published   | zh-tw          | 2025-12-02 08:06:49 | 2025-12-03 01:23:17 | 603660 | NULL            |
+| 1738161 | published   | it             | 2025-11-18 07:27:51 | 2025-07-24 23:00:00 | 590891 | NULL            |
++---------+-------------+----------------+---------------------+---------------------+--------+-----------------+
+
+# what about the two collections?
+SELECT id, primary_locale, type, slug, slug_from_title, slug_override
+FROM editions
+  WHERE primary_locale != 'en'
+  AND state IN ('published','withdrawn', 'unpublished')
+  AND type NOT IN ('CorporateInformationPage','LandingPage')
+  AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci
+    AND type = 'DocumentCollection';
++---------+----------------+--------------------+--------+-----------------+---------------+
+| id      | primary_locale | type               | slug   | slug_from_title | slug_override |
++---------+----------------+--------------------+--------+-----------------+---------------+
+| 1607226 | uk             | DocumentCollection | 519766 | NULL            | NULL          |
+| 1607235 | ru             | DocumentCollection | 519765 | NULL            | NULL          |
++---------+----------------+--------------------+--------+-----------------+---------------+
+=> these two are not babosa supprted so it makes sense that the slug is using doc ID
+
+
+--------------------------------------------------------------
+Suffixed slugs
+--------------------------------------------------------------
+What was valid for the larger groups is also valid here. Pre-pub:
+- If no override is set, slug= SFT always
+- If the override is set, slug = SO, unless created after migration
+
+# How many pre-pub editions with a suffixed slug have an override set?
+SELECT e.type, e.state, e.created_at, e.updated_at, e.slug, e.slug_from_title, e.slug_override
+FROM editions e
+WHERE e.slug RLIKE '--[0-9]+$'
+  AND e.state IN ('draft','submitted','rejected','scheduled')
+  AND (e.slug_override IS NULL OR e.slug_override = '');
+=> 933
+
+# If override is set, is slug = SO = live edition override? yes, override is "inherited"
+SELECT e.type, e.state, e.created_at, e.updated_at, e.slug, e.slug_from_title, e.slug_override, e2.slug_override as live_slug_override
+FROM editions e
+JOIN documents d
+ON e.document_id = d.id
+JOIN editions e2
+ON e2.id = d.live_edition_id
+WHERE e.slug RLIKE '--[0-9]+$'
+  AND e.state IN ('draft','submitted','rejected','scheduled')
+  AND (e.slug_override IS NULL OR e.slug_override = '')
+  AND e.slug = e.slug_from_title
+  AND e.slug != e2.slug_override;
+=> empty
+
+# Do any of these have live edition with slug_overrides?
+SELECT e.type, e.state, e.created_at, e.updated_at, e.slug, e.slug_from_title, e.slug_override, e2.slug_override as live_slug
+FROM editions e
+JOIN documents d
+ON e.document_id = d.id
+JOIN editions e2
+ON e2.id = d.live_edition_id
+WHERE e.slug RLIKE '--[0-9]+$'
+  AND d.live_edition_id IS NOT NULL
+  AND e.state IN ('draft','submitted','rejected','scheduled')
+  AND (e.slug_override IS NULL OR e.slug_override = '')
+  AND e.slug = e.slug_from_title
+  AND e2.slug_override IS NOT NULL AND e2.slug_override != '';
+=> empty - meaning the user did not opt out of the slug override, it was never inherited from the live edition.
+
+# If no override is set for the current draft, is slug = SFT = live edition override slug?
+Not always, as the user may have now changed the title and selected to use the new slug.
+
+SELECT e.type, e.state, e.created_at, e.updated_at, e.slug, e.slug_from_title, e.slug_override, e2.slug as live_slug
+FROM editions e
+JOIN documents d
+ON e.document_id = d.id
+JOIN editions e2
+ON e2.id = d.live_edition_id
+WHERE e.slug RLIKE '--[0-9]+$'
+  AND d.live_edition_id IS NOT NULL
+  AND e.state IN ('draft','submitted','rejected','scheduled')
+  AND (e.slug_override IS NULL OR e.slug_override = '')
+  AND e.slug = e.slug_from_title
+  AND e2.slug_override IS NULL
+  AND e.slug != e2.slug
+  ORDER BY e.updated_at;
+=> 79 rows - where the user left the box unchecked and saved
+
+Few examples:
+SELECT e.id, e.updated_at, e.slug, e.slug_from_title, e2.slug as live_slug
+FROM editions e
+JOIN documents d
+ON e.document_id = d.id
+JOIN editions e2
+ON e2.id = d.live_edition_id
+WHERE e.slug RLIKE '--[0-9]+$'
+  AND d.live_edition_id IS NOT NULL
+  AND e.state IN ('draft','submitted','rejected','scheduled')
+  AND (e.slug_override IS NULL OR e.slug_override = '')
+  AND e.slug = e.slug_from_title
+  AND e2.slug_override IS NULL
+  AND e.slug != e2.slug
+  ORDER BY e.updated_at;
+
++---------------------------+------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| slug         | slug_from_title         | live_slug                               |
++---------------------------+------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| 1717769 | august-2025-transaction-data--2         | august-2025-transaction-data--2            | july-2025-transaction-data                   |
+| 1731725 | expired-legal-services-general-licences-2023-2025--2    | expired-legal-services-general-licences-2023-2025--2    | legal-services-general-licence                |
+| 1709467 | improvement-notice-issued-to-rochdale-borough-council-april-2014--2     | improvement-notice-issued-to-rochdale-borough-council-april-2014--2 | improvement-notice-issued-to-rochdale-council |
+| 1604584 | dominica-prisoner-pack--2     | dominica-prisoner-pack--2  | dominica-prisoner-pack-2019
++---------------------------+------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+-> this is not really specific to suffixed slugs, this is valid scenario for anything.
+
+--------------------------------------------------------------
+BLANK OVERRIDES
+--------------------------------------------------------------
+select COUNT(*) from editions e where e.slug_override='';
++----------+
+| COUNT(*) |
++----------+
+|     2793 |
+
+--------------------------------------------------------------
+CIPs
+--------------------------------------------------------------
+# Override set for any? NO, none
+Select id, primary_locale, state, created_at, updated_at, slug, slug_from_title, slug_override
+from editions
+where type = "CorporateInformationPage"
+AND slug_override IS NOT NULL AND slug_override != '';
+
+# any null slugs?
+Select id, primary_locale, state, created_at, updated_at, slug, slug_from_title, slug_override
+from editions
+where type = "CorporateInformationPage"
+AND slug IS NULL;
+=> 54 rows, including drafts, published etc. ALL slug columns are NULL where the slug is null.
+=> these are coincidentally all from early 2026 noting the removal of the document ID slug fallback -> so slug is now null, unless set by latest migrations.
+-> what do latest ones set for slug? -> should really be null all the time now - but we do have some drafts where the slug is set to DOC id, created post migrations.
+
+-> live ones -------------------
+# what do most live ones looks like? - slug = doc ID, SFT not set.
++---------+--------------------------------------------+-----------------+---------------+
+| id      | slug                                       | slug_from_title | slug_override |
++---------+--------------------------------------------+-----------------+---------------+
+|  329712 | 233789                                     | NULL            | NULL          |
+|  329714 | 233791                                     | NULL            | NULL          |
+|  329744 | 233821                                     | NULL            | NULL          |
+|  329746 | 233823                                     | NULL            | NULL          |
+|  329761 | 233838                                     | NULL            | NULL          |
+|  329764 | 233841                                     | NULL            | NULL          |
+|  329781 | 233858                                     | NULL            | NULL          |
+|  329921 | 233998                                     | NULL            | NULL          |
+|  329940 | 234017                                     | NULL            | NULL          |
+|  330117 | 234194                                     | NULL            | NULL          |
+|  330131 | 234208                                     | NULL            | NULL          |
++---------+--------------------------------------------+-----------------+---------------+
+
+# SFT set for any live ones? -> yes a few - timestamp indicates that they were updated after migration, so slug was set from the model on save, SFT was set in the migration before.
+
+Select id, updated_at, primary_locale, state, slug, slug_from_title, slug_override
+from editions
+where type = "CorporateInformationPage"
+and state IN ('published', 'withdrawn', 'unpublished')
+AND slug_from_title IS NOT NULL AND slug_from_title != '';
+=> 5 rows
++---------+---------------------+----------------+-----------+----------------------+-----------------+---------------+
+| id      | updated_at          | primary_locale | state     | slug                 | slug_from_title | slug_override |
++---------+---------------------+----------------+-----------+----------------------+-----------------+---------------+
+| 1766651 | 2026-04-20 11:05:49 | en             | published | complaints-procedure | 247743          | NULL          |
+| 1782000 | 2026-04-17 14:41:44 | en             | published | about                | 236492          | NULL          |
+| 1784108 | 2026-04-20 08:11:49 | en             | published | our-governance       | 488604          | NULL          |
+| 1784174 | 2026-04-17 17:56:56 | en             | published | our-governance       | 451042          | NULL          |
+| 1784177 | 2026-04-17 17:56:54 | en             | published | social-media-use     | 450628          | NULL          |
++---------+---------------------+----------------+-----------+----------------------+-----------------+---------------+
+
+# Do all live ones have slug as doc ID? no - some don't -> the ones updated after migration have SFT set, other do not. All have slug set, as it would be set on save, from the model logic.
+Select id, primary_locale, state, created_at, updated_at, slug, slug_from_title, slug_override
+from editions
+where type = "CorporateInformationPage"
+and state IN ('published', 'withdrawn')
+AND slug != CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci;
+=> 8
++---------+----------------+-----------+---------------------+---------------------+---------------------------+-----------------+---------------+
+| id      | primary_locale | state     | created_at          | updated_at          | slug                      | slug_from_title | slug_override |
++---------+----------------+-----------+---------------------+---------------------+---------------------------+-----------------+---------------+
+| 1629038 | en             | published | 2024-12-02 10:24:02 | 2024-12-02 10:28:44 | deleted-about-us--13      | NULL            | NULL          |
+| 1766651 | en             | published | 2026-02-23 11:02:15 | 2026-04-20 11:05:49 | complaints-procedure      | 247743          | NULL          |
+| 1769146 | en             | published | 2026-03-02 11:44:56 | 2026-03-02 15:28:08 | deleted-about-us--14      | NULL            | NULL          |
+| 1777073 | en             | published | 2026-03-25 09:59:45 | 2026-03-26 09:30:22 | deleted-statistics-at-dft | NULL            | NULL          |
+| 1782000 | en             | published | 2026-04-09 11:44:05 | 2026-04-17 14:41:44 | about                     | 236492          | NULL          |
+| 1784108 | en             | published | 2026-04-16 15:06:37 | 2026-04-20 08:11:49 | our-governance            | 488604          | NULL          |
+| 1784174 | en             | published | 2026-04-17 07:23:17 | 2026-04-17 17:56:56 | our-governance            | 451042          | NULL          |
+| 1784177 | en             | published | 2026-04-17 07:36:32 | 2026-04-17 17:56:54 | social-media-use          | 450628          | NULL          |
++---------+----------------+-----------+---------------------+---------------------+---------------------------+-----------------+---------------+
+
+
+-> pre pub ones -------------------
+Select id, primary_locale, state, created_at, updated_at, slug, slug_from_title, slug_override
+from editions
+where type = "CorporateInformationPage"
+and state IN ('draft', 'submitted', 'rejected', 'scheduled');
+- SFT set to doc id or NULL
+- most slugs = hardcoded slug
+- some slugs = doc id
+- no overrides
+
+# how many where slug = doc id? 6 - and they are all created after migration and after the removal of the document method that ensured the slug gets populated to doc is - so unsure why this is the case. They should really be null?
+
+Select id, primary_locale, state, created_at, updated_at, slug, slug_from_title, slug_override
+from editions
+where type = "CorporateInformationPage"
+and state IN ('draft', 'submitted', 'rejected', 'scheduled')
+AND slug = CAST(document_id AS CHAR) COLLATE utf8mb4_unicode_ci;
++---------+----------------+-----------+---------------------+---------------------+--------+-----------------+---------------+
+| id      | primary_locale | state     | created_at          | updated_at          | slug   | slug_from_title | slug_override |
++---------+----------------+-----------+---------------------+---------------------+--------+-----------------+---------------+
+| 1784849 | en             | draft     | 2026-04-20 15:23:04 | 2026-04-20 15:50:40 | 450567 | NULL            | NULL          |
+| 1785485 | en             | draft     | 2026-04-22 11:28:00 | 2026-04-24 09:41:44 | 234167 | NULL            | NULL          |
+| 1786284 | en             | draft     | 2026-04-24 09:01:34 | 2026-04-24 11:38:31 | 233954 | NULL            | NULL          |
+| 1786384 | en             | draft     | 2026-04-24 11:00:56 | 2026-04-24 11:04:33 | 264956 | NULL            | NULL          |
+| 1785403 | en             | submitted | 2026-04-22 10:25:02 | 2026-04-22 10:26:10 | 605399 | NULL            | NULL          |
+| 1785791 | en             | submitted | 2026-04-23 09:00:51 | 2026-04-23 09:06:22 | 253335 | NULL            | NULL          |
++---------+----------------+-----------+---------------------+---------------------+--------+-----------------+---------------+
+
+# Any non en CIPs? no
+Select id, primary_locale, state, created_at, updated_at, slug, slug_from_title, slug_override
+from editions
+where type = "CorporateInformationPage"
+AND primary_locale != 'en';
+=> empty
+
+
+--------------------------------------------------------------
+LPs
+--------------------------------------------------------------
+Select state, created_at, slug, slug_from_title, slug_override
+from editions
+where type = "LandingPage"
+AND state NOT IN ('superseded', 'deleted');
++-----------+---------------------+----------------------------------+---------------------------------+------------------------------+
+| state     | created_at          | slug                             | slug_from_title                 | slug_override                |
++-----------+---------------------+----------------------------------+---------------------------------+------------------------------+
+| published | 2025-03-10 11:29:02 | /missions                        | NULL                            | /missions                    |
+| published | 2025-03-10 11:39:32 | /missions/opportunity            | NULL                            | /missions/opportunity        |
+| published | 2025-03-10 11:41:47 | /missions/clean-energy           | NULL                            | /missions/clean-energy       |
+| published | 2025-03-10 11:44:04 | /missions/economic-growth        | NULL                            | /missions/economic-growth    |
+| published | 2025-03-10 11:47:06 | /missions/strong-foundations     | NULL                            | /missions/strong-foundations |
+| draft     | 2025-03-24 12:29:15 | /missions                        | plan-for-change                 | /missions                    |
+| published | 2025-05-19 11:57:27 | /missions/nhs                    | NULL                            | /missions/nhs                |
+| draft     | 2025-05-22 09:21:44 | /missions/strong-foundations     | strong-foundations              | /missions/strong-foundations |
+| draft     | 2025-07-21 09:32:30 | /missions/nhs                    | build-an-nhs-fit-for-the-future | /missions/nhs                |
+| published | 2025-09-30 11:26:21 | /missions/safer-streets          | NULL                            | /missions/safer-streets      |
+| published | 2026-04-13 16:24:46 | delivering-reduced-waiting-times | NULL                            | /missions/nhs/progress       |
++-----------+---------------------+----------------------------------+---------------------------------+------------------------------+
