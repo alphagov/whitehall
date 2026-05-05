@@ -213,7 +213,7 @@ GEM
     execjs (2.10.0)
     expgen (0.1.1)
       parslet
-    factory_bot (6.5.6)
+    factory_bot (6.6.0)
       activesupport (>= 6.1.0)
     fakeredis (0.9.2)
       redis (~> 4.8)
@@ -388,7 +388,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
-    json (2.19.4)
+    json (2.19.5)
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
