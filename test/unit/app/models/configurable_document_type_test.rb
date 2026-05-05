@@ -1,6 +1,76 @@
 require "test_helper"
 
 class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
+  test "#title_for_attribute strips numeric index segments and returns the field title" do
+    type_config = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "field_attribute" => {
+              "title" => "Test Attribute",
+              "attribute_path" => %w[field_attribute],
+            },
+          },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(type_config)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal "Test Attribute", document_type.title_for_attribute("field_attribute.0")
+  end
+
+  test "#title_for_attribute returns the title for a nested field" do
+    type_config = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "outer_field" => {
+              "title" => "Outer Field",
+              "attribute_path" => %w[outer_field],
+              "fields" => {
+                "inner_field" => {
+                  "title" => "Inner Field Title",
+                  "attribute_path" => %w[inner_field],
+                },
+              },
+            },
+          },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(type_config)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal "Inner Field Title", document_type.title_for_attribute("outer_field.0.inner_field")
+  end
+
+  test "#title_for_attribute returns the configured title for a field whose attribute_path includes 'block_content', so error messages use the exact label from the document type config rather than Rails' default humanisation" do
+    type_config = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "social_media_links" => {
+              "title" => "Social Media Links",
+              "attribute_path" => %w[block_content social_media_links],
+            },
+          },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(type_config)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal "Social Media Links", document_type.title_for_attribute("social_media_links")
+  end
+
+  test "#title_for_attribute returns nil for an unrecognised attribute" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_nil document_type.title_for_attribute("nonexistent_attribute")
+  end
+
   test ".find raises an error if the type is not specified" do
     error = assert_raises(ConfigurableDocumentType::NotFoundError) { ConfigurableDocumentType.find(nil) }
     assert_equal "No document type specified", error.message
