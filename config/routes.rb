@@ -411,10 +411,6 @@ Whitehall::Application.routes.draw do
           post :unfeature, on: :member
         end
       end
-      resources :case_studies, path: "case-studies", except: [:index]
-      if Rails.env.test?
-        resources :generic_editions, path: "generic-editions"
-      end
 
       resources :governments, except: [:destroy] do
         member do

@@ -347,8 +347,8 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       end
 
       test "only republishes each document once even if the document has multiple editions" do
-        case_study = create(:published_case_study)
-        create(:draft_case_study, document: case_study.document)
+        case_study = create(:published_standard_edition)
+        create(:draft_standard_edition, document: case_study.document)
         PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).once.with(
           "bulk_republishing",
           case_study.document_id,
@@ -361,7 +361,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
     context "for editionable content types that also have configurable document types" do
       test "republishes content for the specified type and configurable types via the PublishingApiDocumentRepublishingJob" do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("case_study"))
-        case_study_type = create(:published_case_study)
+        case_study_type = create(:published_standard_edition)
         standard_edition_case_study_type = create(:published_standard_edition, :with_organisations, { configurable_document_type: "case_study" })
         [case_study_type, standard_edition_case_study_type].each do |article|
           PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(

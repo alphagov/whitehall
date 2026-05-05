@@ -7,7 +7,7 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
 
   describe "shareable preview feature" do
     context "for draft documents" do
-      let(:edition) { create(:draft_case_study) }
+      let(:edition) { create(:draft_standard_edition) }
 
       before do
         create_setup(edition)
@@ -20,7 +20,7 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "for published documents" do
-      let(:edition) { create(:published_case_study) }
+      let(:edition) { create(:published_standard_edition) }
 
       before do
         create_setup(edition)

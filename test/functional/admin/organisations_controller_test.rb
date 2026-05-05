@@ -420,7 +420,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "the featurables tab should display information regarding max documents" do
-    first_feature = build(:feature, document: create(:published_case_study).document, ordering: 1)
+    first_feature = build(:feature, document: create(:published_standard_edition).document, ordering: 1)
     organisation = create(:organisation)
     create(:feature_list, locale: :en, featurable: organisation, features: [first_feature])
     get :features, params: { id: organisation }

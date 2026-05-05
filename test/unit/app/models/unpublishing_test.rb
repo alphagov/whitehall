@@ -158,7 +158,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "Unpublishing.from_slug returns the most recent unpublishing" do
-    case_study          = create(:published_case_study)
+    case_study          = create(:published_standard_edition)
     _first_unpublishing = create(:unpublishing, edition: case_study, slug: case_study.slug)
     new_edition         = case_study.create_draft(create(:user))
     second_unpublishing = create(:unpublishing, edition: new_edition, slug: new_edition.slug)

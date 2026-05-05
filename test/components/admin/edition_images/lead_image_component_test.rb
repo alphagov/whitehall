@@ -13,7 +13,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "renders the correct lead image guidance for case studies" do
-    edition = build_stubbed(:draft_case_study)
+    edition = build_stubbed(:draft_standard_edition)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     first_para = "Using a lead image is optional. To use a lead image either select the default image for your organisation or upload an image and select it as the lead image."
@@ -25,7 +25,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
 
   test "renders the correct default fields when a lead image is present" do
     image = build_stubbed(:image, image_data: build(:image_data), caption: "caption")
-    edition = build_stubbed(:draft_case_study, images: [image], lead_image: image)
+    edition = build_stubbed(:draft_standard_edition, images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-one-third img[alt='Lead image']"
@@ -36,7 +36,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
 
   test "renders placeholder text for caption when none has been provided" do
     image = build_stubbed(:image, caption: nil)
-    edition = build_stubbed(:draft_case_study, images: [image], lead_image: image)
+    edition = build_stubbed(:draft_standard_edition, images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: None"
@@ -44,7 +44,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
 
   test "renders a processing tag if not all lead image assets are uploaded" do
     image = build(:image, image_data: build(:image_data_with_no_assets))
-    edition = create(:draft_case_study, images: [image], lead_image: image)
+    edition = create(:draft_standard_edition, images: [image], lead_image: image)
 
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
@@ -53,14 +53,14 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "does not render information on lead image if no lead image is present" do
-    edition = build_stubbed(:draft_case_study, image_display_option: "no_image")
+    edition = build_stubbed(:draft_standard_edition, image_display_option: "no_image")
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".app-c-edition-images-lead-image-component__lead_image", count: 0
   end
 
   test "case studies has the correct fields when image_display_option is 'no_image' and no images have been uploaded" do
-    edition = build_stubbed(:draft_case_study, image_display_option: "no_image")
+    edition = build_stubbed(:draft_standard_edition, image_display_option: "no_image")
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']" do
@@ -71,7 +71,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
 
   test "case studies has the correct fields when image_display_option is 'no_image' and images have been uploaded" do
     image = build_stubbed(:image)
-    edition = build_stubbed(:draft_case_study, image_display_option: "no_image", images: [image])
+    edition = build_stubbed(:draft_standard_edition, image_display_option: "no_image", images: [image])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector "input[type='hidden'][name='edition[image_display_option]'][value='organisation_image']", visible: :hidden
@@ -79,7 +79,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   end
 
   test "case studies has the correct fields when image_display_option is 'organisation_image' and no images have been uploaded" do
-    edition = build_stubbed(:draft_case_study, image_display_option: "organisation_image")
+    edition = build_stubbed(:draft_standard_edition, image_display_option: "organisation_image")
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']" do
@@ -90,7 +90,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
 
   test "case studies has the correct fields when image_display_option is 'custom_image' and images have been uploaded" do
     image = build_stubbed(:image)
-    edition = build_stubbed(:draft_case_study, image_display_option: "custom_image", images: [image], lead_image: image)
+    edition = build_stubbed(:draft_standard_edition, image_display_option: "custom_image", images: [image], lead_image: image)
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector "form[action='#{update_image_display_option_admin_edition_path(edition)}']" do
@@ -102,7 +102,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   test "case studies renders the organisations default_lead_image when image_display_option is 'organisation_image'" do
     image = build(:featured_image_data)
     organisation = build(:organisation, default_news_image: image)
-    edition = create(:draft_case_study, image_display_option: "organisation_image", lead_organisations: [organisation])
+    edition = create(:draft_standard_edition, image_display_option: "organisation_image", lead_organisations: [organisation])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".app-c-edition-images-lead-image-component__default_lead_image img[alt='Default organisation image']"
@@ -112,7 +112,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   test "case studies renders the organisations default_lead_image when image_display_option is nil and no lead image is present" do
     image = build(:featured_image_data)
     organisation = build(:organisation, default_news_image: image)
-    edition = create(:draft_case_study, image_display_option: nil, lead_organisations: [organisation])
+    edition = create(:draft_standard_edition, image_display_option: nil, lead_organisations: [organisation])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".app-c-edition-images-lead-image-component__default_lead_image img[alt='Default organisation image']"
@@ -122,7 +122,7 @@ class Admin::EditionImages::LeadImageComponentTest < ViewComponent::TestCase
   test "case studies doesn't render the organisations default_lead_image when image_display_option is 'no_image'" do
     image = build(:featured_image_data)
     organisation = build(:organisation, default_news_image: image)
-    edition = create(:draft_case_study, image_display_option: "no_image", lead_organisations: [organisation])
+    edition = create(:draft_standard_edition, image_display_option: "no_image", lead_organisations: [organisation])
     render_inline(Admin::EditionImages::LeadImageComponent.new(edition:))
 
     assert_selector ".app-c-edition-images-lead-image-component__default_lead_image", count: 0

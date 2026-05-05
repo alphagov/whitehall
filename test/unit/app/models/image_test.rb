@@ -129,7 +129,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test "is invalid if usage nil" do
-    image = build(:image, usage: nil, edition: create(:draft_case_study))
+    image = build(:image, usage: nil, edition: create(:draft_standard_edition))
     assert_not image.valid?
     assert_equal "must be permitted", image.errors[:usage][0]
   end

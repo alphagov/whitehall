@@ -5,7 +5,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   include GovspeakHelper
 
   test("determines ordered featured documents in different locales for editions") do
-    case_study = create(:published_case_study)
+    case_study = create(:published_standard_edition)
     first_feature = build(:feature, document: case_study.document, ordering: 1)
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "title" => "Featured standard edition", "settings" => { "base_path_prefix" => "/government/test" } }))
     standard_edition = create(:published_standard_edition, title: "Standard Edition Title")
@@ -111,7 +111,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   end
 
   test("caps number of documents at limit when it exceeds this") do
-    first_feature = build(:feature, document: create(:published_case_study).document, ordering: 1)
+    first_feature = build(:feature, document: create(:published_standard_edition).document, ordering: 1)
     second_feature = build(:feature, document: create(:published_publication).document, ordering: 2)
 
     world_location = create(:world_location)
@@ -121,11 +121,11 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
     document_limit = 1
     presented_locations = featured_documents(world_location.world_location_news, document_limit)
 
-    assert_equal([create(:published_case_study).title], presented_locations.map { |presented_location| presented_location[:title] })
+    assert_equal([create(:published_standard_edition).title], presented_locations.map { |presented_location| presented_location[:title] })
   end
 
   test("filters out featured documents if feature image assets are missing") do
-    case_study = create(:published_case_study)
+    case_study = create(:published_standard_edition)
     first_feature = build(:feature, document: case_study.document, ordering: 1)
     standard_edition = create(:published_publication)
     second_feature = build(:feature, document: standard_edition.document, ordering: 2)

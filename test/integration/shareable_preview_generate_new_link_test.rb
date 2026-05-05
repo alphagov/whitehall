@@ -8,7 +8,7 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
 
   describe "shareable preview generate new link feature" do
     context "for draft documents" do
-      let(:edition) { create(:draft_case_study) }
+      let(:edition) { create(:draft_standard_edition) }
 
       before do
         create_setup(edition)
@@ -41,7 +41,7 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
     end
 
     context "for published documents" do
-      let(:edition) { create(:published_case_study) }
+      let(:edition) { create(:published_standard_edition) }
 
       before do
         create_setup(edition)

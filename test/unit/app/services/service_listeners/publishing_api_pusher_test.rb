@@ -146,7 +146,7 @@ module ServiceListeners
     end
 
     test "makes deleted translations gone for publish event" do
-      res = draft_edition_with_deleted_translation(:published_case_study)
+      res = draft_edition_with_deleted_translation(:published_standard_edition)
       new_edition = res[:draft_edition]
       fr = res[:deleted_translation]
 
@@ -172,7 +172,7 @@ module ServiceListeners
     end
 
     test "do not make deleted translations gone for draft update event" do
-      res = draft_edition_with_deleted_translation(:published_case_study)
+      res = draft_edition_with_deleted_translation(:published_standard_edition)
       new_edition = res[:draft_edition]
 
       Services.publishing_api.expects(:patch_links).once

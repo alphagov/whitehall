@@ -8,7 +8,6 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "returns downcased humanized class name as format name" do
-    assert_equal "case study", CaseStudy.format_name
     assert_equal "publication", Publication.format_name
     assert_equal "consultation", Consultation.format_name
   end
@@ -55,10 +54,10 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "edition has shareable preview enabled if it is in the pre-publication state and the type is not excluded" do
-    draft_edition = create(:draft_case_study)
-    submitted_edition = create(:submitted_case_study)
-    rejected_edition = create(:rejected_case_study)
-    scheduled_edition = create(:scheduled_case_study)
+    draft_edition = create(:draft_standard_edition)
+    submitted_edition = create(:submitted_standard_edition)
+    rejected_edition = create(:rejected_standard_edition)
+    scheduled_edition = create(:scheduled_standard_edition)
 
     assert_equal draft_edition.has_enabled_shareable_preview?, true
     assert_equal submitted_edition.has_enabled_shareable_preview?, true
@@ -67,7 +66,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "edition has shareable preview disabled if it is in the published state" do
-    edition = create(:published_case_study)
+    edition = create(:published_standard_edition)
     assert_equal edition.has_enabled_shareable_preview?, false
   end
 
@@ -914,7 +913,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should pass validation on saving of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
     attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")
-    edition = create(:submitted_case_study, html_attachments: [attachment])
+    edition = create(:submitted_standard_edition, html_attachments: [attachment])
     contact.destroy!
 
     assert edition.valid?
@@ -923,7 +922,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should fail validation on publish of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
     attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")
-    edition = create(:submitted_case_study, html_attachments: [attachment])
+    edition = create(:submitted_standard_edition, html_attachments: [attachment])
     contact.destroy!
 
     assert_not edition.valid?(:publish)

@@ -6,7 +6,7 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
     login_as :writer
 
     image = build(:image)
-    edition = create(:draft_case_study, image_display_option: nil, images: [image])
+    edition = create(:draft_standard_edition, image_display_option: nil, images: [image])
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
@@ -20,9 +20,9 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
   test "PATCH :update does not update the lead image when the edition is invalid" do
     login_as :writer
 
-    published_edition = create(:published_case_study)
+    published_edition = create(:published_standard_edition)
     image = build(:image)
-    edition = create(:draft_case_study, images: [image], document: published_edition.document)
+    edition = create(:draft_standard_edition, images: [image], document: published_edition.document)
 
     edition.change_note = nil
     edition.save!(validate: false)
@@ -37,9 +37,9 @@ class Admin::EditionLeadImagesControllerTest < ActionController::TestCase
   test "PATCH :update does not update the lead image when edition's body contains the images markdown" do
     login_as :writer
 
-    published_edition = create(:published_case_study)
+    published_edition = create(:published_standard_edition)
     image = build(:image)
-    edition = create(:draft_case_study, images: [image], document: published_edition.document, body: "!!1")
+    edition = create(:draft_standard_edition, images: [image], document: published_edition.document, body: "!!1")
 
     get :update, params: { edition_id: edition.id, id: image.id }
 

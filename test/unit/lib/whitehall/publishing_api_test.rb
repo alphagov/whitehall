@@ -45,7 +45,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".publish sends case studies to the content store" do
-    edition = create(:published_case_study)
+    edition = create(:published_standard_edition)
 
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
@@ -217,7 +217,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".schedule_async for a subsequent edition served from the content store queues jobs to push publish intents" do
     timestamp = 2.hours.from_now
-    existing_edition = create(:published_case_study)
+    existing_edition = create(:published_standard_edition)
     updated_edition = create(:draft_publication, scheduled_publication: timestamp, document: existing_edition.document)
 
     I18n.with_locale(:es) do
@@ -276,7 +276,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".save_draft publishes a draft edition if no content exists at the route yet" do
-    draft_edition = create(:draft_case_study)
+    draft_edition = create(:draft_standard_edition)
     payload = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_content(payload.content_id, payload.content)
     Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
@@ -288,7 +288,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".save_draft publishes a draft edition if there is a live content item with the same base path and same content ID" do
-    draft_edition = create(:draft_case_study)
+    draft_edition = create(:draft_standard_edition)
     payload = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_content(payload.content_id, payload.content)
     Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)

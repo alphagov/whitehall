@@ -13,7 +13,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
   end
 
   def setup_feature_list
-    case_study = create(:published_case_study)
+    case_study = create(:published_standard_edition)
     speech = create(:published_speech)
     create(:feature_list, featurable: @world_location_news, features:
       [
@@ -76,7 +76,7 @@ class PublishingApi::WorldLocationNewsPresenterTest < ActiveSupport::TestCase
 
   test "caps number of featured documents at 5" do
     features = (1..6).to_a.map do |i|
-      created_case_study = create(:published_case_study, title: "case-study-#{i}")
+      created_case_study = create(:published_standard_edition, title: "case-study-#{i}")
       build(:feature, document: created_case_study.document, ordering: i)
     end
 

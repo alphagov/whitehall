@@ -20,7 +20,7 @@ class PublishingApiJobTest < ActiveSupport::TestCase
   end
 
   test "registers case studies with their own presenter" do
-    edition = create(:published_case_study)
+    edition = create(:published_standard_edition)
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),

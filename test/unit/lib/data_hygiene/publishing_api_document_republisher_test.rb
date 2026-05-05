@@ -2,7 +2,7 @@ require "test_helper"
 
 class DataHygiene::PublishingApiDocumentRepublisherTest < ActiveSupport::TestCase
   test "republishes a model to the Publishing API" do
-    case_study = create(:published_case_study)
+    case_study = create(:published_standard_edition)
     presenter  = PublishingApiPresenters.presenter_for(case_study, update_type: "republish")
     WebMock.reset!
 

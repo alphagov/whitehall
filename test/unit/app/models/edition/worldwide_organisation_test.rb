@@ -45,7 +45,7 @@ class Edition::WorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "copies the data sets over to a create draft" do
-    case_study = create(:published_case_study, worldwide_organisations:)
+    case_study = create(:published_standard_edition, worldwide_organisations:)
 
     assert_equal worldwide_organisations, case_study.create_draft(create(:user)).worldwide_organisations
   end

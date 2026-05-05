@@ -88,7 +88,7 @@ class SchedulingTest < ActiveSupport::TestCase
 
   test "unscheduling a scheduled subsequent edition removes the publish intent" do
     Sidekiq::Testing.inline! do
-      published_edition = create(:published_case_study)
+      published_edition = create(:published_standard_edition)
       scheduled_edition = create(:scheduled_case_study, document: published_edition.document)
 
       unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)

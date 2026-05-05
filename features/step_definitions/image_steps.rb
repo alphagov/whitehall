@@ -42,7 +42,7 @@ end
 
 Given("a draft case study with images exists") do
   images = [build(:image), build(:image)]
-  @edition = create(:draft_case_study, body: "!!2", images:, lead_image: images.first)
+  @edition = create(:draft_standard_edition, body: "!!2", images:, lead_image: images.first)
 end
 
 Given("an organisation with a default news image exists") do
@@ -52,7 +52,7 @@ end
 
 And("the organisation has a draft case study with images") do
   images = [build(:image), build(:image)]
-  @edition = create(:draft_case_study, images:, lead_organisations: [@organisation])
+  @edition = create(:draft_standard_edition, images:, lead_organisations: [@organisation])
 end
 
 When("I visit the images tab of the document with images") do
@@ -223,7 +223,7 @@ end
 
 Given(/^a draft case study with images with the captions "([^"]*)" and "([^"]*)" exists$/) do |first_caption, second_caption|
   images = [build(:image, caption: first_caption), build(:image, caption: second_caption)]
-  @edition = create(:draft_case_study, image_display_option: nil, images:)
+  @edition = create(:draft_standard_edition, image_display_option: nil, images:)
 end
 
 And(/^I make the image with caption "([^"]*)" the lead image$/) do |caption|

@@ -110,7 +110,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
   test "caps number of featured documents at 6" do
     features = (1..7).to_a.map do |i|
-      created_case_study = create(:published_case_study, title: "case-study-#{i}")
+      created_case_study = create(:published_standard_edition, title: "case-study-#{i}")
       build(:feature, document: created_case_study.document, ordering: i)
     end
     organisation = create(:organisation)
@@ -122,7 +122,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
   test "caps number of featured documents at 7 for Number 10" do
     features = (1..8).to_a.map do |i|
-      created_case_study = create(:published_case_study, title: "case-study-#{i}")
+      created_case_study = create(:published_standard_edition, title: "case-study-#{i}")
       build(:feature, document: created_case_study.document, ordering: i)
     end
     organisation = create(:organisation, slug: "prime-ministers-office-10-downing-street")
