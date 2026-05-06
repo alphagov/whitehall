@@ -388,7 +388,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
-    json (2.19.4)
+    json (2.19.5)
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -992,7 +992,7 @@ GEM
       i18n (>= 0.8.0)
       simpleidn
     version_gem (1.1.9)
-    view_component (4.6.0)
+    view_component (4.9.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
