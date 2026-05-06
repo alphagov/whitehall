@@ -7,6 +7,7 @@ update_sql = <<~SQL
       OR
       (slug_override IS NOT NULL AND slug_override != '' AND slug != slug_override)
     )
+    AND slug_from_title IS NULL;
 SQL
 updated_editions = ActiveRecord::Base.connection.update(update_sql)
 
