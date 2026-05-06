@@ -25,6 +25,12 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert_not offsite_link.valid?
   end
 
+  test "should be invalid with an invalid url" do
+    offsite_link = build(:offsite_link, url: "http://[")
+    assert_not offsite_link.valid?
+    assert_includes offsite_link.errors[:url], "must be a valid URL, such as https://www.nhs.uk/"
+  end
+
   test "should be valid with a gov.uk url" do
     offsite_link = build(:offsite_link, url: "http://gov.uk/greatpage")
     assert offsite_link.valid?

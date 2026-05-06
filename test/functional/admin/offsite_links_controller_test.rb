@@ -33,7 +33,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
       },
     }
 
-    assert_select ".govuk-error-summary__body", text: "Please enter a valid alternative URL, such as https://www.nhs.uk/"
+    assert_select ".govuk-error-summary__body", text: "Url must be a valid URL, such as https://www.nhs.uk/"
   end
 
   view_test "GET :edit should render existing offside links form" do
@@ -104,7 +104,23 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     }
 
     assert_response :success
-    assert_select ".govuk-error-summary__body", text: "Please enter a valid alternative URL, such as https://www.nhs.uk/"
+    assert_select ".govuk-error-summary__body", text: "Url must be a valid URL, such as https://www.nhs.uk/"
+  end
+
+  view_test "POST :create with an invalid url should render form with errors" do
+    edition = create(:standard_edition, :published)
+    post :create, params: {
+      standard_edition_id: edition,
+      offsite_link: {
+        title: "foo",
+        summary: "barb",
+        link_type: "blog_post",
+        url: "http://[",
+      },
+    }
+
+    assert_response :success
+    assert_select ".govuk-error-summary__body", text: "Url must be a valid URL, such as https://www.nhs.uk/"
   end
 
   view_test "GET :new renders form for standard edition parent" do
