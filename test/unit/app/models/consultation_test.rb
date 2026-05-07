@@ -368,7 +368,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "#government returns the government active on the first_public_at date" do
     create(:current_government)
     previous_government = create(:previous_government)
-    consultation = create(:consultation, first_published_at: 4.years.ago)
+    consultation = build(:consultation, first_published_at: 4.years.ago)
 
     assert_equal previous_government, consultation.government
   end

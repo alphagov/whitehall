@@ -744,7 +744,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#government returns the historic government for a previously published edition" do
     previous_government = create(:previous_government)
     create(:current_government)
-    edition = create(:edition, first_published_at: 4.years.ago)
+    edition = build(:edition, first_published_at: 4.years.ago)
     assert_equal previous_government, edition.government
   end
 
@@ -766,7 +766,7 @@ class EditionTest < ActiveSupport::TestCase
 
     previous_government = create(:previous_government)
 
-    edition = create(:edition, political: false, first_published_at: previous_government.start_date)
+    edition = build(:edition, political: false, first_published_at: previous_government.start_date)
     assert_not edition.historic?
 
     edition = create(:edition, political: false, first_published_at: current_government.start_date)
