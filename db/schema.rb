@@ -357,7 +357,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
 
   create_table "editions", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "access_limited", default: 0, null: false
-    t.integer "accessible_by", default: 0, null: false
     t.string "additional_related_mainstream_content_title"
     t.string "additional_related_mainstream_content_url"
     t.boolean "all_nation_applicability", default: true
@@ -625,7 +624,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
     t.integer "edition_id"
     t.integer "image_data_id"
     t.datetime "updated_at", precision: nil
-    t.string "usage"
+    t.string "usage", null: false
     t.index ["edition_id"], name: "index_images_on_edition_id"
     t.index ["image_data_id"], name: "index_images_on_image_data_id"
   end

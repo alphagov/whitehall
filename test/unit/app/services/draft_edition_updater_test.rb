@@ -38,6 +38,20 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
     updater.perform!
   end
 
+  test "can perform if edition uses named_users access limiting (skips org membership check)" do
+    organisation = create(:organisation)
+    user = create(:user, organisation:)
+    other_organisation = create(:organisation)
+    edition = create(:draft_publication, access_limited: :disabled, organisations: [other_organisation])
+    edition.update!(access_limited: :named_users, access_limited_named_users: user.email)
+
+    updater = DraftEditionUpdater.new(edition, { current_user: user })
+    updater.expects(:update_publishing_api!).once
+    updater.expects(:notify!).once
+
+    updater.perform!
+  end
+
   test "updates editions that cannot be tagged to organisations" do
     organisation = create(:organisation)
     edition = create(:draft_corporate_information_page, organisation:, access_limited: :organisations)

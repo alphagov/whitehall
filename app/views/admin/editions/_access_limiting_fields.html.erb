@@ -1,22 +1,41 @@
 <div class="govuk-!-margin-bottom-6">
-  <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Limit access",
-    heading_level: 3,
-    heading_size: "m",
-  } do %>
-    <%= form.hidden_field :access_limited, value: "disabled" %>
-
-    <%= render "govuk_publishing_components/components/checkboxes", {
+    <% named_users_value = edition.named_users? ? edition.access_limited_named_users.presence : nil %>
+    <% named_users_value ||= current_user.email %>
+    <% named_users_error = edition.errors[:access_limited_named_users].first %>
+    <%= render "govuk_publishing_components/components/radio", {
+      heading: "Limit access",
       name: "edition[access_limited]",
       id: "edition_access_limited",
-      error_items: errors_for(edition.errors, :access_limited),
       items: [
         {
-          label: "Limit access to publishers from organisations associated with this document before you publish",
-          value: "organisations",
-          checked: edition.access_limited?,
+          value: :disabled,
+          text: "No – This document should be available to all publishers",
+          bold: true,
+          checked: edition.disabled?,
+        },
+        {
+          value: :organisations,
+          text: "Limit access to publishers from organisations associated with this document",
+          bold: true,
+          checked: edition.organisations?,
+        },
+        {
+          value: :named_users,
+          text: "Limit access to named publishers",
+          bold: true,
+          checked: edition.named_users?,
+          conditional: (render "govuk_publishing_components/components/textarea", {
+            label: {
+              text: "Add publishers who will have access",
+              bold: true,
+            },
+            name: "edition[access_limited_named_users]",
+            textarea_id: "edition_access_limited_named_users",
+            error_message: named_users_error,
+            value: named_users_value,
+            hint: "Add the emails of the publishers who will have access to this document before publishing. After publishing the document will be available to all publishers in the organisation associated with this document.",
+          }),
         },
       ],
     } %>
-  <% end %>
 </div>

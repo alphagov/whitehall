@@ -968,8 +968,7 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: publication }
 
         assert_select "form#edit_edition" do
-          assert_select "input[name='edition[access_limited]'][type=checkbox]"
-          assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]", count: 0
+          assert_select "input[name='edition[access_limited]'][type=radio][value='disabled'][checked=checked]"
         end
       end
 

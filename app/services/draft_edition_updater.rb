@@ -24,7 +24,7 @@ class DraftEditionUpdater < EditionService
 private
 
   def should_check_current_user_will_retain_access?
-    @options[:current_user].present? && edition.access_limited?
+    @options[:current_user].present? && edition.organisations?
   end
 
   def access_limit_excludes_current_user?

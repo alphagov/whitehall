@@ -34,7 +34,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       context "when document is marked as access limited in Whitehall" do
         before do
           visit edit_admin_edition_path(edition)
-          check "Limit access"
+          choose "Limit access to publishers from organisations associated with this document"
           click_button "Save"
           assert_text "Your document has been saved"
         end
@@ -163,7 +163,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       context "when document is unmarked as access limited in Whitehall" do
         before do
           visit edit_admin_edition_path(edition)
-          uncheck "Limit access"
+          choose "No – This document should be available to all publishers"
           click_button "Save"
           assert_text "Your document has been saved"
         end

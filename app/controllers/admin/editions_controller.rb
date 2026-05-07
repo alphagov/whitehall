@@ -222,6 +222,7 @@ private
       :scheduled_publication,
       :lock_version,
       :access_limited,
+      :access_limited_named_users,
       :alternative_format_provider_id,
       :opening_at,
       :closing_at,

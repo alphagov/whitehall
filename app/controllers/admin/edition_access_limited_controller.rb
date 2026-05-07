@@ -48,6 +48,7 @@ private
     .fetch(:edition, {})
     .permit(
       :access_limited,
+      :access_limited_named_users,
       :editorial_remark,
       {
         lead_organisation_ids: [],

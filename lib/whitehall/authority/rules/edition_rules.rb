@@ -93,10 +93,12 @@ module Whitehall::Authority::Rules
     end
 
     def access_limit_enforced?
-      if subject.access_limited?
+      if subject.organisations?
         organisations = subject.organisations
         organisations += subject.edition_organisations.map(&:organisation) if subject.respond_to?(:edition_organisations)
         organisations.exclude?(actor.organisation)
+      elsif subject.named_users?
+        subject.named_accesses.none? { |na| na.email.casecmp?(actor.email) }
       else
         false
       end

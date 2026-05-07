@@ -27,7 +27,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     get :edit, params: { id: edition }
 
     assert_select "form[action='#{update_access_limited_admin_edition_path(edition.id)}']" do
-      assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]"
+      assert_select "input[name='edition[access_limited]'][type=radio][value='organisations'][checked=checked]"
       assert_select "textarea[name='edition[editorial_remark]']"
 
       (1..4).each do |i|
@@ -145,6 +145,31 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_template :edit
     assert_equal ["Editorial remark cannot be blank"], assigns(:edition).errors.full_messages
     assert edition.reload.access_limited?
+  end
+
+  test "PATCH :update updates named_users access and creates an editorial remark" do
+    edition = create(
+      :consultation,
+      access_limited: :disabled,
+    )
+
+    editorial_remark = "Limiting to named users."
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            access_limited: :named_users,
+            access_limited_named_users: "named@example.com",
+            editorial_remark:,
+          },
+        }
+
+    assert edition.reload.named_users?
+    assert_includes edition.named_accesses.pluck(:email), "named@example.com"
+    assert_redirected_to admin_editions_path
+    assert_equal "Access updated for #{edition.title}", flash[:notice]
+    assert_equal "Access options updated by GDS Admin: #{editorial_remark}", edition.editorial_remarks.last.body
   end
 
   test "PATCH :update doesn't create an editorial remark or re-render with an error when nothing has changed" do
