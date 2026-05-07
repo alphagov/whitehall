@@ -506,10 +506,36 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons")
   end
 
-  test "should find editions with slug containing keyword" do
-    edition_with_first_keyword = create(:edition, title: "klingons rule")
-    _edition_without_first_keyword = create(:edition, title: "this document is about muppets")
-    assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons-rule")
+  test "should find editions by slug, when given the exact slug" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal "klingons-rule", edition_with_slug.slug
+    assert_equal [edition_with_slug], Edition.with_title_containing("klingons-rule")
+  end
+
+  test "should find editions by slug, when given a full path ending in a slug" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal "klingons-rule", edition_with_slug.slug
+    assert_equal [edition_with_slug], Edition.with_title_containing("/government/news/klingons-rule")
+  end
+
+  test "should find editions by slug, when given a full URL ending in a slug" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal "klingons-rule", edition_with_slug.slug
+    assert_equal [edition_with_slug], Edition.with_title_containing("https://www.gov.uk/government/news/klingons-rule")
+  end
+
+  test "should find editions by slug, when given a full URL, including query string and fragment" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal "klingons-rule", edition_with_slug.slug
+    assert_equal [edition_with_slug], Edition.with_title_containing("https://www.gov.uk/government/news/klingons-rule?foo=bar#details")
   end
 
   test "should find editions with title containing regular expression characters" do
