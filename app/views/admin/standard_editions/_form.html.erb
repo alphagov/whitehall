@@ -10,6 +10,7 @@
     <%= form.hidden_field :lock_version %>
     <%= form.hidden_field :configurable_document_type, value: edition.configurable_document_type %>
     <%= hidden_field_tag :current_tab, active_tab if edition.defines_tabs? %>
+    <%= hidden_field_tag(:parent_edition_id, params[:parent_edition_id]) if params[:parent_edition_id].present? %>
 
     <% if on_document_tab %>
       <%= render "document_form_fields", form:, edition: %>

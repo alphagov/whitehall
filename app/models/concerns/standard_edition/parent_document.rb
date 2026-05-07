@@ -37,6 +37,6 @@ module StandardEdition::ParentDocument
   end
 
   def child_editions
-    child_documents.includes(:latest_edition).map(&:latest_edition)
+    Edition.where(id: child_documents.select(:latest_edition_id))
   end
 end
