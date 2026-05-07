@@ -16,9 +16,10 @@ Given(/^a published statistics publication called "(.*?)"$/) do |title|
   @statistics_publication = create(
     :publication,
     :published,
-    access_limited: false,
+    :statistics,
+    access_limited: :disabled,
     publication_type_id: PublicationType::OfficialStatistics.id,
-    title:,
+    title: title,
   )
 end
 

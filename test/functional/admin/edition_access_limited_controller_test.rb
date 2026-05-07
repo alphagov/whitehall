@@ -27,7 +27,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     get :edit, params: { id: edition }
 
     assert_select "form[action='#{update_access_limited_admin_edition_path(edition.id)}']" do
-      assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]"
+      assert_select "input[name='edition[access_limited]'][type=radio][checked=checked]"
       assert_select "textarea[name='edition[editorial_remark]']"
 
       (1..4).each do |i|

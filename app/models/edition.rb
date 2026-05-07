@@ -469,6 +469,11 @@ class Edition < ApplicationRecord
 
     if first_published_at.to_date < Government.current.start_date
       errors.add(:first_published_at, :before_current_govt, earliest: Government.current.start_date.strftime("%d/%m/%Y"))
+  def access_limited_named_users=(users)
+    user_emails = users.split(",").map(&:strip).reject(&:empty?)
+
+    user_emails.each do |email|
+      edition_user_accesses.create!(email: email)
     end
   end
 

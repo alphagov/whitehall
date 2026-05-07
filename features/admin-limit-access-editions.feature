@@ -20,6 +20,6 @@ Feature: Viewing most recent editions in admin
     Given I am an editor
     When I begin drafting a new document
     And I set the Lead organisation to an org I am not in
-    And I check the "Limit access to publishers from organisations associated with this document before you publish" box
+    When I pick the "Limit access to publishers from organisations associated with this document" radio button
     When I click "Save"
     Then I should see the validation error "Access can only be limited by users belonging to an organisation tagged to the document"

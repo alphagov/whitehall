@@ -3,6 +3,7 @@ module Edition::LimitedAccess
 
   included do
     enum :access_limited, { disabled: 0, organisations: 1, named_users: 2 }
+    has_many :edition_user_accesses, dependent: :destroy, inverse_of: :edition
     after_initialize :set_access_limited
   end
 
