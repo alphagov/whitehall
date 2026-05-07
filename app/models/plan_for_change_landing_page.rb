@@ -3,8 +3,9 @@ class PlanForChangeLandingPage < Edition
   include Edition::Organisations
   include Edition::Images
 
-  validates :base_path, presence: true, format: { with: /\A\/.*\z/, message: "must start with a slash (/)" }
-  validate :base_path_must_not_be_taken
+  validates :slug_override, presence: true
+  validates :slug_override, format: { with: /\A\/.*\z/, message: "must start with a slash (/)" }, if: -> { slug_override.present? }
+  validate :slug_override_must_not_be_taken
   validate do
     if landing_page_body.invalid?
       errors.add(:body, "contained errors")
@@ -55,7 +56,7 @@ class PlanForChangeLandingPage < Edition
 
 private
 
-  def base_path_must_not_be_taken
-    errors.add(:base_path, " is already taken") if PlanForChangeLandingPage.where(slug_override:).where.not(document_id: document_id).exists?
+  def slug_override_must_not_be_taken
+    errors.add(:slug_override, "is already taken") if PlanForChangeLandingPage.where(slug_override:).where.not(document_id: document_id).exists?
   end
 end
