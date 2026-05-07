@@ -34,7 +34,7 @@ class AssetManagerIntegrationTest
 
     test "sends the user ids of authorised users to Asset Manager" do
       organisation = FactoryBot.create(:organisation)
-      consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
+      consultation = FactoryBot.create(:consultation, access_limited: :organisations, organisations: [organisation])
       @attachment.attachable = consultation
       @attachment.attachment_data.attachable = consultation
       @attachment.save!

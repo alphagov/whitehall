@@ -71,7 +71,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given an access-limited draft document" do
-      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limited: true) }
+      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limited: :organisations) }
 
       context "when an attachment is added to the draft document" do
         before do
@@ -153,7 +153,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "given an access-limited draft document and a file attachment" do
-      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limited: true) }
+      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limited: :organisations) }
 
       before do
         add_file_attachment_with_asset("sample.docx", to: edition)
@@ -201,7 +201,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
     context "given a draft access-limited consultation" do
       # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
-      let(:edition) { create(:consultation, organisations: [organisation], access_limited: true) }
+      let(:edition) { create(:consultation, organisations: [organisation], access_limited: :organisations) }
       let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
       let!(:outcome) { edition.create_outcome!(outcome_attributes) }
 
