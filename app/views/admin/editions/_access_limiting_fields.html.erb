@@ -4,7 +4,7 @@
     heading_level: 3,
     heading_size: "m",
   } do %>
-    <%= form.hidden_field :access_limited, value: "0" %>
+    <%= form.hidden_field :access_limited, value: "disabled" %>
 
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "edition[access_limited]",
@@ -13,8 +13,8 @@
       items: [
         {
           label: "Limit access to publishers from organisations associated with this document before you publish",
-          value: 1,
-          checked: edition.access_limited,
+          value: "organisations",
+          checked: edition.access_limited?,
         },
       ],
     } %>

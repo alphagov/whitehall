@@ -2,6 +2,7 @@ module Edition::LimitedAccess
   extend ActiveSupport::Concern
 
   included do
+    enum :access_limited, { disabled: 0, organisations: 1, named_users: 2 }
     after_initialize :set_access_limited
   end
 
@@ -16,15 +17,22 @@ module Edition::LimitedAccess
   end
 
   def access_limited?
-    self[:access_limited]
+    organisations? || named_users?
   end
 
   delegate :access_limited_by_default?, to: :class
 
+  def access_limited=(value)
+    @_access_limited_explicitly_set = true
+    super
+  end
+
   def set_access_limited
-    if new_record? && access_limited.nil?
-      self.access_limited = access_limited_by_default?
-    end
+    return unless new_record?
+    return if @_access_limited_explicitly_set
+
+    self.access_limited = access_limited_by_default? ? :organisations : :disabled
+    @_access_limited_explicitly_set = false
   end
 
   def accessible_to?(user)

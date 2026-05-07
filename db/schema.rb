@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_03_161913) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
@@ -327,6 +327,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_161913) do
     t.index ["locale"], name: "index_edition_translations_on_locale"
   end
 
+  create_table "edition_user_access_grants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "edition_id"
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["edition_id"], name: "index_edition_user_access_grants_on_edition_id"
+    t.index ["user_id"], name: "index_edition_user_access_grants_on_user_id"
+  end
+
   create_table "edition_world_locations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", precision: nil
     t.integer "edition_id"
@@ -347,7 +356,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_161913) do
   end
 
   create_table "editions", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.boolean "access_limited", null: false
+    t.integer "access_limited", default: 0, null: false
+    t.integer "accessible_by", default: 0, null: false
     t.string "additional_related_mainstream_content_title"
     t.string "additional_related_mainstream_content_url"
     t.boolean "all_nation_applicability", default: true
@@ -615,7 +625,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_161913) do
     t.integer "edition_id"
     t.integer "image_data_id"
     t.datetime "updated_at", precision: nil
-    t.string "usage", null: false
+    t.string "usage"
     t.index ["edition_id"], name: "index_images_on_edition_id"
     t.index ["image_data_id"], name: "index_images_on_image_data_id"
   end
@@ -1228,6 +1238,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_161913) do
 
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "edition_user_access_grants", "editions"
+  add_foreign_key "edition_user_access_grants", "users"
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"

@@ -26,10 +26,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
   test "can persist limited access flag (regardless of <class>.access_limited_by_default?)" do
     e = build(:limited_by_default_edition)
-    e.access_limited = true
+    e.access_limited = :organisations
     e.save!
     assert e.reload.access_limited?
-    e.access_limited = false
+    e.access_limited = :disabled
     e.save!
     assert_not e.reload.access_limited?
   end
@@ -49,7 +49,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   test "is not accessible if edition is not accessible to user" do
     user = build(:user)
     edition_id = 123
-    edition = LimitedAccessEdition.new(id: edition_id, access_limited: true)
+    edition = LimitedAccessEdition.new(id: edition_id, access_limited: :organisations)
 
     assert_not edition.accessible_to?(user)
   end

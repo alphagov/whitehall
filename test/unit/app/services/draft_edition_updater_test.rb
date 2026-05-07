@@ -30,7 +30,7 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
   end
 
   test "cannot perform if user is limiting their own access" do
-    edition = create(:draft_publication, access_limited: true, organisations: [create(:organisation)])
+    edition = create(:draft_publication, access_limited: :organisations, organisations: [create(:organisation)])
     updater = DraftEditionUpdater.new(edition, { current_user: create(:user, organisation: create(:organisation)) })
     updater.expects(:notify!).never
     updater.expects(:update_publishing_api!).never
@@ -40,7 +40,7 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
 
   test "updates editions that cannot be tagged to organisations" do
     organisation = create(:organisation)
-    edition = create(:draft_corporate_information_page, organisation:, access_limited: true)
+    edition = create(:draft_corporate_information_page, organisation:, access_limited: :organisations)
     updater = DraftEditionUpdater.new(edition, { current_user: create(:user, organisation:) })
     updater.expects(:update_publishing_api!).once
     updater.expects(:notify!).once

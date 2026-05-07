@@ -120,7 +120,7 @@ FactoryBot.define do
       scheduled_publication { 7.days.from_now }
     end
 
-    trait(:access_limited) { access_limited { true } }
+    trait(:access_limited) { access_limited { :organisations } }
 
     trait(:with_alternative_format_provider) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
