@@ -327,13 +327,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
     t.index ["locale"], name: "index_edition_translations_on_locale"
   end
 
-  create_table "edition_user_access_grants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "named_accesses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "edition_id"
+    t.integer "edition_id", null: false
+    t.string "email", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["edition_id"], name: "index_edition_user_access_grants_on_edition_id"
-    t.index ["user_id"], name: "index_edition_user_access_grants_on_user_id"
+    t.index ["edition_id", "email"], name: "index_named_accesses_on_edition_id_and_email", unique: true
+    t.index ["edition_id"], name: "index_named_accesses_on_edition_id"
   end
 
   create_table "edition_world_locations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -1238,8 +1238,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
 
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "edition_user_access_grants", "editions"
-  add_foreign_key "edition_user_access_grants", "users"
+  add_foreign_key "named_accesses", "editions"
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"
