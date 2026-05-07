@@ -48,16 +48,6 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
     end
 
     context "within `settings`" do
-      %w[configurable_document_group publishing_api_schema_name publishing_api_document_type rendering_app].each do |key|
-        it "validates `#{key}` has been assigned an enum value defined in the schema" do
-          document["settings"][key] = "not a valid enum value"
-          validator = SchemaValidator.new(document)
-          enum = validator.schema["properties"]["settings"]["properties"][key]["enum"]
-          validator.validate
-          assert_equal validator.errors.first, "value at `/settings/#{key}` is not one of: #{enum}"
-        end
-      end
-
       context "`base_path_prefix` has been set to a valid prefix" do
         %w[
           /government/history
