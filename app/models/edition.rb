@@ -249,6 +249,14 @@ class Edition < ApplicationRecord
     document.latest_edition == self
   end
 
+  def is_child_document?
+    false
+  end
+
+  def is_parent_document?
+    false
+  end
+
   def all_nation_applicability_selected?
     true
   end
