@@ -6,6 +6,8 @@ updates:
       interval: daily
       time: "07:00"
     open-pull-requests-limit: 25
+    cooldown:
+      default-days: 3
 
   - package-ecosystem: npm
     directory: /
@@ -13,6 +15,8 @@ updates:
       interval: daily
       time: "07:00"
     open-pull-requests-limit: 25
+    cooldown:
+      default-days: 3
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -20,6 +24,8 @@ updates:
       interval: daily
       time: "07:00"
     open-pull-requests-limit: 25
+    cooldown:
+      default-days: 3
 
   # Ruby needs to be upgraded manually in multiple places, so cannot
   # be upgraded by Dependabot. That effectively makes the below
@@ -33,3 +39,5 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 25
+    cooldown:
+      default-days: 3
