@@ -978,7 +978,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     )
 
     @controller.stubs(:updater).returns(stub(can_perform?: true, perform!: true, failure_reason: nil))
-    StandardEdition.any_instance.stubs(:save_as).with(current_user).returns(true)
+    StandardEdition.any_instance.stubs(:save_as).with(current_user, validate: false).returns(true)
 
     patch :update, params: {
       id: edition.id,
@@ -1020,6 +1020,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
           "body" => { "type" => "string" },
           "sidebar" => { "type" => "string" },
         },
+        "validations" => {
+          "presence" => { "attributes" => %w[sidebar] },
+        },
       },
     })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
@@ -1030,7 +1033,11 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       configurable_document_type: "test_type",
       title: "Title",
       summary: "Summary",
+      block_content: { "sidebar" => "My sidebar content" },
     )
+
+    get :edit, params: { id: edition, current_tab: "extra_fields" }
+    assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
 
     patch :update, params: {
       id: edition.id,
@@ -1038,7 +1045,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
         title: "",
         summary: edition.summary,
         configurable_document_type: "test_type",
-        block_content: { sidebar: "My sidebar content" },
+        block_content: { sidebar: "" },
       },
       current_tab: "extra_fields",
       save: "save",
@@ -1046,7 +1053,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_template :edit
     assert_select "input[type=hidden][name=current_tab][value=extra_fields]"
-    assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
+    assert_select "textarea[name='edition[block_content][sidebar]']", text: ""
   end
 
   view_test "GET edit renders hidden current_tab field for the default tab when document type defines tabs" do
