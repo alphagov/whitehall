@@ -28,6 +28,10 @@ module StandardEdition::ParentDocument
     add_trait Trait
   end
 
+  def allows_child_documents?
+    (type_instance.settings["allowed_child_document_types"] || []).count.positive?
+  end
+
   def is_parent_document?
     child_documents.any?
   end

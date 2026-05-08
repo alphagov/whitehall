@@ -46,6 +46,29 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
     assert_includes child_documents, child_document_2
   end
 
+  test "allows_child_documents? determines value from document type settings" do
+    parent_type = build_configurable_document_type("parent_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    other_type = build_configurable_document_type("some_other_type")
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type).merge(other_type))
+
+    parent_edition = create(:standard_edition, configurable_document_type: "parent_type")
+    child_edition = create(:standard_edition, configurable_document_type: "child_type")
+    other_edition = create(:standard_edition, configurable_document_type: "some_other_type")
+
+    assert parent_edition.allows_child_documents?
+    assert_not child_edition.allows_child_documents?
+    assert_not other_edition.allows_child_documents?
+  end
+
   test "child_editions resolves latest edition for each child document" do
     parent_edition = create(:standard_edition)
 
