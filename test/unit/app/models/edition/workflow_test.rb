@@ -102,6 +102,12 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     edition.save_as(create(:user))
   end
 
+  test "#save_as passes options to save" do
+    edition = create(:publication)
+    edition.expects(:save).with(validate: false)
+    edition.save_as(create(:user), validate: false)
+  end
+
   test "#save_as records the new creator if save succeeds" do
     edition = create(:publication)
     edition.stubs(:save).returns(true)
