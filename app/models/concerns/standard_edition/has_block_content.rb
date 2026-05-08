@@ -44,7 +44,7 @@ private
     schema = type_instance.schema_for_fields(field_keys)
 
     StandardEdition::BlockContent.new(schema).tap do |block_content|
-      block_content.assign_attributes(self[:block_content] || {})
+      block_content.assign_attributes(edition[:block_content] || {})
     end
   end
 end

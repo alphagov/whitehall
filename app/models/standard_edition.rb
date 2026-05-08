@@ -9,7 +9,6 @@ class StandardEdition < Edition
   include Edition::WorldLocations
   include Edition::Organisations
   include Edition::WorldwideOrganisations
-  include HasBlockContent
   include StandardEdition::LeadImage
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6

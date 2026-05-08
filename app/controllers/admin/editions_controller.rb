@@ -503,7 +503,7 @@ private
   end
 
   def updater
-    @updater ||= Whitehall.edition_services.draft_updater(@edition, { current_user: })
+    @updater ||= Whitehall.edition_services.draft_updater(@edition, { current_user:, current_tab: @current_tab_context })
   end
 
   def publisher

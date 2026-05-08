@@ -39,7 +39,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
   def update
     @edition.current_tab_context = @current_tab_context
-
+    super
   end
 
   def features
