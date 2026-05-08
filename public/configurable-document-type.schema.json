@@ -319,7 +319,8 @@
                   "world_locations",
                   "organisations",
                   "worldwide_organisations",
-                  "government"
+                  "government",
+                  "parent"
                 ]
               }
             }
