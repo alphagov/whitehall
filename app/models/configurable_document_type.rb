@@ -104,6 +104,10 @@ class ConfigurableDocumentType
     end
   end
 
+  def form_keys
+    @forms.keys
+  end
+
   def presenter(key)
     @presenters[key]
   end
