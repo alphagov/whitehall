@@ -199,4 +199,15 @@ private
   def string_for_slug
     title if primary_locale.to_sym == translation.locale
   end
+
+  def current_tab_context_includes_field?(attribute_name)
+    return true if current_tab_context.blank? # assume we are checking against the entire edition
+
+    form = type_instance.form(current_tab_context)
+    return true if form.nil?
+
+    (form["fields"] || {}).any? do |_key, field|
+      Array(field["attribute_path"]).include?(attribute_name)
+    end
+  end
 end

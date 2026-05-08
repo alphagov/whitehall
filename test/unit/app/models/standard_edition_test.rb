@@ -971,6 +971,63 @@ class StandardEditionTest < ActiveSupport::TestCase
     end
   end
 
+  describe "current_tab_context_includes_field?" do
+    setup do
+      type = build_configurable_document_type(
+        "test_type_with_org_field", {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "lead_organisations" => {
+                  "title" => "Lead organisations",
+                  "attribute_path" => %w[lead_organisation_ids],
+                },
+              },
+            },
+            "extra_tab" => {
+              "dynamic" => true,
+              "label" => "Extra tab",
+              "fields" => {
+                "sidebar" => {
+                  "title" => "Sidebar",
+                  "block" => "govspeak",
+                  "attribute_path" => %w[block_content sidebar],
+                },
+              },
+            },
+          },
+          "schema" => { "attributes" => { "sidebar" => { "type" => "string" } } },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(type)
+      @edition = build(:standard_edition, configurable_document_type: "test_type_with_org_field")
+    end
+
+    it "returns true when current_tab_context is nil" do
+      @edition.current_tab_context = nil
+
+      assert @edition.send(:current_tab_context_includes_field?, "lead_organisation_ids")
+    end
+
+    it "returns true when the attribute is a field on the current tab" do
+      @edition.current_tab_context = "documents"
+
+      assert @edition.send(:current_tab_context_includes_field?, "lead_organisation_ids")
+    end
+
+    it "returns false when the attribute is not a field on the current tab" do
+      @edition.current_tab_context = "extra_tab"
+
+      assert_not @edition.send(:current_tab_context_includes_field?, "lead_organisation_ids")
+    end
+
+    it "returns true when no form exists for the current tab contexts" do
+      @edition.current_tab_context = "nonexistent_tab"
+
+      assert @edition.send(:current_tab_context_includes_field?, "lead_organisation_ids")
+    end
+  end
+
   test "permitted_image_usages passes caption_enabled through from config" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {

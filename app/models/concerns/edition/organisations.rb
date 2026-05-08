@@ -15,9 +15,9 @@ module Edition::Organisations
 
     has_many :organisations, -> { includes(:translations) }, through: :edition_organisations, validate: false
 
-    validate :at_least_one_lead_organisation, if: -> { organisation_association_enabled? && lead_organisation_association_required? }
-    validate :at_least_one_supporting_organisation, if: -> { organisation_association_enabled? && supporting_organisation_association_required? }
-    validate :no_duplication_of_organisations, if: :organisation_association_enabled?
+    validate :at_least_one_lead_organisation, if: -> { organisation_association_enabled? && lead_organisation_association_required? && current_tab_context_includes_field?("lead_organisation_ids") }
+    validate :at_least_one_supporting_organisation, if: -> { organisation_association_enabled? && supporting_organisation_association_required? && current_tab_context_includes_field?("lead_organisation_ids") }
+    validate :no_duplication_of_organisations, if: -> { organisation_association_enabled? && current_tab_context_includes_field?("lead_organisation_ids") }
 
     add_trait Trait
   end

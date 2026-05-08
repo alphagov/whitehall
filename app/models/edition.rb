@@ -492,4 +492,8 @@ private
 
     first_version_with_state.try(:user)
   end
+
+  def current_tab_context_includes_field?(_attribute_name)
+    true
+  end
 end
