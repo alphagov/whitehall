@@ -87,4 +87,69 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
       parent_edition.destroy!
     end
   end
+
+  test "process_associations_after_save copies child relationships to new edition" do
+    original_parent = create(:standard_edition)
+    new_parent = create(:standard_edition)
+
+    child_document = create(:document)
+
+    create(
+      :parent_child_relationship,
+      parent_edition: original_parent,
+      child_document: child_document,
+    )
+
+    trait = StandardEdition::ParentDocument::Trait.new(original_parent)
+
+    assert_difference("ParentChildRelationship.count", 1) do
+      trait.process_associations_after_save(new_parent)
+    end
+
+    copied = ParentChildRelationship.last
+
+    assert_equal new_parent.id, copied.parent_edition_id
+    assert_equal child_document.id, copied.child_document_id
+  end
+
+  test "process_associations_after_save does not modify existing relationships" do
+    original_parent = create(:standard_edition)
+    new_parent = create(:standard_edition)
+
+    child_document = create(:document)
+
+    relationship = create(
+      :parent_child_relationship,
+      parent_edition: original_parent,
+      child_document: child_document,
+    )
+
+    trait = StandardEdition::ParentDocument::Trait.new(original_parent)
+
+    trait.process_associations_after_save(new_parent)
+
+    assert ParentChildRelationship.exists?(relationship.id)
+    assert_equal original_parent.id, relationship.parent_edition_id
+  end
+
+  test "process_associations_after_save copies all child relationships" do
+    original_parent = create(:standard_edition)
+    new_parent = create(:standard_edition)
+
+    3.times do
+      create(
+        :parent_child_relationship,
+        parent_edition: original_parent,
+        child_document: create(:document),
+      )
+    end
+
+    trait = StandardEdition::ParentDocument::Trait.new(original_parent)
+
+    assert_difference("ParentChildRelationship.count", 3) do
+      trait.process_associations_after_save(new_parent)
+    end
+
+    assert_equal 3, new_parent.child_relationships.count
+  end
 end

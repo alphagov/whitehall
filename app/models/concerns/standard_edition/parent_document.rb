@@ -1,6 +1,19 @@
 module StandardEdition::ParentDocument
   extend ActiveSupport::Concern
 
+  class Trait < Edition::Traits::Trait
+    def process_associations_after_save(new_edition)
+      ParentChildRelationship
+        .where(parent_edition_id: @edition.id)
+        .find_each do |relationship|
+        ParentChildRelationship.create!(
+          parent_edition_id: new_edition.id,
+          child_document_id: relationship.child_document_id,
+        )
+      end
+    end
+  end
+
   included do
     has_many :child_relationships,
              class_name: "ParentChildRelationship",
@@ -11,6 +24,8 @@ module StandardEdition::ParentDocument
     has_many :child_documents,
              through: :child_relationships,
              source: :child_document
+
+    add_trait Trait
   end
 
   def is_parent_document?
