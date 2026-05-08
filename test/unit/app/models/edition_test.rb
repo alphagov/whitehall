@@ -678,38 +678,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
-  test "first_published_at cannot be after the date of the first change note" do
-    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
-    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 1.day.ago)
-
-    assert edition.invalid?
-    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
-  end
-
-  test "first_published_at cannot be before the start of the current government" do
-    create(:current_government)
-    edition = build(:edition, first_published_at: 10.years.ago)
-
-    assert edition.invalid?
-    assert_equal "First published date must be after the start of the current government (11/11/2009)", edition.errors.full_messages.first
-  end
-
-  test "polictial editions can have their first_published_at date set before the current government " do
-    create(:current_government)
-    political_edition = create(:edition, political: true, first_published_at: 10.years.ago)
-
-    assert political_edition.valid?
-  end
-
-  test "after_change_notes' error message takes priority if multiple validation errors on first_published_at" do
-    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
-    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 10.years.from_now)
-    edition.validate
-
-    assert_equal 1, edition.errors.size
-    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
-  end
-
   test "#government returns the associated government when the edition has a specific government_id" do
     create(:current_government)
     previous_government = create(:previous_government)
@@ -738,7 +706,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#government returns the historic government for a previously published edition" do
     previous_government = create(:previous_government)
     create(:current_government)
-    edition = build(:edition, first_published_at: 4.years.ago)
+    edition = create(:edition, first_published_at: 4.years.ago)
     assert_equal previous_government, edition.government
   end
 
@@ -760,7 +728,7 @@ class EditionTest < ActiveSupport::TestCase
 
     previous_government = create(:previous_government)
 
-    edition = build(:edition, political: false, first_published_at: previous_government.start_date)
+    edition = create(:edition, political: false, first_published_at: previous_government.start_date)
     assert_not edition.historic?
 
     edition = create(:edition, political: false, first_published_at: current_government.start_date)
@@ -1012,12 +980,6 @@ class EditionTest < ActiveSupport::TestCase
 
     edition.image_display_option = "invalid_option"
     assert_not edition.valid?
-  end
-
-  test "#other_editions returns an empty array if there is no associated document" do
-    edition = build(:edition)
-
-    assert_equal edition.other_editions, []
   end
 
   def decoded_token_payload(token)
