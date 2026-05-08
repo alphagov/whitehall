@@ -58,4 +58,18 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     assert_nil edition.parent_relationship
     assert_nil edition.parent_edition
   end
+
+  test "base_path is determined by the parent edition" do
+    parent_edition = create(:standard_edition)
+    child_document = create(:document)
+    child_edition = create(:standard_edition, document: child_document, slug_override: "foo")
+
+    create(
+      :parent_child_relationship,
+      parent_edition:,
+      child_document:,
+    )
+
+    assert_equal "#{parent_edition.base_path}/foo", child_edition.base_path
+  end
 end

@@ -105,7 +105,16 @@ class StandardEdition < Edition
   end
 
   def base_path
-    "#{type_instance.settings['base_path_prefix']}/#{slug}"
+    # Would be nice to restrict all of the child document logic to the ChildDocument
+    # concern, but we can't override base_path in there and fall back to the generic
+    # implementation here. So here it lives!
+    base_path_prefix = if is_child_document?
+                         parent_edition.base_path
+                       else
+                         type_instance.settings["base_path_prefix"]
+                       end
+
+    "#{base_path_prefix}/#{slug}"
   end
 
   def type_instance
