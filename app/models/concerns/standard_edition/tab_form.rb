@@ -67,5 +67,6 @@ private
     edition_attribute_keys.each do |attr|
       edition.errors.where(attr.to_sym).each { |error| errors.import(error, attribute: error.attribute.to_s) }
     end
+    edition.errors.clear # clear unscoped edition errors so only the imported tab-scoped errors reach the controller.
   end
 end

@@ -1197,7 +1197,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     )
 
     @controller.stubs(:updater).returns(stub(can_perform?: true, perform!: true, failure_reason: nil))
-    StandardEdition.any_instance.stubs(:save_as).with(current_user).returns(true)
+    StandardEdition.any_instance.stubs(:save_as).with(current_user, validate: false).returns(true)
 
     patch :update, params: {
       id: edition.id,
@@ -1239,6 +1239,76 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
           "body" => { "type" => "string" },
           "sidebar" => { "type" => "string" },
         },
+        "validations" => {
+          "presence" => { "attributes" => %w[sidebar] },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(
+      :draft_standard_edition,
+      :with_organisations,
+      configurable_document_type: "test_type",
+      title: "Title",
+      summary: "Summary",
+      block_content: { "sidebar" => "My sidebar content" },
+    )
+
+    get :edit, params: { id: edition, current_tab: "extra_fields" }
+    assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
+
+    patch :update, params: {
+      id: edition.id,
+      edition: {
+        title: "",
+        summary: edition.summary,
+        configurable_document_type: "test_type",
+        block_content: { sidebar: "" },
+      },
+      current_tab: "extra_fields",
+      save: "save",
+    }
+
+    assert_template :edit
+    assert_select "input[type=hidden][name=current_tab][value=extra_fields]"
+    assert_select "textarea[name='edition[block_content][sidebar]']", text: ""
+  end
+
+  test "PATCH update calls updater.perform! after a successful tab save" do
+    updater = stub(can_perform?: true, failure_reason: nil)
+    updater.expects(:perform!).once
+    @controller.stubs(:updater).returns(updater)
+
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "label" => "Document",
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "dynamic" => true,
+          "label" => "Extra fields",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
       },
     })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
@@ -1250,22 +1320,12 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       title: "Title",
       summary: "Summary",
     )
-
     patch :update, params: {
       id: edition.id,
-      edition: {
-        title: "",
-        summary: edition.summary,
-        configurable_document_type: "test_type",
-        block_content: { sidebar: "My sidebar content" },
-      },
+      edition: { title: edition.title, summary: edition.summary, configurable_document_type: "test_type" },
       current_tab: "extra_fields",
       save: "save",
     }
-
-    assert_template :edit
-    assert_select "input[type=hidden][name=current_tab][value=extra_fields]"
-    assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
   end
 
   view_test "GET edit renders hidden current_tab field for the default tab when document type defines tabs" do
@@ -1309,6 +1369,54 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_response :ok
     assert_select "input[type=hidden][name=current_tab][value=documents]"
+  end
+
+  view_test "GET edit shows validation errors on page load for an invalid tab" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "label" => "Document",
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_fields" => {
+          "dynamic" => true,
+          "label" => "Extra fields",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+        "validations" => {
+          "presence" => { "attributes" => %w[body] },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, :with_organisations,
+                     configurable_document_type: "test_type",
+                     block_content: { body: "Valid body" })
+    edition.translation.update_column(:block_content, { "body" => "" })
+
+    get :edit, params: { id: edition, current_tab: "documents" }
+
+    assert_response :ok
+    assert_select ".govuk-error-summary__body", text: "Body cannot be blank"
   end
 
   view_test "POST create surfaces Publishing API validation error if save_draft fails" do
