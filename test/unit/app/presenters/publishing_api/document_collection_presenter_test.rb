@@ -403,7 +403,7 @@ class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveS
       slug: "a-previous-government",
     )
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      create(
+      build(
         :document_collection,
         first_published_at: @previous_government.start_date + 1.day,
       ),

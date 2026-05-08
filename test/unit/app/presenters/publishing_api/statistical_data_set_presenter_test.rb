@@ -268,7 +268,7 @@ class PublishingApi::StatisticalDataSetPresenterPreviousGovernmentTest < ActiveS
       slug: "a-previous-government",
     )
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
-      create(
+      build(
         :statistical_data_set,
         first_published_at: @previous_government.start_date + 1.day,
       ),
