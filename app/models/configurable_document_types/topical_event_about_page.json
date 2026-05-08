@@ -46,7 +46,9 @@
       "details": {
         "body": "govspeak"
       },
-      "links": []
+      "links": [
+        "parent"
+      ]
     }
   },
   "settings": {
