@@ -40,6 +40,28 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal "new_type", types_we_can_convert_to.first.key
   end
 
+  test ".allowed_child_document_types_of returns the allowed child document types for a given parent edition" do
+    parent_edition = build(:edition, document_id: SecureRandom.uuid, configurable_document_type: "parent_type")
+    parent_type = build_configurable_document_type(
+      "parent_type",
+      {
+        "settings" => {
+          "allowed_child_document_types" => [
+            {
+              "document_type" => "child_type",
+              # NOTE: we can expand this hash to include other options in future, such as `required` or `allow_multiple`
+            },
+          ],
+        },
+      },
+    )
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+    child_document_types = ConfigurableDocumentType.allowed_child_document_types_of(parent_edition)
+    assert_equal 1, child_document_types.size
+    assert_equal "child_type", child_document_types.first.key
+  end
+
   test "#form creates a flattened hash of fields if no form key is provided" do
     configurable_document_type = build_configurable_document_type(
       "test_type",

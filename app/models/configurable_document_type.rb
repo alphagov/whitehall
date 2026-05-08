@@ -59,6 +59,11 @@ class ConfigurableDocumentType
     all.filter { |t| t.settings["configurable_document_group"] == group }
   end
 
+  def self.allowed_child_document_types_of(parent_edition)
+    allowed_child_document_types = find(parent_edition.configurable_document_type).settings["allowed_child_document_types"]
+    allowed_child_document_types.map { |config| find(config["document_type"]) }
+  end
+
   def self.convertible_from(current_type_key)
     available_types = []
     if (group = ConfigurableDocumentType.find(current_type_key).settings["configurable_document_group"])
