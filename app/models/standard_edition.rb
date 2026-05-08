@@ -115,15 +115,18 @@ class StandardEdition < Edition
   end
 
   def organisation_association_enabled?
-    field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
+    current_tab_context_includes_field?("lead_organisation_ids") &&
+      field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
   end
 
   def worldwide_organisation_association_required?
-    required_field_paths.include?(ConfigurableContentBlocks::Path.new("worldwide_organisation_document_ids"))
+    current_tab_context_includes_field?("worldwide_organisation_document_ids") &&
+      required_field_paths.include?(ConfigurableContentBlocks::Path.new("worldwide_organisation_document_ids"))
   end
 
   def world_location_association_required?
-    required_field_paths.include?(ConfigurableContentBlocks::Path.new("world_location_ids"))
+    current_tab_context_includes_field?("world_location_ids") &&
+      required_field_paths.include?(ConfigurableContentBlocks::Path.new("world_location_ids"))
   end
 
   def is_in_valid_state_for_type_conversion?
@@ -186,5 +189,16 @@ private
 
   def string_for_slug
     title if primary_locale.to_sym == translation.locale
+  end
+
+  def current_tab_context_includes_field?(attribute_name)
+    return true if current_tab_context.blank? # assume we are checking against the entire edition
+
+    form = type_instance.form(current_tab_context)
+    return true if form.nil?
+
+    (form["fields"] || {}).any? do |_key, field|
+      Array(field["attribute_path"]).include?(attribute_name)
+    end
   end
 end
