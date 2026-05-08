@@ -336,6 +336,10 @@
       "type": "object",
       "description": "A list of configurations to enable certain edition behaviours.",
       "properties": {
+        "is_child_document": {
+          "type": "boolean",
+          "description": "Indicates this document is a child document and inherits its base path from its parent."
+        },
         "base_path_prefix": {
           "type": "string",
           "description": "URL prefix for where documents of this type are published. E.g. /government/history.",
@@ -490,8 +494,17 @@
           }
         }
       },
+      "oneOf": [
+        {
+          "required": ["base_path_prefix"],
+          "not": { "required": ["is_child_document"] }
+        },
+        {
+          "required": ["is_child_document"],
+          "not": { "required": ["base_path_prefix"] }
+        }
+      ],
       "required": [
-        "base_path_prefix",
         "publishing_api_schema_name",
         "publishing_api_document_type",
         "rendering_app",

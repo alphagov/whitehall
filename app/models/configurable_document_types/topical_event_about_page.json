@@ -52,7 +52,7 @@
     }
   },
   "settings": {
-    "base_path_prefix": "/fixme",
+    "is_child_document": true,
     "publishing_api_schema_name": "topical_event_about_page",
     "publishing_api_document_type": "topical_event_about_page",
     "rendering_app": "frontend",
