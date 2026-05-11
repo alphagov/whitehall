@@ -83,6 +83,15 @@ class Admin::StandardEditionsController < Admin::EditionsController
     render :features
   end
 
+  def show
+    super
+    type_instance = @edition.type_instance
+    @invalid_tab_forms = type_instance.form_keys.filter_map do |tab_key|
+      tab_form = StandardEdition::TabForm.new(@edition, tab_key)
+      { tab_key:, label: type_instance.form(tab_key)["label"] || tab_key.humanize } unless tab_form.valid?
+    end
+  end
+
 private
 
   def edition_class

@@ -11,6 +11,11 @@
     <p class="govuk-body">
       <%= preview_link(primary_locale_link_text, local_edition.public_url(draft: true)) %>
     </p>
+    <% if local_edition.is_a?(StandardEdition) && invalid_tab_forms&.any? %>
+      <p class="govuk-hint">
+        This preview may be out of date. Kindly fix the errors in the invalid tabs before the preview reflects your latest changes.
+      </p>
+    <% end %>
 
     <% if available_in_multiple_languages %>
       <% translation_preview_links = local_edition.non_primary_translation_locales.map do |locale|

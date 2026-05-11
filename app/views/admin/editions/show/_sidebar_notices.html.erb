@@ -7,6 +7,17 @@
 
 <div class="app-view-summary__sidebar-notices">
   <% unless @edition.valid?(:publish) %>
+    <% invalid_items = if @edition.is_a?(StandardEdition) && @invalid_tab_forms&.any?
+      @invalid_tab_forms.map do |tab|
+        link_to(
+          "#{tab[:label]} tab is invalid",
+          edit_admin_standard_edition_path(@edition, current_tab: tab[:tab_key]),
+          class: "govuk-link",
+        )
+      end
+    else
+      @edition.errors.map(&:full_message)
+    end %>
     <%= render "components/inset_prompt", {
       data_attributes: {
         module: "ga4-auto-tracker",
@@ -18,7 +29,7 @@
       title: "This edition is invalid",
       description: render("govuk_publishing_components/components/list", {
         visible_counters: true,
-        items:  @edition.errors.map(&:full_message),
+        items: invalid_items,
       }),
       error: true,
     } %>
