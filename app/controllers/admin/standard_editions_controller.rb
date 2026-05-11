@@ -3,6 +3,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
   before_action :set_current_tab_context, only: %i[edit update]
+  before_action :validate_tabs, only: %i[show]
 
   def choose_type
     @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
@@ -91,5 +92,18 @@ private
 
   def render_not_found
     render "admin/errors/not_found", status: :not_found
+  end
+
+  def validate_tabs
+    # TODO:
+    # get tabs from the config for this edition
+    # maybe store the tab validation class in the "linked_tabs" thing we came up with in the
+    # spike about config driven tabs
+    # In the meantime, checking against the type to demonstrate the flow
+    if @edition.configurable_document_type == "topical_event"
+      if TabForms::SocialMediaTabForm.new(@edition).invalid?
+        @edition.errors.add(:social_media_tab, "Social media accounts are invalid")
+      end
+    end
   end
 end
