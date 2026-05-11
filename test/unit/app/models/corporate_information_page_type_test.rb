@@ -27,7 +27,7 @@ class CorporateInformationPageTypeTest < ActiveSupport::TestCase
       organisation: @organisation,
     )
 
-    assert_equal "Procurement at Department of Alphabet", corporate_information_page.title
+    assert_equal "Procurement at the Department of Alphabet", corporate_information_page.title
   end
 
   test ".title_lang returns lang=en if the title translation does not exist" do
@@ -55,6 +55,6 @@ class CorporateInformationPageTypeTest < ActiveSupport::TestCase
       organisation: @organisation,
     )
 
-    assert_equal "Procurement at Department of Alphabet", corporate_information_page.title
+    assert_equal "Procurement at the Department of Alphabet", corporate_information_page.title
   end
 end

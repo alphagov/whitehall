@@ -1,6 +1,7 @@
 class CorporateInformationPageType
   include ActiveRecordLikeInterface
   include TranslationHelper
+  include OrganisationHelper
 
   attr_accessor :id, :title_template, :slug, :menu_heading
 
@@ -112,8 +113,9 @@ private
   def organisation_name(organisation)
     if organisation.respond_to?(:acronym) && organisation.acronym.present?
       organisation.acronym
-    else
-      organisation.try(:name).to_s
+    elsif organisation.respond_to?(:name)
+      prefix = needs_definite_article?(organisation.name) ? "the " : ""
+      prefix + organisation.name
     end
   end
 end

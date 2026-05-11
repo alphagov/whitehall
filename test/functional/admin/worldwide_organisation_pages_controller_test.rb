@@ -17,7 +17,7 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
     assert_select "h1", "British Antarctic Territory"
     assert_select "h2", "Pages within this organisation"
     assert_select "h2", "Publication scheme"
-    assert_select "h2", "Working for British Antarctic Territory"
+    assert_select "h2", "Working for the British Antarctic Territory"
   end
 
   view_test "GET :new displays the worldwide organisation page fields" do
