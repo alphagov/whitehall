@@ -61,4 +61,54 @@ class EditionSchedulerTest < ActiveSupport::TestCase
       assert_match %r{Scheduled publication date must be at least 15 minutes from now}, scheduler.failure_reason
     end
   end
+
+  test "#perform! with an invalid form tab on a standard edition cannot be scheduled" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_tab" => {
+          "dynamic" => true,
+          "label" => "Extra tab",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+        "validations" => {
+          "presence" => { "attributes" => %w[body sidebar] },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:submitted_standard_edition, :with_organisations,
+                     configurable_document_type: "test_type",
+                     title: "Title", summary: "Summary",
+                     block_content: { body: "Content", sidebar: "Sidebar content" })
+    edition.translations.update_all(block_content: { body: "New content", sidebar: "" })
+    edition.reload
+
+    scheduler = EditionScheduler.new(edition)
+
+    assert_not scheduler.perform!
+    assert_not edition.scheduled?
+    assert_includes scheduler.failure_reasons, "Extra tab tab is invalid"
+  end
 end

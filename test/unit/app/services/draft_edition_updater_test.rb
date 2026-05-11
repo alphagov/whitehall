@@ -47,4 +47,15 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
 
     updater.perform!
   end
+
+  test "#perform! skips update_publishing_api! when a draft edition is invalid" do
+    edition = create(:draft_edition)
+    edition.freeze
+    updater = DraftEditionUpdater.new(edition)
+    updater.stubs(:can_push_draft?).returns(false)
+    updater.expects(:update_publishing_api!).never
+    updater.expects(:notify!).once
+
+    updater.perform!
+  end
 end

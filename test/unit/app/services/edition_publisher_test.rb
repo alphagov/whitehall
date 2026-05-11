@@ -51,6 +51,56 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_equal "This edition is invalid: Title cannot be blank", publisher.failure_reason
   end
 
+  test "#perform! with an invalid form tab on a standard edition refuses to publish" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_tab" => {
+          "dynamic" => true,
+          "label" => "Extra tab",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+        "validations" => {
+          "presence" => { "attributes" => %w[body sidebar] },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:submitted_standard_edition, :with_organisations,
+                     configurable_document_type: "test_type",
+                     title: "Title", summary: "Summary",
+                     block_content: { body: "Content", sidebar: "Sidebar content" })
+    edition.translations.update_all(block_content: { body: "New content", sidebar: "" })
+    edition.reload
+
+    publisher = EditionPublisher.new(edition)
+
+    assert_not publisher.perform!
+    assert_not edition.published?
+    assert_includes publisher.failure_reasons, "Extra tab tab is invalid"
+  end
+
   test "#perform! with a re-editioned document updates the version numbers" do
     published_edition = create(:published_edition, major_change_published_at: 1.week.ago)
     edition = published_edition.create_draft(create(:writer))

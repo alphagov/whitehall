@@ -1,7 +1,7 @@
 class DraftEditionUpdater < EditionService
   def perform!
     if can_perform?
-      update_publishing_api!
+      update_publishing_api! if can_push_draft?
       notify!
       true
     end
@@ -29,5 +29,13 @@ private
 
   def access_limit_excludes_current_user?
     edition.organisation_association_enabled? && edition.edition_organisations.map(&:organisation_id).exclude?(@options[:current_user].organisation.id)
+  end
+
+  def can_push_draft?
+    return true unless edition.is_a?(StandardEdition)
+
+    edition.type_instance.form_keys.all? do |tab_key|
+      StandardEdition::TabForm.new(edition, tab_key).valid?
+    end
   end
 end
