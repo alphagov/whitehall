@@ -52,12 +52,23 @@ When(/^I change the title to "([^"]*)"$/) do |new_title|
   fill_in "Title", with: new_title
 end
 
-When("I opt out of updating the slug") do
-  check "Keep the current page URL"
+When("I opt in to use the title based slug") do
+  check "Keep the freshly generated title-based URL"
 end
 
-Then("I cannot opt out of updating the slug") do
-  expect(page).not_to have_selector("label", text: "Keep the current page URL")
+When("I choose to keep the live slug") do
+end
+
+And("I see an unchecked checkbox for opting in to the title based slug") do
+  expect(page).to have_field("edition[slug_override]", checked: false)
+end
+
+And("I see a checked checkbox for opting in to the title based slug") do
+  expect(page).to have_field("edition[slug_override]", checked: true)
+end
+
+Then("I see the \"Live address\" including \"previously-published\"") do
+  # TODO
 end
 
 When("I save the edition and go to the document summary") do
