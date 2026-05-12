@@ -188,4 +188,26 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
 
     assert_equal 3, new_parent.child_relationships.count
   end
+
+  test "new_child_documents returns only the child documents that don't have a live edition" do
+    parent_edition = create(:standard_edition)
+
+    child_document_1 = create(:published_standard_edition).document
+    child_document_2 = create(:draft_standard_edition).document
+    relationships = [
+      build(
+        :parent_child_relationship,
+        parent_edition: parent_edition,
+        child_document: child_document_1,
+      ),
+      build(
+        :parent_child_relationship,
+        parent_edition: parent_edition,
+        child_document: child_document_2,
+      ),
+    ]
+    relationships.each { |relationship| relationship.save!(validate: false) }
+
+    assert_equal [child_document_2], parent_edition.new_child_documents
+  end
 end
