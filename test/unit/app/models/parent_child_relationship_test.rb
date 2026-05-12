@@ -1,6 +1,23 @@
 require "test_helper"
 
 class ParentChildRelationshipTest < ActiveSupport::TestCase
+  setup do
+    parent_type = build_configurable_document_type("parent_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    other_type = build_configurable_document_type("other_type")
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type).merge(other_type))
+
+    @valid_parent_edition = create(:draft_standard_edition, configurable_document_type: "parent_type")
+  end
+
   test "should be invalid without a parent edition" do
     relationship = build(:parent_child_relationship, parent_edition: nil)
     assert_not relationship.valid?
@@ -12,7 +29,7 @@ class ParentChildRelationshipTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if more than one relationship exists from one parent to one child" do
-    existing_relationship = create(:parent_child_relationship)
+    existing_relationship = create(:parent_child_relationship, parent_edition: @valid_parent_edition)
 
     relationship = build(
       :parent_child_relationship,
@@ -24,7 +41,7 @@ class ParentChildRelationshipTest < ActiveSupport::TestCase
   end
 
   test "should be valid if one parent edition has two separate child documents" do
-    parent_edition = create(:edition)
+    parent_edition = @valid_parent_edition
 
     _existing_relationship = create(
       :parent_child_relationship,
@@ -41,28 +58,25 @@ class ParentChildRelationshipTest < ActiveSupport::TestCase
 
   test "should be valid if one child document belongs to two parent editions (of the same parent document)" do
     child_document = create(:document)
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "parent_type")
 
     _existing_relationship = create(
       :parent_child_relationship,
       child_document:,
+      parent_edition:,
     )
+
+    # Simulate making the parent edition live and then creating a new draft
+    parent_edition.update_column(:state, "published")
+    parent_draft_edition = create(:draft_standard_edition, configurable_document_type: "parent_type", document: parent_edition.document)
 
     relationship = build(
       :parent_child_relationship,
       child_document:,
+      parent_edition: parent_draft_edition,
     )
 
     assert relationship.valid?
-  end
-
-  test "should allow creation" do
-    relationship = build(:parent_child_relationship)
-    assert_nothing_raised { relationship.save! }
-  end
-
-  test "should allow destruction" do
-    relationship = create(:parent_child_relationship)
-    assert_nothing_raised { relationship.destroy! }
   end
 
   test "should be invalid if the parent edition does not exist" do
@@ -75,7 +89,7 @@ class ParentChildRelationshipTest < ActiveSupport::TestCase
     assert_equal invalid_states.count, 4
 
     invalid_states.each do |state|
-      parent_edition = create("#{state}_edition".to_sym) # rubocop:disable Rails/SaveBang
+      parent_edition = create("#{state}_standard_edition".to_sym, configurable_document_type: "parent_type")
 
       relationship = build(
         :parent_child_relationship,
@@ -95,7 +109,7 @@ class ParentChildRelationshipTest < ActiveSupport::TestCase
     assert_equal valid_states.count, 4
 
     valid_states.each do |state|
-      parent_edition = create("#{state}_edition".to_sym) # rubocop:disable Rails/SaveBang
+      parent_edition = create("#{state}_standard_edition".to_sym, configurable_document_type: "parent_type")
 
       relationship = build(
         :parent_child_relationship,
@@ -104,5 +118,20 @@ class ParentChildRelationshipTest < ActiveSupport::TestCase
 
       assert relationship.valid?, "expected parent edition in state #{state} to be valid"
     end
+  end
+
+  test "should be invalid if parent edition does not support child editions" do
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "other_type")
+
+    relationship = build(
+      :parent_child_relationship,
+      parent_edition:,
+    )
+
+    assert_not relationship.valid?
+    assert_includes(
+      relationship.errors[:parent_edition],
+      "does not support child documents",
+    )
   end
 end

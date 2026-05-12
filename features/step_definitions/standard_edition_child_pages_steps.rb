@@ -1,6 +1,6 @@
-When("I draft a new parent configurable document") do
+def create_parent_standard_edition(state)
   @standard_edition = create(
-    :draft_standard_edition,
+    "#{state}_standard_edition".to_sym,
     configurable_document_type: "test_type_parent",
     title: "Parent document",
     summary: "This is the parent document",
@@ -9,8 +9,11 @@ When("I draft a new parent configurable document") do
       "body" => "This is the parent body",
     },
   )
-
   visit admin_standard_edition_path(@standard_edition)
+end
+
+When("I draft a new parent configurable document") do
+  create_parent_standard_edition("draft")
 end
 
 Then(/^I should see a "(.+)" section on the document summary page$/) do |section_title|
@@ -62,4 +65,12 @@ Then("it links back to the parent document") do
   within ".govuk-inset-text" do
     expect(page).to have_link(@standard_edition.title, href: "/government/admin/editions/#{@standard_edition.id}")
   end
+end
+
+Given("I have a published parent configurable document") do
+  create_parent_standard_edition("published")
+end
+
+Then(/^there should be no "(.+)" link$/) do |string|
+  expect(page).not_to have_link(string)
 end
