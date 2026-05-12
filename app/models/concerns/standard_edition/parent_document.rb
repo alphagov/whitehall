@@ -22,6 +22,11 @@ module StandardEdition::ParentDocument
              dependent: :destroy
 
     has_many :child_documents,
+             lambda {
+               joins(:editions)
+                 .merge(Edition.all) # applies default scope (i.e. excludes deleted)
+                 .distinct
+             },
              through: :child_relationships,
              source: :child_document
 
