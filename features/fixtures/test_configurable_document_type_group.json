@@ -1,6 +1,6 @@
 [
   {
-    "key": "test_type_1",
+    "key": "test_type_one",
     "title": "Test configurable document type one",
     "description": "A test configurable document on GOV.UK",
     "forms": {
@@ -33,9 +33,9 @@
     },
     "settings": {
       "base_path_prefix": "/government/test-type",
-      "publishing_api_schema_name": "test_type",
-      "publishing_api_document_type": "test_type_1",
-      "configurable_document_group": "test_group",
+      "publishing_api_schema_name": "news_article",
+      "publishing_api_document_type": "news_story",
+      "configurable_document_group": "news_article",
       "rendering_app": "frontend",
       "organisations": null,
       "backdating_enabled": false,
@@ -45,14 +45,18 @@
         "usages": {
           "govspeak_embed": {
             "kinds": ["default"],
-            "multiple": true
+            "multiple": true,
+            "caption_enabled": true
           }
         }
-      }
+      },
+      "send_change_history": true,
+      "file_attachments_enabled": true,
+      "history_mode_enabled": true
     }
   },
   {
-    "key": "test_type_2",
+    "key": "test_type_two",
     "title": "Test configurable document type two",
     "description": "A test configurable document on GOV.UK",
     "forms": {
@@ -77,15 +81,17 @@
     },
     "presenters": {
       "publishing_api": {
-        "body": "govspeak"
+        "details": {
+          "body": "govspeak"
+        },
+        "links": []
       }
     },
-    "associations": [],
     "settings": {
       "base_path_prefix": "/government/test-type",
-      "publishing_api_schema_name": "test_type",
-      "publishing_api_document_type": "test_type_2",
-      "configurable_document_group": "test_group",
+      "publishing_api_schema_name": "news_article",
+      "publishing_api_document_type": "press_release",
+      "configurable_document_group": "news_article",
       "rendering_app": "frontend",
       "organisations": null,
       "backdating_enabled": false,
@@ -95,10 +101,14 @@
         "usages": {
           "govspeak_embed": {
             "kinds": ["default"],
-            "multiple": true
+            "multiple": true,
+            "caption_enabled": true
           }
         }
-      }
+      },
+      "send_change_history": true,
+      "file_attachments_enabled": true,
+      "history_mode_enabled": true
     }
   }
 ]
