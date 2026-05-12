@@ -22,6 +22,13 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
       end
     end
 
+    it "validates that the test_configurable_document_type.json fixture is valid" do
+      document_type = JSON.parse(File.read("features/fixtures/test_configurable_document_type.json"))
+      errors = SchemaValidator.for(document_type)
+
+      assert errors.empty?, "Schema validation errors for #{document_type['key']}:\n#{errors.join("\n")}"
+    end
+
     it "validates that the test_configurable_document_type_group.json fixtures are valid" do
       document_types = JSON.parse(File.read("features/fixtures/test_configurable_document_type_group.json"))
       document_types.each do |document_type|
