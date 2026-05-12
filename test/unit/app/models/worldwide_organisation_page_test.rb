@@ -78,7 +78,7 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   test "should derive title from type and interpolate organisation name" do
     worldwide_organisation = build(:worldwide_organisation, title: "British Antarctic Territory")
     page = build(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
-    assert_equal "Working for British Antarctic Territory", page.title
+    assert_equal "Working for the British Antarctic Territory", page.title
   end
 
   test "#missing_translations should only include worldwide organisation translations" do

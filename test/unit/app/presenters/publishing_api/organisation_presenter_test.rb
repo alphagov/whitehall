@@ -39,7 +39,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     expected_hash = {
       base_path: public_path,
       title: "Organisation of Things",
-      description: "This org is a thing! Organisation of Things works with the Department for Stuff .",
+      description: "This org is a thing! The Organisation of Things works with the Department for Stuff .",
       schema_name: "organisation",
       document_type: "organisation",
       locale: "en",
@@ -54,7 +54,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       details: {
         acronym: nil,
         alternative_format_contact_email: nil,
-        body: govspeak_to_html("This org is a thing!\n\nOrganisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>."),
+        body: govspeak_to_html("This org is a thing!\n\nThe Organisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>."),
         brand: nil,
         logo: {
           formatted_title: "Organisation<br/>of<br/>Things",

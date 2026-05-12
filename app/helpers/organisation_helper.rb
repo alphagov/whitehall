@@ -1,9 +1,20 @@
 module OrganisationHelper
   include ApplicationHelper
 
+  PATTERNS_EXEMPT_FROM_DEFINITIVE_ARTICLE = [
+    /civil service resourcing/,
+    /^hm/,
+    /ordnance survey/,
+    /homes england/,
+    /british wool/,
+    /building law and hygiene/,
+  ].freeze
+
   def organisation_relationship_display_name(organisation)
     if organisation.acronym.present?
       tag.abbr(organisation.acronym, title: organisation.name)
+    elsif needs_definite_article?(organisation.name)
+      "The #{organisation.name}"
     else
       organisation.name
     end
@@ -79,8 +90,7 @@ module OrganisationHelper
   end
 
   def needs_definite_article?(phrase)
-    exceptions = [/civil service resourcing/, /^hm/, /ordnance survey/, /homes england/]
-    !has_definite_article?(phrase) && exceptions.none? { |e| e =~ phrase.downcase }
+    !has_definite_article?(phrase) && PATTERNS_EXEMPT_FROM_DEFINITIVE_ARTICLE.none? { |e| e =~ phrase.downcase }
   end
 
   def has_definite_article?(phrase)
