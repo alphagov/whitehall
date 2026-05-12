@@ -196,6 +196,7 @@
     "rendering_app": "frontend",
     "organisations": null,
     "backdating_enabled": false,
+    "taxon_required": false,
     "translations_enabled": true,
     "file_attachments_enabled": true,
     "features_enabled": true,
