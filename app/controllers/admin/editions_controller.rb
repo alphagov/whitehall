@@ -197,6 +197,8 @@ class Admin::EditionsController < Admin::BaseController
     else
       redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
     end
+  rescue WhitehallError => e
+    redirect_to admin_edition_path(@edition), alert: e.message
   end
 
   def update_bypass_id
