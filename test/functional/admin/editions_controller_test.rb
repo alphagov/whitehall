@@ -51,8 +51,20 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "attach_to_parent_if_this_is_a_child! creates relationship when parent_edition_id is present" do
-    parent_edition = create(:edition)
-    child_edition = create(:edition)
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "child_type")
 
     controller.params = ActionController::Parameters.new(
       parent_edition_id: parent_edition.id,
@@ -98,8 +110,20 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "attach_to_parent_if_this_is_a_child! locks the parent edition" do
-    parent_edition = create(:edition)
-    child_edition = create(:edition)
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "child_type")
 
     controller.params = ActionController::Parameters.new(
       parent_edition_id: parent_edition.id,

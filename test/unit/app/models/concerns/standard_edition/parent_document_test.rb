@@ -1,6 +1,19 @@
 require "test_helper"
 
 class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
+  setup do
+    test_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+  end
+
   test "is_parent_document? returns false when no child relationships exist" do
     edition = create(:standard_edition)
 

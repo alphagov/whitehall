@@ -16,9 +16,12 @@ class ParentChildRelationship < ApplicationRecord
 private
 
   def parent_must_be_prepublication
-    return if parent_edition.blank?
-    return if parent_edition.pre_publication?
+    return if parent_edition.blank? # This is already covered by presence validation
 
-    errors.add(:parent_edition, "must be in a pre-publication state")
+    if !parent_edition.pre_publication?
+      errors.add(:parent_edition, "must be in a pre-publication state")
+    elsif !parent_edition.allows_child_documents?
+      errors.add(:parent_edition, "does not support child documents")
+    end
   end
 end

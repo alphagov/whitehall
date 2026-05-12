@@ -16,3 +16,11 @@ Feature: Standard Editions - Child Pages
     Then I am taken to the summary page of my child document
     And I can see a "This is a child document" callout
     And it links back to the parent document
+
+  Scenario: Not able to create a child document from a parent in a published state
+    Given I am a writer
+    And the configurable document types feature flag is enabled
+    And the test configurable document type group is defined
+    And I have a published parent configurable document
+    Then I should see a "Child documents" section on the document summary page
+    And there should be no "Add child document" link

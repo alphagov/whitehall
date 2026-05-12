@@ -90,10 +90,25 @@ class Admin::EditionsController < Admin::BaseController
 
   def new; end
 
+  # TODO: should this transaction complexity be encapsulated in an EditionService call?
+  # That seems to be how we handle this sort of thing elsewhere.
   def create
-    if updater.can_perform? && @edition.save
-      attach_to_parent_if_this_is_a_child!
-      updater.perform!
+    success =
+      if updater.can_perform?
+        begin
+          ActiveRecord::Base.transaction do
+            @edition.save!
+            attach_to_parent_if_this_is_a_child!
+            updater.perform!
+          end
+          true
+        rescue ActiveRecord::RecordInvalid => e
+          @edition.errors.merge!(e.record.errors)
+          false
+        end
+      end
+
+    if success
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       build_edition_dependencies
