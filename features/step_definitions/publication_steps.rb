@@ -17,6 +17,10 @@ When(/^I begin drafting a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
 end
 
+When(/^I begin drafting a new publication "([^"]*)" and save it$/) do |title|
+  step %(I start drafting a new publication "#{title}")
+end
+
 When(/^I draft a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
   click_button "Save and go to document summary"

@@ -186,6 +186,71 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "Review date"
   end
 
+  view_test "GET new does not show the keep current URL option" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    get :new, params: { configurable_document_type: "test_type" }
+
+    assert_response :ok
+    refute_select "label", text: /Keep the current page URL/
+  end
+
+  view_test "GET edit does not show the keep current URL option for a draft with no live edition" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type")
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    refute_select "label", text: /Keep the current page URL/
+  end
+
+  view_test "GET edit pre-selects the keep current URL option when slug_override is set" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", document: published_edition.document, slug_override: published_edition.slug)
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=radio][name=?]", "edition[slug_override]", count: 2
+    assert_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
+    refute_select "input[type=radio][name=?][value=''][checked]", "edition[slug_override]"
+  end
+
+  view_test "GET edit pre-selects the update URL option when slug_override is blank" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", document: published_edition.document, slug_override: nil)
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=radio][name=?]", "edition[slug_override]", count: 2
+    assert_select "input[type=radio][name=?][value=''][checked]", "edition[slug_override]"
+    refute_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
+  end
+
+  view_test "GET edit appends the keep current URL option with the live URL" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", document: published_edition.document)
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "label", text: "Keep the current page URL (#{published_edition.public_url})"
+  end
+
   view_test "GET edit renders only the fields for the selected tab" do
     configurable_document_type = build_configurable_document_type("test_type", {
       "forms" => {
