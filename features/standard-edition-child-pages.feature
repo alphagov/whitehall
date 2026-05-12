@@ -33,3 +33,12 @@ Feature: Standard Editions - Child Pages
     Then when I click the link "Delete draft"
     And when I click "Delete"
     Then I should get the error message "This document cannot be deleted while it has child documents that have never been published. Delete the draft child documents first."
+
+  Scenario: Child publishability
+    Given I am a GDS admin
+    And the configurable document types feature flag is enabled
+    And the test configurable document type group is defined
+    And I have drafted a parent and a child configurable document
+    Then I should see no option to publish the child
+    But when I publish the parent
+    Then I should be able to publish the child

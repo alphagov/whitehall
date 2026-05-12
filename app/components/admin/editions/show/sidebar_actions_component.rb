@@ -23,9 +23,11 @@ class Admin::Editions::Show::SidebarActionsComponent < ViewComponent::Base
       add_create_action
       add_edit_action
       add_submit_action
-      add_unschedule_action
-      add_schedule_action
-      add_publish_action
+      unless @edition.is_child_document? && !@edition.can_be_published?
+        add_unschedule_action
+        add_schedule_action
+        add_publish_action
+      end
       add_reject_action
       add_destroy_action
       add_unwithdraw_action

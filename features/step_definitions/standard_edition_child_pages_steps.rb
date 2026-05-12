@@ -54,10 +54,10 @@ Then("when I fill in and create the child document") do
   fill_in "Body", with: "This is the child body"
 
   click_button "Save and go to document summary"
+  @child_edition = StandardEdition.last
 end
 
 Then("I am taken to the summary page of my child document") do
-  @child_edition = StandardEdition.last
   assert_current_path(admin_standard_edition_path(@child_edition))
 end
 
@@ -81,4 +81,21 @@ Given("I have drafted a parent and a child configurable document") do
   step "when I choose a child document type"
   step "when I fill in and create the child document"
   visit admin_standard_edition_path(@standard_edition)
+end
+
+Then("I should see no option to publish the child") do
+  visit admin_standard_edition_path(@child_edition)
+  expect(page).not_to have_link("Force publish")
+end
+
+Then("when I publish the parent") do
+  visit admin_standard_edition_path(@standard_edition)
+  click_link("Force publish")
+  fill_in "Reason for force publishing", with: "Because this is simpler to demonstrate than the whole 2i workflow..."
+  click_button("Force publish")
+end
+
+Then("I should be able to publish the child") do
+  visit admin_standard_edition_path(@child_edition)
+  expect(page).to have_link("Force publish")
 end
