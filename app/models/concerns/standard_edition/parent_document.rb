@@ -1,6 +1,8 @@
 module StandardEdition::ParentDocument
   extend ActiveSupport::Concern
 
+  class UnableToDelete < ::WhitehallError; end
+
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(new_edition)
       ParentChildRelationship
@@ -30,6 +32,8 @@ module StandardEdition::ParentDocument
              through: :child_relationships,
              source: :child_document
 
+    before_update :ensure_no_new_child_documents!, if: :deleting?
+
     add_trait Trait
   end
 
@@ -47,5 +51,17 @@ module StandardEdition::ParentDocument
 
   def new_child_documents
     child_documents.where(live_edition_id: nil)
+  end
+
+private
+
+  def deleting?
+    will_save_change_to_state? && state == "deleted"
+  end
+
+  def ensure_no_new_child_documents!
+    if allows_child_documents? && new_child_documents.any?
+      raise UnableToDelete, "This document cannot be deleted while it has child documents that have never been published. Delete the draft child documents first."
+    end
   end
 end

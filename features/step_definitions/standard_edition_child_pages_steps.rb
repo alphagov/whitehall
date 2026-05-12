@@ -74,3 +74,11 @@ end
 Then(/^there should be no "(.+)" link$/) do |string|
   expect(page).not_to have_link(string)
 end
+
+Given("I have drafted a parent and a child configurable document") do
+  step "I draft a new parent configurable document"
+  step "when I click the link \"Add child document\""
+  step "when I choose a child document type"
+  step "when I fill in and create the child document"
+  visit admin_standard_edition_path(@standard_edition)
+end

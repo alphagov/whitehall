@@ -24,3 +24,12 @@ Feature: Standard Editions - Child Pages
     And I have a published parent configurable document
     Then I should see a "Child documents" section on the document summary page
     And there should be no "Add child document" link
+
+  Scenario: Not able to delete a draft parent if it contains any non-live children
+    Given I am a writer
+    And the configurable document types feature flag is enabled
+    And the test configurable document type group is defined
+    And I have drafted a parent and a child configurable document
+    Then when I click the link "Delete draft"
+    And when I click "Delete"
+    Then I should get the error message "This document cannot be deleted while it has child documents that have never been published. Delete the draft child documents first."

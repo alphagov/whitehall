@@ -227,4 +227,16 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
 
     assert_not_includes parent_edition.child_documents, child_edition.document
   end
+
+  test "unable to delete parent edition if it contains any new child documents" do
+    parent_edition = create(:standard_edition)
+
+    parent_edition.stubs(:new_child_documents).returns([create(:standard_edition).document])
+
+    error = assert_raises(StandardEdition::ParentDocument::UnableToDelete) do
+      parent_edition.update!(state: "deleted")
+    end
+
+    assert_equal "This document cannot be deleted while it has child documents that have never been published. Delete the draft child documents first.", error.message
+  end
 end
