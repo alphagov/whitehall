@@ -39,4 +39,8 @@ module StandardEdition::ParentDocument
   def child_editions
     Edition.where(id: child_documents.select(:latest_edition_id))
   end
+
+  def new_child_documents
+    child_documents.where(live_edition_id: nil)
+  end
 end
