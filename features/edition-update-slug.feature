@@ -16,3 +16,84 @@ Feature: Edition update slug
     And I opt out of keeping the live slug
     And I save the edition and go to the document summary
     Then I can see the preview URL of the publication "Ten facts that will shock you" contains "ten-facts-that-will-shock-you"
+
+  Scenario: Editor saves a published document (saved live slug, previously changed title)
+    Given I am an editor
+    And a published publication "You will never guess" exists
+    When I edit the publication "You will never guess"
+    And I change the title to "Ten facts that will shock you"
+    And I save the edition and go to the document summary
+    And I can see the preview URL of the publication "Ten facts that will shock you" contains "you-will-never-guess"
+    And I force publish the publication "Ten facts that will shock you"
+    And I edit the publication "Ten facts that will shock you"
+    And I save the edition and go to the document summary
+    Then I can see the preview URL of the publication "Ten facts that will shock you" contains "you-will-never-guess"
+
+  Scenario: Editor updates the title of a published document (saved live slug, previously changed title) and keeps the live slug
+    Given I am an editor
+    And a published publication "You will never guess" exists
+    When I edit the publication "You will never guess"
+    And I change the title to "Ten facts that will shock you"
+    And I save the edition and go to the document summary
+    And I can see the preview URL of the publication "Ten facts that will shock you" contains "you-will-never-guess"
+    And I force publish the publication "Ten facts that will shock you"
+    And I edit the publication "Ten facts that will shock you"
+    And I change the title to "Remember this person from the 90's"
+    And I save the edition and go to the document summary
+    Then I can see the preview URL of the publication "Remember this person from the 90's" contains "you-will-never-guess"
+
+  Scenario: Editor updates the title of a published document (saved live slug, previously changed title) and opts out of keeping the live slug
+    Given I am an editor
+    And a published publication "You will never guess" exists
+    When I edit the publication "You will never guess"
+    And I change the title to "Ten facts that will shock you"
+    And I save the edition and go to the document summary
+    And I can see the preview URL of the publication "Ten facts that will shock you" contains "you-will-never-guess"
+    And I force publish the publication "Ten facts that will shock you"
+    And I edit the publication "Ten facts that will shock you"
+    And I change the title to "Remember this person from the 90's"
+    And I opt out of keeping the live slug
+    And I save the edition and go to the document summary
+    Then I can see the preview URL of the publication "Remember this person from the 90's" contains "remember-this-person-from-the-90s"
+
+  Scenario: Editor saves a published document (title based slug, previously changed title)
+    Given I am an editor
+    And a published publication "You will never guess" exists
+    When I edit the publication "You will never guess"
+    And I change the title to "Ten facts that will shock you"
+    And I opt out of keeping the live slug
+    And I save the edition and go to the document summary
+    And I can see the preview URL of the publication "Ten facts that will shock you" contains "ten-facts-that-will-shock-you"
+    And I force publish the publication "Ten facts that will shock you"
+    And I edit the publication "Ten facts that will shock you"
+    And I save the edition and go to the document summary
+    Then I can see the preview URL of the publication "Ten facts that will shock you" contains "ten-facts-that-will-shock-you"
+
+  Scenario: Editor updates the title of a published document (title based slug, previously changed title) and keeps the live slug
+    Given I am an editor
+    And a published publication "You will never guess" exists
+    When I edit the publication "You will never guess"
+    And I change the title to "Ten facts that will shock you"
+    And I opt out of keeping the live slug
+    And I save the edition and go to the document summary
+    And I can see the preview URL of the publication "Ten facts that will shock you" contains "ten-facts-that-will-shock-you"
+    And I force publish the publication "Ten facts that will shock you"
+    And I edit the publication "Ten facts that will shock you"
+    And I change the title to "Remember this person from the 90's"
+    And I save the edition and go to the document summary
+    Then I can see the preview URL of the publication "Remember this person from the 90's" contains "ten-facts-that-will-shock-you"
+
+  Scenario: Editor updates the title of a published document (title based slug, previously changed title) and opts out of keeping the live slug
+    Given I am an editor
+    And a published publication "You will never guess" exists
+    When I edit the publication "You will never guess"
+    And I change the title to "Ten facts that will shock you"
+    And I opt out of keeping the live slug
+    And I save the edition and go to the document summary
+    And I can see the preview URL of the publication "Ten facts that will shock you" contains "ten-facts-that-will-shock-you"
+    And I force publish the publication "Ten facts that will shock you"
+    And I edit the publication "Ten facts that will shock you"
+    And I change the title to "Remember this person from the 90's"
+    And I opt out of keeping the live slug
+    And I save the edition and go to the document summary
+    Then I can see the preview URL of the publication "Remember this person from the 90's" contains "remember-this-person-from-the-90s"

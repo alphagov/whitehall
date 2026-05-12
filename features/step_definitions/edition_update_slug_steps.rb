@@ -15,7 +15,7 @@ Then(/^I can see the edition's public URL contains "([^"]*)"$/) do |new_slug|
 end
 
 Then(/^I can see the preview URL of the publication "([^"]*)" contains "([^"]*)"$/) do |title, new_slug|
-  visit admin_edition_path(Publication.find_by(title:))
+  visit admin_edition_path(Publication.latest_edition.find_by!(title:))
   expect(page).to have_link "Preview on website (opens in new tab)", href: "https://draft-origin.test.gov.uk/government/publications/#{new_slug}"
 end
 
