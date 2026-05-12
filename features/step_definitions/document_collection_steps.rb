@@ -157,7 +157,8 @@ And(/^a GovUK Url exists "([^"]*)" with title "([^"]*)"$/) do |url, title|
   content_id = SecureRandom.uuid
 
   stub_publishing_api_has_lookups(base_path => content_id)
-  stub_publishing_api_has_item(
+  stub_content_store_has_item(
+    base_path,
     content_id:,
     base_path:,
     publishing_app: "content-publisher",
