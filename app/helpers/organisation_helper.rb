@@ -1,7 +1,7 @@
 module OrganisationHelper
   include ApplicationHelper
 
-  def organisation_display_name(organisation)
+  def organisation_relationship_display_name(organisation)
     if organisation.acronym.present?
       tag.abbr(organisation.acronym, title: organisation.name)
     else
@@ -22,7 +22,7 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    name = ERB::Util.h(organisation_display_name(organisation)).strip
+    name = ERB::Util.h(organisation_relationship_display_name(organisation)).strip
     type_name = organisation_type_name(organisation)
     relationship = ERB::Util.h(add_indefinite_article(type_name))
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }

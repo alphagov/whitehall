@@ -5,17 +5,17 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test "returns acronym in abbr tag if present" do
     organisation = build(:organisation, acronym: "BLAH", name: "Building Law and Hygiene")
-    assert_equal %(<abbr title="Building Law and Hygiene">BLAH</abbr>), organisation_display_name(organisation)
+    assert_equal %(<abbr title="Building Law and Hygiene">BLAH</abbr>), organisation_relationship_display_name(organisation)
   end
 
   test "returns name when acronym is nil" do
     organisation = build(:organisation, acronym: nil, name: "Building Law and Hygiene")
-    assert_equal "Building Law and Hygiene", organisation_display_name(organisation)
+    assert_equal "Building Law and Hygiene", organisation_relationship_display_name(organisation)
   end
 
   test "returns name when acronym is empty" do
     organisation = build(:organisation, acronym: "", name: "Building Law and Hygiene")
-    assert_equal "Building Law and Hygiene", organisation_display_name(organisation)
+    assert_equal "Building Law and Hygiene", organisation_relationship_display_name(organisation)
   end
 
   test "returns name formatted for logos" do
