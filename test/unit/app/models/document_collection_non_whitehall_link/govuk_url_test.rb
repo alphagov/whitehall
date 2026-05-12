@@ -10,6 +10,12 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       base_path: "/test",
       publishing_app: "content-publisher",
     )
+    Services.content_store.stubs(:content_item).with("/test").returns(
+      "content_id" => @content_id,
+      "title" => "Test",
+      "base_path" => "/test",
+      "publishing_app" => "content-publisher",
+    )
   end
 
   test "should be valid without a GOV.UK url that Publishing API knows" do
@@ -33,11 +39,13 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
   test "should be valid when a mainstream guide sub-page url is used" do
     content_id = SecureRandom.uuid
     stub_publishing_api_has_lookups("/foo" => content_id)
-    stub_publishing_api_has_item(content_id:,
-                                 title: "Foo Bar",
-                                 base_path: "/foo",
-                                 document_type: "guide",
-                                 publishing_app: "content-publisher")
+    Services.content_store.stubs(:content_item).with("/foo/subpage").returns(
+      "content_id" => content_id,
+      "title" => "Foo Bar",
+      "base_path" => "/foo",
+      "publishing_app" => "content-publisher",
+      "document_type" => "guide",
+    )
 
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/foo/subpage",
@@ -91,8 +99,37 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
       document_collection_group: build(:document_collection_group),
     )
 
+    Services.content_store.stubs(:content_item).raises(GdsApi::ContentStore::ItemNotFound.new(404))
+
     assert_not url.valid?
     assert url.errors.full_messages.include?("Url must reference a GOV.UK page")
+  end
+
+  test "should be valid when a Welsh-language GOV.UK URL is used that is not in the Publishing API path reservations" do
+    welsh_content_id = SecureRandom.uuid
+    content_store_response = { "content_id" => welsh_content_id, "title" => "Talu cosb hunanasesiad", "base_path" => "/talu-cosb-hunanasesiad", "publishing_app" => "publisher" }
+    Services.content_store.stubs(:content_item).with("/talu-cosb-hunanasesiad").returns(content_store_response)
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/talu-cosb-hunanasesiad",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert url.valid?
+  end
+
+  test "should be valid when a Welsh-language GOV.UK URL is in the Publishing API but only has a Welsh locale" do
+    welsh_content_id = SecureRandom.uuid
+    stub_publishing_api_has_lookups("/talu-treth-twe" => welsh_content_id)
+    content_store_response = { "content_id" => welsh_content_id, "title" => "Talu TWE y cyflogwr", "base_path" => "/talu-treth-twe", "publishing_app" => "publisher", "locale" => "cy" }
+    Services.content_store.stubs(:content_item).with("/talu-treth-twe").returns(content_store_response)
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/talu-treth-twe",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert url.valid?
   end
 
   test "should be invalid when Publishing API returns a 404" do
@@ -110,11 +147,13 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
   test "should be invalid when a non-mainstream guide sub-page url is used" do
     content_id = SecureRandom.uuid
     stub_publishing_api_has_lookups("/foo" => content_id)
-    stub_publishing_api_has_item(content_id:,
-                                 title: "Foo Bar",
-                                 base_path: "/foo",
-                                 document_type: "other",
-                                 publishing_app: "content-publisher")
+    Services.content_store.stubs(:content_item).with("/foo/subpage").returns(
+      "content_id" => content_id,
+      "title" => "Foo Bar",
+      "base_path" => "/foo",
+      "publishing_app" => "content-publisher",
+      "document_type" => "other",
+    )
 
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/foo/subpage",
