@@ -37,8 +37,8 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
   test "child_documents returns associated documents" do
     parent_edition = create(:standard_edition)
 
-    child_document_1 = create(:document)
-    child_document_2 = create(:document)
+    child_document_1 = create(:standard_edition).document
+    child_document_2 = create(:standard_edition).document
 
     create(
       :parent_child_relationship,
@@ -209,5 +209,22 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
     relationships.each { |relationship| relationship.save!(validate: false) }
 
     assert_equal [child_document_2], parent_edition.new_child_documents
+  end
+
+  test "deleting a non-live child edition removes it from the parent edition's child documents" do
+    parent_edition = create(:standard_edition)
+
+    child_edition = create(:draft_standard_edition)
+    build(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    ).save!(validate: false)
+
+    assert_includes parent_edition.child_documents, child_edition.document
+
+    child_edition.update!(state: "deleted")
+
+    assert_not_includes parent_edition.child_documents, child_edition.document
   end
 end
