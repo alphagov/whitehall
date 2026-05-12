@@ -192,7 +192,7 @@ class Edition < ApplicationRecord
                                     force_published
                                     scheduled_publication]
       draft_attributes = attributes.except(*ignorable_attribute_keys)
-        .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
+        .merge("state" => "draft", "creator" => user, "previously_published" => previously_published, "slug_override" => slug)
 
       self.class.new(draft_attributes).tap do |draft|
         traits.each { |t| t.process_associations_before_save(draft) }

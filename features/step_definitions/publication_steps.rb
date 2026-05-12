@@ -52,12 +52,8 @@ When(/^I change the title to "([^"]*)"$/) do |new_title|
   fill_in "Title", with: new_title
 end
 
-When("I opt out of updating the slug") do
-  check "Keep the current page URL"
-end
-
-Then("I cannot opt out of updating the slug") do
-  expect(page).not_to have_selector("label", text: "Keep the current page URL")
+When("I opt out of keeping the live slug") do
+  choose "Update the page URL to match the new title"
 end
 
 When("I save the edition and go to the document summary") do

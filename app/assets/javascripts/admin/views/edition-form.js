@@ -160,25 +160,25 @@
   EditionForm.prototype.setupTitleInputEventListener = function () {
     const form = this.module
     const titleInput = form.querySelector('#edition_title')
-    const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+    const keepSlugControls = form.querySelector('.js-keep-slug-form-group')
 
-    if (!titleInput || !checkboxContainer) {
+    if (!titleInput || !keepSlugControls) {
       return
     }
 
     const originalTitle = titleInput.value
 
-    const setCheckboxVisibility = () => {
+    const setKeepSlugControlsVisibility = () => {
       const titleHasChanged = originalTitle !== titleInput.value
       if (titleHasChanged) {
-        checkboxContainer.removeAttribute('hidden')
+        keepSlugControls.removeAttribute('hidden')
       } else {
-        checkboxContainer.setAttribute('hidden', 'hidden')
+        keepSlugControls.setAttribute('hidden', 'hidden')
       }
     }
 
-    titleInput.addEventListener('input', () => setCheckboxVisibility())
-    setCheckboxVisibility()
+    titleInput.addEventListener('input', () => setKeepSlugControlsVisibility())
+    setKeepSlugControlsVisibility()
   }
 
   Modules.EditionForm = EditionForm

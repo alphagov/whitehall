@@ -189,25 +189,25 @@ describe('GOVUK.Modules.EditionForm', function () {
       editionForm.init()
     })
 
-    it('hides the checkbox on page load', function () {
-      const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+    it('hides the keep-slug controls on page load', function () {
+      const keepSlugControls = form.querySelector('.js-keep-slug-form-group')
 
-      expect(checkboxContainer.hidden).toEqual(true)
+      expect(keepSlugControls.hidden).toEqual(true)
     })
 
-    it('shows the checkbox when the title is edited, and hides it if the title is reset', function () {
+    it('shows the keep-slug controls when the title is edited, and hides them if the title is reset', function () {
       const titleInput = form.querySelector('#edition_title')
-      const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+      const keepSlugControls = form.querySelector('.js-keep-slug-form-group')
 
       titleInput.value = 'Some new title'
       titleInput.dispatchEvent(new Event('input'))
 
-      expect(checkboxContainer.hidden).toEqual(false)
+      expect(keepSlugControls.hidden).toEqual(false)
 
       titleInput.value = newEditionTitle
       titleInput.dispatchEvent(new Event('input'))
 
-      expect(checkboxContainer.hidden).toEqual(true)
+      expect(keepSlugControls.hidden).toEqual(true)
     })
   })
 
@@ -328,11 +328,19 @@ describe('GOVUK.Modules.EditionForm', function () {
               </div>
             </div>
             <div id="hint-f0e80744" class="gem-c-hint govuk-hint">http://www.dev.gov.uk/guidance/test-document</div>
-            <input type="hidden" value="" />
-            <div id="checkboxes-ab8fa8f0" data-module="gem-checkboxes govuk-checkboxes" class="gem-c-checkboxes govuk-form-group js-keep-slug-form-group">
-              <div class="govuk-checkboxes__item">
-                <input type="checkbox" name="slug_override" id="checkboxes-ab8fa8f0-0" value="${liveEditionTitle}" class="govuk-checkboxes__input"><label for="checkboxes-ab8fa8f0-0" class="govuk-label govuk-checkboxes__label">Keep current page URL</label>
-              </div>
+            <div class="gem-c-radio govuk-form-group js-keep-slug-form-group">
+              <fieldset class="govuk-fieldset">
+                <div class="govuk-radios">
+                  <div class="gem-c-radio govuk-radios__item">
+                    <input type="radio" name="edition[slug_override]" id="radio-ab8fa8f0-0" value="${liveEditionTitle}" class="govuk-radios__input" checked>
+                    <label for="radio-ab8fa8f0-0" class="govuk-label govuk-radios__label">Keep the current page URL</label>
+                  </div>
+                  <div class="gem-c-radio govuk-radios__item">
+                    <input type="radio" name="edition[slug_override]" id="radio-ab8fa8f0-1" value="" class="govuk-radios__input">
+                    <label for="radio-ab8fa8f0-1" class="govuk-label govuk-radios__label">Update the page URL to match the new title</label>
+                  </div>
+                </div>
+              </fieldset>
             </div>`
   }
 })

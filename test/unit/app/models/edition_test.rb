@@ -538,6 +538,23 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_slug], Edition.with_title_containing("https://www.gov.uk/government/news/klingons-rule?foo=bar#details")
   end
 
+  test "#create_draft populates slug_override with the parent's slug when the parent has none" do
+    published_edition = create(:published_edition, title: "Klingons rule")
+    assert published_edition[:slug_override].blank?
+
+    draft = published_edition.create_draft(create(:writer))
+
+    assert_equal published_edition.slug, draft.slug_override
+  end
+
+  test "#create_draft preserves an existing slug_override on the parent" do
+    published_edition = create(:published_edition, title: "Klingons rule", slug_override: "kept-url")
+
+    draft = published_edition.create_draft(create(:writer))
+
+    assert_equal "kept-url", draft.slug_override
+  end
+
   test "should find editions with title containing regular expression characters" do
     edition_with_nasty_characters = create(:edition, title: "title with [stuff in brackets]")
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
