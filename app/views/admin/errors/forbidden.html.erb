@@ -5,8 +5,16 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-0">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">You do not have permission to access this page.</p>
-    <p class="govuk-body">If you need to:</p>
-
+    <% if @edition && can?(:perform_administrative_tasks, Edition) %>
+      <p class="govuk-body">
+        <a href="<%= edit_access_limited_admin_edition_path(@edition) %>" class="govuk-link">
+          As an administrator, you can update the access permissions of the page.
+        </a>
+      </p>
+      <p class="govuk-body">Alternatively, if you need to:</p>
+    <% else %>
+      <p class="govuk-body">If you need to:</p>
+    <% end %>
     <%= render "govuk_publishing_components/components/list", {
       visible_counters: true,
       items: [
