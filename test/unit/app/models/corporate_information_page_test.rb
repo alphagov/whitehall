@@ -160,7 +160,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "should derive title from type and interpolate organisation name if no acronym" do
     organisation = build(:organisation, acronym: nil, name: "Department for Communities and Local Government")
     corporate_information_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::Recruitment)
-    assert_equal "Working for Department for Communities and Local Government", corporate_information_page.title
+    assert_equal "Working for the Department for Communities and Local Government", corporate_information_page.title
   end
 
   test "should derive slug from type" do
