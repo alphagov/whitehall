@@ -245,7 +245,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     published_edition = create(:published_standard_edition, :with_organisations, configurable_document_type: "test_type")
-    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", document: published_edition.document, slug_override: nil)
+    edition = create(:draft_standard_edition, :with_organisations, configurable_document_type: "test_type", document: published_edition.document)
+    edition.update!(slug_override: "")
 
     get :edit, params: { id: edition }
 

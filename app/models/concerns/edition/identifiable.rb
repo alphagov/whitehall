@@ -6,6 +6,8 @@ module Edition::Identifiable
     validates :document, presence: true
     before_validation :ensure_presence_of_document, on: :create
     before_validation :propagate_type_to_document
+    before_save :default_slug_override_to_live_edition_slug,
+                if: -> { new_record? && document&.live_edition_id.present? && slug_override.blank? }
     before_save :set_slug_from_title, if: -> { title_changed? }
     before_save :set_slug, if: -> { slug_from_title_changed? || slug_override_changed? }
 
@@ -62,6 +64,10 @@ module Edition::Identifiable
 
   def set_slug
     self[:slug] = slug_override.presence || slug_from_title
+  end
+
+  def default_slug_override_to_live_edition_slug
+    self.slug_override = document.live_edition.slug
   end
 
   def linkable?
