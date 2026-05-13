@@ -43,7 +43,7 @@ module PublishingApi
       details = PayloadBuilder::BlockContent.for(item)
       details.merge!(PayloadBuilder::ChangeHistory.for(item)) if type.settings["send_change_history"] == true
       details.merge!(PayloadBuilder::PoliticalDetails.for(item)) if type.settings["history_mode_enabled"] == true
-      details.merge!(PayloadBuilder::Attachments.for(item)) if type.settings["file_attachments_enabled"] == true
+      details.merge!(PayloadBuilder::Attachments.for(item)) if type.settings["file_attachments_enabled"] == true || type.has_linked_tab?("edition_attachments")
       details.merge!(PayloadBuilder::EmphasisedOrganisations.for(item)) if item.organisation_association_enabled?
       details.merge!(PayloadBuilder::StandardEditionImages.for(item)) if type.settings.dig("images", "enabled")
       details.merge!(PayloadBuilder::Features.for(item)) if type.settings["features_enabled"] == true

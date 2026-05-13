@@ -51,6 +51,7 @@ module Admin::TabbedNavHelper
           current: on_dynamic_tab && current_tab == tab["id"],
         }
       end
+      nav_items.concat(linked_tabs_nav_items(edition, current_path))
     end
   end
 
@@ -215,5 +216,21 @@ module Admin::TabbedNavHelper
         current: current_path == admin_worldwide_organisation_page_attachments_path(page),
       },
     ]
+  end
+
+  def linked_tabs_nav_items(edition, current_path)
+    edition.type_instance.linked_tabs.map do |tab|
+      href = href_for_linked_tab(tab, edition)
+      { label: tab["label"], href:, current: current_path == href }
+    end
+  end
+
+  def href_for_linked_tab(tab, edition)
+    builders = {
+      "edition_attachments" => -> { admin_edition_attachments_path(edition) },
+      "edition_images" => -> { admin_edition_images_path(edition) },
+      "edition_features" => -> { features_admin_standard_edition_path(edition, locale: edition.primary_locale) },
+    }
+    builders[tab["linked_to"]]&.call
   end
 end

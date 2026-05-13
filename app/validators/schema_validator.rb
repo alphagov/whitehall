@@ -94,7 +94,11 @@ private
   end
 
   def form_fields
-    (@document["forms"] || [])&.keys&.flat_map { |key| obj_dig(@document, "fields", ["forms", key]) }
+    (@document["forms"] || [])&.keys&.flat_map do |key|
+      next [] if @document.dig("forms", key, "linked_to") # linked tabs have no block content fields, so skip it
+
+      obj_dig(@document, "fields", ["forms", key])
+    end
   end
 
   def obj_dig(obj, attr, keys, &visitor)
