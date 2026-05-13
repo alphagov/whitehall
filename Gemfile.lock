@@ -960,7 +960,7 @@ GEM
     string_pattern (2.4.0)
       regexp_parser (~> 2.5, >= 2.5.0)
     stringio (3.2.0)
-    strong_migrations (2.6.0)
+    strong_migrations (2.7.0)
       activerecord (>= 7.2)
     sync (0.5.0)
     sys-uname (1.5.1)
