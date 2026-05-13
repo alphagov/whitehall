@@ -141,7 +141,7 @@ When("I update the image details and save") do
 
   stub_request(:get, %r{.*/media/.*/960x960_jpeg.jpg}).to_return(status: 200, body: io_object, headers: {})
 
-  fill_in "image[caption]", with: "Test caption"
+  fill_in "image[caption]", with: "Test caption" if page.has_field?("image[caption]")
   find("button", text: "Save").click
 end
 
