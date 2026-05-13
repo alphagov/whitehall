@@ -210,7 +210,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     get :new, params: { configurable_document_type: "test_type" }
 
     assert_response :ok
-    refute_select "label", text: /Keep the current page URL/
+    refute_select "label", text: /Keep current URL/
   end
 
   view_test "GET edit does not show the keep current URL option for a draft with no live edition" do
@@ -222,7 +222,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     get :edit, params: { id: edition }
 
     assert_response :ok
-    refute_select "label", text: /Keep the current page URL/
+    refute_select "label", text: /Keep current URL/
   end
 
   view_test "GET edit pre-selects the keep current URL option when slug_override is set" do
@@ -255,7 +255,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
   end
 
-  view_test "GET edit appends the keep current URL option with the live URL" do
+  view_test "GET edit shows the URL change explanation and option labels" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
@@ -265,7 +265,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     get :edit, params: { id: edition }
 
     assert_response :ok
-    assert_select "label", text: "Keep the current page URL (#{published_edition.public_url})"
+    assert_select "p", text: "The title has changed since this URL was created. Choose whether to keep the current URL or update it to match the title."
+    assert_select "label", text: "Keep current URL"
+    assert_select "label", text: "Update URL to match title"
   end
 
   view_test "GET edit renders only the fields for the selected tab" do

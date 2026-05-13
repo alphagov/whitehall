@@ -4,7 +4,7 @@ Then(/^I can see the preview URL of the publication "([^"]*)" contains "([^"]*)"
 end
 
 Then(/^I cannot see the option to keep the current page URL$/) do
-  expect(page).not_to have_field("Keep the current page URL")
+  expect(page).not_to have_field("Keep current URL")
 end
 
 Then(/^I can see the option to keep the current page URL$/) do
@@ -14,7 +14,7 @@ end
 Then(/^the saved URL choice is reflected on re-entering the edit page$/) do
   draft = Publication.where(state: "draft").last
   visit edit_admin_edition_path(draft)
-  expected_choice = draft.slug_override.present? ? "Keep the current page URL" : "Update the page URL to match the new title"
+  expected_choice = draft.slug_override.present? ? "Keep current URL" : "Update URL to match title"
   expect(page).to have_checked_field(expected_choice)
 end
 

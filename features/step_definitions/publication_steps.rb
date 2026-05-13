@@ -61,7 +61,7 @@ When(/^I change the title to "([^"]*)"$/) do |new_title|
 end
 
 When("I opt out of keeping the live slug") do
-  choose "Update the page URL to match the new title"
+  choose "Update URL to match title"
 end
 
 When("I save the edition and go to the document summary") do

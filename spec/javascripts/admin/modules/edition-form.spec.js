@@ -333,11 +333,11 @@ describe('GOVUK.Modules.EditionForm', function () {
                 <div class="govuk-radios">
                   <div class="gem-c-radio govuk-radios__item">
                     <input type="radio" name="edition[slug_override]" id="radio-ab8fa8f0-0" value="${liveEditionTitle}" class="govuk-radios__input" checked>
-                    <label for="radio-ab8fa8f0-0" class="govuk-label govuk-radios__label">Keep the current page URL</label>
+                    <label for="radio-ab8fa8f0-0" class="govuk-label govuk-radios__label">Keep current URL</label>
                   </div>
                   <div class="gem-c-radio govuk-radios__item">
                     <input type="radio" name="edition[slug_override]" id="radio-ab8fa8f0-1" value="" class="govuk-radios__input">
-                    <label for="radio-ab8fa8f0-1" class="govuk-label govuk-radios__label">Update the page URL to match the new title</label>
+                    <label for="radio-ab8fa8f0-1" class="govuk-label govuk-radios__label">Update URL to match title</label>
                   </div>
                 </div>
               </fieldset>

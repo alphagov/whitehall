@@ -14,19 +14,21 @@
   </div>
 
   <div class="<%= (edition.document.live_edition.slug == edition.slug_from_title) && "js-keep-slug-form-group" %> govuk-!-margin-bottom-6">
+    <p class="govuk-body">
+      The title has changed since this URL was created. Choose whether to keep the current URL or update it to match the title.
+    </p>
+
     <%= render "govuk_publishing_components/components/radio", {
-      heading: "Page URL",
-      hint: "The title of this document has changed since the page URL was generated. Choose whether to keep the existing URL, or update it to match the new title when you publish this edition.",
       name: "edition[slug_override]",
       items: [
         {
           value: edition.document.live_edition.slug,
-          text: "Keep the current page URL (#{edition.document.live_edition.public_url})",
+          text: "Keep current URL",
           checked: edition.slug_override.present?,
         },
         {
           value: "",
-          text: "Update the page URL to match the new title",
+          text: "Update URL to match title",
           checked: edition.slug_override.blank?,
         },
       ],
