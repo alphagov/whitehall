@@ -239,4 +239,87 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
 
     assert_equal "This document cannot be deleted while it has child documents that have never been published. Delete the draft child documents first.", error.message
   end
+
+  test "able to unpublish parent edition if all of its children are already unpublished" do
+    parent_edition = create(:standard_edition)
+
+    child_edition = create(:unpublished_standard_edition)
+    build(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    ).save!(validate: false)
+
+    assert_nothing_raised do
+      parent_edition.update!(state: "unpublished")
+    end
+  end
+
+  test "able to withdraw parent edition if all of its children are already unpublished or withdrawn" do
+    parent_edition = create(:standard_edition)
+    child_edition_1 = create(:unpublished_standard_edition)
+    child_edition_2 = create(:withdrawn_standard_edition)
+    [child_edition_1, child_edition_2].each do |child_edition|
+      build(
+        :parent_child_relationship,
+        parent_edition: parent_edition,
+        child_document: child_edition.document,
+      ).save!(validate: false)
+    end
+
+    assert_nothing_raised do
+      parent_edition.update!(state: "withdrawn")
+    end
+  end
+
+  test "unable to unpublish parent edition if it contains any published child documents" do
+    parent_edition = create(:standard_edition)
+
+    child_edition = create(:published_standard_edition)
+    build(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    ).save!(validate: false)
+
+    error = assert_raises(StandardEdition::ParentDocument::UnableToUnpublish) do
+      parent_edition.update!(state: "unpublished")
+    end
+
+    assert_equal "This document cannot be unpublished while it has child documents that are published or withdrawn. Unpublish the child documents first.", error.message
+  end
+
+  test "unable to unpublish parent edition if it contains any withdrawn child documents" do
+    parent_edition = create(:standard_edition)
+
+    child_edition = create(:withdrawn_standard_edition)
+    build(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    ).save!(validate: false)
+
+    error = assert_raises(StandardEdition::ParentDocument::UnableToUnpublish) do
+      parent_edition.update!(state: "unpublished")
+    end
+
+    assert_equal "This document cannot be unpublished while it has child documents that are published or withdrawn. Unpublish the child documents first.", error.message
+  end
+
+  test "unable to withdraw parent edition if it contains any published child documents" do
+    parent_edition = create(:standard_edition)
+
+    child_edition = create(:published_standard_edition)
+    build(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    ).save!(validate: false)
+
+    error = assert_raises(StandardEdition::ParentDocument::UnableToWithdraw) do
+      parent_edition.update!(state: "withdrawn")
+    end
+
+    assert_equal "This document cannot be withdrawn while it has child documents that are published. Withdraw the child documents first.", error.message
+  end
 end

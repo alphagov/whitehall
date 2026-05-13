@@ -2,6 +2,8 @@ module StandardEdition::ParentDocument
   extend ActiveSupport::Concern
 
   class UnableToDelete < ::WhitehallError; end
+  class UnableToWithdraw < ::WhitehallError; end
+  class UnableToUnpublish < ::WhitehallError; end
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(new_edition)
@@ -33,6 +35,7 @@ module StandardEdition::ParentDocument
              source: :child_document
 
     before_update :ensure_no_new_child_documents!, if: :deleting?
+    before_update :ensure_no_children_more_visible_than_parent!, if: :will_save_change_to_state?
 
     add_trait Trait
   end
@@ -62,6 +65,16 @@ private
   def ensure_no_new_child_documents!
     if allows_child_documents? && new_child_documents.any?
       raise UnableToDelete, "This document cannot be deleted while it has child documents that have never been published. Delete the draft child documents first."
+    end
+  end
+
+  def ensure_no_children_more_visible_than_parent!
+    if state == "unpublished" && child_editions.any? { |child| child.state.in?(%w[published withdrawn]) }
+      raise UnableToUnpublish, "This document cannot be unpublished while it has child documents that are published or withdrawn. Unpublish the child documents first."
+    end
+
+    if state == "withdrawn" && child_editions.any? { |child| child.state == "published" }
+      raise UnableToWithdraw, "This document cannot be withdrawn while it has child documents that are published. Withdraw the child documents first."
     end
   end
 end
