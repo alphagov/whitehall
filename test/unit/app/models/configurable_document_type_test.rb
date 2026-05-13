@@ -71,6 +71,30 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_nil document_type.title_for_attribute("nonexistent_attribute")
   end
 
+  test "#title_for_attribute only returns the title for the field whose attribute_path matches the given attribute, not the first field it encounters" do
+    type_config = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "social_media_links" => {
+              "title" => "Social Media Links",
+              "attribute_path" => %w[social_media_links],
+            },
+            "body" => {
+              "title" => "Body",
+              "attribute_path" => %w[body],
+            },
+          },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(type_config)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal "Body", document_type.title_for_attribute("body")
+    assert_equal "Social Media Links", document_type.title_for_attribute("social_media_links")
+  end
+
   test ".find raises an error if the type is not specified" do
     error = assert_raises(ConfigurableDocumentType::NotFoundError) { ConfigurableDocumentType.find(nil) }
     assert_equal "No document type specified", error.message
