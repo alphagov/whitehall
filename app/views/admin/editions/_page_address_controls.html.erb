@@ -1,15 +1,16 @@
 <% if edition.document&.live_edition.present? %>
   <div class="app-view-edit-edition__page-address govuk-!-margin-bottom-4">
     <%= render "govuk_publishing_components/components/heading", {
-      text: "Live page address",
+      text: "URL",
       heading_level: 3,
       font_size: "m",
       margin_bottom: 2,
     } %>
 
-    <%= render "govuk_publishing_components/components/hint", {
-      text: edition.document&.live_edition.public_url,
-    } %>
+    <p class="govuk-body">
+      Current GOV.UK URL:<br>
+      <%= link_to edition.document.live_edition.public_url, edition.document.live_edition.public_url, class: "govuk-link" %>
+    </p>
   </div>
 
   <div class="<%= (edition.document.live_edition.slug == edition.slug_from_title) && "js-keep-slug-form-group" %> govuk-!-margin-bottom-6">

@@ -186,6 +186,23 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "Review date"
   end
 
+  view_test "GET edit shows the current GOV.UK URL as a link when the edition has a live edition" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document)
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select ".app-view-edit-edition__page-address" do
+      assert_select "h3", "URL"
+      assert_select "p", text: /Current GOV\.UK URL:/
+      assert_select "a.govuk-link[href=?]", published_edition.public_url, text: published_edition.public_url
+    end
+  end
+
   view_test "GET edit renders only the fields for the selected tab" do
     configurable_document_type = build_configurable_document_type("test_type", {
       "forms" => {
