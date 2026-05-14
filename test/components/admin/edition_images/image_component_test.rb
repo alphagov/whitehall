@@ -14,7 +14,6 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: caption"
     assert_selector ".app-view-edition-resource__actions a[href='#{edit_admin_edition_image_path(edition, image)}']", text: "Edit details"
     assert_selector ".app-view-edition-resource__actions a[href='#{confirm_destroy_admin_edition_image_path(edition, image)}']", text: "Delete image"
-    assert_selector "form[action='#{admin_edition_lead_image_path(edition, image)}']", count: 0
     assert_selector ".govuk-button", text: "Select as lead image", count: 0
   end
 
@@ -26,29 +25,10 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-grid-row .govuk-grid-column-two-thirds .govuk-body:nth-child(1)", text: "Caption: None"
   end
 
-  test "renders a form to the update lead image endpoint for case studies" do
-    image = build_stubbed(:image, caption: "caption")
-    edition = build_stubbed(:draft_case_study, images: [image])
-    render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "govspeak_embed")))
-
-    assert_selector "form[action='#{admin_edition_lead_image_path(edition, image)}']" do
-      assert_selector ".govuk-button", text: "Select as lead image"
-    end
-  end
-
-  test "does not render a button to update the image to the lead image if the image is an SVG for case studies" do
-    svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
-    image = build_stubbed(:image, caption: "caption", image_data: svg_image_data)
-    edition = build_stubbed(:draft_case_study, images: [image])
-    render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, image_usage: ImageUsage.new))
-
-    assert_selector ".govuk-button", text: "Select as lead image", count: 0
-  end
-
   test "does not render a button to update the image to the lead image if the image usage is not govspeak_embed" do
     svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
     image = build_stubbed(:image, caption: "caption", image_data: svg_image_data)
-    edition = build_stubbed(:draft_case_study, images: [image])
+    edition = build_stubbed(:draft_publication, images: [image])
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, image_usage: ImageUsage.new))
 
     assert_selector ".govuk-button", text: "Select as lead image", count: 0
@@ -76,7 +56,7 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
 
   test "image index markdown handles a lead image being present correctly" do
     images = [build_stubbed(:image), build_stubbed(:image), build_stubbed(:image)]
-    edition = build_stubbed(:draft_case_study, images:, lead_image: images.second)
+    edition = build_stubbed(:draft_standard_edition, images:)
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image: images.third, image_usage: ImageUsage.new(key: "govspeak_embed")))
 
     assert_selector "input[value='!!3']"
@@ -88,15 +68,5 @@ class Admin::EditionImages::ImageComponentTest < ViewComponent::TestCase
     render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, image_usage: ImageUsage.new(caption_enabled: false)))
 
     assert_no_selector ".govuk-body", text: "Caption:"
-  end
-
-  test "renders a processing tag if not all assets of the lead image are uploaded for legacy case studies" do
-    image = build_stubbed(:image, image_data: build_stubbed(:image_data_with_no_assets))
-    edition = build_stubbed(:draft_case_study, images: [image])
-
-    render_inline(Admin::EditionImages::ImageComponent.new(edition:, image:, image_usage: ImageUsage.new))
-
-    assert_selector ".app-view-edition-resource__preview", count: 0
-    assert_selector ".govuk-tag", text: "Processing"
   end
 end

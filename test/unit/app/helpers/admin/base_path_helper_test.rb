@@ -8,7 +8,6 @@ class Admin::BasePathHelperTest < ActionView::TestCase
   describe "#url_to_document_type" do
     test "it maps a URL to a document type" do
       assert_equal CallForEvidence, url_to_document_type("/government/calls-for-evidence/slug")
-      assert_equal CaseStudy, url_to_document_type("/government/case-studies/slug")
       assert_equal Consultation, url_to_document_type("/government/consultations/slug")
       assert_equal DetailedGuide, url_to_document_type("/guidance/slug")
       assert_equal DocumentCollection, url_to_document_type("/government/collections/slug")
@@ -39,7 +38,6 @@ class Admin::BasePathHelperTest < ActionView::TestCase
   describe "#url_to_document_slug" do
     test "it extracts the 'slug' that would be stored on the Document" do
       assert_equal "slug", url_to_document_slug("/government/calls-for-evidence/slug")
-      assert_equal "slug", url_to_document_slug("/government/case-studies/slug")
       assert_equal "slug", url_to_document_slug("/government/consultations/slug")
       assert_equal "slug", url_to_document_slug("/guidance/slug")
       assert_equal "slug", url_to_document_slug("/government/collections/slug")

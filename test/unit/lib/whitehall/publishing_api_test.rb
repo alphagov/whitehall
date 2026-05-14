@@ -44,20 +44,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-  test ".publish sends case studies to the content store" do
-    edition = create(:published_case_study)
-
-    presenter = PublishingApiPresenters.presenter_for(edition)
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
-    ]
-
-    Whitehall::PublishingApi.publish(edition)
-
-    assert_all_requested(requests)
-  end
-
   test ".publish publishes all available translations of a translatable model" do
     organisation = create(:organisation)
     presenter = PublishingApiPresenters.presenter_for(organisation)
@@ -217,7 +203,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".schedule_async for a subsequent edition served from the content store queues jobs to push publish intents" do
     timestamp = 2.hours.from_now
-    existing_edition = create(:published_case_study)
+    existing_edition = create(:published_fatality_notice)
     updated_edition = create(:draft_publication, scheduled_publication: timestamp, document: existing_edition.document)
 
     I18n.with_locale(:es) do
@@ -276,7 +262,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".save_draft publishes a draft edition if no content exists at the route yet" do
-    draft_edition = create(:draft_case_study)
+    draft_edition = create(:draft_fatality_notice)
     payload = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_content(payload.content_id, payload.content)
     Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)
@@ -288,7 +274,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".save_draft publishes a draft edition if there is a live content item with the same base path and same content ID" do
-    draft_edition = create(:draft_case_study)
+    draft_edition = create(:draft_fatality_notice)
     payload = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_content(payload.content_id, payload.content)
     Whitehall::PublishingApi.unstub(:ensure_base_path_is_associated_with_this_content_id!)

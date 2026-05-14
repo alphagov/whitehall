@@ -20,7 +20,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       context "on a draft edition" do
-        let(:edition) { create(:case_study, organisations: [organisation]) }
+        let(:edition) { create(:standard_edition, :with_alternative_format_provider, organisations: [organisation]) }
         let(:attachable) { edition }
 
         it "is not deleted" do
@@ -524,7 +524,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       context "when attachment data would otherwise be visible" do
-        let(:attachable) { build(:case_study) }
+        let(:attachable) { build(:standard_edition, :with_alternative_format_provider) }
 
         let(:deleted) { false }
         let(:draft) { false }
@@ -580,7 +580,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       context "#visible_attachable_for" do
-        let(:attachable) { build(:case_study) }
+        let(:attachable) { build(:standard_edition, :with_alternative_format_provider) }
         let(:significant_attachable) { stub("significant-attachable") }
 
         before do
@@ -633,7 +633,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       end
 
       context "#visible_attachment_for" do
-        let(:attachable) { build(:case_study) }
+        let(:attachable) { build(:standard_edition, :with_alternative_format_provider) }
         let(:significant_attachment) { stub("significant-attachment") }
 
         before do

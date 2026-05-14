@@ -33,7 +33,7 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
 
   test "should be valid if the HTML attachment contains a Contact that exists" do
     contact = create(:contact)
-    edition = create(:case_study, body: "[Contact:#{contact.id}]")
+    edition = create(:consultation, body: "[Contact:#{contact.id}]")
 
     edition.html_attachments = [create(:html_attachment, body: "[Contact:#{contact.id}]")]
 
@@ -45,7 +45,7 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
 
   test "should be invalid if the HTML attachment contains a Contact that has been deleted" do
     contact = create(:contact)
-    edition = create(:case_study, body: "foo", html_attachments: [create(:html_attachment, body: "[Contact:#{contact.id}]")])
+    edition = create(:consultation, body: "foo", html_attachments: [create(:html_attachment, body: "[Contact:#{contact.id}]")])
     contact.destroy!
 
     GovspeakContactEmbedValidator.new(attribute: :body).validate(edition)
@@ -56,7 +56,7 @@ class GovspeakContactEmbedValidatorTest < ActiveSupport::TestCase
   test "should add a specific error message if the HTML attachment contains a Contact that doesn't exist" do
     bad_id = "9999999999999"
     html_attachment = build(:html_attachment, title: "Test Doc", body: "[Contact:#{bad_id}]")
-    edition = build(:case_study, html_attachments: [html_attachment])
+    edition = build(:consultation, html_attachments: [html_attachment])
 
     GovspeakContactEmbedValidator.new(attribute: :body).validate(edition)
 

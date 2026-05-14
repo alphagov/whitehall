@@ -3,7 +3,6 @@ require "uri"
 module Admin::BasePathHelper
   MAPPINGS = [
     { "CallForEvidence" => "/government/calls-for-evidence" },
-    { "CaseStudy" => "/government/case-studies" },
     { "Consultation" => "/government/consultations" },
     { "DetailedGuide" => "/guidance" },
     { "DocumentCollection" => "/government/collections" },
@@ -20,7 +19,7 @@ module Admin::BasePathHelper
   HTML_ATTACHMENT_PATH_REGEX = %r{
     \A/government/
     (?!statistics/announcements/)  # exclude /government/statistics/announcements/...
-    [^/]+                          # section (e.g. calls-for-evidence, publications, case-studies, etc.)
+    [^/]+                          # section (e.g. calls-for-evidence, publications etc.)
     /[^/]+                         # document slug
     /[^/]+                         # attachment slug
     \z

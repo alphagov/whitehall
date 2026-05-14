@@ -3,7 +3,6 @@ require "test_helper"
 class Admin::RepublishingHelperTest < ActionView::TestCase
   EDITIONABLE_CONTENT_TYPES = %w[
     CallForEvidence
-    CaseStudy
     Consultation
     CorporateInformationPage
     DetailedGuide

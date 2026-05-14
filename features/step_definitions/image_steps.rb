@@ -40,11 +40,6 @@ Given("a draft document with images exists") do
   @edition = create(:draft_publication, body: "!!2", images:)
 end
 
-Given("a draft case study with images exists") do
-  images = [build(:image), build(:image)]
-  @edition = create(:draft_case_study, body: "!!2", images:, lead_image: images.first)
-end
-
 Given("an organisation with a default news image exists") do
   default_news_image = build(:featured_image_data)
   @organisation = create(:organisation, default_news_image:)

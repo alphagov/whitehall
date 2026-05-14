@@ -7,27 +7,27 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
 
   describe "shareable preview feature" do
     context "for draft documents" do
-      let(:edition) { create(:draft_case_study) }
+      let(:edition) { create(:draft_publication) }
 
       before do
         create_setup(edition)
       end
 
       test "it shows shareable preview feature" do
-        get admin_case_study_path(edition)
+        get admin_edition_path(edition)
         assert_select ".govuk-details__summary-text", text: "Share document preview"
       end
     end
 
     context "for published documents" do
-      let(:edition) { create(:published_case_study) }
+      let(:edition) { create(:published_publication) }
 
       before do
         create_setup(edition)
       end
 
       test "it does not show shareable preview feature" do
-        get admin_case_study_path(edition)
+        get admin_edition_path(edition)
         refute_select ".govuk-details__summary-text", text: "Share document preview"
       end
     end

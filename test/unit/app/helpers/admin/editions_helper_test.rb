@@ -84,7 +84,6 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
   test "#edition_type returns a single string or custom logic where an edition does not have a parent type" do
     call_for_evidence = build(:open_call_for_evidence)
-    case_study = build(:case_study)
     consultation = build(:open_consultation)
     guide = build(:detailed_guide)
     collection = build(:document_collection)
@@ -95,7 +94,6 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     assert_equal "Worldwide organisation", edition_type(ww_org)
     assert_equal "Detailed guide", edition_type(guide)
     assert_equal "Call for evidence: Open call for evidence", edition_type(call_for_evidence)
-    assert_equal "Case study", edition_type(case_study)
     assert_equal "Consultation: Open consultation", edition_type(consultation)
     assert_equal "Document collection", edition_type(collection)
     assert_equal "Fatality notice", edition_type(fatality_notice)
