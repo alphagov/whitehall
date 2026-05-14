@@ -85,7 +85,6 @@ module Whitehall
 
   def self.legacy_edition_classes
     [
-      CaseStudy,
       CallForEvidence,
       Consultation,
       CorporateInformationPage,

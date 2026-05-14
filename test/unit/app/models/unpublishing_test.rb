@@ -149,21 +149,21 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "can be retrieved by slug and document type" do
-    case_study = create(:case_study)
-    unpublishing = create(:unpublishing, edition: case_study)
+    fatality_notice = create(:fatality_notice)
+    unpublishing = create(:unpublishing, edition: fatality_notice)
 
-    assert_not Unpublishing.from_slug("wrong-slug", "CaseStudy")
+    assert_not Unpublishing.from_slug("wrong-slug", "FatalityNotice")
     assert_not Unpublishing.from_slug(unpublishing.slug, "OtherDocumentType")
-    assert_equal unpublishing, Unpublishing.from_slug(unpublishing.slug, "CaseStudy")
+    assert_equal unpublishing, Unpublishing.from_slug(unpublishing.slug, "FatalityNotice")
   end
 
   test "Unpublishing.from_slug returns the most recent unpublishing" do
-    case_study          = create(:published_case_study)
-    _first_unpublishing = create(:unpublishing, edition: case_study, slug: case_study.slug)
-    new_edition         = case_study.create_draft(create(:user))
+    fatality_notice     = create(:published_fatality_notice)
+    _first_unpublishing = create(:unpublishing, edition: fatality_notice, slug: fatality_notice.slug)
+    new_edition         = fatality_notice.create_draft(create(:user))
     second_unpublishing = create(:unpublishing, edition: new_edition, slug: new_edition.slug)
 
-    assert_equal second_unpublishing, Unpublishing.from_slug(new_edition.slug, "CaseStudy")
+    assert_equal second_unpublishing, Unpublishing.from_slug(new_edition.slug, "FatalityNotice")
   end
 
   test "alternative_url is required if the reason is Consolidated" do
@@ -251,7 +251,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "#translated_locales is delegated to the edition" do
-    edition = create(:case_study)
+    edition = create(:fatality_notice)
     I18n.with_locale(:es) do
       edition.title = "Spanish title"
       edition.save!

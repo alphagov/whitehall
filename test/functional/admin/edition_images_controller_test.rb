@@ -331,7 +331,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "POST :create uploads one valid 'multiple' usage embeddable image, and redirect to 'edit'" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     file = upload_fixture("images/960x640_jpeg.jpg")
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
@@ -368,7 +368,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "POST :create uploads many valid 'multiple' usage embeddable images, and redirects to `index`" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("minister-of-funk.960x640.jpg")]
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
@@ -408,7 +408,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "POST :create with no file selection redirects to the index page with no error, nor notice" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [] }
 
@@ -476,7 +476,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   view_test "POST :create shows a validation error if one 'multiple' usage embeddable image is too small, using the 'index' template" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     file = upload_fixture("images/50x33_gif.gif")
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
@@ -488,7 +488,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   view_test "POST :create shows a validation error if one 'multiple' usage embeddable image has a duplicated filename, using the 'index' template" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     file = upload_fixture("images/960x640_gif.gif")
     create(:image, edition:, image_data: build(:image_data, file:))
 
@@ -578,7 +578,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   view_test "POST :create with multiple invalid files shows each filename in error summary" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     files = [upload_fixture("images/50x33_gif.gif"), upload_fixture("horrible-image.64x96.jpg")]
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
@@ -590,7 +590,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   view_test "POST :create with mix of valid and invalid files shows only the failing filename in error summary" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("images/50x33_gif.gif")]
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
@@ -658,7 +658,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "POST :create triggers a job be queued to store image and variants in Asset Manager" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     file = upload_fixture("images/960x640_jpeg.jpg")
     model_type = ImageData.to_s
     variants = Asset.variants.values
@@ -672,7 +672,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "POST :create updates the lead_image association if edition can have a custom lead image" do
     login_authorised_user
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     file = upload_fixture("images/960x640_jpeg.jpg")
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
@@ -681,7 +681,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
   end
 
   test "POST :create shows success message when all image assets are uploaded" do
-    edition = create(:draft_case_study)
+    edition = create(:draft_fatality_notice)
     filename = "big-cheese.960x640.jpg"
     Services.asset_manager.stubs(:create_asset).returns({ "id" => "http://asset-manager/assets/some_asset_manager_id", "name" => filename })
 
@@ -695,7 +695,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     login_authorised_user
     image1 = build(:image)
     image2 = build(:image)
-    edition = create(:draft_case_study, images: [image1, image2])
+    edition = create(:draft_fatality_notice, images: [image1, image2])
     create(:edition_lead_image, edition:, image: image1)
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once

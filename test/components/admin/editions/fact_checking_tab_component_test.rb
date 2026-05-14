@@ -4,7 +4,7 @@ require "test_helper"
 
 class Admin::Editions::FactCheckingTabComponentTest < ViewComponent::TestCase
   test "renders fact checking responses and requests correctly when an edition has fact checks" do
-    edition = create(:case_study)
+    edition = create(:fatality_notice)
     create(:fact_check_request, email_address: "user-1@example.com", comments: "This is accurate.", updated_at: 2.days.ago, edition:)
     create(:fact_check_request, email_address: "user-2@example.com", comments: "This is inaccurate.", updated_at: 1.day.ago, edition:)
     create(:fact_check_request, email_address: "user-3@example.com", edition:)
@@ -22,7 +22,7 @@ class Admin::Editions::FactCheckingTabComponentTest < ViewComponent::TestCase
   end
 
   test "renders `Document doesn't have any fact checking responses yet.` when none have been requested" do
-    edition = create(:case_study)
+    edition = create(:fatality_notice)
 
     render_inline(Admin::Editions::FactCheckingTabComponent.new(edition:))
 
@@ -31,7 +31,7 @@ class Admin::Editions::FactCheckingTabComponentTest < ViewComponent::TestCase
   end
 
   test "renders guidance on requested a fact check when `send_request_section` isnt set to true" do
-    edition = create(:case_study)
+    edition = create(:fatality_notice)
 
     render_inline(Admin::Editions::FactCheckingTabComponent.new(edition:))
 
@@ -43,7 +43,7 @@ class Admin::Editions::FactCheckingTabComponentTest < ViewComponent::TestCase
   end
 
   test "renders fact check request form fields when `send_request_section` is set to true" do
-    edition = create(:case_study)
+    edition = create(:fatality_notice)
 
     render_inline(Admin::Editions::FactCheckingTabComponent.new(edition:, send_request_section: true))
 

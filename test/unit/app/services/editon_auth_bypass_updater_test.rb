@@ -54,7 +54,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
     end
 
     test "updates an image with auth_bypass_id" do
-      edition = create(:draft_case_study)
+      edition = create(:draft_fatality_notice)
       image = create(:image, edition:)
 
       SecureRandom.stubs(uuid: uid)

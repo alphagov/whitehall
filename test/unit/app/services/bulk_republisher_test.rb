@@ -330,47 +330,47 @@ class BulkRepublisherTest < ActiveSupport::TestCase
   describe "#republish_all_by_type" do
     setup do
       BulkRepublisher.any_instance.stubs(:non_editionable_content_types).returns(%w[Contact])
-      BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[Contact CaseStudy])
+      BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[Contact FatalityNotice])
     end
 
-    context "for editionable content types, like CaseStudy" do
+    context "for editionable content types, like FatalityNotice" do
       test "republishes all content of the specified type via the PublishingApiDocumentRepublishingJob" do
         2.times do
-          case_study = create(:case_study)
+          fatality_notice = create(:fatality_notice)
           PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
             "bulk_republishing",
-            case_study.document_id,
+            fatality_notice.document_id,
             true,
           )
         end
-        BulkRepublisher.new.republish_all_by_type("CaseStudy")
+        BulkRepublisher.new.republish_all_by_type("FatalityNotice")
       end
 
       test "only republishes each document once even if the document has multiple editions" do
-        case_study = create(:published_case_study)
-        create(:draft_case_study, document: case_study.document)
+        fatality_notice = create(:published_fatality_notice)
+        create(:draft_fatality_notice, document: fatality_notice.document)
         PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).once.with(
           "bulk_republishing",
-          case_study.document_id,
+          fatality_notice.document_id,
           true,
         )
-        BulkRepublisher.new.republish_all_by_type("CaseStudy")
+        BulkRepublisher.new.republish_all_by_type("FatalityNotice")
       end
     end
 
     context "for editionable content types that also have configurable document types" do
       test "republishes content for the specified type and configurable types via the PublishingApiDocumentRepublishingJob" do
-        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("case_study"))
-        case_study_type = create(:published_case_study)
-        standard_edition_case_study_type = create(:published_standard_edition, :with_organisations, { configurable_document_type: "case_study" })
-        [case_study_type, standard_edition_case_study_type].each do |article|
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("fatality_notice"))
+        fatality_notice_type = create(:published_fatality_notice)
+        standard_edition_fatality_notice_type = create(:published_standard_edition, :with_organisations, { configurable_document_type: "fatality_notice" })
+        [fatality_notice_type, standard_edition_fatality_notice_type].each do |article|
           PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
             "bulk_republishing",
             article.document_id,
             true,
           )
         end
-        BulkRepublisher.new.republish_all_by_type("CaseStudy")
+        BulkRepublisher.new.republish_all_by_type("FatalityNotice")
       end
     end
 

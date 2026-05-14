@@ -36,14 +36,14 @@ class ImageDataTest < ActiveSupport::TestCase
   end
 
   test "returns unique auth_bypass_ids from its image's editions" do
-    case_study_1 =  create(:case_study)
-    case_study_2 =  create(:case_study)
-    images_from_first_edition = (1..3).map { |i| build(:image, id: i, edition: case_study_1) }
-    images_from_second_edition = (4..6).map { |i| build(:image, id: i, edition: case_study_2) }
+    fatality_notice_1 =  create(:fatality_notice)
+    fatality_notice_2 =  create(:fatality_notice)
+    images_from_first_edition = (1..3).map { |i| build(:image, id: i, edition: fatality_notice_1) }
+    images_from_second_edition = (4..6).map { |i| build(:image, id: i, edition: fatality_notice_2) }
 
     image_data = create(:image_data, images: images_from_first_edition + images_from_second_edition)
 
-    assert_equal [case_study_1.auth_bypass_id, case_study_2.auth_bypass_id], image_data.auth_bypass_ids
+    assert_equal [fatality_notice_1.auth_bypass_id, fatality_notice_2.auth_bypass_id], image_data.auth_bypass_ids
   end
 
   test "rejects images smaller than 960x640 with filename in error" do
@@ -90,7 +90,7 @@ class ImageDataTest < ActiveSupport::TestCase
 
   test "rejects images with duplicate filename on edition" do
     image_data = build_example("960x640_jpeg.jpg")
-    edition = create(:case_study, images: [build(:image, image_data:)])
+    edition = create(:fatality_notice, images: [build(:image, image_data:)])
     image = build(:image, image_data:, edition:)
 
     image_data.validate_on_image = image
@@ -101,7 +101,7 @@ class ImageDataTest < ActiveSupport::TestCase
 
   test "does not validate unique filename if validate_on_image is not assigned" do
     image_data = build_example("960x640_jpeg.jpg")
-    edition = create(:case_study, images: [build(:image, image_data:)])
+    edition = create(:fatality_notice, images: [build(:image, image_data:)])
     build(:image, image_data:, edition:)
 
     assert image_data.valid?

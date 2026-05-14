@@ -1,7 +1,6 @@
 class PoliticalContentIdentifier
   LEGACY_POTENTIALLY_POLITICAL_FORMATS = [
     CallForEvidence,
-    CaseStudy,
     Consultation,
     Speech,
   ].freeze

@@ -8,7 +8,6 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "returns downcased humanized class name as format name" do
-    assert_equal "case study", CaseStudy.format_name
     assert_equal "publication", Publication.format_name
     assert_equal "consultation", Consultation.format_name
   end
@@ -55,10 +54,10 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "edition has shareable preview enabled if it is in the pre-publication state and the type is not excluded" do
-    draft_edition = create(:draft_case_study)
-    submitted_edition = create(:submitted_case_study)
-    rejected_edition = create(:rejected_case_study)
-    scheduled_edition = create(:scheduled_case_study)
+    draft_edition = create(:draft_fatality_notice)
+    submitted_edition = create(:submitted_fatality_notice)
+    rejected_edition = create(:rejected_fatality_notice)
+    scheduled_edition = create(:scheduled_fatality_notice)
 
     assert_equal draft_edition.has_enabled_shareable_preview?, true
     assert_equal submitted_edition.has_enabled_shareable_preview?, true
@@ -67,7 +66,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "edition has shareable preview disabled if it is in the published state" do
-    edition = create(:published_case_study)
+    edition = create(:published_fatality_notice)
     assert_equal edition.has_enabled_shareable_preview?, false
   end
 
@@ -340,7 +339,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should still be valid if has no image and no alt text" do
-    article = build(:case_study, images: [])
+    article = build(:fatality_notice, images: [])
     assert article.valid?
   end
 
@@ -876,7 +875,7 @@ class EditionTest < ActiveSupport::TestCase
   test "images_have_unique_filenames? returns true if image filenames are unique" do
     image1 = build(:image)
     image2 = build(:image, image_data: build(:image_data, file: upload_fixture("big-cheese.960x640.jpg")))
-    edition = build(:case_study, images: [image1, image2])
+    edition = build(:fatality_notice, images: [image1, image2])
 
     assert_equal true, edition.images_have_unique_filenames?
   end
@@ -884,7 +883,7 @@ class EditionTest < ActiveSupport::TestCase
   test "images_have_unique_filenames? returns false if some images have duplicate filenames" do
     image1 = build(:image)
     image2 = build(:image)
-    edition = build(:case_study, images: [image1, image2])
+    edition = build(:fatality_notice, images: [image1, image2])
 
     assert_equal false, edition.images_have_unique_filenames?
   end
@@ -934,7 +933,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should pass validation on saving of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
     attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")
-    edition = create(:submitted_case_study, html_attachments: [attachment])
+    edition = create(:submitted_publication, html_attachments: [attachment])
     contact.destroy!
 
     assert edition.valid?
@@ -943,7 +942,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should fail validation on publish of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
     attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")
-    edition = create(:submitted_case_study, html_attachments: [attachment])
+    edition = create(:submitted_publication, html_attachments: [attachment])
     contact.destroy!
 
     assert_not edition.valid?(:publish)

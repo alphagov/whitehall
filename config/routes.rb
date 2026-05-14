@@ -258,7 +258,6 @@ Whitehall::Application.routes.draw do
           get :confirm_toggle_default_lead_image_behaviour, on: :collection
           patch :toggle_default_lead_image_behaviour, on: :collection
         end
-        resources :lead_images, controller: "edition_lead_images", only: %i[update] # Legacy - delete when CaseStudy migrated to StandardEdition
         resources :social_media_accounts, only: %i[create destroy edit index new update], controller: "editionable_social_media_accounts" do
           get :confirm_destroy, on: :member
           collection do
@@ -411,7 +410,7 @@ Whitehall::Application.routes.draw do
           post :unfeature, on: :member
         end
       end
-      resources :case_studies, path: "case-studies", except: [:index]
+
       if Rails.env.test?
         resources :generic_editions, path: "generic-editions"
       end

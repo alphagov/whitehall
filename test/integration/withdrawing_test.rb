@@ -4,7 +4,7 @@ require "gds_api/test_helpers/publishing_api"
 class WithdrawingTest < ActiveSupport::TestCase
   test "When an edition is withdrawn, it gets republished to the Publishing API with an withdrawn notice" do
     Sidekiq::Testing.inline! do
-      edition = create(:published_case_study)
+      edition = create(:published_fatality_notice)
       edition.build_unpublishing(
         explanation: "Old information",
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id,

@@ -2,8 +2,8 @@ require "test_helper"
 
 class DataHygiene::PublishingApiDocumentRepublisherTest < ActiveSupport::TestCase
   test "republishes a model to the Publishing API" do
-    case_study = create(:published_case_study)
-    presenter  = PublishingApiPresenters.presenter_for(case_study, update_type: "republish")
+    fatality_notice = create(:published_fatality_notice)
+    presenter = PublishingApiPresenters.presenter_for(fatality_notice, update_type: "republish")
     WebMock.reset!
 
     expected_requests = [
@@ -13,7 +13,7 @@ class DataHygiene::PublishingApiDocumentRepublisherTest < ActiveSupport::TestCas
     ]
 
     Sidekiq::Testing.inline! do
-      DataHygiene::PublishingApiDocumentRepublisher.new(CaseStudy, NullLogger.instance).perform
+      DataHygiene::PublishingApiDocumentRepublisher.new(FatalityNotice, NullLogger.instance).perform
     end
 
     assert_all_requested(expected_requests)
@@ -21,7 +21,7 @@ class DataHygiene::PublishingApiDocumentRepublisherTest < ActiveSupport::TestCas
 
   test "rejects a scope if passed in" do
     assert_raise ArgumentError do
-      DataHygiene::PublishingApiDocumentRepublisher.new(CaseStudy.all)
+      DataHygiene::PublishingApiDocumentRepublisher.new(FatalityNotice.all)
     end
   end
 
