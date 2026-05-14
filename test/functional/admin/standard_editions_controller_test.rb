@@ -203,6 +203,121 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET new does not show the URL controls" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    get :new, params: { configurable_document_type: "test_type" }
+
+    assert_response :ok
+    refute_select "label", text: /Keep current URL/
+  end
+
+  view_test "GET edit does not show the URL controls for a draft with no live edition" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    refute_select "label", text: /Keep current URL/
+  end
+
+  view_test "GET edit pre-selects the 'Keep current URL' option when slug_override is set" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type", title: "Original title")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document, title: "Renamed title", slug_override: published_edition.slug)
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=radio][name=?]", "edition[slug_override]", count: 2
+    assert_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
+    refute_select "input[type=radio][name=?][value=''][checked]", "edition[slug_override]"
+  end
+
+  view_test "GET edit pre-selects the 'Keep current URL' option when slug_override is nil and the draft slug matches the live slug" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type", title: "Shared title")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document, title: "Shared title")
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=radio][name=?]", "edition[slug_override]", count: 2
+    assert_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
+    refute_select "input[type=radio][name=?][value=''][checked]", "edition[slug_override]"
+  end
+
+  view_test "GET edit pre-selects the 'Keep current URL' option when slug_override is blank and the draft slug matches the live slug" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type", title: "Shared title")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document, title: "Shared title")
+    edition.update!(slug_override: "")
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=radio][name=?]", "edition[slug_override]", count: 2
+    assert_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
+    refute_select "input[type=radio][name=?][value=''][checked]", "edition[slug_override]"
+  end
+
+  view_test "GET edit pre-selects the 'Update URL to match title' option when the draft slug differs from the live slug and slug_override is nil" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document)
+    edition.update!(title: "Different title")
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=radio][name=?]", "edition[slug_override]", count: 2
+    assert_select "input[type=radio][name=?][value=''][checked]", "edition[slug_override]"
+    refute_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
+  end
+
+  view_test "GET edit pre-selects the 'Update URL to match title' option when the draft slug differs from the live slug and slug_override is blank" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document)
+    edition.update!(title: "Different title", slug_override: "")
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "input[type=radio][name=?]", "edition[slug_override]", count: 2
+    assert_select "input[type=radio][name=?][value=''][checked]", "edition[slug_override]"
+    refute_select "input[type=radio][name=?][value=?][checked]", "edition[slug_override]", published_edition.slug
+  end
+
+  view_test "GET edit shows the URL change explanation and option labels" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document)
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "p", text: "The title has changed since this URL was created. Choose whether to keep the current URL or update it to match the title."
+    assert_select "label", text: "Keep current URL"
+    assert_select "label", text: "Update URL to match title"
+  end
+
   view_test "GET edit renders only the fields for the selected tab" do
     configurable_document_type = build_configurable_document_type("test_type", {
       "forms" => {

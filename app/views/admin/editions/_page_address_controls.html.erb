@@ -13,18 +13,25 @@
     </p>
   </div>
 
-  <div class="<%= (edition.document.live_edition.slug == edition.slug_from_title) && "js-keep-slug-form-group" %> govuk-!-margin-bottom-6">
-    <%= render "govuk_publishing_components/components/hint", {
-      text: "The title of this document has changed since the page URL was generated. Check the box below to keep the existing URL, or leave it unchecked to update the URL for this page to match the new title when you publish this edition.",
-    } %>
-    <%= hidden_field(:edition, :slug_override, value: "") %>
-    <%= render "govuk_publishing_components/components/checkboxes", {
+  <% live_slug = edition.document.live_edition.slug %>
+  <% keep_current_url_checked = edition.slug_override.present? || edition.slug == live_slug %>
+  <div class="<%= (live_slug == edition.slug_from_title) && "js-url-radio-group" %> govuk-!-margin-bottom-6">
+    <p class="govuk-body">
+      The title has changed since this URL was created. Choose whether to keep the current URL or update it to match the title.
+    </p>
+
+    <%= render "govuk_publishing_components/components/radio", {
       name: "edition[slug_override]",
       items: [
         {
-          label: "Keep the current page URL",
-          value: edition.document.live_edition.slug,
-          checked: edition.slug_override.present?,
+          value: live_slug,
+          text: "Keep current URL",
+          checked: keep_current_url_checked,
+        },
+        {
+          value: "",
+          text: "Update URL to match title",
+          checked: !keep_current_url_checked,
         },
       ],
     } %>
