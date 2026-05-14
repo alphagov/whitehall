@@ -34,9 +34,6 @@
         font_size: "l",
       } %>
 
-      <%# Legacy (CaseStudy only) - remove when CaseStudy migrated to StandardEdition %>
-      <%= render Admin::EditionImages::LeadImageComponent.new(edition: @edition) if usage.embeddable? && !@edition.is_a?(StandardEdition) %>
-
       <%= render "govuk_publishing_components/components/heading", {
         text: "Images available to use in document",
         font_size: "m",
@@ -44,7 +41,6 @@
       } if usage.embeddable? %>
 
       <% current_images = @edition.images.usable_as(usage) %>
-      <% current_images = current_images - [@edition.lead_image].compact if @edition.is_a?(CaseStudy) %>
 
       <% if current_images.present? %>
         <% if usage.embeddable? %>

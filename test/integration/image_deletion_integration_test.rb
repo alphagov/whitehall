@@ -13,7 +13,7 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
       let(:managing_editor) { create(:managing_editor) }
       let(:image) { build(:image) }
       let(:first_asset_id) { image.image_data.assets.first.asset_manager_id }
-      let(:edition) { create(:case_study) }
+      let(:edition) { create(:publication) }
 
       before do
         login_as(managing_editor)

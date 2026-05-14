@@ -27,7 +27,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test "returns its attachable's auth_bypass_id when it has one" do
     auth_bypass_id = "86385d6a-f918-4c93-96bf-087218a48ced"
-    attachable = CaseStudy.new(auth_bypass_id:)
+    attachable = Publication.new(auth_bypass_id:)
     attachment = build(:attachment_data, attachable:)
 
     assert_equal [auth_bypass_id], attachment.auth_bypass_ids

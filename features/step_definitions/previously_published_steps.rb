@@ -2,8 +2,8 @@ Given(/^the date is 2018-06-07$/) do
   Timecop.freeze "2018-06-07"
 end
 
-When(/^I start a new case study$/) do
-  visit "/government/admin/case-studies/new"
+When(/^I start a new publication$/) do
+  visit "/government/admin/publications/new"
 end
 
 And(/^I click save$/) do

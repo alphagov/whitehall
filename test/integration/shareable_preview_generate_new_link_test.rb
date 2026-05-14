@@ -5,14 +5,15 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
 
   describe "shareable preview generate new link feature" do
     context "for draft documents" do
-      let(:edition) { create(:draft_case_study) }
+      let(:edition) { create(:draft_fatality_notice) }
 
       before do
         create_setup(edition)
-        visit admin_case_study_path(edition)
+        visit admin_edition_path(edition)
       end
 
       test "it shows the generate new link feature" do
@@ -41,11 +42,11 @@ class ShareablePreviewGenerateNewLinkIntegrationTest < ActionDispatch::Integrati
     end
 
     context "for published documents" do
-      let(:edition) { create(:published_case_study) }
+      let(:edition) { create(:published_fatality_notice) }
 
       before do
         create_setup(edition)
-        visit admin_case_study_path(edition)
+        visit admin_edition_path(edition)
       end
 
       test "it does not show the generate new link feature" do

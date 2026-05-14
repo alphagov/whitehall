@@ -129,8 +129,8 @@ Given(/Contacts exist$/) do
   2.times { create(:contact) }
 end
 
-Given(/Case Studies exist$/) do
-  2.times { create(:case_study) }
+Given(/Publications exist$/) do
+  2.times { create(:publication) }
 end
 
 When(/^I select all of type "([^"]*)" for republishing$/) do |content_type|

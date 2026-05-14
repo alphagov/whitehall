@@ -19,20 +19,6 @@ class PublishingApiJobTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-  test "registers case studies with their own presenter" do
-    edition = create(:published_case_study)
-    presenter = PublishingApiPresenters.presenter_for(edition)
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en"),
-    ]
-
-    PublishingApiJob.new.perform(edition.class.name, edition.id)
-
-    requests.each { |request| assert_requested request }
-  end
-
   test "registers an organisation with the publishing api" do
     disable_publishes_to_publishing_api do
       organisation = create(:organisation)

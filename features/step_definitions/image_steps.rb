@@ -45,19 +45,9 @@ Given("a draft document with images exists including an image that is not yet re
   @edition.images.first.image_data.assets.destroy_all
 end
 
-Given("a draft case study with images exists") do
-  images = [build(:image), build(:image)]
-  @edition = create(:draft_case_study, body: "!!2", images:, lead_image: images.first)
-end
-
 Given("an organisation with a default news image exists") do
   default_news_image = build(:featured_image_data)
   @organisation = create(:organisation, default_news_image:)
-end
-
-And("the organisation has a draft case study with images") do
-  images = [build(:image), build(:image)]
-  @edition = create(:draft_case_study, images:, lead_organisations: [@organisation])
 end
 
 When("I visit the images tab of the document with images") do
@@ -249,31 +239,6 @@ end
 
 Then(/^I should get (\d+) error message$/) do |count|
   expect(page).to have_selector(".gem-c-error-summary__list-item", count:)
-end
-
-Given(/^a draft case study with images with the captions "([^"]*)" and "([^"]*)" exists$/) do |first_caption, second_caption|
-  images = [build(:image, caption: first_caption), build(:image, caption: second_caption)]
-  @edition = create(:draft_case_study, image_display_option: nil, images:)
-end
-
-And(/^I make the image with caption "([^"]*)" the lead image$/) do |caption|
-  image_container = find(".govuk-body", text: caption).ancestor("li")
-
-  within image_container do
-    click_button "Select as lead image"
-  end
-end
-
-Then(/^I can see that the image with caption "([^"]*)" is the lead image$/) do |caption|
-  within ".app-c-edition-images-lead-image-component__lead_image" do
-    expect(page).to have_content caption
-  end
-end
-
-Then(/^I should see the organisations default news image$/) do
-  within ".app-c-edition-images-lead-image-component__default_lead_image" do
-    assert_selector "img", count: 1
-  end
 end
 
 Then(/^I should see a card associated with the (.*) image usage$/) do |image_usage_key|

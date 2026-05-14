@@ -75,7 +75,7 @@ class SchedulingTest < ActiveSupport::TestCase
     Sidekiq::Testing.inline! do
       gone_uuid = SecureRandom.uuid
       SecureRandom.stubs(uuid: gone_uuid)
-      scheduled_edition = create(:scheduled_case_study)
+      scheduled_edition = create(:scheduled_fatality_notice)
       unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
       base_path         = scheduled_edition.public_path
 
@@ -88,8 +88,8 @@ class SchedulingTest < ActiveSupport::TestCase
 
   test "unscheduling a scheduled subsequent edition removes the publish intent" do
     Sidekiq::Testing.inline! do
-      published_edition = create(:published_case_study)
-      scheduled_edition = create(:scheduled_case_study, document: published_edition.document)
+      published_edition = create(:published_fatality_notice)
+      scheduled_edition = create(:scheduled_fatality_notice, document: published_edition.document)
 
       unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
       base_path         = scheduled_edition.public_path

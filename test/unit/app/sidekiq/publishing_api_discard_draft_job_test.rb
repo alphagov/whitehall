@@ -5,7 +5,7 @@ class PublishingApiDiscardDraftJobTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   def setup
-    @edition = create(:draft_case_study)
+    @edition = create(:draft_fatality_notice)
     WebMock.reset!
   end
 

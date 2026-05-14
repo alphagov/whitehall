@@ -5,8 +5,8 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   include GovspeakHelper
 
   test("determines ordered featured documents in different locales for editions") do
-    case_study = create(:published_case_study)
-    first_feature = build(:feature, document: case_study.document, ordering: 1)
+    fatality_notice = create(:published_fatality_notice)
+    first_feature = build(:feature, document: fatality_notice.document, ordering: 1)
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "title" => "Featured standard edition", "settings" => { "base_path_prefix" => "/government/test" } }))
     standard_edition = create(:published_standard_edition, title: "Standard Edition Title")
     second_feature = build(:feature, document: standard_edition.document, ordering: 2)
@@ -24,15 +24,15 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
         create(:feature_list, locale: locale[:code], featurable: world_location.world_location_news, features: [second_feature, first_feature])
 
         expected_ordered_featured_documents = [
-          { title: case_study.title,
-            href: "/government/case-studies/case-study-title#{locale[:suffix]}",
+          { title: fatality_notice.title,
+            href: "/government/fatalities/fatality-title#{locale[:suffix]}",
             image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                      medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                      high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                      alt_text: "" },
-            summary: govspeak_to_html(case_study.summary),
-            public_updated_at: case_study.public_timestamp,
-            document_type: I18n.t("document.type.case_study.one") },
+            summary: govspeak_to_html(fatality_notice.summary),
+            public_updated_at: fatality_notice.public_timestamp,
+            document_type: I18n.t("document.type.fatality_notice.one") },
           { title: standard_edition.title,
             href: "/government/test/standard-edition-title#{locale[:suffix]}",
             image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
@@ -111,7 +111,7 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
   end
 
   test("caps number of documents at limit when it exceeds this") do
-    first_feature = build(:feature, document: create(:published_case_study).document, ordering: 1)
+    first_feature = build(:feature, document: create(:published_fatality_notice).document, ordering: 1)
     second_feature = build(:feature, document: create(:published_publication).document, ordering: 2)
 
     world_location = create(:world_location)
@@ -121,13 +121,13 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
     document_limit = 1
     presented_locations = featured_documents(world_location.world_location_news, document_limit)
 
-    assert_equal([create(:published_case_study).title], presented_locations.map { |presented_location| presented_location[:title] })
+    assert_equal([create(:published_fatality_notice).title], presented_locations.map { |presented_location| presented_location[:title] })
   end
 
   test("filters out featured documents if feature image assets are missing") do
-    case_study = create(:published_case_study)
-    first_feature = build(:feature, document: case_study.document, ordering: 1)
-    standard_edition = create(:published_publication)
+    fatality_notice = create(:published_fatality_notice)
+    first_feature = build(:feature, document: fatality_notice.document, ordering: 1)
+    standard_edition = create(:published_fatality_notice)
     second_feature = build(:feature, document: standard_edition.document, ordering: 2)
     second_feature.image.assets = []
     featured_documents_display_limit = 5
@@ -138,15 +138,15 @@ class Presenters::PublishingApi::FeaturedDocumentsHelperTest < ActiveSupport::Te
 
     expected_ordered_featured_documents = [
       {
-        title: case_study.title,
-        href: "/government/case-studies/case-study-title",
+        title: fatality_notice.title,
+        href: "/government/fatalities/fatality-title",
         image: { url: "#{Plek.asset_root}/media/asset_manager_id_original/minister-of-funk.960x640.jpg",
                  medium_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s465/s465_minister-of-funk.960x640.jpg",
                  high_resolution_url: "#{Plek.asset_root}/media/asset_manager_id_s712/s712_minister-of-funk.960x640.jpg",
                  alt_text: "" },
-        summary: govspeak_to_html(case_study.summary),
-        public_updated_at: case_study.public_timestamp,
-        document_type: I18n.t("document.type.case_study.one"),
+        summary: govspeak_to_html(fatality_notice.summary),
+        public_updated_at: fatality_notice.public_timestamp,
+        document_type: I18n.t("document.type.fatality_notice.one"),
       },
     ]
 
