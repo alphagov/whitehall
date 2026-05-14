@@ -11,6 +11,7 @@ class StandardEdition < Edition
   include Edition::WorldwideOrganisations
   include HasBlockContent
   include StandardEdition::LeadImage
+  include StandardEdition::Taxon
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 

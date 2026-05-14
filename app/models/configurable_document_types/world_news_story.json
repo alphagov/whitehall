@@ -111,6 +111,7 @@
     "organisations": null,
     "backdating_enabled": true,
     "history_mode_enabled": true,
+    "taxon_required": true,
     "translations_enabled": true
   }
 }

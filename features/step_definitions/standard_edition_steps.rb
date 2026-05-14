@@ -169,7 +169,7 @@ end
 Then(/^I am on the summary page of the draft titled "([^"]*)"$/) do |title|
   expect(page).to_not have_css(".govuk-error-summary")
   expect(page.find("h1")).to have_content(title)
-  expect(page).to have_content("Your document has been saved.")
+  expect(page).to have_content("Your document has been saved")
   expect(page).to have_content("Test configurable document type")
 end
 

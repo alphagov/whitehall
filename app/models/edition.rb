@@ -60,7 +60,7 @@ class Edition < ApplicationRecord
   validates_with LinkCheckReportValidator, on: :publish # TODO: make this a configurable StandardEdition property
   validates_with InternalPathLinksValidator, attribute: :body, on: :publish # TODO: make this a configurable StandardEdition property
   validates_with GovspeakContactEmbedValidator, attribute: :body, on: :publish, unless: ->(record) { record.is_a?(StandardEdition) }
-  validates_with TaxonValidator, on: :publish, if: :requires_taxon? # TODO: make this a configurable StandardEdition property
+  validates_with TaxonValidator, on: :publish, if: :requires_taxon?
 
   validates :creator, presence: true
   validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
