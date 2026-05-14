@@ -18,7 +18,3 @@ Then(/^I can see the preview URL of the publication "([^"]*)" contains "([^"]*)"
   visit admin_edition_path(Publication.find_by(title:))
   expect(page).to have_link "Preview on website (opens in new tab)", href: "https://draft-origin.test.gov.uk/government/publications/#{new_slug}"
 end
-
-Then(/^I am told I do not have permissions to access this page/) do
-  expect(page).to have_content "You do not have permission to access this page."
-end
