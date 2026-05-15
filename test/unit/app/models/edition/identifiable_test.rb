@@ -129,6 +129,34 @@ class Edition::SluggingTest < ActiveSupport::TestCase
       assert_equal "original-title-override", draft_edition.slug
     end
 
+    test "it clears slug_override when the new title makes it redundant" do
+      edition = SluggableEdition.create!(title: "Original Title", slug_override: "chosen-slug")
+      assert_equal "chosen-slug", edition.slug
+
+      edition.update!(title: "Chosen slug")
+
+      assert_nil edition.slug_override
+      assert_equal "chosen-slug", edition.slug
+    end
+
+    test "it clears slug_override if it matches slug_from_title" do
+      edition = SluggableEdition.create_published!(title: "Klingons rule")
+      draft = edition.create_draft(create(:writer))
+      draft.update!(slug_override: "klingons-rule", change_note: "Important change")
+
+      assert_nil draft.slug_override
+      assert_equal "klingons-rule", draft.slug
+    end
+
+    test "it clears slug_override for whitespace stripped title that matches original title" do
+      title_with_whitespace = "Klingons rule "
+      edition = SluggableEdition.create!(title: "Klingons rule", slug_override: "klingons-rule")
+      edition.update!(title: title_with_whitespace)
+
+      assert_nil edition.slug_override
+      assert_equal "klingons-rule", edition.slug
+    end
+
     test "it generates a unique slug when a duplicate exists of the same edition type" do
       first_edition = SluggableEdition.create!(title: "Same Title", slug: nil)
       second_edition = SluggableEdition.create!(title: "Same Title", slug: nil)

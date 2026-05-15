@@ -160,25 +160,25 @@
   EditionForm.prototype.setupTitleInputEventListener = function () {
     const form = this.module
     const titleInput = form.querySelector('#edition_title')
-    const checkboxContainer = form.querySelector('.js-keep-slug-form-group')
+    const urlRadioGroup = form.querySelector('.js-url-radio-group')
 
-    if (!titleInput || !checkboxContainer) {
+    if (!titleInput || !urlRadioGroup) {
       return
     }
 
     const originalTitle = titleInput.value
 
-    const setCheckboxVisibility = () => {
+    const setUrlRadioGroupVisibility = () => {
       const titleHasChanged = originalTitle !== titleInput.value
       if (titleHasChanged) {
-        checkboxContainer.removeAttribute('hidden')
+        urlRadioGroup.removeAttribute('hidden')
       } else {
-        checkboxContainer.setAttribute('hidden', 'hidden')
+        urlRadioGroup.setAttribute('hidden', 'hidden')
       }
     }
 
-    titleInput.addEventListener('input', () => setCheckboxVisibility())
-    setCheckboxVisibility()
+    titleInput.addEventListener('input', () => setUrlRadioGroupVisibility())
+    setUrlRadioGroupVisibility()
   }
 
   Modules.EditionForm = EditionForm

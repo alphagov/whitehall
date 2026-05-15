@@ -7,6 +7,7 @@ module Edition::Identifiable
     before_validation :ensure_presence_of_document, on: :create
     before_validation :propagate_type_to_document
     before_save :set_slug_from_title, if: -> { title_changed? }
+    before_save :nullify_redundant_slug_override, if: -> { slug_override.present? }
     before_save :set_slug, if: -> { slug_from_title_changed? || slug_override_changed? }
 
     scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
@@ -62,6 +63,10 @@ module Edition::Identifiable
 
   def set_slug
     self[:slug] = slug_override.presence || slug_from_title
+  end
+
+  def nullify_redundant_slug_override
+    self.slug_override = nil if slug_override == slug_from_title
   end
 
   def linkable?
