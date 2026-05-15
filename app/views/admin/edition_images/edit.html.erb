@@ -14,7 +14,7 @@
         </div>
       <% end %>
 
-      <% if image.can_be_cropped? && image.image_data&.original_uploaded? %>
+      <% if image.bitmap? %>
         <div class="govuk-grid-column-two-thirds">
           <p class="govuk-body-lead">
             To crop the image, select the area you would like to show. Ensure the main focus of the image is in the centre.
@@ -34,6 +34,7 @@
             y: image.image_data.crop_data_y,
             versions: image_kind_config.versions,
             image:,
+            edition: @edition,
           } %>
         </div>
       <% end %>
@@ -66,8 +67,8 @@
         </div>
       </section>
 
-    <% unless image.can_be_cropped? && image.image_data&.original_uploaded? %>
-      <%= render "image_information" %>
+    <% unless image.can_be_cropped? || !image.image_data&.original_uploaded? %>
+      <%= render "image_information", edition: @edition %>
     <% end %>
   <% end %>
 </div>

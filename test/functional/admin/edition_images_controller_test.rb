@@ -277,6 +277,34 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_redirected_to admin_edition_images_path(edition)
   end
 
+  test "GET :show returns JSON of edition image when assets are uploaded" do
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_publication, images: [image])
+
+    get :show, params: { edition_id: edition.id, id: image.id }
+
+    json_reponse = image.as_json(include: { image_data: { include: :assets } })
+    json_reponse["image_data"]["all_assets_uploaded"] = true
+    json_reponse["image_data"]["assets"] = json_reponse["image_data"]["assets"].map { |asset| asset.merge({ "url" => asset["variant"] != "original" ? image.image_data.url(asset["variant"]) : image.image_data.url }) }
+
+    assert_equal response.body, json_reponse.to_json
+  end
+
+  test "GET :show returns JSON of edition image when assets are not uploaded" do
+    login_authorised_user
+    image = build(:image_with_no_assets)
+    edition = create(:draft_publication, images: [image])
+
+    get :show, params: { edition_id: edition.id, id: image.id }
+
+    json_reponse = image.as_json(include: { image_data: { include: :assets } })
+    json_reponse["image_data"]["all_assets_uploaded"] = false
+    json_reponse["image_data"]["assets"] = []
+
+    assert_equal response.body, json_reponse.to_json
+  end
+
   test "POST :create uploads one valid 'single' usage image, and redirects to 'edit'" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {

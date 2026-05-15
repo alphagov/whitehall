@@ -1,0 +1,14 @@
+<!--
+  This is from the Home Office Design System
+  https://design.homeoffice.gov.uk/design-system/components?name=Loading%20spinner
+-->
+<%
+  content ||= "Loading..."
+%>
+
+<div class="hods-loading-spinner" role="status">
+  <div class="hods-loading-spinner__spinner"></div>
+  <div class="hods-loading-spinner__content">
+    <%= tag.h2(content, class: "govuk-heading-m" ) %>
+  </div>
+</div>
