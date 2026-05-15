@@ -81,6 +81,15 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       assert_equal summary, migrator.preview
     end
+
+    test "summarises how many non-editionable records will be migrated" do
+      org1 = create(:organisation)
+      org2 = create(:organisation)
+
+      migrator = StandardEditionMigrator.new(scope: Organisation.where(id: [org1.id, org2.id]))
+
+      assert_equal({ unique_records: 2 }, migrator.preview)
+    end
   end
 
   describe "#migrate!" do
@@ -105,8 +114,8 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       migrator = StandardEditionMigrator.new(scope: Document.all)
 
-      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_1.document.id, { "republish" => false, "compare_payloads" => true }).once
-      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_2.document.id, { "republish" => false, "compare_payloads" => true }).once
+      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_1.document.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Document" }).once
+      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_2.document.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Document" }).once
 
       migrator.migrate!
     end
@@ -116,8 +125,22 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       migrator = StandardEditionMigrator.new(scope: Document.all)
 
-      StandardEditionMigratorJob.expects(:perform_async).with(some_doc.document.id, { "republish" => true, "compare_payloads" => false }).once
+      StandardEditionMigratorJob.expects(:perform_async).with(some_doc.document.id, { "republish" => true, "compare_payloads" => false, "model_class" => "Document" }).once
       migrator.migrate!(republish: true, compare_payloads: false)
+    end
+
+    test "enqueues a migration job for each non-editionable record, passing the model class" do
+      org1 = create(:organisation)
+      org2 = create(:organisation)
+
+      migrator = StandardEditionMigrator.new(scope: Organisation.where(id: [org1.id, org2.id]))
+
+      StandardEditionMigratorJob.expects(:perform_async)
+        .with(org1.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Organisation" }).once
+      StandardEditionMigratorJob.expects(:perform_async)
+        .with(org2.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Organisation" }).once
+
+      migrator.migrate!
     end
   end
 end

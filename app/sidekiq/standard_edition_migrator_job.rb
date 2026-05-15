@@ -7,10 +7,21 @@ class StandardEditionMigratorJob < JobBase
   # and any failure is unlikely to resolve itself on a retry.
   sidekiq_options queue: "standard_edition_migration", retry: 0
 
-  def perform(document_id, args)
+  def perform(record_id, args)
     republish = args["republish"]
     compare_payloads = args["compare_payloads"]
+    model_class_name = args["model_class"]
 
+    if model_class_name != "Document"
+      perform_for_non_editionable(record_id, model_class_name, republish:, compare_payloads:)
+    else
+      perform_for_document(record_id, republish:, compare_payloads:)
+    end
+  end
+
+private
+
+  def perform_for_document(document_id, republish:, compare_payloads:)
     ActiveRecord::Base.transaction do
       document = Document.find(document_id)
       migrate_editions!(document, compare_payloads)
@@ -19,7 +30,16 @@ class StandardEditionMigratorJob < JobBase
     PublishingApiDocumentRepublishingJob.new.perform(document_id, true) if republish
   end
 
-private
+  def perform_for_non_editionable(record_id, model_class_name, republish:, compare_payloads:)
+    record = model_class_name.constantize.find(record_id)
+    recipe = StandardEditionMigrator.recipe_for(record)
+
+    new_document_id = ActiveRecord::Base.transaction do
+      migrate_non_editionable!(record, recipe, compare_payloads)
+    end
+
+    PublishingApiDocumentRepublishingJob.new.perform(new_document_id, true) if republish
+  end
 
   def migrate_editions!(document, compare_payloads)
     editions_to_migrate = Edition.unscoped.where(document: document)
@@ -34,6 +54,36 @@ private
         migrate_edition!(edition, recipe)
       end
     end
+  end
+
+  def migrate_non_editionable!(record, recipe, compare_payloads)
+    document = Document.create!(document_type: "StandardEdition", content_id: record.content_id)
+    edition = StandardEdition.new(
+      document:,
+      configurable_document_type: recipe.configurable_document_type,
+      state: "published",
+    )
+    edition.save!(validate: false)
+
+    record.translations.each do |record_translation|
+      edition.translations.find_or_create_by!(locale: record_translation.locale).update_columns(
+        title: recipe.title(record_translation),
+        summary: recipe.summary(record_translation),
+        block_content: recipe.map_legacy_fields_to_block_content(record, record_translation),
+      )
+    end
+
+    if compare_payloads
+      old_presenter = recipe.presenter.new(record)
+      new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
+      compare_presenter_payloads(
+        old_presenter.content, new_presenter.content,
+        old_presenter.links, new_presenter.links,
+        recipe, subject: "#{record.class.name} ID #{record.id}"
+      )
+    end
+
+    document.id
   end
 
   def migrate_edition!(edition, recipe)
@@ -62,12 +112,19 @@ private
     new_content = new_presenter.content
     new_links = new_presenter.links
 
+    compare_presenter_payloads(
+      old_content, new_content, old_links, new_links,
+      recipe, subject: "Edition ID #{edition.id}"
+    )
+  end
+
+  def compare_presenter_payloads(old_content, new_content, old_links, new_links, recipe, subject:)
     diff = diff_values(
       recipe.ignore_legacy_content_fields(old_content),
       recipe.ignore_new_content_fields(new_content),
     )
     unless diff.to_s.empty?
-      raise "Presenter content mismatch after migration for Edition ID #{edition.id}: #{diff}"
+      raise "Presenter content mismatch after migration for #{subject}: #{diff}"
     end
 
     diff = diff_values(
@@ -75,7 +132,7 @@ private
       recipe.ignore_new_links(new_links),
     )
     unless diff.to_s.empty?
-      raise "Presenter links mismatch after migration for Edition ID #{edition.id}: #{diff}"
+      raise "Presenter links mismatch after migration for #{subject}: #{diff}"
     end
   end
 
