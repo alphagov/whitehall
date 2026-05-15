@@ -17,6 +17,23 @@
   <% end %>
 <% end %>
 
+<%
+  if @edition.is_child_document?
+    parent = @edition.parent_edition
+    inset_text = "This is a child document of <a href='/government/admin/editions/#{parent.id}'>#{parent.title}</a>."
+    if !@edition.can_be_published?
+      if @edition.parent_edition.document.live_edition&.state == "published" && @edition.document.live_edition.nil?
+        inset_text += " As this is a new document, you will need to publish the parent again first before you can publish the child."
+      else
+        inset_text += " The parent document is in a non-published state, so you will need to change the parent document's state to 'published' before you can publish this child document."
+      end
+    end
+%>
+  <%= render "govuk_publishing_components/components/inset_text", {
+    text: inset_text.html_safe,
+  } %>
+<% end %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "admin/editions/show/main" %>

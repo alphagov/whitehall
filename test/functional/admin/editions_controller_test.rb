@@ -50,6 +50,96 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_equal publication, assigns(:audit_trail_entry)
   end
 
+  test "attach_to_parent_if_this_is_a_child! creates relationship when parent_edition_id is present" do
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "child_type")
+
+    controller.params = ActionController::Parameters.new(
+      parent_edition_id: parent_edition.id,
+    )
+
+    controller.instance_variable_set(:@edition, child_edition)
+
+    assert_difference("ParentChildRelationship.count", 1) do
+      controller.send(:attach_to_parent_if_this_is_a_child!)
+    end
+
+    relationship = ParentChildRelationship.last
+
+    assert_equal parent_edition, relationship.parent_edition
+    assert_equal child_edition.document, relationship.child_document
+  end
+
+  test "attach_to_parent_if_this_is_a_child! raises exception if the current user doesn't have permission to edit the parent edition (e.g. they have tampered with the parent_edition_id param)" do
+    parent_edition = create(:draft_publication)
+    child_edition = create(:draft_publication)
+
+    controller.params = ActionController::Parameters.new(
+      parent_edition_id: parent_edition.id,
+    )
+    controller.instance_variable_set(:@edition, child_edition)
+    controller.stubs(:enforce_permission!).with(:update, parent_edition).raises(Whitehall::Authority::Errors::PermissionDenied.new(:update, parent_edition))
+
+    assert_raise(Whitehall::Authority::Errors::PermissionDenied) do
+      controller.send(:attach_to_parent_if_this_is_a_child!)
+    end
+  end
+
+  test "attach_to_parent_if_this_is_a_child! does nothing when parent_edition_id is absent" do
+    child_edition = create(:edition)
+
+    controller.params = ActionController::Parameters.new
+
+    controller.instance_variable_set(:@edition, child_edition)
+
+    assert_no_difference("ParentChildRelationship.count") do
+      controller.send(:attach_to_parent_if_this_is_a_child!)
+    end
+  end
+
+  test "attach_to_parent_if_this_is_a_child! locks the parent edition" do
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "child_type")
+
+    controller.params = ActionController::Parameters.new(
+      parent_edition_id: parent_edition.id,
+    )
+
+    controller.instance_variable_set(:@edition, child_edition)
+
+    parent_edition.expects(:with_lock).once.yields
+
+    Edition.stubs(:find)
+          .with(parent_edition.id)
+          .returns(parent_edition)
+
+    controller.send(:attach_to_parent_if_this_is_a_child!)
+  end
+
   test "revising the published edition should create a new draft edition" do
     published_edition = create(:published_publication)
     Edition.stubs(:find).returns(published_edition)

@@ -2,6 +2,19 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://whitehall-admin.publishing.service.gov.uk/configurable-document-type.schema.json",
   "$defs": {
+    "publishing_api_document_types": {
+      "type": "string",
+      "enum": [
+        "government_response",
+        "news_story",
+        "press_release",
+        "world_news_story",
+        "history",
+        "topical_event",
+        "topical_event_about_page",
+        "case_study"
+      ]
+    },
     "validations": {
       "description": "List of rails validations to apply to properties, mapping to validators in the application. Keys must match available validators.",
       "type": "object",
@@ -306,7 +319,8 @@
                   "world_locations",
                   "organisations",
                   "worldwide_organisations",
-                  "government"
+                  "government",
+                  "parent"
                 ]
               }
             }
@@ -322,6 +336,10 @@
       "type": "object",
       "description": "A list of configurations to enable certain edition behaviours.",
       "properties": {
+        "is_child_document": {
+          "type": "boolean",
+          "description": "Indicates this document is a child document and inherits its base path from its parent."
+        },
         "base_path_prefix": {
           "type": "string",
           "description": "URL prefix for where documents of this type are published. E.g. /government/history.",
@@ -343,22 +361,14 @@
           "enum": [
             "history",
             "topical_event",
+            "topical_event_about_page",
             "news_article",
             "case_study"
           ]
         },
         "publishing_api_document_type": {
-          "type": "string",
           "description": "Document type name in the Publishing API.",
-          "enum": [
-            "government_response",
-            "news_story",
-            "press_release",
-            "world_news_story",
-            "history",
-            "topical_event",
-            "case_study"
-          ]
+          "$ref": "#/$defs/publishing_api_document_types"
         },
         "rendering_app": {
           "type": "string",
@@ -460,13 +470,41 @@
           "type": "boolean",
           "description": "Whether a taxon (topic or world) is required for this document type."
         },
+        "features_enabled": {
+          "type": "boolean",
+          "description": "Whether features are enabled for this document type. When enabled, it renders the Features tab."
+        },
         "translations_enabled": {
           "type": "boolean",
           "description": "Whether translations are supported for this document type."
+        },
+        "allowed_child_document_types": {
+          "type": "array",
+          "description": "List of document types that are allowed to be children of this document type. This controls which document types can be selected in the ParentDocument block's content tree.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "document_type": {
+                "description": "The publishing_api_document_type allowed as a child.",
+                "$ref": "#/$defs/publishing_api_document_types"
+              }
+            },
+            "required": ["document_type"],
+            "additionalProperties": false
+          }
         }
       },
+      "oneOf": [
+        {
+          "required": ["base_path_prefix"],
+          "not": { "required": ["is_child_document"] }
+        },
+        {
+          "required": ["is_child_document"],
+          "not": { "required": ["base_path_prefix"] }
+        }
+      ],
       "required": [
-        "base_path_prefix",
         "publishing_api_schema_name",
         "publishing_api_document_type",
         "rendering_app",
@@ -478,7 +516,8 @@
         "file_attachments_enabled",
         "taxon_required",
         "translations_enabled"
-      ]
+      ],
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,

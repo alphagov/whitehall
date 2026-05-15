@@ -90,9 +90,25 @@ class Admin::EditionsController < Admin::BaseController
 
   def new; end
 
+  # TODO: should this transaction complexity be encapsulated in an EditionService call?
+  # That seems to be how we handle this sort of thing elsewhere.
   def create
-    if updater.can_perform? && @edition.save
-      updater.perform!
+    success =
+      if updater.can_perform?
+        begin
+          ActiveRecord::Base.transaction do
+            @edition.save!
+            attach_to_parent_if_this_is_a_child!
+            updater.perform!
+          end
+          true
+        rescue ActiveRecord::RecordInvalid => e
+          @edition.errors.merge!(e.record.errors)
+          false
+        end
+      end
+
+    if success
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       build_edition_dependencies
@@ -181,6 +197,8 @@ class Admin::EditionsController < Admin::BaseController
     else
       redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
     end
+  rescue WhitehallError => e
+    redirect_to admin_edition_path(@edition), alert: e.message
   end
 
   def update_bypass_id
@@ -531,5 +549,20 @@ private
     return url if url && URI.parse(url).host.blank? # only allow same-site paths
 
     fallback
+  end
+
+  def attach_to_parent_if_this_is_a_child!
+    parent_id = params[:parent_edition_id].presence
+    return unless parent_id
+
+    parent = Edition.find(parent_id)
+    enforce_permission!(:update, parent)
+
+    parent.with_lock do
+      ParentChildRelationship.create!(
+        parent_edition: parent,
+        child_document: @edition.document,
+      )
+    end
   end
 end

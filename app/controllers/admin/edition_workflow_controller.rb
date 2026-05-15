@@ -77,6 +77,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
     else
       redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end
+  rescue WhitehallError => e
+    redirect_to admin_edition_path(@edition), alert: e.message
   end
 
   def confirm_force_publish
@@ -94,6 +96,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
     else
       redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end
+  rescue WhitehallError => e
+    redirect_to admin_edition_path(@edition), alert: e.message
   end
 
   def confirm_unpublish
@@ -110,6 +114,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
       flash.now[:alert] = message if @unpublishing.errors.blank?
       render :confirm_unpublish
     end
+  rescue WhitehallError => e
+    redirect_to admin_edition_path(@edition), alert: e.message
   end
 
   def confirm_unwithdraw; end

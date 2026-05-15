@@ -84,6 +84,22 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert draft_edition.reload.draft?
   end
 
+  test "POST #force_publish catches WhitehallError and redirects with an alert" do
+    Whitehall.edition_services.stubs(:force_publisher).raises(WhitehallError.new("Something went wrong"))
+    post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version, reason: "Urgent change" }
+
+    assert_redirected_to admin_publication_path(draft_edition)
+    assert_equal "Something went wrong", flash[:alert]
+  end
+
+  test "POST #publish catches WhitehallError and redirects with an alert" do
+    Whitehall.edition_services.stubs(:publisher).raises(WhitehallError.new("Something went wrong"))
+    post :publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
+
+    assert_redirected_to admin_publication_path(draft_edition)
+    assert_equal "Something went wrong", flash[:alert]
+  end
+
   test "schedule schedules the given edition on behalf of the current user" do
     editor = create(:departmental_editor)
     submitted_edition(submitter: editor, scheduled_publication: 1.day.from_now)
@@ -370,6 +386,18 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_template :confirm_unpublish
     assert_equal "Select which withdrawal date you want to use", flash[:alert]
     assert published_edition.reload.published?
+  end
+
+  test "#unpublish catches WhitehallError and redirects with an alert" do
+    Whitehall.edition_services.stubs(:unpublisher).raises(WhitehallError.new("Something went wrong"))
+    login_as create(:managing_editor)
+    unpublish_params = {
+      unpublishing_reason_id: UnpublishingReason::Consolidated.id,
+      alternative_url: "https://www.gov.uk/alternative",
+    }
+    post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
+    assert_redirected_to admin_publication_path(published_edition)
+    assert_equal "Something went wrong", flash[:alert]
   end
 
   view_test "#unpublish when there are validation errors re-renders the unpublish form" do
