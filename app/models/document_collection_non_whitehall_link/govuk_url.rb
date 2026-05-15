@@ -31,7 +31,8 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
   end
 
   def content_item
-    @content_item ||= Services.publishing_api.get_content(content_id).to_h
+    content_id
+    @content_item ||= content_item_from_content_store
   end
 
   def content_id
@@ -40,15 +41,21 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
     if @content_id.blank?
       toplevel_path_segment = parsed_url.path.split("/").second
       @content_id = Services.publishing_api.lookup_content_id(base_path: "/#{toplevel_path_segment}", with_drafts: true)
+
       if @content_id.blank?
-        raise GdsApi::HTTPNotFound, 404
+        @content_id = content_item_from_content_store["content_id"]
+        raise GdsApi::HTTPNotFound, 404 if @content_id.blank?
       else
-        unless content_item["document_type"] == "guide"
-          raise GdsApi::HTTPNotFound, 404
-        end
+        raise GdsApi::HTTPNotFound, 404 unless content_item["document_type"] == "guide"
       end
     end
 
     @content_id
+  end
+
+  def content_item_from_content_store
+    Services.content_store.content_item(parsed_url.path).to_h
+  rescue GdsApi::ContentStore::ItemNotFound
+    raise GdsApi::HTTPNotFound, 404
   end
 end
