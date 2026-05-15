@@ -88,8 +88,16 @@ module Whitehall::Authority::Rules
 
     def can_with_a_historic_instance?(action)
       return false if access_limit_enforced?
+      return true if actor.gds_admin? || actor.gds_editor?
 
-      action == :see || actor.gds_editor? || actor.gds_admin?
+      case action
+      when :see
+        true
+      when :unpublish
+        actor.can_unpublish_historic_content?
+      else
+        false
+      end
     end
 
     def access_limit_enforced?
