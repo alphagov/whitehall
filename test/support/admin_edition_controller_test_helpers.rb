@@ -952,7 +952,7 @@ module AdminEditionControllerTestHelpers
              params: {
                edition: controller_attributes_for(edition_type).merge(
                  first_published_at: Date.parse("2010-10-21"),
-                 access_limited: "1",
+                 access_limited: :organisations,
                  lead_organisation_ids: [organisation.id],
                ),
              }
@@ -963,26 +963,25 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit displays persisted access_limited flag" do
-        publication = create(edition_type, access_limited: false)
+        publication = create(edition_type, access_limited: :disabled)
 
         get :edit, params: { id: publication }
 
         assert_select "form#edit_edition" do
-          assert_select "input[name='edition[access_limited]'][type=checkbox]"
-          assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]", count: 0
+          assert_select "input[name='edition[access_limited]'][type=radio][value='disabled'][checked=checked]"
         end
       end
 
       test "update records new value of access_limited flag" do
         controller.current_user.organisation = create(:organisation)
         controller.current_user.save!
-        publication = create(edition_type, access_limited: false, organisations: [controller.current_user.organisation])
+        publication = create(edition_type, access_limited: :disabled, organisations: [controller.current_user.organisation])
 
         put :update,
             params: {
               id: publication,
               edition: {
-                access_limited: "1",
+                access_limited: :organisations,
               },
             }
 
@@ -993,13 +992,13 @@ module AdminEditionControllerTestHelpers
         controller.current_user.organisation = create(:organisation)
         controller.current_user.save!
         organisation = create(:organisation)
-        edition = create(edition_type, access_limited: false, organisations: [organisation])
+        edition = create(edition_type, access_limited: :disabled, organisations: [organisation])
 
         put :update,
             params: {
               id: edition,
               edition: {
-                access_limited: "1",
+                access_limited: :organisations,
               },
             }
 

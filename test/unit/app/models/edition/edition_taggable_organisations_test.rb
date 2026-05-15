@@ -11,7 +11,7 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
     edition = create(
       :publication,
       :draft,
-      access_limited: false,
+      access_limited: :disabled,
       publication_type_id: PublicationType::Guidance.id,
       organisations: [@lead_org],
     )
@@ -23,7 +23,7 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
     edition = create(
       :publication,
       :draft,
-      access_limited: false,
+      access_limited: :disabled,
       publication_type_id: PublicationType::Form.id,
       organisations: [@lead_org],
     )
@@ -42,7 +42,7 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
         :publication,
         :draft,
         title: "Title #{index}",
-        access_limited: false,
+        access_limited: :disabled,
         publication_type_id: publication_type.id,
         organisations: [@lead_org],
       )

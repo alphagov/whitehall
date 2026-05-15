@@ -48,7 +48,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   end
 
   test "marks attachments belonging to consultations as access limited" do
-    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: true)
+    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: :organisations)
     attachment = FactoryBot.create(:file_attachment, attachable: consultation)
     attachment.attachment_data.attachable = consultation
 
@@ -58,7 +58,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   end
 
   test "marks attachments belonging to consultation responses as access limited" do
-    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: true)
+    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: :organisations)
     response = FactoryBot.create(:consultation_outcome, consultation:)
     attachment = FactoryBot.create(:file_attachment, attachable: response)
     attachment.attachment_data.attachable = consultation
@@ -202,7 +202,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   end
 
   test "should not process the file if the attachable has been deleted" do
-    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: true)
+    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limited: :organisations)
     consultation.delete
     consultation.save!(validate: false)
 

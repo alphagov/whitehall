@@ -53,7 +53,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
         context "edition is access-limited" do
           before do
-            edition.access_limited = true
+            edition.access_limited = :organisations
             edition.save!
           end
 
@@ -85,7 +85,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
               context "new edition is access-limited" do
                 before do
                   new_edition.change_note = "change-note"
-                  new_edition.access_limited = true
+                  new_edition.access_limited = :organisations
                   new_edition.save!
                 end
 
@@ -221,7 +221,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             context "new edition is access-limited" do
               before do
                 new_edition.change_note = "change-note"
-                new_edition.access_limited = true
+                new_edition.access_limited = :organisations
                 new_edition.save!
               end
 
@@ -359,7 +359,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
         context "consultation is access-limited" do
           before do
-            consultation.update!(access_limited: true)
+            consultation.update!(access_limited: :organisations)
           end
 
           it "is not accessible to anonymous user" do

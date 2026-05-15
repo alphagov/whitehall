@@ -30,7 +30,7 @@ module AuthorityTestHelper
       fpe
     end
     define_method("limited_#{edition_type}") do |orgs|
-      le = FactoryBot.build(edition_type, access_limited: true)
+      le = FactoryBot.build(edition_type, access_limited: :organisations)
       le.stubs(:organisations).returns(orgs)
       le
     end

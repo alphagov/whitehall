@@ -56,8 +56,38 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     end
   end
 
+  test "can see a named_users access-limited edition if their email is in named_accesses" do
+    user = create(:writer)
+    edition = FactoryBot.build(:publication, access_limited: :named_users)
+    edition.stubs(:named_accesses).returns(
+      [FactoryBot.build(:named_access, email: user.email)],
+    )
+
+    assert enforcer_for(user, edition).can?(:see)
+  end
+
+  test "cannot see a named_users access-limited edition if their email is not in named_accesses" do
+    user = create(:writer)
+    other_user = create(:writer)
+    edition = FactoryBot.build(:publication, access_limited: :named_users)
+    edition.stubs(:named_accesses).returns(
+      [FactoryBot.build(:named_access, email: other_user.email)],
+    )
+
+    assert_not enforcer_for(user, edition).can?(:see)
+  end
+
   test "can create a new edition of a document that is not access limited" do
     assert enforcer_for(department_writer, normal_edition).can?(:create)
+  end
+
+  test "can create a new unsaved edition when access_limited is named_users and creator is in the list" do
+    user = create(:writer)
+    edition = FactoryBot.build(:publication, access_limited: :named_users)
+    edition.access_limited_named_users = user.email
+    edition.stubs(:creator).returns(user)
+
+    assert enforcer_for(user, edition).can?(:create)
   end
 
   test "can make changes to an edition that is not access limited" do

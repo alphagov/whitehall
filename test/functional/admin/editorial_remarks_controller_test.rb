@@ -52,7 +52,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   end
 
   test "should prevent access to inaccessible editions" do
-    protected_edition = create(:submitted_publication, access_limited: true)
+    protected_edition = create(:submitted_publication, access_limited: :organisations)
 
     get :new, params: { edition_id: protected_edition.id }
     assert_response :forbidden

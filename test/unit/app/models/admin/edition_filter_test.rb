@@ -9,7 +9,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     user = create(:user)
     edition = create(
       :publication,
-      access_limited: true,
+      access_limited: :organisations,
     )
     edition.organisations.first.users << user
 
@@ -18,17 +18,38 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "should not return editions which have limited access for other orgs for non-gds admins" do
-    create(:publication, access_limited: true)
+    create(:publication, access_limited: :organisations)
 
     filter = Admin::EditionFilter.new(Edition, build(:user))
     assert_equal 0, filter.editions.count
   end
 
   test "should return limited access editions for GDS admins" do
-    edition = create(:publication, access_limited: true)
+    edition = create(:publication, access_limited: :organisations)
 
     filter = Admin::EditionFilter.new(Edition, build(:gds_admin))
     assert_equal edition, filter.editions.first
+  end
+
+  test "should return named_users access limited editions when the user is in the access list" do
+    user = create(:user)
+    edition = create(:publication)
+    edition.access_limited = :named_users
+    edition.named_accesses.create!(email: user.email)
+    edition.save!
+
+    filter = Admin::EditionFilter.new(Edition, user)
+    assert_equal edition, filter.editions.first
+  end
+
+  test "should not return named_users access limited editions when the user is not in the access list" do
+    edition = create(:publication)
+    edition.access_limited = :named_users
+    edition.named_accesses.create!(email: "someone@else.com")
+    edition.save!
+
+    filter = Admin::EditionFilter.new(Edition, build(:user))
+    assert_equal 0, filter.editions.count
   end
 
   test "can preload unpublishing data if asked to" do

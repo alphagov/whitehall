@@ -26,7 +26,7 @@ private
 
   def prepare_edition
     flag_if_political_content!
-    edition.access_limited = false
+    edition.access_limited = :disabled
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
     edition.increment_version_number
