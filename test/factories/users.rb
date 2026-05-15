@@ -72,4 +72,12 @@ FactoryBot.define do
       ]
     end
   end
+
+  factory :historical_unpublisher, parent: :user do
+    permissions do
+      [
+        User::Permissions::UNPUBLISH_HISTORIC_CONTENT,
+      ]
+    end
+  end
 end

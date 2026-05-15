@@ -23,6 +23,7 @@ class User < ApplicationRecord
     PUBLISH_SCHEDULED_EDITIONS = "Publish scheduled editions".freeze
     GDS_ADMIN = "GDS Admin".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
+    UNPUBLISH_HISTORIC_CONTENT = "Unpublish historic content".freeze
   end
 
   def role
@@ -81,4 +82,8 @@ class User < ApplicationRecord
   end
 
   attr_writer :organisation_content_id
+
+  def can_unpublish_historic_content?
+    has_permission?(Permissions::UNPUBLISH_HISTORIC_CONTENT)
+  end
 end
