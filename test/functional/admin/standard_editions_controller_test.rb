@@ -1110,7 +1110,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     )
 
     @controller.stubs(:updater).returns(stub(can_perform?: true, perform!: true, failure_reason: nil))
-    StandardEdition.any_instance.stubs(:save_as).with(current_user).returns(true)
+    StandardEdition.any_instance.stubs(:save_as).with(current_user, validate: false).returns(true)
 
     patch :update, params: {
       id: edition.id,
@@ -1152,6 +1152,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
           "body" => { "type" => "string" },
           "sidebar" => { "type" => "string" },
         },
+        "validations" => {
+          "presence" => { "attributes" => %w[sidebar] },
+        },
       },
     })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
@@ -1162,7 +1165,11 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       configurable_document_type: "test_type",
       title: "Title",
       summary: "Summary",
+      block_content: { "sidebar" => "My sidebar content" },
     )
+
+    get :edit, params: { id: edition, current_tab: "extra_fields" }
+    assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
 
     patch :update, params: {
       id: edition.id,
@@ -1170,7 +1177,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
         title: "",
         summary: edition.summary,
         configurable_document_type: "test_type",
-        block_content: { sidebar: "My sidebar content" },
+        block_content: { sidebar: "" },
       },
       current_tab: "extra_fields",
       save: "save",
@@ -1178,7 +1185,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_template :edit
     assert_select "input[type=hidden][name=current_tab][value=extra_fields]"
-    assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
+    assert_select "textarea[name='edition[block_content][sidebar]']", text: ""
   end
 
   view_test "GET edit renders hidden current_tab field for the default tab when document type defines tabs" do
@@ -1261,5 +1268,148 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "input#edition_test_attribute"
     assert_select "a[href=\"#edition_test_attribute\"]", text: "Test attribute cannot be blank"
     assert_select ".govuk-error-message", text: "Error: Test attribute cannot be blank"
+  end
+
+  test "GET show sets @invalid_tab_forms with the keys and labels of tabs that fail validation" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_tab" => {
+          "dynamic" => true,
+          "label" => "Extra tab",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+        "validations" => {
+          "presence" => { "attributes" => %w[body sidebar] },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, :with_organisations,
+                     configurable_document_type: "test_type",
+                     title: "Title", summary: "Summary",
+                     block_content: { body: "Content", sidebar: "Content" })
+    edition.translations.update_all(block_content: { body: "", sidebar: "" }) # needed to put the data in bad state
+
+    get :show, params: { id: edition }
+
+    invalid_tab_keys = assigns(:invalid_tab_forms).map { |tab| tab[:tab_key] }
+    assert_includes invalid_tab_keys, "documents"
+    assert_includes invalid_tab_keys, "extra_tab"
+  end
+
+  test "GET show sets @invalid_tab_forms as empty when all form tabs are valid" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_tab" => {
+          "dynamic" => true,
+          "label" => "Extra tab",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+        "validations" => {
+          "presence" => { "attributes" => %w[body sidebar] },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, :with_organisations,
+                     configurable_document_type: "test_type",
+                     title: "Title", summary: "Summary",
+                     block_content: { body: "Some content", sidebar: "Some sidebar" })
+    edition.save!
+
+    get :show, params: { id: edition }
+
+    assert_empty assigns(:invalid_tab_forms)
+  end
+
+  view_test "GET show renders errors in the summary sidebar when there are invalid tab forms" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "body" => {
+              "title" => "Body",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content body],
+            },
+          },
+        },
+        "extra_tab" => {
+          "dynamic" => true,
+          "label" => "Extra tab",
+          "fields" => {
+            "sidebar" => {
+              "title" => "Sidebar",
+              "block" => "govspeak",
+              "attribute_path" => %w[block_content sidebar],
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "body" => { "type" => "string" },
+          "sidebar" => { "type" => "string" },
+        },
+        "validations" => {
+          "presence" => { "attributes" => %w[body sidebar] },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition, :with_organisations,
+                     configurable_document_type: "test_type",
+                     title: "Title", summary: "Summary",
+                     block_content: { body: "Some content", sidebar: "Some sidebar" })
+    edition.translations.update_all(block_content: { body: "", sidebar: "" }) # needed to put the data in bad state
+
+    get :show, params: { id: edition }
+
+    assert_select "a", text: "Extra tab tab is invalid"
   end
 end

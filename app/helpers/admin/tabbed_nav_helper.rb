@@ -42,8 +42,9 @@ module Admin::TabbedNavHelper
   def config_driven_nav_items(edition, current_path, current_tab)
     base_url = tab_url_for_edition(edition)
     on_dynamic_tab = current_tab.present? || current_path == base_url
+    on_default_tab = current_tab.nil? || current_tab == edition.default_tab
 
-    [{ label: "Document", href: base_url, current: on_dynamic_tab && current_tab.nil? }].tap do |nav_items|
+    [{ label: "Document", href: base_url, current: on_dynamic_tab && on_default_tab }].tap do |nav_items|
       edition.type_instance.dynamic_tabs.each do |tab|
         nav_items << {
           label: tab["label"],

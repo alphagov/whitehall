@@ -10,6 +10,7 @@ class EditionPublisher < EditionService
     reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?(:publish)
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
     reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication}" if scheduled_for_publication?
+    reasons.concat(invalid_tab_reasons) if edition.is_a?(StandardEdition)
 
     @failure_reasons = reasons
   end

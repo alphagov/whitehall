@@ -24,6 +24,7 @@ class EditionScheduler < EditionService
     elsif scheduled_publication_is_not_within_cache_limit?
       reasons << "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
     end
+    reasons.concat(invalid_tab_reasons) if edition.is_a?(StandardEdition)
     @failure_reasons = reasons
   end
 

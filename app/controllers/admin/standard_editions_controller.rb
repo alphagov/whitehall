@@ -38,8 +38,26 @@ class Admin::StandardEditionsController < Admin::EditionsController
   end
 
   def update
-    @edition.current_tab_context = @current_tab_context
-    super
+    @edition.assign_attributes(edition_params)
+
+    if @current_tab_context.present?
+      tab_form = StandardEdition::TabForm.new(@edition, @current_tab_context)
+
+      if tab_form.valid?
+        @edition.save_as(current_user, validate: false)
+        redirect_to redirect_param(fallback: show_or_edit_path), saved_confirmation_notice
+      else
+        apply_tab_errors_to_edition(tab_form)
+        build_edition_dependencies
+        fetch_version_and_remark_trails
+        construct_similar_slug_warning_error
+        render :edit
+      end
+    else
+      # non-tabbed forms in standard edition, or non-tab pages like translations
+      @edition.current_tab_context = nil
+      super
+    end
   end
 
   def features
@@ -65,6 +83,15 @@ class Admin::StandardEditionsController < Admin::EditionsController
     render :features
   end
 
+  def show
+    super
+    type_instance = @edition.type_instance
+    @invalid_tab_forms = type_instance.form_keys.filter_map do |tab_key|
+      tab_form = StandardEdition::TabForm.new(@edition, tab_key)
+      { tab_key:, label: type_instance.form(tab_key)["label"] || tab_key.humanize } unless tab_form.valid?
+    end
+  end
+
 private
 
   def edition_class
@@ -87,6 +114,11 @@ private
     else
       super
     end
+  end
+
+  def apply_tab_errors_to_edition(tab_form)
+    @edition.errors.clear
+    tab_form.errors.each { |e| @edition.errors.add(e.attribute, e.message) }
   end
 
   def render_not_found
