@@ -24,11 +24,13 @@ private
 
   def error_items
     sorted_errors.map do |error|
-      message = error.full_message
-
-      if object.respond_to?(:error_labels) && object.error_labels.key?(error.attribute.to_s)
-        message = "#{object.error_labels[error.attribute.to_s]} #{error.message}"
-      end
+      message = if dotted_array_attribute?(error)
+                  format_dotted_attribute_message(error)
+                elsif object.respond_to?(:error_labels) && object.error_labels.key?(error.attribute.to_s)
+                  "#{object.error_labels[error.attribute.to_s]} #{error.message}"
+                else
+                  error.full_message
+                end
 
       error_item = {
         text: message,
@@ -74,5 +76,16 @@ private
     return object.class.name.humanize if [ActiveModel::Errors, Array].include?(object.class)
 
     "#{object.try(:new_record?) ? 'New' : 'Editing'} #{object.model_name.human.downcase.titleize}"
+  end
+
+  def dotted_array_attribute?(error)
+    error.attribute.to_s.split(".").any? { |part| part.match?(/\A\d+\z/) }
+  end
+
+  def format_dotted_attribute_message(error)
+    attribute_label = error.attribute.to_s.split(".").map { |part|
+      part.match?(/\A\d+\z/) ? (part.to_i + 1).to_s : part.humanize.downcase
+    }.join(" ").capitalize
+    "#{attribute_label} #{error.message}"
   end
 end

@@ -167,6 +167,10 @@ class StandardEdition < Edition
                           .map { |block| block.path.validation_error_attribute }
   end
 
+  def self.human_attribute_name(attribute, options = {})
+    options[:base]&.type_instance&.title_for_attribute(attribute.to_s) || super
+  end
+
 private
 
   def field_paths(&block)

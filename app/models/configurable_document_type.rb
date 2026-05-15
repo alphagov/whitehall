@@ -113,6 +113,11 @@ class ConfigurableDocumentType
     end
   end
 
+  def title_for_attribute(attribute)
+    segments = attribute.split(".").reject { |s| s.match?(/\A\d+\z/) }
+    find_field_title(form, segments)
+  end
+
   def schema_for_fields(field_keys)
     field_keys = field_keys.map(&:to_s)
 
@@ -126,6 +131,21 @@ class ConfigurableDocumentType
   end
 
 private
+
+  def find_field_title(config, segments)
+    return config["title"] if segments.empty?
+    return nil unless config["fields"]
+
+    config["fields"].each_value do |field|
+      path = Array(field["attribute_path"]) - %w[block_content]
+      next if path.empty? || segments.first(path.length) != path
+
+      result = find_field_title(field, segments.drop(path.length))
+      return result if result
+    end
+
+    nil
+  end
 
   def validations_for_fields(field_keys)
     (@schema["validations"] || {}).each_with_object({}) do |(validation_name, options), result|
