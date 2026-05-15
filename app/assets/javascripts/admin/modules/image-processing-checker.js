@@ -9,6 +9,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
     constructor($root) {
       this.$root = $root
       this.imageLink = this.$root.dataset.imageLink
+      this.variant = this.$root.dataset.variant || 'original'
 
       this.timeoutDuration =
         parseInt(this.$root.dataset.timeoutDuration, 10) ||
@@ -95,13 +96,13 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
 
         if (imgElement) {
           const previewAsset = assets.find(
-            ({ variant }) => variant !== 'original'
+            ({ variant }) => variant === this.variant
           )
 
           // images with multiple assets can have
           // transformed variants so we should not use
           // the `original` asset if this is the case
-          imgElement.src = previewAsset ? previewAsset.url : assets[0].url
+          imgElement.src = previewAsset.url
         }
 
         this.updateImageStatus(this.imagePreview)
