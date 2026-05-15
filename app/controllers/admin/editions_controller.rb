@@ -106,9 +106,17 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    @edition.assign_attributes(edition_params)
+    saved = ApplicationRecord.transaction do
+      @edition.assign_attributes(edition_params)
 
-    if updater.can_perform? && @edition.save_as(current_user)
+      if updater.can_perform? && @edition.save_as(current_user)
+        true
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+
+    if saved
       updater.perform!
 
       if @edition.link_check_report
@@ -409,6 +417,8 @@ private
     end
     if edition_params[:supporting_organisation_ids]
       edition_params[:supporting_organisation_ids] = edition_params[:supporting_organisation_ids].reject(&:blank?)
+    elsif edition_params.key?(:lead_organisation_ids)
+      edition_params[:supporting_organisation_ids] = []
     end
   end
 
