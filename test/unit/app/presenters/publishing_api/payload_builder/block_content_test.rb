@@ -160,7 +160,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       assert_equal [], builder.send(:social_media_links, :some_attribute)
     end
 
-    test "social_media_links returns array of social media links" do
+    test "social_media_links defaults title to service name when no title provided" do
       value_of_links = [{ "social_media_service_name" => "twitter", "url" => "https://example.com" }]
       @block_content.stubs(:some_attribute).returns(value_of_links)
 
@@ -168,9 +168,41 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
       expected_payload = [
         {
-          title: value_of_links.first["social_media_service_name"],
-          service_type: value_of_links.first["social_media_service_name"].parameterize,
-          href: value_of_links.first["url"],
+          title: "twitter",
+          service_type: "twitter",
+          href: "https://example.com",
+        },
+      ]
+      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
+    end
+
+    test "social_media_links uses custom title when provided" do
+      value_of_links = [{ "social_media_service_name" => "Twitter", "url" => "https://twitter.com/govuk", "title" => "GOV.UK on Twitter" }]
+      @block_content.stubs(:some_attribute).returns(value_of_links)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      expected_payload = [
+        {
+          title: "GOV.UK on Twitter",
+          service_type: "twitter",
+          href: "https://twitter.com/govuk",
+        },
+      ]
+      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
+    end
+
+    test "social_media_links falls back to service name when title is blank" do
+      value_of_links = [{ "social_media_service_name" => "Facebook", "url" => "https://facebook.com/govuk", "title" => "" }]
+      @block_content.stubs(:some_attribute).returns(value_of_links)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      expected_payload = [
+        {
+          title: "Facebook",
+          service_type: "facebook",
+          href: "https://facebook.com/govuk",
         },
       ]
       assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
