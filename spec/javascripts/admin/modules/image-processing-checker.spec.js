@@ -68,7 +68,7 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
         'http://assets.gov.uk/media/960x640.png'
       )
       done()
-    }, imageProcessingTimeout * 2)
+    }, 100)
   })
 
   it('should replace the processing status with a specific image if `variant` specified', (done) => {
@@ -86,7 +86,7 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
         'http://assets.gov.uk/media/s960_960x640.png'
       )
       done()
-    }, imageProcessingTimeout * 2)
+    }, 100)
   })
 
   it('should replace the processing status with the image preview after multiple attempts', (done) => {
