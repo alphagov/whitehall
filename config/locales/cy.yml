@@ -37,3 +37,10 @@ cy:
       jobs: Swyddi
       jobs_and_contacts: Swyddi a chontractau
       organisation_chart: Ein siart sefydliadol
+  worldwide_organisation:
+    corporate_information:
+      about_our_services_html: Darganfod %{link}.
+      personal_information_charter_html: Mae ein %{link} yn esbonio sut rydyn ni'n ymdrin â'ch gwybodaeth bersonol.
+      publication_scheme_html: Darllenwch am y mathau o wybodaeth rydyn ni'n eu cyhoeddi'n rheolaidd yn ein %{link}.
+      social_media_use_html: Darllenwch ein polisi ar %{link}.
+      welsh_language_scheme_html: Dysgwch am ein hymrwymiad i %{link}.
