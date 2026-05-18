@@ -55,7 +55,7 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
   afterEach(() => imagePreview.remove())
 
-  it('should replace the processing status with the image preview', (done) => {
+  it('should replace the processing status with the original image', (done) => {
     spyOn(window, 'fetch').and.resolveTo(okResponse)
     // eslint-disable-next-line no-new
     new GOVUK.Modules.ImageProcessingChecker(imagePreview)
@@ -64,6 +64,27 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
     window.setTimeout(() => {
       expect(imagePreview.querySelector('img'))
+      expect(imagePreview.querySelector('img').src).toBe(
+        'http://assets.gov.uk/media/960x640.png'
+      )
+      done()
+    }, imageProcessingTimeout * 2)
+  })
+
+  it('should replace the processing status with a specific image if `variant` specified', (done) => {
+    imagePreview.dataset.variant = 's960'
+
+    spyOn(window, 'fetch').and.resolveTo(okResponse)
+    // eslint-disable-next-line no-new
+    new GOVUK.Modules.ImageProcessingChecker(imagePreview)
+
+    expect(imagePreview.querySelector('img')).toBe(null)
+
+    window.setTimeout(() => {
+      expect(imagePreview.querySelector('img'))
+      expect(imagePreview.querySelector('img').src).toBe(
+        'http://assets.gov.uk/media/s960_960x640.png'
+      )
       done()
     }, imageProcessingTimeout * 2)
   })
