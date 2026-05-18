@@ -893,4 +893,27 @@ class StandardEditionTest < ActiveSupport::TestCase
 
     assert_not edition.change_note_required?
   end
+
+  test ".human_attribute_name returns a field title when the base edition has a matching document type attribute" do
+    type_config = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "my_field" => {
+              "title" => "My Field Title",
+              "attribute_path" => %w[my_field],
+            },
+          },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(type_config)
+    edition = build(:standard_edition, configurable_document_type: "test_type")
+
+    assert_equal "My Field Title", StandardEdition.human_attribute_name("my_field", base: edition)
+  end
+
+  test ".human_attribute_name falls back to the Rails default when no base edition is provided" do
+    assert_equal "Title", StandardEdition.human_attribute_name("title")
+  end
 end
