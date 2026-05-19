@@ -451,6 +451,7 @@ class Edition < ApplicationRecord
   def first_published_preceeds_change_notes
     return if first_published_at.blank?
     return if other_editions.empty?
+    return if political? || historic?
 
     change_note_dates = other_editions.pluck(:major_change_published_at).compact.sort
 
