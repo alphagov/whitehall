@@ -71,8 +71,8 @@ class Edition < ApplicationRecord
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
 
-  validate :first_published_preceeds_change_notes, if: :draft?
-  validate :first_published_within_current_govt, if: :draft?
+  validate :first_published_preceeds_change_notes, if: -> { draft? && first_published_at_changed? }
+  validate :first_published_within_current_govt, if: -> { draft? && first_published_at_changed? }
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze

@@ -704,17 +704,21 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
-  test "first_published_at cannot be after the date of the first change note" do
+  test "a changed first_published_at cannot be after the date of the first change note" do
     edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
-    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 1.day.ago)
+    edition = create(:edition, document: edition_with_change_note.document, first_published_at: 3.days.ago)
+
+    edition.first_published_at = 1.day.ago
 
     assert edition.invalid?
     assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
   end
 
-  test "first_published_at cannot be before the start of the current government" do
+  test "a changed first_published_at cannot be before the start of the current government" do
     create(:current_government)
-    edition = build(:edition, first_published_at: 10.years.ago)
+    edition = create(:edition, first_published_at: Time.zone.now)
+
+    edition.first_published_at = 11.years.ago
 
     assert edition.invalid?
     assert_equal "First published date must be after the start of the current government (11/11/2009)", edition.errors.full_messages.first
