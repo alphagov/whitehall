@@ -35,8 +35,10 @@ class GDSAdminTest < ActiveSupport::TestCase
     assert enforcer_for(gds_admin, normal_edition).can?(:mark_political)
   end
 
-  test "can modify historic editions" do
-    assert enforcer_for(gds_admin, historic_edition).can?(:update)
+  test "can do anything to historic editions" do
+    Whitehall::Authority::Rules::EditionRules.actions.each do |action|
+      assert enforcer_for(gds_admin, historic_edition).can?(action)
+    end
   end
 
   test "can create social media accounts" do
