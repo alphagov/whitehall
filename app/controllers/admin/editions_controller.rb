@@ -106,17 +106,9 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    saved = ApplicationRecord.transaction do
-      @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(edition_params)
 
-      if updater.can_perform? && @edition.save_as(current_user)
-        true
-      else
-        raise ActiveRecord::Rollback
-      end
-    end
-
-    if saved
+    if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
       if @edition.link_check_report
@@ -409,16 +401,32 @@ private
     end
   end
 
+  # TODO: not sure this is the way forward. We can't reset orgs to [] because some update calls will
+  # naturally omit orgs, and we get a whole bunch of failing tests.
+  # I'm also not convinced we should set supporting orgs to [] if lead_orgs association is present.
+  # Feels a bit unclean - if we wanted to configure 'supporting orgs only' then that should perhaps
+  # be possible.
+  # Instead it feels like we should have some mechanism for saying:
+  # - Here's the current edition
+  # - Here's what the edition will be if the save completes
+  # - Has the current user lost access in this transition? If so, raise validation error
   def delete_absent_edition_organisations
     return if edition_params.empty?
 
-    if edition_params[:lead_organisation_ids]
-      edition_params[:lead_organisation_ids] = edition_params[:lead_organisation_ids].reject(&:blank?)
+    if @edition.respond_to?(:lead_organisation_ids)
+      edition_params[:lead_organisation_ids] = if edition_params[:lead_organisation_ids].blank?
+                                                 []
+                                               else
+                                                 edition_params[:lead_organisation_ids].reject(&:blank?)
+                                               end
     end
-    if edition_params[:supporting_organisation_ids]
-      edition_params[:supporting_organisation_ids] = edition_params[:supporting_organisation_ids].reject(&:blank?)
-    elsif edition_params.key?(:lead_organisation_ids)
-      edition_params[:supporting_organisation_ids] = []
+
+    if @edition.respond_to?(:supporting_organisation_ids)
+      edition_params[:supporting_organisation_ids] = if edition_params[:supporting_organisation_ids].blank?
+                                                       []
+                                                     else
+                                                       edition_params[:supporting_organisation_ids].reject(&:blank?)
+                                                     end
     end
   end
 

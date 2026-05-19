@@ -1181,6 +1181,45 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "textarea[name='edition[block_content][sidebar]']", text: "My sidebar content"
   end
 
+  test "treats absence of supporting_organisation_ids as an empty array" do
+    login_as create(:user, organisation: nil)
+
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "supporting_organisations" => {
+                "title" => "Supporting organisations",
+                "block" => "select_with_search_tagging",
+                "container" => "organisations",
+                "attribute_path" => %w[supporting_organisation_ids],
+                "translatable" => false,
+              },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:standard_edition, configurable_document_type: "test_type", supporting_organisation_ids: [create(:organisation).id])
+    assert_not edition.supporting_organisation_ids.empty?
+
+    patch :update, params: {
+      id: edition,
+      edition: {
+        # minimal permitted attrs to avoid strong params rejection
+        title: edition.title,
+        summary: edition.summary,
+      },
+      save: "save",
+    }
+    assert_response :redirect
+    assert edition.reload.supporting_organisation_ids.empty?
+  end
+
   view_test "GET edit renders hidden current_tab field for the default tab when document type defines tabs" do
     configurable_document_type = build_configurable_document_type("test_type", {
       "forms" => {
