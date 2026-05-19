@@ -730,6 +730,22 @@ class EditionTest < ActiveSupport::TestCase
     assert political_edition.valid?
   end
 
+  test "political editions can have their first_published_at date after the earliest change note" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = build(:edition, political: true, document: edition_with_change_note.document, first_published_at: 1.day.ago)
+
+    assert edition.valid?
+  end
+
+  test "historical editions can have their first_published_at date set after the earliest change note" do
+    prev_government = create(:previous_government, start_date: 10.years.ago, end_date: 1.year.ago)
+    create(:current_government, start_date: 1.year.ago)
+    historic_edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 9.years.ago)
+    historic_edition = create(:edition, political: true, first_published_at: 8.years.ago, government_id: prev_government.id, document: historic_edition_with_change_note.document)
+
+    assert historic_edition.valid?
+  end
+
   test "after_change_notes' error message takes priority if multiple validation errors on first_published_at" do
     edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
     edition = build(:edition, document: edition_with_change_note.document, first_published_at: 10.years.from_now)
@@ -1092,7 +1108,6 @@ class EditionTest < ActiveSupport::TestCase
 
     assert edition.valid?
   end
-
 
   test "editions can have their first_published_at date changed after the current government" do
     create(:current_government, start_date: 1.month.ago)
