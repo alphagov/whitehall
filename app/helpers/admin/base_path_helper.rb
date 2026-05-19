@@ -3,7 +3,7 @@ require "uri"
 module Admin::BasePathHelper
   MAPPINGS = [
     { "CallForEvidence" => "/government/calls-for-evidence" },
-    { "CaseStudy" => "/government/case-studies" },
+    { "StandardEdition" => "/government/case-studies" },
     { "Consultation" => "/government/consultations" },
     { "DetailedGuide" => "/guidance" },
     { "DocumentCollection" => "/government/collections" },
