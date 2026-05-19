@@ -69,8 +69,8 @@ class Edition < ApplicationRecord
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
 
-  validate :first_published_precedes_change_notes, if: :draft?
-  validate :first_published_within_current_govt, if: :draft?
+  validate :first_published_precedes_change_notes, if: -> { draft? && first_published_at_changed? }
+  validate :first_published_within_current_govt, if: -> { draft? && first_published_at_changed? }
   validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
   validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: -> { draft? && errors.attribute_names.exclude?(:first_published_at) }, allow_blank: true
 
