@@ -1,6 +1,4 @@
 class Edition < ApplicationRecord
-  self.ignored_columns += %w[news_article_type_id]
-
   include Edition::Traits
 
   include Edition::NullImages
