@@ -25,7 +25,7 @@ private
   end
 
   def edition_scope
-    Edition.with_translations(I18n.locale)
+    Edition.with_translations(I18n.locale).in_pre_publication_state
   end
 
   def params_filters

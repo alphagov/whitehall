@@ -33,7 +33,7 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
   test "GET :index with search value passes title and default params to filter" do
     default_filter_params_with_title = @default_filter_params.merge(title: @title)
 
-    Admin::EditionFilter.expects(:new).with([@official_statistics_publication], @user, default_filter_params_with_title)
+    Admin::EditionFilter.expects(:new).with(Edition.with_translations(I18n.locale).in_pre_publication_state, @user, default_filter_params_with_title)
 
     get :index, params: { statistics_announcement_id: @official_statistics_announcement, title: @title }
   end

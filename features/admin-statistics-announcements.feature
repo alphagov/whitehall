@@ -55,7 +55,13 @@ Feature: Statistical release announcements
     Then I should see a warning that there are upcoming releases without a linked publication
     And I should be able to view these upcoming releases without a linked publication
 
-  Scenario: linking a document to a statistics announcement
+  Scenario: attempting to link a document to a published statistics announcement
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And a published statistics publication called "Beard statistics - January 2014"
+    And a statistics announcement called "January's beard statistics" exists
+    Then I should not be able to link the announcement to the publication
+
+  Scenario: linking a document to a draft statistics announcement
     Given I am a GDS editor in the organisation "Department for Beards"
     And a draft statistics publication called "Beard statistics - January 2014"
     And a statistics announcement called "January's beard statistics" exists
