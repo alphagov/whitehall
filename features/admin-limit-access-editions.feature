@@ -15,3 +15,11 @@ Feature: Viewing most recent editions in admin
     And I view the current edition of document "Road accidents"
     Then I am told I do not have permissions to access this page
     And I should see a link to edit the access
+
+  Scenario: Attempting to access limit a new (unpersisted) document against a different org
+    Given I am an editor
+    When I begin drafting a new document
+    And I set the Lead organisation to an org I am not in
+    And I check the "Limit access to publishers from organisations associated with this document before you publish" box
+    When I click "Save"
+    Then I should see the validation error "Access can only be limited by users belonging to an organisation tagged to the document"
