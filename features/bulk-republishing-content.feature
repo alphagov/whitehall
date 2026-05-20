@@ -52,9 +52,9 @@ Feature: Bulk republishing content
     Then I can see all of type "Contact" have been queued for republishing
 
   Scenario: Republish editionable content types
-    Given Case Studies exist
-    When I select all of type "CaseStudy" for republishing
-    Then I can see all of type "CaseStudy" have been queued for republishing
+    Given Publications exist
+    When I select all of type "Publication" for republishing
+    Then I can see all of type "Publication" have been queued for republishing
 
   Scenario: Republish all documents by organisation
     Given a published organisation "An Existing Organisation" exists

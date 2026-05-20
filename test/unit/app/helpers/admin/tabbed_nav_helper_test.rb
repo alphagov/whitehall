@@ -294,7 +294,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   test "#secondary_navigation_tabs_items for non-persisted editions" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
 
-    %i[case_study consultation corporate_information_page detailed_guide document_collection fatality_notice publication speech standard_edition].each do |type|
+    %i[consultation corporate_information_page detailed_guide document_collection fatality_notice publication speech standard_edition].each do |type|
       if type == :corporate_information_page
         organisation = build_stubbed(:organisation)
         edition = build(type, organisation:)

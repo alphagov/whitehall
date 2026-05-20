@@ -39,7 +39,6 @@ class Admin::BasePathHelperTest < ActionView::TestCase
   describe "#url_to_document_slug" do
     test "it extracts the 'slug' that would be stored on the Document" do
       assert_equal "slug", url_to_document_slug("/government/calls-for-evidence/slug")
-      assert_equal "slug", url_to_document_slug("/government/case-studies/slug")
       assert_equal "slug", url_to_document_slug("/government/consultations/slug")
       assert_equal "slug", url_to_document_slug("/guidance/slug")
       assert_equal "slug", url_to_document_slug("/government/collections/slug")

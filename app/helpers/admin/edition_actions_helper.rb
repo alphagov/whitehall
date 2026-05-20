@@ -61,7 +61,6 @@ private
     legacy_classes.map { |edition_type|
       next if edition_type == FatalityNotice && !user.can_handle_fatalities?
       next if edition_type == PlanForChangeLandingPage && !user.gds_admin?
-      next if edition_type == CaseStudy
 
       [edition_type.format_name.humanize.pluralize, edition_type.model_name.singular]
     }.compact

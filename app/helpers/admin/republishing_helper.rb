@@ -84,7 +84,6 @@ module Admin::RepublishingHelper
   def republishable_content_types
     legacy_editionable_content_types = %w[
       CallForEvidence
-      CaseStudy
       Consultation
       CorporateInformationPage
       DetailedGuide

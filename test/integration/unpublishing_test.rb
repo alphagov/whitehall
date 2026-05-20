@@ -2,7 +2,7 @@ require "test_helper"
 
 class UnpublishingTest < ActiveSupport::TestCase
   setup do
-    @published_edition = create(:published_case_study)
+    @published_edition = create(:published_fatality_notice)
     stub_any_publishing_api_call
   end
 
