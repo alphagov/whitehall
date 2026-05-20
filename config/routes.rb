@@ -453,5 +453,7 @@ Whitehall::Application.routes.draw do
 
   mount Flipflop::Engine => "/flipflop"
 
-  mount GovukPublishingComponents::Engine, at: "/component-guide"
+  constraints(GDS::SSO::AuthorisedUserConstraint.new(User::Permissions::SIGNIN)) do
+    mount GovukPublishingComponents::Engine, at: "/component-guide"
+  end
 end
