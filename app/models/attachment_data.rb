@@ -103,10 +103,6 @@ class AttachmentData < ApplicationRecord
     !deleted? && (!draft? || (draft? && accessible_to?(user)))
   end
 
-  def visible_attachment_for(user)
-    visible_to?(user) ? significant_attachment : nil
-  end
-
   def visible_attachable_for(user)
     visible_to?(user) ? significant_attachable : nil
   end
@@ -115,15 +111,6 @@ class AttachmentData < ApplicationRecord
     visible_attachable = visible_attachable_for(user)
     # below code seems wrong, policy group is not a edition but could be visible
     visible_attachable.is_a?(Edition) ? visible_attachable : nil
-  end
-
-  def draft_attachment_for(user)
-    visible_to?(user) ? attachments.find { |attachment| attachment.attachable_type == "Edition" && attachment.attachable&.draft? } : nil
-  end
-
-  def draft_edition_for(user)
-    draft_attachable = draft_attachment_for(user)&.attachable
-    draft_attachable.is_a?(Edition) ? draft_attachable : nil
   end
 
   def draft_attachment
