@@ -419,6 +419,29 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test "historic content unpublishers can confirm the unpublishing" do
+    login_as(create(:historic_content_unpublisher))
+    edition = historic_edition
+    get :confirm_unpublish, params: { id: edition.id, lock_version: edition.lock_version }
+
+    assert_response :success
+    assert_template :confirm_unpublish
+    assert_equal edition, assigns(:edition)
+  end
+
+  test "historic content unpublishers can unpublish" do
+    login_as create(:historic_content_unpublisher)
+    unpublish_params = {
+      unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
+      explanation: "test reason",
+    }
+    post :unpublish, params: { id: historic_edition.id, lock_version: historic_edition.lock_version, unpublishing: unpublish_params }
+
+    assert_response :redirect
+    assert_equal "This document has been unpublished and will no longer appear on the public website", flash[:notice]
+    assert_equal "test reason", historic_edition.reload.unpublishing.explanation
+  end
+
 private
 
   def submitted_edition(options = {})
@@ -435,5 +458,11 @@ private
 
   def withdrawn_edition
     @withdrawn_edition ||= create(:withdrawn_publication, major_change_published_at: Time.zone.now)
+  end
+
+  def historic_edition
+    previous_government = create(:previous_government)
+    create(:current_government)
+    @historic_edition ||= create(:published_publication, { political: true, first_published_at: previous_government.start_date, government_id: previous_government.id })
   end
 end
