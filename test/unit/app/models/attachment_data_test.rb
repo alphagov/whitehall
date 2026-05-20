@@ -400,4 +400,114 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     assert_not attachment_data.all_asset_variants_uploaded?
   end
+
+  context "#attachable_url" do
+    context "when the attachable is an edition" do
+      it "returns draft url for pre-publication edition" do
+        edition = create(:draft_standard_edition, :with_file_attachment)
+        attachment_data = edition.attachments.first.attachment_data
+
+        assert_equal edition.public_url(draft: true), attachment_data.attachable_url
+      end
+
+      Edition::PUBLICLY_VISIBLE_STATES.each do |state|
+        it "returns live url for #{state} edition" do
+          edition = create(:"#{state}_standard_edition", :with_file_attachment)
+          attachment_data = edition.attachments.first.attachment_data
+
+          assert_equal edition.public_url, attachment_data.attachable_url
+        end
+      end
+
+      it "returns nil for deleted edition" do
+        edition = create(:draft_standard_edition, :with_file_attachment)
+        attachment_data = edition.attachments.first.attachment_data
+        assert attachment_data.attachments.first.attachable
+
+        edition.destroy!
+        edition.delete_all_attachments
+
+        assert_equal true, attachment_data.reload.attachments.first.deleted?
+        assert_nil attachment_data.attachments.first.attachable
+        assert_nil attachment_data.attachable_url
+      end
+
+      it "returns nil for unpublished edition" do
+        edition = create(:unpublished_standard_edition, :with_file_attachment)
+        attachment_data = edition.attachments.first.attachment_data
+
+        assert_nil attachment_data.attachable_url
+      end
+    end
+
+    context "when the attachable is a consultation or call for evidence outcome" do
+      %w[consultation call_for_evidence].each do |parent_attachable_type|
+        context "when the attachable is a #{parent_attachable_type} outcome" do
+          Edition::PRE_PUBLICATION_STATES.each do |state|
+            it "returns draft url for #{state} #{parent_attachable_type}" do
+              edition = create(:"#{state}_#{parent_attachable_type}")
+              outcome = create(:"#{parent_attachable_type}_outcome", :with_file_attachment, "#{parent_attachable_type}": edition)
+              attachment_data = outcome.attachments.first.attachment_data
+
+              assert_equal edition.public_url(draft: true), attachment_data.attachable_url
+            end
+          end
+
+          Edition::PUBLICLY_VISIBLE_STATES.each do |state|
+            it "returns live url for #{state} #{parent_attachable_type}" do
+              edition = create(:"#{state}_#{parent_attachable_type}")
+              outcome = create(:"#{parent_attachable_type}_outcome", :with_file_attachment, "#{parent_attachable_type}": edition)
+              attachment_data = outcome.attachments.first.attachment_data
+
+              assert_equal edition.public_url, attachment_data.attachable_url
+            end
+          end
+
+          it "returns nil for deleted #{parent_attachable_type}" do
+            edition = create(:"#{parent_attachable_type}")
+            outcome = create(:"#{parent_attachable_type}_outcome", :with_file_attachment, "#{parent_attachable_type}": edition)
+            attachment_data = outcome.attachments.first.attachment_data
+            assert attachment_data.attachments.first.attachable
+
+            edition.destroy!
+            edition.delete_all_attachments
+
+            assert_equal true, attachment_data.reload.attachments.first.deleted?
+            assert_nil attachment_data.attachments.first.attachable
+            assert_nil attachment_data.attachable_url
+          end
+
+          it "returns nil for unpublished #{parent_attachable_type}" do
+            edition = create(:"unpublished_#{parent_attachable_type}")
+            outcome = create(:"#{parent_attachable_type}_outcome", :with_file_attachment, "#{parent_attachable_type}": edition)
+            attachment_data = outcome.attachments.first.attachment_data
+
+            assert_nil attachment_data.attachable_url
+          end
+        end
+      end
+    end
+
+    context "when the attachable is a policy group" do
+      it "returns live url" do
+        policy_group = create(:policy_group, :with_file_attachment)
+        attachment_data = policy_group.attachments.first.attachment_data
+
+        assert_equal policy_group.public_url, attachment_data.attachable_url
+      end
+
+      it "returns nil for deleted policy group" do
+        policy_group = create(:policy_group, :with_file_attachment)
+        attachment_data = policy_group.attachments.first.attachment_data
+        assert attachment_data.attachments.first.attachable
+
+        policy_group.destroy!
+        policy_group.delete_all_attachments
+
+        assert_equal true, attachment_data.reload.attachments.first.deleted?
+        assert_nil attachment_data.attachments.first.attachable
+        assert_nil attachment_data.attachable_url
+      end
+    end
+  end
 end

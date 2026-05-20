@@ -57,8 +57,6 @@ class ConsultationResponse < ApplicationRecord
 
   delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, to: :consultation
 
-private
-
   def parent_attachable
     consultation || Attachable::Null.new
   end

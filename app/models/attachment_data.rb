@@ -160,12 +160,15 @@ class AttachmentData < ApplicationRecord
     unpublished_attachable.unpublishing.document_url
   end
 
-  def attachable_url(user = nil)
-    visible_edition = visible_edition_for(user)
-    if visible_edition.blank? && draft_edition
-      draft_edition.public_url(draft: true)
-    elsif visible_edition.present?
-      visible_edition.public_url
+  def attachable_url
+    return nil if significant_attachable.blank?
+
+    if significant_attachable.is_a?(Edition)
+      url_for(significant_attachable)
+    elsif significant_attachable.respond_to?(:parent_attachable) && significant_attachable.parent_attachable.is_a?(Edition)
+      url_for(significant_attachable.parent_attachable)
+    elsif significant_attachable.is_a?(PolicyGroup)
+      significant_attachable.public_url
     end
   end
 
@@ -227,5 +230,13 @@ private
 
   def new_filename_blank
     errors.add(:new_filename, :blank) if keep_or_replace == "keep" && new_filename.blank?
+  end
+
+  def url_for(edition)
+    if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
+      edition.public_url(draft: true)
+    elsif edition.publicly_visible?
+      edition.public_url
+    end
   end
 end

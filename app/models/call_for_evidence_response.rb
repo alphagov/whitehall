@@ -57,8 +57,6 @@ class CallForEvidenceResponse < ApplicationRecord
 
   delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, to: :call_for_evidence
 
-private
-
   def parent_attachable
     call_for_evidence || Attachable::Null.new
   end

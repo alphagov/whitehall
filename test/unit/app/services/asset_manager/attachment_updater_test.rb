@@ -191,5 +191,64 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         end
       end
     end
+
+    context "when the attachment belongs to a draft consultation's outcome" do
+      let(:consultation) { create(:draft_consultation) }
+      let(:outcome) { create(:consultation_outcome, :with_file_attachment, consultation:) }
+      let(:attachment_data) { outcome.attachments.first.attachment_data }
+      let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
+
+      it "sets the expected attributes" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => true,
+            "access_limited_organisation_ids" => [],
+            "parent_document_url" => consultation.public_url(draft: true),
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
+      end
+    end
+
+    context "when the attachment belongs to a published consultation's outcome" do
+      let(:consultation) { create(:published_consultation) }
+      let(:outcome) { create(:consultation_outcome, :with_file_attachment, consultation:) }
+      let(:attachment_data) { outcome.attachments.first.attachment_data }
+      let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
+
+      it "sets the expected attributes" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => false,
+            "access_limited_organisation_ids" => [],
+            "parent_document_url" => consultation.public_url,
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
+      end
+    end
+
+    context "when the attachment belongs to a policy group" do
+      let(:policy_group) { create(:policy_group, :with_file_attachment) }
+      let(:attachment_data) { policy_group.attachments.first.attachment_data }
+      let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
+
+      it "sets the expected attributes" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => false,
+            "access_limited_organisation_ids" => [],
+            "parent_document_url" => policy_group.public_url,
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
+      end
+    end
   end
 end
