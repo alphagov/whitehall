@@ -439,9 +439,6 @@ Whitehall::Application.routes.draw do
     Healthcheck::S3,
   )
 
-  get "healthcheck/overdue" => "healthcheck#overdue"
-  get "healthcheck/unenqueued_scheduled_editions" => "healthcheck#unenqueued_scheduled_editions"
-
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
 
   scope via: :all do
