@@ -1262,4 +1262,163 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "a[href=\"#edition_test_attribute\"]", text: "Test attribute cannot be blank"
     assert_select ".govuk-error-message", text: "Error: Test attribute cannot be blank"
   end
+
+  test "POST :create creates a parent-child relationship when parent_edition_id is present" do
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(
+      parent_type.merge(child_type),
+    )
+
+    valid_child_edition_params = {
+      title: "Child title",
+      summary: "Child summary",
+      block_content: {
+        "body" => "Child body",
+      },
+      configurable_document_type: "child_type",
+      previously_published: false,
+    }
+
+    parent_edition = create(
+      :draft_standard_edition,
+      configurable_document_type: "test_type",
+    )
+
+    assert_difference("ParentChildRelationship.count", 1) do
+      post :create, params: {
+        parent_edition_id: parent_edition.id,
+        edition: valid_child_edition_params,
+      }
+    end
+
+    relationship = ParentChildRelationship.last
+
+    assert_equal parent_edition, relationship.parent_edition
+    assert_equal "Child title", relationship.child_document.latest_edition.title
+  end
+
+  test "POST :create raises exception if the current user cannot update the parent edition" do
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(
+      parent_type.merge(child_type),
+    )
+
+    valid_child_edition_params = {
+      title: "Child title",
+      summary: "Child summary",
+      block_content: {
+        "body" => "Child body",
+      },
+      configurable_document_type: "child_type",
+      previously_published: false,
+    }
+
+    parent_edition = create(
+      :draft_standard_edition,
+      configurable_document_type: "test_type",
+      organisations: [create(:organisation)],
+      access_limited: true,
+    )
+
+    assert_no_difference("ParentChildRelationship.count") do
+      post :create, params: {
+        parent_edition_id: parent_edition.id,
+        edition: valid_child_edition_params,
+      }
+    end
+
+    assert_response :forbidden
+  end
+
+  test "POST :create does not create a parent-child relationship when parent_edition_id is absent" do
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(
+      parent_type.merge(child_type),
+    )
+
+    valid_child_edition_params = {
+      title: "Child title",
+      summary: "Child summary",
+      block_content: {
+        "body" => "Child body",
+      },
+      configurable_document_type: "child_type",
+      previously_published: false,
+    }
+
+    assert_no_difference("ParentChildRelationship.count") do
+      post :create, params: {
+        edition: valid_child_edition_params,
+      }
+    end
+  end
+
+  test "POST :create locks the parent edition" do
+    parent_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "child_type",
+          },
+        ],
+      },
+    })
+    child_type = build_configurable_document_type("child_type")
+    ConfigurableDocumentType.setup_test_types(
+      parent_type.merge(child_type),
+    )
+
+    valid_child_edition_params = {
+      title: "Child title",
+      summary: "Child summary",
+      block_content: {
+        "body" => "Child body",
+      },
+      configurable_document_type: "child_type",
+      previously_published: false,
+    }
+
+    parent_edition = create(
+      :draft_standard_edition,
+      configurable_document_type: "test_type",
+    )
+
+    parent_edition.expects(:with_lock).once.yields
+
+    Edition.stubs(:find)
+           .with(parent_edition.id.to_s)
+           .returns(parent_edition)
+
+    post :create, params: {
+      parent_edition_id: parent_edition.id,
+      edition: valid_child_edition_params,
+    }
+  end
 end
