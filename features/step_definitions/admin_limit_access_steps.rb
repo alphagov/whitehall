@@ -41,3 +41,16 @@ end
 Then(/^I should see the validation error "(.+)"$/) do |string|
   expect(page).to have_content string
 end
+
+Given(/^I create an access limited document$/) do
+  step "I begin drafting a new document"
+  step "I check the \"Limit access to publishers from organisations associated with this document before you publish\" box"
+  step "I click \"Save\""
+end
+
+Then(/^I should still be able to access the document$/) do
+  visit current_url # refresh
+  expect(page).not_to have_content "You do not have permission to access this page."
+  expect(page).to have_content "Test publication"
+  expect(Edition.last.organisations).to eq([@user.organisation])
+end
