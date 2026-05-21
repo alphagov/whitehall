@@ -86,7 +86,7 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     assert_equal "#{parent_edition.base_path}/foo", child_edition.base_path
   end
 
-  test "can_be_published? returns true if parent edition is not in a pre-publication state AND parent document is 'published'" do
+  test "parent_allows_publishing? returns true if parent edition is not in a pre-publication state AND parent document is 'published'" do
     parent_document = create(:document)
     parent_edition = create(:superseded_standard_edition, document: parent_document)
     create(:published_standard_edition, document: parent_document) # Live Parent
@@ -100,10 +100,10 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     )
     relationship.save!(validate: false)
 
-    assert child_edition.can_be_published?
+    assert child_edition.parent_allows_publishing?
   end
 
-  test "can_be_published? returns false if parent edition is in a pre-publication state, despite the parent document being published" do
+  test "parent_allows_publishing? returns false if parent edition is in a pre-publication state, despite the parent document being published" do
     Edition::PRE_PUBLICATION_STATES.each do |state|
       parent_document = create(:document)
       create(:published_standard_edition, document: parent_document) # Live Parent...
@@ -117,11 +117,11 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
         child_document:,
       )
 
-      assert_not child_edition.can_be_published?
+      assert_not child_edition.parent_allows_publishing?
     end
   end
 
-  test "can_be_published? returns false if parent edition is not in a pre-publication state and parent document is not 'published'" do
+  test "parent_allows_publishing? returns false if parent edition is not in a pre-publication state and parent document is not 'published'" do
     parent_document = create(:document)
     parent_edition = create(:withdrawn_standard_edition, document: parent_document)
     create(:draft_standard_edition, document: parent_document)
@@ -135,6 +135,6 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     )
     relationship.save!(validate: false)
 
-    assert_not child_edition.can_be_published?
+    assert_not child_edition.parent_allows_publishing?
   end
 end

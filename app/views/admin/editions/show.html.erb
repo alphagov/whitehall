@@ -21,7 +21,7 @@
   if @edition.is_child_document?
     parent = @edition.parent_edition
     inset_text = "This is a child document of <a href='/government/admin/editions/#{parent.id}'>#{parent.title}</a>."
-    if !@edition.can_be_published?
+    if !@edition.parent_allows_publishing?
       if @edition.parent_edition.document.live_edition&.state == "published" && @edition.document.live_edition.nil?
         inset_text += " As this is a new document, you will need to publish the parent again first before you can publish the child."
       else

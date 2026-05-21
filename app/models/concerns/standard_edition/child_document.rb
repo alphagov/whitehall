@@ -21,7 +21,7 @@ module StandardEdition::ChildDocument
     parent_edition.present?
   end
 
-  def can_be_published?
+  def parent_allows_publishing?
     return true unless is_child_document?
 
     parent_edition.document.live_edition&.state == "published" && !parent_edition.pre_publication?
@@ -34,7 +34,7 @@ private
   end
 
   def ensure_publishing_is_allowed!
-    return if can_be_published?
+    return if parent_allows_publishing?
 
     raise IncompatibleParentState, "Unable to publish child document"
   end
