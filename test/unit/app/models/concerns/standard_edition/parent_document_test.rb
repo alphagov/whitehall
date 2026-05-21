@@ -125,16 +125,17 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
   end
 
   test "process_associations_after_save copies child relationships to new edition" do
-    original_parent = create(:standard_edition)
-    new_parent = create(:standard_edition)
+    original_parent = create(:published_standard_edition)
+    new_parent = create(:standard_edition, document: original_parent.document)
 
     child_document = create(:document)
 
-    create(
+    relationship = build(
       :parent_child_relationship,
       parent_edition: original_parent,
       child_document: child_document,
     )
+    relationship.save!(validate: false) #  Bypass 'pre-publication state' check for simplicity
 
     trait = StandardEdition::ParentDocument::Trait.new(original_parent)
 
@@ -149,16 +150,17 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
   end
 
   test "process_associations_after_save does not modify existing relationships" do
-    original_parent = create(:standard_edition)
-    new_parent = create(:standard_edition)
+    original_parent = create(:published_standard_edition)
+    new_parent = create(:standard_edition, document: original_parent.document)
 
     child_document = create(:document)
 
-    relationship = create(
+    relationship = build(
       :parent_child_relationship,
       parent_edition: original_parent,
       child_document: child_document,
     )
+    relationship.save!(validate: false) #  Bypass 'pre-publication state' check for simplicity
 
     trait = StandardEdition::ParentDocument::Trait.new(original_parent)
 
@@ -169,15 +171,16 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
   end
 
   test "process_associations_after_save copies all child relationships" do
-    original_parent = create(:standard_edition)
-    new_parent = create(:standard_edition)
+    original_parent = create(:published_standard_edition)
+    new_parent = create(:standard_edition, document: original_parent.document)
 
     3.times do
-      create(
+      relationship = build(
         :parent_child_relationship,
         parent_edition: original_parent,
         child_document: create(:document),
       )
+      relationship.save!(validate: false) #  Bypass 'pre-publication state' check for simplicity
     end
 
     trait = StandardEdition::ParentDocument::Trait.new(original_parent)

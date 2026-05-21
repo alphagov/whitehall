@@ -40,6 +40,31 @@ class ParentChildRelationshipTest < ActiveSupport::TestCase
     assert_not relationship.valid?
   end
 
+  test "should be invalid if child has existing relationship with another parent" do
+    parent_document_one = create(:document)
+    parent_document_two = create(:document)
+    parent_edition_one = create(:draft_standard_edition, document: parent_document_one, configurable_document_type: "parent_type")
+    parent_edition_two = create(:draft_standard_edition, document: parent_document_two, configurable_document_type: "parent_type")
+    child_document = create(:document)
+
+    existing_relationship = create(
+      :parent_child_relationship,
+      parent_edition: parent_edition_one,
+      child_document:,
+    )
+    additional_relationship = build(
+      :parent_child_relationship,
+      parent_edition: parent_edition_two,
+      child_document:,
+    )
+    assert existing_relationship.valid?
+    assert_not additional_relationship.valid?
+    assert_includes(
+      additional_relationship.errors[:child_document],
+      "is already linked to a different parent document",
+    )
+  end
+
   test "should be valid if one parent edition has two separate child documents" do
     parent_edition = @valid_parent_edition
 
