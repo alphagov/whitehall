@@ -3,6 +3,8 @@ class SocialMediaLinksValidator < ActiveModel::Validator
     @attributes = opts[:attributes]
     @channel_field = opts[:fields]["service_field"]
     @url_field = opts[:fields]["url_field"]
+    @title_field = opts[:fields]["title_field"]
+
     super
   end
 
@@ -11,12 +13,16 @@ class SocialMediaLinksValidator < ActiveModel::Validator
       arr = record.send(attribute_name.to_sym) || []
       @channels_seen = []
       @urls_seen = []
+      @titles_seen = []
 
       arr.each_with_index do |social_media_account, index|
         channel_name = social_media_account[@channel_field]
         url = social_media_account[@url_field]
+        title = social_media_account[@title_field]
+        channel = { channel_name: channel_name, title: title }
 
-        validate_social_media_channel(channel_name, index, record, attribute_name)
+        validate_social_media_channel(channel, index, record, attribute_name)
+        validate_social_media_title(title, index, record, attribute_name)
         validate_social_media_url(url, index, record, attribute_name)
       end
     end
@@ -24,21 +30,35 @@ class SocialMediaLinksValidator < ActiveModel::Validator
 
 private
 
-  def validate_social_media_channel(channel_name, index, record, attribute_name)
-    if channel_name.blank?
+  def validate_social_media_channel(channel, index, record, attribute_name)
+    if channel[:channel_name].blank?
       record.errors.add(
         :"#{attribute_name}.#{index}.#{@channel_field}",
         :blank,
         message: "cannot be blank",
       )
-    elsif channel_name != "Other" && @channels_seen.include?(channel_name)
+    elsif @channels_seen.select { |c| c[:channel_name] == channel[:channel_name] && c[:title] == channel[:title] && c[:title].blank? }.any?
       record.errors.add(
         :"#{attribute_name}.#{index}.#{@channel_field}",
         :taken,
         message: "must be unique",
       )
     else
-      @channels_seen << channel_name
+      @channels_seen << channel
+    end
+  end
+
+  def validate_social_media_title(title, index, record, attribute_name)
+    return if title.blank?
+
+    if @titles_seen.include?(title)
+      record.errors.add(
+        :"#{attribute_name}.#{index}.#{@title_field}",
+        :taken,
+        message: "must be unique",
+      )
+    else
+      @titles_seen << title
     end
   end
 

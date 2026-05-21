@@ -7,6 +7,7 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
       fields: {
         "service_field" => "social_media_service_name",
         "url_field" => "url",
+        "title_field" => "title",
       },
     })
   end
@@ -78,18 +79,6 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     assert_includes block_content.errors["social_media_links.0.url".to_sym], "is invalid - use the full URL, including https://"
   end
 
-  test "social media links are invalid if two of the same channel are provided" do
-    block_content = SocialMediaLinksValidatorTestClass.new
-    block_content.social_media_links = [
-      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk" },
-      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govukpage2" },
-    ]
-    @validator.validate(block_content)
-
-    assert_empty block_content.errors["social_media_links.0.social_media_service_name".to_sym]
-    assert_includes block_content.errors["social_media_links.1.social_media_service_name".to_sym], "must be unique"
-  end
-
   test "social media links are invalid if two channels have the same URL" do
     block_content = SocialMediaLinksValidatorTestClass.new
     block_content.social_media_links = [
@@ -102,7 +91,63 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     assert_includes block_content.errors["social_media_links.1.url".to_sym], "must be unique"
   end
 
-  test "social media links are valid when multiple 'Other' channels are provided with different URLs" do
+  test "social media links are valid when a channel is chosen and a well-formed URL is provided" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk" },
+      { "social_media_service_name" => "LinkedIn", "url" => "https://linkedin.com/company/govuk" },
+    ]
+    @validator.validate(block_content)
+
+    assert block_content.errors.empty?
+  end
+
+  test "social media links are valid when titles are unique" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk", "title" => "GOV.UK on Facebook" },
+      { "social_media_service_name" => "Twitter", "url" => "http://twitter.com/govuk", "title" => "GOV.UK on Twitter" },
+    ]
+    @validator.validate(block_content)
+
+    assert block_content.errors.empty?
+  end
+
+  test "social media links are valid when titles are blank" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk", "title" => "" },
+      { "social_media_service_name" => "Twitter", "url" => "http://twitter.com/govuk", "title" => "" },
+    ]
+    @validator.validate(block_content)
+
+    assert block_content.errors.empty?
+  end
+
+  test "social media links are invalid when any two accounts have the same title" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "title" => "Our updates", "url" => "http://facebook.com/govuk" },
+      { "social_media_service_name" => "Twitter", "title" => "Our updates", "url" => "http://twitter.com/govuk" },
+    ]
+    @validator.validate(block_content)
+
+    assert_includes block_content.errors["social_media_links.1.title".to_sym], "must be unique"
+  end
+
+  test "social media links are invalid when multiple instances of the same channel are provided, with no distinct titles" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk" },
+      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govukpage2" },
+    ]
+    @validator.validate(block_content)
+
+    assert_empty block_content.errors["social_media_links.0.social_media_service_name".to_sym]
+    assert_includes block_content.errors["social_media_links.1.social_media_service_name".to_sym], "must be unique"
+  end
+
+  test "social media links are invalid when multiple 'Other' channels are provided, with no distinct titles" do
     block_content = SocialMediaLinksValidatorTestClass.new
     block_content.social_media_links = [
       { "social_media_service_name" => "Other", "url" => "http://example.com/one" },
@@ -110,14 +155,26 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert block_content.errors.empty?
+    assert_includes block_content.errors["social_media_links.1.social_media_service_name".to_sym], "must be unique"
   end
 
-  test "social media links are valid when a channel is chosen and a well-formed URL is provided" do
+  test "social media links are invalid and only display title uniqueness error, if multiple instances of the same channel are provided, and their titles match" do
     block_content = SocialMediaLinksValidatorTestClass.new
     block_content.social_media_links = [
-      { "social_media_service_name" => "Facebook", "url" => "http://facebook.com/govuk" },
-      { "social_media_service_name" => "LinkedIn", "url" => "https://linkedin.com/company/govuk" },
+      { "social_media_service_name" => "Facebook", "title" => "Facebook", "url" => "http://facebook.com/govuk" },
+      { "social_media_service_name" => "Facebook", "title" => "Facebook", "url" => "http://facebook.com/govukpage2" },
+    ]
+    @validator.validate(block_content)
+
+    assert_includes block_content.errors["social_media_links.1.title".to_sym], "must be unique"
+    assert block_content.errors["social_media_links.1.social_media_service_name".to_sym].empty?
+  end
+
+  test "social media links are valid when multiple instances of the same channel are provided with different titles and different URLs" do
+    block_content = SocialMediaLinksValidatorTestClass.new
+    block_content.social_media_links = [
+      { "social_media_service_name" => "Facebook", "title" => "Facebook Corporate", "url" => "http://example.com/one" },
+      { "social_media_service_name" => "Facebook", "title" => "Facebook Fun", "url" => "http://example.com/two" },
     ]
     @validator.validate(block_content)
 
