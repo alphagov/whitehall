@@ -5,7 +5,7 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-0">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body">You do not have permission to access this page.</p>
-    <% if @edition && can?(:perform_administrative_tasks, Edition) %>
+    <% if @edition&.persisted? && can?(:perform_administrative_tasks, Edition) %>
       <p class="govuk-body">
         <a href="<%= edit_access_limited_admin_edition_path(@edition) %>" class="govuk-link">
           As an administrator, you can update the access permissions of the page.

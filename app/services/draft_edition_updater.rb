@@ -28,6 +28,9 @@ private
   end
 
   def access_limit_excludes_current_user?
+    # Some users may not necessarily belong to an organisation. We should fail-closed for them.
+    return true unless @options[:current_user].organisation
+
     edition.organisation_association_enabled? && edition.edition_organisations.map(&:organisation_id).exclude?(@options[:current_user].organisation.id)
   end
 end

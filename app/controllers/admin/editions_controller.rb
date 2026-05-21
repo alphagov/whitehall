@@ -32,7 +32,7 @@ class Admin::EditionsController < Admin::BaseController
     when "choose_type", "change_type", "change_type_preview", "apply_change_type"
       enforce_permission!(:create, edition_class || Edition)
     when "create"
-      enforce_permission!(:create, @edition)
+      enforce_permission!(:create, @edition) if @edition.persisted?
     when "edit", "update", "revise", "diff", "update_bypass_id", "features"
       enforce_permission!(:update, @edition)
     when "destroy", "confirm_destroy"
@@ -95,6 +95,7 @@ class Admin::EditionsController < Admin::BaseController
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
+      flash.now[:alert] = updater.failure_reason
       build_edition_dependencies
       render :new
     end
