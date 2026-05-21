@@ -1,4 +1,6 @@
 class Admin::ErrorsController < Admin::BaseController
+  skip_before_action :authenticate_user!
+
   def bad_request
     render(status: :bad_request)
   end

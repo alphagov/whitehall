@@ -24,6 +24,17 @@ class Admin::ErrorsControllerTest < ActionDispatch::IntegrationTest
       assert_template error
     end
 
+    it "should render the #{error} page when not authenticated" do
+      logout
+      ENV["GDS_SSO_MOCK_INVALID"] = "true"
+
+      get "/#{error_code}"
+
+      assert_template error
+    ensure
+      ENV.delete("GDS_SSO_MOCK_INVALID")
+    end
+
     it "should render the correct headers" do
       get "/#{error_code}"
 
