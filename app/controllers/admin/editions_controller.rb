@@ -99,6 +99,12 @@ class Admin::EditionsController < Admin::BaseController
       build_edition_dependencies
       render :new
     end
+  rescue Whitehall::UnpublishableInstanceError => e
+    # We were unable to save the draft to Publishing API, presumably because of a
+    # base_path conflict. Surface the error message to the user and re-render the form.
+    flash.now[:alert] = e.message
+    build_edition_dependencies
+    render :new
   end
 
   def edit
