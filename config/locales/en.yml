@@ -20,6 +20,9 @@ en:
       edition:
         html_attachments: HTML attachments
         nation_inapplicabilities: Excluded nations
+      standard_edition:
+        social_media_links: Social media account
+        social_media_service_name: channel
       image_data:
         file: Image
       policy_group/policy_group_attachments/attachment/attachment_data:
