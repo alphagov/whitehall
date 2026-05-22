@@ -18,14 +18,27 @@ class Admin::LinkCheckerApiController < ApplicationController
 private
 
   def verify_signature
-    return unless webhook_secret_token
+    return unless webhook_configured?
+    return head :bad_request unless signature_present?
 
-    given_signature = request.headers["X-LinkCheckerApi-Signature"]
-    return head :bad_request unless given_signature
+    head :bad_request unless signature_valid?
+  end
 
-    body = request.raw_post
-    signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), webhook_secret_token, body)
-    head :bad_request unless Rack::Utils.secure_compare(signature, given_signature)
+  def webhook_configured?
+    webhook_secret_token.present?
+  end
+
+  def signature_present?
+    request_signature.present?
+  end
+
+  def signature_valid?
+    expected = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), webhook_secret_token, request.raw_post)
+    Rack::Utils.secure_compare(expected, request_signature)
+  end
+
+  def request_signature
+    request.headers["X-LinkCheckerApi-Signature"]
   end
 
   def webhook_secret_token
