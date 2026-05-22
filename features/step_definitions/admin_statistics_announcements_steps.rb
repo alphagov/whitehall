@@ -12,6 +12,16 @@ Given(/^a draft statistics publication called "(.*?)"$/) do |title|
   )
 end
 
+Given(/^a published statistics publication called "(.*?)"$/) do |title|
+  @statistics_publication = create(
+    :publication,
+    :published,
+    access_limited: false,
+    publication_type_id: PublicationType::OfficialStatistics.id,
+    title:,
+  )
+end
+
 Given(/^there is a statistics announcement by my organisation$/) do
   @organisation_announcement = create(:statistics_announcement, organisation_ids: [@user.organisation.id])
 end
@@ -95,6 +105,17 @@ When(/^I link the announcement to the publication$/) do
   click_on "Search"
 
   find(".govuk-link", text: "Connect").click
+end
+
+Then("I should not be able to link the announcement to the publication") do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+
+  click_on "Add existing document"
+
+  fill_in "title", with: "statistics"
+  click_on "Search"
+
+  expect(page).to_not have_selector(".govuk-link", text: "Connect")
 end
 
 Then(/^I should see that the announcement is linked to the publication$/) do
