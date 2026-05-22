@@ -1224,6 +1224,68 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "input[type=hidden][name=current_tab][value=documents]"
   end
 
+  view_test "POST create surfaces Publishing API validation error if save_draft fails" do
+    error_hash = {
+      "error" => {
+        "code" => 422,
+        "message" => "Base path /guidance/test is already reserved by manuals-publisher",
+        "error_code" => "base_path_already_in_use",
+        "fields" => {
+          "base_path" => [
+            {
+              "error" => "/guidance/test is already reserved by manuals-publisher",
+              "code" => "base_path_already_in_use",
+            },
+          ],
+        },
+      },
+    }
+    Whitehall::PublishingApi.expects(:save_draft).raises(Whitehall::UnpublishableInstanceError.new(error_hash["error"]["message"]))
+
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "forms" => {
+        "documents" => {
+          "fields" => {
+            "test_attribute" => {
+              "title" => "Test attribute",
+              "block" => "default_string",
+              "attribute_path" => %w[block_content test_attribute],
+              "translatable" => true,
+            },
+          },
+        },
+      },
+      "schema" => {
+        "attributes" => {
+          "test_attribute" => {
+            "type" => "string",
+          },
+        },
+        "validations" => {
+          "presence" => {
+            "attributes" => %w[test_attribute],
+          },
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    post :create, params: {
+      edition: {
+        configurable_document_type: "test_type",
+        title: "Foo",
+        summary: "Bar",
+        block_content: {
+          "test_attribute" => "foo",
+        },
+        previously_published: false,
+      },
+    }
+
+    assert_template "admin/editions/new"
+    assert_select ".gem-c-error-alert", text: "Base path /guidance/test is already reserved by manuals-publisher"
+  end
+
   view_test "POST create re-renders the new edition template with the submitted block content and errors if the form is invalid" do
     configurable_document_type = build_configurable_document_type("test_type", {
       "forms" => {
