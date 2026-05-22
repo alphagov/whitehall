@@ -51,6 +51,7 @@ module Edition::Identifiable
       edition_with_conflicting_slug = Edition.where_base_path_prefix_matches(self)
                                              .where(slug: candidate_slug)
                                              .where("document_id != ?", document_id)
+                                             .where.not(state: Edition::FROZEN_STATES)
 
       if edition_with_conflicting_slug.exists?
         attempt += 1

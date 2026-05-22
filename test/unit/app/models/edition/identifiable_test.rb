@@ -173,6 +173,22 @@ class Edition::SluggingTest < ActiveSupport::TestCase
       assert_equal "same-title--3", third_edition.slug
     end
 
+    test "it does not treat a superseded edition as a slug conflict" do
+      superseded_edition = SluggableEdition.create!(title: "Same Title", state: "superseded")
+      assert_equal "same-title", superseded_edition.slug
+
+      new_draft = SluggableEdition.create!(title: "Same Title")
+      assert_equal "same-title", new_draft.slug
+    end
+
+    test "it does not treat a deleted edition as a slug conflict" do
+      deleted_edition = SluggableEdition.create!(title: "Same Title", state: "deleted")
+      assert_equal "same-title", deleted_edition.slug
+
+      new_draft = SluggableEdition.create!(title: "Same Title")
+      assert_equal "same-title", new_draft.slug
+    end
+
     test "it reuses a slug if it becomes available" do
       clashing_draft = SluggableEdition.create!(title: "Original Title")
       draft_edition = SluggableEdition.create!(title: "Original Title")
