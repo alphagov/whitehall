@@ -21,7 +21,7 @@ private
     return head :service_unavailable unless webhook_configured?
     return head :bad_request unless signature_present?
 
-    head :bad_request unless signature_valid?
+    reject_unauthorized unless signature_valid?
   end
 
   def webhook_configured?
@@ -35,6 +35,13 @@ private
   def signature_valid?
     expected = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), webhook_secret_token, request.raw_post)
     Rack::Utils.secure_compare(expected, request_signature)
+  end
+
+  def reject_unauthorized
+    # Opt out of gds-sso's Warden intercept_401, which would otherwise turn
+    # this response into a redirect to /auth/gds.
+    request.env["warden"].custom_failure!
+    head :unauthorized
   end
 
   def request_signature

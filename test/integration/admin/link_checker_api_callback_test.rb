@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::LinkCheckerApiCallbackTest < ActionDispatch::IntegrationTest
-  test "returns 400 when the signature does not match the body" do
+  test "returns 401 (not a redirect) when the signature is invalid" do
     post admin_link_checker_api_callback_path,
          params: { id: 5 }.to_json,
          headers: {
@@ -9,6 +9,6 @@ class Admin::LinkCheckerApiCallbackTest < ActionDispatch::IntegrationTest
            "X-LinkCheckerApi-Signature" => "invalid",
          }
 
-    assert_response :bad_request
+    assert_response :unauthorized
   end
 end
