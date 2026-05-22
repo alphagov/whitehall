@@ -38,6 +38,16 @@ class Admin::LinkCheckerApiControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "POST :callback returns 503 when the webhook secret is not configured" do
+    Rails.application.credentials.stubs(:link_checker_api_secret_token).returns(nil)
+    LinkCheckerApiReport.any_instance.expects(:mark_report_as_completed).never
+
+    body = link_checker_api_batch_report_hash(id: 5, links: [{ uri: @link, status: "ok" }])
+    post :callback, params: body
+
+    assert_response :service_unavailable
+  end
+
   test "POST :callback returns 400 when the signature header is missing" do
     LinkCheckerApiReport.any_instance.expects(:mark_report_as_completed).never
 

@@ -18,7 +18,7 @@ class Admin::LinkCheckerApiController < ApplicationController
 private
 
   def verify_signature
-    return unless webhook_configured?
+    return head :service_unavailable unless webhook_configured?
     return head :bad_request unless signature_present?
 
     head :bad_request unless signature_valid?
