@@ -1,6 +1,9 @@
 <%= render "govuk_publishing_components/components/input", {
   id: block.path.form_control_id,
-  label: { text: block.title + (block.required ? " (required)" : "") },
+  label: {
+    text: block.title + (block.required ? " (required)" : ""), 
+    heading_size: "m",
+  },
   name: block.path.form_control_name,
   value: block.value,
   hint: block.hint_text,
