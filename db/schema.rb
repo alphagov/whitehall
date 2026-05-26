@@ -327,9 +327,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
     t.index ["locale"], name: "index_edition_translations_on_locale"
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   create_table "edition_user_accesses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "edition_id", null: false
@@ -340,18 +337,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
     t.index ["edition_id"], name: "index_edition_user_accesses_on_edition_id"
   end
 
->>>>>>> a53303e1ac (Add EditionUserAccess model and migration)
-=======
-  create_table "edition_user_access_grants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "edition_id"
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["edition_id"], name: "index_edition_user_access_grants_on_edition_id"
-    t.index ["user_id"], name: "index_edition_user_access_grants_on_user_id"
-  end
-
->>>>>>> 8bb65c5b71 (WIP - migrate access_limited column to be an integer)
   create_table "edition_world_locations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", precision: nil
     t.integer "edition_id"
@@ -360,7 +345,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
     t.index ["edition_id", "world_location_id"], name: "idx_edition_world_locations_on_edition_and_world_location_ids", unique: true
     t.index ["edition_id"], name: "index_edition_world_locations_on_edition_id"
     t.index ["world_location_id"], name: "index_edition_world_locations_on_world_location_id"
-    add_foreign_key "edition_user_accesses", "editions"
+  end
 
   create_table "edition_worldwide_organisations", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -1253,15 +1238,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_120000) do
 
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   add_foreign_key "edition_user_accesses", "editions"
->>>>>>> a53303e1ac (Add EditionUserAccess model and migration)
-=======
-  add_foreign_key "edition_user_access_grants", "editions"
-  add_foreign_key "edition_user_access_grants", "users"
->>>>>>> 8bb65c5b71 (WIP - migrate access_limited column to be an integer)
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"
