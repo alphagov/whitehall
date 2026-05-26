@@ -53,6 +53,27 @@ module PublishingApi::PayloadBuilder
       { government: [item.government&.content_id].compact }
     end
 
+    def self.navigation(item)
+      # We could look it up from the DB and augment the payload with extra details if needed.
+      # But only the content ID is needed for the link.
+      #
+      #   navigation_record = Document.find_by(content_id: item.block_content["navigation"])
+      #   navigation_item = {
+      #     content_id: navigation_record.content_id,
+      #     document_type: "navigation",
+      #   }
+      #   puts "#####"
+      #   puts "#####"
+      #   puts "#####"
+      #   puts navigation_item.inspect
+      #   puts "#####"
+      #   puts "#####"
+      #   puts "#####"
+      #   { navigation: [navigation_record.content_id] }
+
+    { navigation: item.block_content["navigation"] }
+    end
+
     def self.linked_navigation_documents(item)
       content = item.block_content["linked_navigation_documents"]
       return nil if content.nil?

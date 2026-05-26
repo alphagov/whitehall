@@ -13,6 +13,13 @@
           "attribute_path": ["block_content", "body"],
           "translatable": true
         },
+        "navigation": {
+          "title": "Navigation",
+          "description": "Content ID of the navigation this document should be a part of.",
+          "block": "default_string",
+          "attribute_path": ["block_content", "navigation"],
+          "translatable": false
+        },
         "ministerial_role_appointments": {
           "title": "Ministers",
           "block": "select_with_search_tagging",
@@ -64,6 +71,9 @@
     "attributes": {
       "body": {
         "type": "string"
+      },
+      "navigation": {
+        "type": "string"
       }
     },
     "validations": {
@@ -92,6 +102,7 @@
         "body": "govspeak"
       },
       "links": [
+        "navigation",
         "ministerial_role_appointments",
         "topical_events",
         "world_locations",
