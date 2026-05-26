@@ -285,6 +285,7 @@
                     "govspeak",
                     "rfc3339_date",
                     "image",
+                    "parsed_as_hash",
                     "raw",
                     "social_media_links"
                   ]
@@ -302,6 +303,7 @@
                 "type": "string",
                 "description": "The builder methods to use for populating the links object when presenting to the Publishing API.",
                 "enum": [
+                  "navigation_items",
                   "ministerial_role_appointments",
                   "topical_events",
                   "world_locations",
@@ -345,7 +347,8 @@
             "history",
             "topical_event",
             "news_article",
-            "case_study"
+            "case_study",
+            "shared_navigation"
           ]
         },
         "publishing_api_document_type": {
@@ -358,7 +361,8 @@
             "world_news_story",
             "history",
             "topical_event",
-            "case_study"
+            "case_study",
+            "shared_navigation"
           ]
         },
         "rendering_app": {
@@ -467,10 +471,8 @@
         }
       },
       "required": [
-        "base_path_prefix",
         "publishing_api_schema_name",
         "publishing_api_document_type",
-        "rendering_app",
         "images",
         "send_change_history",
         "organisations",
