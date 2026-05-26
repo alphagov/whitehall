@@ -2,7 +2,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
   include HistoricContentConcern
 
   before_action :find_edition
-  before_action :forbid_editing_of_historic_content!
+  before_action :forbid_editing_of_historic_content!, except: %i[confirm_unpublish unpublish]
+  before_action :forbid_unpublishing_of_historic_content!, only: %i[confirm_unpublish unpublish]
   before_action :enforce_permissions!
   before_action :limit_edition_access!
   before_action :lock_edition
