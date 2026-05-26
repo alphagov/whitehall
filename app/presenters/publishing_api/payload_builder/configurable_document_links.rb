@@ -52,5 +52,19 @@ module PublishingApi::PayloadBuilder
     def self.government(item)
       { government: [item.government&.content_id].compact }
     end
+
+    def self.linked_navigation_documents(item)
+      content = item.block_content["linked_navigation_documents"]
+      return nil if content.nil?
+
+      # TODO: simplify. This originally was going to be an array of objects but is now just a list of content IDs
+      # e.g.
+      # [
+      #   "05c902c3-8272-4940-be0c-2c71e36e538d"
+      # ]
+      # All we're doing is parsing the JSON above, but we could probably make this
+      # a comma separated list, or even better, use the array / add-another component
+      { documents: JSON.parse(content) }
+    end
   end
 end

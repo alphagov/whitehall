@@ -1,0 +1,59 @@
+{
+  "key": "navigation",
+  "title": "Navigation",
+  "description": "Spiking a navigation object. In the future this would likely live as a separate artefact in a tab on a given configurable document type. But this spike allows us to hard code a blob of JSON and send to Publishing API without having to worry about the lifecycle of the associated edition.",
+  "forms": {
+    "documents": {
+      "fields": {
+        "menu_items": {
+          "title": "Menu items",
+          "description": "JSON hash to be sent as part of the Navigation's `details` - for spike purposes only.",
+          "block": "default_textarea",
+          "attribute_path": ["block_content", "menu_items"],
+          "translatable": false
+        },
+        "linked_navigation_documents": {
+          "title": "Linked navigation documents",
+          "description": "JSON hash of content IDs of documents to be linked to this navigation document as `links.linked_navigation_documents` in the Publishing API payload. Should map to the same menu items referenced in the `menu_items` field. For spike purposes only.",
+          "block": "default_textarea",
+          "attribute_path": ["block_content", "linked_navigation_documents"],
+          "translatable": false
+        }
+      }
+    }
+  },
+  "schema": {
+    "attributes": {
+      "menu_items": {
+        "type": "string"
+      },
+      "linked_navigation_documents": {
+        "type": "string"
+      }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "details": {
+        "menu_items": "parsed_as_hash"
+      },
+      "links": [
+        "linked_navigation_documents"
+      ]
+    }
+  },
+  "settings": {
+    "publishing_api_schema_name": "navigation",
+    "publishing_api_document_type": "navigation",
+    "send_change_history": false,
+    "file_attachments_enabled": false,
+    "images": {
+      "enabled": false
+    },
+    "organisations": null,
+    "backdating_enabled": false,
+    "history_mode_enabled": false,
+    "taxon_required": false,
+    "translations_enabled": false
+  }
+}
