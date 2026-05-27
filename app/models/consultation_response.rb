@@ -33,6 +33,8 @@ class ConsultationResponse < ApplicationRecord
 
   delegate :unpublishing, to: :parent_attachable
 
+  delegate :public_url, to: :parent_attachable
+
   def can_order_attachments?
     true
   end
@@ -54,8 +56,6 @@ class ConsultationResponse < ApplicationRecord
   end
 
   delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, to: :consultation
-
-private
 
   def parent_attachable
     consultation || Attachable::Null.new

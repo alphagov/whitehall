@@ -35,6 +35,15 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     end
   end
 
+  test "rescues and logs if attempting to update a live asset with a draft `parent_document_url`" do
+    @asset_updater.stubs(:find_asset_by_id).with(@asset_manager_id).returns("id" => @asset_manager_id, "parent_document_url" => "gov.uk/live-parent", "draft" => false)
+    Services.asset_manager.expects(:update_asset).with(@asset_manager_id, { "parent_document_url" => "draft-origin/parent", "draft" => false }).raises(GdsApi::HTTPUnprocessableEntity, "Parent document url must be a public GOV.UK URL")
+
+    Rails.logger.expects(:info).with("Attempted to update Asset with asset_manager_id: '#{@asset_manager_id}' that is live, with a draft 'parent_document_url'")
+
+    @asset_updater.call(@asset_manager_id, { "parent_document_url" => "draft-origin/parent", "draft" => false })
+  end
+
   test "marks draft asset as published" do
     @asset_updater.stubs(:find_asset_by_id).with(@asset_manager_id)
            .returns("id" => @asset_manager_id, "draft" => true)

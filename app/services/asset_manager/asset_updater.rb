@@ -37,9 +37,13 @@ private
     # Asset Manager will raise a 404 when trying to fetch a deleted live asset for update. We raise here to make those cases explicit.
     raise AssetDeleted, asset_manager_id if attributes["deleted"] && !attributes["draft"]
 
-    keys = new_attributes.keys
-    unless attributes.slice(*keys) == new_attributes.slice(*keys)
-      asset_manager.update_asset(asset_manager_id, new_attributes)
+    begin
+      keys = new_attributes.keys
+      unless attributes.slice(*keys) == new_attributes.slice(*keys)
+        asset_manager.update_asset(asset_manager_id, new_attributes)
+      end
+    rescue GdsApi::HTTPUnprocessableEntity
+      Rails.logger.info("Attempted to update Asset with asset_manager_id: '#{asset_manager_id}' that is live, with a draft 'parent_document_url'") if new_attributes["parent_document_url"].include?("draft-origin") && !new_attributes["draft"]
     end
   end
 end

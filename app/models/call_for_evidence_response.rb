@@ -33,6 +33,8 @@ class CallForEvidenceResponse < ApplicationRecord
 
   delegate :unpublishing, to: :parent_attachable
 
+  delegate :public_url, to: :parent_attachable
+
   def can_order_attachments?
     true
   end
@@ -54,8 +56,6 @@ class CallForEvidenceResponse < ApplicationRecord
   end
 
   delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, to: :call_for_evidence
-
-private
 
   def parent_attachable
     call_for_evidence || Attachable::Null.new

@@ -59,5 +59,50 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
         job.perform(attachment_data.id)
       end
     end
+
+    context "attachment belongs to a consultation outcome" do
+      let(:consultation) { create(:published_consultation, title: "my-consultation") }
+      let(:outcome) { create(:consultation_outcome, :with_file_attachment, consultation:) }
+      let(:attachment_data) { outcome.attachments.first.attachment_data }
+
+      it "updates the asset with the parent consultation's public URL" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/consultations/my-consultation" },
+        )
+
+        job.perform(attachment_data.id)
+      end
+    end
+
+    context "attachment belongs to a consultation public feedback" do
+      let(:consultation) { create(:published_consultation, title: "my-consultation") }
+      let(:public_feedback) { create(:consultation_public_feedback, :with_file_attachment, consultation:) }
+      let(:attachment_data) { public_feedback.attachments.first.attachment_data }
+
+      it "updates the asset with the parent consultation's public URL" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/consultations/my-consultation" },
+        )
+
+        job.perform(attachment_data.id)
+      end
+    end
+
+    context "attachment belongs to a call for evidence outcome" do
+      let(:call_for_evidence) { create(:published_call_for_evidence, title: "my-call-for-evidence") }
+      let(:outcome) { create(:call_for_evidence_outcome, :with_file_attachment, call_for_evidence:) }
+      let(:attachment_data) { outcome.attachments.first.attachment_data }
+
+      it "updates the asset with the parent call for evidence's public URL" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/calls-for-evidence/my-call-for-evidence" },
+        )
+
+        job.perform(attachment_data.id)
+      end
+    end
   end
 end

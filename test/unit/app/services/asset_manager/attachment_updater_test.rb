@@ -142,6 +142,46 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
     end
 
+    context "when attachment's attachable is unpublished" do
+      let(:edition) { create(:unpublished_publication, :with_file_attachment) }
+      let(:attachment) { edition.attachments.first }
+
+      it "sets the expected attributes for an unpublished attachable" do
+        expected_attribute_hash = {
+          "draft" => false,
+          "parent_document_url" => nil,
+          "access_limited_organisation_ids" => [],
+        }
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
+      end
+
+      context "when attachment's attachable is redrafted from unpublished" do
+        # This is a characterisation test - ideally the behaviour would allow for updates.
+        # When redrafting from unpublished, the asset must stay live with a redirect url on it, to serve the "live" (unpublished) edition.
+        # That means that it is not possible to preview the asset in draft.
+        # It also means we cannot update the `parent_document_url` to draft, as this would invalidate an AssetManager rule
+        # where the draft state of the asset and the parent URL must match.
+
+        let(:edition) { create(:unpublished_publication, :with_file_attachment) }
+        let(:draft_edition) { edition.create_draft(create(:user)) }
+        let(:attachment) { draft_edition.attachments.first }
+        let(:asset_manager_id) { attachment.attachment_data.assets.first.asset_manager_id }
+
+        before do
+          Services.asset_manager.expects(:asset).with(asset_manager_id).returns("id" => asset_manager_id, "parent_document_url" => nil, "draft" => false)
+          Services.asset_manager.expects(:update_asset).with(asset_manager_id, { "parent_document_url" => draft_edition.public_url(draft: true), "draft" => false, "access_limited_organisation_ids" => [] }).raises(GdsApi::HTTPUnprocessableEntity, "Parent document url must be a public GOV.UK URL")
+        end
+
+        it "attempts to update, and does not raise" do
+          AssetManager::AttachmentUpdater.call(attachment.attachment_data)
+        end
+      end
+    end
+
     context "when the attachment data has been replaced" do
       let(:edition) { create(:draft_publication) }
       let(:attachment) { create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition)) }
@@ -189,6 +229,65 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
           AssetManager::AttachmentUpdater.replace(attachment.attachment_data)
         end
+      end
+    end
+
+    context "when the attachment belongs to a draft consultation's outcome" do
+      let(:consultation) { create(:draft_consultation) }
+      let(:outcome) { create(:consultation_outcome, :with_file_attachment, consultation:) }
+      let(:attachment_data) { outcome.attachments.first.attachment_data }
+      let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
+
+      it "sets the expected attributes" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => true,
+            "access_limited_organisation_ids" => [],
+            "parent_document_url" => consultation.public_url(draft: true),
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
+      end
+    end
+
+    context "when the attachment belongs to a published consultation's outcome" do
+      let(:consultation) { create(:published_consultation) }
+      let(:outcome) { create(:consultation_outcome, :with_file_attachment, consultation:) }
+      let(:attachment_data) { outcome.attachments.first.attachment_data }
+      let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
+
+      it "sets the expected attributes" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => false,
+            "access_limited_organisation_ids" => [],
+            "parent_document_url" => consultation.public_url,
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
+      end
+    end
+
+    context "when the attachment belongs to a policy group" do
+      let(:policy_group) { create(:policy_group, :with_file_attachment) }
+      let(:attachment_data) { policy_group.attachments.first.attachment_data }
+      let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
+
+      it "sets the expected attributes" do
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => false,
+            "access_limited_organisation_ids" => [],
+            "parent_document_url" => policy_group.public_url,
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
       end
     end
   end

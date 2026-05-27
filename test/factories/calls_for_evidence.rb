@@ -21,6 +21,8 @@ FactoryBot.define do
   factory :deleted_call_for_evidence, parent: :call_for_evidence, traits: [:deleted]
   factory :superseded_call_for_evidence, parent: :call_for_evidence, traits: [:superseded]
   factory :scheduled_call_for_evidence, parent: :call_for_evidence, traits: [:scheduled]
+  factory :withdrawn_call_for_evidence, parent: :call_for_evidence, traits: [:withdrawn]
+  factory :unpublished_call_for_evidence, parent: :call_for_evidence, traits: [:unpublished]
 
   factory :open_call_for_evidence, parent: :published_call_for_evidence do
     opening_at { 1.day.ago }
