@@ -8,12 +8,12 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
   end
 
   test "specifically limit access" do
-    data_set = build(:statistical_data_set, access_limited: true)
+    data_set = build(:statistical_data_set, access_limited: :organisations)
     assert data_set.access_limited?
   end
 
   test "specifically do not limit access" do
-    data_set = build(:statistical_data_set, access_limited: false)
+    data_set = build(:statistical_data_set, access_limited: :disabled)
     assert_not data_set.access_limited?
   end
 

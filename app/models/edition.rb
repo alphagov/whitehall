@@ -472,6 +472,16 @@ class Edition < ApplicationRecord
     end
   end
 
+  def access_limited_named_users=(users)
+    return unless Flipflop.enabled?(:access_limited_named_users)
+
+    user_emails = users.split(",").map(&:strip).reject(&:empty?)
+
+    user_emails.each do |email|
+      edition_user_accesses.create!(email: email)
+    end
+  end
+
 private
 
   def date_for_government

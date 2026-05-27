@@ -1073,6 +1073,26 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal edition.other_editions, []
   end
 
+  test "access_limited_named_users= creates EditionUserAccess records when feature is enabled" do
+    edition = create(:edition)
+    Flipflop.stubs(:enabled?).with(:access_limited_named_users).returns(true)
+
+    edition.access_limited_named_users = "user1@example.com, user2@example.com"
+
+    assert_equal 2, edition.edition_user_accesses.count
+    assert_equal ["user1@example.com", "user2@example.com"],
+                 edition.edition_user_accesses.pluck(:email).sort
+  end
+
+  test "access_limited_named_users= does nothing when feature is disabled" do
+    edition = create(:edition)
+    Flipflop.stubs(:enabled?).with(:access_limited_named_users).returns(false)
+
+    edition.access_limited_named_users = "user1@example.com, user2@example.com"
+
+    assert_equal 0, edition.edition_user_accesses.count
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,
