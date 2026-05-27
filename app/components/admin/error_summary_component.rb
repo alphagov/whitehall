@@ -83,8 +83,14 @@ private
   end
 
   def format_dotted_attribute_message(error)
+    model_key = object.class.try(:model_name)&.i18n_key
     attribute_label = error.attribute.to_s.split(".").map { |part|
-      part.match?(/\A\d+\z/) ? (part.to_i + 1).to_s : part.humanize.downcase
+      if part.match?(/\A\d+\z/)
+        (part.to_i + 1).to_s
+      else
+        i18n_key = "activerecord.attributes.#{model_key}.#{part}"
+        I18n.t(i18n_key, default: nil) || part.humanize.downcase
+      end
     }.join(" ").capitalize
     "#{attribute_label} #{error.message}"
   end

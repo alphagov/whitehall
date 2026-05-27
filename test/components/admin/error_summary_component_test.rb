@@ -154,7 +154,7 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     assert_equal third_link[:href], "#labelled_error_summary_test_object_date"
   end
 
-  test "renders full_message for dotted attributes" do
+  test "renders full message for dotted attributes" do
     object = DottedAttributeErrorSummaryTestObject.new("title", Time.zone.today)
     object.errors.add("social_media_links.0.url".to_sym, :blank, message: "cannot be blank")
     render_inline(Admin::ErrorSummaryComponent.new(object:))
@@ -162,6 +162,21 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
     link = page.find(".gem-c-error-summary__list-item a")
     assert_equal "Social media links 1 url cannot be blank", link.text
     assert_equal "#dotted_attribute_error_summary_test_object_social_media_links_0_url", link[:href]
+  end
+
+  test "renders full message with locale labels for dotted attributes" do
+    object = DottedAttributeErrorSummaryTestObject.new("title", Time.zone.today)
+    original_i18n_key = DottedAttributeErrorSummaryTestObject.model_name.i18n_key
+    object.class.model_name.define_singleton_method(:i18n_key) { :standard_edition }
+    object.errors.add("social_media_links.0.url".to_sym, :blank, message: "cannot be blank")
+    object.errors.add("social_media_links.0.social_media_service_name".to_sym, :blank, message: "cannot be blank")
+    render_inline(Admin::ErrorSummaryComponent.new(object:))
+
+    links = page.find_all(".gem-c-error-summary__list-item a")
+    assert_equal "Social media account 1 url cannot be blank", links[0].text
+    assert_equal "Social media account 1 channel cannot be blank", links[1].text
+  ensure
+    object.class.model_name.define_singleton_method(:i18n_key) { original_i18n_key }
   end
 end
 
