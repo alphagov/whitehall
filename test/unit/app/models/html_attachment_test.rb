@@ -57,6 +57,17 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  test "#url omits the preview query parameter when preview is explicitly false" do
+    edition = create(:published_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+
+    expected = "https://www.test.gov.uk/government/publications/"
+    expected += "#{edition.slug}/#{attachment.slug}"
+    actual = attachment.url(preview: false, full_url: true)
+
+    assert_equal expected, actual
+  end
+
   test "#url returns relative path by default" do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first

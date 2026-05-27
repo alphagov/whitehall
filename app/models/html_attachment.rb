@@ -52,7 +52,11 @@ class HtmlAttachment < Attachment
   end
 
   def url(options = {})
-    options[:preview] = id if options[:preview]
+    if options[:preview]
+      options[:preview] = id
+    else
+      options.delete(:preview)
+    end
 
     if options[:full_url]
       public_url(options)
