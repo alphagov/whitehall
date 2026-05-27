@@ -29,6 +29,7 @@ class Organisation < ApplicationRecord
            through: :parent_organisational_relationships
 
   has_many :edition_organisations, dependent: :destroy, inverse_of: :organisation
+  has_many :access_limiting_organisations, dependent: :destroy, inverse_of: :organisation
   has_many :corporate_information_pages, through: "edition_#{table_name}".to_sym, source: :edition, class_name: "CorporateInformationPage"
   before_destroy do |record|
     record.corporate_information_pages.map(&:document).uniq.each(&:destroy)

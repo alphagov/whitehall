@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_03_161913) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_27_105725) do
+  create_table "access_limiting_organisations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "edition_id", null: false
+    t.bigint "organisation_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_access_limiting_organisations_on_edition_id"
+    t.index ["organisation_id"], name: "index_access_limiting_organisations_on_organisation_id"
+  end
+
   create_table "assets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.bigint "assetable_id"
