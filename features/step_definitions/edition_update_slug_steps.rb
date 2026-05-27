@@ -1,6 +1,6 @@
 Then(/^I can see the preview URL of the publication "([^"]*)" contains "([^"]*)"$/) do |title, new_slug|
   visit admin_edition_path(Publication.latest_edition.find_by!(title:))
-  expect(page).to have_link "Preview on website (opens in new tab)", href: "https://draft-origin.test.gov.uk/government/publications/#{new_slug}"
+  expect(page).to have_link "Preview on website (opens in new tab)", href: %r{\Ahttps://draft-origin\.test\.gov\.uk/government/publications/#{Regexp.escape(new_slug)}\?cachebust=\d+\z}
 end
 
 Then(/^I cannot see the option to keep the current page URL$/) do
