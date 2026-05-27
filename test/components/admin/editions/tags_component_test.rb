@@ -66,7 +66,7 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
   end
 
   test "adds an access limited tag if edition has limited access" do
-    edition = build(:edition, access_limited: true)
+    edition = build(:edition, access_limited: 1)
 
     expected_output = "<span class=\"govuk-tag govuk-tag--s govuk-tag--blue\">Draft</span> " \
       "<span class=\"govuk-tag govuk-tag--s govuk-tag--red\">Limited access</span>"

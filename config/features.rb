@@ -33,4 +33,7 @@ Flipflop.configure do
   feature :configurable_document_types,
           description: "Enable 'in development' config-driven document types (alongside the 'live' ones)",
           default: Rails.env.development?
+  feature :access_limited_named_users,
+          description: "Allow documents to be access-limited to specific named editors by email",
+          default: false
 end

@@ -138,7 +138,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
     @user = login_as(create(:user, organisation: my_organisation))
-    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: :organisations, organisations: [other_organisation])
 
     get :show, params: { id: inaccessible }
     assert_response :forbidden

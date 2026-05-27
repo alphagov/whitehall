@@ -286,10 +286,10 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     login_as create(:writer, organisation: my_organisation)
     accessible = [
       create(:draft_publication),
-      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
-      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation]),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: :organisations, organisations: [my_organisation]),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: :disabled, organisations: [other_organisation]),
     ]
-    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: :organisations, organisations: [other_organisation])
 
     get :index, params: { state: :active }
 
@@ -302,7 +302,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   view_test "index should indicate the protected status of limited access editions which I do have access to" do
     my_organisation = create(:organisation)
     login_as create(:writer, organisation: my_organisation)
-    publication = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation])
+    publication = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: :organisations, organisations: [my_organisation])
 
     get :index, params: { state: :active }
 
@@ -314,7 +314,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   view_test "GET :index admin do not see a view link, but are given a link to edit acccess controls when an access limited edition doesn't belong to their org" do
     login_as create(:gds_admin)
-    publication = create(:draft_publication, access_limited: true)
+    publication = create(:draft_publication, access_limited: :organisations)
 
     get :index, params: { state: :active }
 
@@ -330,7 +330,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
     login_as create(:writer, organisation: my_organisation)
-    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: :organisations, organisations: [other_organisation])
 
     post :revise, params: { id: inaccessible }
     assert_response :forbidden
