@@ -99,29 +99,6 @@ class AttachmentData < ApplicationRecord
 
   delegate :unpublished?, to: :unpublished_attachable
 
-  def visible_to?(user)
-    !deleted? && (!draft? || (draft? && accessible_to?(user)))
-  end
-
-  def visible_attachable_for(user)
-    visible_to?(user) ? significant_attachable : nil
-  end
-
-  def visible_edition_for(user)
-    visible_attachable = visible_attachable_for(user)
-    # below code seems wrong, policy group is not a edition but could be visible
-    visible_attachable.is_a?(Edition) ? visible_attachable : nil
-  end
-
-  def draft_attachment
-    attachments.find { |attachment| attachment.attachable_type == "Edition" && Edition::PRE_PUBLICATION_STATES.include?(attachment.attachable&.state) }
-  end
-
-  def draft_edition
-    draft_attachable = draft_attachment&.attachable
-    draft_attachable.is_a?(Edition) ? draft_attachable : nil
-  end
-
   def significant_attachable
     significant_attachment.attachable || Attachable::Null.new
   end
