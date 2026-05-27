@@ -328,7 +328,7 @@ class CallForEvidenceTest < ActiveSupport::TestCase
   test "#government returns the government active on the first_public_at date" do
     create(:current_government)
     previous_government = create(:previous_government)
-    call_for_evidence = build(:call_for_evidence, first_published_at: 4.years.ago)
+    call_for_evidence = create(:call_for_evidence, first_published_at: 4.years.ago)
 
     assert_equal previous_government, call_for_evidence.government
   end
