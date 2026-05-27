@@ -11,6 +11,8 @@ module Edition::Organisations
 
   included do
     has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true, validate: false
+    has_many :access_limiting_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true, validate: false
+
     has_many :organisations, -> { includes(:translations) }, through: :edition_organisations, validate: false
 
     validate :at_least_one_lead_organisation, if: :organisation_association_enabled?
