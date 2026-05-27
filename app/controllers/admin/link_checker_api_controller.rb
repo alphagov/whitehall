@@ -18,14 +18,34 @@ class Admin::LinkCheckerApiController < ApplicationController
 private
 
   def verify_signature
-    return unless webhook_secret_token
+    return head :service_unavailable unless webhook_configured?
+    return head :bad_request unless signature_present?
 
-    given_signature = request.headers["X-LinkCheckerApi-Signature"]
-    return head :bad_request unless given_signature
+    reject_unauthorized unless signature_valid?
+  end
 
-    body = request.raw_post
-    signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), webhook_secret_token, body)
-    head :bad_request unless Rack::Utils.secure_compare(signature, given_signature)
+  def webhook_configured?
+    webhook_secret_token.present?
+  end
+
+  def signature_present?
+    request_signature.present?
+  end
+
+  def signature_valid?
+    expected = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), webhook_secret_token, request.raw_post)
+    Rack::Utils.secure_compare(expected, request_signature)
+  end
+
+  def reject_unauthorized
+    # Opt out of gds-sso's Warden intercept_401, which would otherwise turn
+    # this response into a redirect to /auth/gds.
+    request.env["warden"].custom_failure!
+    head :unauthorized
+  end
+
+  def request_signature
+    request.headers["X-LinkCheckerApi-Signature"]
   end
 
   def webhook_secret_token
