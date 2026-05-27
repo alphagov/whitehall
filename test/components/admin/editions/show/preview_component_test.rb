@@ -24,24 +24,33 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
   test "renders a link with tracking to preview the document when the edition is english only" do
     edition = build_stubbed(:publication, document: @document)
 
-    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
-    assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)"
+    travel_to(Time.zone.local(2026, 5, 27, 12, 0, 0)) do
+      render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+      cachebust = Time.zone.now.getutc.to_i
+      assert_selector "a[href='#{edition.public_url(draft: true, cachebust:)}']", text: "Preview on website (opens in new tab)"
+    end
   end
 
   test "renders a link with tracking to preview the document when the edition is a foreign language only edition" do
     edition = build_stubbed(:publication, document: @document, primary_locale: :fr)
 
-    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
-    assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)"
+    travel_to(Time.zone.local(2026, 5, 27, 12, 0, 0)) do
+      render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+      cachebust = Time.zone.now.getutc.to_i
+      assert_selector "a[href='#{edition.public_url(draft: true, cachebust:)}']", text: "Preview on website (opens in new tab)"
+    end
   end
 
   test "renders a link with tracking to preview the document for each translation when there are multiple translations" do
     edition = create(:publication, translated_into: %i[fr es], document: @document)
 
-    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
-    assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website - English (opens in new tab)"
-    assert_selector "a[href='#{edition.public_url(locale: 'fr', draft: true)}']", visible: false, text: "Preview on website - French (Français) (opens in new tab)"
-    assert_selector "a[href='#{edition.public_url(locale: 'es', draft: true)}']", visible: false, text: "Preview on website - Spanish (Español) (opens in new tab)"
+    travel_to(Time.zone.local(2026, 5, 27, 12, 0, 0)) do
+      render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+      cachebust = Time.zone.now.getutc.to_i
+      assert_selector "a[href='#{edition.public_url(draft: true, cachebust:)}']", text: "Preview on website - English (opens in new tab)"
+      assert_selector "a[href='#{edition.public_url(locale: 'fr', draft: true, cachebust:)}']", visible: false, text: "Preview on website - French (Français) (opens in new tab)"
+      assert_selector "a[href='#{edition.public_url(locale: 'es', draft: true, cachebust:)}']", visible: false, text: "Preview on website - Spanish (Español) (opens in new tab)"
+    end
   end
 
   test "renders sharable preview functionality when edition is a pre-publication state" do

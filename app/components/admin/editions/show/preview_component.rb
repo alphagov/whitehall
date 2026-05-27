@@ -34,6 +34,12 @@ private
     end
   end
 
+  def preview_url(locale: nil)
+    options = { draft: true, **cachebust_url_options }
+    options[:locale] = locale if locale
+    edition.public_url(options)
+  end
+
   def available_in_multiple_languages
     @available_in_multiple_languages ||= edition.translatable? && edition.available_in_multiple_languages?
   end
