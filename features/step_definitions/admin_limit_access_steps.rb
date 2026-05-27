@@ -30,8 +30,8 @@ When(/^I set the Lead organisation to an org I am not in$/) do
   select @org.name, from: "edition_lead_organisation_ids_1"
 end
 
-When(/^I check the "(.+)" box$/) do |box_name|
-  check box_name
+When(/^I pick the "(.+)" radio button$/) do |radio_label|
+  choose radio_label
 end
 
 When(/^I click "(.+)"$/) do |button_name|
