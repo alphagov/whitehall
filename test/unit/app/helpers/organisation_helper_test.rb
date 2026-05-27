@@ -177,4 +177,43 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     description = organisation_display_name_including_parental_and_child_relationships(org)
     assert_equal "TO works with the Department of Testing and is supported by 2 agencies and public bodies.", strip_html_tags(description)
   end
+
+  test "non-ministerial department renders Welsh identification sentence" do
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+    end
+  end
+
+  test "non-ministerial department with parents renders Welsh identification sentence" do
+    parent = create(:ministerial_department, name: "Department of Testing")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+    end
+  end
+
+  # TODO: delete test once we have full Welsh translations
+  test "non-ministerial department with supporting bodies renders mixed Welsh/English sentence in Welsh" do
+    child = create(:organisation, acronym: "CO", name: "Child Organisation One")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
+    org.stubs(:supporting_bodies).returns([child])
+
+    I18n.with_locale(:cy) do
+      description = organisation_display_name_including_parental_and_child_relationships(org)
+      assert_equal "Adran anweinidogol yw'r CC, supported by 1 public body.", strip_html_tags(description)
+    end
+  end
+
+  # TODO: delete test once we have full Welsh translations
+  test "non-Welsh-translated type falls back to English in Welsh locale" do
+    parent = create(:ministerial_department, name: "Department of Testing")
+    org = create(:organisation, acronym: "EA", name: "Executive Agency Example", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "EA is an executive agency, sponsored by the Department of Testing."
+    end
+  end
 end
