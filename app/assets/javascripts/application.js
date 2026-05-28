@@ -26,6 +26,7 @@
 //= require admin/analytics-modules/ga4-finder-setup.js
 //= require admin/analytics-modules/ga4-form-setup.js
 
+//= require admin/modules/cachebust-link
 //= require admin/modules/document-history-paginator
 //= require admin/modules/locale-switcher
 //= require admin/modules/navbar-toggle
