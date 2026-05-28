@@ -162,14 +162,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Add tags"
   end
 
-  view_test "GET :show links a draft publication's HTML attachment to the draft host" do
+  view_test "GET :show links a draft publication's HTML attachment to the draft host with a cachebust query param" do
     publication = create(:draft_publication, :with_html_attachment)
     attachment = publication.attachments.first
     publication_has_no_expanded_links(publication.content_id)
 
-    get :show, params: { id: publication }
-
-    assert_select "a.govuk-link[href=?]", attachment.url(preview: true, full_url: true)
+    travel_to(Time.zone.local(2026, 5, 27, 12, 0, 0)) do
+      get :show, params: { id: publication }
+      cachebust = Time.zone.now.getutc.to_i
+      assert_select "a.govuk-link[href=?]", attachment.url(preview: true, full_url: true, cachebust:)
+    end
   end
 
   view_test "GET :show links a published publication's HTML attachment to the live site" do

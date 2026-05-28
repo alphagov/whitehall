@@ -51,7 +51,7 @@
       } do %>
       <p class="govuk-body">
         <%= link_to("Preview on website (opens in new tab)",
-        attachment.url(preview: !attachable_post_publication?(attachment.attachable), full_url: true),
+        attachment.url(full_url: true, **attachment_preview_options(attachment.attachable)),
         class: "govuk-link",
         target: "_blank", rel: "noopener") %>
       </p>
