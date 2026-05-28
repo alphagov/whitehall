@@ -98,6 +98,14 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", attachment.url(full_url: true), text: "Preview on website (opens in new tab)"
   end
 
+  view_test "GET :edit tags the preview link with the CachebustLink JS module" do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    get :edit, params: { edition_id: @edition, id: attachment.id }
+
+    assert_select "a[data-module='CachebustLink']", text: "Preview on website (opens in new tab)"
+  end
+
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
     post :create, params: { edition_id: @edition, attachment: { attachment_data_attributes: {} } }
     assert_template :new
