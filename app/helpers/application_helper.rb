@@ -46,8 +46,9 @@ module ApplicationHelper
 
     name = attachment.name_for_link
     html_class = options.delete(:class)
+    data = options.delete(:data)
 
-    return link_to name, attachment.url(options), class: html_class if !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded?
+    return link_to name, attachment.url(options), class: html_class, data: data if !attachment.file? || attachment.attachment_data.all_asset_variants_uploaded?
 
     tag.span(name)
   end
