@@ -80,6 +80,14 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-inset-text", text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
   end
 
+  test "tags every preview link with the CachebustLink JS module" do
+    edition = create(:publication, translated_into: %i[fr], document: @document)
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+
+    assert_selector "a[data-module='CachebustLink'][href*='cachebust=']", visible: :all, count: 2
+  end
+
   test "renders the correct primary locale link text for non-English primary locale editions with translations" do
     edition = build(:detailed_guide, id: 1, primary_locale: :fr, document: @document)
     edition.translations.build(locale: :fr)

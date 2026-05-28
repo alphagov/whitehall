@@ -23,7 +23,8 @@ private
     link_to(link_text,
             href,
             class: "govuk-link",
-            target: "_blank", rel: "noopener")
+            target: "_blank", rel: "noopener",
+            data: { module: "CachebustLink" })
   end
 
   def primary_locale_link_text
