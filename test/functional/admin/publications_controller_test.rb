@@ -194,6 +194,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "a.govuk-link[href=?]", attachment.url(full_url: true)
   end
 
+  view_test "GET :show tags HTML attachment preview links with the CachebustLink JS module" do
+    publication = create(:draft_publication, :with_html_attachment)
+    attachment = publication.attachments.first
+    publication_has_no_expanded_links(publication.content_id)
+
+    get :show, params: { id: publication }
+
+    assert_select "a[data-module='CachebustLink'][href*='#{attachment.identifier}'][href*='cachebust=']"
+  end
+
   view_test "when edition is tagged to the new taxonomy" do
     world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 

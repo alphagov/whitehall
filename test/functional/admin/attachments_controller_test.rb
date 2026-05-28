@@ -57,6 +57,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", attachment.url(full_url: true)
   end
 
+  view_test "GET :index tags HTML attachment preview links with the CachebustLink JS module" do
+    create(:html_attachment, title: "An HTML attachment", attachable: @edition)
+
+    get :index, params: { edition_id: @edition }
+
+    assert_select "a[data-module='CachebustLink'][href*='cachebust=']"
+  end
+
   view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
     create(:html_attachment, title: "An HTML attachment", attachable: @edition)
     create(:file_attachment, title: "An uploaded file attachment", attachable: @edition)
