@@ -167,7 +167,7 @@ module PublishingApi
       item.world_locations.map do |world_location|
         {
           content_id: world_location.content_id,
-          name: world_location.name,
+          name: world_location.translations.find_by(locale: "en")&.name || world_location.name,
         }
       end
     end
