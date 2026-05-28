@@ -38,12 +38,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "p.govuk-body", text: "Title: An HTML attachment"
   end
 
-  view_test "GET :index links HTML attachments to the draft preview host when the edition is a draft" do
+  view_test "GET :index links HTML attachments to the draft preview host with a cachebust query param when the edition is a draft" do
     attachment = create(:html_attachment, title: "An HTML attachment", attachable: @edition)
 
-    get :index, params: { edition_id: @edition }
-
-    assert_select "a[href=?]", attachment.url(preview: true, full_url: true)
+    travel_to(Time.zone.local(2026, 5, 27, 12, 0, 0)) do
+      get :index, params: { edition_id: @edition }
+      cachebust = Time.zone.now.getutc.to_i
+      assert_select "a[href=?]", attachment.url(preview: true, full_url: true, cachebust:)
+    end
   end
 
   view_test "GET :index links HTML attachments to the live site when the edition is published" do
