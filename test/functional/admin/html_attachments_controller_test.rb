@@ -79,6 +79,23 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
+  view_test "GET :edit links the preview to the draft host when the edition is a draft" do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    get :edit, params: { edition_id: @edition, id: attachment.id }
+
+    assert_select "a[href=?]", attachment.url(preview: true, full_url: true), text: "Preview on website (opens in new tab)"
+  end
+
+  view_test "GET :edit links the preview to the live site when the edition is published" do
+    published_edition = create(:published_publication)
+    attachment = create(:html_attachment, attachable: published_edition)
+
+    get :edit, params: { edition_id: published_edition, id: attachment.id }
+
+    assert_select "a[href=?]", attachment.url(full_url: true), text: "Preview on website (opens in new tab)"
+  end
+
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
     post :create, params: { edition_id: @edition, attachment: { attachment_data_attributes: {} } }
     assert_template :new
