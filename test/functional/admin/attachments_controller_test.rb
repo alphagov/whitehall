@@ -38,6 +38,23 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "p.govuk-body", text: "Title: An HTML attachment"
   end
 
+  view_test "GET :index links HTML attachments to the draft preview host when the edition is a draft" do
+    attachment = create(:html_attachment, title: "An HTML attachment", attachable: @edition)
+
+    get :index, params: { edition_id: @edition }
+
+    assert_select "a[href=?]", attachment.url(preview: true, full_url: true)
+  end
+
+  view_test "GET :index links HTML attachments to the live site when the edition is published" do
+    published_edition = create(:published_publication)
+    attachment = create(:html_attachment, title: "An HTML attachment", attachable: published_edition)
+
+    get :index, params: { edition_id: published_edition }
+
+    assert_select "a[href=?]", attachment.url(full_url: true)
+  end
+
   view_test "GET :index renders the uploading banner when an attachment hasn't been uploaded to asset manager" do
     create(:html_attachment, title: "An HTML attachment", attachable: @edition)
     create(:file_attachment, title: "An uploaded file attachment", attachable: @edition)

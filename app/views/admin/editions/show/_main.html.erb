@@ -187,7 +187,7 @@
           rows: @edition.attachments.map do | attachment |
             [
               { text: attachment[:title] },
-              { text: link_to_attachment(attachment, preview: !@edition.published?, full_url: true, class: "govuk-link") },
+              { text: link_to_attachment(attachment, preview: !attachable_post_publication?(attachment.attachable), full_url: true, class: "govuk-link") },
               @edition.editable? ? { text: link_to("Edit", [:edit, :admin, @edition.becomes(Edition), attachment], class: "govuk-link") } : nil,
             ].compact
           end,

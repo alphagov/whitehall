@@ -162,6 +162,36 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Add tags"
   end
 
+  view_test "GET :show links a draft publication's HTML attachment to the draft host" do
+    publication = create(:draft_publication, :with_html_attachment)
+    attachment = publication.attachments.first
+    publication_has_no_expanded_links(publication.content_id)
+
+    get :show, params: { id: publication }
+
+    assert_select "a.govuk-link[href=?]", attachment.url(preview: true, full_url: true)
+  end
+
+  view_test "GET :show links a published publication's HTML attachment to the live site" do
+    publication = create(:published_publication, :with_html_attachment)
+    attachment = publication.attachments.first
+    publication_has_no_expanded_links(publication.content_id)
+
+    get :show, params: { id: publication }
+
+    assert_select "a.govuk-link[href=?]", attachment.url(full_url: true)
+  end
+
+  view_test "GET :show links a withdrawn publication's HTML attachment to the live site" do
+    publication = create(:withdrawn_publication, :with_html_attachment)
+    attachment = publication.attachments.first
+    publication_has_no_expanded_links(publication.content_id)
+
+    get :show, params: { id: publication }
+
+    assert_select "a.govuk-link[href=?]", attachment.url(full_url: true)
+  end
+
   view_test "when edition is tagged to the new taxonomy" do
     world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 
