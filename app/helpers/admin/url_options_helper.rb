@@ -41,6 +41,14 @@ module Admin::UrlOptionsHelper
     edition.public_url(auth_bypass_options(edition).merge(options))
   end
 
+  def attachment_preview_options(attachable)
+    return {} if attachable_post_publication?(attachable)
+
+    { preview: true, **cachebust_url_options }
+  end
+
+private
+
   def attachable_post_publication?(attachable)
     edition = case attachable
               when Edition then attachable
