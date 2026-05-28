@@ -40,4 +40,13 @@ module Admin::UrlOptionsHelper
   def show_url_with_auth_bypass_options(edition, options = {})
     edition.public_url(auth_bypass_options(edition).merge(options))
   end
+
+  def attachable_post_publication?(attachable)
+    edition = case attachable
+              when Edition then attachable
+              when ConsultationResponse then attachable.consultation
+              when CallForEvidenceResponse then attachable.call_for_evidence
+              end
+    Edition::POST_PUBLICATION_STATES.include?(edition&.state)
+  end
 end
