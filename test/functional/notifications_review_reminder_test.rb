@@ -24,6 +24,6 @@ class NotificationsReviewReminderTest < ActionMailer::TestCase
   test "email body should include details of the document being reviwed, a link to the summary page and a link to the relevant guidance" do
     assert @mail.body.raw_source.include?("A review date for the #{@edition.format_name} \"#{@title}\" has been set. The review date is today.")
     assert @mail.body.raw_source.include?(admin_edition_url(@edition))
-    assert @mail.body.raw_source.include?("https://www.gov.uk/guidance/content-design/content-maintenance")
+    assert @mail.body.raw_source.include?("https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/plan-manage-content/manage-existing-govuk-content")
   end
 end

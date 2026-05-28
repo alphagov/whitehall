@@ -8,7 +8,7 @@ describe('GOVUK.Modules.UnpublishDisplayConditions', function () {
         <div class="govuk-form-group govuk-!-margin-bottom-6">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><h2 class="govuk-fieldset__heading">Do you want to unpublish or withdraw this document?</h2> </legend>
-            <div class="govuk-body">Learn more about withdrawing and unpublishing content on our <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving" class="govuk-link">publishing guide</a>.</div>
+            <div class="govuk-body">Learn more about withdrawing and unpublishing content on our <a href="https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/plan-manage-content/retire-content/" class="govuk-link">publishing guide</a>.</div>
             <div class="govuk-radios">
               <div class="gem-c-radio govuk-radios__item">
                 <input type="radio" name="unpublishing_reason" id="radio-published-in-error" value="1" class="govuk-radios__input">

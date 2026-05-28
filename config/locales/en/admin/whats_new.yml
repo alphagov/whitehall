@@ -187,11 +187,7 @@ en:
       guidance:
         heading: Publishing guidance, updates and support
         body_govspeak: |
-          For support using Whitehall Publisher, read the guidance about:
-
-          - [how to publish content on GOV.UK](https://www.gov.uk/guidance/how-to-publish-on-gov-uk)
-          - [planning, writing and managing content](https://www.gov.uk/guidance/content-design)
-          - [how to contact the Government Digital Service (GDS) to request or report something](https://www.gov.uk/guidance/contact-the-government-digital-service)
+          For support using Whitehall Publisher, read the [GOV.UK content and publishing guidance](https://guidance.publishing.service.gov.uk/).
 
           The [GOV.UK style guide](https://www.gov.uk/guidance/style-guide) covers style, spelling and grammar conventions for content published on GOV.UK.
 
