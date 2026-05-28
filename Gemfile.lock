@@ -88,7 +88,7 @@ GEM
       activesupport
     ast (2.4.3)
     awesome_print (1.9.2)
-    babosa (2.0.0)
+    babosa (2.1.0)
     base64 (0.3.0)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
