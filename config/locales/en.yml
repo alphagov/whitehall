@@ -401,6 +401,30 @@ en:
       organisation_chart: Our organisation chart
     embassies:
       find_an_embassy_title: Find a British embassy, high commission or consulate
+    relationship:
+      none_html: "%{name}"
+      identification_html: "%{name} is %{relationship}."
+      works_with_html: "%{name} works with %{parents}."
+      part_of_html: "%{name} is part of %{parents}."
+      sponsored_html: "%{name} is %{relationship}, sponsored by %{parents}."
+      default_with_parents_html: "%{name} is %{relationship} of %{parents}."
+    type:
+      adhoc_advisory_group: ad-hoc advisory group
+      advisory_ndpb: advisory non-departmental public body
+      civil_service: civil service
+      court: court
+      devolved_administration: devolved government
+      executive_agency: executive agency
+      executive_ndpb: executive non-departmental public body
+      executive_office: executive office
+      independent_monitoring_body: independent monitoring body
+      ministerial_department: ministerial department
+      non_ministerial_department: non-ministerial department
+      other: other
+      public_corporation: public corporation
+      special_health_authority: special health authority
+      sub_organisation: sub-organisation
+      tribunal: tribunal
   roles:
     unassigned: No one is assigned to this role
   support:

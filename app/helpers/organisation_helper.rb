@@ -10,6 +10,17 @@ module OrganisationHelper
     /building law and hygiene/,
   ].freeze
 
+  SPONSORED_TYPE_KEYS = %i[
+    advisory_ndpb
+    executive_agency
+    executive_ndpb
+    special_health_authority
+  ].freeze
+
+  IDENTIFICATION_ONLY_TYPE_KEYS = %i[
+    non_ministerial_department
+  ].freeze
+
   def organisation_relationship_display_name(organisation)
     if organisation.acronym.present?
       tag.abbr(organisation.acronym, title: organisation.name)
@@ -33,29 +44,46 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    name = ERB::Util.h(organisation_relationship_display_name(organisation)).strip
-    type_name = organisation_type_name(organisation)
-    relationship = ERB::Util.h(add_indefinite_article(type_name))
-    parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
+    type_key = organisation.organisation_type_key
+    parent_organisations = organisation.parent_organisations
 
-    description = if parents.any?
-                    case type_name
-                    when "other"
-                      "#{name} works with #{parents.to_sentence}."
-                    when "non-ministerial department"
-                      "#{name} is #{relationship}."
-                    when "sub-organisation"
-                      "#{name} is part of #{parents.to_sentence}."
-                    when "executive non-departmental public body", "advisory non-departmental public body", "tribunal non-departmental public body", "executive agency", "special health authority"
-                      "#{name} is #{relationship}, sponsored by #{parents.to_sentence}."
-                    else
-                      "#{name} is #{relationship} of #{parents.to_sentence}."
-                    end
-                  else
-                    type_name != "other" ? "#{name} is #{relationship}." : name.to_s
-                  end
+    relationship_description(organisation, type_key, parent_organisations).html_safe
+  end
 
-    description.html_safe
+  def relationship_description(organisation, type_key, parent_organisations)
+    key = relationship_i18n_key(type_key, parent_organisations)
+    args = relationship_template_args(organisation, type_key)
+    args[:parents] = parents_sentence(parent_organisations) if display_parent_relationships?(type_key, parent_organisations)
+    I18n.t(key, **args)
+  end
+
+  def relationship_i18n_key(type_key, parent_organisations)
+    return "organisation.relationship.none_html" if type_key == :other && parent_organisations.empty?
+    return "organisation.relationship.identification_html" unless display_parent_relationships?(type_key, parent_organisations)
+
+    case type_key
+    when :other then "organisation.relationship.works_with_html"
+    when :sub_organisation then "organisation.relationship.part_of_html"
+    when *SPONSORED_TYPE_KEYS then "organisation.relationship.sponsored_html"
+    else "organisation.relationship.default_with_parents_html"
+    end
+  end
+
+  def display_parent_relationships?(type_key, parent_organisations)
+    parent_organisations.any? && IDENTIFICATION_ONLY_TYPE_KEYS.exclude?(type_key)
+  end
+
+  def relationship_template_args(organisation, type_key)
+    localised_type_name = I18n.t("organisation.type.#{type_key}", default: organisation_type_name(organisation))
+    {
+      name: ERB::Util.h(organisation_relationship_display_name(organisation)).strip,
+      type_name: ERB::Util.h(localised_type_name),
+      relationship: ERB::Util.h(add_indefinite_article(localised_type_name)),
+    }
+  end
+
+  def parents_sentence(parent_organisations)
+    parent_organisations.map { |parent| organisation_relationship_html(parent) }.to_sentence
   end
 
   def organisation_display_name_including_parental_and_child_relationships(organisation)
