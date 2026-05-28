@@ -43,7 +43,9 @@ private
         asset_manager.update_asset(asset_manager_id, new_attributes)
       end
     rescue GdsApi::HTTPUnprocessableEntity
-      Rails.logger.info("Attempted to update Asset with asset_manager_id: '#{asset_manager_id}' that is live, with a draft 'parent_document_url'") if new_attributes["parent_document_url"].include?("draft-origin") && !new_attributes["draft"]
+      return Rails.logger.info("Attempted to update Asset with asset_manager_id: '#{asset_manager_id}' that is live, with a draft 'parent_document_url'") if new_attributes["parent_document_url"]&.include?("draft-origin") && attributes["draft"] == false
+
+      raise
     end
   end
 end
