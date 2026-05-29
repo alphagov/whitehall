@@ -29,7 +29,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment = edition.attachments.first
 
     expected = "https://draft-origin.test.gov.uk/government/publications/"
-    expected += "#{edition.slug}/#{attachment.slug}?preview=#{attachment.id}"
+    expected += "#{edition.slug}/#{attachment.slug}"
     actual = attachment.url(preview: true, full_url: true)
 
     assert_equal expected, actual
@@ -40,7 +40,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment = edition.attachments.first
 
     expected = "https://draft-origin.test.gov.uk/government/publications/"
-    expected += "#{edition.slug}/#{attachment.slug}?cachebust=123&preview=#{attachment.id}"
+    expected += "#{edition.slug}/#{attachment.slug}?cachebust=123"
     actual = attachment.url(preview: true, full_url: true, cachebust: "123")
 
     assert_equal expected, actual
@@ -53,17 +53,6 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     expected = "https://www.test.gov.uk/government/publications/"
     expected += "#{edition.slug}/#{attachment.slug}"
     actual = attachment.url(full_url: true)
-
-    assert_equal expected, actual
-  end
-
-  test "#url omits the preview query parameter when preview is explicitly false" do
-    edition = create(:published_publication, :with_html_attachment)
-    attachment = edition.attachments.first
-
-    expected = "https://www.test.gov.uk/government/publications/"
-    expected += "#{edition.slug}/#{attachment.slug}"
-    actual = attachment.url(preview: false, full_url: true)
 
     assert_equal expected, actual
   end
