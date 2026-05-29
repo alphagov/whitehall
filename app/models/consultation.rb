@@ -128,10 +128,6 @@ class Consultation < Edition
     attachables.flat_map(&:deleted_html_attachments)
   end
 
-  def previously_published
-    false
-  end
-
   def all_nation_applicability_selected?
     newly_created = document.nil? || document.new_record?
     newly_created ? false : all_nation_applicability
