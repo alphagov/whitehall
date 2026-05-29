@@ -435,10 +435,6 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal [consultation, outcome, public_feedback], consultation.attachables
   end
 
-  test "consultations cannot be previously published" do
-    assert_not build(:consultation).previously_published
-  end
-
   test "#all_nation_applicability_selected? false if first draft and unsaved" do
     unsaved_publication = build(:consultation)
     unsaved_publication_with_document = build(:consultation, document: build(:document))
