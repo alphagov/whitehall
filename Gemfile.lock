@@ -730,7 +730,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    playwright-ruby-client (1.58.1)
+    playwright-ruby-client (1.60.0)
       base64
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
