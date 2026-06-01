@@ -154,6 +154,50 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal "new_type", types_we_can_convert_to.first.key
   end
 
+  test "#fields_for_part returns the fields for a specific part key" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "some_tab_name" => {
+            "fields" => {
+              "about_title" => {
+                "title" => "Title",
+                "block" => "default_string",
+                "attribute_path" => %w[block_content about_title],
+                "part_of" => "about_page_parts",
+                "part_name" => "title",
+                "translatable" => true,
+              },
+              "about_summary" => {
+                "title" => "Summary",
+                "block" => "default_textarea",
+                "attribute_path" => %w[block_content about_summary],
+                "part_of" => "about_page_parts",
+                "part_name" => "summary",
+                "translatable" => true,
+              },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    expected_fields = [
+      {
+        "key" => "about_title",
+        "part_name" => "title",
+      },
+      {
+        "key" => "about_summary",
+        "part_name" => "summary",
+      },
+    ]
+    assert_equal expected_fields, document_type.fields_for_part("about_page_parts")
+  end
+
   test "#form creates a flattened hash of fields if no form key is provided" do
     configurable_document_type = build_configurable_document_type(
       "test_type",

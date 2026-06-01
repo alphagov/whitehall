@@ -87,6 +87,16 @@ class ConfigurableDocumentType
     @schema["attributes"] || {}
   end
 
+  def fields_for_part(part_key)
+    @forms.each_value.flat_map do |form|
+      next unless form["fields"]
+
+      form["fields"].select { |_, field| field["part_of"] == part_key }.map do |key, field|
+        { "key" => key, "part_name" => field["part_name"] }
+      end
+    end
+  end
+
   def form(key = nil)
     return nil if @forms.empty?
 

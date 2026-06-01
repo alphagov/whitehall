@@ -90,6 +90,14 @@
           "description": "When true, only renders the field if the configurable_document_types feature flag is enabled",
           "type": "boolean"
         },
+        "part_of": {
+          "description": "Identifier for a group of fields that together form a 'part', i.e. a lightweight separate child page.",
+          "type": "string"
+        },
+        "part_name": {
+          "description": "What we should call this individual part when sending the child page to Publishing API (otherwise we're forced to retain an unnecessary namespace prefix).",
+          "type": "string"
+        },
         "options": {
           "type": "array",
           "description": "List of options for select inputs.",
@@ -286,7 +294,8 @@
                     "rfc3339_date",
                     "image",
                     "raw",
-                    "social_media_links"
+                    "social_media_links",
+                    "parts"
                   ]
                 }
               },
