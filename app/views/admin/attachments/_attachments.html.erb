@@ -14,7 +14,7 @@
           <strong>Type: </strong><%= attachment.is_a?(HtmlAttachment) ? attachment.readable_type : attachment.readable_type.capitalize %>
         </p>
         <p class="govuk-body">
-          <strong>Attachment: </strong><%= link_to_attachment(attachment, preview: !attachable_post_publication?(attachable), full_url: true, class: "govuk-link govuk-link--no-visited-state") %>
+          <strong>Attachment: </strong><%= link_to_attachment(attachment, full_url: true, class: "govuk-link govuk-link--no-visited-state", data: { module: "CachebustLink" }, **attachment_preview_options(attachable)) %>
         </p>
         <% if attachable.allows_inline_attachments? && attachment.is_a?(FileAttachment) %>
           <%= render "govuk_publishing_components/components/copy_to_clipboard", {

@@ -79,12 +79,14 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
-  view_test "GET :edit links the preview to the draft host when the edition is a draft" do
+  view_test "GET :edit links the preview to the draft host with a cachebust query param when the edition is a draft" do
     attachment = create(:html_attachment, attachable: @edition)
 
-    get :edit, params: { edition_id: @edition, id: attachment.id }
-
-    assert_select "a[href=?]", attachment.url(preview: true, full_url: true), text: "Preview on website (opens in new tab)"
+    travel_to(Time.zone.local(2026, 5, 27, 12, 0, 0)) do
+      get :edit, params: { edition_id: @edition, id: attachment.id }
+      cachebust = Time.zone.now.getutc.to_i
+      assert_select "a[href=?]", attachment.url(preview: true, full_url: true, cachebust:), text: "Preview on website (opens in new tab)"
+    end
   end
 
   view_test "GET :edit links the preview to the live site when the edition is published" do
@@ -94,6 +96,14 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
     get :edit, params: { edition_id: published_edition, id: attachment.id }
 
     assert_select "a[href=?]", attachment.url(full_url: true), text: "Preview on website (opens in new tab)"
+  end
+
+  view_test "GET :edit tags the preview link with the CachebustLink JS module" do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    get :edit, params: { edition_id: @edition, id: attachment.id }
+
+    assert_select "a[data-module='CachebustLink']", text: "Preview on website (opens in new tab)"
   end
 
   test "POST :create with bad data does not save the attachment and re-renders the new template" do

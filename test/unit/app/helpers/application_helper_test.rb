@@ -26,6 +26,14 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal %(<span>#{attachment.filename}</span>), link_to_attachment(attachment)
   end
 
+  test "#link_to_attachment forwards data attributes to the rendered link without leaking them into the URL" do
+    attachment = build(:external_attachment)
+    rendered = link_to_attachment(attachment, data: { module: "CachebustLink" })
+
+    assert_match %r{data-module="CachebustLink"}, rendered
+    assert_no_match %r{data=}, attachment.url
+  end
+
   test "#link_to_attachment_data returns a link if file attachment has all asset variants" do
     attachment_data = build(:attachment_data)
     assert_equal %(<a class="govuk-link" href="#{attachment_data.url}">#{attachment_data.filename}</a>), link_to_attachment_data(attachment_data)

@@ -23,7 +23,8 @@ private
     link_to(link_text,
             href,
             class: "govuk-link",
-            target: "_blank", rel: "noopener")
+            target: "_blank", rel: "noopener",
+            data: { module: "CachebustLink" })
   end
 
   def primary_locale_link_text
@@ -32,6 +33,12 @@ private
     else
       "Preview on website (opens in new tab)"
     end
+  end
+
+  def preview_url(locale: nil)
+    options = { draft: true, **cachebust_url_options }
+    options[:locale] = locale if locale
+    edition.public_url(options)
   end
 
   def available_in_multiple_languages

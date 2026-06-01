@@ -9,14 +9,14 @@
 
   <% if versioning_completed %>
     <p class="govuk-body">
-      <%= preview_link(primary_locale_link_text, local_edition.public_url(draft: true)) %>
+      <%= preview_link(primary_locale_link_text, preview_url) %>
     </p>
 
     <% if available_in_multiple_languages %>
       <% translation_preview_links = local_edition.non_primary_translation_locales.map do |locale|
         preview_link(
           "Preview on website - #{locale.native_and_english_language_name} (opens in new tab)",
-          local_edition.public_url(locale: locale.code, draft: true),
+          preview_url(locale: locale.code),
           )
       end %>
       <%= render "govuk_publishing_components/components/details", {

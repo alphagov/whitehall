@@ -14,7 +14,6 @@ class ApplicationRecord < ActiveRecord::Base
 
     permitted_query_params = %i[
       cachebust
-      preview
       token
       utm_campaign
       utm_medium
