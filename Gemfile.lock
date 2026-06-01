@@ -399,7 +399,7 @@ GEM
       simpleidn (~> 0.2)
     jsonpath (1.1.5)
       multi_json
-    jwt (2.10.2)
+    jwt (3.2.0)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -486,8 +486,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.3-x86_64-linux-gnu)
       racc (~> 1.4)
-    notifications-ruby-client (6.2.0)
-      jwt (>= 1.5, < 3)
+    notifications-ruby-client (6.4.0)
+      jwt (>= 1.5, < 4)
     null_logger (0.0.1)
     oauth2 (2.0.18)
       faraday (>= 0.17.3, < 4.0)
