@@ -21,7 +21,9 @@ class AssetManagerCreateAssetJob < JobBase
 
     asset_options = { file:, auth_bypass_ids:, draft: }
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
-    asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
+    asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids&.any?
+    authorised_user_uids = get_authorised_user_ids(attachable_model_class, attachable_model_id)
+    asset_options[:access_limited_user_ids] = authorised_user_uids if authorised_user_uids&.any?
 
     create_asset(asset_options, asset_variant, assetable_id, assetable_type)
 
@@ -60,7 +62,16 @@ private
     if attachable_model_class && attachable_model_id
       attachable_model = attachable_model_class.constantize.find(attachable_model_id)
       if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?
-        AssetManagerAccessLimitation.for(attachable_model)
+        AssetManagerAccessLimitation.for_organisations(attachable_model)
+      end
+    end
+  end
+
+  def get_authorised_user_ids(attachable_model_class, attachable_model_id)
+    if attachable_model_class && attachable_model_id
+      attachable_model = attachable_model_class.constantize.find(attachable_model_id)
+      if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?
+        AssetManagerAccessLimitation.for_users(attachable_model)
       end
     end
   end

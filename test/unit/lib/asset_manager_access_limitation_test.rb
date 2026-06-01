@@ -5,6 +5,6 @@ class AssetManagerAccessLimitationTest < ActiveSupport::TestCase
     edition = FactoryBot.build(:edition)
     access_limitation = { access_limited: { organisations: %w[org-1] } }
     PublishingApi::PayloadBuilder::AccessLimitation.stubs(:for).with(edition).returns(access_limitation)
-    assert_equal %w[org-1], AssetManagerAccessLimitation.for(edition)
+    assert_equal %w[org-1], AssetManagerAccessLimitation.for_organisations(edition)
   end
 end
