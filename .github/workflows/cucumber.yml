@@ -61,11 +61,19 @@ jobs:
         env:
           DEBUG: pw:install
         run: |
-          echo "=== disk before ==="; df -h
-          echo "=== free memory ==="; free -h || true
-          echo "=== running: playwright install --with-deps chromium ==="
-          yarn run playwright install --with-deps chromium
-          echo "=== disk after ==="; df -h
+          echo "=== disk / mem ==="; df -h /; free -h || true
+          sudo apt-get install -y strace
+          echo "=== install system deps separately (apt, no strace) ==="
+          yarn run playwright install-deps chromium
+          echo "=== strace download+extract; KILL after 150s so trace flushes ==="
+          strace -f -tt -y -s 200 -o /tmp/pw-strace.log \
+            timeout --signal=KILL 150 yarn run playwright install chromium \
+            || echo "(playwright exited/killed: $?)"
+          echo "=== strace total lines: $(wc -l </tmp/pw-strace.log) ==="
+          echo "=== last 150 strace lines (blocked syscall = unfinished tail) ==="
+          tail -150 /tmp/pw-strace.log
+          echo "=== unfinished/blocking syscalls (futex/read/wait4/flock/fcntl/poll) ==="
+          grep -aE "unfinished|FUTEX_WAIT|wait4|flock|fcntl.*LK|ppoll|poll\(|restart_syscall" /tmp/pw-strace.log | tail -30 || true
 
       - name: Install Playwright Chromium browser deps
         if: matrix.shard_group == 'javascript' && steps.playwright-cache.outputs.cache-hit == 'true'
