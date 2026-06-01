@@ -17,7 +17,7 @@ module PublishingApi
 
       test "returns a routes payload with additional routes" do
         base_path = "some/base/path"
-        additional_routes = %w[atom rss]
+        additional_routes = %w[.atom .rss]
         expected_routes = [
           { path: base_path, type: "exact" },
           { path: "#{base_path}.atom", type: "exact" },
