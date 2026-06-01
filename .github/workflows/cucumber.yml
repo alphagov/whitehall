@@ -53,11 +53,19 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-debughang
 
       - name: Install Playwright Chromium browser (with deps)
         if: matrix.shard_group == 'javascript' && steps.playwright-cache.outputs.cache-hit != 'true'
-        run: yarn run playwright install --with-deps chromium
+        timeout-minutes: 8
+        env:
+          DEBUG: pw:install
+        run: |
+          echo "=== disk before ==="; df -h
+          echo "=== free memory ==="; free -h || true
+          echo "=== running: playwright install --with-deps chromium ==="
+          yarn run playwright install --with-deps chromium
+          echo "=== disk after ==="; df -h
 
       - name: Install Playwright Chromium browser deps
         if: matrix.shard_group == 'javascript' && steps.playwright-cache.outputs.cache-hit == 'true'
