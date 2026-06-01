@@ -165,7 +165,7 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
                 "title" => "Title",
                 "block" => "default_string",
                 "attribute_path" => %w[block_content about_title],
-                "part_of" => "about_page_parts",
+                "part" => "/about",
                 "part_name" => "title",
                 "translatable" => true,
               },
@@ -173,7 +173,7 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
                 "title" => "Summary",
                 "block" => "default_textarea",
                 "attribute_path" => %w[block_content about_summary],
-                "part_of" => "about_page_parts",
+                "part" => "/about",
                 "part_name" => "summary",
                 "translatable" => true,
               },
@@ -189,13 +189,15 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
       {
         "key" => "about_title",
         "part_name" => "title",
+        "part" => "/about",
       },
       {
         "key" => "about_summary",
         "part_name" => "summary",
+        "part" => "/about",
       },
     ]
-    assert_equal expected_fields, document_type.fields_for_part("about_page_parts")
+    assert_equal expected_fields, document_type.fields_for_part("/about")
   end
 
   test "#form creates a flattened hash of fields if no form key is provided" do

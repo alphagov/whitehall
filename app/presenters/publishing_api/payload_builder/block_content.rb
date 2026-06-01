@@ -57,9 +57,9 @@ module PublishingApi
       end
 
       def parts(_attribute)
-        # TODO: make more abstract by passing a parameter to the 'parts' method
-        # so that we're not hardcoding this only for 'about page' usage.
-        PayloadBuilder::MultipleParts.for(item, "about_page_parts")
+        item.type_instance.parts.map do |part|
+          PayloadBuilder::MultipleParts.for(item, part)
+        end
       end
     end
   end

@@ -1,15 +1,15 @@
 module PublishingApi
   module PayloadBuilder
     class MultipleParts
-      attr_reader :item, :part_of
+      attr_reader :item, :part
 
-      def self.for(item, part_of)
-        new(item, part_of).call
+      def self.for(item, part)
+        new(item, part).call
       end
 
-      def initialize(item, part_of)
+      def initialize(item, part)
         @item = item
-        @part_of = part_of
+        @part = part
       end
 
       def call
@@ -19,11 +19,13 @@ module PublishingApi
     private
 
       def parts
-        item.type_instance.fields_for_part(part_of).map do |field|
-          {
-            field["part_name"].to_sym => item.block_content&.public_send(field["key"]),
-          }
+        hash = {
+          slug: part.gsub("/", ""),
+        }
+        item.type_instance.fields_for_part(part).each_with_object(hash) do |field, obj|
+          obj[field["part_name"].to_sym] = item.block_content&.public_send(field["key"])
         end
+        hash
       end
     end
   end

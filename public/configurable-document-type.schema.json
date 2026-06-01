@@ -90,8 +90,8 @@
           "description": "When true, only renders the field if the configurable_document_types feature flag is enabled",
           "type": "boolean"
         },
-        "part_of": {
-          "description": "Identifier for a group of fields that together form a 'part', i.e. a lightweight separate child page.",
+        "part": {
+          "description": "The slug (e.g. '/about') of the part this field belongs to, if any. Used to group fields into parts and subpages, and to determine the part_name value sent to the Publishing API.",
           "type": "string"
         },
         "part_name": {

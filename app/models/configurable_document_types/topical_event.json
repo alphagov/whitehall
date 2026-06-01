@@ -38,7 +38,7 @@
           "title": "Title",
           "block": "default_string",
           "attribute_path": ["block_content", "about_title"],
-          "part_of": "about_page_parts",
+          "part": "/about",
           "part_name": "title",
           "translatable": true
         },
@@ -46,7 +46,7 @@
           "title": "Summary",
           "block": "default_textarea",
           "attribute_path": ["block_content", "about_summary"],
-          "part_of": "about_page_parts",
+          "part": "/about",
           "part_name": "summary",
           "translatable": true
         },
@@ -54,7 +54,7 @@
           "title": "Body",
           "block": "govspeak",
           "attribute_path": ["block_content", "about_body"],
-          "part_of": "about_page_parts",
+          "part": "/about",
           "part_name": "body",
           "translatable": true
         }
@@ -224,9 +224,6 @@
   },
   "settings": {
     "base_path_prefix": "/government/topical-events",
-    "additional_routes": [
-      "/about"
-    ],
     "publishing_api_schema_name": "topical_event",
     "publishing_api_document_type": "topical_event",
     "rendering_app": "frontend",

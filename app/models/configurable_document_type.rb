@@ -87,12 +87,24 @@ class ConfigurableDocumentType
     @schema["attributes"] || {}
   end
 
+  def parts
+    parts = []
+    @forms.each_value.flat_map do |form|
+      next unless form["fields"]
+
+      form["fields"].each do |_, field|
+        parts << field["part"] if field["part"]
+      end
+    end
+    parts.uniq
+  end
+
   def fields_for_part(part_key)
     @forms.each_value.flat_map do |form|
       next unless form["fields"]
 
-      form["fields"].select { |_, field| field["part_of"] == part_key }.map do |key, field|
-        { "key" => key, "part_name" => field["part_name"] }
+      form["fields"].select { |_, field| field["part"] == part_key }.map do |key, field|
+        { "key" => key, "part_name" => field["part_name"], "part" => part_key }
       end
     end
   end
