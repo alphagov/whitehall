@@ -3,6 +3,7 @@ class ConfigurableDocumentType
 
   CONTENT_BLOCKS = {
     "default_string" => ConfigurableContentBlocks::DefaultString,
+    "default_textarea" => ConfigurableContentBlocks::DefaultTextarea,
     "govspeak" => ConfigurableContentBlocks::Govspeak,
     "default_date" => ConfigurableContentBlocks::DefaultDate,
     "default_select" => ConfigurableContentBlocks::DefaultSelect,

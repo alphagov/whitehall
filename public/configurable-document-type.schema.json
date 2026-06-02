@@ -67,6 +67,7 @@
             "default_date",
             "default_object",
             "default_string",
+            "default_textarea",
             "govspeak",
             "default_select",
             "select_with_search_tagging",
