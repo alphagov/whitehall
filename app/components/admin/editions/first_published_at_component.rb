@@ -22,13 +22,15 @@ private
   end
 
   def first_published_at_fields
-    render("components/datetime_fields", {
+    render("govuk_publishing_components/components/datetime_fields", {
       ga4_form_section: "First published date",
       field_name: "first_published_at",
       prefix: "edition",
       date_heading: "Date (required)",
       date_hint: "For example, 01 08 2022",
       time_heading: "Time (optional)",
+      heading_size: "m",
+      heading_level: 3,
       time_hint: "For example, 09:30 or 19:30",
       error_items: errors_for(edition.errors, :first_published_at),
       id: "edition_first_published_at",
