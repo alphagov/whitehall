@@ -19,12 +19,13 @@
         legend_text: "Dates",
         heading_size: "l",
       } do %>
-        <%= render "components/datetime_fields", {
+        <%= render "govuk_publishing_components/components/datetime_fields", {
           date_only: true,
           prefix: "government",
           field_name: "start_date",
           id: "government_start_date",
           heading_size: "m",
+          heading_level: 3,
           date_hint: "For example, 01 08 2015",
           date_heading: "Start date (required)",
           year: {
@@ -51,12 +52,13 @@
           error_items: errors_for(government.errors, :start_date),
         } %>
 
-        <%= render "components/datetime_fields", {
+        <%= render "govuk_publishing_components/components/datetime_fields", {
           date_only: true,
           prefix: "government",
           field_name: "end_date",
           id: "government_end_date",
           heading_size: "m",
+          heading_level: 3,
           date_hint: "For example, 01 08 2022",
           date_heading: "End date",
           error_items: errors_for(government.errors, :end_date),
