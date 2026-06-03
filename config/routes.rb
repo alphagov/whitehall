@@ -239,6 +239,7 @@ Whitehall::Application.routes.draw do
           get :audit_trail, to: "edition_audit_trail#index"
           get :document_history, to: "edition_document_history#index"
           patch :update_bypass_id
+          delete :destroy_bypass_id
           get :confirm_destroy
           get :edit_access_limited, to: "edition_access_limited#edit"
           patch :update_access_limited, to: "edition_access_limited#update"
