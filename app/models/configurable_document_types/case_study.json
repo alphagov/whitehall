@@ -75,7 +75,7 @@
   "presenters": {
     "publishing_api": {
       "details": {
-        "body": "govspeak"
+        "body": { "field": "body", "type": "compiled_govspeak" }
       },
       "links": [
         "world_locations",

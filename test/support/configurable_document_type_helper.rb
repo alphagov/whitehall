@@ -26,7 +26,7 @@ module ConfigurableDocumentTypeHelper
         "presenters" => {
           "publishing_api" => {
             "details" => {
-              "field_attribute" => "raw",
+              "field_attribute" => { "field" => "field_attribute", "type" => "raw" },
             },
             "links" => [],
           },

@@ -56,8 +56,8 @@
   "presenters": {
     "publishing_api": {
       "details": {
-        "body": "govspeak",
-        "lead_paragraph": "raw"
+        "body": { "field": "body", "type": "compiled_govspeak" },
+        "lead_paragraph": { "field": "lead_paragraph", "type": "raw" }
       },
       "links": []
     }

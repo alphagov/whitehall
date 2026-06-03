@@ -158,11 +158,8 @@
           "title": {
             "type": "string"
           },
-          "summary": {
-            "type": "string"
-          },
           "body": {
-            "type": "govspeak"
+            "type": "string"
           }
         }
       },

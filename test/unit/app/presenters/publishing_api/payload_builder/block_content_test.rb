@@ -15,8 +15,8 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     @item.stubs(:type_instance).returns(type_instance)
     type_instance.stubs(:presenter).with("publishing_api").returns({
       "details" => {
-        "body" => :govspeak,
-        "published_on" => :rfc3339_date,
+        "body" => { "field" => "body", "type" => "compiled_govspeak" },
+        "published_on" => { "field" => "published_on", "type" => "rfc3339_date" },
       },
     })
 
@@ -39,9 +39,9 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
     type_instance.stubs(:presenter).with("publishing_api").returns({
       "details" => {
-        "body_attribute" => :govspeak,
-        "date_attribute" => :rfc3339_date,
-        "string_attribute" => :raw,
+        "body_attribute" => { "field" => "body_attribute", "type" => "compiled_govspeak" },
+        "date_attribute" => { "field" => "date_attribute", "type" => "rfc3339_date" },
+        "string_attribute" => { "field" => "string_attribute", "type" => "raw" },
       },
     })
     @block_content.stubs(:body_attribute).returns(nil)
@@ -62,7 +62,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       @block_content.stubs(:string_chunk).returns(string_content)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:raw, :string_chunk)
+      result = builder.send(:raw, @item.block_content.public_send(:string_chunk))
 
       assert_equal string_content, result
     end
@@ -72,34 +72,34 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       @block_content.stubs(:array_chunk).returns(array_content)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:raw, :array_chunk)
+      result = builder.send(:raw, @item.block_content.public_send(:array_chunk))
 
       assert_equal array_content, result
     end
   end
 
-  context "govspeak payload builder" do
-    test "govspeak returns nil when content is nil" do
+  context "compiled_govspeak payload builder" do
+    test "compiled_govspeak returns nil when content is nil" do
       @item.stubs(:block_content).returns(nil)
       @item.stubs(:images).returns([])
       @item.stubs(:attachments).returns([])
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
-      assert_nil builder.send(:govspeak, :body_attribute)
+      assert_nil builder.send(:compiled_govspeak, @item.block_content&.public_send(:body_attribute))
     end
 
-    test "govspeak returns nil when content for attribute is nil" do
+    test "compiled_govspeak returns nil when content for attribute is nil" do
       @block_content.stubs(:body).returns(nil)
       @item.stubs(:images).returns([])
       @item.stubs(:attachments).returns([])
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
-      assert_nil builder.send(:govspeak, :body)
+      assert_nil builder.send(:compiled_govspeak, @item.block_content.public_send(:body))
     end
 
-    test "govspeak converts content to HTML with images and attachments" do
+    test "compiled_govspeak converts content to HTML with images and attachments" do
       image = mock("image")
       @block_content.stubs(:body).returns("## Heading\n\nParagraph")
       @item.stubs(:images).returns([image])
@@ -112,7 +112,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
         attachments: [],
       ).returns("<h2>Heading</h2><p>Paragraph</p>")
 
-      result = builder.send(:govspeak, :body)
+      result = builder.send(:compiled_govspeak, @item.block_content.public_send(:body))
       assert_equal "<h2>Heading</h2><p>Paragraph</p>", result
     end
   end
@@ -123,7 +123,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       @block_content.stubs(:published_on).returns(date)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
-      result = builder.send(:rfc3339_date, :published_on)
+      result = builder.send(:rfc3339_date, @item.block_content.public_send(:published_on))
 
       assert_equal date.to_time.rfc3339, result
     end
@@ -132,14 +132,14 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       @item.stubs(:block_content).returns(nil)
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
-      assert_nil builder.send(:rfc3339_date, :date_attribute)
+      assert_nil builder.send(:rfc3339_date, @item.block_content&.public_send(:date_attribute))
     end
 
     test "rfc3339_date returns nil if content for attribute is nil" do
       @block_content.stubs(:published_on).returns(nil)
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
-      assert_nil builder.send(:rfc3339_date, :published_on)
+      assert_nil builder.send(:rfc3339_date, @item.block_content&.public_send(:published_on))
     end
   end
 
@@ -149,7 +149,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
-      assert_equal [], builder.send(:social_media_links, :some_attribute)
+      assert_equal [], builder.send(:social_media_links, @item.block_content&.public_send(:some_attribute))
     end
 
     test "social_media_links returns empty array when no links have been provided" do
@@ -157,7 +157,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
-      assert_equal [], builder.send(:social_media_links, :some_attribute)
+      assert_equal [], builder.send(:social_media_links, @item.block_content&.public_send(:some_attribute))
     end
 
     test "social_media_links returns array of social media links" do
@@ -187,7 +187,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
           href: "https://personal.com",
         },
       ]
-      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
+      assert_equal expected_payload, builder.send(:social_media_links, @item.block_content&.public_send(:some_attribute))
     end
 
     test "social_media_links defaults title to service name when no title provided" do
@@ -203,7 +203,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
           href: "https://example.com",
         },
       ]
-      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
+      assert_equal expected_payload, builder.send(:social_media_links, @item.block_content&.public_send(:some_attribute))
     end
 
     test "social_media_links uses custom title when provided" do
@@ -219,7 +219,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
           href: "https://twitter.com/govuk",
         },
       ]
-      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
+      assert_equal expected_payload, builder.send(:social_media_links, @item.block_content&.public_send(:some_attribute))
     end
 
     test "social_media_links falls back to service name when title is blank" do
@@ -235,7 +235,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
           href: "https://facebook.com/govuk",
         },
       ]
-      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
+      assert_equal expected_payload, builder.send(:social_media_links, @item.block_content&.public_send(:some_attribute))
     end
   end
 end

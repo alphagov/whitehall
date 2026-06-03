@@ -16,24 +16,24 @@ module PublishingApi
         return {} unless mapping
 
         mapping.each_with_object({}) { |(attribute, builder), details|
-        if builder.is_a?(Array)
-          details[attribute.to_sym] = builder.map { |part_builder|
-            part_builder.each_with_object({}) { |(part_attribute, part_builder_type), part_details|
-                if part_builder_type["hardcoded_value"]
-                  part_details[part_attribute.to_sym] = part_builder_type["hardcoded_value"]
-                elsif part_builder_type["field"].include?(".")
-                  # TODO: again, support recursion for infinite depths
-                  namespace = part_builder_type["field"].split(".").first
-                  field = part_builder_type["field"].split(".").last
-                  part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(namespace)[field])
-                else
-                  part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(part_builder_type["field"]))
-                end
-              }
-            }
-          else
-            details[attribute.to_sym] = send(builder["type"], item.block_content&.public_send(attribute))
-          end
+          details[attribute.to_sym] = if builder.is_a?(Array)
+                                        builder.map do |part_builder|
+                                          part_builder.each_with_object({}) do |(part_attribute, part_builder_type), part_details|
+                                            if part_builder_type["hardcoded_value"]
+                                              part_details[part_attribute.to_sym] = part_builder_type["hardcoded_value"]
+                                            elsif part_builder_type["field"].include?(".")
+                                              # TODO: again, support recursion for infinite depths
+                                              namespace = part_builder_type["field"].split(".").first
+                                              field = part_builder_type["field"].split(".").last
+                                              part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(namespace)&.[](field))
+                                            else
+                                              part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(part_builder_type["field"]))
+                                            end
+                                          end
+                                        end
+                                      else
+                                        send(builder["type"], item.block_content&.public_send(attribute))
+                                      end
         }.compact
       end
 
@@ -62,7 +62,7 @@ module PublishingApi
           {
             content_type: "text/govspeak",
             content: content,
-          }
+          },
         ]
       end
 

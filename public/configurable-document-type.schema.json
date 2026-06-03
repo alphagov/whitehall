@@ -41,27 +41,20 @@
       "type": "object",
       "properties": {
         "title": {
-          "type": "string",
-          "description": "Display name for the content block."
+          "type": "string"
         },
         "description": {
-          "type": "string",
-          "description": "Description of the content block's purpose. Usually used for hint text."
+          "type": "string"
         },
         "required": {
-          "type": "boolean",
-          "description": "Whether or not the form value is required"
+          "type": "boolean"
         },
         "attribute_path": {
           "type": "array",
-          "description": "The path of the active record attribute this field controls. For JSON attributes this may have multiple items",
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string" }
         },
         "block": {
           "type": "string",
-          "description": "Identifier for a content block. Maps to a specific block class.",
           "enum": [
             "default_array",
             "default_date",
@@ -76,75 +69,35 @@
         },
         "fields": {
           "type": "object",
+          "description": "Nested fields for object-type blocks (recursive form structure).",
           "patternProperties": {
             ".*": {
               "$ref": "#/$defs/form_field"
             }
-          }
+          },
+          "additionalProperties": false
         },
-        "translatable": {
-          "description": "Determines whether or not the field's value can be translated for different locales",
-          "type": "boolean"
-        },
-        "experimental": {
-          "description": "When true, only renders the field if the configurable_document_types feature flag is enabled",
-          "type": "boolean"
-        },
-        "part": {
-          "description": "The slug (e.g. '/about') of the part this field belongs to, if any. Used to group fields into parts and subpages, and to determine the part_name value sent to the Publishing API.",
-          "type": "string"
-        },
-        "part_name": {
-          "description": "What we should call this individual part when sending the child page to Publishing API (otherwise we're forced to retain an unnecessary namespace prefix).",
-          "type": "string"
-        },
+        "translatable": { "type": "boolean" },
+        "experimental": { "type": "boolean" },
+        "part": { "type": "string" },
+        "part_name": { "type": "string" },
         "options": {
           "type": "array",
-          "description": "List of options for select inputs.",
           "items": {
             "type": "object",
+            "required": ["label", "value"],
             "properties": {
-              "label": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": ["label", "value"]
+              "label": { "type": "string" },
+              "value": { "type": "string" }
+            }
           }
         },
-        "blank_option_label": {
-          "type": "string",
-          "description": "Text to display for the blank/default option in a select input."
-        },
-        "container": {
-          "description": "The option container to be used in the select_with_search_tagging_block",
-          "type": "string",
-          "enum": [
-            "alternative_format_providers",
-            "detailed_guides",
-            "ministerial_role_appointments",
-            "organisations",
-            "role_appointments",
-            "roles",
-            "statistical_data_sets",
-            "topical_event_documents",
-            "topical_events",
-            "world_locations",
-            "worldwide_organisations"
-          ]
-        },
-        "size": {
-          "type": "number",
-          "description": "The number of items in an array field"
-        },
-        "add_another_button_text": {
-          "type": "string",
-          "description": "Text to display for the 'Add another' button in default_array block. If empty, it defaults to 'Add another'."
-        }
+        "blank_option_label": { "type": "string" },
+        "container": { "type": "string" },
+        "size": { "type": "number" },
+        "add_another_button_text": { "type": "string" }
       },
-      "required": ["title", "block", "attribute_path", "translatable"],
+      "required": ["block", "attribute_path"],
       "additionalProperties": false
     },
     "block_attributes": {
@@ -157,15 +110,13 @@
     },
     "block_attribute": {
       "type": "object",
-      "description": "Minimal schema information for a single content block attribute.",
       "properties": {
         "type": {
           "type": "string",
-          "description": "Data type for the content block. Should map to an active record type, with the exception of the object type.",
-          "enum": ["string", "integer", "date", "array"]
+          "enum": ["string", "integer", "date", "array", "object"]
         },
         "attributes": {
-          "description": "For array types, defines the schema of each array item using the same minimal attribute format.",
+          "description": "For array OR object types, defines nested schema.",
           "$ref": "#/$defs/block_attributes"
         }
       },
@@ -174,7 +125,7 @@
       "allOf": [
         {
           "if": {
-            "properties": { "type": { "const": "array" } },
+            "properties": { "type": { "enum": ["array", "object"] } },
             "required": ["type"]
           },
           "then": {
@@ -284,32 +235,105 @@
           "properties": {
             "details": {
               "type": "object",
-              "description": "Mapping of schema attributes to their respective publishing API details formats.",
-              "patternProperties": {
-                ".*": {
-                  "type": "string",
-                  "description": "The format to use for the content block when presenting to the Publishing API.",
-                  "enum": [
-                    "govspeak",
-                    "rfc3339_date",
-                    "image",
-                    "raw",
-                    "social_media_links",
-                    "parts"
-                  ]
+              "description": "Mapping of schema attributes to Publishing API formats and processors.",
+              "properties": {
+                "parts": {
+                  "type": "array",
+                  "description": "Structured multi-part content mapping.",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "title": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "field": { "type": "string" },
+                              "type": { "type": "string", "enum": ["raw"] }
+                            },
+                            "required": ["field", "type"],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "body": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "field": { "type": "string" },
+                              "type": {
+                                "type": "string",
+                                "enum": ["compiled_govspeak", "compiled_and_raw_govspeak"]
+                              }
+                            },
+                            "required": ["field", "type"],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "slug": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "hardcoded_value": { "type": "string" }
+                            },
+                            "required": ["hardcoded_value"],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "field": { "type": "string" },
+                              "type": { "type": "string", "enum": ["raw"] }
+                            },
+                            "required": ["field", "type"],
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  }
                 }
               },
+              "patternProperties": {
+                "^(?!parts$).+": {
+                  "type": "object",
+                  "description": "Standard field mapping to Publishing API formats.",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "description": "Name of the schema field to use."
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Processor to apply to the field.",
+                      "enum": [
+                        "compiled_govspeak",
+                        "compiled_and_raw_govspeak",
+                        "rfc3339_date",
+                        "image",
+                        "raw",
+                        "social_media_links"
+                      ]
+                    }
+                  },
+                  "required": ["field", "type"],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
               "propertyNames": {
                 "type": "string",
-                "description": "Attribute to be included in the presenter payload. Must match an existing attribute defined in the schema."
+                "description": "Attribute to be included in the presenter payload."
               }
             },
             "links": {
-              "description": "The builder methods to use for the links object when presenting to the Publishing API.",
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "The builder methods to use for populating the links object when presenting to the Publishing API.",
                 "enum": [
                   "ministerial_role_appointments",
                   "topical_events",
@@ -325,8 +349,7 @@
           "required": ["details", "links"]
         }
       },
-      "additionalProperties": false,
-      "required": ["publishing_api"]
+      "additionalProperties": false
     },
     "settings": {
       "type": "object",
