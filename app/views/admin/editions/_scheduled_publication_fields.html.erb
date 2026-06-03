@@ -20,8 +20,9 @@
         label: "Schedule for publication",
         value: 1,
         checked: params[:scheduled_publication_active] == "1" || edition.scheduled_publication.present?,
-        conditional: render("components/datetime_fields", {
+        conditional: render("govuk_publishing_components/components/datetime_fields", {
               heading_size: "s",
+              heading_level: 3,
               field_name: "scheduled_publication",
               prefix: "edition",
               error_items: errors_for(edition.errors, :scheduled_publication),
