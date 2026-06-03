@@ -253,16 +253,16 @@ class DocumentTest < ActiveSupport::TestCase
     unpublished = create(:unpublished_edition)
     draft = create(:draft_edition)
 
-    assert_equal published, published.document.live_edition
-    assert_equal withdrawn, withdrawn.document.live_edition
-    assert_nil unpublished.document.live_edition
-    assert_nil draft.document.live_edition
+    assert_equal published, published.document.reload.live_edition
+    assert_equal withdrawn, withdrawn.document.reload.live_edition
+    assert_nil unpublished.document.reload.live_edition
+    assert_nil draft.document.reload.live_edition
   end
 
   ["unpublished", Edition::PUBLICLY_VISIBLE_STATES, Edition::PRE_PUBLICATION_STATES].flatten.each do |edition_state|
     test "#has_republishable_editions? returns true when there's an #{edition_state} edition" do
       document = create(:document, editions: [build(:"#{edition_state}_edition")])
-      assert_equal document.has_republishable_editions?, true
+      assert_equal document.reload.has_republishable_editions?, true
     end
   end
 
@@ -296,8 +296,7 @@ class DocumentTest < ActiveSupport::TestCase
     published_edition = build(:published_edition)
 
     document = create(:document, editions: [published_edition, build(:draft_edition)])
-
-    assert_equal document.published_edition, published_edition
+    assert_equal document.reload.published_edition, published_edition
   end
 
   test "#published_edition returns nil when there is no published edition" do
@@ -310,8 +309,7 @@ class DocumentTest < ActiveSupport::TestCase
     withdrawn_edition = build(:withdrawn_edition)
 
     document = create(:document, editions: [withdrawn_edition, build(:draft_edition)])
-
-    assert_equal document.withdrawn_edition, withdrawn_edition
+    assert_equal document.reload.withdrawn_edition, withdrawn_edition
   end
 
   test "#withdrawn_edition returns nil when there is no withdrawn edition" do

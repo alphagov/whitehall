@@ -8,6 +8,7 @@ module Edition::Identifiable
     before_validation :propagate_type_to_document
     before_save :set_slug_from_title, if: -> { title_changed? }
     before_save :nullify_redundant_slug_override, if: -> { slug_override.present? }
+    before_save :set_slug_override
     before_save :set_slug, if: -> { slug_from_title_changed? || slug_override_changed? }
 
     scope :latest_edition, -> { joins(:document).where("editions.id = documents.latest_edition_id") }
@@ -60,6 +61,12 @@ module Edition::Identifiable
         self[:slug_from_title] = candidate_slug
       end
     end
+  end
+
+  def set_slug_override
+    return unless new_record? && (live_slug = document.live_edition&.slug).present?
+
+    self[:slug_override] = live_slug if live_slug.present? && slug_override.blank? && slug_from_title != live_slug
   end
 
   def set_slug

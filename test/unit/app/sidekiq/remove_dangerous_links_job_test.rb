@@ -24,7 +24,7 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
         create_danger_link_check_report(published_edition)
         RemoveDangerousLinksJob.new.perform(published_edition.id)
 
-        assert_not_equal(published_edition.id, published_edition.document.live_edition.id)
+        assert_not_equal(published_edition.id, published_edition.document.reload.live_edition.id)
         assert_equal(User.find_by(name: "Scheduled Publishing Robot").id, published_edition.versions.last.whodunnit.to_i)
       end
 
@@ -41,7 +41,7 @@ class RemoveDangerousLinksJobTest < ActiveSupport::TestCase
         create_danger_link_check_report(published_edition)
         RemoveDangerousLinksJob.new.perform(published_edition.id)
 
-        assert_equal(sterilised_body, published_edition.document.live_edition.body)
+        assert_equal(sterilised_body, published_edition.document.reload.live_edition.body)
       end
 
       it "saves an internal changenote against the new edition" do

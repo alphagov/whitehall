@@ -127,7 +127,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
 
       2.times do
         document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
-        create(:attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
+        create(:attachment, attachable_type: "Edition", attachable_id: document.reload.live_edition.id)
 
         PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)
@@ -169,7 +169,7 @@ class BulkRepublisherTest < ActiveSupport::TestCase
 
       2.times do
         document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
-        create(:html_attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
+        create(:html_attachment, attachable_type: "Edition", attachable_id: document.reload.live_edition.id)
 
         PublishingApiDocumentRepublishingJob
           .expects(:perform_async_in_queue)

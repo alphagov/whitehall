@@ -50,7 +50,7 @@ end
 Given(/^Documents with publicly-visible editions with attachments exist$/) do
   2.times do
     document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
-    create(:attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
+    create(:attachment, attachable_type: "Edition", attachable_id: document.reload.live_edition.id)
   end
 end
 
@@ -68,7 +68,7 @@ end
 Given(/^Documents with publicly-visible editions with HTML attachments exist$/) do
   2.times do
     document = create(:document, editions: [build(:published_edition), build(:draft_edition)])
-    create(:html_attachment, attachable_type: "Edition", attachable_id: document.live_edition.id)
+    create(:html_attachment, attachable_type: "Edition", attachable_id: document.reload.live_edition.id)
   end
 end
 
