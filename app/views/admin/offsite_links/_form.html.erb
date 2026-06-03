@@ -38,11 +38,12 @@
     end,
   } %>
 
-  <%= render "components/datetime_fields", {
+  <%= render "govuk_publishing_components/components/datetime_fields", {
     prefix: "offsite_link",
     field_name: "date",
     date_heading: "Date",
     heading_size: "l",
+    heading_level: 3,
     date_only: true,
     error_items: errors_for(offsite_link.errors, :date),
     year: {
