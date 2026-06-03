@@ -34,29 +34,25 @@
       "dynamic": true,
       "label": "About page",
       "fields": {
-        "about_title": {
-          "title": "Title",
-          "block": "default_string",
-          "attribute_path": ["block_content", "about_title"],
-          "part": "/about",
-          "part_name": "title",
-          "translatable": true
-        },
-        "about_summary": {
-          "title": "Summary",
-          "block": "default_textarea",
-          "attribute_path": ["block_content", "about_summary"],
-          "part": "/about",
-          "part_name": "summary",
-          "translatable": true
-        },
-        "about_body": {
-          "title": "Body",
-          "block": "govspeak",
-          "attribute_path": ["block_content", "about_body"],
-          "part": "/about",
-          "part_name": "body",
-          "translatable": true
+        "about": {
+          "block": "default_object",
+          "attribute_path": ["block_content", "about"],
+          "fields": {
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "part": "/about",
+              "translatable": true
+            },
+            "body": {
+              "title": "Body",
+              "block": "govspeak",
+              "attribute_path": ["body"],
+              "part": "/about",
+              "translatable": true
+            }
+          }
         }
       }
     },
@@ -158,14 +154,19 @@
       "body": {
         "type": "string"
       },
-      "about_title": {
-        "type": "string"
-      },
-      "about_summary": {
-        "type": "string"
-      },
-      "about_body": {
-        "type": "string"
+      "about": {
+        "type": "object",
+        "attributes": {
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "body": {
+            "type": "govspeak"
+          }
+        }
       },
       "social_media_links": {
         "type": "array",

@@ -161,21 +161,25 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
         "forms" => {
           "some_tab_name" => {
             "fields" => {
-              "about_title" => {
-                "title" => "Title",
-                "block" => "default_string",
-                "attribute_path" => %w[block_content about_title],
-                "part" => "/about",
-                "part_name" => "title",
-                "translatable" => true,
-              },
-              "about_summary" => {
-                "title" => "Summary",
-                "block" => "default_textarea",
-                "attribute_path" => %w[block_content about_summary],
-                "part" => "/about",
-                "part_name" => "summary",
-                "translatable" => true,
+              "about" => {
+                "type" => "default_object",
+                "attribute_path" => %w[block_content about],
+                "fields" => {
+                  "title" => {
+                    "title" => "Title",
+                    "block" => "default_string",
+                    "attribute_path" => %w[title],
+                    "part" => "/about",
+                    "translatable" => true,
+                  },
+                  "summary" => {
+                    "title" => "Summary",
+                    "block" => "default_textarea",
+                    "attribute_path" => %w[summary],
+                    "part" => "/about",
+                    "translatable" => true,
+                  },
+                },
               },
             },
           },
@@ -187,13 +191,11 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
 
     expected_fields = [
       {
-        "key" => "about_title",
-        "part_name" => "title",
+        "key" => "title",
         "part" => "/about",
       },
       {
-        "key" => "about_summary",
-        "part_name" => "summary",
+        "key" => "summary",
         "part" => "/about",
       },
     ]
