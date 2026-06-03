@@ -1,6 +1,7 @@
 module OrganisationHelper
   include ApplicationHelper
 
+  # TODO: - we should also have Welsh equivalents
   PATTERNS_EXEMPT_FROM_DEFINITIVE_ARTICLE = [
     /civil service resourcing/,
     /^hm/,
@@ -127,15 +128,36 @@ module OrganisationHelper
   end
 
   def organisation_relationship_html(organisation)
-    prefix = needs_definite_article?(organisation.name.strip) ? "the " : ""
-    (prefix + link_to(organisation.name.strip, organisation.public_path, class: "brand__color"))
+    org_name = organisation.name.strip
+    prefix = needs_definite_article?(org_name) ? "#{definite_article_for(org_name)} " : ""
+    (prefix + link_to(org_name, organisation.public_path, class: "brand__color"))
+  end
+
+  # Returns the correct definite article for the given phrase in the current locale.
+  # In Welsh: "yr" before vowels (a, e, i, o, u, w, y) and "h"; "y" before consonants.
+  # In English: "the".
+  def definite_article_for(org_name, capitalised: false)
+    article = if I18n.locale == :cy
+                welsh_definite_article(org_name)
+              else
+                "the"
+              end
+
+    capitalised ? article.upcase : article
+  end
+
+  def welsh_definite_article(phrase)
+    phrase.strip[0].to_s =~ /\A[aeiouwyh]/i ? "yr" : "y"
   end
 
   def needs_definite_article?(phrase)
     !has_definite_article?(phrase) && PATTERNS_EXEMPT_FROM_DEFINITIVE_ARTICLE.none? { |e| e =~ phrase.downcase }
   end
 
+  # Checks whether the phrase already begins with a definite article.
+  # Handles both English ("the") and Welsh ("y", "yr").
   def has_definite_article?(phrase)
-    phrase.downcase.strip[0..2] == "the"
+    downcased = phrase.downcase.strip
+    downcased.start_with?("the ") || downcased.start_with?("yr ") || downcased.start_with?("y ")
   end
 end

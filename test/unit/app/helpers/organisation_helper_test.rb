@@ -207,12 +207,31 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     end
   end
 
-  test "sponsored executive agency with parents renders Welsh sponsored sentence" do
+  test "sponsored executive agency with parents renders Welsh sponsored sentence (consonant starting org)" do
     parent = create(:ministerial_department, name: "Department of Testing")
     org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan the Department of Testing."
+      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan y Department of Testing."
+    end
+  end
+
+  test "sponsored executive agency with parents renders Welsh sponsored sentence (vowel starting org)" do
+    parent = create(:ministerial_department, name: "Agency for fun")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan yr Agency for fun."
+    end
+  end
+
+  test "sponsored executive agency with parents renders Welsh sponsored sentence (mixed orgs)" do
+    vowel_starting_parent = create(:ministerial_department, name: "Agency for fun")
+    consonant_starting_parent = create(:ministerial_department, name: "Department for fun")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [vowel_starting_parent, consonant_starting_parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan yr Agency for fun a y Department for fun."
     end
   end
 
@@ -222,7 +241,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     org = create(:organisation, name: "Executive Agency Example", organisation_type: OrganisationType.other, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "The Executive Agency Example works with the Department of Testing."
+      assert_display_name_text org, "The Executive Agency Example works with y Department of Testing."
     end
   end
 end
