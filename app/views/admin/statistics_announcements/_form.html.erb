@@ -68,10 +68,12 @@
   } %>
 
   <% if statistics_announcement.new_record? %>
-    <%= render "components/datetime_fields", {
+    <%= render "govuk_publishing_components/components/datetime_fields", {
       id: "statistics_announcement_statistics_announcement_dates_release_date",
       fieldset_legend: "Release date",
       date_heading: "Date (required)",
+      heading_size: "m",
+      heading_level: 3,
       field_name: "release_date",
       prefix: "statistics_announcement[statistics_announcement_dates_attributes]",
       error_items: errors_for(statistics_announcement.errors, :"statistics_announcement_dates.release_date"),
