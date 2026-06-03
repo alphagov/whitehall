@@ -182,4 +182,39 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
     }
     assert_equal expected_links, links.slice(*expected_links.keys)
   end
+
+  test "it sends the parent edition link if the edition is a child document and configured to send it" do
+    parent_type = build_configurable_document_type(
+      "parent_type",
+      {
+        "settings" => {
+          "allowed_child_document_types" => [
+            {
+              "document_type" => "child_type",
+            },
+          ],
+        },
+      },
+    )
+    child_type = build_configurable_document_type(
+      "child_type",
+      {
+        "presenters" => {
+          "publishing_api" => {
+            "links" => %w[
+              parent
+            ],
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(parent_type.merge(child_type))
+
+    parent_edition = create(:standard_edition, configurable_document_type: "parent_type")
+    child_edition = create(:standard_edition, configurable_document_type: "child_type")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    links = PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(child_edition)
+    assert_equal [parent_edition.content_id], links[:parent]
+  end
 end

@@ -7,6 +7,12 @@ module PublishingApi::PayloadBuilder
       }.compact
     end
 
+    def self.parent(item)
+      if item.is_child_document?
+        { parent: [item.parent_edition.content_id] }
+      end
+    end
+
     def self.ministerial_role_appointments(item)
       links = { people: Set.new, roles: Set.new }
       item.role_appointments.includes(:person, :role).each_with_object(links) do |appointment, result|

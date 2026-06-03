@@ -112,5 +112,122 @@
       "file_attachments_enabled": true,
       "history_mode_enabled": true
     }
+  },
+  {
+    "key": "test_type_parent",
+    "title": "Test configurable document type parent",
+    "description": "A test configurable document on GOV.UK",
+    "forms": {
+      "documents": {
+        "fields": {
+          "body": {
+            "title": "Body",
+            "description": "The main content of the page",
+            "block": "govspeak",
+            "attribute_path": ["block_content", "body"],
+            "translatable": true
+          }
+        }
+      }
+    },
+    "schema": {
+      "attributes": {
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "presenters": {
+      "publishing_api": {
+        "details": {
+          "body": "govspeak"
+        },
+        "links": []
+      }
+    },
+    "settings": {
+      "allowed_child_document_types": [
+        { "document_type": "topical_event_about_page" }
+      ],
+      "base_path_prefix": "/government/test-type-parent",
+      "publishing_api_schema_name": "topical_event",
+      "publishing_api_document_type": "topical_event",
+      "rendering_app": "frontend",
+      "organisations": null,
+      "backdating_enabled": false,
+      "taxon_required": false,
+      "translations_enabled": false,
+      "images": {
+        "enabled": true,
+        "usages": {
+          "govspeak_embed": {
+            "kinds": ["default"],
+            "multiple": true,
+            "caption_enabled": true
+          }
+        }
+      },
+      "send_change_history": true,
+      "file_attachments_enabled": false,
+      "history_mode_enabled": true
+    }
+  },
+  {
+    "key": "topical_event_about_page",
+    "title": "Test configurable document type child",
+    "description": "A test configurable document on GOV.UK",
+    "forms": {
+      "documents": {
+        "fields": {
+          "body": {
+            "title": "Body",
+            "description": "The main content of the page",
+            "block": "govspeak",
+            "attribute_path": ["block_content", "body"],
+            "translatable": true
+          }
+        }
+      }
+    },
+    "schema": {
+      "attributes": {
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "presenters": {
+      "publishing_api": {
+        "details": {
+          "body": "govspeak"
+        },
+        "links": [
+          "parent"
+        ]
+      }
+    },
+    "settings": {
+      "is_child_document": true,
+      "publishing_api_schema_name": "topical_event_about_page",
+      "publishing_api_document_type": "topical_event_about_page",
+      "rendering_app": "frontend",
+      "organisations": null,
+      "backdating_enabled": false,
+      "taxon_required": false,
+      "translations_enabled": true,
+      "images": {
+        "enabled": true,
+        "usages": {
+          "govspeak_embed": {
+            "kinds": ["default"],
+            "multiple": true,
+            "caption_enabled": true
+          }
+        }
+      },
+      "send_change_history": true,
+      "file_attachments_enabled": true,
+      "history_mode_enabled": true
+    }
   }
 ]
