@@ -207,13 +207,22 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     end
   end
 
+  test "sponsored executive agency with parents renders Welsh sponsored sentence" do
+    parent = create(:ministerial_department, name: "Department of Testing")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan the Department of Testing."
+    end
+  end
+
   # TODO: delete test once we have full Welsh translations
   test "non-Welsh-translated type falls back to English in Welsh locale" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, name: "Executive Agency Example", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+    org = create(:organisation, name: "Executive Agency Example", organisation_type: OrganisationType.other, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "The Executive Agency Example is an executive agency, sponsored by the Department of Testing."
+      assert_display_name_text org, "The Executive Agency Example works with the Department of Testing."
     end
   end
 end
