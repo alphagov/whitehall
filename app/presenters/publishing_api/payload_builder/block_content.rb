@@ -16,7 +16,24 @@ module PublishingApi
         return {} unless mapping
 
         mapping.each_with_object({}) { |(attribute, builder), details|
-          details[attribute.to_sym] = send(builder, attribute)
+        if builder.is_a?(Array)
+          details[attribute.to_sym] = builder.map { |part_builder|
+            part_builder.each_with_object({}) { |(part_attribute, part_builder_type), part_details|
+                if part_builder_type["hardcoded_value"]
+                  part_details[part_attribute.to_sym] = part_builder_type["hardcoded_value"]
+                elsif part_builder_type["field"].include?(".")
+                  # TODO: again, support recursion for infinite depths
+                  namespace = part_builder_type["field"].split(".").first
+                  field = part_builder_type["field"].split(".").last
+                  part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(namespace)[field])
+                else
+                  part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(part_builder_type["field"]))
+                end
+              }
+            }
+          else
+            details[attribute.to_sym] = send(builder["type"], item.block_content&.public_send(attribute))
+          end
         }.compact
       end
 
@@ -25,22 +42,35 @@ module PublishingApi
       attr_reader :item
 
       def raw(attribute)
-        item.block_content&.public_send(attribute)
+        attribute
       end
 
-      def govspeak(attribute)
-        content = item.block_content&.public_send(attribute)
+      def compiled_govspeak(content)
         return nil if content.nil?
 
         govspeak_to_html(content, images: item.images, attachments: item.attachments)
       end
 
-      def rfc3339_date(attribute)
-        item.block_content&.public_send(attribute)&.rfc3339
+      def compiled_and_raw_govspeak(content)
+        return nil if content.nil?
+
+        [
+          {
+            content_type: "text/html",
+            content: compiled_govspeak(content),
+          },
+          {
+            content_type: "text/govspeak",
+            content: content,
+          }
+        ]
       end
 
-      def social_media_links(attribute)
-        content = item.block_content&.public_send(attribute)
+      def rfc3339_date(attribute)
+        attribute&.rfc3339
+      end
+
+      def social_media_links(content)
         return [] if content.blank?
 
         content.map do |item|
@@ -53,12 +83,6 @@ module PublishingApi
             service_type: service_name.parameterize, # "Google Plus" => "google-plus"
             href: service_url,
           }
-        end
-      end
-
-      def parts(_attribute)
-        item.type_instance.parts.map do |part|
-          PayloadBuilder::MultipleParts.for(item, part)
         end
       end
     end

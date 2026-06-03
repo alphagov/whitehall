@@ -88,30 +88,7 @@ class ConfigurableDocumentType
   end
 
   def parts
-    parts = []
-    @forms.each_value.flat_map do |form|
-      next unless form["fields"]
-
-      form["fields"].each do |_, field|
-        parts << field["part"] if field["part"]
-
-        # TODO: make this recursive rather than just one level deep
-        if field["fields"]
-          field["fields"].each do |_, nested_field|
-            parts << nested_field["part"] if nested_field["part"]
-          end
-        end
-      end
-    end
-    parts.uniq
-  end
-
-  def fields_for_part(part_key)
-    @forms.each_value.flat_map do |form|
-      next unless form["fields"]
-
-      fields_for_part_in_fields(form["fields"], part_key)
-    end
+    (presenter("publishing_api")["details"]["parts"] || []).map { |part| part["slug"]["hardcoded_value"] }
   end
 
   def form(key = nil)
@@ -159,21 +136,6 @@ class ConfigurableDocumentType
   end
 
 private
-
-  def fields_for_part_in_fields(fields, part_key)
-    fields.flat_map do |key, field|
-      matches = []
-      if field["part"] == part_key
-        matches << { "key" => key, "part" => part_key }
-      end
-
-      if field["fields"]
-        matches.concat(fields_for_part_in_fields(field["fields"], part_key))
-      end
-
-      matches
-    end
-  end
 
   def find_field_title(config, segments)
     return config["title"] if segments.empty?

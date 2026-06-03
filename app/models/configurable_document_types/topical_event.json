@@ -42,14 +42,12 @@
               "title": "Title",
               "block": "default_string",
               "attribute_path": ["title"],
-              "part": "/about",
               "translatable": true
             },
             "body": {
               "title": "Body",
               "block": "govspeak",
               "attribute_path": ["body"],
-              "part": "/about",
               "translatable": true
             }
           }
@@ -214,9 +212,15 @@
   "presenters": {
     "publishing_api": {
       "details": {
-        "body": "govspeak",
-        "social_media_links": "social_media_links",
-        "parts": "parts"
+        "body": { "field": "body", "type": "compiled_govspeak" },
+        "social_media_links": { "field": "social_media_links", "type": "social_media_links" },
+        "parts": [
+          {
+            "title": { "field": "about.title", "type": "raw" },
+            "body": { "field": "about.body", "type": "compiled_and_raw_govspeak" },
+            "slug": { "hardcoded_value": "/about" }
+          }
+        ]
       },
       "links": [
         "organisations"
