@@ -2,6 +2,12 @@ module Edition::LimitedAccess
   extend ActiveSupport::Concern
 
   included do
+    enum :access_limiting, {
+      none: "none",
+      organisations: "organisations",
+      individuals: "individuals",
+    }, prefix: true
+
     after_initialize :set_access_limited
   end
 
@@ -17,6 +23,18 @@ module Edition::LimitedAccess
 
   def access_limited?
     self[:access_limited]
+  end
+
+  # TODO: Remove once nothing reads or writes `access_limited` (drop-column ticket).
+  def access_limited=(value)
+    super
+    self.access_limiting = self[:access_limited] ? "organisations" : "none"
+  end
+
+  # TODO: Remove once nothing reads or writes `access_limited` (drop-column ticket).
+  def access_limiting=(value)
+    super
+    self[:access_limited] = !access_limiting_none?
   end
 
   delegate :access_limited_by_default?, to: :class
