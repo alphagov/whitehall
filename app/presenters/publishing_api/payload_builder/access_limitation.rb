@@ -10,15 +10,7 @@ module PublishingApi
           emails = item.edition_user_accesses.pluck(:email)
 
           uids = emails.filter_map { |email|
-            begin
-              if Services.signon_api_client.respond_to?(:user_by_email)
-                response = Services.signon_api_client.user_by_email(email)
-                response && response["uid"]
-              end
-            rescue StandardError => e
-              Rails.logger.error("Signon UID lookup failed for #{email}: #{e.message}")
-              nil
-            end
+            User.find_by(email:)&.uid
           }.uniq
 
           access_limited[:users] = uids unless uids.empty?

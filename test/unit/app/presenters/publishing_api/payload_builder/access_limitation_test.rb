@@ -13,14 +13,6 @@ module PublishingApi
         stub(defaults.merge(overrides))
       end
 
-      def stub_signon(uid:)
-        response = uid ? { "uid" => uid } : nil
-
-        Services.stubs(:signon_api_client).returns(
-          stub(user_by_email: response),
-        )
-      end
-
       def access_limited_result(item)
         AccessLimitation.for(item)[:access_limited]
       end
@@ -59,15 +51,15 @@ module PublishingApi
       end
 
       test "returns user uids for named users" do
+        user = create(:user, email: "user@example.com")
+
         item = build_item(
           named_users?: true,
-          edition_user_accesses: stub(pluck: ["user@example.com"]),
+          edition_user_accesses: stub(pluck: [user.email]),
         )
 
-        stub_signon(uid: "uid-1")
-
         assert_equal(
-          { users: %w[uid-1] },
+          { users: [user.uid] },
           access_limited_result(item),
         )
       end
@@ -77,8 +69,6 @@ module PublishingApi
           named_users?: true,
           edition_user_accesses: stub(pluck: ["unknown@example.com"]),
         )
-
-        stub_signon(uid: nil)
 
         assert_equal({}, AccessLimitation.for(item))
       end
