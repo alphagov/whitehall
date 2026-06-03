@@ -394,6 +394,7 @@ en:
       not_deployed: The emergency banner is not currently deployed.
     update_information: Changes to the emergency banner appear instantly on the live site, subject to a cache period of 5 minutes per page.
   organisation:
+    the: the
     corporate_information:
       access_our_info: Access our information
       jobs: Jobs

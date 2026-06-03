@@ -25,7 +25,7 @@ module OrganisationHelper
     if organisation.acronym.present?
       tag.abbr(organisation.acronym, title: organisation.name)
     elsif needs_definite_article?(organisation.name)
-      "The #{organisation.name}"
+      "#{I18n.t('organisation.the').capitalize} #{organisation.name}"
     else
       organisation.name
     end
@@ -113,7 +113,7 @@ module OrganisationHelper
   end
 
   def organisation_relationship_html(organisation)
-    prefix = needs_definite_article?(organisation.name.strip) ? "the " : ""
+    prefix = needs_definite_article?(organisation.name.strip) ? "#{I18n.t('organisation.the')} " : ""
     (prefix + link_to(organisation.name.strip, organisation.public_path, class: "brand__color"))
   end
 

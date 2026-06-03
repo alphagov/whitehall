@@ -195,6 +195,15 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     end
   end
 
+  test "sponsored executive agency with parents renders Welsh identification sentence" do
+    parent = create(:ministerial_department, name: "Department of Testing")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Mae CC yn an asiantaeth gweithredol, a noddir gan y Department of Testing."
+    end
+  end
+
   # TODO: delete test once we have full Welsh translations
   test "non-ministerial department with supporting bodies renders mixed Welsh/English sentence in Welsh" do
     child = create(:organisation, acronym: "CO", name: "Child Organisation One")
@@ -210,10 +219,10 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   # TODO: delete test once we have full Welsh translations
   test "non-Welsh-translated type falls back to English in Welsh locale" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, acronym: "EA", name: "Executive Agency Example", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+    org = create(:organisation, acronym: "EO", name: "Executive Office Example", organisation_type: OrganisationType.executive_office, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "EA is an executive agency, sponsored by the Department of Testing."
+      assert_display_name_text org, "EO is an executive office of y Department of Testing."
     end
   end
 end
