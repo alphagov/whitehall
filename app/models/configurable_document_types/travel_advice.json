@@ -1,0 +1,334 @@
+{
+  "key": "travel_advie",
+  "title": "Travel advice",
+  "description": "",
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "required": true,
+          "block": "govspeak",
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
+        },
+        "lead_organisations": {
+          "title": "Lead organisations",
+          "block": "ordered_select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["lead_organisation_ids"],
+          "size": 4,
+          "translatable": false
+        },
+        "supporting_organisations": {
+          "title": "Supporting organisations",
+          "block": "select_with_search_tagging",
+          "container": "organisations",
+          "attribute_path": ["supporting_organisation_ids"],
+          "translatable": false
+        }
+      }
+    },
+    "warnings_and_insurance": {
+      "dynamic": true,
+      "label": "Warnings and insurance",
+      "fields": {
+        "warnings_and_insurance": {
+          "block": "default_object",
+          "attribute_path": ["block_content", "warnings_and_insurance"],
+          "fields": {
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "translatable": true
+            },
+            "body": {
+              "title": "Body",
+              "block": "govspeak",
+              "attribute_path": ["body"],
+              "translatable": true
+            },
+            "slug": {
+              "title": "Slug",
+              "block": "default_string",
+              "attribute_path": ["slug"],
+              "translatable": false
+            }
+          }
+        }
+      }
+    },
+    "entry_requirements": {
+      "dynamic": true,
+      "label": "Entry requirements",
+      "fields": {
+        "entry_requirements": {
+          "block": "default_object",
+          "attribute_path": ["block_content", "entry_requirements"],
+          "fields": {
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "translatable": true
+            },
+            "body": {
+              "title": "Body",
+              "block": "govspeak",
+              "attribute_path": ["body"],
+              "translatable": true
+            },
+            "slug": {
+              "title": "Slug",
+              "block": "default_string",
+              "attribute_path": ["slug"],
+              "translatable": false
+            }
+          }
+        }
+      }
+    },
+    "safety_and_security": {
+      "dynamic": true,
+      "label": "Safety and security",
+      "fields": {
+        "safety_and_security": {
+          "block": "default_object",
+          "attribute_path": ["block_content", "safety_and_security"],
+          "fields": {
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "translatable": true
+            },
+            "body": {
+              "title": "Body",
+              "block": "govspeak",
+              "attribute_path": ["body"],
+              "translatable": true
+            },
+            "slug": {
+              "title": "Slug",
+              "block": "default_string",
+              "attribute_path": ["slug"],
+              "translatable": false
+            }
+          }
+        }
+      }
+    },
+    "health": {
+      "dynamic": true,
+      "label": "Health",
+      "fields": {
+        "health": {
+          "block": "default_object",
+          "attribute_path": ["block_content", "health"],
+          "fields": {
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "translatable": true
+            },
+            "body": {
+              "title": "Body",
+              "block": "govspeak",
+              "attribute_path": ["body"],
+              "translatable": true
+            },
+            "slug": {
+              "title": "Slug",
+              "block": "default_string",
+              "attribute_path": ["slug"],
+              "translatable": false
+            }
+          }
+        }
+      }
+    },
+    "getting_help": {
+      "dynamic": true,
+      "label": "Getting help",
+      "fields": {
+        "getting_help": {
+          "block": "default_object",
+          "attribute_path": ["block_content", "getting_help"],
+          "fields": {
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "translatable": true
+            },
+            "body": {
+              "title": "Body",
+              "block": "govspeak",
+              "attribute_path": ["body"],
+              "translatable": true
+            },
+            "slug": {
+              "title": "Slug",
+              "block": "default_string",
+              "attribute_path": ["slug"],
+              "translatable": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
+      },
+      "warnings_and_insurance": {
+        "type": "object",
+        "attributes": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "entry_requirements": {
+        "type": "object",
+        "attributes": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "safety_and_security": {
+        "type": "object",
+        "attributes": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "health": {
+        "type": "object",
+        "attributes": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "getting_help": {
+        "type": "object",
+        "attributes": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validations": {
+      "presence": {
+        "attributes": ["body"]
+      },
+      "length": {
+        "attributes": ["body"],
+        "maximum": 16777215
+      },
+      "safe_html": {
+        "attributes": ["body"]
+      },
+      "no_footnotes_allowed": {
+        "attributes": ["body"]
+      },
+      "embedded_contacts_exist": {
+        "attributes": ["body"],
+        "on": "publish"
+      }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "details": {
+        "body": { "field": "body", "type": "compiled_govspeak" },
+        "parts": [
+          {
+            "title": { "field": "warnings_and_insurance.title", "type": "raw" },
+            "body": { "field": "warnings_and_insurance.body", "type": "compiled_and_raw_govspeak" },
+            "slug": { "field": "warnings_and_insurance.slug", "type": "raw" }
+          },
+          {
+            "title": { "field": "entry_requirements.title", "type": "raw" },
+            "body": { "field": "entry_requirements.body", "type": "compiled_and_raw_govspeak" },
+            "slug": { "field": "entry_requirements.slug", "type": "raw" }
+          },
+          {
+            "title": { "field": "safety_and_security.title", "type": "raw" },
+            "body": { "field": "safety_and_security.body", "type": "compiled_and_raw_govspeak" },
+            "slug": { "field": "safety_and_security.slug", "type": "raw" }
+          },
+          {
+            "title": { "field": "health.title", "type": "raw" },
+            "body": { "field": "health.body", "type": "compiled_and_raw_govspeak" },
+            "slug": { "field": "health.slug", "type": "raw" }
+          },
+          {
+            "title": { "field": "getting_help.title", "type": "raw" },
+            "body": { "field": "getting_help.body", "type": "compiled_and_raw_govspeak" },
+            "slug": { "field": "getting_help.slug", "type": "raw" }
+          }
+        ]
+      },
+      "links": [
+        "organisations"
+      ]
+    }
+  },
+  "settings": {
+    "base_path_prefix": "/foreign-travel-advice",
+    "publishing_api_schema_name": "travel_advice",
+    "publishing_api_document_type": "travel_advice",
+    "rendering_app": "frontend",
+    "images": {
+      "enabled": false
+    },
+    "send_change_history": false,
+    "file_attachments_enabled": false,
+    "features_enabled": false,
+    "organisations": null,
+    "backdating_enabled": false,
+    "history_mode_enabled": false,
+    "taxon_required": true,
+    "translations_enabled": false
+  }
+}
