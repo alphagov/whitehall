@@ -60,12 +60,13 @@
   multiple: true,
 } %>
 
-<%= render "components/datetime_fields", {
+<%= render "govuk_publishing_components/components/datetime_fields", {
   date_only: true,
   prefix: "organisation",
   field_name: "closed_at",
   id: "organisation_closed_at",
   heading_size: "m",
+  heading_level: 3,
   date_hint: "For example, 01 08 2022",
   date_heading: "Closed date",
   year: {
