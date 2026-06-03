@@ -77,6 +77,11 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
         assert_match(/minister-of-funk.960x640.jpg$/, details[:image][:url])
       end
+
+      it "presents an empty auth_bypass_ids array when the speech has no token" do
+        speech.auth_bypass_id = nil
+        assert_equal([], presented.content[:auth_bypass_ids])
+      end
     end
 
     describe "change_history" do

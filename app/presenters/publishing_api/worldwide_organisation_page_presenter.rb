@@ -32,7 +32,7 @@ module PublishingApi
         schema_name: "worldwide_corporate_information_page",
         document_type:,
         links: edition_links,
-        auth_bypass_ids: [item.edition.auth_bypass_id],
+        auth_bypass_ids: [item.edition.auth_bypass_id].compact,
       )
 
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))

@@ -6,6 +6,15 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     PublishingApi::PublicationPresenter.new(edition)
   end
 
+  test "presents an empty auth_bypass_ids array when the edition has no token" do
+    publication = create(:publication)
+    publication.auth_bypass_id = nil
+
+    presenter = PublishingApi::PublicationPresenter.new(publication)
+
+    assert_equal [], presenter.content[:auth_bypass_ids]
+  end
+
   test "publication presentation includes the correct values" do
     create(:government)
     statistical_data_set = create(:published_statistical_data_set)

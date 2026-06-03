@@ -68,6 +68,13 @@ class PublishingApi::WorldwideOfficePresenterTest < ActiveSupport::TestCase
     assert_valid_against_links_schema({ links: presented_item.links }, "worldwide_office")
   end
 
+  test "presents an empty auth_bypass_ids array when the edition has no token" do
+    worldwide_office = build(:worldwide_office, edition: create(:worldwide_organisation))
+    worldwide_office.edition.auth_bypass_id = nil
+
+    assert_equal [], present(worldwide_office).content[:auth_bypass_ids]
+  end
+
   test "sets access_and_opening_times as nil when they are blank" do
     worldwide_office = create(:worldwide_office)
 

@@ -22,7 +22,7 @@ module PublishingApi
         rendering_app: type.settings["rendering_app"],
         schema_name: type.settings["publishing_api_schema_name"],
         links:,
-        auth_bypass_ids: [item.auth_bypass_id],
+        auth_bypass_ids: [item.auth_bypass_id].compact,
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))

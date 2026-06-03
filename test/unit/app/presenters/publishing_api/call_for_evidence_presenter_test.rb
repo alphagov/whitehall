@@ -163,6 +163,11 @@ module PublishingApi::CallForEvidencePresenterTest
       assert_attribute :auth_bypass_ids, [call_for_evidence.auth_bypass_id]
     end
 
+    test "auth bypass ids are empty when the edition has no token" do
+      call_for_evidence.auth_bypass_id = nil
+      assert_attribute :auth_bypass_ids, []
+    end
+
     test "tags" do
       assert_details_payload "PublishingApi::PayloadBuilder::TagDetails"
     end

@@ -46,6 +46,20 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_equal [fatality_notice_1.auth_bypass_id, fatality_notice_2.auth_bypass_id], image_data.auth_bypass_ids
   end
 
+  test "excludes editions that have no auth_bypass_id" do
+    edition_with_token = create(:fatality_notice)
+    edition_without_token = create(:fatality_notice)
+    edition_without_token.auth_bypass_id = nil
+    images = [
+      build(:image, id: 1, edition: edition_with_token),
+      build(:image, id: 2, edition: edition_without_token),
+    ]
+
+    image_data = create(:image_data, images:)
+
+    assert_equal [edition_with_token.auth_bypass_id], image_data.auth_bypass_ids
+  end
+
   test "rejects images smaller than 960x640 with filename in error" do
     image_data = build_example("50x33_gif.gif")
     assert_not image_data.valid?
